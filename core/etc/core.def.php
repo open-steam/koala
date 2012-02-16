@@ -1,5 +1,5 @@
 <?php 
-define("KOALA_VERSION", "3.1");
+define("KOALA_VERSION", "3.1.1");
 defined("RED_BANNER_ERROR_LEVEL") or define("RED_BANNER_ERROR_LEVEL", E_ERROR);
 defined("DEVELOPMENT_MODE") or define("DEVELOPMENT_MODE", FALSE);
 defined("STATISTICS_LEVEL") or define("STATISTICS_LEVEL", 0);

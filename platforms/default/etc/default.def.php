@@ -19,13 +19,13 @@ defined("PATH_URL_DISCLAIMER") or define("PATH_URL_DISCLAIMER", PATH_URL . "disc
 
 //**** path section
 defined("PATH_BASE") or define("PATH_BASE", dirname(dirname(dirname(dirname(__FILE__)))). "/");
-defined("PATH_CORE") or define("PATH_CORE", PATH_BASE . "koala-core/");
-defined("PATH_DEPENDING") or define("PATH_DEPENDING", PATH_BASE . "koala-depending/");
-defined("PATH_EXTENSIONS") or define("PATH_EXTENSIONS", PATH_BASE . "koala-extensions/");
-defined("PATH_PLATFORMS") or define("PATH_PLATFORMS", PATH_BASE . "koala-platforms/");
-defined("PATH_PLATFORMS_DEFAULT") or define("PATH_PLATFORMS_DEFAULT", PATH_BASE . "koala-platforms/default/");
-defined("PATH_STYLES") or define("PATH_STYLES", PATH_BASE . "koala-styles/");
-defined("PATH_TOOLS") or define("PATH_TOOLS", PATH_BASE . "koala-tools/");
+defined("PATH_CORE") or define("PATH_CORE", PATH_BASE . "core/");
+defined("PATH_DEPENDING") or define("PATH_DEPENDING", PATH_BASE . "depending/");
+defined("PATH_EXTENSIONS") or define("PATH_EXTENSIONS", PATH_BASE . "extensions/");
+defined("PATH_PLATFORMS") or define("PATH_PLATFORMS", PATH_BASE . "platforms/");
+defined("PATH_PLATFORMS_DEFAULT") or define("PATH_PLATFORMS_DEFAULT", PATH_BASE . "platforms/default/");
+defined("PATH_STYLES") or define("PATH_STYLES", PATH_BASE . "styles/");
+defined("PATH_TOOLS") or define("PATH_TOOLS", PATH_BASE . "tools/");
 
 defined("PATH_ETC") or define("PATH_ETC", PATH_CORE . "etc/");
 defined("PATH_CACHE") or define("PATH_CACHE", PATH_CURRENT_PLATFORM . "cache/");

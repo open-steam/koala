@@ -57,7 +57,7 @@ if (dropCache() && !isAjaxRequest()) {
 $autoloader = new Autoloader(PATH_BASE);
 $autoloader->register();
 $autoloader->getIndex()->setIndexPath($autoloaderIndexFile);
-$autoloader->getFileIterator()->setOnlyDirPattern("~/((koala-core)|(koala-depending)|(koala-extensions))~");
+$autoloader->getFileIterator()->setOnlyDirPattern("~/((core)|(depending)|(extensions))~");
 
 $autoloader->getFileIterator()->setOnlyFilePattern("~\.php$~i");
 $autoloader->getFileIterator()->addSkipDirPattern("~/((javascript)|(\.settings)|(\.todo)|(cache)|(log)|(temp))~");
