@@ -313,9 +313,9 @@ class Entry extends Portfolio{
 		<div style="border: 3px dotted lightblue; padding: 5px; background-color: #ffe">
 			{$contentHtml}
 			<div style="float: right; display: inline">
-				<a href="#" onclick="sendRequest('edit', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/menu/rename.png"> Eintrag bearbeiten</a> |
+				<a href="#" onclick="sendRequest('edit', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/menu/rename.png"> bearbeiten</a> |
 				<a href="#"><img src="/explorer/asset/icons/mimetype/generic.png"> Beleg anfügen</a> |
-				<a href="#" onclick="sendRequest('comment', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> Eintrag diskutieren</a>
+				<a href="#" onclick="sendRequest('comment', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren</a>
 			</div>
 			<br clear=all>
 		</div>

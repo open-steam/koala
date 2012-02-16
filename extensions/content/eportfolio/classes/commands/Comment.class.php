@@ -34,7 +34,7 @@ class Comment extends \AbstractCommand implements \IAjaxCommand {
 		$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		$currentUserName = $currentUser->get_name();
 		$dialog = new \Widgets\Dialog();
-		$dialog->setTitle("Eintrag diskutieren");
+		$dialog->setTitle("Eintrag kommentieren");
 		$dialog->setDescription("...");
 
 		$dialog->setPositionX($this->params["mouseX"]);
