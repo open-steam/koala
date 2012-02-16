@@ -1,0 +1,154 @@
+\hypertarget{class_simple_route}{
+\section{SimpleRoute Class Reference}
+\label{class_simple_route}\index{SimpleRoute@{SimpleRoute}}
+}
+Inheritance diagram for SimpleRoute:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_simple_route}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_route_aad5ce6e580494698a068f67ebf9c3c6e}{SimpleRoute} (\$url)
+\item 
+\hyperlink{class_simple_route_ac4c2ad3f89c50dd48d9bc66e828dac4c}{getUrl} ()
+\item 
+\hyperlink{class_simple_route_a7480c99e9ebcac13f1d84b4eb676f02d}{\_\-getRequestLine} (\$method)
+\item 
+\hyperlink{class_simple_route_af9b3205667c83b683a9636eaabc8f485}{\_\-getHostLine} ()
+\item 
+\& \hyperlink{class_simple_route_a686424eff035f1a37bbf13e997a072af}{createConnection} (\$method, \$timeout)
+\item 
+\& \hyperlink{class_simple_route_ad064d21e767491c8dd0e9a70ec2d1110}{\_\-createSocket} (\$scheme, \$host, \$port, \$timeout)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_route_a5fa56b19cb962b887b6c04e59784e64f}{
+{\bfseries \$\_\-url}}
+\label{class_simple_route_a5fa56b19cb962b887b6c04e59784e64f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_route_ad064d21e767491c8dd0e9a70ec2d1110}{
+\index{SimpleRoute@{SimpleRoute}!\_\-createSocket@{\_\-createSocket}}
+\index{\_\-createSocket@{\_\-createSocket}!SimpleRoute@{SimpleRoute}}
+\subsubsection[{\_\-createSocket}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleRoute::\_\-createSocket (
+\begin{DoxyParamCaption}
+\item[{\$}]{ scheme, }
+\item[{\$}]{ host, }
+\item[{\$}]{ port, }
+\item[{\$}]{ timeout}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_route_ad064d21e767491c8dd0e9a70ec2d1110}
+Factory for socket. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$scheme} & Protocol to use. \\
+\hline
+string & {\em \$host} & Hostname to connect to. \\
+\hline
+integer & {\em \$port} & Remote port. \\
+\hline
+integer & {\em \$timeout} & Connection timeout. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SimpleSocket/SimpleSecureSocket New socket.  protected 
+\end{DoxyReturn}
+\hypertarget{class_simple_route_af9b3205667c83b683a9636eaabc8f485}{
+\index{SimpleRoute@{SimpleRoute}!\_\-getHostLine@{\_\-getHostLine}}
+\index{\_\-getHostLine@{\_\-getHostLine}!SimpleRoute@{SimpleRoute}}
+\subsubsection[{\_\-getHostLine}]{\setlength{\rightskip}{0pt plus 5cm}SimpleRoute::\_\-getHostLine (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_route_af9b3205667c83b683a9636eaabc8f485}
+Creates the host part of the request. \begin{DoxyReturn}{Returns}
+string Host line content.  protected 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_proxy_route_a5b9617cdd91cbcc393ea84097b5b16ce}{SimpleProxyRoute}.
+
+\hypertarget{class_simple_route_a7480c99e9ebcac13f1d84b4eb676f02d}{
+\index{SimpleRoute@{SimpleRoute}!\_\-getRequestLine@{\_\-getRequestLine}}
+\index{\_\-getRequestLine@{\_\-getRequestLine}!SimpleRoute@{SimpleRoute}}
+\subsubsection[{\_\-getRequestLine}]{\setlength{\rightskip}{0pt plus 5cm}SimpleRoute::\_\-getRequestLine (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_route_a7480c99e9ebcac13f1d84b4eb676f02d}
+Creates the first line which is the actual request. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$method} & HTTP request method, usually GET. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Request line content.  protected 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_proxy_route_a47e158c297e31c2a2988a3a7d586ffb2}{SimpleProxyRoute}.
+
+\hypertarget{class_simple_route_a686424eff035f1a37bbf13e997a072af}{
+\index{SimpleRoute@{SimpleRoute}!createConnection@{createConnection}}
+\index{createConnection@{createConnection}!SimpleRoute@{SimpleRoute}}
+\subsubsection[{createConnection}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleRoute::createConnection (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method, }
+\item[{\$}]{ timeout}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_route_a686424eff035f1a37bbf13e997a072af}
+Opens a socket to the route. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$method} & HTTP request method, usually GET. \\
+\hline
+integer & {\em \$timeout} & Connection timeout. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_socket}{SimpleSocket} New socket.  public 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_proxy_route_a1741241e4a4d7ed555adf373008c7cf0}{SimpleProxyRoute}.
+
+\hypertarget{class_simple_route_ac4c2ad3f89c50dd48d9bc66e828dac4c}{
+\index{SimpleRoute@{SimpleRoute}!getUrl@{getUrl}}
+\index{getUrl@{getUrl}!SimpleRoute@{SimpleRoute}}
+\subsubsection[{getUrl}]{\setlength{\rightskip}{0pt plus 5cm}SimpleRoute::getUrl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_route_ac4c2ad3f89c50dd48d9bc66e828dac4c}
+Resource name. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_url}{SimpleUrl} Current url.  protected 
+\end{DoxyReturn}
+\hypertarget{class_simple_route_aad5ce6e580494698a068f67ebf9c3c6e}{
+\index{SimpleRoute@{SimpleRoute}!SimpleRoute@{SimpleRoute}}
+\index{SimpleRoute@{SimpleRoute}!SimpleRoute@{SimpleRoute}}
+\subsubsection[{SimpleRoute}]{\setlength{\rightskip}{0pt plus 5cm}SimpleRoute::SimpleRoute (
+\begin{DoxyParamCaption}
+\item[{\$}]{ url}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_route_aad5ce6e580494698a068f67ebf9c3c6e}
+Sets the target URL. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_url}{SimpleUrl} & {\em \$url} & URL as object.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/http.php\end{DoxyCompactItemize}

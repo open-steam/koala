@@ -1,0 +1,273 @@
+<!-- BEGIN error_text_size -->{LANGUAGE_ERROR_TEXT_SIZE}<br /><!-- END error_text_size -->
+<!-- BEGIN error_color_format -->{LANGUAGE_ERROR_COLOR_FORMAT}<br /><!-- END error_color_format -->
+<!-- BEGIN error_empty_field -->{LANGUAGE_ERROR_EMPTY_FIELD}<br /><!-- END error_empty_field -->
+<!-- BEGIN data_saved -->{LANGUAGE_DATA_SAVED}<br /><!-- END data_saved -->
+<!-- BEGIN button_save -->{LANGUAGE_BUTTON_SAVE}<!-- END button_save -->
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+
+<script language="JavaScript1.2">
+
+//template array
+template = new Array();	
+<!-- BEGIN jsarray_template -->
+template[{TEMPLATE_VALUE}] = new Object();
+template[{TEMPLATE_VALUE}]["background"]='{BACKGROUND}';
+template[{TEMPLATE_VALUE}]["hr_color"]='{HR_COLOR}';
+template[{TEMPLATE_VALUE}]["caption_background"]='{CAPTION_BACKGROUND}';
+template[{TEMPLATE_VALUE}]["caption_border_color"]='{CAPTION_BORDER_COLOR}';
+template[{TEMPLATE_VALUE}]["caption_text_color"]='{CAPTION_TEXTCOLOR}';
+template[{TEMPLATE_VALUE}]["caption_text_size"]='{CAPTION_TEXT_SIZE}';
+template[{TEMPLATE_VALUE}]["question_background"]='{QUESTION_BACKGROUND}';
+template[{TEMPLATE_VALUE}]["question_border_color"]='{QUESTION_BORDER_COLOR}';
+template[{TEMPLATE_VALUE}]["question_text_color"]='{QUESTION_TEXT_COLOR}';
+template[{TEMPLATE_VALUE}]["question_text_size"]='{QUESTION_TEXT_SIZE}';
+template[{TEMPLATE_VALUE}]["answer_background"]='{ANSWER_BACKGROUND}';
+template[{TEMPLATE_VALUE}]["answer_border_color"]='{ANSWER_BORDER_COLOR}';
+template[{TEMPLATE_VALUE}]["answer_text_color"]='{ANSWER_TEXT_COLOR}';
+template[{TEMPLATE_VALUE}]["answer_text_size"]='{ANSWER_TEXT_SIZE}';
+<!-- END jsarray_template -->
+
+function refresh_preview(prev_element)
+{
+	document.getElementById("template").options[0].selected = true;
+	ausdruck = /#[A-F, a-f, 0-9]{6}/;
+	farbe = document.getElementById(prev_element).value;
+	if( ausdruck.test(farbe))		document.getElementById(prev_element + "_preview").style.backgroundColor = document.getElementById(prev_element).value;
+}
+
+function set_template(temp_number)
+{
+	temp_number=parseInt(temp_number);
+	if(temp_number!=0)
+	{
+		document.getElementById("background_preview").style.backgroundColor = template[temp_number]["background"];
+		document.getElementById("background").value = template[temp_number]["background"];
+		document.getElementById("hr_color").value = template[temp_number]["hr_color"];
+		document.getElementById("hr_color_preview").style.backgroundColor = template[temp_number]["hr_color"];
+		document.getElementById("caption_background_preview").style.backgroundColor = template[temp_number]["caption_background"];
+		document.getElementById("caption_background").value = template[temp_number]["caption_background"];
+		document.getElementById("caption_border_color_preview").style.backgroundColor = template[temp_number]["caption_border_color"];
+		document.getElementById("caption_border_color").value = template[temp_number]["caption_border_color"];
+		document.getElementById("caption_text_color_preview").style.backgroundColor = template[temp_number]["caption_text_color"];
+		document.getElementById("caption_text_color").value = template[temp_number]["caption_text_color"];
+		document.getElementById("caption_text_size").value = template[temp_number]["caption_text_size"];
+		document.getElementById("question_background_preview").style.backgroundColor = template[temp_number]["question_background"];
+		document.getElementById("question_background").value = template[temp_number]["question_background"];
+		document.getElementById("question_border_color_preview").style.backgroundColor = template[temp_number]["question_border_color"];
+		document.getElementById("question_border_color").value = template[temp_number]["question_border_color"];
+		document.getElementById("question_text_color_preview").style.backgroundColor = template[temp_number]["question_text_color"];
+		document.getElementById("question_text_color").value = template[temp_number]["question_text_color"];
+		document.getElementById("question_text_size").value = template[temp_number]["question_text_size"];
+		document.getElementById("answer_background_preview").style.backgroundColor = template[temp_number]["answer_background"];
+		document.getElementById("answer_background").value = template[temp_number]["answer_background"];
+		document.getElementById("answer_border_color_preview").style.backgroundColor = template[temp_number]["answer_border_color"];
+		document.getElementById("answer_border_color").value = template[temp_number]["answer_border_color"];
+		document.getElementById("answer_text_color_preview").style.backgroundColor = template[temp_number]["answer_text_color"];
+		document.getElementById("answer_text_color").value = template[temp_number]["answer_text_color"];
+		document.getElementById("answer_text_size").value = template[temp_number]["answer_text_size"];
+	}
+}
+
+//init previews
+window.onload = function()
+{
+	document.getElementById("background_preview").style.backgroundColor = document.getElementById("background").value;
+	document.getElementById("hr_color_preview").style.backgroundColor = document.getElementById("hr_color").value;
+	document.getElementById("caption_background_preview").style.backgroundColor = document.getElementById("caption_background").value;
+	document.getElementById("caption_border_color_preview").style.backgroundColor = document.getElementById("caption_border_color").value;
+	document.getElementById("caption_text_color_preview").style.backgroundColor = document.getElementById("caption_text_color").value;
+	document.getElementById("question_background_preview").style.backgroundColor = document.getElementById("question_background").value;
+	document.getElementById("question_border_color_preview").style.backgroundColor = document.getElementById("question_border_color").value;
+	document.getElementById("question_text_color_preview").style.backgroundColor = document.getElementById("question_text_color").value;
+	document.getElementById("answer_background_preview").style.backgroundColor = document.getElementById("answer_background").value;
+	document.getElementById("answer_border_color_preview").style.backgroundColor = document.getElementById("answer_border_color").value;
+	document.getElementById("answer_text_color_preview").style.backgroundColor = document.getElementById("answer_text_color").value;
+}
+</script>
+
+
+<b>{FEEDBACK}</b>
+
+
+<table>
+  <tr>
+    <td colspan="4" align="right">
+	
+	<table cellpadding="0" cellspacing="0">
+	  <tr>
+		<td><img src="{DOC_ROOT}/modules/questionary/icons/edit_bow.gif" border="0"></td>
+		<td bgcolor="#CCCCCC"><img src="{DOC_ROOT}/modules/questionary/icons/edit_preview.gif" border="0" alt="{LANGUAGE_BUTTON_LABEL_PREVIEW}" title="{LANGUAGE_BUTTON_LABEL_PREVIEW}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/edit_preview.php?questionary={QUESTIONARY_ID}', 'Vorschau', 'resizable, scrollbars, width=800, height=800')">		 		</td>
+		<td bgcolor="#CCCCCC">&nbsp;</td>
+	  </tr>
+	</table></td>
+  </tr>
+  <tr>
+    <td valign="middle" align="right" bgcolor="#D8D8D8"><b>{LANGUAGE_LABEL_TEMPLATE}</b>:</td>
+    <td colspan="3" bgcolor="#D8D8D8"><select name="template" id="template" onchange="set_template(document.getElementById('template').value)">
+      <option value="0">{LANGUAGE_OPTION_USER_DEFINED}</option>
+	  <!-- BEGIN option_template -->
+	  <option value="{TEMPLATE_VALUE}" {TEMPLATE_SELECT}>{TEMPLATE_NAME}</option>
+	  <!-- END option_template -->
+    </select></td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center" bgcolor="#CCCCCC"><b>{LANGUAGE_LABEL_GENERAL}</b>:</td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_BACKGROUND}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="background" type="text" id="background" onkeyup="refresh_preview('background')" value="{BACKGROUND}" size="10" maxlength="7"/></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="background_preview">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=background', 'Color', 'resizable, scrollbars, width=360, height=410');"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_HR_COLOR}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="hr_color" type="text" id="hr_color" onkeyup="refresh_preview('hr_color')" value="{HR_COLOR}" size="10" maxlength="7"/></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="hr_color_preview">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=hr_color', 'Color', 'resizable, scrollbars, width=360, height=410');"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle">&nbsp;</td>
+    <td align="left" valign="middle">&nbsp;</td>
+    <td align="left" valign="middle">&nbsp;</td>
+    <td align="left" valign="middle">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center" bgcolor="#CCCCCC"><b>{LANGUAGE_LABEL_CAPTION}</b>:</td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_CAPTION_BACKGROUND}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="caption_background" type="text" id="caption_background" onkeyup="refresh_preview('caption_background')" value="{CAPTION_BACKGROUND}" size="10" maxlength="7" /></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="caption_background_preview">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=caption_background', 'Color', 'resizable, scrollbars, width=360, height=410')"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_CAPTION_BORDER_COLOR}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="caption_border_color" type="text" id="caption_border_color" onkeyup="refresh_preview('caption_border_color')" value="{CAPTION_BORDER_COLOR}" size="10" maxlength="7"/></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="caption_border_color_preview">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=caption_border_color', 'Color', 'resizable, scrollbars, width=360, height=410');"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_CAPTION_TEXT_COLOR}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="caption_text_color" type="text" id="caption_text_color" onkeyup="refresh_preview('caption_text_color')" value="{CAPTION_TEXT_COLOR}" size="10" maxlength="7" /></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="caption_text_color_preview">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=caption_text_color', 'Color', 'resizable, scrollbars, width=360, height=410')"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_CAPTION_TEXT_SIZE}:</td>
+    <td colspan="3" align="left" valign="middle" bgcolor="#D8D8D8"><input name="caption_text_size" type="text" id="caption_text_size" value="{CAPTION_TEXT_SIZE}" onkeyup="document.getElementById('template').options[0].selected = true;" size="10" maxlength="2" /></td>
+  </tr>
+  
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center" bgcolor="#CCCCCC"><b>{LANGUAGE_LABEL_QUESTION}</b>:</td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_QUESTION_BACKGROUND}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="question_background" type="text" id="question_background" onkeyup="refresh_preview('question_background')" value="{QUESTION_BACKGROUND}" size="10" maxlength="7" /></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="question_background_preview">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=question_background', 'Color', 'resizable, scrollbars, width=360, height=410')"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_QUESTION_BORDER_COLOR}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="question_border_color" type="text" id="question_border_color" onkeyup="refresh_preview('question_border_color')" value="{QUESTION_BORDER_COLOR}" size="10" maxlength="7"/></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="question_border_color_preview">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=question_border_color', 'Color', 'resizable, scrollbars, width=360, height=410');"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_QUESTION_TEXT_COLOR}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="question_text_color" type="text" id="question_text_color" onkeyup="refresh_preview('question_text_color')" value="{QUESTION_TEXT_COLOR}" size="10" maxlength="7" /></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="question_text_color_preview">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=question_text_color', 'Color', 'resizable, scrollbars, width=360, height=410')"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_QUESTION_TEXT_SIZE}:</td>
+    <td colspan="3" align="left" valign="middle" bgcolor="#D8D8D8"><input name="question_text_size" type="text" id="question_text_size" value="{QUESTION_TEXT_SIZE}" onkeyup="document.getElementById('template').options[0].selected = true;" size="10" maxlength="2" /></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center" bgcolor="#CCCCCC"><b>{LANGUAGE_LABEL_ANSWER}</b>:</td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_ANSWER_BACKGROUND}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="answer_background" type="text" id="answer_background" onkeyup="refresh_preview('answer_background')" value="{ANSWER_BACKGROUND}" size="10" maxlength="7" /></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="answer_background_preview">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=answer_background', 'Color', 'resizable, scrollbars, width=360, height=410')"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_ANSWER_BORDER_COLOR}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="answer_border_color" type="text" id="answer_border_color" onkeyup="refresh_preview('answer_border_color')" value="{ANSWER_BORDER_COLOR}" size="10" maxlength="7"/></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="answer_border_color_preview">
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=answer_border_color', 'Color', 'resizable, scrollbars, width=360, height=410');"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_ANSWER_TEXT_COLOR}:</td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><input name="answer_text_color" type="text" id="answer_text_color" onkeyup="refresh_preview('answer_text_color')" value="{ANSWER_TEXT_COLOR}" size="10" maxlength="7" /></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><table width="40" height="17" cellpadding="0" cellspacing="0" style="border:1px solid #000000;" id="answer_text_color_preview">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table></td>
+    <td align="left" valign="middle" bgcolor="#D8D8D8"><img src="{DOC_ROOT}/modules/questionary/icons/color_palette.gif" border="0" alt="{LANGUAGE_BUTTON_COLOR_PALETTE}" title="{LANGUAGE_BUTTON_COLOR_PALETTE}" style="cursor:pointer;" onclick="window.open('{DOC_ROOT}/modules/questionary/color_palette.php?element=answer_text_color', 'Color', 'resizable, scrollbars, width=360, height=410')"/></td>
+  </tr>
+  <tr>
+    <td align="right" valign="middle" bgcolor="#D8D8D8">{LANGUAGE_LABEL_ANSWER_TEXT_SIZE}:</td>
+    <td colspan="3" align="left" valign="middle" bgcolor="#D8D8D8"><input name="answer_text_size" type="text" id="answer_text_size" value="{ANSWER_TEXT_SIZE}" onkeyup="document.getElementById('template').options[0].selected = true;" size="10" maxlength="2" /></td>
+  </tr>
+</table>
+
+<script language="JavaScript1.2">
+
+</script>

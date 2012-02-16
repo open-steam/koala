@@ -1,0 +1,168 @@
+<!-- BEGIN BLOCK_PYRAMID_POSITION -->
+<center>
+	<table class="pyramiddiscussion_table" border="1" width="80%" height="100%">
+		<tr style="display:{DISPLAY_EDIT};">
+			<th colspan="2"> 
+				<center>
+					<a class="button" id="edit_button" onclick="sendRequest('EditPosition', {PARAMS_AJAX}, '', 'popup');">{EDIT_POSITION}</a>
+				</center>
+			</th>
+		</tr>
+		<tr style="display:{DISPLAY_PREVIOUS};">
+			<td colspan="2">
+				<table width="100%">
+					<tr>
+						<td style="width:50%; max-width:50%;" valign="top">
+							<div style="border: 1px solid black;">
+								<br>
+								<center>
+									<a class="button" id="previous1_button" onclick="previousPosition('previous1');">{PREVIOUS1_SHOW}</a>
+								</center>
+								<div id="previous1" style="background-color: #EEEEEE; display:none;">
+									{PREVIOUS1_CONTENT}
+									<center>
+										<a class="button" onclick="previousPosition('previous1');">{PREVIOUS1_HIDE}</a>
+									</center>
+								</div>
+								<br>
+							</div>
+						</td>
+						<td style="width:50%; max-width:50%;" valign="top">
+							<div style="border: 1px solid black;">
+								<br>
+								<center>
+									<a class="button" id="previous2_button" onclick="previousPosition('previous2');">{PREVIOUS2_SHOW}</a>
+								</center>
+								<div id="previous2" style="background-color: #EEEEEE; display:none;">
+									{PREVIOUS2_CONTENT}
+									<center>
+										<a class="button" onclick="previousPosition('previous2');">{PREVIOUS2_HIDE}</a>
+									</center>
+								</div>
+								<br>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td width="80%" height="100%" valign="top">
+				<h2>{POSITION_TITLE}</h2>
+				<div id="position_content">
+					{POSITION_CONTENT}
+				</div>
+			</td>
+			<td valign="top">
+				<b>{POSITION_AUTHORS}</b>
+				<br>
+				<div id="authors" style="width:100%; height:300px; white-space: nowrap; overflow:auto">
+					<!-- BEGIN BLOCK_POSITION_AUTHOR -->
+					<div style='height:56px;'>
+						<img style='vertical-align:middle;' src="{AUTHOR_PIC}">
+						<a href="{AUTHOR_URL}">{AUTHOR_NAME}</a>
+					</div>
+					<!-- END BLOCK_POSITION_AUTHOR -->
+				</div>
+				<br>
+				<br>
+				<b>{POSITION_LAST_CHANGED}</b>
+				<br>
+				{POSITION_LAST_CHANGED_DATE}
+				<br>
+				{POSITION_LAST_CHANGED_USER}
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<table id="comments" class="pyramiddiscussion_table" border="1" width="100%">
+					<tr>
+						<th colspan="2">{COMMENTS_LABEL}</th>
+					</tr>
+					<!-- BEGIN BLOCK_NO_COMMENTS -->
+					<tr>
+						<td colspan="2">
+						{NO_COMMENTS}
+						</td>
+					</tr>
+					<!-- END BLOCK_NO_COMMENTS -->
+					<!-- BEGIN BLOCK_COMMENT -->
+					<tr valign="top">
+						<td width="70%">
+							{COMMENT_CONTENT}
+						</td>
+						<td id="title">
+						<b>{COMMENT_TITLE} <font color="red">{COMMENT_NEW}</font></b>
+						<img name="edit_comment" align="right" onclick="show_editcomment('{COMMENT_TITLE}', {COMMENT_ID});" style="cursor: pointer; cursor: hand; display:{SHOW_COMMENT_EDIT}" src="{ASSET}icons/edit_position.png" title="{EDIT_COMMENT}">
+						<input type="hidden" id="content{COMMENT_ID}" value="{COMMENT_CONTENT_NOBR}">
+						<br>
+						{COMMENT_AUTHOR}
+						<br>
+						{COMMENT_DATE}
+						</td>
+					</tr>
+					<!-- END BLOCK_COMMENT -->
+				</table>
+				<br>
+				<center>
+					<div id="createbutton" style="text-align:center" class="buttons">
+						<a class="button" style="display:{DISPLAY_CREATE_COMMENT}" onclick="show_createcomment();">{CREATE_COMMENT}</a>
+					</div>
+					<br>
+					<div id="createform" style="display:none; width:70%">
+						<form action="" method="post">
+							<table class="pyramiddiscussion_table" border="1" width="100%">
+								<tr>
+									<th colspan="2">{CREATE_COMMENT}</th>
+								</tr>
+								<tr>
+									<td class="label">{TITLE_LABEL}</td>
+									<td><input name="title" style="width: 99%" value="{NEW_TITLE}"></td>
+								</tr>
+								<tr>
+									<td class="label">{CONTENT_LABEL}</td>
+									<td><textarea name="content" style="width: 99%; height:200px"></textarea></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div style="text-align:center" class="buttons">
+											<input type="submit" value="{CREATE_COMMENT}" name="add_comment" onclick="return check_comment(0);">
+											<a class="button" onclick="hide_createcomment();">{BACK_LABEL}</a>
+										</div>
+									</td>
+							</table>
+						</form>
+					</div>
+					<div id="editform" style="display:none; width:70%">
+						<form action="" method="post">
+							<table class="pyramiddiscussion_table" border="1" width="100%">
+								<tr>
+									<th colspan="2">{EDIT_COMMENT}</th>
+								</tr>
+								<tr>
+									<td class="label">{TITLE_LABEL}</td>
+									<td><input name="title" id="edit_title" style="width: 99%"></td>
+								</tr>
+								<tr>
+									<td class="label">{CONTENT_LABEL}</td>
+									<td><textarea name="content" id="edit_content" style="width: 99%; height:200px"></textarea></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div style="text-align:center" class="buttons">
+											<input type="submit" value="{EDIT_COMMENT_SUBMIT}" name="edit_comment" onclick="return check_comment(1);">
+											<a class="button" onclick="hide_editcomment();">{BACK_LABEL}</a>
+										</div>
+									</td>
+							</table>
+							<input type="hidden" id="edit_id" name="edit_id" value="">
+						</form>
+					</div>
+				</center>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<a class="button" href="{PYRAMID_URL}">{PYRAMID_BACK}</a>
+</center>
+<!-- END BLOCK_PYRAMID_POSITION -->

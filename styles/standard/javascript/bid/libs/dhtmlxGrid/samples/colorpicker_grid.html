@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Using Colorpicker eXcell</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+	<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Grid samples</div>
+	<h1>Using Colorpicker eXcell</h1>
+	<p>
+		
+	</p>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>		
+	<script  src="../js/dhtmlXGridCell.js"></script>	
+	<table width="600">
+		<tr>
+			<td>
+				<div id="gridbox" width="100%" height="250px" style="background-color:white;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+<hr>
+<XMP>
+<div id="gridbox" width="100%" height="250px" style="background-color:white;overflow:hidden"></div>
+<script>
+		mygrid = new dhtmlXGridObject('gridbox');
+		...
+		mygrid.setHeader("Color Name,Color");
+		mygrid.setInitWidths("80,150")
+		mygrid.setColAlign("left,center")
+		mygrid.setColTypes("ed,cp");
+		mygrid.setColSorting("str,str")
+		...
+		mygrid.init();
+		mygrid.loadXML("colors.xml");
+</script>
+</XMP>
+<br>
+Current example also uses onCellEdit event handler to populate corresponding text cell with 
+color value chosen with color picker and vice versa:
+<XMP>
+	function doOnColorChanged(stage,rId,cIn){
+		if(stage==2){
+			if(cIn==0){
+				mygrid.cells(rId,1).setValue(mygrid.cells(rId,0).getValue())
+			}else if(cIn==1){
+				mygrid.cells(rId,0).setValue(mygrid.cells(rId,1).getValue())
+			}
+		}
+		return true;
+	}
+	mygrid.setOnEditCellHandler(doOnColorChanged)
+</XMP>
+<script>
+	function doOnColorChanged(stage,rId,cIn){
+		if(stage==2){
+			if(cIn==0){
+				mygrid.cells(rId,1).setValue(mygrid.cells(rId,0).getValue())
+			}else if(cIn==1){
+				mygrid.cells(rId,0).setValue(mygrid.cells(rId,1).getValue())
+			}
+		}
+		return true;
+	}
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../imgs/");
+	mygrid.setHeader("Color Name,Color");
+		mygrid.setInitWidths("80,150");
+		mygrid.setColAlign("left,center")
+		mygrid.setColTypes("ed,cp");
+		mygrid.setColSorting("str,str")
+	   	mygrid.setOnEditCellHandler(doOnColorChanged)
+	mygrid.init();
+	mygrid.loadXML("colors.xml");
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+	
+</body>
+</html>

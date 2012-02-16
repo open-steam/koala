@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+  <title>Suche</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/rights.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/dialog.css" media="screen" />
+  
+  <script language="JavaScript">
+  	function validate_form(thisform)
+  	{
+  		if (thisform.keyword.value.length < 4)
+  		{
+  			thisform.keyword.focus();
+  			alert('Bitte geben Sie mindestens vier Buchstaben in dem Suchfeld ein!');
+  			window.stop();
+  			return false;
+  		}
+  		else
+  		{
+  			return true;
+  		}
+  	}
+  </script>
+</head>
+
+<body onload="if (document.{FORM_NAME}.title) document.{FORM_NAME}.title.focus();">
+
+<form method="get" name="{FORM_NAME}" id="{FORM_NAME}" action="{FORM_URL}" enctype="multipart/form-data" onsubmit="return validate_form(this)">
+<input type="hidden" name="action" id="action" value="search" />
+
+<h1 class="titlepane">Suche</h1>
+
+<div class="dialogpane">
+	<div class="attribute">
+		<div class="attributeName">
+			Suchwort:
+		</div>
+		<div class="attributeValue">
+			<input type="input" name="keyword" class="text" />
+		</div>
+	</div>
+	<div class="attribute">
+		<div class="attributeName">
+			Volltext:
+		</div>
+		<div class="attributeValue">
+			<input type="checkbox" name="fulltext" />
+		</div>
+	</div>
+	<div class="attribute">
+		<div class="attributeName"> 
+			Suchoptionen:
+		</div>
+		<div class="attributeValue">
+			 <label for="search_everything"><input type="radio" name="search_options" value="0" id="search_everything" checked />Alles suchen</label><br/>
+			 <label for="search_portals"><input type="radio" name="search_options" value="1" id="search_portals"  />Nach Portalen suchen</label><br/>
+			 <label for="search_users"><input type="radio" name="search_options" value="2" id="search_users" value="0" />Nach Benutzern suchen</label><br/>
+			 <label for="search_groups"><input type="radio" name="search_options" value="3" id="everything" value="o" />Nach Benutzergruppen suchen</label><br/>
+		</div>
+	</div>
+	<div style="clear: both;"/>
+</div>
+<br/>
+<div class="buttonpane">
+<input type="submit" value="Suchen" />
+<input type="button" value="Schlie&szlig;en" onclick="window.close();" />
+</div>
+
+</form>
+
+</body>
+</html>

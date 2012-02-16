@@ -1,0 +1,29 @@
+<!-- BEGIN edit_button --><span class="editButton"><a href="{PORTLET_ROOT}/edit.php?portlet={PORTLET_ID}" onclick="window.open('{PORTLET_ROOT}/edit.php?portlet={PORTLET_ID}', 'editPortlet', 'resizable,scrollbars,width=500,height=500'); return false;"><img src="{PORTLET_ROOT}/icons/edit.gif" /></a></span><!-- END edit_button -->
+
+<!-- BEGIN vote_button --><input type="button" class="vote_button" onclick="send_vote();" value="Vote"></input><!-- END vote_button -->
+
+<!-- BEGIN poll -->
+<div class="poll">
+  <h1>{EDIT_BUTTON}{POLL_NAME}&nbsp;</h1>
+  <h2>{POLL_TOPIC}</h2>
+  <form action="vote_{PORTLET_ID}" method="post" name="vote_{PORTLET_ID}"> 
+  <script language="javascript" type="text/javascript">
+    function send_vote () {
+      var options = this.document.vote_{PORTLET_ID}.poll;
+      var i;
+      for (i = 0; i < options.length; i++) { 
+        if (options[i].checked) {
+          break;
+        } 
+      }
+      if (i < options.length)
+        window.open('{PORTLET_ROOT}/add_vote.php?portlet={PORTLET_ID}&action=' + options[i].value, 'addVote', 'resizable,scrollbars,width=500,height=200');
+      else alert('{LANGUAGE_FEEDBACK_NOCHOICE}');
+    }
+  </script>
+<!-- BEGIN choice --><div class="choice"><input type="radio" name="poll" value="{OPTION_NUMBER}">{OPTION}</input></div><!-- END choice -->
+<!-- BEGIN result --><div class="result">{OPTION}</div><span class="votecount">{OPTION_VOTECOUNT}</span><div class="result" style="background: url({PORTLET_ROOT}/icons/color{OPTION_NUMBER}.png); width: {WIDTH}%;">&nbsp;</div><!-- END result -->
+  {VOTE_BUTTON}
+  </form>
+</div>
+<!-- END poll -->

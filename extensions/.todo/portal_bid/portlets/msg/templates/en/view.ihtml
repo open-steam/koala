@@ -1,0 +1,30 @@
+<!-- BEGIN edit_button --><span class="editButton"><a href="{PORTLET_ROOT}/edit.php?portlet={PORTLET_ID}" onclick="window.open('{PORTLET_ROOT}/edit.php?portlet={PORTLET_ID}', 'editPortlet', 'resizable,scrollbars,width=500,height=500'); return false;"><img src="{PORTLET_ROOT}/icons/edit_portlet.gif" /></a></span><!-- END edit_button -->
+
+<!-- BEGIN message_none -->No messages available.<!-- END message_none -->
+
+<!-- BEGIN message_picture --><img src="http://bid:8080//tools/get.php?object={MESSAGE_PICTURE_ID}" style="float: {MESSAGE_PICTURE_ALIGNMENT}" width="{MESSAGE_PICTURE_WIDTH}"><!-- END message_picture -->
+
+<!-- BEGIN rss_link --><a href="http://bid:8080//modules/portal2/portlets/msg/rss.php?object={PORTLET_ID}"><img src="http://bid:8080//modules/portal2/portlets/msg/icons/rss.gif"></a><!-- END rss_link -->
+
+<!-- BEGIN message_link --><a href="{MESSAGE_LINK_URL}" target="{MESSAGE_LINK_TARGET}">{MESSAGE_LINK_URL_LABEL}</a><!-- END message_link -->
+
+<!-- BEGIN message -->
+<div class="message">
+  <h2>{MESSAGE_HEADLINE}</h2>
+  <h3>{MESSAGE_SUBHEADLINE}</h3>
+  {MESSAGE_PICTURE}
+  <div class="entry">{MESSAGE_CONTENT}</div>
+  <p class="entry">{MESSAGE_LINK}</p>
+</div>
+<!-- END message -->
+
+<!-- BEGIN separator --><hr><!-- END separator -->
+
+<!-- Messages -->
+<div class="messages">
+{EDIT_BUTTON}
+{MESSAGES}
+<div style="clear:both;"></div>
+<hr>{RSS_LINK}
+</div>
+<!-- /Messages -->

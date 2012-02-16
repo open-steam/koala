@@ -1,0 +1,149 @@
+\hypertarget{class_simple_selection_tag}{
+\section{SimpleSelectionTag Class Reference}
+\label{class_simple_selection_tag}\index{SimpleSelectionTag@{SimpleSelectionTag}}
+}
+Inheritance diagram for SimpleSelectionTag:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_simple_selection_tag}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_selection_tag_aa82896cb091f3f88898310e5dcfbf446}{SimpleSelectionTag} (\$attributes)
+\item 
+\hyperlink{class_simple_selection_tag_aa7547a0f3b171987ad686049822a1446}{addTag} (\&\$tag)
+\item 
+\hyperlink{class_simple_selection_tag_a168eec24b5c2d95c4e7e0eebfca9f4d7}{addContent} (\$content)
+\item 
+\hyperlink{class_simple_selection_tag_ab515be0efa0968f8e74f3ed2312b3463}{getDefault} ()
+\item 
+\hyperlink{class_simple_selection_tag_a3cf6ad438463a73871ef02f729a7b25b}{setValue} (\$value)
+\item 
+\hyperlink{class_simple_selection_tag_a2eb746b2b426205f78ff4eecf6f335a0}{getValue} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_selection_tag_a1184ec68dbc76022618a9aabdfece584}{
+{\bfseries \$\_\-options}}
+\label{class_simple_selection_tag_a1184ec68dbc76022618a9aabdfece584}
+
+\item 
+\hypertarget{class_simple_selection_tag_a3f83e9d2c05405e5127256206d353fbc}{
+{\bfseries \$\_\-choice}}
+\label{class_simple_selection_tag_a3f83e9d2c05405e5127256206d353fbc}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_selection_tag_a168eec24b5c2d95c4e7e0eebfca9f4d7}{
+\index{SimpleSelectionTag@{SimpleSelectionTag}!addContent@{addContent}}
+\index{addContent@{addContent}!SimpleSelectionTag@{SimpleSelectionTag}}
+\subsubsection[{addContent}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSelectionTag::addContent (
+\begin{DoxyParamCaption}
+\item[{\$}]{ content}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_selection_tag_a168eec24b5c2d95c4e7e0eebfca9f4d7}
+Text within the selection element is ignored. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$content} & Ignored.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_tag_ae8478a7c35ab3c16e8284667cd5f0bd5}{SimpleTag}.
+
+\hypertarget{class_simple_selection_tag_aa7547a0f3b171987ad686049822a1446}{
+\index{SimpleSelectionTag@{SimpleSelectionTag}!addTag@{addTag}}
+\index{addTag@{addTag}!SimpleSelectionTag@{SimpleSelectionTag}}
+\subsubsection[{addTag}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSelectionTag::addTag (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ tag}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_selection_tag_aa7547a0f3b171987ad686049822a1446}
+Adds an option tag to a selection field. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_option_tag}{SimpleOptionTag} & {\em \$tag} & New option.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_tag_a5f5cc331c052dd6eb0bd104f68143c76}{SimpleTag}.
+
+\hypertarget{class_simple_selection_tag_ab515be0efa0968f8e74f3ed2312b3463}{
+\index{SimpleSelectionTag@{SimpleSelectionTag}!getDefault@{getDefault}}
+\index{getDefault@{getDefault}!SimpleSelectionTag@{SimpleSelectionTag}}
+\subsubsection[{getDefault}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSelectionTag::getDefault (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_selection_tag_ab515be0efa0968f8e74f3ed2312b3463}
+Scans options for defaults. If none, then the first option is selected. \begin{DoxyReturn}{Returns}
+string Selected field.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_widget_a9c0702cdfee1237b1599cb920ce14ba6}{SimpleWidget}.
+
+\hypertarget{class_simple_selection_tag_a2eb746b2b426205f78ff4eecf6f335a0}{
+\index{SimpleSelectionTag@{SimpleSelectionTag}!getValue@{getValue}}
+\index{getValue@{getValue}!SimpleSelectionTag@{SimpleSelectionTag}}
+\subsubsection[{getValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSelectionTag::getValue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_selection_tag_a2eb746b2b426205f78ff4eecf6f335a0}
+Accessor for current selection value. \begin{DoxyReturn}{Returns}
+string Value attribute or content of opton.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_widget_a92328cffb96f6966d6a6a07827e65f6d}{SimpleWidget}.
+
+\hypertarget{class_simple_selection_tag_a3cf6ad438463a73871ef02f729a7b25b}{
+\index{SimpleSelectionTag@{SimpleSelectionTag}!setValue@{setValue}}
+\index{setValue@{setValue}!SimpleSelectionTag@{SimpleSelectionTag}}
+\subsubsection[{setValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSelectionTag::setValue (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_selection_tag_a3cf6ad438463a73871ef02f729a7b25b}
+Can only set allowed values. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$value} & New choice. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if allowed.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_widget_a9e048a450e2d29a601e672deda9fa869}{SimpleWidget}.
+
+\hypertarget{class_simple_selection_tag_aa82896cb091f3f88898310e5dcfbf446}{
+\index{SimpleSelectionTag@{SimpleSelectionTag}!SimpleSelectionTag@{SimpleSelectionTag}}
+\index{SimpleSelectionTag@{SimpleSelectionTag}!SimpleSelectionTag@{SimpleSelectionTag}}
+\subsubsection[{SimpleSelectionTag}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSelectionTag::SimpleSelectionTag (
+\begin{DoxyParamCaption}
+\item[{\$}]{ attributes}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_selection_tag_aa82896cb091f3f88898310e5dcfbf446}
+Starts with attributes only. 
+\begin{DoxyParams}[1]{Parameters}
+hash & {\em \$attributes} & Attribute names and string values. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/tag.php\end{DoxyCompactItemize}

@@ -1,0 +1,26 @@
+<!-- BEGIN BLOCK_INFO -->
+<div class="infoBar">{INFO_TEXT}</div>
+<!-- END BLOCK_INFO -->
+
+
+
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<!-- BEGIN BLOCK_ITEM -->
+	<tr>
+		<td width="110px"><img src="{ELEARNING_COURSE_ICON_URL}" /></td>
+		<td>{LABEL_ELEARNING_COURSE_ID}</td>
+		<td>{LABEL_ELEARNING_COURSE_COPYRIGHT}</td>
+		<td>
+		<form action="{FORM_ACTION}" method="post" name="formular"><input
+			type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}" />
+		<div class="buttons"><input type="hidden"
+			name="values[elearning_course_id]" value="{ELEARNING_COURSE_ID}" />
+		<input type="submit" value="{LABEL_ELEARNING_COURSE_ADD}"
+			name="unit_new[{ELEARNING_EXTENSION}]" /></div>
+		</form>
+		</td>
+	</tr>
+	<!-- END BLOCK_ITEM -->
+</table>
+<p>oder {BACKLINK}</p>
+

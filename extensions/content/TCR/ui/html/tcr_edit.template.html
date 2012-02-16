@@ -1,0 +1,61 @@
+<!-- BEGIN BLOCK_EDIT_ELEMENT-->
+<center>
+	<form action="{BACK_URL}" method="post" enctype="multipart/form-data">
+		<table class="tcr_table" border="1" width="80%" height="100%">
+			<tr>
+				<th colspan="2">{EDIT_LABEL}</th>
+			</tr>
+			<tr>
+				<td class="label">{TITLE_LABEL}</td>
+				<td><input name="title" style="width: 99%" value="{TITLE_VALUE}"></td>
+			</tr>
+			<tr>
+				<td class="label">{DESC_LABEL}</td>
+				<td><input name="desc" style="width: 99%" value="{DESC_VALUE}"></td>
+			</tr>
+			<tr id="tcr_content">
+				<td class="label">{CONTENT_LABEL}</td>
+				<td width="80%" height="100%">
+					<textarea style="width:99%; height:400px; display:{DISPLAY_TEXT}" name="content">{CONTENT_VALUE}</textarea>
+					<a href="{DOWNLOAD_URL}"><img src="{ASSET_URL}icons/view_48.png" title="{DOWNLOAD_TITLE}" style="display:{DISPLAY_IMG}"></a>
+					<div id="radio_file" style="display:{SHOW_RADIO_FILE}">
+						<br>
+						<input type="radio" name="new_upload" value="0" checked onclick="hideEverything()">{KEEP_VALUE}
+						<input type="radio" name="new_upload" value="1" onclick="showUpload()">{UPLOAD_VALUE}
+						<input type="radio" name="new_upload" value="2" onclick="showTextarea()">{TEXTFIELD_VALUE}
+					</div>
+					<div id="text_file" style="display:{SHOW_RADIO_TEXT}">
+						<input type="radio" name="new_upload_text" value="0" checked onclick="hideUploadEdit()">{TEXTFIELD_VALUE}
+						<input type="radio" name="new_upload_text" value="1" onclick="showUpload()">{UPLOAD_VALUE}
+					</div>
+					<div id="new_text" style="display:none;">
+						<br>
+						<textarea style="width:99%; height:400px;" name="new_content"></textarea>
+					</div>
+					<div id="new_upload" style="display:none;">
+						<br>
+						<input name="file" type="file">
+						<br>
+						<font color="red">{UPLOAD_MAXSIZE}</font>
+					</div>
+					<div id="tcr_warning" style="display:none">
+						<br>
+						<font color="red">{TCR_WARNING}</font>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="text-align:center" class="buttons">
+						<input type="submit" value="{SUBMIT_EDIT}" name="edit_element">
+						<a class="button" href="{BACK_URL}">{BACK_LABEL}</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="old_id" value="{ID_VALUE}">
+		<input type="hidden" name="kind" value="{KIND_VALUE}">
+		<input type="hidden" name="round" value="{ROUND_VALUE}">
+	</form>
+</center>
+<!-- END BLOCK_EDIT_ELEMENT -->

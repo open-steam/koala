@@ -1,0 +1,141 @@
+==================================
+Index size:      10
+getPath() count: 1
+Iterations:      1000
+----------------------------------
+sqlite:      0.00215086531639
+mysql:       0.00247395205498
+hashtable:   0.00210641145706
+hashtableGZ: 0.00238783216476
+
+==================================
+==================================
+Index size:      100
+getPath() count: 1
+Iterations:      1000
+----------------------------------
+sqlite:      0.00192049336433
+mysql:       0.00224152994156
+hashtable:   0.00202536797523
+hashtableGZ: 0.00233715009689
+
+==================================
+==================================
+Index size:      1000
+getPath() count: 1
+Iterations:      1000
+----------------------------------
+sqlite:      0.00244244766235
+mysql:       0.00279876708984
+hashtable:   0.00454931735992
+hashtableGZ: 0.00558870220184
+
+==================================
+==================================
+Index size:      10000
+getPath() count: 1
+Iterations:      1000
+----------------------------------
+sqlite:      0.00268330812454
+mysql:       0.00301415872574
+hashtable:   0.0301654047966
+hashtableGZ: 0.0323619525433
+
+==================================
+==================================
+Index size:      10
+getPath() count: 10
+Iterations:      1000
+----------------------------------
+sqlite:      0.0183038480282
+mysql:       0.026659507513
+hashtable:   0.0113811120987
+hashtableGZ: 0.0118772659302
+
+==================================
+==================================
+Index size:      100
+getPath() count: 10
+Iterations:      1000
+----------------------------------
+sqlite:      0.0155739145279
+mysql:       0.021951593399
+hashtable:   0.0106101675034
+hashtableGZ: 0.0103423111439
+
+==================================
+==================================
+Index size:      1000
+getPath() count: 10
+Iterations:      1000
+----------------------------------
+sqlite:      0.0145670011044
+mysql:       0.0207141859531
+hashtable:   0.0113365590572
+hashtableGZ: 0.0121418380737
+
+==================================
+==================================
+Index size:      10000
+getPath() count: 10
+Iterations:      1000
+----------------------------------
+sqlite:      0.0176767978668
+mysql:       0.0231420800686
+hashtable:   0.0328564014435
+hashtableGZ: 0.0364136123657
+
+==================================
+==================================
+Index size:      100
+getPath() count: 100
+Iterations:      1000
+----------------------------------
+sqlite:      0.130500156641
+mysql:       0.208063076973
+hashtable:   0.082040459156
+hashtableGZ: 0.0816838681698
+
+==================================
+==================================
+Index size:      1000
+getPath() count: 100
+Iterations:      1000
+----------------------------------
+sqlite:      0.123986989021
+mysql:       0.195936744452
+hashtable:   0.07885500741
+hashtableGZ: 0.0768328244686
+
+==================================
+==================================
+Index size:      10000
+getPath() count: 100
+Iterations:      1000
+----------------------------------
+sqlite:      0.124107485771
+mysql:       0.214972498894
+hashtable:   0.0927824475765
+hashtableGZ: 0.0992660284042
+
+==================================
+==================================
+Index size:      1000
+getPath() count: 1000
+Iterations:      1000
+----------------------------------
+sqlite:      1.23439661312
+mysql:       2.1428247509
+hashtable:   0.718223853588
+hashtableGZ: 0.716515275717
+
+==================================
+
+AutoloaderException_Index: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away in /export/www/malkusch/autoload/php/lib/malkuschLib/classes/autoloader/classes/index/AutoloaderIndex_PDO.php on line 127
+
+Call Stack:
+    0.0044     180856   1. {main}() /export/www/malkusch/autoload/php/lib/malkuschLib/classes/autoloader/benchmark/AutoloaderBenchmark.php:0
+    0.0466     507464   2. AutoloaderBenchmark::__static() /export/www/malkusch/autoload/php/lib/malkuschLib/classes/autoloader/benchmark/AutoloaderBenchmark.php:24
+20669.9254     802896   3. AutoloaderBenchmark->run() /export/www/malkusch/autoload/php/lib/malkuschLib/classes/autoloader/benchmark/AutoloaderBenchmark.php:94
+71058.8696    7875896   4. AutoloaderIndex_PDO->delete() /export/www/malkusch/autoload/php/lib/malkuschLib/classes/autoloader/benchmark/AutoloaderBenchmark.php:142
+

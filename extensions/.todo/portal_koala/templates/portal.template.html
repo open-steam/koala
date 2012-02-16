@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- BEGIN BLOCK_RSS_FEED -->
+    <link rel="alternate" type="application/rss+xml" title="{RSS_TITLE}" href="{RSS_LINK}" />
+    <!-- END BLOCK_RSS_FEED -->
+
+	<link rel="stylesheet" href="{STANDARD_STYLE_PATH}styles/standard/css/default.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
+	<link rel="stylesheet" href="{STANDARD_STYLE_PATH}styles/standard/css/print.css?version={KOALA_VERSION}" type="text/css" media="print" />
+	<link rel="stylesheet" href="{STYLE_PATH}css/default.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
+	<link rel="stylesheet" href="{STYLE_PATH}css/print.css?version={KOALA_VERSION}" type="text/css" media="print" />
+	
+    <link rel="apple-touch-icon" href="{STYLE_PATH}images/apple-touch-icon.png" type="text/css" media="screen" />
+    <link href="{STYLE_PATH}images/page_layout/favicon.ico" rel="shortcut icon"/>
+
+    <!-- HTML 5 Specifications -->
+    <meta name="application-name" content="{PORTAL_TITLE}"/>
+    <link rel="icon" href="{STYLE_PATH}images/page_layout/favicon.ico"/>
+    <!-- HTML 5 Specifications -->
+
+    <!-- BEGIN HEAD_FURTHER_ENTRIES_BLOCK -->
+    {HEAD_FURTHER_ENTRIES_VAR}
+    <!-- END HEAD_FURTHER_ENTRIES_BLOCK -->
+
+    <!-- BEGIN HEAD_JAVASCRIPT_BLOCK -->
+    <!-- created by {HEAD_JAVASCRIPT_CALLER} -->
+    <script language="Javascript" type="text/javascript" {HEAD_JAVASCRIPT_SRC}>
+    {HEAD_JAVASCRIPT_SOURCECODE}
+    </script>
+    <!-- END HEAD_JAVASCRIPT_BLOCK -->
+    
+    <!-- BEGIN HEAD_JAVASCRIPT_ONLOAD -->
+    <script language="Javascript" type="text/javascript">
+    	<!-- BEGIN HEAD_JAVASCRIPT_ONLOAD_FUNCTION -->
+    	// created by {HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER}
+    	{HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CODE}
+    	<!-- END HEAD_JAVASCRIPT_ONLOAD_FUNCTION -->
+
+    	function onload_body(){
+    		<!-- BEGIN HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL -->
+    		// created by {HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER}
+    		{HEAD_JAVASCRIPT_ONLOAD_FUNCION_NAME}
+    		<!-- END HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL -->
+        }
+    </script>
+    <!-- END HEAD_JAVASCRIPT_ONLOAD -->
+
+    <!-- Some hacks to make IE load transparent png files-->
+    <style type="text/css">
+    /*<![CDATA[*/
+        * html #footer_shadow {
+            background: none;
+            filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='{PATH_JAVASCRIPT}../styles/standard/images/page_layout/shadow_footer.png?version={KOALA_VERSION}');
+        }
+
+        * html #menu_wrapper, * html #page_wrapper_bg {
+            background: none;
+            filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='{PATH_JAVASCRIPT}../styles/standard/images/page_layout/shadow_page.png?version={KOALA_VERSION}');
+        }
+
+        * html #betaInfo {
+            background: none;
+            filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='{PATH_JAVASCRIPT}../styles/standard/images/page_layout/beta.png?version={KOALA_VERSION}');
+        }
+
+    /*]]>*/
+    </style>
+
+    <link rel="stylesheet" href="{PATH_JAVASCRIPT}prototype_window/default.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
+	<link rel="stylesheet" href="{PATH_JAVASCRIPT}prototype_window/alert.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
+	<link rel="stylesheet" href="{PATH_JAVASCRIPT}prototype_window/alphacube.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
+
+	<script src="{PATH_JAVASCRIPT}frontend/backend_connector.php?version={KOALA_VERSION}" type="text/javascript"></script>
+	<!-- BEGIN HEAD_JAVASCRIPT_PROTOTYPE -->
+    <script src="{PATH_JAVASCRIPT_2}javascript_minimized.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+    <!-- END HEAD_JAVASCRIPT_PROTOTYPE -->
+    <script src="{PATH_JAVASCRIPT}koala.js?version={KOALA_VERSION}" type="text/javascript"></script>
+
+	<!-- BEGIN HEAD_CUSTOM_CSS -->
+	<!-- custom css-->
+    <style type="text/css" media="screen, print" >
+    /*<![CDATA[*/
+		{HEAD_CUSTOM_CSS_STYLE}
+    /*]]>*/
+    </style>
+    <!-- END HEAD_CUSTOM_CSS -->
+    
+    <!-- BEGIN HEAD_CUSTOM_CSS_LINK -->
+	<!-- custom css-->
+    <link rel="stylesheet" type="text/css" href="{HEAD_CUSTOM_CSS_STYLE_LINK}" media="screen, print"/>
+    <!-- END HEAD_CUSTOM_CSS_LINK -->
+
+    <title>{PORTAL_TITLE}</title>
+</head>
+
+<body {BODY_PARAMS}>
+
+	<div id="background"></div>
+	
+    <div id="header_wrapper">
+        <div id="header">
+        	<div id="logo_wrapper">
+            	<a id="logo" href="/"></a>
+            </div>
+
+			<!-- BEGIN STATUS_SIGNED_IN_BLOCK -->
+            {SIGNED_IN_TEXT} <a href="{SIGNED_IN_LOGIN_HOME}">{SIGNED_IN_LOGIN_NAME}</a> |
+            <!-- BEGIN STATUS_MAIL_BLOCK -->
+            <a href="{MESSAGES_URL}">{INBOX}</a> {MESSAGES_UNREAD} |
+            <!-- END STATUS_MAIL_BLOCK -->
+      		<!-- BEGIN BLOCK_HELP -->
+            <a href="{HELP_URL}">{HELP_TEXT}</a> |
+      		<!-- END BLOCK_HELP -->
+            <a href="{SIGN_OUT_URL}">{SIGN_OUT_TEXT}</a> |
+			<!-- END STATUS_SIGNED_IN_BLOCK -->
+
+            <!-- BEGIN STATUS_GUEST_BLOCK -->
+            {NOT_SIGNED_IN_TEXT} |
+            <!-- BEGIN BLOCK_HELP -->
+            <a href="{HELP_URL}">{HELP_TEXT}</a> | 
+      		<!-- END BLOCK_HELP -->
+            <a href="{STATUS_PATH_URL}sign_in/">{SIGN_IN_TEXT}</a> |
+            <!-- END STATUS_GUEST_BLOCK -->
+
+            {CURRENT_DATE}
+            <!-- BEGIN PORTAL_LANGUAGES -->
+              <form name="portal_language" method="post" action="{PORTAL_LANGUAGES_ACTION}">
+              <input type="hidden" name="portal_values[redirect]" value="{PORTAL_LANGUAGES_REDIRECT}">
+              <!-- BEGIN LANGUAGE -->
+                <span id="USER_LANGUAGE">
+                  <input type="radio" id="{LABEL_LANGUAGE_LABEL}" name="portal_values[USER_LANGUAGE]" value="{LANGUAGE_VALUE}" {LANGUAGE_CHECKED} onClick="JavaScript:form.submit()"/>
+                  <label for="{LABEL_LANGUAGE_LABEL}"><img class="flag" src="{LANGUAGE_ICON}" title="{LABEL_LANGUAGE}" /></label>&#160;&#160;
+                </span>
+
+              <!-- END LANGUAGE -->
+              </form>
+            <!-- END PORTAL_LANGUAGES -->
+        </div>
+    </div>
+
+    <div id="menu_wrapper_bg">
+    	<div id="menu_wrapper">
+    	    <div id="menu">
+	            <div id="icon_bar">{ICON_BAR_HTML}</div>{MENU_HTML}
+        	</div>
+	    </div>
+    </div>
+
+	<div id="site_wrapper">
+        <div id="page_wrapper_bg">
+            <div id="page_wrapper">
+            	<div id="betaInfo"></div>
+
+                <div id="content_wrapper">
+                    <div id="headline">
+                        {HEADLINE1}{HEADLINE2}
+                    </div>
+
+                    <!-- BEGIN PROBLEM_BLOCK -->
+                    <p id="error" style="display:none">{PROBLEM_DESCRIPTION}<br/>{PROBLEM_SOLUTION}</p>
+                    <script type="text/javascript">Effect.Appear('error');</script>
+                    <!-- END PROBLEM_BLOCK -->
+
+                    <!-- BEGIN BLOCK_CONFIRMATION -->
+                    <p id="confirmation" style="display:none">{CONFIRMATION_TEXT}</p>
+                    <script type="text/javascript">Effect.Appear('confirmation');</script>
+                    <!-- END BLOCK_CONFIRMATION -->
+
+                    <div id="content">
+                        {MAIN_HTML}
+                    </div>
+
+                    <!-- BEGIN FEEDS_BLOCK -->
+                    <div id="feeds">
+                        <!-- BEGIN RSS_FEED_BLOCK -->
+                        <a href="{RSS_FEED_LINK}" title="RSS 2.0 feed"><img src="{RSS_STYLE_PATH}/images/feed-icon-16x16.png" width="16" height="16" alt="" align="absmiddle" /></a>
+                        <a href="{RSS_FEED_LINK}" title="RSS 2.0 feed">{RSS_FEED_NAME}</a> &ndash; {RSS_FEED_DSC}
+                        <!-- END RSS_FEED_BLOCK -->
+                    </div>
+                    <!-- END FEEDS_BLOCK -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer_shadow"></div>
+
+    <div id="footer_wrapper">
+        <div id="footer">
+		{COPYRIGHT_INFO} {IMPRESSUM_INFO} {POLICY_INFO} {SECURITY_INFO}  {FUNDING_INFO} {POWERED_BY_INFO}
+		{STATISTICS_REQUESTS} {STATISTICS_PAGETIME}
+        </div>
+    </div>
+
+    <span id="USER_LOGIN" value="{USER_LOGIN}"></span>
+
+</body>
+
+</html>

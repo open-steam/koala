@@ -1,0 +1,94 @@
+\hypertarget{class_identical_expectation}{
+\section{IdenticalExpectation Class Reference}
+\label{class_identical_expectation}\index{IdenticalExpectation@{IdenticalExpectation}}
+}
+Inheritance diagram for IdenticalExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_identical_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_identical_expectation_afe432a076cb2c4c1eaaeaab22bb6c63f}{IdenticalExpectation} (\$value, \$message= '\%s')
+\item 
+\hyperlink{class_identical_expectation_a6076cd232c16294ca0a7979ce11e57da}{test} (\$compare)
+\item 
+\hyperlink{class_identical_expectation_a80c36b4efb3126695a69d4823ab3122b}{testMessage} (\$compare)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_identical_expectation_afe432a076cb2c4c1eaaeaab22bb6c63f}{
+\index{IdenticalExpectation@{IdenticalExpectation}!IdenticalExpectation@{IdenticalExpectation}}
+\index{IdenticalExpectation@{IdenticalExpectation}!IdenticalExpectation@{IdenticalExpectation}}
+\subsubsection[{IdenticalExpectation}]{\setlength{\rightskip}{0pt plus 5cm}IdenticalExpectation::IdenticalExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_identical_expectation_afe432a076cb2c4c1eaaeaab22bb6c63f}
+Sets the value to compare against. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & Test value to match. \\
+\hline
+string & {\em \$message} & Customised message on failure.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_identical_expectation_a6076cd232c16294ca0a7979ce11e57da}{
+\index{IdenticalExpectation@{IdenticalExpectation}!test@{test}}
+\index{test@{test}!IdenticalExpectation@{IdenticalExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}IdenticalExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_identical_expectation_a6076cd232c16294ca0a7979ce11e57da}
+Tests the expectation. True if it exactly matches the held value. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if correct.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_equal_expectation_a412b216b1ba36e37d342aebb821ccb55}{EqualExpectation}.
+
+
+
+Reimplemented in \hyperlink{class_not_identical_expectation_a2e3d68e7804396cb418a9ef2d00c128e}{NotIdenticalExpectation}.
+
+\hypertarget{class_identical_expectation_a80c36b4efb3126695a69d4823ab3122b}{
+\index{IdenticalExpectation@{IdenticalExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!IdenticalExpectation@{IdenticalExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}IdenticalExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_identical_expectation_a80c36b4efb3126695a69d4823ab3122b}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_equal_expectation_a707aa690ff9312ff1b99733d859f7f6f}{EqualExpectation}.
+
+
+
+Reimplemented in \hyperlink{class_not_identical_expectation_a4d2927f2f29f63f7cff7e0e24a555d85}{NotIdenticalExpectation}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/expectation.php\end{DoxyCompactItemize}

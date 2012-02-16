@@ -1,0 +1,46 @@
+#betaInfo {
+	background-image: none;
+}
+	
+#header #logo {
+	background: url(../images/page_layout/logo.png) no-repeat;
+}
+
+a,a:link, a:visited {
+	text-decoration: none;
+	color: #485983;
+}
+
+#topImage{
+	color:#b0b0b0;
+	background-image:url(../images/page_layout/startpage.jpg);
+	border-bottom: 1px solid rgb(221, 221, 221); 
+}
+
+#menu_wrapper_bg {
+	background-color: #fff;
+    border-bottom: 3px solid #EC7331;
+}
+
+#menu {
+	background: #13225A;
+	background: -webkit-gradient(linear, left top, left bottom, from(#485983),to(#13225A));
+	background: -moz-linear-gradient(top,#485983,#13225A);
+}
+
+#menu li .menu_text a {
+	color: #333;
+	background-color: #f00;
+}
+
+#menu li .menu_text {
+	color: #ffffff;
+}
+
+.infoBar {
+	 background: #e7e7e7;
+	 background: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),to(#e0e0e0));
+	 background: -moz-linear-gradient(top,#eeeeee,#e0e0e0);
+	 border: 3px solid #e0e0e0;
+	 color: #333333;
+}

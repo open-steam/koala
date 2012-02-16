@@ -1,0 +1,61 @@
+<script type="text/javascript" src="{$PATH_URL}worksheet/asset/js/jquery.worksheetMarkup.js"></script>
+<script type="text/javascript" src="{$PATH_URL}worksheet/asset/js/jquery.worksheetPreventChanges.js"></script>
+<script type="text/javascript">
+{literal}
+
+	jQuery(function() {
+	
+		jQuery("#worksheet_blocks").worksheetPreventChanges();
+		
+	});
+	
+	
+	function worksheet_show_solution(show, solutions, link) {
+		
+		jQuery(link).parent().children("span").addClass("worksheet_correction_title_inactive");
+		jQuery(link).removeClass("worksheet_correction_title_inactive");
+		
+		jQuery("#"+solutions).children(".worksheet_solution").hide();
+		jQuery("#"+show).show();
+		
+		jQuery(link).parent().parent().find(".worksheet_correction_fold").show();
+		
+	}
+	
+	
+	function worksheet_correction_fold(link, solutions) {
+		
+		jQuery("#"+solutions).children(".worksheet_solution").hide();
+		jQuery(link).parent().find(".worksheet_correction_title").addClass("worksheet_correction_title_inactive");
+		jQuery(link).hide();
+		
+	}
+	
+{/literal}
+</script>
+
+<p class="infoBar">
+	Dieses Arbeitsblatt wurde abgegeben. Sie können es nicht mehr bearbeiten.
+</p>
+
+{if $blocks}
+
+	<ul id="worksheet_blocks">
+
+		{foreach from=$blocks item=block}
+
+			<li class="worksheet_block_view" id="{$block.id}">
+
+				<h1>{$block.name}</h1>
+
+				{$block.content}
+
+			</li>
+
+		{/foreach}
+	
+	</ul>
+	
+{else}
+	<p class="worksheet_info">Es wurden keine Aufgaben gefunden.</p>
+{/if}

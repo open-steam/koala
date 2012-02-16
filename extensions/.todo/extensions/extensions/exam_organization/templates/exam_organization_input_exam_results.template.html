@@ -1,0 +1,247 @@
+<h3>{VALUE_CONTAINER_DESC}</h3>
+<!-- <p>{VALUE_CONTAINER_LONG_DESC}</p> -->
+
+<!-- <p>{ROLE_STATUS}</p> -->
+
+<p>{INFO}</p>
+<p>{EXAM_INFORMATION}</p>
+
+<script type="text/javascript">
+function setErrorBox(text)
+{
+	var position, box;
+	var message = document.createTextNode(text);
+	
+	if (!document.getElementById("error"))
+	{
+		position = document.getElementById("headline");
+		box = document.createElement("p");
+
+		box.setAttribute('id', 'error');
+		box.setAttribute('style', 'display:none');
+		box.appendChild(message);
+		position.appendChild(box);
+		Effect.Appear('error');
+	}
+	else
+	{
+		box = document.getElementById("error");
+		box.replaceChild(message, document.getElementById("error").firstChild);
+	}
+}
+
+function unsetErrorBox()
+{
+	var box = document.getElementById("error");
+
+	try
+	{
+		var deleted = document.getElementById("headline").removeChild(box);
+	}
+	catch (error) {}
+}
+
+function setError(element)
+{
+	element.className = "InputError";
+}
+
+function setNormal(element)
+{
+	element.className = "InputNormal";
+}
+
+function isErrorFree()
+{
+	var errorFree = true;
+	var assignments = parseInt(document.InputForm.hidden_counter.value);
+	
+	for (var n = 1 ; n <= assignments ; n++)
+	{	
+		if (document.getElementById(n).className == "InputError")
+		{
+			errorFree = false;
+			break;
+		}
+	}
+	
+	return errorFree;
+}
+
+function checkInputOnKeyUp(element)
+{
+	if (element.className == "InputError") checkInput(element);
+}
+
+function checkInput(element)
+{
+	var assignmentPoints = new Array( {ASSIGNMENT_ARRAY} );
+	
+	var input = element.value;
+	var result = input.search(/^[0-9]+((\.|,)[0-9]){0,1}$/);
+	var maxPoints = parseInt( assignmentPoints[element.id - 1] );
+	
+	if (result < 0)
+	{
+		setError(element);
+		setErrorBox("Invalid Value");
+	}
+	else if (input > maxPoints)
+	{
+		setError(element);
+		setErrorBox("max value is " + maxPoints + " for this assignment");
+	}
+	
+	else setNormal(element);
+	
+	if (isErrorFree()) unsetErrorBox();
+}
+
+function updateFocus(assignment)
+{
+	document.InputForm.hidden_focus.value = assignment;
+}
+
+function updatePoints()
+{
+	var last_assignment = parseInt(document.InputForm.hidden_counter.value);
+	var points = 0;
+	var assignment;
+	
+	for (i = 1 ; i <= last_assignment ; i++)
+	{
+		assignment = document.getElementById(i).value;
+		assignment = (assignment == "") ? 0 : assignment.replace(",",".");
+		points += parseFloat(assignment);
+	}
+
+	points = points.toFixed(1);
+	points = points.replace(".", ",");
+	document.getElementById("total_points").innerHTML = "<b>" + points + "</b>";
+}
+
+function check()
+{
+	var matnr = document.InputForm.input_result_barcode_matnr.value;
+ 	var student = document.InputForm.hidden_student.value;
+
+ 	if (document.InputForm.hidden_focus.value < 0)
+ 	{
+		//Textbox MatriculationNo
+		if (matnr != "")
+		{
+			document.InputForm.hidden_action.value = "searchName";
+			return true;
+		}
+ 	}
+ 	else if (document.InputForm.hidden_focus.value == 0)
+ 	{		
+	 	// Submit Button
+		if ((matnr != "") && (student != "") && isErrorFree())
+		{
+			document.InputForm.hidden_action.value = "savePoints";
+			return true;
+		}
+ 	}
+ 	else
+ 	{
+	 	// Textbox Assignment
+		var last_assignment = parseInt(document.InputForm.hidden_counter.value);
+		var assignment = parseInt(document.InputForm.hidden_focus.value);
+			
+		if (assignment < last_assignment)
+		{
+			document.getElementById(++assignment).select();
+		}
+		else if ((matnr != "") && (student != "") && isErrorFree())
+		{
+			document.InputForm.hidden_action.value = "savePoints";
+			return true;
+		}
+ 	}
+ 	return false;
+}
+
+function updateTextfieldStatus(isChecked)
+{
+	var last_assignment = parseInt(document.InputForm.hidden_counter.value);
+
+	for (var i = 1 ; i <= last_assignment ; i++)
+	{
+		document.getElementById(i).disabled = isChecked;
+	}
+}
+
+function updateCheckboxes(checkbox)
+{
+	if (checkbox.id == "checkbox_nt")
+	{
+		document.getElementById("checkbox_bv").checked = false;
+		document.getElementById("checkbox_sick").checked = false;
+	}
+	else if (checkbox.id == "checkbox_bv")
+	{
+		document.getElementById("checkbox_nt").checked = false;
+		document.getElementById("checkbox_sick").checked = false;
+	}
+	else if (checkbox.id == "checkbox_sick")
+	{
+		document.getElementById("checkbox_nt").checked = false;
+		document.getElementById("checkbox_bv").checked = false;
+	}
+}
+
+function submitOnBlur()
+{
+	updateFocus(-1);
+	check();
+	document.InputForm.submit();
+}
+</script>
+
+<form name="InputForm" method="post" onsubmit="return check();">
+
+<table>
+	<tr>
+		<td>{INFO_BARCODE}</td>
+	</tr>
+	<tr>
+		<td>{FIELD_BARCODE}<br/><br/></td>
+	</tr>
+	<tr>
+		<td>{INFO_NAME}: {FIELD_NAME}</td>
+	</tr>
+</table>
+
+{HIDDEN_ACTION}
+{HIDDEN_COUNTER}
+{HIDDEN_FOCUS}
+{HIDDEN_STUDENT}
+{HIDDEN_MATNR}
+
+<!-- BEGIN ASSIGNMENT_BLOCK -->
+    {ASSIGNMENT}
+<!-- END ASSIGNMENT_BLOCK -->
+
+<p>{CHECKBOX_NT}</p>
+<p>{CHECKBOX_BV}</p>
+<p>{CHECKBOX_SICK}</p>
+<p>{TABLE_INPUT_POINTS}</p>
+<p>{TOTAL_POINTS}</p>
+
+<br />
+<div class="buttons" style="text-align: left;">{BUTTON_SAVE} {BACK_LINK}</div>
+
+
+</form>
+
+{JS_SET_FOCUS}
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->

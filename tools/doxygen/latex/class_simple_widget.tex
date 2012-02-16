@@ -1,0 +1,201 @@
+\hypertarget{class_simple_widget}{
+\section{SimpleWidget Class Reference}
+\label{class_simple_widget}\index{SimpleWidget@{SimpleWidget}}
+}
+Inheritance diagram for SimpleWidget:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=12.000000cm]{class_simple_widget}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_widget_a76a5c48eb5110ad5bb13f683ea4c77bf}{SimpleWidget} (\$name, \$attributes)
+\item 
+\hyperlink{class_simple_widget_a843805d75f3035c202d169b343005828}{getName} ()
+\item 
+\hyperlink{class_simple_widget_a9c0702cdfee1237b1599cb920ce14ba6}{getDefault} ()
+\item 
+\hyperlink{class_simple_widget_a92328cffb96f6966d6a6a07827e65f6d}{getValue} ()
+\item 
+\hyperlink{class_simple_widget_a9e048a450e2d29a601e672deda9fa869}{setValue} (\$value)
+\item 
+\hyperlink{class_simple_widget_a30843333201512c78950addd7589516a}{resetValue} ()
+\item 
+\hyperlink{class_simple_widget_a8e03ad451a0a611ae3d94afcdb67a724}{setLabel} (\$label)
+\item 
+\hyperlink{class_simple_widget_ab4560f7a1b68df77c3ee34f6bc81dcab}{isLabel} (\$label)
+\item 
+\hyperlink{class_simple_widget_a5e546ea2ab317409554f80ba2313f7f2}{write} (\&\$encoding)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_widget_a9bf74805e6afd0161b55f09a15845a05}{
+{\bfseries \$\_\-value}}
+\label{class_simple_widget_a9bf74805e6afd0161b55f09a15845a05}
+
+\item 
+\hypertarget{class_simple_widget_ae836a29f1c6482313138a5da944e31f0}{
+{\bfseries \$\_\-label}}
+\label{class_simple_widget_ae836a29f1c6482313138a5da944e31f0}
+
+\item 
+\hypertarget{class_simple_widget_a4cffb16994314af907ecda4e64a53108}{
+{\bfseries \$\_\-is\_\-set}}
+\label{class_simple_widget_a4cffb16994314af907ecda4e64a53108}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_widget_a9c0702cdfee1237b1599cb920ce14ba6}{
+\index{SimpleWidget@{SimpleWidget}!getDefault@{getDefault}}
+\index{getDefault@{getDefault}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{getDefault}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::getDefault (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_a9c0702cdfee1237b1599cb920ce14ba6}
+Accessor for default value parsed with the tag. \begin{DoxyReturn}{Returns}
+string Parsed value.  public 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_text_area_tag_af6b231753b32277ea079a1c55355a27a}{SimpleTextAreaTag}, \hyperlink{class_simple_selection_tag_ab515be0efa0968f8e74f3ed2312b3463}{SimpleSelectionTag}, \hyperlink{class_multiple_selection_tag_a3fa45878dee4cde402bc5a36dc3b3a80}{MultipleSelectionTag}, \hyperlink{class_simple_option_tag_a2dd51cf14536d7f852f2976fa8bc96c4}{SimpleOptionTag}, \hyperlink{class_simple_radio_button_tag_ac6c12af9e40ad20addeecb398e92f95d}{SimpleRadioButtonTag}, and \hyperlink{class_simple_checkbox_tag_a7d35adf28b5e7e0b891464e47ac1a6bc}{SimpleCheckboxTag}.
+
+\hypertarget{class_simple_widget_a843805d75f3035c202d169b343005828}{
+\index{SimpleWidget@{SimpleWidget}!getName@{getName}}
+\index{getName@{getName}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{getName}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::getName (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_a843805d75f3035c202d169b343005828}
+Accessor for name submitted as the key in GET/POST variables hash. \begin{DoxyReturn}{Returns}
+string Parsed value.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_widget_a92328cffb96f6966d6a6a07827e65f6d}{
+\index{SimpleWidget@{SimpleWidget}!getValue@{getValue}}
+\index{getValue@{getValue}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{getValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::getValue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_a92328cffb96f6966d6a6a07827e65f6d}
+Accessor for currently set value or default if none. \begin{DoxyReturn}{Returns}
+string Value set by form or default if none.  public 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_selection_tag_a2eb746b2b426205f78ff4eecf6f335a0}{SimpleSelectionTag}, and \hyperlink{class_multiple_selection_tag_a4a3e75f773c42108d27fdc5c73cb0d55}{MultipleSelectionTag}.
+
+\hypertarget{class_simple_widget_ab4560f7a1b68df77c3ee34f6bc81dcab}{
+\index{SimpleWidget@{SimpleWidget}!isLabel@{isLabel}}
+\index{isLabel@{isLabel}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{isLabel}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::isLabel (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_ab4560f7a1b68df77c3ee34f6bc81dcab}
+Reads external or internal label. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Label to test. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True is match.  public 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_submit_tag_ab9604de20ab0d5d86de8603780c5fd61}{SimpleSubmitTag}, \hyperlink{class_simple_image_submit_tag_ab38d48f8710f8df763ff0753f8035146}{SimpleImageSubmitTag}, and \hyperlink{class_simple_button_tag_a5efa27afe64fbb8ce8ef546df97c0db5}{SimpleButtonTag}.
+
+\hypertarget{class_simple_widget_a30843333201512c78950addd7589516a}{
+\index{SimpleWidget@{SimpleWidget}!resetValue@{resetValue}}
+\index{resetValue@{resetValue}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{resetValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::resetValue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_a30843333201512c78950addd7589516a}
+Resets the form element value back to the default.  public \hypertarget{class_simple_widget_a8e03ad451a0a611ae3d94afcdb67a724}{
+\index{SimpleWidget@{SimpleWidget}!setLabel@{setLabel}}
+\index{setLabel@{setLabel}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{setLabel}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::setLabel (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_a8e03ad451a0a611ae3d94afcdb67a724}
+Allows setting of a label externally, say by a label tag. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Label to attach.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_widget_a9e048a450e2d29a601e672deda9fa869}{
+\index{SimpleWidget@{SimpleWidget}!setValue@{setValue}}
+\index{setValue@{setValue}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{setValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::setValue (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_a9e048a450e2d29a601e672deda9fa869}
+Sets the current form element value. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$value} & New value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if allowed.  public 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_text_tag_a255675d0e1f881000de30be56723db31}{SimpleTextTag}, \hyperlink{class_simple_submit_tag_ac0e27babe9c5af762b7d9135062ebcf6}{SimpleSubmitTag}, \hyperlink{class_simple_image_submit_tag_ae66a60f527c8cde0d2fd883c3d894da3}{SimpleImageSubmitTag}, \hyperlink{class_simple_button_tag_a36d1a217cd1a0ec83bc0de7d7d436057}{SimpleButtonTag}, \hyperlink{class_simple_text_area_tag_a5b56885c1a6c81bd955963843586ad34}{SimpleTextAreaTag}, \hyperlink{class_simple_selection_tag_a3cf6ad438463a73871ef02f729a7b25b}{SimpleSelectionTag}, \hyperlink{class_multiple_selection_tag_a856ea3732ddfc727b1196ac769d5e487}{MultipleSelectionTag}, \hyperlink{class_simple_option_tag_ab8296c8c864cb50ab4e43fe58caa3576}{SimpleOptionTag}, \hyperlink{class_simple_radio_button_tag_a501c46e35c07e6d509aff9576eeda833}{SimpleRadioButtonTag}, and \hyperlink{class_simple_checkbox_tag_a9ff9d413cacf20c94173be8c16022fa0}{SimpleCheckboxTag}.
+
+\hypertarget{class_simple_widget_a76a5c48eb5110ad5bb13f683ea4c77bf}{
+\index{SimpleWidget@{SimpleWidget}!SimpleWidget@{SimpleWidget}}
+\index{SimpleWidget@{SimpleWidget}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{SimpleWidget}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::SimpleWidget (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ attributes}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_a76a5c48eb5110ad5bb13f683ea4c77bf}
+Starts with a named tag with attributes only. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Tag name. \\
+\hline
+hash & {\em \$attributes} & Attribute names and string values. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_widget_a5e546ea2ab317409554f80ba2313f7f2}{
+\index{SimpleWidget@{SimpleWidget}!write@{write}}
+\index{write@{write}!SimpleWidget@{SimpleWidget}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}SimpleWidget::write (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ encoding}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_widget_a5e546ea2ab317409554f80ba2313f7f2}
+Dispatches the value into the form encoded packet. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_encoding}{SimpleEncoding} & {\em \$encoding} & Form packet.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{class_simple_upload_tag_a0d75761c4b47163eff52715789037595}{SimpleUploadTag}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/tag.php\end{DoxyCompactItemize}

@@ -1,0 +1,43 @@
+ <!-- BEGIN BLOCK_CONTEXT_MENU -->
+<div class="actionBar">
+    <!-- BEGIN BLOCK_MENU_ENTRY -->
+	{LINK_MENU_ENTRY}
+	<!-- END BLOCK_MENU_ENTRY -->
+</div>
+<!-- END BLOCK_CONTEXT_MENU -->
+ 
+ <ul class="tabBar">
+   <!-- BEGIN BLOCK_TABS -->    
+   <li class="{TAB_STATE}">{TAB_ENTRY}</li>
+   <!-- END BLOCK_TABS -->
+   <li style="clear:left;"/>
+ </ul>
+
+<div style="{CURRENT_CUSTOMER_STYLE}">{CURRENT_CUSTOMER}</div>
+
+<form action="/usermanagement/" name="formular" method="post">
+	<table class="grid" width="100%">
+		<tr>
+			<th colspan="2" class="group">Kunde ausw&auml;hlen</th>
+		</tr>
+		<tr>
+			<td class="label">Kunde:</td>
+			<td>
+				{CUSTOMER_COMBOBOX}
+			</td>
+		</tr>
+	</table>
+	
+	<table width="100%">
+		<tr>
+			<td align="right">
+				<input type="hidden" name="template" value="user-changeAdminPerspective">
+				<input type="hidden" name="command" value="changeAdminPerspective">
+				<input type="submit" value="ausw&auml;hlen">
+			</td>
+		</tr>
+	</table>
+</form>
+
+
+

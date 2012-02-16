@@ -1,0 +1,10 @@
+<extension>
+	<name>tutorials</name>
+	<path>tutorials</path>
+	<description>koaLA extension module for managing tutorial groups in a course</description>
+	<OBJ_TYPE>group_tutorial_koala</OBJ_TYPE>
+	<CLASSTYPE>CLASS_GROUP</CLASSTYPE>
+	<category>org_extension</category>
+	<enabled_default>TRUE</enabled_default>
+	<requires></requires>
+</extension>

@@ -1,0 +1,28 @@
+<!-- BEGIN BLOCK_ARTICLE -->
+<!-- BEGIN BLOCK_DATE -->
+<h3 class="date">{VALUE_DATE}</h3>
+<!-- END BLOCK_DATE -->
+
+<div class="entry">
+	<a name="comment{POST_ID}"></a>
+	<h3 class="title">{VALUE_ARTICLE_SUBJECT}</h3>
+	<div class="text">
+	    {VALUE_ARTICLE_TEXT}
+	</div>
+	<div class="info">
+	    {VALUE_POSTED_BY} | {VALUE_DATE_TIME}
+	    (<a href="{POST_PERMALINK}">{POST_PERMALINK_LABEL}</a>
+	    <!-- BEGIN BLOCK_OWN_POST -->
+	    | <a href="{POST_LINK_DELETE}">{POST_LABEL_DELETE}</a>
+	    | <a href="{POST_LINK_EDIT}">{POST_LABEL_EDIT}</a>
+	    <!-- END BLOCK_OWN_POST -->
+	    )<br/>
+	    {LABEL_IN} {VALUE_CATEGORY} | <a href="{LINK_COMMENTS}">{LABEL_COMMENTS}</a>
+	    <!-- BEGIN BLOCK_PODCAST -->
+	    | {LABEL_PODCAST} <a href="{LINK_PODCAST}">{NAME_PODCAST}</a> ({SIZE_PODCAST})
+	    <!-- END BLOCK_PODCAST -->
+	</div>
+</div>
+<!-- END BLOCK_ARTICLE -->
+{LABEL_NO_ENTRY_FOUND}
+

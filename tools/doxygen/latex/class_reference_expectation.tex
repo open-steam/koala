@@ -1,0 +1,95 @@
+\hypertarget{class_reference_expectation}{
+\section{ReferenceExpectation Class Reference}
+\label{class_reference_expectation}\index{ReferenceExpectation@{ReferenceExpectation}}
+}
+Inheritance diagram for ReferenceExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_reference_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_reference_expectation_aa648fc5c33e580a6b661dbb85e8b5591}{ReferenceExpectation} (\&\$value, \$message= '\%s')
+\item 
+\hyperlink{class_reference_expectation_a919fb46086bf981f56b77c468c0bf4c4}{test} (\&\$compare)
+\item 
+\hyperlink{class_reference_expectation_a77c84b888b835ff1255f385d96f6f906}{testMessage} (\$compare)
+\item 
+\hypertarget{class_reference_expectation_a26b8af808a7ebea4e4b0c0153218e755}{
+{\bfseries \_\-getValue} ()}
+\label{class_reference_expectation_a26b8af808a7ebea4e4b0c0153218e755}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_reference_expectation_aac0c359c7e0f7abb872b74fdc5681c94}{
+{\bfseries \$\_\-value}}
+\label{class_reference_expectation_aac0c359c7e0f7abb872b74fdc5681c94}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_reference_expectation_aa648fc5c33e580a6b661dbb85e8b5591}{
+\index{ReferenceExpectation@{ReferenceExpectation}!ReferenceExpectation@{ReferenceExpectation}}
+\index{ReferenceExpectation@{ReferenceExpectation}!ReferenceExpectation@{ReferenceExpectation}}
+\subsubsection[{ReferenceExpectation}]{\setlength{\rightskip}{0pt plus 5cm}ReferenceExpectation::ReferenceExpectation (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ value, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_reference_expectation_aa648fc5c33e580a6b661dbb85e8b5591}
+Sets the reference value to compare against. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & Test reference to match. \\
+\hline
+string & {\em \$message} & Customised message on failure.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_reference_expectation_a919fb46086bf981f56b77c468c0bf4c4}{
+\index{ReferenceExpectation@{ReferenceExpectation}!test@{test}}
+\index{test@{test}!ReferenceExpectation@{ReferenceExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}ReferenceExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_reference_expectation_a919fb46086bf981f56b77c468c0bf4c4}
+Tests the expectation. True if it exactly references the held value. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if correct.  public 
+\end{DoxyReturn}
+\hypertarget{class_reference_expectation_a77c84b888b835ff1255f385d96f6f906}{
+\index{ReferenceExpectation@{ReferenceExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!ReferenceExpectation@{ReferenceExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}ReferenceExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_reference_expectation_a77c84b888b835ff1255f385d96f6f906}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_expectation_a15b69edf659c76f6543aa98d8d85b025}{SimpleExpectation}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/expectation.php\end{DoxyCompactItemize}

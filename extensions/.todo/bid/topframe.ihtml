@@ -1,0 +1,167 @@
+<!-- BEGIN print_logo -->
+<div><a href="/" target="_top"><img src="{DOC_ROOT}/icons/{LOGOFILENAME}" class="logo" alt="{LANGUAGE_SERVERHOME}" title="{LANGUAGE_SERVERHOME}" /></a></div>
+<!-- END print_logo -->
+
+<!-- BEGIN button_login -->
+<span class="button"><a href="{CURRENT_URL}" onclick="javascript:submit_relogin(); return false;">{LANGUAGE_LOGIN}</a></span>
+<!-- END button_login -->
+
+<!-- BEGIN button_logout -->
+<span class="button"><a href="{CURRENT_URL}" onclick="javascript:submit_logout(); return false;">{LANGUAGE_LOGOUT}</a></span>
+<!-- END button_logout -->
+
+<!-- BEGIN button_desktop -->
+<a href="{DOC_ROOT}/lars" target="_top"><img src="{DOC_ROOT}/icons/top_desktop.gif" alt="{LANGUAGE_DESKTOP}" title="{LANGUAGE_DESKTOP}" style="margin-left:5px;" /></a>
+<!-- END button_desktop -->
+
+<!-- BEGIN print_document_menu_edit -->
+<a onclick="window.open('{DOC_ROOT}/edit_file.php?object={OBJECT_ID}','edit_object', 'resizable,scrollbars, width=650,height=520'); return false;" href="{DOC_ROOT}/edit_file.php?object={OBJECT_ID}"><img src="{DOC_ROOT}/icons/document_edit.gif" alt="{LANGUAGE_DOCUMENT_EDIT}" title="{LANGUAGE_DOCUMENT_EDIT}" /></a>
+<!-- END print_document_menu_edit -->
+
+<!-- BEGIN print_document_menu -->
+<a onclick="window.open('{DOC_ROOT}/properties.php?properties={OBJECT_ID}', '{LANGUAGE_PROPERTIES}', 'resizable,scrollbars,width=560,height=450'); return false;" href="{DOC_ROOT}/properties.php?properties={OBJECT_ID}"><img src="{DOC_ROOT}/icons/top_properties.gif" alt="{LANGUAGE_PROPERTIES}" title="{LANGUAGE_PROPERTIES}" /></a>
+<!-- END print_document_menu -->
+
+<!-- BEGIN print_image_menu -->
+<a onclick="window.open('{DOC_ROOT}/properties.php?properties={OBJECT_ID}', '{LANGUAGE_PROPERTIES}', 'resizable,scrollbars,width=560,height=450'); return false;" href="{DOC_ROOT}/properties.php?properties={OBJECT_ID}"><img src="{DOC_ROOT}/icons/top_properties.gif" alt="{LANGUAGE_PROPERTIES}" title="{LANGUAGE_PROPERTIES}" /></a>
+<!-- END print_image_menu -->
+
+<!-- BEGIN print_gallery_menu_upload -->
+<a onclick="window.open('{DOC_ROOT}/dialognew.php?object={OBJECT_ID}&case=file', 'insertDocument', 'resizable,width=520,height=200'); return false;" href="{DOC_ROOT}/dialognew.php?object={OBJECT_ID}&case=file"><img src="{DOC_ROOT}/modules/gallery/icons/upload_image.gif" alt="{LANGUAGE_UPLOAD_IMAGE}" title="{LANGUAGE_UPLOAD_IMAGE}" /></a>
+<!-- END print_gallery_menu_upload -->
+
+<!-- BEGIN print_gallery_menu -->
+<a onclick="window.open('{DOC_ROOT}/properties.php?properties={OBJECT_ID}', '{LANGUAGE_PROPERTIES}', 'resizable,scrollbars,width=560,height=450'); return false;" href="{DOC_ROOT}/properties.php?properties={OBJECT_ID}"><img src="{DOC_ROOT}/icons/top_properties.gif" alt="{LANGUAGE_PROPERTIES}" title="{LANGUAGE_PROPERTIES}" /></a>
+<!-- END print_gallery_menu -->
+
+<!-- BEGIN print_menu -->
+<span class="MenuItem" style="cursor:pointer;"
+              onclick="javascript:parent.frames['contentframe'].FW_showMenu(parent.frames['contentframe'].menu_1,+menu1x,+menu1y);"
+              onmouseout="javascript:parent.frames['contentframe'].FW_startTimeout();"
+              target="topframe">&nbsp;&nbsp;{MENU_TITLE_NEW}&nbsp;&nbsp;</span>
+<span class="MenuItem" style="cursor:pointer;"
+              onclick="javascript:parent.frames['contentframe'].FW_showMenu(parent.frames['contentframe'].menu_2,+menu2x,+menu2y);"
+              onmouseout="javascript:parent.frames['contentframe'].FW_startTimeout();"
+              target="topframe">&nbsp;&nbsp;{MENU_TITLE_EDIT}&nbsp;&nbsp;</span>
+<!-- END print_menu -->
+
+<!-- BEGIN sequence -->
+  <!-- BEGIN sequence_entry_on --><a href="{DOC_ROOT}/index.php?object={OBJECT_ID}&sequence={SEQUENCE_ENTRY_ID}" target="_top"><img src="{DOC_ROOT}/icons/top_seq_entry_on.gif" alt="{LANGUAGE_SEQUENCE_START}" title="{LANGUAGE_SEQUENCE_START}" style="margin-right:10px;" /></a><!-- END sequence_entry_on -->
+  <!-- BEGIN sequence_first_on --><a href="{DOC_ROOT}/index.php?object={OBJECT_ID}&sequence={SEQUENCE_FIRST_ID}" target="_top"><img src="{DOC_ROOT}/icons/top_seq_first_on.gif" alt="{LANGUAGE_SEQUENCE_FIRST}" title="{LANGUAGE_SEQUENCE_FIRST}" /></a><!-- END sequence_first_on -->
+  <!-- BEGIN sequence_prev_on --><a href="{DOC_ROOT}/index.php?object={OBJECT_ID}&sequence={SEQUENCE_PREV_ID}" target="_top"><img src="{DOC_ROOT}/icons/top_seq_prev_on.gif" alt="{LANGUAGE_SEQUENCE_PREVIOUS}" title="{LANGUAGE_SEQUENCE_PREVIOUS}" /></a><!-- END sequence_prev_on -->
+  <!-- BEGIN sequence_next_on --><a href="{DOC_ROOT}/index.php?object={OBJECT_ID}&sequence={SEQUENCE_NEXT_ID}" target="_top"><img src="{DOC_ROOT}/icons/top_seq_next_on.gif" alt="{LANGUAGE_SEQUENCE_NEXT}" title="{LANGUAGE_SEQUENCE_NEXT}" /></a><!-- END sequence_next_on -->
+  <!-- BEGIN sequence_last_on --><a href="{DOC_ROOT}/index.php?object={OBJECT_ID}&sequence={SEQUENCE_LAST_ID}" target="_top"><img src="{DOC_ROOT}/icons/top_seq_last_on.gif" alt="{LANGUAGE_SEQUENCE_LAST}" title="{LANGUAGE_SEQUENCE_LAST}" /></a><!-- END sequence_last_on -->
+  <!-- BEGIN sequence_entry_off --><img src="{DOC_ROOT}/icons/top_seq_entry_off.gif" alt="{LANGUAGE_SEQUENCE_START}" title="{LANGUAGE_SEQUENCE_START}" style="margin-right:10px;" /><!-- END sequence_entry_off -->
+  <!-- BEGIN sequence_first_off --><img src="{DOC_ROOT}/icons/top_seq_first_off.gif" alt="{LANGUAGE_SEQUENCE_FIRST}" title="{LANGUAGE_SEQUENCE_FIRST}" /><!-- END sequence_first_off -->
+  <!-- BEGIN sequence_prev_off --><img src="{DOC_ROOT}/icons/top_seq_prev_off.gif" alt="{LANGUAGE_SEQUENCE_PREVIOUS}" title="{LANGUAGE_SEQUENCE_PREVIOUS}" /><!-- END sequence_prev_off -->
+  <!-- BEGIN sequence_next_off --><img src="{DOC_ROOT}/icons/top_seq_next_off.gif" alt="{LANGUAGE_SEQUENCE_NEXT}" title="{LANGUAGE_SEQUENCE_NEXT}" /><!-- END sequence_next_off -->
+  <!-- BEGIN sequence_last_off --><img src="{DOC_ROOT}/icons/top_seq_last_off.gif" alt="{LANGUAGE_SEQUENCE_LAST}" title="{LANGUAGE_SEQUENCE_LAST}" /><!-- END sequence_last_off -->
+  <div class="sequencebar">
+  {SEQUENCE_ENTRY}
+  {SEQUENCE_FIRST}
+  {SEQUENCE_PREV}
+  {SEQUENCE_NEXT}
+  {SEQUENCE_LAST}
+  </div>
+<!-- END sequence -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+  <title>Topframe</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <link href="{DOC_ROOT}/css/topframe.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="{DOC_ROOT}/javascript/cookie.js"></script>
+  <script type="text/javascript">
+    //set coordinates for menu position
+    var menu1x = 2;
+    var menu1y = -1;
+    var menu2x = 38;
+    var menu2y = -1;
+  </script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+  //invoked if treeframe is diabled
+  if (parent.frames.length == 2) {
+    var width = 250;
+    //Set new x-coordinates for menu
+    menu1x = 253;
+    menu2x = 290;
+  }
+  if (parent.frames[1].name.indexOf('contentframe') != -1 && navigator.appName.indexOf('Opera') == -1)
+    var width = 250;
+
+  function Framewidth() {
+    if (parent.treeframe.innerWidth) return parent.treeframe.innerWidth;
+    else if (top.document.all("treeframe").width) return top.document.all("treeframe").width;
+    else return 0;
+  }
+
+  /* Ueberwachung von Opera initialisieren */
+  if (navigator.appName.indexOf('Opera') != -1)
+    width = getCookie("treeFrame_width");
+
+  /* Ueberwachung von Netscape initialisieren */
+  if (parent.treeframe && !parent.treeframe.width && parent.treeframe.innerWidth) {
+    width = Framewidth();
+    setCookie("treeFrame_width", width, "never");
+  }
+
+  /* Ueberwachung von MS Internet Explorer initialisieren */
+  if (!window.width && document.body && document.body.offsetWidth)
+    width = Framewidth();
+
+  function submit_relogin() {
+    document.getElementById('relogin').submit();
+  }
+
+  function submit_logout() {
+    document.getElementsByName('login')[0].value = 0;
+    document.getElementsByName('logout')[0].value = 1;
+    document.getElementById('relogin').submit();
+  }
+
+</script>
+
+{LOGO}
+
+<div class="buttonbar">
+<form action="{CURRENT_URL}" target="_top" method="post" id="relogin">
+
+<input type="hidden" name="login" value="1" />
+<input type="hidden" name="logout" value="0" />
+{LOGINBUTTON}
+{LOGOUTBUTTON}
+
+<span class="button"><a href="" onclick="window.open(top.contentframe.location.href); return false;">{LANGUAGE_PRINTVIEW}</a></span>
+<!-- <span class="button"><a href="">{LANGUAGE_SEARCH}</a></span> -->
+<!-- <span class="button"><a href="">{LANGUAGE_INFO}</a></span> -->
+<span class="button"><a href="{USER_MANUAL}" onclick="window.open('{USER_MANUAL}', 'Help', 'resizable,scrollbars,width=700,height=500'); return false;">{LANGUAGE_HELP}</a></span>
+</form>
+</div>
+
+<div class="toolbar">
+<a href="{DOC_ROOT}/index.php?object={FOLDER_HOME_ID}" target="_top"><img src="{DOC_ROOT}/icons/top_home.gif" alt="{LANGUAGE_HOME}" title="{LANGUAGE_HOME}" /></a>
+{DESKTOP}
+<a href="{DOC_ROOT}/index.php?object={FOLDER_PARENT_ID}" target="_top"><img src="{DOC_ROOT}/icons/top_oneup.gif" alt="{LANGUAGE_UP}" title="{LANGUAGE_UP}" style="margin-left:5px;" /></a>
+<a href="{DOC_ROOT}/preferences.php" target="_blank" onclick="window.open('{DOC_ROOT}/preferences.php', 'Preferences', 'resizable,scrollbars,width=500,height=520');return false;"><img src="{DOC_ROOT}/icons/top_preferences.gif" alt="{LANGUAGE_PREFERENCES}" title="{LANGUAGE_PREFERENCES}" /></a>
+<a href="{USER_ADMINISTRATION}" target="_blank"><img src="{DOC_ROOT}/icons/top_user_administration.gif" width="15" height="13" border="0" alt="{LANGUAGE_USER_ADMINISTRATION}" title="{LANGUAGE_USER_ADMINISTRATION}" /></a>
+</div>
+
+<script type="text/javascript">
+  document.writeln ('<div class="menubar" style="margin-left:' + width + 'px;">');
+</script>
+{TOP_FRAME_MENU}
+</div>
+
+{SEQUENCE}
+
+<div class="username">
+{LOGIN_NAME}
+</div>
+
+</body>
+</html>

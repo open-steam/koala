@@ -1,0 +1,26 @@
+<p class="infoBar">
+	Mit dem Bearbeiten eines Arbeitsblattes wird eine Kopie in Ihrem persönlichen Verzeichnis erstellt.<br />
+	Alle Änderungen werden dort regelmäßig gesichert. Sie können jederzeit zurückkehren und die Bearbeitung fortsetzen.<br />
+</p>
+
+{if $blocks}
+
+	<ul id="worksheet_blocks">
+
+		{foreach from=$blocks item=block}
+
+			<li class="worksheet_block_view" id="{$block.id}">
+
+				<h1>{$block.name}</h1>
+
+				{$block.content}
+
+			</li>
+
+		{/foreach}
+	
+	</ul>
+	
+{else}
+	<p class="worksheet_info">Es wurden keine Aufgaben gefunden.</p>
+{/if}

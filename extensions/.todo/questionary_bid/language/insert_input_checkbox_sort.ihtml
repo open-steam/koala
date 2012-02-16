@@ -1,0 +1,45 @@
+<!-- BEGIN button_save -->{LANGUAGE_BUTTON_SAVE}<!-- END button_save -->
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+
+<div><script language="JavaScript1.2">
+function update_input(list)
+{
+  var order = "";
+  for(var j = 0; j < list.length; j++) {
+    order = order + list.options[j].value + " ";
+  }
+
+  document.getElementById("list").value = order;
+}
+
+
+</script></div>
+
+<input type="hidden" name="question_id" value="{QUESTION_ID}">
+<input type="hidden" name="input_id" value="{INPUT_ID}">
+<input type="hidden" name="question" value="{QUESTION}">
+<input type="hidden" name="question_position" value="{QUESTION_POSITION}">
+<input type="hidden" name="columns" value="{COLUMNS}">
+<!-- BEGIN checked_row --><input type="hidden" name="checked_{CHECKED_ID}" value="1"><!-- END checked_row -->
+<!-- BEGIN must --><input type="hidden" name="must" value="1"> <!-- END must -->
+<!-- BEGIN output --><input type="hidden" name="output" value="1"><!-- END output -->
+<!-- BEGIN radio --><input type="hidden" name="options_{RADIO_ID}" value="{RADIO_NAME}"><!-- END radio -->
+<input type="hidden" name="option" value="">
+
+<input type="hidden" name="list" id="list" value="">
+
+<table border="0">
+<tr>
+  <td><select size="15" id="orderradio" name="orderradio" style="width: 300px;">
+    <!-- BEGIN select_row --><option value="{RADIO_ID}">{RADIO_NAME}</option>
+    <!-- END select_row -->
+    </select>
+  </td>
+
+  <td>
+    <img src="./icons/arrow_up.gif"
+      onclick='javascript:selectUp(document.getElementById("orderradio"), document.getElementById("orderradio").selectedIndex);update_input(document.getElementById("orderradio"));'><br>
+    <img src="./icons/arrow_down.gif"
+      onclick='javascript:selectDown(document.getElementById("orderradio"), document.getElementById("orderradio").selectedIndex);update_input(document.getElementById("orderradio"));'><br>
+  </td>
+</tr></table>

@@ -1,0 +1,44 @@
+<?php
+defined("STEAM_SERVER") or define("STEAM_SERVER", "localhost");
+
+if (defined("MAINTAINANCE") && MAINTAINANCE) define("STEAM_PORT", -1);
+
+// Number: The COAL port of your open-sTeam backend server default is 1900
+defined("STEAM_PORT") or define("STEAM_PORT", 1900);
+
+// String: Open-sTeam root login
+defined("STEAM_ROOT_LOGIN") or define("STEAM_ROOT_LOGIN", "root");
+
+// String: Open-sTeam root password
+defined("STEAM_ROOT_PW") or define("STEAM_ROOT_PW", "steam");
+
+// String: Open-sTeam guest login
+defined("STEAM_GUEST_LOGIN") or define("STEAM_GUEST_LOGIN", "guest");
+
+// String: Open-sTeam guest password
+defined("STEAM_GUEST_PW") or define("STEAM_GUEST_PW", "guest");
+
+defined("STEAM_ALL_USER") or define("STEAM_ALL_USER",       "sTeam");
+defined("STEAM_PUBLIC_GROUP") or define("STEAM_PUBLIC_GROUP",    	"");
+defined("STEAM_PRIVATE_GROUP") or define("STEAM_PRIVATE_GROUP",   	"");
+defined("STEAM_FACULTIES_GROUP") or define("STEAM_FACULTIES_GROUP", "");
+defined("STEAM_COURSES_GROUP") or define("STEAM_COURSES_GROUP",  	"");
+
+// String: Current/default koaLA semester
+defined("STEAM_CURRENT_SEMESTER") or define("STEAM_CURRENT_SEMESTER", "WS1011");
+
+// If TRUE, get_document includes get_document_database to load data using direct database access
+defined("USE_DATABASE_DOWNLOAD") or define("USE_DATABASE_DOWNLOAD", FALSE);
+
+// String: The hostname of the server of your open-sTeam database
+defined("STEAM_DATABASE_HOST") or define("STEAM_DATABASE_HOST", STEAM_SERVER);
+
+// String: The name of your open-sTeam database
+defined("STEAM_DATABASE") or define("STEAM_DATABASE", "steam");
+
+// String: The database user name with which to access your open-sTeam database
+defined("STEAM_DATABASE_USER") or define("STEAM_DATABASE_USER", "steam");
+
+// String: The database user password with which to access your open-sTeam database
+defined("STEAM_DATABASE_PASS") or define("STEAM_DATABASE_PASS", "steam");
+?>

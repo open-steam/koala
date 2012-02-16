@@ -1,0 +1,9 @@
+<div id="{ID}" class="widgets_checkbox">
+	<input id="{ID2}_checkbox" type="checkbox" {CHECKED}></input>
+	<!-- BEGIN BLOCK_CHECKBOX_LABEL -->
+	<div class="widgets_lable">{LABEL}</div>
+	<!-- END BLOCK_CHECKBOX_LABEL -->
+</div>
+<script type="text/javascript">
+	$('#{ID3}_checkbox').change(function() {if (this.checked) { var value="{CHECKEDVALUE}"; } else {var value="{UNCHECKEDVALUE}"; } {ONCHANGE}});
+</script>

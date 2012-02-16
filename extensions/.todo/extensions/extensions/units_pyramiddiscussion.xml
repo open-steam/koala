@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension>
+	<name>units_pyramiddiscussion</name>
+	<path>units_pyramiddiscussion</path>
+	<description>Unit type for carrying out a pyramid discussion in a group</description>
+	<OBJ_TYPE>room_pyramiddiscussion_unit_koala</OBJ_TYPE>
+	<CLASSTYPE>CLASS_ROOM</CLASSTYPE>
+	<category>did_extension</category>
+	<enabled_default>TRUE</enabled_default>
+	<requires>
+		<module>units_base</module>
+	</requires>
+</extension>

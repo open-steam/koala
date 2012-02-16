@@ -1,0 +1,38 @@
+<table>
+	<tr>
+		<td id="Hint">
+			<p>{INFO_TEXT}</p>
+		</td>
+		<td id="GoodStuff">
+			<form action="{FORM_ACTION}" method="post">
+				<p class="Confirm">{CONFIRM_TEXT}</p>
+				
+				<p>{LABEL_NAME}</p>
+				<blockquote>
+					<p><input name="values[name]" type="text" size="10" value=""><br/>
+					<small>({INFO_NAME})</small></p>
+				</blockquote>
+			
+				<p>{LABEL_DESC}</p>
+				<blockquote>
+					<p><input name="values[desc]" type="text" size="20" value=""><br/>
+					<small>({INFO_DESC})</small></p>
+				</blockquote>
+			
+				<p>{LABEL_START_DATE}</p>
+				<blockquote>
+					<p><input name="values[start]" type="text" size="10" value=""><br/>
+					<small>({INFO_DATE_FORMAT})</small></p>
+				</blockquote>
+				
+				<p>{LABEL_END_DATE}</p>
+				<blockquote>
+					<p><input name="values[end]" type="text" size="10" value=""><br/>
+					<small>({INFO_DATE_FORMAT})</small></p>
+				</blockquote>
+				
+				<input type="submit"  value="{LABEL_CREATE}">
+			</form>
+		</td>
+	</tr>
+</table>

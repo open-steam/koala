@@ -1,0 +1,293 @@
+<script type="text/javascript">
+function setErrorBox(text)
+{
+	var position, box;
+	var message = document.createTextNode(text);
+	
+	if (!document.getElementById("error"))
+	{
+		position = document.getElementById("headline");
+		box = document.createElement("p");
+
+		box.setAttribute('id', 'error');
+		box.setAttribute('style', 'display:none');
+		box.appendChild(message);
+		position.appendChild(box);
+		Effect.Appear('error');
+	}
+	else
+	{
+		box = document.getElementById("error");
+		box.replaceChild(message, document.getElementById("error").firstChild);
+	}
+}
+
+function unsetErrorBox()
+{
+	var box = document.getElementById("error");
+
+	try
+	{
+		var deleted = document.getElementById("headline").removeChild(box);
+	}
+	catch (error) {}
+}
+
+function setError(element)
+{
+	element.className = "InputError";
+}
+
+function setNormal(element)
+{
+	element.className = "InputNormal";
+}
+
+function isErrorFree()
+{
+	var bDay = (document.getElementById("begin_day").className == "InputNormal");
+	var bMonth = (document.getElementById("begin_month").className == "InputNormal");
+	var bYear = (document.getElementById("begin_year").className == "InputNormal");
+	var eDay = (document.getElementById("end_day").className == "InputNormal");
+	var eMonth = (document.getElementById("end_month").className == "InputNormal");
+	var eYear = (document.getElementById("end_year").className == "InputNormal");
+
+	var bHour = (document.getElementById("begin_hour").className == "InputNormal");
+	var bMinute = (document.getElementById("begin_minute").className == "InputNormal");
+	var eHour = (document.getElementById("end_hour").className == "InputNormal");
+	var eMinute = (document.getElementById("end_minute").className == "InputNormal");
+
+	return (bDay && bMonth && bYear && eDay && eMonth && eYear && bHour && bMinute && eHour && eMinute);
+}
+
+function checkInputOnKeyUp(element)
+{
+	if (element.className == "InputError") checkInput(element);
+}
+
+function checkInput(element)
+{
+	var input = element.value;
+	var what = element.id.lastIndexOf("_") + 1;
+	what = element.id.substring(what, element.name.length);
+	
+	if (input != parseInt(input,10))
+	{
+		setError(element);
+		setErrorBox("Invalid Value: " + element.name);
+		return;
+	}
+
+	if (what == "day")
+ 	{
+		if (parseInt(input,10) < 1 || parseInt(input,10) > 31)
+		{
+			setError(element);
+			setErrorBox("Invalid Day");
+		}
+		else setNormal(element);
+ 	}
+ 	else if (what == "month")
+ 	{
+		if (parseInt(input,10) < 1 || parseInt(input,10) > 12)
+		{
+			setError(element);
+			setErrorBox("Invalid Month");
+		}
+		else setNormal(element);
+ 	}
+	else if (what == "year")
+	{
+		if (parseInt(input,10) < 2010)
+		{
+			setError(element);
+			setErrorBox("Invalid Year");
+		}
+		else setNormal(element);
+	}
+ 	else if (what == "hour")
+ 	{
+		if (parseInt(input,10) < 0 || parseInt(input,10) > 24)
+		{
+			setError(element);
+			setErrorBox("Invalid Hour");
+		}
+		else setNormal(element);
+ 	}
+ 	else if (what == "minute")
+ 	{
+		if (parseInt(input,10) < 0 || parseInt(input,10) > 60)
+		{
+			setError(element);
+			setErrorBox("Invalid Minute");
+		}
+		else setNormal(element);
+ 	}
+
+ 	if (isErrorFree()) unsetErrorBox();
+ }
+
+function checkValidity()
+{
+	if (!isErrorFree()) return false;
+	
+	//check Date
+	var bDay = document.getElementById("begin_day").value;
+	var bMonth = document.getElementById("begin_month").value;
+	var bYear = document.getElementById("begin_year").value;
+	var eDay = document.getElementById("end_day").value;
+	var eMonth = document.getElementById("end_month").value;
+	var eYear = document.getElementById("end_year").value;
+
+	if (bDay == "" || bMonth == "" || bYear == "")
+	{
+		alert("Invalid Begin Date");
+		return false;
+	}
+
+	if (eDay == "" || eMonth == "" || eYear == "")
+	{
+		alert("Invalid End Date");
+		return false;
+	}
+	
+	var bDay = parseInt(bDay,10);
+	var bMonth = parseInt(bMonth,10) - 1;
+	if (bYear.length == 2) bYear = "20" + bYear;
+
+	var bDate = new Date(bYear,bMonth,bDay);
+		
+	if (bDate.getDate() != bDay || bDate.getMonth() != bMonth || bDate.getFullYear() != bYear)
+	{
+		alert("Invalid Begin Date");
+		return false;
+	}
+
+	var eDay = parseInt(eDay,10);
+	var eMonth = parseInt(eMonth,10) - 1;
+	if (eYear.length == 2) eYear = "20" + eYear;
+
+	var eDate = new Date(eYear,eMonth,eDay);
+		
+	if (eDate.getDate() != eDay || eDate.getMonth() != eMonth || eDate.getFullYear() != eYear)
+	{
+		alert("Invalid End Date");
+		return false;
+	}
+	
+	//check Time
+	var bHour = document.getElementById("begin_hour").value;
+	var bMinute = document.getElementById("begin_minute").value;
+	var eHour = document.getElementById("end_hour").value;
+	var eMinute = document.getElementById("end_minute").value;
+
+	if (bHour == "" || bMinute == "" || eHour == "" || eMinute == "")
+	{
+		alert("Invalid Time");
+		return false;
+	}
+	
+	bHour = parseInt(document.getElementById("begin_hour").value,10);
+	bMinute = parseInt(document.getElementById("begin_minute").value,10);
+	eHour = parseInt(document.getElementById("end_hour").value,10);
+	eMinute = parseInt(document.getElementById("end_minute").value,10);
+	
+	if (bHour == eHour)
+	{
+		if (bMinute > eMinute)
+		{
+			alert("Invalid Time");
+			return false;
+		}
+	}
+	else if (bHour > eHour)
+	{
+		alert("Invalid Time");
+		return false;
+	}
+	
+	return true;
+}
+
+function updateEndData(data, element)
+{
+	if (isErrorFree()) document.getElementById(element).value = data;
+}
+</script>
+
+<table>
+	<tr>
+		<td id="Hint">
+		<p>{INFO_TEXT}</p>
+		</td>
+		<td id="GoodStuff">
+
+		<form action="{FORM_ACTION}" name="event" method="post" onsubmit="return checkValidity()"><input
+			type="hidden" name="values[OBJ_ID]" value="{VALUE_OBJ_ID}">
+		<p>{LABEL_TITLE}*:</p>
+		<blockquote>
+		<p><input type="text" name="values[DATE_TITLE]"
+			style="width: 400px;" value="{VALUE_TITLE}"></p>
+		</blockquote>
+
+		<p>{LABEL_LOCATION}:</p>
+		<blockquote>
+		<p><input type="text" name="values[DATE_LOCATION]"
+			style="width: 400px;" value="{VALUE_LOCATION}"></p>
+		</blockquote>
+
+		<p>{LABEL_BEGIN}:</p>
+		<blockquote>
+		<input class="InputNormal" style="width: 20px;" type="text" name="values[BEGIN_DAY]" id="begin_day" onblur="checkInput(this); updateEndData(this.value, 'end_day');" onkeyup="checkInputOnKeyUp(this)" value="{BEGIN_DAY}"/>
+		<input class="InputNormal" style="width: 20px;" type="text" name="values[BEGIN_MONTH]" id="begin_month" onblur="checkInput(this); updateEndData(this.value, 'end_month');" onkeyup="checkInputOnKeyUp(this)" value="{BEGIN_MONTH}"/>
+		<input class="InputNormal" style="width: 40px;" type="text" name="values[BEGIN_YEAR]" id="begin_year" onblur="checkInput(this); updateEndData(this.value, 'end_year');" onkeyup="checkInputOnKeyUp(this)" value="{BEGIN_YEAR}"/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="InputNormal" style="width: 30px;" type="text" name="values[BEGIN_HOUR]" id="begin_hour" onblur="checkInput(this); updateEndData(this.value, 'end_hour');" onkeyup="checkInputOnKeyUp(this)" value="{BEGIN_HOUR}"/>
+		:
+		<input class="InputNormal" style="width: 30px;" type="text" name="values[BEGIN_MINUTE]" id="begin_minute" onblur="checkInput(this); updateEndData(this.value, 'end_minute');" onkeyup="checkInputOnKeyUp(this)" value="{BEGIN_MINUTE}"/>
+		</blockquote>
+
+		<p>{LABEL_END}:</p>
+		<blockquote>
+		<input class="InputNormal" style="width: 20px;" type="text" name="values[END_DAY]" id="end_day" onblur="checkInput(this)" onkeyup="checkInputOnKeyUp(this)" value="{END_DAY}"/>
+		<input class="InputNormal" style="width: 20px;" type="text" name="values[END_MONTH]" id="end_month" onblur="checkInput(this)" onkeyup="checkInputOnKeyUp(this)" value="{END_MONTH}"/>
+		<input class="InputNormal" style="width: 40px;" type="text" name="values[END_YEAR]" id="end_year" onblur="checkInput(this)" onkeyup="checkInputOnKeyUp(this)" value="{END_YEAR}"/>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input class="InputNormal" style="width: 30px;" type="text" name="values[END_HOUR]" id="end_hour" onblur="checkInput(this)" onkeyup="checkInputOnKeyUp(this)" value="{END_HOUR}"/>
+		:
+		<input class="InputNormal" style="width: 30px;" type="text" name="values[END_MINUTE]" id="end_minute" onblur="checkInput(this)" onkeyup="checkInputOnKeyUp(this)" value="{END_MINUTE}"/>
+		</blockquote>
+
+		<p>{LONG_DSC_LABEL}:</p>
+		<blockquote>
+		<p><textarea name="values[DATE_DESCRIPTION]" style="width: 400px;"
+			rows="10">{VALUE_DESC}</textarea><br />
+		<a href="javascript:insert('[b]', '[/b]', 'event', 'values[DATE_DESCRIPTION]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+		<a href="javascript:insert('[i]', '[/i]', 'event', 'values[DATE_DESCRIPTION]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+		<a href="javascript:insert('[u]', '[/u]', 'event', 'values[DATE_DESCRIPTION]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+		<a href="javascript:insert('[s]', '[/s]', 'event', 'values[DATE_DESCRIPTION]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+		<a href="javascript:insert('[img]http://', '[/img]', 'event', 'values[DATE_DESCRIPTION]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+		<a href="javascript:insert('[url=http://]', '[/url]', 'event', 'values[DATE_DESCRIPTION]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+		<a href="javascript:insert('[mail=@]', '[/mail]', 'event', 'values[DATE_DESCRIPTION]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
+		</blockquote>
+
+		<p>{LABEL_URL}:</p>
+		<blockquote>
+		<p><input type="text" name="values[DATE_URL]" style="width: 400px;" value="{VALUE_URL}"/></p>
+		</blockquote>
+
+		<div class="buttons" style="text-align: left;"><input type="submit" value="{LABEL_CREATE_ALTER}"/> {LABEL_GOTO_CALENDAR}</div>
+		</form>
+
+		<!-- BEGIN BLOCK_DELETE -->
+	<!--
+		{LABEL_OR}
+		<form method="post" onsubmit="return window.confirm('{CONFIRMATION_MESSAGE}');">
+			<input type="hidden" name="delete" value="{EVENT_ID}"/>
+			<input type="submit"  value="{LABEL_DELETE}"/>
+		</form>
+	-->
+		<!-- END BLOCK_DELETE -->
+		</td>
+	</tr>
+</table>

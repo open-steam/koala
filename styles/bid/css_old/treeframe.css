@@ -1,0 +1,6 @@
+.header {background-image:url(../icons/tree_header_l.gif); background-repeat:repeat-x;}
+
+a, body {text-decoration:none; font-family:Arial, Helvetica, Switzerland; color:black; font-size:9pt;}
+body {overflow-y: auto; overflow-x: auto;}
+table {margin-top: 0pt; margin-bottom: 0pt;}
+tr {font-size:9pt; color: black;}

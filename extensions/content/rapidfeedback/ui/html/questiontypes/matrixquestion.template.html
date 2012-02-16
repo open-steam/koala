@@ -1,0 +1,135 @@
+<!-- BEGIN BLOCK_EDIT -->
+<li class="ui-state-default" id="element{ELEMENT_ID}">
+	<table width="100%" class="rapidfeedback_style">
+		<tr>
+			<td colspan="{ELEMENT_COLS}" align="right">
+				<img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+				&nbsp
+				<img onclick="copyElement({ELEMENT_ID});" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+				&nbsp
+				<img onclick="deleteElement({ELEMENT_ID});" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="{ELEMENT_COLS}">
+				<!-- BEGIN BLOCK_EDIT_REQUIRED -->
+				<h1>{QUESTION_TEXT}<font color="red"> *</font></h1>
+				{HELP_TEXT}
+				<!-- END BLOCK_EDIT_REQUIRED -->
+				<!-- BEGIN BLOCK_EDIT_NOT_REQUIRED -->
+				<h1>{QUESTION_TEXT}</h1>
+				{HELP_TEXT}
+				<!-- END BLOCK_EDIT_NOT_REQUIRED -->
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<!-- BEGIN BLOCK_COLUMN_TITLE -->
+			<td>{COLUMN_LABEL}</td>
+			<!-- END BLOCK_COLUMN_TITLE -->
+		</tr>
+		<!-- BEGIN BLOCK_ROW -->
+		<tr>
+			<td>{ROW_LABEL}</td>
+			<!-- BEGIN BLOCK_ROW_ELEMENT -->
+			<td><input type="radio" name="matrix_{QUESTION_ID}_{OPTION_COUNT}"></td>
+			<!-- END BLOCK_ROW_ELEMENT -->
+		</tr>
+		<!-- END BLOCK_ROW -->
+	</table>
+</li>
+<input type="hidden" name="element{ELEMENT_ID}" value="{ELEMENT_DATA}">
+<input type="hidden" name="element{ELEMENT_ID}_columns" value="{COLUMN_DATA}">
+<input type="hidden" name="element{ELEMENT_ID}_rows" value="{ROW_DATA}">
+<!-- END BLOCK_EDIT -->
+
+<!-- BEGIN BLOCK_VIEW -->
+<tr>
+	<td style="{ERROR_BORDER}">
+		<!-- BEGIN BLOCK_VIEW_REQUIRED -->
+		<b>{QUESTION_TEXT}<font color="red"> *</font></b>
+		<!-- END BLOCK_VIEW_REQUIRED -->
+		<!-- BEGIN BLOCK_VIEW_NOT_REQUIRED -->
+		<b>{QUESTION_TEXT}</b>
+		<!-- END BLOCK_VIEW_NOT_REQUIRED -->
+		<br>
+		{HELP_TEXT}
+		<br>
+		<table class="rapidfeedback_style" style="text-align: center;" width="100%">
+			<tr>
+				<td></td>
+				<!-- BEGIN BLOCK_VIEW_COLUMN -->
+				<td>{COLUMN_LABEL}</td>
+				<!-- END BLOCK_VIEW_COLUMN -->
+			</tr>
+			<!-- BEGIN BLOCK_VIEW_ROW -->
+			<tr>
+				<td style="background-color: {BG_COLOR}">{ROW_LABEL}</td>
+				<!-- BEGIN BLOCK_VIEW_ROW_ELEMENT -->
+				<td style="background-color: {BG_COLOR_ELEMENT}">
+					<input type="radio" name="question{QUESTION_ID}_{OPTION_COUNT}" value="{OPTION_VALUE}" {QUESTION_CHECKED}>
+				</td>
+				<!-- END BLOCK_VIEW_ROW_ELEMENT -->
+			</tr>
+			<!-- END BLOCK_VIEW_ROW -->
+		</table>
+	</td>
+</tr>
+<!-- END BLOCK_VIEW -->
+
+<!-- BEGIN BLOCK_RESULTS -->
+<tr>
+	<td>
+		<font size="2"><b>{QUESTION_ID}. {QUESTION_TEXT}</b></font>
+		<br>
+		<table class="rapidfeedback_style" border="1" width="100%">
+			<colgroup width="{COL_WIDTH}%" span="{COL_SPAN}"></colgroup>
+			<tr>
+				<td></td>
+				<!-- BEGIN BLOCK_RESULTS_COLUMN -->
+				<th>{COLUMN_LABEL}</th>
+				<!-- END BLOCK_RESULTS_COLUMN -->
+			</tr>
+			<!-- BEGIN BLOCK_RESULTS_ROW -->
+			<tr>
+				<td>{ROW_LABEL}</td>
+				<!-- BEGIN BLOCK_RESULTS_ROW_ELEMENT -->
+				<td>{RESULT_ELEMENT}</td>
+				<!-- END BLOCK_RESULTS_ROW_ELEMENT -->
+			</tr>
+			<!-- END BLOCK_RESULTS_ROW -->
+		</table>
+		<div id="chart_div_{QUESTION_ID}">
+			<table class="rapidfeedback_style" width="100%">
+				<!-- BEGIN BLOCK_CHART_ROW -->
+				<tr>
+			 		<td width="50%">
+			 			<div id="chart_div_{CHART_ID}_{CHART_COUNTER}"></div>
+			 		</td>
+		     		<td width="50%">
+			     		<div id="chart_div_{CHART_ID}_{CHART_COUNTER2}"></div>
+			     	</td>
+			     </tr>
+				<!-- END BLOCK_CHART_ROW -->
+			</table>
+		</div>
+	 </td>
+</tr>
+<!-- BEGIN BLOCK_CHART_SCRIPT -->
+<script type="text/javascript">
+	google.setOnLoadCallback(drawChart{CHART_ID_SCRIPT}_{COUNTER_ID});
+	function drawChart{CHART_ID_SCRIPT}_{COUNTER_ID}() {
+	var data = new google.visualization.DataTable();
+	data.addColumn("string", "Task");
+	data.addColumn("number", "%");
+	data.addRows({OPTION_COUNT});
+	<!-- BEGIN BLOCK_CHART_SCRIPT_OPTION -->
+	data.setValue({OPTION_COUNTER}, 0, "{OPTION_LABEL}");
+	data.setValue({OPTION_COUNTER}, 1, {OPTION_RESULT});
+	<!-- END BLOCK_CHART_SCRIPT_OPTION -->
+	var chart = new google.visualization.BarChart(document.getElementById("chart_div_{CHART_ID_SCRIPT}_{COUNTER_ID}"));
+	chart.draw(data, {width: 350, height: 200, backgroundColor: "#EEEEEE", hAxis: {minValue: 0, maxValue: 100}, title: "{CHART_TITLE}"});
+}
+</script>
+<!-- END BLOCK_CHART_SCRIPT -->
+<!-- END BLOCK_RESULTS -->

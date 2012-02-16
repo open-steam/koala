@@ -1,0 +1,21 @@
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->&raquo;{PORTLET_NAME}&laquo; bearbeiten<!-- END edit_title -->
+<!-- BEGIN edit_feedback_address_null -->Die Adresse darf nicht leer sein<!-- END edit_feedback_address_null -->
+<!-- BEGIN edit_address -->RSS-Adresse<!-- END edit_address -->
+<!-- BEGIN edit_num_items -->Anzahl Beitr&auml;ge<!-- END edit_num_items -->
+<!-- BEGIN edit_desc_length -->L&auml;nge des Inhalts<!-- END edit_desc_length -->
+<!-- BEGIN edit_style -->Stil<!-- END edit_style -->
+<!-- BEGIN edit_style_rss_feed -->Schmal<!-- END edit_style_rss_feed -->
+<!-- BEGIN edit_style_message -->Breit<!-- END edit_style_message -->
+<!-- BEGIN edit_allow_html -->HTML zulassen<!-- END edit_allow_html -->
+<!-- BEGIN edit_button_ok -->Speichern<!-- END edit_button_ok -->
+<!-- BEGIN edit_button_cancel -->Beenden<!-- END edit_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** view.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN view_feed_error -->RSS-Feed kann nicht gelesen werden.<!-- END view_feed_error -->

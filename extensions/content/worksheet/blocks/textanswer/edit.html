@@ -1,0 +1,195 @@
+{if $worksheet_status < 3}
+{literal}
+<script type="text/javascript" charset="utf-8">
+	
+	{/literal}
+	{if $data.sample_chars AND !$data.sample_used}
+	{literal}
+	
+		jQuery(function() {
+	
+			jQuery("#worksheet_textarea_{/literal}{$BLOCK_ID}{literal}").bind("keydown", function() {
+				
+				var number = 0;
+				var matches = jQuery("#worksheet_textarea_{/literal}{$BLOCK_ID}{literal}").val().match(/\b/g);
+
+				if (matches) {
+					number = matches.length/2;
+				}
+
+				if (number >= {/literal}{$data.sample_chars_number}{literal}) {
+
+					worksheet_show_sample_info_{/literal}{$BLOCK_ID}{literal}();
+
+				}
+
+			});
+			
+			//simulate keydown
+			jQuery("#worksheet_textarea_{/literal}{$BLOCK_ID}{literal}").trigger('keydown');
+		
+		});
+		
+	{/literal}
+	{/if}
+	{literal}
+	
+	
+	{/literal}
+	{if $data.sample_minutes AND !$data.sample_used}
+	{literal}
+	
+		jQuery(function() {
+	
+			window.setInterval("worksheet_sample_check_{/literal}{$BLOCK_ID}{literal}()", 15000);
+		
+		});
+		
+		function worksheet_sample_check_{/literal}{$BLOCK_ID}{literal}() {
+			
+			sendRequest("GetEditingTime", {'id':{/literal}{$BLOCK_ID}{literal}}, null, "data", false, function(response) {
+				
+				if (checkResponseText(response)) {
+							    	
+					responseData = jQuery.parseJSON(response);
+					
+					if (responseData.status == "ok") {
+							
+							if (parseInt(responseData.html) > ({/literal}{$data.sample_minutes_number}{literal}*60)) {
+								
+								worksheet_show_sample_info_{/literal}{$BLOCK_ID}{literal}();
+								
+							}
+							
+					} else {
+						handleError("Server meldet Fehler", response);
+					}
+				}
+				
+			});
+			
+		}
+		
+	{/literal}
+	{/if}
+	{literal}
+	
+	
+		function worksheet_show_sample_info_{/literal}{$BLOCK_ID}{literal}() {
+			
+			jQuery("#worksheet_sample_title_{/literal}{$BLOCK_ID}{literal}").show();
+
+			jQuery("#worksheet_sample_show_{/literal}{$BLOCK_ID}{literal}").show();
+			
+			sendRequest("SetSampleDisplayed", {'id':{/literal}{$BLOCK_ID}{literal}}, null, "data", false, false);
+			
+		}
+		
+		
+		function worksheet_loadSample_{/literal}{$BLOCK_ID}{literal}() {
+			
+			jQuery("#worksheet_sample_show_{/literal}{$BLOCK_ID}{literal}").hide();
+			
+			sendRequest("GetSampleText", {'id':'{/literal}{$BLOCK_ID}{literal}'}, "worksheet_sample_{/literal}{$BLOCK_ID}{literal}", "updater");
+			
+		}
+
+	
+</script>
+{/literal}
+{/if}
+{literal}
+<script type="text/javascript" charset="utf-8">
+	
+	jQuery(function() {
+
+		jQuery(".worksheet_solution_text_{/literal}{$BLOCK_ID}{literal}").worksheetMarkup({
+			readOnly: true
+		});
+		
+	});
+	
+</script>
+{/literal}
+
+<div class="worksheet_text">
+	
+	{$data.text}
+
+</div>
+
+{if $data.sample AND ($data.sample_chars OR $data.sample_minutes)}
+
+	{if !$data.sample_used}
+	
+		<div class="worksheet_block_label" id="worksheet_sample_title_{$BLOCK_ID}" style="display: {if $data.sample_displayed}block{else}none{/if}">Musterlösung/Hilfestellung:</div>
+
+		<span class="worksheet_icontext" id="worksheet_sample_show_{$BLOCK_ID}" style="display: {if $data.sample_displayed}block{else}none{/if}">
+			<img src="{$PATH_URL}worksheet/asset/icons/page_green.png" alt="" />
+			{if $data.sample_points == 0}
+				Es steht eine Musterlösung/Hilfestellung für diese Aufgabe zur Verfügung.
+			{else}
+				Es steht eine Musterlösung/Hilfestellung für diese Aufgabe zur Verfügung. Sie können sie gegen {$data.sample_points} Minuspunkte anzeigen lassen.<br />
+			{/if}
+			<span class="worksheet_iconlink" onclick="worksheet_loadSample_{$BLOCK_ID}()">Musterlösung anzeigen</span>
+		</span>
+
+		<div id="worksheet_sample_{$BLOCK_ID}"></div>
+	
+	{else}
+		<div class="worksheet_block_label">Musterlösung/Hilfestellung:</div>
+		<div>{$data.sample_text}</div>
+	{/if}
+	
+	<br />
+	
+{/if}
+
+
+
+{if $old_solutions}
+<div class="worksheet_correction">
+	
+	<span class="worksheet_correction_fold" onclick="worksheet_correction_fold(this, 'worksheet_solutions_{$BLOCK_ID}')"><img src="{$PATH_URL}worksheet/asset/icons/arrow_in.png" alt="" /> Einklappen</span>
+
+	<div>
+	{foreach from=$old_solutions item=s key=key name=solutions}
+		<span class="worksheet_correction_title{if not $smarty.foreach.solutions.last} worksheet_correction_title_inactive{/if}" onclick="worksheet_show_solution('worksheet_solution_{$BLOCK_ID}_{$key}', 'worksheet_solutions_{$BLOCK_ID}', this)">Korrektur{if $old_solutions|@count gt 1} {$key+1}{/if}</span>
+	{/foreach}
+	</div>
+	
+	<div id="worksheet_solutions_{$BLOCK_ID}">
+	{foreach from=$old_solutions item=s key=key name=solutions}
+
+		<div id="worksheet_solution_{$BLOCK_ID}_{$key}" class="worksheet_solution"{if not $smarty.foreach.solutions.last} style="display: none"{/if}>
+
+			<div class="worksheet_block_label">Ihre Antwort:</div>
+			<div class="worksheet_text worksheet_solution_text_{$BLOCK_ID}">{$s.correction.data_replace}</div>
+
+			<div class="worksheet_block_label">Kommentar:</div>
+			<div class="worksheet_text">{$s.correction.comment|nl2br}</div>
+
+			<div class="worksheet_block_label">Bewertung:</div>
+			<strong>{$s.score.score} von {$s.score.max} Punkt{if $s.score.max != 1 AND $s.score.max != -1}en{/if}</strong>
+			
+			{if $data.sample_used}
+			
+				<span class="worksheet_score_details">
+				(Bewertung: {$s.correction.score} Punkt{if $s.correction.score != 1 AND $s.correction.score != -1}e{/if}, Abzug durch Nutzung der Musterlösung/Hilfestellung: {$data.sample_points} Punkt{if $data.sample_points != 1 AND $data.sample_points != -1}e{/if})
+				</span>
+				
+			{/if}
+
+		</div>
+	{/foreach}
+	</div>
+
+</div>
+{/if}
+
+{if $worksheet_status < 3}
+
+	<div class="worksheet_block_label">Ihre Antwort:</div>
+	<textarea name="text" class="worksheet_textarea" id="worksheet_textarea_{$BLOCK_ID}">{$solution.text}</textarea>
+	
+{/if}

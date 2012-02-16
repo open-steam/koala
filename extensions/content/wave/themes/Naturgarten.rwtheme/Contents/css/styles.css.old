@@ -1,0 +1,483 @@
+#breadcrumb, #logo, #site_title, #site_slogan {
+	display: none;
+}
+
+#banner_wrapper {
+	background-color: #E4F9A7;
+	width: 100%;
+	height: 150px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	overflow: hidden;
+	z-index: 10;
+}
+
+#content_wrapper {
+	position: absolute;
+	top: 150px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	overflow-y: auto;
+}
+
+#navi_wrapper{
+	padding-top: 0px;
+	position: fixed;
+	top: 150px;
+	left: 0px;
+	width: 200px;
+	overflow-y: auto;
+	font-size: 13px;
+	height: 400px;
+	z-index: 255;
+}
+
+#navi_wrapper ul {
+	padding-left: 10px;
+}
+
+#navi_wrapper li {
+	list-style: none;
+}
+
+#navi_wrapper li ul {
+	display: block;
+	padding-left: 10px;
+}
+
+#navi_wrapper li ul li {
+	display: block;
+	padding-left: 10px;
+}
+
+#navi_wrapper #current {
+	font-weight: bold;
+}
+
+.banner_text {
+	text-align: center;
+	color: black;
+	font-size: 11px;
+	width: 140px;
+	height: 150px;
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+}
+
+.banner_text p {
+	text-align: center;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.banner_image {
+	position: absolute;
+}
+
+.banner_image img {
+	height: 150px;
+}
+
+#banner_image_1 {
+	top: 0px;
+	left: 0px;
+}
+
+#banner_text_1 {
+	top: 0px;
+	left: 200px;
+}
+
+#banner_text_1 p {
+	margin-top: 10px;
+}
+
+#banner_image_2 {
+	top: 0px;
+	left: 340px;
+}
+
+#banner_text_2 {
+	top: 0px;
+	left: 540px;
+}
+
+#banner_text_2 p {
+	margin-top: 20px;
+}
+
+#banner_image_3 {
+	top: 0px;
+	left: 680px;
+}
+
+#banner_text_3 {
+	top: 0px;
+	left: 880px;
+}
+
+#banner_text_3 p {
+	margin-top: 20px;
+}
+
+#banner_image_4 {
+	top: 0px;
+	left: 1020px;
+}
+
+#topline_wrapper {
+	display: block;
+	position: fixed;
+	top: 150px;
+	left: 0px;
+	z-index: 10;
+	height: 30px;
+	width: 1020px;
+	background-color: transparent;
+}
+
+#topline_content {
+	
+}
+
+#navi-table {
+	width: 780px;
+	margin-left: 220px;
+	margin-top: 5px;
+}
+
+#clear-content {
+		clear: both;
+}
+
+a:link { color: #336600; text-decoration:none; }
+a:visited { color: #336600; text-decoration:none; }
+a:link:hover, a:visited:hover { color: #336600; text-decoration:underline; }
+a:active { color: #336600; text-decoration:none; }
+
+a img {
+	border: none;
+}
+
+html, body {
+	overflow: hidden;
+}
+
+body{
+	background-color: #fffdef;
+	font-size:13px;
+	font-family: 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+}
+
+.book-content {
+    background-color: #fffdef;
+	margin-left: 0px;
+	width: 779px;
+	//-moz-box-shadow:2px 2px 5px black;
+	//-webkit-box-shadow:2px 2px 5px black;
+	padding-left: 220px;
+	padding-right: 20px;
+	padding-bottom: 20px;
+	border: 1px solid #cccccc;
+}
+
+#footer_wrapper {
+	font-size: xx-small;
+	padding-left: 220px;
+	padding-top: 10px;
+}
+
+#edit_mode_textarea {
+	width:100%;
+	height:600px
+}
+
+p {
+	padding-top: 10px;
+	text-align: justify;
+}
+
+/* *********************************************************************kleine float-box mit Rahmen links- und rechtsseitig********************************************************************* */
+.imgS-box-r {
+	border: 1px solid #aaa;
+	float: right;
+	background-color: #eee;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 43%;
+	clear: right;
+}
+.imgS-box-r img {
+	width: 100%;
+}
+
+.imgS-box-l {
+	border: 1px solid #aaa;
+	float: left;
+	background-color: #eee;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 43%;
+	clear: left;
+}
+.imgS-box-l img {
+	width: 100%;
+}
+/* *********************************************************************************************************************************************************************************************** */
+
+
+/* *********************************************************************mittlere float-box mit Rahmen links- und rechtsseitig********************************************************************* */
+.imgM-box-r {
+	border: 1px solid #aaa;
+	float: right;
+	background-color: #eee;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 57%;
+	clear: right;
+}
+.imgM-box-r img {
+	width: 100%;
+}
+
+.imgM-box-l {
+	border: 1px solid #aaa;
+	float: left;
+	background-color: #eee;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 57%;
+	clear: left;
+}
+.imgM-box-l img {
+	width: 100%;
+}
+/* *********************************************************************************************************************************************************************************************** */
+
+/* *********************************************************************kleine float-box ohne Rahmen links- und rechtsseitig******************************************************************** */
+.S-box-r-borderless {
+	float: right;
+	background-color: #eaeaea;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 43%;
+	clear: right;
+}
+
+.S-box-l-borderless {
+	float: left;
+	background-color: #eaeaea;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 43%;
+	clear: left;
+}
+/* *********************************************************************************************************************************************************************************************** */
+
+
+/* *********************************************************************mittlere float-box ohne Rahmen links- und rechtsseitig******************************************************************** */
+.M-box-r-borderless {
+	float: right;
+	background-color: #eaeaea;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 57%;
+	clear: right;
+}
+
+.M-box-l-borderless {
+	float: left;
+	background-color: #eaeaea;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 57%;
+	clear: left;
+}
+/* *********************************************************************************************************************************************************************************************** */
+
+/* *********************************************************************große float-box ohne Rahmen links- und rechtsseitig******************************************************************** */
+.L-box-r-borderless {
+	float: right;
+	background-color: #eaeaea;
+	margin-left: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 70%;
+	clear: right;
+}
+
+.L-box-l-borderless {
+	float: left;
+	background-color: #eaeaea;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 0px;
+	width: 70%;
+	clear: left;
+}
+/* *********************************************************************************************************************************************************************************************** */
+
+/* ************************************zentrierte teiler boxen mit Rahmen -1fach 2fach 3fach 4fach- für die entsprechende Bildanzahl mit nur einer Bildunterschrift************************************* */
+.img-box-1x {
+	border: 1px solid #aaa;
+	float: none;
+	background-color: #eee;
+	text-align: center;
+	width: 100%;
+}
+.img-box-1x img {
+	width: 100%;
+}
+
+.img-box-2x {
+	border: 1px solid #aaa;
+	float: none;
+	background-color: #eee;
+	text-align: center;
+}
+.img-box-2x img {
+	width: 49.3%;
+}
+
+.img-box-3x {
+	border: 1px solid #aaa;
+	float: none;
+	background-color: #eee;
+	text-align: center;
+}
+.img-box-3x img {
+	width: 32.7%;
+}
+
+.img-box-4x {
+	border: 1px solid #aaa;
+	float: none;
+	background-color: #eee;
+	text-align: center;
+}
+.img-box-4x img {
+	width: 24.4%;
+}
+/* *********************************************************************************************************************************************************************************************** */
+
+/* ***************************************************************special box mit Rahmen für Sonderbildgrößen und Somderanordnungen*************************************************************** */
+.img-box-special {
+	border: 1px solid #aaa;
+	float: none;
+	background-color: #eee;
+	margin: 0px;
+	text-align: center;
+}
+/* *********************************************************************************************************************************************************************************************** */
+
+/* ***************************************************************************************sonder Textformen*************************************************************************************** */
+.caption-braun {
+	text-align: center;
+	font-size: 13px;
+	margin: 5px;
+	color: #996633;			/*BRAUN*/
+}
+.caption {
+	text-align: center;
+	font-size: 13px;
+	margin: 5px;
+	color: #336600;			/*GRÜN*/
+}
+.caption-black {
+	text-align: center;
+	font-size: 11px;
+	margin: 5px;
+	color: #000000;			/*SCHWARZ*/
+}
+table.standard{
+	border: 1px solid #aaa;
+	font-size: 13px;
+	border-collapse: collapse;
+	table-layout: auto;
+	width: 100%;
+}
+table.standard tr{
+	border: 1px solid #aaa;
+}
+table.standard th{
+	text-align: center;
+	border: 1px solid #aaa;
+}
+table.standard td{
+	text-align: left;
+	border: 1px solid #aaa;
+	padding: 4px;
+}
+
+/* *********************************************************************************************************************************************************************************************** */
+
+/* ***********************************************************************table für zwei Bilder mit zwei Bildunterschriften*********************************************************************** */
+table.table-2ximg {
+	width: 100%;
+	height: 25%;
+	border-spacing: 2px 0px;
+}
+}
+table.table-2ximg tr{
+	text-align: center;
+}
+table.table-2ximg td{
+	width: 49%;
+}
+table.table-2ximg img{
+	width: 100%;
+}
+
+/* ***********************************************************************table für drei Bilder mit drei Bildunterschriften*********************************************************************** */
+table.table-3ximg {
+	width: 100%;
+	height: 25%;
+	border-spacing: 2px 0px;
+}
+}
+table.table-3ximg tr{
+	text-align: center;
+}
+table.table-3ximg td{
+	width: 33%;
+}
+table.table-3ximg img{
+	width: 100%;
+}
+/* ****************************************************************************imagebox mit Rahmen für die Bildtabellen**************************************************************************** */
+.img-tablebox {					/*100% Größe*/
+	border: 1px solid #aaa;
+	float: none;
+	background-color: #eee;
+	margin: 0px;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+.img-tablebox img {
+	width: 100%;
+}
+.img-tablebox-halb {				/*50% Größe*/
+	border: 1px solid #aaa;
+	float: none;
+	background-color: #eee;
+	margin: 0px;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+.img-tablebox-halb img {
+	width: 49%;
+}
+/* *********************************************************************************************************************************************************************************************** */

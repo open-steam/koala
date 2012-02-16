@@ -1,0 +1,1651 @@
+\hypertarget{class_web_test_case}{
+\section{WebTestCase Class Reference}
+\label{class_web_test_case}\index{WebTestCase@{WebTestCase}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_web_test_case_af4f14d8dd0bc743ea15308261b859f50}{WebTestCase} (\$label=false)
+\item 
+\hyperlink{class_web_test_case_a87f5e5088a08ea1b2588c3fcfdb2ead3}{before} (\$method)
+\item 
+\hyperlink{class_web_test_case_ab29c41a37c83f0a4a230f81dcee4dcbf}{after} (\$method)
+\item 
+\& \hyperlink{class_web_test_case_ad7ef0640edd1ef69ee201cb661ed5935}{getBrowser} ()
+\item 
+\hyperlink{class_web_test_case_a6a7359c09fc9665e5d34c2c69068134f}{setBrowser} (\&\$browser)
+\item 
+\hyperlink{class_web_test_case_a7ed6a5b76724d578d6f66a15945651ab}{unsetBrowser} ()
+\item 
+\& \hyperlink{class_web_test_case_a004842238df312f4fd8d10da0631bbfd}{createBrowser} ()
+\item 
+\hyperlink{class_web_test_case_ac12566754888b2e6e3cee8290c2df04d}{getTransportError} ()
+\item 
+\hyperlink{class_web_test_case_aff8c47b2f6380af648711b8fbf82667e}{getUrl} ()
+\item 
+\hyperlink{class_web_test_case_ade23ffdc160a37580518c0afc3657aa2}{showRequest} ()
+\item 
+\hyperlink{class_web_test_case_a9cb4dfc25c77a145504e46b8eb3acd5d}{showHeaders} ()
+\item 
+\hyperlink{class_web_test_case_a01442fb03a6a4e700e0eb22c79aaec98}{showSource} ()
+\item 
+\hyperlink{class_web_test_case_a7060ba1f005664015384f1280fb8c9a3}{showText} ()
+\item 
+\hyperlink{class_web_test_case_a7c3811b06a5a25b08baabe63599ac6e6}{restart} (\$date=false)
+\item 
+\hyperlink{class_web_test_case_a1f28c1af59fd3c2c4c9a2d837c089f7a}{ageCookies} (\$interval)
+\item 
+\hyperlink{class_web_test_case_a3fb48ba6173cf132a26a3695f2e43df3}{ignoreFrames} ()
+\item 
+\hyperlink{class_web_test_case_a0f36074331d50bcc7ea4bfe1c522f130}{ignoreCookies} ()
+\item 
+\hyperlink{class_web_test_case_a6aface34c4d09b7340bda88c72468056}{ignoreErrors} ()
+\item 
+\hyperlink{class_web_test_case_aa1a77c000c079da166026abda36dffc5}{\_\-failOnError} (\$result)
+\item 
+\hyperlink{class_web_test_case_a8580ffac71f2d312784b87faa9452bdc}{addHeader} (\$header)
+\item 
+\hyperlink{class_web_test_case_a1a94a628582b9cdb0610ee5772c0c5b9}{setMaximumRedirects} (\$max)
+\item 
+\hyperlink{class_web_test_case_a8e7e4de35b6b6e4f8a3139709f975193}{setConnectionTimeout} (\$timeout)
+\item 
+\hyperlink{class_web_test_case_aa05541e229c6ef1b31a51028cf08c92d}{useProxy} (\$proxy, \$username=false, \$password=false)
+\item 
+\hyperlink{class_web_test_case_a754f1efbaf6d5fb23208f2e823d37887}{get} (\$url, \$parameters=false)
+\item 
+\hyperlink{class_web_test_case_a7d409a4e22876ab2b96ee330c0bedc8c}{post} (\$url, \$parameters=false)
+\item 
+\hyperlink{class_web_test_case_af774376bbbcf017378dbec675015a760}{head} (\$url, \$parameters=false)
+\item 
+\hyperlink{class_web_test_case_ae8327032083ec6211ad823c45cb72084}{retry} ()
+\item 
+\hyperlink{class_web_test_case_a76f85e79d4ff8679a869af826186c6e9}{back} ()
+\item 
+\hyperlink{class_web_test_case_a3bcb61ac6efd4894ca22a702859191df}{forward} ()
+\item 
+\hyperlink{class_web_test_case_a09a9ef390ae02778cfab67678d72db62}{authenticate} (\$username, \$password)
+\item 
+\hyperlink{class_web_test_case_a104b5a93fe99f66cef9c170066e4c19e}{getCookie} (\$name)
+\item 
+\hyperlink{class_web_test_case_ab874157186e2bc2c9d5610f007618ed9}{setCookie} (\$name, \$value, \$host=false, \$path= '/', \$expiry=false)
+\item 
+\hyperlink{class_web_test_case_ab099bbb517810122d6a94889dc8541ad}{getFrameFocus} ()
+\item 
+\hyperlink{class_web_test_case_afbcb7ba0d00c5df36698d2669d90cd9c}{setFrameFocusByIndex} (\$choice)
+\item 
+\hyperlink{class_web_test_case_a82a0b459aa100c3a67eec773c6e5b39d}{setFrameFocus} (\$name)
+\item 
+\hyperlink{class_web_test_case_ae38524c59375b3e28ad37b35be923b1d}{clearFrameFocus} ()
+\item 
+\hyperlink{class_web_test_case_a55d9b7671e27cb63d19107722628bd8e}{click} (\$label)
+\item 
+\hyperlink{class_web_test_case_ac2a2523df882dcad5f6191b9d6386d4a}{assertClickable} (\$label, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a7c7a1adc6ce99397bda5914edca76eaf}{clickSubmit} (\$label= 'Submit', \$additional=false)
+\item 
+\hyperlink{class_web_test_case_ad23d94f7be9a92d07c36772b302cd495}{clickSubmitByName} (\$name, \$additional=false)
+\item 
+\hyperlink{class_web_test_case_a8de6c0c32b24d21b3d077487acbf4237}{clickSubmitById} (\$id, \$additional=false)
+\item 
+\hyperlink{class_web_test_case_a56874c6913a45fe55a581128a1e956e4}{assertSubmit} (\$label, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a235d36a855726467258fd896f724f1c9}{clickImage} (\$label, \$x=1, \$y=1, \$additional=false)
+\item 
+\hyperlink{class_web_test_case_a5b555b4f2c9013abcf3b3893a3447607}{clickImageByName} (\$name, \$x=1, \$y=1, \$additional=false)
+\item 
+\hyperlink{class_web_test_case_aa470415b0fc11df87ce6e5d2ea5a5644}{clickImageById} (\$id, \$x=1, \$y=1, \$additional=false)
+\item 
+\hyperlink{class_web_test_case_a657a5b3135189f9e9db563a76dce9329}{assertImage} (\$label, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_addbc36aa63cbd70458383bc2fae78c03}{submitFormById} (\$id)
+\item 
+\hyperlink{class_web_test_case_a286ade62f142d1ac0b5d0bc9038a01cf}{clickLink} (\$label, \$index=0)
+\item 
+\hyperlink{class_web_test_case_ac87eaa5a61ab4ba0fe12deab4ddc97e2}{clickLinkById} (\$id)
+\item 
+\hyperlink{class_web_test_case_ae44bbb204f6496039507a06361f05431}{assertLink} (\$label, \$expected=true, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a317931c404b513787a96c801f852d01f}{assertNoLink} (\$label, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_ab2edabae7160d6b9646de3c366b7c640}{assertLinkById} (\$id, \$expected=true, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_abd3882e405ceda10d1a4c0063e4bd07a}{assertNoLinkById} (\$id, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a2b8f21394a225f1386c22f671a6debc0}{setField} (\$label, \$value, \$position=false)
+\item 
+\hyperlink{class_web_test_case_ab3d6b5e72b290f14f51148642f1681e4}{setFieldByName} (\$name, \$value, \$position=false)
+\item 
+\hyperlink{class_web_test_case_a677f77692fd67768ad837a258a7ef4fd}{setFieldById} (\$id, \$value)
+\item 
+\hyperlink{class_web_test_case_a2ff4ade56d51b73cd30290456ee94d74}{assertField} (\$label, \$expected=true, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_abfdb01d4f19a545a174dc1989d1edc88}{assertFieldByName} (\$name, \$expected=true, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a5bb2fcfa5ff8540f77829901370ade99}{assertFieldById} (\$id, \$expected=true, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a4aaf6a1b573b4523fc02800eaf63ba90}{\_\-assertFieldValue} (\$identifier, \$value, \$expected, \$message)
+\item 
+\hyperlink{class_web_test_case_a974043ce5e246d9d61aa2432fa460118}{assertResponse} (\$responses, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_ad3447866f2462d2efd18e70657ff19ee}{assertMime} (\$types, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a1cf868c95aec441290995d71aba42f0a}{assertAuthentication} (\$authentication=false, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_aa3d977b11d4cd690ad1644b0103de9d1}{assertNoAuthentication} (\$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_acc61e0a6d07f19005ee26e1cf98b813b}{assertRealm} (\$realm, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a62b3bb8ba4a2f6439a336e69fe60e40e}{assertHeader} (\$header, \$value=false, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_ae5e82c9a2219c4aa1d65d42b8a7286a0}{assertHeaderPattern} (\$header, \$pattern, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_aaad06de3e0ed7fb74081ff9a6633a3fb}{assertNoHeader} (\$header, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_aa12793f1d62d25ae5748063e26a9a513}{assertNoUnwantedHeader} (\$header, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a8639e24b9991384e695dbe58719bc6b8}{assertTitle} (\$title=false, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_aa458bde36e4dd8038e76974c42fe4822}{assertText} (\$text, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_aba9b544e11cbfdd2e34ec34fefed908a}{assertWantedText} (\$text, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a1a2b021f72bbc8ec114df0558b882bf6}{assertNoText} (\$text, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_ad05b092ba3b7e8f70c640504ec57538f}{assertNoUnwantedText} (\$text, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_afb9fdc739351627f08f50412a5313f0a}{assertPattern} (\$pattern, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_adfb5d7b168c179976f9aee9447e914e9}{assertWantedPattern} (\$pattern, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a9c818bf7a210f58e765cc503e8cb69ea}{assertNoPattern} (\$pattern, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a3bd8aaa61421d81544c32e617cddbcd1}{assertNoUnwantedPattern} (\$pattern, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_aabfb7913fcd6e94811a9029f848117e8}{assertCookie} (\$name, \$expected=false, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a5531615ad22f67d48ce596041c43f545}{assertNoCookie} (\$name, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a13f27b3d3f2db36087e3a5e40299ada0}{assertTrue} (\$result, \$message=false)
+\item 
+\hyperlink{class_web_test_case_a5e382bdb9f868a57664882f71fbff183}{assertFalse} (\$result, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_adb76e8a343c2a422654b3d464e95bf94}{assertEqual} (\$first, \$second, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a09e9b91f3e29ff7f36be218413238f73}{assertNotEqual} (\$first, \$second, \$message= '\%s')
+\item 
+\hyperlink{class_web_test_case_a4fa60ab738d6c9ada4a4199698549fd2}{getAssertionLine} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_web_test_case_aa1fdbfbb675ddb3d811ae3bc52806ace}{
+{\bfseries \$\_\-browser}}
+\label{class_web_test_case_aa1fdbfbb675ddb3d811ae3bc52806ace}
+
+\item 
+\hypertarget{class_web_test_case_af93187e724ac6995526dc168af37ceeb}{
+{\bfseries \$\_\-ignore\_\-errors} = false}
+\label{class_web_test_case_af93187e724ac6995526dc168af37ceeb}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_web_test_case_a4aaf6a1b573b4523fc02800eaf63ba90}{
+\index{WebTestCase@{WebTestCase}!\_\-assertFieldValue@{\_\-assertFieldValue}}
+\index{\_\-assertFieldValue@{\_\-assertFieldValue}!WebTestCase@{WebTestCase}}
+\subsubsection[{\_\-assertFieldValue}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::\_\-assertFieldValue (
+\begin{DoxyParamCaption}
+\item[{\$}]{ identifier, }
+\item[{\$}]{ value, }
+\item[{\$}]{ expected, }
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a4aaf6a1b573b4523fc02800eaf63ba90}
+Tests the field value against the expectation. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$identifier} & Name, ID or label. \\
+\hline
+mixed & {\em \$value} & Current field value. \\
+\hline
+mixed & {\em \$expected} & Expected value to match. \\
+\hline
+string & {\em \$message} & Failure message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass  protected 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_aa1a77c000c079da166026abda36dffc5}{
+\index{WebTestCase@{WebTestCase}!\_\-failOnError@{\_\-failOnError}}
+\index{\_\-failOnError@{\_\-failOnError}!WebTestCase@{WebTestCase}}
+\subsubsection[{\_\-failOnError}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::\_\-failOnError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ result}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aa1a77c000c079da166026abda36dffc5}
+Issues a fail if there is a transport error anywhere in the current frameset. Only one such error is reported. 
+\begin{DoxyParams}{Parameters}
+{\em string/boolean} & \$result HTML or failure. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string/boolean \$result Passes through result.  private 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a8580ffac71f2d312784b87faa9452bdc}{
+\index{WebTestCase@{WebTestCase}!addHeader@{addHeader}}
+\index{addHeader@{addHeader}!WebTestCase@{WebTestCase}}
+\subsubsection[{addHeader}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::addHeader (
+\begin{DoxyParamCaption}
+\item[{\$}]{ header}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a8580ffac71f2d312784b87faa9452bdc}
+Adds a header to every fetch. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$header} & Header line to add to every request until cleared.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_ab29c41a37c83f0a4a230f81dcee4dcbf}{
+\index{WebTestCase@{WebTestCase}!after@{after}}
+\index{after@{after}!WebTestCase@{WebTestCase}}
+\subsubsection[{after}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::after (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ab29c41a37c83f0a4a230f81dcee4dcbf}
+Announces the end of the test. Includes private clean up. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$method} & Test method just finished.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_a1f28c1af59fd3c2c4c9a2d837c089f7a}{
+\index{WebTestCase@{WebTestCase}!ageCookies@{ageCookies}}
+\index{ageCookies@{ageCookies}!WebTestCase@{WebTestCase}}
+\subsubsection[{ageCookies}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::ageCookies (
+\begin{DoxyParamCaption}
+\item[{\$}]{ interval}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a1f28c1af59fd3c2c4c9a2d837c089f7a}
+Moves cookie expiry times back into the past. Useful for testing timeouts and expiries. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$interval} & Amount to age in seconds.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_a1cf868c95aec441290995d71aba42f0a}{
+\index{WebTestCase@{WebTestCase}!assertAuthentication@{assertAuthentication}}
+\index{assertAuthentication@{assertAuthentication}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertAuthentication}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertAuthentication (
+\begin{DoxyParamCaption}
+\item[{\$}]{ authentication = {\ttfamily false}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a1cf868c95aec441290995d71aba42f0a}
+Attempt to match the authentication type within the security realm we are currently matching. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$authentication} & Usually basic. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ac2a2523df882dcad5f6191b9d6386d4a}{
+\index{WebTestCase@{WebTestCase}!assertClickable@{assertClickable}}
+\index{assertClickable@{assertClickable}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertClickable}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertClickable (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ac2a2523df882dcad5f6191b9d6386d4a}
+Checks for a click target. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Visible text or alt text. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if click target.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_aabfb7913fcd6e94811a9029f848117e8}{
+\index{WebTestCase@{WebTestCase}!assertCookie@{assertCookie}}
+\index{assertCookie@{assertCookie}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertCookie}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertCookie (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ expected = {\ttfamily false}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aabfb7913fcd6e94811a9029f848117e8}
+Checks that a cookie is set for the current page and optionally checks the value. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name of cookie to test. \\
+\hline
+string & {\em \$expected} & Expected value as a string or false if any value will do. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_adb76e8a343c2a422654b3d464e95bf94}{
+\index{WebTestCase@{WebTestCase}!assertEqual@{assertEqual}}
+\index{assertEqual@{assertEqual}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertEqual}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertEqual (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_adb76e8a343c2a422654b3d464e95bf94}
+Will trigger a pass if the two parameters have the same value only. Otherwise a fail. This is for testing hand extracted text, etc. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Value to compare. \\
+\hline
+mixed & {\em \$second} & Value to compare. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a5e382bdb9f868a57664882f71fbff183}{
+\index{WebTestCase@{WebTestCase}!assertFalse@{assertFalse}}
+\index{assertFalse@{assertFalse}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertFalse}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertFalse (
+\begin{DoxyParamCaption}
+\item[{\$}]{ result, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a5e382bdb9f868a57664882f71fbff183}
+Will be true on false and vice versa. False is the PHP definition of false, so that null, empty strings, zero and an empty array all count as false. 
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$result} & Pass on false. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a2ff4ade56d51b73cd30290456ee94d74}{
+\index{WebTestCase@{WebTestCase}!assertField@{assertField}}
+\index{assertField@{assertField}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertField}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertField (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ expected = {\ttfamily true}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a2ff4ade56d51b73cd30290456ee94d74}
+Confirms that the form element is currently set to the expected value. A missing form will always fail. If no value is given then only the existence of the field is checked. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name of field in forms. \\
+\hline
+mixed & {\em \$expected} & Expected string/array value or false for unset fields. \\
+\hline
+string & {\em \$message} & Message to display. Default can be embedded with s. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a5bb2fcfa5ff8540f77829901370ade99}{
+\index{WebTestCase@{WebTestCase}!assertFieldById@{assertFieldById}}
+\index{assertFieldById@{assertFieldById}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertFieldById}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertFieldById (
+\begin{DoxyParamCaption}
+\item[{\$}]{ id, }
+\item[{\$}]{ expected = {\ttfamily true}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a5bb2fcfa5ff8540f77829901370ade99}
+Confirms that the form element is currently set to the expected value. A missing form will always fail. If no ID is given then only the existence of the field is checked. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em string/integer} & \$id Name of field in forms. \\
+\hline
+mixed & {\em \$expected} & Expected string/array value or false for unset fields. \\
+\hline
+string & {\em \$message} & Message to display. Default can be embedded with s. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_abfdb01d4f19a545a174dc1989d1edc88}{
+\index{WebTestCase@{WebTestCase}!assertFieldByName@{assertFieldByName}}
+\index{assertFieldByName@{assertFieldByName}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertFieldByName}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertFieldByName (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ expected = {\ttfamily true}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_abfdb01d4f19a545a174dc1989d1edc88}
+Confirms that the form element is currently set to the expected value. A missing form element will always fail. If no value is given then only the existence of the field is checked. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name of field in forms. \\
+\hline
+mixed & {\em \$expected} & Expected string/array value or false for unset fields. \\
+\hline
+string & {\em \$message} & Message to display. Default can be embedded with s. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a62b3bb8ba4a2f6439a336e69fe60e40e}{
+\index{WebTestCase@{WebTestCase}!assertHeader@{assertHeader}}
+\index{assertHeader@{assertHeader}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertHeader}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertHeader (
+\begin{DoxyParamCaption}
+\item[{\$}]{ header, }
+\item[{\$}]{ value = {\ttfamily false}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a62b3bb8ba4a2f6439a336e69fe60e40e}
+Checks each header line for the required value. If no value is given then only an existence check is made. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$header} & Case insensitive header name. \\
+\hline
+mixed & {\em \$value} & Case sensitive trimmed string to match against. An expectation object can be used for pattern matching. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ae5e82c9a2219c4aa1d65d42b8a7286a0}{
+\index{WebTestCase@{WebTestCase}!assertHeaderPattern@{assertHeaderPattern}}
+\index{assertHeaderPattern@{assertHeaderPattern}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertHeaderPattern}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertHeaderPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ header, }
+\item[{\$}]{ pattern, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ae5e82c9a2219c4aa1d65d42b8a7286a0}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000025}{Deprecated}]\end{Desc}
+\hypertarget{class_web_test_case_a657a5b3135189f9e9db563a76dce9329}{
+\index{WebTestCase@{WebTestCase}!assertImage@{assertImage}}
+\index{assertImage@{assertImage}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertImage}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertImage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a657a5b3135189f9e9db563a76dce9329}
+Checks for a valid image with atht alt text or title. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Visible text. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if click target.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ae44bbb204f6496039507a06361f05431}{
+\index{WebTestCase@{WebTestCase}!assertLink@{assertLink}}
+\index{assertLink@{assertLink}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertLink}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertLink (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ expected = {\ttfamily true}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ae44bbb204f6496039507a06361f05431}
+Tests for the presence of a link label. Match is case insensitive with normalised space. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Text between the anchor tags. \\
+\hline
+mixed & {\em \$expected} & Expected URL or expectation object. \\
+\hline
+string & {\em \$message} & Message to display. Default can be embedded with s. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if link present.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ab2edabae7160d6b9646de3c366b7c640}{
+\index{WebTestCase@{WebTestCase}!assertLinkById@{assertLinkById}}
+\index{assertLinkById@{assertLinkById}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertLinkById}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertLinkById (
+\begin{DoxyParamCaption}
+\item[{\$}]{ id, }
+\item[{\$}]{ expected = {\ttfamily true}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ab2edabae7160d6b9646de3c366b7c640}
+Tests for the presence of a link id attribute. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$id} & Id attribute value. \\
+\hline
+mixed & {\em \$expected} & Expected URL or expectation object. \\
+\hline
+string & {\em \$message} & Message to display. Default can be embedded with s. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if link present.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ad3447866f2462d2efd18e70657ff19ee}{
+\index{WebTestCase@{WebTestCase}!assertMime@{assertMime}}
+\index{assertMime@{assertMime}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertMime}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertMime (
+\begin{DoxyParamCaption}
+\item[{\$}]{ types, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ad3447866f2462d2efd18e70657ff19ee}
+Checks the mime type against a list of possible values. 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$types} & Possible mime types for a pass. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_aa3d977b11d4cd690ad1644b0103de9d1}{
+\index{WebTestCase@{WebTestCase}!assertNoAuthentication@{assertNoAuthentication}}
+\index{assertNoAuthentication@{assertNoAuthentication}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoAuthentication}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoAuthentication (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aa3d977b11d4cd690ad1644b0103de9d1}
+Checks that no authentication is necessary to view the desired page. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a5531615ad22f67d48ce596041c43f545}{
+\index{WebTestCase@{WebTestCase}!assertNoCookie@{assertNoCookie}}
+\index{assertNoCookie@{assertNoCookie}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoCookie}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoCookie (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a5531615ad22f67d48ce596041c43f545}
+Checks that no cookie is present or that it has been successfully cleared. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name of cookie to test. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_aaad06de3e0ed7fb74081ff9a6633a3fb}{
+\index{WebTestCase@{WebTestCase}!assertNoHeader@{assertNoHeader}}
+\index{assertNoHeader@{assertNoHeader}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoHeader}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoHeader (
+\begin{DoxyParamCaption}
+\item[{\$}]{ header, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aaad06de3e0ed7fb74081ff9a6633a3fb}
+Confirms that the header type has not been received. Only the landing page is checked. If you want to check redirect pages, then you should limit redirects so as to capture the page you want. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$header} & Case insensitive header name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a317931c404b513787a96c801f852d01f}{
+\index{WebTestCase@{WebTestCase}!assertNoLink@{assertNoLink}}
+\index{assertNoLink@{assertNoLink}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoLink}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoLink (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a317931c404b513787a96c801f852d01f}
+Tests for the non-\/presence of a link label. Match is case insensitive with normalised space. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em string/integer} & \$label Text between the anchor tags or ID attribute. \\
+\hline
+string & {\em \$message} & Message to display. Default can be embedded with s. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if link missing.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_abd3882e405ceda10d1a4c0063e4bd07a}{
+\index{WebTestCase@{WebTestCase}!assertNoLinkById@{assertNoLinkById}}
+\index{assertNoLinkById@{assertNoLinkById}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoLinkById}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoLinkById (
+\begin{DoxyParamCaption}
+\item[{\$}]{ id, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_abd3882e405ceda10d1a4c0063e4bd07a}
+Tests for the non-\/presence of a link label. Match is case insensitive with normalised space. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$id} & Id attribute value. \\
+\hline
+string & {\em \$message} & Message to display. Default can be embedded with s. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if link missing.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a9c818bf7a210f58e765cc503e8cb69ea}{
+\index{WebTestCase@{WebTestCase}!assertNoPattern@{assertNoPattern}}
+\index{assertNoPattern@{assertNoPattern}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoPattern}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a9c818bf7a210f58e765cc503e8cb69ea}
+Will trigger a pass if the perl regex pattern is not present in raw content. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & Perl regex to look for including the regex delimiters. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a09e9b91f3e29ff7f36be218413238f73}{
+\index{WebTestCase@{WebTestCase}!assertNotEqual@{assertNotEqual}}
+\index{assertNotEqual@{assertNotEqual}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNotEqual}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNotEqual (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a09e9b91f3e29ff7f36be218413238f73}
+Will trigger a pass if the two parameters have a different value. Otherwise a fail. This is for testing hand extracted text, etc. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Value to compare. \\
+\hline
+mixed & {\em \$second} & Value to compare. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a1a2b021f72bbc8ec114df0558b882bf6}{
+\index{WebTestCase@{WebTestCase}!assertNoText@{assertNoText}}
+\index{assertNoText@{assertNoText}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoText}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoText (
+\begin{DoxyParamCaption}
+\item[{\$}]{ text, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a1a2b021f72bbc8ec114df0558b882bf6}
+Will trigger a pass if the text is not found in the plain text form of the page. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$text} & Text to look for. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_aa12793f1d62d25ae5748063e26a9a513}{
+\index{WebTestCase@{WebTestCase}!assertNoUnwantedHeader@{assertNoUnwantedHeader}}
+\index{assertNoUnwantedHeader@{assertNoUnwantedHeader}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoUnwantedHeader}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoUnwantedHeader (
+\begin{DoxyParamCaption}
+\item[{\$}]{ header, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aa12793f1d62d25ae5748063e26a9a513}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000026}{Deprecated}]\end{Desc}
+\hypertarget{class_web_test_case_a3bd8aaa61421d81544c32e617cddbcd1}{
+\index{WebTestCase@{WebTestCase}!assertNoUnwantedPattern@{assertNoUnwantedPattern}}
+\index{assertNoUnwantedPattern@{assertNoUnwantedPattern}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoUnwantedPattern}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoUnwantedPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a3bd8aaa61421d81544c32e617cddbcd1}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000030}{Deprecated}]\end{Desc}
+\hypertarget{class_web_test_case_ad05b092ba3b7e8f70c640504ec57538f}{
+\index{WebTestCase@{WebTestCase}!assertNoUnwantedText@{assertNoUnwantedText}}
+\index{assertNoUnwantedText@{assertNoUnwantedText}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertNoUnwantedText}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertNoUnwantedText (
+\begin{DoxyParamCaption}
+\item[{\$}]{ text, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ad05b092ba3b7e8f70c640504ec57538f}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000028}{Deprecated}]\end{Desc}
+\hypertarget{class_web_test_case_afb9fdc739351627f08f50412a5313f0a}{
+\index{WebTestCase@{WebTestCase}!assertPattern@{assertPattern}}
+\index{assertPattern@{assertPattern}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertPattern}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_afb9fdc739351627f08f50412a5313f0a}
+Will trigger a pass if the Perl regex pattern is found in the raw content. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & Perl regex to look for including the regex delimiters. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_acc61e0a6d07f19005ee26e1cf98b813b}{
+\index{WebTestCase@{WebTestCase}!assertRealm@{assertRealm}}
+\index{assertRealm@{assertRealm}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertRealm}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertRealm (
+\begin{DoxyParamCaption}
+\item[{\$}]{ realm, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_acc61e0a6d07f19005ee26e1cf98b813b}
+Attempts to match the current security realm. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$realm} & Name of security realm. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a974043ce5e246d9d61aa2432fa460118}{
+\index{WebTestCase@{WebTestCase}!assertResponse@{assertResponse}}
+\index{assertResponse@{assertResponse}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertResponse}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertResponse (
+\begin{DoxyParamCaption}
+\item[{\$}]{ responses, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a974043ce5e246d9d61aa2432fa460118}
+Checks the response code against a list of possible values. 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$responses} & Possible responses for a pass. \\
+\hline
+string & {\em \$message} & Message to display. Default can be embedded with s. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a56874c6913a45fe55a581128a1e956e4}{
+\index{WebTestCase@{WebTestCase}!assertSubmit@{assertSubmit}}
+\index{assertSubmit@{assertSubmit}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertSubmit}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertSubmit (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a56874c6913a45fe55a581128a1e956e4}
+Checks for a valid button label. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Visible text. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if click target.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_aa458bde36e4dd8038e76974c42fe4822}{
+\index{WebTestCase@{WebTestCase}!assertText@{assertText}}
+\index{assertText@{assertText}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertText}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertText (
+\begin{DoxyParamCaption}
+\item[{\$}]{ text, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aa458bde36e4dd8038e76974c42fe4822}
+Will trigger a pass if the text is found in the plain text form of the page. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$text} & Text to look for. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a8639e24b9991384e695dbe58719bc6b8}{
+\index{WebTestCase@{WebTestCase}!assertTitle@{assertTitle}}
+\index{assertTitle@{assertTitle}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertTitle}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertTitle (
+\begin{DoxyParamCaption}
+\item[{\$}]{ title = {\ttfamily false}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a8639e24b9991384e695dbe58719bc6b8}
+Tests the text between the title tags. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em string/SimpleExpectation} & \$title Expected title. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a13f27b3d3f2db36087e3a5e40299ada0}{
+\index{WebTestCase@{WebTestCase}!assertTrue@{assertTrue}}
+\index{assertTrue@{assertTrue}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertTrue}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertTrue (
+\begin{DoxyParamCaption}
+\item[{\$}]{ result, }
+\item[{\$}]{ message = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a13f27b3d3f2db36087e3a5e40299ada0}
+Called from within the test methods to register passes and failures. 
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$result} & Pass on true. \\
+\hline
+string & {\em \$message} & Message to display describing the test state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_adfb5d7b168c179976f9aee9447e914e9}{
+\index{WebTestCase@{WebTestCase}!assertWantedPattern@{assertWantedPattern}}
+\index{assertWantedPattern@{assertWantedPattern}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertWantedPattern}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertWantedPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_adfb5d7b168c179976f9aee9447e914e9}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000029}{Deprecated}]\end{Desc}
+\hypertarget{class_web_test_case_aba9b544e11cbfdd2e34ec34fefed908a}{
+\index{WebTestCase@{WebTestCase}!assertWantedText@{assertWantedText}}
+\index{assertWantedText@{assertWantedText}!WebTestCase@{WebTestCase}}
+\subsubsection[{assertWantedText}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::assertWantedText (
+\begin{DoxyParamCaption}
+\item[{\$}]{ text, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aba9b544e11cbfdd2e34ec34fefed908a}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000027}{Deprecated}]\end{Desc}
+\hypertarget{class_web_test_case_a09a9ef390ae02778cfab67678d72db62}{
+\index{WebTestCase@{WebTestCase}!authenticate@{authenticate}}
+\index{authenticate@{authenticate}!WebTestCase@{WebTestCase}}
+\subsubsection[{authenticate}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::authenticate (
+\begin{DoxyParamCaption}
+\item[{\$}]{ username, }
+\item[{\$}]{ password}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a09a9ef390ae02778cfab67678d72db62}
+Retries a request after setting the authentication for the current realm. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$username} & Username for realm. \\
+\hline
+string & {\em \$password} & Password for realm. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string HTML on successful fetch. Note that authentication may still have failed.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a76f85e79d4ff8679a869af826186c6e9}{
+\index{WebTestCase@{WebTestCase}!back@{back}}
+\index{back@{back}!WebTestCase@{WebTestCase}}
+\subsubsection[{back}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::back (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a76f85e79d4ff8679a869af826186c6e9}
+Equivalent to hitting the back button on the browser. \begin{DoxyReturn}{Returns}
+boolean True if history entry and fetch succeeded.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a87f5e5088a08ea1b2588c3fcfdb2ead3}{
+\index{WebTestCase@{WebTestCase}!before@{before}}
+\index{before@{before}!WebTestCase@{WebTestCase}}
+\subsubsection[{before}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::before (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a87f5e5088a08ea1b2588c3fcfdb2ead3}
+Announces the start of the test. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$method} & Test method just started.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_ae38524c59375b3e28ad37b35be923b1d}{
+\index{WebTestCase@{WebTestCase}!clearFrameFocus@{clearFrameFocus}}
+\index{clearFrameFocus@{clearFrameFocus}!WebTestCase@{WebTestCase}}
+\subsubsection[{clearFrameFocus}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clearFrameFocus (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ae38524c59375b3e28ad37b35be923b1d}
+Clears the frame focus. All frames will be searched for content.  public \hypertarget{class_web_test_case_a55d9b7671e27cb63d19107722628bd8e}{
+\index{WebTestCase@{WebTestCase}!click@{click}}
+\index{click@{click}!WebTestCase@{WebTestCase}}
+\subsubsection[{click}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::click (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a55d9b7671e27cb63d19107722628bd8e}
+Clicks a visible text item. Will first try buttons, then links and then images. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Visible text or alt text. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string/boolean Raw page or false.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a235d36a855726467258fd896f724f1c9}{
+\index{WebTestCase@{WebTestCase}!clickImage@{clickImage}}
+\index{clickImage@{clickImage}!WebTestCase@{WebTestCase}}
+\subsubsection[{clickImage}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clickImage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ x = {\ttfamily 1}, }
+\item[{\$}]{ y = {\ttfamily 1}, }
+\item[{\$}]{ additional = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a235d36a855726467258fd896f724f1c9}
+Clicks the submit image by some kind of label. Usually the alt tag or the nearest equivalent. The owning form will be submitted by this. Clicking outside of the boundary of the coordinates will result in a failure. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Alt attribute of button. \\
+\hline
+integer & {\em \$x} & X-\/coordinate of imaginary click. \\
+\hline
+integer & {\em \$y} & Y-\/coordinate of imaginary click. \\
+\hline
+hash & {\em \$additional} & Additional form values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_aa470415b0fc11df87ce6e5d2ea5a5644}{
+\index{WebTestCase@{WebTestCase}!clickImageById@{clickImageById}}
+\index{clickImageById@{clickImageById}!WebTestCase@{WebTestCase}}
+\subsubsection[{clickImageById}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clickImageById (
+\begin{DoxyParamCaption}
+\item[{\$}]{ id, }
+\item[{\$}]{ x = {\ttfamily 1}, }
+\item[{\$}]{ y = {\ttfamily 1}, }
+\item[{\$}]{ additional = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aa470415b0fc11df87ce6e5d2ea5a5644}
+Clicks the submit image by ID attribute. The owning form will be submitted by this. Clicking outside of the boundary of the coordinates will result in a failure. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em integer/string} & \$id ID attribute of button. \\
+\hline
+integer & {\em \$x} & X-\/coordinate of imaginary click. \\
+\hline
+integer & {\em \$y} & Y-\/coordinate of imaginary click. \\
+\hline
+hash & {\em \$additional} & Additional form values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a5b555b4f2c9013abcf3b3893a3447607}{
+\index{WebTestCase@{WebTestCase}!clickImageByName@{clickImageByName}}
+\index{clickImageByName@{clickImageByName}!WebTestCase@{WebTestCase}}
+\subsubsection[{clickImageByName}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clickImageByName (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ x = {\ttfamily 1}, }
+\item[{\$}]{ y = {\ttfamily 1}, }
+\item[{\$}]{ additional = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a5b555b4f2c9013abcf3b3893a3447607}
+Clicks the submit image by the name. Usually the alt tag or the nearest equivalent. The owning form will be submitted by this. Clicking outside of the boundary of the coordinates will result in a failure. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name attribute of button. \\
+\hline
+integer & {\em \$x} & X-\/coordinate of imaginary click. \\
+\hline
+integer & {\em \$y} & Y-\/coordinate of imaginary click. \\
+\hline
+hash & {\em \$additional} & Additional form values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a286ade62f142d1ac0b5d0bc9038a01cf}{
+\index{WebTestCase@{WebTestCase}!clickLink@{clickLink}}
+\index{clickLink@{clickLink}!WebTestCase@{WebTestCase}}
+\subsubsection[{clickLink}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clickLink (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ index = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a286ade62f142d1ac0b5d0bc9038a01cf}
+Follows a link by name. Will click the first link found with this link text by default, or a later one if an index is given. Match is case insensitive with normalised space. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Text between the anchor tags. \\
+\hline
+integer & {\em \$index} & Link position counting from zero. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ac87eaa5a61ab4ba0fe12deab4ddc97e2}{
+\index{WebTestCase@{WebTestCase}!clickLinkById@{clickLinkById}}
+\index{clickLinkById@{clickLinkById}!WebTestCase@{WebTestCase}}
+\subsubsection[{clickLinkById}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clickLinkById (
+\begin{DoxyParamCaption}
+\item[{\$}]{ id}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ac87eaa5a61ab4ba0fe12deab4ddc97e2}
+Follows a link by id attribute. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$id} & ID attribute value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a7c7a1adc6ce99397bda5914edca76eaf}{
+\index{WebTestCase@{WebTestCase}!clickSubmit@{clickSubmit}}
+\index{clickSubmit@{clickSubmit}!WebTestCase@{WebTestCase}}
+\subsubsection[{clickSubmit}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clickSubmit (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label = {\ttfamily 'Submit'}, }
+\item[{\$}]{ additional = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a7c7a1adc6ce99397bda5914edca76eaf}
+Clicks the submit button by label. The owning form will be submitted by this. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Button label. An unlabeled button can be triggered by 'Submit'. \\
+\hline
+hash & {\em \$additional} & Additional form values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success, else false.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a8de6c0c32b24d21b3d077487acbf4237}{
+\index{WebTestCase@{WebTestCase}!clickSubmitById@{clickSubmitById}}
+\index{clickSubmitById@{clickSubmitById}!WebTestCase@{WebTestCase}}
+\subsubsection[{clickSubmitById}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clickSubmitById (
+\begin{DoxyParamCaption}
+\item[{\$}]{ id, }
+\item[{\$}]{ additional = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a8de6c0c32b24d21b3d077487acbf4237}
+Clicks the submit button by ID attribute. The owning form will be submitted by this. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$id} & ID attribute of button. \\
+\hline
+hash & {\em \$additional} & Additional form values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ad23d94f7be9a92d07c36772b302cd495}{
+\index{WebTestCase@{WebTestCase}!clickSubmitByName@{clickSubmitByName}}
+\index{clickSubmitByName@{clickSubmitByName}!WebTestCase@{WebTestCase}}
+\subsubsection[{clickSubmitByName}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::clickSubmitByName (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ additional = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ad23d94f7be9a92d07c36772b302cd495}
+Clicks the submit button by name attribute. The owning form will be submitted by this. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name attribute of button. \\
+\hline
+hash & {\em \$additional} & Additional form values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a004842238df312f4fd8d10da0631bbfd}{
+\index{WebTestCase@{WebTestCase}!createBrowser@{createBrowser}}
+\index{createBrowser@{createBrowser}!WebTestCase@{WebTestCase}}
+\subsubsection[{createBrowser}]{\setlength{\rightskip}{0pt plus 5cm}\& WebTestCase::createBrowser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a004842238df312f4fd8d10da0631bbfd}
+Creates a new default web browser object. Will be cleared at the end of the test method. \begin{DoxyReturn}{Returns}
+TestBrowser New browser.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a3bcb61ac6efd4894ca22a702859191df}{
+\index{WebTestCase@{WebTestCase}!forward@{forward}}
+\index{forward@{forward}!WebTestCase@{WebTestCase}}
+\subsubsection[{forward}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::forward (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a3bcb61ac6efd4894ca22a702859191df}
+Equivalent to hitting the forward button on the browser. \begin{DoxyReturn}{Returns}
+boolean True if history entry and fetch succeeded.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a754f1efbaf6d5fb23208f2e823d37887}{
+\index{WebTestCase@{WebTestCase}!get@{get}}
+\index{get@{get}!WebTestCase@{WebTestCase}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::get (
+\begin{DoxyParamCaption}
+\item[{\$}]{ url, }
+\item[{\$}]{ parameters = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a754f1efbaf6d5fb23208f2e823d37887}
+Fetches a page into the page buffer. If there is no base for the URL then the current base URL is used. After the fetch the base URL reflects the new location. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$url} & URL to fetch. \\
+\hline
+hash & {\em \$parameters} & Optional additional GET data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Raw page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a4fa60ab738d6c9ada4a4199698549fd2}{
+\index{WebTestCase@{WebTestCase}!getAssertionLine@{getAssertionLine}}
+\index{getAssertionLine@{getAssertionLine}!WebTestCase@{WebTestCase}}
+\subsubsection[{getAssertionLine}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::getAssertionLine (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a4fa60ab738d6c9ada4a4199698549fd2}
+Uses a stack trace to find the line of an assertion. \begin{DoxyReturn}{Returns}
+string Line number of first assert$\ast$ method embedded in format string.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ad7ef0640edd1ef69ee201cb661ed5935}{
+\index{WebTestCase@{WebTestCase}!getBrowser@{getBrowser}}
+\index{getBrowser@{getBrowser}!WebTestCase@{WebTestCase}}
+\subsubsection[{getBrowser}]{\setlength{\rightskip}{0pt plus 5cm}\& WebTestCase::getBrowser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ad7ef0640edd1ef69ee201cb661ed5935}
+Gets a current browser reference for setting special expectations or for detailed examination of page fetches. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_browser}{SimpleBrowser} Current test browser object.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a104b5a93fe99f66cef9c170066e4c19e}{
+\index{WebTestCase@{WebTestCase}!getCookie@{getCookie}}
+\index{getCookie@{getCookie}!WebTestCase@{WebTestCase}}
+\subsubsection[{getCookie}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::getCookie (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a104b5a93fe99f66cef9c170066e4c19e}
+Gets the cookie value for the current browser context. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name of cookie. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Value of cookie or false if unset.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ab099bbb517810122d6a94889dc8541ad}{
+\index{WebTestCase@{WebTestCase}!getFrameFocus@{getFrameFocus}}
+\index{getFrameFocus@{getFrameFocus}!WebTestCase@{WebTestCase}}
+\subsubsection[{getFrameFocus}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::getFrameFocus (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ab099bbb517810122d6a94889dc8541ad}
+Accessor for current frame focus. Will be false if no frame has focus. \begin{DoxyReturn}{Returns}
+integer/string/boolean Label if any, otherwise the position in the frameset or false if none.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ac12566754888b2e6e3cee8290c2df04d}{
+\index{WebTestCase@{WebTestCase}!getTransportError@{getTransportError}}
+\index{getTransportError@{getTransportError}!WebTestCase@{WebTestCase}}
+\subsubsection[{getTransportError}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::getTransportError (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ac12566754888b2e6e3cee8290c2df04d}
+Gets the last response error. \begin{DoxyReturn}{Returns}
+string Last low level HTTP error.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_aff8c47b2f6380af648711b8fbf82667e}{
+\index{WebTestCase@{WebTestCase}!getUrl@{getUrl}}
+\index{getUrl@{getUrl}!WebTestCase@{WebTestCase}}
+\subsubsection[{getUrl}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::getUrl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aff8c47b2f6380af648711b8fbf82667e}
+Accessor for the currently selected URL. \begin{DoxyReturn}{Returns}
+string Current location or false if no page yet fetched.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_af774376bbbcf017378dbec675015a760}{
+\index{WebTestCase@{WebTestCase}!head@{head}}
+\index{head@{head}!WebTestCase@{WebTestCase}}
+\subsubsection[{head}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::head (
+\begin{DoxyParamCaption}
+\item[{\$}]{ url, }
+\item[{\$}]{ parameters = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_af774376bbbcf017378dbec675015a760}
+Does a HTTP HEAD fetch, fetching only the page headers. The current base URL is unchanged by this. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$url} & URL to fetch. \\
+\hline
+hash & {\em \$parameters} & Optional additional GET data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a0f36074331d50bcc7ea4bfe1c522f130}{
+\index{WebTestCase@{WebTestCase}!ignoreCookies@{ignoreCookies}}
+\index{ignoreCookies@{ignoreCookies}!WebTestCase@{WebTestCase}}
+\subsubsection[{ignoreCookies}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::ignoreCookies (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a0f36074331d50bcc7ea4bfe1c522f130}
+Switches off cookie sending and recieving.  public \hypertarget{class_web_test_case_a6aface34c4d09b7340bda88c72468056}{
+\index{WebTestCase@{WebTestCase}!ignoreErrors@{ignoreErrors}}
+\index{ignoreErrors@{ignoreErrors}!WebTestCase@{WebTestCase}}
+\subsubsection[{ignoreErrors}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::ignoreErrors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a6aface34c4d09b7340bda88c72468056}
+Skips errors for the next request only. You might want to confirm that a page is unreachable for example.  public \hypertarget{class_web_test_case_a3fb48ba6173cf132a26a3695f2e43df3}{
+\index{WebTestCase@{WebTestCase}!ignoreFrames@{ignoreFrames}}
+\index{ignoreFrames@{ignoreFrames}!WebTestCase@{WebTestCase}}
+\subsubsection[{ignoreFrames}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::ignoreFrames (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a3fb48ba6173cf132a26a3695f2e43df3}
+Disables frames support. Frames will not be fetched and the frameset page will be used instead.  public \hypertarget{class_web_test_case_a7d409a4e22876ab2b96ee330c0bedc8c}{
+\index{WebTestCase@{WebTestCase}!post@{post}}
+\index{post@{post}!WebTestCase@{WebTestCase}}
+\subsubsection[{post}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::post (
+\begin{DoxyParamCaption}
+\item[{\$}]{ url, }
+\item[{\$}]{ parameters = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a7d409a4e22876ab2b96ee330c0bedc8c}
+Fetches a page by POST into the page buffer. If there is no base for the URL then the current base URL is used. After the fetch the base URL reflects the new location. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$url} & URL to fetch. \\
+\hline
+hash & {\em \$parameters} & Optional additional GET data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Raw page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a7c3811b06a5a25b08baabe63599ac6e6}{
+\index{WebTestCase@{WebTestCase}!restart@{restart}}
+\index{restart@{restart}!WebTestCase@{WebTestCase}}
+\subsubsection[{restart}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::restart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ date = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a7c3811b06a5a25b08baabe63599ac6e6}
+Simulates the closing and reopening of the browser. Temporary cookies will be discarded and timed cookies will be expired if later than the specified time. 
+\begin{DoxyParams}{Parameters}
+{\em string/integer} & \$date Time when session restarted. If ommitted then all persistent cookies are kept. Time is either Cookie format string or timestamp.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_ae8327032083ec6211ad823c45cb72084}{
+\index{WebTestCase@{WebTestCase}!retry@{retry}}
+\index{retry@{retry}!WebTestCase@{WebTestCase}}
+\subsubsection[{retry}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::retry (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ae8327032083ec6211ad823c45cb72084}
+Equivalent to hitting the retry button on the browser. Will attempt to repeat the page fetch. \begin{DoxyReturn}{Returns}
+boolean True if fetch succeeded.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a6a7359c09fc9665e5d34c2c69068134f}{
+\index{WebTestCase@{WebTestCase}!setBrowser@{setBrowser}}
+\index{setBrowser@{setBrowser}!WebTestCase@{WebTestCase}}
+\subsubsection[{setBrowser}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setBrowser (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ browser}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a6a7359c09fc9665e5d34c2c69068134f}
+Gets a current browser reference for setting special expectations or for detailed examination of page fetches. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_browser}{SimpleBrowser} & {\em \$browser} & New test browser object.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_a8e7e4de35b6b6e4f8a3139709f975193}{
+\index{WebTestCase@{WebTestCase}!setConnectionTimeout@{setConnectionTimeout}}
+\index{setConnectionTimeout@{setConnectionTimeout}!WebTestCase@{WebTestCase}}
+\subsubsection[{setConnectionTimeout}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setConnectionTimeout (
+\begin{DoxyParamCaption}
+\item[{\$}]{ timeout}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a8e7e4de35b6b6e4f8a3139709f975193}
+Sets the socket timeout for opening a connection and receiving at least one byte of information. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$timeout} & Maximum time in seconds.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_ab874157186e2bc2c9d5610f007618ed9}{
+\index{WebTestCase@{WebTestCase}!setCookie@{setCookie}}
+\index{setCookie@{setCookie}!WebTestCase@{WebTestCase}}
+\subsubsection[{setCookie}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setCookie (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ value, }
+\item[{\$}]{ host = {\ttfamily false}, }
+\item[{\$}]{ path = {\ttfamily '/'}, }
+\item[{\$}]{ expiry = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ab874157186e2bc2c9d5610f007618ed9}
+Sets a cookie in the current browser. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name of cookie. \\
+\hline
+string & {\em \$value} & Cookie value. \\
+\hline
+string & {\em \$host} & Host upon which the cookie is valid. \\
+\hline
+string & {\em \$path} & Cookie path if not host wide. \\
+\hline
+string & {\em \$expiry} & Expiry date.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_a2b8f21394a225f1386c22f671a6debc0}{
+\index{WebTestCase@{WebTestCase}!setField@{setField}}
+\index{setField@{setField}!WebTestCase@{WebTestCase}}
+\subsubsection[{setField}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setField (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label, }
+\item[{\$}]{ value, }
+\item[{\$}]{ position = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a2b8f21394a225f1386c22f671a6debc0}
+Sets all form fields with that label, or name if there is no label attached. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name of field in forms. \\
+\hline
+string & {\em \$value} & New value of field. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if field exists, otherwise false.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a677f77692fd67768ad837a258a7ef4fd}{
+\index{WebTestCase@{WebTestCase}!setFieldById@{setFieldById}}
+\index{setFieldById@{setFieldById}!WebTestCase@{WebTestCase}}
+\subsubsection[{setFieldById}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setFieldById (
+\begin{DoxyParamCaption}
+\item[{\$}]{ id, }
+\item[{\$}]{ value}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a677f77692fd67768ad837a258a7ef4fd}
+Sets all form fields with that id. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em string/integer} & \$id Id of field in forms. \\
+\hline
+string & {\em \$value} & New value of field. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if field exists, otherwise false.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_ab3d6b5e72b290f14f51148642f1681e4}{
+\index{WebTestCase@{WebTestCase}!setFieldByName@{setFieldByName}}
+\index{setFieldByName@{setFieldByName}!WebTestCase@{WebTestCase}}
+\subsubsection[{setFieldByName}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setFieldByName (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ value, }
+\item[{\$}]{ position = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ab3d6b5e72b290f14f51148642f1681e4}
+Sets all form fields with that name. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Name of field in forms. \\
+\hline
+string & {\em \$value} & New value of field. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if field exists, otherwise false.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a82a0b459aa100c3a67eec773c6e5b39d}{
+\index{WebTestCase@{WebTestCase}!setFrameFocus@{setFrameFocus}}
+\index{setFrameFocus@{setFrameFocus}!WebTestCase@{WebTestCase}}
+\subsubsection[{setFrameFocus}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setFrameFocus (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a82a0b459aa100c3a67eec773c6e5b39d}
+Sets the focus by name. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Chosen frame. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if frame exists.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_afbcb7ba0d00c5df36698d2669d90cd9c}{
+\index{WebTestCase@{WebTestCase}!setFrameFocusByIndex@{setFrameFocusByIndex}}
+\index{setFrameFocusByIndex@{setFrameFocusByIndex}!WebTestCase@{WebTestCase}}
+\subsubsection[{setFrameFocusByIndex}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setFrameFocusByIndex (
+\begin{DoxyParamCaption}
+\item[{\$}]{ choice}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_afbcb7ba0d00c5df36698d2669d90cd9c}
+Sets the focus by index. The integer index starts from 1. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$choice} & Chosen frame. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if frame exists.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a1a94a628582b9cdb0610ee5772c0c5b9}{
+\index{WebTestCase@{WebTestCase}!setMaximumRedirects@{setMaximumRedirects}}
+\index{setMaximumRedirects@{setMaximumRedirects}!WebTestCase@{WebTestCase}}
+\subsubsection[{setMaximumRedirects}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::setMaximumRedirects (
+\begin{DoxyParamCaption}
+\item[{\$}]{ max}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a1a94a628582b9cdb0610ee5772c0c5b9}
+Sets the maximum number of redirects before the web page is loaded regardless. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$max} & Maximum hops.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_a9cb4dfc25c77a145504e46b8eb3acd5d}{
+\index{WebTestCase@{WebTestCase}!showHeaders@{showHeaders}}
+\index{showHeaders@{showHeaders}!WebTestCase@{WebTestCase}}
+\subsubsection[{showHeaders}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::showHeaders (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a9cb4dfc25c77a145504e46b8eb3acd5d}
+Dumps the current HTTP headers for debugging.  public \hypertarget{class_web_test_case_ade23ffdc160a37580518c0afc3657aa2}{
+\index{WebTestCase@{WebTestCase}!showRequest@{showRequest}}
+\index{showRequest@{showRequest}!WebTestCase@{WebTestCase}}
+\subsubsection[{showRequest}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::showRequest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_ade23ffdc160a37580518c0afc3657aa2}
+Dumps the current request for debugging.  public \hypertarget{class_web_test_case_a01442fb03a6a4e700e0eb22c79aaec98}{
+\index{WebTestCase@{WebTestCase}!showSource@{showSource}}
+\index{showSource@{showSource}!WebTestCase@{WebTestCase}}
+\subsubsection[{showSource}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::showSource (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a01442fb03a6a4e700e0eb22c79aaec98}
+Dumps the current HTML source for debugging.  public \hypertarget{class_web_test_case_a7060ba1f005664015384f1280fb8c9a3}{
+\index{WebTestCase@{WebTestCase}!showText@{showText}}
+\index{showText@{showText}!WebTestCase@{WebTestCase}}
+\subsubsection[{showText}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::showText (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a7060ba1f005664015384f1280fb8c9a3}
+Dumps the visible text only for debugging.  public \hypertarget{class_web_test_case_addbc36aa63cbd70458383bc2fae78c03}{
+\index{WebTestCase@{WebTestCase}!submitFormById@{submitFormById}}
+\index{submitFormById@{submitFormById}!WebTestCase@{WebTestCase}}
+\subsubsection[{submitFormById}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::submitFormById (
+\begin{DoxyParamCaption}
+\item[{\$}]{ id}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_addbc36aa63cbd70458383bc2fae78c03}
+Submits a form by the ID. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$id} & Form ID. No button information is submitted this way. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean/string Page on success.  public 
+\end{DoxyReturn}
+\hypertarget{class_web_test_case_a7ed6a5b76724d578d6f66a15945651ab}{
+\index{WebTestCase@{WebTestCase}!unsetBrowser@{unsetBrowser}}
+\index{unsetBrowser@{unsetBrowser}!WebTestCase@{WebTestCase}}
+\subsubsection[{unsetBrowser}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::unsetBrowser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_a7ed6a5b76724d578d6f66a15945651ab}
+Clears the current browser reference to help the PHP garbage collector.  public \hypertarget{class_web_test_case_aa05541e229c6ef1b31a51028cf08c92d}{
+\index{WebTestCase@{WebTestCase}!useProxy@{useProxy}}
+\index{useProxy@{useProxy}!WebTestCase@{WebTestCase}}
+\subsubsection[{useProxy}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::useProxy (
+\begin{DoxyParamCaption}
+\item[{\$}]{ proxy, }
+\item[{\$}]{ username = {\ttfamily false}, }
+\item[{\$}]{ password = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_aa05541e229c6ef1b31a51028cf08c92d}
+Sets proxy to use on all requests for when testing from behind a firewall. Set URL to false to disable. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$proxy} & Proxy URL. \\
+\hline
+string & {\em \$username} & Proxy username for authentication. \\
+\hline
+string & {\em \$password} & Proxy password for authentication.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_web_test_case_af4f14d8dd0bc743ea15308261b859f50}{
+\index{WebTestCase@{WebTestCase}!WebTestCase@{WebTestCase}}
+\index{WebTestCase@{WebTestCase}!WebTestCase@{WebTestCase}}
+\subsubsection[{WebTestCase}]{\setlength{\rightskip}{0pt plus 5cm}WebTestCase::WebTestCase (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_web_test_case_af4f14d8dd0bc743ea15308261b859f50}
+Creates an empty test case. Should be subclassed with test methods for a functional test case. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Name of test case. Will use the class name if none specified.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/web\_\-tester.php\end{DoxyCompactItemize}

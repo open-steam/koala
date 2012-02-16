@@ -1,0 +1,50 @@
+<!-- BEGIN BLOCK_PYRAMID_USERS -->
+<form action="" method="post">
+	<div id="users">
+		<center>
+			<table class="pyramiddiscussion_table" border="1">
+				<tr>
+					<th>{LOGIN_LABEL}</th>
+					<th>{NAME_LABEL}</th>
+					<th>{START_LABEL}</th>
+					<th>{DEACTIVATE_LABEL}</th>
+					<th>{ADMIN_LABEL}</th>
+				</tr>
+				<!-- BEGIN BLOCK_PYRAMID_USERS_ELEMENT -->
+				<tr>
+					<td>{USER_LOGIN}</td>
+					<td>{USER_NAME}</td>
+					<td>
+						<select name="startposition[{USER_ID}]" size="1" style="width: 100%" >
+							<!-- BEGIN BLOCK_POSITION_OPTION -->
+							<option value="{POSITION_ID}" {POSITION_SELECTED}>{POSITION_VALUE}</option>
+							<!-- END BLOCK_POSITION_OPTION -->
+						</select>
+						<input type="hidden" name="previousstartposition[{USER_ID}]" value="{PREVIOUSSTART_VALUE}">
+					</td>
+					<td>
+						<select name="deactivate[{USER_ID}]" size="1" style="width: 100%" >
+							<!-- BEGIN BLOCK_PHASE_OPTION -->
+							<option value="{PHASE_ID}" {PHASE_SELECTED}>{PHASE_VALUE}</option>
+							<!-- END BLOCK_PHASE_OPTION -->
+						</select>
+					</td>
+					<td>
+						<input type="checkbox" name="admin[{USER_ID}]" {ADMIN_SELECTED} {ADMIN_DISABLED}> 
+						<input type="hidden" name="formeradmin[{USER_ID}]" value="{FORMER_ADMIN}">
+					</td>
+				</tr>
+				<!-- END BLOCK_PYRAMID_USERS_ELEMENT -->
+				<tr>
+					<td colspan="5">
+						<div style="text-align:center" class="buttons">
+							<input type="submit" value="{SAVE_CHANGES}" name="change_users">
+							<a class="button" href="{BACK_LINK}">{BACK_LABEL}</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</center>
+	</div>
+</form>
+<!-- END BLOCK_PYRAMID_USERS -->

@@ -1,0 +1,21 @@
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->Editer "{PORTLET_NAME}"<!-- END edit_title -->
+<!-- BEGIN edit_feedback_address_null -->L'adresse ne doit pas être vide<!-- END edit_feedback_address_null -->
+<!-- BEGIN edit_address -->Adresse du flux RSS<!-- END edit_address -->
+<!-- BEGIN edit_num_items -->Nombre d'articles<!-- END edit_num_items -->
+<!-- BEGIN edit_desc_length -->Longeur du contenu<!-- END edit_desc_length -->
+<!-- BEGIN edit_style -->Style<!-- END edit_style -->
+<!-- BEGIN edit_style_rss_feed -->Limité<!-- END edit_style_rss_feed -->
+<!-- BEGIN edit_style_message -->Large<!-- END edit_style_message -->
+<!-- BEGIN edit_allow_html -->Autoriser l'édition HTML<!-- END edit_allow_html -->
+<!-- BEGIN edit_button_ok -->Sauvegarder<!-- END edit_button_ok -->
+<!-- BEGIN edit_button_cancel -->Terminer<!-- END edit_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** view.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN view_feed_error -->Le flux RSS in'est pas lisible.<!-- END view_feed_error -->

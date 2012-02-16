@@ -1,0 +1,196 @@
+﻿<!-- BEGIN error -->{LANGUAGE_ERROR_1} "<b>{QUESTION}</b>" {LANGUAGE_ERROR_2}<br><!-- END error -->
+<!-- BEGIN error_no_write_access -->{LANGUAGE_ERROR_NO_WRITE_ACCESS}<!-- END error_no_write_access -->
+<!-- BEGIN error_multiple_input -->{LANGUAGE_ERROR_MULTIPLE_INPUT}<!-- END error_multiple_input -->
+<!-- BEGIN error_not_enabled -->{LANGUAGE_ERROR_NOT_ENABLED}<!-- END error_not_enabled -->
+<!-- BEGIN saved -->{LANGUAGE_SAVED}<!-- END saved -->
+
+
+<!-- BEGIN empty_line --><tr><td><br>&nbsp;</td></tr><!-- END empty_line -->
+
+<!-- BEGIN full_line --><tr><td colspan="2"><hr class="hr"></td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<!-- END full_line -->
+
+<!-- BEGIN description --><tr><td colspan="2" class="table_header">{DESCRIPTION}</td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<!-- END description -->
+
+<!-- BEGIN caption --><tr><td colspan="2" class="caption">{CAPTION}</td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<!-- END caption -->
+
+<!-- BEGIN input_text --><input type="text" name="{INPUT_ID}" maxlength="{MAXLENGTH}" style="width:{WIDTH};" value="{VALUE}" class="elements"><!-- END input_text -->
+
+<!-- BEGIN input_textarea --><textarea name="{INPUT_ID}" style="width:{WIDTH};" rows="{HEIGHT}" class="elements">{VALUE}</textarea><!-- END input_textarea -->
+
+<!-- BEGIN input_checkbox -->
+<table>
+	<!-- BEGIN input_checkbox_row -->
+	<tr>
+		<!-- BEGIN input_checkbox_cell -->
+		<td class="content_inner_table"><input type="checkbox" name="{INPUT_ID_OPTION}" value="{VALUE}" {CHECKED}></td>
+		<td class="content_inner_table">{OPTION}</td>
+		<!-- END input_checkbox_cell -->
+	</tr>
+	<!-- END input_checkbox_row -->
+</table>
+<!-- END input_checkbox -->
+
+<!-- BEGIN input_radiobutton -->
+<table cellpadding="0" cellspacing="0">
+	<!-- BEGIN input_radiobutton_row -->
+	<tr>
+		<!-- BEGIN input_radiobutton_cell -->
+		<td class="content_inner_table"><input type="radio" name="{INPUT_ID}" value="{VALUE}" {CHECKED}>&nbsp;{OPTION}</td>
+		<!-- END input_radiobutton_cell -->
+	</tr>
+	<!-- END input_radiobutton_row -->
+</table>
+<!-- END input_radiobutton -->
+
+<!-- BEGIN input_selectbox -->
+<select name="{INPUT_ID}" size="{ROWS}" style="width:{WIDTH}" class="elements">
+	<!-- BEGIN input_selectbox_row -->
+	<option value="{VALUE}" class="elements" {SELECTED}>{OPTION}</option>
+	<!-- END input_selectbox_row -->
+</select>
+<!-- END input_selectbox -->
+
+<!-- BEGIN input_grading -->
+<table cellpadding="4" cellspacing="0" width="100%">
+	<tr style="text-align:center;">
+		<td class="grading_grades">&nbsp;</td>
+		<td class="grading_grades">{LANGUAGE_GRADING_LABEL_ONE}</td>
+		<td class="grading_grades">{LANGUAGE_GRADING_LABEL_TWO}</td>
+		<td class="grading_grades">{LANGUAGE_GRADING_LABEL_THREE}</td>
+		<td class="grading_grades">{LANGUAGE_GRADING_LABEL_FOUR}</td>
+		<td class="grading_grades">{LANGUAGE_GRADING_LABEL_FIVE}</td>
+		<td class="grading_grades">{LANGUAGE_GRADING_LABEL_SIX}</td>
+	</tr>
+	
+	<!-- BEGIN input_grading_row -->
+	<tr>
+		<td nowrap="nowrap" width="16%" class="{CSS_CLASS}">{GRADING_OPTION}</td>
+		<td align="center" width="14%" class="{CSS_CLASS}"><input type="radio" name="{INPUT_ID}" value="1" {CHECKED_1}></td>
+		<td align="center" width="14%" class="{CSS_CLASS}"><input type="radio" name="{INPUT_ID}" value="2" {CHECKED_2}></td>
+		<td align="center" width="14%" class="{CSS_CLASS}"><input type="radio" name="{INPUT_ID}" value="3" {CHECKED_3}></td>
+		<td align="center" width="14%" class="{CSS_CLASS}"><input type="radio" name="{INPUT_ID}" value="4" {CHECKED_4}></td>
+		<td align="center" width="14%" class="{CSS_CLASS}"><input type="radio" name="{INPUT_ID}" value="5" {CHECKED_5}></td>
+		<td align="center" width="14%" class="{CSS_CLASS}"><input type="radio" name="{INPUT_ID}" value="6" {CHECKED_6}></td>
+	</tr>
+	<!-- END input_grading_row -->
+</table>
+<!-- END input_grading -->
+
+<!-- BEGIN input_tendency -->
+<table cellpadding="4" cellspacing="0" width="100%">
+	<!-- BEGIN input_tendency_row -->
+	<tr>
+		<td nowrap="nowrap" class="{CSS_CLASS}">{TENDENCY_ELEMENT_A}</td>
+		<!-- BEGIN input_tendency_cell -->
+		<td align="center" class="{CSS_CLASS}"><input type="radio" name="{INPUT_ID}" value="{VALUE}" {CHECKED}></td>
+		<!-- END input_tendency_cell -->
+		<td nowrap="nowrap" class="{CSS_CLASS}">{TENDENCY_ELEMENT_B}</td>
+	</tr>
+	<!-- END input_tendency_row -->
+</table>
+<!-- END input_tendency -->
+
+
+<!-- BEGIN question_align_left -->
+	<tr valign="top">
+		<td class="table_header" style="font-weight:{QUESTION_STYLE}; vertical-align:top;">{QUESTION}</td>
+		<td class="table_content" style="vertical-align:top;">{INPUT_ELEMENT}</td>
+	</tr>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+<!-- END question_align_left -->
+<!-- BEGIN question_align_top -->
+	<tr valign="top">
+		<td class="table_header" colspan="2"><span style="font-weight:{QUESTION_STYLE};">{QUESTION}</span></td>
+	</tr>
+	<tr>
+		<td class="table_content" colspan="2">{INPUT_ELEMENT}</td>
+	</tr>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+<!-- END question_align_top -->
+
+<html>
+<head>
+  <title>{TITLE}</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/css/contentframe.css">
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/modules/questionary/css/layout.php?questionary={OBJECT_ID}">
+</head>
+
+<body>
+
+{MENU}
+
+<!-- BEGIN form --><form action="{DOC_ROOT}/modules/questionary/answer.php" method="post" name="questionary" id="questionary"><!-- END form -->
+<!-- BEGIN form_edit --><form action="{DOC_ROOT}/modules/questionary/answer.php?answer={ANSWER_ID}" method="post" name="questionary" id="questionary"><!-- END form_edit -->
+<input type="hidden" name="object" value="{OBJECT_ID}">
+<input type="hidden" name="page" value="{PAGE_NUMBER}">
+<input type="hidden" name="direction" value="">
+
+<!-- BEGIN hidden_row --><input type="hidden" name="{HIDDEN_NAME}" id="{HIDDEN_NAME}" value="{HIDDEN_VALUE}">
+<!-- END hidden_row -->
+
+<table align="center" class="main_table">
+	<tr>
+	  <td class="caption" colspan="2">{QUESTIONARY_NAME}</td>
+	</tr>
+	<tr>
+	  <td colspan="2">&nbsp;</td>
+	</tr>
+	<!-- BEGIN feedback_row -->
+	<tr>
+		<td>{FEEDBACK}</td>
+	</tr>
+	<!-- END feedback_row -->
+	<!-- BEGIN progress_row -->
+	<tr>
+		<td class="progress" colspan="2">{PROGRESS}</td>
+	</tr>
+	<tr>
+	  <td colspan="2">&nbsp;</td>
+	</tr>
+	<!-- END progress_row -->
+	<!-- BEGIN quest_row -->
+			{QUEST_CELL}
+	<!-- END quest_row -->
+	<tr>
+	  <td colspan="2"><table width="100%" cellpadding="0" cellspacing="0" border="0">
+	  		<!-- BEGIN button_home -->
+			<tr><td>&nbsp;</td></tr>
+			<tr>
+				<td><button class="button" type="button" name="button" value="home" onClick="location.href='index.php?object={OBJECT_ID}';">{LANGUAGE_LABEL_BUTTON_HOME}</button></td>
+			</tr>
+			<!-- END button_home -->
+			<tr>
+				<td align="left" width="10%"><!-- BEGIN button_previous -->
+					<button class="button" type="button" name="button" value="previous" onClick="javascript:document.forms[0].direction.value='previous';document.forms[0].submit();">{LANGUAGE_LABEL_BUTTON_PREVIOUS}</button>
+					<!-- END button_previous --></td>
+				<td align="center" width="80%">
+					<!-- BEGIN button_finish -->
+					<button class="button" type="button" name="button" value="finish" onClick="javascript:document.forms[0].direction.value='finish';document.forms[0].submit();">{LANGUAGE_LABEL_BUTTON_FINISH}</button>
+					<!-- END button_finish --></td>
+				<td align="right" width="10%">
+					<!-- BEGIN button_next -->
+					<button class="button" type="button" name="button" value="next" onClick="javascript:document.forms[0].direction.value='next';document.forms[0].submit();">{LANGUAGE_LABEL_BUTTON_NEXT}</button>
+					<!-- END button_next --></td>
+			</tr>
+		</table>
+	  </td>
+	</tr>
+	
+</table>
+
+</div>
+</form>
+
+</body>
+</html>

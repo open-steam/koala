@@ -1,0 +1,36 @@
+<table width="100%" cellpadding="0">
+<form action="/search/groups/" method="get">
+	<tr valign="top">
+		<td>
+			<p><input type="text" size="40">&nbsp;<input type="submit"  value="{LABEL_SEARCH}"/></p>
+			<h3 style="margin-top: 20px;">{LABEL_ALL_GROUPS}</h3>
+		</td>
+		<td width="250">
+			<h3 style="margin-top: 0px">&raquo; <a href="{LINK_MANAGE_SUBSCRIPTIONS}">{LABEL_MANAGE_SUBSCRIPTIONS}</a></h3>
+			<h3 style="margin-top: 10px">&raquo; <a href="{LINK_CREATE_NEW_GROUP}">{LABEL_CREATE_NEW_GROUP}</a></h3>
+		</td>
+	</tr>
+</form>
+</table>
+<table cellspacing="5" class="TopicListing" width="100%">
+	<tr>
+		<td><h6>{LABEL_GROUPNAME}</h6></td>
+		<td><h6>{LABEL_GROUP_DESC}</h6></td>
+		<td align="center" width="10%"><h6>{LABEL_GROUP_MEMBERS}</h6></td>
+		<td align="15%"><h6>{LABEL_GROUP_SUBGROUPS}</h6></td>
+	</tr>
+	<!-- BEGIN BLOCK_GROUP -->
+	<tr valign="top">
+		<td>
+			<!-- BEGIN BLOCK_GROUP_NEW -->
+			<span class="new">{NEW_LABEL}</span> &nbsp;
+			<!-- END BLOCK_GROUP_NEW -->
+			<a href="{GROUP_LINK}"><b>{GROUP_NAME}</b></a>
+		</td>
+		<td><small>{GROUP_DESC}</small></td>
+		<td style="text-align: center;"><a href="{GROUP_MEMBERS_LINK}">{GROUP_MEMBERS}</a></td>
+		<td style="text-align: center;">{GROUP_SUBGROUPS}</td>
+	</tr>
+	<!-- END BLOCK_GROUP -->
+</table>
+

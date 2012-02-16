@@ -1,0 +1,73 @@
+.pyramiddiscussion_table {
+    border-collapse: collapse;
+}
+.pyramiddiscussion_table th {
+    background-color: white;
+    font-weight: bolder;
+    padding: 5px;
+    text-align: left;
+}
+.pyramiddiscussion_table td {
+    background-color: #EEEEEE;
+    padding: 5px;
+}
+.pyramiddiscussion_table td.label {
+    color: #003A6F;
+    font-weight: bold;
+    padding-top: 8px;
+    vertical-align: top;
+    width: 130px;
+}
+
+.box_rotate {
+     -moz-transform: rotate(270deg);  /* FF3.5+ */
+       -o-transform: rotate(270deg);  /* Opera 10.5 */
+  -webkit-transform: rotate(270deg);  /* Saf3.1+, Chrome */
+             filter:  progid:DXImageTransform.Microsoft.BasicImage(rotation=3);  /* IE6,IE7 */
+         -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)"; /* IE8 */
+         position: relative;
+         top: 55%;
+}
+
+.pyramid_statusbar {
+	background-color: #EEEEEE; 
+	width:100px; 
+	height:18px; 
+	border-bottom: 1px solid black; 
+}
+
+.pyramid_positionbar {
+	background-color:#4b789c; 
+	color:white; 
+	white-space: nowrap; 
+	width:20px; 
+	height: 100%; 
+	position:absolute; 
+	border-right: 1px solid black;
+}
+
+.pyramidposition {
+	background-color: white;
+}
+
+.my {
+	background-color: #DEEAAA;
+}
+
+.active {
+	border: 1px solid black;
+}
+
+.inactive {
+	background-color: #EEEEEE;
+	border: 1px solid grey;
+}
+
+.inactive .pyramid_positionbar {
+	background-color: grey;
+	border-right: 1px solid grey;
+}
+
+.inactive .pyramid_statusbar {
+	border-bottom: 1px solid grey;
+}

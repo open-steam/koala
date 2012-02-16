@@ -1,0 +1,23 @@
+<div class="actionBar"><a class="button" href="#" >Neu</a> <a class="button" href="explorer/properties" onmouseover="callCommand('Properties');return false;">Eigenschaften</a></div>
+
+<h1>{CURRENT_ITEM_NAME}</h1>
+
+<div class="explorer">
+
+<div class="explorer-header">
+	<div class="explorer-lable-name">{LABLE_NAME}</div>
+	<div class="explorer-lable-date">{LABLE_EDITDATE}</div>
+	<div class="explorer-lable-size">{LABLE_SIZE}</div>
+</div>
+<!-- BEGIN TABLE_ITEM -->
+<div class="explorer-item" id="{ITEM_ID}" onmouseover="showArrow(this);" onmouseout="hideArrow(this);">
+	<div class="explorer-item-checkbox"><input onchange="toggleHighlight(this);" type="checkbox" /></div>
+	<div class="explorer-item-icon"><img src="{ITEM_ICON_SRC}" /></div>
+	<div class="explorer-item-name"><a href="{ITEM_LINK_URL}">{ITEM_NAME}</a></div>
+	<div class="explorer-item-date" title="{ITEM_EDITDATE_CLEAN}">{ITEM_EDITDATE_NICE}</div>
+	<div class="explorer-item-size">{ITEM_SIZE}</div>
+	<div class="explorer-item-menuicon" onclick="showMenu(this);">{MENU_ICON}</div>
+</div>
+<!-- END TABLE_ITEM -->
+</div>
+<div id="menu-wrapper"></div>

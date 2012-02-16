@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Multiple Grids per Page</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:pointer;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Grid samples</div>
+	<h1>Multiple Grids per Page</h1>
+	<p>
+		You can place any number of grid on page, with different config and styling
+	</p>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>
+	<script  src="../js/dhtmlXGridCell.js"></script>
+	<table>
+		<tr>
+			<td>
+                <div style='width:300px;'>
+				<div id="gridbox" width="300px" height="300px" style="overflow:hidden"></div>
+                </div>
+			</td>
+
+			<td>                <div style='width:600px;'>
+				<div id="gridbox2" width="600px" height="300px" style="overflow:hidden"></div>
+                </div></td>
+		</tr>
+	</table>
+<hr>
+<XMP>
+<div id="gridbox" width="300px" height="300px" style="background-color:white;overflow:hidden"></div>
+<div id="gridbox2" width="600px" height="300px" style="overflow:hidden"></div>
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../imgs/");
+	mygrid.setHeader("Column A, Column B");
+    mygrid.setInitWidths("150,150");
+	mygrid.setColAlign("right,left")
+	mygrid.setColTypes("ro,ed");
+	mygrid.setColSorting("int,str")
+	mygrid.init();
+	mygrid.loadXML("../grid.xml");
+
+	mygrid2 = new dhtmlXGridObject('gridbox2');
+	mygrid2.setImagePath("../imgs/");
+	mygrid2.setHeader("Column A, Column B, Column C");
+    mygrid2.setInitWidths("200,100,200");
+	mygrid2.setColAlign("right,left,left")
+	mygrid2.setColTypes("ro,ed,ed");
+	mygrid2.setColSorting("int,str,str")
+	mygrid2.init();
+	mygrid2.loadXML("../grid.xml");
+</script>
+</XMP>
+
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../imgs/");
+	mygrid.setHeader("Column A, Column B");
+    mygrid.setInitWidths("150,150");
+	mygrid.setColAlign("right,left")
+	mygrid.setColTypes("ro,ed");
+	mygrid.setColSorting("int,str")
+	mygrid.init();
+	mygrid.loadXML("../grid.xml");
+
+	mygrid2 = new dhtmlXGridObject('gridbox2');
+	mygrid2.setImagePath("../imgs/");
+	mygrid2.setHeader("Column A, Column B, Column C");
+    mygrid2.setInitWidths("200,100,200");
+	mygrid2.setColAlign("right,left,left")
+	mygrid2.setColTypes("ro,ed,ed");
+	mygrid2.setColSorting("int,str,str")
+	mygrid2.init();
+	mygrid2.loadXML("../grid.xml");
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+
+</body>
+</html>
+

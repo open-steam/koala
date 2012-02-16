@@ -1,0 +1,36 @@
+<!-- BEGIN BLOCK_INFO -->
+<div class="infoBar">
+	{INFO_TEXT}
+</div>
+<!-- END BLOCK_INFO -->
+
+<!-- BEGIN BLOCK_CREATE_FORMULAR -->
+<form action="./overview" name="create_workplan" onsubmit="return checkCreateForm();" method="post">
+	<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+		<tr>
+			<td class="label">{NAME_LABEL}</td>
+			<td><input name="values[name]" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{START_DATE_LABEL}</td>
+			<td><input title="TT.MM.JJJJ" name="values[start]" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{END_DATE_LABEL}</td>
+			<td><input title="TT.MM.JJJJ" name="values[end]" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{DESCRIPTION_LABEL}</td>
+			<td><textarea name="values[description]" style="width:400px;" rows="10"></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="buttons">
+					<input type="submit" value="{CREATE_WORKPLAN_LABEL}" name="new_workplan">
+					<a class="button" href="{WORKPLAN_LINK_BACK}">{LABEL_BACK}</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>
+<!-- END BLOCK_CREATE_FORMULAR -->

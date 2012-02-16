@@ -1,0 +1,10 @@
+<extension>
+	<name>documents</name>
+	<path>documents</path>
+	<description>koaLA extension module for an area for arbitrary documents and folders</description>
+	<OBJ_TYPE></OBJ_TYPE>
+	<CLASSTYPE></CLASSTYPE>
+	<category>did_extension</category>
+	<enabled_default>TRUE</enabled_default>
+	<requires></requires>
+</extension>

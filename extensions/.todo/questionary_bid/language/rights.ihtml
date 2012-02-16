@@ -1,0 +1,153 @@
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+<!-- BEGIN button_save -->{LANGUAGE_BUTTON_SAVE}<!-- END button_save -->
+<table width="90%" align="center" border="0" cellpadding="0" cellspacing="0" class="List">
+  <tr align="right">
+	<td width="100%">&nbsp;</td>
+	<td nowrap="nowrap">{LANGUAGE_PUBLISH_1}&nbsp;<input type="radio" name="publish" id="private" value="private" onclick="javascript:clicked_crude();" {RADIO_PRIVATE}></td>
+  </tr>
+  <tr align="right">
+	<td width="100%">&nbsp;</td>
+	<td nowrap="nowrap">{LANGUAGE_PUBLISH_2}&nbsp;<input type="radio" name="publish" id="public" value="public" onclick="javascript:clicked_crude();" {RADIO_PUBLIC}></td>
+  </tr>
+  <tr align="right">
+	<td width="100%">&nbsp;</td>
+	<td nowrap="nowrap">{LANGUAGE_PUBLISH_3}&nbsp;<input type="radio" name="publish" id="user" value="user" onclick="javascript:clicked_crude();" {RADIO_USER}></td>
+  </tr>
+  <tr><td colspan="2">&nbsp;</td></tr>
+</table>
+
+<table width="90%" align="center" border="0">
+  <tr>
+  	<td>
+      <table border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_OWNER}:</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_FILLOUT}&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_EDIT}&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_EVALUATE}&nbsp;</td>
+        </tr>
+
+        <tr class="List">
+          <td width="18"><img src="{DOC_ROOT}/icons/rights_user.gif" border="0" alt="{LANGUAGE_USER}" title="{LANGUAGE_USER}" style="cursor:pointer;"></td>
+          <td>{OWNER}</td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+        </tr>
+      </table>
+
+      <br>
+
+      <table id="groups" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+		  <td colspan="2" nowrap>{LANGUAGE_GROUPS}:</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_FILLOUT}&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_EDIT}&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_EVALUATE}&nbsp;</td>
+        </tr>
+         
+		<!-- BEGIN group_none -->
+		<tr class="List">
+          <td colspan="2">{LANGUAGE_GROUPS_NONE}.</td>
+        </tr>
+        <!-- END group_none -->
+
+        <!-- BEGIN group_row -->
+		<tr class="List">
+          <td width="18"><img src="{DOC_ROOT}/icons/rights_group.gif" border="0" alt="{LANGUAGE_GROUP}" title="{LANGUAGE_GROUP}" style="cursor:pointer;"></td>
+          <td>{GROUP}</td>
+          <td width="10%" align="center"><input type="checkbox" name="fillout_{GROUP_ID}" id="fillout_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_FILLOUT}></td>
+          <td width="10%" align="center"><input type="checkbox" name="edit_{GROUP_ID}" id="edit_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_EDIT}></td>
+          <td width="10%" align="center"><input type="checkbox" name="evaluate_{GROUP_ID}" id="evaluate_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_EVALUATE}></td>
+        </tr>
+        <!-- END group_row -->
+      </table>
+
+      <br>
+
+      <table id="favourites" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_FAVOURITES}:</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_FILLOUT}&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_EDIT}&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_EVALUATE}&nbsp;</td>
+        </tr>
+        
+		<!-- BEGIN favourite_none -->
+		<tr class="List">
+          <td colspan="2">{LANGUAGE_FAVOURITES_NONE}.</td>
+        </tr>
+        <!-- END favourite_none -->
+		
+        <!-- BEGIN favourite_row -->
+		<tr class="List">
+          <td width="18"><img src="{DOC_ROOT}/icons/rights_user.gif" border="0" alt="{LANGUAGE_USER}" title="{LANGUAGE_USER}" style="cursor:pointer;"></td>
+          <td>{FAVOURITE}</td>
+          <td width="10%" align="center"><input type="checkbox" name="fillout_{FAVOURITE_ID}" id="fillout_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_FILLOUT}></td>
+          <td width="10%" align="center"><input type="checkbox" name="edit_{FAVOURITE_ID}" id="edit_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_EDIT}></td>
+          <td width="10%" align="center"><input type="checkbox" name="evaluate_{FAVOURITE_ID}" id="evaluate_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_EVALUATE}></td>
+        </tr>
+        <!-- END favourite_row -->
+		
+        <!-- BEGIN favourite_row_double -->
+		<tr class="List">
+          <td width="18" style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_user.gif" border="0" alt="{LANGUAGE_USER}" title="{LANGUAGE_USER}"></td>
+          <td class="mgrey">{FAVOURITE}</td>
+          <td align="center" colspan="3" class="mgrey">{LANGUAGE_FAVOURITES_DOUBLE}</td>
+        </tr>
+        <!-- END favourite_row_double -->
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+<script language="JavaScript1.2">
+
+function clicked_crude()
+{
+  if(document.getElementById("public").checked == true)
+  {
+    <!-- BEGIN set_crude -->
+	document.getElementById("fillout_{ITEM_ID}").checked = true;
+    document.getElementById("edit_{ITEM_ID}").checked = false;
+    document.getElementById("evaluate_{ITEM_ID}").checked = false;
+    <!-- END set_crude -->
+  }
+  else if(document.getElementById("private").checked == true)
+  {
+    <!-- BEGIN unset_crude -->
+	document.getElementById("fillout_{ITEM_ID}").checked = false;
+    document.getElementById("edit_{ITEM_ID}").checked = false;
+    document.getElementById("evaluate_{ITEM_ID}").checked = false;
+    <!-- END unset_crude -->
+  }
+}
+
+function clicked_specific()
+{
+  if(true
+    <!-- BEGIN test_specific_checked -->
+	&& document.getElementById("fillout_{ITEM_ID}").checked
+    && !document.getElementById("edit_{ITEM_ID}").checked
+    && !document.getElementById("evaluate_{ITEM_ID}").checked
+    <!-- END test_specific_checked -->
+    )
+    document.getElementById("public").checked = true;
+
+  else if(true
+    <!-- BEGIN test_specific_unchecked -->
+	&& !document.getElementById("fillout_{ITEM_ID}").checked
+    && !document.getElementById("edit_{ITEM_ID}").checked
+    && !document.getElementById("evaluate_{ITEM_ID}").checked
+    <!-- END test_specific_unchecked -->
+    )
+    document.getElementById("private").checked = true;
+
+  else
+    document.getElementById("user").checked = true;
+}
+
+clicked_crude();
+clicked_specific();
+</script>

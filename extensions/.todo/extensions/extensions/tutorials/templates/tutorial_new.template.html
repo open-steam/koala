@@ -1,0 +1,86 @@
+<!-- BEGIN BLOCK_INFO_TEXT -->
+<div class="infoBar">
+	{INFO_TEXT}
+</div>
+<!-- END BLOCK_INFO_TEXT -->
+
+<form action="{FORM_ACTION}" name="tutorial" method="post">
+<input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}">
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="label">{LABEL_NR}:</td>
+		<td class="value">{VALUE_TUTORIAL_NUMBER}</td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_DSC}*:</td>
+		<td class="value"><input type="text" name="values[dsc]" style="width: 400px;" value="{VALUE_DSC}"/></td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_LONG_DSC} ({LABEL_DSC_EXTRA}):</td>
+		<td>
+			<textarea name="values[long_dsc]" style="width: 400px;" rows="5">{VALUE_LONG_DSC}</textarea><br />
+			<a href="javascript:insert('[b]', '[/b]', 'tutorial', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+			<a href="javascript:insert('[i]', '[/i]', 'tutorial', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+			<a href="javascript:insert('[u]', '[/u]', 'tutorial', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+			<a href="javascript:insert('[s]', '[/s]', 'tutorial', 'values[long_dsc]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+			<a href="javascript:insert('[img]http://', '[/img]', 'tutorial', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+			<a href="javascript:insert('[url=http://]', '[/url]', 'tutorial', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+			<a href="javascript:insert('[mail=@]', '[/mail]', 'tutorial', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a><br />
+      <small>({LONG_DSC_SHOW_UP})</small>
+		</td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_TUTOR}*:</td>
+		<td class="value"><input type="text" name="values[tutor]" style="width: 400px;" value="{VALUE_TUTORIAL_TUTOR}"/></td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_MAX_LEARNERS}*:</td>
+		<td class="value"><input type="text" name="values[max_learners]" size="3" value="{VALUE_TUTORIAL_MAX_LEARNERS}"/><br />
+      <small>({LABEL_MAX_LEARNERS_DSC})</small></td>
+	</tr>
+	<!-- BEGIN BLOCK_PARTICIPANT_MANAGEMENT -->
+	<tr>
+		<td class="label">{PARTICIPANT_MANAGEMENT}:</td>
+		<td class="value">
+			{PM_INFO_TEXT}<br />
+			<!-- BEGIN PARTICIPANTMERGEL -->
+			{LABEL_PARTICIPANTMERGEL}<br />
+			<!-- END PARTICIPANTMERGEL -->
+			<input type="hidden" name="waspassword" value="{ACCESS_WASPASSWORD}" />
+			<!-- BEGIN PARTICIPANT -->
+				<input type="radio" id="access_{VALUE}" name="values[membership]" value="{VALUE}" {CHECK} {ONCHANGE}/> <label for="access_{VALUE}">{LABEL}</label><br/>
+				<!-- BEGIN PARTICIPANT_PASSWORD -->
+					<div id="passworddiv" style="margin: 5px; margin-left: 50px; display:{PASSWORDDIV_DISPLAY}">
+					<label for="password_field">{LABEL_PASSWORD}*: </label><input type="text" name="values[password]" id="password_field" size="40" value="{VALUE_PASSWORD}"><br />
+					</div>
+				<!-- END PARTICIPANT_PASSWORD -->
+			<!-- END PARTICIPANT -->			
+		</td>
+	</tr>
+	<!-- END BLOCK_PARTICIPANT_MANAGEMENT -->
+	<!-- BEGIN BLOCK_ACCESS -->
+	<tr>
+		<td class="label">{LABEL_ACCESS}:</td>
+		<td class="value">
+			<!-- BEGIN ACCESS_INFO -->
+			{ACCESS_INFO_TEXT}<br />
+			<!-- END ACCESS_INFO -->
+			<!-- BEGIN ACCESSMERGEL -->
+			{LABEL_ACCESSMERGEL}<br />
+			<!-- END ACCESSMERGEL -->
+			<!-- BEGIN ACCESS -->
+			<input type="radio" id="access_doc_{VALUE}" name="values[access]" value="{VALUE}" {CHECK}/> <label for="access_doc_{VALUE}">{LABEL}</label><br/>
+			<!-- END ACCESS -->
+		</td>
+	</tr>
+	<!-- END BLOCK_ACCESS -->
+	<tr>
+			<td class="label">&nbsp;</td>
+			<td class="value">
+				<div class="buttons" style="text-align: left;">
+					<input type="submit" value="{LABEL_CREATE_TUTORIAL}"/> {BACKLINK}
+				</div>
+			</td>
+	</tr>
+</table>
+</form>

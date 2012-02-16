@@ -1,0 +1,84 @@
+<project name="localization" default="update-translations" basedir=".">
+
+	<!-- these properties will be inherited by the top-level build.xml -->
+	<property name="base.dir" location="../.." />
+	<property name="locale.dir" location="${base.dir}/locale" />
+	<property name="filelist" location="${locale.dir}/files.lst" />
+	<property name="anttasks.classpath" location="${base.dir}/build-tools/ant-tasks/bin" />
+
+	<property file="../build.properties" />
+	<property file="../build.properties.example" />
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+	</target>
+	
+	<!-- to add a new language, create the ??_??/LC_MESSAGES folder and call
+		msginit -l ??_?? -i messages.pot -o ??_??/LC_MESSAGES/${localization.domain.name}.po
+	then copy the language-dependent blocks below and adjust them to your new
+	language. -->
+	<target name="add-new-language" depends="init"
+	description="adds a new language" >
+		<input message="language code for the new language (e.g. en_US)" addproperty="language.code" />
+		<mkdir dir="${language.code}/LC_MESSAGES" />
+		<exec executable="${localization.msginit.path}" dir="${locale.dir}" >
+			<arg line="-l ${language.code}" />
+			<arg line="-i messages.pot" />
+			<arg line="-o ${language.code}/LC_MESSAGES/${localization.domain.name}.po" />
+		</exec>
+	</target>
+
+	<target name="update-translations" depends="init"
+	description="updates the *.po files from the php sources and compiles the *.mo files if the *.po has changed" >
+		<!-- update files.lst -->
+		<fileset id="filelist.php" dir="${base.dir}">
+			<include name="**/*.php"/>
+			<exclude name="etc/koala*"/>
+		</fileset>
+		<pathconvert pathsep="${line.separator}" targetos="unix" property="phpfiles" refid="filelist.php" />
+		<path id="base.dir.path"><pathelement path="${base.dir}" /></path>
+		<pathconvert targetos="unix" property="base.dir.unixstyle" refid="base.dir.path" />
+		<echo message="${phpfiles}" file="${filelist}" />
+		<replace file="${filelist}" token="${base.dir.unixstyle}" value=".." />
+		<!-- update ${localization.domain.name}.po -->
+		<exec executable="${localization.xgettext.path}" dir="${locale.dir}" >
+			<!-- <arg value="-j" /> -->
+			<arg line="-L PHP" /><!-- PHP files -->
+			<arg line="--from-code=utf-8" /><!-- allow utf-8 encoding in source files -->
+			<arg line="-n" /><!-- generate '#: filename:line' lines -->
+			<arg line="-f '${filelist}'" /><!-- get list of input files from filelist -->
+			<arg line="-o '${locale.dir}/messages.pot.tmp'" />
+		</exec>
+		<!-- check for changes: -->
+		<typedef name="filediff" classname="FileDiff" classpath="${anttasks.classpath}" />
+		<filediff property="unchanged.messages.pot" file1="${locale.dir}/messages.pot" file2="${locale.dir}/messages.pot.tmp">
+			<ignore prefix='"POT-Creation-Date:' />
+			<ignore prefix='"POT-Revision-Date:' />
+			<ignore prefix='"Last-Translator:' />
+		</filediff>
+		<antcall target="messages.pot-changed" />
+		<delete file="${locale.dir}/messages.pot.tmp" />
+		<!-- update all languages: -->
+		<subant buildpath="" genericantfile="build-language.xml" inheritall="true" target="update-translation">
+			<property name="anttasks.classpath" value="${anttasks.classpath}" />
+			<dirset dir="${locale.dir}" includes="??_??" />
+		</subant>
+	</target>
+
+	<target name="messages.pot-changed" unless="unchanged.messages.pot"
+	description="this is just a utility target used by update-translations (you never need to call this target)">
+		<echo message="Localization template (messages.pot) has changed." />
+		<copy file="${locale.dir}/messages.pot.tmp" toFile="${locale.dir}/messages.pot" />
+	</target>
+
+	<target name="compile-translations" depends="init"
+	description="compiles the .po files into .mo files (since translations are automatically compiled by update-translations as needed, you usually don't have to call this target)" >
+		<!-- compile all languages: -->
+		<subant buildpath="" genericantfile="build-language.xml" inheritall="true" target="compile-translation">
+			<property name="anttasks.classpath" value="${anttasks.classpath}" />
+			<dirset dir="${locale.dir}" includes="??_??" />
+		</subant>
+	</target>
+
+</project>

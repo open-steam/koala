@@ -1,0 +1,20 @@
+﻿"{LANGUAGE_LABEL_QUESTIONARY}";"{QUESTIONARY_NAME}"
+"{LANGUAGE_LABEL_DESCRIPTION}";"{DESCRIPTION}"
+"{LANGUAGE_LABEL_OBJ_ID}";"{OBJECT_ID}"
+"{LANGUAGE_LABEL_DATE}";"{DATE}"
+"{LANGUAGE_LABEL_EDIT_ANSWER}";"{EDIT_ANSWER}"
+"{LANGUAGE_LABEL_EDIT_OWN_ANSWER}";"{EDIT_OWN_ANSWER}"
+"{LANGUAGE_LABEL_FILLOUT}";"{FILLOUT}"
+<!-- BEGIN cell_edit_time -->"{LANGUAGE_LABEL_EDIT_TIME}";"{EDIT_TIME}"<!-- END cell_edit_time -->
+
+"{LANGUAGE_LABEL_QUESTION}"<!-- BEGIN cell_question -->;"{QUESTION}"<!-- END cell_question -->
+<!-- BEGIN row -->"{COUNT}"<!-- BEGIN cell_answer -->;"{ANSWER}"<!-- END cell_answer -->
+<!-- END row -->
+
+<!-- BEGIN fillout_1 -->{LANGUAGE_LABEL_FILLOUT_1}<!-- END fillout_1 -->
+<!-- BEGIN fillout_n -->{LANGUAGE_LABEL_FILLOUT_N}<!-- END fillout_n -->
+<!-- BEGIN label_creator -->{LANGUAGE_LABEL_CREATOR}<!-- END label_creator -->
+<!-- BEGIN label_creation_time -->{LANGUAGE_LABEL_CREATION_TIME}<!-- END label_creation_time -->
+<!-- BEGIN label_yes -->{LANGUAGE_LABEL_YES}<!-- END label_yes -->
+<!-- BEGIN label_no -->{LANGUAGE_LABEL_NO}<!-- END label_no -->
+

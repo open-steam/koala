@@ -1,0 +1,215 @@
+<style type="text/css">
+.subgrid td { border-right: 0px solid #fff; border-bottom: 0px solid #fff; background-color: #eee;}
+</style>
+
+
+
+
+<h3>{VALUE_CONTAINER_DESC}</h3>
+
+<p>{ROLE_STATUS}</p>
+
+
+<form action="" method="post">
+<!-- BEGIN BLOCK_EXAM -->
+<h4>{EXAM_NUMBER}</h4>
+<table class="grid" width="100%">
+	<tr>
+		<td style="vertical-align: top;">
+			<table class="subgrid" width="100%">
+				<tr><td colspan="2" style="color:grey;font-size:110%;">{LABEL_META}</td></tr>
+				<tr><td>{EXAM_ROOM_STATUSICON}</td><td>{EXAM_ROOM}</td></tr>
+				<tr><td>{EXAM_DATE_STATUSICON}</td><td>{EXAM_DATE}</td></tr>
+				<tr><td>{EXAM_TIME_STATUSICON}</td><td>{EXAM_TIME}</td></tr>
+				<tr><td></td><td>{EXAM_PARTICIPANTS}</td></tr><tr></tr>
+				<tr><td>{EXAM_ASSIGNMENTS_STATUSICON}</td><td>{EXAM_ASSIGNMENTS}</td></tr>
+				<tr><td></td><td>{EXAM_FREETEXT}</td></tr>
+				<tr><td></td><td>{EXAM_MAIL}</td></tr>
+			</table>
+		</td>
+		<td style="vertical-align: top;">
+			<table class="subgrid" width="100%"><tr><td colspan="2" style="color:grey;font-size:110%;">{LABEL_PRE_TERM}</td></tr>
+				<tr><td>{EXAM_SET_PLACES_STATUSICON}</td><td>{EXAM_SET_PLACES}</td></tr>
+				<tr><td>{EXAM_SHOW_TIMEDATE_BOX}</td><td>{EXAM_SHOW_TIMEDATE_INFO}</td></tr>
+				<tr><td>{EXAM_SHOW_ROOM_BOX}</td><td>{EXAM_SHOW_ROOM_INFO}</td></tr>
+				<tr><td></td><td>{INFO_PDF_EXPORTS}</td></tr>
+				<tr><td></td><td style="padding-left: 2em">{EXAM_PDF_PLACELIST}</td></tr>
+				<tr><td></td><td style="padding-left: 2em">{EXAM_PDF_EXAMLABELS}</td></tr>
+				<tr><td></td><td>{INFO_PARTICIPANTSLIST}</td></tr>
+				<tr><td></td><td style="padding-left: 2em">{EXAM_PDF_PARTICIPANTSLIST_BY_NAME}</td> </tr>
+				<tr><td></td><td style="padding-left: 2em;">{EXAM_PDF_PARTICIPANTSLIST_BY_PLACE}</td></tr>
+			</table>
+		</td>
+		<td style="vertical-align: top;">
+			<table class="subgrid" width="100%">
+				<tr><td colspan="2" style="color:grey;font-size:110%;">{LABEL_POST_TERM}</td></tr>
+				<tr><td>{EXAM_BONUS_STATUSICON}</td><td>{EXAM_BONUS}</td></tr>
+				<tr><td>{EXAM_EXAMKEY_STATUSICON}</td><td>{EXAM_EXAMKEY}</td></tr>
+				<tr><td>{EXAM_ENTERPOINTS_STATUSICON}</td><td>{EXAM_ENTERPOINTS}</td></tr>
+				<tr><td></td><td>{EXAM_NUMBER_OF_ENTEREDPOINTS}</td></tr>
+				<tr><td></td><td>{EXAM_PARTICIPANTS_AND_POINTS}</td></tr>
+			</table>
+		</td>
+		<td style="vertical-align: top;">
+			<table class="subgrid" width="100%"><tr><td colspan="2" style="color:grey;font-size:110%;">{LABEL_EXCEL}</td></tr>
+				<tr><td>{EXAM_EXCEL_STATISTICS}</td></tr>
+				<tr><td>{EXAM_PDF_STATISTICS}</td></tr>
+				<tr><td>{EXAM_EXCEL_EXAMOFFICE}</td></tr>
+				<tr><td>{EXAM_EXCEL_EXAMOFFICE_HISLSF}</td></tr>
+				<tr><td>{EXAM_DELETE_DATA}</td></tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- END BLOCK_EXAM -->
+</form>
+
+
+<!-- BEGIN PARTICIPANT -->
+<p>{REACHED_BONUSSTEP}</p>
+<p>{INFO_PARTICIPANTS}</p>
+
+<!-- BEGIN PARTICIPANT_EXAM1 -->
+<table width=60% class="grid">
+<tr>
+	<th class="group" colspan="2">{EXAM_1_DESC}</th>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_1_REGISTRATION_STATUS}</td>
+	<td class="value">{VALUE_EXAM_1_REGISTRATION_STATUS}</td>
+</tr>
+
+<!-- BEGIN DATE_TIME_EXAM1 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_1_DATE}</td>
+	<td class="value">{VALUE_EXAM_1_DATE}</td>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_1_TIME}</td>
+	<td class="value">{VALUE_EXAM_1_TIME}</td>
+</tr>
+<!-- END DATE_TIME_EXAM1 -->
+
+<!-- BEGIN ROOM_PLACE_EXAM1 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_1_ROOM}</td>
+	<td class="value">{VALUE_EXAM_1_ROOM}</td>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_1_PLACE}</td>
+	<td class="value">{VALUE_EXAM_1_PLACE}</td>
+</tr>
+<!-- END ROOM_PLACE_EXAM1 -->
+
+<!-- BEGIN FREETEXT_EXAM1 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_1_FREETEXT}</td>
+	<td class="value">{VALUE_EXAM_1_FREETEXT}</td>
+</tr>
+<!-- END FREETEXT_EXAM1 -->
+</table>
+<br/>
+<!-- END PARTICIPANT_EXAM1 -->
+
+<!-- BEGIN PARTICIPANT_EXAM2 -->
+<table width=60% class="grid">
+<tr>
+	<th class="group" colspan="2">{EXAM_2_DESC}</th>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_2_REGISTRATION_STATUS}</td>
+	<td class="value">{VALUE_EXAM_2_REGISTRATION_STATUS}</td>
+</tr>
+
+<!-- BEGIN DATE_TIME_EXAM2 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_2_DATE}</td>
+	<td class="value">{VALUE_EXAM_2_DATE}</td>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_2_TIME}</td>
+	<td class="value">{VALUE_EXAM_2_TIME}</td>
+</tr>
+<!-- END DATE_TIME_EXAM2 -->
+
+<!-- BEGIN ROOM_PLACE_EXAM2 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_2_ROOM}</td>
+	<td class="value">{VALUE_EXAM_2_ROOM}</td>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_2_PLACE}</td>
+	<td class="value">{VALUE_EXAM_2_PLACE}</td>
+</tr>
+<!-- END ROOM_PLACE_EXAM2 -->
+
+<!-- BEGIN FREETEXT_EXAM2 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_2_FREETEXT}</td>
+	<td class="value">{VALUE_EXAM_2_FREETEXT}</td>
+</tr>
+<!-- END FREETEXT_EXAM2 -->
+</table>
+<br/>
+<!-- END PARTICIPANT_EXAM2 -->
+
+<!-- BEGIN PARTICIPANT_EXAM3 -->
+<table width=60% class="grid">
+<tr>
+	<th class="group" colspan="2">{EXAM_3_DESC}</th>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_3_REGISTRATION_STATUS}</td>
+	<td class="value">{VALUE_EXAM_3_REGISTRATION_STATUS}</td>
+</tr>
+
+<!-- BEGIN DATE_TIME_EXAM3 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_3_DATE}</td>
+	<td class="value">{VALUE_EXAM_3_DATE}</td>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_3_TIME}</td>
+	<td class="value">{VALUE_EXAM_3_TIME}</td>
+</tr>
+<!-- END DATE_TIME_EXAM3 -->
+
+<!-- BEGIN ROOM_PLACE_EXAM3 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_3_ROOM}</td>
+	<td class="value">{VALUE_EXAM_3_ROOM}</td>
+</tr>
+
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_3_PLACE}</td>
+	<td class="value">{VALUE_EXAM_3_PLACE}</td>
+</tr>
+<!-- END ROOM_PLACE_EXAM3 -->
+
+<!-- BEGIN FREETEXT_EXAM3 -->
+<tr>
+	<td class="label" style="width: 75px;">{LABEL_EXAM_3_FREETEXT}</td>
+	<td class="value">{VALUE_EXAM_3_FREETEXT}</td>
+</tr>
+<!-- END FREETEXT_EXAM3 -->
+</table>
+<!-- END PARTICIPANT_EXAM3 -->
+
+<!-- END PARTICIPANT -->
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->

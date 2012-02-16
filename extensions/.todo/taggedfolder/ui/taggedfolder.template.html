@@ -1,0 +1,50 @@
+<input type="checkbox" name="marked_{OBJECT_ID}" id="marked_{OBJECT_ID}" style="display: none;">
+<h1>{FOLDER_NAME}</h1>
+
+<!-- BEGIN no_content -->
+<div><b>{LANGUAGE_NO_CONTENT}</b></div>
+<!-- END no_content -->
+
+<!-- BEGIN folderview -->
+<div class="filter">
+	<span onclick="showAll()">{LANGUAGE_TITLE_8}</span>
+	<span onclick="showSelected()">{LANGUAGE_TITLE_9}</span>
+	<span onclick="showPerspective()">{LANGUAGE_TITLE_10}</span>
+	<span onclick="showTagFilterPerspective()">{LANGUAGE_TITLE_11}</span>
+</div>
+
+  <div align="center">
+    <div id="mySearchBar" style="width:98%;"></div>
+    <div id="gridbox" style="width:98%;"></div>
+  </div>
+
+  <div id="overDiv" style="position:absolute; visibility:hidden; z-index:999;"></div>
+  
+  
+
+<!-- END folderview -->
+
+  <!------------>
+  <!-- Header -->
+  <!------------>
+
+  <form action="./backpack.php?object={FOLDER_ID}" method="post" id="form_marked" name="form_marked">
+
+    <input type="hidden" name="type" id="type" value="">
+
+    {DOCUMENTS}
+
+  </form>
+
+  <!------------>
+  <!-- Footer -->
+  <!------------>
+
+  </script>
+
+<div class="footer">
+    <span class="footerlabel">{LANGUAGE_FOOTER_1}:&nbsp;</span>
+    <span class="footervalue">{FOLDER_CREATOR}</span>&nbsp;&#149;&nbsp;&nbsp;
+    <span class="footerlabel">{LANGUAGE_FOOTER_2}:&nbsp;</span><span class="footervalue">{FOLDER_LAST_CHANGED}</span>
+    <span class="last"><a href="{DOC_ROOT}/tools/rss.php?object={FOLDER_ID}"><img src="{DOC_ROOT}/icons/rss.gif" alt="RSS" title="RSS" /></a></span>
+</div>

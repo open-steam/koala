@@ -1,0 +1,143 @@
+\hypertarget{class_test_case}{
+\section{TestCase Class Reference}
+\label{class_test_case}\index{TestCase@{TestCase}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_test_case_aa9f6e3096465c14ae196869c4062dcbf}{TestCase} (\$label=false)
+\item 
+\hyperlink{class_test_case_a5833f594930beb55e38d29331dc3908f}{assert} (\$condition, \$message=false)
+\item 
+\hyperlink{class_test_case_a6315b8392b57be03f75453c3dd63e04a}{assertEquals} (\$first, \$second, \$message=false)
+\item 
+\hyperlink{class_test_case_a1069303e24b7cef670a045e017c7465c}{assertEqualsMultilineStrings} (\$first, \$second, \$message=false)
+\item 
+\hyperlink{class_test_case_a342e763f086479a4dfd80d719145dffd}{assertRegexp} (\$pattern, \$subject, \$message=false)
+\item 
+\hyperlink{class_test_case_ac90136f48031a65db56fce777773129c}{error} (\$message)
+\item 
+\hyperlink{class_test_case_a0e29a22bb0eb113598d328e2acf64c62}{name} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_test_case_a5833f594930beb55e38d29331dc3908f}{
+\index{TestCase@{TestCase}!assert@{assert}}
+\index{assert@{assert}!TestCase@{TestCase}}
+\subsubsection[{assert}]{\setlength{\rightskip}{0pt plus 5cm}TestCase::assert (
+\begin{DoxyParamCaption}
+\item[{\$}]{ condition, }
+\item[{\$}]{ message = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_test_case_a5833f594930beb55e38d29331dc3908f}
+Sends pass if the test condition resolves true, a fail otherwise. 
+\begin{DoxyParams}{Parameters}
+{\em \$condition} & Condition to test true. \\
+\hline
+{\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_test_case_a6315b8392b57be03f75453c3dd63e04a}{
+\index{TestCase@{TestCase}!assertEquals@{assertEquals}}
+\index{assertEquals@{assertEquals}!TestCase@{TestCase}}
+\subsubsection[{assertEquals}]{\setlength{\rightskip}{0pt plus 5cm}TestCase::assertEquals (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_test_case_a6315b8392b57be03f75453c3dd63e04a}
+Will test straight equality if set to loose typing, or identity if not. 
+\begin{DoxyParams}{Parameters}
+{\em \$first} & First value. \\
+\hline
+{\em \$second} & Comparison value. \\
+\hline
+{\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_test_case_a1069303e24b7cef670a045e017c7465c}{
+\index{TestCase@{TestCase}!assertEqualsMultilineStrings@{assertEqualsMultilineStrings}}
+\index{assertEqualsMultilineStrings@{assertEqualsMultilineStrings}!TestCase@{TestCase}}
+\subsubsection[{assertEqualsMultilineStrings}]{\setlength{\rightskip}{0pt plus 5cm}TestCase::assertEqualsMultilineStrings (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_test_case_a1069303e24b7cef670a045e017c7465c}
+Simple string equality. 
+\begin{DoxyParams}{Parameters}
+{\em \$first} & First value. \\
+\hline
+{\em \$second} & Comparison value. \\
+\hline
+{\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_test_case_a342e763f086479a4dfd80d719145dffd}{
+\index{TestCase@{TestCase}!assertRegexp@{assertRegexp}}
+\index{assertRegexp@{assertRegexp}!TestCase@{TestCase}}
+\subsubsection[{assertRegexp}]{\setlength{\rightskip}{0pt plus 5cm}TestCase::assertRegexp (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ subject, }
+\item[{\$}]{ message = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_test_case_a342e763f086479a4dfd80d719145dffd}
+Tests a regex match. 
+\begin{DoxyParams}{Parameters}
+{\em \$pattern} & Regex to match. \\
+\hline
+{\em \$subject} & String to search in. \\
+\hline
+{\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_test_case_ac90136f48031a65db56fce777773129c}{
+\index{TestCase@{TestCase}!error@{error}}
+\index{error@{error}!TestCase@{TestCase}}
+\subsubsection[{error}]{\setlength{\rightskip}{0pt plus 5cm}TestCase::error (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_test_case_ac90136f48031a65db56fce777773129c}
+Sends an error which we interpret as a fail with a different message for compatibility. 
+\begin{DoxyParams}{Parameters}
+{\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_test_case_a0e29a22bb0eb113598d328e2acf64c62}{
+\index{TestCase@{TestCase}!name@{name}}
+\index{name@{name}!TestCase@{TestCase}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}TestCase::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_test_case_a0e29a22bb0eb113598d328e2acf64c62}
+Accessor for name. \hypertarget{class_test_case_aa9f6e3096465c14ae196869c4062dcbf}{
+\index{TestCase@{TestCase}!TestCase@{TestCase}}
+\index{TestCase@{TestCase}!TestCase@{TestCase}}
+\subsubsection[{TestCase}]{\setlength{\rightskip}{0pt plus 5cm}TestCase::TestCase (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_test_case_aa9f6e3096465c14ae196869c4062dcbf}
+Constructor. Sets the test name. 
+\begin{DoxyParams}{Parameters}
+{\em \$label} & Test name to display. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/extensions/phpunit\_\-test\_\-case.php\end{DoxyCompactItemize}

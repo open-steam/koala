@@ -1,0 +1,218 @@
+<h3>{VALUE_CONTAINER_DESC}</h3>
+
+<p>{INFO}</p>
+
+<script type="text/javascript">
+function setErrorBox(text)
+{
+	var position, box;
+	var message = document.createTextNode(text);
+	
+	if (!document.getElementById("error"))
+	{
+		position = document.getElementById("headline");
+		box = document.createElement("p");
+
+		box.setAttribute('id', 'error');
+		box.setAttribute('style', 'display:none');
+		box.appendChild(message);
+		position.appendChild(box);
+		Effect.Appear('error');
+	}
+	else
+	{
+		box = document.getElementById("error");
+		box.replaceChild(message, document.getElementById("error").firstChild);
+	}
+}
+
+function unsetErrorBox()
+{
+	var box = document.getElementById("error");
+
+	try
+	{
+		var deleted = document.getElementById("headline").removeChild(box);
+	}
+	catch (error) {}
+}
+
+function setError(element)
+{
+	element.className = "InputError";
+}
+
+function setNormal(element)
+{
+	element.className = "InputNormal";
+}
+
+function isErrorFree()
+{
+	var day = (document.getElementsByTagName("input")[0].className == "InputNormal");
+	var month = (document.getElementsByTagName("input")[1].className == "InputNormal");
+	var year = (document.getElementsByTagName("input")[2].className == "InputNormal");
+
+	var sHour = (document.getElementsByTagName("input")[3].className == "InputNormal");
+	var sMinute = (document.getElementsByTagName("input")[4].className == "InputNormal");
+	var eHour = (document.getElementsByTagName("input")[5].className == "InputNormal");
+	var eMinute = (document.getElementsByTagName("input")[6].className == "InputNormal");
+
+	return day && month && year && sHour && sMinute && eHour && eMinute;
+}
+
+function checkInputOnKeyUp(element)
+{
+	if (element.className == "InputError") checkInput(element);
+}
+
+function checkInput(element)
+{
+	var input = element.value;
+	var what = element.name.lastIndexOf("_") + 1;
+	what = element.name.substring(what, element.name.length);
+	
+	if (input != parseInt(input,10))
+	{
+		setError(element);
+		setErrorBox("Invalid Value: " + element.name);
+		return;
+	}
+
+	if (what == "day")
+ 	{
+		if (parseInt(input,10) < 1 || parseInt(input,10) > 31)
+		{
+			setError(element);
+			setErrorBox("Invalid Day");
+		}
+		else setNormal(element);
+ 	}
+ 	else if (what == "month")
+ 	{
+		if (parseInt(input,10) < 1 || parseInt(input,10) > 12)
+		{
+			setError(element);
+			setErrorBox("Invalid Month");
+		}
+		else setNormal(element);
+ 	}
+	else if (what == "year")
+	{
+		if (parseInt(input,10) < 2010)
+		{
+			setError(element);
+			setErrorBox("Invalid Year");
+		}
+		else setNormal(element);
+	}
+ 	else if (what == "hour")
+ 	{
+		if (parseInt(input,10) < 0 || parseInt(input,10) > 24)
+		{
+			setError(element);
+			setErrorBox("Invalid Hour");
+		}
+		else setNormal(element);
+ 	}
+ 	else if (what == "minute")
+ 	{
+		if (parseInt(input,10) < 0 || parseInt(input,10) > 60)
+		{
+			setError(element);
+			setErrorBox("Invalid Minute");
+		}
+		else setNormal(element);
+ 	}
+
+ 	if (isErrorFree()) unsetErrorBox();
+ }
+
+function checkValidity()
+{
+	if (!isErrorFree()) return false;
+	
+	//check Date
+	var day = document.InputForm.field_exam_date_day.value;
+	var month = document.InputForm.field_exam_date_month.value;
+	var year = document.InputForm.field_exam_date_year.value;
+
+	if (day == "" || month == "" || year == "")
+	{
+		alert("Invalid Date");
+		return false;
+	}
+	
+	day = parseInt(day,10);
+	month = parseInt(month,10) - 1;
+	if (year.length == 2) year = "20" + year;
+
+	var date = new Date(year,month,day);
+		
+	if (date.getDate() != day || date.getMonth() != month || date.getFullYear() != year)
+	{
+		alert("Invalid Date");
+		return false;
+	}
+	
+	//check Time
+	var sHour = document.InputForm.field_exam_time_start_hour.value;
+	var sMinute = document.InputForm.field_exam_time_start_minute.value;
+	var eHour = document.InputForm.field_exam_time_end_hour.value;
+	var eMinute = document.InputForm.field_exam_time_end_minute.value;
+
+	if (sHour == "" || sMinute == "" || eHour == "" || eMinute == "")
+	{
+		alert("Invalid Time");
+		return false;
+	}
+	
+	sHour = parseInt(document.InputForm.field_exam_time_start_hour.value,10);
+	sMinute = parseInt(document.InputForm.field_exam_time_start_minute.value,10);
+	eHour = parseInt(document.InputForm.field_exam_time_end_hour.value,10);
+	eMinute = parseInt(document.InputForm.field_exam_time_end_minute.value,10);
+	
+	if (sHour == eHour)
+	{
+		if (sMinute > eMinute)
+		{
+			alert("Invalid Time");
+			return false;
+		}
+	}
+	else if (sHour > eHour)
+	{
+		alert("Invalid Time");
+		return false;
+	}
+	
+	return true;
+}
+</script>
+
+<form name="InputForm" action="" method="post" onsubmit="return checkValidity()">
+
+<p>{EXAM_DESC}</p>
+<p>{EXAM_DATE_AND_TIME}</p>
+
+<p>{INFO_EXAM_NUMBER}</p>
+
+<p>{INFO_EXAM_DATE}</p>
+<p>{FIELD_EXAM_DATE_DAY} {FIELD_EXAM_DATE_MONTH} {FIELD_EXAM_DATE_YEAR}</p>
+
+<p>{INFO_EXAM_TIME}</p>
+<p>{FIELD_EXAM_TIME_START_HOUR} {FIELD_EXAM_TIME_START_MINUTE} {UNTIL} {FIELD_EXAM_TIME_END_HOUR} {FIELD_EXAM_TIME_END_MINUTE}</p>
+
+<br />
+<div class="buttons" style="text-align: left;">{BUTTON_SAVE} {BACK_LINK}</div>
+
+</form>
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->

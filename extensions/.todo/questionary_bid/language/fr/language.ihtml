@@ -1,0 +1,357 @@
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->Centre de contrôle pour  "{QUESTIONARY_NAME}"<!-- END edit_title -->
+<!-- BEGIN edit_script_confirm_1 -->Voulez-vous vraiment supprimer l'élément "<!-- END edit_script_confirm_1 -->
+<!-- BEGIN edit_script_confirm_2 -->"?<!-- END edit_script_confirm_2 -->
+<!-- BEGIN edit_topic_1 -->Texte<!-- END edit_topic_1 -->
+<!-- BEGIN edit_topic_2 -->Type<!-- END edit_topic_2 -->
+<!-- BEGIN edit_topic_4 -->Mand.<!-- END edit_topic_4 -->
+<!-- BEGIN edit_topic_5 -->Afficher<!-- END edit_topic_5 -->
+<!-- BEGIN edit_topic_6 -->Action<!-- END edit_topic_6 -->
+<!-- BEGIN edit_no_question -->Pas d'élément disponible.<!-- END edit_no_question -->
+<!-- BEGIN edit_alt_edit -->Editer l'élément<!-- END edit_alt_edit -->
+<!-- BEGIN edit_alt_delete -->Supprimer l'élément<!-- END edit_alt_delete -->
+<!-- BEGIN edit_option_label -->Nouvel élément<!-- END edit_option_label -->
+<!-- BEGIN edit_option_1 -->(Choisir s.v.p.)<!-- END edit_option_1 -->
+<!-- BEGIN edit_option_2 -->Ligne vide<!-- END edit_option_2 -->
+<!-- BEGIN edit_option_3 -->Pagebreak<!-- END edit_option_3 -->
+<!-- BEGIN edit_option_4 -->Description<!-- END edit_option_4 -->
+<!-- BEGIN edit_option_5 -->Texte<!-- END edit_option_5 -->
+<!-- BEGIN edit_option_7 -->Checkbox<!-- END edit_option_7 -->
+<!-- BEGIN edit_option_8 -->Bouton Radio<!-- END edit_option_8 -->
+<!-- BEGIN edit_option_9 -->Selectbox<!-- END edit_option_9 -->
+<!-- BEGIN edit_option_10 -->Légende<!-- END edit_option_10 -->
+<!-- BEGIN edit_option_11 -->Ligne<!-- END edit_option_11 -->
+<!-- BEGIN edit_option_12 -->Notation<!-- END edit_option_12 -->
+<!-- BEGIN edit_option_13 -->Tendence<!-- END edit_option_13 -->
+<!-- BEGIN edit_label_option_layout -->Mise en page d'éléments<!-- END edit_label_option_layout -->
+<!-- BEGIN edit_label_option_question -->Eléments d'interview<!-- END edit_label_option_question -->
+<!-- BEGIN edit_button_label_general -->Configurations<!-- END edit_button_label_general -->
+<!-- BEGIN edit_button_label_insert -->Insérer<!-- END edit_button_label_insert -->
+<!-- BEGIN edit_button_label_sort -->Classer les questionnaires<!-- END edit_button_label_sort -->
+<!-- BEGIN edit_button_label_preview -->Questionary preview<!-- END edit_button_label_preview -->
+<!-- BEGIN edit_button_label_layout -->Editer la mise en page du questionnaire<!-- END edit_button_label_layout -->
+<!-- BEGIN edit_button_cancel_label -->Terminer<!-- END edit_button_cancel_label -->
+<!-- BEGIN edit_enabling_questionary -->Le formulaire du questionnaire<!-- END edit_enabling_questionary -->
+<!-- BEGIN edit_enable -->Désactiver<!-- END edit_enable -->
+<!-- BEGIN edit_disable -->Activer<!-- END edit_disable -->
+<!-- BEGIN edit_help_nothing -->Choisir un élément s.v.p.<br />appuyer l'icone d'aide<!-- END edit_help_nothing -->
+<!-- BEGIN edit_help_example -->Exemple<!-- END edit_help_example -->
+<!-- BEGIN edit_help_empty_line_top -->Mise en page élément <i>"Ligne vide"</i><!-- END edit_help_empty_line_top -->
+<!-- BEGIN edit_help_empty_line_li -->créer un espace plus large entre deux éléments<!-- END edit_help_empty_line_li -->
+<!-- BEGIN edit_help_full_line_top -->Mise en page élément <i>"Ligne"</i><!-- END edit_help_full_line_top -->
+<!-- BEGIN edit_help_full_line_li -->créer une ligne entre deux éléments<!-- END edit_help_full_line_li -->
+<!-- BEGIN edit_help_full_line_li2 -->La couleur de la ligne peut être changée dans les configurations de la mise en page<!-- END edit_help_full_line_li2 -->
+<!-- BEGIN edit_help_new_page_top -->Layout element <i>"Pagebreak"</i><!-- END edit_help_new_page_top -->
+<!-- BEGIN edit_help_new_page_li -->Le questionnaire peut être divisé avec cet élément en plusieurs segments<!-- END edit_help_new_page_li -->
+<!-- BEGIN edit_help_caption_top -->Mise en page élément <i>"Légende"</i><!-- END edit_help_caption_top -->
+<!-- BEGIN edit_help_caption_li -->un élément avec un texte<!-- END edit_help_caption_li -->
+<!-- BEGIN edit_help_caption_li2 -->couleur de police, couleur de fond et dimension des polices peuvent être changées dans les configuration de la mise en page<!-- END edit_help_caption_li2 -->
+<!-- BEGIN edit_help_description_top -->Elément mise en page <i>"Description"</i><!-- END edit_help_description_top -->
+<!-- BEGIN edit_help_description_li -->un élément avec un texte<!-- END edit_help_description_li -->
+<!-- BEGIN edit_help_text_top --une question et une réponse avec un champ de texte<!-- END edit_help_text_li -->
+<!-- BEGIN edit_help_text_li2 -->la taille du champs de texte de la réponse peut être changée<!-- END edit_help_text_li2 -->
+<!-- BEGIN edit_help_checkbox_top -->Elément Interview <i>"Checkbox"</i><!-- END edit_help_checkbox_top -->
+<!-- BEGIN edit_help_checkbox_li -->une question avec plusieurs champs de réponses checkbox<!-- END edit_help_checkbox_li -->
+<!-- BEGIN edit_help_checkbox_li2 -->l'arrangement des checkboxes peut être changée<!-- END edit_help_checkbox_li2 -->
+<!-- BEGIN edit_help_checkbox_li3 -->several answers can be selected<!-- END edit_help_checkbox_li3 -->
+<!-- BEGIN edit_help_radiobutton_top -->Elément Interview <i>"Bouton Radio"</i><!-- END edit_help_radiobutton_top -->
+<!-- BEGIN edit_help_radiobutton_li -->une question avec plusieur champ de réponse bouton radio<!-- END edit_help_radiobutton_li -->
+<!-- BEGIN edit_help_radiobutton_li2 -->l'arrangement des boutons radio peut être changé<!-- END edit_help_radiobutton_li2 -->
+<!-- BEGIN edit_help_radiobutton_li3 -->une réponse seulement peut être sélectionnée<!-- END edit_help_radiobutton_li3 -->
+<!-- BEGIN edit_help_selectbox_top -->Elément Interview <i>"Box de sélection"</i><!-- END edit_help_selectbox_top -->
+<!-- BEGIN edit_help_selectbox_li -->une question avec plusieurs box de sélection<!-- END edit_help_selectbox_li -->
+<!-- BEGIN edit_help_selectbox_li2 -->la dimension du box de sélection peut être changée<!-- END edit_help_selectbox_li2 -->
+<!-- BEGIN edit_help_selectbox_li3 -->une seule réponse peut être sélectionnée<!-- END edit_help_selectbox_li3 -->
+<!-- BEGIN edit_help_grading_top -->Elément Interview <i>"Notation"</i><!-- END edit_help_grading_top -->
+<!-- BEGIN edit_help_grading_li -->autant d'éléments désirés peuvent être insérés<!-- END edit_help_grading_li -->
+<!-- BEGIN edit_help_grading_li2 -->chaque élément peut être muni d'une note allant de 1 à 6<!-- END edit_help_grading_li2 -->
+<!-- BEGIN edit_help_tendency_top -->Elément Interview <i>"Tendance"</i><!-- END edit_help_tendency_top -->
+<!-- BEGIN edit_help_tendency_li -->autant d'éléments désirés peuvent être inséré<!-- END edit_help_tendency_li -->
+<!-- BEGIN edit_help_tendency_li2 -->chaque élément offre deux valeur entre lequelle l'utilisateur peut définir une tendance personnelle sur une échelle<!-- END edit_help_tendency_li2 -->
+<!-- BEGIN edit_help_tendency_li3 -->les étapes sur l'échelle peuvent être définies entre 2 et 20<!-- END edit_help_tendency_li3 -->
+
+
+<!-- *********************************************************** -->
+<!-- ** edit_general.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_general_title -->Configurations pour "{QUESTIONARY_NAME}"<!-- END edit_general_title -->
+<!-- BEGIN edit_general_label_number -->Nombre de questions<!-- END edit_general_label_number -->
+<!-- BEGIN edit_general_label_fill_out -->Remplir<!-- END edit_general_label_fill_out -->
+<!-- BEGIN edit_general_label_fill_out_1 -->une fois<!-- END edit_general_label_fill_out_1 -->
+<!-- BEGIN edit_general_label_fill_out_n -->multiple<!-- END edit_general_label_fill_out_n -->
+<!-- BEGIN edit_general_label_edit_answer -->Toutes les questions sont sont modifiables par les auteurs<!-- END edit_general_label_edit_answer -->
+<!-- BEGIN edit_general_label_edit_answer_true -->Oui<!-- END edit_general_label_edit_answer_true -->
+<!-- BEGIN edit_general_label_edit_answer_false -->Non<!-- END edit_general_label_edit_answer_false -->
+<!-- BEGIN edit_general_label_edit_own_answer -->Vos propres réponses sont modifiables<!-- END edit_general_label_edit_own_answer -->
+<!-- BEGIN edit_general_label_edit_own_answer_true -->Oui<!-- END edit_general_label_edit_own_answer_true -->
+<!-- BEGIN edit_general_label_edit_own_answer_false -->Non<!-- END edit_general_label_edit_own_answer_false -->
+<!-- BEGIN edit_general_label_result_creator -->Afficher les auteurs<!-- END edit_general_label_result_creator -->
+<!-- BEGIN edit_general_label_result_creator_true -->Oui<!-- END edit_general_label_result_creator_true -->
+<!-- BEGIN edit_general_label_result_creator_false -->Non<!-- END edit_general_label_result_creator_false -->
+<!-- BEGIN edit_general_label_result_creation_time -->Afficher l'heure de création<!-- END edit_general_label_result_creation_time -->
+<!-- BEGIN edit_general_label_result_creation_time_true -->Oui<!-- END edit_general_label_result_creation_time_true -->
+<!-- BEGIN edit_general_label_result_creation_time_false -->Non<!-- END edit_general_label_result_creation_time_false -->
+<!-- BEGIN edit_general_label_save -->Sauvegarder<!-- END edit_general_label_save -->
+<!-- BEGIN edit_general_label_properties -->Proprértés<!-- END edit_general_label_properties -->
+<!-- BEGIN edit_general_button_cancel -->Annuler<!-- END edit_general_button_cancel -->
+<!-- BEGIN edit_general_button_rights -->Assistant<!-- END edit_general_button_rights -->
+<!-- BEGIN edit_general_label_rights -->Droits d'accès<!-- END edit_general_label_rights -->
+<!-- BEGIN edit_general_questionary_settings -->Configurations Generales<!-- END edit_general_questionary_settings -->
+<!-- BEGIN edit_general_result_settings -->Configuration des résultats<!-- END edit_general_result_settings -->
+<!-- BEGIN edit_general_label_description -->Description Générale<!-- END edit_general_label_description -->
+<!-- BEGIN edit_general_label_edit_time -->Temps de traitement<!-- END edit_general_label_edit_time -->
+<!-- BEGIN edit_general_from -->A partir du<!-- END edit_general_from -->
+<!-- BEGIN edit_general_to -->Jusqu'au (inclusif)<!-- END edit_general_to -->
+<!-- BEGIN edit_general_januaray -->Janvier<!-- END edit_general_januaray -->
+<!-- BEGIN edit_general_february -->Février<!-- END edit_general_february -->
+<!-- BEGIN edit_general_march -->Mars<!-- END edit_general_march -->
+<!-- BEGIN edit_general_april -->Avril<!-- END edit_general_april -->
+<!-- BEGIN edit_general_may -->Mai<!-- END edit_general_may -->
+<!-- BEGIN edit_general_june -->Juin<!-- END edit_general_june -->
+<!-- BEGIN edit_general_july -->Juillet<!-- END edit_general_july -->
+<!-- BEGIN edit_general_august -->Août<!-- END edit_general_august -->
+<!-- BEGIN edit_general_september -->Septembre<!-- END edit_general_september -->
+<!-- BEGIN edit_general_october -->Octobre<!-- END edit_general_october -->
+<!-- BEGIN edit_general_november -->Novembre<!-- END edit_general_november -->
+<!-- BEGIN edit_general_december -->Decembre<!-- END edit_general_december -->
+<!-- BEGIN edit_general_first_no_date -->"A partir du" n'existe pas!<!-- END edit_general_first_no_date -->
+<!-- BEGIN edit_general_sec_no_date -->"Jusqu'au" n'existe pas!<!-- END edit_general_sec_no_date -->
+<!-- BEGIN edit_general_sec_date_is_smaller -->"A partir du" doit se situer plus tôt que "Jusqu'au"!<!-- END edit_general_sec_date_is_smaller -->
+<!-- BEGIN edit_general_first_date_is_past -->"A partir du" ne doit pas se situer dans le passé!<!-- END edit_general_first_date_is_past -->
+
+
+<!-- *********************************************************** -->
+<!-- ** edit_layout.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_layout_title -->Mise en page pour "{QUESTIONARY_NAME}"<!-- END edit_layout_title -->
+<!-- BEGIN edit_layout_general -->Mise en page générale<!-- END edit_layout_general -->
+<!-- BEGIN edit_layout_error_text_size -->The fontsize isn't in the range between 8 and 72<!-- END edit_layout_error_text_size -->
+<!-- BEGIN edit_layout_error_color_format -->The colorformat is not equal to the norm (e.g. #AB9F78).<!-- END edit_layout_error_color_format -->
+<!-- BEGIN edit_layout_error_empty_field -->Please fill out all fields.<!-- END edit_layout_error_empty_field -->
+<!-- BEGIN edit_layout_data_saved -->Les données ont été sauvegardées avec succès.<!-- END edit_layout_data_saved -->
+<!-- BEGIN edit_layout_background -->Couleur de fond<!-- END edit_layout_background -->
+<!-- BEGIN edit_layout_hr_color -->Element line color<!-- END edit_layout_hr_color -->
+<!-- BEGIN edit_layout_caption -->Caption layout<!-- END edit_layout_caption -->
+<!-- BEGIN edit_layout_caption_background -->Backgroundcolor<!-- END edit_layout_caption_background -->
+<!-- BEGIN edit_layout_caption_border_color -->Bordercolor<!-- END edit_layout_caption_border_color -->
+<!-- BEGIN edit_layout_caption_text_color -->Textcolor<!-- END edit_layout_caption_text_color -->
+<!-- BEGIN edit_layout_caption_text_size -->Textsize<!-- END edit_layout_caption_text_size -->
+<!-- BEGIN edit_layout_question -->Question layout <!-- END edit_layout_question -->
+<!-- BEGIN edit_layout_question_background -->Backgroundcolor<!-- END edit_layout_question_background -->
+<!-- BEGIN edit_layout_question_border_color -->Bordercolor<!-- END edit_layout_question_border_color -->
+<!-- BEGIN edit_layout_question_text_color -->Textcolor<!-- END edit_layout_question_text_color -->
+<!-- BEGIN edit_layout_question_text_size -->Textsize<!-- END edit_layout_question_text_size -->
+<!-- BEGIN edit_layout_answer -->Answer layout<!-- END edit_layout_answer -->
+<!-- BEGIN edit_layout_answer_background -->Backgroundcolor<!-- END edit_layout_answer_background -->
+<!-- BEGIN edit_layout_answer_border_color -->Bordercolor<!-- END edit_layout_answer_border_color -->
+<!-- BEGIN edit_layout_answer_text_color -->Textcolor<!-- END edit_layout_answer_text_color -->
+<!-- BEGIN edit_layout_answer_text_size -->Textsize<!-- END edit_layout_answer_text_size -->
+<!-- BEGIN edit_layout_button_save -->Sauvegarder<!-- END edit_layout_button_save -->
+<!-- BEGIN edit_layout_button_cancel -->Finish<!-- END edit_layout_button_cancel -->
+<!-- BEGIN edit_layout_preview -->Questionary preview (previously save changes)<!-- END edit_layout_preview -->
+<!-- BEGIN edit_layout_color_palette -->Color palette<!-- END edit_layout_color_palette -->
+<!-- BEGIN edit_layout_template -->Templates<!-- END edit_layout_template -->
+<!-- BEGIN edit_layout_option_user_defined -->User defined<!-- END edit_layout_option_user_defined -->
+
+
+<!-- *********************************************************** -->
+<!-- ** color_palette.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN color_title -->Palette de couleurs<!-- END color_title -->
+<!-- BEGIN color_preview -->Vue préliminaire<!-- END color_preview -->
+<!-- BEGIN color_selected -->Sélectionné<!-- END color_selected -->
+<!-- BEGIN color_button_ok -->Accepter<!-- END color_button_ok -->
+<!-- BEGIN color_button_cancel -->Annuler<!-- END color_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** edit_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_sort_title -->Classement pour "{QUESTIONARY_NAME}"<!-- END edit_sort_title -->
+<!-- BEGIN edit_sort_empty_line -->Ligne vide<!-- END edit_sort_empty_line -->
+<!-- BEGIN edit_sort_full_line -->Ligne<!-- END edit_sort_full_line -->
+<!-- BEGIN edit_sort_new_page -->Pagebreak<!-- END edit_sort_new_page -->
+<!-- BEGIN edit_sort_button_label_save -->Sauvegarder<!-- END edit_sort_button_label_save -->
+<!-- BEGIN edit_sort_button_label_cancel -->Annuler<!-- END edit_sort_button_label_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** edit_preview.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_preview_title -->Vue préliminaire pour "{QUESTIONARY_NAME}" <!-- END edit_preview_title -->
+<!-- BEGIN edit_preview_button_previous -->Précédent<!-- END edit_preview_button_previous -->
+<!-- BEGIN edit_preview_button_next -->Suivant<!-- END edit_preview_button_next -->
+<!-- BEGIN edit_preview_button_refresh -->Reactualiser<!-- END edit_preview_button_refresh -->
+<!-- BEGIN edit_preview_button_cancel -->Terminer<!-- END edit_preview_button_cancel -->
+<!-- BEGIN edit_preview_grading_label_one -->excellent<!-- END edit_preview_grading_label_one -->
+<!-- BEGIN edit_preview_grading_label_two -->bien<!-- END edit_preview_grading_label_two -->
+<!-- BEGIN edit_preview_grading_label_three -->satisfaisant<!-- END edit_preview_grading_label_three -->
+<!-- BEGIN edit_preview_grading_label_four -->moyen<!-- END edit_preview_grading_label_four -->
+<!-- BEGIN edit_preview_grading_label_five -->faible<!-- END edit_preview_grading_label_five -->
+<!-- BEGIN edit_preview_grading_label_six -->insuffisant<!-- END edit_preview_grading_label_six -->
+
+
+<!-- *********************************************************** -->
+<!-- ** index.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN index_new_answer -->Remplir un nouveau Questionnaire<!-- END index_new_answer -->
+<!-- BEGIN index_edit_answer -->Editer mes réponses<!-- END index_edit_answer -->
+<!-- BEGIN index_view_result -->Afficher les résultats<!-- END index_view_result -->
+<!-- BEGIN index_edit_questionary -->Centre de contrôle du Questionnaire<!-- END index_edit_questionary -->
+<!-- BEGIN index_title -->Questionnaire "{QUESTIONARY_NAME}"<!-- END index_title -->
+<!-- BEGIN index_description -->Description<!-- END index_description -->
+<!-- BEGIN index_what_do -->Possibilités<!-- END index_what_do -->
+<!-- BEGIN index_creation_time -->Temps de Création<!-- END index_creation_time -->
+<!-- BEGIN index_action -->Action<!-- END index_action -->
+<!-- BEGIN index_edit -->Editer<!-- END index_edit -->
+<!-- BEGIN index_delete -->Supprimer<!-- END index_delete -->
+<!-- BEGIN index_no_answers -->Le Questionnaire n'a pas été rempli maintenant<!-- END index_no_answers -->
+<!-- BEGIN index_script_confirm -->Voulez-vous réellement supprimer ces résultats?<!-- END index_script_confirm -->
+<!-- BEGIN index_no_edit_time -->Le Questionnaire n'est pas disponible.<!-- END index_no_edit_time -->
+<!-- BEGIN index_no_rights -->Vous n'avez pas les droits d'accès appropriés.<!-- END index_no_rights -->
+<!-- BEGIN index_send_already_answer -->Vous devez remplir le questionnaire une seule fois.<!-- END index_send_already_answer -->
+<!-- BEGIN index_only_for_creators -->Seulement pour les Auteurs<!-- END index_only_for_creators -->
+<!-- BEGIN index_enable_questionary -->Activer le questionnaire<!-- END index_enable_questionary -->
+<!-- BEGIN index_disable_questionary -->Désactiver le questionnaire<!-- END index_disable_questionary -->
+<!-- BEGIN index_start_date -->Date de début<!-- END index_start_date -->
+<!-- BEGIN index_end_date -->Date limite<!-- END index_end_date -->
+
+
+<!-- *********************************************************** -->
+<!-- ** answer.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN answer_title -->Questionnaire "{QUESTIONARY_NAME}"<!-- END answer_title -->
+<!-- BEGIN answer_label_error_1 -->La question<!-- END answer_label_error_1 -->
+<!-- BEGIN answer_label_error_2 -->une réponse doit être donnée.<!-- END answer_label_error_2 -->
+<!-- BEGIN answer_label_error_no_write_access -->Vous n'avez pas le droit d'édition.<!-- END answer_label_error_no_write_access -->
+<!-- BEGIN answer_label_error_multiple_input -->Vous devez remplir le questionnaire une seule fois.<!-- END answer_label_error_multiple_input -->
+<!-- BEGIN answer_label_error_not_enabled -->Le questionnaire n'est pas disponible.<!-- END answer_label_error_not_enabled -->
+<!-- BEGIN answer_saved -->Les données ont été sauvegardées avec succès.<!-- END answer_saved -->
+<!-- BEGIN answer_saved_result -->Vers les resultats<!-- END answer_saved_result -->
+<!-- BEGIN answer_label_button_previous -->Précédent<!-- END answer_label_button_previous -->
+<!-- BEGIN answer_label_button_next -->Suivant<!-- END answer_label_button_next -->
+<!-- BEGIN answer_label_button_finish -->Envoyer<!-- END answer_label_button_finish -->
+<!-- BEGIN answer_label_button_home -->To home page<!-- END answer_label_button_home -->
+<!-- BEGIN answer_grading_label_one -->excellent<!-- END answer_grading_label_one -->
+<!-- BEGIN answer_grading_label_two -->bien<!-- END answer_grading_label_two -->
+<!-- BEGIN answer_grading_label_three -->satisfaisant<!-- END answer_grading_label_three -->
+<!-- BEGIN answer_grading_label_four -->moyen<!-- END answer_grading_label_four -->
+<!-- BEGIN answer_grading_label_five -->faible<!-- END answer_grading_label_five -->
+<!-- BEGIN answer_grading_label_six -->insuffisant<!-- END answer_grading_label_six -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_description.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_description_title -->Insérer la description<!-- END insert_description_title -->
+<!-- BEGIN insert_description_error_no_text -->Le texte ne doit pas être vide.<!-- END insert_description_error_no_text -->
+<!-- BEGIN insert_description_label_text -->Texte<!-- END insert_description_label_text -->
+<!-- BEGIN insert_description_button_insert -->Insérer<!-- END insert_description_button_insert -->
+<!-- BEGIN insert_description_button_edit -->Sauvegarder<!-- END insert_description_button_edit -->
+<!-- BEGIN insert_description_button_cancel -->Annuler<!-- END insert_description_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_caption.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_caption_title -->Insérer la légende<!-- END insert_caption_title -->
+<!-- BEGIN insert_caption_error_no_text -->Le texte ne doit pas être vide.<!-- END insert_caption_error_no_text -->
+<!-- BEGIN insert_caption_label_text -->Texte<!-- END insert_caption_label_text -->
+<!-- BEGIN insert_caption_button_insert -->Insérer<!-- END insert_caption_button_insert -->
+<!-- BEGIN insert_caption_button_edit -->Sauvegarder<!-- END insert_caption_button_edit -->
+<!-- BEGIN insert_caption_button_cancel -->Annuler<!-- END insert_caption_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_checkbox.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_checkbox_title -->Insérer le type de question checkbox<!-- END insert_input_checkbox_title -->
+<!-- BEGIN insert_input_checkbox_error_no_number_col -->L'affichage en colonnes doit être un chiffre.<!-- END insert_input_checkbox_error_no_number_col -->
+<!-- BEGIN insert_input_checkbox_error_no_options -->TIl doit y avoir au moins une réponse.<!-- END insert_input_checkbox_error_no_options -->
+<!-- BEGIN insert_input_checkbox_script_confirm_1 -->Voulez-vous réellement supprimerl'option "<!-- END insert_input_checkbox_script_confirm_1 -->
+<!-- BEGIN insert_input_checkbox_script_confirm_2 -->"?<!-- END insert_input_checkbox_script_confirm_2 -->
+<!-- BEGIN insert_input_checkbox_label_question -->Question<!-- END insert_input_checkbox_label_question -->
+<!-- BEGIN insert_input_checkbox_label_answer -->Réponser<!-- END insert_input_checkbox_label_answer -->
+<!-- BEGIN insert_input_checkbox_label_question_pos -->Position de la question<!-- END insert_input_checkbox_label_question_pos -->
+<!-- BEGIN insert_input_checkbox_label_question_pos_left -->Gauche<!-- END insert_input_checkbox_label_question_pos_left -->
+<!-- BEGIN insert_input_checkbox_label_question_pos_top -->Dessus<!-- END insert_input_checkbox_label_question_pos_top -->
+<!-- BEGIN insert_input_checkbox_label_question_text -->Texte<!-- END insert_input_checkbox_label_question_text -->
+<!-- BEGIN insert_input_checkbox_label_columns -->Disposition à l'intérieur<!-- END insert_input_checkbox_label_columns -->
+<!-- BEGIN insert_input_checkbox_label_columns2 -->colonnes<!-- END insert_input_checkbox_label_columns2 -->
+<!-- BEGIN insert_input_checkbox_label_must -->Obligatoire<!-- END insert_input_checkbox_label_must -->
+<!-- BEGIN insert_input_checkbox_label_output -->Afficher dans la liste<!-- END insert_input_checkbox_label_output -->
+<!-- BEGIN insert_input_checkbox_label_no_option -->Pas de réponse disponible.<!-- END insert_input_checkbox_label_no_option -->
+<!-- BEGIN insert_input_checkbox_label_topic_1 -->Réponses<!-- END insert_input_checkbox_label_topic_1 -->
+<!-- BEGIN insert_input_checkbox_label_topic_2 -->Présélection<!-- END insert_input_checkbox_label_topic_2 -->
+<!-- BEGIN insert_input_checkbox_label_topic_3 -->Action<!-- END insert_input_checkbox_label_topic_3 -->
+<!-- BEGIN insert_input_checkbox_label_option -->Nouvelle réponse<!-- END insert_input_checkbox_label_option -->
+<!-- BEGIN insert_input_checkbox_alt_edit -->Editer la réponse<!-- END insert_input_checkbox_alt_edit -->
+<!-- BEGIN insert_input_checkbox_alt_delete -->Supprimer la réponse<!-- END insert_input_checkbox_alt_delete -->
+<!-- BEGIN insert_input_checkbox_button_insert -->Insérer<!-- END insert_input_checkbox_button_insert -->
+<!-- BEGIN insert_input_checkbox_button_sort -->Classer<!-- END insert_input_checkbox_button_sort -->
+<!-- BEGIN insert_input_checkbox_button_save -->Sauvegarder<!-- END insert_input_checkbox_button_save -->
+<!-- BEGIN insert_input_checkbox_button_cancel -->Annuler<!-- END insert_input_checkbox_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_checkbox_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_checkbox_sort_title -->Classer les checkboxes<!-- END insert_input_checkbox_sort_title -->
+<!-- BEGIN insert_input_checkbox_sort_button_save -->Exécuter<!-- END insert_input_checkbox_sort_button_save -->
+<!-- BEGIN insert_input_checkbox_sort_button_cancel -->Annuler<!-- END insert_input_checkbox_sort_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_radiobutton.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_radiobutton_title -->Insérer le type de questionnaire bouton radio<!-- END insert_input_radiobutton_title -->
+<!-- BEGIN insert_input_radiobutton_error_no_number_col -->L'affichage en colonnes doit être un chiffre.<!-- END insert_input_radiobutton_error_no_number_col -->
+<!-- BEGIN insert_input_radiobutton_error_no_options -->Il doit y avoir au moins une réponse.<!-- END insert_input_radiobutton_error_no_options -->
+<!-- BEGIN insert_input_radiobutton_script_confirm_1 -->Voulez-vous réellement supprimer la réponse "<!-- END insert_input_radiobutton_script_confirm_1 -->
+<!-- BEGIN insert_input_radiobutton_script_confirm_2 -->"?<!-- END insert_input_radiobutton_script_confirm_2 -->
+<!-- BEGIN insert_input_radiobutton_label_question -->Question<!-- END insert_input_radiobutton_label_question -->
+<!-- BEGIN insert_input_radiobutton_label_answer -->Réponse<!-- END insert_input_radiobutton_label_answer -->
+<!-- BEGIN insert_input_radiobutton_label_question_pos -->Position de la question<!-- END insert_input_radiobutton_label_question_pos -->
+<!-- BEGIN insert_input_radiobutton_label_question_pos_left -->Gauche<!-- END insert_input_radiobutton_label_question_pos_left -->
+<!-- BEGIN insert_input_radiobutton_label_question_pos_top -->Dessus<!-- END insert_input_radiobutton_label_question_pos_top -->
+<!-- BEGIN insert_input_radiobutton_label_question_text -->Texte<!-- END insert_input_radiobutton_label_question_text -->
+<!-- BEGIN insert_input_radiobutton_label_columns -->Disposition à l'intérieur<!-- END insert_input_radiobutton_label_columns -->
+<!-- BEGIN insert_input_radiobutton_label_columns2 -->colonnes<!-- END insert_input_radiobutton_label_columns2 -->
+<!-- BEGIN insert_input_radiobutton_label_must -->Obligatoire<!-- END insert_input_radiobutton_label_must -->
+<!-- BEGIN insert_input_radiobutton_label_output -->Afficher dans la liste<!-- END insert_input_radiobutton_label_output -->
+<!-- BEGIN insert_input_radiobutton_label_no_option -->Pas de réponse disponible.<!-- END insert_input_radiobutton_label_no_option -->
+<!-- BEGIN insert_input_radiobutton_label_topic_1 -->Réponses<!-- END insert_input_radiobutton_label_topic_1 -->
+<!-- BEGIN insert_input_radiobutton_label_topic_2 -->Présélection<!-- END insert_input_radiobutton_label_topic_2 -->
+<!-- BEGIN insert_input_radiobutton_label_topic_3 -->Action<!-- END insert_input_radiobutton_label_topic_3 -->
+<!-- BEGIN insert_input_radiobutton_label_option -->Nouvelle réponse<!-- END insert_input_radiobutton_label_option -->
+<!-- BEGIN insert_input_radiobutton_label_option_not_selected -->-- aucune présélection --<!-- END insert_input_radiobutton_label_option_not_selected -->
+<!-- BEGIN insert_input_radiobutton_alt_edit -->Editer la réponse<!-- END insert_input_radiobutton_alt_edit -->
+<!-- BEGIN insert_input_radiobutton_alt_delete -->Supprimer la réponse<!-- END insert_input_radiobutton_alt_delete -->
+<!-- BEGIN insert_input_radiobutton_button_insert -->Insérer<!-- END insert_input_radiobutton_button_insert -->
+<!-- BEGIN insert_input_radiobutton_button_sort -->Classer<!-- END insert_input_radiobutton_button_sort -->
+<!-- BEGIN insert_input_radiobutton_button_save -->Sauvegarder<!-- END insert_input_radiobutton_button_save -->
+<!-- BEGIN insert_input_radiobutton_button_cancel -->Annuler<!-- END insert_input_radiobutton_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_radiobutton_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_radiobutton_sort_title -->Classer les boutons radio<!-- END insert_input_radiobutton_sort_title -->
+<!-- BEGIN insert_input_radiobutton_sort_button_save -->Exécuter<!-- END insert_input_radiobutton_sort_button_save -->
+<!-- BEGIN insert_input_radiobutton_sort_button_cancel -->Annuler<!-- END insert_input_radiobutton_sort_button_cancel -->

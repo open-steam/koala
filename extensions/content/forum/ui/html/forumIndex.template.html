@@ -1,0 +1,43 @@
+<div class="forum"><!-- BEGIN BLOCK_FORUM_HEAD -->
+<div>
+<h2>{FORUM_HEADING}</h2>
+</div>
+
+<!-- END BLOCK_FORUM_HEAD -->
+
+
+<table width="100%">
+	<tr class="columnheader">
+		<!-- <td class="empty">&nbsp;</td>  -->
+		<td class="topic">Thema</td>
+		<td class="number">Antworten</td>
+		<td class="lastpost">Letzte Antwort</td>
+	</tr>
+<!-- BEGIN BLOCK_FORUM_CONTENT -->
+
+	<tr class="topics">
+		<!-- <td class="empty">&nbsp;</td>  -->
+		<td class="topic"><a href="{LINK_SHOW_TOPIC}"><b>{TOPIC}</b></a>
+		<br />
+		<span class="creator">erstellt von {TOPIC_AUTHOR}, {TOPIC_DATE}</span>
+		</td>
+		<td class="number1">{REPLY_COUNT}</td>
+		<!-- BEGIN NEW_IMAGE -->
+		<td class="number2">
+		{NEW_IMAGE}
+		</td>
+		<!-- END NEW_IMAGE -->
+		<td class="lastpost">
+		<!-- BEGIN BLOCK_FORUM_LAST_REPLAY -->{LAST_REPLY_TOPIC}<br /> am {LAST_REPLY_DATE} <br />
+		von {LAST_REPLY_USER} <!-- END BLOCK_FORUM_LAST_REPLAY --></td>
+	</tr>
+
+<!-- END BLOCK_FORUM_CONTENT -->
+</table>
+ <!-- BEGIN BLOCK_FORUM_NOCONTENT -->
+
+	{NO_CONTENT}
+
+<!-- END BLOCK_FORUM_NOCONTENT --></div>
+<div id="overlay_menu"></div>
+

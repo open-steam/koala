@@ -1,0 +1,25 @@
+<h3>{VALUE_CONTAINER_DESC}</h3>
+<p>{VALUE_CONTAINER_LONG_DESC}</p>
+<!-- BEGIN BLOCK_INVENTORY -->
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+	<tr>
+		<th width="30%">{LABEL_DOCNAME_DESCRIPTION}</th>
+		<th align="right">{LABEL_SIZE}</th>
+		<th>{LABEL_MODIFIED}</th>
+		<th width="35%">{LABEL_ACTIONS}</th>
+	</tr>
+    <!-- BEGIN BLOCK_ITEM -->
+	<tr>
+		<td><a href="{LINK_ITEM}"><b>{NAME_ITEM}</b></a><br/><small>{DESC_ITEM}</small></td>
+		<td align="right" >{SIZE_ITEM}</td>
+		<td align="center">{MODIFIED_ITEM}</td>
+		<td valign="top" align="center"><a href="{LINK_COMMENTS}">{VALUE_COMMENTS}</a> {VALUE_VIEWS}<br/><a href="{LINK_DOWNLOAD}"><b>{LABEL_DOWNLOAD}</b></a></td>
+	</tr>
+    <!-- BEGIN BLOCK_WRITE_ACCESS -->
+	<!-- END BLOCK_WRITE_ACCESS -->
+    <!-- END BLOCK_ITEM -->
+</table>
+<!-- END BLOCK_INVENTORY -->
+
+{LABEL_NO_DOCUMENTS_FOUND}
+

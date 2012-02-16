@@ -1,0 +1,96 @@
+<!-- Begin trashbin.ihtml -->
+
+<!-- BEGIN no_content -->
+<td colspan="7"><h2>{LANGUAGE_NO_CONTENT}</h2></td>
+<!-- END no_content -->
+
+<!-- BEGIN item -->
+  <td><img src="{OBJECT_ICON}" alt="" /></td>
+  <td>{OBJECT_NAME}</td>
+<!-- END item -->
+
+<!-- BEGIN item_list -->
+<tr class="List">
+  <td class="first"><input type="checkbox" name="marked_{OBJECT_ID}"></td>
+  <td>&nbsp;</td>
+  {ITEM}
+  <td>{OBJECT_LAST_CHANGED}</td>
+  <td class="right">{OBJECT_SIZE}</td>
+  <td><a href="{DOC_ROOT}/idcard.php?user={OBJECT_OWNER}" onclick="return openIdcard('{OBJECT_OWNER}');">{OBJECT_OWNER}</a></td>
+</tr>
+<!-- END item_list -->
+
+<html>
+<head>
+  <title>{TRASHBIN_NAME}</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/css/contentframe.css">
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/css/menu.css">
+
+  <script language="JavaScript1.2" src="{DOC_ROOT}/javascript/cookie.js"></script>
+  <script language="JavaScript1.2" src="{DOC_ROOT}/javascript/reload.js"></script>
+
+<script language="JavaScript1.2">
+  function set_marked(marked)
+  {
+    if(marked.checked == true)
+    {
+      document.getElementsByName("marked_up")[0].checked = true;
+      document.getElementsByName("marked_down")[0].checked = true;
+      <!-- BEGIN mark -->document.getElementsByName("marked_{OBJECT_ID}")[0].checked = true;
+      <!-- END mark -->
+    }
+    else
+    {
+      document.getElementsByName("marked_up")[0].checked = false;
+      document.getElementsByName("marked_down")[0].checked = false;
+      <!-- BEGIN unmark -->document.getElementsByName("marked_{OBJECT_ID}")[0].checked = false;
+      <!-- END unmark -->
+    }
+  }
+
+  function openIdcard(owner)
+  {
+    window.open('{DOC_ROOT}/idcard.php?user=' + owner, 'idcard', 'resizable,scrollbars,width=590,height=240');
+    return false;
+  }
+</script>
+
+</head>
+
+<body>
+  {MENU}
+
+  <h1><img src="{TRASHBIN_ICON}" alt="{TRASHBIN_NAME}" title="{TRASHBIN_NAME}"> {TRASHBIN_NAME}</h1>
+
+  <form action="{DOC_ROOT}/backpack.php?object={TRASHBIN_ID}" method="post" id="form_marked">
+  <input type="hidden" name="type" id="type" value="">
+
+  <table class="folderlisting">
+  <thead>
+  <tr>
+    <td class="first"><input type="checkbox" name="marked_up" onClick="javascript:set_marked(this);"></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>{LANGUAGE_TITLE_1}</td>
+    <td>{LANGUAGE_TITLE_2}</td>
+    <td>{LANGUAGE_TITLE_3}</td>
+    <td class="last">{LANGUAGE_TITLE_4}</td>
+  </tr>
+  </thead>
+  <tfoot>
+  <tr>
+    <td class="first"><input type="checkbox" name="marked_down" onClick="javascript:set_marked(this);"></td>
+    <td colspan="6">&nbsp;</td>
+  </tr>
+  </tfoot>
+
+  {DOCUMENTS}
+
+  </table>
+
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Drag and Drop between Grids</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+    	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>
+	<script  src="../js/dhtmlXGridCell.js"></script>
+	<script  src="../js/dhtmlXGrid_drag.js"></script>
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Grid samples</div>
+	<h1>Drag and Drop between Grids</h1>
+	<p>
+            Drag-n-drop within Grid, between Grids
+	</p>
+
+
+	<table width="800px">
+		<tr>
+            <td>
+				<div id="gridbox2" width="300px" height="250px" style="background-color:white;"></div>
+            </td>
+			<td>
+				<div id="gridbox3" width="500px" height="250px" style="background-color:white;"></div>
+			</td>
+		</tr>
+	</table>
+<hr>
+<xmp>
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>
+	<script  src="../js/dhtmlXGridCell.js"></script>
+	<script  src="../js/dhtmlXGrid_drag.js"></script>
+	<script>
+		mygrid = new dhtmlXGridObject('gridbox3');
+		...
+		mygrid.enableDragAndDrop(true);
+	</script>
+</xmp>
+
+<script>
+		mygrid3 = new dhtmlXGridObject('gridbox3');
+		mygrid3.selMultiRows = true;
+		mygrid3.setImagePath("../imgs/");
+		var flds = "Sales,Book Title,Author,Price";
+		flds += ",In Store,Shipping,Bestseller,Date of Publication";
+		mygrid3.setHeader(flds);
+		mygrid3.setInitWidths("50,150,120,80,80,80,80,200")
+		mygrid3.setColAlign("right,left,left,right,center,left,center,center")
+		mygrid3.setColTypes("dyn,ed,ed,price,ch,coro,ra,ro");
+		mygrid3.setColSorting("int,str,str,int,str,str,str,date")
+		mygrid3.setColumnColor("white,#d5f1ff,#d5f1ff")
+		mygrid3.setMultiLine(false);
+		mygrid3.enableDragAndDrop(true);
+		mygrid3.init();
+	   	mygrid3.loadXML("../grid.xml");
+
+
+		mygrid2 = new dhtmlXGridObject('gridbox2');
+		mygrid2.selMultiRows = true;
+		mygrid2.setImagePath("../imgs/");
+		var flds = "Alpha,Betta";
+		mygrid2.setHeader(flds);
+		mygrid2.setInitWidths("100,150")
+		mygrid2.setColAlign("right,left")
+		mygrid2.setColTypes("ed,ed");
+		mygrid2.setColSorting("int,str");
+		mygrid2.setColumnColor("white,#d5f1ff");
+		mygrid2.setMultiLine(false);
+		mygrid2.enableDragAndDrop(true);
+		mygrid2.init();
+	   	mygrid2.loadXML("dynscroll.xml");
+
+
+
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+
+</body>
+</html>

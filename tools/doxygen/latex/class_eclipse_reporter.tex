@@ -1,0 +1,353 @@
+\hypertarget{class_eclipse_reporter}{
+\section{EclipseReporter Class Reference}
+\label{class_eclipse_reporter}\index{EclipseReporter@{EclipseReporter}}
+}
+Inheritance diagram for EclipseReporter:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_eclipse_reporter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_eclipse_reporter_a5e0133f2567d2c9eaf189668a4522840}{EclipseReporter} (\&\$listener, \$cc=false)
+\item 
+\hyperlink{class_eclipse_reporter_a2aa6ddec17077eebcf3a02e7a64aa71a}{getDumper} ()
+\item 
+\& \hyperlink{class_eclipse_reporter_a2911a8f03f2ae8f218a1bff0410115d6}{createListener} (\$port, \$host=\char`\"{}127.0.0.1\char`\"{})
+\item 
+\& \hyperlink{class_eclipse_reporter_a251879a7dcdbaf023091c18dce8d58f2}{createInvoker} (\&\$invoker)
+\item 
+\hyperlink{class_eclipse_reporter_a811324a8cd4e559d2f0c8dd12eafd0ac}{escapeVal} (\$raw)
+\item 
+\hyperlink{class_eclipse_reporter_a845512e7138f1f8f1fc4a710d0e4960f}{paintPass} (\$message)
+\item 
+\hyperlink{class_eclipse_reporter_a0b040a0e5cb9d9ac50a33e9df8a7cc57}{paintFail} (\$message)
+\item 
+\hyperlink{class_eclipse_reporter_a54b5dd27926ce2bed0e1d4886460fe47}{paintError} (\$message)
+\item 
+\hyperlink{class_eclipse_reporter_aebbe55b20bc08df87eb01823113dd7f1}{paintException} (\$exception)
+\item 
+\hyperlink{class_eclipse_reporter_a050de6302927aea46cae03b72b6d1c0b}{paintHeader} (\$test\_\-name)
+\item 
+\hyperlink{class_eclipse_reporter_a7afc6971e74282f43d57245bffc93594}{paintFooter} (\$test\_\-name)
+\item 
+\hyperlink{class_eclipse_reporter_a3beefc3a53542af1e4eb1dbca13a69fb}{paintMethodStart} (\$method)
+\item 
+\hyperlink{class_eclipse_reporter_a1322beebd54bfec26b6453b4e7a23d68}{paintMethodEnd} (\$method)
+\item 
+\hyperlink{class_eclipse_reporter_a3417bc5902a1ca59ec14d64707cf15b2}{paintCaseStart} (\$case)
+\item 
+\hyperlink{class_eclipse_reporter_a37e47c84707faeb87d1dcf946c1681f6}{paintCaseEnd} (\$case)
+\item 
+\hyperlink{class_eclipse_reporter_a80a6d39b62ad92ee63da0c0b3011c294}{paintGroupStart} (\$group, \$size)
+\item 
+\hyperlink{class_eclipse_reporter_aa0cb1e290d9ea75c0ac19efe06b55992}{paintGroupEnd} (\$group)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_eclipse_reporter_a251879a7dcdbaf023091c18dce8d58f2}{
+\index{EclipseReporter@{EclipseReporter}!createInvoker@{createInvoker}}
+\index{createInvoker@{createInvoker}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{createInvoker}]{\setlength{\rightskip}{0pt plus 5cm}\& EclipseReporter::createInvoker (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ invoker}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a251879a7dcdbaf023091c18dce8d58f2}
+Wraps the test in an output buffer. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_invoker}{SimpleInvoker} & {\em \$invoker} & Current test runner. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_eclipse_invoker}{EclipseInvoker} Decorator with output buffering.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a14b49e85d21162afc6f46f98220ad043}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a2911a8f03f2ae8f218a1bff0410115d6}{
+\index{EclipseReporter@{EclipseReporter}!createListener@{createListener}}
+\index{createListener@{createListener}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{createListener}]{\setlength{\rightskip}{0pt plus 5cm}\& EclipseReporter::createListener (
+\begin{DoxyParamCaption}
+\item[{\$}]{ port, }
+\item[{\$}]{ host = {\ttfamily \char`\"{}127.0.0.1\char`\"{}}}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a2911a8f03f2ae8f218a1bff0410115d6}
+Localhost connection from Eclipse. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$port} & Port to connect to Eclipse. \\
+\hline
+string & {\em \$host} & Normally localhost. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_socket}{SimpleSocket} Connection to Eclipse. 
+\end{DoxyReturn}
+\hypertarget{class_eclipse_reporter_a5e0133f2567d2c9eaf189668a4522840}{
+\index{EclipseReporter@{EclipseReporter}!EclipseReporter@{EclipseReporter}}
+\index{EclipseReporter@{EclipseReporter}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{EclipseReporter}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::EclipseReporter (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ listener, }
+\item[{\$}]{ cc = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a5e0133f2567d2c9eaf189668a4522840}
+Reporter to be run inside of Eclipse interface. 
+\begin{DoxyParams}[1]{Parameters}
+object & {\em \$listener} & Eclipse listener (?). \\
+\hline
+boolean & {\em \$cc} & Whether to include test coverage. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_eclipse_reporter_a811324a8cd4e559d2f0c8dd12eafd0ac}{
+\index{EclipseReporter@{EclipseReporter}!escapeVal@{escapeVal}}
+\index{escapeVal@{escapeVal}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{escapeVal}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::escapeVal (
+\begin{DoxyParamCaption}
+\item[{\$}]{ raw}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a811324a8cd4e559d2f0c8dd12eafd0ac}
+C style escaping. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$raw} & String with backslashes, quotes and whitespace. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Replaced with C backslashed tokens. 
+\end{DoxyReturn}
+\hypertarget{class_eclipse_reporter_a2aa6ddec17077eebcf3a02e7a64aa71a}{
+\index{EclipseReporter@{EclipseReporter}!getDumper@{getDumper}}
+\index{getDumper@{getDumper}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{getDumper}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::getDumper (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a2aa6ddec17077eebcf3a02e7a64aa71a}
+Means to display human readable object comparisons. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_dumper}{SimpleDumper} Visual comparer. 
+\end{DoxyReturn}
+\hypertarget{class_eclipse_reporter_a37e47c84707faeb87d1dcf946c1681f6}{
+\index{EclipseReporter@{EclipseReporter}!paintCaseEnd@{paintCaseEnd}}
+\index{paintCaseEnd@{paintCaseEnd}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintCaseEnd}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintCaseEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ case}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a37e47c84707faeb87d1dcf946c1681f6}
+Drops the name. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test or other label.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_af61cf47c364d7fbe592714776e588e2a}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a3417bc5902a1ca59ec14d64707cf15b2}{
+\index{EclipseReporter@{EclipseReporter}!paintCaseStart@{paintCaseStart}}
+\index{paintCaseStart@{paintCaseStart}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintCaseStart}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintCaseStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ case}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a3417bc5902a1ca59ec14d64707cf15b2}
+Stashes the test case name for the later failure message. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test or other label.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_ae66388eacb1a7ef3f99443a942c8a9b1}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a54b5dd27926ce2bed0e1d4886460fe47}{
+\index{EclipseReporter@{EclipseReporter}!paintError@{paintError}}
+\index{paintError@{paintError}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintError}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a54b5dd27926ce2bed0e1d4886460fe47}
+Stash the first error. Clicking the test item goes to first error. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Test message, but we only wnat the first.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_ac33eeacd9e121f39874f95eec7219b88}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_aebbe55b20bc08df87eb01823113dd7f1}{
+\index{EclipseReporter@{EclipseReporter}!paintException@{paintException}}
+\index{paintException@{paintException}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintException}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintException (
+\begin{DoxyParamCaption}
+\item[{\$}]{ exception}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_aebbe55b20bc08df87eb01823113dd7f1}
+Stash the first exception. Clicking the test item goes to first message. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Test message, but we only wnat the first.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_af85813652ea0ec8aca7261267c121f6c}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a0b040a0e5cb9d9ac50a33e9df8a7cc57}{
+\index{EclipseReporter@{EclipseReporter}!paintFail@{paintFail}}
+\index{paintFail@{paintFail}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintFail}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintFail (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a0b040a0e5cb9d9ac50a33e9df8a7cc57}
+Stash the first failing item. Clicking the test item goes to first fail. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Test message, but we only wnat the first.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a25656682bd645cf156f3a2a87893d8b3}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a7afc6971e74282f43d57245bffc93594}{
+\index{EclipseReporter@{EclipseReporter}!paintFooter@{paintFooter}}
+\index{paintFooter@{paintFooter}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintFooter}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintFooter (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a7afc6971e74282f43d57245bffc93594}
+We don't display any special footer. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & The top level test.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_eclipse_reporter_aa0cb1e290d9ea75c0ac19efe06b55992}{
+\index{EclipseReporter@{EclipseReporter}!paintGroupEnd@{paintGroupEnd}}
+\index{paintGroupEnd@{paintGroupEnd}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintGroupEnd}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintGroupEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ group}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_aa0cb1e290d9ea75c0ac19efe06b55992}
+Paints coverage report if enabled. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$group} & Name of test or other label.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a40b030cbba90f114374191cbed7d459d}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a80a6d39b62ad92ee63da0c0b3011c294}{
+\index{EclipseReporter@{EclipseReporter}!paintGroupStart@{paintGroupStart}}
+\index{paintGroupStart@{paintGroupStart}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintGroupStart}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintGroupStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ group, }
+\item[{\$}]{ size}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a80a6d39b62ad92ee63da0c0b3011c294}
+Stashes the name of the test suite. Starts test coverage if enabled. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$group} & Name of test or other label. \\
+\hline
+integer & {\em \$size} & Number of test cases starting.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a738721074c609d1ced9010b57cd0779c}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a050de6302927aea46cae03b72b6d1c0b}{
+\index{EclipseReporter@{EclipseReporter}!paintHeader@{paintHeader}}
+\index{paintHeader@{paintHeader}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintHeader}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintHeader (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a050de6302927aea46cae03b72b6d1c0b}
+We don't display any special header. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & First test top level to start.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_eclipse_reporter_a1322beebd54bfec26b6453b4e7a23d68}{
+\index{EclipseReporter@{EclipseReporter}!paintMethodEnd@{paintMethodEnd}}
+\index{paintMethodEnd@{paintMethodEnd}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintMethodEnd}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintMethodEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a1322beebd54bfec26b6453b4e7a23d68}
+Only send one message if the test passes, after that suppress the message. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test that is ending.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a419382f8670b1d944f2036bb02dc2800}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a3beefc3a53542af1e4eb1dbca13a69fb}{
+\index{EclipseReporter@{EclipseReporter}!paintMethodStart@{paintMethodStart}}
+\index{paintMethodStart@{paintMethodStart}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintMethodStart}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintMethodStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a3beefc3a53542af1e4eb1dbca13a69fb}
+Paints nothing at the start of a test method, but stash the method name for later. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test that is starting.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a1467957d4a23761b8d23d5d0c88b9a89}{SimpleScorer}.
+
+\hypertarget{class_eclipse_reporter_a845512e7138f1f8f1fc4a710d0e4960f}{
+\index{EclipseReporter@{EclipseReporter}!paintPass@{paintPass}}
+\index{paintPass@{paintPass}!EclipseReporter@{EclipseReporter}}
+\subsubsection[{paintPass}]{\setlength{\rightskip}{0pt plus 5cm}EclipseReporter::paintPass (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_eclipse_reporter_a845512e7138f1f8f1fc4a710d0e4960f}
+Stash the first passing item. Clicking the test item goes to first pass. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Test message, but we only wnat the first.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a02d68e8d94800e50603413d1913c25d0}{SimpleScorer}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/eclipse.php\end{DoxyCompactItemize}

@@ -1,0 +1,104 @@
+\hypertarget{class_simple_multipart_encoding}{
+\section{SimpleMultipartEncoding Class Reference}
+\label{class_simple_multipart_encoding}\index{SimpleMultipartEncoding@{SimpleMultipartEncoding}}
+}
+Inheritance diagram for SimpleMultipartEncoding:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_simple_multipart_encoding}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_multipart_encoding_ad7311975ea717cd2ce3eb44db7a2ec90}{SimpleMultipartEncoding} (\$query=false, \$boundary=false)
+\item 
+\hyperlink{class_simple_multipart_encoding_a6b5cef09d6de499b8eec15bf81ac70fc}{writeHeadersTo} (\&\$socket)
+\item 
+\hyperlink{class_simple_multipart_encoding_acaedbfc33a85c6db3ea616491b00442b}{writeTo} (\&\$socket)
+\item 
+\hyperlink{class_simple_multipart_encoding_abaf98447496b4c38e470684da14e9ef5}{\_\-encode} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_multipart_encoding_a51bda7622c19093db4c52d87e428eb18}{
+{\bfseries \$\_\-boundary}}
+\label{class_simple_multipart_encoding_a51bda7622c19093db4c52d87e428eb18}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_multipart_encoding_abaf98447496b4c38e470684da14e9ef5}{
+\index{SimpleMultipartEncoding@{SimpleMultipartEncoding}!\_\-encode@{\_\-encode}}
+\index{\_\-encode@{\_\-encode}!SimpleMultipartEncoding@{SimpleMultipartEncoding}}
+\subsubsection[{\_\-encode}]{\setlength{\rightskip}{0pt plus 5cm}SimpleMultipartEncoding::\_\-encode (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_multipart_encoding_abaf98447496b4c38e470684da14e9ef5}
+Renders the query string as a URL encoded request part. \begin{DoxyReturn}{Returns}
+string Part of URL.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_encoding_a934397a98be4dab7d58382d83222765b}{SimpleEncoding}.
+
+\hypertarget{class_simple_multipart_encoding_ad7311975ea717cd2ce3eb44db7a2ec90}{
+\index{SimpleMultipartEncoding@{SimpleMultipartEncoding}!SimpleMultipartEncoding@{SimpleMultipartEncoding}}
+\index{SimpleMultipartEncoding@{SimpleMultipartEncoding}!SimpleMultipartEncoding@{SimpleMultipartEncoding}}
+\subsubsection[{SimpleMultipartEncoding}]{\setlength{\rightskip}{0pt plus 5cm}SimpleMultipartEncoding::SimpleMultipartEncoding (
+\begin{DoxyParamCaption}
+\item[{\$}]{ query = {\ttfamily false}, }
+\item[{\$}]{ boundary = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_multipart_encoding_ad7311975ea717cd2ce3eb44db7a2ec90}
+Starts empty. 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$query} & Hash of parameters. Multiple values are as lists on a single key.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_multipart_encoding_a6b5cef09d6de499b8eec15bf81ac70fc}{
+\index{SimpleMultipartEncoding@{SimpleMultipartEncoding}!writeHeadersTo@{writeHeadersTo}}
+\index{writeHeadersTo@{writeHeadersTo}!SimpleMultipartEncoding@{SimpleMultipartEncoding}}
+\subsubsection[{writeHeadersTo}]{\setlength{\rightskip}{0pt plus 5cm}SimpleMultipartEncoding::writeHeadersTo (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ socket}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_multipart_encoding_a6b5cef09d6de499b8eec15bf81ac70fc}
+Dispatches the form headers down the socket. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_socket}{SimpleSocket} & {\em \$socket} & Socket to write to.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_post_encoding_a4e637e85bb8511a0b38e234388cb330b}{SimplePostEncoding}.
+
+\hypertarget{class_simple_multipart_encoding_acaedbfc33a85c6db3ea616491b00442b}{
+\index{SimpleMultipartEncoding@{SimpleMultipartEncoding}!writeTo@{writeTo}}
+\index{writeTo@{writeTo}!SimpleMultipartEncoding@{SimpleMultipartEncoding}}
+\subsubsection[{writeTo}]{\setlength{\rightskip}{0pt plus 5cm}SimpleMultipartEncoding::writeTo (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ socket}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_multipart_encoding_acaedbfc33a85c6db3ea616491b00442b}
+Dispatches the form data down the socket. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_socket}{SimpleSocket} & {\em \$socket} & Socket to write to.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_post_encoding_a45d035ce0ffe9358dd7e30c657f2fa5e}{SimplePostEncoding}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/encoding.php\end{DoxyCompactItemize}

@@ -1,0 +1,22 @@
+<h3>{LABEL_KIND_OF_GROUP}</h3>
+
+<p>{INFO_KIND_OF_GROUP}</p>
+
+{LABEL_MEMBERSHIP_REQUESTED}
+
+<!-- BEGIN BLOCK_FORM -->
+<form action="" method="post"><input type="hidden" name="values[backlink]" value="{BACKLINK_FORM}">
+	<!-- BEGIN BLOCK_GROUP_PASSWORD --> 
+	{LABEL_PASSWORD}: <input type="password" name="values[password]" size="12" /><br />
+	<!-- END BLOCK_GROUP_PASSWORD --> 
+	
+	<!-- BEGIN BLOCK_GROUP_MODERATED --> 
+	<textarea style="width: 400px;" rows="10" name="values[message]"></textarea> <br />
+	<small>{LABEL_REASON_TO_JOIN}</small><br /><br />
+	<!-- END BLOCK_GROUP_MODERATED --> 
+	<div class="buttons" style="text-align: left;">
+	<input type="submit"  name="values[submit]" value="{LABEL_SUBMIT}" {SUBMIT_EXTRA} /> <a href="{BACK_LINK}">{LABEL_RETURN}</a>
+	</div>
+</form>
+
+<!-- END BLOCK_FORM -->

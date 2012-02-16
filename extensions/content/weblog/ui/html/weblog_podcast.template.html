@@ -1,0 +1,69 @@
+<table>
+<tr>
+<td id="Hint" width="30%">
+<h4>{GREETING}</h4>
+<p>{HELP_TEXT}</p>
+<p><span class="Highlight">{HINT_TEXT}</span></p>
+</td>
+<td id="GoodStuff">
+<h3>{UPLOAD_NEW_FILE_TEXT}</h3>
+<form action="" name="formular" method="post" enctype="multipart/form-data">
+<table>
+<tr>
+<td class="Label">{LABEL_FILE}:</td>
+<td>
+	<!-- BEGIN BLOCK_UPLOAD -->
+	<input type="file" name="FILE_TO_UPLOAD" size="50" accept="audio/*">
+	<!-- END BLOCK_UPLOAD -->
+	{DOC_FILENAME}
+</td>
+</tr>
+<tr>
+<td class="Label">{LABEL_DESCRIPTION}:</td>
+<td><textarea name="values[desc]" style="width: 400px;" rows="5">{TEXT_DESCRIPTION}</textarea></td>
+</tr>
+<tr>
+	<td class="Label">
+		{LABEL_KEYWORDS}:
+	</td>
+	<td><input name="values[keywords]" value="{VALUE_KEYWORDS}" style="width: 400px;"></td>
+</tr>
+<tr>
+<td colspan="2">&nbsp;</td>
+</tr>
+<tr>
+<td colspan="2" align="absmiddle">
+<p>
+<input type="hidden" name="values[file_id]" value="{FILE_ID}">
+<input type="hidden" name="values[podspace]" value="{PODSPACE}">
+<input type="hidden" name="values[return_to]" value="{BACK_LINK}">
+<input type="submit" name="values[save]"  value="{LABEL_SAVE_CHANGES}">
+
+</p>
+</td></tr>
+</table>
+</form>
+<h3>{YOUR_PODSPACE_TEXT}</h3>
+<table cellspacing="0">
+<!-- BEGIN BLOCK_FILE -->
+<tr>
+<td>
+<strong><a href="{FILE_URL}" target="_blank">{FILE_NAME}</a></strong>
+</td>
+<td><small>[ {FILE_SIZE} ]</small></td>
+</tr>
+<tr>
+<td colspan="2">{FILE_DESC}</td>
+</tr>
+<tr>
+<td colspan="2" align="right"><a href="{FILE_EDIT}">{LABEL_EDIT}</a> {LABEL_OR} <a href="{FILE_DELETE}">{LABEL_DELETE}</a></td>
+</tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<!-- END BLOCK_FILE -->
+</table>
+<!-- BEGIN BLOCK_EMPTY_PODSPACE -->
+<p><strong>{NO_FILES_LABEL}</strong></p>
+<!-- END BLOCK_EMPTY_PODSPACE -->
+</td>
+</tr>
+</table>

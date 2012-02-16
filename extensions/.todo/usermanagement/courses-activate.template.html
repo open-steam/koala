@@ -1,0 +1,34 @@
+ <!-- BEGIN BLOCK_CONTEXT_MENU -->
+<div class="actionBar">
+    <!-- BEGIN BLOCK_MENU_ENTRY -->
+	{LINK_MENU_ENTRY}
+	<!-- END BLOCK_MENU_ENTRY -->
+</div>
+<!-- END BLOCK_CONTEXT_MENU -->
+ 
+ <ul class="tabBar">
+   <!-- BEGIN BLOCK_TABS -->    
+   <li class="{TAB_STATE}">{TAB_ENTRY}</li>
+   <!-- END BLOCK_TABS -->
+   <li style="clear:left;"/>
+ </ul>
+
+<div style="{CURRENT_CUSTOMER_STYLE}">{CURRENT_CUSTOMER}</div>
+
+<i>Diese Funktion steht im Moment nicht zur Verfügung.</i>
+
+<form action="/usermanagement/" name="formular" method="post">
+	<!--<table class="grid" width="100%">
+		<tr>
+			<th width="35%">Name/Info</th>
+			<th>freigeschaltet f&uuml;r</th>
+			<th width="60">Lizenzen</th>
+			<th width="260">Aktion</th>
+		</tr>-->
+		<!-- BEGIN BLOCK_COURSES_ENTRY -->
+		<!--  {COURSE_ENTRY}-->
+		<!-- END BLOCK_COURSES_ENTRY -->
+	<!--  </table>-->
+	<input type="hidden" name="command" value="" id="command">
+	<input type="hidden" name="template" value="courses-activate">
+</form>

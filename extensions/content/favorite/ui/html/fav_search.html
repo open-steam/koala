@@ -1,0 +1,79 @@
+<h1>{TITLE}</h1>
+<form action="" method="post">
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="label">{SEARCH}:</td>
+		<td class="value"><input type="text" name="searchString" /></td>
+		<td class="value"><input type="radio" checked=""
+			style="width: 20px;" value="searchUser" name="searchType">
+		{USER_LOGIN} <input type="radio" style="width: 20px;" value="searchUserFullname"
+			name="searchType">
+		{USER_FULLNAME} <input type="radio" style="width: 20px;" value="searchGroup"
+			name="searchType"> {GROUPS}</td>
+
+	</tr>
+</table>
+<div style="text-align: right; padding-right: 5px"><input
+	type="submit" name="action" value="{BUTTON_LABEL}" /></div>
+</form>
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<!-- BEGIN BLOCK_NO_RESULT -->
+	<tr>
+		<th>{NO_RESULT}</th>
+	</tr>
+	<!--  END BLOCK_NO_RESULT -->
+	
+	<!-- BEGIN BLOCK_SEARCH_TITLE -->
+	<tr>
+		<th colspan="2" class="group">{SEARCH_RESULTS}</th>
+	</tr>
+
+	<!-- END BLOCK_SEARCH_TITLE -->
+	<!-- BEGIN BLOCK_SEARCH_RESULTS_BUDDY -->
+	<tr>
+
+
+
+		<td style="align:left;" width="40"><a href="{BUDDY_NAME}"><img width="40"
+			height="60" src="{BUDDY_PIC_LINK}" /></a></td>
+		<td class="value"><div style=""><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></div></td>
+
+
+
+
+
+		<!--  <td class="label" style="width:300px;vertical-align:middle">{BUDDY_NAME}</td> -->
+		<!-- BEGIN BLOCK_SEARCH_RESULTS2_BUDDY -->
+		<td class="value">
+		<div class="actionBar" style="margin: 0px"><a class="button"
+			href="{FAVORITE_BUDDY_LINK}">{ADD_FAVORITE_BUDDY}</a></div>
+		</td>
+		<!-- END BLOCK_SEARCH_RESULTS2_BUDDY -->
+		<!-- BEGIN BLOCK_ALREADY_FAV -->
+		<td class="value">{ALREADY_BUDDY}</td>
+		<!-- END BLOCK_ALREADY_FAV -->
+	</tr>
+	<!-- END BLOCK_SEARCH_RESULTS_BUDDY -->
+	
+	<!-- BEGIN BLOCK_GROUP_LIST -->
+	<tr>
+		<td class="label" style="vertical-align:middle;">{GROUP_NAME}</td>
+		<td class="value" style="vertical-align:middle;">{GROUP_DESC}</td>
+		
+		<!-- BEGIN BLOCK_GROUP_LIST2 -->
+		
+		<td class="value">
+		<div class="actionBar" style="margin: 0px"><a class="button"
+			href="{FAVORITE_GROUP_LINK}">{ADD_FAVORITE_GROUP}</a></div>
+		</td>
+		<!-- END BLOCK_GROUP_LIST2 -->
+		
+		<!-- BEGIN BLOCK_ALREADY_FAV_GROUP -->
+		<td class="value">{ALREADY_GROUP}</td>
+		<!-- END BLOCK_ALREADY_FAV_GROUP -->
+		
+	</tr>
+	<!-- END BLOCK_GROUP_LIST -->
+</table>
+
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension>
+	<name>units_extern</name>
+	<path>units_extern</path>
+	<description>Unit type for accessing external web resources</description>
+	<OBJ_TYPE>docextern_unit_koala</OBJ_TYPE>
+	<CLASSTYPE></CLASSTYPE>
+	<category>did_extension</category>
+	<enabled_default>TRUE</enabled_default>
+	<requires>
+		<module>units_base</module>
+	</requires>
+</extension>

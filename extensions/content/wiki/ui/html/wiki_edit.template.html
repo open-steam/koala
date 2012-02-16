@@ -1,0 +1,449 @@
+<table class="wiki" width="100%" cellpadding="0">
+<tr valign="top"> 
+<td class="main">
+<form action="{FORM_ACTION}" method="post" name="formular">
+<input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}">
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+  <tr>
+  	<td style="border-right: 0px;">
+      <div class="label">{LABEL_TITLE}*:</div>
+      <input type="text" name="values[title]" style="width: 99%;" value="{TITLE_COMMENT}">
+    </td>
+  </tr>
+  <tr>
+    <td style="border-right: 0px;">
+    <div class="label">{LABEL_BODY}*:</div>
+    <script type="text/javascript">
+	var wikiText;
+	var selectionStart;
+	var selectionEnd;
+	var selectionLength;
+	var selectionText;
+    
+    function wiki_markup(wiki_element, markupLeft, markupRight, noSelectWarning) {
+    	selection = get_selection(wiki_element);
+    	wikiText = document.getElementById(wiki_element);
+    	selectionStart = selection.start;
+    	selectionEnd = selection.end;
+    	selectionLength = selection.length;
+    	selectionText = selection.text;
+    	
+    	if (selectionLength > 0) {
+    		wikiText.value = wikiText.value.substr(0, selectionStart) + markupLeft + selectionText + markupRight + wikiText.value.substr(selectionEnd);
+    		set_selection(wiki_element, selectionStart + markupLeft.length, selectionEnd + markupLeft.length);
+    	} else {
+    		if (noSelectWarning != "") {
+    			alert(noSelectWarning);
+    		} else {
+    			wikiText.value = wikiText.value.substr(0, selectionStart) + markupLeft + markupRight + wikiText.value.substr(selectionEnd);
+    			set_selection(wiki_element, selectionStart, selectionEnd + markupLeft.length);
+    		}
+    	}
+    }
+    
+    function wiki_dialog(wiki_element, type) {
+    	selection = get_selection(wiki_element);
+    	wikiText = document.getElementById(wiki_element);
+    	selectionStart = selection.start;
+    	selectionEnd = selection.end;
+    	selectionLength = selection.length;
+    	selectionText = selection.text;
+    	
+    	switch (type) {
+    	case "image":
+    		document.getElementById("popup_dialog_overlay").style.display = "block";
+    		document.getElementById("popup_dialog_wiki_image").style.display = "block";
+    		document.getElementById("popup_dialog_wiki_image").oldHTML = document.getElementById("popup_dialog_wiki_image").innerHTML;
+    		break;
+    	
+    	case "link":
+    		document.getElementById("popup_dialog_overlay").style.display = "block";
+    		document.getElementById("popup_dialog_wiki_link").style.display = "block";
+    		document.getElementById("popup_dialog_wiki_link").oldHTML = document.getElementById("popup_dialog_wiki_link").innerHTML;
+    		document.getElementById("popup_dialog_wiki_link_description").value = selectionText;
+    		break;
+    	
+    	case "coment":
+    		if (selectionLength > 0) {
+    			document.getElementById("popup_dialog_overlay").style.display = "block";
+    			document.getElementById("popup_dialog_wiki_coment").style.display = "block";
+    			document.getElementById("popup_dialog_wiki_coment").oldHTML = document.getElementById("popup_dialog_wiki_coment").innerHTML;
+    			document.getElementById("popup_dialog_wiki_coment_text").innerHTML = selectionText;
+    		} else {
+    			alert("Bitte wählen sie Text aus, den sie kommentiern wollen.");
+    		}
+    		break;
+    	
+    	default:
+    		return;
+    	
+    	}
+    }
+    
+    function closeDialog(type) {
+    	switch (type) {
+    	case "image":
+    		document.getElementById("popup_dialog_wiki_image").innerHTML = document.getElementById("popup_dialog_wiki_image").oldHTML;
+    		document.getElementById("popup_dialog_overlay").style.display = "none";
+    		document.getElementById("popup_dialog_wiki_image").style.display = "none";
+    		break;
+    	
+    	case "link":
+    		document.getElementById("popup_dialog_wiki_link").innerHTML = document.getElementById("popup_dialog_wiki_link").oldHTML;
+    		document.getElementById("popup_dialog_overlay").style.display = "none";
+    		document.getElementById("popup_dialog_wiki_link").style.display = "none";
+    		break;
+    	
+    	case "coment":
+    		document.getElementById("popup_dialog_wiki_coment").innerHTML = document.getElementById("popup_dialog_wiki_coment").oldHTML;
+    		document.getElementById("popup_dialog_overlay").style.display = "none";
+    		document.getElementById("popup_dialog_wiki_coment").style.display = "none";
+    		break;
+    	
+    	default:
+    		break;
+    	}
+    }
+    
+    function insertImage() {
+    	if (document.getElementById("popup_dialog_wiki_image_extern").checked){
+    		var url = document.getElementById("popup_dialog_wiki_image_url").value;
+        	wikiText.value = wikiText.value.substr(0, selectionStart) + "[[Image:" + url + "]]" + wikiText.value.substr(selectionEnd);
+        	set_selection(wikiText.id, selectionStart + 8, selectionStart  + 8 + url.length);
+    	} else if (document.getElementById("popup_dialog_wiki_image_intern").checked) {
+    		var images = document.formular.images;
+    		if (!images.length) images = [images];
+    		for(var i=0; i < images.length; i++) {
+    			if (images[i].checked) {
+    	    		wikiText.value = wikiText.value.substr(0, selectionStart) + "{" + images[i].value + "}" + wikiText.value.substr(selectionEnd);
+    	    		set_selection(wikiText.id, selectionStart + 1, selectionStart + 1 + images[i].value.length);
+    			}
+    		}
+    	}
+    	closeDialog("image");
+    }
+    
+    function insertLink() {
+    	var description = document.getElementById("popup_dialog_wiki_link_description").value;
+    	if (description == "") {
+    		description = "";
+    	} else {
+    		description = "|" + description;
+    	}
+    	if (document.getElementById("popup_dialog_wiki_link_extern").checked){
+    		var url = document.getElementById("popup_dialog_wiki_link_url").value;
+        	wikiText.value = wikiText.value.substr(0, selectionStart) + "[" + url + description + "]" + wikiText.value.substr(selectionEnd);
+        	set_selection(wikiText.id, selectionStart + 1 + url.length + 1, selectionStart  + 1 + url.length + description.length);
+    	} else if (document.getElementById("popup_dialog_wiki_link_intern").checked) {
+    		var name = "";
+    		if (document.getElementById("popup_dialog_wiki_link_options").options[document.getElementById("popup_dialog_wiki_link_options").selectedIndex].value == 'newEntry') {
+    			name = document.getElementById("popup_dialog_wiki_link_name").value;
+    		} else {
+    			name = document.getElementById("popup_dialog_wiki_link_options").options[document.getElementById("popup_dialog_wiki_link_options").selectedIndex].value;
+    			name = name.replace(/.wiki/g, "");
+    		}
+    		wikiText.value = wikiText.value.substr(0, selectionStart) + "[[" + name + description + "]]" + wikiText.value.substr(selectionEnd);
+    		set_selection(wikiText.id, selectionStart + 2 + name.length + 1, selectionStart + 2 + name.length + description.length);
+    	}
+    	closeDialog("link");
+    }
+    
+    function insertComent() {
+    	var name = document.getElementById("popup_dialog_wiki_coment_text").innerHTML;
+    	var coment = document.getElementById("popup_dialog_wiki_coment_coment").value;
+    	wikiText.value = wikiText.value.substr(0, selectionStart) + "[" + name + "[" + coment + "]]" + wikiText.value.substr(selectionEnd);
+    	set_selection(wikiText.id, selectionStart + 1 + name.length + 1, selectionStart + 2 + name.length + 1 + coment.length);
+    	closeDialog("coment");
+    }
+    
+    function get_selection(the_id) {
+        var e = document.getElementById(the_id);
+
+        //Mozilla and DOM 3.0
+        if('selectionStart' in e) {
+            var l = e.selectionEnd - e.selectionStart;
+            return { start: e.selectionStart, end: e.selectionEnd, length: l, text: e.value.substr(e.selectionStart, l) };
+        }
+        //IE
+        else if(document.selection) {
+            e.focus();
+            var r = document.selection.createRange();
+            var tr = e.createTextRange();
+            var tr2 = tr.duplicate();
+            tr2.moveToBookmark(r.getBookmark());
+            tr.setEndPoint('EndToStart',tr2);
+            if (r == null || tr == null) return { start: e.value.length, end: e.value.length, length: 0, text: '' };
+            var text_part = r.text.replace(/[\r\n]/g,'.'); //for some reason IE doesn't always count the \n and \r in the length
+            var text_whole = e.value.replace(/[\r\n]/g,'.');
+            var the_start = text_whole.indexOf(text_part,tr.text.length);
+            return { start: the_start, end: the_start + text_part.length, length: text_part.length, text: r.text };
+        }
+        //Browser not supported
+        else return { start: e.value.length, end: e.value.length, length: 0, text: '' };
+    }
+
+    function replace_selection(the_id,replace_str) {
+        var e = document.getElementById(the_id);
+        selection = get_selection(the_id);
+        var start_pos = selection.start;
+        var end_pos = start_pos + replace_str.length;
+        e.value = e.value.substr(0, start_pos) + replace_str + e.value.substr(selection.end, e.value.length);
+        set_selection(the_id,start_pos,end_pos);
+        return {start: start_pos, end: end_pos, length: replace_str.length, text: replace_str};
+    }
+
+    function set_selection(the_id,start_pos,end_pos) {
+        var e = document.getElementById(the_id);
+
+        //Mozilla and DOM 3.0
+        if('selectionStart' in e)
+        {
+            e.focus();
+            e.selectionStart = start_pos;
+            e.selectionEnd = end_pos;
+        }
+        //IE
+        else if(document.selection)
+        {
+            e.focus();
+            var tr = e.createTextRange();
+
+            //Fix IE from counting the newline characters as two seperate characters
+            var stop_it = start_pos;
+            for (i=0; i < stop_it; i++) if( e.value[i].search(/[\r\n]/) != -1 ) start_pos = start_pos - .5;
+            stop_it = end_pos;
+            for (i=0; i < stop_it; i++) if( e.value[i].search(/[\r\n]/) != -1 ) end_pos = end_pos - .5;
+
+            tr.moveEnd('textedit',-1);
+            tr.moveStart('character',start_pos);
+            tr.moveEnd('character',end_pos - start_pos);
+            tr.select();
+        }
+        return get_selection(the_id);
+    }
+
+    function wrap_selection(the_id, left_str, right_str, sel_offset, sel_length) {
+        var the_sel_text = get_selection(the_id).text;
+        var selection =  replace_selection(the_id, left_str + the_sel_text + right_str );
+        if(sel_offset !== undefined && sel_length !== undefined) selection = set_selection(the_id, selection.start +  sel_offset, selection.start +  sel_offset + sel_length);
+        else if(the_sel_text == '') selection = set_selection(the_id, selection.start + left_str.length, selection.start + left_str.length);
+        return selection;
+    }
+    </script>
+	<table class="wiki_toolbar">
+	<tr>
+		<td>
+			<table class="toolbar_select_wrapper" id="toolbar_select_wrapper_style">
+				<tr>
+					<td class="toolbar_select_text_td">
+						<span class="toolbar_select_text" title="unterschiedliche Stil-Varianten für ausgewählten Text">Stil-Varianten</span>
+					</td>
+					<td class="toolbar_combo_button_td">
+						<div class="toolbar_combo_button" title="unterschiedliche Stil-Varianten für ausgewählten Text" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_style').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_style').style.display='none'">
+							<div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_style">
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '=', '=', 'Bitte wählen sie den Text aus, der den Titel-Stil bekommen soll.');" title="Stile Titel für ausgewählten Text" class="toolbar_select_popup_item"><h1>Titel</h1></div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '==', '==', 'Bitte wählen sie den Text aus, der den Überschrift-Stil bekommen soll.')" title="Stile Überschrift für ausgewählten Text" class="toolbar_select_popup_item"><h2>Überschrift</h2></div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '===', '===', 'Bitte wählen sie den Text aus, der den Zwischenüberschrift-Stil bekommen soll.')" title="Stile Zwischenüberschrift für ausgewählten Text" class="toolbar_select_popup_item"><h3>Zwischenüberschrift</h3></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<span onclick="wiki_markup('Content', '\'\'\'', '\'\'\'', 'Bitte wählen sie Text aus, den sie fett hervorheben wollen.')"  title="ausgewählten Text fett hervorheben" class="toolbar_icon toolbar_icon_bold"></span>
+		</td>
+		<td>
+			<span onclick="wiki_markup('Content', '\'\'', '\'\'', 'Bitte wählen sie Text aus, den sie kursiv hervorheben wollen.')"  title="ausgewählten Text kursiv hervorheben" class="toolbar_icon toolbar_icon_italic"></span>
+		</td>
+		<td>
+			<table class="toolbar_select_wrapper" id="toolbar_select_wrapper_ul">
+				<tr>
+					<td>
+						<span onclick="wiki_markup('Content', '*', '', '')"  title="fügt sie eine unnummerierte Liste ein" class="toolbar_icon toolbar_icon_ul"></span>
+					</td>
+					<td class="toolbar_combo_button_td">
+						<div class="toolbar_combo_button" title="fügt sie unterschiedliche Ebenen in eine unnummerierte Liste ein" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_ul').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_ul').style.display='none'">
+							<div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_ul">
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '*', '', '')" title="1. Ebene der unnummerieten Liste" class="toolbar_select_popup_item">1. Ebene</div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '**', '', '')" title="2. Ebene der unnummerieten Liste" class="toolbar_select_popup_item">2. Ebene</div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '***', '', '')" title="3. Ebene der unnummerieten Liste" class="toolbar_select_popup_item">3. Ebene</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<table class="toolbar_select_wrapper" id="toolbar_select_wrapper_ol">
+				<tr>
+					<td>
+						<span onclick="wiki_markup('Content', '#', '', '')"  title="fügt eine nummerierte Liste ein" class="toolbar_icon toolbar_icon_ol"></span>
+					</td>
+					<td class="toolbar_combo_button_td">
+						<div class="toolbar_combo_button" title="fügt unterschiedliche Ebenen in eine nummerierte Liste ein" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_ol').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_ol').style.display='none'">
+							<div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_ol">
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '#', '', '')" title="1. Ebene der nummerieten Liste" class="toolbar_select_popup_item">1. Ebene</div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '##', '', '')" title="2. Ebene der nummerieten Liste" class="toolbar_select_popup_item">2. Ebene</div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '###', '', '')" title="3. Ebene der nummerieten Liste" class="toolbar_select_popup_item">3. Ebene</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<span onclick="wiki_markup('Content', '\n-----------\n', '', '')"  title="fügt Trennline ein" class="toolbar_icon toolbar_icon_line"></span>
+		</td>
+		<td>
+			<span onclick="wiki_dialog('Content', 'image')"  title="fügt ein Bild ein" class="toolbar_icon toolbar_icon_image"></span>
+		</td>
+		<td>
+			<span onclick="wiki_dialog('Content', 'link')"  title="fügt eine Verknüpfung ein" class="toolbar_icon toolbar_icon_link"></span>
+		</td>
+		<td>
+			<span onclick="wiki_markup('Content', '[', '[ ]]', 'Bitte wählen sie Text aus, den sie markieren wollen.')"  title="ausgewählten Text markieren" class="toolbar_icon toolbar_icon_note"></span>
+		</td>
+		<td>
+			<span onclick="wiki_dialog('Content', 'coment')"  title="ausgewählten Text kommentieren" class="toolbar_icon toolbar_icon_comment"></span>
+		</td>
+	</tr>
+	</table>
+	
+	<div class="overlay" id="popup_dialog_overlay"></div>
+ 	<div class="popup_dialog" id="popup_dialog_wiki_image">
+		<div class="close-button" onclick="closeDialog('image');"></div>
+		<h2>Bild einbinden</h2>
+		<table>
+			<tr>
+				<td width="70px">
+					Art:
+				</td>
+				<td>
+					<input type="radio" name="type" id="popup_dialog_wiki_image_extern" value="extern" onclick="document.getElementById('wiki_dialog_image_extern').style.display='table-row';document.getElementById('wiki_dialog_image_entry').style.display='none';">extern<br>
+					<input type="radio" name="type" id="popup_dialog_wiki_image_intern" value="intern" onclick="document.getElementById('wiki_dialog_image_extern').style.display='none';document.getElementById('wiki_dialog_image_entry').style.display='table-row';">intern
+				</td>
+			</tr>
+			<tr id="wiki_dialog_image_extern">
+				<td>
+					Web-Adresse:
+				</td>
+				<td>
+					<input type="text" name="url" id="popup_dialog_wiki_image_url" placeholder="http:// oder https://" title="http:// oder https://">
+				</td>
+			</tr>
+			<tr id="wiki_dialog_image_entry">
+				<td style="vertical-align:top">
+					Mediathek:
+				</td>
+				<td>
+					<div style="max-height:220px;overflow-x:auto">
+						<!-- BEGIN BLOCK_WIKI_ENTRY_IMAGE -->
+						{WIKI_ENTRY_IMAGE}
+					    <!-- END BLOCK_WIKI_ENTRY_IMAGE -->
+					    <!-- BEGIN BLOCK_WIKI_ENTRY_NOIMAGE -->
+					    {WIKI_ENTRY_NOIMAGE}
+					    <!-- END BLOCK_WIKI_ENTRY_NOIMAGE -->
+				    </div>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<div class="button" onclick="insertImage()">einfügen</div>
+	</div>
+	<div class="popup_dialog" id="popup_dialog_wiki_link">
+		<div class="close-button" onclick="closeDialog('link');"></div>
+		<h2>Verknüpfung mit anderem Artikel erstellen</h2>
+		<table>
+			<tr>
+				<td>
+					Beschreibung:
+				</td>
+				<td>
+					<input type="text" name="description" id="popup_dialog_wiki_link_description">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Art:
+				</td>
+				<td>
+					<input type="radio" name="type" id="popup_dialog_wiki_link_extern" value="extern" onclick="document.getElementById('wiki_dialog_link_extern').style.display='table-row';document.getElementById('wiki_dialog_link_entry').style.display='none';document.getElementById('wiki_dialog_link_entry_name').style.display='none'">extern<br>
+					<input type="radio" name="type" id="popup_dialog_wiki_link_intern" value="intern" onclick="document.getElementById('wiki_dialog_link_extern').style.display='none';document.getElementById('wiki_dialog_link_entry').style.display='table-row';document.getElementById('wiki_dialog_link_entry_name').style.display='table-row'">intern
+				</td>
+			</tr>
+			<tr id="wiki_dialog_link_extern">
+				<td>
+					Web-Adresse:
+				</td>
+				<td>
+					<input type="text" name="url" id="popup_dialog_wiki_link_url" placeholder="http:// oder https:// oder mailto://" title="http:// oder https:// oder mailto://">
+				</td>
+			</tr>
+			<tr id="wiki_dialog_link_entry">
+				<td>
+					Wiki-Eintrag:
+				</td>
+				<td>
+					<select name="wiki-entry" id="popup_dialog_wiki_link_options" onchange="if (this.options[this.selectedIndex].value == 'newEntry') {document.getElementById('wiki_dialog_link_entry_name').style.display='table-row'} else {document.getElementById('wiki_dialog_link_entry_name').style.display='none'}">
+				      <option value="newEntry">neuer Eintrag</option>
+				      <!-- BEGIN BLOCK_WIKI_ENTRY_OPTION -->
+				      {WIKI_ENTRY_OPTION}
+				      <!-- END BLOCK_WIKI_ENTRY_OPTION -->
+				    </select>
+				</td>
+			</tr>
+			<tr id="wiki_dialog_link_entry_name">
+				<td>
+					Name:
+				</td>
+				<td>
+					<input type="text" name="entry_name" id="popup_dialog_wiki_link_name" title="Name des neuen Wiki-Eintrag">
+				</td>
+			</tr>
+		</table>
+		<br>
+		<div class="button" onclick="insertLink()">einfügen</div>
+	</div>
+	<div class="popup_dialog" id="popup_dialog_wiki_coment">
+		<div class="close-button" onclick="closeDialog('coment');"></div>
+		<h2>Text kommentieren</h2>
+		<table>
+			<tr>
+				<td title="zu kommentierender Text">
+					Text:
+				</td>
+				<td>
+					<div id="popup_dialog_wiki_coment_text"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Kommentar:
+				</td>
+				<td>
+					<textarea id="popup_dialog_wiki_coment_coment"></textarea>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<div class="button" onclick="insertComent()">einfügen</div>
+	</div>
+	
+    <textarea name="values[body]" id="Content" style="width: 99%;" rows="30">{TEXT_DSC}</textarea><br />
+    </td>
+    </tr>
+  <tr>
+    <td class="buttons"><div class="buttons" style="text-align: left;"><input type="submit" name="values[save]" value="{LABEL_SAVE_CHANGES}"/> <a href="{BACK_LINK}">{LABEL_RETURN}</a></div></td>
+  </tr>
+</table>
+</form>
+</td>
+<!-- <td class="sidebar" width="20%"> -->
+<!-- BEGIN BLOCK_WIDGET -->
+<!-- <h3>&raquo; {WIDGET_TITLE}</h3> -->
+<!-- {WIDGET_HTML_CODE} -->
+<!-- END BLOCK_WIDGET -->
+<!-- </td> -->
+</tr> 
+</table>

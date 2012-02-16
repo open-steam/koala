@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+	<content>
+	<![CDATA[
+		<script language="javascript" type="text/javascript">
+	   		<!-- // JavaScript-Bereich für ältere Browser auskommentieren
+	    	window.location.href = 'http://www.bid-owl.de/static/help/ge/index.php';
+	    	// -->
+	    </script>
+	]]> 
+	</content>
+</help>

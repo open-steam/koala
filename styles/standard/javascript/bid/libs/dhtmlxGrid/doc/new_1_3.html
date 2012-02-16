@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid guide and samples</title>
+</head>
+
+<body>
+<style>
+	body {font-size:14px;line-height:18px;}
+	.{font-family:arial;}
+	h2 {cursor:pointer;font-size:20px;margin:30px 0px 40px 5px;line-height:10px}
+	h3 {cursor:pointer;font-weight:normal;color:black;text-decoration:underline;line-height:10px}
+	h4 {cursor:pointer;font-weight:normal;color:black;text-decoration:underline;line-height:10px}
+	h5{
+		font-weight:bold;color:green;
+		margin:5px;
+	}
+	h6{
+		font-weight:bold;color:gray;
+		margin:0px;
+	}
+	a h4{
+		color:blue;
+		font-weight:bold;
+	}
+	.op {cursor:pointer;}
+	div.block {margin-left:5px;}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	li {margin-top:2px;}
+	span.important {font-weight:bold;color:maroon;}
+</style>
+<h2 ><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" target="_top" title="Visit javascript tree home page">dhtmlXGrid</a> New in dhtmlxGrid 1.3</h2>
+<div class="block">
+
+<a name="htmlform"><h4 >Integration with form</h4></a><div class="block">
+Starting from dhtmlxGrid 1.3 integration in existing FORM is possible.
+To enable integration next things must be done
+<ul>
+	<li><b>dhtmlxGrid_form.js</b> included in page</li>
+	<li>Grid container placed inside existing FORM tag</li>
+</ul>
+
+As result while form submit grid will include all modified fields inside FORM scoop<br>
+The naming of fields is next<br>
+<b>GRIDID_ROWID_CELLINDEX</b><br><br>
+	<ul>
+Where
+		<li>GRIDID - id of container used for grid</li>
+		<li>ROWID - id of row in which value was changed</li>
+		<li>CELLINDEX - index of cell inside row</li>
+	</ul>
+
+Please check <a href='../samples/pro_form.html'>samples/pro_form.html</a> (Professional Edition only)
+</div>
+
+
+
+
+
+<a name="refreshgrid"><h4 >Refresh functionality</h4></a><div class="block">
+Starting from dhtmlxGrid 1.3, in addition to default grid reloading through
+<xmp>
+	grid.clearAll()
+	grid.reloadXML(URL);
+</xmp>
+new refresh method added, which just update values of existing rows without reconstructing ( as
+result it doesn't cause any visual glitches in grid, and works significently faster than full grid
+reconstruction )
+<xmp>
+	grid.updateFromXMl(URL)
+</xmp>
+The format of XML exactly the same as for initialization. Grid will update each row in grid with the same ID with data
+from XML.<br>
+
+Please check <a href='../samples/pro_refresh.html'>samples/pro_refresh.html</a> (Professional Edition only)
+</div>
+
+
+
+
+<a name="undoredo"><h4 >Undo | Redo  functionality</h4></a><div class="block">
+Starting from dhtmlxGrid 1.3 by including <b>dhtmlXGrid_undo.js</b> your enable undo|redo functionality.
+All user edit actions will be saved in unlimited undo history. ( modification caused by API calls will not be
+stored in history )
+
+<xmp>
+      mygrid.enableUndoRedo();
+      ...
+      mygrid.doUndo()
+      mygrid.doRedo()
+</xmp>
+
+Please check <a href='../samples/pro_undo.html'>samples/pro_undo.html</a> (Professional Edition only)
+</div>
+
+
+
+
+<a name="blocsel"><h4 >Block selection</h4></a><div class="block">
+Starting from dhtmlxGrid 1.3 additional selection mode supported in grid - block selection.
+To activate mode you need to include <b>dhtmlXGrid_selection.js</b> file in project.<br>
+
+In block selection mode you can select any block of content and copy it to clipboard ( also block paste from clipboard is possible)<br>
+
+Please check <a href='../samples/grid_copy_to_cb.html'>samples/pro_grid_selection.html</a>
+</div>
+
+
+<a name="intcombo"><h4 >Integration with dhtmlxCombo</h4></a><div class="block">
+Starting from dhtmlxGrid 1.3 Integration with dhtmlxCombo is possible. The grid supports "combo" excell type which
+transformed to dhtmlxCombobox component. <br>
+
+There are three different mode of initialization based on used XML<br>
+1. Dynamic loading in filtering mode
+<xmp>
+   <row id="1">
+      <cell xmlcontent="1"><value>a</value><url>combo/php/complete.php</url></cell>
+   </row>
+</xmp>
+2. Static loading from xml
+<xmp>
+   <row id="1">
+      <cell xmlcontent="0"><value>a</value><url>combo/php/complete.php</url></cell>
+   </row>
+</xmp>
+3. Predefined list of values
+<xmp>
+   <row id="3" selected="1">
+      <cell xmlcontent="2">
+         <complete>
+            <option value="1">one</option>
+            <option value="2">two</option>
+            <option value="3">three</option>
+            <option value="4">four</option>
+            <option value="5">five</option>
+            <option value="6">six</option>
+            <option value="7">seven</option>
+            <option value="8">eight</option>
+            <option value="9">nine</option>
+            <option value="10">ten</option>
+         </complete>
+      </cell>
+</xmp>
+
+Please check <a href='../samples/pro_combo.html'>samples/pro_combo.html</a> (Professional Edition only)
+</div>
+
+
+
+</div>
+</body>
+</html>

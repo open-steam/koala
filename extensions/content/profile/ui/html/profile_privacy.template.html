@@ -1,0 +1,319 @@
+<div class="infoBar">
+	{INFO_TEXT}
+</div>
+
+<style type="text/css">
+<!--
+td { text-align: center; }
+-->
+</style>
+
+<script type="text/javascript">
+function check(checkbox)
+{
+	var lastSlash = checkbox.id.lastIndexOf('_');
+	var entry = checkbox.id.substring(0, lastSlash);
+
+	if (checkbox.id.indexOf('allusers') > 0)
+	{
+		if (checkbox.checked == true)
+		{
+			document.getElementById(entry + "_contacts").checked = true;
+			document.getElementById(entry + "_contacts").disabled = true;
+			// document.getElementById(entry + "_coursemates").checked = true;
+			// document.getElementById(entry + "_groupmates").checked = true;
+		}
+		else
+		{
+			document.getElementById(entry + "_contacts").checked = false;
+			document.getElementById(entry + "_contacts").disabled = false;
+			// document.getElementById(entry + "_coursemates").checked = false;
+			// document.getElementById(entry + "_groupmates").checked = false;
+		}
+	}
+	else
+	{
+		/*
+		if
+		(
+			document.getElementById(entry + "_contacts").checked == true
+			// document.getElementById(entry + "_coursemates").checked == true &&
+			// document.getElementById(entry + "_groupmates").checked == true
+		)
+			document.getElementById(entry + "_allusers").checked = true;
+		else
+			document.getElementById(entry + "_allusers").checked = false;
+		*/
+	}
+}
+</script>
+
+<form action="" method="post" name="formular">
+	<table class="grid" width="60%" cellpadding="5" cellspacing="0">
+		<tr>
+			<th class="label" width="25%"></th>
+			<th class="label" width="25%"><center>{LABEL_ALLUSERS}</center></th>
+			<!-- BEGIN BLOCK_PROFILE_TILTE -->		
+			<th class="label" width="25%"><center>{LABEL_CONTACTS}</center></th>
+			<th class="label" width="25%"><center>Niemand</center></th>
+			<!-- END BLOCK_PROFILE_TILTE -->
+			<!-- th class="label">{LABEL_COURSEMATES}</th -->
+			<!-- th class="label">{LABEL_GROUPMATES}</th -->
+
+		</tr>
+<!-- BEGIN BLOCK_STATUS -->
+		<tr>
+			<td class="label">{LABEL_STATUS}</td>
+			<td class="value"><input type="radio" id="status_allusers" name="status[]" {STATUS_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="status_contacts" name="status[]" {STATUS_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="status_none" name="status[]" {STATUS_NONE_CHECKED}  value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="status_coursemates" name="status[]" {STATUS_COURSEMATES_CHECKED} {STATUS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="status_groupmates" name="status[]" {STATUS_GROUPMATES_CHECKED} {STATUS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_STATUS -->
+<!-- BEGIN BLOCK_GENDER -->
+		<tr>
+			<td class="label">{LABEL_GENDER}</td>
+			<td class="value"><input type="radio" id="gender_allusers" name="gender[]" {GENDER_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="gender_contacts" name="gender[]" {GENDER_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="gender_none" name="gender[]" {GENDER_NONE_CHECKED} value="none"></input></td>
+			<!-- td class="value"><input type="checkbox" id="gender_coursemates" name="gender[]" {GENDER_COURSEMATES_CHECKED} {GENDER_COURSEMATES_DISABLED} value="coursemates"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="gender_groupmates" name="gender[]" {GENDER_GROUPMATES_CHECKED} {GENDER_GROUPMATES_DISABLED} value="groupmates"></input></td -->
+		</tr>
+<!-- END BLOCK_GENDER -->
+<!-- BEGIN BLOCK_FACULTY -->
+		<tr>
+			<td class="label">{LABEL_FACULTY}</td>
+			<td class="value"><input type="radio" id="faculty_allusers" name="faculty[]" {FACULTY_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="faculty_contacts" name="faculty[]" {FACULTY_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="faculty_none" name="faculty[]" {FACULTY_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="faculty_coursemates" name="faculty[]" {FACULTY_COURSEMATES_CHECKED} {FACULTY_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="faculty_groupmates" name="faculty[]" {FACULTY_GROUPMATES_CHECKED} {FACULTY_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_FACULTY -->
+<!-- BEGIN BLOCK_MAIN_FOCUS -->
+
+		<tr>
+			<td class="label">{LABEL_MAIN_FOCUS}</td>
+			<td class="value"><input type="radio" id="main_focus_allusers" name="main_focus[]" {MAIN_FOCUS_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="main_focus_contacts" name="main_focus[]" {MAIN_FOCUS_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="main_focus_none" name="main_focus[]" {MAIN_FOCUS_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="main_focus_coursemates" name="main_focus[]" {MAIN_FOCUS_COURSEMATES_CHECKED} {MAIN_FOCUS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="main_focus_groupmates" name="main_focus[]" {MAIN_FOCUS_GROUPMATES_CHECKED} {MAIN_FOCUS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_MAIN_FOCUS -->
+<!-- BEGIN BLOCK_WANTS -->
+
+		<tr>
+			<td class="label">{LABEL_WANTS}</td>
+			<td class="value"><input type="radio" id="wants_allusers" name="wants[]" {WANTS_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="wants_contacts" name="wants[]" {WANTS_CONTACTS_CHECKED}  value="contacts"></input></td>
+			<td class="value"><input type="radio" id="wants_none" name="wants[]" {WANTS_NONE_CHECKED}  value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="wants_coursemates" name="wants[]" {WANTS_COURSEMATES_CHECKED} {WANTS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="wants_groupmates" name="wants[]" {WANTS_GROUPMATES_CHECKED} {WANTS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_WANTS -->
+<!-- BEGIN BLOCK_HAVES -->
+		<tr>
+			<td class="label">{LABEL_HAVES}</td>
+			<td class="value"><input type="radio" id="haves_allusers" name="haves[]" {HAVES_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="haves_contacts" name="haves[]" {HAVES_CONTACTS_CHECKED}  value="contacts"></input></td>
+			<td class="value"><input type="radio" id="haves_none" name="haves[]" {HAVES_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="haves_coursemates" name="haves[]" {HAVES_COURSEMATES_CHECKED} {HAVES_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="haves_groupmates" name="haves[]" {HAVES_GROUPMATES_CHECKED} {HAVES_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_HAVES -->
+<!-- BEGIN BLOCK_ORGANIZATIONS -->
+		<tr>
+			<td class="label">{LABEL_ORGANIZATIONS}</td>
+			<td class="value"><input type="radio" id="organizations_allusers" name="organizations[]" {ORGANIZATIONS_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="organizations_contacts" name="organizations[]" {ORGANIZATIONS_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="organizations_none" name="organizations[]" {ORGANIZATIONS_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="organizations_coursemates" name="organizations[]" {ORGANIZATIONS_COURSEMATES_CHECKED} {ORGANIZATIONS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="organizations_groupmates" name="organizations[]" {ORGANIZATIONS_GROUPMATES_CHECKED} {ORGANIZATIONS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_ORGANIZATIONS -->
+<!-- BEGIN BLOCK_HOMETOWN -->
+		<tr>
+			<td class="label">{LABEL_HOMETOWN}</td>
+			<td class="value"><input type="radio" id="hometown_allusers" name="hometown[]" {HOMETOWN_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="hometown_contacts" name="hometown[]" {HOMETOWN_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="hometown_none" name="hometown[]"  value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="hometown_coursemates" name="hometown[]" {HOMETOWN_COURSEMATES_CHECKED} {HOMETOWN_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="hometown_groupmates" name="hometown[]" {HOMETOWN_GROUPMATES_CHECKED} {HOMETOWN_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_HOMETOWN -->
+<!-- BEGIN BLOCK_OTHER_INTERESTS -->
+		<tr>
+			<td class="label">{LABEL_OTHER_INTERESTS}</td>
+			<td class="value"><input type="radio" id="other_interests_allusers" name="other_interests[]" {OTHER_INTERESTS_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="other_interests_contacts" name="other_interests[]" {OTHER_INTERESTS_CONTACTS_CHECKED}  value="contacts"></input></td>
+			<td class="value"><input type="radio" id="other_interests_none" name="other_interests[]" {OTHER_INTERESTS_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="other_interests_coursemates" name="other_interests[]" {OTHER_INTERESTS_COURSEMATES_CHECKED} {OTHER_INTERESTS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="other_interests_groupmates" name="other_interests[]" {OTHER_INTERESTS_GROUPMATES_CHECKED} {OTHER_INTERESTS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_OTHER_INTERESTS -->
+<!-- BEGIN BLOCK_LANGUAGES -->		
+		<tr>
+			<td class="label">{LABEL_LANGUAGES}</td>
+			<td class="value"><input type="radio" id="languages_allusers" name="languages[]" {LANGUAGES_ALLUSERS_CHECKED} value="allusers" ></input></td>
+			<td class="value"><input type="radio" id="languages_contacts" name="languages[]" {LANGUAGES_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="languages_none" name="languages[]" {LANGUAGES_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="languages_coursemates" name="languages[]" {LANGUAGES_COURSEMATES_CHECKED} {LANGUAGES_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="languages_groupmates" name="languages[]" {LANGUAGES_GROUPMATES_CHECKED} {LANGUAGES_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_LANGUAGES -->
+<!-- BEGIN BLOCK_CONTACTS_TILTE -->		
+		<tr>
+			<th colspan="2" class="group">{HEADER_CONTACT_DATA}</th>
+		</tr>
+<!-- END BLOCK_CONTACTS_TILTE -->
+<!-- BEGIN BLOCK_EMAIL -->
+		<tr>
+			<td class="label">{LABEL_EMAIL}</td>
+			<td class="value"><input type="radio" id="email_allusers" name="email[]" {EMAIL_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="email_contacts" name="email[]" {EMAIL_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="email_none" name="email[]" {EMAIL_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="email_coursemates" name="email[]" {EMAIL_COURSEMATES_CHECKED} {EMAIL_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="email_groupmates" name="email[]" {EMAIL_GROUPMATES_CHECKED} {EMAIL_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_EMAIL -->
+<!-- BEGIN BLOCK_ADDRESS -->
+		<tr>
+			<td class="label">{LABEL_ADDRESS}</td>
+			<td class="value"><input type="radio" id="address_allusers" name="address[]" {ADDRESS_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="address_contacts" name="address[]" {ADDRESS_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="address_none" name="address[]" {ADDRESS_NONE_CHECKED} value="none"></input></td>
+		
+			<!-- td class="value"><input type="checkbox" id="address_coursemates" name="address[]" {ADDRESS_COURSEMATES_CHECKED} {ADDRESS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="address_groupmates" name="address[]" {ADDRESS_GROUPMATES_CHECKED} {ADDRESS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_ADDRESS -->
+<!-- BEGIN BLOCK_TELEPHONE -->
+		<tr>
+			<td class="label">{LABEL_TELEPHONE}</td>
+			<td class="value"><input type="radio" id="telephone_allusers" name="telephone[]" {TELEPHONE_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="telephone_contacts" name="telephone[]" {TELEPHONE_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="telephone_none" name="telephone[]" {TELEPHONE_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="telephone_coursemates" name="telephone[]" {TELEPHONE_COURSEMATES_CHECKED} {TELEPHONE_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="telephone_groupmates" name="telephone[]" {TELEPHONE_GROUPMATES_CHECKED} {TELEPHONE_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_TELEPHONE -->
+<!-- BEGIN BLOCK_PHONE_MOBILE -->
+		<tr>
+			<td class="label">{LABEL_PHONE_MOBILE}</td>
+			<td class="value"><input type="radio" id="phone_mobile_allusers" name="phone_mobile[]" {PHONE_MOBILE_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="phone_mobile_contacts" name="phone_mobile[]" {PHONE_MOBILE_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="phone_mobile_none" name="phone_mobile[]" {PHONE_MOBILE_NONE_CHECKED} value="none"></input></td>
+			<!-- td class="value"><input type="checkbox" id="phone_mobile_coursemates" name="phone_mobile[]" {PHONE_MOBILE_COURSEMATES_CHECKED} {PHONE_MOBILE_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="phone_mobile_groupmates" name="phone_mobile[]" {PHONE_MOBILE_GROUPMATES_CHECKED} {PHONE_MOBILE_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_PHONE_MOBILE -->
+<!-- BEGIN BLOCK_WEBSITE -->
+		<tr>
+			<td class="label">{LABEL_WEBSITE}</td>
+			<td class="value"><input type="radio" id="website_allusers" name="website[]" {WEBSITE_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="website_contacts" name="website[]" {WEBSITE_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="website_none" name="website[]" {WEBSITE_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="website_coursemates" name="website[]" {WEBSITE_COURSEMATES_CHECKED} {WEBSITE_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="website_groupmates" name="website[]" {WEBSITE_GROUPMATES_CHECKED} {WEBSITE_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_WEBSITE -->
+<!-- BEGIN BLOCK_ICQ_NUMBER -->
+		<tr>
+			<td class="label">{LABEL_ICQ_NUMBER}</td>
+			<td class="value"><input type="radio" id="icq_number_allusers" name="icq_number[]" {ICQ_NUMBER_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="icq_number_contacts" name="icq_number[]" {ICQ_NUMBER_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="icq_number_none" name="icq_number[]" {ICQ_NUMBER_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="icq_number_coursemates" name="icq_number[]" {ICQ_NUMBER_COURSEMATES_CHECKED} {ICQ_NUMBER_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="icq_number_groupmates" name="icq_number[]" {ICQ_NUMBER_GROUPMATES_CHECKED} {ICQ_NUMBER_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_ICQ_NUMBER -->
+<!-- BEGIN BLOCK_MSN_IDENTIFICATION -->
+		<tr>
+			<td class="label">{LABEL_MSN_IDENTIFICATION}</td>
+			<td class="value"><input type="radio" id="msn_identification_allusers" name="msn_identification[]" {MSN_IDENTIFICATION_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="msn_identification_contacts" name="msn_identification[]" {MSN_IDENTIFICATION_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="msn_identification_none" name="msn_identification[]" {MSN_IDENTIFICATION_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="msn_identification_coursemates" name="msn_identification[]" {MSN_IDENTIFICATION_COURSEMATES_CHECKED} {MSN_IDENTIFICATION_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="msn_identification_groupmates" name="msn_identification[]" {MSN_IDENTIFICATION_GROUPMATES_CHECKED} {MSN_IDENTIFICATION_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_MSN_IDENTIFICATION -->
+<!-- BEGIN BLOCK_AIM_ALIAS -->
+		<tr>
+			<td class="label">{LABEL_AIM_ALIAS}</td>
+			<td class="value"><input type="radio" id="aim_alias_allusers" name="aim_alias[]" {AIM_ALIAS_ALLUSERS_CHECKED} value="allusers" ></input></td>
+			<td class="value"><input type="radio" id="aim_alias_contacts" name="aim_alias[]" {AIM_ALIAS_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="aim_alias_none" name="aim_alias[]" {AIM_ALIAS_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="aim_alias_coursemates" name="aim_alias[]" {AIM_ALIAS_COURSEMATES_CHECKED} {AIM_ALIAS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="aim_alias_groupmates" name="aim_alias[]" {AIM_ALIAS_GROUPMATES_CHECKED} {AIM_ALIAS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_AIM_ALIAS -->
+<!-- BEGIN BLOCK_YAHOO_ID -->
+		<tr>
+			<td class="label">{LABEL_YAHOO_ID}</td>
+			<td class="value"><input type="radio" id="yahoo_id_allusers" name="yahoo_id[]" {YAHOO_ID_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="yahoo_id_contacts" name="yahoo_id[]" {YAHOO_ID_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="yahoo_id_none" name="yahoo_id[]" {YAHOO_ID_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="yahoo_id_coursemates" name="yahoo_id[]" {YAHOO_ID_COURSEMATES_CHECKED} {YAHOO_ID_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="yahoo_id_groupmates" name="yahoo_id[]" {YAHOO_ID_GROUPMATES_CHECKED} {YAHOO_ID_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_YAHOO_ID -->
+<!-- BEGIN BLOCK_SKYPE_NAME -->
+		<tr>
+			<td class="label">{LABEL_SKYPE_NAME}</td>
+			<td class="value"><input type="radio" id="skype_name_allusers" name="skype_name[]" {SKYPE_NAME_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="skype_name_contacts" name="skype_name[]" {SKYPE_NAME_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="skype_name_none" name="skype_name[]" {SKYPE_NAME_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="skype_name_coursemates" name="skype_name[]" {SKYPE_NAME_COURSEMATES_CHECKED} {SKYPE_NAME_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="skype_name_groupmates" name="skype_name[]" {SKYPE_NAME_GROUPMATES_CHECKED} {SKYPE_NAME_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_SKYPE_NAME -->
+<!-- BEGIN BLOCK_CONTACTS_GROUPS_TITLE -->
+		<tr>
+			<th colspan="2" class="group">{HEADER_CONTACTS_AND_GROUPS}</th>
+		</tr>
+<!-- END BLOCK_CONTACTS_GROUPS_TITLE -->
+<!-- BEGIN BLOCK_CONTACTS -->
+		<tr>
+			<td class="label">{LABEL_CONTACTS}</td>
+			<td class="value"><input type="radio" id="contacts_allusers" name="contacts[]" {CONTACTS_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="contacts_contacts" name="contacts[]" {CONTACTS_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="contacts_none" name="contacts[]" {CONTACTS_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="contacts_coursemates" name="contacts[]" {CONTACTS_COURSEMATES_CHECKED} {CONTACTS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="contacts_groupmates" name="contacts[]" {CONTACTS_GROUPMATES_CHECKED} {CONTACTS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_CONTACTS -->
+<!-- BEGIN BLOCK_GROUPS -->
+		<tr>
+			<td class="label">{LABEL_GROUPS}</td>
+			<td class="value"><input type="radio" id="groups_allusers" name="groups[]" {GROUPS_ALLUSERS_CHECKED} value="allusers"></input></td>
+			<td class="value"><input type="radio" id="groups_contacts" name="groups[]" {GROUPS_CONTACTS_CHECKED} value="contacts"></input></td>
+			<td class="value"><input type="radio" id="groups_none" name="groups[]" {GROUPS_NONE_CHECKED} value="none"></input></td>
+			
+			<!-- td class="value"><input type="checkbox" id="groups_coursemates" name="groups[]" {GROUPS_COURSEMATES_CHECKED} {GROUPS_COURSEMATES_DISABLED} value="coursemates" onclick="check(this); return true;"></input></td -->
+			<!-- td class="value"><input type="checkbox" id="groups_groupmates" name="groups[]" {GROUPS_GROUPMATES_CHECKED} {GROUPS_GROUPMATES_DISABLED} value="groupmates" onclick="check(this); return true;"></input></td -->
+		</tr>
+<!-- END BLOCK_GROUPS -->
+	</table>
+	<br/>
+	<div class="button" style="text-align: left;"><input name="submit" type="submit" value="{LABEL_SAVE_IT}"/> {BACK_LINK}</div>
+</form>

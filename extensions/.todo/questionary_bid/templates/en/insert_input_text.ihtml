@@ -1,0 +1,147 @@
+﻿<html>
+<head>
+  <title>Insert questiontype input_text</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/rights.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/dialog.css">
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/focus.js"></script>
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/select.js"></script>
+  <script language="javascript" type="text/javascript" src="http://bid:8080//javascript/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+  <script language="javascript" type="text/javascript">
+    tinyMCE.init({
+            mode : "textareas",
+            theme : "advanced",
+            plugins : "bbcode",
+            language: "de",
+            editor_selector : "bbcode",
+            theme_advanced_buttons1 : "bold,italic,underline,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo",
+            theme_advanced_buttons2 : "",
+            theme_advanced_buttons3 : "",
+            entity_encoding : "raw",
+            remove_linebreaks : false
+            theme_advanced_toolbar_location : "top"
+            theme_advanced_toolbar_align : "left"
+    });
+  </script>
+</head>
+
+
+<body bgcolor="#DEDEDE" topmargin="7" leftmargin="7" onLoad="setFocus();">
+
+
+<script language="Javascript1.2">
+function form_submit(mission, url)
+{
+  if(mission == "close")
+    window.close();
+  else
+  {
+  document.getElementById("mission").value = mission;
+    document.getElementById("form_blueprint").action = url;
+    document.getElementById("form_blueprint").submit();
+  }
+}
+</script>
+
+
+<form method="POST" name="form_blueprint" id="form_blueprint" action="" enctype="multipart/form-data">
+<input type="hidden" name="mission" id="mission" value="">
+<input type="hidden" name="questionary" id="questionary" value="{QUESTIONARY_ID}">
+
+<!-- Rahmen oben -->
+<h1 class="titlepane">Insert questiontype input_text</h1>
+
+<!-- Mittelteil und Content -->
+<div class="dialogpane" align="center">
+
+<!-- BEGIN error_no_number_width --><b>Fieldwidth has to be a number.</b><br><!-- END error_no_number_width -->
+<!-- BEGIN error_no_number_maxlength --><b>Max. inputlength has to be a number.</b><br><!-- END error_no_number_maxlength -->
+<!-- BEGIN error_no_number_rows --><b>Number of rows has to be a number.</b><br><!-- END error_no_number_rows -->
+<!-- BEGIN error_bigger_zero_rows --><b>Number of rows has to be bigger than 0.</b><br><!-- END error_bigger_zero_rows -->
+<!-- BEGIN error_no_text --><b>Text must not be empty.</b><br><!-- END error_no_text -->
+
+<!-- BEGIN button_insert -->Insert<!-- END button_insert -->
+<!-- BEGIN button_edit -->Save<!-- END button_edit -->
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+
+<script language="Javascript1.2">
+function check_input()
+{
+	if(document.getElementById("question").value=="") 
+	{	
+		document.getElementById("label_question_text").style.color="#FF0000";
+		//document.getElementById("label_question_text").style.font-weight="bold";
+		error=1;
+	}
+	
+	if(error==1)	return false;
+	else	return true;
+}
+</script>
+
+<b>{FEEDBACK}</b>
+
+<table>
+<tr style="background-color:#CCCCCC;" ><td colspan="2" align="center"><b>Question:</b></td></tr>
+<tr style="background-color:#D8D8D8;">
+  <td style="vertical-align:middle; text-align:right;">Position of the question:</td>
+  <td><input type="radio" name="question_position" value="top" {QUESTION_POSITION_TOP}>Top
+    <input type="radio" name="question_position" value="left" {QUESTION_POSITION_LEFT}>Left</td>
+</tr>
+<tr style="background-color:#D8D8D8;">
+  <td style="vertical-align:top; text-align:right;" id="label_question_text">Text:</td>
+  <td><textarea rows="4" name="question" id="question" style="width:200px">{QUESTION}</textarea></td>
+</tr>
+
+<tr><td><br></td></tr>
+
+<tr style="background-color:#CCCCCC;">
+  <td colspan="2" align="center"><b>Answer:</b></td>
+</tr>
+<tr style="background-color:#D8D8D8;">
+  <td style="vertical-align:middle; text-align:right;">Defaultvalue:</td>
+  <td><input name="value" type="text" value="{VALUE}" style="width:200px"></td>
+</tr>
+<tr style="background-color:#D8D8D8;">
+  <td style="vertical-align:middle; text-align:right;">Fieldheight:</td>
+  <td valign="middle"><input name="rows" type="text" value="{ROWS}" size="5" maxlength="3" style="text-align:right"> rows</td>
+</tr>
+<tr style="background-color:#D8D8D8;">
+  <td style="vertical-align:middle; text-align:right;">Fieldwidth:</td>
+  <td valign="middle"><input name="width" type="text" value="{WIDTH}" size="5" maxlength="4" style="text-align:right"> pixel</td>
+</tr>
+<tr style="background-color:#D8D8D8;">
+  <td style="vertical-align:middle; text-align:right;">max. inputlength:</td>
+  <td valign="middle"><input name="maxlength" type="text" value="{MAXLENGTH}" size="5" maxlength="5" style="text-align:right"> characters</td>
+</tr>
+
+<tr><td><br></td></tr>
+
+<tr>
+  <td style="vertical-align:middle; text-align:right; background-color:#CCCCCC;">Mandatory:</td>
+  <td style="background-color:#D8D8D8;"><input type="checkbox" name="must" value="1" {MUST}></td>
+</tr>
+<tr>
+  <td style="vertical-align:middle; text-align:right; background-color:#CCCCCC;">Show in list:</td>
+  <td style="background-color:#D8D8D8;"><input type="checkbox" name="output" value="1" {OUTPUT}></td>
+</tr>
+</table>
+
+
+</div>
+
+<table width="100%" height="5" border="0" cellpadding="0" cellspacing="0" align="right">
+  <tr>
+    <td align="center" colspan="3">
+    <!-- BEGIN button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_MISSION}', '{BUTTON_URL}'); return false;">{BUTTON_LABEL}</button>
+    <!-- END button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_CANCEL_MISSION}', '{BUTTON_CANCEL_URL}'); return false;">Cancel</button>
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

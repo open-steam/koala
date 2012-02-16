@@ -1,0 +1,28 @@
+<div class="portlet media">
+	<h1 class="headline">
+		<!-- BEGIN BLOCK_EDIT_BUTTON -->
+		<div class="editbutton">{POPUPMENU}</div>
+		<div style='float:right' class='editbutton'>{REFERENCE_ICON}</div>
+		<!-- END BLOCK_EDIT_BUTTON -->
+		{HEADLINE}
+	</h1>
+	<div class="entry">
+		<div class="content">
+			{MEDIA_ELEMENT}
+			<!-- BEGIN image -->
+			<img src="{URL}">
+			<!-- END image -->
+			
+			<!-- BEGIN movie -->
+			<embed src="{MEDIA_PLAYER}" width="{MEDIA_PLAYER_WIDTH}" height="{MEDIA_PLAYER_HEIGHT}" allowscriptaccess="always" allowfullscreen="true" flashvars="width={MEDIA_PLAYER_WIDTH}&height={MEDIA_PLAYER_HEIGHT}&file={URL}&autostart=false" />
+			<!-- END movie -->
+		
+			<!-- BEGIN audio -->
+			<object style="width: {MEDIA_PLAYER_WIDTH}px; height:{MEDIA_PLAYER_HEIGHT}px" type="application/x-shockwave-flash" data="{MEDIA_PLAYER}"><param name="movie" value="{MEDIA_PLAYER}" /><param name="FlashVars" value="src={URL}" /><param name="bgcolor" value="#cccccc"></object>
+			<!-- END audio -->
+		</div>
+		<div class="description">
+			{DESCRIPTION}
+		</div>
+	</div>
+</div>

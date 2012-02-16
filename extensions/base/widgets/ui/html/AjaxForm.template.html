@@ -1,0 +1,11 @@
+<!-- BEGIN AJAX_FORM -->
+<form id="{AJAX_FORM_NAME}" onsubmit="sendAjaxFrom(); return false;">
+	{AJAX_FORM_CONTENT}
+</form>
+<div style="float:right"><a href="#" class="button pill left" onclick="sendAjaxFrom(); return false;"><b>Erstellen</b></a><a class="button pill right negative" onclick="closeDialog();return false;" href="#">Abbrechen</a></div>
+<script>
+function sendAjaxFrom() {
+	{AJAX_SENDCODE}
+}
+</script>
+<!-- END AJAX_FORM -->

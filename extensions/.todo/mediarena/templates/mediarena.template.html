@@ -1,0 +1,45 @@
+<div id="whiteboard" style="height:400px;overflow:auto;background-image:url(/mediarena/images/corkboard.jpg)">
+<div id="whiteboard_current_room" style="display:none;">{CURRENT_ROOM}</div>
+<script type="text/javascript">
+
+apath = '/mediarena/directaccess.php';
+
+function arrangeObject(DRAGGABLE,MOUSEEVENT) {
+	//console.log("Ich bin eine einfache Log Ausgabe");
+	//console.log(DRAGGABLE.element.id + " " + DRAGGABLE.element.style.top + " " + DRAGGABLE.element.style.left);
+	new Ajax.Request(apath,
+			  {
+			    method:'post',
+			    parameters: 'case=arrange&oid=' + DRAGGABLE.element.id + '&x=' + DRAGGABLE.element.style.left + '&y=' + DRAGGABLE.element.style.top ,
+			    onFailure: function(){ alert('Error while saving position.'); },
+			    onSuccess: function(response){}
+			  });
+}
+
+function loadRoom() {
+	oid = document.getElementById('whiteboard_current_room').innerHTML;
+	new Ajax.Request(apath,
+			  {
+			    method:'post',
+			    parameters: 'case=loadRoom&oid=' + oid ,
+			    onFailure: function(){ alert('Error while saving position.'); },
+			    onSuccess: function(response){console.debug(response);}
+			  });
+}
+
+</script>
+<!-- BEGIN BLOCK_ICON -->
+<div id="icon_{ICON_ID}" class="icon" style="position:absolute;top:{POSITION_Y}px;left:{POSITION_X}px">
+	<table style="text-align:center">
+		<tr>
+			<td class="td_icon"><img title="{ICON_TITLE}" src="{ICON_SRC}" /></td>
+		</tr>
+		<tr>
+			<td class="td_label">{ICON_LABEL}</td>
+		</tr>
+	</table>
+</div>
+{SCRIPT}
+<!-- END BLOCK_ICON -->
+
+</div>

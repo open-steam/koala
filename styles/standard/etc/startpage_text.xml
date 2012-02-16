@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<startpage>
+	<left>
+		<![CDATA[
+            <h3>Beispiel Überschrift</h3>         
+            <p>Beispiel Text für die linke Spalte. 
+            <h3>Beispiel Überschrift</h3>            
+            <p>Beispiel Text für die linke Spalte.</p>
+            <h3>Beispiel Überschrift</h3>            
+            <p>Beispiel Text für die linke Spalte.</p>
+		]]>              
+	</left>
+	<center>
+		<![CDATA[
+			<h3>Beispiel Überschrift</h3>            
+            <p>Beispiel Text für die mittlere Spalte.</p>
+            <h3>Beispiel Überschrift</h3>
+			<p><a href="/pdf/koaLA_Broschuere.pdf">Quickstart-Broschüre</a> - Beispiel Text für die mittlere Spalte.</p>
+			<p><a href="http://www.uni-paderborn.de/studium/elearning/" target="_blank">Universität Paderborn: eLearning </a>Beispiel Text für die mittlere Spalte.</p>
+ 		]]>
+	</center>
+	<right>
+		<![CDATA[
+			<h3>Beispiel Überschrift</h3>
+            <p>Beispiel Text für die mittlere Spalte.</p>
+			<p>Beispiel Text für die mittlere Spalte.</p>         
+			<h3>Technische Hinweise</h3>
+			<p>Das System wird jeweils Dienstags von 16:30 - 18:30 Uhr gewartet. Bitte beachten Sie dass es in dieser Zeit zu Beeinträchtigungen bei der Nutzung des Systems kommen kann.</p>
+		]]>
+	</right>
+</startpage>

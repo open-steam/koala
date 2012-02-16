@@ -1,0 +1,45 @@
+.box {
+	clear: both;
+	border: 1px solid #ddd;
+	margin: 0 10px 15px 10px;
+}
+
+.box h3 {
+	margin: 0;
+	padding: 3px;
+	background:;
+	background-color: #eee;
+	color: #003a6f;
+}
+
+.box p {
+	margin-top: 0px;
+	margin-bottom: 8px; 
+}
+
+.box .movable {
+    background: url({PATH_URL}styles/standard/images/arrows_cross.png) no-repeat right;
+}
+
+.box .content {
+	padding: 5px;
+	margin: 0;
+}
+
+.box .content .date{		
+	font-weight:bold;
+}
+
+.box  .content h4{
+	margin:0;
+	margin-left:10px;
+}
+
+.box  .content .description{
+	margin-left:10px;
+	
+}
+
+.box .content .functionbar{
+	margin-left:10px;	
+}

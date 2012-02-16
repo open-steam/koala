@@ -1,0 +1,81 @@
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_USERNAME}:</div>
+  <div class="attributeValue">{USER_NAME}</div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_NAME}:</div>
+  <div class="attributeValue">{USER_FIRSTNAME} {USER_LASTNAME}</div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_DESCRIPTION}:</div>
+  <div class="attributeValue"><input type="text" name="USER_DESCRIPTION" value="{USER_DESCRIPTION}" class="text"></div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_ADRESS}:</div>
+  <div class="attributeValue"><textarea name="USER_ADRESS">{USER_ADRESS}</textarea></div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_EMAIL}:</div>
+  <div class="attributeValue"><input type="text" name="USER_EMAIL" value="{USER_EMAIL}" class="text"></div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_CALLTO}:</div>
+  <div class="attributeValue"><input type="text" name="user_callto" value="{USER_CALLTO}" class="text"></div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_IM}:</div>
+  <div class="attributeValue"><input type="text" name="user_im_adress" value="{USER_IM_ADRESS}" class="text" style="width: 150px;">
+    <select size="1" name="user_im_protocol" value="">
+      <option value="aim" {AIM_SELECTED}>AIM</option>
+      <option value="xmpp" {XMPP_SELECTED}>Jabber/XMPP</option>
+      <option value="skype" {SKYPE_SELECTED}>Skype</option>
+    </select>
+  </div>
+</div>
+<div class="attribute">
+  <div class="attributeName">&nbsp;</div>
+  <div class="attributeValue">
+    <button onclick="javascript:window.open('{DOC_ROOT}/favourites_show.php', 'Favoriten', 'resizable,scrollbars,width=650,height=500');" type="button">{LANGUAGE_FAVOURITES_SHOW}</button>
+  <button onclick="javascript:window.open('{DOC_ROOT}/favourites_search.php', 'Favoriten', 'resizable,scrollbars,width=650,height=500');" type="button">{LANGUAGE_FAVOURITES_SEARCH}</button>
+  </div>
+</div>
+
+<div style="clear: both;"></div>
+<!-- <img src="{DOC_ROOT}/tools/get.php?object={USER_ICON}" title="{USER_NAME}"> -->
+
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_HIDDEN}:</div>
+  <div class="attributeValue">
+    <input type="radio" name="show_hidden" value="on" {HIDDEN_ON}>{LANGUAGE_HIDDEN_SHOW}<br>
+    <input type="radio" name="show_hidden" value="off" {HIDDEN_OFF}>{LANGUAGE_HIDDEN_HIDE}
+  </div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_TREEVIEW}:</div>
+  <div class="attributeValue">
+    <input type="radio" name="treeview_mini" value="on" {TREEVIEW_MINI}>{LANGUAGE_TREEVIEW_MINI}<br>
+    <input type="radio" name="treeview_mini" value="off" {TREEVIEW_MAXI}>{LANGUAGE_TREEVIEW_MAXI}<br>
+    <input type="checkbox" name="treeview" value="off" {TREEVIEW_OFF}>{LANGUAGE_TREEVIEW_OFF}
+  </div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_LANGUAGE}:</div>
+  <div class="attributeValue">
+    <select name="user_language">
+      <option value="german" {LANGUAGE1_SELECTED}>{LANGUAGE_LANGUAGE1}</option>
+      <option value="english" {LANGUAGE2_SELECTED}>{LANGUAGE_LANGUAGE2}</option>
+      <option value="french" {LANGUAGE3_SELECTED}>{LANGUAGE_LANGUAGE3}</option>
+    </select>
+  </div>
+</div>
+<div class="attribute">
+  <div class="attributeName" style="color: #999999;">{LANGUAGE_MODULES}:</div>
+  <div class="attributeValue">
+    <input type="checkbox" name="portal" value="on" checked disabled><font color="#999999">{LANGUAGE_PORTAL}</font><br>
+    <input type="checkbox" name="calendar" value="on" checked disabled><font color="#999999">{LANGUAGE_CALENDAR}</font><br>
+    <input type="checkbox" name="forum" value="on" checked disabled><font color="#999999">{LANGUAGE_FORUM}</font><br>
+    <input type="checkbox" name="questionary" value="on" checked disabled><font color="#999999">{LANGUAGE_QUESTIONARY}</font>
+  </div>
+</div>
+
+<div style="clear: both;"></div>

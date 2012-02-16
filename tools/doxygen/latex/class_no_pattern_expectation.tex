@@ -1,0 +1,86 @@
+\hypertarget{class_no_pattern_expectation}{
+\section{NoPatternExpectation Class Reference}
+\label{class_no_pattern_expectation}\index{NoPatternExpectation@{NoPatternExpectation}}
+}
+Inheritance diagram for NoPatternExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_no_pattern_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_no_pattern_expectation_a01392fb76654440c039cc272fc752017}{NoPatternExpectation} (\$pattern, \$message= '\%s')
+\item 
+\hyperlink{class_no_pattern_expectation_adea22650021fb33f1d745aba552e6971}{test} (\$compare)
+\item 
+\hyperlink{class_no_pattern_expectation_a214eefe693fa189648ee4e51d38ed7b2}{testMessage} (\$compare)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_no_pattern_expectation_a01392fb76654440c039cc272fc752017}{
+\index{NoPatternExpectation@{NoPatternExpectation}!NoPatternExpectation@{NoPatternExpectation}}
+\index{NoPatternExpectation@{NoPatternExpectation}!NoPatternExpectation@{NoPatternExpectation}}
+\subsubsection[{NoPatternExpectation}]{\setlength{\rightskip}{0pt plus 5cm}NoPatternExpectation::NoPatternExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_pattern_expectation_a01392fb76654440c039cc272fc752017}
+Sets the reject pattern 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & Pattern to search for. \\
+\hline
+string & {\em \$message} & Customised message on failure.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_no_pattern_expectation_adea22650021fb33f1d745aba552e6971}{
+\index{NoPatternExpectation@{NoPatternExpectation}!test@{test}}
+\index{test@{test}!NoPatternExpectation@{NoPatternExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}NoPatternExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_pattern_expectation_adea22650021fb33f1d745aba552e6971}
+Tests the expectation. False if the Perl regex matches the comparison value. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if correct.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_pattern_expectation_a672fecfc691c4c115d4f4d37c365dae5}{PatternExpectation}.
+
+\hypertarget{class_no_pattern_expectation_a214eefe693fa189648ee4e51d38ed7b2}{
+\index{NoPatternExpectation@{NoPatternExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!NoPatternExpectation@{NoPatternExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}NoPatternExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_pattern_expectation_a214eefe693fa189648ee4e51d38ed7b2}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_pattern_expectation_a7adc09e88f1abac0401d807e7f4763c8}{PatternExpectation}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/expectation.php\end{DoxyCompactItemize}

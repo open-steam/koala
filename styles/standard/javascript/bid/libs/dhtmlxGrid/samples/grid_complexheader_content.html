@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Putting Complex content into header</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+	body, . {font-size:12px;font-family:arial;}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	DIV.txt{
+		margin-top:10px;
+		font-size:12px;font-family:arial;
+	}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+	div.h3{
+		padding-left:10px;
+		padding-right:10px;
+		margin-bottom:10px;
+		margin-top:10px;
+		font-size:14px;
+		font-family: verdana;
+		color:white;
+		background-color:green;
+		width:300px;
+		white-space:nowrap;
+		display:table;
+	}
+</style>
+<body onload="doOnLoad()">
+	<div class="hdr">DHTML JavaScript Grid samples </div>
+	<h1>Putting Complex content into header</h1>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>
+	<script  src="../js/dhtmlXGridCell.js"></script>
+	<script>
+		function doOnLoad(){
+			mygrid = new dhtmlXGridObject('gridbox');
+			mygrid.setImagePath("../imgs/");
+		    mygrid.setHeader("Sales,Title,Author,Price,In Store,Shipping,Bestseller,Published");
+			mygrid.setInitWidths("50,150,150,80,80,80,80,200")
+			mygrid.setColAlign("right,left,left,right,center,left,center,center")
+			mygrid.setColTypes("ed,ed,ed,price,ch,co,ra,ro");
+		    mygrid.getCombo(5).put(2,2);
+			mygrid.setColSorting("int,str,str,int,str,str,str,str")
+			mygrid.setColumnColor("white,#d5f1ff,#d5f1ff")
+		    mygrid.setColumnMinWidth(50,0);
+			mygrid.init();
+			mygrid.loadXML("grid.xml", function(){
+				mygrid.attachHeader("#rspan,<div id='title_flt'></div>,<div id='author_flt'></div>,#rspan,#rspan,#rspan,#rspan,#rspan");
+				//set title filter field
+				document.getElementById("title_flt").appendChild(document.getElementById("title_flt_box").childNodes[0])
+				//set author fiter field
+				var authFlt = document.getElementById("author_flt").appendChild(document.getElementById("author_flt_box").childNodes[0]);
+				populateSelectWithAuthors(authFlt);
+				mygrid.setSizes();
+			});
+		}
+		function filterBy(){
+			var tVal = document.getElementById("title_flt").childNodes[0].value.toLowerCase();
+			var aVal = document.getElementById("author_flt").childNodes[0].value.toLowerCase();
+			
+			for(var i=0; i< mygrid.getRowsNum();i++){
+				var tStr = mygrid.cells2(i,1).getValue().toString().toLowerCase();
+				var aStr = mygrid.cells2(i,2).getValue().toString().toLowerCase();
+				if((tVal=="" || tStr.indexOf(tVal)==0) && (aVal=="" || aStr.indexOf(aVal)==0))
+					mygrid.setRowHidden(mygrid.getRowId(i),false)
+				else
+					mygrid.setRowHidden(mygrid.getRowId(i),true)
+			}
+		}
+		function populateSelectWithAuthors(selObj){
+			selObj.options.add(new Option("All Authors",""))
+			var usedAuthAr = new dhtmlxArray();
+			for(var i=0;i<mygrid.getRowsNum();i++){
+				var authNm = mygrid.cells2(i,2).getValue();
+				if(usedAuthAr._dhx_find(authNm)==-1){
+					selObj.options.add(new Option(authNm,authNm))
+					usedAuthAr[usedAuthAr.length] = authNm;
+				}
+			}
+		}
+		
+	</script>
+<div class="h3">Setting complex content to header</div>
+	<div id="gridbox" width="600px" height="300px" style="background-color:white;"></div>
+	
+	<div class="txt">
+		<li>Complex objects to use in grid header can be created in invisible container and attached to div elements in grid header after grid loaded. 
+		Or they can be created with script on the fly</li>
+	</div>
+<XMP>
+	<!-- Create complex objects with HTML in hidden container -->
+	<div style="display:none">
+		<div id="title_flt_box"><input type="100%" style="border:1px solid gray;" onclick="(arguments[0]||window.event).cancelBubble=true;" onkeyup="filterBy()"></div>
+		<div id="author_flt_box"><select style="width:100%" onclick="(arguments[0]||window.event).cancelBubble=true;" onchange="filterBy()"></select></div>
+	</div>
+	
+	<script>
+		mygrid = new dhtmlXGridObject('gridbox');
+		...
+		mygrid.loadXML("grid.xml", function(){
+	//create second header row
+		mygrid.attachHeader("#rspan,<div id='title_flt'></div>,<div id='author_flt'></div>,#rspan,#rspan,#rspan,#rspan,#rspan");
+	//append filter for 2nd column
+		document.getElementById("title_flt").appendChild(document.getElementById("title_flt_box").childNodes[0])
+	//append filter for 3rd column
+		var authFlt = document.getElementById("author_flt").appendChild(document.getElementById("author_flt_box").childNodes[0]);
+		populateSelectWithAuthors(authFlt);
+	//correct grid proportions if necessary
+		mygrid.setSizes();
+	});
+	</script>
+</XMP>
+<div class="txt">
+	<li>Example of functions which can be usefull for filtering grid content (used in current sample):</li>
+</div>
+<XMP>
+	
+	//filter grid contnet based on values of two filter fields
+	function filterBy(){
+		var tVal = document.getElementById("title_flt").childNodes[0].value.toLowerCase();
+		var aVal = document.getElementById("author_flt").childNodes[0].value.toLowerCase();
+		
+		for(var i=0; i< mygrid.getRowsNum();i++){
+			var tStr = mygrid.cells2(i,1).getValue().toString().toLowerCase();
+			var aStr = mygrid.cells2(i,2).getValue().toString().toLowerCase();
+			if((tVal=="" || tStr.indexOf(tVal)==0) && (aVal=="" || aStr.indexOf(aVal)==0))
+				mygrid.setRowHidden(mygrid.getRowId(i),false)
+			else
+				mygrid.setRowHidden(mygrid.getRowId(i),true)
+		}
+	}
+	
+	//populate filter select box with possible column values
+	function populateSelectWithAuthors(selObj){
+		selObj.options.add(new Option("All Authors",""))
+		var usedAuthAr = new dhtmlxArray();
+		for(var i=0;i < mygrid.getRowsNum();i++){
+			var authNm = mygrid.cells2(i,2).getValue();
+			if(usedAuthAr._dhx_find(authNm)==-1){
+				selObj.options.add(new Option(authNm,authNm))
+				usedAuthAr[usedAuthAr.length] = authNm;
+			}
+		}
+	}
+</XMP>	
+	
+<div style="display:none">
+	<div id="title_flt_box"><input type="100%" style="border:1px solid gray;" onclick="(arguments[0]||window.event).cancelBubble=true;" onkeyup="filterBy()"></div>
+	<div id="author_flt_box"><select style="width:100%" onclick="(arguments[0]||window.event).cancelBubble=true;" onchange="filterBy()"></select></div>
+</div>
+
+<hr>
+
+
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+	
+</body>
+</html>

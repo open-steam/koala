@@ -1,0 +1,150 @@
+\hypertarget{classkoala__html__profile}{
+\section{koala\_\-html\_\-profile Class Reference}
+\label{classkoala__html__profile}\index{koala\_\-html\_\-profile@{koala\_\-html\_\-profile}}
+}
+Inheritance diagram for koala\_\-html\_\-profile:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classkoala__html__profile}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classkoala__html__profile_a25c2fae69573abbec8c1b6a32a4d4c88}{\_\-\_\-construct} (\$\hyperlink{classsteam__user}{steam\_\-user})
+\item 
+\hyperlink{classkoala__html__profile_aec4b1acf8dcb034bcbce1e5673f298cc}{get\_\-headline} ()
+\item 
+\hyperlink{classkoala__html__profile_a18e57f120de4f0865cc58c9bbbead202}{get\_\-menu} (\$params=array())
+\item 
+\hypertarget{classkoala__html__profile_a196c6015a7b1b77ae22b66f047a1eb8d}{
+{\bfseries menu\_\-privacy} ()}
+\label{classkoala__html__profile_a196c6015a7b1b77ae22b66f047a1eb8d}
+
+\item 
+\hyperlink{classkoala__html__profile_a0f6090f5e2311531e0a093927925da92}{get\_\-context\_\-menu} (\$context, \$params=array())
+\item 
+\hypertarget{classkoala__html__profile_a9d89b4430d115f57cc5e27fa1ca1a301}{
+{\bfseries set\_\-html\_\-left} (\$html\_\-code)}
+\label{classkoala__html__profile_a9d89b4430d115f57cc5e27fa1ca1a301}
+
+\item 
+\hypertarget{classkoala__html__profile_a1d4e8b89b85306e2ec391ed51bd293fd}{
+{\bfseries set\_\-html\_\-right} (\$html\_\-code)}
+\label{classkoala__html__profile_a1d4e8b89b85306e2ec391ed51bd293fd}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classkoala__html__profile_a805bf1bf58a715906fa1925440a4afa7}{
+{\bfseries \$networking\_\-profile}}
+\label{classkoala__html__profile_a805bf1bf58a715906fa1925440a4afa7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classkoala__html__profile_a25c2fae69573abbec8c1b6a32a4d4c88}{
+\index{koala\_\-html\_\-profile@{koala\_\-html\_\-profile}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!koala_html_profile@{koala\_\-html\_\-profile}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}koala\_\-html\_\-profile::\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{ template\_\-path}
+\end{DoxyParamCaption}
+)}}
+\label{classkoala__html__profile_a25c2fae69573abbec8c1b6a32a4d4c88}
+You must call parent::\_\-\_\-construct(\$template\_\-path) in the constructor of your inherited class, so that the template is set up correctly.
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$template\_\-path} & path to the template file \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classkoala__html_af9264b278c4e19335da3652abccc575f}{koala\_\-html}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classkoala__html__profile_a0f6090f5e2311531e0a093927925da92}{
+\index{koala\_\-html\_\-profile@{koala\_\-html\_\-profile}!get\_\-context\_\-menu@{get\_\-context\_\-menu}}
+\index{get\_\-context\_\-menu@{get\_\-context\_\-menu}!koala_html_profile@{koala\_\-html\_\-profile}}
+\subsubsection[{get\_\-context\_\-menu}]{\setlength{\rightskip}{0pt plus 5cm}koala\_\-html\_\-profile::get\_\-context\_\-menu (
+\begin{DoxyParamCaption}
+\item[{\$}]{ context, }
+\item[{\$}]{ params = {\ttfamily array()}}
+\end{DoxyParamCaption}
+)}}
+\label{classkoala__html__profile_a0f6090f5e2311531e0a093927925da92}
+Override this function to return your context menu for a given context. The context menu must be an array: array( array( \char`\"{}name\char`\"{}=$>$\char`\"{}...\char`\"{}, \char`\"{}link\char`\"{}:\char`\"{}...\char`\"{} ) ).
+
+You might receive additional parameters if \hyperlink{classkoala__html_a60cf8a0c199a50400ea876c238bdfa7b}{set\_\-context()} was called with more parameters than just the context string.
+
+Example: if ( \$context == \char`\"{}documents\char`\"{} ) return array( array( \char`\"{}name\char`\"{} =$>$ gettext(\char`\"{}Create folder\char`\"{}), \char`\"{}link\char`\"{} =$>$ PATH\_\-URL . \$something ), array( \char`\"{}name\char`\"{} =$>$ gettext(\char`\"{}Upload file\char`\"{}), \char`\"{}link\char`\"{} =$>$ PATH\_\-URL . \$something\_\-else ), );
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Array} & optional parameters array \\
+\hline
+String & {\em \$context} & the context for which to return the context menu \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array an array with the context menu for the portal 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{classkoala__html_a82b9855f019ad724f321b4e04fae452a}{koala\_\-html}.
+
+\hypertarget{classkoala__html__profile_aec4b1acf8dcb034bcbce1e5673f298cc}{
+\index{koala\_\-html\_\-profile@{koala\_\-html\_\-profile}!get\_\-headline@{get\_\-headline}}
+\index{get\_\-headline@{get\_\-headline}!koala_html_profile@{koala\_\-html\_\-profile}}
+\subsubsection[{get\_\-headline}]{\setlength{\rightskip}{0pt plus 5cm}koala\_\-html\_\-profile::get\_\-headline (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classkoala__html__profile_aec4b1acf8dcb034bcbce1e5673f298cc}
+Override this function to return the headline for the portal.
+
+\begin{DoxyReturn}{Returns}
+String headline 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{classkoala__html_a12af0cd17308d30b95d38e14dd5e82ec}{koala\_\-html}.
+
+\hypertarget{classkoala__html__profile_a18e57f120de4f0865cc58c9bbbead202}{
+\index{koala\_\-html\_\-profile@{koala\_\-html\_\-profile}!get\_\-menu@{get\_\-menu}}
+\index{get\_\-menu@{get\_\-menu}!koala_html_profile@{koala\_\-html\_\-profile}}
+\subsubsection[{get\_\-menu}]{\setlength{\rightskip}{0pt plus 5cm}koala\_\-html\_\-profile::get\_\-menu (
+\begin{DoxyParamCaption}
+\item[{\$}]{ params = {\ttfamily array()}}
+\end{DoxyParamCaption}
+)}}
+\label{classkoala__html__profile_a18e57f120de4f0865cc58c9bbbead202}
+Override this function to return your menu for the portal. The menu must be an array: array( \char`\"{}the-\/context\char`\"{} =$>$ array(\char`\"{}name\char`\"{}=$>$\char`\"{}...\char`\"{}, \char`\"{}link\char`\"{}=$>$\char`\"{}...\char`\"{}) ). The context strings will be the same as those passed to \hyperlink{classkoala__html__profile_a0f6090f5e2311531e0a093927925da92}{get\_\-context\_\-menu()}. You can choose them arbitrarily, but make sure they match across \hyperlink{classkoala__html__profile_a0f6090f5e2311531e0a093927925da92}{get\_\-context\_\-menu()}.
+
+You might receive additional parameters if \hyperlink{classkoala__html_a60cf8a0c199a50400ea876c238bdfa7b}{set\_\-context()} was called with more parameters than just the context string.
+
+Example: return array( \char`\"{}start\char`\"{} =$>$ array( \char`\"{}name\char`\"{} =$>$ gettext(\char`\"{}Start page\char`\"{}), \char`\"{}link\char`\"{} =$>$ PATH\_\-URL . \char`\"{}desktop/\char`\"{} ), \char`\"{}documents\char`\"{} =$>$ array( \char`\"{}name\char`\"{} =$>$ gettext( \char`\"{}Documents\char`\"{} ), \char`\"{}link\char`\"{} =$>$ PATH\_\-URL . \char`\"{}/desktop/documents/\char`\"{} ), );
+
+
+\begin{DoxyParams}{Parameters}
+{\em Array} & optional parameters array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array an array with the menu for the portal 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{classkoala__html_a2cb528d682a53d70fe407cee50adf689}{koala\_\-html}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/koala\_\-html\_\-profile.class.php\end{DoxyCompactItemize}

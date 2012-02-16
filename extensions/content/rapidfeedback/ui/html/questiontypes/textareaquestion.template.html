@@ -1,0 +1,60 @@
+<!-- BEGIN BLOCK_EDIT -->
+<li class="ui-state-default" id="element{ELEMENT_ID}">
+	<table width="100%" class="rapidfeedback_style">
+		<tr>
+			<td align="right">
+				<img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+				&nbsp
+				<img onclick="copyElement({ELEMENT_ID});" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+				&nbsp
+				<img onclick="deleteElement({ELEMENT_ID});" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<!-- BEGIN BLOCK_EDIT_REQUIRED -->
+				<h1>{QUESTION_TEXT}<font color="red"> *</font></h1>
+				{HELP_TEXT}
+				<!-- END BLOCK_EDIT_REQUIRED -->
+				<!-- BEGIN BLOCK_EDIT_NOT_REQUIRED -->
+				<h1>{QUESTION_TEXT}</h1>
+				{HELP_TEXT}
+				<!-- END BLOCK_EDIT_NOT_REQUIRED -->
+				<br>
+				<textarea style="width: 99%;" disabled rows="4"></textarea>
+			</td>
+		</tr>
+	</table>
+</li>
+<input type="hidden" name="element{ELEMENT_ID}" value="{ELEMENT_DATA}">
+<!-- END BLOCK_EDIT -->
+
+<!-- BEGIN BLOCK_VIEW -->
+<tr>
+	<td style="{ERROR_BORDER}">
+		<!-- BEGIN BLOCK_VIEW_REQUIRED -->
+		<b>{QUESTION_TEXT}<font color="red"> *</font></b>
+		<!-- END BLOCK_VIEW_REQUIRED -->
+		<!-- BEGIN BLOCK_VIEW_NOT_REQUIRED -->
+		<b>{QUESTION_TEXT}</b>
+		<!-- END BLOCK_VIEW_NOT_REQUIRED -->
+		<br>
+		{HELP_TEXT}
+		<br>
+		<textarea style="width: 99%" name="question{ELEMENT_ID}" rows="4">{ELEMENT_INPUT}</textarea>
+	</td>
+</tr>
+<!-- END BLOCK_VIEW -->
+
+<!-- BEGIN BLOCK_RESULTS -->
+<tr>
+	<td>
+		<font size="2"><b>{QUESTION_TEXT}</b></font>
+		<br>
+		<!-- BEGIN BLOCK_RESULT -->
+		<font style="background-color: #C0C0C0; line-height:14pt;">- {RESULT_TEXT}</font>
+		<br>
+		<!-- END BLOCK_RESULT -->
+	</td>
+</tr>
+<!-- END BLOCK_RESULTS -->

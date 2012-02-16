@@ -1,0 +1,81 @@
+<h3>{VALUE_CONTAINER_DESC}</h3>
+<p>{VALUE_CONTAINER_LONG_DESC}</p>
+<p><b>Tutor:</b> {VALUE_TUTOR}</p>
+<p><b>{LABEL_MAX_LEARNERS}</b> {VALUE_MAX_LEARNERS} {VALUE_FREE}</p>
+<!-- BEGIN BLOCK_POINTLIST -->
+<h3>{LABEL_POINTLIST_HEADER}</h3>
+<p>
+  {LABEL_POINTLIST_INFO}
+  {LABEL_POINTLIST_DATA}
+</p>
+<!-- END BLOCK_POINTLIST -->
+
+<h3>{LABEL_MATERIAL}</h3>
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->
+
+<!-- BEGIN BLOCK_INVENTORY -->
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+	<tr>
+		<th>{LABEL_DOCNAME_DESCRIPTION}</th>
+		<th align="right">{LABEL_SIZE}</th>
+		<th>{LABEL_MODIFIED}</th>
+		<th>{LABEL_INFO}</th>
+		<th>{LABEL_ACTIONS}</th>
+	</tr>
+    <!-- BEGIN BLOCK_ITEM -->
+	<tr>
+		<td><a href="{LINK_ITEM}"><b>{NAME_ITEM}</b></a><br/><small>{OBJ_DESC}</small></td>
+		<td align="right" >{SIZE_ITEM}</td>
+		<td align="center">{MODIFIED_ITEM}</td>
+		<td align="center"><a href="{LINK_COMMENTS}">{VALUE_COMMENTS}</a><br/>{VALUE_VIEWS}</td>
+		<td align="center"><a href="{LINK_DOWNLOAD}"><b>{LABEL_DOWNLOAD}</b></a></td>
+	</tr>
+    <!-- BEGIN BLOCK_WRITE_ACCESS -->
+	<!-- END BLOCK_WRITE_ACCESS -->
+    <!-- END BLOCK_ITEM -->
+</table>
+<!-- END BLOCK_INVENTORY -->
+{LABEL_NO_DOCUMENTS_FOUND}
+
+<h3>{LABEL_LEARNERS}</h3>
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->
+
+<!-- BEGIN BLOCK_CONTACT_LIST -->
+{BEGIN_HTML_FORM}
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+<tr>
+	<th class="icon">&nbsp;</th>
+	<th>{LABEL_NAME_POSITION}</th>
+	<th>{LABEL_SUBJECT_AREA}</th>
+	<th>{LABEL_COMMUNICATION}</th>
+	<th>{TH_MANAGE_CONTACT}</th>
+</tr>
+<!-- BEGIN BLOCK_CONTACT -->
+<tr>
+	<td class="icon"><a href="{CONTACT_LINK}"><img src="{CONTACT_IMAGE}" width="26" height="35" alt="{CONTACT_NAME}" title="{CONTACT_NAME}"/></a></td>
+	<td><a href="{CONTACT_LINK}"><strong>{CONTACT_NAME}</strong></a><br /><small>{OBJ_DESC}</small></td>
+	<td>{FACULTY_AND_FOCUS}</td>
+	<td align="center"><a href="{LINK_SEND_MESSAGE}">{LABEL_MESSAGE} {LABEL_SEND}</a></td>
+	{TD_MANAGE_CONTACT}
+</tr>
+<!-- END BLOCK_CONTACT -->
+</table>
+{END_HTML_FORM}
+<!-- END BLOCK_CONTACT_LIST -->
+{LABEL_NO_LEARNERS_FOUND}

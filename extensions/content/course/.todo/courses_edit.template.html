@@ -1,0 +1,196 @@
+<script type="text/javascript">
+	function check(checkbox)
+	{
+		if (checkbox.checked == true)
+		{
+			for(i=0; i< document.group_dsc.elements.length; i++)
+			{
+				if(document.group_dsc.elements[i].type == "checkbox")
+				{
+					if( document.group_dsc.elements[i].id.substring(0,12) == "subextension" )
+					{
+						var pos;
+						var extension;
+						pos = document.group_dsc.elements[i].id.indexOf(":") + 1;
+						extension =  document.group_dsc.elements[i].id.substring(pos,document.group_dsc.elements[i].id.length);
+
+						if (checkbox.id == extension)
+						{
+							document.group_dsc.elements[i].disabled = false;
+						}
+
+						if (checkbox.id == "units_base")
+						{
+							document.getElementById("subextension_units_docpool:units_base").disabled = true;
+							document.getElementById("subextension_units_docpool:units_base").checked = true;
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			for(i=0; i< document.group_dsc.elements.length; i++)
+			{
+				if(document.group_dsc.elements[i].type == "checkbox")
+				{
+					if( document.group_dsc.elements[i].id.substring(0,12) == "subextension" )
+					{
+						var pos;
+						var extension;
+						pos = document.group_dsc.elements[i].id.indexOf(":") + 1;
+						extension =  document.group_dsc.elements[i].id.substring(pos,document.group_dsc.elements[i].id.length);
+
+						if (checkbox.id == extension)
+						{
+							document.group_dsc.elements[i].disabled = true;
+						}
+
+						if (checkbox.id == "units_base")
+						{
+							document.getElementById("subextension_units_docpool:units_base").disabled = true;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	function storeDisabled()
+	{
+		var formular = document.group_dsc;
+		var j = 0;
+		for(i=0; i < formular.elements.length; i++)
+		{
+				var el = document.group_dsc.elements[i];
+				if(el.type == "checkbox" && el.checked == true && el.disabled == true)
+					formular.elements['extensions_enabled_add'].value += el.value + "/";
+		}
+	}
+</script>
+{DUMMY}
+
+<form method="post" name="group_dsc" onsubmit="storeDisabled(); return true;">
+<table cellspacing="0" cellpadding="5" class="grid">
+  <tr>
+    <td class="label">{LABEL_COURSE_ID}:*</td>
+
+    <td><input type="text" name="id" size="20" value="{VALUE_COURSE_ID}" DISABLED>{VALUE_PAUL_ID} &nbsp; {ACTION_PAUL_COURSE_DATA}
+    </td>
+  </tr>
+  <tr>
+    <td class="label">{LABEL_COURSE_NAME}:*</td>
+    <td>
+      <input name="values[OBJ_DESC]" type="text" size="40" value="{VALUE_COURSE_NAME}">
+    </td>
+  </tr>
+
+  <tr>
+    <td class="label">{LABEL_COURSE_TUTORS}:*</td>
+    <td>
+      <input name="values[COURSE_TUTORS]" type="text" size="40" value="{VALUE_TUTORS}">
+    </td>
+  </tr>
+
+  <tr>
+    <td class="label">{LABEL_COURSE_SHORT_INFORMATION}:</td>
+    <td>
+      <input name="values[COURSE_SHORT_DSC]" type="text" size="40" value="{VALUE_SHORT_DSC}">
+      <br/>
+      <small>({SHORT_DSC_SHOW_UP})</small>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="label">{LABEL_LONG_DSC}:</td>
+    <td>
+      <textarea name="values[COURSE_LONG_DSC]" style="width: 400px;" rows="10">{VALUE_LONG_DSC}</textarea><br />
+      <a href="javascript:insert('[b]', '[/b]', 'group_dsc', 'values[COURSE_LONG_DSC]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+      <a href="javascript:insert('[i]', '[/i]', 'group_dsc', 'values[COURSE_LONG_DSC]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+      <a href="javascript:insert('[u]', '[/u]', 'group_dsc', 'values[COURSE_LONG_DSC]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+      <a href="javascript:insert('[s]', '[/s]', 'group_dsc', 'values[COURSE_LONG_DSC]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+      <a href="javascript:insert('[img]http://', '[/img]', 'group_dsc', 'values[COURSE_LONG_DSC]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+      <a href="javascript:insert('[url=http://]', '[/url]', 'group_dsc', 'values[COURSE_LONG_DSC]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+      <a href="javascript:insert('[mail=@]', '[/mail]', 'group_dsc', 'values[COURSE_LONG_DSC]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
+      <br/><small>({LONG_DSC_SHOW_UP})</small>
+    </td>
+  </tr>
+  <!-- BEGIN BLOCK_MAXSIZE -->
+  <tr>
+    <td class="label">{LABEL_MAXSIZE}:</td>
+    <td class="value">
+      <input name="values[maxsize]" type="text" size="3" value="{VALUE_MAXSIZE}"><br />
+      <small>({LABEL_MAXSIZE_DSC})</small>
+    </td>
+    </td>
+  </tr>
+  <!-- END BLOCK_MAXSIZE -->
+
+  <!-- BEGIN BLOCK_ACCESS -->
+  <tr>
+    <td class="label">
+      {PARTICIPANT_MANAGEMENT}:
+    </td>
+
+    <!-- BEGIN ACCESSMERGEL -->
+    <td>
+      {LABEL_ACCESSMERGEL}
+    </td>
+    <!-- END ACCESSMERGEL -->
+
+    <!-- BEGIN BLOCK_HISLSF -->
+    <td class="value">
+      {PARTICIPANT_MANAGEMENT_VALUE}
+    </td>
+    <!-- END BLOCK_HISLSF -->
+    <!-- BEGIN BLOCK_KOALA -->
+    <td class="value">
+      <input type="hidden" name="waspassword" value="{ACCESS_WASPASSWORD}" />
+      <!-- BEGIN ACCESS -->
+      <input type="radio" id="access_{VALUE}" name="values[access]" value="{VALUE}" {CHECK} {ONCHANGE}/> <label for="access_{VALUE}">{LABEL}</label><br/>
+        <!-- BEGIN ACCESS_PASSWORD -->
+        <div id="passworddiv" style="margin: 5px; margin-left: 50px; display:{PASSWORDDIV_DISPLAY}">
+          {LABEL_PASSWORD}*: <input type="text" name="values[password]" size="20" value="{VALUE_PASSWORD}"><br />
+        </div>
+        <!-- END ACCESS_PASSWORD -->
+      <!-- END ACCESS -->
+      <!-- END BLOCK_KOALA -->
+    </td>
+  </tr>
+  <!-- END BLOCK_ACCESS -->
+
+<!-- BEGIN BLOCK_EXTENSIONS -->
+<tr>
+	<td class="label">{LABEL_EXTENSIONS}:</td>
+	<td class="value">
+	<input type="hidden" name="extensions_available" value="{VALUE_EXTENSIONS}" />
+	<!-- BEGIN BLOCK_EXTENSION -->
+	<input type="checkbox" id="{EXTENSION_ID}" name="extensions_enabled[]" value="{EXTENSION_ID}" onclick="check(this);return true;" {EXTENSION_ENABLED}></input><label for="{EXTENSION_ID}">{EXTENSION_NAME} ({EXTENSION_DESC})</label><br />
+	<!-- BEGIN BLOCK_SUBEXTENSIONS -->
+	<p id="subextension_block" style="margin-left:15px;">
+	{LABEL_SUBEXTENSIONS}:<br />
+	<table>
+	<!-- BEGIN BLOCK_SUBEXTENSION -->
+	<tr><td style="background:transparent;border-right:none;border-bottom:none"><input type="checkbox" id="subextension_{SUBEXTENSION_ID}:{PARENT_EXTENSION_ID}" name="extensions_enabled[]" value="{SUBEXTENSION_ID}" {SUBEXTENSION_ENABLED}></input></td><td style="background:transparent;border-right:none;border-bottom:none;"><label for="subextension_{SUBEXTENSION_ID}:{PARENT_EXTENSION_ID}">{SUBEXTENSION_NAME} ({SUBEXTENSION_DESC})</label></td></tr>
+	<!-- END BLOCK_SUBEXTENSION -->
+	</table>
+	<!-- END BLOCK_SUBEXTENSIONS -->
+	</p>
+	<!-- END BLOCK_EXTENSION -->
+</tr>
+<input type="hidden" name="extensions_enabled_add" />
+<!-- END BLOCK_EXTENSIONS -->
+
+  <tr>
+    <td>
+    </td>
+    <td>
+		<div class="buttons" style="text-align: left;">
+			<input type="submit" name="course_save" id="course_save" value="{COURSE_SAVE}" >&nbsp;{BACKLINK}
+		</div>
+    </td>
+  </tr>
+</table>
+</form>
+
+

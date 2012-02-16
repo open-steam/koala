@@ -1,0 +1,15 @@
+<!-- BEGIN feedback_headline_null -->{LANGUAGE_FEEDBACK_HEADLINE_NULL}<br><!-- END feedback_headline_null -->
+
+<b>{FEEDBACK}</b>
+
+<input type="hidden" name="category" value="{CATEGORY_ID}">
+<input type="hidden" name="topic" value="{TOPIC_ID}">
+
+<table>
+  <tr><td><b>{LANGUAGE_FORM_TITLE}</b>: </td><td><input type="text" name="title" value="{TOPIC_TITLE}" size="30"></td></tr>
+  <tr><td>{LANGUAGE_FORM_DESCRIPTION}: </td><td><input type="text" name="description" value="{TOPIC_DESCRIPTION}" size="30"></td></tr>
+  <tr><td>{LANGUAGE_FORM_LINK_URL}:</td><td><input type="text" name="link_url" value="{TOPIC_LINK_URL}" size="30"></td></tr>
+  <tr><td></td><td><input type="checkbox" name="link_target" value="checked" {TOPIC_LINK_TARGET}>{LANGUAGE_FORM_LINK_TARGET}</td></tr>
+</table>
+
+<br>

@@ -1,0 +1,111 @@
+.forum table {
+	border-collapse: collapse;
+	vertical-align: middle;
+	line-height: 18px;
+}
+
+.forum td {
+	border: 1px solid #CCCCCC;
+	border-collapse: collapse;
+}
+
+.forum .category_title {
+	background: #396d9c;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7599bb),
+		to(#356fa1) );
+	background: -moz-linear-gradient(top, #7599bb, #356fa1);
+	border: 1px solid #345487;
+	color: #ffffff;
+	font-weight: bold;
+	padding: 8px 5px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	
+}
+
+.forum .columnheader {
+	background: #fafafa;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6),
+		to(#fefefe) );
+	background: -moz-linear-gradient(top, #f6f6f6, #fefefe);
+	font-weight: bold;
+}
+
+.forum .empty {
+	text-align: center;
+	width: 2%;
+}
+
+.forum .topic {
+	width: 65%;
+}
+
+.forum .number {
+	text-align: center;
+	width: 8%;
+}
+
+.forum .number1 {
+	text-align: center;
+	width: 8%;
+}
+
+.forum .number2 {
+	text-align: center;
+	width: 0%;
+}
+
+.forum .lastpost {
+	width: 20%;
+}
+
+.forum .topics {
+	
+}
+
+.forum .creator {
+	font-style: italic;
+}
+
+.forum .footer {
+	background: #cccccc;
+}
+
+.forumthread .heading0,.forumthread .heading {
+	
+}
+
+.forumthread .posting {
+	background: #fbfbfb;
+	vertical-align: top;
+}
+
+.forumthread .posting_details {
+	width: 120px;
+}
+
+.forumthread .posting_content {
+	line-height: 160%;
+	padding-bottom: 20px;
+}
+
+.forumthread .posting_content p {
+	margin-top: 0px;
+}
+
+.forumthread .name {
+	color: #000033;
+	font-size: 8pt;
+	width: 120px;
+}
+
+.forumthread .title {
+	font-weight: bold;
+}
+
+#newImage {
+	float: right;
+	margin-top: 1px;
+}

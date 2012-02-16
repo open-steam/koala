@@ -1,0 +1,171 @@
+﻿<!-- BEGIN possibility_new_answer -->Neuen Fragebogen ausf&uuml;llen<!-- END possibility_new_answer -->
+<!-- BEGIN possibility_view_result -->Ergebnisse anzeigen ({COUNT_RESULT})<!-- END possibility_view_result -->
+<!-- BEGIN possibility_edit_questionary -->Fragebogen-Kontrollcenter<!-- END possibility_edit_questionary -->
+<!-- BEGIN no_possibility_no_edit_time -->Der Fragebogen ist zur Bearbeitung nicht freigegeben.<!-- END no_possibility_no_edit_time -->
+<!-- BEGIN no_possibility_send_already_answer -->Sie d&uuml;rfen diesen Fragebogen nur einmal ausf&uuml;llen.<!-- END no_possibility_send_already_answer -->
+<!-- BEGIN no_possibility_no_rights -->Sie besitzen keine entsprechenden Benutzerrechte.<!-- END no_possibility_no_rights -->
+<!-- BEGIN enable_questionary -->Fragebogen zur Bearbeitung freigeben<!-- END enable_questionary -->
+<!-- BEGIN disable_questionary -->Fragebogen sperren<!-- END disable_questionary -->
+<html>
+<head>
+  <title>Fragebogen &raquo;{QUESTIONARY_NAME}&laquo;</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css">
+</head>
+
+<body>
+
+{MENU}
+
+{FEEDBACK}
+
+<script language="JavaScript1.2">
+function form_submit(mission, url)
+{
+  if(mission == "close")
+    window.close();
+  else
+  {
+    document.getElementById("mission").value = mission;
+    document.getElementById("questionary").action = url;
+    document.getElementById("questionary").submit();
+  }
+}
+
+function confirm_delete(answer_id)
+{
+	Check = confirm('Möchten Sie dieses Ergebnis wirklich löschen?');
+	if(Check == true) window.location.replace("http://bid:8080//modules/questionary/index.php?object={QUESTIONARY_ID}&mission=delete&answer=" + answer_id);
+}
+</script>
+
+
+<table width="80%" align="center" bgcolor="#EFEFEF" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="3%" align="left" valign="top"><img src="http://bid:8080//modules/questionary/icons/content_corner_tl.gif" border="0"></td>
+	<td colspan="3" align="center"><h1>{QUESTIONARY_NAME}</h1></td>
+	<td width="3%" align="right" valign="top"><img src="http://bid:8080//modules/questionary/icons/content_corner_tr.gif" border="0"></td>
+  </tr>
+  <tr>
+  	<td colspan="5">&nbsp;</td></tr>
+  <tr>
+    <td>&nbsp;</td>
+	<td valign="top"><b>Beschreibung:</b>	</td>
+	<td>&nbsp;&nbsp;&nbsp;</td>
+	<td width="100%">{DESCRIPTION}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!-- BEGIN edit_time_row -->
+  <tr>
+    <td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+	<td valign="top" nowrap="nowrap"><b>Starttermin:</b></td>
+	<td>&nbsp;</td>
+	<td>{START_DATE}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+	<td valign="top" nowrap="nowrap"><b>Sp&auml;tester Abgabetermin:</b></td>
+	<td>&nbsp;</td>
+	<td>{END_DATE}</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!-- END edit_time_row -->
+  <tr>
+    <td colspan="5">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+	<td valign="top" nowrap="nowrap"><b>Ihre M&ouml;glichkeiten:</b>	</td>
+	<td>&nbsp;</td>
+	<td>
+		<table width="100%" cellpadding="0" cellspacing="0">
+		  <!-- BEGIN possibility_row -->
+		  <tr>
+			<td valign="middle" nowrap="nowrap">{LABEL_POSSIBILITY}:</td>
+			<td width="100%">&nbsp;<a href="{URL}" onClick="{ONCLICK}"><img src="http://bid:8080//modules/questionary/icons/button_go.gif" border="0"></a></td>
+		  </tr>
+		  <!-- END possibility_row -->  
+		  
+		  <!-- BEGIN no_possibility_row -->
+		  <tr>
+			<td colspan="2" align="left">{NO_POSSIBILITY}</td>
+		  </tr>
+		  <!-- END no_possibility_row -->
+		  
+		  <!-- BEGIN start_possibility_editanswer_row -->
+		  <tr>
+		    <td valign="top">&nbsp;</td>
+		    <td width="100%">&nbsp;</td>
+	      </tr>
+		 	  
+		  <tr>
+			<td valign="top" nowrap="nowrap">Meine Antworten bearbeiten:</td>
+			<td width="100%">
+				<table cellpadding="2" cellspacing="0">
+				  <tr bgcolor="#CCCCCC">
+					<td align="center"><b>Erstellungszeit</b></td>
+					<td align="center"><b>Aktion</b></td>
+				  </tr>
+		 		  <!-- END start_possibility_editanswer_row -->
+		 
+		  		  <!-- BEGIN possibility_editanswer_content -->
+				  <tr bgcolor="{BGCOLOR}">
+					<td>{CREATION_TIME}</td>
+					<td align="center"><a href="{URL_EDIT}"><img src="http://bid:8080//modules/questionary/icons/element_edit.gif" border="0" alt="Bearbeiten" title="Bearbeiten"></a> <a href="#" onClick="javascript:confirm_delete('{ANSWER_ID}');"><img src="http://bid:8080//modules/questionary/icons/delete.gif" border="0" alt="L&ouml;schen" title="L&ouml;schen"></a></td>
+				  </tr>	
+				  <!-- END possibility_editanswer_content -->
+				  <!-- BEGIN possibility_editanswer_nocontent --> 				  
+				  <tr>
+					<td colspan="2" bgcolor="#DDDDDD" align="center">Fragebogen wurde noch nicht ausgef&uuml;llt</td>
+				  </tr>		
+				  <!-- END possibility_editanswer_nocontent -->  
+			  	  
+				  <!-- BEGIN end_possibility_editanswer_row -->
+	        </table></td>
+		  </tr>
+		  <!-- END end_possibility_editanswer_row -->
+		  
+		  <!-- BEGIN creator_area -->
+		  <tr>
+		    <td valign="top">&nbsp;</td>
+		    <td width="100%">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td valign="top" nowrap="nowrap"><b>Nur f&uuml;r Autoren:</b></td>
+		    <td width="100%">&nbsp;</td>
+	      </tr>
+		  <!-- END creator_area -->
+		  	
+		  <!-- BEGIN controllcenter_possibility_row -->
+		  <tr>
+			<td valign="middle" nowrap="nowrap">{LABEL_CONTROLLCENTER_POSSIBILITY}:</td>
+			<td width="100%">&nbsp;<img src="http://bid:8080//modules/questionary/icons/button_go.gif" border="0" onClick="{CONTROLLCENTER_ONCLICK}" style="cursor:pointer"></td>
+		  </tr>
+		  <!-- END controllcenter_possibility_row -->
+		  <!-- BEGIN creator_possibility_row -->
+		  <tr>
+			<td valign="middle" nowrap="nowrap">{LABEL_CREATOR_POSSIBILITY}:</td>
+			<td width="100%">&nbsp;<a href="{CREATOR_URL}"><img src="http://bid:8080//modules/questionary/icons/button_go.gif" border="0"></a></td>
+		  </tr>
+		  <!-- END creator_possibility_row -->
+		</table></td>
+	<td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="bottom"><img src="http://bid:8080//modules/questionary/icons/content_corner_bl.gif" border="0"></td>
+    <td valign="top">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right" valign="bottom"><img src="http://bid:8080//modules/questionary/icons/content_corner_br.gif" border="0"></td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<p class="Confirm">{CONFIRMATION_TEXT}</p>
+
+
+<!-- BEGIN BLOCK_SEARCH -->
+<form action="{FORM_SEARCH_ACTION}" name="search" method="post">
+<p>
+        <input type="text" id="pattern" name="pattern" size="40" value="{VALUE_PATTERN}">&nbsp;&nbsp;
+        <input type="submit"  value="{LABEL_SEARCH}"><br/>
+        <small>
+        <input type="radio" id="name" name="lookin" value="name" "checked" {CHECKED_NAME}> <label for="name">{LABEL_CHECK_NAME}</label> &nbsp;
+        <input type="radio" id="login" name="lookin" value="login" {CHECKED_LOGIN}> <label for="login">{LABEL_CHECK_LOGIN}</label>
+        </small>
+        <input type="hidden" name="group" value="{GROUP_ID}">
+        <input type="hidden" name="process_formular" value="true">
+</p>
+</form>
+<!-- END BLOCK_SEARCH -->
+
+
+<!-- BEGIN BLOCK_SHOW_SEARCH_RESULT -->
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+<tr>
+    <th class="icon">&nbsp;</th>
+    <th>{LABEL_NAME_POSITION}</th>
+    <th>{LABEL_SUBJECT_AREA}</th>
+    <th>{LABEL_SHOW_COURSE}</th>
+</tr>
+<!-- BEGIN BLOCK_SHOW_SEARCH_RESULT_PERSON -->
+<tr>
+    <td class="icon"><a href="{CONTACT_LINK}"><img src="{CONTACT_IMAGE}" width="26" height="35" alt="{CONTACT_NAME}" title="{CONTACT_NAME}"/></a></td>
+    <td><a href="{CONTACT_LINK}"><strong>{CONTACT_NAME}</strong></a><br /><small>{OBJ_DESC}</small></td>
+    <td>{FACULTY_AND_FOCUS}</td>
+    <td align="center">
+        <form action="{FORM_SHOW_ACTION}" name="show" method="post">
+        <input type="hidden" name="koala_user_name" value="{KOALA_USER_NAME}">
+        <input type="hidden" name="koala_user_obj_name" value="{KOALA_USER_OBJ_NAME}">
+        <input type="hidden" name="paul_user_id" value="{PAUL_USER_ID}">
+        <!-- BEGIN BLOCK_SUBMIT_BUTTON -->
+        <input type="submit" value="{LABEL_SHOW_COURSES}">
+        <!-- END BLOCK_SUBMIT_BUTTON -->
+        <!-- BEGIN BLOCK_SUBMIT_BUTTON_DISABLED -->
+        {LABEL_SHOW_COURSES_DISABLED}
+        <!-- END BLOCK_SUBMIT_BUTTON_DISABLED -->
+
+        </form>
+    </td>
+    <!-- <td align="center"><a href="{LINK_SHOW_COURSES}">{LABEL_SHOW_COURSES}</a></td> -->
+</tr>
+<!-- END BLOCK_SHOW_SEARCH_RESULT_PERSON -->
+</table>
+<!-- END BLOCK_SHOW_SEARCH_RESULT -->
+
+
+<!-- BEGIN BLOCK_SHOW_COURSES -->
+<br>
+<h2>{LABEL_LECTURER}: <a href="{VALUE_LECTURER_LINK}"><strong>{VALUE_LECTURER}</strong></a></h2>
+
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+<tr>
+    <th>{LABEL_COURSE_NUMBER}</th>
+    <th>{LABEL_COURSE}</th>
+    <th>{LABEL_FACULTY}</th>
+    <th>{LABEL_ACTION}</th>
+</tr>
+<!-- BEGIN BLOCK_SHOW_COURSE -->
+<tr>
+    <td title={VALUE_COURSE_NUMBER_TITLE}>{VALUE_COURSE_NUMBER}</td>
+    <td>{VALUE_COURSE_NAME_GERMAN}</td>
+    <td>{VALUE_FACULTY}</td>
+    <td align="center">
+        <form action="{FORM_SHOW_ACTION}" name="create" method="post">
+        <input type="hidden" name="paul_course_id" value="{PAUL_COURSE_ID}">
+        <input type="hidden" name="paul_course_instructors" value="{PAUL_COURSE_INSTRUCTORS}">
+        <input type="hidden" name="paul_course_name_german" value="{PAUL_COURSE_NAME_GERMAN}">
+        <input type="hidden" name="paul_course_name_english" value="{PAUL_COURSE_NAME_ENGLISH}">
+        <input type="hidden" name="paul_short_descr" value="{PAUL_SHORT_DESCRIPTION}">
+        <input type="hidden" name="paul_course_number" value="{PAUL_COURSE_NUMBER}">
+        <input type="hidden" name="paul_semester_id" value="{PAUL_SEMESTER_ID}">
+        <input type="hidden" name="paul_semester_name" value="{PAUL_SEMESTER_NAME}">
+        <input type="hidden" name="paul_hours_in_week" value="{PAUL_HOURS_IN_WEEK}">
+        <input type="hidden" name="paul_faculty_id" value="{PAUL_FACULTY_ID}">
+        <input type="hidden" name="paul_faculty_name" value="{PAUL_FACULTY_NAME}">
+        <input type="hidden" name="paul_small_groups" value="{PAUL_SMALL_GROUPS}">
+        <input type="hidden" name="paul_event_type" value="{PAUL_EVENT_TYPE}">
+        <input type="hidden" name="paul_associated_small_groups" value="{PAUL_ASSOCIATED_SMALL_GROUPS}">
+        <!-- <input type="submit" value="{LABEL_CREATE_COURSE}"> -->
+        {SHOW_ACTION_FIELD}
+        </form>
+    </td>
+</tr>
+<!-- END BLOCK_SHOW_COURSE -->
+</table>
+<!-- END BLOCK_SHOW_COURSES -->
+
+
+<!-- BEGIN BLOCK_CREATE_COURSE -->
+<form action="{FORM_CREATE_ACTION}" name="group_dsc" method="post" onsubmit="storeDisabled(); return true;">
+<input type="hidden" name="values[semester]" value="{VALUE_CREATE_SEMESTER}">
+
+<input type="hidden" name="values[tutors_obj_name]" value="{VALUE_COURSE_INSTRUCTORS_OBJ_NAME}">
+<input type="hidden" name="values[name_en]" value="{VALUE_COURSE_NAME_EN}">
+<input type="hidden" name="values[paul_semester_id]" value="{VALUE_PAUL_SEMESTER_ID}">
+<input type="hidden" name="values[paul_semester_name]" value="{VALUE_PAUL_SEMESTER_NAME}">
+<input type="hidden" name="values[hours_in_week]" value="{VALUE_HOURS_IN_WEEK}">
+<input type="hidden" name="values[faculty_id]" value="{VALUE_FACULTY_ID}">
+<input type="hidden" name="values[faculty_name]" value="{VALUE_FACULTY_NAME}">
+<input type="hidden" name="values[small_groups]" value="{VALUE_SMALL_GROUPS}">
+<input type="hidden" name="values[event_type]" value="{VALUE_EVENT_TYPE}">
+<input type="hidden" name="values[associated_small_groups]" value="{VALUE_ASSOCIATED_SMALL_GROUPS}">
+
+<p class="Confirm">{COURSE_CONFIRMATION_TEXT}</p>
+
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+
+<tr>
+<td class="label">{LABEL_COURSE_ID}:*</td>
+<td class="value"><input name="values[id]" type="text" size="14" readonly="readonly" value="{VALUE_COURSE_ID}">
+</td>
+</tr>
+
+<tr>
+<td class="label">{LABEL_COURSE_NUMBER}:*</td>
+<td class="value"><input name="values[number]" type="text" size="14" readonly="readonly" value="{VALUE_COURSE_NUMBER}">
+</td>
+</tr>
+
+<tr>
+<td class="label">{LABEL_COURSE_NAME}:*</td>
+<td class="value"><input name="values[name]" type="text" size="48" value="{VALUE_COURSE_NAME}"></td>
+</tr>
+
+<tr>
+<td class="label">{LABEL_COURSE_TUTORS}:</td>
+<td class="value"><input name="values[tutors]" type="text" size="48" value="{VALUE_TUTORS}"></td>
+</tr>
+
+<tr>
+<td class="label">{LABEL_COURSE_SHORT_INFORMATION}:</td>
+<td class="value"><input name="values[short_dsc]" type="text" size="48" value="{VALUE_SHORT_DSC}">
+<br /><small>({SHORT_DSC_SHOW_UP})</small></td>
+</tr>
+
+<tr>
+<td class="label">{LABEL_LONG_DSC}:</td>
+<td class="value">
+<textarea name="values[long_dsc]" style="width: 400px;" rows="10">{VALUE_LONG_DSC}</textarea><br />
+<a href="javascript:insert('[b]', '[/b]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+<a href="javascript:insert('[i]', '[/i]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+<a href="javascript:insert('[u]', '[/u]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+<a href="javascript:insert('[s]', '[/s]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+<a href="javascript:insert('[img]http://', '[/img]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+<a href="javascript:insert('[url=http://]', '[/url]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+<a href="javascript:insert('[mail=@]', '[/mail]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
+<br/><small>({LONG_DSC_SHOW_UP})</small>
+</td>
+</tr>
+
+<!-- BEGIN BLOCK_MAXSIZE -->
+<tr>
+<td class="label">{LABEL_MAXSIZE}:</td>
+<td class="value"><input name="values[maxsize]" type="text" size="3" value="{VALUE_MAXSIZE}"><br /><small>({LABEL_MAXSIZE_DSC})</small></td>
+</tr>
+<!-- END BLOCK_MAXSIZE -->
+
+<!-- BEGIN BLOCK_ACCESS -->
+<tr>
+<td class="label">{PARTICIPANT_MANAGEMENT}:</td>
+<td class="value">
+    <!-- BEGIN ACCESS -->
+    <input type="radio" id="access_{VALUE}" name="values[access]" value="{VALUE}" {CHECK} {ONCHANGE}/> <label for="access_{VALUE}">{LABEL}</label><br/>
+    <!-- BEGIN ACCESS_PASSWORD -->
+    <div id="passworddiv" style="margin: 5px; margin-left: 50px; display:{PASSWORDDIV_DISPLAY}">
+    {LABEL_PASSWORD}*: <input type="text" name="values[password]" size="20" value="{VALUE_PASSWORD}"><br />
+    </div>
+    <!-- END ACCESS_PASSWORD -->
+    <!-- END ACCESS -->
+</td>
+</tr>
+<!-- END BLOCK_ACCESS -->
+
+
+<!-- BEGIN BLOCK_EXTENSIONS -->
+<tr>
+    <td class="label">{LABEL_EXTENSIONS}:</td>
+    <td class="value">
+    <input type="hidden" name="extensions_available" value="{VALUE_EXTENSIONS}" />
+    <!-- BEGIN BLOCK_EXTENSION -->
+    <input type="checkbox" id="{EXTENSION_ID}" name="extensions_enabled[]" value="{EXTENSION_ID}" onclick="check(this); return true;"></input><label for="{EXTENSION_ID}">{EXTENSION_NAME} ({EXTENSION_DESC})</label><br />
+    <!-- BEGIN BLOCK_SUBEXTENSIONS -->
+    <p id="subextension_block" style="margin-left:15px;">
+    {LABEL_SUBEXTENSIONS}:<br />
+    <table>
+    <!-- BEGIN BLOCK_SUBEXTENSION -->
+    <tr><td style="background:transparent;border-right:none;border-bottom:none"><input type="checkbox" id="subextension_{SUBEXTENSION_ID}:{PARENT_EXTENSION_ID}" name="extensions_enabled[]" value="{SUBEXTENSION_ID}" {SUBEXTENSION_DISABLED}></input></td><td style="background:transparent;border-right:none;border-bottom:none;"><label for="subextension_{SUBEXTENSION_ID}:{PARENT_EXTENSION_ID}">{SUBEXTENSION_NAME} ({SUBEXTENSION_DESC})</label></td></tr>
+    <!-- END BLOCK_SUBEXTENSION -->
+    </table>
+    <!-- END BLOCK_SUBEXTENSIONS -->
+    </p>
+    <!-- END BLOCK_EXTENSION -->
+</tr>
+<input type="hidden" name="extensions_enabled_add" />
+<!-- END BLOCK_EXTENSIONS -->
+</td>
+</table>
+<div class="buttons"><input type="submit" value="{LABEL_CREATE_COURSE}"> <input type="submit" value="{LABEL_CREATE_ADD_ADMIN}"></div>
+</form>
+<!-- END BLOCK_CREATE_COURSE -->

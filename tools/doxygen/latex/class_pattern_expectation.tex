@@ -1,0 +1,135 @@
+\hypertarget{class_pattern_expectation}{
+\section{PatternExpectation Class Reference}
+\label{class_pattern_expectation}\index{PatternExpectation@{PatternExpectation}}
+}
+Inheritance diagram for PatternExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_pattern_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_pattern_expectation_a870ee69338895ba6f682be2f9889427a}{PatternExpectation} (\$pattern, \$message= '\%s')
+\item 
+\hyperlink{class_pattern_expectation_a6f9695a6350b86f418a42e0252f0e59e}{\_\-getPattern} ()
+\item 
+\hyperlink{class_pattern_expectation_a672fecfc691c4c115d4f4d37c365dae5}{test} (\$compare)
+\item 
+\hyperlink{class_pattern_expectation_a7adc09e88f1abac0401d807e7f4763c8}{testMessage} (\$compare)
+\item 
+\hyperlink{class_pattern_expectation_a9a6c6de1a8d1fccb816177426d5f5bda}{\_\-describePatternMatch} (\$pattern, \$subject)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_pattern_expectation_a3c439fdabfebdd16b787f164724446e5}{
+{\bfseries \$\_\-pattern}}
+\label{class_pattern_expectation_a3c439fdabfebdd16b787f164724446e5}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_pattern_expectation_a9a6c6de1a8d1fccb816177426d5f5bda}{
+\index{PatternExpectation@{PatternExpectation}!\_\-describePatternMatch@{\_\-describePatternMatch}}
+\index{\_\-describePatternMatch@{\_\-describePatternMatch}!PatternExpectation@{PatternExpectation}}
+\subsubsection[{\_\-describePatternMatch}]{\setlength{\rightskip}{0pt plus 5cm}PatternExpectation::\_\-describePatternMatch (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ subject}
+\end{DoxyParamCaption}
+)}}
+\label{class_pattern_expectation_a9a6c6de1a8d1fccb816177426d5f5bda}
+Describes a pattern match including the string found and it's position. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & Regex to match against. \\
+\hline
+string & {\em \$subject} & Subject to search.  protected \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pattern_expectation_a6f9695a6350b86f418a42e0252f0e59e}{
+\index{PatternExpectation@{PatternExpectation}!\_\-getPattern@{\_\-getPattern}}
+\index{\_\-getPattern@{\_\-getPattern}!PatternExpectation@{PatternExpectation}}
+\subsubsection[{\_\-getPattern}]{\setlength{\rightskip}{0pt plus 5cm}PatternExpectation::\_\-getPattern (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_pattern_expectation_a6f9695a6350b86f418a42e0252f0e59e}
+Accessor for the pattern. \begin{DoxyReturn}{Returns}
+string Perl regex as string.  protected 
+\end{DoxyReturn}
+\hypertarget{class_pattern_expectation_a870ee69338895ba6f682be2f9889427a}{
+\index{PatternExpectation@{PatternExpectation}!PatternExpectation@{PatternExpectation}}
+\index{PatternExpectation@{PatternExpectation}!PatternExpectation@{PatternExpectation}}
+\subsubsection[{PatternExpectation}]{\setlength{\rightskip}{0pt plus 5cm}PatternExpectation::PatternExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_pattern_expectation_a870ee69338895ba6f682be2f9889427a}
+Sets the value to compare against. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & Pattern to search for. \\
+\hline
+string & {\em \$message} & Customised message on failure.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_pattern_expectation_a672fecfc691c4c115d4f4d37c365dae5}{
+\index{PatternExpectation@{PatternExpectation}!test@{test}}
+\index{test@{test}!PatternExpectation@{PatternExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}PatternExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_pattern_expectation_a672fecfc691c4c115d4f4d37c365dae5}
+Tests the expectation. True if the Perl regex matches the comparison value. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if correct.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_expectation_aa2b98f827e7487ebe12cedb9ad39d061}{SimpleExpectation}.
+
+
+
+Reimplemented in \hyperlink{class_no_pattern_expectation_adea22650021fb33f1d745aba552e6971}{NoPatternExpectation}.
+
+\hypertarget{class_pattern_expectation_a7adc09e88f1abac0401d807e7f4763c8}{
+\index{PatternExpectation@{PatternExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!PatternExpectation@{PatternExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}PatternExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_pattern_expectation_a7adc09e88f1abac0401d807e7f4763c8}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_expectation_a15b69edf659c76f6543aa98d8d85b025}{SimpleExpectation}.
+
+
+
+Reimplemented in \hyperlink{class_no_pattern_expectation_a214eefe693fa189648ee4e51d38ed7b2}{NoPatternExpectation}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/expectation.php\end{DoxyCompactItemize}

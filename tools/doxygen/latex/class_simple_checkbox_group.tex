@@ -1,0 +1,125 @@
+\hypertarget{class_simple_checkbox_group}{
+\section{SimpleCheckboxGroup Class Reference}
+\label{class_simple_checkbox_group}\index{SimpleCheckboxGroup@{SimpleCheckboxGroup}}
+}
+Inheritance diagram for SimpleCheckboxGroup:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_simple_checkbox_group}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_checkbox_group_a6b1347f1de590501b5ffe6c832c6ce3e}{getValue} ()
+\item 
+\hyperlink{class_simple_checkbox_group_afa20a2b8f875b255b3c87a71772221b6}{getDefault} ()
+\item 
+\hyperlink{class_simple_checkbox_group_a62af0724806496a31c75ffe0dc06d5b0}{setValue} (\$values)
+\item 
+\hyperlink{class_simple_checkbox_group_a7502967bd2c4adc191d9d1e8d1a7e8db}{\_\-valuesArePossible} (\$values)
+\item 
+\hyperlink{class_simple_checkbox_group_afe4a2ea02b092de7e39f158d793eda48}{\_\-coerceValues} (\$values)
+\item 
+\hyperlink{class_simple_checkbox_group_ae5034a9e6326cbb740d709b1b5c6defe}{\_\-makeArray} (\$value)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_checkbox_group_afe4a2ea02b092de7e39f158d793eda48}{
+\index{SimpleCheckboxGroup@{SimpleCheckboxGroup}!\_\-coerceValues@{\_\-coerceValues}}
+\index{\_\-coerceValues@{\_\-coerceValues}!SimpleCheckboxGroup@{SimpleCheckboxGroup}}
+\subsubsection[{\_\-coerceValues}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCheckboxGroup::\_\-coerceValues (
+\begin{DoxyParamCaption}
+\item[{\$}]{ values}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_checkbox_group_afe4a2ea02b092de7e39f158d793eda48}
+Converts the output to an appropriate format. This means that no values is false, a single value is just that value and only two or more are contained in an array. 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$values} & List of values of widgets. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string/array/boolean Expected format for a tag.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_checkbox_group_ae5034a9e6326cbb740d709b1b5c6defe}{
+\index{SimpleCheckboxGroup@{SimpleCheckboxGroup}!\_\-makeArray@{\_\-makeArray}}
+\index{\_\-makeArray@{\_\-makeArray}!SimpleCheckboxGroup@{SimpleCheckboxGroup}}
+\subsubsection[{\_\-makeArray}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCheckboxGroup::\_\-makeArray (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_checkbox_group_ae5034a9e6326cbb740d709b1b5c6defe}
+Converts false or string into array. The opposite of the coercian method. 
+\begin{DoxyParams}{Parameters}
+{\em string/array/boolean} & \$value A single item is converted to a one item list. False gives an empty list. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array List of values, possibly empty.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_checkbox_group_a7502967bd2c4adc191d9d1e8d1a7e8db}{
+\index{SimpleCheckboxGroup@{SimpleCheckboxGroup}!\_\-valuesArePossible@{\_\-valuesArePossible}}
+\index{\_\-valuesArePossible@{\_\-valuesArePossible}!SimpleCheckboxGroup@{SimpleCheckboxGroup}}
+\subsubsection[{\_\-valuesArePossible}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCheckboxGroup::\_\-valuesArePossible (
+\begin{DoxyParamCaption}
+\item[{\$}]{ values}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_checkbox_group_a7502967bd2c4adc191d9d1e8d1a7e8db}
+Tests to see if a possible value set is legal. 
+\begin{DoxyParams}{Parameters}
+{\em string/array/boolean} & \$values Either a single string, a hash or false for nothing set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean False if trying to set a missing value.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_checkbox_group_afa20a2b8f875b255b3c87a71772221b6}{
+\index{SimpleCheckboxGroup@{SimpleCheckboxGroup}!getDefault@{getDefault}}
+\index{getDefault@{getDefault}!SimpleCheckboxGroup@{SimpleCheckboxGroup}}
+\subsubsection[{getDefault}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCheckboxGroup::getDefault (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_checkbox_group_afa20a2b8f875b255b3c87a71772221b6}
+Accessor for starting value that is active. \begin{DoxyReturn}{Returns}
+string/array Widget values or false if none.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_checkbox_group_a6b1347f1de590501b5ffe6c832c6ce3e}{
+\index{SimpleCheckboxGroup@{SimpleCheckboxGroup}!getValue@{getValue}}
+\index{getValue@{getValue}!SimpleCheckboxGroup@{SimpleCheckboxGroup}}
+\subsubsection[{getValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCheckboxGroup::getValue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_checkbox_group_a6b1347f1de590501b5ffe6c832c6ce3e}
+Accessor for current selected widget or false if none. \begin{DoxyReturn}{Returns}
+string/array Widget values or false if none.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_checkbox_group_a62af0724806496a31c75ffe0dc06d5b0}{
+\index{SimpleCheckboxGroup@{SimpleCheckboxGroup}!setValue@{setValue}}
+\index{setValue@{setValue}!SimpleCheckboxGroup@{SimpleCheckboxGroup}}
+\subsubsection[{setValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCheckboxGroup::setValue (
+\begin{DoxyParamCaption}
+\item[{\$}]{ values}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_checkbox_group_a62af0724806496a31c75ffe0dc06d5b0}
+Accessor for current set values. 
+\begin{DoxyParams}{Parameters}
+{\em string/array/boolean} & \$values Either a single string, a hash or false for nothing set. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if all values can be set.  public 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/tag.php\end{DoxyCompactItemize}

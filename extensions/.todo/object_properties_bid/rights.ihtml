@@ -1,0 +1,306 @@
+<table width="90%" align="center" border="0">
+  <tr><td colspan="2" align="center" class="ObjectTitle">{OBJECT_NAME}</td></tr>
+  <tr class="List"><td>
+    <table width="100%"><tr><td valign="top" width="180">
+      <table cellspacing="0" cellpadding="0" border="0">
+        <tr><td><input type="checkbox" name="acquire" id="acquire" value="acquire" onClick="javascript:clicked_acquire();" {ACQUIRE} {ACQUIRE_DISABLED}></td>
+          <td class="attrname">&nbsp;{LANGUAGE_PUBLISH_1}</td></tr>
+        <tr><td>&nbsp;</td><td class="attrname">&nbsp;<small>{ACQUIRE_OBJECT_NAME}</small></td></tr>
+      </table>
+    </td><td valign="top" align="right" id="acquire_none_radio">
+      <div id="radio_acquire_none">
+      <span class="attrname">{LANGUAGE_PUBLISH_2}</span>&nbsp;<input type="radio" name="publish" id="private" value="private" onclick="javascript:clicked_crude();" {RADIO_PRIVATE}><br>
+      <span class="attrname">{LANGUAGE_PUBLISH_3}</span>&nbsp;<input type="radio" name="publish" id="public" value="public" onclick="javascript:clicked_crude();" {RADIO_PUBLIC}><br>
+      <span class="attrname">{LANGUAGE_PUBLISH_4}</span>&nbsp;<input type="radio" name="publish" id="user" value="user" onclick="javascript:clicked_crude();" {RADIO_USER}>
+      </div>
+
+      <div id="radio_acquire">
+      <span class="attrname" style="color:#666666;">&nbsp;{LANGUAGE_PUBLISH_2}</span>&nbsp;<input type="radio" disabled><br>
+      <span class="attrname" style="color:#666666;">&nbsp;{LANGUAGE_PUBLISH_3}</span>&nbsp;<input type="radio" disabled><br>
+      <span class="attrname" style="color:#666666;">&nbsp;{LANGUAGE_PUBLISH_4}</span>&nbsp;<input type="radio" disabled>
+      </div>
+
+    </td></tr></table>
+  </td></tr>
+
+  <tr>
+    <td>
+
+      <br>
+
+      <table border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_OWNER}:</td>
+          <td align="center" width="10%" class="columnhead">{LANGUAGE_READ}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_WRITE}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_SANCTION}</td>
+        </tr>
+
+        <tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_user.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}" title="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" onClick="">{OWNER}</span></td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+        </tr>
+      </table>
+
+      <br>
+
+      <div id="form_acquire_none" class="mvisible">
+      <table id="groups" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_GROUPS}:</td>
+          <td align="center" width="10%" class="columnhead">{LANGUAGE_READ}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_WRITE}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_SANCTION}</td>
+        </tr>
+         <!-- BEGIN group_none --><tr class="List">
+          <td colspan="2">{LANGUAGE_GROUPS_NONE}.</td>
+        </tr>
+        <!-- END group_none -->
+
+        <!-- BEGIN group_row --><tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_group.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}" title="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" onClick="">{GROUP}</span></td>
+          <td width="10%" align="center"><input type="checkbox" name="read_{GROUP_ID}" id="read_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_READ}></td>
+          <td width="10%" align="center"><input type="checkbox" name="write_{GROUP_ID}" id="write_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_WRITE}></td>
+          <td width="10%" align="center"><input type="checkbox" name="sanction_{GROUP_ID}" id="sanction_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_SANCTION}></td>
+        </tr>
+        <!-- END group_row -->
+      </table>
+
+      <br>
+
+      <table id="favourites" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_FAVOURITES}:</td>
+          <td align="center" width="10%" class="columnhead">{LANGUAGE_READ}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_WRITE}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_SANCTION}</td>
+        </tr>
+        <!-- BEGIN favourite_none --><tr class="List">
+          <td colspan="2">{LANGUAGE_FAVOURITES_NONE}.</td>
+        </tr>
+        <!-- END favourite_none -->
+        <!-- BEGIN favourite_row --><tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_user.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" onClick="">{FAVOURITE}</span></td>
+          <td width="10%" align="center"><input type="checkbox" name="read_{FAVOURITE_ID}" id="read_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_READ}></td>
+          <td width="10%" align="center"><input type="checkbox" name="write_{FAVOURITE_ID}" id="write_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_WRITE}></td>
+          <td width="10%" align="center"><input type="checkbox" name="sanction_{FAVOURITE_ID}" id="sanction_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_SANCTION}></td>
+        </tr>
+        <!-- END favourite_row -->
+        <!-- BEGIN favourite_row_double --><tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_user.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" class="mgrey" onClick="">{FAVOURITE}</span></td>
+          <td align="center" colspan="3" class="mgrey">{LANGUAGE_FAVOURITES_DOUBLE}</td>
+        </tr>
+        <!-- END favourite_row_double -->
+      </table>
+
+      <br>
+
+      <table id="additional" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_ADDITIONAL}:</td>
+          <td align="center" width="10%" class="columnhead">{LANGUAGE_READ}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_WRITE}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_SANCTION}</td>
+        </tr>
+        <!-- BEGIN additional_none --><tr class="List">
+          <td colspan="2">{LANGUAGE_ADDITIONAL_NONE}.</td>
+        </tr>
+        <!-- END additional_none -->
+        <!-- BEGIN additional_row --><tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_user.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" onClick="">{ADDITIONAL}</span></td>
+          <td width="10%" align="center"><input type="checkbox" name="read_{ADDITIONAL_ID}" id="read_{ADDITIONAL_ID}" onclick="javascript:clicked_specific();" {CHECKED_READ}></td>
+          <td width="10%" align="center"><input type="checkbox" name="write_{ADDITIONAL_ID}" id="write_{ADDITIONAL_ID}" onclick="javascript:clicked_specific();" {CHECKED_WRITE}></td>
+          <td width="10%" align="center"><input type="checkbox" name="sanction_{ADDITIONAL_ID}" id="sanction_{ADDITIONAL_ID}" onclick="javascript:clicked_specific();" {CHECKED_SANCTION}></td>
+        </tr>
+        <!-- END additional_row -->
+        <!-- BEGIN additional_row_double --><tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_user.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" class="mgrey" onClick="">{ADDITIONAL}</span></td>
+          <td align="center" colspan="3" class="mgrey">{LANGUAGE_ADDITIONAL_DOUBLE}</td>
+        </tr>
+        <!-- END additional_row_double -->
+      </table>
+      </div>
+
+      <div id="form_acquire" class="mvisible">
+      <table id="groups_acquire" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_GROUPS}:</td>
+          <td align="center" width="10%" class="columnhead">{LANGUAGE_READ}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_WRITE}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_SANCTION}</td>
+        </tr>
+        <!-- BEGIN group_none_acquire --><tr class="List">
+          <td colspan="2" class="mgrey">{LANGUAGE_GROUPS_NONE}.</td>
+        </tr>
+        <!-- END group_none_acquire -->
+
+        <!-- BEGIN group_row_acquire --><tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_group.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}" title="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" class="mgrey" onClick="">{GROUP}</span></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_READ_ACQUIRE} disabled></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_WRITE_ACQUIRE} disabled></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_SANCTION_ACQUIRE} disabled></td>
+        </tr>
+        <!-- END group_row_acquire -->
+      </table>
+
+      <br>
+
+      <table id="favourites_acquire" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_FAVOURITES}:</td>
+          <td align="center" width="10%" class="columnhead">{LANGUAGE_READ}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_WRITE}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_SANCTION}</td>
+        </tr>
+        <!-- BEGIN favourite_none_acquire --><tr class="List">
+          <td colspan="2" class="mgrey">{LANGUAGE_FAVOURITES_NONE}.</td>
+        </tr>
+        <!-- END favourite_none_acquire -->
+        <!-- BEGIN favourite_row_acquire --><tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_user.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}" title="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" class="mgrey" onClick="">{FAVOURITE}</span></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_READ_ACQUIRE} disabled></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_WRITE_ACQUIRE} disabled></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_SANCTION_ACQUIRE} disabled></td>
+        </tr>
+        <!-- END favourite_row_acquire -->
+      </table>
+      
+      <br>
+
+      <table id="additional_acquire" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>{LANGUAGE_ADDITIONAL}:</td>
+          <td align="center" width="10%" class="columnhead">{LANGUAGE_READ}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_WRITE}</td>
+          <td align="center" width="10%" nowrap class="columnhead">{LANGUAGE_SANCTION}</td>
+        </tr>
+        <!-- BEGIN additional_none_acquire --><tr class="List">
+          <td colspan="2" class="mgrey">{LANGUAGE_ADDITIONAL_NONE}.</td>
+        </tr>
+        <!-- END additional_none_acquire -->
+        <!-- BEGIN additional_row_acquire --><tr class="List">
+          <td width="18"><span style="cursor:pointer;" onClick=""><img src="{DOC_ROOT}/icons/rights_user.gif"
+            border="0" height="16" width="16" alt="{LANGUAGE_ALT_BUSINESSCARD}" title="{LANGUAGE_ALT_BUSINESSCARD}"></span></td>
+          <td><span style="cursor:pointer;" class="mgrey" onClick="">{ADDITIONAL}</span></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_READ_ACQUIRE} disabled></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_WRITE_ACQUIRE} disabled></td>
+          <td width="10%" align="center"><input type="checkbox" {CHECKED_SANCTION_ACQUIRE} disabled></td>
+        </tr>
+        <!-- END additional_row_acquire -->
+      </table>
+      </div>
+
+      <br>
+
+    </td>
+  </tr>
+</table>
+
+<script language="JavaScript1.2">
+function clicked_acquire()
+{
+  if(document.getElementById("acquire").checked == true)
+  {
+    document.getElementById("form_acquire_none").className = "minvisible";
+    document.getElementById("form_acquire").className = "mvisible";
+
+    document.getElementById("radio_acquire_none").className = "minvisible";
+    document.getElementById("radio_acquire").className = "mvisible";
+  }
+  else
+  {
+    document.getElementById("form_acquire_none").className = "mvisible";
+    document.getElementById("form_acquire").className = "minvisible";
+
+    document.getElementById("radio_acquire_none").className = "mvisible";
+    document.getElementById("radio_acquire").className = "minvisible";
+  }
+}
+
+function clicked_crude()
+{
+  if(document.getElementById("public").checked == true)
+  {
+    <!-- BEGIN set_crude -->
+    document.getElementById("read_{ITEM_ID}").checked = false;
+    document.getElementById("write_{ITEM_ID}").checked = false;
+    document.getElementById("sanction_{ITEM_ID}").checked = false;
+    <!-- END set_crude -->
+    
+    <!-- BEGIN set_everyone -->
+    document.getElementById("read_{ITEM_ID}").checked = true;
+    document.getElementById("write_{ITEM_ID}").checked = false;
+    document.getElementById("sanction_{ITEM_ID}").checked = false;
+    <!-- END set_everyone -->
+  }
+  else if(document.getElementById("private").checked == true)
+  {
+    <!-- BEGIN unset_crude -->
+    document.getElementById("read_{ITEM_ID}").checked = false;
+    document.getElementById("write_{ITEM_ID}").checked = false;
+    document.getElementById("sanction_{ITEM_ID}").checked = false;
+    <!-- END unset_crude -->
+    
+    <!-- BEGIN unset_everyone -->
+    document.getElementById("read_{ITEM_ID}").checked = false;
+    document.getElementById("write_{ITEM_ID}").checked = false;
+    document.getElementById("sanction_{ITEM_ID}").checked = false;
+    <!-- END unset_everyone -->
+  }
+}
+
+function clicked_specific()
+{
+  if(true
+    <!-- BEGIN test_specific_checked -->
+    && !document.getElementById("read_{ITEM_ID}").checked
+    && !document.getElementById("write_{ITEM_ID}").checked
+    && !document.getElementById("sanction_{ITEM_ID}").checked
+    <!-- END test_specific_checked -->
+    <!-- BEGIN test_everyone_checked -->
+    && document.getElementById("read_{ITEM_ID}").checked
+    && !document.getElementById("write_{ITEM_ID}").checked
+    && !document.getElementById("sanction_{ITEM_ID}").checked
+    <!-- END test_everyone_checked -->
+    )
+    document.getElementById("public").checked = true;
+
+  else if(true
+    <!-- BEGIN test_specific_unchecked -->
+    && !document.getElementById("read_{ITEM_ID}").checked
+    && !document.getElementById("write_{ITEM_ID}").checked
+    && !document.getElementById("sanction_{ITEM_ID}").checked
+    <!-- END test_specific_unchecked -->
+    <!-- BEGIN test_everyone_unchecked -->
+    && !document.getElementById("read_{ITEM_ID}").checked
+    && !document.getElementById("write_{ITEM_ID}").checked
+    && !document.getElementById("sanction_{ITEM_ID}").checked
+    <!-- END test_everyone_unchecked -->
+    )
+    document.getElementById("private").checked = true;
+  else
+    document.getElementById("user").checked = true;
+}
+
+clicked_acquire();
+clicked_crude();
+clicked_specific();
+</script>

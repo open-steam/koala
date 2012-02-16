@@ -1,0 +1,41 @@
+<!-- BEGIN BLOCK_SIGN_IN -->
+<form id="loginPanel" action="{LOGIN_FORM_ACTION}" method="post" name="loginform">
+	<table>
+            <tr>
+            <td>
+				{LABEL_LOGIN}:<br /> <input type="text" class="input" name="values[login]" size="15" id="first_field" />
+			</td>
+			<td>
+				{LABEL_PASSWORD}:<br /> <input type="password" class="input" name="values[password]" size="15" />
+			</td>
+			<td>
+				<input type="submit" class="pill button" type="submit" value="{SIGN_IN_BUTTON_TEXT}" />
+			</td>
+		</tr>
+	</table>	
+</form>
+<!-- END BLOCK_SIGN_IN -->
+
+<!-- BEGIN BLOCK_STARTPAGE_CONTENT -->
+<div id="topImage">                    
+	<div id="short1"></div>
+	<div id="short2"></div>
+	<div id="short3"></div>
+	<div id="medium"></div>
+	<div id="long"></div>              
+</div>
+
+<table id="startpage">
+	<tr>
+        <td id="left">
+            {STARTPAGE_TEXT_LEFT}
+        </td>
+        <td id="center">
+			{STARTPAGE_TEXT_CENTER}
+		</td>
+        <td id="right">
+            {STARTPAGE_TEXT_RIGHT}
+		</td>
+    </tr>
+</table>
+<!-- END BLOCK_STARTPAGE_CONTENT -->

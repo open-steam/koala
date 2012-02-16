@@ -1,0 +1,143 @@
+\hypertarget{classkoala__html__user}{
+\section{koala\_\-html\_\-user Class Reference}
+\label{classkoala__html__user}\index{koala\_\-html\_\-user@{koala\_\-html\_\-user}}
+}
+Inheritance diagram for koala\_\-html\_\-user:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classkoala__html__user}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classkoala__html__user_a67e456dadcff4d60a994de68a6a15c06}{\_\-\_\-construct} (\$user)
+\item 
+\hyperlink{classkoala__html__user_ab93dd683cf29249352c4b5fa9a1bb764}{set\_\-context} (\$context, \$params=array())
+\item 
+\hyperlink{classkoala__html__user_a0b5700cc16781f3fdfb89ea6336808ea}{get\_\-headline} ()
+\item 
+\hypertarget{classkoala__html__user_a213432986f5dac91c313530da7e5f2c7}{
+{\bfseries get\_\-clipboard\_\-menu} (\$\hyperlink{classkoala__container}{koala\_\-container}=FALSE)}
+\label{classkoala__html__user_a213432986f5dac91c313530da7e5f2c7}
+
+\item 
+\hypertarget{classkoala__html__user_a8a9f1c6aa9fc723732d45cc47645d846}{
+{\bfseries set\_\-html\_\-left} (\$html\_\-code)}
+\label{classkoala__html__user_a8a9f1c6aa9fc723732d45cc47645d846}
+
+\item 
+\hypertarget{classkoala__html__user_af329ead6cac3800187f5f7c85673463e}{
+{\bfseries set\_\-html\_\-right} (\$html\_\-code)}
+\label{classkoala__html__user_af329ead6cac3800187f5f7c85673463e}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classkoala__html__user_abe8594876e4a2ecdf43a641c4a547b11}{get\_\-context\_\-menu} (\$context, \$params=array())
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classkoala__html__user_a67e456dadcff4d60a994de68a6a15c06}{
+\index{koala\_\-html\_\-user@{koala\_\-html\_\-user}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!koala_html_user@{koala\_\-html\_\-user}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}koala\_\-html\_\-user::\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{ template\_\-path}
+\end{DoxyParamCaption}
+)}}
+\label{classkoala__html__user_a67e456dadcff4d60a994de68a6a15c06}
+You must call parent::\_\-\_\-construct(\$template\_\-path) in the constructor of your inherited class, so that the template is set up correctly.
+
+
+\begin{DoxyParams}[1]{Parameters}
+String & {\em \$template\_\-path} & path to the template file \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classkoala__html_af9264b278c4e19335da3652abccc575f}{koala\_\-html}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classkoala__html__user_abe8594876e4a2ecdf43a641c4a547b11}{
+\index{koala\_\-html\_\-user@{koala\_\-html\_\-user}!get\_\-context\_\-menu@{get\_\-context\_\-menu}}
+\index{get\_\-context\_\-menu@{get\_\-context\_\-menu}!koala_html_user@{koala\_\-html\_\-user}}
+\subsubsection[{get\_\-context\_\-menu}]{\setlength{\rightskip}{0pt plus 5cm}koala\_\-html\_\-user::get\_\-context\_\-menu (
+\begin{DoxyParamCaption}
+\item[{\$}]{ context, }
+\item[{\$}]{ params = {\ttfamily array()}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classkoala__html__user_abe8594876e4a2ecdf43a641c4a547b11}
+Override this function to return your context menu for a given context. The context menu must be an array: array( array( \char`\"{}name\char`\"{}=$>$\char`\"{}...\char`\"{}, \char`\"{}link\char`\"{}:\char`\"{}...\char`\"{} ) ).
+
+You might receive additional parameters if \hyperlink{classkoala__html__user_ab93dd683cf29249352c4b5fa9a1bb764}{set\_\-context()} was called with more parameters than just the context string.
+
+Example: if ( \$context == \char`\"{}documents\char`\"{} ) return array( array( \char`\"{}name\char`\"{} =$>$ gettext(\char`\"{}Create folder\char`\"{}), \char`\"{}link\char`\"{} =$>$ PATH\_\-URL . \$something ), array( \char`\"{}name\char`\"{} =$>$ gettext(\char`\"{}Upload file\char`\"{}), \char`\"{}link\char`\"{} =$>$ PATH\_\-URL . \$something\_\-else ), );
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em Array} & optional parameters array \\
+\hline
+String & {\em \$context} & the context for which to return the context menu \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array an array with the context menu for the portal 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{classkoala__html_a82b9855f019ad724f321b4e04fae452a}{koala\_\-html}.
+
+\hypertarget{classkoala__html__user_a0b5700cc16781f3fdfb89ea6336808ea}{
+\index{koala\_\-html\_\-user@{koala\_\-html\_\-user}!get\_\-headline@{get\_\-headline}}
+\index{get\_\-headline@{get\_\-headline}!koala_html_user@{koala\_\-html\_\-user}}
+\subsubsection[{get\_\-headline}]{\setlength{\rightskip}{0pt plus 5cm}koala\_\-html\_\-user::get\_\-headline (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classkoala__html__user_a0b5700cc16781f3fdfb89ea6336808ea}
+Override this function to return the headline for the portal.
+
+\begin{DoxyReturn}{Returns}
+String headline 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{classkoala__html_a12af0cd17308d30b95d38e14dd5e82ec}{koala\_\-html}.
+
+\hypertarget{classkoala__html__user_ab93dd683cf29249352c4b5fa9a1bb764}{
+\index{koala\_\-html\_\-user@{koala\_\-html\_\-user}!set\_\-context@{set\_\-context}}
+\index{set\_\-context@{set\_\-context}!koala_html_user@{koala\_\-html\_\-user}}
+\subsubsection[{set\_\-context}]{\setlength{\rightskip}{0pt plus 5cm}koala\_\-html\_\-user::set\_\-context (
+\begin{DoxyParamCaption}
+\item[{\$}]{ context, }
+\item[{\$}]{ params = {\ttfamily array()}}
+\end{DoxyParamCaption}
+)}}
+\label{classkoala__html__user_ab93dd683cf29249352c4b5fa9a1bb764}
+Setup the context to display. This will set up the menu and context menu. You might need to pass additional parameters along with the context. Check the \hyperlink{classkoala__html_a2cb528d682a53d70fe407cee50adf689}{get\_\-menu()} and \hyperlink{classkoala__html__user_abe8594876e4a2ecdf43a641c4a547b11}{get\_\-context\_\-menu()} functions in the inherited class you are using to see if they use any additional parameters.
+
+Example: set\_\-context( \char`\"{}documents\char`\"{}, \$container, \$link\_\-base );
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$context} & the context to display \\
+\hline
+ & {\em array} & optional parameters array \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{classkoala__html_a60cf8a0c199a50400ea876c238bdfa7b}{koala\_\-html}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/koala\_\-html\_\-user.class.php\end{DoxyCompactItemize}

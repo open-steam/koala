@@ -1,0 +1,7 @@
+<!-- *********************************************************** -->
+<!-- ** gallery.ihtml -->
+<!-- *********************************************************** -->
+<!-- BEGIN gallery_image_properties_button -->Eigenschaften des Bildes bearbeiten<!-- END gallery_image_properties_button -->
+<!-- BEGIN gallery_remove_image_button -->Bild in den Papierkorb werfen<!-- END gallery_remove_image_button -->
+<!-- BEGIN gallery_image_fullscreen_button -->Bild in Originalgr&ouml;&szlig;e anzeigen<!-- END gallery_image_fullscreen_button -->
+<!-- BEGIN gallery_image_save_button -->Bild abspeichern<!-- END gallery_image_save_button -->

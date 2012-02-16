@@ -1,0 +1,14 @@
+.portlet.media .entry .content {
+  text-align: left;
+}
+
+.portlet.media .entry .content img {
+  width: 100%;
+}
+
+.portlet.media .entry .content embed {
+}
+
+.portlet.media .entry .description {
+  margin: 2px;
+}

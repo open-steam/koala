@@ -1,0 +1,54 @@
+<!-- BEGIN BLOCK_INFO -->
+<div class="infoBar">
+	{INFO_TEXT}
+</div>
+<!-- END BLOCK_INFO -->
+
+<p>
+{LABEL_SHEET_INFO}
+</p>
+
+<form action="{FORM_ACTION}" method="post" name="formular">
+<input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}" />
+<input type="hidden" name="values[count]" value="{VALUE_COUNT}" />
+
+
+<table  class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="label">{LABEL_SHEET}:</td>
+    <!-- BEGIN BLOCK_TABLE_HEADER -->
+      <td class="label">{TABLE_HEADER_LABEL}</td>
+    <!-- END BLOCK_TABLE_HEADER -->
+    <!-- BEGIN BLOCK_SPACER -->
+      <td width="100%">
+      </td>
+    <!-- END BLOCK_SPACER -->
+	</tr>
+  <!-- BEGIN BLOCK_MEMBER -->
+	<tr>
+		<td class="label" align="right">{LABEL_MAXPOINTS}:</td>
+    <!-- BEGIN BLOCK_MAXPOINT -->
+      <td class="value" align="right" title="{POINT_TITLE}">
+        <input type="text" maxlength="3" size="3" name="values[maxpoints][{VALUE_SHEETID}]" value="{VALUE_MAXPOINT}" {MAXPOINT_STYLE}></td></td>
+    <!-- END BLOCK_MAXPOINT -->
+    <!-- BEGIN BLOCK_SPACER2 -->
+      <td width="100%">
+      </td>
+    <!-- END BLOCK_SPACER2 -->
+
+	</tr>
+  <!-- END BLOCK_MEMBER -->
+
+  <!-- BEGIN BLOCK_SUBMIT -->
+	<tr>
+		<td class="value" align="right" colspan="{SUBMIT_COLSPAN}"><br />
+			<div class="buttons" style="text-align: left;">
+				<input type="submit"  value="{LABEL_SUBMIT}" name="save" />
+				{SUBMIT_BACKLINK}
+			</div>
+		</td>
+	</tr>
+  <!-- END BLOCK_SUBMIT -->
+
+</table>
+</form>

@@ -1,0 +1,312 @@
+\hypertarget{class_simple_reporter}{
+\section{SimpleReporter Class Reference}
+\label{class_simple_reporter}\index{SimpleReporter@{SimpleReporter}}
+}
+Inheritance diagram for SimpleReporter:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_simple_reporter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_reporter_a7fd4aba19a7aa84b0a099f7d6b532a19}{SimpleReporter} ()
+\item 
+\hyperlink{class_simple_reporter_a784aae8c64539f2ac2f7bb8e9db65628}{getDumper} ()
+\item 
+\hyperlink{class_simple_reporter_a3e8ad3ae451da1c3ae1e90c5789f7f2b}{paintGroupStart} (\$test\_\-name, \$size)
+\item 
+\hyperlink{class_simple_reporter_a2b6b699cadeb44f4dc666f3c94ac22be}{paintGroupEnd} (\$test\_\-name)
+\item 
+\hyperlink{class_simple_reporter_a987d5bbfa2cc927da394f6bc6053c23e}{paintCaseStart} (\$test\_\-name)
+\item 
+\hyperlink{class_simple_reporter_a8e6c0fb28e29920fe42eef652f822753}{paintCaseEnd} (\$test\_\-name)
+\item 
+\hyperlink{class_simple_reporter_a54672d58e0fad0e0e672159dd4f61124}{paintMethodStart} (\$test\_\-name)
+\item 
+\hyperlink{class_simple_reporter_a0ad8baf509606e35dec1bbefddef3fc0}{paintMethodEnd} (\$test\_\-name)
+\item 
+\hyperlink{class_simple_reporter_a682fc7003bca1442734b7ddbdf270b75}{paintHeader} (\$test\_\-name)
+\item 
+\hyperlink{class_simple_reporter_a447a6e823a5c17b1bd5f922a0b18fded}{paintFooter} (\$test\_\-name)
+\item 
+\hyperlink{class_simple_reporter_aa4bce8bfcd41c7ec33a22866f2b170a9}{getTestList} ()
+\item 
+\hyperlink{class_simple_reporter_a218fb7c8ac145e848243d29d712fd27f}{getTestCaseCount} ()
+\item 
+\hyperlink{class_simple_reporter_aa9b00069b10e54522095ef9d65dddd44}{getTestCaseProgress} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_reporter_ab6887c05e232ca0d00104119ede58d85}{inCli} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_reporter_aebd08a1e933c25f0e79e526ca39d6e42}{
+{\bfseries \$\_\-test\_\-stack}}
+\label{class_simple_reporter_aebd08a1e933c25f0e79e526ca39d6e42}
+
+\item 
+\hypertarget{class_simple_reporter_a20085ecf75083c8a06f67410298419dc}{
+{\bfseries \$\_\-size}}
+\label{class_simple_reporter_a20085ecf75083c8a06f67410298419dc}
+
+\item 
+\hypertarget{class_simple_reporter_a8f61c87cea0800a5196663a5f1c7751b}{
+{\bfseries \$\_\-progress}}
+\label{class_simple_reporter_a8f61c87cea0800a5196663a5f1c7751b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_reporter_a784aae8c64539f2ac2f7bb8e9db65628}{
+\index{SimpleReporter@{SimpleReporter}!getDumper@{getDumper}}
+\index{getDumper@{getDumper}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{getDumper}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::getDumper (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a784aae8c64539f2ac2f7bb8e9db65628}
+Gets the formatter for variables and other small generic data items. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_dumper}{SimpleDumper} Formatter.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_reporter_a218fb7c8ac145e848243d29d712fd27f}{
+\index{SimpleReporter@{SimpleReporter}!getTestCaseCount@{getTestCaseCount}}
+\index{getTestCaseCount@{getTestCaseCount}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{getTestCaseCount}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::getTestCaseCount (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a218fb7c8ac145e848243d29d712fd27f}
+Accessor for total test size in number of test cases. Null until the first test is started. \begin{DoxyReturn}{Returns}
+integer Total number of cases at start.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_reporter_aa9b00069b10e54522095ef9d65dddd44}{
+\index{SimpleReporter@{SimpleReporter}!getTestCaseProgress@{getTestCaseProgress}}
+\index{getTestCaseProgress@{getTestCaseProgress}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{getTestCaseProgress}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::getTestCaseProgress (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_aa9b00069b10e54522095ef9d65dddd44}
+Accessor for the number of test cases completed so far. \begin{DoxyReturn}{Returns}
+integer Number of ended cases.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_reporter_aa4bce8bfcd41c7ec33a22866f2b170a9}{
+\index{SimpleReporter@{SimpleReporter}!getTestList@{getTestList}}
+\index{getTestList@{getTestList}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{getTestList}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::getTestList (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_aa4bce8bfcd41c7ec33a22866f2b170a9}
+Accessor for internal test stack. For subclasses that need to see the whole test history for display purposes. \begin{DoxyReturn}{Returns}
+array List of methods in nesting order.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_reporter_ab6887c05e232ca0d00104119ede58d85}{
+\index{SimpleReporter@{SimpleReporter}!inCli@{inCli}}
+\index{inCli@{inCli}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{inCli}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::inCli (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_simple_reporter_ab6887c05e232ca0d00104119ede58d85}
+Static check for running in the comand line. \begin{DoxyReturn}{Returns}
+boolean True if CLI.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_reporter_a8e6c0fb28e29920fe42eef652f822753}{
+\index{SimpleReporter@{SimpleReporter}!paintCaseEnd@{paintCaseEnd}}
+\index{paintCaseEnd@{paintCaseEnd}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{paintCaseEnd}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::paintCaseEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a8e6c0fb28e29920fe42eef652f822753}
+Paints the end of a test case. Will paint the page footer if the stack of tests has unwound. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test that is ending.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_af61cf47c364d7fbe592714776e588e2a}{SimpleScorer}.
+
+
+
+Reimplemented in \hyperlink{class_xml_reporter_a1d5e2bab9c6f61d49e65ec55e9a04015}{XmlReporter}.
+
+\hypertarget{class_simple_reporter_a987d5bbfa2cc927da394f6bc6053c23e}{
+\index{SimpleReporter@{SimpleReporter}!paintCaseStart@{paintCaseStart}}
+\index{paintCaseStart@{paintCaseStart}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{paintCaseStart}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::paintCaseStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a987d5bbfa2cc927da394f6bc6053c23e}
+Paints the start of a test case. Will also paint the page header and footer if this is the first test. Will stash the size if the first start. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test that is starting.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_ae66388eacb1a7ef3f99443a942c8a9b1}{SimpleScorer}.
+
+
+
+Reimplemented in \hyperlink{class_test_dox_reporter_a0675ceed8813548f9d1bafc71c794f24}{TestDoxReporter}, and \hyperlink{class_xml_reporter_aebd11df8a848fa3f5b2d0d1b725249c1}{XmlReporter}.
+
+\hypertarget{class_simple_reporter_a447a6e823a5c17b1bd5f922a0b18fded}{
+\index{SimpleReporter@{SimpleReporter}!paintFooter@{paintFooter}}
+\index{paintFooter@{paintFooter}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{paintFooter}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::paintFooter (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a447a6e823a5c17b1bd5f922a0b18fded}
+Paints the test document footer. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & The top level test.  public  \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{class_html_reporter_a7397e35688d992bc2cfb17c973a980b4}{HtmlReporter}, \hyperlink{class_text_reporter_af40b27732bf32f71ad4f2ebee6417667}{TextReporter}, and \hyperlink{class_xml_reporter_a76c2686a0abdea6a07ce6437b708cc71}{XmlReporter}.
+
+\hypertarget{class_simple_reporter_a2b6b699cadeb44f4dc666f3c94ac22be}{
+\index{SimpleReporter@{SimpleReporter}!paintGroupEnd@{paintGroupEnd}}
+\index{paintGroupEnd@{paintGroupEnd}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{paintGroupEnd}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::paintGroupEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a2b6b699cadeb44f4dc666f3c94ac22be}
+Paints the end of a group test. Will paint the page footer if the stack of tests has unwound. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test that is ending. \\
+\hline
+integer & {\em \$progress} & Number of test cases ending.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a40b030cbba90f114374191cbed7d459d}{SimpleScorer}.
+
+
+
+Reimplemented in \hyperlink{class_xml_reporter_a448424e6e8bce6060c6ad6109fcb2300}{XmlReporter}.
+
+\hypertarget{class_simple_reporter_a3e8ad3ae451da1c3ae1e90c5789f7f2b}{
+\index{SimpleReporter@{SimpleReporter}!paintGroupStart@{paintGroupStart}}
+\index{paintGroupStart@{paintGroupStart}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{paintGroupStart}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::paintGroupStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name, }
+\item[{\$}]{ size}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a3e8ad3ae451da1c3ae1e90c5789f7f2b}
+Paints the start of a group test. Will also paint the page header and footer if this is the first test. Will stash the size if the first start. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test that is starting. \\
+\hline
+integer & {\em \$size} & Number of test cases starting.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a738721074c609d1ced9010b57cd0779c}{SimpleScorer}.
+
+
+
+Reimplemented in \hyperlink{class_xml_reporter_a8260073ecaba7369ae53fde9251d1ef5}{XmlReporter}.
+
+\hypertarget{class_simple_reporter_a682fc7003bca1442734b7ddbdf270b75}{
+\index{SimpleReporter@{SimpleReporter}!paintHeader@{paintHeader}}
+\index{paintHeader@{paintHeader}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{paintHeader}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::paintHeader (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a682fc7003bca1442734b7ddbdf270b75}
+Paints the test document header. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & First test top level to start.  public  \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{class_html_reporter_a1d579bc4e86295e07da8f4e364092010}{HtmlReporter}, \hyperlink{class_text_reporter_a0ad9d130d152c3fa6a56b65f599f34ca}{TextReporter}, and \hyperlink{class_xml_reporter_abd986228b92ae1f349b23254ad6a8c01}{XmlReporter}.
+
+\hypertarget{class_simple_reporter_a0ad8baf509606e35dec1bbefddef3fc0}{
+\index{SimpleReporter@{SimpleReporter}!paintMethodEnd@{paintMethodEnd}}
+\index{paintMethodEnd@{paintMethodEnd}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{paintMethodEnd}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::paintMethodEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a0ad8baf509606e35dec1bbefddef3fc0}
+Paints the end of a test method. Will paint the page footer if the stack of tests has unwound. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test that is ending.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a419382f8670b1d944f2036bb02dc2800}{SimpleScorer}.
+
+
+
+Reimplemented in \hyperlink{class_xml_reporter_ae021130f96f98f7ff693740c331c31ae}{XmlReporter}.
+
+\hypertarget{class_simple_reporter_a54672d58e0fad0e0e672159dd4f61124}{
+\index{SimpleReporter@{SimpleReporter}!paintMethodStart@{paintMethodStart}}
+\index{paintMethodStart@{paintMethodStart}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{paintMethodStart}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::paintMethodStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a54672d58e0fad0e0e672159dd4f61124}
+Paints the start of a test method. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test that is starting.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a1467957d4a23761b8d23d5d0c88b9a89}{SimpleScorer}.
+
+
+
+Reimplemented in \hyperlink{class_test_dox_reporter_a1d7d83c7832d12c8626245ec38b80a96}{TestDoxReporter}, and \hyperlink{class_xml_reporter_a9d879c209e50eadfcdbd8e3bfc7ba226}{XmlReporter}.
+
+\hypertarget{class_simple_reporter_a7fd4aba19a7aa84b0a099f7d6b532a19}{
+\index{SimpleReporter@{SimpleReporter}!SimpleReporter@{SimpleReporter}}
+\index{SimpleReporter@{SimpleReporter}!SimpleReporter@{SimpleReporter}}
+\subsubsection[{SimpleReporter}]{\setlength{\rightskip}{0pt plus 5cm}SimpleReporter::SimpleReporter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_reporter_a7fd4aba19a7aa84b0a099f7d6b532a19}
+Starts the display with no results in.  public 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/scorer.php\end{DoxyCompactItemize}

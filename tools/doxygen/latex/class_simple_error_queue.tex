@@ -1,0 +1,233 @@
+\hypertarget{class_simple_error_queue}{
+\section{SimpleErrorQueue Class Reference}
+\label{class_simple_error_queue}\index{SimpleErrorQueue@{SimpleErrorQueue}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_error_queue_aefbdb398de53916724572d3432000e80}{SimpleErrorQueue} ()
+\item 
+\hyperlink{class_simple_error_queue_a35fde0c9340bed6665ac8a16d66f9501}{clear} ()
+\item 
+\hyperlink{class_simple_error_queue_a300faf86411587f253d3bf21203ab0ce}{setTestCase} (\&\$test)
+\item 
+\hyperlink{class_simple_error_queue_a44aac221d1d5eee6a81d84d57330b2b8}{expectError} (\$expected, \$message)
+\item 
+\hyperlink{class_simple_error_queue_adc13ee1f476b5ec158e3681fffa83421}{add} (\$severity, \$content, \$filename, \$line)
+\item 
+\hyperlink{class_simple_error_queue_a7349f2d81db012130fa9e792077caa76}{tally} ()
+\item 
+\hyperlink{class_simple_error_queue_a434a9249cf5f11f3450aa63ccb40e9dc}{\_\-testLatestError} (\$severity, \$content, \$filename, \$line)
+\item 
+\hyperlink{class_simple_error_queue_a32d8279b377c3cfbcacbb9ac797c9297}{extract} ()
+\item 
+\hyperlink{class_simple_error_queue_a965965682c3d7774271034d100a3721f}{\_\-extractExpectation} ()
+\item 
+\hyperlink{class_simple_error_queue_a87cf536e2597e0a6c2551fcdde27492d}{assertNoErrors} (\$message)
+\item 
+\hyperlink{class_simple_error_queue_a33b8d8d7f89b97018a495032362a9897}{assertError} (\$expected, \$message)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_error_queue_a686f876e93208736cee9fd57dc8223d9}{getSeverityAsString} (\$severity)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_error_queue_a22fe32f7784338b6ee61cfe79dffd3e4}{
+{\bfseries \$\_\-queue}}
+\label{class_simple_error_queue_a22fe32f7784338b6ee61cfe79dffd3e4}
+
+\item 
+\hypertarget{class_simple_error_queue_a42f5cf9b5f1e7d8293e42511c4e4a77b}{
+{\bfseries \$\_\-expectation\_\-queue}}
+\label{class_simple_error_queue_a42f5cf9b5f1e7d8293e42511c4e4a77b}
+
+\item 
+\hypertarget{class_simple_error_queue_a08926c6ef8cc99bbc78be539271b9177}{
+{\bfseries \$\_\-test}}
+\label{class_simple_error_queue_a08926c6ef8cc99bbc78be539271b9177}
+
+\item 
+\hypertarget{class_simple_error_queue_a38d4321c56d6d690124b62838939901e}{
+{\bfseries \$\_\-using\_\-expect\_\-style} = false}
+\label{class_simple_error_queue_a38d4321c56d6d690124b62838939901e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_error_queue_a965965682c3d7774271034d100a3721f}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!\_\-extractExpectation@{\_\-extractExpectation}}
+\index{\_\-extractExpectation@{\_\-extractExpectation}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{\_\-extractExpectation}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::\_\-extractExpectation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a965965682c3d7774271034d100a3721f}
+Pulls the earliest expectation from the queue. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_expectation}{SimpleExpectation} False if none.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_error_queue_a434a9249cf5f11f3450aa63ccb40e9dc}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!\_\-testLatestError@{\_\-testLatestError}}
+\index{\_\-testLatestError@{\_\-testLatestError}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{\_\-testLatestError}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::\_\-testLatestError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ severity, }
+\item[{\$}]{ content, }
+\item[{\$}]{ filename, }
+\item[{\$}]{ line}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a434a9249cf5f11f3450aa63ccb40e9dc}
+Tests the error against the most recent expected error. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$severity} & PHP error code. \\
+\hline
+string & {\em \$content} & Text of error. \\
+\hline
+string & {\em \$filename} & File error occoured in. \\
+\hline
+integer & {\em \$line} & Line number of error.  private \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_error_queue_adc13ee1f476b5ec158e3681fffa83421}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!add@{add}}
+\index{add@{add}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{add}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::add (
+\begin{DoxyParamCaption}
+\item[{\$}]{ severity, }
+\item[{\$}]{ content, }
+\item[{\$}]{ filename, }
+\item[{\$}]{ line}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_adc13ee1f476b5ec158e3681fffa83421}
+Adds an error to the front of the queue. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$severity} & PHP error code. \\
+\hline
+string & {\em \$content} & Text of error. \\
+\hline
+string & {\em \$filename} & File error occoured in. \\
+\hline
+integer & {\em \$line} & Line number of error.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_error_queue_a33b8d8d7f89b97018a495032362a9897}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!assertError@{assertError}}
+\index{assertError@{assertError}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{assertError}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::assertError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expected, }
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a33b8d8d7f89b97018a495032362a9897}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000003}{Deprecated}]\end{Desc}
+\hypertarget{class_simple_error_queue_a87cf536e2597e0a6c2551fcdde27492d}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!assertNoErrors@{assertNoErrors}}
+\index{assertNoErrors@{assertNoErrors}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{assertNoErrors}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::assertNoErrors (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a87cf536e2597e0a6c2551fcdde27492d}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000002}{Deprecated}]\end{Desc}
+\hypertarget{class_simple_error_queue_a35fde0c9340bed6665ac8a16d66f9501}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!clear@{clear}}
+\index{clear@{clear}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a35fde0c9340bed6665ac8a16d66f9501}
+Discards the contents of the error queue.  public \hypertarget{class_simple_error_queue_a44aac221d1d5eee6a81d84d57330b2b8}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!expectError@{expectError}}
+\index{expectError@{expectError}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{expectError}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::expectError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expected, }
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a44aac221d1d5eee6a81d84d57330b2b8}
+Sets up an expectation of an error. If this is not fulfilled at the end of the test, a failure will occour. If the error does happen, then this will cancel it out and send a pass message. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_expectation}{SimpleExpectation} & {\em \$expected} & Expected error match. \\
+\hline
+string & {\em \$message} & Message to display.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_error_queue_a32d8279b377c3cfbcacbb9ac797c9297}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!extract@{extract}}
+\index{extract@{extract}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{extract}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::extract (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a32d8279b377c3cfbcacbb9ac797c9297}
+Pulls the earliest error from the queue. \begin{DoxyReturn}{Returns}
+mixed False if none, or a list of error information. Elements are: severity as the PHP error code, the error message, the file with the error, the line number and a list of PHP super global arrays.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_error_queue_a686f876e93208736cee9fd57dc8223d9}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!getSeverityAsString@{getSeverityAsString}}
+\index{getSeverityAsString@{getSeverityAsString}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{getSeverityAsString}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::getSeverityAsString (
+\begin{DoxyParamCaption}
+\item[{\$}]{ severity}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_simple_error_queue_a686f876e93208736cee9fd57dc8223d9}
+Converts an error code into it's string representation. 
+\begin{DoxyParams}{Parameters}
+{\em \$severity} & PHP integer error code. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String version of error code.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_error_queue_a300faf86411587f253d3bf21203ab0ce}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!setTestCase@{setTestCase}}
+\index{setTestCase@{setTestCase}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{setTestCase}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::setTestCase (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ test}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a300faf86411587f253d3bf21203ab0ce}
+Sets the currently running test case. 
+\begin{DoxyParams}[1]{Parameters}
+SimpleTestCase & {\em \$test} & Test case to send messages to.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_error_queue_aefbdb398de53916724572d3432000e80}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!SimpleErrorQueue@{SimpleErrorQueue}}
+\index{SimpleErrorQueue@{SimpleErrorQueue}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{SimpleErrorQueue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::SimpleErrorQueue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_aefbdb398de53916724572d3432000e80}
+Starts with an empty queue. \hypertarget{class_simple_error_queue_a7349f2d81db012130fa9e792077caa76}{
+\index{SimpleErrorQueue@{SimpleErrorQueue}!tally@{tally}}
+\index{tally@{tally}!SimpleErrorQueue@{SimpleErrorQueue}}
+\subsubsection[{tally}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorQueue::tally (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_queue_a7349f2d81db012130fa9e792077caa76}
+Any errors still in the queue are sent to the test case. Any unfulfilled expectations trigger failures.  public 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/errors.php\end{DoxyCompactItemize}

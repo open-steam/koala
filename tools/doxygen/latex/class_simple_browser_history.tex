@@ -1,0 +1,167 @@
+\hypertarget{class_simple_browser_history}{
+\section{SimpleBrowserHistory Class Reference}
+\label{class_simple_browser_history}\index{SimpleBrowserHistory@{SimpleBrowserHistory}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_browser_history_a2127741caab69dd12cc32b322d5e11fa}{SimpleBrowserHistory} ()
+\item 
+\hyperlink{class_simple_browser_history_a563ca44364f4def86a41eb683ecd2cee}{\_\-isEmpty} ()
+\item 
+\hyperlink{class_simple_browser_history_a04977574d4720fc63770afefce6aed39}{\_\-atBeginning} ()
+\item 
+\hyperlink{class_simple_browser_history_a8165fbf967fc0cdf2b626c8eb026ab72}{\_\-atEnd} ()
+\item 
+\hyperlink{class_simple_browser_history_a788a233220aecc310b56f21562c06d43}{recordEntry} (\$url, \$parameters)
+\item 
+\hyperlink{class_simple_browser_history_aed47b8f24be922789e6046ae5403efbb}{getUrl} ()
+\item 
+\hyperlink{class_simple_browser_history_a2f597f5be027a5a2f1d389dfae75a202}{getParameters} ()
+\item 
+\hyperlink{class_simple_browser_history_a7117827a2f383f6ab09abe03514de49b}{back} ()
+\item 
+\hyperlink{class_simple_browser_history_ad6015f6f26f06f236c60299e5df9aec7}{forward} ()
+\item 
+\hyperlink{class_simple_browser_history_a5d40551c31b6a3a4f7d8db7bba45d18d}{\_\-dropFuture} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_browser_history_ae68cfc918370f057f59129f96796d134}{
+{\bfseries \$\_\-sequence}}
+\label{class_simple_browser_history_ae68cfc918370f057f59129f96796d134}
+
+\item 
+\hypertarget{class_simple_browser_history_ac97a4084fddc3822cb7f1802e74abbb3}{
+{\bfseries \$\_\-position}}
+\label{class_simple_browser_history_ac97a4084fddc3822cb7f1802e74abbb3}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_browser_history_a04977574d4720fc63770afefce6aed39}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!\_\-atBeginning@{\_\-atBeginning}}
+\index{\_\-atBeginning@{\_\-atBeginning}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{\_\-atBeginning}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::\_\-atBeginning (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_a04977574d4720fc63770afefce6aed39}
+Test for being at the beginning. \begin{DoxyReturn}{Returns}
+boolean True if first.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_browser_history_a8165fbf967fc0cdf2b626c8eb026ab72}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!\_\-atEnd@{\_\-atEnd}}
+\index{\_\-atEnd@{\_\-atEnd}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{\_\-atEnd}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::\_\-atEnd (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_a8165fbf967fc0cdf2b626c8eb026ab72}
+Test for being at the last entry. \begin{DoxyReturn}{Returns}
+boolean True if last.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_browser_history_a5d40551c31b6a3a4f7d8db7bba45d18d}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!\_\-dropFuture@{\_\-dropFuture}}
+\index{\_\-dropFuture@{\_\-dropFuture}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{\_\-dropFuture}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::\_\-dropFuture (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_a5d40551c31b6a3a4f7d8db7bba45d18d}
+Ditches all future entries beyond the current point.  private \hypertarget{class_simple_browser_history_a563ca44364f4def86a41eb683ecd2cee}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!\_\-isEmpty@{\_\-isEmpty}}
+\index{\_\-isEmpty@{\_\-isEmpty}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{\_\-isEmpty}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::\_\-isEmpty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_a563ca44364f4def86a41eb683ecd2cee}
+Test for no entries yet. \begin{DoxyReturn}{Returns}
+boolean True if empty.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_browser_history_a7117827a2f383f6ab09abe03514de49b}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!back@{back}}
+\index{back@{back}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{back}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::back (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_a7117827a2f383f6ab09abe03514de49b}
+Step back one place in the history. Stops at the first page. \begin{DoxyReturn}{Returns}
+boolean True if any previous entries.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_browser_history_ad6015f6f26f06f236c60299e5df9aec7}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!forward@{forward}}
+\index{forward@{forward}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{forward}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::forward (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_ad6015f6f26f06f236c60299e5df9aec7}
+Step forward one place. If already at the latest entry then nothing will happen. \begin{DoxyReturn}{Returns}
+boolean True if any future entries.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_browser_history_a2f597f5be027a5a2f1d389dfae75a202}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!getParameters@{getParameters}}
+\index{getParameters@{getParameters}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{getParameters}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::getParameters (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_a2f597f5be027a5a2f1d389dfae75a202}
+Parameters of last fetch from current history position. \begin{DoxyReturn}{Returns}
+SimpleFormEncoding Post parameters.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_browser_history_aed47b8f24be922789e6046ae5403efbb}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!getUrl@{getUrl}}
+\index{getUrl@{getUrl}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{getUrl}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::getUrl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_aed47b8f24be922789e6046ae5403efbb}
+Last fully qualified URL for current history position. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_url}{SimpleUrl} URL for this position.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_browser_history_a788a233220aecc310b56f21562c06d43}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!recordEntry@{recordEntry}}
+\index{recordEntry@{recordEntry}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{recordEntry}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::recordEntry (
+\begin{DoxyParamCaption}
+\item[{\$}]{ url, }
+\item[{\$}]{ parameters}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_a788a233220aecc310b56f21562c06d43}
+Adds a successfully fetched page to the history. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_url}{SimpleUrl} & {\em \$url} & URL of fetch. \\
+\hline
+\hyperlink{class_simple_encoding}{SimpleEncoding} & {\em \$parameters} & Any post data with the fetch.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_browser_history_a2127741caab69dd12cc32b322d5e11fa}{
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\index{SimpleBrowserHistory@{SimpleBrowserHistory}!SimpleBrowserHistory@{SimpleBrowserHistory}}
+\subsubsection[{SimpleBrowserHistory}]{\setlength{\rightskip}{0pt plus 5cm}SimpleBrowserHistory::SimpleBrowserHistory (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_browser_history_a2127741caab69dd12cc32b322d5e11fa}
+Starts empty.  public 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/browser.php\end{DoxyCompactItemize}

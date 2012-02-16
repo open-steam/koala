@@ -1,0 +1,160 @@
+<!-- BEGIN label_save -->{LANGUAGE_LABEL_SAVE}<!-- END label_save -->
+<!-- BEGIN label_properties -->{LANGUAGE_LABEL_PROPERTIES}<!-- END label_properties -->
+<!-- BEGIN button_space -->&nbsp;&nbsp;<!-- END button_space -->
+<!-- BEGIN error_first_no_date -->{LANGUAGE_FIRST_NO_DATE}<!-- END error_first_no_date -->
+<!-- BEGIN error_sec_no_date -->{LANGUAGE_SEC_NO_DATE}<!-- END error_sec_no_date -->
+<!-- BEGIN error_sec_date_is_smaller -->{LANGUAGE_SEC_DATE_IS_SMALLER}<!-- END error_sec_date_is_smaller -->
+<!-- BEGIN error_first_date_is_past -->{LANGUAGE_FIRST_DATE_IS_PAST}<!-- END error_first_date_is_past -->
+
+<script language="JavaScript1.2">
+function refresh()
+{
+	if(document.form_blueprint.edit_time.checked==false)
+	{
+		document.form_blueprint.from_day.disabled = true;
+		document.form_blueprint.from_month.disabled = true;
+		document.form_blueprint.from_year.disabled = true;
+		
+		document.form_blueprint.to_day.disabled = true;
+		document.form_blueprint.to_month.disabled = true;
+		document.form_blueprint.to_year.disabled = true;
+	}
+	else
+	{
+		document.form_blueprint.from_day.disabled = false;
+		document.form_blueprint.from_month.disabled = false;
+		document.form_blueprint.from_year.disabled = false;
+		
+		document.form_blueprint.to_day.disabled = false;
+		document.form_blueprint.to_month.disabled = false;
+		document.form_blueprint.to_year.disabled = false;
+	}
+}
+</script>
+
+<table>
+<!-- BEGIN error_feedback -->
+<tr>
+ 	<td align="center" colspan="2"><b>{FEEDBACK}</b></td>
+</tr>
+<!-- END error_feedback -->
+<tr bgcolor="#CCCCCC">
+  <td colspan="2" align="center" valign="top"><b>{LANGUAGE_QUESTIONARY_SETTINGS}</b></td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td align="right" valign="top">{LANGUAGE_LABEL_DESCRIPTION}:</td>
+  <td valign="top"><textarea name="description" cols="50" rows="5">{DESCRIPTION}</textarea></td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td width="50%" align="right" valign="middle">{LANGUAGE_LABEL_NUMBER}:</td>
+  <td width="50%" valign="top"><input type="checkbox" name="number" value="1" {NUMBER}></td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td width="50%" align="right" valign="middle">{LANGUAGE_LABEL_EDIT_TIME}:</td>
+  <td width="50%" valign="top"><input type="checkbox" name="edit_time" value="1" onclick="refresh();" onchange="refresh();" {EDIT_TIME}></td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td align="right" valign="middle">{LANGUAGE_FROM}:</td>
+  <td valign="top"><table>
+    <tr>
+      <td>
+	  <select name="from_day" id="from_day" {DISABLED}>
+      	<!-- BEGIN combo_from_day_entry -->
+		  <option value="{FROM_DAY}" {FROM_DAY_SELECTED}>{FROM_DAY}.</option>
+		<!-- END combo_from_day_entry --> 
+      </select>	  </td>
+      <td><select name="from_month" id="from_month" {DISABLED}>
+          <option value="1" {FROM_MONTH_SELECTED_1}>{LANGUAGE_JANUARY}</option>
+		  <option value="2" {FROM_MONTH_SELECTED_2}>{LANGUAGE_FEBRUARY}</option>
+		  <option value="3" {FROM_MONTH_SELECTED_3}>{LANGUAGE_MARCH}</option>
+		  <option value="4" {FROM_MONTH_SELECTED_4}>{LANGUAGE_APRIL}</option>
+		  <option value="5" {FROM_MONTH_SELECTED_5}>{LANGUAGE_MAY}</option>
+		  <option value="6" {FROM_MONTH_SELECTED_6}>{LANGUAGE_JUNE}</option>
+		  <option value="7" {FROM_MONTH_SELECTED_7}>{LANGUAGE_JULY}</option>
+		  <option value="8" {FROM_MONTH_SELECTED_8}>{LANGUAGE_AUGUST}</option>
+		  <option value="9" {FROM_MONTH_SELECTED_9}>{LANGUAGE_SEPTEMBER}</option>
+		  <option value="10" {FROM_MONTH_SELECTED_10}>{LANGUAGE_OCTOBER}</option>
+		  <option value="11" {FROM_MONTH_SELECTED_11}>{LANGUAGE_NOVEMBER}</option>
+		  <option value="12" {FROM_MONTH_SELECTED_12}>{LANGUAGE_DECEMBER}</option>
+        </select>	  </td>
+      <td>
+        <select name="from_year" id="from_year" {DISABLED}>
+			<!-- BEGIN combo_from_year_entry -->
+			<option value="{FROM_YEAR}" {FROM_YEAR_SELECTED}>{FROM_YEAR}</option>
+			<!-- END combo_from_year_entry -->
+        </select>	  </td>
+    </tr>
+  </table></td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td align="right" valign="middle">{LANGUAGE_TO}:</td>
+  <td valign="top"><table>
+    <tr>
+      <td>
+	  	<select name="to_day" {DISABLED} id="to_day">
+          <!-- BEGIN combo_to_day_entry -->
+		  	<option value="{TO_DAY}" {TO_DAY_SELECTED}>{TO_DAY}.</option>
+		  <!-- END combo_to_day_entry --> 
+        </select>	  </td>
+      <td><select name="to_month" id="to_month" {DISABLED}>
+          <option value="1" {TO_MONTH_SELECTED_1}>{LANGUAGE_JANUARY}</option>
+          <option value="2" {TO_MONTH_SELECTED_2}>{LANGUAGE_FEBRUARY}</option>
+          <option value="3" {TO_MONTH_SELECTED_3}>{LANGUAGE_MARCH}</option>
+          <option value="4" {TO_MONTH_SELECTED_4}>{LANGUAGE_APRIL}</option>
+          <option value="5" {TO_MONTH_SELECTED_5}>{LANGUAGE_MAY}</option>
+          <option value="6" {TO_MONTH_SELECTED_6}>{LANGUAGE_JUNE}</option>
+          <option value="7" {TO_MONTH_SELECTED_7}>{LANGUAGE_JULY}</option>
+          <option value="8" {TO_MONTH_SELECTED_8}>{LANGUAGE_AUGUST}</option>
+          <option value="9" {TO_MONTH_SELECTED_9}>{LANGUAGE_SEPTEMBER}</option>
+          <option value="10" {TO_MONTH_SELECTED_10}>{LANGUAGE_OCTOBER}</option>
+          <option value="11" {TO_MONTH_SELECTED_11}>{LANGUAGE_NOVEMBER}</option>
+          <option value="12" {TO_MONTH_SELECTED_12}>{LANGUAGE_DECEMBER}</option>
+        </select>      </td>
+      <td><select name="to_year" id="to_year" {DISABLED}>
+          <!-- BEGIN combo_to_year_entry -->
+          <option value="{TO_YEAR}" {TO_YEAR_SELECTED}>{TO_YEAR}</option>
+          <!-- END combo_to_year_entry -->
+        </select>      </td>
+    </tr>
+  </table></td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td valign="middle" align="right">{LANGUAGE_LABEL_FILL_OUT}:</td>
+  <td valign="middle"><input type="radio" name="fillout" value="1" {FILL_OUT_1}> {LANGUAGE_LABEL_FILL_OUT_1}
+    <input type="radio" name="fillout" value="n" {FILL_OUT_N}> {LANGUAGE_LABEL_FILL_OUT_N}</td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td valign="middle" align="right">{LANGUAGE_LABEL_RIGHTS}:</td>
+  <td valign="top"><button type="button" onClick="window.open('{DOC_ROOT}/modules/questionary/rights.php?questionary={QUESTIONARY_ID}', 'Rights', 'resizable, scrollbars, width=500, height=500')">{LANGUAGE_BUTTON_RIGHTS}</button></td>
+</tr>
+
+
+<tr>
+  <td colspan="2">&nbsp;</td>
+</tr>
+<tr>
+  <td colspan="2" align="center" bgcolor="#CCCCCC"><b>{LANGUAGE_RESULT_SETTINGS}</b></td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td valign="middle" align="right">{LANGUAGE_LABEL_RESULT_CREATOR}:</td>
+  <td valign="top"><input type="radio" name="resultcreator" value="1" {RESULT_CREATOR_TRUE}> {LANGUAGE_LABEL_RESULT_CREATOR_TRUE}
+    <input type="radio" name="resultcreator" value="0" {RESULT_CREATOR_FALSE}> {LANGUAGE_LABEL_RESULT_CREATOR_FALSE}</td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td valign="middle" align="right">{LANGUAGE_LABEL_RESULT_CREATION_TIME}:</td>
+  <td valign="top"><input type="radio" name="resultcreationtime" value="1" {RESULT_CREATION_TIME_TRUE}> {LANGUAGE_LABEL_RESULT_CREATION_TIME_TRUE}
+    <input type="radio" name="resultcreationtime" value="0" {RESULT_CREATION_TIME_FALSE}> {LANGUAGE_LABEL_RESULT_CREATION_TIME_FALSE}</td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td valign="middle" align="right">{LANGUAGE_LABEL_EDIT_ANSWER}:</td>
+  <td valign="top"><input type="radio" name="editanswer" value="1" {EDIT_ANSWER_TRUE}> {LANGUAGE_LABEL_EDIT_ANSWER_TRUE}
+    <input type="radio" name="editanswer" value="0" {EDIT_ANSWER_FALSE}> {LANGUAGE_LABEL_EDIT_ANSWER_FALSE}</td>
+</tr>
+<tr bgcolor="#D8D8D8">
+  <td valign="middle" align="right">{LANGUAGE_LABEL_EDIT_OWN_ANSWER}:</td>
+  <td valign="top"><input type="radio" name="editownanswer" value="1" {EDIT_OWN_ANSWER_TRUE} />
+{LANGUAGE_LABEL_EDIT_OWN_ANSWER_TRUE}
+  <input type="radio" name="editownanswer" value="0" {EDIT_OWN_ANSWER_FALSE} />
+{LANGUAGE_LABEL_EDIT_OWN_ANSWER_FALSE}</td>
+</tr>
+</table>

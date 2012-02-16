@@ -1,0 +1,290 @@
+<!-- ********************************************************* -->
+<!-- BLUEPRINT -->
+<!-- ********************************************************* -->
+
+<!-- BEGIN blueprint -->
+  <script language="JavaScript" src="{ROOTDIR}/javascript/menu.js"></script>
+  <script language="JavaScript">
+  <!--
+  buildMenus();
+  function buildMenus()
+  {
+    if (window.menu_1) return;
+
+    {SPECIFIC_MENU}
+
+    menu_1.writeMenus();
+
+    window.onresize = function() {window.location.reload();};
+  }
+  -->
+  </script>
+<!-- END blueprint -->
+
+
+<!-- BEGIN general_menu -->
+<!-- END general_menu -->
+
+
+<!-- ********************************************************* -->
+<!-- CONTENTFRAME -->
+<!-- ********************************************************* -->
+
+<!-- BEGIN contentframe -->
+
+  <!-- BEGIN menu_1 -->{LANGUAGE_NEW}<!-- END menu_1 -->
+  <!-- BEGIN menu_2 -->{LANGUAGE_EDIT}<!-- END menu_2 -->
+  <!-- BEGIN menu_3 --><!-- END menu_3 -->
+
+  <!-- BEGIN menu_spec_read -->
+    // Menue "Neu"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_FOLDER}</font>","");
+    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_FILE}</font>","");
+    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_HTML}</font>","");
+    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_TEXT}</font>","");
+    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_URL}</font>","");
+    menu_1.addMenuSeparator();
+    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_FORUM}</font>","");
+    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_PORTAL}</font>","");
+    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_QUESTIONARY}</font>","");
+//    menu_1.addMenuItem("<font color='#acacac'>{LANGUAGE_NEW_DELICIOUS}</font>","");
+    menu_1.menuItemBorder=0;
+
+    // Menue "Bearbeiten"
+    window.menu_2 = new Menu("root",127,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+	menu_2.addMenuItem("{LANGUAGE_EDIT_BOOKMARK}","javascript:document.getElementById('type').value='bookmark';document.getElementById('form_marked').submit();");
+	menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_COPY}","javascript:document.getElementById('type').value='copy';document.getElementById('form_marked').submit();");
+    menu_2.addMenuItem("<font color='#acacac'>{LANGUAGE_EDIT_CUT}</font>","");
+    menu_2.addMenuItem("{LANGUAGE_EDIT_REFERENCE}","javascript:document.getElementById('type').value='reference';document.getElementById('form_marked').submit();");
+    menu_2.addMenuItem("<font color='#acacac'>{LANGUAGE_EDIT_DELETE}</font>","");
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("<font color='#acacac'>{LANGUAGE_EDIT_PASTE}</font>","");
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PROPERTIES}","window.open('{ROOTDIR}/properties.php?properties={OBJECT_ID}', 'Eigenschaften', 'resizable,scrollbars,width=560,height=470')");
+    menu_2.menuItemBorder=0;
+  <!-- END menu_spec_read -->
+
+  <!-- BEGIN menu_spec_write -->
+    // Menue "Neu"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_1.addMenuItem("{LANGUAGE_NEW_FOLDER}","window.open('{ROOTDIR}/dialognew.php?object={OBJECT_ID}&case=folder', 'insertCollection', 'resizable,width=540,height=200')");
+    menu_1.addMenuItem("{LANGUAGE_NEW_FILE}","window.open('{ROOTDIR}/dialognew.php?object={OBJECT_ID}&case=file', 'insertDocument', 'resizable,width=520,height=200')");
+    menu_1.addMenuItem("{LANGUAGE_NEW_HTML}","window.open('{ROOTDIR}/dialognew.php?object={OBJECT_ID}&case=html', 'insertHTML', 'resizable,width=650,height=520')");
+    menu_1.addMenuItem("{LANGUAGE_NEW_TEXT}","window.open('{ROOTDIR}/dialognew.php?object={OBJECT_ID}&case=plain', 'insertHTML', 'resizable,width=650,height=520')");
+    menu_1.addMenuItem("{LANGUAGE_NEW_URL}","window.open('{ROOTDIR}/dialognew.php?object={OBJECT_ID}&case=link', 'insertLinkObject', 'resizable,scrollbars,width=540,height=220')");
+    menu_1.addMenuSeparator();
+    menu_1.addMenuItem("{LANGUAGE_NEW_FORUM}","window.open('{ROOTDIR}/modules/forum/add_forum.php?forumobject={OBJECT_ID}', 'forumCreate', 'resizable,scrollbars,width=800,height=600')");
+    menu_1.addMenuItem("{LANGUAGE_NEW_PORTAL}","window.open('{ROOTDIR}/modules/portal2/new.php?object={OBJECT_ID}', 'portalCreate', 'resizable,scrollbars,width=540,height=410')");
+    menu_1.addMenuItem("{LANGUAGE_NEW_QUESTIONARY}","window.open('{ROOTDIR}/modules/questionary/new.php?object={OBJECT_ID}', 'questionaryCreate', 'resizable,scrollbars,width=700,height=700')");
+//    menu_1.addMenuItem("{LANGUAGE_NEW_DELICIOUS}","window.open('{ROOTDIR}/delicious_import.php?object={OBJECT_ID}', 'deliciousCreate', 'resizable,scrollbars,width=540,height=410')");
+    menu_1.menuItemBorder=0;
+
+    // Menue "Bearbeiten"
+    window.menu_2 = new Menu("root",127,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+	menu_2.addMenuItem("{LANGUAGE_EDIT_BOOKMARK}","javascript:document.getElementById('type').value='bookmark';document.getElementById('form_marked').submit();");
+	menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_COPY}","javascript:document.getElementById('type').value='copy';document.getElementById('form_marked').submit();");
+    menu_2.addMenuItem("{LANGUAGE_EDIT_CUT}","javascript:document.getElementById('type').value='move';document.getElementById('form_marked').submit();");
+    menu_2.addMenuItem("{LANGUAGE_EDIT_REFERENCE}","javascript:document.getElementById('type').value='reference';document.getElementById('form_marked').submit();");
+    menu_2.addMenuItem("{LANGUAGE_EDIT_DELETE}","javascript:document.getElementById('type').value='delete';document.getElementById('form_marked').submit();");
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PASTE}","javascript:document.getElementById('type').value='drop';document.getElementById('form_marked').submit();");
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PROPERTIES}","window.open('{ROOTDIR}/properties.php?properties={OBJECT_ID}', 'Eigenschaften', 'resizable,scrollbars,width=560,height=470')");
+    menu_2.menuItemBorder=0;
+   <!-- END menu_spec_write -->
+<!-- END contentframe -->
+
+<!-- ********************************************************* -->
+<!-- DOCUMENT -->
+<!-- ********************************************************* -->
+
+<!-- BEGIN document -->
+
+  <!-- BEGIN menu_1 --><!-- END menu_1 -->
+  <!-- BEGIN menu_2 --><!-- END menu_2 -->
+
+  <!-- BEGIN menu_spec_read --><!-- END menu_spec_read -->
+
+  <!-- BEGIN menu_spec_write --><!-- END menu_spec_write -->
+<!-- END document -->
+
+
+<!-- ********************************************************* -->
+<!-- CALENDAR -->
+<!-- ********************************************************* -->
+
+<!-- BEGIN calendar -->
+
+  <!-- BEGIN menu_1 -->{LANGUAGE_NEW}<!-- END menu_1 -->
+  <!-- BEGIN menu_2 -->{LANGUAGE_EDIT}<!-- END menu_2 -->
+
+  <!-- BEGIN menu_spec_read -->
+    // Menue "Neu"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_1.menuItemBorder=0;
+
+    // Menue "Bearbeiten"
+    window.menu_2 = new Menu("root",127,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PROPERTIES}","window.open('{ROOTDIR}/properties.php?properties={OBJECT_ID}', 'Eigenschaften', 'resizable,scrollbars,width=560,height=470')");
+    menu_2.menuItemBorder=0;
+  <!-- END menu_spec_read -->
+
+  <!-- BEGIN menu_spec_write -->
+    // Menue "Neu"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_1.addMenuItem("{LANGUAGE_CALENDAR_1_1}","window.open('{ROOTDIR}/modules/calendar/add_entry.php?environment_id={OBJECT_ID}&environment_class={OBJECT_CLASS}', 'addEntry', 'resizable,scrollbars,width=540,height=350')");
+    menu_1.menuItemBorder=0;
+
+    // Menue "Bearbeiten"
+    window.menu_2 = new Menu("root",127,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_2.addMenuItem("{LANGUAGE_CALENDAR_2_1}","window.open('{ROOTDIR}/modules/calendar/calendar_options.php?object={OBJECT_ID}&class={OBJECT_CLASS}', 'calendarOptions', 'resizable,scrollbars,width=540,height=410')");
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PROPERTIES}","window.open('{ROOTDIR}/properties.php?properties={OBJECT_ID}', 'Eigenschaften', 'resizable,scrollbars,width=560,height=470')");
+    menu_2.menuItemBorder=0;
+   <!-- END menu_spec_write -->
+<!-- END calendar -->
+
+
+<!-- ********************************************************* -->
+<!-- FORUM -->
+<!-- ********************************************************* -->
+<!-- TS: We decided to disable the menu in the forum -->
+<!-- Please refer to menu.ihtml revision 719 to get back the -->
+<!-- old menu entries -->
+
+<!-- BEGIN forum -->
+<!-- BEGIN menu_1 --><!-- END menu_1 -->
+<!-- BEGIN menu_2 --><!-- END menu_2 -->
+
+<!-- ********************************************************* -->
+<!-- PORTAL -->
+<!-- ********************************************************* -->
+
+<!-- BEGIN portal -->
+
+  <!-- BEGIN menu_1 -->{LANGUAGE_PORTAL}<!-- END menu_1 -->
+  <!-- BEGIN menu_2 -->{LANGUAGE_PORTLET}<!-- END menu_2 -->
+
+  <!-- BEGIN menu_spec_read -->
+    // Menue "Portal"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_1.menuItemBorder=0;
+
+    // Menue "Portlet"
+    window.menu_2 = new Menu("root",127,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PROPERTIES}","window.open('{ROOTDIR}/properties.php?properties={OBJECT_ID}', 'Eigenschaften', 'resizable,scrollbars,width=560,height=470')");
+    menu_2.menuItemBorder=0;
+  <!-- END menu_spec_read -->
+
+  <!-- BEGIN menu_spec_write -->
+    // Menue "Portal"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+//    menu_1.addMenuItem("{LANGUAGE_PORTAL_NEW_AREA}","window.open('{ROOTDIR}/modules/portal/segment_insert.php?portal={OBJECT_ID}', 'insertSegment', 'resizable,scrollbars,width=540,height=350')");
+    menu_1.addMenuItem("{LANGUAGE_PORTAL_NEW_COMPONENT}","window.open('{ROOTDIR}/modules/portal/portlet_insert.php?portal={OBJECT_ID}', 'insertPortlet', 'resizable,scrollbars,width=540,height=170')");
+//    menu_1.addMenuItem("{LANGUAGE_PORTAL_NEW_ENTRY}","window.open('{ROOTDIR}/modules/portal/portlet_edit.php?portal={OBJECT_ID}&type=edit', 'editPortlet', 'resizable,scrollbars,width=540,height=440')");
+    menu_1.menuItemBorder=0;
+
+
+    // Sub-Menue "Segmente"
+//    window.menu_ssub = new Menu("{LANGUAGE_PORTAL_EDIT_AREAS}",135,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#3a6e9f");
+//    menu_ssub.addMenuItem("{LANGUAGE_PORTAL_AREA_EDIT}","window.open('{ROOTDIR}/modules/portal/segment_resize.php?portal={OBJECT_ID}', 'resizeSegment', 'resizable,scrollbars,width=540,height=350')");
+//    menu_ssub.addMenuItem("{LANGUAGE_PORTAL_AREA_MOVE}","window.open('{ROOTDIR}/modules/portal/segment_move.php?portal={OBJECT_ID}', 'moveSegment', 'resizable,scrollbars,width=540,height=350')");
+//    menu_ssub.addMenuItem("{LANGUAGE_PORTAL_AREA_DELETE}","window.open('{ROOTDIR}/modules/portal/segment_delete.php?portal={OBJECT_ID}', 'deleteSegment', 'resizable,scrollbars,width=540,height=350')");
+//    menu_ssub.menuItemBorder=0;
+
+    // Sub-Menue "Portlets"
+    window.menu_psub = new Menu("{LANGUAGE_PORTAL_EDIT_PORTLETS}",135,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#3a6e9f");
+//    menu_psub.addMenuItem("{LANGUAGE_PORTAL_PORTLET_EDIT}","window.open('{ROOTDIR}/modules/portal/portlet_edit.php?portal={OBJECT_ID}&type=edit', 'editPortlet', 'resizable,scrollbars,width=540,height=440')");
+//    menu_psub.addMenuSeparator();
+    menu_psub.addMenuItem("{LANGUAGE_PORTAL_PORTLET_COPY}","window.open('{ROOTDIR}/modules/portal/portlet_edit.php?portal={OBJECT_ID}&type=copy', 'copyPortlet', 'resizable,scrollbars,width=540,height=440')");
+    menu_psub.addMenuItem("{LANGUAGE_PORTAL_PORTLET_LINK}","window.open('{ROOTDIR}/modules/portal/portlet_edit.php?portal={OBJECT_ID}&type=reference', 'referencePortlet', 'resizable,scrollbars,width=540,height=440')");
+    menu_psub.addMenuItem("{LANGUAGE_PORTAL_PORTLET_DELETE}","window.open('{ROOTDIR}/modules/portal/portlet_edit.php?portal={OBJECT_ID}&type=delete', 'deletePortlet', 'resizable,scrollbars,width=540,height=440')");
+    menu_psub.addMenuSeparator();
+    menu_psub.addMenuItem("{LANGUAGE_PORTAL_PORTLET_PASTE}","window.open('{ROOTDIR}/modules/portal/portlet_paste.php?portal={OBJECT_ID}&type=paste', 'pastePortlet', 'resizable,scrollbars,width=540,height=440')");
+    menu_psub.addMenuSeparator();
+    menu_psub.addMenuItem("{LANGUAGE_PORTAL_PORTLET_PROPERTIES}","window.open('{ROOTDIR}/modules/portal/portlet_edit.php?portal={OBJECT_ID}&type=preferences', 'preferencesPortlet', 'resizable,scrollbars,width=540,height=440')");
+    menu_psub.menuItemBorder=0;
+
+    // Menue "Portlet"
+    window.menu_2 = new Menu("root",127,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+//    menu_2.addMenuItem(menu_ssub);
+    menu_2.addMenuItem(menu_psub);
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_PORTAL_EDIT_DISPLAY}","window.open('{ROOTDIR}/modules/portal/relation_segment_portlet.php?portal={OBJECT_ID}', 'editPortlet', 'resizable,scrollbars,width=540,height=410')");
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PROPERTIES}","window.open('{ROOTDIR}/properties.php?properties={OBJECT_ID}', 'Preferences', 'resizable,scrollbars,width=560,height=470')");
+    menu_2.menuItemBorder=0;
+   <!-- END menu_spec_write -->
+<!-- END portal -->
+
+
+<!-- ********************************************************* -->
+<!-- QUESTIONARY -->
+<!-- ********************************************************* -->
+
+<!-- BEGIN questionary -->
+
+  <!-- BEGIN menu_1 -->{LANGUAGE_NEW}<!-- END menu_1 -->
+  <!-- BEGIN menu_2 -->{LANGUAGE_EDIT}<!-- END menu_2 -->
+
+  <!-- BEGIN menu_spec_read -->
+    // Menue "Neu"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_1.addMenuItem("{LANGUAGE_QUESTIONARY_1_1}","parent.contentframe.location.href='{ROOTDIR}/modules/questionary/index.php?object={OBJECT_ID}'");
+	menu_1.menuItemBorder=0;
+
+    // Menue "Bearbeiten"
+    window.menu_2 = new Menu("root",127,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_2.addMenuItem("{LANGUAGE_QUESTIONARY_2_2}","parent.contentframe.location.href='{ROOTDIR}/modules/questionary/result.php?object={OBJECT_ID}'");
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PROPERTIES}","window.open('{ROOTDIR}/properties.php?properties={OBJECT_ID}', 'Eigenschaften', 'resizable,scrollbars,width=560,height=470')");
+    menu_2.menuItemBorder=0;
+  <!-- END menu_spec_read -->
+
+  <!-- BEGIN menu_spec_write -->
+    // Menue "Neu"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_1.addMenuItem("{LANGUAGE_QUESTIONARY_1_1}","parent.contentframe.location.href='{ROOTDIR}/modules/questionary/index.php?object={OBJECT_ID}'");
+    menu_1.menuItemBorder=0;
+
+    // Menue "Bearbeiten"
+    window.menu_2 = new Menu("root",127,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_2.addMenuItem("{LANGUAGE_QUESTIONARY_2_1}","window.open('{ROOTDIR}/modules/questionary/edit.php?questionary={OBJECT_ID}', 'editPortlet', 'resizable,scrollbars,width=700,height=700')");
+    menu_2.addMenuItem("{LANGUAGE_QUESTIONARY_2_2}","parent.contentframe.location.href='{ROOTDIR}/modules/questionary/result.php?object={OBJECT_ID}'");
+    menu_2.addMenuSeparator();
+    menu_2.addMenuItem("{LANGUAGE_EDIT_PROPERTIES}","window.open('{ROOTDIR}/properties.php?properties={OBJECT_ID}', 'Preferences', 'resizable,scrollbars,width=560,height=470')");
+    menu_2.menuItemBorder=0;
+   <!-- END menu_spec_write -->
+<!-- END questionary -->
+
+
+<!-- ********************************************************* -->
+<!-- TRASHBIN -->
+<!-- ********************************************************* -->
+
+<!-- BEGIN trashbin -->
+
+  <!-- BEGIN menu_1 --><!-- END menu_1 -->
+  <!-- BEGIN menu_2 -->{LANGUAGE_EDIT}<!-- END menu_2 -->
+
+  <!-- BEGIN menu_spec_read -->
+    // Menue "Bearbeiten"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    window.menu_2 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_2.addMenuItem("<font color='#acacac'>{LANGUAGE_EDIT_CUT}</font>","");
+    menu_2.addMenuItem("<font color='#acacac'>{LANGUAGE_EDIT_DESTROY}</font>","");
+    menu_2.menuItemBorder=0;
+  <!-- END menu_spec_read -->
+
+  <!-- BEGIN menu_spec_write -->
+    // Menue "Bearbeiten"
+    window.menu_1 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    window.menu_2 = new Menu("root",124,15,"Verdana, Arial, Helvetica, sans-serif",10,"#000000","#ffffff","#cccccc","#999999");
+    menu_2.addMenuItem("{LANGUAGE_EDIT_CUT}","javascript:document.getElementById('type').value='move';document.getElementById('form_marked').submit();");
+    menu_2.addMenuItem("{LANGUAGE_EDIT_DESTROY}","javascript:document.getElementById('type').value='destroy';document.getElementById('form_marked').submit();");
+    menu_2.menuItemBorder=0;
+   <!-- END menu_spec_write -->
+<!-- END trashbin -->

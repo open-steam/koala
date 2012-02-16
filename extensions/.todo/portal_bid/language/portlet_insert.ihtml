@@ -1,0 +1,23 @@
+<!-- BEGIN error_title --><li>{LANGUAGE_ERROR_TITLE}</li><!-- END error_title -->
+<!-- BEGIN button_label_ok -->{LANGUAGE_BUTTON_OK}<!-- END button_label_ok -->
+
+<input type="hidden" name="column" value="{COLUMN_ID}" />
+
+<ul class="error">
+{ERROR_TITLE}
+</ul>
+
+<div class="attribute">
+	<div class="attributeNameRequired">{LANGUAGE_FORM_TITLE}:</div>
+	<div class="attributeValue"><input type="text" name="title" value="{PORTLET_TITLE}" class="text"></div>
+</div>
+<div class="attribute">
+	<div class="attributeName">{LANGUAGE_FORM_PORTLET_TYPE}:</div>
+	<div class="attributeValue">
+		<select name="portlet_type">
+		<!-- BEGIN portlet_type_row -->
+		<option value="{PORTLET_TYPE}">{PORTLET_NAME}</option>
+		<!-- END portlet_type_row -->
+		</select>
+	</div>
+</div>

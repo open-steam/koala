@@ -1,0 +1,27 @@
+{literal}
+<script type="text/javascript">
+	
+	function worksheet_uncheck(el) {
+		
+		el.checked = false;
+		
+	}
+</script>
+{/literal}
+
+<div class="worksheet_text">
+	
+	{$data.text}
+
+</div>
+
+<br />
+
+	{foreach from=$data.answers item=answer key=key}
+	
+			<input type="checkbox" name="worksheet_answerdummy_{$key}" value="1" onchange="worksheet_uncheck(this)" />
+			{$answer.text}
+			<br />
+		
+	{/foreach}
+

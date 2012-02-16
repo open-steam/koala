@@ -1,0 +1,227 @@
+\hypertarget{class_html_reporter}{
+\section{HtmlReporter Class Reference}
+\label{class_html_reporter}\index{HtmlReporter@{HtmlReporter}}
+}
+Inheritance diagram for HtmlReporter:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_html_reporter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_html_reporter_ad515762c037bcb2b06d8dcf347ab1d40}{HtmlReporter} (\$character\_\-set= 'ISO-\/8859-\/1')
+\item 
+\hyperlink{class_html_reporter_a1d579bc4e86295e07da8f4e364092010}{paintHeader} (\$test\_\-name)
+\item 
+\hyperlink{class_html_reporter_ad07ccfd2972eaa99fb57055f430ec498}{\_\-getCss} ()
+\item 
+\hyperlink{class_html_reporter_a7397e35688d992bc2cfb17c973a980b4}{paintFooter} (\$test\_\-name)
+\item 
+\hyperlink{class_html_reporter_a5e19e29324ad91541a15586032744136}{paintFail} (\$message)
+\item 
+\hyperlink{class_html_reporter_af6c7e574ee27fa12c6c9299aa6939727}{paintError} (\$message)
+\item 
+\hyperlink{class_html_reporter_a13348c829f8853d8ad061b6b6112f5b8}{paintException} (\$exception)
+\item 
+\hyperlink{class_html_reporter_a6414bae0e65badca0d33030bd281f884}{paintSkip} (\$message)
+\item 
+\hyperlink{class_html_reporter_ac759b018db079ff7f6cc45ee43d3ef12}{paintFormattedMessage} (\$message)
+\item 
+\hyperlink{class_html_reporter_aac72f7e2d9ed9e802ebd7ef1eca8e3c7}{\_\-htmlEntities} (\$message)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_html_reporter_a766ff4a9d0fea6de3734a6c9977fb63d}{sendNoCacheHeaders} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_html_reporter_a4897748c674a311f3eb70af9ceca59f1}{
+{\bfseries \$\_\-character\_\-set}}
+\label{class_html_reporter_a4897748c674a311f3eb70af9ceca59f1}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_html_reporter_ad07ccfd2972eaa99fb57055f430ec498}{
+\index{HtmlReporter@{HtmlReporter}!\_\-getCss@{\_\-getCss}}
+\index{\_\-getCss@{\_\-getCss}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{\_\-getCss}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::\_\-getCss (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_ad07ccfd2972eaa99fb57055f430ec498}
+Paints the CSS. Add additional styles here. \begin{DoxyReturn}{Returns}
+string CSS code as text.  protected 
+\end{DoxyReturn}
+\hypertarget{class_html_reporter_aac72f7e2d9ed9e802ebd7ef1eca8e3c7}{
+\index{HtmlReporter@{HtmlReporter}!\_\-htmlEntities@{\_\-htmlEntities}}
+\index{\_\-htmlEntities@{\_\-htmlEntities}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{\_\-htmlEntities}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::\_\-htmlEntities (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_aac72f7e2d9ed9e802ebd7ef1eca8e3c7}
+Character set adjusted entity conversion. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Plain text or Unicode message. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Browser readable message.  protected 
+\end{DoxyReturn}
+\hypertarget{class_html_reporter_ad515762c037bcb2b06d8dcf347ab1d40}{
+\index{HtmlReporter@{HtmlReporter}!HtmlReporter@{HtmlReporter}}
+\index{HtmlReporter@{HtmlReporter}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{HtmlReporter}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::HtmlReporter (
+\begin{DoxyParamCaption}
+\item[{\$}]{ character\_\-set = {\ttfamily 'ISO-\/8859-\/1'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_ad515762c037bcb2b06d8dcf347ab1d40}
+Does nothing yet. The first output will be sent on the first test start. For use by a web browser.  public \hypertarget{class_html_reporter_af6c7e574ee27fa12c6c9299aa6939727}{
+\index{HtmlReporter@{HtmlReporter}!paintError@{paintError}}
+\index{paintError@{paintError}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{paintError}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::paintError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_af6c7e574ee27fa12c6c9299aa6939727}
+Paints a PHP error. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Message is ignored.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_ac33eeacd9e121f39874f95eec7219b88}{SimpleScorer}.
+
+\hypertarget{class_html_reporter_a13348c829f8853d8ad061b6b6112f5b8}{
+\index{HtmlReporter@{HtmlReporter}!paintException@{paintException}}
+\index{paintException@{paintException}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{paintException}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::paintException (
+\begin{DoxyParamCaption}
+\item[{\$}]{ exception}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_a13348c829f8853d8ad061b6b6112f5b8}
+Paints a PHP exception. 
+\begin{DoxyParams}[1]{Parameters}
+Exception & {\em \$exception} & Exception to display.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_af85813652ea0ec8aca7261267c121f6c}{SimpleScorer}.
+
+\hypertarget{class_html_reporter_a5e19e29324ad91541a15586032744136}{
+\index{HtmlReporter@{HtmlReporter}!paintFail@{paintFail}}
+\index{paintFail@{paintFail}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{paintFail}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::paintFail (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_a5e19e29324ad91541a15586032744136}
+Paints the test failure with a breadcrumbs trail of the nesting test suites below the top level test. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Failure message displayed in the context of the other tests.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a25656682bd645cf156f3a2a87893d8b3}{SimpleScorer}.
+
+\hypertarget{class_html_reporter_a7397e35688d992bc2cfb17c973a980b4}{
+\index{HtmlReporter@{HtmlReporter}!paintFooter@{paintFooter}}
+\index{paintFooter@{paintFooter}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{paintFooter}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::paintFooter (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_a7397e35688d992bc2cfb17c973a980b4}
+Paints the end of the test with a summary of the passes and failures. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name class of test.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_reporter_a447a6e823a5c17b1bd5f922a0b18fded}{SimpleReporter}.
+
+\hypertarget{class_html_reporter_ac759b018db079ff7f6cc45ee43d3ef12}{
+\index{HtmlReporter@{HtmlReporter}!paintFormattedMessage@{paintFormattedMessage}}
+\index{paintFormattedMessage@{paintFormattedMessage}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{paintFormattedMessage}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::paintFormattedMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_ac759b018db079ff7f6cc45ee43d3ef12}
+Paints formatted text such as dumped variables. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Text to show.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_a19d5b72bd448cc22636569e20b64f607}{SimpleScorer}.
+
+\hypertarget{class_html_reporter_a1d579bc4e86295e07da8f4e364092010}{
+\index{HtmlReporter@{HtmlReporter}!paintHeader@{paintHeader}}
+\index{paintHeader@{paintHeader}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{paintHeader}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::paintHeader (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_a1d579bc4e86295e07da8f4e364092010}
+Paints the top of the web page setting the title to the name of the starting test. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name class of test.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_reporter_a682fc7003bca1442734b7ddbdf270b75}{SimpleReporter}.
+
+\hypertarget{class_html_reporter_a6414bae0e65badca0d33030bd281f884}{
+\index{HtmlReporter@{HtmlReporter}!paintSkip@{paintSkip}}
+\index{paintSkip@{paintSkip}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{paintSkip}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::paintSkip (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_html_reporter_a6414bae0e65badca0d33030bd281f884}
+Prints the message for skipping tests. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Text of skip condition.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_scorer_aa82186cb9bf706d675336aefd6ba355f}{SimpleScorer}.
+
+\hypertarget{class_html_reporter_a766ff4a9d0fea6de3734a6c9977fb63d}{
+\index{HtmlReporter@{HtmlReporter}!sendNoCacheHeaders@{sendNoCacheHeaders}}
+\index{sendNoCacheHeaders@{sendNoCacheHeaders}!HtmlReporter@{HtmlReporter}}
+\subsubsection[{sendNoCacheHeaders}]{\setlength{\rightskip}{0pt plus 5cm}HtmlReporter::sendNoCacheHeaders (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_html_reporter_a766ff4a9d0fea6de3734a6c9977fb63d}
+Send the headers necessary to ensure the page is reloaded on every request. Otherwise you could be scratching your head over out of date test data.  public 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/reporter.php\end{DoxyCompactItemize}

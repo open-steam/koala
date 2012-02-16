@@ -1,0 +1,352 @@
+<style type="text/css">
+
+input.greyInputField { 
+	border: 1px solid #EEEEEE;
+	background-color:#EEEEEE;
+}
+						   
+input.whiteInputField { 
+	border: 1px solid #ff0000;
+	background-color:#FFFFFF;
+}
+						    
+select.greyInputField { 
+	border: 1px solid #EEEEEE;
+	background-color:#EEEEEE;
+}
+	
+select.whiteInputField { 
+	border: 1px solid #ff0000;
+	background-color:#FFFFFF;
+}					   
+
+						    			    
+.redCheckbox {
+	border: 1px solid red;
+	padding: 0px;
+	margin: 0px;
+	width: 13px;
+	height: 13px;
+}
+
+.whiteCheckbox {
+}
+
+#overlay {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: white;
+	opacity: 0.85;
+	filter: alpha(opacity=85);
+}
+
+#dialog_wrapper {
+	position: fixed;
+	width: 750px;
+	height: 400px;
+	left: 50%;
+	top: 50%;
+	overflow: auto;
+	margin-left: -375px;
+	margin-top: -205px;
+	border: 1px solid #ccc;
+	background-color: #FFFFFF;
+	display: block;
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+</style> 
+ 
+<script type="text/javascript">
+
+// Sending the AJAX request
+function sendRequest (command, userID, key, value, senderID) {
+	path = "/usermanagement/";
+		
+	new Ajax.Request(path,
+			  {
+			    method: 'post',
+			    postBody: "command=" + command + "&userID=" + userID + "&" + key + "=" + value + "&senderID=" + senderID,
+			    onFailure: function(){ alert('Error while saving status') },
+			    onSuccess: function(response){ handleResponse(response) }
+			  });
+}
+
+// Handle the AJAX response
+function handleResponse (response) {
+	try {
+		responseData = eval( "(" + response.responseText + ")" );
+
+		if (responseData.command == "modifyEmployee" && responseData.state == "ok") {
+			//document.getElementById(responseData.id).setAttribute('class', 'greyInputField');
+			if (responseData.id.indexOf("email") != -1 && responseData.value == "") {
+				document.getElementById("readonly_" + responseData.id).innerHTML = "keine Emailadresse";
+			} else {
+				document.getElementById("readonly_" + responseData.id).innerHTML = responseData.value;
+			}
+		}
+
+		else if (responseData.command == "lockUnlockUser" && responseData.state == "ok") {
+			//document.getElementById(responseData.id).parentNode.setAttribute('class', 'whiteCheckbox');
+			document.getElementById("desc_" + responseData.id).innerHTML = responseData.status;
+		}
+
+		else if (responseData.command == "trashRestoreUser" && responseData.state == "ok") {
+			html = responseData.html;
+			row = document.getElementById("row[" + responseData.id + "]");
+			for(i = 0; i< row.cells.length; i++) {
+				row.cells[i].innerHTML = "hund";
+			}
+		}
+
+		else if (responseData.command == "deleteEmployeeAJAX" && responseData.state == "ok") {
+			var select = document.getElementById(responseData.id);
+			select.parentNode.parentNode.setAttribute("style", "display:none;");
+		}
+		
+		else if (responseData.command == "resetPassword" && responseData.state == "ok") {
+			//alert("Neues Passwort gesetzt: " + responseData.password);
+			document.getElementById("password_" + responseData.id).innerHTML = responseData.password;
+		}
+
+		else if (responseData.command == "getParticipants" && responseData.state == "ok") {
+			applyFilter(responseData.participants);
+		}
+
+		else if (responseData.command == "showCourseDialog") {
+			document.getElementById("overlay").style.display = "block";
+			document.getElementById("dialog_wrapper").style.display = "block";
+			document.getElementById("dialog_wrapper").innerHTML = responseData.html;
+		}
+
+		else if (responseData.command == "toggleCustomerAdmin" && responseData.state == "ok") {
+			document.getElementById("row[" + responseData.userid + "]").innerHTML = responseData.html;
+		}
+
+		else if (responseData.command == "changeCourseRole" && responseData.state == "ok") {
+			document.getElementById("row[" + responseData.userid + "]").innerHTML = responseData.html;
+		}
+	}
+
+	catch (error) {
+		alert(error);
+	}
+}
+
+function closeDialog() {
+	document.getElementById("overlay").style.display = "none";
+	document.getElementById("dialog_wrapper").style.display = "none";
+	document.getElementById("dialog_wrapper").innerHTML = "";
+}
+
+function enterField (element) {
+	//element.setAttribute('class', 'whiteInputField');
+}
+
+function leaveField (element) {
+	//element.setAttribute('class', 'greyInputField');
+}
+
+// Save changes on a textfield
+function saveFieldValue (element) {
+	var userID = element.getAttribute('userID');
+	var key = element.getAttribute('name');
+	var value = element.value;
+	var id = element.id;
+
+	sendRequest("modifyEmployee", userID, key, value, id);
+}
+
+// Save changes on a checkbox
+function saveLockCheckboxValue (element) {
+	//element.parentNode.setAttribute('class', 'redCheckbox');
+	
+	var userID = element.getAttribute('userID');
+	var key = element.getAttribute('name');
+	var value = (element.checked) ? "lock" : "unlock";
+	var id = element.id;
+
+	sendRequest("lockUnlockUser", userID, key, value, userID);
+}
+
+//Save changes on a checkbox
+function saveTrashCheckboxValue(element) {
+	//element.parentNode.setAttribute('class', 'redCheckbox');
+	
+	var userID = element.getAttribute('userID');
+	var key = element.getAttribute('name');
+	var value = (element.checked) ? "trash" : "restore";
+	var id = element.id;
+
+	sendRequest("trashRestoreUser", userID, key, value, userID);
+}
+
+// save changes on user-role combobox
+function saveRoleChange (element) {
+
+	element.setAttribute('class', 'whiteInputField');
+	
+	var userID = element.getAttribute('userID');
+	var roleIndex = element.value;
+	var id = element.id;
+
+	sendRequest("modifyEmployee", userID, "role", roleIndex, id);
+}
+
+function resetPW(login, userID){
+	check = confirm(unescape("Soll das Passwort des Benutzers '" + login + "' wirklich zur%FCckgesetzt werden?"));
+
+	if (check) {
+		sendRequest("resetPassword", userID, "a", "a", userID);
+	}
+}
+
+function showCourseDialog(login, userID){
+	document.getElementById("overlay").style.display = "block";
+	sendRequest("showCourseDialog", userID, "a", "a", userID);
+}
+
+function toggle_customer_admin() {
+	sendRequest("toggleCustomerAdmin", document.customer_admin.user_id.value, "state", document.customer_admin.customer_admin_checkbox.checked, "customer_admin_checkbox");
+}
+
+function toggle_system_admin() {
+	sendRequest("toggleSystemAdmin", document.system_admin.user_id.value, "state", document.system_admin.system_admin_checkbox.checked, "system_admin_checkbox");
+}
+
+function changeRole(role, courseID, userID) {
+	sendRequest("changeCourseRole", userID, "role", role + "." + courseID, "role");
+}
+
+// Confirm "delete user" and "reset password" action
+function confirmAction (element) {
+	var userID = element.getAttribute('userID');
+	var action = element.getAttribute('action');
+	var senderID = element.id;
+	
+	if (action == "delete") {
+		
+		check = confirm(unescape("Soll der Benutzer '" + element.getAttribute("login") + "' wirklich gel%F6scht werden?"));
+
+		if (check) {
+			sendRequest("deleteEmployeeAJAX", userID, "a", "a", senderID);
+		}
+	}
+
+	else if (action == "resetPW") {
+		
+		check = confirm(unescape("Soll das Passwort des Benutzers '" + element.getAttribute("login") + "' wirklich zur%FCckgesetzt werden?"));
+
+		if (check) {
+			sendRequest("resetPassword", userID, "a", "a", senderID);
+		}
+	} else 	if (action == "trashbin") {
+		
+		check = confirm(unescape("Soll der Benutzer '" + element.getAttribute("login") + "' wirklich gel%F6scht werden?"));
+
+		if (check) {
+			sendRequest("deleteEmployeeAJAX", userID, "a", "a", senderID);
+		}
+	}
+}
+
+// Sending AJAX request for getting the ids of specific course participants or enable all rows
+function filter_course (element) {
+
+	var courseID = element.value;
+
+	if (courseID != "all") {
+		sendRequest("getParticipants", "0", "courseID", courseID, "0");
+	}
+
+	else {
+		enableAllParticipants();
+	}
+	
+}
+
+// Apply the chosen filter
+function applyFilter (userIDs) {
+	disableAllParticipants();
+	enableParticipants(userIDs);
+}
+
+// Enables all rows
+function enableAllParticipants () {
+	
+	var rows = document.getElementById("participantsTable").getElementsByTagName("tr");
+
+	for (var i=1; i<rows.length; i++) {
+		if (rows[i] != "header") {
+			rows[i].setAttribute("style", "");
+		}
+	}
+}
+
+// Disables all rows
+function disableAllParticipants () {
+	
+	var rows = document.getElementById("participantsTable").getElementsByTagName("tr");
+
+	for (var i=1; i<rows.length; i++) {
+		if (rows[i] != "header") {
+			rows[i].setAttribute("style", "display:none;");
+		}
+	}
+}
+
+// Enables rows whose user ids are listed in participantIDs
+function enableParticipants (participantIDs) {
+	for (var i=0; i<participantIDs.length; i++) {
+		var rowID = "row[" + participantIDs[i] + "]";
+		var row = document.getElementById(rowID);
+		if (row != null) {
+			row.setAttribute("style", "");
+		}
+	}
+}
+
+</script>
+ 
+<!-- BEGIN BLOCK_CONTEXT_MENU -->
+<div class="actionBar">
+    <!-- BEGIN BLOCK_MENU_ENTRY -->
+	{LINK_MENU_ENTRY}
+	<!-- END BLOCK_MENU_ENTRY -->
+</div>
+<!-- END BLOCK_CONTEXT_MENU -->
+ 
+<ul class="tabBar">
+	<!-- BEGIN BLOCK_TABS -->    
+	<li class="{TAB_STATE}">{TAB_ENTRY}</li>
+	<!-- END BLOCK_TABS -->
+	<li style="clear:left;"/>
+</ul>
+
+<div style="{CURRENT_CUSTOMER_STYLE}">{CURRENT_CUSTOMER}</div>
+
+<h3>{HEADLINE}</h3>
+<div id="overlay" style="display: none;"></div>
+<div id="dialog_wrapper" style="display: none;"></div>
+<div class="infoBar">
+	Um die Daten eines Benutzers zu bearbeiten, klicken Sie auf den Stift bei dem jeweiligen Benutzer. Änderungen werden sofort gespeichert. Ursprüngliche Passwörter werden im Klartext angezeigt, vom Benutzer geänderte als Sternchen.<br>
+	Benutzer lassen sich einfacher finden, indem Sie den Filter verwenden. Tippen Sie einfach einen Teil des Benutzernamen oder der Benutzerkennung in das Textfeld.
+</div>
+<div style="text-align:right">
+<b>Filter</b>:
+<form style="display:inline"><input id="user_filter" type="text" size="20" onkeyup="filter('filter_user',this.value);"></form> oder <form style="display:inline" action="" method="post" onsubmit="return false;">{FILTER_COMBOBOX}</form></div><br>
+
+<!-- <table class="grid" width="100%" style="margin-bottom:30px;">
+	<tr>
+		<th colspan="2">{HEADLINE_FILTER}</th>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_FILTER}</td>
+		<td>{FILTER_COMBOBOX}</td>
+	</tr>
+</table>-->
+
+{EMPLOYEES_TABLE}

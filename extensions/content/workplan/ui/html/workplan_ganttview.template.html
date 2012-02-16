@@ -1,0 +1,211 @@
+<!-- BEGIN BLOCK_CONFIRMATION -->
+<p id="confirmation" style="display:none">{CONFIRMATION_TEXT}</p>
+<!-- END BLOCK_CONFIRMATION -->
+
+<!-- BEGIN BLOCK_WORKPLAN_GANTT_ACTIONBAR -->
+<div class="actionBar">
+	<a class="button" onclick="newSnapshot({WORKPLAN_ID})">{LABEL_NEW_SNAPSHOT}</a>
+	<a class="button" onclick="hideConfirmation(); if (!(document.getElementById('slidedown_task').style.display == 'none')) Effect.SlideUp('slidedown_task'); Effect.SlideDown('slidedown_milestone'); return false;">{LABEL_NEW_MILESTONE}</a>
+	<a class="button" onclick="hideConfirmation(); if (!(document.getElementById('slidedown_milestone').style.display == 'none')) Effect.SlideUp('slidedown_milestone'); Effect.SlideDown('slidedown_task'); return false;">{LABEL_NEW_TASK}</a>
+</div>
+<!-- END BLOCK_WORKPLAN_GANTT_ACTIONBAR -->
+
+<!-- BEGIN BLOCK_GANTT_CHART -->
+<div class="gantt" id="{GANTT_DIV}"></div>
+<script language="javascript">
+tasks = "{WORKPLAN_GANTT_TASKS}";
+tasks = tasks.substring(1, tasks.length-1);
+if (tasks.indexOf(',') == -1) {
+	task = tasks;
+	if (task.length > 20) {
+		task = task.substring(0, 20)+'(...)';
+	}
+} else {
+	task = tasks.substring(0, tasks.indexOf(','));
+}
+Milestone = JSON.parse("{WORKPLAN_GANTT_MILESTONE}");
+OID = JSON.parse("{WORKPLAN_GANTT_OID}");
+Start = JSON.parse("{WORKPLAN_GANTT_START}");
+End = JSON.parse("{WORKPLAN_GANTT_END}");
+Depends = JSON.parse("{WORKPLAN_GANTT_DEPENDS}");
+var g = new JSGantt.GanttChart('g',document.getElementById('ganttchartdiv'), 'day');
+g.setShowRes(0);
+g.setShowDur(0); 
+g.setShowComp(0);
+g.setCaptionType('Duration');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
+g.setShowStartDate(1); 
+g.setShowEndDate(1); 
+g.setDateInputFormat('dd/mm/yyyy')  // Set format of input dates ('mm/dd/yyyy', 'dd/mm/yyyy', 'yyyy-mm-dd')
+g.setDateDisplayFormat('dd.mm.yyyy') // Set format to display dates ('mm/dd/yyyy', 'dd/mm/yyyy', 'yyyy-mm-dd')
+g.setFormatArr("day", "week", "month") // Set format options (up to 4 : "minute","hour","day","week","month","quarter")
+if( g ) {
+	for (i=0; i<OID.length; i++) {
+		
+		var starthelp = new Date(Start[i]*1000);
+		var starthelpday = starthelp.getDate();
+		
+		if (starthelpday < 10) {
+			starthelpday = "0" + starthelpday;
+		}
+		var starthelpmonth = starthelp.getMonth()+1;
+		if (starthelpmonth < 10) {
+			starthelpmonth = "0" + starthelpmonth;
+		}
+		var starthelpyear = starthelp.getFullYear();
+		starthelp = starthelpday + "/" + starthelpmonth + "/" + starthelpyear;
+
+		var endhelp = new Date(End[i]*1000);
+		var endhelpday = endhelp.getDate();
+		if (endhelpday < 10) {
+			endhelpday = "0" + endhelpday;
+		}
+		var endhelpmonth = endhelp.getMonth()+1;
+		if (endhelpmonth < 10) {
+			endhelpmonth = "0" + endhelpmonth;
+		}
+		var endhelpyear = endhelp.getFullYear();
+		endhelp = endhelpday + "/" + endhelpmonth + "/" + endhelpyear;
+		if (Depends[i] == -1) {
+			Depends[i] = '';
+		}
+		if (Milestone[i] == 1) {
+			g.AddTaskItem(new JSGantt.TaskItem(OID[i], task, starthelp, endhelp, 'ff00ff', 'http://help.com', 1, 'User', 100, 0, 1, 1, Depends[i], ""));
+		} else {
+			g.AddTaskItem(new JSGantt.TaskItem(OID[i], task, starthelp, endhelp, '396789', 'http://help.com', 0, 'User', 0, 0, 1, 1, Depends[i], ""));
+		}
+		tasks = tasks.substring(tasks.indexOf(',')+1, tasks.length+1);
+		task = tasks.substring(0, tasks.indexOf(','));
+		if (tasks.indexOf(',') == -1) {
+			task = tasks;
+		}
+		if (task.length > 20) {
+			task = task.substring(0, 20)+'(...)';
+		}
+	}
+}
+g.Draw();	
+g.DrawDependencies();
+</script>
+<!-- END BLOCK_GANTT_CHART -->
+
+<!-- BEGIN BLOCK_WORKPLAN_GANTT_EMPTY -->
+<div>
+	<p align="center">{WORKPLAN_GANTT_EMPTY}</p>
+</div>
+<!-- END BLOCK_WORKPLAN_GANTT_EMPTY -->
+
+<!-- BEGIN BLOCK_WORKPLAN_LIST_FORMULAR -->
+<br>
+<div id="createforms">
+<table width=100%">
+	<tr>
+		<td width="50%">
+			<div id="slidedown_milestone" style="display:none; width:390px; text-align:center;">
+		  		<div>
+		  			<form action="" onsubmit="return checkMilestoneGanttView();" method="post" name="createmilestone">
+		    			<input type="hidden" name="workplanid" value="{WORKPLAN_ID}">
+						<table class="grid" width="100%">
+							<tr>
+								<td align="center" colspan="2"><h2>{LABEL_NEW_MILESTONE}</h2></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{NAME_LABEL}</td>
+								<td><input name="milestonename" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DATE_LABEL}</td>
+								<td><input title="TT.MM.JJJJ" name="milestonedate" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label" colspan="2"/>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DURATION_LABEL}</td>
+								<td><input name="milestoneduration" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DEPENDS_LABEL}</td>
+								<td><select style="width:100%" name="milestonedepends" size="1">
+									<!-- BEGIN BLOCK_LIST_MILESTONE_DEPENDS -->
+										<option value="{DEPENDS_OID}" >{DEPENDS_NAME}</option>
+									<!-- END BLOCK_LIST_MILESTONE_DEPENDS -->
+								</select></td>
+							</tr>
+							<tr>
+								<td class="label">{USERS_LABEL}</td>
+								<td><select style="width: 100%" multiple name="milestoneusers[]" size="3">
+									<!-- BEGIN BLOCK_USER_OPTION_MILESTONE -->
+										<option value={USER_ID}>{USER_NAME}</option>
+									<!-- END BLOCK_USER_OPTION_MILESTONE -->
+								</select></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="buttons">
+										<input type="submit" name="new_milestone" value="{LABEL_ADD}">
+										<a onclick="Effect.SlideUp('slidedown_milestone'); return false;">{LABEL_BACK}</a>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</form>
+		  		</div>
+			</div>
+			</td>
+			<td width="50%">
+			<div id="slidedown_task" style="display:none; width:390px; text-align:center;">
+		  		<div>
+		    		<form action="" onsubmit="return checkTaskGanttView();" name="createtask" method="post">
+						<table class="grid" width="100%">
+							<tr>
+								<td align="center" colspan="2"><h2>{LABEL_NEW_TASK}</h2></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{NAME_LABEL}</td>
+								<td><input name="taskname" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{START_LABEL}</td>
+								<td><input title="TT.MM.JJJJ" name="taskstart" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{END_LABEL}</td>
+								<td><input title="TT.MM.JJJJ" name="taskend" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DURATION_LABEL}</td>
+								<td><input name="taskduration" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DEPENDS_LABEL}</td>
+								<td><select style="width:100%" name="taskdepends" size="1">
+									<!-- BEGIN BLOCK_LIST_TASK_DEPENDS -->
+										<option value="{DEPENDS_OID}" >{DEPENDS_NAME}</option>
+									<!-- END BLOCK_LIST_TASK_DEPENDS -->
+								</select></td>
+							</tr>
+							<tr>
+								<td class="label">{USERS_LABEL}</td>
+								<td><select style="width: 100%" multiple name="taskusers[]" size="3">
+									<!-- BEGIN BLOCK_USER_OPTION_TASK -->
+										<option title="{USER_RESSOURCE}" onclick="enterEndDate(2)" value={USER_ID}>{USER_NAME}</option>
+									<!-- END BLOCK_USER_OPTION_TASK -->
+								</select></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="buttons">
+										<input type="submit" name="new_task" value="{LABEL_ADD}">
+										<a onclick="Effect.SlideUp('slidedown_task'); return false;">{LABEL_BACK}</a>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</form>
+		  		</div>
+			</div>
+		</td>
+	</tr>
+</table>
+</div>
+<!-- END BLOCK_WORKPLAN_LIST_FORMULAR -->

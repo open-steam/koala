@@ -1,0 +1,587 @@
+\hypertarget{class_unit_test_case}{
+\section{UnitTestCase Class Reference}
+\label{class_unit_test_case}\index{UnitTestCase@{UnitTestCase}}
+}
+Inheritance diagram for UnitTestCase:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.854305cm]{class_unit_test_case}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_unit_test_case_affc46b2886ff25f1d99af2aaed64a963}{UnitTestCase} (\$label=false)
+\item 
+\hyperlink{class_unit_test_case_a0dfaf4fc311df202de45e0c26919de3f}{assertTrue} (\$result, \$message=false)
+\item 
+\hyperlink{class_unit_test_case_a05b9da85b91d042555b87708b33cbeb2}{assertFalse} (\$result, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a73855c4eea57a82974690087843f5b17}{assertNull} (\$value, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_ac03def71a0930bb27c6bfe166187a30d}{assertNotNull} (\$value, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_acd747d04be9d2e06b526093e4affdab3}{assertIsA} (\$object, \$type, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_ade7bbd612cc583ba67dd251064e4fa20}{assertNotA} (\$object, \$type, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a93868351d598a6b80388eeb446c9daaf}{assertEqual} (\$first, \$second, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a9b932083f42caa678fed9572b9cf6468}{assertNotEqual} (\$first, \$second, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a60e3a3a68cd4edfedcf2a2a96d68549a}{assertWithinMargin} (\$first, \$second, \$margin, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a8e3b8d5600731e494ad281ea165f2a53}{assertOutsideMargin} (\$first, \$second, \$margin, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_ac44a3356c9546370e31cd5e71123c5bd}{assertIdentical} (\$first, \$second, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a35ac184f9c99528c11929ca8a177ebf9}{assertNotIdentical} (\$first, \$second, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a14a8294747390eb7ce1238d0fb00d5f1}{assertReference} (\&\$first, \&\$second, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_aa36296ec9f5b8f98ec70dd1903fb2ef5}{assertClone} (\&\$first, \&\$second, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a457392b00e8cfb893e519e8bc4fa1749}{assertCopy} (\&\$first, \&\$second, \$message=\char`\"{}\%s\char`\"{})
+\item 
+\hyperlink{class_unit_test_case_afddf643f99b03b10e9130adef47ffb45}{assertPattern} (\$pattern, \$subject, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_af90c866edd54a7db648e9e1e95043209}{assertWantedPattern} (\$pattern, \$subject, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a0260f53af3df61f9a066a172b0848e6e}{assertNoPattern} (\$pattern, \$subject, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a89d3dc4c132a2169978e08835f3e7764}{assertNoUnwantedPattern} (\$pattern, \$subject, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_ac3764e45c5824f0ce866efef48b39752}{swallowErrors} ()
+\item 
+\hyperlink{class_unit_test_case_ade3339d36a563bef91ae2e413a94d143}{assertNoErrors} (\$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_afca81e1dd754acc0d6a812e48faeb763}{assertError} (\$expected=false, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_aca84304870f9ce9c5b86fd1026e947dd}{expectError} (\$expected=false, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a7653373ecf57e9badb0de44097a76fe3}{expectException} (\$expected=false, \$message= '\%s')
+\item 
+\hyperlink{class_unit_test_case_a643f146bf847fb7e1cabe481ea10596d}{\_\-coerceExpectation} (\$expected)
+\item 
+\hyperlink{class_unit_test_case_a145f3c7e61fd66e2e2d4a6bb87f58ea0}{assertErrorPattern} (\$pattern, \$message= '\%s')
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_unit_test_case_a643f146bf847fb7e1cabe481ea10596d}{
+\index{UnitTestCase@{UnitTestCase}!\_\-coerceExpectation@{\_\-coerceExpectation}}
+\index{\_\-coerceExpectation@{\_\-coerceExpectation}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{\_\-coerceExpectation}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::\_\-coerceExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expected}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a643f146bf847fb7e1cabe481ea10596d}
+Creates an equality expectation if the object/value is not already some type of expectation. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$expected} & Expected value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_expectation}{SimpleExpectation} Expectation object.  private 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_aa36296ec9f5b8f98ec70dd1903fb2ef5}{
+\index{UnitTestCase@{UnitTestCase}!assertClone@{assertClone}}
+\index{assertClone@{assertClone}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertClone}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertClone (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ first, }
+\item[{\&\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_aa36296ec9f5b8f98ec70dd1903fb2ef5}
+Will trigger a pass if both parameters refer to different objects. Fail otherwise. The objects have to be identical though. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Object reference to check. \\
+\hline
+mixed & {\em \$second} & Hopefully not the same object. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_a457392b00e8cfb893e519e8bc4fa1749}{
+\index{UnitTestCase@{UnitTestCase}!assertCopy@{assertCopy}}
+\index{assertCopy@{assertCopy}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertCopy}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertCopy (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ first, }
+\item[{\&\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily \char`\"{}\%s\char`\"{}}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a457392b00e8cfb893e519e8bc4fa1749}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000018}{Deprecated}]\end{Desc}
+\hypertarget{class_unit_test_case_a93868351d598a6b80388eeb446c9daaf}{
+\index{UnitTestCase@{UnitTestCase}!assertEqual@{assertEqual}}
+\index{assertEqual@{assertEqual}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertEqual}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertEqual (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a93868351d598a6b80388eeb446c9daaf}
+Will trigger a pass if the two parameters have the same value only. Otherwise a fail. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Value to compare. \\
+\hline
+mixed & {\em \$second} & Value to compare. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_afca81e1dd754acc0d6a812e48faeb763}{
+\index{UnitTestCase@{UnitTestCase}!assertError@{assertError}}
+\index{assertError@{assertError}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertError}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expected = {\ttfamily false}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_afca81e1dd754acc0d6a812e48faeb763}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000023}{Deprecated}]\end{Desc}
+\hypertarget{class_unit_test_case_a145f3c7e61fd66e2e2d4a6bb87f58ea0}{
+\index{UnitTestCase@{UnitTestCase}!assertErrorPattern@{assertErrorPattern}}
+\index{assertErrorPattern@{assertErrorPattern}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertErrorPattern}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertErrorPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a145f3c7e61fd66e2e2d4a6bb87f58ea0}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000024}{Deprecated}]\end{Desc}
+\hypertarget{class_unit_test_case_a05b9da85b91d042555b87708b33cbeb2}{
+\index{UnitTestCase@{UnitTestCase}!assertFalse@{assertFalse}}
+\index{assertFalse@{assertFalse}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertFalse}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertFalse (
+\begin{DoxyParamCaption}
+\item[{\$}]{ result, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a05b9da85b91d042555b87708b33cbeb2}
+Will be true on false and vice versa. False is the PHP definition of false, so that null, empty strings, zero and an empty array all count as false. 
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$result} & Pass on false. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_ac44a3356c9546370e31cd5e71123c5bd}{
+\index{UnitTestCase@{UnitTestCase}!assertIdentical@{assertIdentical}}
+\index{assertIdentical@{assertIdentical}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertIdentical}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertIdentical (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_ac44a3356c9546370e31cd5e71123c5bd}
+Will trigger a pass if the two parameters have the same value and same type. Otherwise a fail. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Value to compare. \\
+\hline
+mixed & {\em \$second} & Value to compare. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_acd747d04be9d2e06b526093e4affdab3}{
+\index{UnitTestCase@{UnitTestCase}!assertIsA@{assertIsA}}
+\index{assertIsA@{assertIsA}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertIsA}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertIsA (
+\begin{DoxyParamCaption}
+\item[{\$}]{ object, }
+\item[{\$}]{ type, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_acd747d04be9d2e06b526093e4affdab3}
+Type and class test. Will pass if class matches the type name or is a subclass or if not an object, but the type is correct. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$object} & Object to test. \\
+\hline
+string & {\em \$type} & Type name as string. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_ade3339d36a563bef91ae2e413a94d143}{
+\index{UnitTestCase@{UnitTestCase}!assertNoErrors@{assertNoErrors}}
+\index{assertNoErrors@{assertNoErrors}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertNoErrors}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertNoErrors (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_ade3339d36a563bef91ae2e413a94d143}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000022}{Deprecated}]\end{Desc}
+\hypertarget{class_unit_test_case_a0260f53af3df61f9a066a172b0848e6e}{
+\index{UnitTestCase@{UnitTestCase}!assertNoPattern@{assertNoPattern}}
+\index{assertNoPattern@{assertNoPattern}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertNoPattern}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertNoPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ subject, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a0260f53af3df61f9a066a172b0848e6e}
+Will trigger a pass if the perl regex pattern is not present in subject. Fail if found. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & Perl regex to look for including the regex delimiters. \\
+\hline
+string & {\em \$subject} & String to search in. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_ade7bbd612cc583ba67dd251064e4fa20}{
+\index{UnitTestCase@{UnitTestCase}!assertNotA@{assertNotA}}
+\index{assertNotA@{assertNotA}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertNotA}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertNotA (
+\begin{DoxyParamCaption}
+\item[{\$}]{ object, }
+\item[{\$}]{ type, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_ade7bbd612cc583ba67dd251064e4fa20}
+Type and class mismatch test. Will pass if class name or underling type does not match the one specified. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$object} & Object to test. \\
+\hline
+string & {\em \$type} & Type name as string. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_a9b932083f42caa678fed9572b9cf6468}{
+\index{UnitTestCase@{UnitTestCase}!assertNotEqual@{assertNotEqual}}
+\index{assertNotEqual@{assertNotEqual}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertNotEqual}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertNotEqual (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a9b932083f42caa678fed9572b9cf6468}
+Will trigger a pass if the two parameters have a different value. Otherwise a fail. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Value to compare. \\
+\hline
+mixed & {\em \$second} & Value to compare. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_a35ac184f9c99528c11929ca8a177ebf9}{
+\index{UnitTestCase@{UnitTestCase}!assertNotIdentical@{assertNotIdentical}}
+\index{assertNotIdentical@{assertNotIdentical}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertNotIdentical}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertNotIdentical (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a35ac184f9c99528c11929ca8a177ebf9}
+Will trigger a pass if the two parameters have the different value or different type. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Value to compare. \\
+\hline
+mixed & {\em \$second} & Value to compare. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_ac03def71a0930bb27c6bfe166187a30d}{
+\index{UnitTestCase@{UnitTestCase}!assertNotNull@{assertNotNull}}
+\index{assertNotNull@{assertNotNull}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertNotNull}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertNotNull (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_ac03def71a0930bb27c6bfe166187a30d}
+Will be true if the value is set. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & Supposedly set value. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass.  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_a89d3dc4c132a2169978e08835f3e7764}{
+\index{UnitTestCase@{UnitTestCase}!assertNoUnwantedPattern@{assertNoUnwantedPattern}}
+\index{assertNoUnwantedPattern@{assertNoUnwantedPattern}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertNoUnwantedPattern}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertNoUnwantedPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ subject, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a89d3dc4c132a2169978e08835f3e7764}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000020}{Deprecated}]\end{Desc}
+\hypertarget{class_unit_test_case_a73855c4eea57a82974690087843f5b17}{
+\index{UnitTestCase@{UnitTestCase}!assertNull@{assertNull}}
+\index{assertNull@{assertNull}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertNull}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertNull (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a73855c4eea57a82974690087843f5b17}
+Will be true if the value is null. 
+\begin{DoxyParams}[1]{Parameters}
+null & {\em \$value} & Supposedly null value. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_a8e3b8d5600731e494ad281ea165f2a53}{
+\index{UnitTestCase@{UnitTestCase}!assertOutsideMargin@{assertOutsideMargin}}
+\index{assertOutsideMargin@{assertOutsideMargin}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertOutsideMargin}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertOutsideMargin (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ margin, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a8e3b8d5600731e494ad281ea165f2a53}
+Will trigger a pass if the two parameters differ by more than the margin. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Value to compare. \\
+\hline
+mixed & {\em \$second} & Value to compare. \\
+\hline
+mixed & {\em \$margin} & Fuzziness of match. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_afddf643f99b03b10e9130adef47ffb45}{
+\index{UnitTestCase@{UnitTestCase}!assertPattern@{assertPattern}}
+\index{assertPattern@{assertPattern}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertPattern}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ subject, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_afddf643f99b03b10e9130adef47ffb45}
+Will trigger a pass if the Perl regex pattern is found in the subject. Fail otherwise. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & Perl regex to look for including the regex delimiters. \\
+\hline
+string & {\em \$subject} & String to search in. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_a14a8294747390eb7ce1238d0fb00d5f1}{
+\index{UnitTestCase@{UnitTestCase}!assertReference@{assertReference}}
+\index{assertReference@{assertReference}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertReference}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertReference (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ first, }
+\item[{\&\$}]{ second, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a14a8294747390eb7ce1238d0fb00d5f1}
+Will trigger a pass if both parameters refer to the same object. Fail otherwise. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Object reference to check. \\
+\hline
+mixed & {\em \$second} & Hopefully the same object. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_a0dfaf4fc311df202de45e0c26919de3f}{
+\index{UnitTestCase@{UnitTestCase}!assertTrue@{assertTrue}}
+\index{assertTrue@{assertTrue}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertTrue}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertTrue (
+\begin{DoxyParamCaption}
+\item[{\$}]{ result, }
+\item[{\$}]{ message = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a0dfaf4fc311df202de45e0c26919de3f}
+Called from within the test methods to register passes and failures. 
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$result} & Pass on true. \\
+\hline
+string & {\em \$message} & Message to display describing the test state. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_af90c866edd54a7db648e9e1e95043209}{
+\index{UnitTestCase@{UnitTestCase}!assertWantedPattern@{assertWantedPattern}}
+\index{assertWantedPattern@{assertWantedPattern}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertWantedPattern}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertWantedPattern (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pattern, }
+\item[{\$}]{ subject, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_af90c866edd54a7db648e9e1e95043209}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000019}{Deprecated}]\end{Desc}
+\hypertarget{class_unit_test_case_a60e3a3a68cd4edfedcf2a2a96d68549a}{
+\index{UnitTestCase@{UnitTestCase}!assertWithinMargin@{assertWithinMargin}}
+\index{assertWithinMargin@{assertWithinMargin}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{assertWithinMargin}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::assertWithinMargin (
+\begin{DoxyParamCaption}
+\item[{\$}]{ first, }
+\item[{\$}]{ second, }
+\item[{\$}]{ margin, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a60e3a3a68cd4edfedcf2a2a96d68549a}
+Will trigger a pass if the if the first parameter is near enough to the second by the margin. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$first} & Value to compare. \\
+\hline
+mixed & {\em \$second} & Value to compare. \\
+\hline
+mixed & {\em \$margin} & Fuzziness of match. \\
+\hline
+string & {\em \$message} & Message to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True on pass  public 
+\end{DoxyReturn}
+\hypertarget{class_unit_test_case_aca84304870f9ce9c5b86fd1026e947dd}{
+\index{UnitTestCase@{UnitTestCase}!expectError@{expectError}}
+\index{expectError@{expectError}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{expectError}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::expectError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expected = {\ttfamily false}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_aca84304870f9ce9c5b86fd1026e947dd}
+Prepares for an error. If the error mismatches it passes through, otherwise it is swallowed. Any left over errors trigger failures. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em SimpleExpectation/string} & \$expected The error to match. \\
+\hline
+string & {\em \$message} & Message on failure.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_unit_test_case_a7653373ecf57e9badb0de44097a76fe3}{
+\index{UnitTestCase@{UnitTestCase}!expectException@{expectException}}
+\index{expectException@{expectException}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{expectException}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::expectException (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expected = {\ttfamily false}, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_a7653373ecf57e9badb0de44097a76fe3}
+Prepares for an exception. If the error mismatches it passes through, otherwise it is swallowed. Any left over errors trigger failures. 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em SimpleExpectation/Exception} & \$expected The error to match. \\
+\hline
+string & {\em \$message} & Message on failure.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_unit_test_case_ac3764e45c5824f0ce866efef48b39752}{
+\index{UnitTestCase@{UnitTestCase}!swallowErrors@{swallowErrors}}
+\index{swallowErrors@{swallowErrors}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{swallowErrors}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::swallowErrors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_ac3764e45c5824f0ce866efef48b39752}
+\begin{Desc}
+\item[\hyperlink{deprecated__deprecated000021}{Deprecated}]\end{Desc}
+\hypertarget{class_unit_test_case_affc46b2886ff25f1d99af2aaed64a963}{
+\index{UnitTestCase@{UnitTestCase}!UnitTestCase@{UnitTestCase}}
+\index{UnitTestCase@{UnitTestCase}!UnitTestCase@{UnitTestCase}}
+\subsubsection[{UnitTestCase}]{\setlength{\rightskip}{0pt plus 5cm}UnitTestCase::UnitTestCase (
+\begin{DoxyParamCaption}
+\item[{\$}]{ label = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_unit_test_case_affc46b2886ff25f1d99af2aaed64a963}
+Creates an empty test case. Should be subclassed with test methods for a functional test case. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$label} & Name of test case. Will use the class name if none specified.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/unit\_\-tester.php\end{DoxyCompactItemize}

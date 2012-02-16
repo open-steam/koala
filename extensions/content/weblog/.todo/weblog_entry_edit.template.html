@@ -1,0 +1,93 @@
+<!--<div class="infoBar">
+	{INFO_TEXT}
+</div>
+-->
+<!-- BEGIN BLOCK_PREVIEW -->
+<h3>{LABEL_PREVIEW_EDIT}</h3>
+<div class="PostPreview">
+{PREVIEW_EDIT}
+</div>
+<!-- END BLOCK_PREVIEW -->
+
+<!--
+<form action="{FORM_ACTION}" method="post" >
+<input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}">
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="label">{LABEL_NAME}*:</td>
+		<td class="value"><input type="text" name="values[name]" style="width: 400px;"/></td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_DSC}*:</td>
+		<td class="value"><input type="text" name="values[dsc]" style="width: 400px;" value="{VALUE_DSC}"/></td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_ACCESS}:</td>
+		<td class="value">
+			<input type="radio" name="values[access]" value="0" checked="checked"/> {LABEL_ALL_USER}<br/>
+			<input type="radio" name="values[access]" value="1"/> {LABEL_READ_NO_POST}<br/>
+			<input type="radio" name="values[access]" value="2"/> {LABEL_MEMBERS_ONLY}
+		</td>
+	</tr>
+	<tr>
+		<td class="label">&nbsp;</td>
+		<td class="value"><input type="submit"  value="{LABEL_CREATE_WEBLOG}"/> {BACKLINK}</td>
+	</tr>
+</table>
+</form>
+-->
+<h3>{LABEL_HERE_IT_IS}</h3>
+<form action="" method="post" name="formular">
+<table cellspacing="0" cellpadding="5">
+<tr>
+<td class="Label">{LABEL_DATE}:</td>
+<td>
+<input type="text" name="values[date]" style="width: 400px;" value="{DATE_COMMENT}">
+<br/>
+<small>Format: YYYY-MM-DD HH:MM</small>
+</td>
+</tr>
+<tr>
+<td class="Label">{LABEL_SUBJECT}:</td>
+<td><input type="text" name="values[title]" style="width: 400px;" value="{TITLE_COMMENT}"></td>
+</tr>
+<tr>
+<td class="Label">
+{LABEL_CATEGORY}:
+</td>
+<td>
+<select name="values[category]">
+<option value="0">{CAT_NO_SELECTION}</option>
+<!-- BEGIN BLOCK_SELECT_CAT -->
+<option value="{VALUE_CAT}" {CAT_SELECTED}>{LABEL_CAT}</option>
+<!-- END BLOCK_SELECT_CAT -->
+</select>
+&nbsp;
+</td>
+</tr>
+<tr>
+<td class="Label">{LABEL_YOUR_POST}:</td>
+<td>
+<textarea name="values[body]" style="width: 400px;" rows="15">{TEXT_COMMENT}</textarea><br />
+<a href="javascript:insert('[b]', '[/b]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+<a href="javascript:insert('[i]', '[/i]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+<a href="javascript:insert('[u]', '[/u]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+<a href="javascript:insert('[s]', '[/s]', 'formular', 'values[body]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+<a href="javascript:insert('[img]http://', '[/img]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+<a href="javascript:insert('[url=http://]', '[/url]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+<a href="javascript:insert('[mail=@]', '[/mail]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align="absmiddle">
+<div class="buttons" style="text-align: left;">
+<input type="submit" name="values[preview]"  value="{LABEL_PREVIEW}">
+<input type="submit" name="values[save]"  value="{LABEL_SAVE_CHANGES}">
+<a href="{BACK_LINK}">{LABEL_RETURN}</a>
+</div>
+</td>
+</tr>
+</table>
+<input type="hidden" name="values[return_to]" value="{BACK_LINK}">
+</form>

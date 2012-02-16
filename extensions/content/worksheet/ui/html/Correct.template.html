@@ -1,0 +1,106 @@
+<script type="text/javascript" src="{$PATH_URL}worksheet/asset/js/jquery.worksheetPreventChanges.js"></script>
+<script type="text/javascript" src="{$PATH_URL}worksheet/asset/js/jquery.worksheetMarkup.js"></script>
+<script type="text/javascript">
+{literal}
+
+	jQuery(function() {
+		
+		jQuery("#worksheet_blocks>li").children("textarea, input[type=text], input[type=password]").bind("keyup", function() {
+			
+			worksheet_startSaveTimer();
+			
+		});
+		
+		jQuery("#worksheet_blocks>li").children("input[type=checkbox]").bind("change", function() {
+			
+			worksheet_startSaveTimer();
+			
+		});
+		
+	});
+	
+	
+	var worksheet_save_timer;
+	
+	
+	function worksheet_startSaveTimer() {
+		
+		clearTimeout(worksheet_save_timer);
+		worksheet_save_timer = window.setTimeout("worksheet_save()", 5000);
+		
+	}
+	
+
+	function worksheet_save(finishFunction) {
+		
+		clearTimeout(worksheet_save_timer);
+		
+		var data = [];
+		
+		jQuery("#worksheet_blocks>li").each(function(blockId) {
+		
+			var blockData = {};
+		
+			jQuery(this).find('input, textarea, div, span').each(function(id) {
+				
+				if (jQuery(this).attr("name") != undefined) {
+				
+					var name = jQuery(this).attr("name");
+					
+					if (this.tagName == "DIV" || this.tagName == "SPAN") {
+						var value = jQuery(this).html();
+					} else {
+						var value = jQuery(this).val();
+					}
+					
+					blockData[name] = value;
+				
+				}
+				
+			});
+			
+			data[blockId] = blockData;
+			
+		});
+		
+		if (finishFunction == undefined) {
+			var finishFunction = false;
+		}
+		
+		sendRequest("SaveCorrection", {'id':{/literal}{$ID}{literal}, 'data':JSON.stringify(data)}, null, "data", false, finishFunction);
+		
+	}
+	
+	
+	function worksheet_finish(sourceId) {
+		
+		worksheet_save(function() {
+			window.location.href = "{/literal}{$PATH_URL}worksheet/CorrectFinish/{$ID}{literal}/"+sourceId;
+		});
+		
+	}
+	
+{/literal}
+</script>
+
+{if $blocks}
+
+	<ul id="worksheet_blocks">
+
+		{foreach from=$blocks item=block}
+
+			<li class="worksheet_block_correct" id="{$block.id}">
+
+				<h1>{$block.name}</h1>
+
+				{$block.content}
+
+			</li>
+
+		{/foreach}
+	
+	</ul>
+	
+{else}
+	<p class="worksheet_info">Es wurden keine Aufgaben gefunden.</p>
+{/if}

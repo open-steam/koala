@@ -1,0 +1,50 @@
+<div class="portlet appointment">
+	<h1 class="headline">
+	
+		<!-- BEGIN BLOCK_EDIT_BUTTON_MAIN -->
+		<div class="editbutton">{POPUPMENU}</div>
+		<div style='float:right' class='editbutton'>{REFERENCE_ICON}</div>
+		<!-- END BLOCK_EDIT_BUTTON_MAIN -->
+		
+		{APPOINTMENT_NAME}
+	</h1>
+	
+	<!-- BEGIN BLOCK_TERM -->
+	<h2 class="subheadline">
+	
+		<!-- BEGIN EDIT_BUTTON_TOPIC -->
+		<div class="editbutton">{POPUPMENU_ENTRY}</div>
+		<!-- END EDIT_BUTTON_TOPIC -->
+		
+		<!-- BEGIN BLOCK_TERM_LINK -->
+		<a href="{LINKURL}">{TOPIC}</a>
+		<!-- END BLOCK_TERM_LINK -->
+		<!-- BEGIN BLOCK_TERM_NOLINK -->
+		{TOPIC}
+		<!-- END BLOCK_TERM_NOLINK -->
+		
+	</h2>
+	<div class="entry">
+		<!-- BEGIN BLOCK_TERM_LOCATION -->
+		<div class="location">{LOCATION}</div>
+		<!-- END BLOCK_TERM_LOCATION -->
+		
+		<div class="date">
+		{STARTDATE}
+		<!-- BEGIN BLOCK_TERM_ENDDATE -->
+		&nbsp;-&nbsp;
+		{ENDDATE}
+		<!-- END BLOCK_TERM_ENDDATE -->
+		</div>
+		
+		<!-- BEGIN BLOCK_TERM_TIME -->
+		<div class="date">{TIME}</div>
+		<!-- END BLOCK_TERM_TIME -->
+		
+		<!-- BEGIN BLOCK_TERM_DESCRIPTION -->
+		<div class="description">{DESCRIPTION}</div>
+		<!-- END BLOCK_TERM_DESCRIPTION -->
+		
+	</div>
+	<!-- END BLOCK_TERM -->
+</div>

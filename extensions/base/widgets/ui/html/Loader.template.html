@@ -1,0 +1,13 @@
+<div id="{WRAPPER_ID}">
+	<div id="loading" style="z-index:240; position:relative;width:100%;height:400px;text-align:center">
+		<div style="margin-top:100px">
+			<b>{MESSAGE}</b><br>
+			<img src="{IMAGE_SRC}"></img>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+   jQuery(document).ready(function(){
+     sendRequest("{COMMENT}", {PARAMS}, "{ELEMENT_ID}", "{TYPE}");
+   });
+</script>

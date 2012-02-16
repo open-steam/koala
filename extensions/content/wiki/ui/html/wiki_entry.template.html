@@ -1,0 +1,155 @@
+<div class="wiki_text">
+  {VALUE_ENTRY_TEXT}
+</div>
+
+<script type="text/javascript">
+
+function showBox( imageID, width, height )
+{
+	var img = document.getElementById( imageID );
+	var screenWidth = self.innerWidth - 100;
+	var screenHeight = self.innerHeight - 140;
+	var newWidth = width;
+	var newHeight = height;
+
+	var url = img.src;
+	var to = url.indexOf( "&" );
+	url = url.substring( 0, to );
+
+	if ( width > screenWidth )
+	{
+		newHeight = Math.floor( height *  screenWidth / width );
+		newWidth = screenWidth;
+	}
+
+	if ( height > screenHeight )
+	{
+		newWidth = Math.floor( width *  screenHeight / height );
+		newHeight = screenHeight;
+	}
+
+	url = url + "&width=" + newWidth;
+	url = url + "&height=" + newHeight;
+
+	document.getElementById("image").src = url;
+	document.getElementById("image").alt = img.alt;
+	document.getElementById("image").title = img.title;
+	
+	document.getElementById("imgName").innerHTML = img.name;
+	document.getElementById("imgDesc").innerHTML = img.alt;
+	
+	document.getElementById("imageBox").style.left = ( ( screenWidth - newWidth ) / 2 + 20 ) + "px";
+	document.getElementById("imageBox").style.top = ( ( screenHeight - newHeight ) / 2 + 10 ) + "px";
+
+	document.getElementById("container").style.visibility = "visible";
+}
+
+function hideBox()
+{
+	document.getElementById("container").style.visibility = "hidden";
+}
+</script>
+
+<style type="text/css">
+
+#container
+{
+	font-size: 16px;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	visibility: hidden;
+	z-index: 1;
+}
+
+#greyBox
+{
+	background-color: #000000;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	position: fixed;
+	z-index: 2;
+	
+	filter: alpha(opacity=50); /* IE5-7 */
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8 */
+	opacity: .5; /* everything else */
+}
+
+#imageBox
+{
+	border-radius: 15px;
+	-moz-border-radius: 15px 15px 15px 15px;
+	-webkit-border-radius: 15px;
+	
+	-webkit-box-shadow: 0px 0px 10px #000000;
+	-moz-box-shadow: 0px 0px 10px #000000;
+	
+	background-color: #FFFFFF;
+	padding: 20px;
+	text-align: center;
+	position: fixed;
+	z-index: 3;
+}
+
+#imgName
+{
+	text-align: left;
+	position: absolute;
+	left: 20px;
+	top: 20px;
+}
+
+#close
+{
+	text-align: right;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+</style>
+
+<div id="container">
+	<div id="greyBox"></div>
+	<div id="imageBox">
+		<br />
+		<span id="imgName"></span>
+		<div id="close"><a href="javascript:hideBox();">{LABEL_CLOSE}</a></div>
+		<p><img id="image" src=""></p>
+		<span id="imgDesc"></span>
+	</div>
+</div>
+
+<hr>
+
+<p>
+  <table width="100%">
+    <tr valign="top">
+      <td width="60">
+        <a href="{AUTHOR_LINK}"><img width="48" height="56" src="{IMAGE_SRC}"></a> 
+      </td>
+      <td>
+      	<b>Version {VALUE_VERSION}</b> {LABEL_BY}<br />
+        <a href="{AUTHOR_LINK}">{VALUE_POSTED_BY}</a> | {VALUE_DATE_TIME} <br/>
+        <small><a href="{POST_PERMALINK}">{POST_PERMALINK_LABEL}</a></small>
+      </td>
+	  <td class="sidebar" width="220">
+	  	<h3>{VERSION_MANAGEMENT}</h3>
+		  <ul>
+		  {NUMBER_VERSIONS}
+	   	  {LINK_VERSION_MANAGEMENT}
+	   	  </ul>
+	   	<br />
+	   	<h3>{LINKS}</h3>
+	   	<ul>
+		  <!-- BEGIN BLOCK_LINKS -->
+		  {LINK}
+		  <!-- END BLOCK_LINKS -->
+		</ul>
+      </td>
+    </tr>
+  </table>
+</p>

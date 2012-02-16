@@ -1,0 +1,110 @@
+<!-- BEGIN BLOCK_SNAPSHOTS_NO_LIST -->
+<p align="center">{NO_SNAPSHOTS}</p>
+<br>
+<!-- END BLOCK_SNAPSHOTS_NO_LIST -->
+
+<!-- BEGIN BLOCK_SNAPSHOTS_LIST -->
+<div>
+	<table cellspacing="0" cellpadding="2" width="100%" class="grid">
+		<tr>
+			<th width="60%">{NAME_LABEL}</th>
+			<th width="20%">{DATE_LABEL}</th>
+			<th width="20%">{VIEW_LABEL}</th>
+		</tr>
+		<!-- BEGIN BLOCK_SNAPSHOTS_LIST_ELEMENT -->
+		<tr>
+			<td>{ELEMENT_NAME}</td>
+			<td>{ELEMENT_DATE}</td>
+			<td>
+				<div class="buttons">
+					<a onclick="loadSnapshotList({WORKPLAN_VERSION}, {WORKPLAN_ID}, {ANNOTATION_ID})">{ELEMENT_LIST}</a>
+					<a onclick="loadSnapshotGantt({WORKPLAN_VERSION}, {WORKPLAN_ID}, '{WORKPLAN_OIDS}','{WORKPLAN_NAMES}', '{WORKPLAN_STARTS}', '{WORKPLAN_ENDS}', '{WORKPLAN_DEPENDS}', '{WORKPLAN_MILESTONES}', {ANNOTATION_ID})">{ELEMENT_GANTT}</a>
+				</div>
+			</td>
+		</tr>
+		<!-- END BLOCK_SNAPSHOTS_LIST_ELEMENT -->
+	</table>
+</div>
+<br>
+<div id="old" style="border:1px black solid">
+	<div id="oldversioninfo"></div>
+	<div class="gantt" id="oldversion"></div>
+</div>
+<br>
+<!-- END BLOCK_SNAPSHOTS_LIST -->
+
+<!-- BEGIN BLOCK_SNAPSHOT_VIEW -->
+<h2 align="center">{SNAPSHOT_VERSION}</h2>
+<table class="grid" width="100%">
+	<tr>
+		<td id="label" colspan="1">{SNAPSHOT_VERSION_NAME}</td>
+		<td colspan="3">{SNAPSHOT_VERSION_NAME_VALUE}</td>
+	</tr>
+	<tr>
+		<td width="25%">{SNAPSHOT_VERSION_START}</td>
+		<td width="25%">{SNAPSHOT_VERSION_START_VALUE}</td>
+		<td width="25%">{SNAPSHOT_VERSION_END}</td>
+		<td width="25%">{SNAPSHOT_VERSION_END_VALUE}</td>
+	</tr>
+	<tr>
+		<td>{SNAPSHOT_VERSION_DESCRIPTION}</td>
+		<td colspan="3">{SNAPSHOT_VERSION_DESCRIPTION_VALUE}</td>
+	</tr>
+</table>
+<!-- END BLOCK_SNAPSHOT_VIEW -->
+
+<!-- BEGIN BLOCK_NEW_SNAPSHOT -->
+<div id="newsnap" style="display:{SNAPSHOT_RIGHTS}" title="{SNAPSHOT_RIGHTS}">
+	<form action="" method="post" onsubmit="return checkString(document.getElementsByName('values[snapshotname]')[0].value);" name="createsnapshot">
+		<input type="hidden" id="workplanid" value="{WORKPLAN_ID}">
+		<input type="hidden" id="version" value="{WORKPLAN_VERSION}">
+		<table class="grid" width="40%" cellpadding="5" cellspacing="0" align="center">
+			<tr>
+				<td colspan="2"><h2 align="center">{LABEL_NEW_SNAPSHOT}</h2></td>
+			</tr>
+			<tr height="30">
+				<td class="label" width="30%" align="center">{LABEL_NAME}</td>
+				<td width="70%"><input name="values[snapshotname]" type="text" size="30" value=""></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div class="buttons">
+						<input type="submit" value="{LABEL_CREATE}" name="new_snapshot">
+					</div>
+				</td>
+		</table>
+	</form>
+</div>
+<div id="currentversion" style="display:none;" align="center">
+	<table>
+		<tr>
+			<td>
+				<div class="buttons">
+					<a onclick="loadSnapshotList(0, {WORKPLAN_ID}); document.getElementById('hidecurrent').style.display = '';">{WORKPLAN_SHOW_CURRENTVERSION}</a>
+					<a onclick="hideSnapshot();">{WORKPLAN_HIDE_SNAPSHOT}</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<div id="current" style="display:none; border:1px black solid">
+	<br>
+	<div id="currentversioninfo"></div>
+	<div id="currentversiontable"></div>
+</div>
+<div id="hidecurrent" style="display:none;" align="center">
+	<br>
+	<table>
+		<tr>
+			<td>
+				<div class="buttons">
+					<a onclick="hideCurrentSnapshot();">{WORKPLAN_HIDECURRENT_SNAPSHOT}</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<script language="javascript">
+var g = new JSGantt.GanttChart('g',document.getElementById('oldversion'), 'day');
+</script>
+<!-- END BLOCK_NEW_SNAPSHOT -->

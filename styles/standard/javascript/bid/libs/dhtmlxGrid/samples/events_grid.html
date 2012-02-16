@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Attaching Event Handlers</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Grid samples</div>
+	<h1>Attaching Event Handlers</h1>
+	<p>Control grid processing and user behaviour using Grid Event Handlers available through Javascript Methods</p>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>		
+	<script  src="../js/dhtmlXGridCell.js"></script>	
+	<table width="600">
+		<tr>
+			<td>
+				<div id="gridbox" width="100%" height="250px" style="background-color:white;"></div>
+				<a href="javascript:void(0)" onclick="mygrid.deleteSelectedItem()">Remove Selected Row</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Protocol:<br>
+				<div id="protocol" style="width:100%;height:200px;overflow:auto;border:1px solid green;"></div>
+			</td>
+		</tr>
+	</table>
+<hr>
+<XMP>
+<div id="gridbox" width="100%" height="250px" style="background-color:white;overflow:hidden"></div>
+<script>
+		function doOnRowSelected(id){
+			...
+		}
+		function doOnCellEdit(stage,rowId,cellInd){
+			if(stage==0){
+				...
+				return true;
+			}else if(stage==1){
+				...
+			}else if(stage==2){
+				...
+			}
+		}
+		function doOnEnter(rowId,cellInd){
+			...
+		}
+		function doOnCheck(rowId,cellInd,state){
+			...
+		}
+		function doBeforeRowDeleted(rowId){
+			return confirm("Are you sure you want to delete row");
+		}
+		
+		mygrid = new dhtmlXGridObject('gridbox');
+		...
+		mygrid.setOnRowSelectHandler(doOnRowSelected);
+		mygrid.setOnEditCellHandler(doOnCellEdit);
+		mygrid.setOnEnterPressedHandler(doOnEnter);
+		mygrid.setOnCheckHandler(doOnCheck);
+		mygrid.setOnBeforeRowDeletedHandler(doBeforeRowDeleted);
+		
+		mygrid.init();
+		mygrid.loadXML("../grid.xml");
+		
+</script>
+</XMP>
+<script>
+	function protocolIt(str){
+		var p = document.getElementById("protocol")
+		p.innerHTML = "<li>"+str+"</li>" + p.innerHTML 
+	}
+	function doOnRowSelected(id){
+		protocolIt("Rows with id: "+id+" was selected by user")
+	}
+	function doOnCellEdit(stage,rowId,cellInd){
+		if(stage==0){
+			protocolIt("User starting cell editing: row id is"+rowId+", cell index is "+cellInd)
+		}else if(stage==1){
+			protocolIt("Cell editor opened");
+		}else if(stage==2){
+			protocolIt("Cell editor closed");
+		}
+		return true;
+	}
+	function doOnCheck(rowId,cellInd,state){
+		protocolIt("User clicked on checkbox or radiobutton on row "+rowId+" and cell with index "+cellInd+".State changed to "+state);
+		return true;
+	}
+	function doOnEnter(rowId,cellInd){
+		protocolIt("User pressed Enter on row with id "+rowId+" and cell index "+cellInd);
+	}
+	function doBeforeRowDeleted(rowId){
+		if(confirm("Are you sure you want to delete row")){
+			protocolIt("Row deletion confirmed");
+			return true;
+		}else{
+			protocolIt("Row deletion canceled");
+			return false;
+		}
+	}
+	
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../imgs/");
+	mygrid.setHeader("Column A, Column B, Column C, Column D");
+	mygrid.setInitWidths("100,250,80,80")
+	mygrid.setColAlign("right,left,center,center")
+	mygrid.setColTypes("ro,ed,ch,ra");
+	mygrid.setColSorting("int,str,str,str")
+	mygrid.setOnRowSelectHandler(doOnRowSelected);
+	mygrid.setOnEditCellHandler(doOnCellEdit);
+	mygrid.setOnEnterPressedHandler(doOnEnter);
+	mygrid.setOnCheckHandler(doOnCheck);
+	mygrid.setOnBeforeRowDeletedHandler(doBeforeRowDeleted);
+	mygrid.init();
+	mygrid.loadXML("../grid.xml");
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+	
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - TreeGrid as extended tree</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+    	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>
+	<script  src="../js/dhtmlXGridCell.js"></script>
+	<script  src="../js/dhtmlXTreeGrid.js"></script>
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript TreeGrid samples</div>
+	<h1>TreeGrid as extended tree</h1>
+	<p>
+
+	</p>
+
+
+	<table width="700">
+		<tr>
+			<td>
+				<div id="gridbox" width="100%" height="250px" style="background-color:white;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+
+            </td>
+		</tr>
+	</table>
+<hr>
+<XMP>
+<div id="gridbox" width="100%" height="250px" style="background-color:white;overflow:hidden"></div>
+<script>
+		mygrid = new dhtmlXGridObject('gridbox');
+		mygrid.selMultiRows = true;
+		mygrid.imgURL = "../imgs/";
+		mygrid.setHeader("Tree,Count");
+		mygrid.setInitWidths("250,50")
+		mygrid.setColAlign("left,left")
+		mygrid.setColTypes("tree,ro");
+		mygrid.setColSorting("str,str")
+		mygrid.init();
+		mygrid.loadXML("test_list_2.xml");
+</script>
+</XMP>
+
+<script>
+		mygrid = new dhtmlXGridObject('gridbox');
+		mygrid.selMultiRows = true;
+		mygrid.imgURL = "../imgs/";
+		mygrid.setHeader("Tree,A");
+		mygrid.setInitWidths("250,50")
+		mygrid.setColAlign("left,left")
+		mygrid.setColTypes("tree,ro");
+		mygrid.setColSorting("str,str")
+		mygrid.init();
+	   	mygrid.loadXML("test_list_2.xml");
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<p>
+<form method="post" name="formular">
+<select name="semester" size="1">
+<!-- BEGIN BLOCK_SELECT_OPTION -->
+<option value="{SEMESTER_ID},{SEMESTER_NAME},{SELECT_OPTION_NO}" {SEMESTER_SELECTED}>{SEMESTER_NAME}</option>
+<!-- END BLOCK_SELECT_OPTION -->
+</select>
+<input type="submit" value="{LABEL_SHOW_SEMESTER_STATISTICS}"/>
+</form>
+</p>
+<!-- BEGIN BLOCK_SHOW -->
+<br>
+<h1>{LABEL_SEMESTER_INFORMATION}</h1>
+<p>
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+<tr><th class="label">{LABEL_COURSES}:</th>
+    <th class="label">{LABEL_NUMBER}:</th>
+    <th class="label">{LABEL_SYNCHRONIZED_COURSES}:</th>
+    <th class="label">{LABEL_COURSE_PARTICIPANTS}:</th>
+    <th class="label" width="100%">&#160;</th></tr>
+<tr><td class="label">{LABEL_HISLSF_COURSES}:</td>
+    <td class="value">{COUNT_SEMESTER_HISLSF_COURSES}</td>
+    <td class="value">-</td>
+    <td class="value">{COUNT_SEMESTER_HISLSF_COURSE_PARTICIPANTS}</td>
+    <td class="value" width="100%">&#160;</td></tr>
+<tr><td class="label">{LABEL_PAUL_COURSES}:</td>
+    <td class="value">{COUNT_SEMESTER_PAUL_COURSES}</td>
+    <td class="value">{COUNT_SEMESTER_PAUL_SYNCHRONIZED_COURSES}</td>
+    <td class="value">{COUNT_SEMESTER_PAUL_COURSE_PARTICIPANTS}</td>
+    <td class="value" width="100%">&#160;</td></tr>
+<tr><td class="label">{LABEL_KOALA_COURSES}:</td>
+    <td class="value">{COUNT_SEMESTER_KOALA_COURSES}</td>
+    <td class="value">-</td>
+    <td class="value">{COUNT_SEMESTER_KOALA_COURSE_PARTICIPANTS}</td>
+    <td class="value" width="100%">&#160;</td></tr>
+<tr><td class="label">{LABEL_OVERALL}:</td>
+    <td class="value">{COUNT_SEMESTER_COURSES}</td>
+    <td class="value">{COUNT_SEMESTER_SYNCHRONIZED_COURSES}</td>
+    <td class="value">{COUNT_SEMESTER_COURSE_PARTICIPANTS}</td>
+    <td class="value" width="100%">&#160;</td></tr>
+</table>
+</p>
+<br>
+<p>
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+<tr><th class="label">{LABEL_GROUPS}:</th>
+    <th class="label">{LABEL_NUMBER}:</th>
+    <th class="label">{LABEL_GROUP_MEMBERS}:</th>
+    <th class="label" width="100%">&#160;</th></tr>
+<tr><td class="label">{LABEL_ALL_GROUPS}:</td>
+    <td class="value">{COUNT_SEMESTER_GROUPS}</td>
+    <td class="value">{COUNT_SEMESTER_ENTIRE_GROUP_MEMBERS}</td>
+    <td class="value" width="100%">&#160;</td></tr>
+<tr><td class="label">{LABEL_PUBLIC_GROUPS}:</td>
+    <td class="value">{COUNT_SEMESTER_PUBLIC_GROUPS}</td>
+    <td class="value">{COUNT_SEMESTER_PUBLIC_GROUP_MEMBERS}</td>
+    <td class="value" width="100%">&#160;</td></tr>
+<tr><td class="label">{LABEL_PRIVATE_GROUPS}:</td>
+    <td class="value">{COUNT_SEMESTER_PRIVATE_GROUPS}</td>
+    <td class="value">{COUNT_SEMESTER_PRIVATE_GROUP_MEMBERS}</td>
+    <td class="value" width="100%">&#160;</td></tr>
+</table>
+</p>
+<!-- END BLOCK_SHOW -->

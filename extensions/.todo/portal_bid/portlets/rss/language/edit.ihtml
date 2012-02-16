@@ -1,0 +1,33 @@
+<!-- BEGIN feedback_address_null -->{LANGUAGE_FEEDBACK_ADDRESS_NULL}<br><!-- END feedback_address_null -->
+
+<b>{FEEDBACK}</b>
+
+<center>
+<table>
+<tr>
+  <td class="caption_required">{LANGUAGE_ADDRESS}:</td>
+  <td><input size="50" type="text" name="address" value="{ADDRESS}"></td>
+</tr>
+<tr>
+  <td class="caption_optional">{LANGUAGE_NUM_ITEMS}:</td>
+  <td><input size="4" type="text" name="num_items" value="{NUM_ITEMS}"></td>
+</tr>
+<tr>
+  <td class="caption_optional">{LANGUAGE_DESC_LENGTH}:</td>
+  <td><input size="4" type="text" name="desc_length" value="{DESC_LENGTH}"></td>
+</tr>
+<tr>
+  <td class="caption_optional">{LANGUAGE_STYLE}:</td>
+  <td><select name="style" size="1">
+      <option value="rss_feed" {SELECTED_STYLE_RSS_FEED}>{LANGUAGE_STYLE_RSS_FEED}</option>
+      <option value="message" {SELECTED_STYLE_MESSAGE}>{LANGUAGE_STYLE_MESSAGE}</option>
+    </select>
+  </td>
+</tr>
+<tr>
+  <td class="caption_optional"></td>
+  <td><input type="checkbox" name="allow_html" value="checked" {ALLOW_HTML}>{LANGUAGE_ALLOW_HTML}
+  </td>
+</tr>
+</table>
+</center>

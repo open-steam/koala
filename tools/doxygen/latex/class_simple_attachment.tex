@@ -1,0 +1,160 @@
+\hypertarget{class_simple_attachment}{
+\section{SimpleAttachment Class Reference}
+\label{class_simple_attachment}\index{SimpleAttachment@{SimpleAttachment}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_attachment_a52aee178378d8a5ac82c62090c1e30a8}{SimpleAttachment} (\$key, \$content, \$filename)
+\item 
+\hyperlink{class_simple_attachment_a42ee771da24f26645168f42447def83a}{asRequest} ()
+\item 
+\hyperlink{class_simple_attachment_ad569cac30011632504cec6b9efdd16fb}{asMime} ()
+\item 
+\hyperlink{class_simple_attachment_a2294435511c40e35261be5b340774060}{\_\-deduceMimeType} ()
+\item 
+\hyperlink{class_simple_attachment_a59336f1cbc7ada48f8eb1015ec24ae65}{\_\-isOnlyAscii} (\$ascii)
+\item 
+\hyperlink{class_simple_attachment_aeae5164683f8bdee48fe3309d65a499f}{isKey} (\$key)
+\item 
+\hyperlink{class_simple_attachment_a234c2497dfc092030a936f23c9f34484}{getKey} ()
+\item 
+\hyperlink{class_simple_attachment_aa6ab36e0e77e134b86027413c87a7087}{getValue} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_attachment_ad69915ddbdd5f337d19d1ca4c3717b1f}{
+{\bfseries \$\_\-key}}
+\label{class_simple_attachment_ad69915ddbdd5f337d19d1ca4c3717b1f}
+
+\item 
+\hypertarget{class_simple_attachment_a44d6645fb4ac335eab1bfe47416a726b}{
+{\bfseries \$\_\-content}}
+\label{class_simple_attachment_a44d6645fb4ac335eab1bfe47416a726b}
+
+\item 
+\hypertarget{class_simple_attachment_aa54f3863722789df04aadd04906f43ee}{
+{\bfseries \$\_\-filename}}
+\label{class_simple_attachment_aa54f3863722789df04aadd04906f43ee}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_attachment_a2294435511c40e35261be5b340774060}{
+\index{SimpleAttachment@{SimpleAttachment}!\_\-deduceMimeType@{\_\-deduceMimeType}}
+\index{\_\-deduceMimeType@{\_\-deduceMimeType}!SimpleAttachment@{SimpleAttachment}}
+\subsubsection[{\_\-deduceMimeType}]{\setlength{\rightskip}{0pt plus 5cm}SimpleAttachment::\_\-deduceMimeType (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_attachment_a2294435511c40e35261be5b340774060}
+Attempts to figure out the MIME type from the file extension and the content. \begin{DoxyReturn}{Returns}
+string MIME type.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_attachment_a59336f1cbc7ada48f8eb1015ec24ae65}{
+\index{SimpleAttachment@{SimpleAttachment}!\_\-isOnlyAscii@{\_\-isOnlyAscii}}
+\index{\_\-isOnlyAscii@{\_\-isOnlyAscii}!SimpleAttachment@{SimpleAttachment}}
+\subsubsection[{\_\-isOnlyAscii}]{\setlength{\rightskip}{0pt plus 5cm}SimpleAttachment::\_\-isOnlyAscii (
+\begin{DoxyParamCaption}
+\item[{\$}]{ ascii}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_attachment_a59336f1cbc7ada48f8eb1015ec24ae65}
+Tests each character is in the range 0-\/127. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$ascii} & String to test.  private \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_attachment_ad569cac30011632504cec6b9efdd16fb}{
+\index{SimpleAttachment@{SimpleAttachment}!asMime@{asMime}}
+\index{asMime@{asMime}!SimpleAttachment@{SimpleAttachment}}
+\subsubsection[{asMime}]{\setlength{\rightskip}{0pt plus 5cm}SimpleAttachment::asMime (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_attachment_ad569cac30011632504cec6b9efdd16fb}
+The MIME part as a string. \begin{DoxyReturn}{Returns}
+string MIME part encoding.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_attachment_a42ee771da24f26645168f42447def83a}{
+\index{SimpleAttachment@{SimpleAttachment}!asRequest@{asRequest}}
+\index{asRequest@{asRequest}!SimpleAttachment@{SimpleAttachment}}
+\subsubsection[{asRequest}]{\setlength{\rightskip}{0pt plus 5cm}SimpleAttachment::asRequest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_attachment_a42ee771da24f26645168f42447def83a}
+The pair as a single string. \begin{DoxyReturn}{Returns}
+string Encoded pair.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_attachment_a234c2497dfc092030a936f23c9f34484}{
+\index{SimpleAttachment@{SimpleAttachment}!getKey@{getKey}}
+\index{getKey@{getKey}!SimpleAttachment@{SimpleAttachment}}
+\subsubsection[{getKey}]{\setlength{\rightskip}{0pt plus 5cm}SimpleAttachment::getKey (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_attachment_a234c2497dfc092030a936f23c9f34484}
+Is this the value we are looking for? \begin{DoxyReturn}{Returns}
+string Identifier.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_attachment_aa6ab36e0e77e134b86027413c87a7087}{
+\index{SimpleAttachment@{SimpleAttachment}!getValue@{getValue}}
+\index{getValue@{getValue}!SimpleAttachment@{SimpleAttachment}}
+\subsubsection[{getValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleAttachment::getValue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_attachment_aa6ab36e0e77e134b86027413c87a7087}
+Is this the value we are looking for? \begin{DoxyReturn}{Returns}
+string Content.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_attachment_aeae5164683f8bdee48fe3309d65a499f}{
+\index{SimpleAttachment@{SimpleAttachment}!isKey@{isKey}}
+\index{isKey@{isKey}!SimpleAttachment@{SimpleAttachment}}
+\subsubsection[{isKey}]{\setlength{\rightskip}{0pt plus 5cm}SimpleAttachment::isKey (
+\begin{DoxyParamCaption}
+\item[{\$}]{ key}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_attachment_aeae5164683f8bdee48fe3309d65a499f}
+Is this the value we are looking for? 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Identifier. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if matched.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_attachment_a52aee178378d8a5ac82c62090c1e30a8}{
+\index{SimpleAttachment@{SimpleAttachment}!SimpleAttachment@{SimpleAttachment}}
+\index{SimpleAttachment@{SimpleAttachment}!SimpleAttachment@{SimpleAttachment}}
+\subsubsection[{SimpleAttachment}]{\setlength{\rightskip}{0pt plus 5cm}SimpleAttachment::SimpleAttachment (
+\begin{DoxyParamCaption}
+\item[{\$}]{ key, }
+\item[{\$}]{ content, }
+\item[{\$}]{ filename}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_attachment_a52aee178378d8a5ac82c62090c1e30a8}
+Stashes the data for rendering later. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & Key to add value to. \\
+\hline
+string & {\em \$content} & Raw data. \\
+\hline
+hash & {\em \$filename} & Original filename. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/encoding.php\end{DoxyCompactItemize}

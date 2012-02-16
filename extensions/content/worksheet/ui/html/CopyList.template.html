@@ -1,0 +1,68 @@
+
+<p class="infoBar">
+	Hier sehen Sie eine Liste aller bearbeiteten Kopien dieses Arbeitsblattes, sowie den jeweiligen Bearbeitungsstand.<br />
+	Sobald ein Arbeitsblatt zur Korrektur freigegeben wurde, können Sie es hier korrigieren.
+</p>
+
+{if $data}
+
+	<table width="100%" class="grid">
+		
+		<tr>
+			<th>Nutzer</th>
+			<th>Status</th>
+			<th>Punkte</th>
+			<th>Prozent</th>
+			<th></th>
+		</tr>
+
+		{foreach from=$data item=copy}
+
+			<tr>
+				<td style="width: 10px;">
+					<a href="{$PATH_URL}profile/index/{$copy.user.name}/"><img width="40" height="60" src="{$copy.user.img}" /></a>
+				</td>
+				<td><a href="{$PATH_URL}profile/index/{$copy.user.name}/">{$copy.user.firstname} {$copy.user.fullname}</a></td>
+				<td>
+
+					{if $copy.worksheet.status == 1}
+					 	<img src="{$PATH_URL}worksheet/asset/icons/bullet_white.png" alt="" class="worksheet_copylist_status_icon" /> In Bearbeitung
+					{elseif $copy.worksheet.status == 2}
+						<img src="{$PATH_URL}worksheet/asset/icons/bullet_orange.png" alt="" class="worksheet_copylist_status_icon" /> Korrektur ausstehend
+					{elseif $copy.worksheet.status == 3}
+						<img src="{$PATH_URL}worksheet/asset/icons/bullet_green.png" alt="" class="worksheet_copylist_status_icon" /> Abgeschlossen
+					{else}
+						Unbekannt
+					{/if}
+					
+				</td>
+				<td>
+					{if $copy.score}
+						{$copy.score.score} von {$copy.score.max}
+					{else}
+						-
+					{/if}
+				</td>
+				<td>
+					{if $copy.score AND $copy.score.percent !== false}
+						{$copy.score.percent}%
+					{else}
+						-
+					{/if}
+				</td>
+				<td style="width: 50px;">
+					{if $copy.worksheet.status == 1 OR $copy.worksheet.status == 3}
+						<a href="{$PATH_URL}worksheet/TeacherView/{$copy.worksheet.id}/{$ID}" class="worksheet_iconlink button"><img src="{$PATH_URL}worksheet/asset/icons/zoom.png" alt="" /> Arbeitsblatt ansehen</a>
+					{elseif $copy.worksheet.status == 2}
+						<a href="{$PATH_URL}worksheet/Correct/{$copy.worksheet.id}/{$ID}" class="worksheet_iconlink button"><img src="{$PATH_URL}worksheet/asset/icons/pencil.png" alt="" /> Arbeitsblatt korrigieren</a>
+					{/if}
+				</td>
+			</tr>
+
+		{/foreach}
+	
+	</table>
+	
+{else}
+	<p class="worksheet_info">Es wurden keine bearbeiteten Arbeitsblätter gefunden.</p>
+{/if}

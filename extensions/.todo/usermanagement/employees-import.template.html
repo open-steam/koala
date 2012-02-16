@@ -1,0 +1,48 @@
+ <!-- BEGIN BLOCK_CONTEXT_MENU -->
+<div class="actionBar">
+    <!-- BEGIN BLOCK_MENU_ENTRY -->
+	{LINK_MENU_ENTRY}
+	<!-- END BLOCK_MENU_ENTRY -->
+</div>
+<!-- END BLOCK_CONTEXT_MENU -->
+ 
+ <ul class="tabBar">
+   <!-- BEGIN BLOCK_TABS -->    
+   <li class="{TAB_STATE}">{TAB_ENTRY}</li>
+   <!-- END BLOCK_TABS -->
+   <li style="clear:left;"/>
+ </ul>
+
+<div style="{CURRENT_CUSTOMER_STYLE}">{CURRENT_CUSTOMER}</div>
+
+<h3>{HEADLINE}</h3>
+
+<div class="infoBar">Hier können Sie eine Excel-Datei einspielen. 
+Die Tabelle in dieser Datei muss drei Spalten enthalten: 
+Vorname, Nachname, E-Mail-Adresse (sofern vorhanden) – in dieser Reihenfolge.
+Die Tabelle darf keine Spaltenköpfe enthalten. In je einer Zeile muss sie die entsprechenden 
+Daten zu einem Mitarbeiter enthalten. 
+Der Benutzername kann nachträglich nicht mehr geändert werden.</div>
+
+<form action="/usermanagement/" name="formular" method="post" enctype="multipart/form-data">
+	<table class="grid" width="100%">
+		<tr>
+			<td class="label">{LABEL1}</td>
+			<td><input type="file" name="csvFile" size="40" /></td>
+		</tr>
+		<tr>
+			<td class="label">{LABEL2}</td>
+			<td>{COURSE_COMBOBOX}</td>
+		</tr>
+	</table>
+	<table width="100%">
+		<tr>
+			<td align="right">
+				<input type="submit" value="{BUTTON_IMPORT}">
+				<input type="hidden" name="command" value="importCSVFile">
+				<input type="hidden" name="template" value="employees-import">
+				<input type="hidden" name="customerID" value="{VALUE_CUSTOMER_ID}">
+			</td>
+		</tr>
+	</table>
+</form>

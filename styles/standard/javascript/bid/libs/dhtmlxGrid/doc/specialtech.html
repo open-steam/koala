@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid guide and samples</title>
+</head>
+
+<body>
+<style>
+	body {font-size:14px;line-height:18px;}
+	.{font-family:arial;}
+	h2 {cursor:pointer;font-size:20px;margin:30px 0px 40px 5px;line-height:10px}
+	h3 {cursor:pointer;font-weight:normal;color:black;text-decoration:underline;line-height:10px}
+	h4 {cursor:pointer;font-weight:normal;color:black;text-decoration:underline;line-height:10px}
+	h5{
+		font-weight:bold;color:green;
+		margin:5px;
+	}
+	h6{
+		font-weight:bold;color:gray;
+		margin:0px;
+	}
+	a h4{
+		color:blue;
+		font-weight:bold;
+	}
+	.op {cursor:pointer;}
+	div.block {margin-left:5px;}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	li {margin-top:2px;}
+	span.important {font-weight:bold;color:maroon;}
+</style>
+<h2 ><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" target="_top" title="Visit javascript tree home page">dhtmlXGrid</a> Special Technique</h2>
+<div class="block">
+
+<a name="cachprob"><h4 >Browser caches xml files</h4></a><div class="block">
+This is native behaviour of IE. IE heavily caches XML files. It never
+loads it from server again if it has the file with same URL in cache.
+<br><br>
+<h5>Possible solitions:</h5>
+<li>dhtmlx native method (you need to use latest dhtmlxCommon.js and component main js file)</li>
+<XMP>
+	mygrid.preventIECashing(true);
+</XMP>
+
+<li>You can manually add some random element to XML URL</li>
+<XMP>
+	mygrid.loadXML("my.xml");
+	//replace with
+	mygrid.loadXML("my.xml?uid="+(new Date()).valueOf());
+</XMP>
+
+</div>
+
+<!--- <a name="test"><h4 >...</h4></a><div class="block">
+...
+<XMP>
+	
+</XMP>
+</div>	 --->
+
+</div>
+</body>
+</html>

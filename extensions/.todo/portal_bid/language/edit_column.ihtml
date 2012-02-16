@@ -1,0 +1,161 @@
+<!-- BEGIN error_column_width --><b>{LANGUAGE_ERROR_COLUMN_WIDTH}</b><br><!-- END error_column_width -->
+<!-- BEGIN error_no_access --><b>{LANGUAGE_ERROR_NO_ACCESS}</b><br><!-- END error_no_access -->
+<!-- BEGIN button_label_ok -->{LANGUAGE_BUTTON_OK}<!-- END button_label_ok -->
+
+{ERROR_FEEDBACK}<br />
+
+<input type="hidden" name="column" value="{COLUMN_ID}" />
+<input type="hidden" name="bid:sorting" id="bid:sorting" value="" />
+
+<div class="attribute">
+	<div class="attributeName">{LANGUAGE_ADD_PORTLET_TITLE}:</div>
+	<div class="attributeValue">
+		<button onclick="window.location.href=
+				'{DOC_ROOT}/modules/portal2/portlet_insert.php?column={COLUMN_ID}';"
+			type="button"
+			style="width: 200px">
+			{LANGUAGE_ADD_PORTLET_BUTTON}
+		</button>
+	</div>
+</div>
+<div class="attribute">
+	<div class="attributeName">{LANGUAGE_EDIT_COLUMN_WIDTH_TITLE}:</div>
+	<div class="attributeValue">
+		<input
+			type="text"
+			name="column_width"
+			value="{COLUMN_WIDTH}"
+			class="text"
+			style="width: 200px">
+	</div>
+</div>
+<div class="attribute">
+	<div class="attributeName" style="height:100px">
+		{LANGUAGE_SORT_PORTLETS_TITLE}:
+		<br />
+		<br />
+		<img src="{DOC_ROOT}/icons/properties_arrow_up.gif"
+			width="29"
+			height="21"
+			border="0"
+			alt="{LANGUAGE_SORT_PORTLETS_UP}"
+			title="{LANGUAGE_SORT_PORTLETS_UP}"
+			onclick="selectUp(document.getElementById('orderfiles'),
+								document.getElementById('orderfiles').selectedIndex);
+							update_input(document.getElementById('orderfiles'));"
+		/>
+		<br />
+		<img src="{DOC_ROOT}/icons/properties_arrow_down.gif"
+			width="29"
+			height="21"
+			border="0"
+			alt="{LANGUAGE_SORT_PORTLETS_DOWN}"
+			title="{LANGUAGE_SORT_PORTLETS_DOWN}"
+			onclick="selectDown(document.getElementById('orderfiles'),
+								document.getElementById('orderfiles').selectedIndex);
+							update_input(document.getElementById('orderfiles'));"
+		/>
+	</div>
+	<div class="attributeValue">
+		<select size="10" id="orderfiles" name="orderfiles" class="text">
+		<!-- BEGIN sort_portlet_row -->
+			<option value="{PORTLET_ID}">{PORTLET_NAME}</option>
+		<!-- END sort_portlet_row -->
+		</select>
+	</div>
+</div>
+<div class="attribute">
+	<div class="attributeName"/>
+	<div class="attributeValue">
+		<img src="{DOC_ROOT}/modules/portal2/icons/portlet_properties.gif"
+			width="18"
+			height="16"
+			border="0"
+			alt="{LANGUAGE_PROPERTIES_BUTTON}"
+			title="{LANGUAGE_PROPERTIES_BUTTON}"
+			onclick="open_portlet_properties(
+								document.getElementById('orderfiles'),
+								document.getElementById('orderfiles').selectedIndex);"
+		/>
+		<img src="{DOC_ROOT}/modules/portal2/icons/portlet_copy.gif"
+			width="18"
+			height="16"
+			border="0"
+			alt="{LANGUAGE_COPY_PORTLET_BUTTON}"
+			title="{LANGUAGE_COPY_PORTLET_BUTTON}"
+			onclick="portlet_edit(document.getElementById('orderfiles'),
+								document.getElementById('orderfiles').selectedIndex,
+								'copy');"
+		/>
+		<img src="{DOC_ROOT}/modules/portal2/icons/portlet_cut.gif"
+			width="18"
+			height="16"
+			border="0"
+			alt="{LANGUAGE_CUT_PORTLET_BUTTON}" title="{LANGUAGE_CUT_PORTLET_BUTTON}"
+			onclick="portlet_edit(document.getElementById('orderfiles'),
+								document.getElementById('orderfiles').selectedIndex,
+								'cut');"
+		/>
+		<img src="{DOC_ROOT}/modules/portal2/icons/portlet_reference.gif"
+			width="18"
+			height="16"
+			border="0"
+			alt="{LANGUAGE_LINK_PORTLET_BUTTON}"
+			title="{LANGUAGE_LINK_PORTLET_BUTTON}"
+			onclick="portlet_edit(document.getElementById('orderfiles'),
+								document.getElementById('orderfiles').selectedIndex,
+								'reference');"
+		/>
+		<img src="{DOC_ROOT}/modules/portal2/icons/portlet_paste.gif"
+			width="18"
+			height="16"
+			border="0"
+			alt="{LANGUAGE_PASTE_PORTLET_BUTTON}"
+			title="{LANGUAGE_PASTE_PORTLET_BUTTON}"
+			onclick="window.open('{DOC_ROOT}/modules/portal2/portlet_paste.php?'+
+								'column={COLUMN_ID}',
+								'paste_portlet',
+								'resizable,scrollbars, width=20, height=20');"
+		/>
+		<img src="{DOC_ROOT}/modules/portal2/icons/delete.gif"
+			width="16"
+			height="16"
+			border="0"
+			alt="{LANGUAGE_REMOVE_PORTLET_BUTTON}"
+			title="{LANGUAGE_REMOVE_PORTLET_BUTTON}"
+			onclick="portlet_edit(document.getElementById('orderfiles'),
+								document.getElementById('orderfiles').selectedIndex,
+								'trash');"
+		/>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+  function update_input(list)
+  {
+    var order = '';
+    for(var j = 0; j < list.length; j++)
+      order = order + list.options[j].value + ' ';
+    document.getElementById('bid:sorting').value = order;
+  }
+
+  update_input(document.getElementById('orderfiles'));
+
+  function portlet_edit(list, index, action)
+  {
+    window.open('{DOC_ROOT}/modules/portal2/portlet_edit.php?'+
+      'portlet='+list.options[index].value+
+      '&action='+action,
+      'copy_portlet',
+      'resizable,scrollbars, width=20, height=20');
+  }
+
+  function open_portlet_properties(list, index)
+  {
+    window.open('{DOC_ROOT}/properties.php?properties='+
+      list.options[index].value,
+      '{LANGUAGE_PROPERTIES_BUTTON}',
+      'resizable,scrollbars,width=560,height=450');
+  }
+</script>

@@ -1,0 +1,14 @@
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->&raquo;{PORTLET_NAME}&laquo; bearbeiten<!-- END edit_title -->
+<!-- BEGIN edit_feedback_headline_null -->&Uuml;berschrift darf nicht leer sein<!-- END edit_feedback_headline_null -->
+<!-- BEGIN edit_headline -->&Uuml;berschrift<!-- END edit_headline -->
+<!-- BEGIN edit_alignment -->Ausrichtung<!-- END edit_alignment -->
+<!-- BEGIN edit_alignment_left -->Linksb&uuml;ndig<!-- END edit_alignment_left -->
+<!-- BEGIN edit_alignment_center -->Zentriert<!-- END edit_alignment_center -->
+<!-- BEGIN edit_alignment_right -->Rechtsb&uuml;ndig<!-- END edit_alignment_right -->
+<!-- BEGIN edit_size -->Gr&ouml;&szlig;e<!-- END edit_size -->
+<!-- BEGIN edit_button_ok -->Speichern<!-- END edit_button_ok -->
+<!-- BEGIN edit_button_cancel -->Beenden<!-- END edit_button_cancel -->

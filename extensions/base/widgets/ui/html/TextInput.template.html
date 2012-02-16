@@ -1,0 +1,16 @@
+<!-- BEGIN BLOCK_TEXTINPUT_LABEL -->
+<div class="widgets_label {ADD_CLASS_LABEL}" {LABEL_STYLE}>{LABEL}</div>
+<!-- END BLOCK_TEXTINPUT_LABEL -->
+<div class="widgets_textinput {ADD_CLASS_INPUT}">
+	<input id={ID} type="text" oldvalue="{VALUE}" value="{VALUE}" placeholder="{PLACEHOLDER}" {INPUT_STYLE} {READONLY} {CHANGE_FUNCTION}></input>
+	<div class="widgets_textinput_button widgets_textinput_save_button" id="widgets_textinput_control_save_{ID}" {SAVE_FUNCTION}></div>
+	<div class="widgets_textinput_loader"></div>
+	<div class="widgets_textinput_ok"></div>
+	<div class="widgets_textinput_button widgets_textinput_undo_button" id="widgets_textinput_control_undo_{ID}" {UNDO_FUNCTION}></div>
+	<div class="widgets_textinput_error"></div>
+</div>
+<!-- BEGIN BLOCK_TEXTINPUT_FOCUS_SCRIPT -->
+<script type="text/javascript">
+document.getElementById("{FOCUS_ID}").focus();
+</script>
+<!-- END BLOCK_TEXTINPUT_FOCUS_SCRIPT -->

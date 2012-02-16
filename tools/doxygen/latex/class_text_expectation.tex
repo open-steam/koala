@@ -1,0 +1,135 @@
+\hypertarget{class_text_expectation}{
+\section{TextExpectation Class Reference}
+\label{class_text_expectation}\index{TextExpectation@{TextExpectation}}
+}
+Inheritance diagram for TextExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_text_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_text_expectation_a2305ea4ee24e0c0672af8605f25a524b}{TextExpectation} (\$substring, \$message= '\%s')
+\item 
+\hyperlink{class_text_expectation_a2569a76d2367fa368af6de6441930c53}{\_\-getSubstring} ()
+\item 
+\hyperlink{class_text_expectation_a352a2a95ccf1c29c886b7608338d3c20}{test} (\$compare)
+\item 
+\hyperlink{class_text_expectation_ab76e87201a16eb23fbb1fbafc24b51cf}{testMessage} (\$compare)
+\item 
+\hyperlink{class_text_expectation_aa2dce89d22209c3046dc9f5c994f0de3}{\_\-describeTextMatch} (\$substring, \$subject)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_text_expectation_a7041132e555a195528300b856cd8906d}{
+{\bfseries \$\_\-substring}}
+\label{class_text_expectation_a7041132e555a195528300b856cd8906d}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_text_expectation_aa2dce89d22209c3046dc9f5c994f0de3}{
+\index{TextExpectation@{TextExpectation}!\_\-describeTextMatch@{\_\-describeTextMatch}}
+\index{\_\-describeTextMatch@{\_\-describeTextMatch}!TextExpectation@{TextExpectation}}
+\subsubsection[{\_\-describeTextMatch}]{\setlength{\rightskip}{0pt plus 5cm}TextExpectation::\_\-describeTextMatch (
+\begin{DoxyParamCaption}
+\item[{\$}]{ substring, }
+\item[{\$}]{ subject}
+\end{DoxyParamCaption}
+)}}
+\label{class_text_expectation_aa2dce89d22209c3046dc9f5c994f0de3}
+Describes a pattern match including the string found and it's position. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$substring} & Text to search for. \\
+\hline
+string & {\em \$subject} & Subject to search.  protected \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_text_expectation_a2569a76d2367fa368af6de6441930c53}{
+\index{TextExpectation@{TextExpectation}!\_\-getSubstring@{\_\-getSubstring}}
+\index{\_\-getSubstring@{\_\-getSubstring}!TextExpectation@{TextExpectation}}
+\subsubsection[{\_\-getSubstring}]{\setlength{\rightskip}{0pt plus 5cm}TextExpectation::\_\-getSubstring (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_text_expectation_a2569a76d2367fa368af6de6441930c53}
+Accessor for the substring. \begin{DoxyReturn}{Returns}
+string Text to match.  protected 
+\end{DoxyReturn}
+\hypertarget{class_text_expectation_a352a2a95ccf1c29c886b7608338d3c20}{
+\index{TextExpectation@{TextExpectation}!test@{test}}
+\index{test@{test}!TextExpectation@{TextExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}TextExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_text_expectation_a352a2a95ccf1c29c886b7608338d3c20}
+Tests the expectation. True if the text contains the substring. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if correct.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_expectation_aa2b98f827e7487ebe12cedb9ad39d061}{SimpleExpectation}.
+
+
+
+Reimplemented in \hyperlink{class_no_text_expectation_aea5e85eb1d03d5f48cb463f09d756a9e}{NoTextExpectation}.
+
+\hypertarget{class_text_expectation_ab76e87201a16eb23fbb1fbafc24b51cf}{
+\index{TextExpectation@{TextExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!TextExpectation@{TextExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}TextExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_text_expectation_ab76e87201a16eb23fbb1fbafc24b51cf}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_expectation_a15b69edf659c76f6543aa98d8d85b025}{SimpleExpectation}.
+
+
+
+Reimplemented in \hyperlink{class_no_text_expectation_ab233e35e0f5912da893c34c8eda835fc}{NoTextExpectation}.
+
+\hypertarget{class_text_expectation_a2305ea4ee24e0c0672af8605f25a524b}{
+\index{TextExpectation@{TextExpectation}!TextExpectation@{TextExpectation}}
+\index{TextExpectation@{TextExpectation}!TextExpectation@{TextExpectation}}
+\subsubsection[{TextExpectation}]{\setlength{\rightskip}{0pt plus 5cm}TextExpectation::TextExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ substring, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_text_expectation_a2305ea4ee24e0c0672af8605f25a524b}
+Sets the value to compare against. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$substring} & Text to search for. \\
+\hline
+string & {\em \$message} & Customised message on failure.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/web\_\-tester.php\end{DoxyCompactItemize}

@@ -1,0 +1,19 @@
+<ul>
+<!-- BEGIN BLOCK_MENU -->
+	<!-- BEGIN BLOCK_SEPERATOR -->
+	<li class="seperator" onmouseover="mark_parent(this,true);" onmouseout="mark_parent(this,false);"></li>
+	<!-- END BLOCK_SEPERATOR -->
+	<!-- BEGIN BLOCK_MENUITEM -->
+	<li onmouseover="mark_parent(this,true);" onmouseout="mark_parent(this,false);" onclick="menu_clicked(this);{MENUITEM_ONCLICK}">
+		{MENUITEM_LINK_START}
+		<!-- BEGIN BLOCK_MENUITEM_ICON -->
+		<span class="menu_icon">{MENUITEM_ICON}</span>
+		<!-- END BLOCK_MENUITEM_ICON -->
+		<span class="menu_text">{MENUITEM_NAME}</span>{MENUITEM_LINK_END}
+		<!-- BEGIN BLOCK_SUBMENU -->
+		{SUBMENU_HTML}
+		<!-- END BLOCK_SUBMENU -->
+	</li>
+	<!-- END BLOCK_MENUITEM -->
+<!-- END BLOCK_MENU -->
+</ul>

@@ -1,0 +1,144 @@
+<script type="text/javascript" src="{$PATH_URL}worksheet/asset/js/jquery.worksheetMarkup.js"></script>
+<script type="text/javascript" src="{$PATH_URL}worksheet/asset/js/jquery.worksheetPreventChanges.js"></script>
+<script type="text/javascript">
+{literal}
+
+	jQuery(function() {
+		
+		jQuery("#worksheet_blocks>li").children("textarea, input[type=text], input[type=password]").bind("keyup", function() {
+			
+			worksheet_startSaveTimer();
+			
+		});
+		
+		jQuery("#worksheet_blocks>li").children("input[type=checkbox]").bind("change", function() {
+			
+			worksheet_startSaveTimer();
+			
+		});
+		
+	});
+	
+	
+	var worksheet_save_timer;
+	
+	
+	function worksheet_startSaveTimer() {
+		
+		clearTimeout(worksheet_save_timer);
+		worksheet_save_timer = window.setTimeout("worksheet_save()", 5000);
+		
+	}
+	
+
+	function worksheet_save(finishFunction) {
+		
+		clearTimeout(worksheet_save_timer);
+		
+		var data = [];
+		
+		jQuery("#worksheet_blocks>li").each(function(blockId) {
+		
+			var blockData = {};
+		
+			jQuery(this).children("textarea, input[type=text], input[type=password]").each(function(id) {
+				
+				var name = jQuery(this).attr("name");
+				var value = jQuery(this).val();
+				
+				blockData[name] = value;
+				
+			});
+			
+			jQuery(this).children("input[type=checkbox]").each(function(id) {
+				
+				var name = jQuery(this).attr("name");
+				
+				if (jQuery(this).is(':checked')) {
+					var value = true;
+				} else {
+					var value = false;
+				}
+				
+				if (blockData[name] == undefined) {
+					blockData[name] = [];
+				}
+				
+				blockData[name].push(value);
+				
+			});
+			
+			data[blockId] = blockData;
+			
+		});
+		
+		if (finishFunction == undefined) {
+			var finishFunction = false;
+		}
+		
+		sendRequest("SaveSolution", {'id':{/literal}{$ID}{literal}, 'data':JSON.stringify(data)}, null, "data", false, finishFunction);
+		
+	}
+	
+	
+	function worksheet_show_solution(show, solutions, link) {
+		
+		jQuery(link).parent().children("span").addClass("worksheet_correction_title_inactive");
+		jQuery(link).removeClass("worksheet_correction_title_inactive");
+		
+		jQuery("#"+solutions).children(".worksheet_solution").hide();
+		jQuery("#"+show).show();
+		
+		jQuery(link).parent().parent().find(".worksheet_correction_fold").show();
+		
+	}
+	
+	
+	function worksheet_correction_fold(link, solutions) {
+		
+		jQuery("#"+solutions).children(".worksheet_solution").hide();
+		jQuery(link).parent().find(".worksheet_correction_title").addClass("worksheet_correction_title_inactive");
+		jQuery(link).hide();
+		
+	}
+	
+	
+	
+	function worksheet_finish() {
+		
+		worksheet_save(function() {
+			window.location.href = "{/literal}{$PATH_URL}worksheet/Finish/{$ID}{literal}";
+		});
+		
+	}
+	
+{/literal}
+</script>
+
+<p class="infoBar">
+	Mit dem Bearbeiten eines Arbeitsblattes wird eine Kopie in Ihrem persönlichen Verzeichnis erstellt.<br />
+	Alle Änderungen werden dort regelmäßig gesichert. Sie können jederzeit zurückkehren und die Bearbeitung fortsetzen.<br />
+	Sobald Sie die Bearbeitung abgeschlossen haben, klicken Sie oben rechts auf "Arbeitsblatt abgeben", um Ihr Arbeitsblatt dem Lehrer zur Korrektur vorzulegen.
+</p>
+
+{if $blocks}
+
+	<ul id="worksheet_blocks">
+
+		{foreach from=$blocks item=block}
+
+			<li class="worksheet_block_view" id="{$block.id}">
+
+				<h1>{$block.name}</h1>
+
+				{$block.content}
+
+			</li>
+
+		{/foreach}
+	
+	</ul>
+	
+{else}
+	<p class="worksheet_info">Es wurden keine Aufgaben gefunden.</p>
+{/if}

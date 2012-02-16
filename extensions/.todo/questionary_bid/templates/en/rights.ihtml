@@ -1,0 +1,228 @@
+﻿<html>
+<head>
+  <title>Access Rights</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/rights.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/dialog.css">
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/focus.js"></script>
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/select.js"></script>
+  <script language="javascript" type="text/javascript" src="http://bid:8080//javascript/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+  <script language="javascript" type="text/javascript">
+    tinyMCE.init({
+            mode : "textareas",
+            theme : "advanced",
+            plugins : "bbcode",
+            language: "de",
+            editor_selector : "bbcode",
+            theme_advanced_buttons1 : "bold,italic,underline,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo",
+            theme_advanced_buttons2 : "",
+            theme_advanced_buttons3 : "",
+            entity_encoding : "raw",
+            remove_linebreaks : false
+            theme_advanced_toolbar_location : "top"
+            theme_advanced_toolbar_align : "left"
+    });
+  </script>
+</head>
+
+
+<body bgcolor="#DEDEDE" topmargin="7" leftmargin="7" onLoad="setFocus();">
+
+
+<script language="Javascript1.2">
+function form_submit(mission, url)
+{
+  if(mission == "close")
+    window.close();
+  else
+  {
+  document.getElementById("mission").value = mission;
+    document.getElementById("form_blueprint").action = url;
+    document.getElementById("form_blueprint").submit();
+  }
+}
+</script>
+
+
+<form method="POST" name="form_blueprint" id="form_blueprint" action="" enctype="multipart/form-data">
+<input type="hidden" name="mission" id="mission" value="">
+<input type="hidden" name="questionary" id="questionary" value="{QUESTIONARY_ID}">
+
+<!-- Rahmen oben -->
+<h1 class="titlepane">Access Rights</h1>
+
+<!-- Mittelteil und Content -->
+<div class="dialogpane" align="center">
+
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+<!-- BEGIN button_save -->Save<!-- END button_save -->
+<table width="90%" align="center" border="0" cellpadding="0" cellspacing="0" class="List">
+  <tr align="right">
+	<td width="100%">&nbsp;</td>
+	<td nowrap="nowrap">Private&nbsp;<input type="radio" name="publish" id="private" value="private" onclick="javascript:clicked_crude();" {RADIO_PRIVATE}></td>
+  </tr>
+  <tr align="right">
+	<td width="100%">&nbsp;</td>
+	<td nowrap="nowrap">Public&nbsp;<input type="radio" name="publish" id="public" value="public" onclick="javascript:clicked_crude();" {RADIO_PUBLIC}></td>
+  </tr>
+  <tr align="right">
+	<td width="100%">&nbsp;</td>
+	<td nowrap="nowrap">User defined&nbsp;<input type="radio" name="publish" id="user" value="user" onclick="javascript:clicked_crude();" {RADIO_USER}></td>
+  </tr>
+  <tr><td colspan="2">&nbsp;</td></tr>
+</table>
+
+<table width="90%" align="center" border="0">
+  <tr>
+  	<td>
+      <table border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>Owner:</td>
+          <td align="center" width="10%" nowrap class="columnhead">Fill out&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">Edit&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">Evaluate&nbsp;</td>
+        </tr>
+
+        <tr class="List">
+          <td width="18"><img src="http://bid:8080//icons/rights_user.gif" border="0" alt="User" title="User" style="cursor:pointer;"></td>
+          <td>{OWNER}</td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+          <td width="10%" align="center"><input type="checkbox" name="dummy" onclick="" checked disabled></td>
+        </tr>
+      </table>
+
+      <br>
+
+      <table id="groups" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+		  <td colspan="2" nowrap>Your groups:</td>
+          <td align="center" width="10%" nowrap class="columnhead">Fill out&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">Edit&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">Evaluate&nbsp;</td>
+        </tr>
+         
+		<!-- BEGIN group_none -->
+		<tr class="List">
+          <td colspan="2">You are not a member of any group.</td>
+        </tr>
+        <!-- END group_none -->
+
+        <!-- BEGIN group_row -->
+		<tr class="List">
+          <td width="18"><img src="http://bid:8080//icons/rights_group.gif" border="0" alt="Group" title="Group" style="cursor:pointer;"></td>
+          <td>{GROUP}</td>
+          <td width="10%" align="center"><input type="checkbox" name="fillout_{GROUP_ID}" id="fillout_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_FILLOUT}></td>
+          <td width="10%" align="center"><input type="checkbox" name="edit_{GROUP_ID}" id="edit_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_EDIT}></td>
+          <td width="10%" align="center"><input type="checkbox" name="evaluate_{GROUP_ID}" id="evaluate_{GROUP_ID}" onclick="javascript:clicked_specific();" {CHECKED_EVALUATE}></td>
+        </tr>
+        <!-- END group_row -->
+      </table>
+
+      <br>
+
+      <table id="favourites" border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tr class="BlueHeader">
+          <td colspan="2" nowrap>Your favourites:</td>
+          <td align="center" width="10%" nowrap class="columnhead">Fill out&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">Edit&nbsp;</td>
+          <td align="center" width="10%" nowrap class="columnhead">Evaluate&nbsp;</td>
+        </tr>
+        
+		<!-- BEGIN favourite_none -->
+		<tr class="List">
+          <td colspan="2">You have not set any favourites.</td>
+        </tr>
+        <!-- END favourite_none -->
+		
+        <!-- BEGIN favourite_row -->
+		<tr class="List">
+          <td width="18"><img src="http://bid:8080//icons/rights_user.gif" border="0" alt="User" title="User" style="cursor:pointer;"></td>
+          <td>{FAVOURITE}</td>
+          <td width="10%" align="center"><input type="checkbox" name="fillout_{FAVOURITE_ID}" id="fillout_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_FILLOUT}></td>
+          <td width="10%" align="center"><input type="checkbox" name="edit_{FAVOURITE_ID}" id="edit_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_EDIT}></td>
+          <td width="10%" align="center"><input type="checkbox" name="evaluate_{FAVOURITE_ID}" id="evaluate_{FAVOURITE_ID}" onclick="javascript:clicked_specific();" {CHECKED_EVALUATE}></td>
+        </tr>
+        <!-- END favourite_row -->
+		
+        <!-- BEGIN favourite_row_double -->
+		<tr class="List">
+          <td width="18" style="cursor:pointer;" onClick=""><img src="http://bid:8080//icons/rights_user.gif" border="0" alt="User" title="User"></td>
+          <td class="mgrey">{FAVOURITE}</td>
+          <td align="center" colspan="3" class="mgrey">Like in your groups</td>
+        </tr>
+        <!-- END favourite_row_double -->
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+<script language="JavaScript1.2">
+
+function clicked_crude()
+{
+  if(document.getElementById("public").checked == true)
+  {
+    <!-- BEGIN set_crude -->
+	document.getElementById("fillout_{ITEM_ID}").checked = true;
+    document.getElementById("edit_{ITEM_ID}").checked = false;
+    document.getElementById("evaluate_{ITEM_ID}").checked = false;
+    <!-- END set_crude -->
+  }
+  else if(document.getElementById("private").checked == true)
+  {
+    <!-- BEGIN unset_crude -->
+	document.getElementById("fillout_{ITEM_ID}").checked = false;
+    document.getElementById("edit_{ITEM_ID}").checked = false;
+    document.getElementById("evaluate_{ITEM_ID}").checked = false;
+    <!-- END unset_crude -->
+  }
+}
+
+function clicked_specific()
+{
+  if(true
+    <!-- BEGIN test_specific_checked -->
+	&& document.getElementById("fillout_{ITEM_ID}").checked
+    && !document.getElementById("edit_{ITEM_ID}").checked
+    && !document.getElementById("evaluate_{ITEM_ID}").checked
+    <!-- END test_specific_checked -->
+    )
+    document.getElementById("public").checked = true;
+
+  else if(true
+    <!-- BEGIN test_specific_unchecked -->
+	&& !document.getElementById("fillout_{ITEM_ID}").checked
+    && !document.getElementById("edit_{ITEM_ID}").checked
+    && !document.getElementById("evaluate_{ITEM_ID}").checked
+    <!-- END test_specific_unchecked -->
+    )
+    document.getElementById("private").checked = true;
+
+  else
+    document.getElementById("user").checked = true;
+}
+
+clicked_crude();
+clicked_specific();
+</script>
+
+
+</div>
+
+<table width="100%" height="5" border="0" cellpadding="0" cellspacing="0" align="right">
+  <tr>
+    <td align="center" colspan="3">
+    <!-- BEGIN button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_MISSION}', '{BUTTON_URL}'); return false;">{BUTTON_LABEL}</button>
+    <!-- END button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_CANCEL_MISSION}', '{BUTTON_CANCEL_URL}'); return false;">Cancel</button>
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

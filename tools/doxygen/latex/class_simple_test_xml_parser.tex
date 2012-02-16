@@ -1,0 +1,218 @@
+\hypertarget{class_simple_test_xml_parser}{
+\section{SimpleTestXmlParser Class Reference}
+\label{class_simple_test_xml_parser}\index{SimpleTestXmlParser@{SimpleTestXmlParser}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_test_xml_parser_a2d2e15390947baa26a5771971ca3917b}{SimpleTestXmlParser} (\&\$listener)
+\item 
+\hyperlink{class_simple_test_xml_parser_af5eff8c0132f452c47bca965d6ff37ed}{parse} (\$chunk)
+\item 
+\& \hyperlink{class_simple_test_xml_parser_a9a5607a7f11af705736a773612a7ec6d}{\_\-createParser} ()
+\item 
+\hyperlink{class_simple_test_xml_parser_ac3481993c4f5916b3b1039ac55b76d53}{\_\-pushNestingTag} (\$nested)
+\item 
+\& \hyperlink{class_simple_test_xml_parser_a4e33d00bbb8093f93331b6b4f6965947}{\_\-getCurrentNestingTag} ()
+\item 
+\hyperlink{class_simple_test_xml_parser_ade10e92d51ae121640bc16aa7d73e581}{\_\-popNestingTag} ()
+\item 
+\hyperlink{class_simple_test_xml_parser_ae6de8ccde9c5bed8742498edf6818cdb}{\_\-startElement} (\$expat, \$tag, \$attributes)
+\item 
+\hyperlink{class_simple_test_xml_parser_a19b250a47739a907ebe69a9cd7b0e3bd}{\_\-endElement} (\$expat, \$tag)
+\item 
+\hyperlink{class_simple_test_xml_parser_a574d2bd0039708a19f9f7f73d188c537}{\_\-addContent} (\$expat, \$text)
+\item 
+\hyperlink{class_simple_test_xml_parser_a3d549714cdcc6015cb519adb990d0033}{\_\-default} (\$expat, \$default)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_test_xml_parser_a56b16ad2f755c460a1fd2ef0c526c443}{
+{\bfseries \$\_\-listener}}
+\label{class_simple_test_xml_parser_a56b16ad2f755c460a1fd2ef0c526c443}
+
+\item 
+\hypertarget{class_simple_test_xml_parser_a2df4df8d667031a4c7f342960acc6f93}{
+{\bfseries \$\_\-expat}}
+\label{class_simple_test_xml_parser_a2df4df8d667031a4c7f342960acc6f93}
+
+\item 
+\hypertarget{class_simple_test_xml_parser_a3a4821872ea216a8af4cfbac1ab68d6f}{
+{\bfseries \$\_\-tag\_\-stack}}
+\label{class_simple_test_xml_parser_a3a4821872ea216a8af4cfbac1ab68d6f}
+
+\item 
+\hypertarget{class_simple_test_xml_parser_aa464d0b8452979e022049ed2fc2cd650}{
+{\bfseries \$\_\-in\_\-content\_\-tag}}
+\label{class_simple_test_xml_parser_aa464d0b8452979e022049ed2fc2cd650}
+
+\item 
+\hypertarget{class_simple_test_xml_parser_ad82e9189cfeb9ed312a2a3a857710a20}{
+{\bfseries \$\_\-content}}
+\label{class_simple_test_xml_parser_ad82e9189cfeb9ed312a2a3a857710a20}
+
+\item 
+\hypertarget{class_simple_test_xml_parser_ab4a5d268511653e6fd03526b61ea7d79}{
+{\bfseries \$\_\-attributes}}
+\label{class_simple_test_xml_parser_ab4a5d268511653e6fd03526b61ea7d79}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_test_xml_parser_a574d2bd0039708a19f9f7f73d188c537}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!\_\-addContent@{\_\-addContent}}
+\index{\_\-addContent@{\_\-addContent}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{\_\-addContent}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestXmlParser::\_\-addContent (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expat, }
+\item[{\$}]{ text}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_a574d2bd0039708a19f9f7f73d188c537}
+Content between start and end elements. 
+\begin{DoxyParams}[1]{Parameters}
+resource & {\em \$expat} & Parser handle. \\
+\hline
+string & {\em \$text} & Usually output messages.  protected \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_test_xml_parser_a9a5607a7f11af705736a773612a7ec6d}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!\_\-createParser@{\_\-createParser}}
+\index{\_\-createParser@{\_\-createParser}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{\_\-createParser}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleTestXmlParser::\_\-createParser (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_a9a5607a7f11af705736a773612a7ec6d}
+Sets up expat as the XML parser. \begin{DoxyReturn}{Returns}
+resource Expat handle.  protected 
+\end{DoxyReturn}
+\hypertarget{class_simple_test_xml_parser_a3d549714cdcc6015cb519adb990d0033}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!\_\-default@{\_\-default}}
+\index{\_\-default@{\_\-default}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{\_\-default}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestXmlParser::\_\-default (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expat, }
+\item[{\$}]{ default}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_a3d549714cdcc6015cb519adb990d0033}
+XML and Doctype handler. Discards all such content. 
+\begin{DoxyParams}[1]{Parameters}
+resource & {\em \$expat} & Parser handle. \\
+\hline
+string & {\em \$default} & Text of default content.  protected \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_test_xml_parser_a19b250a47739a907ebe69a9cd7b0e3bd}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!\_\-endElement@{\_\-endElement}}
+\index{\_\-endElement@{\_\-endElement}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{\_\-endElement}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestXmlParser::\_\-endElement (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expat, }
+\item[{\$}]{ tag}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_a19b250a47739a907ebe69a9cd7b0e3bd}
+End of element event. 
+\begin{DoxyParams}[1]{Parameters}
+resource & {\em \$expat} & Parser handle. \\
+\hline
+string & {\em \$tag} & Element name.  protected \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_test_xml_parser_a4e33d00bbb8093f93331b6b4f6965947}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!\_\-getCurrentNestingTag@{\_\-getCurrentNestingTag}}
+\index{\_\-getCurrentNestingTag@{\_\-getCurrentNestingTag}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{\_\-getCurrentNestingTag}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleTestXmlParser::\_\-getCurrentNestingTag (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_a4e33d00bbb8093f93331b6b4f6965947}
+Accessor for current test structure tag. \begin{DoxyReturn}{Returns}
+NestedXmlTag The group, case or method tag being parsed.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_test_xml_parser_ade10e92d51ae121640bc16aa7d73e581}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!\_\-popNestingTag@{\_\-popNestingTag}}
+\index{\_\-popNestingTag@{\_\-popNestingTag}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{\_\-popNestingTag}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestXmlParser::\_\-popNestingTag (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_ade10e92d51ae121640bc16aa7d73e581}
+Ends a nesting tag. \begin{DoxyReturn}{Returns}
+NestedXmlTag The group, case or method tag just finished.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_test_xml_parser_ac3481993c4f5916b3b1039ac55b76d53}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!\_\-pushNestingTag@{\_\-pushNestingTag}}
+\index{\_\-pushNestingTag@{\_\-pushNestingTag}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{\_\-pushNestingTag}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestXmlParser::\_\-pushNestingTag (
+\begin{DoxyParamCaption}
+\item[{\$}]{ nested}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_ac3481993c4f5916b3b1039ac55b76d53}
+Opens a new test nesting level. \begin{DoxyReturn}{Returns}
+NestedXmlTag The group, case or method tag to start.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_test_xml_parser_ae6de8ccde9c5bed8742498edf6818cdb}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!\_\-startElement@{\_\-startElement}}
+\index{\_\-startElement@{\_\-startElement}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{\_\-startElement}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestXmlParser::\_\-startElement (
+\begin{DoxyParamCaption}
+\item[{\$}]{ expat, }
+\item[{\$}]{ tag, }
+\item[{\$}]{ attributes}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_ae6de8ccde9c5bed8742498edf6818cdb}
+Handler for start of event element. 
+\begin{DoxyParams}[1]{Parameters}
+resource & {\em \$expat} & Parser handle. \\
+\hline
+string & {\em \$tag} & Element name. \\
+\hline
+hash & {\em \$attributes} & Name value pairs. Attributes without content are marked as true.  protected \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_test_xml_parser_af5eff8c0132f452c47bca965d6ff37ed}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!parse@{parse}}
+\index{parse@{parse}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{parse}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestXmlParser::parse (
+\begin{DoxyParamCaption}
+\item[{\$}]{ chunk}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_af5eff8c0132f452c47bca965d6ff37ed}
+Parses a block of XML sending the results to the listener. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$chunk} & Block of text to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if valid XML.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_test_xml_parser_a2d2e15390947baa26a5771971ca3917b}{
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\index{SimpleTestXmlParser@{SimpleTestXmlParser}!SimpleTestXmlParser@{SimpleTestXmlParser}}
+\subsubsection[{SimpleTestXmlParser}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestXmlParser::SimpleTestXmlParser (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ listener}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_xml_parser_a2d2e15390947baa26a5771971ca3917b}
+Loads a listener with the \hyperlink{class_simple_reporter}{SimpleReporter} interface. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_reporter}{SimpleReporter} & {\em \$listener} & Listener of tag events.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/xml.php\end{DoxyCompactItemize}

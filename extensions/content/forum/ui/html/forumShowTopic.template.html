@@ -1,0 +1,78 @@
+<!-- BEGIN THEMA -->
+<div class="thema"><a name="top"></a> <br />
+
+
+<!--  BEGIN ADMIN -->
+<div class="admin">Forum-Verwalter: <a href="{FORUM_OWNER_URL}">{FORUM_OWNER}</a></div>
+<!-- END ADMIN --> <!-- BEGIN CH -->
+<table width="100%" class="category_table">
+	<tr class="heading0">
+		<td class="name"><a class="contentCreator"
+			href="{CATEGORIE_CREATOR_URL}">{CATEGORIE_CREATOR}</a></td>
+		<td class="title">
+		<div style="float: left;">{CATEGORIE_NAME}</div>
+		{POPUP_MENU}</td>
+	</tr>
+	<tr class="posting">
+		<td class="posting_details">
+		<div class="creation">erstellt am {CATEGORIE_CREATION_TIME}</div>
+		</td>
+		<td class="posting_content">{CATEGORIE_CONTENT}
+
+		<!-- BEGIN BLOCK_TOPIC_PICTURE -->
+		<div class="topic_picturer"><img src="{MESSAGE_PICTURE_URL1}"
+			align="{MESSAGE_PICTURE_ALIGNMENT1}" width="{MESSAGE_PICTURE_WIDTH1}">
+		</div>
+		<!-- END BLOCK_TOPIC_PICTURE -->
+		<!-- BEGIN edit_category_annotation -->
+		<div class="editing">Der Inhalt wurde vom Benutzer {AUTHOR_EDIT}
+		am {TIMESTAMP_EDIT} geändert.</div>
+		<!-- END edit_category_annotation --> <!-- BEGIN delete_category_annotation -->
+		<div class="editing">Der urspr&uuml;ngliche Inhalt wurde vom
+		Benutzer {AUTHOR_DELETE} am {TIMESTAMP_DELETE} gelöscht.</div>
+		<!-- END delete_category_annotation --></td>
+	</tr>
+</table>
+<!-- END CH --> <br />
+<table width="100%">
+	<!-- BEGIN message -->
+	<tr class="heading">
+		<td class="name"><a class="contentCreator"
+			href="{MESSAGE_CREATOR_PROFILE}">{MESSAGE_CREATOR} </a></td>
+		<td class="title">
+		<div style="float: left;">{MESSAGE_NAME}</div>
+		{POPUP_MENU2}</td>
+	</tr>
+	<tr class="posting">
+		<td class="posting_details">
+		<div class="creation">erstellt am {MESSAGE_CREATION_TIME}</div>
+		</td>
+		<td class="posting_content">{MESSAGE_CONTENT} <!-- BEGIN BLOCK_MESSAGE_PICTURE -->
+
+		<div class="msg_pictures"><img class="img_pic" src="{MESSAGE_PICTURE_URL}"
+			align="{MESSAGE_PICTURE_ALIGNMENT}" width="{MESSAGE_PICTURE_WIDTH}">
+		</div>
+
+		<!-- END BLOCK_MESSAGE_PICTURE --> <!-- BEGIN edit_message_annotation -->
+		<div class="editing">Der Inhalt wurde vom Benutzer
+		{AUTHOR_MES_EDIT} am {TIMESTAMP_MES_EDIT} ge&auml;ndert.</div>
+		<!-- END edit_message_annotation --> <!-- BEGIN delete_message_annotation -->
+
+		<div class="editing">Der urspr&uuml;ngliche Inhalt wurde vom
+		Benutzer {AUTHOR_MES_DELETE} am {TIMESTAMP_MES_DELETE} gel&ouml;scht.
+		</div>
+		<!-- END delete_message_annotation --></td>
+	</tr>
+	<!-- END message -->
+
+</table>
+<!-- BEGIN no_access --> {NO_ACCESS} <!-- END no_access --></div>
+<!-- END THEMA -->
+
+<!-- BEGIN no_access -->
+{NO_ACCESS}
+<!-- END no_access -->
+
+<div id="overlay_menu"></div>
+<div id="overlay_menu2"></div>
+

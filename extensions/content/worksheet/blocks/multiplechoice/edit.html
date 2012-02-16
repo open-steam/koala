@@ -1,0 +1,125 @@
+<script type="text/javascript">
+{literal}
+
+	jQuery(function() {
+	
+		jQuery("#worksheet_mc_solution_locked_{/literal}{$BLOCK_ID}{literal}").worksheetPreventChanges();
+		
+	});
+	
+{/literal}
+</script>
+
+<div class="worksheet_text">
+	
+	{$data.text}
+
+</div>
+
+{if $old_solutions}
+<div class="worksheet_correction">
+	
+	<span class="worksheet_correction_fold" onclick="worksheet_correction_fold(this, 'worksheet_solutions_{$BLOCK_ID}')"><img src="{$PATH_URL}worksheet/asset/icons/arrow_in.png" alt="" /> Einklappen</span>
+	
+	<div>
+	{foreach from=$old_solutions item=s key=key name=solutions}
+		<span class="worksheet_correction_title{if not $smarty.foreach.solutions.last} worksheet_correction_title_inactive{/if}" onclick="worksheet_show_solution('worksheet_solution_{$BLOCK_ID}_{$key}', 'worksheet_solutions_{$BLOCK_ID}', this)">Korrektur{if $old_solutions|@count gt 1} {$key+1}{/if}</span>
+	{/foreach}
+	</div>
+	
+	<div id="worksheet_solutions_{$BLOCK_ID}">
+	{foreach from=$old_solutions item=s key=key name=solutions}
+
+		<div id="worksheet_solution_{$BLOCK_ID}_{$key}" class="worksheet_solution"{if not $smarty.foreach.solutions.last} style="display: none"{/if}>
+
+			<div class="worksheet_block_label">Ihre Antwort:</div>
+			<div class="worksheet_text">
+
+			{if $worksheet_status == 3}	
+
+				<table border="0">
+
+				{foreach from=$data.answers item=answer key=key}
+
+					<tr>
+						<td>
+						{if ($answer.correct AND $s.solution.answers.$key) OR (!$answer.correct AND !$s.solution.answers.$key)}
+							<img src="{$PATH_URL}worksheet/asset/icons/tick.png" alt="" class="worksheet_mc_icon" /> <span class="worksheet_mc_score">+{$data.answers_points_right}</span>
+						{else}
+							<img src="{$PATH_URL}worksheet/asset/icons/cross.png" alt="" class="worksheet_mc_icon" /> <span class="worksheet_mc_score">-{$data.answers_points_wrong}</span>
+						{/if}
+						</td>
+						<td>
+							<input type="checkbox" {if $s.solution.answers[$key]} checked="checked"{/if} />
+						</td>
+						<td>
+						{$answer.text}
+						</td>
+					</tr>
+					
+				{/foreach}
+				
+				</table>
+				
+			{else}
+			
+				<table border="0" id="worksheet_mc_solution_locked_{$BLOCK_ID}">
+
+				{foreach from=$data.answers item=answer key=key}
+
+					<tr>
+						<td>
+							<input type="checkbox" {if $s.solution.answers[$key]} checked="checked"{/if} />
+						</td>
+						<td>
+						{$answer.text}
+						</td>
+					</tr>
+					
+				{/foreach}
+				
+				</table>
+			
+			{/if}
+				
+			</div>
+
+			<div class="worksheet_block_label">Kommentar:</div>
+			<div class="worksheet_text">{$s.correction.comment}</div>
+
+
+			{if $worksheet_status == 3}	
+			
+				<div class="worksheet_block_label">Bewertung:</div>
+				<strong>{$s.score.score} von {$s.score.max} Punkt{if $s.score.max != 1 AND $s.score.max != -1}en{/if}</strong>
+
+				{if $s.correction.extra}
+
+					<span class="worksheet_score_details">
+						(inkl. {$s.correction.extra} Zusatzpunkt{if $s.correction.extra != 1 AND $s.correction.extra != -1}en{/if})
+					</span>
+
+				{/if}
+			
+			{/if}
+
+		</div>
+	{/foreach}
+	</div>
+
+</div>
+{/if}
+
+<br />
+
+{if $worksheet_status < 3}
+
+	{foreach from=$data.answers item=answer key=key}
+	
+			<input type="checkbox" name="answers" value="1"{if $solution AND $solution.answers[$key]} checked="checked"{/if} />
+			{$answer.text}
+			<br />
+		
+	{/foreach}
+
+{/if}

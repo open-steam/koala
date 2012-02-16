@@ -1,0 +1,5 @@
+<IfModule mod_expires.c>
+FileETag none
+ExpiresActive On
+ExpiresDefault "access plus 10 years"
+</IfModule>

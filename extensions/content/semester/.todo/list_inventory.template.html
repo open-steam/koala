@@ -1,0 +1,143 @@
+<!-- BEGIN BLOCK_CLIPBOARD -->
+<div>
+<div id="clipboard" class="clipboard">{CLIPBOARD_HTML}</div>
+</div>
+<!-- END BLOCK_CLIPBOARD -->
+<div class="path"><h2>{CONTAINER_PATH}</h2></div>
+<div style="clear:both;"></div>
+
+<h3>{VALUE_CONTAINER_DESC}</h3>
+<p>{VALUE_CONTAINER_LONG_DESC}</p>
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->
+<!-- BEGIN BLOCK_EMPTY_INVENTORY -->
+{LABEL_NO_DOCUMENTS_FOUND}
+<ul id="boxes" style="list-style: none; margin: 0; padding: 0;"></ul>
+<!-- END BLOCK_EMPTY_INVENTORY -->
+<!-- BEGIN BLOCK_INVENTORY -->
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+	<tr>
+		<th width="200">{LABEL_DOCNAME_DESCRIPTION}</th>
+		<th width="80" align="right">{LABEL_SIZE}</th>
+		<th width="160">{LABEL_MODIFIED}</th>
+		<th width="160">{LABEL_INFO}</th>
+		<th>{LABEL_ACTIONS}</th>
+	</tr>
+</table>
+<ul id="boxes" style="list-style: none; margin: 0; padding: 0;">
+<!-- BEGIN BLOCK_ITEM -->
+<li id="{BOXES}">
+	<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+	<tr>
+		<td width="200">
+			<table border="0" >
+                 <tr>
+                     <td style="border-style:none; padding:0; celling:0; vertical-align:top;">
+                         <div><a href="{LINK_ITEM}">{ICON_ITEM}</a></div>
+                     </td>
+                     <td style="border-style:none; padding:0; celling:0; max-width:150px; vertical-align:top;">
+                         <div {ITEM_STYLE}><a href="{LINK_ITEM}"><strong>{NAME_ITEM}</strong></a></div>
+                         <!-- BEGIN BLOCK_DESCRIPTION -->
+                         <div><small>{OBJ_DESC}</small></div>
+                         <!-- END BLOCK_DESCRIPTION -->
+                     </td>
+                </tr>
+           </table>
+		</td>
+		<td width="80" align="right">{SIZE_ITEM}</td>
+		<td width="160" align="center">{MODIFIED_ITEM}</td>
+		<td width="160" align="center"><a href="{LINK_COMMENTS}">{VALUE_COMMENTS}</a><br/>{INVENTORY_SIZE}</td>
+		<td>
+			<!-- BEGIN BLOCK_COPY -->
+			<a href="{LINK_TAKE_COPY}"><img src="{ICONPATH_TAKE_COPY}" title="{LABEL_TAKE_COPY}" alt="{LABEL_TAKE_COPY}" /></a>
+			<!-- END BLOCK_COPY -->
+			<!-- BEGIN BLOCK_TAKE -->
+			<a href="{LINK_TAKE_OBJECT}"><img src="{ICONPATH_TAKE_OBJECT}" title="{LABEL_TAKE_OBJECT}" alt="{LABEL_TAKE_OBJECT}" /></a>
+			<!-- END BLOCK_TAKE -->
+			<!-- BEGIN BLOCK_DOWNLOAD -->
+			<!-- <a href="{LINK_DOWNLOAD}"><img src="{ICONPATH_DOWNLOAD}" title="{LABEL_DOWNLOAD}" alt="{LABEL_DOWNLOAD}" /></a> -->
+			<!-- END BLOCK_DOWNLOAD -->
+			<!-- BEGIN BLOCK_EDIT -->
+			<a href="{LINK_EDIT_OBJECT}"><img src="{ICONPATH_EDIT_OBJECT}" title="{LABEL_EDIT_OBJECT}" alt="{LABEL_EDIT_OBJECT}" /></a>
+			<!-- END BLOCK_EDIT -->
+			<!-- BEGIN BLOCK_DELETE -->
+			<a href="{LINK_DELETE_OBJECT}"><img src="{ICONPATH_DELETE_OBJECT}" title="{LABEL_DELETE_OBJECT}" alt="{LABEL_DELETE_OBJECT}" /></a>
+			<!-- END BLOCK_DELETE -->
+
+<!--
+			<div><a href="{LINK_TAKE_COPY}"><img src="{ICONPATH_TAKE_COPY}" /><b>{LABEL_TAKE_COPY}</b></a></div>{BR_CAN_TAKE}
+			<div><a href="{LINK_TAKE_OBJECT}"><img src="{ICONPATH_TAKE_OBJECT}" /><b>{LABEL_TAKE_OBJECT}</b></a></div>
+			<div><a href="{LINK_DOWNLOAD}"><img src="{ICONPATH_DOWNLOAD}" /><b>{LABEL_DOWNLOAD}</b></a></div>{BR_CAN_LINK}
+-->
+		</td>
+	</tr>
+	<!-- BEGIN BLOCK_WRITE_ACCESS -->
+	<!-- END BLOCK_WRITE_ACCESS -->
+	</table>
+</li>
+<!-- END BLOCK_ITEM -->
+</ul>
+<!-- END BLOCK_INVENTORY -->
+
+
+<!-- BEGIN BLOCK_PODCAST -->
+<div class="infoBar">
+{LABEL_PODCAST} <a href="{LINK_PODCAST}">{LABEL_LINK_PODCAST}</a> <a href="{LINK_PODCAST}"><img width="20" src="{LOGO_PODCAST}" /></a><br />
+{LABEL_HINT_PODCAST}
+</div>
+<!-- END BLOCK_PODCAST -->
+<!-- BEGIN BLOCK_STAFF -->
+<!-- BEGIN BLOCK_DRAG_DROP -->
+<span id="CONTAINER_ID" value="{CONTAINER_ID}"></span>
+<script type="text/javascript">
+//------------------------------------------
+//   /javascript/frontend/list_inventory.js
+//------------------------------------------
+
+// find out course id
+container_id = $('CONTAINER_ID').getAttribute('value');
+
+the_boxes = $('boxes');
+for ( i=containerStart; i<containerEnd; i++ )
+	the_boxes.appendChild( $('boxes_' + i) );
+
+// make boxes sortable
+Sortable.create("boxes",
+	{
+		onUpdate: function() // save box order to sTeam
+		{
+			newOrder = Sortable.sequence('boxes');
+			inventoryOrder = Array( newOrder.length );
+			for ( i=0; i<newOrder.length; i++ ) {
+				inventoryOrder[ i ] = "order[]=" + itemIds[ newOrder[i] - containerStart ];
+}
+			order = inventoryOrder.join("&");
+			// send request:
+			new Ajax.Request(
+				BackendConnector.getURL("sort_inventory", container_id),
+				{
+					asynchronous: true,
+					evalScripts: true,
+					method: "post",
+					parameters: order,
+					onSuccess: function(transport) {
+						eval(transport.responseText);
+					}
+				}
+			);
+		}
+	}
+);
+</script>
+<!-- END BLOCK_DRAG_DROP -->
+<div class="infoBar">
+{INFO_TEXT}
+</div>
+<!-- END BLOCK_STAFF -->

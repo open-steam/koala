@@ -1,0 +1,265 @@
+<div class="actionBar">
+	<a class="left pill button" href="{LINK_BUDDY_ICON}">{LABEL_LOOKING}</a><a class="right pill button" href="{LINK_PROFILE_PRIVACY}">{LABEL_PROFILE_PRIVACY}</a><!-- <a class="right pill button" href="{LINK_MAIL_PREFS}">{LABEL_MAIL_PREFS}</a>-->
+</div>
+
+<div class="infoBar">
+	{LABEL_INFO}
+</div>
+
+<form action="" method="post" name="formular">
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<!-- BEGIN BLOCK_PROFILE_TITLE_ROW -->
+	<tr>
+		<th colspan="2" class="group">{LABEL_PROFILE}</th>
+	</tr>
+	<!-- END BLOCK_PROFILE_TITLE_ROW -->
+	<!-- BEGIN BLOCK_FIRST_NAME_ROW -->
+	<tr>
+		<td class="label">{LABEL_FIRST_NAME}:</td>
+		<td class="value"><input name="user_first_name" type="text" size="30" DISABLED value="{VALUE_USER_FIRSTNAME}"/></td>
+	</tr>
+	<!-- END BLOCK_FIRST_NAME_ROW -->
+	<!-- BEGIN BLOCK_FULL_NAME_ROW -->
+	<tr>
+		<td class="label">{LABEL_LAST_NAME}:</td>
+		<td class="value"><input name="user_full_name" type="text" size="30" disabled="disabled" value="{VALUE_USER_FULLNAME}"/></td>
+	</tr>
+	<!-- END BLOCK_FULL_NAME_ROW -->
+	
+	<!--  BEGIN BLOCK_NAME_BID -->
+	<tr>
+		<td class="label">{LABEL_BID_NAME}:</td>
+		<td class="value"><input name="user_full_name" type="text" size="30" disabled="disabled" value="{VALUE_USER_NAME_BID}"/></td>
+	</tr>
+	
+	<!--  END BLOCK_NAME_BID -->
+	
+	<!-- BEGIN BLOCK_STATUS_BID_ROW -->
+	<tr>
+		<td class="label">{LABEL_STATUS_BID}:</td>
+		<td class="value"><input name="values[OBJ_DESC]" type="text" size="30"  value="{VALUE_STATUS_BID}"/></td>
+	</tr>
+	<!-- END BLOCK_STATUS_BID_ROW -->
+	<!-- BEGIN BLOCK_STATUS_ROW -->
+	<tr>
+		<td class="label">{LABEL_STATUS}:</td>
+		<td class="value">
+			<select name="values[OBJ_DESC]">
+				<!-- BEGIN BLOCK_STATUS -->
+				<option value="{VALUE_STATUS}" {STATUS_SELECTED}>{VALUE_STATUS_TRANSLATED}</option>
+				<!-- END BLOCK_STATUS -->
+			</select>
+		</td>
+	</tr>
+	<!-- END BLOCK_STATUS_ROW -->
+	<!-- BEGIN BLOCK_DEGREE_ROW -->
+	<tr>
+		<td class="label">{LABEL_TITLE}:</td>
+		<td class="value">
+			<select name="values[USER_ACADEMIC_TITLE]">
+				<option value="" {TITLE_NULL_SELECTED}> keiner </option>
+				<option value="Dr." {TITLE_DR_SELECTED}>Dr.</option>
+				<option value="PD Dr." {TITLE_PRIVDOZDR_SELECTED}>PD Dr.</option>
+				<option value="Prof." {TITLE_PROF_SELECTED}>Prof.</option>
+				<option value="Prof. Dr." {TITLE_PROFDR_SELECTED}>Prof. Dr.</option>
+			</select>
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="label">{LABEL_DEGREE}:</td>
+		<td class="value"><input name="values[USER_ACADEMIC_DEGREE]" type="text" size="30" value="{VALUE_ACADEMIC_DEGREE}"/> <small>({LABEL_IF_AVAILABLE})</small></td>
+	</tr>
+	<!-- END BLOCK_DEGREE_ROW -->
+	<!-- BEGIN BLOCK_GENDER_ROW -->
+	<tr>
+		<td class="label">{LABEL_GENDER}:</td>
+		<td class="value">
+			<input type="radio" id="gender_female" name="values[USER_PROFILE_GENDER]" value="F" {GENDER_F_CHECKED}/><label for="gender_female">{LABEL_FEMALE}</label>
+			<input type="radio" id="gender_male" name="values[USER_PROFILE_GENDER]" value="M" {GENDER_M_CHECKED}/><label for="gender_male">{LABEL_MALE}</label>
+			<input type="radio" id="gender_none" name="values[USER_PROFILE_GENDER]" value="X" {GENDER_X_CHECKED}/><label for="gender_none">{LABEL_NOT_SAY}</label>
+		</td>
+	</tr>
+	<!-- END BLOCK_GENDER_ROW -->
+	<!-- BEGIN BLOCK_FACULTY_ROW -->
+	<tr>
+		<td class="label">{LABEL_FACULTY}:</td>
+		<td class="value">
+			<select name="values[USER_PROFILE_FACULTY]">
+				<option value="miscellaneous">{LABEL_MISCELLANEOUS}</option>
+				<!-- BEGIN BLOCK_FACULTY -->
+				<option value="{FACULTY_ID}" {FACULTY_SELECTED}>{FACULTY_NAME}</option>
+				<!-- END BLOCK_FACULTY -->
+			</select>
+		</td>
+	</tr>
+	<!-- END BLOCK_FACULTY_ROW -->
+	<!-- BEGIN BLOCK_WANTS_ROW -->
+	<tr>
+		<td class="label">{LABEL_WANTS}:</td>
+		<td class="value"><input type="text" name="values[USER_PROFILE_WANTS]" size="30" value="{VALUE_WANTS}"/></td>
+	</tr>
+	<!-- END BLOCK_WANTS_ROW -->
+	<!-- BEGIN BLOCK_HAVES_ROW -->
+	<tr>
+		<td class="label">{LABEL_HAVES}:</td>
+		<td class="value"><input type="text" name="values[USER_PROFILE_HAVES]" size="30" value="{VALUE_HAVES}"/></td>
+	</tr>
+	<!-- END BLOCK_HAVES_ROW -->
+	<!-- BEGIN BLOCK_HOMETOWN_ROW -->
+	<tr>
+		<td class="label">{LABEL_HOMETOWN}:</td>
+		<td class="value"><input type="text" name="values[USER_PROFILE_HOMETOWN]" size="30" value="{VALUE_HOMETOWN}"/></td>
+	</tr>
+	<!-- END BLOCK_HOMETOWN_ROW -->
+	<!-- BEGIN BLOCK_MAIN_FOCUS_ROW -->
+	<tr>
+		<td class="label">{LABEL_MAIN_FOCUS}:</td>
+		<td class="value"><textarea name="values[USER_PROFILE_FOCUS]" style="width: 95%;" rows="10">{VALUE_FOCUS}</textarea></td>
+	</tr>
+	<!-- END BLOCK_MAIN_FOCUS_ROW -->
+	<!-- BEGIN BLOCK_OTHER_INTERESTS_ROW -->
+	<tr>
+		<td class="label">{LABEL_OTHER_INTERESTS}:</td>
+		<td class="value"><input type="text" name="values[USER_PROFILE_OTHER_INTERESTS]" style="width: 95%;" value="{VALUE_OTHER_INTERESTS}"/></td>
+	</tr>
+	<!-- END BLOCK_OTHER_INTERESTS_ROW -->
+	<!-- BEGIN BLOCK_ORGANIZATIONS_ROW -->
+	<tr>
+		<td class="label">{LABEL_ORGANIZATIONS}:</td>
+		<td class="value"><input type="text" name="values[USER_PROFILE_ORGANIZATIONS]" size="30" value="{VALUE_ORGANIZATIONS}"/></td>
+	</tr>
+	<!-- END BLOCK_ORGANIZATIONS_ROW -->
+	<!-- BEGIN BLOCK_DESCRIBE_YOURSELF_ROW -->
+	<tr>
+		<td class="label">{LABEL_DESCRIBE_YOURSELF}:</td>
+		<td class="value">
+			<textarea name="values[USER_PROFILE_DSC]" style="width: 95%;" rows="10" wrap="virtual">{VALUE_USER_PROFILE_DSC}</textarea><br />
+			<a href="javascript:insert('[b]', '[/b]', 'formular', 'values[USER_PROFILE_DSC]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+			<a href="javascript:insert('[i]', '[/i]', 'formular', 'values[USER_PROFILE_DSC]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+			<a href="javascript:insert('[u]', '[/u]', 'formular', 'values[USER_PROFILE_DSC]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+			<a href="javascript:insert('[s]', '[/s]', 'formular', 'values[USER_PROFILE_DSC]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+			<a href="javascript:insert('[img]http://', '[/img]', 'formular', 'values[USER_PROFILE_DSC]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+			<a href="javascript:insert('[url=http://]', '[/url]', 'formular', 'values[USER_PROFILE_DSC]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+			<a href="javascript:insert('[mail=@]', '[/mail]', 'formular', 'values[USER_PROFILE_DSC]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
+		</td>
+	</tr>
+	<!-- END BLOCK_DESCRIBE_YOURSELF_ROW -->
+  <!-- BEGIN LANGUAGES -->
+  <tr>
+		<td class="label">{LABEL_LANGUAGES}:</td>
+		<td class="value">
+        <!-- BEGIN LANGUAGE -->
+  			<span id="USER_LANGUAGE">
+          <input type="radio" id="{LABEL_LANGUAGE_LABEL}" name="values[USER_LANGUAGE]" value="{LANGUAGE_VALUE}" {LANGUAGE_CHECKED} />
+          <label for="{LABEL_LANGUAGE_LABEL}"><img class="flag" src="{LANGUAGE_ICON}" title="{LABEL_LANGUAGE}" /></label>&#160;&#160;
+        </span>
+        <!-- END LANGUAGE -->
+        
+        <!-- BEGIN LANGUAGE_BID -->
+        	<select name="values[USER_LANGUAGE]">
+				<option selected="" value="{LANG3}">{LANG1}</option>
+				<option value="{LANG4}">{LANG2}</option>
+			</select>
+        	
+        <!-- END LANGUAGE_BID -->
+		</td>
+  </tr>
+  <!-- END LANGUAGES -->
+  <!-- BEGIN BLOCK_CONTACTS_TITLE_ROW -->
+	<tr>
+		<th colspan="2" class="group">{LABEL_CONTACT_DATA}</th>
+	</tr>
+	<!-- END BLOCK_CONTACTS_TITLE_ROW -->
+	<!-- BEGIN BLOCK_EMAIL_ROW -->
+	<tr>
+		<td class="label">{LABEL_EMAIL}:</td>
+		<td class="value"><input name="user_email" type="text" size="30" value="{VALUE_EMAIL}" disabled="disabled"/> <small>(<a href="{LINK_EMAIL_PREFERENCES}">{LABEL_EMAIL_PREFERENCES}</a>)</small></td>
+	</tr>
+	<!-- END BLOCK_EMAIL_ROW -->
+	
+	
+	<!-- BEGIN BLOCK_EMAIL_BID_ROW -->
+	<tr>
+		<td class="label">{LABEL_EMAIL_BID}:</td>
+		<td class="value"><input name="values[USER_EMAIL]" type="text" size="30" value="{VALUE_EMAIL_BID}" /> </td>
+	</tr>
+	<!-- END BLOCK_EMAIL_BID_ROW -->
+	
+	<!-- BEGIN BLOCK_ADDRESS_ROW -->
+	<tr>
+		<td class="label">{LABEL_ADDRESS}:</td>
+		<td class="value"><input name="values[USER_PROFILE_ADDRESS]" type="text" size="30" value="{VALUE_ADDRESS}"/></td>
+	</tr>
+	<!-- END BLOCK_ADDRESS_ROW -->
+	
+	<!-- BEGIN BLOCK_ADDRESS_BID_ROW -->
+	<tr>
+		<td class="label">{LABEL_BID_ADDRESS}:</td>
+		<td class="value"><textarea name="values[USER_ADRESS]"  cols="50" rows="4" >{VALUE_BID_ADDRESS}</textarea></td>
+	</tr>
+	<!-- END BLOCK_ADDRESS_BID_ROW -->
+	
+	<!-- BEGIN BLOCK_TELEPHONE_ROW -->
+	<tr>
+		<td class="label">{LABEL_TELEPHONE}:</td>
+		<td class="value"><input name="values[USER_PROFILE_TELEPHONE]" type="text" size="30" value="{VALUE_TELEPHONE}"/></td>
+	</tr>
+	<!-- END BLOCK_TELEPHONE_ROW -->
+	<!-- BEGIN BLOCK_TELEPHONE_BID_ROW -->
+	<tr>
+		<td class="label">{LABEL_TELEPHONE_BID}:</td>
+		<td class="value"><input name="values[bid:user_callto]" type="text" size="30" value="{VALUE_TELEPHONE_BID}"/></td>
+	</tr>
+	<!-- END BLOCK_TELEPHONE_BID_ROW -->
+	<!-- BEGIN BLOCK_PHONE_MOBILE_ROW -->
+	<tr>
+		<td class="label">{LABEL_PHONE_MOBILE}:</td>
+		<td class="value"><input name="values[USER_PROFILE_PHONE_MOBILE]" type="text" size="30" value="{VALUE_PHONE_MOBILE}"/></td>
+	</tr>
+	<!-- END BLOCK_PHONE_MOBILE_ROW -->
+	<!-- BEGIN BLOCK_WEBSITE_ROW -->
+	<tr>
+		<td class="label">{LABEL_WEBSITE}:</td>
+		<td class="value"><input name="values[USER_PROFILE_WEBSITE_URI]" type="text" size="30" value="{VALUE_WEBSITE}"/></td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_WEBSITE_NAME}:</td>
+		<td class="value"><input name="values[USER_PROFILE_WEBSITE_NAME]" type="text" size="30" value="{VALUE_WEBSITE_NAME}"/></td>
+	</tr>
+	<!-- END BLOCK_WEBSITE_ROW -->
+	<tr>
+	<!-- BEGIN BLOCK_ICQ_NUMBER_ROW -->
+		<td class="label">{LABEL_ICQ_NUMBER}:</td>
+		<td class="value"><input name="values[USER_PROFILE_IM_ICQ]" type="text" size="30" value="{VALUE_IM_ICQ}"/></td>
+	</tr>
+	<!-- END BLOCK_ICQ_NUMBER_ROW -->
+	<!-- BEGIN BLOCK_MSN_IDENTIFICATION_ROW -->
+	<tr>
+		<td class="label">{LABEL_MSN_IDENTIFICATION}:</td>
+		<td class="value"><input name="values[USER_PROFILE_IM_MSN]" type="text" size="30" value="{VALUE_IM_MSN}"/></td>
+	</tr>
+	<!-- END BLOCK_MSN_IDENTIFICATION_ROW -->
+	<!-- BEGIN BLOCK_AIM_ALIAS_ROW -->
+	<tr>
+		<td class="label">{LABEL_AIM_ALIAS}:</td>
+		<td class="value"><input name="values[USER_PROFILE_IM_AIM]" type="text" size="30" value="{VALUE_IM_AIM}"/></td>
+	</tr>
+	<!-- END BLOCK_AIM_ALIAS_ROW -->
+	<!-- BEGIN BLOCK_YAHOO_ID_ROW -->
+	<tr>
+		<td class="label">{LABEL_YAHOO_ID}:</td>
+		<td class="value"><input name="values[USER_PROFILE_IM_YAHOO]" type="text" size="30" value="{VALUE_IM_YAHOO}"/></td>
+	</tr>
+	<!-- END BLOCK_YAHOO_ID_ROW -->
+	<!-- BEGIN BLOCK_SKYPE_NAME_ROW -->
+	<tr>
+		<td class="label">{LABEL_SKYPE_NAME}:</td>
+		<td class="value"><input name="values[USER_PROFILE_IM_SKYPE]" type="text" size="30" value="{VALUE_IM_SKYPE}"/></td>
+	</tr>
+	<!-- END BLOCK_SKYPE_NAME_ROW -->
+	</table>
+	<br />
+	<div class="buttons" style="text-align: left;"><input name="submit" type="submit" value="{LABEL_SAVE_IT}"/>{LABEL_GOTO_HOMEPAGE} </div>
+	
+</form>

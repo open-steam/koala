@@ -1,0 +1,31 @@
+<div><script langauge="JavaScript1.2">
+function update_input(list)
+{
+  var order = "";
+  for(var j = 0; j < list.length; j++) {
+    order = order + list.options[j].value + " ";
+  }
+
+  document.getElementById("list").value = order;
+}
+</script></div>
+
+
+<input type="hidden" name="list" id="list" value="">
+<input type="hidden" name="category" id="category" value="{CATEGORY_ID}">
+
+<table border="0">
+<tr>
+  <td><select size="15" id="ordermessages" name="ordermessages" style="width: 300px;">
+    <!-- BEGIN select_row --><option value="{TOPIC_ID}">{TOPIC_TITLE}</option>
+    <!-- END select_row -->
+    </select>
+  </td>
+
+  <td>
+    <img src="./icons/arrow_up.gif"
+      onclick='javascript:selectUp(document.getElementById("ordermessages"), document.getElementById("ordermessages").selectedIndex);update_input(document.getElementById("ordermessages"));'><br>
+    <img src="./icons/arrow_down.gif"
+      onclick='javascript:selectDown(document.getElementById("ordermessages"), document.getElementById("ordermessages").selectedIndex);update_input(document.getElementById("ordermessages"));'><br>
+  </td>
+</tr></table>

@@ -1,0 +1,83 @@
+@CHARSET "UTF-8";
+.popupmenuanker {
+	float: right;
+	cursor: pointer;
+	height: 16px;
+	width: 16px;
+	margin-right: 5px;
+	background-image: url("{PATH_URL}widgets/asset/config_grey_16.png");	
+}
+
+.listviewer-item-unhover .popupmenuanker {
+	display: none;
+}
+
+.listviewer-item-hover .popupmenuanker, .popupmenuanker.open {
+	display: block;
+}
+
+.popupmenuloading {
+	background-image: url("{PATH_URL}widgets/asset/ajax-loader.gif");
+}
+
+.listviewer-item-unhover .popupmenuloading {
+	display: block;
+}
+
+.popupmenuwapper {
+	padding: 5px;
+	filter:alpha(opacity=95);
+	opacity:0.95;
+	background: #eee;
+	border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.popupmenuitem {
+	padding: 5px;
+	text-align: right;
+	cursor: pointer;
+}
+
+.popupmenuitem img{
+	margin-left: 3px;
+}
+
+.popupmenuitem:hover {
+	background-color: #ccc;
+}
+
+.popupmenuseparator {
+	height: 1px;
+	border-top: 1px solid #ccc; 
+}
+
+.popupmenuitem:hover .popupsubmenuwapper {
+	display: block;
+}
+
+.popupsubmenuwapper {
+	display: none;
+	position: absolute;
+	width: 190px;
+	margin-top: -25px;
+	border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    box-shadow: 2px 2px 5px #888888;
+    padding: 5px;
+	filter:alpha(opacity=95);
+	opacity:0.95;
+	background: #eee;
+}
+
+.popupsubmenuanker {
+	background-image: url("{PATH_URL}widgets/asset/arrow_left.png");
+	background-repeat: no-repeat;
+	background-position: 0px 5px; 
+}
+
+.popupsubmenuwapper.left {
+	margin-left: -150px;
+}

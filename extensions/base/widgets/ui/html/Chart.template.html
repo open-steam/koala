@@ -1,0 +1,36 @@
+
+<div id=div_{CHART_ID} class="chart" style="">
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load('visualization', '1', {packages: ['corechart']});
+		</script>
+
+	<script type="text/javascript">
+			function drawVisualization{CHART_ID}() {
+				var data{CHART_ID} = google.visualization.arrayToDataTable({CHART_DATA_JSON});
+				var url_data = {URL_DATA_JSON};
+				// Create and draw the visualization.
+				var comboChart{CHART_ID} = new google.visualization.ComboChart(document.getElementById('chart_div_{CHART_ID}'));
+				comboChart{CHART_ID}.draw(data{CHART_ID}, {
+					title : '{CHART_TITLE}',
+					vAxis: {title: "{CHART_VAXIS_TITLE}"},
+					hAxis: {title: "{CHART_HAXIS_TITLE}"},
+					seriesType: "{CHART_SERIES_TYPE}",
+				});
+				google.visualization.events.addListener(comboChart{CHART_ID}, 'select', selectHandler);
+				function selectHandler() {
+				    var selection = comboChart{CHART_ID}.getSelection();
+				    var message = '';
+				    for (var i = 0; i < selection.length; i++) {
+				      var item = selection[i];
+				      if (item.row != null && item.column != null) {
+				    	  //alert(url_data[item.row][item.column]);
+				      }
+				    }
+				    window.location = url_data[item.row][item.column];
+				  }
+			}
+			google.setOnLoadCallback(drawVisualization{CHART_ID});
+			</script>
+	<div id="chart_div_{CHART_ID}" style="width: 940px; height: 400px;"></div>
+</div>

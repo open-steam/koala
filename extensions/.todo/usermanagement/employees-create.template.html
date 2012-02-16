@@ -1,0 +1,53 @@
+ <!-- BEGIN BLOCK_CONTEXT_MENU -->
+<div class="actionBar">
+    <!-- BEGIN BLOCK_MENU_ENTRY -->
+	{LINK_MENU_ENTRY}
+	<!-- END BLOCK_MENU_ENTRY -->
+</div>
+<!-- END BLOCK_CONTEXT_MENU -->
+ 
+ <ul class="tabBar">
+   <!-- BEGIN BLOCK_TABS -->    
+   <li class="{TAB_STATE}">{TAB_ENTRY}</li>
+   <!-- END BLOCK_TABS -->
+   <li style="clear:left;"/>
+ </ul>
+
+<div style="{CURRENT_CUSTOMER_STYLE}">{CURRENT_CUSTOMER}</div>
+
+<h3>Neuen Benutzer anlegen</h3>
+
+<div class="infoBar">Aus Ihren Angaben im Formular werden dann automatisch ein Benutzername
+und ein Passwort generiert. Der Benutzername kann nachträglich nicht mehr geändert werden.</div>
+
+<form action="/usermanagement/" name="formular" method="post">
+	<table class="grid" width="100%">
+		<tr>
+			<td class="label">Vorname:</td>
+			<td><input type="text" name="firstname" value="{VALUE_FIRSTNAME}" style="width:200px;"/></td>
+		</tr>
+		<tr>
+			<td class="label">Nachname:</td>
+			<td><input type="text" name="lastname" value="{VALUE_LASTNAME}" style="width:200px;"/></td>
+		</tr>
+		<tr>
+			<td class="label">E-Mail:</td>
+			<td><input type="text" name="email" value="{VALUE_EMAIL}" style="width:200px;"/>&nbsp;<small>(optional)</small></td>
+		</tr>
+		<tr>
+			<td class="label">{LABEL2}</td>
+			<td>{COURSE_COMBOBOX}<span class="small"></span></td>
+		</tr>
+	</table>
+	<table width="100%">
+		<tr>
+			<td align="right">
+			<input type="hidden" name="command" value="createEmployee">
+			<input type="hidden" name="template" value="employees-create">
+			<input type="hidden" name="customerID" value="{VALUE_CUSTOMER_ID}">
+			<input type="submit" value="Mitarbeiter anlegen">	
+			</td>
+		</tr>
+	</table>
+</form>
+

@@ -1,0 +1,55 @@
+{DUMMY}
+<table width="100%">
+	<tr>
+		<td id="GoodStuff" valign="top">
+		<h3>{LABEL_EDIT_UNIT_DESCRIPTION}</h3>
+		<form method="post" onsubmit="return window.confirm('Wirklich ändern?')" name="formular">
+		<table cellspacing="0" cellpadding="5">
+
+			<tr>
+				<td class="Label">{LABEL_UNIT_NAME}*:</td>
+				<td>
+					<input name="values[OBJ_NAME]" type="text" size="40" value="{VALUE_UNIT_NAME}">
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="Label">{LABEL_UNIT_DESC}*:</td>
+				<td>
+					<input name="values[OBJ_DESC]" type="text" size="40" value="{VALUE_UNIT_DESC}">
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="Label">{LABEL_UNIT_LONG_DESC}:</td>
+				<td>
+					<textarea name="values[OBJ_LONG_DESC]" style="width: 400px;" rows="10">{VALUE_UNIT_LONG_DESC}</textarea><br />
+					<small>({LONG_DSC_SHOW_UP})</small><br/>
+							<b onClick="insert('[b]', '[/b]', 'formular', 'values[OBJ_LONG_DESC]')" style="cursor: pointer;" >B</b>&nbsp;
+									<i onClick="insert('[i]', '[/i]', 'formular', 'values[OBJ_LONG_DESC]')" style="cursor: pointer;">I</i>&nbsp;
+											<u onClick="insert('[u]', '[/u]', 'formular', 'values[OBJ_LONG_DESC]')" style="cursor: pointer;">U</u>&nbsp;
+													<span onClick="insert('[s]', '[/s]', 'formular', 'valuesvalues[OBJ_LONG_DESC]')" style="cursor: pointer; text-decoration: line-through">S</span>&nbsp;
+															<b onClick="insert('[img]http://', '[/img]', 'formular', 'values[OBJ_LONG_DESC]')" style="cursor: pointer;">IMG</b>&nbsp;
+																	<b onClick="insert('[url=http://]', '[/url]', 'formular', 'values[OBJ_LONG_DESC]')" style="cursor: pointer;">URL</b>&nbsp;
+
+																			<b onClick="insert('[mail=@]', '[/mail]', 'formular', 'values[OBJ_LONG_DESC]')" style="cursor: pointer;">MAIL</b>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<div class="buttons" style="text-align: left;">
+						<input type="submit"  value="{LABEL_SAVE_CHANGES}">
+						{BACKLINK}
+					</div>
+				</td>
+			</tr>
+		</table>
+		</form>
+		</td>
+	</tr>
+</table>

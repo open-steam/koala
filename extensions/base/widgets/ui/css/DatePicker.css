@@ -1,0 +1,61 @@
+.widgets_label {
+	float: left;
+	margin-right: 2px;
+	white-space: nowrap;
+}
+
+.widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
+	float: left;
+}
+
+.widgets_datepicker_button {
+	cursor: pointer;
+	height: 20px;
+}
+
+.widgets_datepicker_save_button {
+	display: none;
+	width: 68px;
+	background-image: url("{PATH_URL}widgets/asset/save.gif");
+}
+
+.widgets_datepicker_save_button:hover {
+	background-image: url("{PATH_URL}widgets/asset/save-hover.gif");
+}
+
+.widgets_datepicker_undo_button {
+	display: none;
+	width: 68px;
+	background-image: url("{PATH_URL}widgets/asset/undo.gif");
+}
+
+.widgets_datepicker_undo_button:hover {
+	background-image: url("{PATH_URL}widgets/asset/undo-hover.gif");
+}
+
+.widgets_datepicker_loader {
+	display: none;
+	cursor: default;
+	height: 16px;
+	width: 16px;
+	margin-left: 10px;
+	background-image: url("{PATH_URL}widgets/asset/ajax-loader.gif");	
+}
+
+.widgets_datepicker_ok {
+	display: none;
+	cursor: default;
+	height: 16px;
+	width: 16px;
+	margin-left: 10px;
+	background-image: url("{PATH_URL}widgets/asset/icon_ok.png");	
+}
+
+.widgets_datepicker_error {
+	display: none;
+	cursor: default;
+	height: 16px;
+	width: 16px;
+	margin-left: 10px;
+	background-image: url("{PATH_URL}widgets/asset/icon_error.png");	
+}

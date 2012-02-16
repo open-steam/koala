@@ -1,0 +1,104 @@
+<!-- BEGIN BLOCK_CONFIRMATION -->
+<p id="confirmation" style="display:none">{CONFIRMATION_TEXT}</p>
+<!-- END BLOCK_CONFIRMATION -->
+
+<!-- BEGIN BLOCK_USERS_LIST -->
+<div id="users">
+	<table class="grid" cellspacing="0" cellpadding="2" width="100%">
+		<tr>
+			<th width="33%">{WORKPLAN_USERS_ELEMENT_NAME}</th>
+			<th width="33%">{WORKPLAN_USERS_ELEMENT_ROLE}</th>
+			<th width="33%">{WORKPLAN_USERS_ELEMENT_RESSOURCE}</th>
+		</tr>
+	<!-- BEGIN BLOCK_USERS_ELEMENT -->
+		<tr>
+			<td>{WORKPLAN_USERS_ELEMENT_NAME_VALUE}</td>
+			<td>{WORKPLAN_USERS_ELEMENT_ROLE_VALUE}</td>
+			<td>{WORKPLAN_USERS_ELEMENT_RESSOURCE_VALUE}</td>
+		</tr>
+	<!-- END BLOCK_USERS_ELEMENT -->
+	</table>
+</div>
+<!-- END BLOCK_USERS_LIST -->
+
+<!-- BEGIN BLOCK_USERS_CHANGE_LIST -->
+<form>
+	<div id="users">
+		<table class="grid" cellspacing="0" cellpadding="2" width="100%">
+			<tr>
+				<th width="33%">{WORKPLAN_USERS_ELEMENT_NAME}</th>
+				<th width="33%">{WORKPLAN_USERS_ELEMENT_ROLE}</th>
+				<th width="33%">{WORKPLAN_USERS_ELEMENT_RESSOURCE}</th>
+			</tr>
+		<!-- BEGIN BLOCK_USERS_CREATOR -->
+			<tr height="40px">
+				<td>{WORKPLAN_USERS_ELEMENT_NAME_VALUE}</td>
+				<td id="role">{WORKPLAN_USERS_ELEMENT_ROLE_VALUE}</td>
+				<td><input id="leaderRes" type="text" size="33%" value="{WORKPLAN_USERS_ELEMENT_RESSOURCE_VALUE}"></td>
+			</tr>
+		<!-- END BLOCK_USERS_CREATOR -->
+		<!-- BEGIN BLOCK_USERS_CHANGE_ELEMENT_LEADER -->
+			<tr height="40px">
+				<td>{WORKPLAN_USERS_ELEMENT_NAME_VALUE}</td>
+				<td>
+					<select name="role" size="1">
+						<option value="1" selected>{WORKPLAN_LEADER}</option>
+						<option value="2">{WORKPLAN_WORKER}</option>
+					</select>
+				</td>
+				<td>
+					<input name="ressource" type="text" size="33%" value="{WORKPLAN_USERS_ELEMENT_RESSOURCE_VALUE}">
+					<input name="useroid" type="hidden" value="{WORKPLAN_USERS_ELEMENT_OID}">
+				</td>
+			</tr>
+		<!-- END BLOCK_USERS_CHANGE_ELEMENT_LEADER -->
+		<!-- BEGIN BLOCK_USERS_CHANGE_ELEMENT_WORKER -->
+			<tr height="40px">
+				<td>{WORKPLAN_USERS_ELEMENT_NAME_VALUE}</td>
+				<td>
+					<select name="role" size="1">
+						<option value="1">{WORKPLAN_LEADER}</option>
+						<option value="2" selected>{WORKPLAN_WORKER}</option>
+					</select>
+				</td>
+				<td>
+					<input name="ressource" type="text" size="33%" value="{WORKPLAN_USERS_ELEMENT_RESSOURCE_VALUE}">
+					<input name="useroid" type="hidden" value="{WORKPLAN_USERS_ELEMENT_OID}">
+				</td>
+			</tr>
+		<!-- END BLOCK_USERS_CHANGE_ELEMENT_WORKER -->
+			<tr> 
+				<td colspan="3">
+					<div class="buttons">
+						<a onclick="saveChangedUsers({WORKPLAN_ID})" name="new_task">{LABEL_SAVE}</a>
+						<a onclick="cancelChangeUsers({WORKPLAN_ID})">{LABEL_BACK}</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+<!-- END BLOCK_USERS_CHANGE_LIST -->
+
+<!-- BEGIN BLOCK_USERS_TOGROUP -->
+<form action="" method="post" name="addtogroup">
+	<input type="hidden" id="workplanid" value="{WORKPLAN_ID}">
+	<table>
+		<tr>
+			<td>{WORKPLAN_TOGROUP}</td>
+			<td>
+				<select name="values[groupid]" id="whichgroup" size="1">
+				<!-- BEGIN BLOCK_USERS_TOGROUP_ELEMENT -->
+					<option value="{GROUPID}" >{GROUPNAME}</option>
+				<!-- END BLOCK_USERS_TOGROUP_ELEMENT -->
+				</select>
+			</td>
+			<td>
+				<div class="buttons">
+					<input type="submit" value="{LABEL_MOVE}" name="move">
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>
+<!-- END BLOCK_USERS_TOGROUP -->

@@ -1,0 +1,151 @@
+\hypertarget{class_field_expectation}{
+\section{FieldExpectation Class Reference}
+\label{class_field_expectation}\index{FieldExpectation@{FieldExpectation}}
+}
+Inheritance diagram for FieldExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_field_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_field_expectation_a4b7f7a62437287d18eb9eb6910694761}{FieldExpectation} (\$value, \$message= '\%s')
+\item 
+\hyperlink{class_field_expectation_a2c4a77d26920b75241f177d94e7b220e}{test} (\$compare)
+\item 
+\hyperlink{class_field_expectation_a634084e075491c4c6dffa60beb8c0659}{\_\-isSingle} (\$value)
+\item 
+\hyperlink{class_field_expectation_a4eef89d4a9de8a41a0981b3918523f5d}{\_\-testSingle} (\$compare)
+\item 
+\hyperlink{class_field_expectation_aefd7811a38a60fe675c445841cffdd8a}{\_\-testMultiple} (\$compare)
+\item 
+\hyperlink{class_field_expectation_a98958cce79aa0e8f98da5c8bb53c21fa}{testMessage} (\$compare)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_field_expectation_a661384bc2b758f126df8ef87dcacd857}{
+{\bfseries \$\_\-value}}
+\label{class_field_expectation_a661384bc2b758f126df8ef87dcacd857}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_field_expectation_a634084e075491c4c6dffa60beb8c0659}{
+\index{FieldExpectation@{FieldExpectation}!\_\-isSingle@{\_\-isSingle}}
+\index{\_\-isSingle@{\_\-isSingle}!FieldExpectation@{FieldExpectation}}
+\subsubsection[{\_\-isSingle}]{\setlength{\rightskip}{0pt plus 5cm}FieldExpectation::\_\-isSingle (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value}
+\end{DoxyParamCaption}
+)}}
+\label{class_field_expectation_a634084e075491c4c6dffa60beb8c0659}
+Tests for valid field comparisons with a single option. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & Value to type check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if integer, string or float.  private 
+\end{DoxyReturn}
+\hypertarget{class_field_expectation_aefd7811a38a60fe675c445841cffdd8a}{
+\index{FieldExpectation@{FieldExpectation}!\_\-testMultiple@{\_\-testMultiple}}
+\index{\_\-testMultiple@{\_\-testMultiple}!FieldExpectation@{FieldExpectation}}
+\subsubsection[{\_\-testMultiple}]{\setlength{\rightskip}{0pt plus 5cm}FieldExpectation::\_\-testMultiple (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_field_expectation_aefd7811a38a60fe675c445841cffdd8a}
+List comparison for multivalue field. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & List in any order to test against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if matching.  private 
+\end{DoxyReturn}
+\hypertarget{class_field_expectation_a4eef89d4a9de8a41a0981b3918523f5d}{
+\index{FieldExpectation@{FieldExpectation}!\_\-testSingle@{\_\-testSingle}}
+\index{\_\-testSingle@{\_\-testSingle}!FieldExpectation@{FieldExpectation}}
+\subsubsection[{\_\-testSingle}]{\setlength{\rightskip}{0pt plus 5cm}FieldExpectation::\_\-testSingle (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_field_expectation_a4eef89d4a9de8a41a0981b3918523f5d}
+String comparison for simple field with a single option. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & String to test against. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if matching.  private 
+\end{DoxyReturn}
+\hypertarget{class_field_expectation_a4b7f7a62437287d18eb9eb6910694761}{
+\index{FieldExpectation@{FieldExpectation}!FieldExpectation@{FieldExpectation}}
+\index{FieldExpectation@{FieldExpectation}!FieldExpectation@{FieldExpectation}}
+\subsubsection[{FieldExpectation}]{\setlength{\rightskip}{0pt plus 5cm}FieldExpectation::FieldExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_field_expectation_a4b7f7a62437287d18eb9eb6910694761}
+Sets the field value to compare against. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$value} & Test value to match. Can be an expectation for say pattern matching. \\
+\hline
+string & {\em \$message} & Optiona message override. Can use s as a placeholder for the original message.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_field_expectation_a2c4a77d26920b75241f177d94e7b220e}{
+\index{FieldExpectation@{FieldExpectation}!test@{test}}
+\index{test@{test}!FieldExpectation@{FieldExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}FieldExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_field_expectation_a2c4a77d26920b75241f177d94e7b220e}
+Tests the expectation. True if it matches a string value or an array value in any order. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison value. False for an unset field. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if correct.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_expectation_aa2b98f827e7487ebe12cedb9ad39d061}{SimpleExpectation}.
+
+\hypertarget{class_field_expectation_a98958cce79aa0e8f98da5c8bb53c21fa}{
+\index{FieldExpectation@{FieldExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!FieldExpectation@{FieldExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}FieldExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_field_expectation_a98958cce79aa0e8f98da5c8bb53c21fa}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_expectation_a15b69edf659c76f6543aa98d8d85b025}{SimpleExpectation}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/web\_\-tester.php\end{DoxyCompactItemize}

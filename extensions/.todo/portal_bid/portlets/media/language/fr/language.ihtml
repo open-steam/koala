@@ -1,0 +1,15 @@
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->Edit "{PORTLET_NAME}"<!-- END edit_title -->
+<!-- BEGIN edit_feedback_url_null -->The address must not be empty<!-- END edit_feedback_url_null -->
+<!-- BEGIN edit_headline -->Headline<!-- END edit_headline -->
+<!-- BEGIN edit_url -->Address<!-- END edit_url -->
+<!-- BEGIN edit_description -->Description<!-- END edit_description -->
+<!-- BEGIN edit_mediatype -->Type<!-- END edit_mediatype -->
+<!-- BEGIN edit_selected_image -->Image<!-- END edit_selected_image -->
+<!-- BEGIN edit_selected_movie -->Movie<!-- END edit_selected_movie -->
+<!-- BEGIN edit_selected_audio -->Audio<!-- END edit_selected_audio -->
+<!-- BEGIN edit_button_ok -->Save<!-- END edit_button_ok -->
+<!-- BEGIN edit_button_cancel -->Finish<!-- END edit_button_cancel -->

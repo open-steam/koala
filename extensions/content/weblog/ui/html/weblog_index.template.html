@@ -1,0 +1,39 @@
+<!-- BEGIN BLOCK_DESCRIPTION -->
+<div class="infoBar">
+    {WEBLOG_DESCRIPTION}
+</div>
+<!-- END BLOCK_DESCRIPTION -->
+
+<!-- BEGIN BLOCK_ADMIN -->
+<div class="actionBar">
+	<!-- BEGIN BLOCK_FUNCTION -->
+	<a class="button" href="{LINK_FCTN}">{LABEL_FCTN}</a>
+	<!-- END BLOCK_FUNCTION -->	
+</div>
+<!-- END BLOCK_ADMIN -->
+
+<!-- BEGIN BLOCK_ADMIN_CATEGORY -->
+<div class="actionBar">
+	<a class="button" href="{LINK_EDIT_CATEGORY}">{LABEL_EDIT_CATEGORY}</a>
+	<a class="button" href="{LINK_DELETE_CATEGORY}">{LABEL_DELETE_CATEGORY}</a>
+	<a class="button" href="{LINK_CREATE_CATEGORY}">{LABEL_CREATE_CATEGORY}</a>
+</div>
+<!-- END BLOCK_ADMIN_CATEGORY -->
+
+<table class="weblog" width="100%" cellpadding="5">
+    <tr valign="top"> 
+        <td class="main">
+            {WEBLOG_MAIN_HTML}
+        </td>
+        <td class="sidebar" width="30%">
+            <!-- BEGIN BLOCK_WIDGET -->
+            <h3>&raquo; {WIDGET_TITLE}</h3>
+            {WIDGET_HTML_CODE}
+            <!-- END BLOCK_WIDGET -->
+        
+            <!-- BEGIN BLOCK_PODCAST -->
+        <!--<a href="{PODCAST_LINK}"><img src="{PODCAST_LOGO}" size="30"></a>-->
+            <!-- END BLOCK_PODCAST -->
+        </td>
+    </tr> 
+</table>

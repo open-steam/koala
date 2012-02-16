@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Auto height</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Grid samples</div>
+	<h1>Auto height</h1>
+	<p>In auto height mode grid expand if necessary to prevent vertical scrolls,
+		and shrink to not occupy external place</p>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>		
+	<script  src="../js/dhtmlXGridCell.js"></script>
+	<table width="700">
+		<tr>
+			<td>
+				<div id="gridbox" width="500px" height="250px" style="background-color:white;overflow:hidden"></div>
+			</td>
+            <td valign='top'>
+<a href="javascript:void(0)" onclick="mygrid.addRow((new Date()).valueOf(),[0,'','','',false,'na',false,''],mygrid.getRowIndex(mygrid.getSelectedId()))">Add row</a><br>
+				<a href="javascript:void(0)" onclick="mygrid.deleteSelectedItem()">Remove Selected Row</a><br>
+				Turn AutoHeight <a href="javascript:void(0)" onclick="mygrid.enableAutoHeigth(true)">On</a>/<a href="javascript:void(0)" onclick="mygrid.enableAutoHeigth(false)">Off</a><br>
+            	
+			</td>
+		</tr>
+		<tr>
+		</tr>
+	</table>
+<hr>
+<XMP>
+<div id="gridbox" width="100%" height="250px" style="background-color:white;overflow:hidden"></div>
+<script>
+		mygrid = new dhtmlXGridObject('gridbox');
+		...
+		mygrid.enableAutoHeigth(true);
+		mygrid.init();
+		mygrid.loadXML("../grid.xml");
+</script>
+</XMP>
+
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../imgs/");
+	mygrid.setHeader("Column A, Column B");
+	mygrid.setInitWidths("200,200")
+	mygrid.setColAlign("right,left")
+	mygrid.setColTypes("ro,ed");
+	mygrid.setColSorting("int,str")
+    mygrid.enableAutoHeigth(true,"400");
+	mygrid.init();
+	mygrid.loadXML("../grid.xml");
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+
+</body>
+</html>

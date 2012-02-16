@@ -1,0 +1,105 @@
+<!-- BEGIN BLOCK_EDIT -->
+<li class="ui-state-default" id="element{ELEMENT_ID}">
+	<table width="100%" class="rapidfeedback_style">
+		<tr>
+			<td align="right" style="padding:0px">
+				<img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+				&nbsp
+				<img onclick="copyElement({ELEMENT_ID});" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+				&nbsp
+				<img onclick="deleteElement({ELEMENT_ID});" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:0px;">
+				<!-- BEGIN BLOCK_EDIT_REQUIRED -->
+				<h2 style="margin:0px;">{QUESTION_TEXT}<font color="red"> *</font></h2>
+				{HELP_TEXT}
+				<!-- END BLOCK_EDIT_REQUIRED -->
+				<!-- BEGIN BLOCK_EDIT_NOT_REQUIRED -->
+				<h1>{QUESTION_TEXT}</h1>
+				{HELP_TEXT}
+				<!-- END BLOCK_EDIT_NOT_REQUIRED -->
+				<br>
+				<!-- BEGIN BLOCK_EDIT_OPTION -->
+				<input type="radio" name="singlechoice_{QUESTION_ID}">{OPTION_LABEL}
+				<br>
+				<!-- END BLOCK_EDIT_OPTION -->
+			</td>
+		</tr>
+	</table>
+</li>
+<input type="hidden" name="element{ELEMENT_ID}" value="{ELEMENT_DATA}">
+<input type="hidden" name="element{ELEMENT_ID}_options" value="{OPTION_DATA}">
+<!-- END BLOCK_EDIT -->
+
+<!-- BEGIN BLOCK_VIEW -->
+<tr>
+	<td style="{ERROR_BORDER}">
+		<!-- BEGIN BLOCK_VIEW_REQUIRED -->
+		<b>{QUESTION_TEXT}<font color="red"> *</font></b>
+		<!-- END BLOCK_VIEW_REQUIRED -->
+		<!-- BEGIN BLOCK_VIEW_NOT_REQUIRED -->
+		<b>{QUESTION_TEXT}</b>
+		<!-- END BLOCK_VIEW_NOT_REQUIRED -->
+		<br>
+		{HELP_TEXT}
+		<br>
+		<!-- BEGIN BLOCK_OPTION_SELECTED -->
+		<input type="radio" name="question{QUESTION_ID}" value="{OPTION_COUNT}" checked>{OPTION_LABEL}
+		{INSERT_BR}
+		<!-- END BLOCK_OPTION_SELECTED -->
+		<!-- BEGIN BLOCK_OPTION_VIEW -->
+		<input type="radio" name="question{QUESTION_ID}" value="{OPTION_COUNT}">{OPTION_LABEL}
+		{INSERT_BR}
+		<!-- END BLOCK_OPTION_VIEW -->
+	</td>
+</tr>
+<!-- END BLOCK_VIEW -->
+
+<!-- BEGIN BLOCK_RESULTS -->
+<tr>
+	<td>
+		<font size="2"><b>{QUESTION_TEXT}</b></font>
+		<br>
+		<table width="100%" class="rapidfeedback_style">
+			<tr>
+				<td width="50%">
+					<table border="1" width="100%">
+						<tr>
+							<th>Antwortmöglichkeit</th>
+							<th>Antworten</th>
+							<th>% der Befragten</th>
+						</tr>
+						<!-- BEGIN BLOCK_RESULTS_OPTION -->
+						<tr>
+							<td>{OPTION_LABEL}</td>
+							<td>{OPTION_RESULT}</td>
+							<td>{OPTION_PERCENT}</td>
+						</tr>
+						<!-- END BLOCK_RESULTS_OPTION -->
+					</table>
+				</td>
+				<td>
+					<div id="chart_div_{QUESTION_ID}"></div>
+				</td>
+	  		</tr>
+	  	</table>
+	</td>
+</tr>
+<script type="text/javascript">
+	google.setOnLoadCallback(drawChart{QUESTION_ID});
+	function drawChart{QUESTION_ID}() {
+		var data = new google.visualization.DataTable();
+		data.addColumn("string", "Task");
+		data.addColumn("number", "Hours per Day");
+		data.addRows({OPTION_COUNT});
+		<!-- BEGIN BLOCK_SCRIPT_OPTION -->
+		data.setValue({OPTION_COUNTER}, 0, "{OPTION_SCRIPT_LABEL}");
+	 	data.setValue({OPTION_COUNTER}, 1, {OPTION_SCRIPT_RESULT});
+		<!-- END BLOCK_SCRIPT_OPTION -->
+		var chart = new google.visualization.PieChart(document.getElementById("chart_div_{QUESTION_ID}"));
+        chart.draw(data, {width: 350, height: 200, backgroundColor: "#EEEEEE", sliceVisibilityThreshold: 0});
+    }
+</script>
+<!-- END BLOCK_RESULTS -->

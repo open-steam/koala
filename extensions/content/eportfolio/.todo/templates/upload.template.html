@@ -1,0 +1,19 @@
+<form action="{FORM_ACTION}" method="post" enctype="multipart/form-data">
+<input type="hidden" name="values[backlink]" value="{BACK_LINK}"/>
+{MAX_FILE_SIZE_INPUT}
+
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="label">{LABEL_FILE}*:</td>
+		<td class="value"><input type="file" name="material"/>{MAX_FILE_SIZE_INFO}</td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_DSC}:</td>
+		<td class="value"><input type="text" name="values[dsc]" size="40"/></td>
+	</tr>
+	<tr>
+		<td class="label">&nbsp;</td>
+		<td class="value"><div class="buttons" style="text-align: left;"><input type="submit" value="{LABEL_UPLOAD}"> {BACKLINK}</div></td>
+	</tr>
+</table>
+</form>

@@ -1,0 +1,20 @@
+﻿"Fragebogen";"{QUESTIONARY_NAME}"
+"Allgemeine Beschreibung";"{DESCRIPTION}"
+"Objekt-ID";"{OBJECT_ID}"
+"Exportdatum";"{DATE}"
+"Alle Antworten von Erstellern bearbeitbar";"{EDIT_ANSWER}"
+"Eigene Antworten bearbeitbar";"{EDIT_OWN_ANSWER}"
+"Ausf&uuml;llen";"{FILLOUT}"
+<!-- BEGIN cell_edit_time -->"Bearbeitungszeitraum";"{EDIT_TIME}"<!-- END cell_edit_time -->
+
+"Frage"<!-- BEGIN cell_question -->;"{QUESTION}"<!-- END cell_question -->
+<!-- BEGIN row -->"{COUNT}"<!-- BEGIN cell_answer -->;"{ANSWER}"<!-- END cell_answer -->
+<!-- END row -->
+
+<!-- BEGIN fillout_1 -->einfach<!-- END fillout_1 -->
+<!-- BEGIN fillout_n -->mehrfach<!-- END fillout_n -->
+<!-- BEGIN label_creator -->Teilnehmer<!-- END label_creator -->
+<!-- BEGIN label_creation_time -->Erstellungszeit<!-- END label_creation_time -->
+<!-- BEGIN label_yes -->Ja<!-- END label_yes -->
+<!-- BEGIN label_no -->Nein<!-- END label_no -->
+

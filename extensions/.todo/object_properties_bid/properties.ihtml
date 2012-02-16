@@ -1,0 +1,377 @@
+<!-- BEGIN tab -->
+
+  <!-- BEGIN tab_label_1 -->{LANGUAGE_TAB1}<!-- END tab_label_1 -->
+  <!-- BEGIN tab_label_2 -->{LANGUAGE_TAB2}<!-- END tab_label_2 -->
+  <!-- BEGIN tab_label_3 -->{LANGUAGE_TAB3}<!-- END tab_label_3 -->
+
+  <!-- BEGIN tab_spacer -->
+    <table border="0" cellpadding="0" cellspacing="0" align="left">
+      <tr>
+        <td><img src="{DOC_ROOT}/icons/empty.gif" width="3" height="23" border="0" /></td>
+      </tr>
+    </table>
+  <!-- END tab_spacer -->
+
+  <!-- BEGIN tab_active -->
+    <td>
+    <table border="0" cellpadding="0" cellspacing="0" align="left">
+      <tr>
+        <td><img src="{DOC_ROOT}/icons/properties_activeTab_left.gif" width="2" height="21" border="0" /></td>
+        <td background="{DOC_ROOT}/icons/properties_activeTab_bg.gif" /><img src="{DOC_ROOT}/icons/empty.gif" width="2" height="1" border="0" /></td>
+        <td background="{DOC_ROOT}/icons/properties_activeTab_bg.gif" /><span class="Tab">&nbsp;&nbsp;&nbsp;{TAB_NAME}&nbsp;&nbsp;&nbsp;</span></td>
+        <td background="{DOC_ROOT}/icons/properties_activeTab_bg.gif" /><img src="{DOC_ROOT}/icons/empty.gif" width="2" height="1" border="0" /></td>
+        <td><img src="{DOC_ROOT}/icons/properties_activeTab_right.gif" width="2" height="21" border="0" /></td>
+      </tr>
+      <tr>
+        <td><img src="{DOC_ROOT}/icons/properties_activeTab_left.gif" width="2" height="2" border="0" /></td>
+        <td colspan="3"><img src="{DOC_ROOT}/icons/empty.gif" width="1" height="1" border="0" /></td>
+        <td><img src="{DOC_ROOT}/icons/properties_activeTab_right.gif" width="2" height="2" border="0" /></td>
+      </tr>
+    </table>
+    </td>
+  <!-- END tab_active -->
+
+  <!-- BEGIN tab_inactive -->
+  <td>
+  	<table border="0" cellpadding="0" cellspacing="0" align="left">
+  		<tr>
+  			<td><img src="{DOC_ROOT}/icons/empty.gif" width="1" height="2" border="0" /></td>
+  		</tr>
+  		<tr>
+    	<!-- BEGIN tab_inactive_left -->
+    		<td><img src="{DOC_ROOT}/icons/properties_inactiveTab_left.gif" width="2" height="21" border="0" /></td>
+    	<!-- END tab_inactive_left -->
+    		<td background="{DOC_ROOT}/icons/properties_inactiveTab_bg.gif" /><span style="cursor:pointer;" onclick="submit_changes({TAB_PAGE});" class="Tab">&nbsp;&nbsp;&nbsp;{TAB_NAME}&nbsp;&nbsp;&nbsp;</a></td>
+    	<!-- BEGIN tab_inactive_right -->
+    		<td><img src="{DOC_ROOT}/icons/properties_inactiveTab_right.gif" width="2" height="21" border="0" /></td>
+    	<!-- END tab_inactive_right -->
+    	</tr>
+  	</table>
+  </td>
+  <!-- END tab_inactive -->
+
+<!-- END tab -->
+
+
+<!-- BEGIN general -->
+  {GENERAL_CONTENT}
+
+  <!-- BEGIN general_view -->
+    <div class="dialogpane">
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_1}:</div>
+        <div class="attributeValue"><input type="text" name="OBJ_DESC" value="{OBJ_DESC}" class="text" disabled /></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_2}:</div>
+        <div class="attributeValue"><input type="text" name="OBJ_NAME" value="{OBJ_NAME}" class="text" disabled /></div>
+      </div>
+      <!-- BEGIN doc_extern_url_view -->
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_9}:</div>
+        <div class="attributeValue"><input type="text" name="DOC_EXTERN_URL" value="{DOC_EXTERN_URL}" class="text" disabled /></div>
+      </div>
+      <!-- END doc_extern_url_view -->        
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_3}:</div>
+        <div class="attributeValue"><input type="text" name="OBJ_OWNER" value="{OBJ_OWNER}" class="text" disabled /></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_5}:</div>
+        <div class="attributeValue"><button onclick="window.location.href='{DOC_ROOT}/rights.php?object={OBJECT_ID}';" type="button" disabled>{LANGUAGE_TAB1_BUTTON}</button></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_6}:</div>
+        <div class="attributeValue"><input type="checkbox" name="bid:hidden" value="1" {bid:hidden} disabled /></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_8}:</div>
+        <div class="attributeValue"><input type="checkbox" name="bid:fullscreen" value="1" {bid:fullscreen} disabled /></div>
+      </div>
+    </div>
+  <!-- END general_view -->
+
+  <!-- BEGIN general_edit -->
+    <input type="hidden" name="last_page" value="1" />
+    <div class="dialogpane">
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_1}:</div>
+        <div class="attributeValue"><input type="text" name="OBJ_DESC" value="{OBJ_DESC}" class="text" /></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_2}:</div>
+        <div class="attributeValue"><input type="text" name="OBJ_NAME" value="{OBJ_NAME}" class="text" /></div>
+      </div>
+      <!-- BEGIN doc_extern_url_edit -->
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_9}:</div>
+        <div class="attributeValue"><input type="text" name="DOC_EXTERN_URL" value="{DOC_EXTERN_URL}" class="text" /></div>
+      </div>
+      <!-- END doc_extern_url_edit -->
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_3}:</div>
+        <div class="attributeValue"><input type="text" name="OBJ_OWNER" value="{OBJ_OWNER}" class="text" disabled /></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_5}:</div>
+        <div class="attributeValue"><button onclick="window.location.href='{DOC_ROOT}/rights.php?object={OBJECT_ID}';" type="button">{LANGUAGE_TAB1_BUTTON}</button></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_6}:</div>
+        <div class="attributeValue"><input type="checkbox" name="bid:hidden" value="1" {bid:hidden} /></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB1_8}:</div>
+        <div class="attributeValue"><input type="checkbox" name="bid:fullscreen" value="1" {bid:fullscreen} /></div>
+      </div>
+    </div>
+  <!-- END general_edit -->
+<!-- END general -->
+
+
+<!-- BEGIN metadata -->
+  {METADATA_CONTENT}
+
+  <!-- BEGIN metadata_view -->
+    <div class="dialogpane">
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB2_1}:</div>
+        <div class="attributeValue"><textarea name="OBJ_KEYWORDS" style="height: 200px;" wrap="off" disabled>{OBJ_KEYWORDS}</textarea></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB2_4}:</div>
+        <div class="attributeValue"><input type="text" name="bid:tags" value="{bid:tags}" class="text" disabled /></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB2_2}:</div>
+        <div class="attributeValue"><input type="text" name="bid:description" value="{bid:description}" class="text" disabled /></div>
+      </div>
+    </div>
+  <!-- END metadata_view -->
+
+  <!-- BEGIN metadata_edit -->
+    <input type="hidden" name="last_page" value="2">
+    <div class="dialogpane">
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB2_1}:</div>
+        <div class="attributeValue"><textarea name="OBJ_KEYWORDS" style="height: 200px; width: 300px;" wrap="off">{OBJ_KEYWORDS}</textarea></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB2_4}:</div>
+        <div class="attributeValue"><input type="text" id="bid:tags" name="bid:tags" value="{bid:tags}" class="text" /></div>
+        <div class="attributeName">&nbsp;</div>
+        <div class="attributeValue" id="tagliste"></div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB2_2}:</div>
+        <div class="attributeValue"><input type="text" name="bid:description" value="{bid:description}" class="text" /></div>
+      </div>
+    </div>
+  <!-- END metadata_edit -->
+<!-- END metadata -->
+
+<!-- BEGIN sort -->
+  {SORT_CONTENT}
+
+  <!-- BEGIN sort_view -->
+    <!-- BEGIN bid:presentation:normal -->{LANGUAGE_TAB3_PRESENTATION_NORMAL}<!-- END bid:presentation:normal -->
+    <!-- BEGIN bid:presentation:index -->{LANGUAGE_TAB3_PRESENTATION_INDEX}<!-- END bid:presentation:index -->
+    <!-- BEGIN bid:presentation:head -->{LANGUAGE_TAB3_PRESENTATION_HEAD}<!-- END bid:presentation:head -->
+    <!-- BEGIN bid:collectiontype:normal -->{LANGUAGE_TAB3_COLLECTIONTYPE_NORMAL}<!-- END bid:collectiontype:normal -->
+    <!-- BEGIN bid:collectiontype:cluster -->{LANGUAGE_TAB3_COLLECTIONTYPE_CLUSTER}<!-- END bid:collectiontype:cluster -->
+    <!-- BEGIN bid:collectiontype:sequence -->{LANGUAGE_TAB3_COLLECTIONTYPE_SEQUENCE}<!-- END bid:collectiontype:sequence -->
+	<!-- BEGIN bid:collectiontype:gallery -->{LANGUAGE_TAB3_COLLECTIONTYPE_GALLERY}<!-- END bid:collectiontype:gallery -->
+	<!-- BEGIN bid:collectiontype:taggedFolder -->{LANGUAGE_TAB3_COLLECTIONTYPE_TAGGEDFOLDER}<!-- END bid:collectiontype:taggedFolder -->
+
+    <div class="dialogpane">
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB3_COLLECTIONTYPE}:</div>
+        <div class="attributeValue">{bid:collectiontype}</div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB3_PRESENTATION}:</div>
+        <div class="attributeValue">{bid:presentation}</div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB3_TITLE}:</div>
+        <div class="attributeValue">
+          <select size="10" id="orderfiles" name="orderfiles" class="text" disabled>
+          <!-- BEGIN sort_view_row -->
+            <option>{DIR_ENTRY_NAME}</option>
+          <!-- END sort_view_row -->
+          </select>
+        </div>
+      </div>
+    </div>
+  <!-- END sort_view -->
+
+  <!-- BEGIN sort_edit -->
+    <input type="hidden" name="last_page" value="3" />
+    <input type="hidden" name="bid:sorting" id="bid:sorting" value="" />
+    <div class="dialogpane">
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB3_COLLECTIONTYPE}:</div>
+        <div class="attributeValue">
+          <select name="bid:collectiontype">
+            <option value="normal" {bid:collectiontype:normal}>{LANGUAGE_TAB3_COLLECTIONTYPE_NORMAL}</option>
+            <option value="cluster" {bid:collectiontype:cluster}>{LANGUAGE_TAB3_COLLECTIONTYPE_CLUSTER}</option>
+            <option value="sequence" {bid:collectiontype:sequence}>{LANGUAGE_TAB3_COLLECTIONTYPE_SEQUENCE}</option>
+            <option value="gallery" {bid:collectiontype:gallery}>{LANGUAGE_TAB3_COLLECTIONTYPE_GALLERY}</option>
+            <option value="taggedFolder" {bid:collectiontype:taggedFolder}>{LANGUAGE_TAB3_COLLECTIONTYPE_TAGGEDFOLDER}</option>
+          </select>
+        </div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB3_PRESENTATION}:</div>
+        <div class="attributeValue">
+          <select name="bid:presentation">
+            <option value="normal" {bid:presentation:normal}>{LANGUAGE_TAB3_PRESENTATION_NORMAL}</option>
+            <option value="index" {bid:presentation:index}>{LANGUAGE_TAB3_PRESENTATION_INDEX}</option>
+            <option value="head" {bid:presentation:head}>{LANGUAGE_TAB3_PRESENTATION_HEAD}</option>
+          </select>
+        </div>
+      </div>
+      <div class="attribute">
+        <div class="attributeName">{LANGUAGE_TAB3_TITLE}:<br /><br />
+          <img src="{DOC_ROOT}/icons/properties_arrow_up.gif" width="29" height="21" border="0" alt="{LANGUAGE_TAB3_ALT_1}" title="{LANGUAGE_TAB3_ALT_1}"
+            onclick="selectUp(document.getElementById('orderfiles'), document.getElementById('orderfiles').selectedIndex);update_input(document.getElementById('orderfiles'));" /><br />
+          <img src="{DOC_ROOT}/icons/properties_arrow_down.gif" width="29" height="21" border="0" alt="{LANGUAGE_TAB3_ALT_2}" title="{LANGUAGE_TAB3_ALT_2}"
+            onclick="selectDown(document.getElementById('orderfiles'), document.getElementById('orderfiles').selectedIndex);update_input(document.getElementById('orderfiles'));" />
+        </div>
+        <div class="attributeValue">
+          <select size="10" id="orderfiles" name="orderfiles" class="text">
+          <!-- BEGIN sort_edit_row -->
+            <option value="{DIR_ENTRY_ID}">{DIR_ENTRY_NAME}</option>
+          <!-- END sort_edit_row -->
+          </select>
+        </div>
+      </div>
+    </div>
+
+   	<script type="text/javascript">
+      function update_input(list)
+      {
+        var order = '';
+        for(var j = 0; j < list.length; j++)
+          order = order + list.options[j].value + ' ';
+        document.getElementById('bid:sorting').value = order;
+      }
+
+      update_input(document.getElementById('orderfiles'));
+    </script>
+  <!-- END sort_edit -->
+<!-- END sort -->
+
+
+
+<html>
+
+<head>
+  <title>{LANGUAGE_PAGE_TITLE}</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/css/contentframe.css" />
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/css/dialog.css" />
+
+  <script type="text/javascript" src="{DOC_ROOT}/javascript/select.js"></script>
+</head>
+
+<script type="text/javascript">
+  function submit_changes(page)
+  {
+    document.getElementById('properties').action = '{DOC_ROOT}/properties.php?page=' + page;
+    document.getElementById('properties').submit();
+  }
+</script>
+
+<body>
+
+<h1 class="titlepane">{LANGUAGE_PAGE_TITLE}</h1>
+
+<center>
+<form id="properties" method="post" action="{DOC_ROOT}/properties.php?action=save">
+<input type="hidden" name="changed" value="{CHANGED}" />
+<input type="hidden" name="properties" value="{OBJECT_ID}" />
+<table width="480" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+      	  <td colspan="3">
+            <table border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                {TAB}
+                <td background="{DOC_ROOT}/icons/properties_notab_bg.gif" width="999"><img src="{DOC_ROOT}/icons/empty.gif" width="1" height="1" border="0" /></td>
+                <td><img src="{DOC_ROOT}/icons/properties_notab_right.gif" width="2" height="23" border="0" /></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td background="{DOC_ROOT}/icons/properties_border_left.gif"><img src="{DOC_ROOT}/icons/empty.gif" width="1" height="1" border="0" /></td>
+                <td bgcolor="#DEDEDE">
+                  {TAB_PAGE}
+                </td>
+                <td background="{DOC_ROOT}/icons/properties_border_right.gif"><img src="{DOC_ROOT}/icons/empty.gif" width="1" height="1" border="0" /></td>
+              </tr>
+              <tr>
+                <td><img src="{DOC_ROOT}/icons/properties_corner_bottom_left.gif" width="2" height="2" border="0" /></td>
+                <td background="{DOC_ROOT}/icons/properties_border_bottom.gif" height="2"><img src="{DOC_ROOT}/icons/empty.gif" width="1" height="1" border="0" /></td>
+                <td><img src="{DOC_ROOT}/icons/properties_corner_bottom_right.gif" width="2" height="2" border="0" /></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</center>
+
+<br />
+<div class="buttonpane">
+<input type="submit" value="{LANGUAGE_SUBMIT}" />&nbsp;
+<input type="button" name="nosubmit" value="{LANGUAGE_CANCEL}" onclick="window.close();" />
+</div>
+
+</form>
+
+<script type="text/javascript" src="{DOC_ROOT}/javascript/string.js"></script>
+
+<script language="JavaScript">
+
+if (document.getElementById('bid:tags')) {
+  tagArr = String('{TAGS}').split(' ');
+  inHTML = '';
+  for (i=0; i<tagArr.length; i++) {
+    if (String(document.getElementById('bid:tags').value).search(new RegExp(tagArr[i], 'g'))==-1)
+      color = 'transparent';
+    else
+      color = 'yellow';
+    inHTML += '<span onClick=\"changeTagState(this)\" id=\"' + tagArr[i] + '\" style=\"background-color:" + color + "\">' + tagArr[i] + '</span>&nbsp;';
+  }
+  document.getElementById('tagliste').innerHTML = inHTML;
+}
+
+function changeTagState(caller) {
+  var tag = caller.firstChild.nodeValue;
+  var searchString = document.getElementById('bid:tags').value;
+		
+  if (caller.style.backgroundColor=='yellow') {
+    caller.style.backgroundColor = 'transparent';
+    searchString = searchString.replace(new RegExp(tag, 'g'), ' ');
+  } 
+  else {
+    caller.style.backgroundColor = 'yellow';
+    searchString = searchString + ' ' + tag;
+	}
+  document.getElementById('bid:tags').value = trimString(searchString);
+}
+
+</script>
+
+</body>
+</html>

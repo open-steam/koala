@@ -1,0 +1,27 @@
+<div class="actionBar">
+	<!-- BEGIN BLOCK_CREATE_NEW -->
+	<a class="button" href="{LINK_CREATE_NEW}">{LABEL_CREATE_NEW}</a>
+	<!-- END BLOCK_CREATE_NEW -->
+	<a class="button" href="{LINK_TODAY}">{LABEL_TODAY}</a>
+</div>
+
+<ul class="tabBar">
+    <li class="tabIn"><a href="{LINK_PREV_WEEK}">&laquo; {LABEL_PREV}</a></li>
+	<li class="tabOut">{VALUE_WEEK}</li>
+	<li class="tabIn"><a href="{LINK_NEXT_WEEK}">{LABEL_NEXT} &raquo;</a></li>
+	<li style="clear:left;"/>
+</ul>
+
+<table class="calendar week" width="100%" cellspacing="0" cellpadding="0">
+	<!-- BEGIN BLOCK_WEEKDAY -->
+	<tr>
+		<td class="weekday" colspan="2"><h3>{LABEL_WEEKDAY}</h3></td>
+	</tr>
+	<!-- BEGIN BLOCK_EVENT -->
+	<tr>
+		<td class="time">{VALUE_EVENT_TIME}</td>
+		<td class="event"><h3>{VALUE_EVENT_NAME} {VALUE_EVENT_LOCATION}</h3> {VALUE_EVENT_DSC} {VALUE_EVENT_URL} <div>{DETAILS_LINK} {EDIT_LINK} {DELETE_LINK}</div></td>
+	</tr>
+	<!-- END BLOCK_EVENT -->
+	<!-- END BLOCK_WEEKDAY -->
+</table>

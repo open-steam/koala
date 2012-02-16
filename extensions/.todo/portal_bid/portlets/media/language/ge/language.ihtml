@@ -1,0 +1,15 @@
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->&raquo;{PORTLET_NAME}&laquo; bearbeiten<!-- END edit_title -->
+<!-- BEGIN edit_feedback_url_null -->Adresse darf nicht leer sein<!-- END edit_feedback_url_null -->
+<!-- BEGIN edit_headline -->&Uuml;berschrift<!-- END edit_headline -->
+<!-- BEGIN edit_url -->Adresse<!-- END edit_url -->
+<!-- BEGIN edit_description -->Beschreibung<!-- END edit_description -->
+<!-- BEGIN edit_mediatype -->Typ<!-- END edit_mediatype -->
+<!-- BEGIN edit_selected_image -->Bild<!-- END edit_selected_image -->
+<!-- BEGIN edit_selected_movie -->Film<!-- END edit_selected_movie -->
+<!-- BEGIN edit_selected_audio -->Ton<!-- END edit_selected_audio -->
+<!-- BEGIN edit_button_ok -->Speichern<!-- END edit_button_ok -->
+<!-- BEGIN edit_button_cancel -->Beenden<!-- END edit_button_cancel -->

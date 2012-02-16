@@ -1,0 +1,32 @@
+<div id="file-uploader">
+	<noscript>			
+		<p>Please enable JavaScript to use file uploader.</p>
+		<!-- or put a simple form for upload here -->
+	</noscript>         
+</div>
+
+<script>        
+    function createUploader(){        
+    	var options = {
+                element: document.getElementById('file-uploader'),
+                action: '{BACKEND}',
+                envid: '{ENVID}',
+                command: '{COMMAND}',
+                namespace: '{NAMESPACE}',
+                destid: '{DESTID}',
+                sizeLimit: '{SIZELIMIT}',
+                allowedExtensions: {ALLOWEDEXTENSIONS},
+                multiple: {MULTIPLE},
+                <!-- BEGIN BLOCK_PREVIEW -->
+                previewHtml: '{PREVIEW}',
+                <!-- END BLOCK_PREVIEW -->
+                onComplete: {ONCOMPLETE},
+                debug: false
+            };
+        var uploader = new qq.FileUploader(options);           
+    }
+    
+    // in your app create uploader as soon as the DOM is ready
+    // don't wait for the window to load  
+    createUploader();     
+</script>

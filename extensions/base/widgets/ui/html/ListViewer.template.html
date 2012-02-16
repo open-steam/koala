@@ -1,0 +1,24 @@
+<div class="listviewer">
+
+<div class="listviewer-head">
+	<!-- BEGIN LISTVIEWER_HEAD_ITEM -->
+	<div class="listviewer-head-item" style="width:{LISTVIEWER_HEAD_ITEM_WIDTH}px; text-align:{LISTVIEWER_HEAD_ITEM_ALIGN}">{LISTVIEWER_HEAD_ITEM_NAME}</div>
+	<!-- END LISTVIEWER_HEAD_ITEM -->
+</div>
+
+<div class="listviewer-items">
+	<!-- BEGIN LISTVIEWER_ITEM -->
+	<div data-id="{LISTVIEWER_DATA_ID}" class="listviewer-item listviewer-item-unhover {LISTVIEWER_ITEM_COLOR_LABEL}" id="{LISTVIEWER_ITEM_ID}" onclick="{LISTVIEWER_ITEM_ONCLICK}" onMouseOver="widgets_listViewer_hover_toggle({LISTVIEWER_ITEM_ID}, true);"  onMouseOut="widgets_listViewer_hover_toggle({LISTVIEWER_ITEM_ID}, false);">
+		<!-- BEGIN LISTVIEWER_ITEM_CELL -->
+		<div class="listviewer-item-cell" id="{LISTVIEWER_ITEM_CELL_ID}" style="width:{LISTVIEWER_ITEM_CELL_WIDTH}px; text-align:{LISTVIEWER_ITEM_CELL_ALIGN}">{LISTVIEWER_ITEM_CELL_DATA}</div>
+		<!-- END LISTVIEWER_ITEM_CELL -->
+	</div>
+	<!-- END LISTVIEWER_ITEM -->
+	
+	<!-- BEGIN LISTVIEWER_NOITEMS -->
+	<div class="listviewer-noitem">{LISTVIEWER_NOITEMS_TEXT}</div>
+	<!-- END LISTVIEWER_NOITEMS -->
+</div>
+
+</div>
+<div id="listviewer-overlay"></div>

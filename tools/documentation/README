@@ -1,0 +1,100 @@
+koaLA - co-active learning and working
+======================================
+
+
+Requirements:
+============
+
+* Apache webserver (apache2 or newer)
+* Apache modules: "php5", "rewrite", "expires", "ssl"
+* Apache module "ssl" if you want to support https connections
+* PHP modules "gettext", "curl", "gc", "mysql", "ldap", "xmlrpc?" "pear"
+
+optional:
+	phpcli
+
+
+Setup:
+======
+
+1) Place etc/httpd/koala.conf in /etc/apache2/sites-available (on Debian Linux,
+   this may be different depending on your distribution/system), adapt the
+   configuration file to your server and directory structure, enable the site
+   (on Debian Linux) and restart apache
+
+2) If you want to support SSL connections (HTTPS): 
+   create SSL Certificates (if you dont already have them. Refer to etc/httpd/koala.conf for more information):
+   openssl genrsa -des3 -out koala-passwd.key 1024
+   openssl rsa -in koala-passwd.key -out koala.key
+   openssl req -new -x509 -nodes -sha1 -days 1100 -key koala.key -out koala.crt
+   then copy the certificated into the ssl config directory
+   mv koala.crt /etc/ssl/certs/
+   mv koala.key /etc/ssl/private/
+   then edit
+   /etc/apache2/listen.conf and insert "Listen 443". Then restart apache.
+
+3) Edit your /etc/apache2/apache2.conf (or httpd.conf, depending on your
+   system) and remove (or comment out) the following line:
+   * Alias /icons/ "/usr/share/apache2/icons/"
+   and the corresponding directory section.
+
+3) Edit your php.ini:
+   * set magic_quotes_gpc = Off
+   * upload_max_filesize and post_max_size should be set to the maximum
+     file size you want to allow for up- and downloads (e.g. 50M).
+   * memory_limit should be set to a large enough value to support your
+     file size limit (e.g. >= 55M in case of 20M file size allowed).
+   * max_execution_time and max_input_time should be set to a large enough
+     value to support your up- and downloads (e.g. 60 seconds).
+
+Then either call "php setup.php" or adjust the configs by hand.
+If you use the setup script, you can skip the following steps as the script
+will ask you for the necessary setup options and perform those steps for you.
+You can also use the setup script to check your config at a later date. If
+new setup options have become available in the meantime (in the config file
+templates), then the script will notify you of this and offer to update the
+config files for you.
+
+5) Make sure the log-files in log/error.log and log/messages.log are writable
+
+6) Make sure that the cache directory is writable to store the cache files.
+
+7) Copy etc/koala.def.php.example to etc/koala.def.php and adapt it to your
+   needs (directory structure, web server structure, etc.).
+   Also make sure it is readable by your webserver (e.g. world-readable).
+
+8) Copy public/.htaccess.example to public/.htaccess and adapt it (make sure
+   that the paths are correct).
+
+9) Create the required structures on your open-sTeam backend:
+   * Group "Faculties" where group "sTeam" has read permission
+   * Subgroups of "Faculties" with some Groups named with the departments of
+     your organization (these will be selectable in user profile). These groups
+     must have "free entry" enabled which means everybody is able to join them.
+   * Group "Courses" where group "sTeam" has read permission
+   * Group "PublicGroups", where group "sTeam" has read and insert permission
+     (and the same permission on the group's workroom)
+   * Group "PrivGroups" where group "sTeam" has read and insert permission
+     (this group usually already exists on open-sTeam servers by default)
+   * Group "Courses/<your-current-koaLA-semester>" where "sTeam" has read
+     permission
+   * Group "Courses/<your-current-koaLA-semester>/admins" where "sTeam" has
+     read permission
+   * set read and insert permission on Group
+     "Courses/<your-current-koaLA-semester>" for the "admins" group you created
+     in that semester
+   * Container /config/koala
+   * Container /config/koala/extensions
+   * Optional: If you want to use Synchronization with the PAUL System, log in
+     as root with activated documents extension, then create a folder named
+     "paulsync" in roots "MyDocuments" (/home/root/documents/paulsync)
+10) Install the open-sTeam SPM package "koala_support" from
+    http://steamware.open-steam.org/Packages/koala_support/download/
+    (You can go to the /packages folder in your open-sTeam webinterface and
+    upload and install the package there.)
+
+
+Common Problems:
+================
+
+* "Invalid command: ExpiresActive" -> activate the "expires" module in your Apache web server

@@ -1,0 +1,70 @@
+<div class="infoBar">
+    {HELP_TEXT} <br/>
+</div>
+<form action="" method="post" style="text-align:right;font-weight:bold" onsubmit="return false;">
+{LABEL_FILTER}:
+<input type="text" size="20" onkeyup="filter('filter_course',this.value);">
+</form><br/>
+<!-- BEGIN BLOCK_ACTIONBAR -->
+<div class="actionBar">
+	<!-- BEGIN BLOCK_YOUR_COURSES -->
+	<a class="button" href="{LINK_MY_COURSES}"><b>{LABEL_MY_COURSES}</b></a>
+	<!-- END BLOCK_YOUR_COURSES -->
+	<!-- BEGIN BLOCK_ALL_COURSES -->
+	<a class="button" href="{LINK_MY_COURSES}"><b>{LABEL_MY_COURSES}</b></a>
+	<!-- END BLOCK_ALL_COURSES -->
+	<!-- BEGIN BLOCK_SEMESTER_ADMIN -->
+	<!-- BEGIN BLOCK_ADD_COURSE -->
+	<a class="button" href="{LINK_CREATE_COURSE}">{LABEL_CREATE_COURSE}</a>
+	<!-- END BLOCK_ADD_COURSE -->
+	<!-- BEGIN BLOCK_IMPORT_COURSE_FROM_PAUL -->
+	<a class="button" href="{LINK_CREATE_PAUL_COURSE}">{LABEL_CREATE_PAUL_COURSE}</a>
+	<!-- END BLOCK_IMPORT_COURSE_FROM_PAUL -->
+	<!-- BEGIN BLOCK_SERVER_ADMIN -->
+	<!-- BEGIN BLOCK_MANAGE_SEMESTER -->
+	<a class="button" href="{LINK_MANAGE_SEMESTER}">{LABEL_MANAGE_SEMESTER}</a>
+	<!-- END BLOCK_MANAGE_SEMESTER -->
+	<!-- BEGIN BLOCK_ADD_SEMESTER -->
+	<a class="button" href="{LINK_CREATE_SEMESTER}">{LABEL_CREATE_SEMESTER}</a>
+	<!-- END BLOCK_ADD_SEMESTER -->
+	<!-- BEGIN BLOCK_EDIT_MODE -->
+	<a class="button" href="{LINK_EDIT_MODE}">{LABEL_EDIT_MODE}</a>
+	<!-- END BLOCK_EDIT_MODE -->
+	<!-- END BLOCK_SERVER_ADMIN -->
+	<!-- END BLOCK_SEMESTER_ADMIN -->
+</div>
+<!-- END BLOCK_ACTIONBAR -->
+<ul class="tabBar">
+    <!-- BEGIN BLOCK_TABS -->
+    <li class="{TAB_STATE}">{LINK_SEMESTER}</li>
+    <!-- END BLOCK_TABS -->
+    <li style="clear:left;"/>
+</ul>
+
+<!-- BEGIN BLOCK_COURSES_AVAILABLE -->
+<form action="" method="post">
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+<tr>
+    <th>{LABEL_ID}</th>
+    <th>{LABEL_NAME}/{LABEL_DESC}</th>
+    <th>{LABEL_STUDENTS}</th>
+    <th>{LABEL_ACTION}</th>
+</tr>
+<!-- BEGIN BLOCK_COURSE -->
+<tr class="filter_course">
+    <td align="center"><b>{VALUE_ID}</b></td>
+    <td width="60%">
+    	<a href="{COURSE_LINK}"><b>{COURSE_NAME}</b></a><br/>
+    	(<small>{COURSE_TUTORS}</small>)<br/>
+    	<p>{VALUE_COURSE_DESC}</p>
+    </td>
+    <td align="center">{VALUE_STUDENTS}</td>
+    <td align="center">{COURSE_ACTION}</td>
+</tr>
+<!-- END BLOCK_COURSE -->
+</table>
+</form>
+<!-- END BLOCK_COURSES_AVAILABLE -->
+<!-- BEGIN BLOCK_NO_COURSE -->
+<p>{NO_COURSE_TEXT}</p>
+<!-- END BLOCK_NO_COURSE -->

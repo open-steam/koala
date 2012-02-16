@@ -1,0 +1,98 @@
+<!-- Begin forum_view_forum.ihtml -->
+<!-- BEGIN last_post -->
+<strong>{CATEGORIE_LAST_POST_MESSAGE}</strong><br>
+am {CATEGORIE_LAST_POST_TIME}<br>
+von <a href="http://bid:8080//idcard.php?user={CATEGORIE_LAST_POSTER}" onclick="return openIdcard('{CATEGORIE_LAST_POSTER}');">{CATEGORIE_LAST_POSTER}</a>
+<!-- END last_post -->
+
+<!-- BEGIN new_message_info -->
+<img src="http://bid:8080//modules/forum/icons/new_message_info.gif" width="16" height="16" title="Neue Beitr&auml;ge">
+<!-- END new_message_info -->
+
+<!-- BEGIN categorie -->
+  <tr class="topics">
+    <td class="empty">{NEW_MESSAGE_INFO}</td>
+    <td class="topic"><a target="_top" href="http://bid:8080//index.php?object={FORUM_OBJECT}&object_cat={CATEGORIE_OBJECT}">{CATEGORIE_NAME}</a><br>{CATEGORIE_DESCRIPTION}<br><span class="creator">erstellt von <a href="http://bid:8080//idcard.php?user={CATEGORIE_OWNER}" onclick="return openIdcard('{CATEGORIE_OWNER}');">{CATEGORIE_OWNER}</a></span></td>
+    <td class="number">{CATEGORIE_COUNT_MESSAGES}</td>
+    <td class="lastpost">{CATEGORIE_LAST_POST}</td>
+  </tr>
+<!-- END categorie -->
+
+<!-- BEGIN no_entries -->
+  <tr>
+    <td></td><td colspan="3">Kein Thema vorhanden!</td>
+  </tr>
+<!-- END no_entries -->
+
+<!-- BEGIN no_access -->
+  <tr>
+    <td colspan="2">Keine Berechtigung!</td>
+  </tr>
+<!-- END no_access -->
+
+<!-- BEGIN add_category_button -->
+<span class="editButton"><a href="http://bid:8080//modules/forum/add_categorie.php?forumobject={FORUM_OBJECT}", onclick="window.open('http://bid:8080//modules/forum/add_categorie.php?forumobject={FORUM_OBJECT}', 'add_categorie', 'resizable,scrollbars,width=800,height=600'); return false;"><img src="http://bid:8080//modules/forum/icons/new_category.gif" width="16" height="16" title="neues Thema anlegen"></a></span>
+<!-- END add_category_button -->
+
+<!-- BEGIN paste_category_button -->
+<span class="editButton"><a href="http://bid:8080//modules/forum/paste_categorie.php?forumobject={FORUM_OBJECT}", onclick="window.open('http://bid:8080//modules/forum/paste_category.php?forumobject={FORUM_OBJECT}', 'paste_categorie', 'resizable,scrollbars,width=20,height=20'); return false;"><img src="http://bid:8080//modules/forum/icons/paste_category.gif" width="16" height="16" title="Thema einf&uuml;gen"></a></span>
+<!-- END paste_category_button -->
+
+<!-- BEGIN edit_forum_button -->
+<span class="editButton"><a href="http://bid:8080//modules/forum/edit_forum.php?forumobject={FORUM_OBJECT}", onclick="window.open('http://bid:8080//modules/forum/edit_forum.php?forumobject={FORUM_OBJECT}', 'add_categorie', 'resizable,scrollbars,width=800,height=600'); return false;"><img src="http://bid:8080//modules/forum/icons/messageboard_edit.gif" width="16" height="16" title="Forum bearbeiten"></a></span>
+<!-- END edit_forum_button -->
+
+<!-- BEGIN subscribe_forum_button -->
+<span class="editButton"><a href="http://bid:8080//modules/forum/subscribe_forum.php?forumobject={FORUM_OBJECT}&action=subscribe", onclick="window.open('http://bid:8080//modules/forum/subscribe_forum.php?forumobject={FORUM_OBJECT}&action=subscribe', 'subscribe_forum', 'resizable,scrollbars,width=20,height=20'); return false;"><img src="http://bid:8080//modules/forum/icons/messageboard_subscribe.gif" width="16" height="16" title="Forum abonnieren"></a></span>
+<!-- END subscribe_forum_button -->
+
+<!-- BEGIN unsubscribe_forum_button -->
+<span class="editButton"><a href="http://bid:8080//modules/forum/subscribe_forum.php?forumobject={FORUM_OBJECT}&action=unsubscribe", onclick="window.open('http://bid:8080//modules/forum/subscribe_forum.php?forumobject={FORUM_OBJECT}&action=unsubscribe', 'subscribe_forum', 'resizable,scrollbars,width=20,height=20'); return false;"><img src="http://bid:8080//modules/forum/icons/messageboard_unsubscribe.gif" width="16" height="16" title="Abonnement des Forums beenden"></a></span>
+<!-- END unsubscribe_forum_button -->
+
+<html>
+<head>
+  <title>Forum: {FORUM_NAME}</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//modules/forum/css/forum.css">
+  <script type="text/javascript">
+    function openIdcard(owner)
+    {
+      window.open('http://bid:8080//idcard.php?user=' + owner, 'idcard', 'resizable,scrollbars,width=590,height=240');
+      return false;
+    }
+  </script>
+</head>
+<body>
+
+
+<h1>{FORUM_NAME}</h1>
+<h2>{FORUM_SUBTITLE}</h2>
+
+<div class="description">{FORUM_DESC}</div>
+
+<div class="admin">Forum-Verwalter: {FORUM_OWNER}</div>
+
+<div class="category_title">{SUBSCRIBE_FORUM_BUTTON}{EDIT_FORUM_BUTTON}<img src="http://bid:8080//modules/forum/icons/nav_m.gif" title="&gt;" width="8" height="8">&nbsp;Forum: {FORUM_NAME}</div>
+
+<table width="100%">
+  <tr class="columnheader">
+    <td class="empty">&nbsp;</td>
+    <td class="topic">Thema</td>
+    <td class="number">Beitr&auml;ge</td>
+    <td class="lastpost">{ADD_CATEGORY_BUTTON}{PASTE_CATEGORY_BUTTON}letzter Beitrag</td>
+  </tr>
+
+  <!-- categories -->
+    {ITEM}
+  <!-- end categories -->
+  <tr class="footer">
+    <td>&nbsp;</td>
+    <td></td>
+    <td></td>
+    <td align="right">erstellt von {FORUM_OWNER} am {FORUM_CREATION_TIME}</td>
+  </tr>
+</table>
+</body>
+</html>
+<!-- End forum_view_forum.ihtml -->

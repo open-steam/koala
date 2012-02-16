@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rows>
+	<row id="1">
+		<cell>#ff1493</cell>
+		<cell>#ff1493</cell>
+	</row>
+	<row id="2">
+		<cell>red</cell>
+		<cell>red</cell>
+	</row>
+	<row id="3">
+		<cell>#b0e0e6</cell>
+		<cell>#b0e0e6</cell>
+	</row>
+	<row id="4">
+		<cell>lightgrey</cell>
+		<cell>lightgrey</cell>
+	</row>
+	<row id="5">
+		<cell>#ffe4b5</cell>
+		<cell>#ffe4b5</cell>
+	</row>
+	<row id="6">
+		<cell>#000000</cell>
+		<cell>#000000</cell>
+	</row>
+</rows>

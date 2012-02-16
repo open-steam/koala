@@ -1,0 +1,31 @@
+<!-- *********************************************************** -->
+<!-- ** search_mask.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN search_search -->Suche<!-- END search_search -->
+<!-- BEGIN search_cancel -->Schlie&szlig;en<!-- END search_cancel -->
+<!-- BEGIN search_commitsearch -->Suchen<!-- END search_commitsearch -->
+<!-- BEGIN search_keyword -->Suchwort:<!-- END search_keyword -->
+<!-- BEGIN search_fulltext -->Volltext:<!-- END search_fulltext -->
+<!-- BEGIN search_options -->Suchoptionen:<!-- END search_options -->
+<!-- BEGIN search_everything -->Alles suchen<!-- END search_everything -->
+<!-- BEGIN search_portals -->Nach Portalen suchen<!-- END search_portals -->
+<!-- BEGIN search_users -->Nach Benutzern suchen<!-- END search_users -->
+<!-- BEGIN search_groups -->Nach Benutzergruppen suchen<!-- END search_groups -->
+<!-- BEGIN search_toofewcharacters -->Bitte geben Sie mindestens vier Buchstaben in dem Suchfeld ein!<!-- END search_toofewcharacters -->
+
+<!-- *********************************************************** -->
+<!-- ** search_results.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN search_newsearch -->Neue Suche<!-- END search_newsearch -->
+<!-- BEGIN search_searchresults -->Suchergebnisse<!-- END search_searchresults -->
+<!-- BEGIN search_resultsclose -->Schlie&szlig;en<!-- END search_resultsclose -->
+<!-- BEGIN search_previouspage -->&lt;&lt; Vorherige Seite<!-- END search_previouspage -->
+<!-- BEGIN search_nextpage -->N&auml;chste Seite &gt;&gt;<!-- END search_nextpage -->
+<!-- BEGIN search_objectdescription -->Beschreibung:<!-- END search_objectdescription -->
+<!-- BEGIN search_created -->Erstellt am:<!-- END search_created -->
+<!-- BEGIN search_lastchange -->Letzte &Auml;nderung:<!-- END search_lastchange -->
+<!-- BEGIN search_useridcard -->Visitenkarte von Benutzer<!-- END search_useridcard -->
+<!-- BEGIN search_groupidcard -->Visitenkarte von Gruppe<!-- END search_groupidcard -->
+<!-- BEGIN search_noresults -->Die Suche ergab leider keine Ergebnisse.<!-- END search_noresults -->

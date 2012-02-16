@@ -1,0 +1,76 @@
+<!-- BEGIN resultentry -->
+<tr><td style="padding-left:20px; padding-top:20px;">
+	<img src="{OBJ_ICON}" />
+	<a href="http://bid:8080//index.php?object={OBJ_ID}" target="bid_main_window">{OBJ_NAME}</a><br/>
+	<div style="color: grey;">Description: <i>{OBJ_DESC}</i></div>
+	<div style="color: grey;">Created on: <i>{CREATED}</i> </div>
+	<div style="color: grey;">Last change: <i>{LASTCHANGE}</i></div>
+</td></tr>
+<!-- END resultentry -->
+
+<!-- BEGIN userresultentry -->
+<tr><td style="padding-left:20px; padding-top:20px;">
+	<img src="http://bid:8080//icons/search_user.gif" />
+	<a href="" onclick="window.open('http://bid:8080//idcard.php?user={OBJ_NAME}', 'Business Card of user {OBJ_NAME}', 'resizable,scrollbars,width=560,height=450');">
+		{USERFIRSTNAME} {USERLASTNAME} ({OBJ_NAME})
+	</a><br/>
+	<div style="color: grey;">Description: <i>{OBJ_DESC}</i></div>
+</td></tr>
+<!-- END userresultentry -->
+
+<!-- BEGIN groupresultentry -->
+<tr><td style="padding-left:20px; padding-top:20px;">
+	<img src="http://bid:8080//icons/search_group.gif" />
+	<a href="" onclick="window.open('http://bid:8080//idcard.php?group={OBJ_NAME}', 'Business Card of user {OBJ_NAME}', 'resizable,scrollbars,width=560,height=450');">
+	<div style="color: grey;">Description: <i>{OBJ_DESC}</i></div>
+</td></tr>
+<!-- END groupresultentry -->
+
+<!-- BEGIN previouspage -->
+	<a href="searchresults.php?page={PREVIOUSPAGENUMBER}">&lt;&lt; Previous page</a>
+<!-- END previouspage -->
+
+<!-- BEGIN nextpage -->
+	<a href="searchresults.php?page={NEXTPAGENUMBER}">Next page &gt;&gt;</a>
+<!-- END nextpage -->
+
+<!-- BEGIN noresults -->
+<tr><td style="padding-left:20px; padding-top:20px;">
+	No results were found for this search.
+</td></tr>
+<!-- END noresults -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+  <title>Search results</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/rights.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/dialog.css" media="screen" />
+</head>
+
+<body onload="if (document.{FORM_NAME}.title) document.{FORM_NAME}.title.focus();">
+
+<form method="get" name="{FORM_NAME}" id="{FORM_NAME}" action="{FORM_URL}" enctype="multipart/form-data">
+<input type="hidden" name="action" id="action" value="search" />
+
+<h1 class="titlepane">Search results</h1>
+
+<table>
+	{ENTRIES}
+</table>
+
+<div style="text-align: center; padding-top:20px;">{PREVIOUSPAGELINK} &nbsp; {NEXTPAGELINK}</div>
+
+<br/>
+<div class="buttonpane">
+<input type="submit" value="New Search" />
+<input type="button" value="Close" onclick="window.close();" />
+</div>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+.portlet.poll .entry .result {
+}
+
+.portlet.poll .entry .result .text {
+}
+
+.portlet.poll .entry .result .count {
+  	float: right;
+}
+
+.portlet.poll .entry .result .bar {
+	height: 16px;
+	padding-right: 4px;
+}

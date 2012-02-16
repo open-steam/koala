@@ -1,0 +1,57 @@
+PDF / Barcode Generierung
+
+TCPDF:
+http://www.tecnick.com/public/code/cp_dpage.php?aiocp_dp=tcpdf
+Vorteile: open source, PDF+Barcode-Generierung
+
+
+Attribute am Kurs-Objekt für die Prüfungsverwaltung:
+EXAMMAN_EXAM_1_ACTIVATED
+EXAMMAN_EXAM_2_ACTIVATED
+EXAMMAN_EXAM_3_ACTIVATED
+
+---
+
+Datenbankschema:
+Datenbankname: exammanagement
+Tabellen: course, exam, examassignment, room, roomplaces
+
+DB-Login: emroot / PW: emsteam (for testing only)
+
+Tabelle course:
+	courseId 			int(11)
+	imtLogin			varchar(255)
+	name 				varchar(255)
+	forename			varchar(255)
+	matriculationNumber	int(11)
+	bonus				float
+	
+Tabelle exam:
+	courseId			int(11)
+	imtLogin			varchar(255)
+	term				int(11)
+	place				int(11)
+	room				varchar(255)
+	maxPoints			int(11)
+	reachedPoints		int(11)
+	result				float
+	
+Tabelle examassignment:
+	courseId			int(11)
+	term				int(11)
+	imtLogin			varchar(255)
+	assignmentNumber	int(11)
+	maxPoints			int(11)
+	reachedPoints		int(11)
+	
+Tabelle room (von Studinfo importiert)
+	ID			smallint(5)
+	maxPlaces	smallint(5)
+	room 		varchar(100)
+	Comment		varchar(100)
+	
+Tabelle roomplaces (von Studinfo importiert)
+	roomID		smallint(5)
+	place		varchar(10)
+	assigned	tinyint(1)
+	

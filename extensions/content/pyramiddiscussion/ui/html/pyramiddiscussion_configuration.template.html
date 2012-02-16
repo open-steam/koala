@@ -1,0 +1,79 @@
+<!-- BEGIN BLOCK_PYRAMID_OPTIONS -->
+<form action="" method="post">
+	<div id="options">
+		<center>
+			<table class="pyramiddiscussion_table" border="1" width="50%">
+				<tr>
+					<th colspan="2">{PYRAMID_OPTIONS}</th>
+				</tr>
+				<tr>
+					<td class="label">{TITLE_LABEL}</td>
+					<td width="70%"><input type="text" name="title" style="width: 99%" value="{TITLE_VALUE}"></td>
+				</tr>
+				<tr>
+					<td class="label">{INFO_LABEL}</td>
+					<td width="70%"><textarea name="info" style="width: 99%" rows="5">{INFO_VALUE}</textarea></td>
+				</tr>
+				<tr>
+					<td class="label">{START_LABEL}</td>
+					<td>{START_VALUE}</td>
+				</tr>
+				<tr>
+					<td class="label">{BASEGROUP_LABEL}</td>
+					<td>{BASEGROUP_VALUE}</td>
+				</tr>
+				<tr>
+					<td class="label">{ADMINGROUP_LABEL}</td>
+					<td>{ADMINGROUP_VALUE}</td>
+				</tr>
+				<tr>
+					<td class="label">{EDITOR_LABEL}</td>
+					<td>{EDITOR_VALUE}</td>
+				</tr>
+				<tr>
+					<td class="label">{PHASE_LABEL}</td>
+					<td>
+						<select name="phase" size="1" style="width: 100%" >
+							<!-- BEGIN BLOCK_PHASE_OPTION -->
+							<option value="{PHASE_ID}" {PHASE_SELECTED}>{PHASE_VALUE}</option>
+							<!-- END BLOCK_PHASE_OPTION -->
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="label">{DEADLINES_LABEL}</td>
+					<td><input type="checkbox" name="use_deadlines" onclick="deadlines({MAX_PHASE})" {DEADLINES_SELECTED}></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="pyramiddiscussion_table" border="1" width="100%">
+							<tr>
+								<th width="30%">{DEADLINE_PHASE_LABEL}</th>
+								<th>{DEADLINE_LABEL}</th>
+							</tr>
+							<!-- BEGIN BLOCK_DEADLINE_ENTRY -->
+							<tr>
+								<td>{DEADLINE_PHASE}</td>
+								<td>
+									<input id="datepicker{DEADLINE_PHASE}" name="deadline[{DEADLINE_PHASE}]" value="{DEADLINE_PHASE_VALUE}" maxlength="16" size="11">
+								</td>
+							</tr>
+							<!-- END BLOCK_DEADLINE_ENTRY -->
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<div style="text-align:center" class="buttons">
+							<input type="submit" value="{SAVE_CHANGES}" name="change_options" onclick="return checkDeadlines({MAX_PHASE})">
+							<a class="button" href="{BACK_LINK}">{BACK_LABEL}</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</center>
+	</div>
+	<input type="hidden" id="amountphases" value="{MAX_PHASE}">
+</form>
+<script type="text/javascript">deadlines({MAX_PHASE})</script>
+<!-- END BLOCK_PYRAMID_OPTIONS -->

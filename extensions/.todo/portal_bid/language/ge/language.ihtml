@@ -1,0 +1,55 @@
+<!-- *********************************************************** -->
+<!-- ** new.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN new_title -->Portal: Einrichten<!-- END new_title -->
+<!-- BEGIN new_form_title -->Titel<!-- END new_form_title -->
+<!-- BEGIN new_form_portal_columns -->Anzahl Spalten<!-- END new_form_portal_columns -->
+<!-- BEGIN new_form_3_col -->Standard<!-- END new_form_3_col -->
+<!-- BEGIN new_form_2_col -->2-spaltig<!-- END new_form_2_col -->
+<!-- BEGIN new_form_1_col -->1-spaltig<!-- END new_form_1_col -->
+<!-- BEGIN new_error_no_title -->Bitte Titel eingeben.<!-- END new_error_no_title -->
+<!-- BEGIN new_button_ok -->Einrichten<!-- END new_button_ok -->
+<!-- BEGIN new_button_cancel -->Abbrechen<!-- END new_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** edit_column.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_column_title -->Spalte {COLUMN_TITLE} konfigurieren<!-- END edit_column_title -->
+<!-- BEGIN edit_column_form_title -->Titel<!-- END edit_column_form_title -->
+<!-- BEGIN edit_column_error_no_title -->Bitte Titel eingeben.<!-- END edit_column_error_no_title -->
+<!-- BEGIN edit_column_error_column_width -->Bitte einen gültigen Wert für die Spaltenbreite eingeben.<!-- END edit_column_error_column_width -->
+<!-- BEGIN edit_column_error_no_access -->Keine Berechtigung!<!-- END edit_column_error_no_access -->
+<!-- BEGIN edit_column_sort_portlets_title -->Sortierung<!-- END edit_column_sort_portlets_title -->
+<!-- BEGIN edit_column_sort_portlets_up -->Nach oben<!-- END edit_column_sort_portlets_up -->
+<!-- BEGIN edit_column_sort_portlets_down -->Nach unten<!-- END edit_column_sort_portlets_down -->
+<!-- BEGIN edit_column_add_portlet_title -->Komponente hinzufügen<!-- END edit_column_add_portlet_title -->
+<!-- BEGIN edit_column_add_portlet_button -->Komponente hinzufügen<!-- END edit_column_add_portlet_button -->
+<!-- BEGIN edit_column_edit_column_width_title -->Spaltenbreite<!-- END edit_column_edit_column_width_title -->
+<!-- BEGIN edit_column_properties_button -->Eigenschaften der Komponente bearbeiten<!-- END edit_column_properties_button -->
+<!-- BEGIN edit_column_copy_portlet_button -->Komponente kopieren<!-- END edit_column_copy_portlet_button -->
+<!-- BEGIN edit_column_link_portlet_button -->Verknüpfung der Komponente erstellen<!-- END edit_column_link_portlet_button -->
+<!-- BEGIN edit_column_cut_portlet_button -->Komponente ausschneiden<!-- END edit_column_cut_portlet_button -->
+<!-- BEGIN edit_column_remove_portlet_button -->Komponente in den Papierkorb werfen<!-- END edit_column_remove_portlet_button -->
+<!-- BEGIN edit_column_paste_portlet_button -->Komponente einfügen<!-- END edit_column_paste_portlet_button -->
+<!-- BEGIN edit_column_button_ok -->Einrichten<!-- END edit_column_button_ok -->
+<!-- BEGIN edit_column_button_cancel -->Abbrechen<!-- END edit_column_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** index.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN index_column_action_edit -->Spalte konfigurieren<!-- END index_column_action_edit -->
+<!-- BEGIN index_column_empty -->Diese Spalte ist leer!<!-- END index_column_empty -->
+
+<!-- *********************************************************** -->
+<!-- ** portlet_insert.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN portlet_insert_title -->Komponente hinzufügen<!-- END portlet_insert_title -->
+<!-- BEGIN portlet_insert_form_title -->Titel<!-- END portlet_insert_form_title -->
+<!-- BEGIN portlet_insert_portlet_type -->Komponenten-Typ<!-- END portlet_insert_portlet_type -->
+<!-- BEGIN portlet_insert_button_ok -->Hinzufügen<!-- END portlet_insert_button_ok -->
+<!-- BEGIN portlet_insert_button_cancel -->Abbrechen<!-- END portlet_insert_button_cancel -->
+<!-- BEGIN portlet_insert_error_title -->Bitte &Uuml;berschrift angeben!<!-- END portlet_insert_error_title -->

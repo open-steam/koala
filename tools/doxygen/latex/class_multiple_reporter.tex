@@ -1,0 +1,354 @@
+\hypertarget{class_multiple_reporter}{
+\section{MultipleReporter Class Reference}
+\label{class_multiple_reporter}\index{MultipleReporter@{MultipleReporter}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_multiple_reporter_ad3b169ee8f199123620cb05f6e31051e}{attachReporter} (\&\$reporter)
+\item 
+\hyperlink{class_multiple_reporter_a66eeb60bbe27eaceb0447a9c20337414}{makeDry} (\$is\_\-dry=true)
+\item 
+\hyperlink{class_multiple_reporter_ad690d4e9c2b2183feb0e93a6b4cac406}{getStatus} ()
+\item 
+\hyperlink{class_multiple_reporter_adc99084bc0502e8cd8a42837e1f63aba}{shouldInvoke} (\$test\_\-case\_\-name, \$method)
+\item 
+\& \hyperlink{class_multiple_reporter_a8b5c73bd1dd2139b95d1c8a50e760068}{createInvoker} (\&\$invoker)
+\item 
+\hyperlink{class_multiple_reporter_ae0a4ebf1c103d8b65b32245a828f7256}{getDumper} ()
+\item 
+\hyperlink{class_multiple_reporter_a124c97c84dc679cc6ad14aa2012bb444}{paintGroupStart} (\$test\_\-name, \$size)
+\item 
+\hyperlink{class_multiple_reporter_a46f66fdc2d08ab56480df66374523e22}{paintGroupEnd} (\$test\_\-name)
+\item 
+\hyperlink{class_multiple_reporter_af4b1f80776530199cd91419c758c3d68}{paintCaseStart} (\$test\_\-name)
+\item 
+\hyperlink{class_multiple_reporter_a8affb95d16ee73a0fd2f9ff7a0b16b32}{paintCaseEnd} (\$test\_\-name)
+\item 
+\hyperlink{class_multiple_reporter_adf97d0d391f684bffccebc70d4b1c6be}{paintMethodStart} (\$test\_\-name)
+\item 
+\hyperlink{class_multiple_reporter_aa38b4e0798db871b957384656377cd33}{paintMethodEnd} (\$test\_\-name)
+\item 
+\hyperlink{class_multiple_reporter_af5d2815cc7b6ac663c73c059868b2345}{paintPass} (\$message)
+\item 
+\hyperlink{class_multiple_reporter_adbf0d817ea66a3ed6ecbfaa12da81b55}{paintFail} (\$message)
+\item 
+\hyperlink{class_multiple_reporter_aa97458bc8253435cb306fbcfd0d9700c}{paintError} (\$message)
+\item 
+\hyperlink{class_multiple_reporter_abb9aa4a74a8689c05cbd0535d276f907}{paintException} (\$exception)
+\item 
+\hyperlink{class_multiple_reporter_a624ac0566b6f0169675309446ee67693}{paintSkip} (\$message)
+\item 
+\hyperlink{class_multiple_reporter_a3e406bb8e7497250a5c7f740750ed9c9}{paintMessage} (\$message)
+\item 
+\hyperlink{class_multiple_reporter_aac9b1303434bbeb6a558af840590866e}{paintFormattedMessage} (\$message)
+\item 
+\hyperlink{class_multiple_reporter_a42b8450ffd5c8af9756cd149f68fb287}{paintSignal} (\$type, \&\$payload)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_multiple_reporter_a0ddb195e646820af4a9c96a682aa7c5f}{
+{\bfseries \$\_\-reporters} = array()}
+\label{class_multiple_reporter_a0ddb195e646820af4a9c96a682aa7c5f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_multiple_reporter_ad3b169ee8f199123620cb05f6e31051e}{
+\index{MultipleReporter@{MultipleReporter}!attachReporter@{attachReporter}}
+\index{attachReporter@{attachReporter}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{attachReporter}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::attachReporter (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ reporter}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_ad3b169ee8f199123620cb05f6e31051e}
+Adds a reporter to the subscriber list. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_scorer}{SimpleScorer} & {\em \$reporter} & Reporter to receive events.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_a8b5c73bd1dd2139b95d1c8a50e760068}{
+\index{MultipleReporter@{MultipleReporter}!createInvoker@{createInvoker}}
+\index{createInvoker@{createInvoker}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{createInvoker}]{\setlength{\rightskip}{0pt plus 5cm}\& MultipleReporter::createInvoker (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ invoker}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_a8b5c73bd1dd2139b95d1c8a50e760068}
+Every reporter gets a chance to wrap the invoker. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_invoker}{SimpleInvoker} & {\em \$invoker} & Individual test runner. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_invoker}{SimpleInvoker} Wrapped test runner.  public 
+\end{DoxyReturn}
+\hypertarget{class_multiple_reporter_ae0a4ebf1c103d8b65b32245a828f7256}{
+\index{MultipleReporter@{MultipleReporter}!getDumper@{getDumper}}
+\index{getDumper@{getDumper}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{getDumper}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::getDumper (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_ae0a4ebf1c103d8b65b32245a828f7256}
+Gets the formatter for variables and other small generic data items. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_dumper}{SimpleDumper} Formatter.  public 
+\end{DoxyReturn}
+\hypertarget{class_multiple_reporter_ad690d4e9c2b2183feb0e93a6b4cac406}{
+\index{MultipleReporter@{MultipleReporter}!getStatus@{getStatus}}
+\index{getStatus@{getStatus}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{getStatus}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::getStatus (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_ad690d4e9c2b2183feb0e93a6b4cac406}
+Accessor for current status. Will be false if there have been any failures or exceptions. If any reporter reports a failure, the whole suite fails. \begin{DoxyReturn}{Returns}
+boolean True if no failures.  public 
+\end{DoxyReturn}
+\hypertarget{class_multiple_reporter_a66eeb60bbe27eaceb0447a9c20337414}{
+\index{MultipleReporter@{MultipleReporter}!makeDry@{makeDry}}
+\index{makeDry@{makeDry}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{makeDry}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::makeDry (
+\begin{DoxyParamCaption}
+\item[{\$}]{ is\_\-dry = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_a66eeb60bbe27eaceb0447a9c20337414}
+Signals that the next evaluation will be a dry run. That is, the structure events will be recorded, but no tests will be run. 
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$is\_\-dry} & Dry run if true.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_a8affb95d16ee73a0fd2f9ff7a0b16b32}{
+\index{MultipleReporter@{MultipleReporter}!paintCaseEnd@{paintCaseEnd}}
+\index{paintCaseEnd@{paintCaseEnd}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintCaseEnd}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintCaseEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_a8affb95d16ee73a0fd2f9ff7a0b16b32}
+Paints the end of a test case. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test or other label.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_af4b1f80776530199cd91419c758c3d68}{
+\index{MultipleReporter@{MultipleReporter}!paintCaseStart@{paintCaseStart}}
+\index{paintCaseStart@{paintCaseStart}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintCaseStart}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintCaseStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_af4b1f80776530199cd91419c758c3d68}
+Paints the start of a test case. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test or other label.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_aa97458bc8253435cb306fbcfd0d9700c}{
+\index{MultipleReporter@{MultipleReporter}!paintError@{paintError}}
+\index{paintError@{paintError}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintError}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintError (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_aa97458bc8253435cb306fbcfd0d9700c}
+Chains to the wrapped reporter. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Text of error formatted by the test case.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_abb9aa4a74a8689c05cbd0535d276f907}{
+\index{MultipleReporter@{MultipleReporter}!paintException@{paintException}}
+\index{paintException@{paintException}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintException}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintException (
+\begin{DoxyParamCaption}
+\item[{\$}]{ exception}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_abb9aa4a74a8689c05cbd0535d276f907}
+Chains to the wrapped reporter. 
+\begin{DoxyParams}[1]{Parameters}
+Exception & {\em \$exception} & Exception to display.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_adbf0d817ea66a3ed6ecbfaa12da81b55}{
+\index{MultipleReporter@{MultipleReporter}!paintFail@{paintFail}}
+\index{paintFail@{paintFail}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintFail}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintFail (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_adbf0d817ea66a3ed6ecbfaa12da81b55}
+Chains to the wrapped reporter. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Message is ignored.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_aac9b1303434bbeb6a558af840590866e}{
+\index{MultipleReporter@{MultipleReporter}!paintFormattedMessage@{paintFormattedMessage}}
+\index{paintFormattedMessage@{paintFormattedMessage}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintFormattedMessage}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintFormattedMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_aac9b1303434bbeb6a558af840590866e}
+Chains to the wrapped reporter. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Text to display.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_a46f66fdc2d08ab56480df66374523e22}{
+\index{MultipleReporter@{MultipleReporter}!paintGroupEnd@{paintGroupEnd}}
+\index{paintGroupEnd@{paintGroupEnd}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintGroupEnd}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintGroupEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_a46f66fdc2d08ab56480df66374523e22}
+Paints the end of a group test. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test or other label.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_a124c97c84dc679cc6ad14aa2012bb444}{
+\index{MultipleReporter@{MultipleReporter}!paintGroupStart@{paintGroupStart}}
+\index{paintGroupStart@{paintGroupStart}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintGroupStart}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintGroupStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name, }
+\item[{\$}]{ size}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_a124c97c84dc679cc6ad14aa2012bb444}
+Paints the start of a group test. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test or other label. \\
+\hline
+integer & {\em \$size} & Number of test cases starting.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_a3e406bb8e7497250a5c7f740750ed9c9}{
+\index{MultipleReporter@{MultipleReporter}!paintMessage@{paintMessage}}
+\index{paintMessage@{paintMessage}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintMessage}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_a3e406bb8e7497250a5c7f740750ed9c9}
+Chains to the wrapped reporter. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Text to display.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_aa38b4e0798db871b957384656377cd33}{
+\index{MultipleReporter@{MultipleReporter}!paintMethodEnd@{paintMethodEnd}}
+\index{paintMethodEnd@{paintMethodEnd}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintMethodEnd}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintMethodEnd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_aa38b4e0798db871b957384656377cd33}
+Paints the end of a test method. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test or other label.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_adf97d0d391f684bffccebc70d4b1c6be}{
+\index{MultipleReporter@{MultipleReporter}!paintMethodStart@{paintMethodStart}}
+\index{paintMethodStart@{paintMethodStart}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintMethodStart}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintMethodStart (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-name}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_adf97d0d391f684bffccebc70d4b1c6be}
+Paints the start of a test method. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-name} & Name of test or other label.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_af5d2815cc7b6ac663c73c059868b2345}{
+\index{MultipleReporter@{MultipleReporter}!paintPass@{paintPass}}
+\index{paintPass@{paintPass}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintPass}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintPass (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_af5d2815cc7b6ac663c73c059868b2345}
+Chains to the wrapped reporter. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Message is ignored.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_a42b8450ffd5c8af9756cd149f68fb287}{
+\index{MultipleReporter@{MultipleReporter}!paintSignal@{paintSignal}}
+\index{paintSignal@{paintSignal}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintSignal}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintSignal (
+\begin{DoxyParamCaption}
+\item[{\$}]{ type, }
+\item[{\&\$}]{ payload}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_a42b8450ffd5c8af9756cd149f68fb287}
+Chains to the wrapped reporter. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & Event type as text. \\
+\hline
+mixed & {\em \$payload} & Message or object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean Should return false if this type of signal should fail the test suite.  public 
+\end{DoxyReturn}
+\hypertarget{class_multiple_reporter_a624ac0566b6f0169675309446ee67693}{
+\index{MultipleReporter@{MultipleReporter}!paintSkip@{paintSkip}}
+\index{paintSkip@{paintSkip}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{paintSkip}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::paintSkip (
+\begin{DoxyParamCaption}
+\item[{\$}]{ message}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_a624ac0566b6f0169675309446ee67693}
+Prints the message for skipping tests. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$message} & Text of skip condition.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_multiple_reporter_adc99084bc0502e8cd8a42837e1f63aba}{
+\index{MultipleReporter@{MultipleReporter}!shouldInvoke@{shouldInvoke}}
+\index{shouldInvoke@{shouldInvoke}!MultipleReporter@{MultipleReporter}}
+\subsubsection[{shouldInvoke}]{\setlength{\rightskip}{0pt plus 5cm}MultipleReporter::shouldInvoke (
+\begin{DoxyParamCaption}
+\item[{\$}]{ test\_\-case\_\-name, }
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_multiple_reporter_adc99084bc0502e8cd8a42837e1f63aba}
+The reporter has a veto on what should be run. It requires all reporters to want to run the method. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$test\_\-case\_\-name} & name of test case. \\
+\hline
+string & {\em \$method} & Name of test method.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/scorer.php\end{DoxyCompactItemize}

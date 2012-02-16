@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Using Grid API Methods</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Grid samples</div>
+	<h1>Using Grid API Methods</h1>
+	<p>Manipulate grid content, appearance and functionality using wide range of Grid API methods</p>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>		
+	<script  src="../js/dhtmlXGridCell.js"></script>	
+	<table width="600">
+		<tr>
+			<td width="50%" valign="top">
+				<div id="gridbox" width="100%" height="250px" style="background-color:white;"></div>
+			</td>
+			<td valign="top">
+				<div id="gridbox2" style="width:250px;height:250px;border:1px solid blue;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="javascript:mygrid.clearAll()">clearAll</a><br>
+				<a href="javascript:mygrid.setHeaderCol(1,'New Header')">setHeaderCol</a><br>
+				<a href="javascript:mygrid.copyRowContent(mygrid.getRowId(0),mygrid.getSelectedId())">copyRowContent (ex.:from first to selected)</a><br>
+				<a href="javascript:mygrid.clearSelection()">clearSelection</a><br>
+				<a href="javascript:mygrid.setSelectedRow(mygrid.getRowId(1))">setSelectedRow (ex.:second)</a><br>
+				<a href="javascript:mygrid.setEditable(!mygrid.isEditable)">setEditable (ex.:on/off)</a><br>
+				<a href="javascript:mygrid.setUserData(mygrid.getSelectedId(),'ud2','this value was set with script')">setUserData (ex.: to selected row)</a><br>
+				<a href="javascript:alert(mygrid.getUserData(mygrid.getSelectedId(),'ud2'))">getUserData (ex.: of selected row)</a><br>
+				<a href="javascript:alert(mygrid.cells(mygrid.getSelectedId(),mygrid.getSelectedCellIndex()).getValue())">cells.getValue (ex.: of selected cell)</a><br>
+				<a href="javascript:alert(mygrid.cells2(mygrid.getRowIndex(mygrid.getSelectedId()),mygrid.getSelectedCellIndex()).getValue())">cells2.getValue (ex.: of selected cell)</a><br>
+				<a href="javascript:mygrid.moveRowDown(mygrid.getSelectedId())">moveRowDown (ex.:selected)</a><br>
+				<a href="javascript:mygrid.moveRowUp(mygrid.getSelectedId())">moveRowUp (ex.:selected)</a><br>
+				<a href="javascript:alert(mygrid.getColumnCount())">getColumnCount</a><br>
+				<a href="javascript:alert(mygrid.getRowsNum())">getRowsNum</a><br>
+				<a href="javascript:alert(mygrid.getAllItemIds())">getAllItemIds</a><br>
+				<a href="javascript:alert(mygrid.isItemExists('14'))">isItemExists (with id=14)</a><br>
+				<a href="javascript:mygrid.setRowTextStyle(mygrid.getSelectedId(),'color:red;font-family:verdana;font-size:14px;')">setRowTextStyle (ex.:selected)</a><br>
+				<a href="javascript:mygrid.setRowTextBold(mygrid.getSelectedId())">setRowTextBold (ex.:selected)</a><br>
+				<a href="javascript:mygrid.setRowTextNormal(mygrid.getSelectedId())">setRowTextNormal (ex.:selected)</a><br>
+			</td>
+			<td>
+				<a href="javascript:mygrid.setColumnIds('A,B')">setColumnIds (A,B)</a><br>
+				<a href="javascript:alert(mygrid.getColumnId(0))">getColumnId (ex.:first)</a><br>
+				<a href="javascript:alert(mygrid.getColIndexById('B'))">getColIndexById (ex.: B)</a><br>
+				<a href="javascript:mygrid.setRowId(mygrid.getRowIndex(mygrid.getSelectedId()),'newid')">setRowId (ex.: selected)</a><br>
+				<a href="javascript:alert(mygrid.getRowId(mygrid.getRowIndex(mygrid.getSelectedId())))">getRowId (ex.:selected)</a><br>
+				<a href="javascript:alert(mygrid.getRowIndex(mygrid.getSelectedId()))">getRowIndex (ex.:selected)</a><br>
+				<a href="javascript:alert(mygrid.getColWidth(mygrid.getSelectedCellIndex()))">getColWidth (ex.:of selected cell)</a><br>
+				<a href="javascript:alert(mygrid.getSelectedCellIndex())">getSelectedCellIndex</a><br>
+				<a href="javascript:alert(mygrid.getSelectedId())">getSelectedId</a><br>
+				<a href="javascript:mygrid.deleteSelectedItem()">deleteSelectedItem</a><br>
+				<a href="javascript:mygrid.deleteRow(mygrid.getSelectedId())">deleteRow (ex.: selected)</a><br>
+				<a href="javascript:mygrid.setMultiselect(!mygrid.selMultiRows)">setMultiselect (on/off)</a><br>
+				<a href="javascript:void(mygrid.addRow('x2','text 1,text 2',1))">addRow (ex.:second position)</a><br>
+				<a href="javascript:mygrid.selectRow(0)">selectRow (ex.:first one)</a><br>
+				<a href="javascript:mygrid.selectCell(1,1)">selectCell (ex.: second cell of second row)</a><br>
+				<a href="javascript:mygrid.attachToObject(document.getElementById('gridbox2'))">attachToObject</a><br>
+			</td>
+		</tr>
+	</table>
+<hr>
+<XMP>
+	//...See Documentation for complete list of Grid API Methods and some details of their usage
+	<a href="javascript:mygrid.clearAll()">clearAll</a><br>
+	<a href="javascript:mygrid.setHeaderCol(1,'New Header')">setHeaderCol</a><br>
+	<a href="javascript:mygrid.copyRowContent(mygrid.getRowId(0),mygrid.getSelectedId())">copyRowContent (ex.:from first to selected)</a><br>
+	<a href="javascript:mygrid.clearSelection()">clearSelection</a><br>
+	<a href="javascript:mygrid.setSelectedRow(mygrid.getRowId(1))">setSelectedRow (ex.:second)</a><br>
+	<a href="javascript:mygrid.setEditable(!mygrid.isEditable)">setEditable (ex.:on/off)</a><br>
+	<a href="javascript:mygrid.setUserData(mygrid.getSelectedId(),'ud2','this value was set with script')">setUserData (ex.: to selected row)</a><br>
+	<a href="javascript:alert(mygrid.getUserData(mygrid.getSelectedId(),'ud2'))">getUserData (ex.: of selected row)</a><br>
+	<a href="javascript:alert(mygrid.cells(mygrid.getSelectedId(),mygrid.getSelectedCellIndex()).getValue())">cells.getValue (ex.: of selected cell)</a><br>
+	<a href="javascript:alert(mygrid.cells2(mygrid.getRowIndex(mygrid.getSelectedId()),mygrid.getSelectedCellIndex()).getValue())">cells2.getValue (ex.: of selected cell)</a><br>
+	<a href="javascript:mygrid.moveRowDown(mygrid.getSelectedId())">moveRowDown (ex.:selected)</a><br>
+	<a href="javascript:mygrid.moveRowUp(mygrid.getSelectedId())">moveRowUp (ex.:selected)</a><br>
+	<a href="javascript:alert(mygrid.getColumnCount())">getColumnCount</a><br>
+	<a href="javascript:alert(mygrid.getRowsNum())">getRowsNum</a><br>
+	<a href="javascript:alert(mygrid.getAllItemIds())">getAllItemIds</a><br>
+	<a href="javascript:alert(mygrid.isItemExists('14'))">isItemExists (with id=14)</a><br>
+	<a href="javascript:mygrid.setRowTextStyle(mygrid.getSelectedId(),'color:red;font-family:verdana;font-size:14px;')">setRowTextStyle (ex.:selected)</a><br>
+	<a href="javascript:mygrid.setRowTextBold(mygrid.getSelectedId())">setRowTextBold (ex.:selected)</a><br>
+	<a href="javascript:mygrid.setRowTextNormal(mygrid.getSelectedId())">setRowTextNormal (ex.:selected)</a><br>
+	<a href="javascript:mygrid.setColumnIds('A,B')">setColumnIds (A,B)</a><br>
+	<a href="javascript:alert(mygrid.getColumnId(0))">getColumnId (ex.:first)</a><br>
+	<a href="javascript:alert(mygrid.getColIndexById('B'))">getColIndexById (ex.: B)</a><br>
+	<a href="javascript:mygrid.setRowId(mygrid.getRowIndex(mygrid.getSelectedId()),'newid')">setRowId (ex.: selected)</a><br>
+	<a href="javascript:alert(mygrid.getRowId(mygrid.getRowIndex(mygrid.getSelectedId())))">getRowId (ex.:selected)</a><br>
+	<a href="javascript:alert(mygrid.getRowIndex(mygrid.getSelectedId()))">getRowIndex (ex.:selected)</a><br>
+	<a href="javascript:alert(mygrid.getColWidth(mygrid.getSelectedCellIndex()))">getColWidth (ex.:of selected cell)</a><br>
+	<a href="javascript:alert(mygrid.getSelectedCellIndex())">getSelectedCellIndex</a><br>
+	<a href="javascript:alert(mygrid.getSelectedId())">getSelectedId</a><br>
+	<a href="javascript:mygrid.deleteSelectedItem()">deleteSelectedItem</a><br>
+	<a href="javascript:mygrid.deleteRow(mygrid.getSelectedId())">deleteRow (ex.: selected)</a><br>
+	<a href="javascript:mygrid.setMultiselect(!mygrid.selMultiRows)">setMultiselect (on/off)</a><br>
+	<a href="javascript:void(mygrid.addRow('x2','text 1,text 2',1))">addRow (ex.:second position)</a><br>
+	<a href="javascript:mygrid.selectRow(0)">selectRow (ex.:first one)</a><br>
+	<a href="javascript:mygrid.selectCell(1,1)">selectCell (ex.: second cell of second row)</a><br>
+	<a href="javascript:mygrid.attachToObject(document.getElementById('gridbox2'))">attachToObject</a><br>
+</XMP>
+		
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../imgs/");
+	mygrid.setHeader("Column A, Column B");
+	mygrid.setInitWidths("100,250")
+	mygrid.setColAlign("right,left")
+	mygrid.setColTypes("dyn,ed");
+	mygrid.setColSorting("str,str")
+	mygrid.init();
+	mygrid.loadXML("../grid.xml");
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+	
+</body>
+</html>

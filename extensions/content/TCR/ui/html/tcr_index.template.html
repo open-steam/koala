@@ -1,0 +1,43 @@
+<!-- BEGIN BLOCK_OVERVIEW_TABLE -->
+<center>
+	<font size="+2">{TCR_TITLE}</font>
+	<br>
+	<font color="red">{TCR_NO_USERS}</font>
+</center>
+<table style="display:{DISPLAY_MANY}" width="100%">
+	<tr>
+		<td align="left" width="33%"><a href="{PREVIOUS_URL}"><b>{PREVIOUS_CRITICS}</b></a></td>
+		<td align="center" width="33%"><b>{CURRENT_CRITICS}</b></td>
+		<td align="right" width="33%"><a href="{NEXT_URL}"><b>{NEXT_CRITICS}</b></a></td>
+	</tr>
+</table>
+<table class="tcr_table" border="1" width="{TABLE_WIDTH}" style="display:{DISPLAY_TABLE}">
+	<tr>
+		<th width="20%">{TABLE_LABEL}</th>
+		<!-- BEGIN BLOCK_USER_TH -->
+		<th width="{USER_WIDTH}%">{USER_NAME}</th>
+		<!-- END BLOCK_USER_TH -->
+	</tr>
+	<!-- BEGIN BLOCK_TABLE_ROW -->
+	<tr>
+		<td style="background-color: white"><b>{USER_NAME2}</b></td>
+		<!-- BEGIN BLOCK_TABLE_COLUMN -->	
+		<td>
+			<div title="{COLUMN_TITLE}">
+				<table width="100%">
+				<!-- BEGIN BLOCK_TABLE_ELEMENT -->	
+					<tr>
+						{ROUND_ROW}
+						<td width="{OTHER_WIDTH}%"><a href="{THESIS_URL}">{THESIS_LABEL}</a></td>
+						<td width="{OTHER_WIDTH}%"><a href="{REVIEW_URL}">{REVIEW_LABEL}</a></td>
+						<td width="{OTHER_WIDTH}%"><a href="{RESPONSE_URL}">{RESPONSE_LABEL}</a></td>
+					</tr>
+				<!-- END BLOCK_TABLE_ELEMENT -->
+				</table>
+			</div>
+		</td>
+		<!-- END BLOCK_TABLE_COLUMN -->	
+	</tr>
+	<!-- END BLOCK_TABLE_ROW -->
+</table>
+<!-- END BLOCK_OVERVIEW_TABLE -->

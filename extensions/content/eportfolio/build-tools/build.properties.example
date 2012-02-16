@@ -1,0 +1,37 @@
+### localization (gettext) settings: #####################################
+#
+# Adjust the paths to the gettext tools on your system (there are some blocks
+# with typical paths on different operating systems, so you can just uncomment
+# the block that matches your system and see if it already works).
+
+# Changing the localization.fuzzy setting to "yes" will let gettext try to
+# find matching translations for new entries. If you change a text in the
+# source code, the translation will be lost unless you let gettext use
+# fuzzy translations.
+localization.fuzzy=no
+
+# gettext tools (GNU/Linux, Unix, etc.):
+localization.xgettext.path=/usr/bin/xgettext
+localization.msgfmt.path=/usr/bin/msgfmt
+localization.msgmerge.path=/usr/bin/msgmerge
+localization.msginit.path=/usr/bin/msginit
+
+# gettext tools (Mac OS X (fink)):
+#localization.xgettext.path=/sw/bin/xgettext
+#localization.msgfmt.path=/sw/bin/msgfmt
+#localization.msgmerge.path=/sw/bin/msgmerge
+#localization.msginit.path=/sw/bin/msginit
+
+# gettext tools (Mac OS x (MacPorts)):
+#localization.xgettext.path=/opt/local/bin/xgettext
+#localization.msgfmt.path=/opt/local/bin/msgfmt
+#localization.msgmerge.path=/opt/local/bin/msgmerge
+#localization.msginit.path=/opt/local/bin/msginit
+
+# gettext tools (Microsoft Windows):
+#localization.xgettext.path="C:\\Windows\\xgettext.exe"
+#localization.msgfmt.path="C:\\Windows\\msgfmt.exe"
+#localization.msgmerge.path="C:\\Windows\\msgmerge.exe"
+#localization.msginit.path="C:\\Windows\\msginit.exe"
+
+localization.domain.name=koala

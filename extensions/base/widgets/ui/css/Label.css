@@ -1,0 +1,7 @@
+
+
+.widgets_lable, .widgets_textinput, .widgets_textinput_control_button, .widgets_textinput_loader {
+	float: left;
+	margin-right: 2px;
+}
+

@@ -1,0 +1,75 @@
+<!-- BEGIN BLOCK_EDIT -->
+<li class="ui-state-default" id="element{ELEMENT_ID}">
+	<table width="100%" class="rapidfeedback_style">
+		<tr>
+			<td align="right">
+				<img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+				&nbsp
+				<img onclick="copyElement({ELEMENT_ID});" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+				&nbsp
+				<img onclick="deleteElement({ELEMENT_ID});" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<!-- BEGIN BLOCK_EDIT_REQUIRED -->
+				<h1>{QUESTION_TEXT}<font color="red"> *</font></h1>
+				{HELP_TEXT}
+				<!-- END BLOCK_EDIT_REQUIRED -->
+				<!-- BEGIN BLOCK_EDIT_NOT_REQUIRED -->
+				<h1>{QUESTION_TEXT}</h1>
+				{HELP_TEXT}
+				<!-- END BLOCK_EDIT_NOT_REQUIRED -->
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table>
+					<!-- BEGIN BLOCK_OPTION_EDIT -->
+					<tr>
+						<td>{LABEL_OPTION1}</td>
+						<td>
+							<!-- BEGIN BLOCK_EDIT_STEP -->
+								<input type="radio" name="tendency_{QUESTION_ID}_{STEP_COUNTER}">
+							<!-- END BLOCK_EDIT_STEP -->
+						</td>
+						<td>{LABEL_OPTION2}</td>
+					</tr>
+					<!-- END BLOCK_OPTION_EDIT -->
+				</table>
+			</td>
+		</tr>
+	</table>
+</li>
+<input type="hidden" name="element{ELEMENT_ID}" value="{ELEMENT_DATA}">
+<input type="hidden" name="element{ELEMENT_ID}_options" value="{OPTION_DATA}">
+<!-- END BLOCK_EDIT -->
+
+<!-- BEGIN BLOCK_VIEW -->
+<tr>
+	<td style="{ERROR_BORDER}">
+		<!-- BEGIN BLOCK_VIEW_REQUIRED -->
+		<b>{QUESTION_TEXT}<font color="red"> *</font></b>
+		<!-- END BLOCK_VIEW_REQUIRED -->
+		<!-- BEGIN BLOCK_VIEW_NOT_REQUIRED -->
+		<b>{QUESTION_TEXT}</b>
+		<!-- END BLOCK_VIEW_NOT_REQUIRED -->
+		<br>
+		{HELP_TEXT}
+		<br>
+		<table class="rapidfeedback_style" style="text-align: center;">
+			<!-- BEGIN BLOCK_OPTION_VIEW -->
+			<tr>
+				<td>{OPTION_VIEW1}</td>
+				<td>
+					<!-- BEGIN BLOCK_STEP_VIEW -->
+					<input type="radio" name="question{QUESTION_ID}_{STEP_COUNTER}" value="{STEP_VALUE}">
+					<!-- END BLOCK_STEP_VIEW -->
+				</td>
+				<td>{OPTION_VIEW2}</td>
+			</tr>
+			<!-- END BLOCK_OPTION_VIEW -->
+		</table>
+	</td>
+</tr>
+<!-- END BLOCK_VIEW -->

@@ -1,0 +1,105 @@
+<table>
+
+<tr>
+<td id="GoodStuff">
+
+<form action="{FORM_ACTION}" name="group_dsc" method="post">
+
+<input type="hidden" name="grouptype" value="{VALUE_GROUPTYPE}">
+<input type="hidden" name="parent" value="{VALUE_PARENT_GROUP}">
+<input type="hidden" name="creation_step" value="2">
+
+<p class="Confirm">{CONFIRM_TEXT}</p>
+
+<p>{NAME_LABEL}</p>
+<blockquote>
+
+<p><input name="values[name]" type="text" size="40" value="{VALUE_NAME}"></p>
+</blockquote>
+
+<!-- BEGIN BLOCK_PUBLIC -->
+<p>{CATEGORY_LABEL}</p>
+<blockquote>
+
+<p>
+<select name="values[category]">
+	<option value="0">{LABEL_PLEASE_CHOOSE}</option>
+	<!-- BEGIN BLOCK_CATEGORY -->
+	<option value="{CAT_ID}" {CAT_SELECTED}>{CAT_NAME}</option>
+	<!-- END BLOCK_CATEGORY -->
+</select>
+</p>
+</blockquote>
+
+<!-- BEGIN BLOCK_PASSWORD -->
+<p>{PASSWORD_LABEL}</p>
+<blockquote>
+<p>
+<input type="text" name="values[password]" size="40" {VALUE_PASSWORD}>
+<br/>
+<small>({PASSWORD_INFO_TEXT})</small>
+</p>
+</blockquote>
+<!-- END BLOCK_PASSWORD -->
+<!-- END BLOCK_PUBLIC -->
+
+<p>{SHORT_DSC_LABEL}</p>
+<blockquote>
+
+<p><input name="values[short_dsc]" type="text" size="40" value="{VALUE_SHORT_DSC}">
+<br/>
+<small>({SHORT_DSC_SHOW_UP})</small>
+</p>
+</blockquote>
+
+<p>{LONG_DSC_LABEL}</p>
+<blockquote>
+<p><textarea name="values[long_dsc]" style="width: 400px;" rows="10">{VALUE_LONG_DSC}</textarea><br />
+<a href="javascript:insert('[b]', '[/b]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+<a href="javascript:insert('[i]', '[/i]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+<a href="javascript:insert('[u]', '[/u]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+<a href="javascript:insert('[s]', '[/s]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+<a href="javascript:insert('[img]http://', '[/img]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+<a href="javascript:insert('[url=http://]', '[/url]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+<a href="javascript:insert('[mail=@]', '[/mail]', 'group_dsc', 'values[long_dsc]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
+<br/><small>({LONG_DSC_SHOW_UP})</small>
+</p>
+</blockquote>
+
+{HTML_WIDGET_FOOTER}
+
+<!-- BEGIN BLOCK_ACCESS -->
+<tr>
+<td class="label">{PARTICIPANT_MANAGEMENT}:</td>
+<td class="value">
+	<!-- BEGIN ACCESS -->
+	<input type="radio" id="access_{VALUE}" name="values[access]" value="{VALUE}" {CHECK} {ONCHANGE}/> <label for="access_{VALUE}">{LABEL}</label><br/>
+	<!-- BEGIN ACCESS_PASSWORD -->
+	<div id="passworddiv" style="margin: 5px; margin-left: 50px; display:{PASSWORDDIV_DISPLAY}">
+	{LABEL_PASSWORD}*: <input type="text" name="values[password]" size="20" value="{VALUE_PASSWORD}"><br />
+	</div>
+	<!-- END ACCESS_PASSWORD -->
+	<!-- END ACCESS -->
+</td>
+</tr>
+<!-- END BLOCK_ACCESS -->
+
+
+<!-- BEGIN BLOCK_EXTENSIONS -->
+<p>{LABEL_EXTENSIONS}</p>
+<blockquote>
+<input type="hidden" name="extensions_available" value="{VALUE_EXTENSIONS}" />
+	<!-- BEGIN BLOCK_EXTENSION -->
+	<input type="checkbox" name="extensions_enabled[{EXTENSION_ID}]" {EXTENSION_ENABLED}>{EXTENSION_NAME}</input> ({EXTENSION_DESC})<br />
+	<!-- END BLOCK_EXTENSION -->
+</blockquote>
+<!-- END BLOCK_EXTENSIONS -->
+
+<p><input type="submit"  value="{LABEL_NEXT}"></p>
+
+
+</form>
+
+</td>
+</tr>
+</table>

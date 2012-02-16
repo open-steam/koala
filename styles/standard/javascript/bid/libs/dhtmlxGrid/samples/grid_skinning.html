@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Skinning.</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<script>
+	function doOnLoad(){
+		mygrid = new dhtmlXGridObject('gridbox');
+		mygrid.setImagePath("../imgs/");
+		mygrid.setHeader("Sales Dynamic,Title,Description,Price,In Store,Shipping,Date of Publication");
+		mygrid.setInitWidths("120,150,*,50,80,80,150")
+		mygrid.setColAlign("right,left,left,right,center,right,center")
+		mygrid.setColTypes("dyn,ed,txt,price,ch,coro,ro");
+		mygrid.setColSorting("int,str,str,int,str,str,na")
+		//mygrid.enableMultiline(true)
+		//mygrid.setColumnColor("white,#d5f1ff,#d5f1ff")
+	    mygrid.getCombo(5).put(1,"1 hour");
+		mygrid.getCombo(5).put(12,"12 hours");
+		mygrid.getCombo(5).put(24,"24 hours");    
+		mygrid.getCombo(5).put(48,"2 Days");    
+		mygrid.setSkin("light")
+		mygrid.init();
+		mygrid.loadXML("grid_big.xml");
+	}
+</script>
+<body onload="doOnLoad()" style="overflow:hidden">
+	<div class="hdr">DHTML JavaScript Grid samples</div>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid_skins.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>		
+	<script  src="../js/dhtmlXGridCell.js"></script>	
+	<h1>dhtmlXGrid - Skinning</h1>
+	<div  style="margin:20px;">
+	Choose skin to apply: 
+	<select onchange="mygrid.setSkin(this.value)">
+		<option value="gray">gray
+		<option value="mt">mt
+		<option value="xp">xp
+		<option value="clear">clear
+		<option value="modern">modern
+		<option value="light" selected>light
+	</select>
+	</div>
+	
+	<div id="gridbox" width="100%" height="600px" style="background-color:white;"></div>
+
+
+		
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+	
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿"Questionary";"{QUESTIONARY_NAME}"
+"General Description";"{DESCRIPTION}"
+"Object ID";"{OBJECT_ID}"
+"Export date";"{DATE}"
+"Creators can edit all answers";"{EDIT_ANSWER}"
+"Editors can edit their own answers";"{EDIT_OWN_ANSWER}"
+"Fill out";"{FILLOUT}"
+<!-- BEGIN cell_edit_time -->"Edit-time";"{EDIT_TIME}"<!-- END cell_edit_time -->
+
+"Question"<!-- BEGIN cell_question -->;"{QUESTION}"<!-- END cell_question -->
+<!-- BEGIN row -->"{COUNT}"<!-- BEGIN cell_answer -->;"{ANSWER}"<!-- END cell_answer -->
+<!-- END row -->
+
+<!-- BEGIN fillout_1 -->one time<!-- END fillout_1 -->
+<!-- BEGIN fillout_n -->multiple<!-- END fillout_n -->
+<!-- BEGIN label_creator -->Creator<!-- END label_creator -->
+<!-- BEGIN label_creation_time -->Creation time<!-- END label_creation_time -->
+<!-- BEGIN label_yes -->Yes<!-- END label_yes -->
+<!-- BEGIN label_no -->No<!-- END label_no -->
+

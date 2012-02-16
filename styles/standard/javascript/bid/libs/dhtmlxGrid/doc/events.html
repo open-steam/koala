@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?><div style="position:absolute;right:20"><a href="javascript:void(0)" onclick="expandAll(true)">expand</a><a href="javascript:void(0)" onclick="expandAll(false)">collaps</a></div><script><!--
+		
+			function openFull(el){
+				el.nextSibling.style.display=='none'?el.nextSibling.style.display='block':el.nextSibling.style.display='none'
+			}
+			function expandAll(fl){
+				var elAr = document.getElementsByTagName("DIV");
+				for(var i=2;i<elAr.length;i++){
+					if(elAr[i].style.display=='none' || elAr[i].block_fl){
+						elAr[i].block_fl = true;
+						if(fl)
+							elAr[i].style.display = "";
+						else
+							elAr[i].style.display = "none";
+					}
+				}
+			}
+		
+		--></script><style>
+			.{font-family:arial;}
+			h2 {cursor:pointer;font-size:16px;margin-left:10px;line-height:10px}
+			h3 {cursor:pointer;font-weight:normal;color:gray;text-decoration:underline;line-height:10px}
+			div.block {margin-left:30px;}
+			table.compare th{
+              font-size:16px; font-family:Arial; font-weight:bold;
+            }
+			table.compare td{
+              font-size:14px; font-family:Arial;
+            }
+			span.common {
+				font-size:14px; font-family:Arial;
+            }
+			div.command {
+				font-size:12px; font-family:Arial;
+				color:navy; font-weight:bold;
+				margin-left:50px;
+            }			
+		</style>
+
+   Starting from dhtmlGrid 1.3 new event system introduced <br />( while old
+      methods still accessible - it is strongly recommended to use new one while creating new code )<br />
+   </span>  <br />
+<table class='compare' align="center" width="50%">
+  <tr>
+    <th>Old event system</th>
+    <th>New event system</th>
+  </tr>
+  <tr>
+    <td>Different name for event commands</td>
+    <td>Single command for all events</td>
+  </tr>
+  <tr>
+    <td>Event handlers not detachable</td>
+    <td>Detachable handlers</td>
+  </tr>
+</table>
+<br /><br /><br />
+   <h2>Attaching event</h2>
+   <span    class="common">
+      Instead of <br />
+      <div class="command">grid.setSomeEventHandler(func)</div>
+      You can use
+      <div class="command">var eventId=grid.attachEvent(EventName,func)</div>
+      Where
+         <ul>
+            <li>EventName - name of event, please look below</li>
+            <li>func - function name or function object</li>
+         </ul>
+   </span>
+   <br /><br />
+   <span    class="common">
+      The value returned by attachEvent function can be used to detach event in future
+         <div class="command">var eventId=grid.attachEvent("onClick",func);<br />... some actions...<br />grid.detachEvent(eventId);</div>
+   </span>
+<br /><br /><br />
+
+
+		<div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onRowSelect<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly after row was clicked.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID of clicked row</li><li type="circle">index of clicked cell</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onScroll<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly after scrolling occured</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">scroll left</li><li type="circle">scroll top</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onEditCell<br /><strong style="color:#6c6c6c;font-size:12px">Event raises 1-3 times depending on cell editibality.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">stage of editting (0-before start[can be canceled if returns false],1-editor opened,2-editor closed)</li><li type="circle">ID or row</li><li type="circle">index of cell</li><li type="circle">new value ( only for stage 2 )</li><li type="circle">old value ( only for stage 2 )</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onCheckbox<br /><strong style="color:#6c6c6c;font-size:12px">Event raises after state was changed.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID or row</li><li type="circle">index of cell</li><li type="circle">state of checkbox/radiobutton</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onEnter<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly after Enter pressed.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID or row</li><li type="circle">index of cell</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onBeforeRowDeleted<br /><strong style="color:#6c6c6c;font-size:12px">Event raised right before row deleted (if returns false, deletion canceled)</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID or row</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onRowAdded<br /><strong style="color:#6c6c6c;font-size:12px">Event raised right after row was added to grid</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID or row</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onGridReconstructed<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly after row was clicked.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">grid object</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onBeforeSelect
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event fired moment before row in grid get selection</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">new selected row</li><li type="circle">old selected row</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onKeyPress
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event fired after key pressed but before default key processing started</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">key code</li><li type="circle">control key flag</li><li type="circle">shift key flag</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onRowCreated
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event fired after row created in grid, and filled with data</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">row id</li><li type="circle">row object</li><li type="circle">related xml ( if available )</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onXLE
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event fired simultaneously with ending XML parsing, new items already available in tree</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">grid object</li><li type="circle">count of nodes added</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onCellChanged
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event fired after value was changed</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">row ID</li><li type="circle">cell index</li><li type="circle">new value</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onXLS
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event fired before request for new XML sent to server</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">grid object</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onResize
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event fired on each resize itteration</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">cell index</li><li type="circle">cell width</li><li type="circle">grid object</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onBeforeSorting
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event called before sorting of data started</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">index of sorted column</li><li type="circle">grid object</li><li type="circle">direction of sorting asc/desc</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onSelectStateChanged
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly after selection state was changed</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID or list of IDs of selected row(s)</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onRowDblClicked
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">Event raised right after row was double clicked, before cell editor opened by dbl click. If retuns false, event canceled;</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID or row</li><li type="circle">index of column</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onHeaderClick
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">Event raised right after header was clicked, before sorting or any other actions;</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">index of column</li><li type="circle">related javascript event object</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onResizeEnd<br /><strong style="color:#6c6c6c;font-size:12px">event fired after resizing of column finished</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">grid object</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onBeforeContextMenu<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly before showing context menu</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID of clicked row</li><li type="circle">index of cell column</li><li type="circle">grid object</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onRightClick<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly after right mouse button clicked on grid row</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID of clicked row</li><li type="circle">index of cell column</li><li type="circle">event object</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onDrag<br /><strong style="color:#6c6c6c;font-size:12px">Event occured after item was dragged and droped on another item, but before item moving processed.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID of source item</li><li type="circle">ID of target item</li><li type="circle">source grid object</li><li type="circle">target grid object</li><li type="circle">index of column from which drag started</li><li type="circle">index of column in which drop occurs</li><br /><em style="color:blue;">Returns:</em>true - confirm drag-and-drop; false - deny drag-and-drop;<span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onDrop
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">Event raised after drag-and-drop processed.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID of source item</li><li type="circle">ID of target item</li><li type="circle">ID of droped item (has sense for mercy drag-n-drop)</li><li type="circle">source grid object</li><li type="circle">target grid object</li><li type="circle">index of column from which drag started</li><li type="circle">index of column in which drop occurs</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onDragIn
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">Event raised if drag moved over potencial landing</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID of source item</li><li type="circle">ID of target item</li><li type="circle">source grid object</li><li type="circle">target grid object</li><br /><em style="color:blue;">Returns:</em>true - allow landing; false - deny landing;<span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onBeforeMoving
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event called on start of column moving operation</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">index of moved column</li><li type="circle">index of new position</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onAfterMoving
+					[<span style="color:red;">Professional</span>]
+				<br /><strong style="color:#6c6c6c;font-size:12px">event called after  column moved</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">index of moved column</li><li type="circle">index of new position</li><span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onOpenStart<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly after item in tree got command to open/close , and before item was opened//closed. Event also raised for unclosable nodes and nodes without open/close functionality - in that case result of function will be ignored.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID of node which will be opened/closed</li><li type="circle">Current open state of tree item. -1 - item closed, 1 - item opened.</li><br /><em style="color:blue;">Returns:</em>true - confirm opening/closing; false - deny opening/closing;<span /></div><div style="margin-top:5px;font-weight:bold;cursor:pointer;" onclick="openFull(this)">onOpenEnd<br /><strong style="color:#6c6c6c;font-size:12px">Event raised immideatly after item in tree got command to open/close , and before item was opened//closed. Event also raised for unclosable nodes and nodes without open/close functionality - in that case result of function will be ignored.</strong><br /><span /></div><div style="display:none;margin-left:20px;font-size:12px"><li type="circle">ID of node which will be opened/closed</li><li type="circle">Current open state of tree item. -1 - item closed, 1 - item opened.</li><span /></div>

@@ -1,0 +1,51 @@
+<!-- BEGIN BLOCK_CREATE_ELEMENT-->
+<center>
+	<form action="{BACK_URL}" method="post" enctype="multipart/form-data">
+		<table class="tcr_table" border="1" width="80%" height="100%">
+			<tr>
+				<th colspan="2">{CREATE_LABEL}</th>
+			</tr>
+			<tr>
+				<td class="label">{TITLE_LABEL}</td>
+				<td><input name="title" style="width: 99%"></td>
+			</tr>
+			<tr>
+				<td class="label">{DESC_LABEL}</td>
+				<td><input name="desc" style="width: 99%"></td>
+			</tr>
+			<tr>
+				<td class="label">{RADIO_LABEL}</td>
+				<td>
+					<input type="radio" name="radio" value="0" checked onclick="hideUpload();">{PLAIN_LABEL}
+					<input type="radio" name="radio" value="1" onclick="hideContent();">{FILE_LABEL}
+				</td>
+			</tr>
+			<tr style="display:none" id="tcr_upload">
+				<td class="label">{FILE_LABEL}</td>
+				<td>
+					<input name="file" type="file">
+					<br>
+					<font color="red">{UPLOAD_MAXSIZE}</font>
+				</td>
+			</tr>
+			<tr id="tcr_content">
+				<td class="label">{CONTENT_LABEL}</td>
+				<td width="80%" height="100%">
+					<textarea style="width:99%; height:400px" name="content">{CONTENT_VALUE}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div style="text-align:center" class="buttons">
+						<input type="submit" value="{SUBMIT_CREATE}" name="create_element">
+						<a class="button" href="{BACK_URL}">{BACK_LABEL}</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<input type="hidden" name="kind" value="{KIND_VALUE}">
+		<input type="hidden" name="round" value="{ROUND_VALUE}">
+		<input type="hidden" name="elementID" value="{ELEMENT_ID}">
+	</form>
+</center>
+<!-- END BLOCK_CREATE_ELEMENT -->

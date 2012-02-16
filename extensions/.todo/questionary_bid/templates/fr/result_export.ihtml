@@ -1,0 +1,20 @@
+﻿"Questionnaire";"{QUESTIONARY_NAME}"
+"Description Générale";"{DESCRIPTION}"
+"Object ID";"{OBJECT_ID}"
+"Date d'export";"{DATE}"
+"Les créateurs peuvent éditer toutes les réponses";"{EDIT_ANSWER}"
+"Les éditeurs peuvent éditer leurs propres réponses";"{EDIT_OWN_ANSWER}"
+"Remplir";"{FILLOUT}"
+<!-- BEGIN cell_edit_time -->"Temps d'étition";"{EDIT_TIME}"<!-- END cell_edit_time -->
+
+"Question"<!-- BEGIN cell_question -->;"{QUESTION}"<!-- END cell_question -->
+<!-- BEGIN row -->"{COUNT}"<!-- BEGIN cell_answer -->;"{ANSWER}"<!-- END cell_answer -->
+<!-- END row -->
+
+<!-- BEGIN fillout_1 -->un temps<!-- END fillout_1 -->
+<!-- BEGIN fillout_n -->multiple<!-- END fillout_n -->
+<!-- BEGIN label_creator -->Createur<!-- END label_creator -->
+<!-- BEGIN label_creation_time -->Tepms de creation<!-- END label_creation_time -->
+<!-- BEGIN label_yes -->Oui<!-- END label_yes -->
+<!-- BEGIN label_no -->Non<!-- END label_no -->
+

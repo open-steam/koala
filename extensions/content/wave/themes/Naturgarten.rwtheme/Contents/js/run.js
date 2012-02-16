@@ -1,0 +1,1 @@
+$("#slide-right1").pageSlide({ width: "540px", direction: "right", modal: true  });

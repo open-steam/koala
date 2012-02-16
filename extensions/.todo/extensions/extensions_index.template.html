@@ -1,0 +1,27 @@
+<p>
+<h1>{LABEL_HEADLINE_1}</h1>
+</p>
+<!-- BEGIN BLOCK_EXTENSIONS_INSTALLED -->
+<form action="" method="post">
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+<tr>
+    <th>{LABEL_NAME}</th>
+    <th>{LABEL_INFOS}</th>
+    <th>{LABEL_ACTION}</th>
+</tr>
+<!-- BEGIN BLOCK_EXTENSION -->
+<tr>
+	<td align="center"><b>{VALUE_NAME}</b></td>
+	<td>
+		{LABEL_DESCRIPTION}: {VALUE_DESCRIPTION}<br />
+		{LABEL_PATH}: {VALUE_PATH}<br />
+		{LABEL_EXTENDS}: {VALUE_EXTENDS}<br />
+		{LABEL_PROVIDES}: {VALUE_PROVIDES}<br />
+		<strong>{LABEL_REQUIRES}:</strong> {VALUE_REQUIRES}
+	</td>
+	<td align="center">{ACTION}</td>
+</tr>
+<!-- END BLOCK_EXTENSION -->
+</table>
+</form>
+<!-- END BLOCK_EXTENSIONS_INSTALLED -->

@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+.widgets_label {
+	float: left;
+}
+
+.widgets_radiobutton {
+	margin-left: 152px;
+}

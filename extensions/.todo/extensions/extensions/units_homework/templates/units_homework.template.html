@@ -1,0 +1,131 @@
+<form action="{FORM_ACTION}" method="post" enctype="multipart/form-data">
+
+<!-- BEGIN BLOCK_CLIPBOARD -->
+<div>
+<div id="clipboard" class="clipboard">{CLIPBOARD_HTML}</div>
+</div>
+<!-- END BLOCK_CLIPBOARD -->
+<div class="path"><h2>{CONTAINER_PATH}</h2></div>
+<div style="clear:both;"></div>
+
+<h3>{VALUE_CONTAINER_DESC}</h3>
+<p>{VALUE_CONTAINER_LONG_DESC}</p>
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->
+<!-- BEGIN BLOCK_EMPTY_INVENTORY -->
+{LABEL_NO_DOCUMENTS_FOUND}
+<ul id="boxes" style="list-style: none; margin: 0; padding: 0;"></ul>
+<!-- END BLOCK_EMPTY_INVENTORY -->
+<!-- BEGIN BLOCK_INVENTORY -->
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+	<tr>
+		<th width="270">{LABEL_HOMEWORK}</th>
+		<th width="70" align="right">{LABEL_ENDDATE}</th>
+		<th width="150">{LABEL_WORKINGPEOPLE}</th>
+		<th width="120">{LABEL_POINTS}</th>
+		<th>{LABEL_ACTIONS}</th>
+	</tr>
+</table>
+<ul id="boxes" style="list-style: none; margin: 0; padding: 0;">
+<!-- BEGIN BLOCK_ITEM -->
+<li id="{BOXES}">
+	<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+	<tr>
+		<td width="270">
+			<div><a href="{LINK_ITEM}">{ICON_ITEM}</a></div>
+			<div {ITEM_STYLE}><a href="{LINK_ITEM}"><strong>{NAME_ITEM}</strong></a></div>
+			{HIDDEN_ITEM_TASK}
+			<!-- BEGIN BLOCK_HOMEWORK -->
+			<div><small>{OBJ_DESC}</small></div>
+			<br>
+			{HOMEWORK_INFO_TEXT}
+			<!-- BEGIN SOLUTION -->
+				<div><a href="{LINK_SOLUTION}"><strong>{NAME_SOLUTION}</strong></a></div>
+				<br>
+			<!-- END SOLUTION -->
+			<!-- END BLOCK_HOMEWORK -->
+		</td>
+		<td width="70" align="right">
+			{HOMEWORK_ENDDATE}
+		</td>
+		<!-- BEGIN BLOCK_WORKING_PEOPLE -->
+		<td width="150" align="center">
+				<!-- BEGIN WPEOPLE -->
+				{WORKING_PEOPLE}
+				<br>
+				<!-- END WPEOPLE -->
+		</td>
+		<!-- END BLOCK_WORKING_PEOPLE -->
+		<td width="140" align="center">
+			<!-- BEGIN FEEDBACK -->
+				<a href="{LINK_FEEDBACK}"><font color="{COLOR_GIVE}">{VALUE_FEEDBACK}</font></a><br>
+				{LABEL_ITEM_POINTS}
+			<!-- END FEEDBACK -->
+		</td>
+		<td>
+			{LABEL_USER_UPLOAD}
+		</td>
+	</tr>
+	<!-- BEGIN BLOCK_WRITE_ACCESS -->
+	<!-- END BLOCK_WRITE_ACCESS -->
+	</table>
+</li>
+<!-- END BLOCK_ITEM -->
+</ul>
+<!-- END BLOCK_INVENTORY -->
+
+<!-- BEGIN BLOCK_STAFF -->
+<!-- BEGIN BLOCK_DRAG_DROP -->
+<span id="CONTAINER_ID" value="{CONTAINER_ID}"></span>
+<script type="text/javascript">
+//------------------------------------------
+//   /javascript/frontend/list_inventory.js
+//------------------------------------------
+
+// find out course id
+container_id = $('CONTAINER_ID').getAttribute('value');
+
+the_boxes = $('boxes');
+for ( i=containerStart; i<containerEnd; i++ )
+	the_boxes.appendChild( $('boxes_' + i) );
+
+// make boxes sortable
+Sortable.create("boxes",
+	{
+		onUpdate: function() // save box order to sTeam
+		{
+			newOrder = Sortable.sequence('boxes');
+			inventoryOrder = Array( newOrder.length );
+			for ( i=0; i<newOrder.length; i++ ) {
+				inventoryOrder[ i ] = "order[]=" + itemIds[ newOrder[i] - containerStart ];
+}
+			order = inventoryOrder.join("&");
+			// send request:
+			new Ajax.Request(
+				BackendConnector.getURL("sort_inventory", container_id),
+				{
+					asynchronous: true,
+					evalScripts: true,
+					method: "post",
+					parameters: order,
+					onSuccess: function(transport) {
+						eval(transport.responseText);
+					}
+				}
+			);
+		}
+	}
+);
+</script>
+<!-- END BLOCK_DRAG_DROP -->
+<div class="infoBar">
+{INFO_TEXT}
+</div>
+<!-- END BLOCK_STAFF -->

@@ -1,0 +1,30 @@
+<!-- BEGIN error_title --><b>{LANGUAGE_ERROR_NO_TITLE}</b><br><!-- END error_title -->
+<!-- BEGIN button_label_new -->{LANGUAGE_BUTTON_NEW}<!-- END button_label_new -->
+
+<!-- BEGIN new_title -->{TITLE}<!-- END new_title -->
+
+{ERROR_FEEDBACK}<br />
+
+<input type="hidden" name="object" value="{ENVIRONMENT_ID}">
+
+<div class="attribute">
+	<div class="attributeNameRequired">{LANGUAGE_FORM_TITLE}</div>
+	<div class="attributeValue"><input type="text" name="title" value="{PORTAL_TITLE}" class="text"></div>
+</div>
+<div class="attribute" style="height:150px">
+	<div class="attributeName">{LANGUAGE_FORM_PORTAL_COLUMNS}:</div>
+	<div class="attributeValue"> 
+		<div class="attributeValueColumn" style="width:100px">
+				<input type="radio" name="columns" value="3" {CHECKED_3_COL}>{LANGUAGE_FORM_3_COL}<br>
+				<img src="./icons/portal_3_col.jpg" width="100" height="100" border="0">
+		</div>
+		<div class="attributeValueColumn" style="width:100px">
+				<input type="radio" name="columns" value="2" {CHECKED_2_COL}>{LANGUAGE_FORM_2_COL}<br>
+				<img src="./icons/portal_2_col.jpg" width="100" height="100" border="0">
+		</div>
+		<div class="attributeValueColumn" style="width:100px">
+				<input type="radio" name="columns" value="1" {CHECKED_1_COL}>{LANGUAGE_FORM_1_COL}<br>
+				<img src="./icons/portal_1_col.jpg" width="100" height="100" border="0">
+		</div>
+	</div>
+</div>

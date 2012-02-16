@@ -1,0 +1,80 @@
+<!-- BEGIN BLOCK_CONFIRMATION -->
+<p id="confirmation" style="display:none">{CONFIRMATION_TEXT}</p>
+<!-- END BLOCK_CONFIRMATION -->
+
+<!-- BEGIN BLOCK_WORKPLAN_OVERVIEW_ACTIONBAR -->
+<div class="actionBar">
+	<a class="button" onClick="newSnapshot({WORKPLAN_ID})">{LABEL_SNAPSHOT}</a>
+	<a style="display:{WORKPLAN_RIGHTS_CHANGE}" class="button" onClick="changeOverview({WORKPLAN_ID})">{LABEL_CHANGE}</a>
+</div>
+<!-- END BLOCK_WORKPLAN_OVERVIEW_ACTIONBAR -->
+
+<!-- BEGIN BLOCK_WORKPLAN_OVERVIEW_TABLE -->
+<div id="overview">
+	<table class="grid" cellspacing="0" cellpadding="2" width="100%">
+		<tr>
+			<th width="30%">{WORKPLAN_OVERVIEW_ATTRIBUTE}</th>
+			<th width="70%">{WORKPLAN_OVERVIEW_VALUE}</th>
+		</tr>
+		<tr>
+			<td>{NAME_LABEL}</td>
+			<td>{NAME_VALUE}</td>
+		</tr>
+		<tr>
+			<td>{START_LABEL}</td>
+			<td>{START_VALUE}</td>
+		</tr>
+		<tr>
+			<td>{END_LABEL}</td>
+			<td>{END_VALUE}</td>
+		</tr>
+		<tr>
+			<td>{CREATOR_LABEL}</td>
+			<td>{CREATOR_VALUE}</td>
+		</tr>
+		<tr>
+			<td>{DESCRIPTION_LABEL}</td>
+			<td>{DESCRIPTION_VALUE}</td>
+		</tr>
+	</table>
+</div>
+<!-- END BLOCK_WORKPLAN_OVERVIEW_TABLE -->
+
+<!-- BEGIN BLOCK_WORKPLAN_OVERVIEW_TABLE_EDIT -->
+<div id="overview">
+	<table class="grid" cellspacing="0" cellpadding="2" width="100%">
+		<tr>
+			<th width="30%"></th>
+			<th align="center" width="70%">{WORKPLAN_OVERVIEW_EDIT}</th>
+		</tr>
+		<tr>
+			<td class="label">{NAME_LABEL}</td>
+			<td><input id="name" type="text" size="40" value="{NAME_VALUE}"></td>
+		</tr>
+		<tr>
+			<td class="label">{START_LABEL}</td>
+			<td><input title="TT.MM.JJJJ" id="start" type="text" size="40" value="{START_VALUE}"></td>
+		</tr>
+		<tr>
+			<td class="label">{END_LABEL}</td>
+			<td><input title="TT.MM.JJJJ" id="end" type="text" size="40" value="{END_VALUE}"></td>
+		</tr>
+		<tr>
+			<td class="label">{CREATOR_LABEL}</td>
+			<td>{CREATOR_VALUE}</td>
+		</tr>
+		<tr>
+			<td class="label">{DESCRIPTION_LABEL}</td>
+			<td><textarea id="description" style="width: 400px;" rows="10">{DESCRIPTION_VALUE}</textarea></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="buttons">
+					<a onclick="saveChangedOverview({WORKPLAN_ID})">{LABEL_SAVE}</a>
+					<a onclick="cancelChangeOverview({WORKPLAN_ID})">{LABEL_BACK}</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- END BLOCK_WORKPLAN_OVERVIEW_TABLE_EDIT -->

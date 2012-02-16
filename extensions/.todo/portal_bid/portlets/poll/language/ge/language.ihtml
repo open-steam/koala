@@ -1,0 +1,18 @@
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->&raquo;{PORTLET_NAME}&laquo; bearbeiten<!-- END edit_title -->
+<!-- BEGIN edit_feedback_poll_topic_null -->Das Thema darf nicht leer sein<!-- END edit_feedback_poll_topic_null -->
+<!-- BEGIN edit_poll_topic -->Thema<!-- END edit_poll_topic -->
+<!-- BEGIN edit_poll_options -->Antworten<!-- END edit_poll_options -->
+<!-- BEGIN edit_startdate -->Startdatum<!-- END edit_startdate -->
+<!-- BEGIN edit_enddate -->Enddatum<!-- END edit_enddate -->
+<!-- BEGIN edit_button_ok -->Speichern<!-- END edit_button_ok -->
+<!-- BEGIN edit_button_cancel -->Beenden<!-- END edit_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** view.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN vote -->Abstimmen<!-- END vote -->

@@ -1,0 +1,71 @@
+<project name="koala-language" default="update-translation">
+
+	<property name="anttasks.classpath" location="../ant-tasks/bin" /><!-- will  be passed by subant -->
+
+	<property file="../build.properties" />
+	<property file="../build.properties.example" />
+
+	<basename property="language.code" file="${basedir}" />
+
+	<target name="merge-translation" unless="msgmerge.fuzzy">
+		<exec executable="${localization.msgmerge.path}" >
+			<arg line="-N" /><!-- no fuzzy matching -->
+			<arg line="-o LC_MESSAGES/${localization.domain.name}.po.tmp" />
+			<arg value="LC_MESSAGES/${localization.domain.name}.po" />
+			<arg value="../messages.pot" />
+		</exec>
+	</target>
+
+	<target name="merge-translation-fuzzy" if="msgmerge.fuzzy">
+		<exec executable="${localization.msgmerge.path}" >
+			<arg line="-o LC_MESSAGES/${localization.domain.name}.tmp" />
+			<arg value="LC_MESSAGES/${localization.domain.name}.po" />
+			<arg value="../messages.pot" />
+		</exec>
+	</target>
+
+	<target name="update-translation">
+		<echo message="language ${language.code}" />
+		<mkdir dir="LC_MESSAGES" />
+		<!--
+		<copy file="LC_MESSAGES/${localization.domain.name}.po" tofile="LC_MESSAGES/${localization.domain.name}.po.tmp" />
+		-->
+		<condition property="msgmerge.fuzzy">
+			<istrue value="${localization.fuzzy}" />
+		</condition>
+		<antcall target="merge-translation" />
+		<antcall target="merge-translation-fuzzy" />
+		<!-- check for changes: -->
+		<typedef name="filediff" classname="FileDiff" classpath="${anttasks.classpath}" />
+		<filediff property="unchanged.${localization.domain.name}.po" file1="LC_MESSAGES/${localization.domain.name}.po" file2="LC_MESSAGES/${localization.domain.name}.po.tmp">
+			<ignore prefix='"POT-Creation-Date:' />
+			<ignore prefix='"POT-Revision-Date:' />
+			<ignore prefix='"Last-Translator:' />
+		</filediff>
+		<antcall target="messages.po-changed" />
+		<delete file="LC_MESSAGES/${localization.domain.name}.po.tmp" />
+		<uptodate property="${localization.domain.name}.mo-uptodate" srcfile="LC_MESSAGES/${localization.domain.name}.po" targetfile="LC_MESSAGES/${localization.domain.name}.mo" />
+		<antcall target="compile-translation-if-out-of-date" />
+	</target>
+
+	<target name="messages.po-changed" unless="unchanged.${localization.domain.name}.po">
+		<echo message="Localization (${localization.domain.name}.po) for ${language.code} has changed." />
+		<copy file="LC_MESSAGES/${localization.domain.name}.po.tmp" toFile="LC_MESSAGES/${localization.domain.name}.po" />
+		<antcall target="compile-translation" />
+	</target>
+	
+	<target name="compile-translation-if-out-of-date" unless="${localization.domain.name}.mo-uptodate">
+		<antcall target="compile-translation" />
+	</target>
+
+	<target name="compile-translation">
+		<echo message="Compiling localization ${language.code}" />
+		<exec executable="${localization.msgfmt.path}" >
+			<arg value="-v" />
+			<arg value="-f" />
+			<arg line="-o LC_MESSAGES/${localization.domain.name}.mo" />
+			<arg value="LC_MESSAGES/${localization.domain.name}.po" />
+		</exec>
+	</target>
+
+</project>

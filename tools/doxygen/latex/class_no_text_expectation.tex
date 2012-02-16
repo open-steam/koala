@@ -1,0 +1,86 @@
+\hypertarget{class_no_text_expectation}{
+\section{NoTextExpectation Class Reference}
+\label{class_no_text_expectation}\index{NoTextExpectation@{NoTextExpectation}}
+}
+Inheritance diagram for NoTextExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_no_text_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_no_text_expectation_a5fa890c550df5e3ecf2e17719fac8412}{NoTextExpectation} (\$substring, \$message= '\%s')
+\item 
+\hyperlink{class_no_text_expectation_aea5e85eb1d03d5f48cb463f09d756a9e}{test} (\$compare)
+\item 
+\hyperlink{class_no_text_expectation_ab233e35e0f5912da893c34c8eda835fc}{testMessage} (\$compare)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_no_text_expectation_a5fa890c550df5e3ecf2e17719fac8412}{
+\index{NoTextExpectation@{NoTextExpectation}!NoTextExpectation@{NoTextExpectation}}
+\index{NoTextExpectation@{NoTextExpectation}!NoTextExpectation@{NoTextExpectation}}
+\subsubsection[{NoTextExpectation}]{\setlength{\rightskip}{0pt plus 5cm}NoTextExpectation::NoTextExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ substring, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_text_expectation_a5fa890c550df5e3ecf2e17719fac8412}
+Sets the reject pattern 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$substring} & Text to search for. \\
+\hline
+string & {\em \$message} & Customised message on failure.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_no_text_expectation_aea5e85eb1d03d5f48cb463f09d756a9e}{
+\index{NoTextExpectation@{NoTextExpectation}!test@{test}}
+\index{test@{test}!NoTextExpectation@{NoTextExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}NoTextExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_text_expectation_aea5e85eb1d03d5f48cb463f09d756a9e}
+Tests the expectation. False if the substring appears in the text. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if correct.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_text_expectation_a352a2a95ccf1c29c886b7608338d3c20}{TextExpectation}.
+
+\hypertarget{class_no_text_expectation_ab233e35e0f5912da893c34c8eda835fc}{
+\index{NoTextExpectation@{NoTextExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!NoTextExpectation@{NoTextExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}NoTextExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_text_expectation_ab233e35e0f5912da893c34c8eda835fc}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_text_expectation_ab76e87201a16eb23fbb1fbafc24b51cf}{TextExpectation}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/web\_\-tester.php\end{DoxyCompactItemize}

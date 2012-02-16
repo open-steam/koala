@@ -1,0 +1,10 @@
+<extension>
+	<name>units_base</name>
+	<path>units_base</path>
+	<description>koaLA extension base module for integrating different kinds of units into a course</description>
+	<OBJ_TYPE></OBJ_TYPE>
+	<CLASSTYPE></CLASSTYPE>
+	<category>did_extension</category>
+	<enabled_default>TRUE</enabled_default>
+	<requires></requires>
+</extension>

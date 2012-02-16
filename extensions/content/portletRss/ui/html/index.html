@@ -1,0 +1,20 @@
+<div class="portlet rss">
+	<h1 class="headline">
+		<!-- BEGIN EDIT_BUTTON -->
+		<div class="editbutton">{POPUPMENU}</div>
+		<div style='float:right' class='editbutton'>{REFERENCE_ICON}</div>
+		<!-- END EDIT_BUTTON -->
+		{RSS_NAME}
+	</h1>
+	<!-- BEGIN BLOCK_RSS_ITEM -->
+	<h2 class="subheadline">
+		<a href="{ITEMURL}" target="_blank">
+			{ITEMTITLE}
+		</a>
+	</h2>
+	<div class="entry">{ITEMDESC}</div>
+	<!-- END BLOCK_RSS_ITEM -->
+	<!-- BEGIN BLOCK_RSS_NO_ITEMS -->
+	<div class="entry">{NOITEMSTEXT}</div>
+	<!-- END BLOCK_RSS_NO_ITEMS -->
+</div>

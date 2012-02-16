@@ -1,0 +1,160 @@
+<!-- *********************************************************** -->
+<!-- ** new.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN new_title -->Portail: Setup<!-- END new_title -->
+<!-- BEGIN new_form_title -->Titre<!-- END new_form_title -->
+<!-- BEGIN new_error_no_title -->Saisir le titre s.v.p.<!-- END new_error_no_title -->
+<!-- BEGIN new_form_3_col -->Standard<!-- END new_form_3_col -->
+<!-- BEGIN new_form_2_col -->2-spaltig<!-- END new_form_2_col -->
+<!-- BEGIN new_form_1_col -->1-spaltig<!-- END new_form_1_col -->
+<!-- BEGIN new_button_ok -->Etablir<!-- END new_button_ok -->
+<!-- BEGIN new_button_cancel -->Annuler<!-- END new_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** edit_column.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_column_title -->Spalte {COLUMN_TITLE} konfigurieren<!-- END edit_column_title -->
+<!-- BEGIN edit_column_form_title -->Titel<!-- END edit_column_form_title -->
+<!-- BEGIN edit_column_error_no_title -->Bitte Titel eingeben.<!-- END edit_column_error_no_title -->
+<!-- BEGIN edit_column_error_column_width -->Bitte einen gültigen Wert für die Spaltenbreite eingeben.<!-- END edit_column_error_column_width -->
+<!-- BEGIN edit_column_error_no_access -->Keine Berechtigung!<!-- END edit_column_error_no_access -->
+<!-- BEGIN edit_column_sort_portlets_title -->Sortierung<!-- END edit_column_sort_portlets_title -->
+<!-- BEGIN edit_column_sort_portlets_up -->Nach oben<!-- END edit_column_sort_portlets_up -->
+<!-- BEGIN edit_column_sort_portlets_down -->Nach unten<!-- END edit_column_sort_portlets_down -->
+<!-- BEGIN edit_column_add_portlet_title -->Komponente hinzufügen<!-- END edit_column_add_portlet_title -->
+<!-- BEGIN edit_column_add_portlet_button -->Komponente hinzufügen<!-- END edit_column_add_portlet_button -->
+<!-- BEGIN edit_column_edit_column_width_title -->Spaltenbreite<!-- END edit_column_edit_column_width_title -->
+<!-- BEGIN edit_column_properties_button -->Eigenschaften der Komponente bearbeiten<!-- END edit_column_properties_button -->
+<!-- BEGIN edit_column_copy_portlet_button -->Komponente kopieren<!-- END edit_column_copy_portlet_button -->
+<!-- BEGIN edit_column_link_portlet_button -->Verknüpfung der Komponente erstellen<!-- END edit_column_link_portlet_button -->
+<!-- BEGIN edit_column_cut_portlet_button -->Komponente ausschneiden<!-- END edit_column_cut_portlet_button -->
+<!-- BEGIN edit_column_remove_portlet_button -->Komponente in den Papierkorb werfen<!-- END edit_column_remove_portlet_button -->
+<!-- BEGIN edit_column_paste_portlet_button -->Komponente einfügen<!-- END edit_column_paste_portlet_button -->
+<!-- BEGIN edit_column_button_ok -->Einrichten<!-- END edit_column_button_ok -->
+<!-- BEGIN edit_column_button_cancel -->Abbrechen<!-- END edit_column_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** index.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN index_column_action_edit -->Spalte konfigurieren<!-- END index_column_action_edit -->
+<!-- BEGIN index_column_empty -->Diese Spalte ist leer!<!-- END index_column_empty -->
+
+<!-- *********************************************************** -->
+<!-- ** portlet_insert.ihtml -->
+<!-- *********************************************************** -->
+
+
+<!-- *********************************************************** -->
+<!-- ** portlet_edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN portlet_edit_description_1 -->Composantes pas affich�es<!-- END portlet_edit_description_1 -->
+<!-- BEGIN portlet_edit_description_3 -->Lien<!-- END portlet_edit_description_3 -->
+<!-- BEGIN portlet_edit_button_edit -->Editer<!-- END portlet_edit_button_edit -->
+<!-- BEGIN portlet_edit_button_copy -->Copier<!-- END portlet_edit_button_copy -->
+<!-- BEGIN portlet_edit_button_reference -->Cr�er un lien<!-- END portlet_edit_button_reference -->
+<!-- BEGIN portlet_edit_button_delete -->Supprimer la composante<!-- END portlet_edit_button_delete -->
+<!-- BEGIN portlet_edit_button_preferences -->Editer les pr�f�rences<!-- END portlet_edit_button_preferences -->
+<!-- BEGIN portlet_edit_title_edit -->Editer les composantes<!-- END portlet_edit_title_edit -->
+<!-- BEGIN portlet_edit_title_copy -->Copier les composantes<!-- END portlet_edit_title_copy -->
+<!-- BEGIN portlet_edit_title_reference -->Cr�er un lien � une composante<!-- END portlet_edit_title_reference -->
+<!-- BEGIN portlet_edit_title_delete -->Supprimer une composante<!-- END portlet_edit_title_delete -->
+<!-- BEGIN portlet_edit_title_preferences -->Editer les pr�f�rences d'une composante<!-- END portlet_edit_title_preferences -->
+<!-- BEGIN portlet_edit_alt_copy -->Copier dans le bloc-note<!-- END portlet_edit_alt_copy -->
+<!-- BEGIN portlet_edit_alt_reference -->Cr�r un lien avec danl le bloc-note<!-- END portlet_edit_alt_reference -->
+<!-- BEGIN portlet_edit_alt_preferences -->Propri�t�s<!-- END portlet_edit_alt_preferences -->
+<!-- BEGIN portlet_edit_button_cancel -->Annuler<!-- END portlet_edit_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** portlet_insert.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN portlet_insert_title -->Ins�rer une composante<!-- END portlet_insert_title -->
+<!-- BEGIN portlet_insert_button_ok -->Ins�rer<!-- END portlet_insert_button_ok -->
+<!-- BEGIN portlet_insert_button_cancel -->Annuler<!-- END portlet_insert_button_cancel -->
+<!-- BEGIN portlet_insert_form_title -->Titel<!-- END portlet_insert_form_title -->
+<!-- BEGIN portlet_insert_portlet_type -->Komponenten-Typ<!-- END portlet_insert_portlet_type -->
+<!-- BEGIN portlet_insert_error_title -->Bitte &Uuml;berschrift angeben!<!-- END portlet_insert_error_title -->
+
+
+<!-- *********************************************************** -->
+<!-- ** relation_segment_portlet.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN relation_segment_portlet_title -->Editer l'affiche<!-- END relation_segment_portlet_title -->
+<!-- BEGIN relation_segment_portlet_empty -->(Fermer)<!-- END relation_segment_portlet_empty -->
+<!-- BEGIN relation_segment_portlet_description_1 -->Lien<!-- END relation_segment_portlet_description_1 -->
+<!-- BEGIN relation_segment_portlet_button_ok -->Sauvegarder<!-- END relation_segment_portlet_button_ok -->
+<!-- BEGIN relation_segment_portlet_button_cancel -->Annuler<!-- END relation_segment_portlet_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** segment_delete.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN segment_delete_title -->Supprimer un espace<!-- END segment_delete_title -->
+<!-- BEGIN segment_delete_chapter_1_descr -->Choisir l'espace que vous d�sirez supprimer et appuyez sur la touche "Continuer" s.v.p.<!-- END segment_delete_chapter_1_descr -->
+<!-- BEGIN segment_delete_chapter_2_old -->G�om�trie actuelle<!-- END segment_delete_chapter_2_old -->
+<!-- BEGIN segment_delete_chapter_2_descr -->La suppression de l'espace choisi produira la segmentation suivante. Choisir une des possibilit�s suivantes et appuyer sur la touche "Ex�cuter" s.v.p.<!-- END segment_delete_chapter_2_descr -->
+<!-- BEGIN segment_delete_chapter_2_descr_none -->L'espace choisi ne peut pas �tre supprim�. Si vous voulez remplacer l'espace par un autre vide, appuyer sur la touche "Ex�cuter".<!-- END segment_delete_chapter_2_descr_none -->
+<!-- BEGIN segment_delete_chapter_2_new -->Possibilit�<!-- END segment_delete_chapter_2_new -->
+<!-- BEGIN segment_delete_button_ok_1 -->Continuer<!-- END segment_delete_button_ok_1 -->
+<!-- BEGIN segment_delete_button_ok_2 -->Ex�cuter<!-- END segment_delete_button_ok_2 -->
+<!-- BEGIN segment_delete_button_cancel -->Annuler<!-- END segment_delete_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** segment_insert.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN segment_insert_title -->Ins�rer un espace<!-- END segment_insert_title -->
+<!-- BEGIN segment_insert_descr_1 -->Pour d�finir la position du nouvel espace, vous devez sp�cifier ses espaces voisins. S�lectionner s.v.p. un espace dans la segmentation de gauche, o� le nouvel espace devra �tre localis� en r�f�rence � l'espace s�lectionn� et appuyer sur la touche "Ajouter un espace voisin". Avec "Annuler le voisinage" vous pouvez lib�rer l'espace s�lectionn�.<!-- END segment_insert_descr_1 -->
+<!-- BEGIN segment_insert_above -->Au-dessus<!-- END segment_insert_above -->
+<!-- BEGIN segment_insert_right -->A droite<!-- END segment_insert_right -->
+<!-- BEGIN segment_insert_below -->En-bas<!-- END segment_insert_below -->
+<!-- BEGIN segment_insert_left -->A gauche<!-- END segment_insert_left -->
+<!-- BEGIN segment_insert_release -->Annuler le voisinage<!-- END segment_insert_release -->
+<!-- BEGIN segment_insert_descr_2 -->Avec les configurations ci-dessus vous pouvez cr�er la segmentation suivante.<!-- END segment_insert_descr_2 -->
+<!-- BEGIN segment_insert_insert -->Ins�rer un espace<!-- END segment_insert_insert -->
+<!-- BEGIN segment_insert_button_ok -->Ajouter un espace voisin<!-- END segment_insert_button_ok -->
+<!-- BEGIN segment_insert_button_cancel -->Annuler<!-- END segment_insert_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** segment_move.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN segment_move_description -->Pour d�placer un espace, il doit �tre tout d'abord supprim� et ins�r� � un autre endroit. Avec un click sur la touche "Suivant" vous serez dirig� vers le dilogue "Supprimer un espace". Apr�s avoir supprim� l'espace s�lectionn�, vous serez dirig� vers le dialogue "Ins�rer un espace". La composante issue de l'espace supprim� sera attach�e au nouvel espace automatiquement.<!-- END segment_move_description -->
+<!-- BEGIN segment_move_title -->Move area<!-- END segment_move_title -->
+<!-- BEGIN segment_move_button_ok -->Suivant<!-- END segment_move_button_ok -->
+<!-- BEGIN segment_move_button_cancel -->Annuler<!-- END segment_move_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** segment_resize.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN segment_resize_title -->Edit areas<!-- END segment_resize_title -->
+<!-- BEGIN segment_resize_geo -->Segmentation<!-- END segment_resize_geo -->
+<!-- BEGIN segment_resize_size -->Size<!-- END segment_resize_size -->
+<!-- BEGIN segment_resize_height -->Hauteur<!-- END segment_resize_height -->
+<!-- BEGIN segment_resize_width -->Largeur<!-- END segment_resize_width -->
+<!-- BEGIN segment_resize_alignment -->Alignement<!-- END segment_resize_alignment -->
+<!-- BEGIN segment_resize_align_hor -->Horizontal<!-- END segment_resize_align_hor -->
+<!-- BEGIN segment_resize_align_vert -->Vertical<!-- END segment_resize_align_vert -->
+<!-- BEGIN segment_resize_align_left -->Gauche<!-- END segment_resize_align_left -->
+<!-- BEGIN segment_resize_align_center -->Centre<!-- END segment_resize_align_center -->
+<!-- BEGIN segment_resize_align_right -->Droit<!-- END segment_resize_align_right -->
+<!-- BEGIN segment_resize_align_top -->Haut<!-- END segment_resize_align_top -->
+<!-- BEGIN segment_resize_align_bottom -->Bas<!-- END segment_resize_align_bottom -->
+<!-- BEGIN segment_resize_chapter_1_descr -->Choisir s.v.p. l'espace que vous d�sirez redimensionner et appuyer la touche "Changer la dimension".<!-- END segment_resize_chapter_1_descr -->
+<!-- BEGIN segment_resize_chapter_2_descr -->Saisir s.v.p. la nouvelle dimension comme pourcentage % ou le nombre de pixels et choisir l'alignement avec lequel la composante devra �tre affich�e dans cet espace.<!-- END segment_resize_chapter_2_descr -->
+<!-- BEGIN segment_resize_button_ok_1 -->Changer la dimension<!-- END segment_resize_button_ok_1 -->
+<!-- BEGIN segment_resize_button_ok_2 -->Ex�cuter<!-- END segment_resize_button_ok_2 -->
+<!-- BEGIN segment_resize_button_cancel -->Annuler<!-- END segment_resize_button_cancel -->
+
+

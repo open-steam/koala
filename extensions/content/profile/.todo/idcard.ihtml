@@ -1,0 +1,62 @@
+<!-- BEGIN button_add_favourite_active -->
+<button type="submit">{LANGUAGE_ADD_FAVOURITE}</button>
+<!-- END button_add_favourite_active -->
+
+<!-- BEGIN button_add_favourite_inactive -->
+<button type="submit" disabled>{LANGUAGE_ADD_FAVOURITE}</button>
+<!-- END button_add_favourite_inactive -->
+
+<!-- BEGIN user_information -->
+<div class="icon">
+  <img src="{DOC_ROOT}/tools/get.php?object={USER_ICON}" alt="{USER_NAME}" title="{USER_NAME}" width="100" />
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_USERNAME}:</div>
+  <div class="attributeValue">{USER_NAME}</div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_NAME}:</div>
+  <div class="attributeValue">{USER_FIRSTNAME} {USER_FULLNAME}</div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_DESCRIPTION}:</div>
+  <div class="attributeValue">{USER_DESCRIPTION}</div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_ADRESS}:</div>
+  <!-- <div class="attributeValue"><a href="http://maps.google.de/maps?q={USER_ADRESS}" target="_blank" onclick="window.open('http://maps.google.de/maps?q={USER_ADRESS}', 'googleMap', 'resizable,scrollbars,width=800,height=600'); return false;">{USER_ADRESS}</a></div> -->
+  <div class="attributeValue"><a href="http://www.map-generator.net/extmap.php?address={USER_ADRESS}&width=400&height=300&maptype=hybrid&zoom=14" target="_blank" onclick="window.open('http://www.map-generator.net/extmap.php?address={USER_ADRESS}&width=400&height=300&maptype=map&zoom=14', 'googleMap', 'resizable,scrollbars,innerWidth=410,innerHeight=370'); return false;">{USER_ADRESS}</a></div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_EMAIL}:</div>
+  <div class="attributeValue"><a href="mailto:{USER_EMAIL}">{USER_EMAIL}</a></div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_CALLTO}:</div>
+  <div class="attributeValue"><a href="callto:{USER_CALLTO}">{USER_CALLTO}</a></div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_IM}:</div>
+  <div class="attributeValue"><a href="{USER_IM_PROTOCOL}:{USER_IM_ADRESS}">{USER_IM_ADRESS}</a></div>
+</div>
+<!-- END user_information -->
+
+<!-- BEGIN group_information -->
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_GROUPNAME}:</div>
+  <div class="attributeValue">{GROUP_NAME}</div>
+</div>
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_GROUP_DESCRIPTION}:</div>
+  <div class="attributeValue">{GROUP_DESCRIPTION}</div>
+</div>
+<!-- END group_information -->
+
+<!-- BEGIN object_information -->
+{OBJECT_INFORMATION}
+<div style="clear: both;"></div>
+<div class="buttonpane">
+{BUTTON_ADD_FAVOURITE}
+<button type="button" onclick="window.close();">{LANGUAGE_CLOSE}</button>
+</div>
+<!-- END object_information -->

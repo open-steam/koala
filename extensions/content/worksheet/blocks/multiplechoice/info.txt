@@ -1,0 +1,2 @@
+Frage mit Mehrfachauswahl
+Zu einer Frage können mehrere Antwortmöglichkeiten angegeben werden.

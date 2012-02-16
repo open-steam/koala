@@ -1,0 +1,3 @@
+FileETag none
+ExpiresActive On
+ExpiresDefault "access plus 10 years"

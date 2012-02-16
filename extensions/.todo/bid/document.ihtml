@@ -1,0 +1,17 @@
+<!-- BEGIN plain_header -->
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/css/contentframe.css" />
+</head>
+<body>
+<!-- END plain_header -->
+
+<!-- BEGIN plain_footer -->
+</body>
+</html>
+<!-- END plain_footer -->
+
+{PLAIN_HEADER}
+{DOCUMENT}
+{PLAIN_FOOTER}

@@ -1,0 +1,70 @@
+<h3>{VALUE_CONTAINER_DESC}</h3>
+
+<p>{INFO}</p>
+
+<script type="text/javascript">
+function check()
+{
+	var checkbox = document.InputForm.checkbox_room_other;
+
+	if (checkbox.checked == true)
+	{
+		document.InputForm.checkbox_room_AudiMax.checked = false;
+		document.InputForm.checkbox_room_AudiMax.disabled = true;
+
+		document.InputForm.checkbox_room_C1.checked = false;
+		document.InputForm.checkbox_room_C1.disabled = true;
+
+		document.InputForm.checkbox_room_C2.checked = false;
+		document.InputForm.checkbox_room_C2.disabled = true;
+
+		document.InputForm.checkbox_room_G.checked = false;
+		document.InputForm.checkbox_room_G.disabled = true;
+
+		document.InputForm.checkbox_room_Sporthalle.checked = false;
+		document.InputForm.checkbox_room_Sporthalle.disabled = true;
+	}
+	else
+	{
+		document.InputForm.checkbox_room_AudiMax.disabled = false;
+		document.InputForm.checkbox_room_C1.disabled = false;
+		document.InputForm.checkbox_room_C2.disabled = false;
+		document.InputForm.checkbox_room_G.disabled = false;
+		document.InputForm.checkbox_room_Sporthalle.disabled = false;
+	}
+}
+</script>
+
+<form name="InputForm" action="" method="post">
+
+<p>{EXAM_DESC}</p>
+<p>{EXAM_DATE_AND_TIME}</p>
+
+<p>{INFO_EXAM_NUMBER}</p>
+
+<p>{INFO_ROOMS}</p>
+<p>{FIELD_ROOMS}</p>
+
+<p>
+<!-- BEGIN BLOCK_ROOMS -->
+{ROOM}<br/>
+<!-- END BLOCK_ROOMS -->
+</p>
+
+<p>{INFO_OTHER_ROOMS}</p>
+<p>{INFO_NO_PAUL_SYNC}</p>
+
+<br />
+<div class="buttons" style="text-align: left;">{BUTTON_SAVE} {BACK_LINK}</div>
+</form>
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->
+
+<script type="text/javascript"> check(); </script>

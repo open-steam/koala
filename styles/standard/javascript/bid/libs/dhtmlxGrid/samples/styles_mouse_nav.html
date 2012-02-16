@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+   <title>DHTML Grid samples. dhtmlXGrid - Using Grid API - light mouse navigation</title>
+   <meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+   body {font-size:12px}
+   .{font-family:arial;font-size:12px}
+   h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+   xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+   div.hdr{
+      background-color:lightgrey;
+      margin-bottom:10px;
+      padding-left:10px;
+   }
+</style>
+<body>
+   <div class="hdr">DHTML JavaScript Grid samples </div>
+   <h1>Light mouse navigation</h1>
+   <p>
+      You can enable/disable "light mouse navigation" mode<br />
+      The keyboard navigation can be disabled/enabled as well
+   </p>
+   <link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+   <script  src="../js/dhtmlXCommon.js"></script>
+   <script  src="../js/dhtmlXGrid.js"></script>      
+   <script  src="../js/dhtmlXGridCell.js"></script>
+   <table width="600">
+      <tr>
+         <td width="50%" valign="top">
+            <div id="gridbox" width="100%" height="250px" style="background-color:white;"></div>
+         </td>
+
+      </tr>
+      <tr>
+         <td>
+            <a href="#" onclick="mygrid.enableLightMouseNavigation(true)">enable light mouse navigation</a><br>
+            <a href="#" onclick="mygrid.enableLightMouseNavigation(false)">disabel light mouse navigation</a><br>
+             <a href="#" onclick="mygrid.enableKeyboardSupport(true)">enable hot keys</a><br>
+            <a href="#" onclick="mygrid.enableKeyboardSupport(false)">disable hot keys</a><br>
+                <div id="a_1"></div>
+         </td>
+      </tr>
+   </table>
+<hr>
+<XMP>
+   <script>
+      mygrid = new dhtmlXGridObject('gridbox');
+      ...
+      mygrid.enableLightMouseNavigation(true);
+      mygrid.enableKeyboardSupport(true);
+   </script>    
+
+</XMP>
+
+<script>
+
+    function m_f2(id){
+        document.getElementById("a_1").innerHTML="Selected row: "+id;
+    }
+   mygrid = new dhtmlXGridObject('gridbox');
+   mygrid.setImagePath("../imgs/");
+   mygrid.setHeader("Sales,Book Title Book Title Book Title Book Title,Author,Price,In Store,Shipping,Bestseller,Date of Publication");
+   mygrid.setInitWidths("50,150,120,80,80,80,80,200")
+   mygrid.setColAlign("right,left,left,right,center,left,center,center")
+   mygrid.setColTypes("dyn,ed,ed,price,ch,co,ra,ro");
+    mygrid.setOnRowSelectHandler(m_f2);
+    mygrid.getCombo(5).put(2,2);
+   mygrid.setColSorting("int,str,str,int,str,str,str,date")
+   mygrid.setColumnColor("white,#d5f1ff,#d5f1ff")
+   mygrid.init();
+   mygrid.enableLightMouseNavigation(true)
+   mygrid.loadXML("../grid.xml");
+
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+   
+</body>
+</html>

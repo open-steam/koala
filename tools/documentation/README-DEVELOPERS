@@ -1,0 +1,157 @@
+koaLA - co-active learning and working
+Developer Information
+======================================
+
+
+Requirements
+============
+
+The requirements to run koaLA are described in the README.
+Additional requirements for developers are optional. Since translations are
+done using GNU/gettext, you should have gettext installed on your system.
+Updating and compiling the translation files can be done by Apache Ant build
+scripts, so we recommend that you install Apache Ant on your system.
+You can use whatever editors you like, but the Eclipse IDE can make things
+easier for you (it can deal with CVS updates and run the Ant build scripts).
+
+
+Setup koaLA for development
+===========================
+
+1) Setup koaLA as described in the README
+
+2) If you would like to see some statistics (number of requests a page sends
+   to the open-sTeam backend, or the time a page needs to be created on the
+   server), then you can set the STATISTICS_LEVEL value in your
+   /etc/koala.def.php to a value > 0 (e.g. 1 for nr. of requests, 2 for nr.
+   of requests and page creation time). You can also use the setup script to
+   adjust that value, of course.
+
+3) Copy build-tools/build.properties.example to build-tools/build.properties
+
+4) Adjust build-tools/build.properties to your system (e.g. make sure the
+   gettext-related paths are correct)
+
+5) If you are using the Eclipse IDE, you can go to the "Window" menu and select
+   "Show View" -> "Ant" to get an "Ant" view. You can then drag the
+   build-tools/build.xml file into the Ant view and you should get a "koaLA"
+   in the Ant view. Opening the koaLA entry will give you some koaLA build
+   targets to make things like updating/compiling the translations easier for
+   you.
+   Make sure you have copied and adjusted the build-tools/build.properties file,
+   otherwise Ant might not find the necessary programs on your system.
+
+
+Translating koaLA
+=================
+
+Translations in koaLA are done with GNU/gettext. The corresponding files are
+located in the locale/ directory. The file where you need to check and change
+your translations is locale/<LANGUAGE-CODE>/LC_MESSAGES/messages.po.
+Most of the work has been automated by Apache Ant build scripts, so to update
+the translations, just run
+	cd build-tools
+	ant update-translations
+This should update the translation files and compile them. It will also notify
+you of missing or fuzzy translations. When you added some gettext() calls in
+the PHP code somewhere, just run the update once so that the messages.po files
+are updated. Then edit the messages.po files to translate your new texts and
+run the update again so that the translations are compiled for use in koaLA.
+
+To add a new language to koaLA, you can also use the Apache Ant build scripts:
+	cd build-tools
+	ant add-new-translation-language
+This will prompt you for the language code of the language and setup the files
+for you.
+
+Note: after updating/compiling the translations, you will ususally need to
+restart your Apache webserver so that it reads the updated translations files
+again.
+
+
+Making Releases
+===============
+
+To create a koaLA release package, just export the code from CVS and pack it
+into an archive. E.g. if you would like to give away a koaLA 1.4.6 release:
+	cvs -d :pserver:steam@cvs.open-steam.org:/phpsteam export -r koala-1_4_6 koala-1_4
+		# CVS password for "steam" is "steam"
+		# koala-1_4 is the name of the CVS module and koala-1_4_6 is the
+		# release tag for version 1.4.6 in CVS
+	mv koala-1_4 koala-1.4.6
+	zip -r koala-1.4.6.zip koala-1.4.6
+	rm -rf koala-1.4.6
+
+To create a new koaLA release version, increase the version number in
+version.php (in the koaLA root directory). Check in your code into CVS, using
+the new version as commit info, so that others can easily see that you are
+releasing a new version:
+	cvs commit -m koala-1_4_8  # if you are creating version 1.4.8
+
+Also tag the new version, so that you can later checkout this exact state of
+code from CVS:
+	cvs tag koala-1_4_8  # if you are creating version 1.4.8
+
+The version number has three parts:
+  major.minor.micro (e.g. 1.4.8)
+Increase the micro version for smaller changes and bugfixes. The minor version
+is usually interpreted the following way: odd minor versions are (unstable)
+developer versions and even minor versions are stable versions for productive
+use. If you feel that a developer version has become stable enough, then
+increase the minor version to the next even number and reset the micro version
+to zero, thus starting a new stable release line. Create a new CVS module for
+the new stable version, and another one (with the next odd minor version
+number) for the new developer version.
+E.g.: if you decide that the current koaLA 1.3 line is stable enough for
+release of a new stable version line, then produce a clean export from CVS:
+	cvs -d :pserver:steam@cvs.open-steam.org:/phpsteam export -r HEAD koala-1_3
+Then edit the version.php and create a new koala-1_4_0 module in CVS for the
+new stable version:
+	cd koala-1_3
+	# edit version.php to version 1.4.0
+        cvs -d :pserver:USERNAME@cvs.open-steam.org:/phpsteam login
+	cvs -d :pserver:USERNAME@cvs.open-steam.org:/phpsteam import -m koala-1_4_0 koala-1_4 koaLA koala-1_4_0
+	cd ..
+	rm -rf koala-1_3
+Also create a new koala-1_5_0 module for the new developer version:
+	cvs export -r HEAD koala-1_4
+	cd koala-1_4
+	# edit version.php to version 1.5.0
+	cvs import -m koala-1_5_0 koala-1_5 koaLA koala-1_5_0
+	cd ..
+	rm -rf koala-1_4
+You will probably want to checkout the new modules so you can start working on
+them:
+	cvs co koala-1_4
+	cvs co koala-1_5
+
+
+Common Problems
+===============
+
+* Beware of problems with the RewriteRules in public/.htaccess. If you have a
+  PHP file in public/ with the same name as the first path of the rewrite rule,
+  then Apache will most likely call this file instead of processing the rule.
+  E.g.: you have a rule
+    RewriteRule ^something/([0-9]+)$ something.php?param=$1
+  and a file public/something.php. In this case, Apache may find something.php
+  first (ignoring the file extension) and call it (*not* resolving the
+  RewriteRule at all!), so you will not get anything in your $_GET["param"]
+  variable!
+  To prevent this pitfall, never call you .php files like the first path in any
+  RewriteRule. For the above example, call the file something_index.php instead
+  of something.php.
+
+* If you get a "Nesting level too deep - recursive dependency?" error on a line
+  where you compare steam_* objects, then compare the objects' get_id() results
+  instead. Don't compare open-sTeam objects directly in PHP, always compare the
+  object ids returned by the get_id() method.
+  
+* PHP is unable to use Objects as key values in associative arrays. Neverthles
+  some mappings in open-sTeam using Objects as keys, like "xsl:content" : object
+  => object. Using those mappings is done by converting them in PHP to object id
+  => object. To set those mapping you have to construct an associative array
+  using the object ids as keys, e.g. object id => object and set the
+  "_OBJECT_KEYS" to "TRUE" (important: Use the string value "TRUE"). In this
+  case, the id keys will be sent as object value passing the array to the steam
+  server in the PHPsTeam API

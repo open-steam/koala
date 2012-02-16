@@ -1,0 +1,104 @@
+\hypertarget{class_simple_sax_listener}{
+\section{SimpleSaxListener Class Reference}
+\label{class_simple_sax_listener}\index{SimpleSaxListener@{SimpleSaxListener}}
+}
+Inheritance diagram for SimpleSaxListener:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_simple_sax_listener}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_sax_listener_ae114be1674844632a1f2f8362bf93018}{SimpleSaxListener} ()
+\item 
+\hyperlink{class_simple_sax_listener_a9094543df0d68dfa168c08087f8c868f}{startElement} (\$name, \$attributes)
+\item 
+\hyperlink{class_simple_sax_listener_abfa321e2d3edcf3f00b585c8b26e46cb}{endElement} (\$name)
+\item 
+\hyperlink{class_simple_sax_listener_a37d761543d4dc6030888c76963cb8ed1}{addContent} (\$text)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_sax_listener_a37d761543d4dc6030888c76963cb8ed1}{
+\index{SimpleSaxListener@{SimpleSaxListener}!addContent@{addContent}}
+\index{addContent@{addContent}!SimpleSaxListener@{SimpleSaxListener}}
+\subsubsection[{addContent}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSaxListener::addContent (
+\begin{DoxyParamCaption}
+\item[{\$}]{ text}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_sax_listener_a37d761543d4dc6030888c76963cb8ed1}
+Unparsed, but relevant data. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$text} & May include unparsed tags. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean False on parse error.  public 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_page_builder_a324ad1e5d69787482a64319a095e09c7}{SimplePageBuilder}.
+
+\hypertarget{class_simple_sax_listener_abfa321e2d3edcf3f00b585c8b26e46cb}{
+\index{SimpleSaxListener@{SimpleSaxListener}!endElement@{endElement}}
+\index{endElement@{endElement}!SimpleSaxListener@{SimpleSaxListener}}
+\subsubsection[{endElement}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSaxListener::endElement (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_sax_listener_abfa321e2d3edcf3f00b585c8b26e46cb}
+End of element event. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Element name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean False on parse error.  public 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_page_builder_a9c074127728a8588dac8dbf5c0f05439}{SimplePageBuilder}.
+
+\hypertarget{class_simple_sax_listener_ae114be1674844632a1f2f8362bf93018}{
+\index{SimpleSaxListener@{SimpleSaxListener}!SimpleSaxListener@{SimpleSaxListener}}
+\index{SimpleSaxListener@{SimpleSaxListener}!SimpleSaxListener@{SimpleSaxListener}}
+\subsubsection[{SimpleSaxListener}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSaxListener::SimpleSaxListener (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_sax_listener_ae114be1674844632a1f2f8362bf93018}
+Sets the document to write to.  public \hypertarget{class_simple_sax_listener_a9094543df0d68dfa168c08087f8c868f}{
+\index{SimpleSaxListener@{SimpleSaxListener}!startElement@{startElement}}
+\index{startElement@{startElement}!SimpleSaxListener@{SimpleSaxListener}}
+\subsubsection[{startElement}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSaxListener::startElement (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ attributes}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_sax_listener_a9094543df0d68dfa168c08087f8c868f}
+Start of element event. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Element name. \\
+\hline
+hash & {\em \$attributes} & Name value pairs. Attributes without content are marked as true. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean False on parse error.  public 
+\end{DoxyReturn}
+
+
+Reimplemented in \hyperlink{class_simple_page_builder_a7b40a556918f88bd570eed376ad36b7e}{SimplePageBuilder}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/parser.php\end{DoxyCompactItemize}

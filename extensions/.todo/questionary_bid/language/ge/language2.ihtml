@@ -1,0 +1,235 @@
+﻿<!-- *********************************************************** -->
+<!-- ** insert_input_selectbox.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_selectbox_title -->Fragetyp Auswahlbox einf&uuml;gen<!-- END insert_input_selectbox_title -->
+<!-- BEGIN insert_input_selectbox_error_no_number_width -->Feldbreite muss eine Zahl sein.<!-- END insert_input_selectbox_error_no_number_width -->
+<!-- BEGIN insert_input_selectbox_error_no_number_rows -->Anzeige in Zeilen muss eine Zahl sein.<!-- END insert_input_selectbox_error_no_number_rows -->
+<!-- BEGIN insert_input_selectbox_error_no_options -->Es muss zumindest eine Antwortm&ouml;glichkeit vorhanden sein.<!-- END insert_input_selectbox_error_no_options -->
+<!-- BEGIN insert_input_selectbox_script_confirm_1 -->Soll die Antwort "<!-- END insert_input_selectbox_script_confirm_1 -->
+<!-- BEGIN insert_input_selectbox_script_confirm_2 -->" wirklich gelöscht werden?<!-- END insert_input_selectbox_script_confirm_2 -->
+<!-- BEGIN insert_input_selectbox_label_question -->Frage<!-- END insert_input_selectbox_label_question -->
+<!-- BEGIN insert_input_selectbox_label_answer -->Antwort<!-- END insert_input_selectbox_label_answer -->
+<!-- BEGIN insert_input_selectbox_label_question_pos -->Position der Frage<!-- END insert_input_selectbox_label_question_pos -->
+<!-- BEGIN insert_input_selectbox_label_question_pos_left -->Links<!-- END insert_input_selectbox_label_question_pos_left -->
+<!-- BEGIN insert_input_selectbox_label_question_pos_top -->Dr&uuml;ber<!-- END insert_input_selectbox_label_question_pos_top -->
+<!-- BEGIN insert_input_selectbox_label_question_text -->Text<!-- END insert_input_selectbox_label_question_text -->
+<!-- BEGIN insert_input_selectbox_label_width -->Feldbreite<!-- END insert_input_selectbox_label_width -->
+<!-- BEGIN insert_input_selectbox_label_pixel -->Pixel<!-- END insert_input_selectbox_label_pixel -->
+<!-- BEGIN insert_input_selectbox_label_rows -->Darstellung in<!-- END insert_input_selectbox_label_rows -->
+<!-- BEGIN insert_input_selectbox_label_rows2 -->Zeilen<!-- END insert_input_selectbox_label_rows2 -->
+<!-- BEGIN insert_input_selectbox_label_must -->Pflichtfeld<!-- END insert_input_selectbox_label_must -->
+<!-- BEGIN insert_input_selectbox_label_output -->Auswertung<!-- END insert_input_selectbox_label_output -->
+<!-- BEGIN insert_input_selectbox_label_no_option -->Keine Antwortm&ouml;glichkeiten vorhanden.<!-- END insert_input_selectbox_label_no_option -->
+<!-- BEGIN insert_input_selectbox_label_topic_1 -->Antwortm&ouml;glichkeiten<!-- END insert_input_selectbox_label_topic_1 -->
+<!-- BEGIN insert_input_selectbox_label_topic_2 -->Vorauswahl<!-- END insert_input_selectbox_label_topic_2 -->
+<!-- BEGIN insert_input_selectbox_label_topic_3 -->Aktion<!-- END insert_input_selectbox_label_topic_3 -->
+<!-- BEGIN insert_input_selectbox_label_option -->neue Antwort<!-- END insert_input_selectbox_label_option -->
+<!-- BEGIN insert_input_selectbox_alt_edit -->Antwort bearbeiten<!-- END insert_input_selectbox_alt_edit -->
+<!-- BEGIN insert_input_selectbox_alt_delete -->Antwort l&ouml;schen<!-- END insert_input_selectbox_alt_delete -->
+<!-- BEGIN insert_input_selectbox_button_insert -->Einf&uuml;gen<!-- END insert_input_selectbox_button_insert -->
+<!-- BEGIN insert_input_selectbox_button_sort -->Sortieren<!-- END insert_input_selectbox_button_sort -->
+<!-- BEGIN insert_input_selectbox_button_save -->Speichern<!-- END insert_input_selectbox_button_save -->
+<!-- BEGIN insert_input_selectbox_button_cancel -->Abbrechen<!-- END insert_input_selectbox_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_selectbox_box_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_selectbox_sort_title -->Auswahlbox Antworten sortieren<!-- END insert_input_selectbox_sort_title -->
+<!-- BEGIN insert_input_selectbox_sort_button_save -->&Uuml;bernehmen<!-- END insert_input_selectbox_sort_button_save -->
+<!-- BEGIN insert_input_selectbox_sort_button_cancel -->Abbrechen<!-- END insert_input_selectbox_sort_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_text.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_text_title -->Fragetyp Text einf&uuml;gen<!-- END insert_input_text_title -->
+<!-- BEGIN insert_input_text_error_no_number_width -->Textfeldbreite muss eine Zahl sein.<!-- END insert_input_text_error_no_number_width -->
+<!-- BEGIN insert_input_text_error_no_number_maxlength -->Maximale Eingabel&auml;nge muss eine Zahl sein.<!-- END insert_input_text_error_no_number_maxlength -->
+<!-- BEGIN insert_input_text_error_no_number_rows -->Anzahl Zeilen muss eine Zahl sein.<!-- END insert_input_text_error_no_number_rows -->
+<!-- BEGIN insert_input_text_error_bigger_zero_rows -->Anzahl Zeilen muss gr&ouml;&szlig;er als 0 sein.<!-- END insert_input_text_error_bigger_zero_rows -->
+<!-- BEGIN insert_input_text_label_question -->Frage<!-- END insert_input_text_label_question -->
+<!-- BEGIN insert_input_text_label_question_pos -->Position der Frage<!-- END insert_input_text_label_question_pos -->
+<!-- BEGIN insert_input_text_label_question_pos_left -->Links<!-- END insert_input_text_label_question_pos_left -->
+<!-- BEGIN insert_input_text_label_question_pos_top -->Dr&uuml;ber<!-- END insert_input_text_label_question_pos_top -->
+<!-- BEGIN insert_input_text_label_question_text -->Text<!-- END insert_input_text_label_question_text -->
+<!-- BEGIN insert_input_text_label_answer -->Antwort<!-- END insert_input_text_label_answer -->
+<!-- BEGIN insert_input_text_label_answer_value -->Standardwert<!-- END insert_input_text_label_answer_value -->
+<!-- BEGIN insert_input_text_label_answer_rows -->Textfeldh&ouml;he<!-- END insert_input_text_label_answer_rows -->
+<!-- BEGIN insert_input_text_label_answer_rows2 -->Zeilen<!-- END insert_input_text_label_answer_rows2 -->
+<!-- BEGIN insert_input_text_label_answer_chars -->Zeichen<!-- END insert_input_text_label_answer_chars -->
+<!-- BEGIN insert_input_text_label_answer_pixel -->Pixel<!-- END insert_input_text_label_answer_pixel -->
+<!-- BEGIN insert_input_text_label_answer_width -->Textfeldbreite<!-- END insert_input_text_label_answer_width -->
+<!-- BEGIN insert_input_text_label_answer_maxlength -->max. Eingabel&auml;nge<!-- END insert_input_text_label_answer_maxlength -->
+<!-- BEGIN insert_input_text_label_must -->Pflichtfeld<!-- END insert_input_text_label_must -->
+<!-- BEGIN insert_input_text_label_output -->Auswertung<!-- END insert_input_text_label_output -->
+<!-- BEGIN insert_input_text_button_insert -->Einf&uuml;gen<!-- END insert_input_text_button_insert -->
+<!-- BEGIN insert_input_text_button_edit -->Speichern<!-- END insert_input_text_button_edit -->
+<!-- BEGIN insert_input_text_button_cancel -->Abbrechen<!-- END insert_input_text_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** new.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN new_title -->Fragebogen erstellen<!-- END new_title -->
+<!-- BEGIN new_label_title -->Titel<!-- END new_label_title -->
+<!-- BEGIN new_label_description -->Beschreibung<!-- END new_label_description -->
+<!-- BEGIN new_error_no_title -->Bitte Titel eingeben.<!-- END new_error_no_title -->
+<!-- BEGIN new_button_label -->Einrichten<!-- END new_button_label -->
+<!-- BEGIN new_button_cancel_label -->Abbrechen<!-- END new_button_cancel_label -->
+
+
+<!-- *********************************************************** -->
+<!-- ** result.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN result_title -->Auswertung<!-- END result_title -->
+<!-- BEGIN result_header_creator -->Teilnehmer<!-- END result_header_creator -->
+<!-- BEGIN result_header_creation_time -->Erstellungszeit<!-- END result_header_creation_time -->
+<!-- BEGIN result_label_results_none -->Keine Eintr&auml;ge vorhanden.<!-- END result_label_results_none -->
+<!-- BEGIN result_label_sort_ascending -->Aufsteigend sortieren<!-- END result_label_sort_ascending -->
+<!-- BEGIN result_label_sort_descending -->Absteigend sortieren<!-- END result_label_sort_descending -->
+<!-- BEGIN result_label_details -->Details<!-- END result_label_details -->
+<!-- BEGIN result_label_export -->Export als CSV-Datei<!-- END result_label_export -->
+<!-- BEGIN result_label_pages -->Seite<!-- END result_label_pages -->
+<!-- BEGIN result_label_edit_answer -->Bearbeiten<!-- END result_label_edit_answer -->
+<!-- BEGIN result_label_delete_answer -->L&ouml;schen<!-- END result_label_delete_answer -->
+<!-- BEGIN result_error_not_allowed -->Die Ergebnisse des Fragebogen &raquo;{QUESTIONARY_NAME}&laquo; k&ouml;nnen nicht angezeigt werden. Entweder sind die Ergebnisse nicht &ouml;ffentlich oder Sie verf&uuml;gen nicht &uuml;ber die n&ouml;tige Leseberechtigung an dem Fragebogen.<!-- END result_error_not_allowed -->
+<!-- BEGIN result_script_confirm -->Möchten Sie dieses Ergebnis wirklich löschen?<!-- END result_script_confirm -->
+<!-- BEGIN result_label_break_result -->Ergebnisse pro Seite<!-- END result_label_break_result -->
+<!-- BEGIN result_label_all -->Alle<!-- END result_label_all -->
+<!-- BEGIN result_owner -->Besitzer<!-- END result_owner -->
+<!-- BEGIN result_last_change -->Letzte &Auml;nderung am<!-- END result_last_change -->
+
+
+<!-- *********************************************************** -->
+<!-- ** result_details.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN result_details_title -->{QUESTIONARY_NAME} - Antwortdetails<!-- END result_details_title -->
+<!-- BEGIN result_details_label_creator -->Teilnehmer<!-- END result_details_label_creator -->
+<!-- BEGIN result_details_label_creation_time -->Erstellungszeit<!-- END result_details_label_creation_time -->
+<!-- BEGIN result_details_label_question -->Frage<!-- END result_details_label_question -->
+<!-- BEGIN result_details_label_answer -->Antwort<!-- END result_details_label_answer -->
+<!-- BEGIN result_details_error_not_allowed -->Die Ergebnisse des Fragebogen &raquo;{QUESTIONARY_NAME}&laquo; k&ouml;nnen nicht angezeigt werden. Entweder sind die Ergebnisse nicht &ouml;ffentlich oder Sie verf&uuml;gen nicht &uuml;ber die n&ouml;tige Leseberechtigung an dem Fragebogen.<!-- END result_details_error_not_allowed -->
+
+
+<!-- *********************************************************** -->
+<!-- ** result_export.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN result_export_questionary -->Fragebogen<!-- END result_export_questionary -->
+<!-- BEGIN result_export_obj_id -->Objekt-ID<!-- END result_export_obj_id -->
+<!-- BEGIN result_export_date -->Exportdatum<!-- END result_export_date -->
+<!-- BEGIN result_export_fillout -->Ausf&uuml;llen<!-- END result_export_fillout -->
+<!-- BEGIN result_export_fillout_1 -->einfach<!-- END result_export_fillout_1 -->
+<!-- BEGIN result_export_fillout_n -->mehrfach<!-- END result_export_fillout_n -->
+<!-- BEGIN result_export_question -->Frage<!-- END result_export_question -->
+<!-- BEGIN result_export_label_creation_time -->Erstellungszeit<!-- END result_export_label_creation_time -->
+<!-- BEGIN result_export_label_creator -->Teilnehmer<!-- END result_export_label_creator -->
+<!-- BEGIN result_export_label_description -->Allgemeine Beschreibung<!-- END result_export_label_description -->
+<!-- BEGIN result_export_label_edit_answer -->Alle Antworten von Erstellern bearbeitbar<!-- END result_export_label_edit_answer -->
+<!-- BEGIN result_export_label_edit_own_answer -->Eigene Antworten bearbeitbar<!-- END result_export_label_edit_own_answer -->
+<!-- BEGIN result_export_label_edit_time -->Bearbeitungszeitraum<!-- END result_export_label_edit_time -->
+<!-- BEGIN result_export_label_yes -->Ja<!-- END result_export_label_yes -->
+<!-- BEGIN result_export_label_no -->Nein<!-- END result_export_label_no -->
+
+
+<!-- *********************************************************** -->
+<!-- ** rights.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN rights_title -->Zugriffsrechte f&uuml;r &raquo;{QUESTIONARY_NAME}&laquo; <!-- END rights_title -->
+<!-- BEGIN rights_publish_1 -->Privat<!-- END rights_publish_1 -->
+<!-- BEGIN rights_publish_2 -->&Ouml;ffentlich<!-- END rights_publish_2 -->
+<!-- BEGIN rights_publish_3 -->Benutzerdefiniert<!-- END rights_publish_3 -->
+<!-- BEGIN rights_groups_none -->Sie sind nicht Mitglied einer Gruppe<!-- END rights_groups_none -->
+<!-- BEGIN rights_favourites_none -->Sie haben keine Favoriten eingetragen<!-- END rights_favourites_none -->
+<!-- BEGIN rights_favourites_double -->Wie in Eigene Gruppen<!-- END rights_favourites_double -->
+<!-- BEGIN rights_fillout -->Ausf&uuml;llen<!-- END rights_fillout -->
+<!-- BEGIN rights_edit -->Bearbeiten<!-- END rights_edit -->
+<!-- BEGIN rights_evaluate -->Auswerten<!-- END rights_evaluate -->
+<!-- BEGIN rights_owner -->Besitzer<!-- END rights_owner -->
+<!-- BEGIN rights_groups -->Eigene Gruppen<!-- END rights_groups -->
+<!-- BEGIN rights_group -->Gruppe<!-- END rights_group -->
+<!-- BEGIN rights_user -->Benutzer<!-- END rights_user -->
+<!-- BEGIN rights_favourites -->Meine Favoriten<!-- END rights_favourites -->
+<!-- BEGIN rights_button_save -->Speichern<!-- END rights_button_save -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_grading.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_grading_title -->Fragetyp Benotung einf&uuml;gen<!-- END insert_input_grading_title -->
+<!-- BEGIN insert_input_grading_error_no_text -->Beschreibung darf nicht leer sein.<!-- END insert_input_grading_error_no_text -->
+<!-- BEGIN insert_input_grading_error_no_options -->Es muss zumindest ein Element vorhanden sein.<!-- END insert_input_grading_error_no_options -->
+<!-- BEGIN insert_input_grading_button_insert -->Einf&uuml;gen<!-- END insert_input_grading_button_insert -->
+<!-- BEGIN insert_input_grading_button_sort -->Sortieren<!-- END insert_input_grading_button_sort -->
+<!-- BEGIN insert_input_grading_button_save -->Speichern<!-- END insert_input_grading_button_save -->
+<!-- BEGIN insert_input_grading_button_cancel -->Abbrechen<!-- END insert_input_grading_button_cancel -->
+<!-- BEGIN insert_input_grading_script_confirm_1 -->Soll das Element "<!-- END insert_input_grading_script_confirm_1 -->
+<!-- BEGIN insert_input_grading_script_confirm_2 -->" wirklich gelöscht werden?<!-- END insert_input_grading_script_confirm_2 -->
+<!-- BEGIN insert_input_grading_label_general -->Allgemein<!-- END insert_input_grading_label_general -->
+<!-- BEGIN insert_input_grading_label_question -->Elemente<!-- END insert_input_grading_label_question -->
+<!-- BEGIN insert_input_grading_label_description_text -->Beschreibung<!-- END insert_input_grading_label_description_text -->
+<!-- BEGIN insert_input_grading_label_question_text -->Text<!-- END insert_input_grading_label_question_text -->
+<!-- BEGIN insert_input_grading_label_action -->Aktion<!-- END insert_input_grading_label_action -->
+<!-- BEGIN insert_input_grading_alt_edit -->Element bearbeiten<!-- END insert_input_grading_alt_edit -->
+<!-- BEGIN insert_input_grading_alt_delete -->Element l&ouml;schen<!-- END insert_input_grading_alt_delete -->
+<!-- BEGIN insert_input_grading_label_no_option -->Keine Elemente vorhanden<!-- END insert_input_grading_label_no_option -->
+<!-- BEGIN insert_input_grading_label_must -->Pflichtfeld<!-- END insert_input_grading_label_must -->
+<!-- BEGIN insert_input_grading_label_output -->Auswertung<!-- END insert_input_grading_label_output -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_grading_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_grading_sort_title -->Benotung sortieren<!-- END insert_input_grading_sort_title -->
+<!-- BEGIN insert_input_grading_sort_button_save -->&Uuml;bernehmen<!-- END insert_input_grading_sort_button_save -->
+<!-- BEGIN insert_input_grading_sort_button_cancel -->Abbrechen<!-- END insert_input_grading_sort_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_tendency.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_tendency_title -->Fragetyp Tendenz einf&uuml;gen<!-- END insert_input_tendency_title -->
+<!-- BEGIN insert_input_tendency_error_no_text -->Beschreibung darf nicht leer sein.<!-- END insert_input_tendency_error_no_text -->
+<!-- BEGIN insert_input_tendency_error_no_options -->Es muss zumindest ein Tendenz-Element vorhanden sein.<!-- END insert_input_tendency_error_no_options -->
+<!-- BEGIN insert_input_tendency_error_no_number_steps -->Anzahl Tendenz Schritte muss zwischen 2 und 20 liegen.<!-- END insert_input_tendency_error_no_number_steps -->
+<!-- BEGIN insert_input_tendency_error_no_text_tendency -->Es m&uuml;ssen beide Tendenz-Elementfelder ausgef&uuml;llt sein.<!-- END insert_input_tendency_error_no_text_tendency -->
+<!-- BEGIN insert_input_tendency_button_insert -->Einf&uuml;gen<!-- END insert_input_tendency_button_insert -->
+<!-- BEGIN insert_input_tendency_button_sort -->Sortieren<!-- END insert_input_tendency_button_sort -->
+<!-- BEGIN insert_input_tendency_button_save -->Speichern<!-- END insert_input_tendency_button_save -->
+<!-- BEGIN insert_input_tendency_button_cancel -->Abbrechen<!-- END insert_input_tendency_button_cancel -->
+<!-- BEGIN insert_input_tendency_script_confirm_1 -->Soll das Tendenz-Element "<!-- END insert_input_tendency_script_confirm_1 -->
+<!-- BEGIN insert_input_tendency_script_confirm_2 -->" wirklich gelöscht werden?<!-- END insert_input_tendency_script_confirm_2 -->
+<!-- BEGIN insert_input_tendency_label_general -->Allgemein<!-- END insert_input_tendency_label_general -->
+<!-- BEGIN insert_input_tendency_label_description_text -->Beschreibung<!-- END insert_input_tendency_label_description_text -->
+<!-- BEGIN insert_input_tendency_label_tendency_steps -->Skala<!-- END insert_input_tendency_label_tendency_steps -->
+<!-- BEGIN insert_input_tendency_label_steps -->Schritte<!-- END insert_input_tendency_label_steps -->
+<!-- BEGIN insert_input_tendency_label_must -->Pflichtfeld<!-- END insert_input_tendency_label_must -->
+<!-- BEGIN insert_input_tendency_label_output -->Auswertung<!-- END insert_input_tendency_label_output -->
+<!-- BEGIN insert_input_tendency_label_tendency_elements -->Elemente<!-- END insert_input_tendency_label_tendency_elements -->
+<!-- BEGIN insert_input_tendency_label_tendency_element -->Tendenz-Element<!-- END insert_input_tendency_label_tendency_element -->
+<!-- BEGIN insert_input_tendency_label_tendency_to -->zu<!-- END insert_input_tendency_label_tendency_to -->
+<!-- BEGIN insert_input_tendency_label_element -->Elemente<!-- END insert_input_tendency_label_element -->
+<!-- BEGIN insert_input_tendency_label_action -->Aktion<!-- END insert_input_tendency_label_action -->
+<!-- BEGIN insert_input_tendency_alt_edit -->Tendenz-Element bearbeiten<!-- END insert_input_tendency_alt_edit -->
+<!-- BEGIN insert_input_tendency_alt_delete -->Tendenz-Element l&ouml;schen<!-- END insert_input_tendency_alt_delete -->
+<!-- BEGIN insert_input_tendency_label_no_option -->Keine Elemente vorhanden<!-- END insert_input_tendency_label_no_option -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_tendency_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_tendency_sort_title -->Tendenz-Elemente sortieren<!-- END insert_input_tendency_sort_title -->
+<!-- BEGIN insert_input_tendency_sort_button_save -->&Uuml;bernehmen<!-- END insert_input_tendency_sort_button_save -->
+<!-- BEGIN insert_input_tendency_sort_button_cancel -->Abbrechen<!-- END insert_input_tendency_sort_button_cancel -->

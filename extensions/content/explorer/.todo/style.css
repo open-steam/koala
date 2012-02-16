@@ -1,0 +1,80 @@
+.explorer-item {
+	border: 1px solid transparent;
+	height: 20px;
+	clear: both;
+	cursor: pointer;
+}
+.explorer-item:hover {
+	border: 1px solid #aaa;
+	height: 20px;
+}	
+
+.explorer-header {
+	font-weight: bold;
+	height: 20px;
+}
+
+.explorer-lable-name {
+	float: left;
+	margin-left: 20px;
+	width: 315px;
+}
+
+.explorer-lable-date {
+	float:left;
+	width: 150px;
+}
+
+.explorer-item:hover explorer-item-menuicon{
+	display: block;
+}	
+
+.explorer-item-checkbox {
+	float: left;
+	height: 20px;
+}
+.explorer-item-icon {
+	float: left;
+	height: 20px;
+}
+.explorer-item-name {
+	float: left;
+	width: 300px;
+	height: 20px;
+}
+.explorer-item-date {
+	float: left;
+	width: 150px;
+	height: 20px;
+}
+.explorer-item-size {
+	float: left;
+	width: 80px;
+	height: 20px;
+}
+
+.explorer-item-menuicon {
+	display: none;
+}
+
+.explorer-item-menu {
+	display: none;
+	background: #eee;
+	width: 200px;
+	margin-left: 570px;
+	z-index: 255;
+	-moz-border-radius-bottomleft: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	border-radius-bottomleft: 3px;
+	border-radius-bottomright: 3px;
+		
+	-moz-box-shadow:2px 2px 5px #888;
+	-webkit-box-shadow:2px 2px 5px #888;
+	box-shadow:2px 2px 5px #888;
+}
+
+.explorer-item-menu-item {
+	padding: 3px;
+}

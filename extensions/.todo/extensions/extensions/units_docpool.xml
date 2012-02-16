@@ -1,0 +1,12 @@
+<extension>
+	<name>units_docpool</name>
+	<path>units_docpool</path>
+	<description>Unit type for exchanging learning material</description>
+	<OBJ_TYPE>container_unit_koala</OBJ_TYPE>
+	<CLASSTYPE>CLASS_CONTAINER</CLASSTYPE>
+	<category>did_extension</category>
+	<enabled_default>TRUE</enabled_default>
+	<requires>
+		<module>units_base</module>
+	</requires>
+</extension>

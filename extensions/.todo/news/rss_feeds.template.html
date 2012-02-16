@@ -1,0 +1,43 @@
+<div class="infoBar">
+	{INFO_SUBSCRIBED_FEEDS}
+</div>
+
+<!-- BEGIN BLOCK_MANAGE_FEEDS -->
+<div class="actionBar">
+	<a class="button" href="{LINK_MANAGE_FEEDS}">{LABEL_MANAGE_FEEDS}</a>
+</div>
+<!-- END BLOCK_MANAGE_FEEDS -->
+					
+<h3>{LABEL_NEWS}</h3>
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->
+
+<!-- BEGIN BLOCK_NEWS_AVAILABLE -->
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+	<tr>
+		<th>{LABEL_SUBJECT}</th>
+		<th>{LABEL_AUTHOR}</th>
+		<th>{LABEL_POSTED}</th>
+		<th>{LABEL_SOURCE}</th>
+		<th>{LABEL_CONTEXT}</th>
+		<th>{LABEL_XML}</th>
+	</tr>
+	<!-- BEGIN BLOCK_NEWS -->
+	<tr>
+		<td><!-- BEGIN BLOCK_NEW --><span class="new">{NEW_LABEL}</span><!-- END BLOCK_NEW --><a href="{LINK_MESSAGE}">{VALUE_SUBJECT}</a></td>
+		<td>{VALUE_AUTHOR}</td>
+		<td>{VALUE_HOW_LONG_AGO}</td>
+		<td>{VALUE_SOURCE}</td>
+		<td><a href="{VALUE_CONTEXT_LINK}">{VALUE_CONTEXT_NAME}</a></td>
+		<td><a href="{LINK_RSS}"><img src="{RSS_SYMBOL}"/></a></td>
+	</tr>
+	<!-- END BLOCK_NEWS -->
+</table>
+<!-- END BLOCK_NEWS_AVAILABLE -->

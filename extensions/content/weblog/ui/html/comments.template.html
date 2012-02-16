@@ -1,0 +1,52 @@
+<h3>{LABEL_COMMENTS}</h3>
+<div id="Annotations">
+<table>
+	<!-- BEGIN BLOCK_ANNOTATION -->
+	<tr valign="top">
+		<td class="Who">
+			<a name="comment{COMMENT_ID}" href="{AUTHOR_LINK}"><img src="{IMAGE_LINK}" width="48" height="56" /></a>
+		</td>
+		<td class="Said">
+			<h4><a href="{AUTHOR_LINK}">{AUTHOR_NAME}</a> {LABEL_SAYS}:</h4>
+			<p>{ANNOTATION_COMMENT}</p>
+			<small>
+				{HOW_LONG_AGO} (<a href="{LINK_PERMALINK}">{LABEL_PERMALINK}</a> 
+				<!-- BEGIN BLOCK_OWN_COMMENT -->
+				| <a href="{LINK_DELETE}">{LABEL_DELETE}</a> | <a href="{LINK_EDIT}">{LABEL_EDIT}</a>
+				<!-- END BLOCK_OWN_COMMENT -->
+				)
+			</small>
+		</td>
+	</tr>
+	<!-- END BLOCK_ANNOTATION -->
+</table>
+</div>
+<!-- BEGIN BLOCK_PREVIEW_COMMENT -->
+<h3><a name="#preview"></a>{LABEL_PREVIEW_YOUR_COMMENT}</h3>
+<div class="Preview">
+{VALUE_PREVIEW_COMMENT}
+</div>
+
+<!-- END BLOCK_PREVIEW_COMMENT -->
+<!-- BEGIN BLOCK_ADD_COMMENT -->
+<h3>{LABEL_ADD_YOUR_COMMENT}</h3>
+<form action="#preview" method="post" name="formular">
+<p>
+        <textarea name="values[comment]" style="width: 400px;" rows="8">{TEXT_COMMENT}</textarea><br/>
+		<a href="javascript:insert('[b]', '[/b]', 'formular', 'values[comment]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+		<a href="javascript:insert('[i]', '[/i]', 'formular', 'values[comment]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+		<a href="javascript:insert('[u]', '[/u]', 'formular', 'values[comment]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+		<a href="javascript:insert('[s]', '[/s]', 'formular', 'values[comment]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+		<a href="javascript:insert('[img]http://', '[/img]', 'formular', 'values[comment]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+		<a href="javascript:insert('[url=http://]', '[/url]', 'formular', 'values[comment]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+		<a href="javascript:insert('[mail=@]', '[/mail]', 'formular', 'values[comment]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
+</p>
+<p>
+	<input name="values[preview_comment]" type="submit"  value="{LABEL_PREVIEW}">
+	&nbsp;&nbsp;&nbsp;&nbsp;{LABEL_OR}&nbsp;&nbsp;&nbsp;&nbsp;
+	<input name="values[submit_comment]" type="submit"  value="{LABEL_COMMENT}">
+</p>
+</form>
+<!-- END BLOCK_ADD_COMMENT -->
+				
+

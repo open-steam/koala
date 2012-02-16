@@ -1,0 +1,129 @@
+\hypertarget{class_simple_text_area_tag}{
+\section{SimpleTextAreaTag Class Reference}
+\label{class_simple_text_area_tag}\index{SimpleTextAreaTag@{SimpleTextAreaTag}}
+}
+Inheritance diagram for SimpleTextAreaTag:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_simple_text_area_tag}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_text_area_tag_a022780742c3c3265a938c0809a45661c}{SimpleTextAreaTag} (\$attributes)
+\item 
+\hyperlink{class_simple_text_area_tag_af6b231753b32277ea079a1c55355a27a}{getDefault} ()
+\item 
+\hyperlink{class_simple_text_area_tag_a5b56885c1a6c81bd955963843586ad34}{setValue} (\$value)
+\item 
+\hyperlink{class_simple_text_area_tag_a1e2a78176ee9179f70c0a7e7b4a6e103}{\_\-wrapIsEnabled} ()
+\item 
+\hyperlink{class_simple_text_area_tag_a9bfa978f5170d9a10ec62d83c5460258}{\_\-wrap} (\$text)
+\item 
+\hyperlink{class_simple_text_area_tag_aef83c24c5a19caeea6447b48f2a3243a}{isPrivateContent} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_text_area_tag_a9bfa978f5170d9a10ec62d83c5460258}{
+\index{SimpleTextAreaTag@{SimpleTextAreaTag}!\_\-wrap@{\_\-wrap}}
+\index{\_\-wrap@{\_\-wrap}!SimpleTextAreaTag@{SimpleTextAreaTag}}
+\subsubsection[{\_\-wrap}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTextAreaTag::\_\-wrap (
+\begin{DoxyParamCaption}
+\item[{\$}]{ text}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_text_area_tag_a9bfa978f5170d9a10ec62d83c5460258}
+Performs the formatting that is peculiar to this tag. There is strange behaviour in this one, including stripping a leading new line. Go figure. I am using Firefox as a guide. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$text} & Text to wrap. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Text wrapped with carriage returns and line feeds  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_text_area_tag_a1e2a78176ee9179f70c0a7e7b4a6e103}{
+\index{SimpleTextAreaTag@{SimpleTextAreaTag}!\_\-wrapIsEnabled@{\_\-wrapIsEnabled}}
+\index{\_\-wrapIsEnabled@{\_\-wrapIsEnabled}!SimpleTextAreaTag@{SimpleTextAreaTag}}
+\subsubsection[{\_\-wrapIsEnabled}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTextAreaTag::\_\-wrapIsEnabled (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_text_area_tag_a1e2a78176ee9179f70c0a7e7b4a6e103}
+Test to see if text should be wrapped. \begin{DoxyReturn}{Returns}
+boolean True if wrapping on.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_text_area_tag_af6b231753b32277ea079a1c55355a27a}{
+\index{SimpleTextAreaTag@{SimpleTextAreaTag}!getDefault@{getDefault}}
+\index{getDefault@{getDefault}!SimpleTextAreaTag@{SimpleTextAreaTag}}
+\subsubsection[{getDefault}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTextAreaTag::getDefault (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_text_area_tag_af6b231753b32277ea079a1c55355a27a}
+Accessor for starting value. \begin{DoxyReturn}{Returns}
+string Parsed value.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_widget_a9c0702cdfee1237b1599cb920ce14ba6}{SimpleWidget}.
+
+\hypertarget{class_simple_text_area_tag_aef83c24c5a19caeea6447b48f2a3243a}{
+\index{SimpleTextAreaTag@{SimpleTextAreaTag}!isPrivateContent@{isPrivateContent}}
+\index{isPrivateContent@{isPrivateContent}!SimpleTextAreaTag@{SimpleTextAreaTag}}
+\subsubsection[{isPrivateContent}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTextAreaTag::isPrivateContent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_text_area_tag_aef83c24c5a19caeea6447b48f2a3243a}
+The content of textarea is not part of the page. \begin{DoxyReturn}{Returns}
+boolean True.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_tag_a6f1d7a187565b366e995d94da0f16ad4}{SimpleTag}.
+
+\hypertarget{class_simple_text_area_tag_a5b56885c1a6c81bd955963843586ad34}{
+\index{SimpleTextAreaTag@{SimpleTextAreaTag}!setValue@{setValue}}
+\index{setValue@{setValue}!SimpleTextAreaTag@{SimpleTextAreaTag}}
+\subsubsection[{setValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTextAreaTag::setValue (
+\begin{DoxyParamCaption}
+\item[{\$}]{ value}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_text_area_tag_a5b56885c1a6c81bd955963843586ad34}
+Applies word wrapping if needed. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$value} & New value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if allowed.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_widget_a9e048a450e2d29a601e672deda9fa869}{SimpleWidget}.
+
+\hypertarget{class_simple_text_area_tag_a022780742c3c3265a938c0809a45661c}{
+\index{SimpleTextAreaTag@{SimpleTextAreaTag}!SimpleTextAreaTag@{SimpleTextAreaTag}}
+\index{SimpleTextAreaTag@{SimpleTextAreaTag}!SimpleTextAreaTag@{SimpleTextAreaTag}}
+\subsubsection[{SimpleTextAreaTag}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTextAreaTag::SimpleTextAreaTag (
+\begin{DoxyParamCaption}
+\item[{\$}]{ attributes}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_text_area_tag_a022780742c3c3265a938c0809a45661c}
+Starts with a named tag with attributes only. 
+\begin{DoxyParams}[1]{Parameters}
+hash & {\em \$attributes} & Attribute names and string values. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/tag.php\end{DoxyCompactItemize}

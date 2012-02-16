@@ -1,0 +1,37 @@
+<!-- BEGIN button_label_save -->{LANGUAGE_BUTTON_LABEL_SAVE}<!-- END button_label_save -->
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+
+<!-- BEGIN block_empty_line -->&lt;{LANGUAGE_EMPTY_LINE}&gt;<!-- END block_empty_line -->
+<!-- BEGIN block_full_line -->&lt;{LANGUAGE_FULL_LINE}&gt;<!-- END block_full_line -->
+<!-- BEGIN block_new_page -->&lt;{LANGUAGE_NEW_PAGE}&gt;<!-- END block_new_page -->
+
+<div><script language="JavaScript1.2">
+function update_input(list)
+{
+  var order = "";
+  for(var j = 0; j < list.length; j++) {
+    order = order + list.options[j].value + " ";
+  }
+
+  document.getElementById("list").value = order;
+}
+</script></div>
+
+
+<input type="hidden" name="list" id="list" value="">
+
+<table border="0">
+<tr>
+  <td><select size="15" id="orderelements" name="orderelements" style="width: 300px;">
+    <!-- BEGIN select_row --><option value="{ELEMENT_ID}">{ELEMENT_NAME}</option>
+    <!-- END select_row -->
+    </select>
+  </td>
+
+  <td>
+    <img src="./icons/arrow_up.gif"
+      onclick='javascript:selectUp(document.getElementById("orderelements"), document.getElementById("orderelements").selectedIndex);update_input(document.getElementById("orderelements"));'><br>
+    <img src="./icons/arrow_down.gif"
+      onclick='javascript:selectDown(document.getElementById("orderelements"), document.getElementById("orderelements").selectedIndex);update_input(document.getElementById("orderelements"));'><br>
+  </td>
+</tr></table>

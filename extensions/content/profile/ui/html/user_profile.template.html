@@ -1,0 +1,31 @@
+<!-- BEGIN BLOCK_CONTEXT_MENU -->
+<div class="actionBar">
+    <!-- BEGIN BLOCK_MENU_ENTRY -->{LINK_MENU_ENTRY}<!-- END BLOCK_MENU_ENTRY -->
+</div>
+<!-- END BLOCK_CONTEXT_MENU -->
+
+<table width="100%">
+	<tr>
+	    <td class="info" valign="top" width="155">
+			<table style="width:146px;height:191px;background-color:#eeeeee;margin-bottom:3px"><tr><td><img src="{USER_IMAGE}" class="border" alt="{ACADEMIC_TITLE} {GIVEN_NAME} {FAMILY_NAME}" /></td></tr></table>
+	        <h2 style="padding:0; margin:0">{ACADEMIC_TITLE} {GIVEN_NAME} {FAMILY_NAME}</h2>
+		    {ACADEMIC_DEGREE}
+		    <p>
+		        <small>
+		            <b>{LABEL_LAST_LOGIN}</b> {LAST_LOGIN}<br/>
+		            <b>{LABEL_PAGE_HITS}</b> {PAGE_HITS}
+		        </small>
+		    </p>
+	    </td>
+	    <td class="detail" valign="top">
+		    <ul class="tabBar">
+                <!-- BEGIN BLOCK_TABS -->
+                <li class="{TAB_STATE}">{TAB_ENTRY}</li>
+                <!-- END BLOCK_TABS -->
+                <li style="clear:left;"/>
+            </ul>
+
+            {HTML_CODE_LEFT}
+	    </td>
+	</tr>
+</table>

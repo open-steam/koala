@@ -1,0 +1,57 @@
+<style type="text/css">
+tr.courseRow  {
+	background-color: blue;	
+}
+tr.courseRow : hover {
+	background-color: red;	
+}	
+</style>
+
+<script type="text/javascript">
+
+function submitForm (element) {
+	document.getElementById("courseID").value = element.getAttribute("courseID");
+	document.getElementById("courseListingForm").submit();
+}
+ 
+</script>
+
+
+ 
+ <!-- BEGIN BLOCK_CONTEXT_MENU -->
+<div class="actionBar">
+    <!-- BEGIN BLOCK_MENU_ENTRY -->
+	{LINK_MENU_ENTRY}
+	<!-- END BLOCK_MENU_ENTRY -->
+</div>
+<!-- END BLOCK_CONTEXT_MENU -->
+ 
+ <ul class="tabBar">
+   <!-- BEGIN BLOCK_TABS -->    
+   <li class="{TAB_STATE}">{TAB_ENTRY}</li>
+   <!-- END BLOCK_TABS -->
+   <li style="clear:left;"/>
+ </ul>
+
+<div style="{CURRENT_CUSTOMER_STYLE}">{CURRENT_CUSTOMER}</div>
+
+<div id="infoBar" class="infoBar" style="{INFO_STYLE}">
+	<h2>{INFO_TITLE}</h2>
+	<p>{INFO_TEXT}</p>
+</div>
+
+<h3>{HEADLINE}</h3>
+
+<form style="{FORM_STYLE}" action="/usermanagement/" name="formular" method="post" id="courseListingForm">
+	<table class="grid" width="100%">
+		<tr>
+			<th>{TABLE_COL_1}</th>
+			<th width="150">{TABLE_COL_2}</th>
+		</tr>
+		<!-- BEGIN BLOCK_COURSES_ENTRY -->
+		{COURSE_ENTRY}
+		<!-- END BLOCK_COURSES_ENTRY -->
+	</table>
+<input type="hidden" name="courseID" value="" id="courseID">
+	<input type="hidden" name="template" value="courses-participants">
+</form>

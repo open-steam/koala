@@ -1,0 +1,33 @@
+<img src="/styles/koala/images/ublogo.jpg" width="150" style="float:left; margin-right: 10px; margin-bottom:10px"/>
+<p>
+	Um einen <a href="http://semapp.ub.uni-paderborn.de" target="_blank">vorhandenen Seminarapparat</a> mit KoaLA zu verkn&uuml;pfen, geben Sie bitte im folgenden
+	Formular den entsprechenden Access-Token sowie die ID des Seminarapparates ein, den Sie einbinden
+	m&ouml;chten. 
+</p>
+
+<p>
+	Den Access-Token und die ID finden Sie in Ihrem Seminarapparat unter <b>Einstellungen</b> &raquo; 
+	<b>Access-Token</b>. Ein Video-Tutorial, dass die Schritte erkl&auml;rt finden Sie im 
+	<a href="http://vimeo.com/upb" target="_bank">Video-Portal der Universit&auml;tsbibliothek</a>.
+</p>
+
+<form method="post">
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="label">{LABEL_SEM_APP_TOKEN}:</td>
+		<td class="value">
+			<input type="text" style="width:400px" name ="values[sem_app_token]" value="{SEM_APP_TOKEN}"/>
+		</td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_SEM_APP_ID}:</td>
+		<td class="value">
+			<input type="text" style="width:40px" name ="values[sem_app_id]" value="{SEM_APP_ID}"/>
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><input type="submit" value="{LABEL_SAVE}"/></td>
+	</tr>
+</table>
+</form>

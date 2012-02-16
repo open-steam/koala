@@ -1,0 +1,30 @@
+.rapidfeedback_table {
+    border-collapse: collapse;
+}
+.rapidfeedback_table th {
+    background-color: white;
+    font-weight: bolder;
+    padding: 5px;
+    text-align: left;
+}
+.rapidfeedback_table td {
+    background-color: #EEEEEE;
+    padding: 5px;
+}
+.rapidfeedback_table td.label {
+    color: #003A6F;
+    font-weight: bold;
+    padding-top: 8px;
+    vertical-align: top;
+    width: 130px;
+}
+.rapidfeedback_style td {
+	border-right: none;
+	border-bottom: none;
+}
+
+#sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+#sortable li { margin: 0 5px 5px 5px; padding: 5px; font-size: 11px; height: auto;}
+html>body #sortable li { height: auto; line-height: 13px;}
+.ui-state-default { background-color: #EEEEEE; border: outset 1px; }
+.ui-state-highlight { background-color: #BACAFF; border: none; }

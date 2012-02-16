@@ -1,0 +1,82 @@
+<script type="text/javascript">
+  function openIdcard(type, owner)
+  {
+    if (type == 'group')
+      window.open('{DOC_ROOT}/idcard.php?group=' + owner, 'idcard', 'resizable,scrollbars,width=590,height=240');
+    if (type == 'user')
+      window.open('{DOC_ROOT}/idcard.php?user=' + owner, 'idcard', 'resizable,scrollbars,width=590,height=240');
+    return false;
+  }
+</script>
+
+{ERROR_FEEDBACK}<br />
+<!-- BEGIN error_search_string_too_short --><b>{LANGUAGE_ERROR_SEARCH_STRING_TOO_SHORT}</b><br><!-- END error_search_string_too_short -->
+
+<!-- BEGIN result_id_card -->
+<div class="searchResultEntry{SEARCH_ENTRY_MOD2}" style="height:20px">
+  <div class="searchResultEntryColumn" style="width:20px">
+    <a href="{DOC_ROOT}/idcard.php?{OBJ_TYPE}={OBJ_NAME}"
+      onclick="return openIdcard('{OBJ_TYPE}', '{OBJ_NAME}');"
+    ><img
+      src="{DOC_ROOT}/icons/rights_{OBJ_TYPE}.gif"
+      border="0"
+      height="16"
+      width="16"
+    ></a>
+  </div>
+  <div class="searchResultEntryColumn" style="width:300px">
+    <a href="{DOC_ROOT}/idcard.php?{OBJ_TYPE}={OBJ_NAME}"
+      onclick="return openIdcard('{OBJ_TYPE}', '{OBJ_NAME}');"
+    >{OBJ_NAME}</a>
+  </div>
+</div>
+<!-- END result_id_card -->
+
+<!-- BEGIN no_result -->{LANGUAGE_NO_RESULT}<!-- END no_result -->
+
+<input type="hidden" name="action" id="action" value="search" />
+
+<div class="attribute">
+  <div class="attributeName">{LANGUAGE_SEARCH_TITLE}:</div>
+  <div class="attributeValue" style="width:450px;">
+    <div class="attributeValueColumn" style="width:250px;text-align:left;">
+      <input
+        type="text"
+        name="searchString"
+        value="{SEARCH_STRING}"
+        class="text"
+        style="width: 230px">
+    </div>
+    <div class="attributeValueColumn" style="width:200px; text-align: left">
+      <input
+        type="radio"
+        name="searchType"
+        value="searchUser"
+        style="width: 20px"
+        {CHECKED_USER}
+      >{LANGUAGE_RADIO_USER}
+      <input
+        type="radio"
+        name="searchType"
+        value="searchGroup"
+        style="width: 20px"
+        {CHECKED_GROUP}
+      >{LANGUAGE_RADIO_GROUP}
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+<hr style="width:600px;"/>
+<div class="attribute" style="height:300px">
+  <div class="attributeName">{LANGUAGE_SEARCH_RESULT_TITLE}:</div>
+  <div class="attributeValue">
+    <div class="searchResultBox" style="width:350px">
+      {SEARCH_RESULT_ENTRY}
+    </div>
+  </div>
+</div>
+<div class="buttonpane">
+<input type="submit" value="{LANGUAGE_BUTTON_SEARCH}">
+<input type="reset" onClick="window.close();" value="{LANGUAGE_BUTTON_CANCEL}">
+</div>

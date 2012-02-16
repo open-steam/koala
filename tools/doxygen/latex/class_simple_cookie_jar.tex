@@ -1,0 +1,185 @@
+\hypertarget{class_simple_cookie_jar}{
+\section{SimpleCookieJar Class Reference}
+\label{class_simple_cookie_jar}\index{SimpleCookieJar@{SimpleCookieJar}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_cookie_jar_aa0adab8ed09f77f6826e6c37d9f2e0fc}{SimpleCookieJar} ()
+\item 
+\hyperlink{class_simple_cookie_jar_aa31bb3d759c78564f9390a21d39bbc41}{restartSession} (\$date=false)
+\item 
+\hyperlink{class_simple_cookie_jar_ab196bbf77b5906ace88b09db7bb004c3}{agePrematurely} (\$interval)
+\item 
+\hyperlink{class_simple_cookie_jar_ac467b7bc604554da9133be361b32e803}{setCookie} (\$name, \$value, \$host=false, \$path= '/', \$expiry=false)
+\item 
+\hyperlink{class_simple_cookie_jar_ae6446b13958595cbd1ab43dff09ff0f2}{\_\-findFirstMatch} (\$cookie)
+\item 
+\hyperlink{class_simple_cookie_jar_a8c8f383919cd80b15c74afc43d0cb189}{getCookieValue} (\$host, \$path, \$name)
+\item 
+\hyperlink{class_simple_cookie_jar_ac14534e705b8c5cad177c11a9fc732a1}{\_\-isMatch} (\$cookie, \$host, \$path, \$name)
+\item 
+\hyperlink{class_simple_cookie_jar_abb79fd222ce94e548543061b50a291f3}{selectAsPairs} (\$url)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_cookie_jar_a7138f3fa6cc073d246510ab0bd1786d6}{
+{\bfseries \$\_\-cookies}}
+\label{class_simple_cookie_jar_a7138f3fa6cc073d246510ab0bd1786d6}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_cookie_jar_ae6446b13958595cbd1ab43dff09ff0f2}{
+\index{SimpleCookieJar@{SimpleCookieJar}!\_\-findFirstMatch@{\_\-findFirstMatch}}
+\index{\_\-findFirstMatch@{\_\-findFirstMatch}!SimpleCookieJar@{SimpleCookieJar}}
+\subsubsection[{\_\-findFirstMatch}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCookieJar::\_\-findFirstMatch (
+\begin{DoxyParamCaption}
+\item[{\$}]{ cookie}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_cookie_jar_ae6446b13958595cbd1ab43dff09ff0f2}
+Finds a matching cookie to write over or the first empty slot if none. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_cookie}{SimpleCookie} & {\em \$cookie} & Cookie to write into jar. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+integer Available slot.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_cookie_jar_ac14534e705b8c5cad177c11a9fc732a1}{
+\index{SimpleCookieJar@{SimpleCookieJar}!\_\-isMatch@{\_\-isMatch}}
+\index{\_\-isMatch@{\_\-isMatch}!SimpleCookieJar@{SimpleCookieJar}}
+\subsubsection[{\_\-isMatch}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCookieJar::\_\-isMatch (
+\begin{DoxyParamCaption}
+\item[{\$}]{ cookie, }
+\item[{\$}]{ host, }
+\item[{\$}]{ path, }
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_cookie_jar_ac14534e705b8c5cad177c11a9fc732a1}
+Tests cookie for matching against search criteria. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_test}{SimpleTest} & {\em \$cookie} & Cookie to test. \\
+\hline
+string & {\em \$host} & Host must match. \\
+\hline
+string & {\em \$path} & Cookie path must be shorter than this path. \\
+\hline
+string & {\em \$name} & Name must match. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if matched.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_cookie_jar_ab196bbf77b5906ace88b09db7bb004c3}{
+\index{SimpleCookieJar@{SimpleCookieJar}!agePrematurely@{agePrematurely}}
+\index{agePrematurely@{agePrematurely}!SimpleCookieJar@{SimpleCookieJar}}
+\subsubsection[{agePrematurely}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCookieJar::agePrematurely (
+\begin{DoxyParamCaption}
+\item[{\$}]{ interval}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_cookie_jar_ab196bbf77b5906ace88b09db7bb004c3}
+Ages all cookies in the cookie jar. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$interval} & The old session is moved into the past by this number of seconds. Cookies now over age will be removed.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_cookie_jar_a8c8f383919cd80b15c74afc43d0cb189}{
+\index{SimpleCookieJar@{SimpleCookieJar}!getCookieValue@{getCookieValue}}
+\index{getCookieValue@{getCookieValue}!SimpleCookieJar@{SimpleCookieJar}}
+\subsubsection[{getCookieValue}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCookieJar::getCookieValue (
+\begin{DoxyParamCaption}
+\item[{\$}]{ host, }
+\item[{\$}]{ path, }
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_cookie_jar_a8c8f383919cd80b15c74afc43d0cb189}
+Reads the most specific cookie value from the browser cookies. Looks for the longest path that matches. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$host} & Host to search. \\
+\hline
+string & {\em \$path} & Applicable path. \\
+\hline
+string & {\em \$name} & Name of cookie to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string False if not present, else the value as a string.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_cookie_jar_aa31bb3d759c78564f9390a21d39bbc41}{
+\index{SimpleCookieJar@{SimpleCookieJar}!restartSession@{restartSession}}
+\index{restartSession@{restartSession}!SimpleCookieJar@{SimpleCookieJar}}
+\subsubsection[{restartSession}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCookieJar::restartSession (
+\begin{DoxyParamCaption}
+\item[{\$}]{ date = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_cookie_jar_aa31bb3d759c78564f9390a21d39bbc41}
+Removes expired and temporary cookies as if the browser was closed and re-\/opened. 
+\begin{DoxyParams}{Parameters}
+{\em string/integer} & \$now Time to test expiry against.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_cookie_jar_abb79fd222ce94e548543061b50a291f3}{
+\index{SimpleCookieJar@{SimpleCookieJar}!selectAsPairs@{selectAsPairs}}
+\index{selectAsPairs@{selectAsPairs}!SimpleCookieJar@{SimpleCookieJar}}
+\subsubsection[{selectAsPairs}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCookieJar::selectAsPairs (
+\begin{DoxyParamCaption}
+\item[{\$}]{ url}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_cookie_jar_abb79fd222ce94e548543061b50a291f3}
+Uses a URL to sift relevant cookies by host and path. Results are list of strings of form \char`\"{}name=value\char`\"{}. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_url}{SimpleUrl} & {\em \$url} & Url to select by. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Valid name and value pairs.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_cookie_jar_ac467b7bc604554da9133be361b32e803}{
+\index{SimpleCookieJar@{SimpleCookieJar}!setCookie@{setCookie}}
+\index{setCookie@{setCookie}!SimpleCookieJar@{SimpleCookieJar}}
+\subsubsection[{setCookie}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCookieJar::setCookie (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ value, }
+\item[{\$}]{ host = {\ttfamily false}, }
+\item[{\$}]{ path = {\ttfamily '/'}, }
+\item[{\$}]{ expiry = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_cookie_jar_ac467b7bc604554da9133be361b32e803}
+Sets an additional cookie. If a cookie has the same name and path it is replaced. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Cookie key. \\
+\hline
+string & {\em \$value} & Value of cookie. \\
+\hline
+string & {\em \$host} & Host upon which the cookie is valid. \\
+\hline
+string & {\em \$path} & Cookie path if not host wide. \\
+\hline
+string & {\em \$expiry} & Expiry date.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_cookie_jar_aa0adab8ed09f77f6826e6c37d9f2e0fc}{
+\index{SimpleCookieJar@{SimpleCookieJar}!SimpleCookieJar@{SimpleCookieJar}}
+\index{SimpleCookieJar@{SimpleCookieJar}!SimpleCookieJar@{SimpleCookieJar}}
+\subsubsection[{SimpleCookieJar}]{\setlength{\rightskip}{0pt plus 5cm}SimpleCookieJar::SimpleCookieJar (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_cookie_jar_aa0adab8ed09f77f6826e6c37d9f2e0fc}
+Constructor. Jar starts empty.  public 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/cookies.php\end{DoxyCompactItemize}

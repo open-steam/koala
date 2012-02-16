@@ -1,0 +1,196 @@
+body {
+  background-color: #ffffff;
+  color: black;
+  counter-reset: numberedText;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  line-height: 1.4em;
+  text-decoration: none;
+}
+
+a {
+  color: #336699;
+}
+
+h1 {
+  color:#333333;
+  font-size: 14pt;
+  font-weight: bold;
+  margin: 14px 0px 7px 0px;
+}
+
+h2 {
+  color:#333333;
+  font-size: 12pt;
+  font-weight: bold;
+  margin: 12px 0px 6px 0px;
+}
+
+h3 {
+  color:#333333;
+  font-size: 10pt;
+  font-weight: bold;
+  margin: 10px 0px 5px 0px;
+}
+
+h4 {
+  font-size: 10pt;
+  font-style: italic;
+  font-weight: normal;
+  margin: 10px 0px 5px 0px;
+}
+
+h5 {
+  font-size: 10pt;
+  font-variant: small-caps;
+  font-weight: normal;
+  margin: 10px 0px 5px 0px;
+}
+
+img {
+  border: none;
+}
+
+tr, td {
+  font-size: 9pt;
+}
+
+table.folderlisting {
+  border-collapse: collapse;
+}
+
+table.folderlisting a {
+  color: black;
+  text-decoration: none;
+}
+
+table.folderlisting a:hover {
+  text-decoration: none;
+}
+
+table.folderlisting td {
+  padding: 1px 2px 1px 2px;
+  white-space: nowrap;
+}
+
+table.folderlisting thead tr, table.folderlisting tfoot tr {
+  background-color: #eeeeee;
+  color: #333333;
+  text-align: left;
+}
+
+table.folderlisting thead tr td, table.folderlisting tfoot tr td {
+  font-size: 8.5pt;
+}
+
+table.folderlisting td.first {
+  padding-left: 20px;
+}
+
+table.folderlisting td.last {
+  padding: 0px 20px 0px 20px;
+  width: 1000px;
+}
+
+.right {
+  text-align: right;
+}
+
+tr.List {
+  font-size: 9pt;
+  color: black;
+}
+
+caption {
+  font-size: 9pt;
+}
+
+textarea {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  font-stretch: normal;
+  text-decoration: none;
+}
+
+.broken {
+  color: #808080;
+  font-size: 8.5pt;
+}
+
+.head {
+  font-size: 8.5pt;
+  color: #333333;
+}
+
+.hidden {
+  color: #808080;
+}
+
+.footerlabel {
+  color: #666666;
+}
+
+.footervalue {
+  color: #000000;
+}
+
+.marked {
+  background-color: #99ccff;
+  padding: 0px 3px;
+}
+
+.note {
+  background-color: #ff99cc;
+  padding: 0px 3px;
+}
+
+.unnumbered:before {
+  content: "-";
+  margin: 0px 10px 0px 10px;
+}
+
+.numbered:before {
+  content: counter(numberedText) " ";
+  counter-increment: numberedText;
+  margin: 0px 10px 0px 10px;
+}
+
+.prettytable {
+  background-color: #f9f9f9;
+  border: 1px solid #cccccc;
+  border-collapse: collapse;
+  line-height: 1.2em;
+}
+
+.prettytable td, .prettytable th {
+  border: 1px solid #cccccc;
+  padding: 5px;
+}
+
+.prettytable th {
+  background-color: #dddddd;
+  text-align: left;
+}
+
+.prettytable tr {
+  vertical-align: top;
+}
+
+.wikiimage, .wikiaudio, .wikivideo {
+  float: right;
+  margin: 5px;
+}
+
+.prettytable .wikiimage {
+  float: left;
+}
+
+.googlemap {
+  clip: rect(120px 1020px 700px 400px);
+  height: 700px;
+  left: -320px;
+  position: absolute;
+  top: -100px;
+  width: 1020px;
+}

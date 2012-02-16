@@ -1,0 +1,223 @@
+\hypertarget{class_simple_http_response}{
+\section{SimpleHttpResponse Class Reference}
+\label{class_simple_http_response}\index{SimpleHttpResponse@{SimpleHttpResponse}}
+}
+Inheritance diagram for SimpleHttpResponse:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_simple_http_response}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_http_response_a310e299fbb90b5943491ddf86bcd73dd}{SimpleHttpResponse} (\&\$socket, \$url, \$encoding)
+\item 
+\hyperlink{class_simple_http_response_a058da3bdd5e2f0589a9a8c807fe69fec}{\_\-parse} (\$raw)
+\item 
+\hyperlink{class_simple_http_response_ac3d79c4f31fae4ea243e1d08e6609ad8}{getMethod} ()
+\item 
+\hyperlink{class_simple_http_response_a2241dc18405a1f831af92943df1104ed}{getUrl} ()
+\item 
+\hyperlink{class_simple_http_response_a235dd94a72d35d5c61098fc9625baf72}{getRequestData} ()
+\item 
+\hyperlink{class_simple_http_response_a91e656519057e83140787b521cae9a56}{getSent} ()
+\item 
+\hyperlink{class_simple_http_response_a51520abd6975a68164b5575ce09d7e97}{getContent} ()
+\item 
+\hyperlink{class_simple_http_response_a64145c3fecb25cea2c6df4dd0b620ef0}{getHeaders} ()
+\item 
+\hyperlink{class_simple_http_response_a20d75659a803bc420d702951e0435a1d}{getNewCookies} ()
+\item 
+\hyperlink{class_simple_http_response_a91aa023b717df912b4dc6696107f76c4}{\_\-readAll} (\&\$socket)
+\item 
+\hyperlink{class_simple_http_response_abdc81c212568dd3fdeabef1856ba8579}{\_\-isLastPacket} (\$packet)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_http_response_a4d6dbf749b4410380d9796f48ffcfc99}{
+{\bfseries \$\_\-url}}
+\label{class_simple_http_response_a4d6dbf749b4410380d9796f48ffcfc99}
+
+\item 
+\hypertarget{class_simple_http_response_a0c0715e9c2677831b6058690622762c5}{
+{\bfseries \$\_\-encoding}}
+\label{class_simple_http_response_a0c0715e9c2677831b6058690622762c5}
+
+\item 
+\hypertarget{class_simple_http_response_a76746b4dd6811bd1b5ead0b78e7cd40c}{
+{\bfseries \$\_\-sent}}
+\label{class_simple_http_response_a76746b4dd6811bd1b5ead0b78e7cd40c}
+
+\item 
+\hypertarget{class_simple_http_response_ad72d80f6353aba50000ad50b40c41359}{
+{\bfseries \$\_\-content}}
+\label{class_simple_http_response_ad72d80f6353aba50000ad50b40c41359}
+
+\item 
+\hypertarget{class_simple_http_response_a1c2f28fe55ece1b112187b5b6b54f304}{
+{\bfseries \$\_\-headers}}
+\label{class_simple_http_response_a1c2f28fe55ece1b112187b5b6b54f304}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_http_response_abdc81c212568dd3fdeabef1856ba8579}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!\_\-isLastPacket@{\_\-isLastPacket}}
+\index{\_\-isLastPacket@{\_\-isLastPacket}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{\_\-isLastPacket}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::\_\-isLastPacket (
+\begin{DoxyParamCaption}
+\item[{\$}]{ packet}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_abdc81c212568dd3fdeabef1856ba8579}
+Test to see if the packet from the socket is the last one. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$packet} & Chunk to interpret. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if empty or EOF.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_a058da3bdd5e2f0589a9a8c807fe69fec}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!\_\-parse@{\_\-parse}}
+\index{\_\-parse@{\_\-parse}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{\_\-parse}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::\_\-parse (
+\begin{DoxyParamCaption}
+\item[{\$}]{ raw}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a058da3bdd5e2f0589a9a8c807fe69fec}
+Splits up the headers and the rest of the content. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$raw} & Content to parse.  private \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_http_response_a91aa023b717df912b4dc6696107f76c4}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!\_\-readAll@{\_\-readAll}}
+\index{\_\-readAll@{\_\-readAll}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{\_\-readAll}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::\_\-readAll (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ socket}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a91aa023b717df912b4dc6696107f76c4}
+Reads the whole of the socket output into a single string. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_socket}{SimpleSocket} & {\em \$socket} & Unread socket. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Raw output if successful else false.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_a51520abd6975a68164b5575ce09d7e97}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!getContent@{getContent}}
+\index{getContent@{getContent}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{getContent}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::getContent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a51520abd6975a68164b5575ce09d7e97}
+Accessor for the content after the last header line. \begin{DoxyReturn}{Returns}
+string All content.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_a64145c3fecb25cea2c6df4dd0b620ef0}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!getHeaders@{getHeaders}}
+\index{getHeaders@{getHeaders}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{getHeaders}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::getHeaders (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a64145c3fecb25cea2c6df4dd0b620ef0}
+Accessor for header block. The response is the combination of this and the content. \begin{DoxyReturn}{Returns}
+SimpleHeaders Wrapped header block.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_ac3d79c4f31fae4ea243e1d08e6609ad8}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!getMethod@{getMethod}}
+\index{getMethod@{getMethod}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{getMethod}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::getMethod (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_ac3d79c4f31fae4ea243e1d08e6609ad8}
+Original request method. \begin{DoxyReturn}{Returns}
+string GET, POST or HEAD.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_a20d75659a803bc420d702951e0435a1d}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!getNewCookies@{getNewCookies}}
+\index{getNewCookies@{getNewCookies}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{getNewCookies}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::getNewCookies (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a20d75659a803bc420d702951e0435a1d}
+Accessor for any new cookies. \begin{DoxyReturn}{Returns}
+array List of new cookies.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_a235dd94a72d35d5c61098fc9625baf72}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!getRequestData@{getRequestData}}
+\index{getRequestData@{getRequestData}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{getRequestData}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::getRequestData (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a235dd94a72d35d5c61098fc9625baf72}
+Original request data. \begin{DoxyReturn}{Returns}
+mixed Sent content.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_a91e656519057e83140787b521cae9a56}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!getSent@{getSent}}
+\index{getSent@{getSent}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{getSent}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::getSent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a91e656519057e83140787b521cae9a56}
+Raw request that was sent down the wire. \begin{DoxyReturn}{Returns}
+string Bytes actually sent.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_a2241dc18405a1f831af92943df1104ed}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!getUrl@{getUrl}}
+\index{getUrl@{getUrl}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{getUrl}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::getUrl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a2241dc18405a1f831af92943df1104ed}
+Resource name. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_url}{SimpleUrl} Current url.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_response_a310e299fbb90b5943491ddf86bcd73dd}{
+\index{SimpleHttpResponse@{SimpleHttpResponse}!SimpleHttpResponse@{SimpleHttpResponse}}
+\index{SimpleHttpResponse@{SimpleHttpResponse}!SimpleHttpResponse@{SimpleHttpResponse}}
+\subsubsection[{SimpleHttpResponse}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpResponse::SimpleHttpResponse (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ socket, }
+\item[{\$}]{ url, }
+\item[{\$}]{ encoding}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_response_a310e299fbb90b5943491ddf86bcd73dd}
+Constructor. Reads and parses the incoming content and headers. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_socket}{SimpleSocket} & {\em \$socket} & Network connection to fetch response text from. \\
+\hline
+\hyperlink{class_simple_url}{SimpleUrl} & {\em \$url} & Resource name. \\
+\hline
+mixed & {\em \$encoding} & Record of content sent.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/http.php\end{DoxyCompactItemize}

@@ -1,0 +1,56 @@
+<!-- BEGIN button_label_new -->{LANGUAGE_BUTTON_NEW}<!-- END button_label_new -->
+<!-- BEGIN button_label_sort -->{LANGUAGE_BUTTON_SORT}<!-- END button_label_sort -->
+
+<div>
+<script language="JavaScript1.2">
+function confirm_delete_category(category_id, category_name)
+{
+  Check = confirm('{LANGUAGE_SCRIPT_CATEGORY_CONFIRM_1}' + category_name + '{LANGUAGE_SCRIPT_CATEGORY_CONFIRM_2}');
+  if(Check == true)
+    window.location.replace("./edit.php?object={PORTLET_ID}&category=" + category_id + "&mission=delete");
+}
+
+function confirm_delete_topic(category_id, topic_id, topic_name)
+{
+  Check = confirm('{LANGUAGE_SCRIPT_TOPIC_CONFIRM_1}' + topic_name + '{LANGUAGE_SCRIPT_TOPIC_CONFIRM_2}');
+  if(Check == true)
+    window.location.replace("./edit.php?object={PORTLET_ID}&category=" + category_id + "&topic=" + topic_id + "&mission=delete");
+}
+</script>
+</div>
+
+
+<table>
+
+<!-- BEGIN category_null --><tr><td style="color:#808080; text-align:center;">{LANGUAGE_NO_CATEGORY}</td></tr><!-- END category_null -->
+<!-- BEGIN category_row --><tr><td>
+  <table width="100%">
+
+  <tr><td style="background-color:#CCCCCC;">
+    <table width="100%"><tr>
+    <td><b><a href="./category_edit.php?object={PORTLET_ID}&category={CATEGORY_ID}">{CATEGORY_NAME}</a></b></td>
+    <td align="right">
+      &nbsp;&nbsp;
+      <a href="./topic_sort.php?object={PORTLET_ID}&category={CATEGORY_ID}"><img src="./icons/sort.gif" width="16" height="16" border="0" alt="{LANGUAGE_ALT_SORT_TOPIC}" title="{LANGUAGE_ALT_SORT_TOPIC}"></a>
+      <a href="./topic_edit.php?object={PORTLET_ID}&category={CATEGORY_ID}&mission=new"><img src="./icons/new.gif" width="16" height="16" border="0" alt="{LANGUAGE_ALT_NEW_TOPIC}" title="{LANGUAGE_ALT_NEW_TOPIC}"></a>
+      <a href="./category_edit.php?object={PORTLET_ID}&category={CATEGORY_ID}"><img src="./icons/edit.gif" width="16" height="16" border="0" alt="{LANGUAGE_ALT_EDIT_CATEGORY}" title="{LANGUAGE_ALT_EDIT_CATEGORY}"></a>
+      <img src="./icons/delete.gif" width="16" height="16" border="0" style="cursor:pointer;" onclick="javascript:confirm_delete_category('{CATEGORY_ID}','{CATEGORY_NAME}')" alt="{LANGUAGE_ALT_DELETE_CATEGORY}" title="{LANGUAGE_ALT_DELETE_CATEGORY}">
+    </td></tr></table>
+  </td></tr>
+
+  <!-- BEGIN topic_null --><tr><td style="color:#808080; background-color:#D8D8D8;">{LANGUAGE_NO_TOPIC}</td></tr><!-- END topic_null -->
+  <!-- BEGIN topic_row --><tr><td style="background-color:#D8D8D8;">
+    <table width="100%">
+    <tr>
+    <td><a href="./topic_edit.php?object={PORTLET_ID}&category={CATEGORY_ID}&topic={TOPIC_ID}">{TOPIC_NAME}</a></td>
+    <td align="right">
+      <a href="./topic_edit.php?object={PORTLET_ID}&category={CATEGORY_ID}&topic={TOPIC_ID}"><img src="./icons/edit.gif" width="16" height="16" border="0" alt="{LANGUAGE_ALT_EDIT_TOPIC}" title="{LANGUAGE_ALT_EDIT_TOPIC}"></a>
+      <img src="./icons/delete.gif" width="16" height="16" border="0" style="cursor:pointer;" onclick="javascript:confirm_delete_topic('{CATEGORY_ID}','{TOPIC_ID}','{TOPIC_NAME}')" alt="{LANGUAGE_ALT_DELETE_TOPIC}" title="{LANGUAGE_ALT_DELETE_TOPIC}">
+    </td></tr></table>
+  </td></tr>
+  <!-- END topic_row -->
+  </table>
+</td></tr><!-- END category_row -->
+</table>
+
+<br>

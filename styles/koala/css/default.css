@@ -1,0 +1,219 @@
+/*
+** koaLA - Main CSS-PHP Styles
+**
+** Author: Sharif Amrou <samrou@uni-paderborn.de>
+**
+** (c) 2006 - 2009 University of Paderborn
+**
+*/
+
+/*
+** Basic styles
+*/
+html, input, textarea {
+	font-size: 11px;
+	font-family: 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+}
+
+body {
+	background-color: #fff; 
+	background: url(../images/page_layout/body_bg.png) repeat-x;
+	color: #111;
+}
+
+#betaInfo {
+	display: none;
+	background: url(../images/page_layout/) no-repeat;
+}
+	
+/*
+** Header
+** only used in portal.template.html
+*/
+
+#header #logo {
+	background: url(../images/page_layout/logo.png) no-repeat;
+}
+
+/*
+** Menu
+*/
+	#menu {
+		background: url(../images/page_layout/main_menu_bg.png) repeat-x bottom;
+	}
+	
+	#menu li .menu_text a {
+		color:#FFFFFF;
+	}
+	
+	#menu li .menu_text{
+		color:#FFFFFF;
+	}
+	
+	#menu li .menu_text:hover, #menu .activemenu{
+		color:#000000;
+		background-color:#ccc;
+	}
+			
+	#menu li.activemenu span a{
+		color:#000000;
+	}
+	
+	#menu li.activemenu span {
+		color:#000000;
+	}
+
+	#menu li .menu_text:hover a{
+		color:#000000;
+	}
+
+	#menu li ul{
+		background:#eee;
+	}
+
+	#menu li ul .menu_text a {
+		color:#003A6F;
+	}
+	
+	#menu li ul .menu_text{
+	    color:black;
+	}
+
+	#menu li ul .menu_text:hover{
+		background:#ccc;
+	}
+
+	#menu #current{
+		color:#ffffff;
+	}
+
+
+/*
+** Info Bar
+*/
+.infoBar {
+	border: 3px solid #efefef;
+	background: url(../images/page_layout/info_bar_bg.png) repeat-x bottom;
+	background-color: #efefef;
+}
+
+
+/*
+** Action Bar
+*/
+
+.actionBar a.button, input[type=submit], div.buttons a{
+	bbackground: #ccc url(../images/page_layout/button_bg.png);
+	border:1px solid #bbb;
+	color: #003A6F;
+}
+
+.actionBar a.button:hover, input[type=submit]:hover, div.buttons a:hover{
+	background: #bbb;
+}
+
+/*
+** Tab Bar
+*/
+
+li.tabOut {
+	background-color: #284070;
+	background: url(../images/page_layout/tab_out.png) repeat-x bottom;
+}
+
+li.tabIn {
+	background-color: #5b85ab;
+	background: url(../images/page_layout/tab_in.png) repeat-x bottom;
+}
+
+li.tabOut, li.tabOut a, li.tabOut a:hover, li.tabOut a:visited {
+	color: #fff;
+}
+
+li.tabIn, li.tabIn a, li.tabIn a:hover, li.tabIn a:visited {
+	color: #fff;
+}
+
+
+/*
+** Clipboard
+*/
+
+div.clipboard table {
+	background-color: #5b85ab;
+}
+
+
+/*
+** Box
+** only used in: home.template.html
+*/
+
+.box h3 {
+	background: url(../images/page_layout/box_head_bg.png) repeat-x bottom;
+	background-color: #f3f3f3;
+	color: #003a6f;
+}
+
+/*
+** Grid
+*/
+
+.grid td {
+	border-right: 3px solid #fff;
+	border-bottom: 2px solid #fff;
+	background-color: #eee;
+}
+
+/*
+** Startpage
+*/
+
+#topImage{
+	color:#b0b0b0;
+	font-size:40px;
+	background-image:url(../images/page_layout/startpage.jpg);
+	border-bottom: 1px solid rgb(221, 221, 221); 
+}
+
+/*Logo unten links*/
+#startpage #logo2 {
+	background: url(../images/page_layout/) no-repeat;
+}
+
+/*
+** Forum (Discussion, Reply)
+*/
+
+.forum .current {
+	background-color: #ddd;
+}
+
+.forum .preview {
+	background-color: #eee;
+}
+
+/* all below used in forum_all_topics.template.html*/
+.forumsidebar {
+	background-color: #eee;
+}
+
+.forumSearch {
+	background-color: #eee;
+}
+
+/*
+** Calendar
+*/
+
+.calendar.week .weekday h3 {
+	background: url(../images/page_layout/box_head_bg.png);
+	background: #888;
+	border-bottom:1px solid #ddd;
+	color: #fff;
+}
+
+.calendar.week .event {
+	background-color: #eee;
+	border-bottom: 1px solid #fff;
+}

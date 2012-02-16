@@ -1,0 +1,185 @@
+﻿<html>
+<head>
+  <title>Insérer le type de question checkbox</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/rights.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/dialog.css">
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/focus.js"></script>
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/select.js"></script>
+  <script language="javascript" type="text/javascript" src="http://bid:8080//javascript/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+  <script language="javascript" type="text/javascript">
+    tinyMCE.init({
+            mode : "textareas",
+            theme : "advanced",
+            plugins : "bbcode",
+            language: "de",
+            editor_selector : "bbcode",
+            theme_advanced_buttons1 : "bold,italic,underline,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo",
+            theme_advanced_buttons2 : "",
+            theme_advanced_buttons3 : "",
+            entity_encoding : "raw",
+            remove_linebreaks : false
+            theme_advanced_toolbar_location : "top"
+            theme_advanced_toolbar_align : "left"
+    });
+  </script>
+</head>
+
+
+<body bgcolor="#DEDEDE" topmargin="7" leftmargin="7" onLoad="setFocus();">
+
+
+<script language="Javascript1.2">
+function form_submit(mission, url)
+{
+  if(mission == "close")
+    window.close();
+  else
+  {
+  document.getElementById("mission").value = mission;
+    document.getElementById("form_blueprint").action = url;
+    document.getElementById("form_blueprint").submit();
+  }
+}
+</script>
+
+
+<form method="POST" name="form_blueprint" id="form_blueprint" action="" enctype="multipart/form-data">
+<input type="hidden" name="mission" id="mission" value="">
+<input type="hidden" name="questionary" id="questionary" value="{QUESTIONARY_ID}">
+
+<!-- Rahmen oben -->
+<h1 class="titlepane">Insérer le type de question checkbox</h1>
+
+<!-- Mittelteil und Content -->
+<div class="dialogpane" align="center">
+
+<!-- BEGIN error_no_number_col --><b>L'affichage en colonnes doit être un chiffre.</b><br><!-- END error_no_number_col -->
+<!-- BEGIN error_no_options --><b>TIl doit y avoir au moins une réponse.</b><br><!-- END error_no_options -->
+<!-- BEGIN error_no_text --><b>Le texte ne doit pas être vide.</b><br><br><!-- END error_no_text -->
+
+<!-- BEGIN button_insert -->Insérer<!-- END button_insert -->
+<!-- BEGIN button_sort -->Classer<!-- END button_sort -->
+<!-- BEGIN button_save -->Sauvegarder<!-- END button_save -->
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+
+
+<script language="javascript1.5" type="text/javascript" src="http://bid:8080//modules/questionary/javascript/dom_checkbox.js"></script>
+<script language="javascript1.5" type="text/javascript">
+noanswers="Pas de réponse disponible.";
+
+function confirm_delete(option_id)
+{
+  if(edit_multiple_check==0)
+  {
+	  option_name=document.getElementById("td1_"+option_id).firstChild.data;
+	  check = confirm('Voulez-vous réellement supprimerl'option "' + option_name + '"?');
+	  if(check == true)	deleteNode(option_id);
+  }
+}
+</script>
+
+<b>{FEEDBACK}</b>
+
+<table width="350">
+<tr style="background-color:#CCCCCC;"><td colspan="2" align="center"><b>Question:</b></td></tr>
+<tr style="background-color:#D8D8D8;">
+  <td style="vertical-align:top; text-align:right;" nowrap="nowrap">Position de la question:</td>
+  <td style="vertical-align:top;"><input type="radio" name="question_position" value="top" {QUESTION_POSITION_TOP}>Dessus
+    <input type="radio" name="question_position" value="left" {QUESTION_POSITION_LEFT}>Gauche</td>
+</tr>
+<tr style="background-color:#D8D8D8;">
+  <td style="vertical-align:top; text-align:right;">Texte:</td>
+  <td style="vertical-align:top;"><textarea rows="5" name="question" style="width:250px">{QUESTION}</textarea></td>
+</tr>
+
+<tr><td><br></td></tr>
+
+<tr>
+  <td colspan="2" style="background-color:#CCCCCC; text-align:center;"><b>Réponser:</b></td>
+</tr>
+<tr>
+  <td style="background-color:#D8D8D8; vertical-align:middle; text-align:right;">Disposition à l'intérieur:</td>
+  <td style="background-color:#D8D8D8; vertical-align:middle;"><input name="columns" type="text" value="{COLUMNS}" size="5" maxlength="3" style="text-align:right"> colonnes</td>
+</tr>
+
+<tr>
+  <td style="background-color:#D8D8D8; vertical-align:middle; text-align:right;">Nouvelle réponse:</td>
+  <td style="background-color:#D8D8D8; vertical-align:top;">
+  	<table border="0" cellpadding="0" cellspacing="0">
+	  <tr>
+		<td valign="middle"><input type="text" name="option" value="" id="option"></td>
+		<td><button type="button" onClick="insertElement(document.getElementById('option').value)">{BUTTON_LABEL_INSERT}</button></td>
+	  </tr>
+	</table></td>
+</tr>
+<tr>
+  <td colspan="2">
+  	<table width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tbody id="options">
+		<tr>
+		  <td colspan="3" align="right">
+		  	<table cellpadding="0" cellspacing="0">
+			  <tr>
+				<td><img src="http://bid:8080//modules/questionary/icons/edit_bow.gif" border="0"></td>
+				<td bgcolor="#CCCCCC"><img src="http://bid:8080//modules/questionary/icons/edit_sort.gif" border="0" alt="Classer" title="Classer" style="cursor:pointer;" onclick="javascript:form_submit('sort', '{SORT_URL}');"></td>
+				<td bgcolor="#CCCCCC">&nbsp;</td>
+			  </tr>
+			</table>
+		  </td>
+		</tr>
+		<tr style="background-color:#CCCCCC;">
+		  <td valign="middle" height="16" nowrap>Réponses</td>
+		  <td valign="middle" align="center" nowrap width="60">Présélection&nbsp;</td>
+		  <td valign="middle" align="center" nowrap width="40">Action</td>
+		</tr>
+		
+		<!-- BEGIN check_no_row -->
+		<tr style="color:#808080; text-align:center;" id="norow">
+			<td colspan="3">Pas de réponse disponible.</td>
+		</tr>
+		<!-- END check_no_row -->
+
+		<!-- BEGIN check_row -->
+		<tr style="background-color:#D8D8D8;" id="tr_{CHECK_OPTION_ID}">
+		  <td valign="middle" id="td1_{CHECK_OPTION_ID}">{CHECK_OPTION_NAME} <input type="hidden" name="options_{CHECK_OPTION_ID}" id="options_{CHECK_OPTION_ID}" value="{CHECK_OPTION_NAME}"></td>
+		  <td align="center"><input type="checkbox" name="checked_{CHECK_OPTION_ID}" id="checked_{CHECK_OPTION_ID}" value="{CHECK_OPTION_ID}" {CHECKED}></td>
+		  <td align="center"><img src="http://bid:8080//modules/questionary/icons/element_edit.gif" alt="Editer la réponse" title="Editer la réponse" 
+		  style="cursor:pointer;" onClick="javascript:edit_possibility('{CHECK_OPTION_ID}');"><img src="http://bid:8080//modules/questionary/icons/delete.gif" alt="Supprimer la réponse" title="Supprimer la réponse" style="cursor:pointer;" onClick="javascript:confirm_delete('{CHECK_OPTION_ID}');"></td>
+		</tr>
+		<!-- END check_row -->
+	</tbody>
+	</table></td>
+</tr>
+
+<tr><td>&nbsp;</td></tr>
+
+<tr>
+  <td style="background-color:#CCCCCC; vertical-align:middle; text-align:right;">Obligatoire:</td>
+  <td style="background-color:#D8D8D8; vertical-align:top;"><input type="checkbox" name="must" value="1" {MUST}></td>
+</tr>
+<tr>
+  <td style="background-color:#CCCCCC; vertical-align:middle; text-align:right;">Afficher dans la liste:</td>
+  <td style="background-color:#D8D8D8; vertical-align:top;"><input type="checkbox" name="output" value="1" {OUTPUT}></td>
+</tr>
+
+</table>
+
+
+</div>
+
+<table width="100%" height="5" border="0" cellpadding="0" cellspacing="0" align="right">
+  <tr>
+    <td align="center" colspan="3">
+    <!-- BEGIN button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_MISSION}', '{BUTTON_URL}'); return false;">{BUTTON_LABEL}</button>
+    <!-- END button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_CANCEL_MISSION}', '{BUTTON_CANCEL_URL}'); return false;">Annuler</button>
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

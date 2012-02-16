@@ -1,0 +1,99 @@
+<form action="" method="post" name="mail">
+<input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}">
+
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="label">{LABEL_FROM}:</td>
+		<td class="value"><img src="{SENDER_IMAGE}" width="27" height="35" align="middle" alt="{SENDER_NAME}"/> {SENDER_NAME}</td>
+	</tr>
+	<tr>
+		<td class="label" style="vertical-align:top">{LABEL_TO}:*</td>
+		<td class="value">
+			<!-- BEGIN BLOCK_BUDDY_GIVEN -->
+			<img src="{RECEIVER_IMAGE}" width="27" height="35" align="middle" /> {RECEIVER_NAME}
+			<input type="hidden" name="values[receiver][]" value="{RECEIVER_OBJ_ID}" />
+			<!-- END BLOCK_BUDDY_GIVEN -->
+
+			<!-- BEGIN BLOCK_GROUP_GIVEN -->
+
+			<script type="text/javascript">
+			    function switchSelector(value){
+			        document.getElementById('groupID').value=(value=='true')?0:{RECEIVER_OBJ_ID};
+			        document.getElementById('recievers').style.display=(value=='true')?'inline':'none';
+			        if (value!='true'){
+			           document.getElementById('recievers').innerHTML='';
+			           addSelector();
+			        }
+			    }
+			</script>
+
+			<label>{LABEL_WHOLE_GROUP} <input type="radio" name="select" value="false" onchange="switchSelector(this.value);" checked="checked"></label>
+            <label><input type="radio" name="select" value="true" onchange="switchSelector(this.value);"> {LABEL_SELECT_MEMBERS}</label><br /><br />
+			<img src="{RECEIVER_IMAGE}" width="27" height="35" align="middle" /> {RECEIVER_NAME}
+			<input type="hidden" name="values[receiver][]" id="groupID" value="{RECEIVER_OBJ_ID}" /><br />
+			<span id="recievers" style="display:none;">
+			  <select name="values[receiver][]" onchange="enableAddLink(this.value)">
+			  <option value="0">{SELECT}</option>
+				<!-- BEGIN BLOCK_MEMBERS -->
+				 <option value="{USER_ID}">{USER_FULLNAME}, {USER_FIRSTNAME}</option>
+				<!-- END BLOCK_MEMBERS -->
+        <!-- BEGIN BLOCK_OPTGROUP -->
+        <optgroup label="{OPTGROUP_NAME}">
+          <!-- BEGIN BLOCK_OPTGROUP_MEMBERS -->
+           <option value="{OM_USER_ID}">{OM_USER_FULLNAME}, {OM_USER_FIRSTNAME}</option>
+          <!-- END BLOCK_OPTGROUP_MEMBERS -->
+        </optgroup>
+        <!-- END BLOCK_OPTGROUP -->
+			 </select>
+			</span><a href="javascript:addSelector();" id="addlink" style="display:none">{LABEL_ADD_RECIEVER}</a>
+			<!-- END BLOCK_GROUP_GIVEN -->
+
+			<!-- BEGIN BLOCK_SELECT_BUDDY -->
+			  <span id="recievers">
+			  <select name="values[receiver][]" onchange="enableAddLink(this.value)">
+			  <option value="0">{SELECT}</option>
+			  <optgroup label="{LABEL_BUDDIES}">
+				<!-- BEGIN BLOCK_BUDDY -->
+				 <option value="{USER_ID}" {USER_SELECTED}>{USER_FULLNAME}, {USER_FIRSTNAME}</option>
+				<!-- END BLOCK_BUDDY -->
+			  </optgroup>
+			  <optgroup label="{LABEL_GROUPS}">
+			  <!-- BEGIN BLOCK_GROUP -->
+				<option value="{GROUP_ID}" {GROUP_SELECTED}>{GROUP_NAME}</option>
+			  <!-- END BLOCK_GROUP -->
+			  </optgroup>
+			 </select>
+			</span>
+			<a href="javascript:addSelector();" id="addlink" {DISPLAY}>{LABEL_ADD_RECIEVER}</a>
+			<br />
+			<!-- END BLOCK_SELECT_BUDDY -->
+
+			<script type="text/javascript">
+			  var selectorHTML=document.getElementById('recievers').innerHTML;
+
+			  function addSelector(){
+			      var newSelector = document.createElement("span");
+			      newSelector.innerHTML='<br />'+selectorHTML;
+                  document.getElementById('recievers').appendChild(newSelector);
+                  document.getElementById('addlink').style.display='none';
+			  }
+
+			  function enableAddLink(value){
+				  document.getElementById('addlink').style.display=(value==0)?'none':'inline';
+			  }
+
+			</script>
+
+		</td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_SUBJECT}:*</td>
+		<td class="value"><input name="values[subject]" type="text" style="width: 400px;" value="{VALUE_SUBJECT}"/></td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_BODY}:</td>
+		<td><textarea name="values[body]" style="width: 400px;" rows="10">{VALUE_BODY}</textarea></td>
+	</tr>
+</table>
+<div class="buttons"><input type="submit" value="{LABEL_SEND_THIS}"/> {BACKLINK}</div>
+</form>

@@ -1,0 +1,12 @@
+<!-- BEGIN error_no_text --><b>{LANGUAGE_ERROR_NO_TEXT}</b><br><!-- END error_no_text -->
+
+<!-- BEGIN button_insert -->{LANGUAGE_BUTTON_INSERT}<!-- END button_insert -->
+<!-- BEGIN button_edit -->{LANGUAGE_BUTTON_EDIT}<!-- END button_edit -->
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+<br />
+<b>{FEEDBACK}</b>
+
+<table><tr>
+<td style="background-color:#CCCCCC; vertical-align:top; text-align:right;"><b>{LANGUAGE_LABEL_TEXT}</b>:</td>
+<td style="background-color:#D8D8D8; vertical-align:top;"><textarea class="bbcode" name="text" style="width:300px; height:200px;">{TEXT}</textarea></td>
+</tr></table>

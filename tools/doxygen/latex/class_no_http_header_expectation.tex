@@ -1,0 +1,99 @@
+\hypertarget{class_no_http_header_expectation}{
+\section{NoHttpHeaderExpectation Class Reference}
+\label{class_no_http_header_expectation}\index{NoHttpHeaderExpectation@{NoHttpHeaderExpectation}}
+}
+Inheritance diagram for NoHttpHeaderExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_no_http_header_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_no_http_header_expectation_a1ec58432436426be602808bded11d776}{NoHttpHeaderExpectation} (\$unwanted, \$message= '\%s')
+\item 
+\hyperlink{class_no_http_header_expectation_a3eeb88677fbcc6f33f719aec17d93013}{test} (\$compare)
+\item 
+\hyperlink{class_no_http_header_expectation_a5fcd01471616efc71a8e28d2e8380ccb}{testMessage} (\$compare)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_no_http_header_expectation_a422a811b2163bf6965a9ae82fd2a5bd6}{
+{\bfseries \$\_\-expected\_\-header}}
+\label{class_no_http_header_expectation_a422a811b2163bf6965a9ae82fd2a5bd6}
+
+\item 
+\hypertarget{class_no_http_header_expectation_a13a8f90b97d0bddf87320eb39ee802bf}{
+{\bfseries \$\_\-expected\_\-value}}
+\label{class_no_http_header_expectation_a13a8f90b97d0bddf87320eb39ee802bf}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_no_http_header_expectation_a1ec58432436426be602808bded11d776}{
+\index{NoHttpHeaderExpectation@{NoHttpHeaderExpectation}!NoHttpHeaderExpectation@{NoHttpHeaderExpectation}}
+\index{NoHttpHeaderExpectation@{NoHttpHeaderExpectation}!NoHttpHeaderExpectation@{NoHttpHeaderExpectation}}
+\subsubsection[{NoHttpHeaderExpectation}]{\setlength{\rightskip}{0pt plus 5cm}NoHttpHeaderExpectation::NoHttpHeaderExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ unwanted, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_http_header_expectation_a1ec58432436426be602808bded11d776}
+Sets the field and value to compare against. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$unwanted} & Case insenstive trimmed header name. \\
+\hline
+string & {\em \$message} & Optiona message override. Can use s as a placeholder for the original message. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_no_http_header_expectation_a3eeb88677fbcc6f33f719aec17d93013}{
+\index{NoHttpHeaderExpectation@{NoHttpHeaderExpectation}!test@{test}}
+\index{test@{test}!NoHttpHeaderExpectation@{NoHttpHeaderExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}NoHttpHeaderExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_http_header_expectation_a3eeb88677fbcc6f33f719aec17d93013}
+Tests that the unwanted header is not found. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Raw header block to search. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if header present.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_http_header_expectation_a22d6de67c863d5f596a90b64b4989637}{HttpHeaderExpectation}.
+
+\hypertarget{class_no_http_header_expectation_a5fcd01471616efc71a8e28d2e8380ccb}{
+\index{NoHttpHeaderExpectation@{NoHttpHeaderExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!NoHttpHeaderExpectation@{NoHttpHeaderExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}NoHttpHeaderExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_no_http_header_expectation_a5fcd01471616efc71a8e28d2e8380ccb}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Raw header block to search. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_http_header_expectation_ac564586fb079247c33a04e6ead31f8cb}{HttpHeaderExpectation}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/web\_\-tester.php\end{DoxyCompactItemize}

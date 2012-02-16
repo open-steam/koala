@@ -1,0 +1,76 @@
+<!-- BEGIN get -->?object={OBJECT_ID}&access={ACCESS}&doctype={DOCTYPE}<!-- END get -->
+<!-- BEGIN get_top -->?object={OBJECT_ID}&workroom={WORKROOM_ID}&environment={ENVIRONMENT_ID}&access={ACCESS}&doctype={DOCTYPE}<!-- END get_top -->
+<!-- BEGIN get_top_sequence -->&seq_first={SEQUENCE_FIRST}&seq_prev={SEQUENCE_PREV}&seq_next={SEQUENCE_NEXT}&seq_last={SEQUENCE_LAST}<!-- END get_top_sequence -->
+
+<html>
+<head>
+  <title>{SERVER_NAME}</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="{DOC_ROOT}/favicon.ico">
+  <link rel="apple-touch-icon" href="{DOC_ROOT}/favicon.ico" />
+  
+	<script type="text/javascript" src="{DOC_ROOT}/javascript/cookie.js"></script>
+
+  <script type="text/javascript">
+
+  var defaultCol = "250";
+  var frameCol = defaultCol;
+
+  function treeFrameResized()
+  {
+      var frameCols = top.document.getElementById("treeframe").width;
+      setCookie("treeFrame_width", frameCols, "never");
+  }
+
+  function setFrameWidth()
+  {
+      frameCol = defaultCol;
+
+      if (!getCookie("treeFrame_width"))
+          setCookie("treeFrame_width", defaultCol, "never");
+
+      if( getCookie("treeFrame_width") )
+          frameCol = getCookie('treeFrame_width');
+  }
+
+  </script>
+
+</head>
+
+  <script type="text/javascript">
+
+      setFrameWidth();
+
+      document.writeln('<frameset id="frameset1" rows="60,*" frameborder="1" framespacing="1" border="4">');
+      document.writeln('<frame src="{DOC_ROOT}/topframe.php{GET_TOP}" name="topframe" scrolling="no" noresize marginwidth="0" marginheight="0">');
+
+  <!-- BEGIN tree_on -->
+
+      document.writeln('<frameset id="frameset2" cols="'+ frameCol +',*" frameborder="1" framespacing="1" border="4">');
+
+  </script>
+
+      <frame marginwidth="0" scrolling="auto" name="treeframe" src="{DOC_ROOT}/treeframe.php{GET_TREE}" onResize="treeFrameResized();window.parent.frames[0].document.location.reload();">
+      <frame scrolling="auto" id="contentframe" name="contentframe" src="{DOC_ROOT}/{CONTENT_URL}{GET_CONTENT}">
+    </frameset>
+
+  <!-- END tree_on -->
+
+  <!-- BEGIN tree_off -->
+
+  </script>
+
+    <frame scrolling="auto" id="contentframe" name="contentframe" src="{DOC_ROOT}/{CONTENT_URL}{GET_CONTENT}">
+
+  <!-- END tree_off -->
+
+  </frameset>
+
+  <script type="text/javascript">
+  <!--
+    if(!window.name || window.name == "")
+      window.name = "bid_main_window";
+  //-->
+  </script>
+
+</html>

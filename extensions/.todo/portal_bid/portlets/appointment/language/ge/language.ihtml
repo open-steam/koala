@@ -1,0 +1,53 @@
+﻿<!-- *********************************************************** -->
+<!-- ** appointment_edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN appointment_edit_title -->&raquo;{PORTLET_NAME}&laquo; - Termin bearbeiten<!-- END appointment_edit_title -->
+<!-- BEGIN appointment_edit_feedback_headline_null -->Titel darf nicht leer sein<!-- END appointment_edit_feedback_headline_null -->
+<!-- BEGIN appointment_edit_feedback_startdate_wrong -->Startdatum ist nicht korrekt<!-- END appointment_edit_feedback_startdate_wrong -->
+<!-- BEGIN appointment_edit_feedback_enddate_wrong -->Enddattum ist nicht korrekt<!-- END appointment_edit_feedback_enddate_wrong -->
+<!-- BEGIN appointment_edit_feedback_time_wrong -->Uhrzeit ist nicht korrekt<!-- END appointment_edit_feedback_time_wrong -->
+<!-- BEGIN appointment_edit_topic -->Titel<!-- END appointment_edit_topic -->
+<!-- BEGIN appointment_edit_location -->Ort<!-- END appointment_edit_location -->
+<!-- BEGIN appointment_edit_startdate -->Startdatum<!-- END appointment_edit_startdate -->
+<!-- BEGIN appointment_edit_enddate -->Enddatum<!-- END appointment_edit_enddate -->
+<!-- BEGIN appointment_edit_time -->Uhrzeit<!-- END appointment_edit_time -->
+<!-- BEGIN appointment_edit_time_2 -->Uhr<!-- END appointment_edit_time_2 -->
+<!-- BEGIN appointment_edit_description -->Beschreibung<!-- END appointment_edit_description -->
+<!-- BEGIN appointment_edit_linkurl -->Link-Adresse<!-- END appointment_edit_linkurl -->
+<!-- BEGIN appointment_edit_ubb -->* besondere Formatierung m&ouml;glich<!-- END appointment_edit_ubb -->
+<!-- BEGIN appointment_edit_button_ok -->Speichern<!-- END appointment_edit_button_ok -->
+<!-- BEGIN appointment_edit_button_cancel -->Beenden<!-- END appointment_edit_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** appointment_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN appointment_sort_title -->&raquo;{PORTLET_NAME}&laquo; - Termine sortieren<!-- END appointment_sort_title -->
+<!-- BEGIN appointment_sort_button_ok -->Speichern<!-- END appointment_sort_button_ok -->
+<!-- BEGIN appointment_sort_button_cancel -->Beenden<!-- END appointment_sort_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->&raquo;{PORTLET_NAME}&laquo; bearbeiten<!-- END edit_title -->
+<!-- BEGIN edit_script_appointment_confirm_1 -->Soll der Termin "<!-- END edit_script_appointment_confirm_1 -->
+<!-- BEGIN edit_script_appointment_confirm_2 -->" wirklich unwiderruflich gelöscht werden?<!-- END edit_script_appointment_confirm_2 -->
+<!-- BEGIN edit_no_appointment -->Keine Termine vorhanden<!-- END edit_no_appointment -->
+<!-- BEGIN edit_alt_edit_appointment -->Termin bearbeiten<!-- END edit_alt_edit_appointment -->
+<!-- BEGIN edit_alt_delete_appointment -->Termin l&ouml;schen<!-- END edit_alt_delete_appointment -->
+<!-- BEGIN edit_button_new -->Neuen Termin einf&uuml;gen<!-- END edit_button_new -->
+<!-- BEGIN edit_button_sort -->Termine umsortieren<!-- END edit_button_sort -->
+<!-- BEGIN edit_button_cancel -->Beenden<!-- END edit_button_cancel -->
+<!-- BEGIN edit_app_earliest_first -->frühere Termine zuerst anzeigen<!-- END edit_app_earliest_first -->
+<!-- BEGIN edit_app_latest_first -->spätere Termine zuerst anzeigen<!-- END edit_app_latest_first -->
+
+
+<!-- *********************************************************** -->
+<!-- ** view.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN view_time -->Uhr<!-- END view_time -->

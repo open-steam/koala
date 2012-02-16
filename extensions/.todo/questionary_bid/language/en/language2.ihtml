@@ -1,0 +1,235 @@
+<!-- *********************************************************** -->
+<!-- ** insert_input_selectbox.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_selectbox_title -->Insert questiontype selectbox<!-- END insert_input_selectbox_title -->
+<!-- BEGIN insert_input_selectbox_error_no_number_width -->Fieldwidth has to be a number.<!-- END insert_input_selectbox_error_no_number_width -->
+<!-- BEGIN insert_input_selectbox_error_no_number_rows -->View in columns has to be a number.<!-- END insert_input_selectbox_error_no_number_rows -->
+<!-- BEGIN insert_input_selectbox_error_no_options -->There has to be at least one answer.<!-- END insert_input_selectbox_error_no_options -->
+<!-- BEGIN insert_input_selectbox_script_confirm_1 -->Do you really want to delete the answer"<!-- END insert_input_selectbox_script_confirm_1 -->
+<!-- BEGIN insert_input_selectbox_script_confirm_2 -->"?<!-- END insert_input_selectbox_script_confirm_2 -->
+<!-- BEGIN insert_input_selectbox_label_question -->Question<!-- END insert_input_selectbox_label_question -->
+<!-- BEGIN insert_input_selectbox_label_answer -->Answer<!-- END insert_input_selectbox_label_answer -->
+<!-- BEGIN insert_input_selectbox_label_question_pos -->Position of the question<!-- END insert_input_selectbox_label_question_pos -->
+<!-- BEGIN insert_input_selectbox_label_question_pos_left -->Left<!-- END insert_input_selectbox_label_question_pos_left -->
+<!-- BEGIN insert_input_selectbox_label_question_pos_top -->Top<!-- END insert_input_selectbox_label_question_pos_top -->
+<!-- BEGIN insert_input_selectbox_label_question_text -->Text<!-- END insert_input_selectbox_label_question_text -->
+<!-- BEGIN insert_input_selectbox_label_width -->Fieldwidth<!-- END insert_input_selectbox_label_width -->
+<!-- BEGIN insert_input_selectbox_label_pixel -->pixel<!-- END insert_input_selectbox_label_pixel -->
+<!-- BEGIN insert_input_selectbox_label_rows -->View in<!-- END insert_input_selectbox_label_rows -->
+<!-- BEGIN insert_input_selectbox_label_rows2 -->rows<!-- END insert_input_selectbox_label_rows2 -->
+<!-- BEGIN insert_input_selectbox_label_must -->Mandatory<!-- END insert_input_selectbox_label_must -->
+<!-- BEGIN insert_input_selectbox_label_output -->Show in list<!-- END insert_input_selectbox_label_output -->
+<!-- BEGIN insert_input_selectbox_label_no_option -->No answers available.<!-- END insert_input_selectbox_label_no_option -->
+<!-- BEGIN insert_input_selectbox_label_topic_1 -->Answers<!-- END insert_input_selectbox_label_topic_1 -->
+<!-- BEGIN insert_input_selectbox_label_topic_2 -->Preselection<!-- END insert_input_selectbox_label_topic_2 -->
+<!-- BEGIN insert_input_selectbox_label_topic_3 -->Action<!-- END insert_input_selectbox_label_topic_3 -->
+<!-- BEGIN insert_input_selectbox_label_option -->New answer<!-- END insert_input_selectbox_label_option -->
+<!-- BEGIN insert_input_selectbox_alt_edit -->Edit answer<!-- END insert_input_selectbox_alt_edit -->
+<!-- BEGIN insert_input_selectbox_alt_delete -->Delete answer<!-- END insert_input_selectbox_alt_delete -->
+<!-- BEGIN insert_input_selectbox_button_insert -->Insert<!-- END insert_input_selectbox_button_insert -->
+<!-- BEGIN insert_input_selectbox_button_sort -->Sort<!-- END insert_input_selectbox_button_sort -->
+<!-- BEGIN insert_input_selectbox_button_save -->Save<!-- END insert_input_selectbox_button_save -->
+<!-- BEGIN insert_input_selectbox_button_cancel -->Cancel<!-- END insert_input_selectbox_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_selectbox_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_selectbox_sort_title -->Sort selectbox options<!-- END insert_input_selectbox_sort_title -->
+<!-- BEGIN insert_input_selectbox_sort_button_save -->Apply<!-- END insert_input_selectbox_sort_button_save -->
+<!-- BEGIN insert_input_selectbox_sort_button_cancel -->Cancel<!-- END insert_input_selectbox_sort_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_text.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_text_title -->Insert questiontype input_text<!-- END insert_input_text_title -->
+<!-- BEGIN insert_input_text_error_no_number_width -->Fieldwidth has to be a number.<!-- END insert_input_text_error_no_number_width -->
+<!-- BEGIN insert_input_text_error_no_number_maxlength -->Max. inputlength has to be a number.<!-- END insert_input_text_error_no_number_maxlength -->
+<!-- BEGIN insert_input_text_error_no_number_rows -->Number of rows has to be a number.<!-- END insert_input_text_error_no_number_rows -->
+<!-- BEGIN insert_input_text_error_bigger_zero_rows -->Number of rows has to be bigger than 0.<!-- END insert_input_text_error_bigger_zero_rows -->
+<!-- BEGIN insert_input_text_label_question -->Question<!-- END insert_input_text_label_question -->
+<!-- BEGIN insert_input_text_label_question_pos -->Position of the question<!-- END insert_input_text_label_question_pos -->
+<!-- BEGIN insert_input_text_label_question_pos_left -->Left<!-- END insert_input_text_label_question_pos_left -->
+<!-- BEGIN insert_input_text_label_question_pos_top -->Top<!-- END insert_input_text_label_question_pos_top -->
+<!-- BEGIN insert_input_text_label_question_text -->Text<!-- END insert_input_text_label_question_text -->
+<!-- BEGIN insert_input_text_label_answer -->Answer<!-- END insert_input_text_label_answer -->
+<!-- BEGIN insert_input_text_label_answer_value -->Defaultvalue<!-- END insert_input_text_label_answer_value -->
+<!-- BEGIN insert_input_text_label_answer_rows -->Fieldheight<!-- END insert_input_text_label_answer_rows -->
+<!-- BEGIN insert_input_text_label_answer_rows2 -->rows<!-- END insert_input_text_label_answer_rows2 -->
+<!-- BEGIN insert_input_text_label_answer_chars -->characters<!-- END insert_input_text_label_answer_chars -->
+<!-- BEGIN insert_input_text_label_answer_pixel -->pixel<!-- END insert_input_text_label_answer_pixel -->
+<!-- BEGIN insert_input_text_label_answer_width -->Fieldwidth<!-- END insert_input_text_label_answer_width -->
+<!-- BEGIN insert_input_text_label_answer_maxlength -->max. inputlength<!-- END insert_input_text_label_answer_maxlength -->
+<!-- BEGIN insert_input_text_label_must -->Mandatory<!-- END insert_input_text_label_must -->
+<!-- BEGIN insert_input_text_label_output -->Show in list<!-- END insert_input_text_label_output -->
+<!-- BEGIN insert_input_text_button_insert -->Insert<!-- END insert_input_text_button_insert -->
+<!-- BEGIN insert_input_text_button_edit -->Save<!-- END insert_input_text_button_edit -->
+<!-- BEGIN insert_input_text_button_cancel -->Cancel<!-- END insert_input_text_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** new.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN new_title -->Establish questionary<!-- END new_title -->
+<!-- BEGIN new_label_title -->Title<!-- END new_label_title -->
+<!-- BEGIN new_label_description -->Beschreibung<!-- END new_label_description -->
+<!-- BEGIN new_error_no_title -->Please enter title.<!-- END new_error_no_title -->
+<!-- BEGIN new_button_label -->Establish<!-- END new_button_label -->
+<!-- BEGIN new_button_cancel_label -->Cancel<!-- END new_button_cancel_label -->
+
+
+<!-- *********************************************************** -->
+<!-- ** result.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN result_title -->Results<!-- END result_title -->
+<!-- BEGIN result_header_creator -->Creator<!-- END result_header_creator -->
+<!-- BEGIN result_header_creation_time -->Creation time<!-- END result_header_creation_time -->
+<!-- BEGIN result_label_results_none -->No entries available.<!-- END result_label_results_none -->
+<!-- BEGIN result_label_sort_ascending -->Sort ascending<!-- END result_label_sort_ascending -->
+<!-- BEGIN result_label_sort_descending -->Sort descending<!-- END result_label_sort_descending -->
+<!-- BEGIN result_label_details -->Details<!-- END result_label_details -->
+<!-- BEGIN result_label_export -->Export as .csv formatted file<!-- END result_label_export -->
+<!-- BEGIN result_label_pages -->Page<!-- END result_label_pages -->
+<!-- BEGIN result_label_edit_answer -->Edit<!-- END result_label_edit_answer -->
+<!-- BEGIN result_label_delete_answer -->Delete<!-- END result_label_delete_answer -->
+<!-- BEGIN result_error_not_allowed -->The results of the questionary "{QUESTIONARY_NAME}" cannot be displayed. Either the results are not public or you have no read access to the questionary.<!-- END result_error_not_allowed -->
+<!-- BEGIN result_script_confirm -->Do you really want to delete this result?<!-- END result_script_confirm -->
+<!-- BEGIN result_label_break_result -->Results per page<!-- END result_label_break_result -->
+<!-- BEGIN result_label_all -->All<!-- END result_label_all -->
+<!-- BEGIN result_owner -->Owner<!-- END result_owner -->
+<!-- BEGIN result_last_change -->Last Change at<!-- END result_last_change -->
+
+
+<!-- *********************************************************** -->
+<!-- ** result_details.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN result_details_title -->{QUESTIONARY_NAME} - Answer details<!-- END result_details_title -->
+<!-- BEGIN result_details_label_creator -->Creator<!-- END result_details_label_creator -->
+<!-- BEGIN result_details_label_creation_time -->Creation time<!-- END result_details_label_creation_time -->
+<!-- BEGIN result_details_label_question -->Question<!-- END result_details_label_question -->
+<!-- BEGIN result_details_label_answer -->Answer<!-- END result_details_label_answer -->
+<!-- BEGIN result_details_error_not_allowed -->The results of the questionary "{QUESTIONARY_NAME}" cannot be displayed. Either the results are not public or you have no read access to the questionary.<!-- END result_details_error_not_allowed -->
+
+
+<!-- *********************************************************** -->
+<!-- ** result_export.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN result_export_questionary -->Questionary<!-- END result_export_questionary -->
+<!-- BEGIN result_export_obj_id -->Object ID<!-- END result_export_obj_id -->
+<!-- BEGIN result_export_date -->Export date<!-- END result_export_date -->
+<!-- BEGIN result_export_fillout -->Fill out<!-- END result_export_fillout -->
+<!-- BEGIN result_export_fillout_1 -->one time<!-- END result_export_fillout_1 -->
+<!-- BEGIN result_export_fillout_n -->multiple<!-- END result_export_fillout_n -->
+<!-- BEGIN result_export_question -->Question<!-- END result_export_question -->
+<!-- BEGIN result_export_label_creation_time -->Creation time<!-- END result_export_label_creation_time -->
+<!-- BEGIN result_export_label_creator -->Creator<!-- END result_export_label_creator -->
+<!-- BEGIN result_export_label_description -->General Description<!-- END result_export_label_description -->
+<!-- BEGIN result_export_label_edit_answer -->Creators can edit all answers<!-- END result_export_label_edit_answer -->
+<!-- BEGIN result_export_label_edit_own_answer -->Editors can edit their own answers<!-- END result_export_label_edit_own_answer -->
+<!-- BEGIN result_export_label_edit_time -->Edit-time<!-- END result_export_label_edit_time -->
+<!-- BEGIN result_export_label_yes -->Yes<!-- END result_export_label_yes -->
+<!-- BEGIN result_export_label_no -->No<!-- END result_export_label_no -->
+
+
+<!-- *********************************************************** -->
+<!-- ** rights.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN rights_title -->Access Rights<!-- END rights_title -->
+<!-- BEGIN rights_publish_1 -->Private<!-- END rights_publish_1 -->
+<!-- BEGIN rights_publish_2 -->Public<!-- END rights_publish_2 -->
+<!-- BEGIN rights_publish_3 -->User defined<!-- END rights_publish_3 -->
+<!-- BEGIN rights_groups_none -->You are not a member of any group<!-- END rights_groups_none -->
+<!-- BEGIN rights_favourites_none -->You have not set any favourites<!-- END rights_favourites_none -->
+<!-- BEGIN rights_favourites_double -->Like in your groups<!-- END rights_favourites_double -->
+<!-- BEGIN rights_fillout -->Fill out<!-- END rights_fillout -->
+<!-- BEGIN rights_edit -->Edit<!-- END rights_edit -->
+<!-- BEGIN rights_evaluate -->Evaluate<!-- END rights_evaluate -->
+<!-- BEGIN rights_owner -->Owner<!-- END rights_owner -->
+<!-- BEGIN rights_groups -->Your groups<!-- END rights_groups -->
+<!-- BEGIN rights_group -->Group<!-- END rights_group -->
+<!-- BEGIN rights_user -->User<!-- END rights_user -->
+<!-- BEGIN rights_favourites -->Your favourites<!-- END rights_favourites -->
+<!-- BEGIN rights_button_save -->Save<!-- END rights_button_save -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_grading.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_grading_title -->Insert questiontype grading<!-- END insert_input_grading_title -->
+<!-- BEGIN insert_input_grading_error_no_text -->Description must not be empty.<!-- END insert_input_grading_error_no_text -->
+<!-- BEGIN insert_input_grading_error_no_options -->There has to be at least one element.<!-- END insert_input_grading_error_no_options -->
+<!-- BEGIN insert_input_grading_button_insert -->Insert<!-- END insert_input_grading_button_insert -->
+<!-- BEGIN insert_input_grading_button_sort -->Sort<!-- END insert_input_grading_button_sort -->
+<!-- BEGIN insert_input_grading_button_save -->Save<!-- END insert_input_grading_button_save -->
+<!-- BEGIN insert_input_grading_button_cancel -->Cancel<!-- END insert_input_grading_button_cancel -->
+<!-- BEGIN insert_input_grading_script_confirm_1 -->Do you really want to delete the element "<!-- END insert_input_grading_script_confirm_1 -->
+<!-- BEGIN insert_input_grading_script_confirm_2 -->"?<!-- END insert_input_grading_script_confirm_2 -->
+<!-- BEGIN insert_input_grading_label_general -->General<!-- END insert_input_grading_label_general -->
+<!-- BEGIN insert_input_grading_label_question -->Elements<!-- END insert_input_grading_label_question -->
+<!-- BEGIN insert_input_grading_label_description_text -->Description<!-- END insert_input_grading_label_description_text -->
+<!-- BEGIN insert_input_grading_label_question_text -->Text<!-- END insert_input_grading_label_question_text -->
+<!-- BEGIN insert_input_grading_label_action -->Action<!-- END insert_input_grading_label_action -->
+<!-- BEGIN insert_input_grading_alt_edit -->Edit element<!-- END insert_input_grading_alt_edit -->
+<!-- BEGIN insert_input_grading_alt_delete -->Delete element<!-- END insert_input_grading_alt_delete -->
+<!-- BEGIN insert_input_grading_label_no_option -->No elements available<!-- END insert_input_grading_label_no_option -->
+<!-- BEGIN insert_input_grading_label_must -->Mandatory<!-- END insert_input_grading_label_must -->
+<!-- BEGIN insert_input_grading_label_output -->Show in list<!-- END insert_input_grading_label_output -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_grading_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_grading_sort_title -->Sort grading<!-- END insert_input_grading_sort_title -->
+<!-- BEGIN insert_input_grading_sort_button_save -->Apply<!-- END insert_input_grading_sort_button_save -->
+<!-- BEGIN insert_input_grading_sort_button_cancel -->Cancel<!-- END insert_input_grading_sort_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_tendency.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_tendency_title -->Insert questiontype tendency<!-- END insert_input_tendency_title -->
+<!-- BEGIN insert_input_tendency_error_no_text -->Description must not be empty.<!-- END insert_input_tendency_error_no_text -->
+<!-- BEGIN insert_input_tendency_error_no_options -->There has to be at least one tendency element.<!-- END insert_input_tendency_error_no_options -->
+<!-- BEGIN insert_input_tendency_error_no_number_steps -->Number of tendency steps has to be between 2 and 20.<!-- END insert_input_tendency_error_no_number_steps -->
+<!-- BEGIN insert_input_tendency_error_no_text_tendency -->Both tendency element fields has to be filled out.<!-- END insert_input_tendency_error_no_text_tendency -->
+<!-- BEGIN insert_input_tendency_button_insert -->Insert<!-- END insert_input_tendency_button_insert -->
+<!-- BEGIN insert_input_tendency_button_sort -->Sort<!-- END insert_input_tendency_button_sort -->
+<!-- BEGIN insert_input_tendency_button_save -->Save<!-- END insert_input_tendency_button_save -->
+<!-- BEGIN insert_input_tendency_button_cancel -->Cancel<!-- END insert_input_tendency_button_cancel -->
+<!-- BEGIN insert_input_tendency_script_confirm_1 -->Do you really want to delete the tendency element "<!-- END insert_input_tendency_script_confirm_1 -->
+<!-- BEGIN insert_input_tendency_script_confirm_2 -->"?<!-- END insert_input_tendency_script_confirm_2 -->
+<!-- BEGIN insert_input_tendency_label_general -->General<!-- END insert_input_tendency_label_general -->
+<!-- BEGIN insert_input_tendency_label_description_text -->Description<!-- END insert_input_tendency_label_description_text -->
+<!-- BEGIN insert_input_tendency_label_tendency_steps -->Scale<!-- END insert_input_tendency_label_tendency_steps -->
+<!-- BEGIN insert_input_tendency_label_steps -->steps<!-- END insert_input_tendency_label_steps -->
+<!-- BEGIN insert_input_tendency_label_must -->Mandatory<!-- END insert_input_tendency_label_must -->
+<!-- BEGIN insert_input_tendency_label_output -->Show in list<!-- END insert_input_tendency_label_output -->
+<!-- BEGIN insert_input_tendency_label_tendency_elements -->Elements<!-- END insert_input_tendency_label_tendency_elements -->
+<!-- BEGIN insert_input_tendency_label_tendency_element -->Tendency element<!-- END insert_input_tendency_label_tendency_element -->
+<!-- BEGIN insert_input_tendency_label_tendency_to -->to<!-- END insert_input_tendency_label_tendency_to -->
+<!-- BEGIN insert_input_tendency_label_element -->Elements<!-- END insert_input_tendency_label_element -->
+<!-- BEGIN insert_input_tendency_label_action -->Action<!-- END insert_input_tendency_label_action -->
+<!-- BEGIN insert_input_tendency_alt_edit -->Edit element<!-- END insert_input_tendency_alt_edit -->
+<!-- BEGIN insert_input_tendency_alt_delete -->Delete element<!-- END insert_input_tendency_alt_delete -->
+<!-- BEGIN insert_input_tendency_label_no_option -->No tendency elements avaiable<!-- END insert_input_tendency_label_no_option -->
+
+
+<!-- *********************************************************** -->
+<!-- ** insert_input_tendency_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN insert_input_tendency_sort_title -->Sort tendency elements<!-- END insert_input_tendency_sort_title -->
+<!-- BEGIN insert_input_tendency_sort_button_save -->Apply<!-- END insert_input_tendency_sort_button_save -->
+<!-- BEGIN insert_input_tendency_sort_button_cancel -->Cancel<!-- END insert_input_tendency_sort_button_cancel -->

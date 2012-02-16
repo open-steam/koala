@@ -1,0 +1,116 @@
+﻿<html>
+<head>
+  <title>Classer les éléments de tendance</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/rights.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/dialog.css">
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/focus.js"></script>
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/select.js"></script>
+  <script language="javascript" type="text/javascript" src="http://bid:8080//javascript/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+  <script language="javascript" type="text/javascript">
+    tinyMCE.init({
+            mode : "textareas",
+            theme : "advanced",
+            plugins : "bbcode",
+            language: "de",
+            editor_selector : "bbcode",
+            theme_advanced_buttons1 : "bold,italic,underline,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo",
+            theme_advanced_buttons2 : "",
+            theme_advanced_buttons3 : "",
+            entity_encoding : "raw",
+            remove_linebreaks : false
+            theme_advanced_toolbar_location : "top"
+            theme_advanced_toolbar_align : "left"
+    });
+  </script>
+</head>
+
+
+<body bgcolor="#DEDEDE" topmargin="7" leftmargin="7" onLoad="setFocus();">
+
+
+<script language="Javascript1.2">
+function form_submit(mission, url)
+{
+  if(mission == "close")
+    window.close();
+  else
+  {
+  document.getElementById("mission").value = mission;
+    document.getElementById("form_blueprint").action = url;
+    document.getElementById("form_blueprint").submit();
+  }
+}
+</script>
+
+
+<form method="POST" name="form_blueprint" id="form_blueprint" action="" enctype="multipart/form-data">
+<input type="hidden" name="mission" id="mission" value="">
+<input type="hidden" name="questionary" id="questionary" value="{QUESTIONARY_ID}">
+
+<!-- Rahmen oben -->
+<h1 class="titlepane">Classer les éléments de tendance</h1>
+
+<!-- Mittelteil und Content -->
+<div class="dialogpane" align="center">
+
+<!-- BEGIN button_save -->Sauvegarder<!-- END button_save -->
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+
+<div><script language="JavaScript1.2">
+function update_input(list)
+{
+  var order = "";
+  for(var j = 0; j < list.length; j++) {
+    order = order + list.options[j].value + " ";
+  }
+
+  document.getElementById("list").value = order;
+}
+
+
+</script></div>
+
+<input type="hidden" name="question_id" value="{QUESTION_ID}">
+<input type="hidden" name="tendency_steps" value="{TENDENCY_STEPS}">
+<input type="hidden" name="description" value="{DESCRIPTION}">
+
+<!-- BEGIN must --><input type="hidden" name="must" value="1"> <!-- END must -->
+<!-- BEGIN output --><input type="hidden" name="output" value="1"><!-- END output -->
+<!-- BEGIN tendency_a --><input type="hidden" name="tendency_element_a_{TENDENCY_ID}" value="{TENDENCY_NAME_A}"><!-- END tendency_a -->
+<!-- BEGIN tendency_b --><input type="hidden" name="tendency_element_b_{TENDENCY_ID}" value="{TENDENCY_NAME_B}"><!-- END tendency_b -->
+<input type="hidden" name="option" value="">
+
+<input type="hidden" name="list" id="list" value="">
+
+<table border="0">
+<tr>
+  <td><select size="15" id="ordertendency" name="ordertendency" style="width: 300px;">
+    <!-- BEGIN select_row --><option value="{TENDENCY_ID}">{TENDENCY_NAME}</option><!-- END select_row -->
+    </select>
+  </td>
+
+  <td>
+    <img src="./icons/arrow_up.gif"  onclick='javascript:selectUp(document.getElementById("ordertendency"), document.getElementById("ordertendency").selectedIndex);update_input(document.getElementById("ordertendency"));'><br>
+    <img src="./icons/arrow_down.gif" onclick='javascript:selectDown(document.getElementById("ordertendency"), document.getElementById("ordertendency").selectedIndex);update_input(document.getElementById("ordertendency"));'><br>
+  </td>
+</tr></table>
+
+
+</div>
+
+<table width="100%" height="5" border="0" cellpadding="0" cellspacing="0" align="right">
+  <tr>
+    <td align="center" colspan="3">
+    <!-- BEGIN button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_MISSION}', '{BUTTON_URL}'); return false;">Exécuter</button>
+    <!-- END button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_CANCEL_MISSION}', '{BUTTON_CANCEL_URL}'); return false;">Cancel</button>
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

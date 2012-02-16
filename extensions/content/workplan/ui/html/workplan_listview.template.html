@@ -1,0 +1,260 @@
+<!-- BEGIN BLOCK_CONFIRMATION -->
+<p id="confirmation" style="display:none">{CONFIRMATION_TEXT}</p>
+<!-- END BLOCK_CONFIRMATION -->
+
+<!-- BEGIN BLOCK_WORKPLAN_LIST_ACTIONBAR -->
+<div class="actionBar">
+	<a class="button" onclick="newSnapshot({WORKPLAN_ID})">{LABEL_NEW_SNAPSHOT}</a>
+	<a class="button" onclick="hideConfirmation(); if (!(document.getElementById('slidedown_task').style.display == 'none')) Effect.SlideUp('slidedown_task'); Effect.SlideDown('slidedown_milestone'); return false;">{LABEL_NEW_MILESTONE}</a>
+	<a class="button" onclick="hideConfirmation(); if (!(document.getElementById('slidedown_milestone').style.display == 'none')) Effect.SlideUp('slidedown_milestone'); Effect.SlideDown('slidedown_task'); return false;">{LABEL_NEW_TASK}</a>
+</div>
+<!-- END BLOCK_WORKPLAN_LIST_ACTIONBAR -->
+
+<!-- BEGIN BLOCK_WORKPLAN_LIST -->
+<div id='list'>
+	<table class="grid" cellspacing="0" cellpadding="2" width="100%">
+		<tr>
+			<th></th>
+			<th>{WORKPLAN_LIST_ELEMENT_NAME}</th>
+			<th>{WORKPLAN_LIST_ELEMENT_START}</th>
+			<th>{WORKPLAN_LIST_ELEMENT_END}</th>
+			<th>{WORKPLAN_LIST_ELEMENT_DURATION}</th>
+			<th>{WORKPLAN_LIST_ELEMENT_DEPENDS}</th>
+			<th>{WORKPLAN_LIST_ELEMENT_USERS}</th>
+			<th></th>
+		</tr>
+<!-- BEGIN BLOCK_WORKPLAN_LIST_ELEMENT -->
+		<tr>
+			<td valign="top">{WORKPLAN_LIST_ELEMENT_NUMBER}</td>
+			<td valign="top">{WORKPLAN_LIST_ELEMENT_NAME_VALUE}</td>
+			<td valign="top">{WORKPLAN_LIST_ELEMENT_START_VALUE}</td>
+			<td valign="top">{WORKPLAN_LIST_ELEMENT_END_VALUE}</td>
+			<td valign="top">{WORKPLAN_LIST_ELEMENT_DURATION_VALUE}</td>
+			<td valign="top">{WORKPLAN_LIST_ELEMENT_DEPENDS_VALUE}</td>
+			<td valign="top">{WORKPLAN_LIST_ELEMENT_USERS_VALUE}</td>
+			<td valign="top">
+				<img name="updatebutton" style="cursor: pointer; cursor: hand; display: {WORKPLAN_RIGHTS};" onclick="updateTask({WORKPLAN_LIST_ELEMENT_MOT}, {WORKPLAN_LIST_ELEMENT_OID}, '{WORKPLAN_LIST_ELEMENT_NAME_VALUE}', '{WORKPLAN_LIST_ELEMENT_START_VALUE}', '{WORKPLAN_LIST_ELEMENT_END_VALUE}', {WORKPLAN_LIST_ELEMENT_DURATION_UPDATE}, {WORKPLAN_LIST_ELEMENT_DEPENDS_UPDATE}, '{WORKPLAN_LIST_ELEMENT_USERS_JSON}')" src="../asset/update.gif" title="{WORKPLAN_LIST_ELEMENT_CHANGE_VALUE}" width="12px" height="12px">
+				<img name="deletebutton" style="cursor: pointer; cursor: hand; display: {WORKPLAN_RIGHTS};" onclick="deleteTask('{WORKPLAN_LIST_ELEMENT_NAME_DEL}', {WORKPLAN_ID}, {WORKPLAN_LIST_ELEMENT_OID}, {WORKPLAN_LIST_ELEMENT_MOT});" src="../asset/delete.gif" title="{WORKPLAN_LIST_ELEMENT_DELETE_VALUE}" width="12px" height="12px">
+			</td>
+		</tr>
+<!-- END BLOCK_WORKPLAN_LIST_ELEMENT -->
+	</table>
+</div>
+<!-- END BLOCK_WORKPLAN_LIST -->
+
+<!-- BEGIN BLOCK_WORKPLAN_LIST_EMPTY -->
+<div id="list">
+	<p align="center">{WORKPLAN_LIST_EMPTY}</p>
+</div>
+<!-- END BLOCK_WORKPLAN_LIST_EMPTY -->
+
+<!-- BEGIN BLOCK_WORKPLAN_UPDATE_DIALOG -->
+<div id="createforms">
+<br>
+<div style="display:none;" id="updateMilestoneTable">
+	<table align="center" class="grid" width="50%" cellpadding="5" cellspacing="0">
+		<tr>
+			<td align="center" colspan="2"><h2>{UPDATE_LABEL}</h2></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_NAME_LABEL}</td>
+			<td><input id="elementname" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_DATE_LABEL}</td>
+			<td><input title="TT.MM.JJJJ" id="elementdate" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_DURATION_LABEL}</td>
+			<td><input id="elementduration" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_DEPENDS_LABEL}</td>
+			<td><select style="width: 100%" id="elementdepends" size="1">
+				<!-- BEGIN BLOCK_WORKPLAN_UPDATE_DEPENDS -->
+				<option value="{DEPENDS_OID}">{DEPENDS_NAME}</option>
+				<!-- END BLOCK_WORKPLAN_UPDATE_DEPENDS -->
+			</select></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_USERS_LABEL}</td>
+			<td><select id="elementusers" style="width: 100%" multiple size="3">
+				<!-- BEGIN BLOCK_WORKPLAN_UPDATE_USER -->
+				<option value="{USER_ID}">{USER_NAME}</option>
+				<!-- END BLOCK_WORKPLAN_UPDATE_USER -->
+			</select></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="buttons" align="center">
+					<a onclick="saveUpdateMilestone({WORKPLAN_UPDATE_ID})">{UPDATE_SUBMIT_LABEL}</a>
+					<a onclick="Effect.Fade('updateMilestoneTable'); return false;">{UPDATE_LABEL_BACK}</a>
+					<input id="milestoneid" type="hidden">
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<div style="display:none;" id="updateTaskTable">
+	<table align="center" class="grid" width="50%" cellpadding="5" cellspacing="0">
+		<tr>
+			<td align="center" colspan="2"><h2>{UPDATE_TASK_LABEL}</h2></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_NAME_LABEL}</td>
+			<td><input id="elementtaskname" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_START_LABEL}</td>
+			<td><input title="TT.MM.JJJJ" id="elementtaskstart" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_END_LABEL}</td>
+			<td><input title="TT.MM.JJJJ" id="elementtaskend" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_DURATION_LABEL}</td>
+			<td><input id="elementtaskduration" type="text" size="40" value=""></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_DEPENDS_LABEL}</td>
+			<td><select style="width: 100%" id="elementtaskdepends" size="1">
+				<!-- BEGIN BLOCK_WORKPLAN_UPDATE_TASK_DEPENDS -->
+				<option value="{DEPENDS_OID}">{DEPENDS_NAME}</option>
+				<!-- END BLOCK_WORKPLAN_UPDATE_TASK_DEPENDS -->
+			</select></td>
+		</tr>
+		<tr>
+			<td class="label">{UPDATE_USERS_LABEL}</td>
+			<td><select id="elementtaskusers" style="width: 100%" multiple size="3">
+				<!-- BEGIN BLOCK_WORKPLAN_UPDATE_TASK_USER -->
+				<option value="{USER_ID}">{USER_NAME}</option>
+				<!-- END BLOCK_WORKPLAN_UPDATE_TASK_USER -->
+			</select></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="buttons" align="center">
+					<a onclick="saveUpdateTask({WORKPLAN_UPDATE_ID})">{UPDATE_SUBMIT_LABEL}</a>
+					<a onclick="Effect.Fade('updateTaskTable'); return false;">{UPDATE_LABEL_BACK}</a>
+					<input id="taskid" type="hidden">
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+<!-- END BLOCK_WORKPLAN_UPDATE_DIALOG -->
+
+<!-- BEGIN BLOCK_WORKPLAN_LIST_FORMULAR -->
+<table width=100%">
+	<tr>
+		<td width="50%">
+			<div id="slidedown_milestone" style="display:none; width:390px; text-align:center;">
+		  		<div>
+		    		<form action="" method="post" name="createmilestone">
+		    			<input type="hidden" id="workplanid" value="{WORKPLAN_ID}">
+						<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+							<tr>
+								<td colspan="2"><h2>{LABEL_NEW_MILESTONE}</h2></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{NAME_LABEL}</td>
+								<td><input id="milestonename" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DATE_LABEL}</td>
+								<td><input title="TT.MM.JJJJ" id="milestonedate" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label" colspan="2"/>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DURATION_LABEL}</td>
+								<td><input id="milestoneduration" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DEPENDS_LABEL}</td>
+								<td><select style="width:100%" id="milestonedepends" size="1">
+									<!-- BEGIN BLOCK_LIST_MILESTONE_DEPENDS -->
+										<option value="{DEPENDS_OID}" >{DEPENDS_NAME}</option>
+									<!-- END BLOCK_LIST_MILESTONE_DEPENDS -->
+								</select></td>
+							</tr>
+							<tr>
+								<td class="label">{USERS_LABEL}</td>
+								<td><select id="milestoneusers" style="width: 100%" multiple size="3">
+									<!-- BEGIN BLOCK_USER_OPTION_MILESTONE -->
+										<option value={USER_ID}>{USER_NAME}</option>
+									<!-- END BLOCK_USER_OPTION_MILESTONE -->
+								</select></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="buttons">
+										<a onclick="newMilestone();" name="new_milestone">{LABEL_ADD}</a>
+										<a onclick="Effect.SlideUp('slidedown_milestone'); return false;">{LABEL_BACK}</a>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</form>
+		  		</div>
+			</div>
+			</td>
+			<td width="50%">
+			<div id="slidedown_task" style="display:none; width:390px; text-align:center;">
+		  		<div>
+		    		<form action="" name="createtask" method="post">
+						<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+							<tr>
+								<td colspan="2"><h2>{LABEL_NEW_TASK}</h2></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{NAME_LABEL}</td>
+								<td><input id="taskname" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{START_LABEL}</td>
+								<td><input title="TT.MM.JJJJ" id="taskstart" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{END_LABEL}</td>
+								<td><input title="TT.MM.JJJJ" id="taskend" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DURATION_LABEL}</td>
+								<td><input id="taskduration" type="text" size="40" value=""></td>
+							</tr>
+							<tr height="30px">
+								<td class="label">{DEPENDS_LABEL}</td>
+								<td><select style="width:100%" id="taskdepends" size="1">
+									<!-- BEGIN BLOCK_LIST_TASK_DEPENDS -->
+										<option value="{DEPENDS_OID}" >{DEPENDS_NAME}</option>
+									<!-- END BLOCK_LIST_TASK_DEPENDS -->
+								</select></td>
+							</tr>
+							<tr>
+								<td class="label">{USERS_LABEL}</td>
+								<td><select id="taskusers" style="width: 100%" multiple size="3">
+									<!-- BEGIN BLOCK_USER_OPTION_TASK -->
+										<option title="{USER_RESSOURCE}" onclick="enterEndDate(1)" value={USER_ID}>{USER_NAME}</option>
+									<!-- END BLOCK_USER_OPTION_TASK -->
+								</select></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="buttons">
+										<a onclick="newTask();" name="new_task">{LABEL_ADD}</a>
+										<a onclick="Effect.SlideUp('slidedown_task'); return false;">{LABEL_BACK}</a>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</form>
+		  		</div>
+			</div>
+		</td>
+	</tr>
+</table>
+</div>
+<!-- END BLOCK_WORKPLAN_LIST_FORMULAR -->

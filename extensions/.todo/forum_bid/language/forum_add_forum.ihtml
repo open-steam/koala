@@ -1,0 +1,25 @@
+<!-- BEGIN error_title --><b>{LANGUAGE_ERROR_TITLE}</b><br><!-- END error_title -->
+<!-- BEGIN no_access --><b>{LANGUAGE_NO_ACCESS}</b><br><!-- END no_access -->
+<!-- BEGIN error --><b>{LANGUAGE_ERROR}</b><br><!-- END error -->
+<!-- BEGIN error_not_logged_in --><b>{LANGUAGE_ERROR_NOT_LOGGED_IN}</b><br><!-- END error_not_logged_in -->
+<!-- BEGIN button_label_save -->
+{LANGUAGE_BUTTON_LABEL_SAVE}
+<!-- END button_label_save -->
+
+{ERROR_FEEDBACK}<br />
+
+<input type="hidden" name="forumobject" value="{FORUM_ID}">
+<input type="hidden" name="login" value="{DO_LOGIN}">
+
+<div class="attribute">
+	<div class="attributeNameRequired">{LANGUAGE_FORM_TITLE}</div>
+	<div class="attributeValue"><input type="text" name="title" value="{FORM_TITLE}" class="text" style="width: 450px" size=56 maxlength=56></div>
+</div>
+<div class="attribute">
+	<div class="attributeName">{LANGUAGE_FORM_SUBTITLE}</div>
+	<div class="attributeValue"><input type="text" name="subtitle" value="{FORM_SUBTITLE}" class="text" style="width: 450px" size=56 maxlength=56></div>
+</div>
+<div class="attribute" style="height:400px">
+	<div class="attributeName">{LANGUAGE_FORM_DESCRIPTION}</div>
+	<div class="attributeValue"><textarea name="description" style="width: 450px; height: 400px">{FORM_DESCRIPTION}</textarea></div>
+</div>

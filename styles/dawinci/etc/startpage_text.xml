@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<startpage>
+	<left>
+		<![CDATA[
+			<h3>DAWINCI</h3>
+			<p>Das Projekt <i>Durchlässigkeit in der Aus- und Weiterbildung in der Chemischen Industrie</i> wird vom <a href="http://www.bmbf.de" target="_blank">BMBF</a> gefördert.</p>
+			<p>Das Ziel des Projekts ist der Aufbau und die Pflege einer Projektinfrastruktur zur organisatorischen, konzeptuellen und technischen Integration von Inhalten, Kompetenzen und neuen Lehr-/Lernformen zur Verbesserung der Durchlässigkeit in der Aus- und Weiterbildung speziell in der chemischen Industrie.</p> 
+			<a href="/partner.php"><img style="float: left;" src="./styles/dawinci/images/info.png"/><br/>Kooperationspartner</a>
+		]]>              
+	</left>
+	<center>
+		<![CDATA[
+			<h3>Umfeld</h3>
+			<p>Im Zentrum der Projektarbeit steht die Entwicklung eines Systems zum Lernportfoliomanagement, das technisch, konzeptuell und inhaltlich sowohl die Anforderungen an die Dokumentation individueller Bildungswege als auch ihre Einbettung in Bildungs- und Ausbildungsstrukturen unterstützt.</p><p>Bei Fragen oder für weitere Informationen schreiben Sie eine Mail an <a href="mailto:info@dawinci-projekt.de">info@dawinci-projekt.de</a></p>
+			<a href="/info.php"><img style="float: left;" src="./styles/dawinci/images/info.png"/><br/>Informationen</a>
+			<!--<h3>ePortfolie und Kompetenzraster</h3>-->
+ 		]]>
+	</center>
+	<right>
+		<![CDATA[
+	       	<h3>Gefördert durch</h3>
+	       	<div align="center">
+	       		<a href="http://www.bmbf.de" target="_blank"><img src="./styles/dawinci/images/bmbf.png"/></a>
+				<a href="http://www.esf.de/" target="_blank"><img src="./styles/dawinci/images/logo__esf__klein.jpg"/></a>	
+			</div>
+			<h3>Systemmeldungen</h3>
+			<p>Es liegen zur Zeit keine Meldungen vor.</p>
+		]]>
+	</right>
+</startpage>

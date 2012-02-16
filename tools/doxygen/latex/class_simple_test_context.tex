@@ -1,0 +1,121 @@
+\hypertarget{class_simple_test_context}{
+\section{SimpleTestContext Class Reference}
+\label{class_simple_test_context}\index{SimpleTestContext@{SimpleTestContext}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_test_context_aeb3f91185b0b4e1895d4891d08b5af00}{clear} ()
+\item 
+\hyperlink{class_simple_test_context_a8ceb3b2b4c27afbeea1957498015f636}{setTest} (\&\$test)
+\item 
+\& \hyperlink{class_simple_test_context_ae92c4b08904579ecde5d440b8e8023cf}{getTest} ()
+\item 
+\hyperlink{class_simple_test_context_a9d8f37526e9d18cc89574ac861e66f3d}{setReporter} (\&\$reporter)
+\item 
+\& \hyperlink{class_simple_test_context_a7d74e323221b6fa095929e46dc2811ac}{getReporter} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\& \hyperlink{class_simple_test_context_a8d245b59718e7818c6850b807643ccbc}{get} (\$resource)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_test_context_a93fb70e507e8dbeb1bf4d19ffbb9b48d}{
+{\bfseries \$\_\-test}}
+\label{class_simple_test_context_a93fb70e507e8dbeb1bf4d19ffbb9b48d}
+
+\item 
+\hypertarget{class_simple_test_context_a5ad6ce921e16991fda5b9bfb54d1b213}{
+{\bfseries \$\_\-reporter}}
+\label{class_simple_test_context_a5ad6ce921e16991fda5b9bfb54d1b213}
+
+\item 
+\hypertarget{class_simple_test_context_aa152b9a020c39bae6d90a4743950f25e}{
+{\bfseries \$\_\-resources}}
+\label{class_simple_test_context_aa152b9a020c39bae6d90a4743950f25e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_test_context_aeb3f91185b0b4e1895d4891d08b5af00}{
+\index{SimpleTestContext@{SimpleTestContext}!clear@{clear}}
+\index{clear@{clear}!SimpleTestContext@{SimpleTestContext}}
+\subsubsection[{clear}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestContext::clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_context_aeb3f91185b0b4e1895d4891d08b5af00}
+Clears down the current context.  public \hypertarget{class_simple_test_context_a8d245b59718e7818c6850b807643ccbc}{
+\index{SimpleTestContext@{SimpleTestContext}!get@{get}}
+\index{get@{get}!SimpleTestContext@{SimpleTestContext}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleTestContext::get (
+\begin{DoxyParamCaption}
+\item[{\$}]{ resource}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_simple_test_context_a8d245b59718e7818c6850b807643ccbc}
+Accessor for the Singleton resource. \begin{DoxyReturn}{Returns}
+object Global resource.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_test_context_a7d74e323221b6fa095929e46dc2811ac}{
+\index{SimpleTestContext@{SimpleTestContext}!getReporter@{getReporter}}
+\index{getReporter@{getReporter}!SimpleTestContext@{SimpleTestContext}}
+\subsubsection[{getReporter}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleTestContext::getReporter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_context_a7d74e323221b6fa095929e46dc2811ac}
+Accessor for current reporter. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_reporter}{SimpleReporter} Current reporter.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_test_context_ae92c4b08904579ecde5d440b8e8023cf}{
+\index{SimpleTestContext@{SimpleTestContext}!getTest@{getTest}}
+\index{getTest@{getTest}!SimpleTestContext@{SimpleTestContext}}
+\subsubsection[{getTest}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleTestContext::getTest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_context_ae92c4b08904579ecde5d440b8e8023cf}
+Accessor for currently running test case. \begin{DoxyReturn}{Returns}
+SimpleTestCase Current test.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_test_context_a9d8f37526e9d18cc89574ac861e66f3d}{
+\index{SimpleTestContext@{SimpleTestContext}!setReporter@{setReporter}}
+\index{setReporter@{setReporter}!SimpleTestContext@{SimpleTestContext}}
+\subsubsection[{setReporter}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestContext::setReporter (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ reporter}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_context_a9d8f37526e9d18cc89574ac861e66f3d}
+Sets the current reporter. This global instance can be used by the mock objects to send messages. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_reporter}{SimpleReporter} & {\em \$reporter} & Reporter to register.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_test_context_a8ceb3b2b4c27afbeea1957498015f636}{
+\index{SimpleTestContext@{SimpleTestContext}!setTest@{setTest}}
+\index{setTest@{setTest}!SimpleTestContext@{SimpleTestContext}}
+\subsubsection[{setTest}]{\setlength{\rightskip}{0pt plus 5cm}SimpleTestContext::setTest (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ test}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_test_context_a8ceb3b2b4c27afbeea1957498015f636}
+Sets the current test case instance. This global instance can be used by the mock objects to send message to the test cases. 
+\begin{DoxyParams}[1]{Parameters}
+SimpleTestCase & {\em \$test} & Test case to register.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/simpletest.php\end{DoxyCompactItemize}

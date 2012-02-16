@@ -1,0 +1,31 @@
+<div class="infoBar">
+	{INFO_TEXT}
+</div>
+
+<table width="100%">
+	<tr>
+	    <td valign="top" width="155" align="center">
+	        <table style="width:146px;height:191px;background-color:#eeeeee;margin-bottom:3px"><tr><td><img src="{USER_IMAGE}" class="border" alt="{LABEL_YOUR_BUDDY_ICON}" /></td></tr></table>
+		    <form action="" method="post" onsubmit="return window.confirm('{WINDOW_CONFIRM_TEXT}');">
+        		<input type="hidden" name="action" value="deleteicon">
+				<input type="submit" value="{LABEL_DELETE}" {HIDE_BUTTON}/>	
+			</form>
+	    </td>
+	    <td valign="top">
+		    <form action="" method="post" enctype="multipart/form-data">
+		    	<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+		    		<tr>
+		    			<th class="group" colspan="2">{LABEL_REPLACE}</th>
+		    		</tr>
+					<tr>
+						<td class="value"><p>{LABEL_UPLOAD_INFO}</p><input type="file" name="icon"/></td>
+					</tr>
+					<tr>
+						<td class="value"><input type="submit" value="{LABEL_UPLOAD}"/></td>
+					</tr>
+				</table>
+			</form>
+	    </td>
+	</tr>
+</table>
+

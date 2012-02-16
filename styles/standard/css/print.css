@@ -1,0 +1,44 @@
+	/*
+	** Print stylesheet
+	*/
+	
+	/* use black on white everywhere */
+	
+	* {background:none !important;color:black !important}
+	
+	/* the following two classes can be used to either prevent content
+	** from being printed at all or for block-elements tha that are hidden
+	** on the screen but shall be printed (use this for copyright notices
+	** for example)
+	*/
+	
+	.noprint {display:none}
+	.printonly {display:block}
+	
+	/*hide backgrounds, logins and navigation elements */
+		
+	#background 	{
+		display:none
+	}
+	
+	#header_wrapper {
+		display:none
+	}
+	
+	#menu_wrapper_bg {
+		display:none
+	}
+	
+	#menu_wrapper {
+		display:none
+	}
+	
+	#footer_wrapper {
+		color:black;
+	}
+	
+	#betaInfo {display:none}
+	
+	#header {display:none}
+	
+	#menu {display:none}

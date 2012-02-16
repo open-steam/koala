@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>RWCopyFiles</key>
+	<array>
+		<string>css</string>
+		<string>images</string>
+		<string>js</string>
+	</array>
+	<key>RWStyleVariations</key>
+	<dict>
+		<key>RWStyleGroups</key>
+		<array/>
+	</dict>
+	<key>RWTemplateHTML</key>
+	<string>index.html</string>
+	<key>RWTextToolbar</key>
+	<dict>
+		<key>RWAlwaysDisplayFullNavigation</key>
+		<false/>
+		<key>RWBreadCrumb</key>
+		<string>&lt;ul&gt;%items%&lt;/ul&gt;</string>
+		<key>RWBreadCrumbItem</key>
+		<string>&lt;li&gt;&lt;a href="%url%"&gt;%title%&lt;/a&gt;%separator%&lt;/li&gt;</string>
+		<key>RWBreadCrumbSeparator</key>
+		<string>&amp;nbsp;&gt;&amp;nbsp;</string>
+		<key>RWSupportedLevels</key>
+		<integer>4</integer>
+		<key>RWToolbarItemCurrent</key>
+		<string>&lt;li&gt;&lt;a href="%url%" rel="%rel%" id="current"&gt;%title%&lt;/a&gt;%subitems%&lt;/li&gt;</string>
+		<key>RWToolbarItemCurrentAncestor</key>
+		<string>&lt;li&gt;&lt;a href="%url%" rel="%rel%" class="currentAncestor"&gt;%title%&lt;/a&gt;%subitems%&lt;/li&gt;</string>
+		<key>RWToolbarItemNormal</key>
+		<string>&lt;li&gt;&lt;a href="%url%" rel="%rel%"&gt;%title%&lt;/a&gt;%subitems%&lt;/li&gt;</string>
+		<key>RWToolbarList</key>
+		<string>&lt;ul&gt;%items%&lt;/ul&gt;</string>
+	</dict>
+	<key>RWThemeAuthor</key>
+	<string>Dominik Niehus</string>
+	<key>RWThemeCapabilities</key>
+	<dict>
+		<key>RWSupportsContentOnlySubPages</key>
+		<true/>
+		<key>RWSupportsDisplayNames</key>
+		<true/>
+		<key>RWSupportsPathTo</key>
+		<true/>
+		<key>RWSupportsToolbarRelTag</key>
+		<true/>
+	</dict>
+	<key>RWThemeDisplayName</key>
+	<dict>
+		<key>de</key>
+		<string>Naturgarten</string>
+		<key>en</key>
+		<string>Naturgarten</string>
+	</dict>
+	<key>RWThemeImage</key>
+	<string>preview.png</string>
+	<key>RWThemeImageLarge</key>
+	<string>preview_large.jpg</string>
+	<key>RWThemeKeywords</key>
+	<array>
+		<string>clean</string>
+		<string>vertical</string>
+		<string>white</string>
+		<string>plain</string>
+		<string>pink</string>
+		<string>blue</string>
+		<string>green</string>
+		<string>variable</string>
+	</array>
+	<key>RWThemeName</key>
+	<string>Naturgarten</string>
+	<key>RWThemeShippedInVersion</key>
+	<string>3.2</string>
+	<key>RWThemeShortName</key>
+	<string>naturgarten</string>
+	<key>RWVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>

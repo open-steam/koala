@@ -1,0 +1,1415 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid guide and samples</title>
+</head>
+
+<body>
+<style>
+	body {font-size:14px;line-height:18px;}
+	.{font-family:arial;}
+	h2 {cursor:pointer;font-size:20px;margin:30px 0px 40px 5px;line-height:10px}
+	h3 {cursor:pointer;font-weight:normal;color:black;text-decoration:underline;line-height:10px}
+	h4 {cursor:pointer;font-weight:normal;color:black;text-decoration:underline;line-height:10px}
+	h5{
+		font-weight:bold;color:green;
+		margin:5px;
+	}
+	h6{
+		font-weight:bold;color:gray;
+		margin:0px;
+	}
+	a h4{
+		color:blue;
+		font-weight:bold;
+	}
+	.op {cursor:pointer;}
+	div.block {margin-left:5px;}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	li {margin-top:2px;}
+	span.important {font-weight:bold;color:maroon;}
+</style>
+<h2 ><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" target="_top" title="Visit javascript tree home page">dhtmlXGrid</a> Guide and Samples</h2>
+<div class="block">
+<!---  --->
+	<a name="mf"><h3 onclick="openFull(this)">Main features</h3
+	></a><div style="display:show" class="block">
+		<li>wide and powerful client side api</li>
+		<li>navigation with keyboard</li>
+		<li>Dynamical loading</li>
+		<li>Data buffering</li>
+		<li>90% compatibility with Scand's jTreeTable api (grid part)</li>
+		<li>fully customizable appearance</li>
+		<li>XML support</li>
+		<li>12 predefined Cell Editors (eXcell)</li>
+		<li>ability to create your own Cell-Editors (eXcell)</li>
+		<li>three types of data sorting (date,string,int) </li>
+		<li>column resizing</li>
+		<li>horizontal & vertical scrolling</li>
+		<li>single/multi-line rows</li>
+		<li>single/multi row selection</li>
+		<li>on/off header</li>
+	<h5>New in version 1.1</h5>
+		<li>Smart rendering</li>
+		<li>Paginal output</li>
+		<li>Colspan</li>
+		<li>Split mode</li>
+	<h5>New in version 1.2</h5>
+		<li>Move columns</li>
+		<li>Add/Remove Columns</li>
+		<li>Export to\from CSV</li>
+		<li>Initialization from HTML Table</li>
+		<li>Multirow header/footer</li>
+		<li>Clipboard operations</li>
+		<li>Column(s) with variable size</li>
+	</div>
+	
+	<a name="browsers"><h3 >Supported browsers</h3
+	></a><div style="display:show" class="block">
+		<li>IE 5.x and above</li>
+		<li>Mozilla 1.4 and above</li>
+		<li>FireFox 0.9 and above</li>
+		<li>Safari 1.3 and above</li>
+	</div>
+
+	<h3 >Working with dhtmlXGrid</h3
+	><div style="display:show" class="block">
+<!--- Nivigation with keyboard --->	
+		<a name="keyboard"><h4>Navigation with keyboard</h4
+		></a><div class="block">
+		For keyboard navigation you can use following keys:
+		<li>Tab - change to the next cell in row</li>
+		<li>Shift+Tab - change to the previous cell in row</li>
+		<li>Up, Down arrows - change to previous/next row</li>
+		<li>Enter - if in edit cell mode - close cell </li>
+		<li>Space - on checkbox or radiobutton - change state</li>
+		<li>F2 - edit cell</li>
+		<li>Esc - finish editing</li>
+	</div>
+	
+<!--- Initialize object on page --->
+		<a name="init"><h4 >Initialize object on page</h4
+		></a><div class="block">
+<XMP>
+<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+<script  src="../js/dhtmlXCommon.js"></script>
+<script  src="../js/dhtmlXGrid.js"></script>		
+<script  src="../js/dhtmlXGridCell.js"></script>	
+<div id="gridbox" style="width:200;height:200"></div>
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	// or 
+	//mygrid = new dhtmlXGridObject();
+	//mygrid.attachToObject(document.body)
+	mygrid.imgURL = "img/";
+	mygrid.setHeader("Column A, Column B");
+	mygrid.setInitWidths("100,250")
+	mygrid.setColAlign("right,left")
+	mygrid.setColTypes("ro,ed");
+	mygrid.setColSorting("int,str")
+	mygrid.init();
+	mygrid.loadXML("grid.xml");
+</script>
+</XMP>
+		<strong>Parameters passed to the constructor are:</strong>
+			<li>object to attach grid to (should be loaded before calling constructor). If none, then you can use attachToObject method to attach grid to some parent.</li>
+			<br>
+		<strong>Specify additional parameters of the grid:</strong>
+			<li>imgURL - specifies the path to the folder with grid images</li>
+			<li>setHeader("Column A, Column B") - set column header labels</li>
+			<li>setInitWidths("100,150") - set column width in pixels (* - means set size to possible value)</li>
+			<li>setColTypes("ro,ed") - set column types (with editor codes. See documentation for details)</li>
+			<li>setColAlign("right,left") - set column text align</li>
+			<li>setColSorting("int,str") - set column sorting type</li>
+			<li>loadXML("grid.xml") - load grid data from XML</li>
+		</div>
+<!--- Set Additional init parameters --->	
+		<a name="handlers"><h4 >Set Event Handlers</h4
+		></a><div class="block">
+See API methods documentation for complete list of available event handlers.
+<XMP>
+<div id="treeBox" style="width:200;height:200"></div>
+<script>
+	function doOnRowSelected(id){
+		...
+	}
+	function doOnCellEdit(stage,rowId,cellInd){
+		if(stage==0){
+			...
+			return true;
+		}else if(stage==1){
+			...
+		}else if(stage==2){
+			...
+		}
+	}
+	function doOnEnter(rowId,cellInd){
+		...
+	}
+	function doOnEnter(rowId,cellInd){
+		...
+	}
+	
+	mygrid = new dhtmlXGridObject('gridbox');
+	...
+	mygrid.setOnRowSelectHandler(doOnRowSelected);
+	mygrid.setOnEditCellHandler(doOnCellEdit);
+	mygrid.setOnEnterPressedHandler(doOnEnter);
+	mygrid.setOnCheckHandler(doOnCheck);
+	...
+	mygrid.init();
+	mygrid.loadXML("../grid.xml");
+</script>
+</XMP>	
+		In most cases functions specified inside event handlers get some values with the arguments. For details about passed arguments please refer to <a href="alpha.html">API documentation</a>.<br>
+		</div>
+		
+		
+<!--- Adding nodes with Script --->
+<a name="scriptadd"><h4 >Adding nodes with Script</h4
+></a><div class="block">
+<XMP>
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	...
+	mygrid.addRow(123,"text1,text2",1);
+	mygrid.deleteRow(mygrid.getRowId(0));
+</script>
+</XMP>	
+		For details about passed arguments please refer to <a href="alpha.html">API documentation</a>
+		</div>
+<!--- Using XML --->
+		<a name="xmlload"><h4 >Loading data with XML</h4
+		></a><div class="block">
+<XMP>
+<script>
+	...
+	mygrid.setXMLAutoLoading("dynload.php");//to load additional data from server
+	mygrid.init();
+	mygrid.loadXML("init.xml");//to load initial bloack of data from server
+</script>
+</XMP>	
+		<strong>Parameters which go to url specified in setXMLAutoLoading:</strong><br>
+		<li>rowsLoaded - number of rows in grid before request</li>
+		<li>lastid - last row id.</li>
+<XMP>
+XML Syntax:
+<?xml version='1.0' encoding='iso-8859-1'?>
+<rows>
+	<userdata name="NameOfGlobalUserDataBlock"></userdata>
+	<row id="unique_rowid">
+		<userdata name="NameOfRowUserDataBlock"></userdata>
+		<cell>cell content</cell>
+		<cell><![CDATA[<font color="red">cell</font> content]]></cell>
+	</row>
+</rows>
+</XMP>	
+<br>
+In <strong>PHP</strong> script use the following code for page header:<br>
+<xmp>
+<?php
+	if ( stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml") ) {
+  		header("Content-type: application/xhtml+xml"); } else {
+  		header("Content-type: text/xml");
+	}
+	echo("<?xml version=\"1.0\" encoding=\"iso-8859-1\"?>\n"); 
+?>
+</xmp>
+<br>
+		<strong>&lt;rows&gt;</strong> node is mandatory. It can contain grid related &lt;userdata&gt; blocks and rows (&lt;row&gt;)<br>
+			<em>Attributes:</em>
+				<li>total_count - use with <a href="#">smart rendering</a> to tell grid total quantity of rows</li>
+				<li>pos - use with <a href="#">smart rendering with dynamical loading</a> to tell grid first row position</li>
+		<br>
+		<strong>&lt;row&gt;</strong> can contain row related &lt;userdata&gt; blocks and cells (&lt;cell&gt;).<br>
+			<em>Attributes:</em>
+				<li>style - css style definition</li>
+				<li>class - css class name</li>
+				<li>id - row ID (must be unique)</li>
+		<br>
+		<strong>&lt;cell&gt;</strong> contain cell value. Can contain html (use CDATA block if you include htmlx tags) or XML (since v.1.2)<br>
+			<em>Attributes:</em>
+				<li>style - css style definition</li>
+				<li>type - <a href="#ctype_exp">cell type</a> (if differs from column type). Since v.1.2</li>
+<br><br>
+To set <strong>userdata</strong> directly within XML use <strong>&lt;userdata&gt;</strong><br>
+		It has just one parameter: <br>
+			<li>name</li><br>
+		and value to specify userdata value			
+		</div>
+
+<!--- Add nodes to treegrid --->
+<a name="add_tree"><h4 >Adding nodes with Script</h4></a><div class="block">
+
+<XMP>
+	mygrid.addRow(rowId,rowValuesAr,rowIndex,parentId,icon);
+</XMP>	
+<li><em>rowId</em> - id of new row</li>
+<li><em>rowValuesAr</em> - array of values for each cell of the row</li>
+<li><em>rowIndex</em> argument not used for treeGrid, so you may set any value for it</li>
+<li><em>parentId</em> - optional (by default new row will go to the root level)</li>
+<li><em>icon</em> - image file name for tree node icon. Optional - by default it is "leaf.gif"</li>
+
+</div>			
+		
+<!--- Serialization --->
+<a name="serialize"><h4 >Serializing Grid</h4></a><div class="block">
+Serialization methods allows getting grid in xml representation (xml string). 
+Various levels of serializations define the number of grid parameters reflected in resulting XML:<br>
+
+<XMP>
+<script>
+	grid.setSerializationLevel(userDataFl,otherFl);
+	grid.enableMathSerialization(fl)
+	var myXmlStr = grid.serialize();
+
+</script>
+</XMP>	
+<strong>setSerializationLevel</strong> arguments:
+<li>no parameters - rows and cells</li>
+<li><em>userDataFl</em> true - userdata</li>
+<li><em>otherFl</em> true - rows selection state</li>
+<strong>enableMathSerialization</strong> arguments:
+<li><em>fl</em> - true to serialize formulas, otherwise will serialize values (default)</li>
+<br><br>
+<a href="#csv">Serialization to CSV</a> possible since v.1.2 (Professional Edition only)
+
+</div>		
+		
+<!--- Dynamical loading --->		
+		<a name="dynload"><h4 >Dynamical Loading while scrolling</h4
+		></a><div class="block">
+		If your grid should contain large amount of rows (or you simply do not want to waist time loading hidden rows at startup), it would be better to load them while scrolling. 
+		For this purpose we made the grid to load rows dynamically using XML.  <br>
+		See chapter <a href="#xmlload">"Loading data with XML"</a> for xml structure and syntax of methods<br>
+		</div>
+		
+		<a name="buff"><h4 >Buffering</h4
+		></a><div class="block">
+		Buffering can be used to decrease the time for rendering the entire content of the grid at once (on startup).
+		Instead just a part of available rows will be added to the document just from the beginning - other rows will be added while user scrolls the grid.
+		<strong>To turn this feature off</strong> set the buffer size to 0.
+<XMP>
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	...
+	mygrid.enableBuffering(30);//30 rows will be rendered at once.
+	mygrid.init()
+</script>
+</XMP>		
+If you use <strong>Dynamical Loading</strong>, then you can specify buffer size as secondparameter of setXMLAutoLoading method. By default it is set to 40 for Dynamical Loading.
+		</div>
+		
+		<a name="rowsman"><h4 >Manipulating rows</h4
+		></a><div class="block">
+		A few examples of manipulating rows with grid API methods:
+<XMP>
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	...
+	var sID = mygrid.getSelectedId();//get id of selected row
+	mygrid.cells(sID,1).setValue("New Value");//change value of second cell
+	mygrid.setRowTextBold(sID);//set row test bold
+	mygrid.moveRowDown(sID);//move selected row one position down
+	var rInd = mygrid.getRowIndex(sID);//get index of selected row
+	mygrid.setRowId(rInd,"100");//change id of selected row to 100
+	alert("This are : "+mygrid.getRowsNum()+" rows in the grid");//show alert with information about number of rows in the grid
+</script>
+</XMP>	
+		</div>
+		
+
+<a name="move"><h4 >Moving Rows</h4></a><div class="block">
+To move Row programaticaly developer can use the folowing method:	
+<XMP>
+<script>
+	mygrid.moveRowDown(rowId) 
+	mygrid.moveRowUp(rowId)
+</script>
+</XMP>	
+</div>
+
+<a name="cmenu"><h4 >Context Menu in Grid</h4></a><div class="block">
+Professional edition of dhtmlxGrid and dhtmlxTreeGrid has the ability to activate
+context menu (based on dhtmlxMenu). For doing this follow the next code:  	
+<XMP>
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>
+	<script  src="../js/dhtmlXGridCell.js"></script>
+	<script language="JavaScript" src="menu/js/dhtmlXProtobar.js"></script>
+	<script language="JavaScript" src="menu/js/dhtmlXMenuBar.js"></script>
+	<script language="JavaScript" src="menu/js/dhtmlXMenuBar_cp.js"></script>
+	<script>
+	//create function for processing menu commands
+		function onButtonClick(menuitemId,gridItemId)
+		{
+		    //get array, first element of which is row ID, second - cell index
+			var data=gridItemId.split("_"); //rowId_colInd
+		    //use input data to perform any action you like 
+			mygrid.setRowTextStyle(data[0],"background-color:"+menuitemId.split("_")[1]);
+		}
+	//Create menu
+		aMenu=new dhtmlXContextMenuObject('120',0,"Demo menu");
+		aMenu.menu.setGfxPath("../imgs/");
+		aMenu.menu.loadXML("menu/_context.xml");
+		aMenu.setContextMenuHandler(onButtonClick);
+	//initialize grid and attach menu to it
+		mygrid = new dhtmlXGridObject('gridbox');
+		...
+		mygrid.enableContextMenu(aMenu);
+		mygrid.init();
+		mygrid.loadXML("grid_links.xml");
+	</script>
+</XMP>	
+Second parameter which gets function which processes menu commands 
+is a complex string consists of row ID and column index delimited with "_".
+
+<strong>HTTPS compatibility</strong>
+<br><br>
+For HTTPS compatibility we added two more parameters to context menu constructor:<br>
+<li>Images URL</li>
+<li>Dummy page URL (url of the page to use for iframes src /now they are empty as iframes are used to make menu be positioned under selectboxes in IE/ in menu to make it compatible with https)		
+<XMP>
+<script>
+//init menu compatible with sHTML
+	aMenu=new dhtmlXContextMenuObject('120',0,"Demo menu","imgs/","empty.html");
+	...
+</script>
+</XMP>
+</div>
+
+<a name="xml_tree"><h4 >TreeGrid XML structure</h4></a><div class="block">
+See <a href="#treegrid">"Tree-&amp;-Grid initialization and usage"</a> for details.
+</div>
+
+
+<a name="smartxml"><h4 >Smart XML Parsing</h4></a><div class="block">
+The idea of Smart XML Parsing is simple - the entire tree structute loaded on client side, but only nodes which should be displayed are rendered. This helps to dramaticaly decrease loading time and general performance of large trees. Plus - in the contrary to Dynamical Loading - entrire tree structure is available for most of script methods (for example Search performed agains all nodes - not only rendered). To activate Smart XML Parsing use the following method:
+<XMP>
+<script>
+	tree.enableSmartXMLParsing(true);//false to disable
+</script>
+</XMP>	
+Smart XML Parsing do not work if tree loaded fully expanded.
+</div>
+	
+<a name="checkbox"><h4 >Checkboxes &amp; Radiobuttons</h4></a><div class="block">
+dhtmlxGrid supports both: checkboxes and radiobuttons. They are just types of columns you need to specify
+before initializtion. For more details see <a href="#excell_use">Use Cell Editors (eXcell)</a> chapter	 	
+<XMP>
+<script>
+	mygrid.setColTypes("ra,ch");
+</script>
+</XMP>	
+You also can specify what value are considered as False for checkboxes and radiobuttons:
+<XMP>
+<script>
+	mygrid.raNoState = "No";//"No" will be "unchecked", all other values will be "checked"
+	mygrid.chNoState = "0";//"0" will be "unchecked", all other values will be "checked"
+	mygrid.init()
+</script>
+</XMP>	
+
+</div>		
+
+
+
+<a name="guide_perf"><h4 >Increasing Performance</h4></a><div class="block">
+Taking into account the general low performance of DHTML we introducrd two ways of increasing performance of large grids:<br>
+1. <a href="#dynload">Dynamical Loading</a><br>
+2. <a href="#dynload">Buffering</a><br>
+3. <a href="#distparse">Distributed Parsing</a><br>
+4. Split the content of your grid into pages
+</div>	
+
+<a name="distparse"><h4 >Distributed Parsing</h4></a><div class="block">
+To decrease time before grid appears on page you can enable Distributed Parsing. 
+In this case grid will be shown right after first portion of data parsed although it continue parsing other portions in async mode. 
+Changing number of records per portion and delay (in milliseconds) you can change the speed of loading.
+<XMP>
+	mygrid.enableDistributedParsing(true/false,record-per-portion,delay-time);
+</XMP>
+</div>	
+
+<a name="multiline"><h4 >Multiline grid rows</h4></a><div class="block">
+...allows displaying grid rows in multiline mode (it is default state for Mozilla) or turn it of to have single-line rows (IE only). 
+To enable multiline feature you need to do the following: 
+<XMP>
+	mygrid.enableMultiline(true/false);
+</XMP>
+</div>	
+
+<a name="multisel"><h4 >Multiselection in Grid</h4></a><div class="block">
+To enable multiselection mode you need to do the following: 
+<XMP>
+	mygrid.enableMultiselect(true/false);
+</XMP>
+Use [Shift/Ctrl] keys to select multiple rows at a time.
+</div>	
+
+<a name="dnd"><h4 >Drag-n-drop in Grid</h4></a><div class="block">
+To enable/disable drag-and-drop within grid you need to do the following: 
+<XMP>
+	mygrid.enableDragAndDrop(true/false);
+</XMP>
+<br>
+There are two modes of drag-n-drop in TreeGrid. You can manage it with <em>setDragBehavior</em>
+method passing following values as method parameter:
+<br>
+<li>"child" - deafult mode - drop-as-child</li>
+<li>"sibling" - drop as sibling</li>
+<br>
+Modes can be switched any time.
+
+
+</div>	
+
+<a name="math"><h4 >Math Formulas in Grid</h4></a><div class="block">
+You can define Math formulas for column (with script) or single cell (with xml).<br>
+<strong>Math formulas with Script:</strong>
+You can attach necessary math formula to column while defining its type with <em>setColTypes</em>. 
+Use [=...] to set formula to the nesessary column. 
+At the same time you still use any of available <a href="#excell_use">eXcells</a> to format the result:
+<XMP>
+	mygrid.setColTypes("ed,ed,ed,ed,ed[=c2*c3]");
+</XMP>
+In the example above <em>c2*c3</em> means that the value of last column should be equel to the product of column 2 value and column 3 value.
+Column indexes are zero-based. 
+You may use any javascript math operators as long as you refer to correct columns (existing columns with numeric values).  
+<br><br>
+<strong>Rounding resulting values.</strong>
+Togather with Math formulas you may need to use the following grid method to round resulting values:
+<XMP>
+	mygrid.setMathRound(decimal_places);
+</XMP> 
+<em>decimal_places</em> - number of digits after point.<br><br>
+<strong>Editing formulas in grid.</strong><br>
+By default all cells with formulas are read-only, thus user can't change the formula on the fly. 
+But you still can enable formula editing using the following method:
+<XMP>
+	mygrid.enableMathEditing(state);
+</XMP>
+<em>state</em> - false(by default) means that all formula cells are read-only, true - editable.<br><br>
+<br><br>
+<strong>Math formulas with XML:</strong>
+<XMP>
+	<row>
+		...
+		<cell>=c2*c3</cell>
+	</row>
+</XMP> 
+To set formula for single cell you can define it directly in xml as cell value, starting expression with "=". 
+Column type should still be defined with Math formula (see above) or as type "math". 
+</div>	
+
+<a name="math_tree"><h4 >Math Formulas in TreeGrid</h4></a><div class="block">
+In addition to standard <a href="#math">dhtmlxGrid Math formulas</a> 
+TreeGrid has the ability to calculate totals for children values. 
+<XMP>
+	mygrid.setColTypes("ed,ed,ed,ed,ed[=sum]");
+</XMP>
+which means that the each parent element in last column will contain the sum of values of its children last column cells. 
+</div>	
+
+<a name="lightmousenav"><h4 >Light Mouse Navigation</h4></a><div class="block">
+Light Mouse Navigation mode allows moving row selection with mouseover and enables cell editor with single click.
+<XMP>
+	mygrid.enableLightMouseNavigation(true/false);
+</XMP>
+</div>	
+
+<a name="confxml"><h4 >Configuration via XML</h4></a><div class="block">
+Grid can be configured directly in xml, where you load data from. 
+In this case you need only 2-3 script commands to get grid up and running. 
+<br>
+<span class="important">Important:</span> do not call grid.init() when you configure grid from xml.
+<xmp>
+	mygrid = new dhtmlXGridObject('gridbox');
+   	mygrid.setImagePath("../imgs/");
+   	mygrid.loadXML("gridH.xml");//xml which contains configuration block togather with data
+</xmp>
+<br>
+All necessary settings, like columns types and dimentions can be set within xml inside <strong>&lt;head&gt;</strong> tag:<br>
+<br>
+Since v.1.2 you also can specify grid methods to run before or after grid initialization.
+<br>
+
+<XMP>
+<rows>
+	<head>
+		<beforeInit>
+			<call command="methodName"><param>string value</param></call>
+		</beforeInit>
+		<afterInit>
+			<call command="methodName"><param>string value</param></call>
+		</afterInit>
+		<column width="50" type="ed" align="right" color="white" sort="str">Sales</column>
+		<column width="80" type="co" align="left" sort="str">Shipping
+			<option value="1">1 Day</option>
+			<option value="7">1 Week</option>
+			...
+		</column>
+		...
+		<settings>
+			<colwidth>%</colwidth>
+		</settings>
+	</head>
+	<row>
+	...
+	</row>
+	...
+</rows>
+</XMP>
+<em>Text value</em> of &lt;column&gt; tag will be used as a label for column
+<br><br>
+Possible attributes for <strong>column</strong> tag are:
+<li><em>width</em> - width in px</li>
+<li><em>type</em> - type of column (eXcell)</li>
+<li><em>align</em> - aligh of text inside</li>
+<li><em>color</em> - background color for the column</li>
+<li><em>sort</em> - sorting type</li>
+<br><br>
+Settings inside <strong>settings</strong> tag:<br>
+<li>&lt;colwidth&gt; tag value defines uom for width specified in &lt;column width=".." ("%" - for percents, other value for pixels)</li>
+<br><br>
+<strong>Specifying combobox and selectbox values:</strong><br>
+To specify values for <em>co</em> and <em>coro</em> columns add <strong>&lt;option&gt;</strong>
+tag(s) inside relative <strong>&lt;column&gt;</strong> tag.<br>
+<br>
+<strong>Running grid methods from XML</strong>
+<br>
+<XMP>
+<rows>
+	<head>
+		<beforeInit>
+			<call command="setSkin"><param>xp</param></call>
+		</beforeInit>
+		<afterInit>
+			<call command="setColumnHidden"><param>1</param><param>true</param></call>
+		</afterInit>
+		...
+	</head>
+</XMP>
+Same as with script:
+<XMP>
+	mygrid = new dhtmlXGridObject('gridbox2');
+	...
+	mygrid.setSkin("xp");
+	mygrid.init();
+	mygrid.setColumnHidden(1,true);
+</XMP>
+</div>	
+
+
+<a name="dndtree"><h4 >Interaction with dhtmlxTree (drag-and-drop between components)</h4></a><div class="block">
+This functionlity available in Professiona Edition only. Both componnets need to have drag-n-drop enabled.<br>
+The complexity of drag-n-drop between tree and grid conditioned by different structure of data in them. 
+So you need to define what values in grid should go to tree node and how to store them there and vice versa.<br>
+There are two methods in grid for this:<br>
+<li>treeToGridElement(treeObj,treeNodeId,gridRowId)</li>
+<li>gridToTreeElement(treeObj,treeNodeId,gridRowId)</li>
+<br>
+All you need is to redefine them the way you need. Example:
+<XMP>
+	//redefine tree-to-grid drop element
+	mygrid.treeToGridElement = function(treeObj,treeNodeId,gridRowId){
+		this.cells(gridRowId,1).setValue(treeObj.getItemText(treeNodeId));
+		if(treeObj.getUserData(treeNodeId,"c0")){
+			this.cells(gridRowId,0).setValue(treeObj.getUserData(treeNodeId,"c0"));
+			this.cells(gridRowId,1).setValue(treeObj.getUserData(treeNodeId,"c1"));
+			this.cells(gridRowId,2).setValue(treeObj.getUserData(treeNodeId,"c2"));
+			this.cells(gridRowId,3).setValue(treeObj.getUserData(treeNodeId,"c3"));
+			
+		}
+		return !document.getElementById("dnd_copy").checked;
+	}
+	//redefine grid-to-tree drop element
+	mygrid.gridToTreeElement = function(treeObj,treeNodeId,gridRowId){
+		treeObj.setItemText(treeNodeId,this.cells(gridRowId,1).getValue()+"/"+this.cells(gridRowId,2).getValue())
+		treeObj.setUserData(treeNodeId,"c0",this.cells(gridRowId,0).getValue())
+		treeObj.setUserData(treeNodeId,"c1",this.cells(gridRowId,1).getValue())
+		treeObj.setUserData(treeNodeId,"c2",this.cells(gridRowId,2).getValue())
+		treeObj.setUserData(treeNodeId,"c3",this.cells(gridRowId,3).getValue())
+		return !document.getElementById("dnd_copy").checked;
+	}
+</XMP>
+</div>	
+
+<a name="excell_use"><h4 >Usage of Cell Editors (eXcell)</h4></a><div class="block">
+There are some predefined cell editors delivered with dhtmlxGrid. They are:<br>
+<li>ReadOnly (<strong>ro</strong>) - cell can't be edited</li>
+<li>Simple Editor (<strong>ed</strong>) - text is edited inside cell</li>
+<li>Text Editor (<strong>txt</strong>) - text is edited in popup multiline textarea</li>
+<li>Checkbox (<strong>ch</strong>) - standard checkbox</li>
+<li>Radiobutton (<strong>ra</strong>) - column oriented radiobutton</li>
+<li>Select box (<strong>coro</strong>) - simple selectbox</li>
+<li>Combobox (<strong>co</strong>) - select box with ability to add some other value</li>
+<li>Image (<strong>img</strong>) - not editable. Value considered as url of image</li>
+<br><strong>Special types:</strong><br>
+<li>Color picker (<strong>cp</strong>) - simple color picker (just for example). Value considered as color code or name</li>
+<li>Price oriented (<strong>price</strong>) - shows $ before value, all values eql 0 shown as na in red color</li>
+<li>Dynamic of Sales (<strong>dyn</strong>) - shows up/down icon depending on value. Also color coding available (green/red)</li>
+<br>
+To assign necessary types to columns use the following script method with comma delimmited list of editor codes:
+<XMP>
+	mygrid.setColTypes("ro,ed,txt,txt,ro,co");
+</XMP>
+<br>
+Since v.1.2 you also can set type of each cell, row or change default column type:
+<h5>Script syntax:</h5>
+<XMP>
+	mygrid.setRowExcellType(rowId,type);//sets all cells in row to specified type
+	mygrid.setCellExcellType(rowId,cellIndex,type);//sets particular cell type
+	mygrid.setColumnExcellType(colIndex,type);//changes column type
+</XMP>
+<h5>XML syntax:</h5>
+<XMP>
+	<cell type="[eXcell code]">...</cell>
+</XMP>
+</div>	
+
+<a name="dblink"><h4 >Data Processing and link with Server Datasource</h4></a><div class="block">
+There is add-in for dhtmlxGrid which manages the process of updating data on server side. <br>
+<img src="imgs/dataprocessor_sc.gif" width="608" height="352" alt="" border="0"><br>
+<br>
+<h5>Main Features:</h5>
+<li>Updated/Inserted row marked with bold text, deleted with line-through </li>
+<li>You can set validation functions on any column. By default it validates if specified cell has value. 
+If validation failed, casual cell marked with red border </li>
+<li>You can define the mode for data processing: <br>
+- cell – after cell editing was finished it checks if all mandatory cells in row got their values and these values passed the validation and if yes, then sends data to server <br>
+- row – same as point 1, but it occurs when row selection was changed or Enter button pressed. <br>
+- off – no automatic data sending, all updated/deleted data is sent to server on calling script method (you can assign it to button, so user can choose when to save)   <br>
+<li>Updated/deleted rows data sent to server to the URL you specify (we call it serverProcessor). serverProcessor should return simple xml of specified format to let grid know about successful or not successful processing. All necessary after-save procedures will be done automaticaly. </li>
+<br><br>
+
+<strong>Unified Server-side routine:</strong><br>
+There is unified server side routine for single table grids written in PHP 5. 
+You need only configure XML file according to your data structure – 
+all Select, Insert, Update, Delete actions will be done automaticaly.
+<br><br>
+
+<h5>Client Side Code Sample:</h5>
+<XMP>
+	...
+	mygrid.init();
+//============================================================================================
+	//To use our automated methods you should always point your grid to same file - member of dhtmlxGridDataProcessor library (just check the path)
+	mygrid.loadXML("dataLink/get.php");
+	
+	//init dataprocessor and assign verification function
+	//specify server update processor - member of dhtmlxGridDataProcessor library (just check the path) or your own
+	myDataProcessor = new dataProcessor("dataLink/update.php");
+	//verify if the value of 2nd column (zero-based numbering is 1) is not empty
+	myDataProcessor.setVerificator(1)
+	//verify value of 4th column (zero-based numbering is 3) against checkIfNotZero verification function (see it below)
+	myDataProcessor.setVerificator(3,checkIfNotZero)
+	//you can also specify update mode. Availabel modes are: update automaticaly (cell based, row based) and manual update
+	//cell ("cell") based mode means that grid will attempt to update data on server after each editing of cell (on editor closed). 
+	//row ("row") based mode means that grid will attempt to update data on server when row selection changed or Enter key pressed
+	//manual ("off") means that you need to run myDataProcessor.sendData() to begin update process (automatic update off).
+	myDataProcessor.setUpdateMode("off");//available values: cell (default), row, off
+	//initialize data processor for the grid object (in our case - mygrid)
+	myDataProcessor.init(mygrid);
+//============================================================================================
+	
+	//Example of verification function. It verifies that value is not 0 (zero).
+	//If verification failed it should return false otherwise true.
+	//Verification fucntion specified in setVerificator method will always get two argumentrs: value to verify and column name (use it for message)
+	function checkIfNotZero(value,colName){
+		if(value.toString()._dhx_trim()=="0"){
+			showMessage(colName+ " should not be 0")
+			return false
+		}else
+			return true;
+	}
+</XMP>
+<br><br>
+
+<h5>Re\Definition of actions</h5>  
+There are built-in actions in dhtmlxDataProcessor which are used during data processing:
+<li>update - occurs after row was updated on server</li>
+<li>delete - occurs after row was deleted on server</li>
+<li>insert - occurs after row was inserted on server</li>
+<br>
+You can define your own handlers for each of them by
+<XMP>
+	myDataProcessor.defineAction("update",myHandler);
+</XMP>
+in such case the myHandler will be called after update operations,
+returning <em>true</em> from custom handler will allow default update actions.
+<br>
+<br>
+You can define any other action youselves. All you need is to use following syntax in xml returned by server side:
+<XMP>
+	<data>
+		<action type='[action name]'>
+			anything
+		</action>
+	</data>
+</XMP>
+and the following javascript code:
+<XMP>
+	myDataProcessor.defineAction("[action name]",myHandler);
+</XMP>
+<em>myHandler</em> function will be called and get &lt;action&gt; tag object as incoming argument.
+
+
+<h5>Server side Unified routine usage</h5>
+<li>use "dataLink/get.php?ctrl=tree" for yourGrid.loadXML(url)</li>
+<li>use "dataLink/update.php" for new dataProcessor(url)</li>
+<li>configure connection in dataLink/db.php</li>
+<li>specify table columns in dataLink/data.xml for corresponding values:<br>
+- <em>cXX</em> - grid columns [XX - is zero based column index]<br>
+- <em>gr_id</em> - grid row ID<br>
+- <em>userdata blocks</em> will use their names</li>
+<br><br>
+
+<strong>If you do not use our built-in Unified routine</strong> and use your own file for processing 
+data sent by dataProcessor you need to know the following:
+<li>All data comes in GET scope:</li>
+<br> - <em>gr_id</em> - row ID
+<br> - <em>cXX</em> - grid columns [XX - is zero based column index], like c1, c15
+<br> - userdata blocks passed with their names<br>
+<li>serverProcessor should return valid XML of the following format:</li>
+<XMP>
+	<data>
+		<action type='insert/delete/update' sid='incomming_row_ID' tid='outgoing_row_ID'/>
+	</data>
+</XMP>
+Where <em>incomming_row_ID</em> and <em>outgoing_row_ID</em> are different for insert action only. For other actions they are equel.
+<br><br>
+</div>	
+
+
+<a name="dbproc_err"><h4 >Data Processing and Server errors handling</h4></a><div class="block">
+To handle server side error with <a name="dblink" id="dblink">dhtmlxDataProcessor</a> you can implement 
+your own callback events (events which occur on client side after server side processing) on client side:
+<XMP>
+        myDataProcessor.defineAction("error_123",myHandler);
+</XMP>
+on server side, in case of error you should return
+<XMP>
+	<data>
+		<action type="error_123">
+			any info 
+		</action>
+	<data/>
+</XMP>
+in such case myHandler function will be executed on client side in cse of error (error_123). It
+will get as attribute(s):<br> 
+	<li>an action tag object</li> 
+<br>	
+	Returning <em>false</em> from myHandler will prevent default event processing.
+</div>
+
+
+<a name="treegrid"><h4 >Tree-&-Grid initialization and usage</h4></a><div class="block">
+You can output nested data items using special edition of dhtmlxGrid - dhtmlxTreeGrid.
+<br>
+<strong>Necessary JS file:</strong><br>
+Additional js file needed is <i>dhtmlxTreeGrid.js</i><br><br>
+
+<strong>Script initialization</strong><br>
+Script initialization is the same as <a href="#init">for grid</a>. 
+All you need is to decide what column should have tree structure and use <i>"tree" <a href="#excell_use">eXcell</a></i> for it.
+<br>
+<br><strong>XML structure as follows:</strong>
+<XMP>
+<?xml version="1.0" encoding="UTF-8"?>
+<rows parent="h0">
+	<userdata name="gud1">
+		userdata value 1
+	</userdata>
+	<row id="h523" selected="1" call="1" xmlkids="1">
+		<userdata name="hondaUD">
+			userdata value for honda
+		</userdata>
+		<cell image="folder.gif">Honda</cell>
+		<cell>...</cell>
+		<cell>...</cell>
+	</row>
+</row>
+</XMP><br>
+All xml tags and attributes same <a href="#xmlload">as for dhtmlxGrid</a> plus:<br>
+<strong>&lt;rows&gt;</strong> element can have the following attribute with treeGrid:<br>
+<li>parent - for dynamical loading - id on row which is parent for the items under current <strong>rows</strong></li>
+<br><br>
+<strong>&lt;row&gt;</strong> treeGrid specific attribute:<br>
+<li>xmlkids - for dynamical loading - this row has/doesn't have child rows</li>
+<li>open - for TreeGrid - specifies if row expanded</li>
+<li>style - specifies css style for current row</li>
+<br><br>
+<strong>&lt;cell&gt;</strong> element treeGrid specific parameter is:
+<li><strong>image</strong> - optional (default is leaf.gif) for tree column - image name to use as tree node icon</li>
+<br><br>
+
+</div>	
+
+<a name="excell_add"><h4 >Define new Cell Editors (eXcell)</h4></a><div class="block">
+Now we'll create new Cell Editor (eXcell) for dhtmlxGrid wich will edit values using simple text field and display strings aligned left, integers - aligned right:<br>
+<strong>Complete way (not necessary to follow - just for understanding. Important if you want to incorporate some external editor f.e.)</strong><br>
+1. Choose the code for the new eXcell. In our case it is "test".<br>
+2. Get eXcell template:
+<XMP>
+	function eXcell_test(cell){
+		try{
+			this.cell = cell;
+			this.grid = this.cell.parentNode.grid;
+		}catch(er){}
+		/**
+		*	@desc: method called by grid to start editing
+		*/
+		this.edit = function(){
+					
+			}
+		/**
+		*	@desc: get real value of the cell
+		*/
+		this.getValue = function(){
+				return "";
+			}
+		/**
+		*	@desc: set formated value to the cell
+		*/
+		this.setValue = function(val){
+				if(val.toString()=="")
+					val = "&nbsp;";
+				this.cell.innerHTML = val;
+			}
+		/**
+		*	@desc: this method called by grid to close editor
+		*/
+		this.detach = function(){
+				this.setValue(this.obj.value);
+				return this.val!=this.getValue();
+			}
+}
+eXcell_test.prototype = new eXcell;
+</XMP> 
+3. Add necessary code to this.edit() method. In particular it is creation of textfield inside 
+grid cell and put there real (not formatted) value of the cell using this.getValue() method.
+<XMP>
+	this.edit = function(){
+		this.val = this.getValue();
+		this.obj = document.createElement("TEXTAREA");
+		this.obj.style.width = "100%";
+		this.obj.style.height = (this.cell.offsetHeight-4)+"px";
+		this.obj.style.border = "0px";
+		this.obj.style.margin = "0px";
+		this.obj.style.padding = "0px";
+		this.obj.style.overflow = "hidden";
+		this.obj.style.fontSize = "12px";
+		this.obj.style.fontFamily = "Arial";
+		this.obj.wrap = "soft";
+		this.obj.style.textAlign = this.cell.align;
+		this.obj.onclick = function(e){(e||event).cancelBubble = true}
+		this.obj.value = this.val
+		this.cell.innerHTML = "";
+		this.cell.appendChild(this.obj);
+		this.obj.focus()
+		this.obj.focus()
+	}
+</XMP>
+4. Now edit this.setValue(val) to format incomming value:
+<XMP>
+	this.setValue = function(val){
+		if(val.toString()=="")
+			val = "&nbsp;";
+		if(isNaN(Number(val))){
+			this.cell.align = "left";
+		}else{
+			this.cell.align = "right";
+		}
+		this.cell.innerHTML = val;
+	}
+</XMP> 
+5. Now we are ready to edit this.getValue(). As we haven't added any additional elements to the cell content - 
+the will be just one line of code inside:
+<XMP>
+	this.getValue = function(val){
+		return this.cell.innerHTML.toString();
+	}
+</XMP> 
+6. Final step is to get rid of editor and fill cell with formated value in this.detach() method:
+<XMP>
+	this.detach = function(){
+		this.setValue(this.obj.value);
+		return this.val!=this.getValue();
+	}
+</XMP>
+7. You can get the complete code <a href="./code/eXcell_test.js">here</a>. Make sure your place your eXcell code after dhtmlxGridCell.js.
+<br><br>
+<strong>Express way (make eXcell based on existing eXcell of common type)</strong><br>
+You can base your eXcell on one of existing eXcell - the choice depends on how the value should be edited. 
+For example simple text field is enough for your needs, but you need some special formating. The do the following:
+1. C hoose the code for the new eXcell. In our case it is "test" again.<br>
+2. Template will be simplier and will be based on simple editor (code: ed). 
+Some new code from the beginning, but then we skip this.edit() and this.detach() 
+<XMP>
+	function eXcell_test(cell){
+		this.base = eXcell_ed;
+		this.base(cell)
+		this.getValue = function(){
+			return "";
+		}
+		this.setValue = function(val){
+			
+		}
+	}
+	eXcell_test.prototype = new eXcell_ed;
+</XMP>
+3. getValue and setValue you can get from points 4 and 5 above.
+<br><br>
+<strong>Usage of eXcell</strong><br>
+Now you can use your new eXcell among other editors:
+<XMP>
+	mygrid.setColTypes("ed,ro,test");
+</XMP> 
+
+<span class="important">Important:</span>
+
+Starting from dhtmlxGrid 1.2 the new behaviour implemented  - any
+click outside the grid causes editor closing. So if editor
+implemented as absolute positioned elements attached outside of grid it
+must catch and block onClick event, like this:
+<XMP>
+div.onclick=function(e){ (e||event).cancelBubble=true; return false; }
+</XMP>
+
+</div>
+
+<a name="pgn"><h4 >Paginal Output</h4></a><div class="block">
+dhtmlxGrid supports paginal output. You can use it togather with dynamical loading (autoloading) or separately.<br>
+In sample below number of rows per page set to 30 and number of pages per group set to auto (null) - based on rows in first portion loaded from server<br>
+<br>
+In case of using <strong>Autoloading</strong>, it delivers for example 100 more records each time previous 100 was consumed untill it reaches the end.
+As far as Grid knows nothing about the final number of records when uses autoloading, it shows actual number of rows already loaded from server in records info block, like 
+<em>"Records 200-230 from known 300"</em>.<br><br>
+
+If you <strong>do not use Autoloading</strong> or end of records was reached , Grid will know exact number of rows. Thus record info will be like this:
+<em>"Results 200-230 from 300"</em> 
+
+<h5>Script syntax</h5>
+<li>use before init() </li>
+<XMP>
+	mygrid.enablePaging(fl,rowsPerPage,pagesInGroup,pagingArea,recInfoEnabled,recinfoArea);
+</XMP>
+Where:<br>
+<li>fl - true to enable paginal output</li>
+<li>rowsPerPage - number of rows per page</li>
+<li>pagesInGroup - number of pages in group. You can set any number, but it is recommended to use smaller. There is also some auto-limits when using autoloading (grid will correct value automatically).</li>
+<li>pagingArea - ID of element (or element) where to append paging pannel to (where to show pages navigation)</li>
+<li>recInfoEnabled - means that Records Info will be shown ("Results 11-40 from known 100")</li>
+<li>recinfoArea - ID of element to append Records Info to (by default it will be append to paging panel)</li>
+<br><br>
+dhtmlxGrid API contains additional methods for managing paginal output with script.
+<h6>Version/Edition: v1.1/Professional</h6>
+<h6>Required js file:dhtmlXGrid_pgn.js</h6>
+</div>
+</div>	
+
+<a name="srnd"><h4 >Smart Rendering</h4></a><div class="block">
+"Smart Rendering" mode increases overal grid preformance working with big amounts of data 
+by saving time on render operation, which is most time consuming in dhtml. 
+<br>
+When this mode activated only those rows are rendered which are in visible area. 
+You can use it with already loaded content or activate dynamical loading to fetch rows from server each time 
+(or activate buffering additionaly to decrease number of server requests).
+<br><br>
+<span class="important">Important:</span> if you activated dynamical loading you should understand that rows which are not loaded yet 
+can't be used in script methods (select, delete etc.). 
+<h5>Script syntax:</h5>
+<li>call before loading data</li>
+<XMP>
+	mygrid.enableSmartRendering(true);//with single-time loaded data
+	//-------------------------------
+	mygrid.enableSmartRendering(true,2000,50);//with dynamcical loading
+	//2000 - rows in total
+	//50 - rows in buffer
+</XMP>
+<h6>Version/Edition: v1.1/Professional, v1.1/Standard for SR with dynamical loading</h6>
+<h6>Required js file:dhtmlXGrid_srnd.js</h6>
+</div>	
+
+<a name="merg"><h4 >Merging cells in grid</h4></a><div class="block">
+Activating possibility to merge cells in grid you can display row cells same way as you use colspan in HTML table.
+You can manage cell groups right from XML or with script.
+
+<h5>XML syntax:</h5>
+	<li>number of cell tags in row shouldn't be changed. Below is example of row with 3 cells, 
+	2 of them are grouped</li>
+<XMP>
+	<row id="r01">
+		<cell colspan="2">value</cell>
+		<cell/>
+		<cell>value of third cell</cell>
+	</row>
+</XMP>
+<h5>Script syntax:</h5>
+<XMP>
+	mygrid.setColspan("r01",0,2);//group two cells
+	//r01 - row id
+	//0 - first cell in group
+	//2 - cells in group
+	//--------------------------
+	mygrid.setColspan("r01",0,1);//ungroup cells
+</XMP>
+<h6>Version/Edition: v1.1/Professional</h6>
+</div>	
+
+
+<a name="splitm"><h4 >Split Mode. Frozen Columns</h4></a><div class="block">
+You can activate split mode to have Grid(TreeGrid) separated into two parts with independent horizontal scrolling.
+<br>
+<span class="important">Important:</span> we recommend using this mode with some performance optimization technologies
+(paginal output, smart rendering) taking into account complex script processing in split mode.
+<br>
+<span class="important">Important:</span> this mode is incompatible with some grid functionlity.
+<h5>Script syntax:</h5>
+	<li>call after init()</li>
+	<li>pass index of column before which grid should be splitted</li>
+<XMP>
+	yourGrid.splitAt(1);
+</XMP>
+<h6>Grid: Version/Edition: v1.1/Professional</h6>
+<h6>TreeGrid: Version/Edition: v1.1/Professional</h6>
+<h6>Required js file:dhtmlXGrid_splt.js</h6>
+</div>	
+
+<a name="icohdr"><h4 >Icons in Header</h4></a><div class="block">
+Icons can be used in grid header. Icon size should be 18x18px.
+Can be set via XML configuration or in setHeader method. Syntax is the same 
+- use <strong>img:[path-to-icon]</strong> in Header Label definition:<br>
+<h5>XML syntax:</h5>
+<XMP>
+	<head>
+        <column width="50" type="dyn" align="right"  sort="str">Without Icon</column>
+        <column width="150" type="ed" align="left" sort="str">img:[path/to/icon.gif]With Icon</column>
+    ...
+</XMP>
+<h5>Script syntax:</h5>
+<XMP>
+	mygrid.setHeader("Without Icon,img:[path/to/icon.gif]With Icon");
+</XMP>
+<h6>Version/Edition: v1.1/Standard</h6>
+</div>
+
+
+<a name="dloadTreeGrid"><h4 >Dynamical Loading in treeGrid</h4></a><div class="block">
+Dynamic loading means loading levels on request (on opening node which has children). 
+To make it work in dhtmlxTreeGrid you should do the following:<br>
+<ol type="1">
+<li type="1">When initializing treeGrid, specify url of server routine which returns nested level</li>
+<xmp>
+	mygrid.kidsXmlFile="pro_treeGrid_dynamic.php";
+</xmp>
+This routine will get url parameter <b>id</b> which is id of row, whcih was opened (in other words - id of row which is parent to the level which should be returned by mentioned routine)
+<br>
+<li type="1">Initial treeGrid xml (as well as xml returned by routine mentioned in point 1) 
+should have &lt;row&gt; tags with attribute <em>child="1"</em> (only rows which have children)</li>
+<xmp>
+	<row child="1">
+		<cell>...</cell>
+		...
+</xmp>
+<br>
+<li type="1" >XML returned by routine specified in point 1 should have attribute <em>parent="xxx"</em> in top level tag &lt;rows&gt;</li>
+<xmp>
+	<rows parent='123'>
+		<row child="1">
+			<cell>...
+			...
+</xmp>
+</ol>
+<h6>Version/Edition: v1.0/Standard</h6>
+
+</div>	
+
+
+
+<a name="admcols"><h4 >Add/Delete/Move columns</h4></a><div class="block">
+<h5>Add\Delete\Move column with script</h5>
+<XMP>
+	mygrid.insertColumn(index,label,typeCode,width)
+	mygrid.deleteColumn(index);
+	mygrid.moveColumn(oldInd,newInd);
+</XMP>
+
+<h5>Move with drag-n-drop</h5>
+<XMP>
+	mygrid.enableColumnMove(true);
+	//to prohibit\alow moving some (or all) columns in some condition use event handler (moving allowed if it return true)
+	mygrid.setOnBeforeColumnMove(function(sInd,tInd){
+		return confirm("Allow move column "+sInd+" to position "+tInd);//return true to allow, false - to prohibit
+	});
+</XMP>
+<h6>Version/Edition: v1.2/Professional</h6>
+<h6>Required js file:dhtmlXGrid_mcol.js</h6>
+</div>
+
+
+<a name="csv"><h4 >Export to/from CSV</h4></a><div class="block">
+<XMP>
+	mygrid.setCSVDelimiter("\t");//chnage csv delimiter
+	var csvNew = mygrid.serializeToCSV();//serialize to CSV with current active delimiter
+	mygrid.loadCSVString(csvNew);//load grid from csv string
+</XMP>
+<h6>Version/Edition: v1.2/Professional</h6>
+<h6>Required js file:dhtmlXGrid_nxml.js</h6>
+</div>
+
+
+
+<a name="excel"><h4 >Copy data to Excel (clipboard operations)</h4></a><div class="block">
+<h5>Selecting block of cells in Grid</h5>
+Since v1.3. block selection is available in dhtmlxGrid. To enable it and use selection to copy data to clipboard you need to include following files:<br>
+<li>dhtmlXGrid_selection.js</li>
+<li>dhtmlXGrid_nxml.js</li><br>
+Color of selection can be chnaged in dhtmlXGrid.css in class definition for .dhtmlxGrid_selection; it is yellow by default;<br>
+To enable block selection do the following:
+
+<XMP>
+	mygrid.enableBlockSelection();
+</XMP>
+
+<h5>Copy block selection content to clipboard</h5>
+If block is active you can copy its contnet to clipboard (if this allowed by the browser)
+<XMP>
+	mygrid.copyBlockToClipboard()
+</XMP>
+
+<h5>Copy Grid data to clipboad with script</h5>
+<XMP>
+	mygrid.gridToClipboard();//copy entire grid to clipboard in csv format
+	mygrid.rowToClipboard();//copy selected rows to clipboard in csv format
+	mygrid.cellToClipboard();//copy selected cell value to clipboard
+</XMP>
+<span class="important">Important:</span> this functionlity is prohibitted in FireFox by default<br>
+<span class="important">Important:</span> to insert copied data to MS Excel you should <a href="#csv">set tab as delimiter</a> (using setCSVDelimiter method)
+
+<h5>Paste from clipboard to grid</h5>
+<XMP>
+	//update entire grid from clipboard
+	mygrid.clearAll();//clears grid
+	mygrid.gridFromClipboard();//set grid content from clipboard (uses active delimiter)
+	
+	mygrid.updateRowFromClipboard();//updates selected row from clipboard (valid row content whould be in clipboard)
+	mygrid.addRowFromClipboard();//adds rows from clipboard to grid
+	mygrid.updateCellFromClipboard(); //sets clipboard content as selected cell value
+</XMP>
+<h6>Version/Edition: v1.2/Professional</h6>
+<h6>Required js file:dhtmlXGrid_nxml.js</h6>
+</div>
+
+
+
+<a name="ctype_exp"><h4 >Setting cell type explicetly</h4></a><div class="block">
+<h5>XML Syntax</h5>
+<XMP>
+	<row>
+		<cell type="ed">Simple text editor</cell>
+		<cell type="txt">Multiline Text Editor</cell>
+		<cell>Default (as was set for column) eXcell type</cell>
+		...
+	<row>
+</XMP>
+
+<h5>Setting cell type with script</h5>
+<XMP>
+	mygrid.setRowExcellType(rowId,type);//sets all cells in row to specified type
+	mygrid.setCellExcellType(rowId,cellIndex,type);//sets particular cell type
+	mygrid.setColumnExcellType(colIndex,type);//changes column type
+</XMP>
+<h6>Version/Edition: v1.2/Professional</h6>
+</div>
+
+
+
+<a name="mlhdr"><h4 >Multiline Headers\Footer</h4></a><div class="block">
+You can use colspan\rowspan in headers, creating complex structures with multiple rows.
+<img src="imgs/footer.gif" width="606" height="200" alt="" border="0">
+<h5>Adding header Rows with script</h5>
+<XMP>
+	//add second row to header
+	mygrid.attachHeader("#rspan,Title,Author,#rspan,#rspan,#rspan,Bestseller,Published");
+	mygrid.setSizes();//call this method if row was added after grid initialization
+	//#rspan - include cell in rowspan
+	//#cspan - include cell in colspan
+</XMP>
+
+<h5>Adding header Rows with XML (using call tag)</h5>
+<XMP>
+	...
+	<head>
+		<beforeInit>
+			<call command="attachHeader">
+				<param>#rspan,Title,Author,#rspan,#rspan,#rspan,Bestseller,Published</param>
+			</call>
+		</beforeInit>	
+		...
+</XMP>
+
+<h5>Adding Footer to grid</h5>
+<XMP>
+	mygrid.attachFooter("Label 1,#cspan,Label 3");//pass list of necessary labels
+	mygrid.attachFooter("Label 1.1,Label 1.2,#rspan");//this will add second row to footer
+	//#cspan - include cell in colspan
+	//#rspan - include cell in rowspan
+</XMP>
+<h5>Setting style to footer</h5>
+To modify default style of footer - redefine "div.gridbox div.ftr td" after dhtmlXGrid.css was placed on page 
+<XMP>
+	/*this will set default footer text align to right*/
+	div.gridbox div.ftr td{
+		text-align:right;
+	}
+</XMP>
+<br>
+To set explicit style for each cell in footer use second argument of attachFooter method. 
+<XMP>
+	//will set color of 1st and 2nd cells and align to 1st cell
+	mygrid.attachFooter("Label 1,Label 2,Label 3",["color:red;textalign-left","color:blue"]);
+</XMP>
+
+<h5>Set dynamic content in footer</h5>
+
+<XMP>
+	//add containers to footer cells where you need to set content dynamically
+	mygrid.attachFooter("Total quantity,#cspan,-,<div id='nr_q'>0</div>,-,<div id='sr_q'>0</div>",["text-align:left;"])
+	//set content on grid loaded
+	mygrid.loadXML("grid_numbers.xml",calculateFooterValues);	
+	
+	function calculateFooterValues(){
+		var nrQ = document.getElementById("nr_q");
+		nrQ.innerHTML = sumColumn(3)
+		var srQ = document.getElementById("sr_q");
+		srQ.innerHTML = sumColumn(5)
+		...
+	}
+	
+	function sumColumn(ind){
+		var out = 0;
+		for(var i=0;i < mygrid.getRowsNum();i++){
+			out+= parseFloat(mygrid.cells2(i,ind).getValue())
+		}
+		return out;
+	}
+</XMP>
+<h6>Version/Edition: v1.2/Professional</h6>
+</div>
+
+
+
+<a name="srcolwidth"><h4 >Save\Restore column width</h4></a><div class="block">
+<h5>Saving\restoring columns width with script methods</h5>
+<XMP>
+	mygrid.saveSizeToCookie();//to save column width
+	mygrid.loadSizeFromCookie();//to load width from cookies
+</XMP>
+
+<h5>Automatically save\restore column width</h5>
+<XMP>
+	mygrid2.enableAutoSizeSaving();//enable automatic saving width
+	mygrid2.loadXML("gridH.xml",function(){
+          mygrid2.loadSizeFromCookie();//restore width when grid loaded
+	});
+
+</XMP>
+<h6>Version/Edition: v1.2/Professional</h6>
+<h6>Required js file:dhtmlXGrid_ssc.js</h6>
+</div>
+
+<a name="initfromhtml"><h4 >Initialize Grid from HTML table</h4></a><div class="block">
+<h5>Automatic initialization</h5>
+<li>Include dhtmlxGrid_start.js file into your page</li>
+<li>Set table class attribute value to "dhtmlxGrid"</li>
+<XMP>
+	//required js file
+	<script  src="js/dhtmlXGrid_start.js"></script>
+	
+	<!--- table to convert --->
+	<table class="dhtmlxGrid" style="width:400px">
+		<!--- First row treatted as grid header  --->
+		<tr>
+			<td>Column 1</td>
+			<td>Column 2</td>
+		</tr>
+		<!--- All other rows - Grid body --->
+		<tr>
+			<td>value 11</td>
+			<td>value 12</td>
+		</tr>
+		<tr>
+			<td>value 21</td>
+			<td>value 22</td>
+		</tr>
+		...
+	</table>
+</XMP>
+
+<h5>Initialize from any table with script command</h5>
+<XMP>
+	//param 1 - id of table to convert to grid
+	var mygrid = new dhtmlXGridFromTable('tblToGrid');
+</XMP>
+<h5>Possible grid related table/tr/td properties:</h5>
+<b>TABLE:</b><br>
+	<li>width/height - set width\height of grid</li>
+	<li>evenrow - style for even rows</li>
+	<li>unevenrow - style for odd rows</li>
+	<li>name - name for js variable referenced to grid</li>
+	<li>imgpath - path to images folder</li>
+<br><b>TR:</b><br>
+	<li>id - identifier of row</li>
+<br><b>TD (of first row):</b><br>
+	<li>type - editor type</li>
+	<li>width - column width</li>
+<br><b>TD (any row):</b><br>
+	<li>valign - vertical align</li>
+	<li>align - horizontal align</li>
+	<li>selected - rows selected</li>
+		
+
+<h6>Version/Edition: v1.2/Professional/Standard</h6>
+<h6>Required js file:dhtmlXGrid_start.js</h6>
+</div>	
+
+<a name="smpars"><h4 >Smart Parsing in dhtmlxTreeGrid</h4></a><div class="block">
+Smart parsing can increase performance of TreeGrid control when you have lots of nodes and levels in it. <br>
+Current sample demonstrates loading of 1700 nodes on 4 levels. No need to change anything on server side.
+
+<h5>Script Syntax</h5>
+<XMP>
+	mygrid.enableSmartXMLParsing(true);	
+</XMP>
+<h6>Version/Edition: v1.2/Professional</h6>
+</div>	
+
+<a name="skins"><h4 >Skins</h4></a><div class="block">
+You can set any of predefined skins to your grid/treegrid object using <strong>setSkin</strong> 
+method<br>
+<h5>Available skins are:</h5>
+<li><a target="_blank" href="imgs/skin_gray.gif">gray</a></li>
+<li><a target="_blank" href="imgs/skin_xp.gif">xp</a></li>
+<li><a target="_blank" href="imgs/skin_mt.gif">mt</a></li>
+<li><a target="_blank" href="imgs/skin_modern.gif">modern</a> (requires dhtmlXGrid_skins.css)</li>
+<li><a target="_blank" href="imgs/skin_light.gif">light</a> (requires dhtmlXGrid_skins.css)</li>
+<li><a target="_blank" href="imgs/skin_clear.gif">clear</a> (requires dhtmlXGrid_skins.css)</li>
+<br><br>
+<XMP>
+	yourGrid.setSkin("modern");
+</XMP>
+</div>
+
+<!--- <a name="test"><h4 >...</h4></a><div class="block">
+...
+<XMP>
+	
+</XMP>
+</div>	 --->
+
+</div>
+</body>
+</html>

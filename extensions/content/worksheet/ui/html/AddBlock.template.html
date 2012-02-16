@@ -1,0 +1,18 @@
+<p class="infoBar">
+	Bitte wählen Sie aus, von welchem Typ die neue Aufgabe sein soll:
+</p>
+
+{foreach from=$blockTypes item=blockType}
+
+	<a href="{$PATH_URL}worksheet/AddBlock/{$ID}/{$blockType.name}" class="worksheet_addblock">
+		
+		{if $blockType.image}
+			<img src="{$PATH_URL}worksheet/BlockTypeImage/{$blockType.name}" alt="" />
+		{/if}
+		
+		<h1>{$blockType.title}</h1>
+		{$blockType.description}
+		
+	</a>
+	
+{/foreach}

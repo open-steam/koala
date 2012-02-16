@@ -1,0 +1,162 @@
+\hypertarget{classsteam__messageboard}{
+\section{steam\_\-messageboard Class Reference}
+\label{classsteam__messageboard}\index{steam\_\-messageboard@{steam\_\-messageboard}}
+}
+Inheritance diagram for steam\_\-messageboard:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsteam__messageboard}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsteam__messageboard_a650233d2f93c7a7252f77a643ae4da1b}{\_\-\_\-construct} (\$pSteamConnectorID, \$pID=0)
+\item 
+\hyperlink{classsteam__messageboard_a9b549e4b8292d8a9b1ac989adc4028ae}{add\_\-thread} (\$pThreadName, \$pThreadDescription)
+\item 
+\hyperlink{classsteam__messageboard_af1aab9f3b1f773af720ae4827d1629af}{add\_\-article} (\$pSubject, \$pContent)
+\item 
+\hyperlink{classsteam__messageboard_adde3955510245250a654a354399df7b9}{delete\_\-thread} (\$pThread)
+\item 
+\hyperlink{classsteam__messageboard_a0ae170ea6758aae1ec69d315a0a9de3f}{delete\_\-article} (\$pArticle)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classsteam__messageboard_a7218afe018c50881048a8e9567436407}{create\_\-entry} (\$pEntryName, \$pDescription)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classsteam__messageboard_a650233d2f93c7a7252f77a643ae4da1b}{
+\index{steam\_\-messageboard@{steam\_\-messageboard}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!steam_messageboard@{steam\_\-messageboard}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}steam\_\-messageboard::\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pSteamConnectorID, }
+\item[{\$}]{ pID = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{classsteam__messageboard_a650233d2f93c7a7252f77a643ae4da1b}
+constructor of \hyperlink{classsteam__messageboard}{steam\_\-messageboard}:
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$pSteamConnector} & \\
+\hline
+{\em \$pID} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classsteam__messageboard_af1aab9f3b1f773af720ae4827d1629af}{
+\index{steam\_\-messageboard@{steam\_\-messageboard}!add\_\-article@{add\_\-article}}
+\index{add\_\-article@{add\_\-article}!steam_messageboard@{steam\_\-messageboard}}
+\subsubsection[{add\_\-article}]{\setlength{\rightskip}{0pt plus 5cm}steam\_\-messageboard::add\_\-article (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pSubject, }
+\item[{\$}]{ pContent}
+\end{DoxyParamCaption}
+)}}
+\label{classsteam__messageboard_af1aab9f3b1f773af720ae4827d1629af}
+function add\_\-article:
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$pSubject} & \\
+\hline
+{\em \$pContent} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classsteam__messageboard_a9b549e4b8292d8a9b1ac989adc4028ae}{
+\index{steam\_\-messageboard@{steam\_\-messageboard}!add\_\-thread@{add\_\-thread}}
+\index{add\_\-thread@{add\_\-thread}!steam_messageboard@{steam\_\-messageboard}}
+\subsubsection[{add\_\-thread}]{\setlength{\rightskip}{0pt plus 5cm}steam\_\-messageboard::add\_\-thread (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pThreadName, }
+\item[{\$}]{ pThreadDescription}
+\end{DoxyParamCaption}
+)}}
+\label{classsteam__messageboard_a9b549e4b8292d8a9b1ac989adc4028ae}
+function add\_\-thread: This function creates a new thread in the messageboard
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pThreadName} & the name of the thread \\
+\hline
+string & {\em \$pTreadDescription} & content of the thread\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{classsteam__document}{steam\_\-document} the thread object 
+\end{DoxyReturn}
+\hypertarget{classsteam__messageboard_a7218afe018c50881048a8e9567436407}{
+\index{steam\_\-messageboard@{steam\_\-messageboard}!create\_\-entry@{create\_\-entry}}
+\index{create\_\-entry@{create\_\-entry}!steam_messageboard@{steam\_\-messageboard}}
+\subsubsection[{create\_\-entry}]{\setlength{\rightskip}{0pt plus 5cm}steam\_\-messageboard::create\_\-entry (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pEntryName, }
+\item[{\$}]{ pDescription}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{classsteam__messageboard_a7218afe018c50881048a8e9567436407}
+function create\_\-entry:
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$pEntryName} & \\
+\hline
+{\em \$pDescription} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classsteam__messageboard_a0ae170ea6758aae1ec69d315a0a9de3f}{
+\index{steam\_\-messageboard@{steam\_\-messageboard}!delete\_\-article@{delete\_\-article}}
+\index{delete\_\-article@{delete\_\-article}!steam_messageboard@{steam\_\-messageboard}}
+\subsubsection[{delete\_\-article}]{\setlength{\rightskip}{0pt plus 5cm}steam\_\-messageboard::delete\_\-article (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pArticle}
+\end{DoxyParamCaption}
+)}}
+\label{classsteam__messageboard_a0ae170ea6758aae1ec69d315a0a9de3f}
+function delete\_\-article:
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$pArticle} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classsteam__messageboard_adde3955510245250a654a354399df7b9}{
+\index{steam\_\-messageboard@{steam\_\-messageboard}!delete\_\-thread@{delete\_\-thread}}
+\index{delete\_\-thread@{delete\_\-thread}!steam_messageboard@{steam\_\-messageboard}}
+\subsubsection[{delete\_\-thread}]{\setlength{\rightskip}{0pt plus 5cm}steam\_\-messageboard::delete\_\-thread (
+\begin{DoxyParamCaption}
+\item[{\$}]{ pThread}
+\end{DoxyParamCaption}
+)}}
+\label{classsteam__messageboard_adde3955510245250a654a354399df7b9}
+function delete\_\-thread:
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$pThread} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/steam\_\-messageboard.class.php\end{DoxyCompactItemize}

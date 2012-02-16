@@ -1,0 +1,71 @@
+\hypertarget{class_simple_error_trapping_invoker}{
+\section{SimpleErrorTrappingInvoker Class Reference}
+\label{class_simple_error_trapping_invoker}\index{SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}}
+}
+Inheritance diagram for SimpleErrorTrappingInvoker:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_simple_error_trapping_invoker}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_error_trapping_invoker_af403fe699963304b0d95f4bc1366d6b8}{SimpleErrorTrappingInvoker} (\&\$invoker)
+\item 
+\hyperlink{class_simple_error_trapping_invoker_ad9122507df8d27c3b7ab8fd1ecb53e45}{invoke} (\$method)
+\item 
+\& \hyperlink{class_simple_error_trapping_invoker_a721fa4b7d6c984e87648c5d3b08e35e1}{\_\-createErrorQueue} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_error_trapping_invoker_a721fa4b7d6c984e87648c5d3b08e35e1}{
+\index{SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}!\_\-createErrorQueue@{\_\-createErrorQueue}}
+\index{\_\-createErrorQueue@{\_\-createErrorQueue}!SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}}
+\subsubsection[{\_\-createErrorQueue}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleErrorTrappingInvoker::\_\-createErrorQueue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_trapping_invoker_a721fa4b7d6c984e87648c5d3b08e35e1}
+Wires up the error queue for a single test. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_error_queue}{SimpleErrorQueue} Queue connected to the test.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_error_trapping_invoker_ad9122507df8d27c3b7ab8fd1ecb53e45}{
+\index{SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}!invoke@{invoke}}
+\index{invoke@{invoke}!SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}}
+\subsubsection[{invoke}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorTrappingInvoker::invoke (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_trapping_invoker_ad9122507df8d27c3b7ab8fd1ecb53e45}
+Invokes a test method and dispatches any untrapped errors. Called back from the visiting runner. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$method} & Test method to call.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_invoker_decorator_a95431eef2d336fc92dbbc719a66cda32}{SimpleInvokerDecorator}.
+
+\hypertarget{class_simple_error_trapping_invoker_af403fe699963304b0d95f4bc1366d6b8}{
+\index{SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}!SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}}
+\index{SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}!SimpleErrorTrappingInvoker@{SimpleErrorTrappingInvoker}}
+\subsubsection[{SimpleErrorTrappingInvoker}]{\setlength{\rightskip}{0pt plus 5cm}SimpleErrorTrappingInvoker::SimpleErrorTrappingInvoker (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ invoker}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_error_trapping_invoker_af403fe699963304b0d95f4bc1366d6b8}
+Stores the invoker to wrap. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_invoker}{SimpleInvoker} & {\em \$invoker} & Test method runner. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/errors.php\end{DoxyCompactItemize}

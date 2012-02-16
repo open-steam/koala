@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<title>DHTML Grid samples. dhtmlXGrid - Setting cells and column properties</title>
+	<meta name="KEYWORDS" content="dhtmlxgrid, dhtml grid, javascript grid, javascript, DHTML, grid, grid control, dynamical scrolling, xml, AJAX, API, cross-browser, checkbox, XHTML, compatible, gridview, navigation, script, javascript navigation, web-site, dynamic, javascript grid, dhtml grid, dynamic grid, item, row, cell, asp, .net, jsp, cold fusion, custom tag, loading, widget, checkbox, drag, drop, drag and drop, component, html, scand">
+
+<meta name="DESCRIPTION" content="Cross-browser DHTML grid with XML support and powerful API. This DHTML JavaScript grid can load its content dynamically from server using AJAX technology.">
+
+</head>
+<style>
+	body {font-size:12px}
+	.{font-family:arial;font-size:12px}
+	h1 {cursor:hand;font-size:16px;margin-left:10px;line-height:10px}
+	xmp {color:green;font-size:12px;margin:0px;font-family:courier;background-color:#e6e6fa;padding:2px}
+	div.hdr{
+		background-color:lightgrey;
+		margin-bottom:10px;
+		padding-left:10px;
+	}
+</style>
+<body>
+	<div class="hdr">DHTML JavaScript Grid samples</div>
+	<h1>Setting cells and column properties</h1>
+	<p>
+		Using eXcell technology (extended cells) you can define the formating for each column of the javascript grid and the editor to edit it.<br>
+		For more details and the list of available cell types see <strong>"Column Types"</strong> and <strong>"Using eXcell"</strong> chapters of Documentation Guide.<br>
+		During grid initialization you also can define:
+		<li>column alignment - setColAlign</li>
+		<li>header labels - setHeader</li>
+		<li>sorting type - setColSorting</li>
+		<li>column initial width - setInitWidths</li>
+	</p>
+	<link rel="STYLESHEET" type="text/css" href="../css/dhtmlXGrid.css">
+	<script  src="../js/dhtmlXCommon.js"></script>
+	<script  src="../js/dhtmlXGrid.js"></script>		
+	<script  src="../js/dhtmlXGridCell.js"></script>	
+	<table width="600">
+		<tr>
+			<td>
+				<div id="gridbox" width="100%" height="250px" style="background-color:white;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+<hr>
+<XMP>
+<div id="gridbox" width="100%" height="250px" style="background-color:white;overflow:hidden"></div>
+<script>
+		mygrid = new dhtmlXGridObject('gridbox');
+		...
+		mygrid.setHeader("Sales,Book Title,Author,Price,In Store,Shipping,Bestseller,Date of Publication");
+		mygrid.setInitWidths("50,150,120,80,80,80,80,200")
+		mygrid.setColAlign("right,left,left,right,center,left,center,center")
+		mygrid.setColTypes("dyn,ed,txt,price,ch,coro,ra,ro");
+		mygrid.setColSorting("int,str,str,int,str,str,str,date")
+		mygrid.setColumnColor("white,#d5f1ff,#d5f1ff")
+		...
+		mygrid.init();
+		mygrid.loadXML("../grid.xml");
+</script>
+</XMP>
+		
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../imgs/");
+	mygrid.setHeader("Sales,Book Title,Author,Price,In Store,Shipping,Bestseller,Date of Publication");
+	mygrid.setInitWidths("50,150,120,80,80,80,80,200")
+	mygrid.setColAlign("right,left,left,right,center,left,center,center")
+	mygrid.setColTypes("dyn,ed,txt,price,ch,coro,ra,ro");
+	mygrid.setColSorting("int,str,str,int,str,str,str,date")
+	mygrid.setColumnColor("white,#d5f1ff,#d5f1ff")
+        mygrid.getCombo(5).put(2,2);    
+	mygrid.init();
+	mygrid.loadXML("../grid.xml");
+</script>
+<br><br>
+<p><a href="http://www.scbr.com/docs/products/dhtmlxGrid/index.shtml" style="font-weight:bold;">Go to the dhtmlxGrid main page</a> or <a href="javascript:self.close()">Close this page</a></p>
+	
+</body>
+</html>

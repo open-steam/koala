@@ -1,0 +1,87 @@
+<!-- BEGIN BLOCK_PYRAMID_INFORMATION -->
+<center>
+	<table class="pyramiddiscussion_table" border="1" width="50%">
+		<tr style="border-bottom: 1">
+			<th colspan="2">{GENERAL_INFORMATION}</th>
+		</tr>
+		<tr>
+			<td class="label">{PHASE_LABEL}</td>
+			<!-- BEGIN BLOCK_PYRAMID_PHASE_NOADMIN -->
+			<td>{PHASE_VALUE}</td>
+			<!-- END BLOCK_PYRAMID_PHASE_NOADMIN -->
+			<!-- BEGIN BLOCK_PYRAMID_ADMIN -->
+			<td>
+				<form action="" method="post">
+					<select id="phase" name="phase" size="1" style="width: 70%" >
+						<!-- BEGIN BLOCK_PHASE_OPTION -->
+						<option value="{PHASE_ID}" {PHASE_SELECTED}>{PHASE_VALUE}</option>
+						<!-- END BLOCK_PHASE_OPTION -->
+					</select>
+					<a class="button" onclick="{CHANGE_PHASE_ACTION}">{CHANGE_PHASE}</a>
+				</form>
+			</td>
+			<!-- END BLOCK_PYRAMID_ADMIN -->
+		</tr>
+		<tr>
+			<td class="label">{DEADLINE_LABEL}</td>
+			<td>
+				{DEADLINE_VALUE}
+				<div style="display:{DISPLAY_OVERRIDE}">
+					<a class="button" onclick="{DEADLINE_OVERRIDE_ACTION}">{DEADLINE_OVERRIDE_LABEL}</a>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="label">{INFO_LABEL}</td>
+			<td>{INFO_VALUE}</td>
+		</tr>
+	</table>
+</center>
+<!-- END BLOCK_PYRAMID_INFORMATION -->
+
+<!-- BEGIN BLOCK_PYRAMID -->
+<div id="pyramid" style="visibility:hidden;">
+	<!-- BEGIN BLOCK_PYRAMID_DEADLINE -->
+	<div id="{DEADLINE_ID}" style="width:122px; position:absolute; text-align:center;">
+		<b>{DEADLINE_DATE}</b>
+	</div>
+	<!-- END BLOCK_PYRAMID_DEADLINE -->
+	<!-- BEGIN BLOCK_PYRAMID_POSITION -->
+	<div id="{POSITION_ID}" class="pyramidposition {POSITION_STATE}" style="position:absolute; font-size: 11px;">
+		<div class="pyramid_positionbar">
+			<div class="box_rotate">{POSITION_LABEL}</div>
+		</div>
+		<div id="pyramidposition_content_wrapper" style="margin-left: 20px">
+			<div class="pyramid_statusbar">
+				<img src="{ASSETURL}icons/{READSTATUS_ICON}.png" title="{READSTATUS_TITLE}" style="position:relative; left: 10px;">
+				<img src="{ASSETURL}icons/{COMMENTSTATUS_ICON}.png" title="{ANNOTATION_TITLE}" style="position:relative; left: 50px;">
+				<a {COMMENTS_URL} style="position:relative; left: 50px; top: -3px;"><font color="#4b789c" title="{ANNOTATION_TITLE}">{ANNOTATION_COUNT}</font></a>
+			</div>
+			<div style="vertical-align:top; width: 100px">
+				<br>
+				<center>
+					<a class="button" href="{POSITION_ACTION_URL}" style="line-height: 17px; visibility: {POSITION_ACTION_HIDDEN}">{POSITION_ACTION_LABEL}</a>
+				</center>
+				<br>
+				<div style="white-space: nowrap; overflow:auto;">
+					<!-- BEGIN BLOCK_PYRAMID_POSITION_USER -->
+					<div style='height:20px'>
+						&nbsp<img style="vertical-align:middle;" src="{PIC_URL}">&nbsp<a href="{USER_URL}">{USER_NAME}</a>
+					</div>
+					<!-- END BLOCK_PYRAMID_POSITION_USER -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END BLOCK_PYRAMID_POSITION -->
+	<div class="pyramid_background" style="height:{EMPTY_DIV_HEIGHT}; width: 100%;">
+	 	<div class="pyramid_triangle"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	initiatePyramid('{JS_STARTPOSITIONS}', {JS_GAP}, {JS_HEIGHT}, '{JS_DEADLINES}');
+</script>
+<style type="text/css">
+	{CSS_HEIGHTS}
+</style>
+<!-- END BLOCK_PYRAMID -->

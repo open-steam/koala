@@ -1,0 +1,75 @@
+\hypertarget{class_simple_secure_socket}{
+\section{SimpleSecureSocket Class Reference}
+\label{class_simple_secure_socket}\index{SimpleSecureSocket@{SimpleSecureSocket}}
+}
+Inheritance diagram for SimpleSecureSocket:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_simple_secure_socket}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_secure_socket_ae86a1994aa38db0aad3ff3779c0907b7}{SimpleSecureSocket} (\$host, \$port, \$timeout)
+\item 
+\hyperlink{class_simple_secure_socket_ad027b44d55717c0baa0547cf66e0fa0f}{\_\-openSocket} (\$host, \$port, \&\$error\_\-number, \&\$error, \$timeout)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_secure_socket_ad027b44d55717c0baa0547cf66e0fa0f}{
+\index{SimpleSecureSocket@{SimpleSecureSocket}!\_\-openSocket@{\_\-openSocket}}
+\index{\_\-openSocket@{\_\-openSocket}!SimpleSecureSocket@{SimpleSecureSocket}}
+\subsubsection[{\_\-openSocket}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSecureSocket::\_\-openSocket (
+\begin{DoxyParamCaption}
+\item[{\$}]{ host, }
+\item[{\$}]{ port, }
+\item[{\&\$}]{ error\_\-number, }
+\item[{\&\$}]{ error, }
+\item[{\$}]{ timeout}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_secure_socket_ad027b44d55717c0baa0547cf66e0fa0f}
+Actually opens the low level socket. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$host} & Host to connect to. \\
+\hline
+integer & {\em \$port} & Port on host. \\
+\hline
+integer & {\em \$error\_\-number} & Recipient of error code. \\
+\hline
+string & {\em \$error} & Recipient of error message. \\
+\hline
+integer & {\em \$timeout} & Maximum time to wait for connection.  protected \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_simple_socket_a40c391808591c437200a14ebb2619f83}{SimpleSocket}.
+
+\hypertarget{class_simple_secure_socket_ae86a1994aa38db0aad3ff3779c0907b7}{
+\index{SimpleSecureSocket@{SimpleSecureSocket}!SimpleSecureSocket@{SimpleSecureSocket}}
+\index{SimpleSecureSocket@{SimpleSecureSocket}!SimpleSecureSocket@{SimpleSecureSocket}}
+\subsubsection[{SimpleSecureSocket}]{\setlength{\rightskip}{0pt plus 5cm}SimpleSecureSocket::SimpleSecureSocket (
+\begin{DoxyParamCaption}
+\item[{\$}]{ host, }
+\item[{\$}]{ port, }
+\item[{\$}]{ timeout}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_secure_socket_ae86a1994aa38db0aad3ff3779c0907b7}
+Opens a secure socket for reading and writing. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$host} & Hostname to send request to. \\
+\hline
+integer & {\em \$port} & Port on remote machine to open. \\
+\hline
+integer & {\em \$timeout} & Connection timeout in seconds.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/socket.php\end{DoxyCompactItemize}

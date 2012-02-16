@@ -1,0 +1,83 @@
+\hypertarget{class_simple_state_stack}{
+\section{SimpleStateStack Class Reference}
+\label{class_simple_state_stack}\index{SimpleStateStack@{SimpleStateStack}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_state_stack_a223dbdb698b604ae03f8cd7e330ec637}{SimpleStateStack} (\$start)
+\item 
+\hyperlink{class_simple_state_stack_a458c1edc7ee2628b74fb73a207952462}{getCurrent} ()
+\item 
+\hyperlink{class_simple_state_stack_afea48ccdd072d556d9bd7eb9641e35bb}{enter} (\$state)
+\item 
+\hyperlink{class_simple_state_stack_a135b1517ac49eb6bdbcecf009c86a077}{leave} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_state_stack_a645b877e827b9bb8a46d892dc723997e}{
+{\bfseries \$\_\-stack}}
+\label{class_simple_state_stack_a645b877e827b9bb8a46d892dc723997e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_state_stack_afea48ccdd072d556d9bd7eb9641e35bb}{
+\index{SimpleStateStack@{SimpleStateStack}!enter@{enter}}
+\index{enter@{enter}!SimpleStateStack@{SimpleStateStack}}
+\subsubsection[{enter}]{\setlength{\rightskip}{0pt plus 5cm}SimpleStateStack::enter (
+\begin{DoxyParamCaption}
+\item[{\$}]{ state}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_state_stack_afea48ccdd072d556d9bd7eb9641e35bb}
+Adds a state to the stack and sets it to be the current state. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$state} & New state.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_state_stack_a458c1edc7ee2628b74fb73a207952462}{
+\index{SimpleStateStack@{SimpleStateStack}!getCurrent@{getCurrent}}
+\index{getCurrent@{getCurrent}!SimpleStateStack@{SimpleStateStack}}
+\subsubsection[{getCurrent}]{\setlength{\rightskip}{0pt plus 5cm}SimpleStateStack::getCurrent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_state_stack_a458c1edc7ee2628b74fb73a207952462}
+Accessor for current state. \begin{DoxyReturn}{Returns}
+string State.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_state_stack_a135b1517ac49eb6bdbcecf009c86a077}{
+\index{SimpleStateStack@{SimpleStateStack}!leave@{leave}}
+\index{leave@{leave}!SimpleStateStack@{SimpleStateStack}}
+\subsubsection[{leave}]{\setlength{\rightskip}{0pt plus 5cm}SimpleStateStack::leave (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_state_stack_a135b1517ac49eb6bdbcecf009c86a077}
+Leaves the current state and reverts to the previous one. \begin{DoxyReturn}{Returns}
+boolean False if we drop off the bottom of the list.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_state_stack_a223dbdb698b604ae03f8cd7e330ec637}{
+\index{SimpleStateStack@{SimpleStateStack}!SimpleStateStack@{SimpleStateStack}}
+\index{SimpleStateStack@{SimpleStateStack}!SimpleStateStack@{SimpleStateStack}}
+\subsubsection[{SimpleStateStack}]{\setlength{\rightskip}{0pt plus 5cm}SimpleStateStack::SimpleStateStack (
+\begin{DoxyParamCaption}
+\item[{\$}]{ start}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_state_stack_a223dbdb698b604ae03f8cd7e330ec637}
+Constructor. Starts in named state. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$start} & Starting state name.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/parser.php\end{DoxyCompactItemize}

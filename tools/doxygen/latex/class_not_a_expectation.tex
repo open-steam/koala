@@ -1,0 +1,94 @@
+\hypertarget{class_not_a_expectation}{
+\section{NotAExpectation Class Reference}
+\label{class_not_a_expectation}\index{NotAExpectation@{NotAExpectation}}
+}
+Inheritance diagram for NotAExpectation:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_not_a_expectation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_not_a_expectation_ac5376f9e05d830a311ca7cae4beb2af8}{NotAExpectation} (\$type, \$message= '\%s')
+\item 
+\hyperlink{class_not_a_expectation_a627e4e3a4514de8f869eaa5f62a5e206}{test} (\$compare)
+\item 
+\hyperlink{class_not_a_expectation_aecc6099e1b98a0b00f798e43a8add4fa}{testMessage} (\$compare)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_not_a_expectation_a87065cc077783de6b169d3d2fac0a594}{
+{\bfseries \$\_\-type}}
+\label{class_not_a_expectation_a87065cc077783de6b169d3d2fac0a594}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_not_a_expectation_ac5376f9e05d830a311ca7cae4beb2af8}{
+\index{NotAExpectation@{NotAExpectation}!NotAExpectation@{NotAExpectation}}
+\index{NotAExpectation@{NotAExpectation}!NotAExpectation@{NotAExpectation}}
+\subsubsection[{NotAExpectation}]{\setlength{\rightskip}{0pt plus 5cm}NotAExpectation::NotAExpectation (
+\begin{DoxyParamCaption}
+\item[{\$}]{ type, }
+\item[{\$}]{ message = {\ttfamily '\%s'}}
+\end{DoxyParamCaption}
+)}}
+\label{class_not_a_expectation_ac5376f9e05d830a311ca7cae4beb2af8}
+Sets the type to compare with. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & Type or class name. \\
+\hline
+string & {\em \$message} & Customised message on failure.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_not_a_expectation_a627e4e3a4514de8f869eaa5f62a5e206}{
+\index{NotAExpectation@{NotAExpectation}!test@{test}}
+\index{test@{test}!NotAExpectation@{NotAExpectation}}
+\subsubsection[{test}]{\setlength{\rightskip}{0pt plus 5cm}NotAExpectation::test (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_not_a_expectation_a627e4e3a4514de8f869eaa5f62a5e206}
+Tests the expectation. False if the type or class matches the string value. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if different.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_is_a_expectation_a759f6a0c54751334dbb7a8aed01a3858}{IsAExpectation}.
+
+\hypertarget{class_not_a_expectation_aecc6099e1b98a0b00f798e43a8add4fa}{
+\index{NotAExpectation@{NotAExpectation}!testMessage@{testMessage}}
+\index{testMessage@{testMessage}!NotAExpectation@{NotAExpectation}}
+\subsubsection[{testMessage}]{\setlength{\rightskip}{0pt plus 5cm}NotAExpectation::testMessage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ compare}
+\end{DoxyParamCaption}
+)}}
+\label{class_not_a_expectation_aecc6099e1b98a0b00f798e43a8add4fa}
+Returns a human readable test message. 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$compare} & Comparison value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Description of success or failure.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_is_a_expectation_af5e73859e22cd3ed97e13edda31de53e}{IsAExpectation}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/expectation.php\end{DoxyCompactItemize}

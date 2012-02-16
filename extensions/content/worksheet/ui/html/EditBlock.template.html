@@ -1,0 +1,24 @@
+<script type="text/javascript">
+{literal}
+
+	function worksheet_save() {
+		
+		document.getElementById("worksheet_form").submit();
+		
+	}
+	
+{/literal}
+</script>
+
+<form action="{$PATH_URL}worksheet/EditBlock/{$ID}/{$BLOCK_ID}" method="post" id="worksheet_form">
+
+	<div class="worksheet_block_label">Titel der Aufgabe:</div> 
+	<input type="text" name="name" value="{$name}" class="worksheet_block_title" />
+	
+	{$content}
+
+	<br />
+
+	<input type="submit" name="save" value="Änderungen speichern" class="worksheet_block_save" /> 
+	
+</form>

@@ -1,0 +1,201 @@
+\hypertarget{classextensionmanager}{
+\section{extensionmanager Class Reference}
+\label{classextensionmanager}\index{extensionmanager@{extensionmanager}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classextensionmanager_a1105f9109bc02c17f0ceaa90f0a409ea}{get\_\-extensionmanager} ()
+\item 
+\hyperlink{classextensionmanager_afbeafb7777293b21d34c695e13f5892b}{init} ()
+\item 
+\hypertarget{classextensionmanager_a67bc9492a51007c91bda10c8772c4f76}{
+{\bfseries get\_\-extensions\_\-dir} ()}
+\label{classextensionmanager_a67bc9492a51007c91bda10c8772c4f76}
+
+\item 
+\hypertarget{classextensionmanager_a327974c4a732113ac4c84e110973e6f2}{
+{\bfseries get\_\-installed\_\-extensions} ()}
+\label{classextensionmanager_a327974c4a732113ac4c84e110973e6f2}
+
+\item 
+\hyperlink{classextensionmanager_a8a86909f6565ce7aa83fdff8156a2428}{get\_\-enabled\_\-extensions} ()
+\item 
+\hypertarget{classextensionmanager_ac06017e8a437449228e463a3a1c0d87f}{
+{\bfseries get\_\-extension} (\$name)}
+\label{classextensionmanager_ac06017e8a437449228e463a3a1c0d87f}
+
+\item 
+\hypertarget{classextensionmanager_a8435c9859289fd64379dc51fe77cffab}{
+{\bfseries get\_\-extension\_\-by\_\-id} (\$id)}
+\label{classextensionmanager_a8435c9859289fd64379dc51fe77cffab}
+
+\item 
+\hyperlink{classextensionmanager_aa3da3f1631ff41aebe78ae8920e2d26a}{get\_\-extension\_\-by\_\-obj\_\-type} (\$obj\_\-type)
+\item 
+\hypertarget{classextensionmanager_ac50bf8cc9636ba95f00aa7640d621a50}{
+{\bfseries get\_\-extensions\_\-by\_\-class} (\$koala\_\-class\_\-name)}
+\label{classextensionmanager_ac50bf8cc9636ba95f00aa7640d621a50}
+
+\item 
+\hyperlink{classextensionmanager_af6fe561873a02f4a15534d57abbf576a}{get\_\-dependent\_\-extensions} (\$extension)
+\item 
+\hyperlink{classextensionmanager_a914401e8a5547f4531508d9117a29186}{get\_\-extensions\_\-by\_\-obj\_\-type} (\$starts\_\-with=NULL, \$ends\_\-with=NULL)
+\item 
+\hyperlink{classextensionmanager_aaec1bf49db2b6bda39a482b988d993da}{get\_\-extensions\_\-by\_\-path} (\$path)
+\item 
+\hyperlink{classextensionmanager_a6151a3d997cafcbb3f0c44f6a8c6d8a1}{handle\_\-path} (\$path, \$owner=FALSE, \$portal=FALSE)
+\item 
+\hyperlink{classextensionmanager_ac2da799d740734f238b5be10850da673}{enable\_\-extension} (\$name)
+\item 
+\hyperlink{classextensionmanager_afa94c57be978758133679b3f817b0b7e}{disable\_\-extension} (\$name)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classextensionmanager_ab55962981b54d9a1e2006d3152e549a4}{
+static {\bfseries get\_\-config\_\-objects} ()}
+\label{classextensionmanager_ab55962981b54d9a1e2006d3152e549a4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classextensionmanager_afa94c57be978758133679b3f817b0b7e}{
+\index{extensionmanager@{extensionmanager}!disable\_\-extension@{disable\_\-extension}}
+\index{disable\_\-extension@{disable\_\-extension}!extensionmanager@{extensionmanager}}
+\subsubsection[{disable\_\-extension}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::disable\_\-extension (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_afa94c57be978758133679b3f817b0b7e}
+Funktion for disabling a specific extension by its name globally. Extensions that depend on the disabled one will be disabled too! 
+\begin{DoxyParams}{Parameters}
+{\em \$name} & the name of the extension to be disabled \\
+\hline
+\end{DoxyParams}
+\hypertarget{classextensionmanager_ac2da799d740734f238b5be10850da673}{
+\index{extensionmanager@{extensionmanager}!enable\_\-extension@{enable\_\-extension}}
+\index{enable\_\-extension@{enable\_\-extension}!extensionmanager@{extensionmanager}}
+\subsubsection[{enable\_\-extension}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::enable\_\-extension (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_ac2da799d740734f238b5be10850da673}
+Funktion for enabling a specific extension by its name globally. 
+\begin{DoxyParams}{Parameters}
+{\em \$name} & the name of the extension to be enabled \\
+\hline
+\end{DoxyParams}
+\hypertarget{classextensionmanager_af6fe561873a02f4a15534d57abbf576a}{
+\index{extensionmanager@{extensionmanager}!get\_\-dependent\_\-extensions@{get\_\-dependent\_\-extensions}}
+\index{get\_\-dependent\_\-extensions@{get\_\-dependent\_\-extensions}!extensionmanager@{extensionmanager}}
+\subsubsection[{get\_\-dependent\_\-extensions}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::get\_\-dependent\_\-extensions (
+\begin{DoxyParamCaption}
+\item[{\$}]{ extension}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_af6fe561873a02f4a15534d57abbf576a}
+Return all extensions that are enabled and depend on the given extension parameter (see requirements) 
+\begin{DoxyParams}{Parameters}
+{\em \$extension,:} & the \hyperlink{classkoala__extension}{koala\_\-extension} object that acts as base extension \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+all dependent extension, if present, else array() 
+\end{DoxyReturn}
+\hypertarget{classextensionmanager_a8a86909f6565ce7aa83fdff8156a2428}{
+\index{extensionmanager@{extensionmanager}!get\_\-enabled\_\-extensions@{get\_\-enabled\_\-extensions}}
+\index{get\_\-enabled\_\-extensions@{get\_\-enabled\_\-extensions}!extensionmanager@{extensionmanager}}
+\subsubsection[{get\_\-enabled\_\-extensions}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::get\_\-enabled\_\-extensions (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_a8a86909f6565ce7aa83fdff8156a2428}
+This function returns all installed extensions that are globally enabled (active). \begin{DoxyReturn}{Returns}
+array() array of active extensions 
+\end{DoxyReturn}
+\hypertarget{classextensionmanager_aa3da3f1631ff41aebe78ae8920e2d26a}{
+\index{extensionmanager@{extensionmanager}!get\_\-extension\_\-by\_\-obj\_\-type@{get\_\-extension\_\-by\_\-obj\_\-type}}
+\index{get\_\-extension\_\-by\_\-obj\_\-type@{get\_\-extension\_\-by\_\-obj\_\-type}!extensionmanager@{extensionmanager}}
+\subsubsection[{get\_\-extension\_\-by\_\-obj\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::get\_\-extension\_\-by\_\-obj\_\-type (
+\begin{DoxyParamCaption}
+\item[{\$}]{ obj\_\-type}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_aa3da3f1631ff41aebe78ae8920e2d26a}
+Return an extension by its OBJ\_\-TYPE \hypertarget{classextensionmanager_a1105f9109bc02c17f0ceaa90f0a409ea}{
+\index{extensionmanager@{extensionmanager}!get\_\-extensionmanager@{get\_\-extensionmanager}}
+\index{get\_\-extensionmanager@{get\_\-extensionmanager}!extensionmanager@{extensionmanager}}
+\subsubsection[{get\_\-extensionmanager}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::get\_\-extensionmanager (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_a1105f9109bc02c17f0ceaa90f0a409ea}
+Returns a singleton instance of the extensionmanager. Use this instead of \char`\"{}new extensionmanager()\char`\"{} as it performs some initialization. \hypertarget{classextensionmanager_a914401e8a5547f4531508d9117a29186}{
+\index{extensionmanager@{extensionmanager}!get\_\-extensions\_\-by\_\-obj\_\-type@{get\_\-extensions\_\-by\_\-obj\_\-type}}
+\index{get\_\-extensions\_\-by\_\-obj\_\-type@{get\_\-extensions\_\-by\_\-obj\_\-type}!extensionmanager@{extensionmanager}}
+\subsubsection[{get\_\-extensions\_\-by\_\-obj\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::get\_\-extensions\_\-by\_\-obj\_\-type (
+\begin{DoxyParamCaption}
+\item[{\$}]{ starts\_\-with = {\ttfamily NULL}, }
+\item[{\$}]{ ends\_\-with = {\ttfamily NULL}}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_a914401e8a5547f4531508d9117a29186}
+Return all installed extension that match a specific prefix or postfix in it the OBJ\_\-TYPE \hypertarget{classextensionmanager_aaec1bf49db2b6bda39a482b988d993da}{
+\index{extensionmanager@{extensionmanager}!get\_\-extensions\_\-by\_\-path@{get\_\-extensions\_\-by\_\-path}}
+\index{get\_\-extensions\_\-by\_\-path@{get\_\-extensions\_\-by\_\-path}!extensionmanager@{extensionmanager}}
+\subsubsection[{get\_\-extensions\_\-by\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::get\_\-extensions\_\-by\_\-path (
+\begin{DoxyParamCaption}
+\item[{\$}]{ path}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_aaec1bf49db2b6bda39a482b988d993da}
+Returns an array of extension objects that can act upon a given path (starting with the part that identifies the extension, e.g. \char`\"{}units/...\char`\"{}).
+
+
+\begin{DoxyParams}[1]{Parameters}
+string | array & {\em \$path} & the path to handle, starting with the path element that identifies the extension itself (e.g. starts with \char`\"{}units/...\char`\"{}) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array an array of extension objects that can act upon that path 
+\end{DoxyReturn}
+\hypertarget{classextensionmanager_a6151a3d997cafcbb3f0c44f6a8c6d8a1}{
+\index{extensionmanager@{extensionmanager}!handle\_\-path@{handle\_\-path}}
+\index{handle\_\-path@{handle\_\-path}!extensionmanager@{extensionmanager}}
+\subsubsection[{handle\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::handle\_\-path (
+\begin{DoxyParamCaption}
+\item[{\$}]{ path, }
+\item[{\$}]{ owner = {\ttfamily FALSE}, }
+\item[{\$}]{ portal = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_a6151a3d997cafcbb3f0c44f6a8c6d8a1}
+Gives a path to the extensions and lets them handle it. If an extension handles the path, then execution is stopped there. If no extension decides to handle the path, then this function will return.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string | array & {\em \$path} & the path to handle, starting with the path element that identifies the extension itself (e.g. starts with \char`\"{}units/...\char`\"{}) \\
+\hline
+object & {\em \$owner} & the owner of the extension, if the extension is being used in the context of another object, or FALSE \\
+\hline
+\end{DoxyParams}
+\hypertarget{classextensionmanager_afbeafb7777293b21d34c695e13f5892b}{
+\index{extensionmanager@{extensionmanager}!init@{init}}
+\index{init@{init}!extensionmanager@{extensionmanager}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}extensionmanager::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classextensionmanager_afbeafb7777293b21d34c695e13f5892b}
+Prevents infinite recursions when initialising extensions that use an extensionmanager in their constructor or enable() method. Called by lms\_\-steam::get\_\-extensionmanager after creating an extensionmanager singleton. 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/extensionmanager.class.php\end{DoxyCompactItemize}

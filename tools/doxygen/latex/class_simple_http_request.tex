@@ -1,0 +1,151 @@
+\hypertarget{class_simple_http_request}{
+\section{SimpleHttpRequest Class Reference}
+\label{class_simple_http_request}\index{SimpleHttpRequest@{SimpleHttpRequest}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_http_request_a44123ae07ac9e6dd385b107460e8f4ba}{SimpleHttpRequest} (\&\$route, \$encoding)
+\item 
+\& \hyperlink{class_simple_http_request_ad343424c442a16dfbe62dddb52b02092}{fetch} (\$timeout)
+\item 
+\hyperlink{class_simple_http_request_afe234f337f1ac909dc125adb428cfed5}{\_\-dispatchRequest} (\&\$socket, \$encoding)
+\item 
+\hyperlink{class_simple_http_request_ac0309917a5be6411e7a87fc50fbb4304}{addHeaderLine} (\$header\_\-line)
+\item 
+\hyperlink{class_simple_http_request_ac5604262cc0cb2dc429b734b8806d64b}{readCookiesFromJar} (\$jar, \$url)
+\item 
+\& \hyperlink{class_simple_http_request_a5ae5d9eabfbc855f3566d2c24ac8241e}{\_\-createResponse} (\&\$socket)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_http_request_af3911993c66783e1856f17e71f9c4483}{
+{\bfseries \$\_\-route}}
+\label{class_simple_http_request_af3911993c66783e1856f17e71f9c4483}
+
+\item 
+\hypertarget{class_simple_http_request_a764d7f4309070df6f01bc20f56f2aad7}{
+{\bfseries \$\_\-encoding}}
+\label{class_simple_http_request_a764d7f4309070df6f01bc20f56f2aad7}
+
+\item 
+\hypertarget{class_simple_http_request_a54e9738662cefc4852bc7d9f2c70394b}{
+{\bfseries \$\_\-headers}}
+\label{class_simple_http_request_a54e9738662cefc4852bc7d9f2c70394b}
+
+\item 
+\hypertarget{class_simple_http_request_a8d19d5a1fed68d4016496e80f914d1a9}{
+{\bfseries \$\_\-cookies}}
+\label{class_simple_http_request_a8d19d5a1fed68d4016496e80f914d1a9}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_http_request_a5ae5d9eabfbc855f3566d2c24ac8241e}{
+\index{SimpleHttpRequest@{SimpleHttpRequest}!\_\-createResponse@{\_\-createResponse}}
+\index{\_\-createResponse@{\_\-createResponse}!SimpleHttpRequest@{SimpleHttpRequest}}
+\subsubsection[{\_\-createResponse}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleHttpRequest::\_\-createResponse (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ socket}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_request_a5ae5d9eabfbc855f3566d2c24ac8241e}
+Wraps the socket in a response parser. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_socket}{SimpleSocket} & {\em \$socket} & Responding socket. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_http_response}{SimpleHttpResponse} Parsed response object.  protected 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_request_afe234f337f1ac909dc125adb428cfed5}{
+\index{SimpleHttpRequest@{SimpleHttpRequest}!\_\-dispatchRequest@{\_\-dispatchRequest}}
+\index{\_\-dispatchRequest@{\_\-dispatchRequest}!SimpleHttpRequest@{SimpleHttpRequest}}
+\subsubsection[{\_\-dispatchRequest}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpRequest::\_\-dispatchRequest (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ socket, }
+\item[{\$}]{ encoding}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_request_afe234f337f1ac909dc125adb428cfed5}
+Sends the headers. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_socket}{SimpleSocket} & {\em \$socket} & Open socket. \\
+\hline
+string & {\em \$method} & HTTP request method, usually GET. \\
+\hline
+SimpleFormEncoding & {\em \$encoding} & Content to send with request.  private \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_http_request_ac0309917a5be6411e7a87fc50fbb4304}{
+\index{SimpleHttpRequest@{SimpleHttpRequest}!addHeaderLine@{addHeaderLine}}
+\index{addHeaderLine@{addHeaderLine}!SimpleHttpRequest@{SimpleHttpRequest}}
+\subsubsection[{addHeaderLine}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpRequest::addHeaderLine (
+\begin{DoxyParamCaption}
+\item[{\$}]{ header\_\-line}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_request_ac0309917a5be6411e7a87fc50fbb4304}
+Adds a header line to the request. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$header\_\-line} & Text of full header line.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_http_request_ad343424c442a16dfbe62dddb52b02092}{
+\index{SimpleHttpRequest@{SimpleHttpRequest}!fetch@{fetch}}
+\index{fetch@{fetch}!SimpleHttpRequest@{SimpleHttpRequest}}
+\subsubsection[{fetch}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleHttpRequest::fetch (
+\begin{DoxyParamCaption}
+\item[{\$}]{ timeout}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_request_ad343424c442a16dfbe62dddb52b02092}
+Dispatches the content to the route's socket. 
+\begin{DoxyParams}[1]{Parameters}
+integer & {\em \$timeout} & Connection timeout. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_http_response}{SimpleHttpResponse} A response which may only have an error, but hopefully has a complete web page.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_http_request_ac5604262cc0cb2dc429b734b8806d64b}{
+\index{SimpleHttpRequest@{SimpleHttpRequest}!readCookiesFromJar@{readCookiesFromJar}}
+\index{readCookiesFromJar@{readCookiesFromJar}!SimpleHttpRequest@{SimpleHttpRequest}}
+\subsubsection[{readCookiesFromJar}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpRequest::readCookiesFromJar (
+\begin{DoxyParamCaption}
+\item[{\$}]{ jar, }
+\item[{\$}]{ url}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_request_ac5604262cc0cb2dc429b734b8806d64b}
+Reads all the relevant cookies from the cookie jar. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_cookie_jar}{SimpleCookieJar} & {\em \$jar} & Jar to read \\
+\hline
+\hyperlink{class_simple_url}{SimpleUrl} & {\em \$url} & Url to use for scope.  public \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_http_request_a44123ae07ac9e6dd385b107460e8f4ba}{
+\index{SimpleHttpRequest@{SimpleHttpRequest}!SimpleHttpRequest@{SimpleHttpRequest}}
+\index{SimpleHttpRequest@{SimpleHttpRequest}!SimpleHttpRequest@{SimpleHttpRequest}}
+\subsubsection[{SimpleHttpRequest}]{\setlength{\rightskip}{0pt plus 5cm}SimpleHttpRequest::SimpleHttpRequest (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ route, }
+\item[{\$}]{ encoding}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_http_request_a44123ae07ac9e6dd385b107460e8f4ba}
+Builds the socket request from the different pieces. These include proxy information, URL, cookies, headers, request method and choice of encoding. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_route}{SimpleRoute} & {\em \$route} & Request route. \\
+\hline
+SimpleFormEncoding & {\em \$encoding} & Content to send with request.  public \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/http.php\end{DoxyCompactItemize}

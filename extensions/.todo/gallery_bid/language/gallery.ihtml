@@ -1,0 +1,96 @@
+<!-- BEGIN item -->
+  <a
+    class="gallery" 
+    id="{ITEM_THUMBNAIL_ID}"
+    style="background:url({DOC_ROOT}/tools/get.php?object={ITEM_THUMBNAIL_ID}&mode=thumbnail&width=64&height=48) center no-repeat"
+    onclick="activate_gallery({ITEM_THUMBNAIL_ID})" 
+    ondblclick="top.location.href='{DOC_ROOT}/index.php?object={ITEM_THUMBNAIL_ID}'; return false;"
+  >
+    <em 
+      style="background:url({DOC_ROOT}/tools/get.php?object={ITEM_THUMBNAIL_ID}&mode=thumbnail&width=640&height=480) center no-repeat">
+    </em>
+    <span class="imageData">
+      <span class="imageToolbar">
+        <img src="{DOC_ROOT}/modules/gallery/icons/image_fullscreen.gif"
+          width="18"
+          height="16"
+          border="0"
+          alt="{LANGUAGE_IMAGE_FULLSCREEN_BUTTON}"
+          title="{LANGUAGE_IMAGE_FULLSCREEN_BUTTON}"
+          onclick="top.location.href='{DOC_ROOT}/index.php?object={ITEM_THUMBNAIL_ID}'; return false;"
+        >
+        <img src="{DOC_ROOT}/modules/gallery/icons/image_save.gif"
+          width="18"
+          height="16"
+          border="0"
+          alt="{LANGUAGE_IMAGE_SAVE_BUTTON}"
+          title="{LANGUAGE_IMAGE_SAVE_BUTTON}"
+          onclick="window.open('{DOC_ROOT}/modules/gallery/image_save.php?image={ITEM_THUMBNAIL_ID}', 'save_image', 'resizable,scrollbars, width=20, height=20'); return false"
+        >
+        <img src="{DOC_ROOT}/modules/gallery/icons/image_properties.gif"
+          width="18"
+          height="16"
+          border="0"
+          alt="{LANGUAGE_IMAGE_PROPERTIES_BUTTON}"
+          title="{LANGUAGE_IMAGE_PROPERTIES_BUTTON}"
+          onclick="window.open('{DOC_ROOT}/properties.php?properties={ITEM_THUMBNAIL_ID}', '{LANGUAGE_IMAGE_PROPERTIES_BUTTON}', 'resizable,scrollbars, width=560, height=450'); return false"
+        >
+        {REMOVE_IMAGE_BUTTON}
+      </span>
+      <span class="imageTitle">{OBJECT_NAME}</span>
+      <span class="imageDescription">{OBJECT_DESC}</span>
+      <br />
+      <span class="imageKeywords">{OBJECT_KEYWORDS}</span>
+    </span>
+  </a>
+<!-- END item -->
+
+<!-- BEGIN remove_image_button -->
+<img src="{DOC_ROOT}/modules/gallery/icons/delete.gif"
+  width="16"
+  height="16"
+  border="0"
+  alt="{LANGUAGE_REMOVE_IMAGE_BUTTON}"
+  title="{LANGUAGE_REMOVE_IMAGE_BUTTON}"
+  onclick="window.open('{DOC_ROOT}/modules/gallery/image_edit.php?image={ITEM_THUMBNAIL_ID}&action=trash', 'remove_image', 'resizable,scrollbars, width=20, height=20'); return false"
+>
+<!-- END remove_image_button -->
+
+<html>
+<script type="text/javascript">
+  var visible_gallery_id = 0;
+
+  function activate_gallery(gallery_id)
+  {
+    if (visible_gallery_id == gallery_id)
+      return
+
+    if (visible_gallery_id != 0)
+    {
+      document.getElementById(visible_gallery_id).className = 'gallery';
+    }
+
+    gallery = document.getElementById(gallery_id)
+    if (gallery) {
+      visible_gallery_id = gallery_id;
+      gallery.className = 'gallery_visible';
+    }
+  } 
+</script> 
+<head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{GALLERY_NAME}</title>
+<link rel="stylesheet" type="text/css" href="{DOC_ROOT}/modules/gallery/css/gallery.css">
+</head> <body onload="activate_gallery('{FIRST_GALLERY_ID}')">
+
+<div class="galleryName">
+<h1>{GALLERY_NAME}</h1>
+</div>
+
+<div id="container_left">
+<div class="thumbs">
+{BACKLINK} {FORWARDLINK} <span class="pagingrange">{FROM}&#150;{TO}/{PIC_COUNT}</span>
+{DOCUMENTS}
+</div>
+</div>
+</body>
+</html>

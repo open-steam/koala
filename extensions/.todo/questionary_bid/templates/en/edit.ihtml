@@ -1,0 +1,449 @@
+﻿<html>
+<head>
+  <title>Control Center for "{QUESTIONARY_NAME}"</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/rights.css">
+  <LINK rel="stylesheet" type="text/css" href="http://bid:8080//css/dialog.css">
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/focus.js"></script>
+  <script language="JavaScript1.2" src="http://bid:8080//javascript/select.js"></script>
+  <script language="javascript" type="text/javascript" src="http://bid:8080//javascript/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+  <script language="javascript" type="text/javascript">
+    tinyMCE.init({
+            mode : "textareas",
+            theme : "advanced",
+            plugins : "bbcode",
+            language: "de",
+            editor_selector : "bbcode",
+            theme_advanced_buttons1 : "bold,italic,underline,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo",
+            theme_advanced_buttons2 : "",
+            theme_advanced_buttons3 : "",
+            entity_encoding : "raw",
+            remove_linebreaks : false
+            theme_advanced_toolbar_location : "top"
+            theme_advanced_toolbar_align : "left"
+    });
+  </script>
+</head>
+
+
+<body bgcolor="#DEDEDE" topmargin="7" leftmargin="7" onLoad="setFocus();">
+
+
+<script language="Javascript1.2">
+function form_submit(mission, url)
+{
+  if(mission == "close")
+    window.close();
+  else
+  {
+  document.getElementById("mission").value = mission;
+    document.getElementById("form_blueprint").action = url;
+    document.getElementById("form_blueprint").submit();
+  }
+}
+</script>
+
+
+<form method="POST" name="form_blueprint" id="form_blueprint" action="" enctype="multipart/form-data">
+<input type="hidden" name="mission" id="mission" value="">
+<input type="hidden" name="questionary" id="questionary" value="{QUESTIONARY_ID}">
+
+<!-- Rahmen oben -->
+<h1 class="titlepane">Control Center for "{QUESTIONARY_NAME}"</h1>
+
+<!-- Mittelteil und Content -->
+<div class="dialogpane" align="center">
+
+﻿<!-- BEGIN button_label_general -->Settings<!-- END button_label_general -->
+<!-- BEGIN button_label_insert -->Insert<!-- END button_label_insert -->
+<!-- BEGIN button_label_sort -->Sort questionary<!-- END button_label_sort -->
+<!-- BEGIN button_label_finish -->{LANGUAGE_BUTTON_LABEL_FINISH}<!-- END button_label_finish -->
+<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+<!-- BEGIN enable -->Disabled<!-- END enable -->
+<!-- BEGIN disable -->Enabled<!-- END disable -->
+
+<!-- BEGIN block_empty_line --><img src="http://bid:8080//modules/questionary/icons/empty_line.gif" height="16" width="16" border="0" alt="Empty Line" title="Empty Line"><!-- END block_empty_line -->
+<!-- BEGIN block_full_line --><img src="http://bid:8080//modules/questionary/icons/full_line.gif" height="16" width="16" border="0" alt="Line" title="Line"><!-- END block_full_line -->
+<!-- BEGIN block_new_page --><img src="http://bid:8080//modules/questionary/icons/new_page.gif" height="16" width="16" border="0" alt="Pagebreak" title="Pagebreak"><!-- END block_new_page -->
+<!-- BEGIN block_caption --><img src="http://bid:8080//modules/questionary/icons/caption.gif" height="16" width="16" border="0" alt="Caption" title="Caption"><!-- END block_caption -->
+<!-- BEGIN block_description --><img src="http://bid:8080//modules/questionary/icons/description.gif" height="16" width="16" border="0" alt="Description" title="Description"><!-- END block_description -->
+<!-- BEGIN block_input_text --><img src="http://bid:8080//modules/questionary/icons/input_text.gif" height="16" width="16" border="0" alt="Text" title="Text"><!-- END block_input_text -->
+<!-- BEGIN block_input_textarea --><img src="http://bid:8080//modules/questionary/icons/input_textarea.gif" height="16" width="16" border="0" alt="" title=""><!-- END block_input_textarea -->
+<!-- BEGIN block_input_checkbox --><img src="http://bid:8080//modules/questionary/icons/input_checkbox.gif" height="16" width="16" border="0" alt="Checkbox" title="Checkbox"><!-- END block_input_checkbox -->
+<!-- BEGIN block_input_radiobutton --><img src="http://bid:8080//modules/questionary/icons/input_radiobutton.gif" height="16" width="16" border="0" alt="Radiobutton" title="Radiobutton"><!-- END block_input_radiobutton -->
+<!-- BEGIN block_input_selectbox --><img src="http://bid:8080//modules/questionary/icons/input_selectbox.gif" height="16" width="16" border="0" alt="Selectbox" title="Selectbox"><!-- END block_input_selectbox -->
+<!-- BEGIN block_input_grading --><img src="http://bid:8080//modules/questionary/icons/input_grading.gif" height="16" width="16" border="0" alt="Grading" title="Grading"><!-- END block_input_grading -->
+<!-- BEGIN block_input_tendency --><img src="http://bid:8080//modules/questionary/icons/input_tendency.gif" height="16" width="16" border="0" alt="Tendency" title="Tendency"><!-- END block_input_tendency -->
+
+<!-- BEGIN option_checked --><img src="http://bid:8080//modules/questionary/icons/check_on.gif" width="16" height="16" border="0"><!-- END option_checked -->
+<!-- BEGIN option_unchecked --><img src="http://bid:8080//modules/questionary/icons/check_off.gif" width="16" height="16" border="0"><!-- END option_unchecked -->
+
+<script language="javascript" type="text/javascript" src="http://bid:8080//modules/questionary/javascript/tooltip.js"></script>
+
+<script language="JavaScript1.2">
+function confirm_delete(id, name)
+{
+  Check = confirm('Do you really want to delete the element "' + name + '"?');
+  if(Check == true)
+    window.location.replace("./edit.php?questionary={QUESTIONARY_ID}&mission=delete&question_id=" + id);
+}
+</script>
+
+
+<table width="350">
+
+<tr>
+  <td colspan="5" align="right">
+  	<table cellpadding="0" cellspacing="0">
+	  <tr>
+		<td><img src="http://bid:8080//modules/questionary/icons/edit_bow.gif" border="0"></td>
+		<td bgcolor="#CCCCCC">&nbsp;</td>
+		<td bgcolor="#CCCCCC"><img src="http://bid:8080//modules/questionary/icons/edit_preview.gif" border="0" alt="Questionary preview" title="Questionary preview" style="cursor:pointer;" onclick="window.open('http://bid:8080//modules/questionary/edit_preview.php?questionary={QUESTIONARY_ID}', 'Vorschau', 'resizable, scrollbars, width=800, height=800')">		 		</td>
+		<!-- BEGIN button_img_sort -->
+		<td bgcolor="#CCCCCC">&nbsp;</td>
+		<td bgcolor="#CCCCCC"><a href="http://bid:8080//modules/questionary/edit_sort.php?questionary={QUESTIONARY_ID}"><img src="http://bid:8080//modules/questionary/icons/edit_sort.gif" border="0" alt="Sort questionary" title="Sort questionary" style="cursor:pointer;"></a></td>
+		<!-- END button_img_sort -->
+		<td bgcolor="#CCCCCC">&nbsp;</td>
+		<td bgcolor="#CCCCCC"><a href="http://bid:8080//modules/questionary/edit_layout.php?questionary={QUESTIONARY_ID}"><img src="http://bid:8080//modules/questionary/icons/color_palette.gif" border="0" alt="Edit questionary layout" title="Edit questionary layout" style="cursor:pointer;"></a></td>
+	    <td bgcolor="#CCCCCC">&nbsp;</td>
+	  </tr>
+	</table>
+  </td>
+</tr>
+
+<tr style="background-color:#CCCCCC;">
+  <td width= "4%" nowrap>Type</td>
+  <td width="72%" nowrap>Text</td>
+  <td width= "8%" nowrap>Mand.</td>
+  <td width= "8%" nowrap>Show</td>
+  <td width= "8%" nowrap>Action</td>
+</tr>
+
+<!-- BEGIN no_question_row --><tr style="color:#808080; text-align:center;"><td colspan="5">No elements available.</td></tr><!-- END no_question_row -->
+
+<!-- BEGIN question_row -->
+<tr style="background-color:#D8D8D8;">
+  <td align="center">{QUESTION_TYPE}</td>
+  <td nowrap>{QUESTION_QUESTION}</td>
+  <td align="center">{QUESTION_MUST}</td>
+  <td align="center">{QUESTION_OUTPUT}</td>
+  <td align="right" width="40" nowrap cellpadding="0"><!-- BEGIN question_row_edit --><a
+    href="http://bid:8080//modules/questionary/insert_{QUESTION_EDIT_URL}.php?questionary={QUESTIONARY_ID}&mission=edit&question_id={QUESTION_ID}"><img
+    src="http://bid:8080//modules/questionary/icons/element_edit.gif" width="16" height="16" border="0" alt="Edit element"
+    title="Edit element" style="cursor:pointer;"></a><!-- END question_row_edit -->
+    <img src="http://bid:8080//modules/questionary/icons/delete.gif" width="16" height="16" alt="Delete element"
+    title="Delete element" style="cursor:pointer;" onclick="javascript:confirm_delete('{QUESTION_ID}', '{QUESTION_QUESTION}');"></td>
+  </tr>
+<!-- END question_row -->
+<tr colspan="5"><td>&nbsp;</td></tr>
+</table>
+
+<table>
+  <tr>
+  	<td align="left" valign="middle">New element:
+		  <select size="1" name="option" id="option">
+			  <option value="nothing">(Please choose)</option>
+			<optgroup label="Layout elements">
+			  <option value="empty_line">Empty Line</option>
+			  <option value="full_line">Line</option>
+			  <option value="new_page">Pagebreak</option>
+			  <option value="caption">Caption</option>
+			  <option value="description">Description</option>
+			</optgroup>
+			<optgroup label="Interview elements">
+			  <option value="input_text">Text</option>
+			  <option value="input_checkbox">Checkbox</option>
+			  <option value="input_radiobutton">Radiobutton</option>
+			  <option value="input_selectbox">Selectbox</option>
+			  <option value="input_grading">Grading</option>
+			  <option value="input_tendency">Tendency</option>
+			</optgroup>		  
+		  </select></td>
+	<td valign="middle"><img src="http://bid:8080//modules/questionary/icons/help16.gif" style="cursor:pointer" onclick="showTooltip(document.getElementById('option').value);" onMouseOut="hideTooltip()"></td>
+  	<td align="left"><button type="button" onClick="javascript:form_submit('{BUTTON_INSERT}', '{BUTTON_URL_INSERT}');">{BUTTON_LABEL_INSERT}</button></td>
+  </tr>
+  <tr>
+  	<td>&nbsp;</td>
+  	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+  </tr>
+<!-- BEGIN enabling_row -->
+  <tr>
+  	<td align="left" valign="middle">Questionary fill out formular is:</td>
+	<td>&nbsp;</td>
+  	<td align="left"><button type="button" onClick="javascript:form_submit('{BUTTON_ENABLING}', '{BUTTON_URL_ENABLING}');">{BUTTON_LABEL_ENABLING}</button></td>
+  </tr>
+  <tr>
+  	<td>&nbsp;</td>
+  	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+  </tr>
+<!-- END enabling_row -->
+</table>
+
+<!--
+
+  ******************************************************
+  ** Help Tooltips									  **
+  ******************************************************
+
+    Nothing -->
+<div style="position: absolute; display: none; width: 300px; height: 50px;" id="nothing">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 300px; height: 50px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td style="background-color: rgb(255, 255, 234);" align="center" valign="middle">Please choose an element and <br />push the help-icon again</td>
+		</tr>
+	</table>
+</div>
+
+<!--EMPTY LINE-->
+<div style="position: absolute; display: none; width: 350px; height: 90px;" id="empty_line">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 90px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/empty_line.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Layout element <i>"Empty Line"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>creates a larger interspace between two elements</li></ul></td>
+		</tr>
+	</table>
+</div>
+
+<!--FULL LINE-->
+<div style="position: absolute; display: none; width: 350px; height: 120px;" id="full_line">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 120px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/full_line.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Layout element <i>"Line"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>creates a line between two elements</li><li>the color of the line can be changed in the layout settings</li></ul></td>
+		</tr>
+	</table>
+</div>
+
+<!--NEW PAGE-->
+<div style="position: absolute; display: none; width: 350px; height: 90px;" id="new_page">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 90px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/new_page.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Layout element <i>"Pagebreak"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>the questionary can be divide with this element into several segments</li></ul></td>
+		</tr>
+	</table>
+</div>
+
+<!--CAPTION-->
+<div style="position: absolute; display: none; width: 350px; height: 120px;" id="caption">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 120px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/caption.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Layout element <i>"Caption"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>an element with a text</li><li>fontcolor, backgroundcolor and fontsize can be changed in the layout settings</li></ul></td>
+		</tr>
+	</table>
+</div>
+
+<!--DESCRIPTION-->
+<div style="position: absolute; display: none; width: 350px; height: 80px;" id="description">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 80px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/description.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Layout element <i>"Description"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>an element with a text</li></ul></td>
+		</tr>
+	</table>
+</div>
+
+<!--TEXT-->
+<div style="position: absolute; display: none; width: 350px; height: 250px;" id="input_text">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 250px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/input_text.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Interview element <i>"Text"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>a question with an answer-textfield</li><li>the size of the answer-textfield can be changed</li></ul></td>
+		</tr>
+		<tr>
+		  <td><b>Example:</b></td>
+		</tr>
+		<tr>
+		  <td align="center"><img src="http://bid:8080//modules/questionary/help/example_text.jpg"></td>
+		</tr>
+	</table>
+</div>
+
+<!--CHECKBOX-->
+<div style="position: absolute; display: none; width: 350px; height: 250px;" id="input_checkbox">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 250px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/input_checkbox.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Interview element <i>"Checkbox"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>a question with several answer-checkboxfields</li><li>the arrangement of the checkboxes can be changed</li><li>several answers can be selected</li></ul></td>
+		</tr>
+		<tr>
+		  <td><b>Example:</b></td>
+		</tr>
+		<tr>
+		  <td align="center"><img src="http://bid:8080//modules/questionary/help/example_checkbox.jpg"></td>
+		</tr>
+	</table>
+</div>
+
+<!--RADIOBUTTON-->
+<div style="position: absolute; display: none; width: 350px; height: 250px;" id="input_radiobutton">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 250px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/input_radiobutton.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Interview element <i>"Radiobutton"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>a question with several answer-radiobuttonfields</li><li>the arrangement of the radiobuttons can be changed</li><li>only one answer can be selected</li></ul></td>
+		</tr>
+		<tr>
+		  <td><b>Example:</b></td>
+		</tr>
+		<tr>
+		  <td align="center"><img src="http://bid:8080//modules/questionary/help/example_radiobutton.jpg"></td>
+		</tr>
+	</table>
+</div>
+
+<!--SELECTBOX-->
+<div style="position: absolute; display: none; width: 350px; height: 260px;" id="input_selectbox">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 350px; height: 260px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/input_selectbox.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Interview element <i>"Selectbox"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>a question with several answers in a selectbox</li><li>the size of the selectbox can be changed</li><li>only one answer can be selected</li></ul></td>
+		</tr>
+		<tr>
+		  <td><b>Example:</b></td>
+		</tr>
+		<tr>
+		  <td align="center"><img src="http://bid:8080//modules/questionary/help/example_selectbox.jpg"></td>
+		</tr>
+	</table>
+</div>
+
+<!--GRADING-->
+<div style="position: absolute; display: none; width: 400px; height: 270px;" id="input_grading">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 400px; height: 270px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/input_grading.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Interview element <i>"Grading"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>as much elements as desired can be inserted</li><li>every element can be set with school grades from 1 to 6</li></ul></td>
+		</tr>
+		<tr>
+		  <td><b>Example:</b></td>
+		</tr>
+		<tr>
+		  <td align="center"><img src="http://bid:8080//modules/questionary/help/example_grading.jpg" width="390"></td>
+		</tr>
+	</table>
+</div>
+
+<!--TENDENCY-->
+<div style="position: absolute; display: none; width: 400px; height: 250px;" id="input_tendency">
+	<table style="border: 3px dotted rgb(0, 0, 0); background-color: rgb(255, 255, 234); width: 400px; height: 250px;" cellpadding="0" cellspacing="4">
+		<tr>
+		  <td align="center">
+		  <table border="0" cellpadding="0" cellspacing="0">
+		    <tr>
+				<td align="right"><img src="http://bid:8080//modules/questionary/icons/input_tendency.gif" border="0" align="middle"></td>
+		  		<td align="left"><h2>&nbsp;Interview element <i>"Tendency"</i></h2></td>
+			</tr>
+		  </table></td>
+		</tr>
+		<tr>
+		  <td><ul><li>as much elements as desired can be inserted</li><li>every element offers two values, between the user can set a personal tendency on a scale</li></ul></td>
+		</tr>
+		<tr>
+		  <td><b>Example:</b></td>
+		</tr>
+		<tr>
+		  <td align="center"><img src="http://bid:8080//modules/questionary/help/example_tendency.jpg" width="390"></td>
+		</tr>
+	</table>
+</div>
+
+</div>
+
+<table width="100%" height="5" border="0" cellpadding="0" cellspacing="0" align="right">
+  <tr>
+    <td align="center" colspan="3">
+    <!-- BEGIN button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_MISSION}', '{BUTTON_URL}'); return false;">{BUTTON_LABEL}</button>
+    <!-- END button_mission -->
+    <button type="button" onClick="javascript:form_submit('{BUTTON_CANCEL_MISSION}', '{BUTTON_CANCEL_URL}'); return false;">Finish</button>
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

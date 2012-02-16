@@ -1,0 +1,9 @@
+<!-- BEGIN feedback_headline_null -->{LANGUAGE_FEEDBACK_HEADLINE_NULL}<br><!-- END feedback_headline_null -->
+
+<b>{FEEDBACK}</b>
+
+<input type="hidden" name="category" value="{CATEGORY_ID}">
+
+<b>{LANGUAGE_DESCRIPTION}</b>:<input type="text" name="title" value="{CATEGORY_TITLE}" size="30"><br><br>
+
+<br>

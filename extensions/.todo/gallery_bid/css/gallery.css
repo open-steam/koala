@@ -1,0 +1,139 @@
+/* CSS layout based on Stu Nicholls | CSSplay | An Active Photograph Gallery */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* needed for IE to make :active state work first time */
+a, a:visited {
+  color: #000000;
+} 
+
+/* common styling for all galleries */
+a.gallery, a.gallery:visited, a.gallery_visible, a.gallery_visible:visited {
+  display: block;
+  color: #000000;
+  text-decoration: none;
+  border: 1px solid #a19893;
+  width: 64px;
+  height: 48px;
+  float: left;
+  margin: 4px;
+  z-index:50;
+}
+
+a.gallery em, a.gallery .imageData {
+  display: none;
+}
+
+a.gallery:hover {
+  border: 1px solid #ffffff;
+}
+
+/* styling for the paging buttons */
+.pagingleft, .pagingright, .pagingrange {
+  height: 17px;
+  margin: 4px;
+}
+
+.pagingleft {
+  float: left;
+  width: 32px;
+}
+
+.pagingright {
+  float: right;
+  text-align: right;
+  width: 32px;
+}
+
+.pagingrange {
+  float: left;
+  text-align: center;
+  width: 56px;
+}
+
+/* styling for LEFT gallery */
+#container_left {
+  position: relative;
+  width: 840px;
+  height: 504px;
+  background: #d1c8c3;
+  border: 1px solid #a49188;
+  margin: 1em auto;
+}
+
+#container_left img {
+  border: 0;
+}
+
+#container_left .thumbs {
+  width: 150px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+#container_left a.gallery_visible .imageData {
+  color: #333333;
+  display: block;
+  position: absolute;
+  width: 642px;
+  height: 50px;
+  top: 509px;
+  left: 175px;
+  line-height: 120%;
+  padding: 5px;
+  z-index: 100;
+}
+
+#container_left a.gallery_visible .imageData .imageTitle {
+  color: #333333;
+  font-style: normal;
+  font-weight: bold;
+}
+
+#container_left a.gallery_visible .imageData .imageDescription {
+  clear: both;
+  color: #333333;
+  font-style: normal;
+  margin-left: 20px;
+}
+
+#container_left a.gallery_visible .imageData .imageToolbar {
+  float: right;
+  text-align: right;
+}
+
+#container_left a.gallery_visible .imageData .imageKeywords {
+  color: #333333;
+  font-style: normal;
+  margin-top: 20px;
+}
+
+#container_left a.gallery_visible {
+  border: 1px solid #000000;
+}
+
+#container_left a.gallery_visible em {
+  display: block;
+  position: absolute;
+  width: 642px;
+  height: 482px;
+  top: 5px;
+  left: 180px;
+  padding: 5px;
+  color: #000000;
+  border: 1px solid #a49188;
+  z-index: 50;
+  text-align: center;
+}
+
+.galleryName h1 {
+  color: #336699;
+  font-size: 2em;
+  font-weight: normal;
+  margin: 0px;
+  text-align: center;
+}

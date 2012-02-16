@@ -1,0 +1,139 @@
+﻿<!-- BEGIN error_not_allowed -->The results of the questionary "{QUESTIONARY_NAME}" cannot be displayed. Either the results are not public or you have no read access to the questionary.<br><!-- END error_not_allowed -->
+
+<!-- BEGIN header_creator -->Creator<!-- END header_creator -->
+<!-- BEGIN header_creation_time -->Creation time<!-- END header_creation_time -->
+
+<!-- BEGIN button_ascending --><a href="http://bid:8080//modules/questionary/result.php?object={OBJECT_ID}&page={CURRENT_PAGE}&input_id={INPUT_ID}&sort=a&breakresult={BREAKRESULT}" alt=""><img src="http://bid:8080//modules/questionary/icons/sort_ascending.gif" width="7" height="8" border="0" alt="" title=""></a><!-- END button_ascending -->
+
+<!-- BEGIN button_descending --><a href="http://bid:8080//modules/questionary/result.php?object={OBJECT_ID}&page={CURRENT_PAGE}&input_id={INPUT_ID}&sort=d&breakresult={BREAKRESULT}" alt=""><img src="http://bid:8080//modules/questionary/icons/sort_descending.gif" width="7" height="8" border="0" alt="" title=""></a><!-- END button_descending -->
+
+<!-- BEGIN button_ascending_selected --><a href="http://bid:8080//modules/questionary/result.php?object={OBJECT_ID}&page={CURRENT_PAGE}&input_id={INPUT_ID}&sort=a&breakresult={BREAKRESULT}" alt=""><img src="http://bid:8080//modules/questionary/icons/sort_ascending_selected.gif" width="7" height="8" border="0" alt="" title=""></a><!-- END button_ascending_selected -->
+		
+<!-- BEGIN button_descending_selected --><a href="http://bid:8080//modules/questionary/result.php?object={OBJECT_ID}&page={CURRENT_PAGE}&input_id={INPUT_ID}&sort=d&breakresult={BREAKRESULT}" alt=""><img src="http://bid:8080//modules/questionary/icons/sort_descending_selected.gif" width="7" height="8" border="0" alt="" title=""></a><!-- END button_descending_selected -->
+
+<html>
+<head>
+
+  <title>{QUESTIONARY_NAME} - Results</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/contentframe.css">
+  <link rel="stylesheet" type="text/css" href="http://bid:8080//css/menu.css">
+
+</head>
+<body>
+  {MENU}
+
+  <script language="JavaScript1.2">
+  function confirm_delete(answer_id)
+  {
+    Check = confirm('Do you really want to delete this result?');
+    if(Check == true)
+      window.location.replace("http://bid:8080//modules/questionary/result.php?object={OBJECT_ID}&mission=delete&answer=" + answer_id);
+  }
+  </script>
+
+
+  <h1><img src="http://bid:8080//icons/mimetype/questionary.gif" border="0" alt="{QUESTIONARY_NAME}" title="{QUESTIONARY_NAME}"> {QUESTIONARY_NAME}</h1>
+  <br>
+
+  <a href="http://bid:8080//modules/questionary/result_export.php?object={OBJECT_ID}" style="text-decoration:underline;">Export as .csv formatted file</a>
+  <br><br>
+
+
+<table class="folderlisting">
+
+  <!------------>
+  <!-- Header -->
+  <!------------>
+  <thead>
+  <tr>
+    <td width="10" valign="top" nowrap>&nbsp;</td>
+    <!-- BEGIN header_cell -->
+	<td nowrap align="center"><div title="{HEADER_TITLE}">{HEADER_TITLE_SHORT}</div> {BUTTON_ASCENDING} {BUTTON_DESCENDING}</td>
+	<td width="10">&nbsp;</td>
+	<!-- END header_cell -->
+	
+    <!-- BEGIN header_cell_selected -->
+	<td nowrap style="font-size:9pt; font-weight:bold; text-align:center"><div title="{HEADER_TITLE}">{HEADER_TITLE_SHORT}</div> {BUTTON_ASCENDING} {BUTTON_DESCENDING}</td>
+	<td width="10">&nbsp;</td>
+    <!-- END header_cell_selected -->
+	
+    <!-- BEGIN header_cell_blank -->
+	<td>&nbsp;</td>
+	<!-- END header_cell_blank -->
+    <td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td width="10" valign="top" align="right" nowrap>&nbsp;</td>
+  </tr>
+  </thead>
+  
+  <!------------->
+  <!-- Results -->
+  <!------------->
+  <!-- BEGIN result_row -->
+  <tr>
+  	<td style="background-color:{BGCOLOR}">&nbsp;</td>
+    
+	<!-- BEGIN result_cell -->
+	<td valign="top" style="background-color:{BGCOLOR}; text-align:center; white-space: normal;">{RESULT}</td>
+	<td width="10" style="background-color:{BGCOLOR}">&nbsp;</td>
+	<!-- END result_cell -->
+	
+  	<!-- BEGIN edit_cell -->
+  	<td valign="top" style="background-color:{BGCOLOR}">
+		<a href="http://bid:8080//modules/questionary/answer.php?object={OBJECT_ID}&answer={ANSWER_ID}">
+			<img src="http://bid:8080//modules/questionary/icons/element_edit.gif" height="16" width="16" border="0" alt="Edit" title="Edit">
+		</a>&nbsp;</td>
+  	<!-- END edit_cell -->
+	
+	<!-- BEGIN delete_cell -->
+	<td valign="top" style="background-color:{BGCOLOR}"><a href="#" onClick="javascript:confirm_delete('{ANSWER_ID}');"><img src="http://bid:8080//modules/questionary/icons/delete.gif" height="16" width="16" border="0" alt="Delete" title="Delete"></a>&nbsp;</td>
+  	<!-- END delete_cell -->
+	
+  	<td valign="top" style="text-decoration:underline; background-color:{BGCOLOR}"><a style="cursor:pointer" onClick="window.open('http://bid:8080//modules/questionary/result_details.php?object={OBJECT_ID}&answer={ANSWER_ID}', 'Details', 'resizable, scrollbars, width=500, height=700');">Details</a></td>
+	<td style="background-color:{BGCOLOR}">&nbsp;</td>
+  </tr>
+  <!-- END result_row -->
+
+  <!-- BEGIN result_row_none -->
+  <tr bgcolor="#FFFFFF">
+  	<td>&nbsp;</td>
+  	<td colspan="{COLSPAN}">No entries available.</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+  </tr>
+  <!-- END result_row_none -->
+
+  <!------------>
+  <!-- Footer -->
+  <!------------>
+  <tfoot>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="middle">Page: {NAV_BAR}</td>
+	<td>&nbsp;</td>
+	<td colspan="{COLSPAN}" align="right">
+		<table>
+		  <td width="100%" align="center"><span class="footerlabel">Owner:&nbsp;</span><span class="footervalue">{CREATOR}</span>&nbsp;&nbsp;&#149;&nbsp;&nbsp;
+			  <span class="footerlabel">Last Change at:&nbsp;</span><span class="footervalue">{LAST_CHANGED}</span></td>
+		  <td valign="middle">Results per page:</td>
+		  <form method="POST" name="breakresult" id="breakresult" action="http://bid:8080//modules/questionary/result.php?object={OBJECT_ID}&page=0" enctype="multipart/form-data">
+		  <td valign="bottom">
+			<select name="breakresult" onChange="document.getElementById('breakresult').submit();">
+			  <option value="10" {SELECTED_10}>10</option>
+			  <option value="30" {SELECTED_30}>30</option>
+			  <option value="50" {SELECTED_50}>50</option>
+			  <option value="all" {SELECTED_ALL}>All</option>
+			</select>
+		  </td>
+		  </form>
+		</table>
+	</td>
+	<td>&nbsp;</td>
+  </tr></tfoot>
+</table>
+
+</body>
+</html>

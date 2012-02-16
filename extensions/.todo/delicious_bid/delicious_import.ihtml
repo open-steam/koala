@@ -1,0 +1,62 @@
+<!-- BEGIN getposts_title -->{LANGUAGE_DELICIOUS_TITLE}<!-- END getposts_title -->
+<!-- BEGIN getposts_form -->
+<input type="hidden" name="case" value="getposts">
+<div>
+<table border="0" align="center">
+  <tr>
+    <td class="AttrName"><b>{LANGUAGE_DELICIOUS_USER}:</b></font></td>
+    <td class="AttrValue"><input type="text" name="DELICIOUS_USER" value="{DELICIOUS_USER}"></td>
+  </tr>
+  <tr>
+    <td class="AttrName"><b>{LANGUAGE_DELICIOUS_PASSWD}:</b></font></td>
+    <td class="AttrValue"><input type="password" name="DELICIOUS_PASSWD"></td>
+  </tr>
+</table>
+</div>
+<!-- END getposts_form -->
+<!-- BEGIN getposts_button --><button type="submit">{LANGUAGE_DELICIOUS_LOGIN}</button><!-- END getposts_button -->
+
+<!-- BEGIN gettag_title -->{LANGUAGE_DELICIOUS_TAGTITLE}<!-- END gettag_title -->
+<!-- BEGIN gettag_form -->
+<input type="hidden" name="case" value="getposts">
+<div>
+<input type="hidden" name="DELICIOUS_USER" value="{DELICIOUS_USER}">
+<input type="hidden" name="DELICIOUS_PASSWD" value="{DELICIOUS_PASSWD}">
+<table border="0" align="center">
+  <tr>
+    <td class="AttrName"><b>{LANGUAGE_DELICIOUS_TAG}:</b></font></td>
+    <td class="AttrValue"><select name="DELICIOUS_TAG">{DELICIOUS_TAG}</select></td>
+  </tr>
+</table>
+</div>
+<!-- END gettag_form -->
+<!-- BEGIN gettag_button --><button type="submit">{LANGUAGE_DELICIOUS_NEXT}</button><!-- END gettag_button -->
+
+
+<!-- BEGIN import_title -->{LANGUAGE_DELICIOUS_IMPORTTITLE}<!-- END import_title -->
+<!-- BEGIN import_form -->
+<input type="hidden" name="case" value="import">
+<div>
+<table>
+
+<!-- BEGIN post_row --><tr style="background-color:#CCCCCC;"><td>
+  <input type="hidden" name="delicious[{POST_HASH}][href]" value="{POST_HREF}"></input>
+  <input type="hidden" name="delicious[{POST_HASH}][description]" value="{POST_DESCRIPTION}"></input>
+  <input type="hidden" name="delicious[{POST_HASH}][others]" value="{POST_OTHERS}"></input>
+  <input type="hidden" name="delicious[{POST_HASH}][tag]" value="{POST_TAG}"></input>
+  <input type="hidden" name="delicious[{POST_HASH}][time]" value="{POST_TIME}"></input>
+  <table width="100%"><tr>
+  <td><input type="checkbox" name="selected_posts[]" value="{POST_HASH}"></input></td>
+  <td><a href="{POST_HREF}" target="_blank" style="font-size: 12px; font-weight: bold;">{POST_HREF}</a></td>
+  <td><font>{POST_DESCRIPTION}</font></td>
+  </tr></table>
+</td></tr><!-- END post_row -->
+
+</table>
+</div>
+<!-- END import_form -->
+<!-- BEGIN import_button --><button type="submit">{LANGUAGE_DELICIOUS_IMPORT}</button><!-- END import_button -->
+
+
+
+{DIALOG_BLUEPRINT}

@@ -1,0 +1,46 @@
+<!-- BEGIN BLOCK_NO_SURVEYS -->
+<b>{RAPIDFEEDBACK_NAME}</b>
+<br>
+{RAPIDFEEDBACK_DESC}
+<br>
+{NO_SURVEYS}
+<!-- END BLOCK_NO_SURVEYS -->
+
+<!-- BEGIN BLOCK_SURVEY_TABLE -->
+<div>
+	<b>{RAPIDFEEDBACK_NAME}</b>
+	<br>
+	{RAPIDFEEDBACK_DESC}
+	<br><br>
+	<table class="grid" cellspacing="0" cellpadding="2" width="100%">
+		<tr>
+			<th>{NAME_LABEL}</th>
+			<th>{STATUS_LABEL}</th>
+			<th>{QUESTIONS_LABEL}</th>
+			<th>{RESULTS_LABEL}</th>
+			<th style="display:{DISPLAY_ADMIN}">{ACTIONS_LABEL}</th>
+		</tr>
+		<!-- BEGIN BLOCK_SURVEY_ELEMENT -->
+		<tr>
+			<td><a href="{VIEW_URL}" style="display:{DISPLAY_LINK}">{NAME_VALUE}</a>{NAME_DONE}</td>
+			<td>{STATE_VALUE}</td>
+			<td>{QUESTIONS_VALUE}</td>
+			<td>{RESULTS_VALUE}</td>
+			<td style="display:{DISPLAY_ADMIN_ELEMENT}">
+				<a href="{PREVIEW_URL}"><input type="image" style="cursor: hand;" src="{ASSET_URL}/preview.png" title="{PREVIEW_TITLE}" width="12px" height="12px"></a>
+				<a href="{EDIT_URL}" style="display:{DISPLAY_EDIT}"><input type="image" style="cursor: hand;" src="{ASSET_URL}/edit.png" title="{EDIT_TITLE}" width="12px" height="12px"></a>
+				<a href="{RESULTS_URL}" style="display:{DISPLAY_RESULTS}"><input type="image" style="cursor: hand;" src="{ASSET_URL}/results.png" title="{RESULTS_TITLE}" width="12px" height="12px"></a>
+				<a onclick="admin_action(1, {ELEMENT_ID}, '{NAME_VALUE}')" style="display:{DISPLAY_START}"><input type="image" style="cursor: hand;" src="{ASSET_URL}/start.png" title="{START_TITLE}" width="12px" height="12px"></a>
+				<a onclick="admin_action(2, {ELEMENT_ID}, '{NAME_VALUE}')" style="display:{DISPLAY_STOP}"><input type="image" style="cursor: hand;" src="{ASSET_URL}/stop.png" title="{STOP_TITLE}" width="12px" height="12px"></a>
+				<a onclick="admin_action(3, {ELEMENT_ID}, '{NAME_VALUE}')" style="display:{DISPLAY_REPEAT}"><input type="image" style="cursor: hand;" src="{ASSET_URL}/repeat.png" title="{REPEAT_TITLE}" width="12px" height="12px"></a>
+				<a onclick="admin_action(4, {ELEMENT_ID}, '{NAME_VALUE}')"><input type="image" style="cursor: hand;" src="{ASSET_URL}/delete.png" title="{DELETE_TITLE}" width="12px" height="12px"></a>
+			</td>
+		</tr>
+		<!-- END BLOCK_SURVEY_ELEMENT -->
+	</table>
+	<form action="" id="admin_option" method="post">
+		<input type="hidden" id="admin_action" name="admin_action">
+		<input type="hidden" id="element_id" name="element_id">
+	</form>
+</div>
+<!-- END BLOCK_SURVEY_TABLE -->

@@ -1,0 +1,72 @@
+<!-- BEGIN BLOCK_DESCRIPTION -->
+<div class="infoBar">
+    {FORUM_DESCRIPTION}
+</div>
+<!-- END BLOCK_DESCRIPTION -->
+
+<div class="actionBar">
+	<!-- BEGIN BLOCK_WRITE_ACCESS -->
+	<a class="button" href="{LINK_POST_NEW}"><b>{LABEL_POST_NEW_THREAD}</b></a>
+  <a class="button" href="{LINK_AUTHOR}">{LABEL_THREADS_POSTED_IN}</a>
+	<!-- END BLOCK_WRITE_ACCESS -->
+  <!-- BEGIN ADMIN -->
+  <a class="button" href="{LINK_EDIT}">{LABEL_EDIT}</a>
+  <a class="button" href="{LINK_DELETE}">{LABEL_DELETE}</a>
+  <!-- END ADMIN -->
+<!-- BEGIN BLOCK_WATCH -->
+	<a class="button" href="{LINK_BOOKMARK}">{LABEL_BOOKMARK}</a>
+<!-- END BLOCK_WATCH -->
+</div>
+
+<div>
+  <div class="forumSearch">
+    <form action="" method="get">
+        <span>&raquo; {LABEL_SEARCH}: </span>
+        <input type="text" name="pattern" size="20">
+        <input type="submit" value="{LABEL_SEARCH}">
+    </form>
+  </div>
+
+  <!-- BEGIN BLOCK_ACCESS -->
+  <div class="forumsidebar">
+      <span>&raquo; {TITLE_ACCESS}: </span>
+      {LABEL_ACCESS}
+  </div>
+  <!-- END BLOCK_WIDGET -->
+
+</div>
+
+<br style="clear:both;" />
+
+<!-- BEGIN BLOCK_PAGES -->
+<div class="paginator">
+    <!-- BEGIN BLOCK_PAGE -->
+    {PAGE}
+    <!-- END BLOCK_PAGE -->
+    {RESULTS}
+</div>
+<!-- END BLOCK_PAGES -->
+
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+  <tr>
+    <th>{LABEL_TITLE}</th>
+    <th>{LABEL_AUTHOR}</th>
+    <th>{LABEL_REPLIES}</th>
+    <th>{LABEL_LATEST_POST}</th>
+  </tr>
+  <!-- BEGIN BLOCK_THREAD -->
+  <tr>
+    <td>
+      <!-- BEGIN BLOCK_THREAD_NEW -->
+      <span class="new">{NEW_LABEL}</span> &nbsp;
+      <!-- END BLOCK_THREAD_NEW -->
+      <a href="{THREAD_LINK}"><b>{THREAD_SUBJECT}</b></a>
+    </td>
+    <td><a href="{AUTHOR_LINK}"><img src="{AUTHOR_IMAGE}" width="16" height="19" hspace="3" border="0" align="absmiddle"></a>
+    <a href="{AUTHOR_LINK}">{AUTHOR_NAME}</a></td>
+    <td align="center">{THREAD_REPLIES}</td>
+    <td><small>{THREAD_LAST_ENTRY}</small></td>
+  </tr>
+  <!-- END BLOCK_THREAD -->
+</table>
+

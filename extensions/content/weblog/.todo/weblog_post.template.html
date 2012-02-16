@@ -1,0 +1,82 @@
+<!--
+<div class="infoBar">
+	{INFO_TEXT}
+</div>
+-->
+
+<!-- BEGIN BLOCK_PREVIEW -->
+<h3>{LABEL_PREVIEW_EDIT}</h3>
+<div class="preview">
+{PREVIEW_EDIT}
+</div>
+<!-- END BLOCK_PREVIEW -->
+
+<h3>{POST_NEW_ENTRY_TEXT}</h3>
+<form action="{FORM_ACTION}" method="post" name="formular">
+<input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}">
+
+<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+	<tr>
+		<td class="label">{LABEL_DATE}:</td>
+		<td class="value">
+			<input type="text" name="values[date]" style="width: 400px;" value="{DATE_COMMENT}"/>
+			<br/>
+			<small>{INFO_FORMAT}</small>
+		</td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_SUBJECT}*:</td>
+		<td class="value"><input type="text" name="values[title]" style="width: 400px;" value="{TITLE_COMMENT}"/></td>
+	</tr>
+	<tr>
+		<td class="label">{LABEL_CATEGORY}:</td>
+		<td class="value">
+			<select name="values[category]">
+				<option value="0">{CAT_NO_SELECTION}</option>
+				<!-- BEGIN BLOCK_SELECT_CAT -->
+				<option value="{VALUE_CAT}" {CAT_SELECTED}>{LABEL_CAT}</option>
+				<!-- END BLOCK_SELECT_CAT -->
+			</select>
+			(<a href="{LINK_NEW_CATEGORY}">{LABEL_NEW_CATEGORY}</a>)
+		</td>
+	</tr>
+  <!-- BEGIN BLOCK_PODCAST -->
+	<tr>
+		<td class="label">{LABEL_PODCAST}:</td>
+		<td class="value">
+			<select name="values[podcast]">
+				<option value="0">{PODCAST_NO_SELECTION}</option>
+				<!-- BEGIN BLOCK_MULTIMEDIA -->
+				<option value="{VALUE_MULTIMEDIA}" {MULTIMEDIA_SELECTED}>{LABEL_MULTIMEDIA}</option>
+				<!-- END BLOCK_MULTIMEDIA -->
+			</select>
+			(<a href="{LINK_UPLOAD_MULTIMEDIA}">{LABEL_UPLOAD_MULTIMEDIA}</a>)
+		</td>
+	</tr>
+  <!-- END BLOCK_PODCAST -->
+	<tr>
+		<td class="label">{LABEL_YOUR_POST}*:</td>
+		<td class="value">
+			<textarea name="values[body]" style="width: 400px;" rows="15">{TEXT_COMMENT}</textarea><br />
+			<a href="javascript:insert('[b]', '[/b]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
+			<a href="javascript:insert('[i]', '[/i]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
+			<a href="javascript:insert('[u]', '[/u]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
+			<a href="javascript:insert('[s]', '[/s]', 'formular', 'values[body]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
+			<a href="javascript:insert('[img]http://', '[/img]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
+			<a href="javascript:insert('[url=http://]', '[/url]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
+			<a href="javascript:insert('[mail=@]', '[/mail]', 'formular', 'values[body]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
+		</td>
+	</tr>
+	<tr>
+		<td class="label">&nbsp;</td>
+		<td class="value">
+			<div class="buttons" style="text-align: left;">
+				<input type="submit" name="values[preview]"  value="{LABEL_PREVIEW}"/>
+				<input type="submit" name="values[save]"  value="{LABEL_SAVE_CHANGES}"/>
+				<a href="{VALUE_BACK_LINK}">{LABEL_RETURN}</a>
+			</div>
+			<input type="hidden" name="values[return_to]" value="{VALUE_BACK_LINK}"/>
+		</td>
+	</tr>
+</table>
+</form>

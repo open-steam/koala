@@ -1,0 +1,41 @@
+<script type="text/javascript">
+	  function change(to, stat_type) {
+		  if (to == "15m") {
+		  		document.getElementById("serverstats_img_"+stat_type).src = "./serverstats.php?img="+stat_type+"15m.png";
+		  		document.getElementById("serverstats_img_buttons_"+stat_type).innerHTML = "15 min, <a href=\"javascript:change('1h','" + stat_type + "')\">1 Stunde</a>, <a href=\"javascript:change('36h','" + stat_type + "')\">36 Stunden</a>, <a href=\"javascript:change('1w','" + stat_type + "')\">1 Woche</a>";
+		  } else if (to == "1h") {
+		  		document.getElementById("serverstats_img_"+stat_type).src = "./serverstats.php?img="+stat_type+"1h.png";
+		  		document.getElementById("serverstats_img_buttons_"+stat_type).innerHTML = "<a href=\"javascript:change('15m','" + stat_type + "')\">15 min</a>, 1 Stunde, <a href=\"javascript:change('36h','" + stat_type + "')\">36 Stunden</a>, <a href=\"javascript:change('1w','" + stat_type + "')\">1 Woche</a>";
+		  } else if (to == "36h") {
+		  		document.getElementById("serverstats_img_"+stat_type).src = "./serverstats.php?img="+stat_type+"36h.png";
+		  		document.getElementById("serverstats_img_buttons_"+stat_type).innerHTML = "<a href=\"javascript:change('15m','" + stat_type + "')\">15 min</a>, <a href=\"javascript:change('1h','" + stat_type + "')\">1 Stunde</a>, 36 Stunden, <a href=\"javascript:change('1w','" + stat_type + "')\">1 Woche</a>";
+		  } else if (to == "1w") {
+		  		document.getElementById("serverstats_img_"+stat_type).src = "./serverstats.php?img="+stat_type+"1w.png";
+		  		document.getElementById("serverstats_img_buttons_"+stat_type).innerHTML = "<a href=\"javascript:change('15m','" + stat_type + "')\">15 min</a>, <a href=\"javascript:change('1h','" + stat_type + "')\">1 Stunde</a>, <a href=\"javascript:change('36h','" + stat_type + "')\">36 Stunden</a>, 1 Woche";
+		  }
+	  }
+
+	  function reloadImage(stat_type) {
+		    var now = new Date();
+			var path = document.getElementById("serverstats_img_"+stat_type).src;
+		    var index =path.lastIndexOf("&");
+		    if (index == -1) {
+			    index = path.length;
+		    }
+		    document.getElementById("serverstats_img_"+stat_type).src = path.substring(0, index) + '&' + now.getTime();
+		    setTimeout('reloadImage(\"' + stat_type + '\")', reloadtime);
+		    //alert("reloaded");
+		}
+</script>
+
+<!-- BEGIN BLOCK_STAT -->
+<center>
+	<img id="serverstats_img_{STAT_TYPE}" src="./serverstats.php?img={STAT_TYPE}15m.png"><br>
+	<div id="serverstats_img_buttons_{STAT_TYPE}">15 min, <a href="javascript:change('1h','{STAT_TYPE}')">1 Stunde</a>, <a href="javascript:change('36h','{STAT_TYPE}')">36 Stunden</a>, <a href="javascript:change('1w','{STAT_TYPE}')">1 Woche</a></div>
+</center>
+<br/>
+<script type="text/javascript">
+	var reloadtime = 10000; //10 sec
+	setTimeout('reloadImage(\"{STAT_TYPE}\")', reloadtime);
+</script>
+<!-- END BLOCK_STAT -->

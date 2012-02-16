@@ -1,0 +1,69 @@
+<!-- *********************************************************** -->
+<!-- ** category_edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN category_edit_title -->"{PORTLET_NAME}" - Editer une categorie<!-- END category_edit_title -->
+<!-- BEGIN category_edit_feedback_headline_null -->Le titre ne doit pas être vide<!-- END category_edit_feedback_headline_null -->
+<!-- BEGIN category_edit_description -->Titre<!-- END category_edit_description -->
+<!-- BEGIN category_edit_ubb -->* Formatage special disponible<!-- END category_edit_ubb -->
+<!-- BEGIN category_edit_button_ok -->Sauvegarder<!-- END category_edit_button_ok -->
+<!-- BEGIN category_edit_button_cancel -->Terminer<!-- END category_edit_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** category_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN category_sort_title -->"{PORTLET_NAME}" - Classer les categories<!-- END category_sort_title -->
+<!-- BEGIN category_sort_button_ok -->Sauvegarder<!-- END category_sort_button_ok -->
+<!-- BEGIN category_sort_button_cancel -->Terminer<!-- END category_sort_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->Editer "{PORTLET_NAME}"<!-- END edit_title -->
+<!-- BEGIN edit_script_category_confirm_1 -->Voulez-vous réellement éditer une catégorie "<!-- END edit_script_category_confirm_1 -->
+<!-- BEGIN edit_script_category_confirm_2 -->"?<!-- END edit_script_category_confirm_2 -->
+<!-- BEGIN edit_script_topic_confirm_1 -->Voulez-vous réellement supprimer une catégorie "<!-- END edit_script_topic_confirm_1 -->
+<!-- BEGIN edit_script_topic_confirm_2 -->"?<!-- END edit_script_topic_confirm_2 -->
+<!-- BEGIN edit_no_category -->Aucune catégorie n'est disponible<!-- END edit_no_category -->
+<!-- BEGIN edit_no_topic -->Aucun article n'est disponible<!-- END edit_no_topic -->
+<!-- BEGIN edit_alt_edit_category -->Editer une categorie<!-- END edit_alt_edit_category -->
+<!-- BEGIN edit_alt_delete_category -->Supprimer une categorie<!-- END edit_alt_delete_category -->
+<!-- BEGIN edit_alt_new_topic -->Nouvel article<!-- END edit_alt_new_topic -->
+<!-- BEGIN edit_alt_edit_topic -->Editer un article<!-- END edit_alt_edit_topic -->
+<!-- BEGIN edit_alt_sort_topic -->Classer les articles<!-- END edit_alt_sort_topic -->
+<!-- BEGIN edit_alt_delete_topic -->Supprimer un article<!-- END edit_alt_delete_topic -->
+<!-- BEGIN edit_topic_new -->Insérer un nouvel article<!-- END edit_topic_new -->
+<!-- BEGIN edit_topic_sort -->Classer les articles<!-- END edit_topic_sort -->
+<!-- BEGIN edit_button_new -->Insérer une category<!-- END edit_button_new -->
+<!-- BEGIN edit_button_sort -->Classer les categories<!-- END edit_button_sort -->
+<!-- BEGIN edit_button_cancel -->Terminer<!-- END edit_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** topic_edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN topic_edit_title -->"{PORTLET_NAME}" - Edit topic<!-- END topic_edit_title -->
+<!-- BEGIN topic_edit_feedback_headline_null -->Headline must not be empty<!-- END topic_edit_feedback_headline_null -->
+<!-- BEGIN topic_edit_form_title -->Title<!-- END topic_edit_form_title -->
+<!-- BEGIN topic_edit_form_description -->Description<!-- END topic_edit_form_description -->
+<!-- BEGIN topic_edit_form_link_url -->Lien URL<!-- END topic_edit_form_link_url -->
+<!-- BEGIN topic_edit_form_link_target -->Ouvrir le lien dans une nouvelle fenêtre<!-- END topic_edit_form_link_target -->
+<!-- BEGIN topic_edit_ubb -->* formatage special disponible<!-- END topic_edit_ubb -->
+<!-- BEGIN topic_edit_button_ok -->Sauvegarder<!-- END topic_edit_button_ok -->
+<!-- BEGIN topic_edit_button_cancel -->Terminer<!-- END topic_edit_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** topic_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN topic_sort_title -->"{PORTLET_NAME}" - Classer les categories<!-- END topic_sort_title -->
+<!-- BEGIN topic_sort_button_ok -->Sauvegarder<!-- END topic_sort_button_ok -->
+<!-- BEGIN topic_sort_button_cancel -->Terminer<!-- END topic_sort_button_cancel -->
+
+

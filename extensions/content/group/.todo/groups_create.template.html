@@ -1,0 +1,64 @@
+
+<table>
+<tr valign="top"> 
+<td style="padding-right: 20px;">
+<p style="font-size: 14px;">{INFO_TEXT}</p>			
+</td>
+
+<td width="{QUICK_SEARCH_TEXT_WIDTH}">
+<p>{QUICK_SEARCH_TEXT}</p>
+</td>
+</tr>
+</table>
+
+<h3 style="padding-left: 5px;">{CHOOSE_TEXT}</h3>
+
+<table width="100%" border="0" cellspacing="10" cellpadding="10">
+<tr valign="top"> 
+<!-- BEGIN BLOCK_CREATE_PUBLIC_GROUP -->
+<td style="background-color: #f5f5f5; text-align: center; padding: 20px;">
+
+<p style="font-size: 14px; font-weight: bold;">{LABEL_PUBLIC}</p>
+<form action="{FORM_ACTION_PUBLIC}" method="post">
+<input type="hidden" name="grouptype" value="group_public">
+<input type="hidden" name="parent" value="{VALUE_PARENT_PUBLIC_GROUP}">
+<input type="submit"  value="{LABEL_CREATE_PUBLIC}">
+</form>
+
+</td>
+<!-- END BLOCK_CREATE_PUBLIC_GROUP -->
+<!-- BEGIN BLOCK_CREATE_PRIVATE_GROUP -->
+<td style="background-color: #f5f5f5; text-align: center; padding: 20px;">
+
+<p style="font-size: 14px; font-weight: bold;">{LABEL_PRIVATE}</p>
+<form action="{FORM_ACTION_PRIVATE}" method="post">
+<input type="hidden" name="grouptype" value="group_private">
+<input type="hidden" name="parent" value="{VALUE_PARENT_PRIVATE_GROUP}">
+<input type="submit"  value="{LABEL_CREATE_PRIVATE}">
+</form>
+
+</td>			
+<!-- END BLOCK_CREATE_PRIVATE_GROUP -->
+</tr>
+<tr valign="top"> 
+<!-- BEGIN BLOCK_EXPLAIN_PUBLIC_ALL -->
+<td width="33%" style="padding-top: 10px;">
+<ul>
+<!-- BEGIN BLOCK_EXPLAIN_PUBLIC -->
+<li>{EXPLAIN_PUBLIC_TEXT}</li>
+<!-- END BLOCK_EXPLAIN_PUBLIC -->
+</ul>
+</td>
+<!-- END BLOCK_EXPLAIN_PUBLIC_ALL -->
+
+<!-- BEGIN BLOCK_EXPLAIN_PRIVATE_ALL -->
+<td width="33%" style="padding-top: 10px;">
+<ul>
+<!-- BEGIN BLOCK_EXPLAIN_PRIVATE -->
+<li>{EXPLAIN_PRIVATE_TEXT}</li>
+<!-- END BLOCK_EXPLAIN_PRIVATE -->
+</ul>
+</td>		
+<!-- END BLOCK_EXPLAIN_PRIVATE_ALL -->
+</tr>
+</table>

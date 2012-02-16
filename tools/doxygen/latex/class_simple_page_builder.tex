@@ -1,0 +1,252 @@
+\hypertarget{class_simple_page_builder}{
+\section{SimplePageBuilder Class Reference}
+\label{class_simple_page_builder}\index{SimplePageBuilder@{SimplePageBuilder}}
+}
+Inheritance diagram for SimplePageBuilder:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_simple_page_builder}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_page_builder_aa78adff50b24bb29981c9c655905b10c}{SimplePageBuilder} ()
+\item 
+\hyperlink{class_simple_page_builder_ae4ebd7ba464976aeea6445eec30253e5}{free} ()
+\item 
+\& \hyperlink{class_simple_page_builder_a9e5064b871d06f5b601184d7c3ca1567}{parse} (\$response)
+\item 
+\& \hyperlink{class_simple_page_builder_afd4eea32d22fe5fb09470d82665879d2}{\_\-createPage} (\$response)
+\item 
+\& \hyperlink{class_simple_page_builder_af61f0142faa51a5636b4a7f1de3e069a}{\_\-createParser} (\&\$listener)
+\item 
+\hyperlink{class_simple_page_builder_a7b40a556918f88bd570eed376ad36b7e}{startElement} (\$name, \$attributes)
+\item 
+\hyperlink{class_simple_page_builder_a9c074127728a8588dac8dbf5c0f05439}{endElement} (\$name)
+\item 
+\hyperlink{class_simple_page_builder_abb0453d71690ec08dd4286aae3d1d83b}{\_\-hasNamedTagOnOpenTagStack} (\$name)
+\item 
+\hyperlink{class_simple_page_builder_a324ad1e5d69787482a64319a095e09c7}{addContent} (\$text)
+\item 
+\hyperlink{class_simple_page_builder_aa810b100737abf41b2f93439d4f3dfa4}{\_\-addContentToAllOpenTags} (\$text)
+\item 
+\hyperlink{class_simple_page_builder_ab4a16684ccda1f0d1241eb95f693efad}{\_\-addContentTagToOpenTags} (\&\$tag)
+\item 
+\hyperlink{class_simple_page_builder_a68669a93a330af377812cc921efc94ac}{\_\-openTag} (\&\$tag)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_page_builder_a3cf2027c2e21d5a2f33c4b23e54ba5aa}{
+{\bfseries \$\_\-tags}}
+\label{class_simple_page_builder_a3cf2027c2e21d5a2f33c4b23e54ba5aa}
+
+\item 
+\hypertarget{class_simple_page_builder_a985ddcda1fe52349e98909b0cf4ea2ff}{
+{\bfseries \$\_\-page}}
+\label{class_simple_page_builder_a985ddcda1fe52349e98909b0cf4ea2ff}
+
+\item 
+\hypertarget{class_simple_page_builder_abc5a6a319caba74f323ff109995615aa}{
+{\bfseries \$\_\-private\_\-content\_\-tag}}
+\label{class_simple_page_builder_abc5a6a319caba74f323ff109995615aa}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_page_builder_ab4a16684ccda1f0d1241eb95f693efad}{
+\index{SimplePageBuilder@{SimplePageBuilder}!\_\-addContentTagToOpenTags@{\_\-addContentTagToOpenTags}}
+\index{\_\-addContentTagToOpenTags@{\_\-addContentTagToOpenTags}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{\_\-addContentTagToOpenTags}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::\_\-addContentTagToOpenTags (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ tag}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_ab4a16684ccda1f0d1241eb95f693efad}
+Parsed data in tag form. The parsed tag is added to every open tag. Used for adding options to select fields only. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_tag}{SimpleTag} & {\em \$tag} & Option tags only.  private \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_page_builder_aa810b100737abf41b2f93439d4f3dfa4}{
+\index{SimplePageBuilder@{SimplePageBuilder}!\_\-addContentToAllOpenTags@{\_\-addContentToAllOpenTags}}
+\index{\_\-addContentToAllOpenTags@{\_\-addContentToAllOpenTags}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{\_\-addContentToAllOpenTags}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::\_\-addContentToAllOpenTags (
+\begin{DoxyParamCaption}
+\item[{\$}]{ text}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_aa810b100737abf41b2f93439d4f3dfa4}
+Any content fills all currently open tags unless it is part of an option tag. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$text} & May include unparsed tags.  private \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_page_builder_afd4eea32d22fe5fb09470d82665879d2}{
+\index{SimplePageBuilder@{SimplePageBuilder}!\_\-createPage@{\_\-createPage}}
+\index{\_\-createPage@{\_\-createPage}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{\_\-createPage}]{\setlength{\rightskip}{0pt plus 5cm}\& SimplePageBuilder::\_\-createPage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ response}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_afd4eea32d22fe5fb09470d82665879d2}
+Creates an empty page. \begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_page}{SimplePage} New unparsed page.  protected 
+\end{DoxyReturn}
+\hypertarget{class_simple_page_builder_af61f0142faa51a5636b4a7f1de3e069a}{
+\index{SimplePageBuilder@{SimplePageBuilder}!\_\-createParser@{\_\-createParser}}
+\index{\_\-createParser@{\_\-createParser}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{\_\-createParser}]{\setlength{\rightskip}{0pt plus 5cm}\& SimplePageBuilder::\_\-createParser (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ listener}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_af61f0142faa51a5636b4a7f1de3e069a}
+Creates the parser used with the builder. 
+\begin{DoxyParams}{Parameters}
+{\em \$listener} & \hyperlink{class_simple_sax_listener}{SimpleSaxListener} Target of parser. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SimpleSaxParser Parser to generate events for the builder.  protected 
+\end{DoxyReturn}
+\hypertarget{class_simple_page_builder_abb0453d71690ec08dd4286aae3d1d83b}{
+\index{SimplePageBuilder@{SimplePageBuilder}!\_\-hasNamedTagOnOpenTagStack@{\_\-hasNamedTagOnOpenTagStack}}
+\index{\_\-hasNamedTagOnOpenTagStack@{\_\-hasNamedTagOnOpenTagStack}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{\_\-hasNamedTagOnOpenTagStack}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::\_\-hasNamedTagOnOpenTagStack (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_abb0453d71690ec08dd4286aae3d1d83b}
+Test to see if there are any open tags awaiting closure that match the tag name. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Element name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean True if any are still open.  private 
+\end{DoxyReturn}
+\hypertarget{class_simple_page_builder_a68669a93a330af377812cc921efc94ac}{
+\index{SimplePageBuilder@{SimplePageBuilder}!\_\-openTag@{\_\-openTag}}
+\index{\_\-openTag@{\_\-openTag}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{\_\-openTag}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::\_\-openTag (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ tag}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_a68669a93a330af377812cc921efc94ac}
+Opens a tag for receiving content. Multiple tags will be receiving input at the same time. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_tag}{SimpleTag} & {\em \$tag} & New content tag.  private \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_simple_page_builder_a324ad1e5d69787482a64319a095e09c7}{
+\index{SimplePageBuilder@{SimplePageBuilder}!addContent@{addContent}}
+\index{addContent@{addContent}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{addContent}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::addContent (
+\begin{DoxyParamCaption}
+\item[{\$}]{ text}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_a324ad1e5d69787482a64319a095e09c7}
+Unparsed, but relevant data. The data is added to every open tag. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$text} & May include unparsed tags. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean False on parse error.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_sax_listener_a37d761543d4dc6030888c76963cb8ed1}{SimpleSaxListener}.
+
+\hypertarget{class_simple_page_builder_a9c074127728a8588dac8dbf5c0f05439}{
+\index{SimplePageBuilder@{SimplePageBuilder}!endElement@{endElement}}
+\index{endElement@{endElement}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{endElement}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::endElement (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_a9c074127728a8588dac8dbf5c0f05439}
+End of element event. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Element name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean False on parse error.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_sax_listener_abfa321e2d3edcf3f00b585c8b26e46cb}{SimpleSaxListener}.
+
+\hypertarget{class_simple_page_builder_ae4ebd7ba464976aeea6445eec30253e5}{
+\index{SimplePageBuilder@{SimplePageBuilder}!free@{free}}
+\index{free@{free}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{free}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::free (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_ae4ebd7ba464976aeea6445eec30253e5}
+Frees up any references so as to allow the PHP garbage collection from unset() to work.  public \hypertarget{class_simple_page_builder_a9e5064b871d06f5b601184d7c3ca1567}{
+\index{SimplePageBuilder@{SimplePageBuilder}!parse@{parse}}
+\index{parse@{parse}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{parse}]{\setlength{\rightskip}{0pt plus 5cm}\& SimplePageBuilder::parse (
+\begin{DoxyParamCaption}
+\item[{\$}]{ response}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_a9e5064b871d06f5b601184d7c3ca1567}
+Reads the raw content and send events into the page to be built. 
+\begin{DoxyParams}{Parameters}
+{\em \$response} & \hyperlink{class_simple_http_response}{SimpleHttpResponse} Fetched response. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_simple_page}{SimplePage} Newly parsed page.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_page_builder_aa78adff50b24bb29981c9c655905b10c}{
+\index{SimplePageBuilder@{SimplePageBuilder}!SimplePageBuilder@{SimplePageBuilder}}
+\index{SimplePageBuilder@{SimplePageBuilder}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{SimplePageBuilder}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::SimplePageBuilder (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_aa78adff50b24bb29981c9c655905b10c}
+Sets the builder up empty.  public \hypertarget{class_simple_page_builder_a7b40a556918f88bd570eed376ad36b7e}{
+\index{SimplePageBuilder@{SimplePageBuilder}!startElement@{startElement}}
+\index{startElement@{startElement}!SimplePageBuilder@{SimplePageBuilder}}
+\subsubsection[{startElement}]{\setlength{\rightskip}{0pt plus 5cm}SimplePageBuilder::startElement (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name, }
+\item[{\$}]{ attributes}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_page_builder_a7b40a556918f88bd570eed376ad36b7e}
+Start of element event. Opens a new tag. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & Element name. \\
+\hline
+hash & {\em \$attributes} & Attributes without content are marked as true. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean False on parse error.  public 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_simple_sax_listener_a9094543df0d68dfa168c08087f8c868f}{SimpleSaxListener}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/page.php\end{DoxyCompactItemize}

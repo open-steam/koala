@@ -1,0 +1,96 @@
+<!-- BEGIN error_title --><b>{LANGUAGE_ERROR_TITLE}</b><br><!-- END error_title -->
+<!-- BEGIN error_file --><b>{LANGUAGE_ERROR_FILE}</b><br><!-- END error_file -->
+<!-- BEGIN error_url --><b>{LANGUAGE_ERROR_URL}</b><br><!-- END error_url -->
+<!-- BEGIN error_not_logged_in --><b>{LANGUAGE_ERROR_NOT_LOGGED_IN}</b><br><!-- END error_not_logged_in -->
+
+
+<!-- BEGIN folder_title -->{LANGUAGE_FOLDER_TITLE}<!-- END folder_title -->
+<!-- BEGIN folder_form -->
+<input type="hidden" name="case" value="folder">
+<input type="hidden" name="login" value="{DO_LOGIN}">
+{ERROR_FEEDBACK}<br>
+
+<table>
+  <tr>
+    <td><b>{LANGUAGE_FOLDER_FORM_TITLE}</b>:</td>
+    <td><input type="text" name="title" value="{INPUT_TITLE}" style="width:300px;"></td>
+  </tr>
+  <tr>
+    <td>{LANGUAGE_FOLDER_FORM_TYPE}:</td>
+    <td>
+      <select name="collectiontype">
+        <option value="normal">{LANGUAGE_FOLDER_FORM_TYPE_1}
+        <option value="cluster">{LANGUAGE_FOLDER_FORM_TYPE_2}
+        <option value="sequence">{LANGUAGE_FOLDER_FORM_TYPE_3}
+		<option value="gallery">{LANGUAGE_FOLDER_FORM_TYPE_4}
+      </select>
+    </td>
+  </tr>
+</table>
+<!-- END folder_form -->
+<!-- BEGIN folder_button -->{LANGUAGE_FOLDER_BUTTON}<!-- END folder_button -->
+
+
+<!-- BEGIN file_title -->{LANGUAGE_FILE_TITLE}<!-- END file_title -->
+<!-- BEGIN file_form -->
+<input type="hidden" name="case" value="file">
+<input type="hidden" name="login" value="{DO_LOGIN}">
+{ERROR_FEEDBACK}<br>
+
+<table>
+  <tr>
+    <td>{LANGUAGE_FILE_FORM_TITLE}:</td>
+    <td><input type="text" name="title" value="{INPUT_TITLE}" style="width:300px;"></td>
+  </tr>
+  <tr>
+    <td><b>{LANGUAGE_FILE_FORM_FILE}</b>:</td>
+    <td><input type="file" name="file" size="32"></td>
+  </tr>
+  <tr><td>&nbsp;</td><td><small>{LANGUAGE_FILE_MAX_FILE_SIZE}: {MAX_FILE_SIZE} {LANGUAGE_FILE_MAX_FILE_SIZE_UNIT}</small></td></tr>
+</table>
+<!-- END file_form -->
+<!-- BEGIN file_button -->{LANGUAGE_FILE_BUTTON}<!-- END file_button -->
+
+
+<!-- BEGIN text_title -->{LANGUAGE_TEXT_TITLE}<!-- END text_title -->
+<!-- BEGIN text_form -->
+<input type="hidden" name="case" value="{INPUT_CASE}">
+<input type="hidden" name="login" value="{DO_LOGIN}">
+<input type="hidden" name="environmentId" value="{ENVIRONMENT_ID}">
+{ERROR_FEEDBACK}<br>
+
+<table>
+  <tr>
+    <td><b>{LANGUAGE_TEXT_FORM_TITLE}</b>:</td>
+    <td><input type="text" name="title" value="{INPUT_TITLE}" style="width:296px;"></td>
+  </tr>
+  <tr>
+    <td valign="top">{LANGUAGE_TEXT_FORM_TEXT}:</td>
+    <td><textarea class="{MIME_TYPE}" style="width:75%" name="text" cols="90" rows="22">{INPUT_TEXT}</textarea></td>
+  </tr>
+</table>
+<!-- END text_form -->
+<!-- BEGIN text_button -->{LANGUAGE_TEXT_BUTTON}<!-- END text_button -->
+
+
+<!-- BEGIN link_title -->{LANGUAGE_LINK_TITLE}<!-- END link_title -->
+<!-- BEGIN link_form -->
+<input type="hidden" name="case" value="link">
+<input type="hidden" name="login" value="{DO_LOGIN}">
+{ERROR_FEEDBACK}<br>
+
+<table>
+  <tr>
+    <td><b>{LANGUAGE_LINK_FORM_TITLE}</b>:</td>
+    <td><input type="text" name="title" value="{INPUT_TITLE}" style="width:300px;"></td>
+  </tr>
+  <tr>
+    <td><b>{LANGUAGE_LINK_FORM_LINK}</b>:</td>
+    <td><input type="text" name="url" value="{INPUT_URL}" style="width:300px;"></td>
+  </tr>
+</table>
+<!-- END link_form -->
+<!-- BEGIN link_button -->{LANGUAGE_LINK_BUTTON}<!-- END link_button -->
+
+
+{DIALOG_BLUEPRINT}

@@ -1,0 +1,56 @@
+<!-- *********************************************************** -->
+<!-- ** edit.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_title -->Editer "{PORTLET_NAME}"<!-- END edit_title -->
+<!-- BEGIN edit_script_confirm_1 -->Voulez-vous supprimer le message "<!-- END edit_script_confirm_1 -->
+<!-- BEGIN edit_script_confirm_2 -->"?<!-- END edit_script_confirm_2 -->
+<!-- BEGIN edit_no_message -->Aucun message n'est disponible<!-- END edit_no_message -->
+<!-- BEGIN edit_alt_delete -->Supprimer<!-- END edit_alt_delete -->
+<!-- BEGIN edit_alt_edit -->Editer<!-- END edit_alt_edit -->
+<!-- BEGIN edit_button_new -->Nouveau message<!-- END edit_button_new -->
+<!-- BEGIN edit_button_sort -->Classer les messages<!-- END edit_button_sort -->
+<!-- BEGIN edit_button_cancel -->Terminer<!-- END edit_button_cancel -->
+<!-- BEGIN edit_new_msg_location_top -->ajoute des nouveaux messages au-dessus<!-- END edit_new_msg_location_top -->
+<!-- BEGIN edit_new_msg_location_bottom -->ajoute des nouveaux messages en bas<!-- END edit_new_msg_location_bottom -->
+
+
+<!-- *********************************************************** -->
+<!-- ** edit_process.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_process_title -->"{PORTLET_NAME}" Editer un message<!-- END edit_process_title -->
+<!-- BEGIN edit_process_feedback_headline_null -->Le titre ne doit pas �tre vide<!-- END edit_process_feedback_headline_null -->
+<!-- BEGIN edit_process_feedback_content_null -->Le contenu ne doit pas �tre vide<!-- END edit_process_feedback_content_null -->
+<!-- BEGIN edit_process_text_1 -->Titre<!-- END edit_process_text_1 -->
+<!-- BEGIN edit_process_text_2 -->Sous-titre<!-- END edit_process_text_2 -->
+<!-- BEGIN edit_process_text_3 -->Contenu<!-- END edit_process_text_3 -->
+<!-- BEGIN edit_process_text_4 -->Lier un label<!-- END edit_process_text_4 -->
+<!-- BEGIN edit_process_text_5 -->Lier une adresse<!-- END edit_process_text_5 -->
+<!-- BEGIN edit_process_text_6 -->Image<!-- END edit_process_text_6 -->
+<!-- BEGIN edit_process_text_7 -->Alignement de l'image<!-- END edit_process_text_7 -->
+<!-- BEGIN edit_process_text_8 -->gauche<!-- END edit_process_text_8 -->
+<!-- BEGIN edit_process_text_9 -->droite<!-- END edit_process_text_9 -->
+<!-- BEGIN edit_process_text_10 -->Ouvrir le lien dans une nouvelle fen�tre<!-- END edit_process_text_10 -->
+<!-- BEGIN edit_process_picture_alignment_none -->sans alignement<!-- END edit_process_picture_alignment_none -->
+<!-- BEGIN edit_process_picture_width -->Latitude de l'image<!-- END edit_process_picture_width -->
+<!-- BEGIN edit_process_button_delete_image -->Supprimer l'image<!-- END edit_process_button_delete_image -->
+<!-- BEGIN edit_process_ubb -->* Formatage special disponible<!-- END edit_process_ubb -->
+<!-- BEGIN edit_process_button_ok -->Sauvegarder<!-- END edit_process_button_ok -->
+<!-- BEGIN edit_process_button_cancel -->Terminer<!-- END edit_process_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** edit_sort.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_sort_title -->Classer "{PORTLET_NAME}"<!-- END edit_sort_title -->
+<!-- BEGIN edit_sort_button_ok -->Sauvegarder<!-- END edit_sort_button_ok -->
+<!-- BEGIN edit_sort_button_cancel -->Terminer<!-- END edit_sort_button_cancel -->
+
+
+<!-- *********************************************************** -->
+<!-- ** view.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN view_message_none -->Aucun message n'est disponible.<!-- END view_message_none -->

@@ -1,0 +1,119 @@
+\hypertarget{class_simple_invoker_decorator}{
+\section{SimpleInvokerDecorator Class Reference}
+\label{class_simple_invoker_decorator}\index{SimpleInvokerDecorator@{SimpleInvokerDecorator}}
+}
+Inheritance diagram for SimpleInvokerDecorator:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.830065cm]{class_simple_invoker_decorator}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_simple_invoker_decorator_a29f5d5512d26f640e9587503269b639b}{SimpleInvokerDecorator} (\&\$invoker)
+\item 
+\& \hyperlink{class_simple_invoker_decorator_a621cdedf65d9a2fc0a4ce35e475a720b}{getTestCase} ()
+\item 
+\hyperlink{class_simple_invoker_decorator_affaed9e6d8d366064589bbcdae7a6f15}{before} (\$method)
+\item 
+\hyperlink{class_simple_invoker_decorator_a95431eef2d336fc92dbbc719a66cda32}{invoke} (\$method)
+\item 
+\hyperlink{class_simple_invoker_decorator_a7b4b69f4e499f4e15c52e57542c52d7e}{after} (\$method)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_simple_invoker_decorator_a07f6f15a8493b6c24f481a7a0c3ebba8}{
+{\bfseries \$\_\-invoker}}
+\label{class_simple_invoker_decorator_a07f6f15a8493b6c24f481a7a0c3ebba8}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_simple_invoker_decorator_a7b4b69f4e499f4e15c52e57542c52d7e}{
+\index{SimpleInvokerDecorator@{SimpleInvokerDecorator}!after@{after}}
+\index{after@{after}!SimpleInvokerDecorator@{SimpleInvokerDecorator}}
+\subsubsection[{after}]{\setlength{\rightskip}{0pt plus 5cm}SimpleInvokerDecorator::after (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_invoker_decorator_a7b4b69f4e499f4e15c52e57542c52d7e}
+Runs test level clean up. Used for changing the mechanics of base test cases. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$method} & Test method to call.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{class_eclipse_invoker_a7d9cfe918be1c61e93dfd8eb31ef5b46}{EclipseInvoker}.
+
+\hypertarget{class_simple_invoker_decorator_affaed9e6d8d366064589bbcdae7a6f15}{
+\index{SimpleInvokerDecorator@{SimpleInvokerDecorator}!before@{before}}
+\index{before@{before}!SimpleInvokerDecorator@{SimpleInvokerDecorator}}
+\subsubsection[{before}]{\setlength{\rightskip}{0pt plus 5cm}SimpleInvokerDecorator::before (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_invoker_decorator_affaed9e6d8d366064589bbcdae7a6f15}
+Runs test level set up. Used for changing the mechanics of base test cases. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$method} & Test method to call.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{class_eclipse_invoker_a0f16409fb93e1e0e1d6ff703a0f9f1cf}{EclipseInvoker}.
+
+\hypertarget{class_simple_invoker_decorator_a621cdedf65d9a2fc0a4ce35e475a720b}{
+\index{SimpleInvokerDecorator@{SimpleInvokerDecorator}!getTestCase@{getTestCase}}
+\index{getTestCase@{getTestCase}!SimpleInvokerDecorator@{SimpleInvokerDecorator}}
+\subsubsection[{getTestCase}]{\setlength{\rightskip}{0pt plus 5cm}\& SimpleInvokerDecorator::getTestCase (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_invoker_decorator_a621cdedf65d9a2fc0a4ce35e475a720b}
+Accessor for test case being run. \begin{DoxyReturn}{Returns}
+SimpleTestCase Test case.  public 
+\end{DoxyReturn}
+\hypertarget{class_simple_invoker_decorator_a95431eef2d336fc92dbbc719a66cda32}{
+\index{SimpleInvokerDecorator@{SimpleInvokerDecorator}!invoke@{invoke}}
+\index{invoke@{invoke}!SimpleInvokerDecorator@{SimpleInvokerDecorator}}
+\subsubsection[{invoke}]{\setlength{\rightskip}{0pt plus 5cm}SimpleInvokerDecorator::invoke (
+\begin{DoxyParamCaption}
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_invoker_decorator_a95431eef2d336fc92dbbc719a66cda32}
+Invokes a test method and buffered with setUp() and tearDown() calls. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$method} & Test method to call.  public \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \hyperlink{class_simple_error_trapping_invoker_ad9122507df8d27c3b7ab8fd1ecb53e45}{SimpleErrorTrappingInvoker}, and \hyperlink{class_simple_exception_trapping_invoker_a618f01b7137d3096e523f1f57eec861f}{SimpleExceptionTrappingInvoker}.
+
+\hypertarget{class_simple_invoker_decorator_a29f5d5512d26f640e9587503269b639b}{
+\index{SimpleInvokerDecorator@{SimpleInvokerDecorator}!SimpleInvokerDecorator@{SimpleInvokerDecorator}}
+\index{SimpleInvokerDecorator@{SimpleInvokerDecorator}!SimpleInvokerDecorator@{SimpleInvokerDecorator}}
+\subsubsection[{SimpleInvokerDecorator}]{\setlength{\rightskip}{0pt plus 5cm}SimpleInvokerDecorator::SimpleInvokerDecorator (
+\begin{DoxyParamCaption}
+\item[{\&\$}]{ invoker}
+\end{DoxyParamCaption}
+)}}
+\label{class_simple_invoker_decorator_a29f5d5512d26f640e9587503269b639b}
+Stores the invoker to wrap. 
+\begin{DoxyParams}[1]{Parameters}
+\hyperlink{class_simple_invoker}{SimpleInvoker} & {\em \$invoker} & Test method runner. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/Volumes/Users/Entwicklung/php/workspace\_\-koala\_\-3/koala-\/core/classes/PHPsTeam/unittest/classes/invoker.php\end{DoxyCompactItemize}

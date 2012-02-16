@@ -1,0 +1,37 @@
+<!-- BEGIN BLOCK_FORM_NEW_QUESTIONARY -->
+<form method="POST" name="form_blueprint" id="form_blueprint" action="" enctype="multipart/form-data">
+	<input type="hidden" name="mission" id="mission" value="{BUTTON_MISSION}">
+	<input type="hidden" name="questionary" id="questionary" value="{QUESTIONARY_ID}">
+
+	<h1 class="titlepane">Fragebogen erstellen</h1>
+	
+	<div class="dialogpane" align="center">
+	
+	﻿<!-- BEGIN error_no_title --><b>Bitte Titel eingeben.</b><!-- END error_no_title -->
+	<!-- BEGIN button_spacer -->&nbsp;&nbsp;<!-- END button_spacer -->
+	
+	<input type="hidden" name="object" value="{OBJECT_ID}">
+	
+	<table>
+		<tr>
+		  <td style="font-weight:bold;">Titel:</td>
+		  <td><input type="text" name="name" value=""></td></tr>
+		<tr>
+		  <td valign="top" style="font-weight:bold;">Beschreibung:</td>
+		  <td><textarea name="description" cols="50" rows="5"></textarea></td>
+		</tr>
+	</table>
+	
+	
+	</div>
+	
+	<table width="100%" height="5" border="0" cellpadding="0" cellspacing="0" align="right">
+	  <tr>
+	    <td align="center" colspan="3">
+	    <input type="submit" value="Einrichten">
+        <input type="reset" value=" Abbrechen">
+	    </td>
+	  </tr>
+	</table>
+</form>
+<!-- END BLOCK_FORM_NEW_QUESTIONARY -->

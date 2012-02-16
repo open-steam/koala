@@ -1,0 +1,226 @@
+.thema .topic {
+	background: -moz-linear-gradient(center top, #CCCCCC, #DCDCDC) repeat
+		scroll 0 0 transparent;
+	font-weight: bold;
+	margin: 2px;
+}
+
+.thema .invisible {
+	display: none;
+}
+
+.thema .visible {
+	display: block;
+}
+
+.thema .admin {
+	font-size: 8pt;
+	text-align: right;
+}
+
+.thema .admin a {
+	text-decoration: none;
+}
+
+.thema .category_title {
+	background-color: #336699;
+	border: 1px;
+	border-color: #345487;
+	border-style: solid;
+	color: #ffffff;
+	font-weight: bold;
+	padding: 8px 5px 8px 5px;
+	vertical-align: middle;
+}
+
+.thema .columnheader {
+	background-color: #4477aa;
+	border: 1px;
+	border-color: #345487;
+	border-style: solid;
+	color: #ffffff;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.thema .creator {
+	font-style: italic;
+}
+
+.thema .topic .creator a {
+	color: #000000;
+	font-size: 10pt;
+	font-weight: normal;
+}
+
+.thema .topic .creator a:hover {
+	text-decoration: none;
+}
+
+.thema .description {
+	color: #434951;
+	margin-bottom: 40px;
+}
+
+.thema .empty {
+	font-size: 10pt;
+	text-align: center;
+	width: 2%;
+}
+
+.thema .footer td {
+	background-color: #b9b9b9;
+	font-size: 10pt;
+	vertical-align: middle;
+}
+
+.thema .number {
+	font-size: 10pt;
+	text-align: center;
+	width: 8%;
+}
+
+.thema .lastpost {
+	font-size: 10pt;
+	vertical-align: top;
+	width: 25%;
+}
+
+.thema .lastpost a {
+	text-decoration: none;
+}
+
+.thema .heading0 {
+	background: #cccccc;
+	background: -webkit-gradient(linear, left top, left bottom, from(#F6F&F6),
+		to(#FEFEFE) );
+	background: -moz-linear-gradient(top, #F6F6F6, #FEFEFE);
+}
+
+.thema .heading {
+	background: #FAFAFA;
+	background: -webkit-gradient(linear, left top, left bottom, from(#F6F6F6),
+		to(#FEFEFE) );
+	background: -moz-linear-gradient(top, #F6F6F6, #FEFEFE);
+}
+
+.thema .name {
+	font-size: 10pt;
+	color: #000033;
+	width: 120px;
+}
+
+.thema .name a {
+	text-decoration: none;
+}
+.thema .posting {
+	vertical-align: top;
+}
+
+.thema .posting_details {
+	vertical-align: top;
+	width: 160px;
+	font-size:0.85em;
+}
+
+.thema .posting_content {
+	line-height: 160%;
+	vertical-align: top;
+}
+
+.thema .title {
+	font-weight: bold;
+}
+
+.thema .topic {
+	font-size: 10pt;
+	width: 65%;
+}
+
+.thema .topic a {
+	color: #336699;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.thema .topic a:hover {
+	text-decoration: underline;
+}
+
+.thema .topics {
+	background-color: #eef2f7;
+	vertical-align: top;
+}
+
+.thema .editButton img,.editButton img,.editButton img {
+	float: right;
+	margin: 0px 5px;
+	opacity: 0.7;
+}
+
+.editButton img:hover {
+	opacity: 1.0;
+}
+
+.thema table {
+	border-collapse: collapse;
+	line-height: 25px;
+}
+
+.thema table,td {
+	font-size: 100%;
+}
+
+.thema td {
+	border: 1px solid #CCCCCC;
+	border-collapse: collapse;
+	line-height: 25px;
+	padding: 6px;
+	vertical-align: middle;
+}
+
+.thema .name a {
+	color: #000000;
+}
+
+.category_table .popupmenuanker {
+	display: none;
+}
+
+.category_table:hover .popupmenuanker {
+	display: block;
+}
+
+.heading .popupmenuanker {
+	display: none;
+}
+
+.heading:hover .popupmenuanker {
+	display: block;
+}
+
+.comment .popupmenuanker {
+	display: none;
+}
+
+.comment:hover .popupmenuanker {
+	display: block;
+}
+
+#backToForum {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+a.contentCreator{
+	text-decoration:none;
+}
+a.contentCreator:hover {
+	text-decoration:underline;
+}
+.editing {
+	font-size:0.8em;
+}
+.creation{
+	padding-top:10px;
+}
+	

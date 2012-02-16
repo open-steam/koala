@@ -1,0 +1,206 @@
+2010-09-04 Markus Malkusch <markus@malkusch.de>
+
+    * classes/AbstractAutoloader.php (AbstractAutoloader::autoload()):
+    AbstractAutoloader::autoload() checks also interface_exists() to skip
+    its work.
+
+    * classes/AbstractAutoloader.php (AbstractAutoloader::autoload()):
+    Exceptions are never thrown as this breaks compatibility with
+    functions like class_exists().
+
+    * classes/index/AutoloaderIndex.php (AutoloaderIndex::setContext()):
+    It is possible to define an own context for the index. This is useful if you
+    want to build your index on a different system.
+
+2010-05-27 Markus Malkusch <markus@malkusch.de>
+
+    * classes/autoloadAPI/AutoloadAPI.php (AutoloadAPI):
+    Before PHP 5.2.11 spl_autoload_functions() didn't return proper callbacks.
+    The callback always contained the class name and a function. The object got
+    lost in the stack. This prevented the Autoloader to work in such an environment.
+    AutoloadAPI::getInstance() returns a wrapper for the spl_autoload methods
+    which would work around this problem.
+
+2010-05-20 Markus Malkusch <markus@malkusch.de>
+
+    * classes/AbstractAutoloader.php (AbstractAutoloader::CLASS_CONSTRUCTOR):
+    The class constructor __static() is deprecated. The new class constructor is
+    called classConstructor(). A method which is called __static() would violate
+    the PEAR coding standard. Only PHP magic methods should be prefixed with a
+    double underscore.
+
+    Code which uses the old class constructor will still work. The autoloader would
+    raise an E_USER_DEPRECATED warning for the deprecated class constructor
+    __static().
+
+2010-05-18 Markus Malkusch <markus@malkusch.de>
+
+    * classes/AbstractAutoloader.php (AbstractAutoloader::loadClass()):
+    The include of the class definition used @ for error suppression. This
+    avoided the useful output of fatal errors.
+
+2010-05-09 Markus Malkusch <markus@malkusch.de>
+
+    * classes/parser/AutoloaderFileParser_RegExp.php (AutoloaderFileParser_RegExp::getClassesInSource()):
+    AutoloaderFileParser_RegExp has support for Namespaces.
+
+2010-05-08 Markus Malkusch <markus@malkusch.de>
+
+    * classes/parser/AutoloaderFileParser_Tokenizer (AutoloaderFileParser_Tokenizer::getClassesInSource()):
+    The Autoloader has support for Namespaces. Only the
+    AutoloaderFileParser_Tokenizer is able to determine the namespace of a
+    class. The AutoloaderFileParser_RegExp is yet not able to recognize
+    namespaces. You can use any possible namespace declaration. The
+    AutoloaderFileParser_Tokenizer can handle the braket syntax as well as the
+    non braket syntaxt. Multiple namespace declarations in one file are no
+    problem.
+
+2010-04-25 Markus Malkusch <markus@malkusch.de>
+
+    * classes/index/filter/AutoloaderIndexFilter_RelativePath.php (AutoloaderIndexFilter_RelativePath):
+    An AutoloaderIndex can filter the paths which are stored or read with
+    an AutoloaderIndexFilter. The AutoloaderIndexFilter_RelativePath stores
+    relative paths in an index. With this filter and Autoloader::buildIndex()
+    you can build an index in your developement environment and deploy the
+    built index into your productive environment.
+
+2010-04-21 Markus Malkusch <markus@malkusch.de>
+
+    * classes/Autoloader.php (Autoloader::buildIndex()):
+    Autoloader::buildIndex() iterates through all files in the class path and
+    builds an index for all found classes. This index is still not really
+    usable for deployment as it contains absolute paths.
+
+    * classes/parser/AutoloaderFileParser.php (AutoloaderFileParser::getClassesInFile()):
+    The Autoloader parser is able to return the list of found classes in a
+    parsed file. This will be used in future to build an index before deployment
+    in a productive environment.
+
+2010-04-16 Markus Malkusch <markus@malkusch.de>
+
+    * Autoloader.php (Autoloader.php):
+    Autoloader classes are required only once, even if you have several
+    Autoloader packages in your application. This might happen if you use
+    external libraries which use the Autoloader by them selves in their
+    class paths.
+
+2010-04-15 Markus Malkusch <markus@malkusch.de>
+
+    * classes/index/AutoloaderIndex_CSV.php (AutoloaderIndex_CSV):
+    Index implementation which produces a human readable CSV file.
+
+2010-04-14 Markus Malkusch <markus@malkusch.de>
+
+    * classes/index/AutoloaderIndex_File.php (AutoloaderIndex_File):
+    AutoloaderIndex_SerializedHashtable derives from AutoloaderIndex_File.
+    This makes it easier to write a new Index implementation which uses
+    an index file.
+
+    * classes/index/AutoloaderIndex_PHPArrayCode.php (AutoloaderIndex_PHPArrayCode):
+    Index implementation which produces a human readable file in PHP,
+    which produces an array.
+
+    * classes/index/AutoloaderIndex_IniFile.php (AutoloaderIndex_IniFile):
+    Index implementation which produces a human readable file with an array
+    in a PHP ini file style.
+
+2010-04-10 Markus Malkusch <markus@malkusch.de>
+
+    * classes/Autoloader.php (Autoloader::__autoload()):
+    The search process is divided into first iterating through all indexes and
+    then searching each path in the filesystem. This prevents in a multi
+    Autoloader environment that before the index of a later Autoloader would
+    be used the previous Autoloaders would vainly search their class paths.
+
+    * classes/index/AutoloaderIndex.php (AutoloaderIndex::getPaths()):
+    For debuging the index has to return an indexed array with its indexed
+    paths.
+
+2010-01-09 Markus Malkusch <markus@malkusch.de>
+
+    * classes/fileIterator/AutoloaderFileIterator_PriorityList.php (AutoloaderFileIterator_PriorityList):
+    The AutoloaderFileIterator_PriorityList prefers *.inc and *.php files.
+    Additionally the prefered files are ordered by the Levenshtein distance to the
+    class name. This is the default iterator.
+    
+    * classes/fileIterator/AutoloaderFileIterator_SimpleCached.php (AutoloaderFileIterator_SimpleCached):
+    Once a AutoloaderFileIterator_Simple is completely iterated the found
+    files are cached in an ArrayIterator.
+       
+    * classes/Autoloader.php (Autoloader::setPath()):
+    Autoloader::setPath() became private. The path is only set by the constructor.
+    If the constructor is empty, the path will be guessed.
+    
+2010-01-08 Markus Malkusch <markus@malkusch.de>
+
+    * classes/AbstractAutoloader.php (AbstractAutoloader::isRegistered()):
+    Using strict mode to avoid the endless recursion.
+    
+    * classes/Autoloader.php (Autoloader::setFileIterator()):
+    The file search is using a dedicated object (AutoloaderFileIterator)
+    for iterating through the filesystem. Therefore the methods addSkipPattern()
+    and setSkipFilesize() are moved into the AutoloaderFileIterator class.
+    
+    * classes/Autoloader.php (Autoloader::setPath()):
+    Throws AutoloaderException_ClassPath if realpath() fails.
+    
+2009-12-18 Markus Malkusch <markus@malkusch.de>
+
+    * classes/Autoloader.php (InternalAutoloader::remove()):
+    After removing an Autoloader a previously by normalization
+    removed Autoloader could become activated again.
+    
+2009-12-15 Markus Malkusch <markus@malkusch.de>
+
+    * classes/InternalAutoloader.php (InternalAutoloader):
+    Internal classes needed by the Autoloader itself are handled with
+    the InternalAutolader.
+    
+    * classes/Autoloader.php (Autoloader::registerInternalClass())
+    Autoloader::registerInternalClass() is deprecated and removed.
+    InternalAutoloader::getInstance()->registerClass() is used instead.
+    
+    * classes/OldPHPAPI.php (OldPHPAPI::checkAPI())
+    Some functions are missing in older PHP 5 APIs.
+    If needed, these missing functions are implemented. 
+
+2009-12-11 Markus Malkusch <markus@malkusch.de>
+
+    * classes/Autoloader.php (Autoloader::setPath()):
+    For each class path one single Autoloader instance is responsable.
+    That allows to use individual configurations per class path and
+    to reuse an index for common class paths in different projects.
+    This is a major change which affects other classes and methods.
+
+2009-12-10 Markus Malkusch <markus@malkusch.de>
+
+    * classes/index/AutoloaderIndex.php (AutoloaderIndex::getContext()):
+    Class paths are sorted for generating the context.
+    
+2009-12-09 Markus Malkusch <markus@malkusch.de>
+
+    * classes/Autoloader.php (Autoloader::getNormalizeSearchPaths()):
+    Class paths are normalized for searching. That means that class paths
+    which are included in other class paths are removed.
+    
+2009-12-08 Markus Malkusch <markus@malkusch.de>
+
+    * classes/Autoloader.php (Autoloader::searchPath()):
+    Each searching for a class definition resets the max_execution_time.
+    
+    * classes/parser/AutoloaderFileParser.php (AutoloaderFileParser::isClassInFile()):
+    The path for AutoloaderException_Parser_IO was wrong.
+    
+    * classes/parser/AutoloaderFileParser_Tokenizer.php (AutoloaderFileParser_Tokenizer::isClassInSource()):
+    If the tokenizer fails it throws an AutoloaderException_Parser.
+    
+2009-11-29 Markus Malkusch <markus@malkusch.de>
+
+    * classes/exception/AutoloaderException_SearchFailed.php (AutoloaderException_SearchFailed::getClass()):
+    A method for getting the information which class couldn't be found.
+
+2009-11-27 Markus Malkusch <markus@malkusch.de>
+
+    * classes/index/AutoloaderIndex_SerializedHashtable.php (AutoloaderIndex_SerializedHashtable::save()):
+    Raceconditions were possible during saving the index. Saving is done now
+    atomically.

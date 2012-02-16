@@ -1,0 +1,22 @@
+<!-- BEGIN edit_button --><span class="editButton"><a href="{PORTLET_ROOT}/edit.php?portlet={PORTLET_ID}" onclick="window.open('{PORTLET_ROOT}/edit.php?portlet={PORTLET_ID}', 'editPortlet', 'resizable,scrollbars,width=500,height=500'); return false;"><img src="{PORTLET_ROOT}/icons/edit.gif" /></a></span><!-- END edit_button -->
+
+<!-- BEGIN image -->
+<img src="{URL}" style="width: 100%">
+<!-- END image -->
+
+<!-- BEGIN movie -->
+<embed src="{MEDIA_PLAYER}" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file={URL}&autostart=false" />
+<!-- END movie -->
+
+<!-- BEGIN audio -->
+<object type="application/x-shockwave-flash" data="{MEDIA_PLAYER}" width="100%" height="55"><param name="movie" value="{MEDIA_PLAYER}" /><param name="FlashVars" value="src={URL}" /><param name="bgcolor" value="#cccccc"></object>
+<!-- END audio -->
+
+<!-- BEGIN media_element -->
+<div class="media">
+  {EDIT_BUTTON}
+  <h1>{HEADLINE}&nbsp;</h1>
+  {MEDIA_ELEMENT}
+  <div class="entry">{DESCRIPTION}</div>
+</div>
+<!-- END media_element -->

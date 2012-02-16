@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<tree id="0">
+	<item text="dhtmlxGrid v1.3" open="1">
+		<item text="Main Features" id="mf">
+			<userdata name="file">guide.html</userdata>
+		</item>
+		<item text="Supported Browsers" id="browsers">
+			<userdata name="file">guide.html</userdata>
+		</item>
+		<item text="New in dhtmlxGrid 1.3" id="cachprob2" im0="leaf_new.gif">
+			<userdata name="file">new_1_3.html</userdata>
+		</item>
+
+		<item text="Guide" id="guide" select="1">
+			<userdata name="file">guide.html</userdata>
+			<item text="dhtmlxTreeGrid" id="trgr">
+				<item text="Tree-&amp;-Grid initialization and usage" id="treegrid"/>
+				<item text="TreeGrid XML structure" id="xml_tree"/>
+				<item text="Math Formulas in TreeGrid" id="math_tree"/>
+				<item text="Adding nodes with Script" id="add_tree"/>
+				<item text="Dynamical Loading in TreeGrid" id="dloadTreeGrid"/>
+				<item text="Smart XML Parsing in dhtmlxTreeGrid" id="smpars"/>
+			
+			</item>
+			<item text="Integration with HTML Form" im0="leaf_new.gif" id="htmlform">
+    	        <userdata name="file">new_1_3.html</userdata>
+	        </item>
+			<item text="Refreshing Grid" im0="leaf_new.gif" id="refreshgrid">
+    	        <userdata name="file">new_1_3.html</userdata>
+	        </item>
+			<item text="UnDo &amp; ReDo" im0="leaf_new.gif" id="undoredo">
+    	        <userdata name="file">new_1_3.html</userdata>
+	        </item>
+			<item text="Selecting block of cells" im0="leaf_new.gif" id="blocsel">
+    	        <userdata name="file">new_1_3.html</userdata>
+	        </item>
+			<item text="Integration with dhtmlxCombo" im0="leaf_new.gif" id="intcombo">
+    	        <userdata name="file">new_1_3.html</userdata>
+	        </item>
+			 
+			<item text="Initialize object on page" id="init"/>
+			<item text="Initialize Grid from HTML table" id="initfromhtml"/>
+			<item text="Configuration via XML"  im0="leaf_upd.gif" id="confxml"/>
+			<item text="Drag-n-drop in Grid" id="dnd"/>
+			<item text="Interaction with dhtmlxTree (drag-and-drop)" id="dndtree"/>
+			<item text="Set Event Handlers" id="handlers"/>
+			<item text="Serialize Grid into XML string" id="serialize"/>
+			<item text="Using Cell Editors (eXcell)"  id="excell_use"/>
+			<item text="Creating Cell Editors (eXcell)" id="excell_add"/>
+			<item text="Increasing Performance" id="guide_perf"/>
+			
+			<item text="Dynamical Loading &amp; Buffering" id="dynload"/>
+			<item text="Adding nodes with Script" id="scriptadd"/>
+			<item text="Loading data with XML" id="xmlload"/>
+			<item text="Manipulating rows" id="rowsman"/>
+			<item text="Multiselection in Grid" id="multisel"/>
+			<item text="Multiline rows" id="multiline"/>
+			<item text="Moving rows" id="move"/>
+			<item text="Checkboxes &amp; Radiobuttons" id="checkbox"/>
+			<item text="Navigation with keyboard" id="keyboard"/>
+			<item text="Light Mouse Navigation" id="lightmousenav"/>
+			<item text="Math Formulas in Grid" id="math"/>
+			<item text="Context Menu in Grid" id="cmenu"/>
+			<item text="Icons in Header" id="icohdr"/>
+			<item text="Data Processing and link with Server Datasource" id="dblink"/>
+			<item text="Data Processing and Server errors handling" id="dbproc_err"/>
+			<item text="Paginal Output" id="pgn"/>
+			<item text="Smart Rendering" id="srnd"/>
+			<item text="Merging Cells in grid" id="merg"/>
+			<item text="Split Mode. Frozen columns" id="splitm"/>
+				
+			<item text="Add/Delete/Move columns"  id="admcols"/>
+			<item text="Export to/from CSV" id="csv"/>
+			<item text="Copy data to Excel" im0="leaf_upd.gif" id="excel"/>
+			<item text="Setting cell type explicetly" id="ctype_exp"/>
+			<item text="Multiline Headers\Footer" id="mlhdr"/>
+			<item text="Save\Restore column width"  id="srcolwidth"/>
+			<item text="Applying Skins" im0="leaf_new.gif" id="skins"/>
+		</item>
+		<item text="API Functions" id="api" open="1">
+        	 <item text="Object constructor" id="api_obj">
+    	        <userdata name="file">objects.html</userdata>
+	         </item>
+        	 <item text="Events" id="api_ev">
+    	        <userdata name="file">events.html</userdata>
+	         </item>
+			<item text="Alphabeticaly sorted" id="api_a">
+				<userdata name="file">alpha.html</userdata>
+			</item>
+			<item text="Grouped by Type" id="api_t">
+				<userdata name="file">tgroup.html</userdata>
+			</item>
+			<item text="Grouped by Object" id="api_o">
+				<userdata name="file">ogroup.html</userdata>
+			</item>
+			
+		</item>
+		<item text="Special Technique" id="spectech" open="1">
+			<userdata name="file">specialtech.html</userdata>
+			<item text="Browser caches xml files" id="cachprob" im0="leaf_new.gif"/>
+			<item text="Supported excell types" id="cachprob3" im0="leaf_new.gif">
+				<userdata name="file">excell_types.html</userdata>
+			</item>			
+			
+			
+		</item>
+		
+	</item>
+</tree> 

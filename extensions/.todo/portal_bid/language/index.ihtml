@@ -1,0 +1,29 @@
+<!-- BEGIN edit_area -->
+<span class="editColumnButton"><a href="{DOC_ROOT}/modules/portal2/edit_column.php?column={PORTAL_COLUMN_ID}", onclick="window.open('{DOC_ROOT}/modules/portal2/edit_column.php?column={PORTAL_COLUMN_ID}', 'edit_column', 'resizable,scrollbars,width=640,height=480'); return false;"><img src="{DOC_ROOT}/modules/portal2/icons/edit_column.gif" width="16" height="16" title="{LANGUAGE_COLUMN_ACTION_EDIT}"></a></span>
+<!-- END edit_area -->
+<!-- BEGIN empty_column -->{LANGUAGE_COLUMN_EMPTY}<!-- END empty_column --> 
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+
+<head>
+  <title>{PORTAL_NAME}</title>
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/css/contentframe.css" />
+  <link rel="stylesheet" type="text/css" href="{DOC_ROOT}/modules/portal2/css/portal.css" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <base target="_top" />
+</head>
+
+<body>
+
+<div class="portal" style="width:{PORTAL_WIDTH};">
+<!-- BEGIN portal_column -->
+<div class="portal_column" style="width:{PORTAL_COLUMN_WIDTH};">
+<!-- BEGIN portlet_cell -->{PORTLET}<!-- END portlet_cell -->
+{EDIT_AREA}
+</div>
+<!-- END portal_column -->
+</div>
+</body>
+</html>
