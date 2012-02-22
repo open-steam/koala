@@ -19,7 +19,7 @@ class Competence {
 	public $short;
 
 	public static function initReadCompetences(){
-		$path = Portfolio::getInstance()->getExtensionPath(). "classes/data/";
+		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		$competences = array();
 		if (is_dir($path . "competences/")) {
 			if ($dh = opendir($path . "competences/")) {
@@ -124,7 +124,7 @@ class Competence {
 	}
 
 	public static function getJobs() {
-		$path = Portfolio::getInstance()->getExtensionPath(). "classes/data/";
+		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		if (!empty(self::$jobs)){
 			return self::$jobs;
 		}
@@ -142,8 +142,19 @@ class Competence {
 		return $jobs;
 	}
 
+	/*
+	 * get a job object by the long name like Chemiemeister
+	 */
+	public static function getJobByName($name){
+		$jobs = self::getJobs();
+		foreach ($jobs as $job){
+			if (strtolower($job->description) == strtolower($name))
+				return $job;
+		}
+	}
+	
 	public static function getActivityFields() {
-		$path = Portfolio::getInstance()->getExtensionPath(). "classes/data/";
+		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		if (!empty(self::$activities)){
 			return self::$activities;
 		}
@@ -162,7 +173,7 @@ class Competence {
 	}
 
 	public static function getFacets() {
-		$path = Portfolio::getInstance()->getExtensionPath(). "classes/data/";
+		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		if (!empty(self::$facets)){
 			return self::$facets;
 		}
