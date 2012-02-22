@@ -1,7 +1,4 @@
 <?php
-/*
- * wizard like setting competences for artefacts
-*/
 namespace Portfolio\Commands;
 class Competences extends \AbstractCommand implements \IFrameCommand {
 
