@@ -23,7 +23,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$competences = \Portfolio\Model\Competence::getCompetences();
 		$jobs = \Portfolio\Model\Competence::getJobs();
-		$activities = \Portfolio\Model\Competence::getActivityFields();
+		$activities = \Portfolio\Model\Competence::getActivityFieldsDistinct();
 
 		$portfolioExtension = \Portfolio::getInstance();
 		$content = $portfolioExtension->loadTemplate("portfolio.template.html");
@@ -33,7 +33,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		
 		$html = 
 		'<div align="right">
-		Berufsfeld: 
+		Beruf: 
 		<select id="jobs"><option value="">keine Auswahl</option>';
 		foreach ($jobs as $job) {
 			$selected = (strtolower($this->job) == strtolower($job->name)) ? "selected" : "";
@@ -43,14 +43,10 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		$html .= 
 		"</select> ";
 		$html .=
-		'Fertigkeiten:
+		'Tätigkeitsfeld:
 		 <select style="width:175px;" id="activities">';
 		$html .= '<option value="">keine Auswahl</option>';
-		$present = array();
 		foreach ($activities as $activity) {
-			if (in_array($activity->name, $present))
-				continue;
-			$present []= $activity->name;
 			$selected = ($this->activity == $activity->index) ? "selected" : "";
 			$html .=
 			'<option ' . $selected . ' value="' . $activity->index . '">' . $activity->index .": ". $activity->name . '</option>';
@@ -66,11 +62,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 				continue;			
 			$html .=
 			'<tr>
-			<th colspan=2>' . $activity->name . '</td>
-			</tr>
-			<tr>
-			<td>Index</td>
-			<td>Beschreibung</td>
+			<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
 			</tr>';
 			$currentCompetences = \Portfolio\Model\Competence::getCompetences($this->job, $activity->index);
 			foreach ($currentCompetences as $competence) {

@@ -25,7 +25,6 @@ class Competence {
 			if ($dh = opendir($path . "competences/")) {
 				while (($file = readdir($dh)) !== false) {
 					$rows = array();
-					$row = 0;
 					if (($handle = fopen($path."competences/" . $file, "r")) !== FALSE) {
 						$affil = basename($file, ".csv");
 						$job = substr($affil, 0, 2);
@@ -38,7 +37,7 @@ class Competence {
 							$description = (array_key_exists(2, $data)) ? $data[2] : "";
 							$index = (array_key_exists(0, $data)) ? $data[0] : "";
 							$niveau = (array_key_exists(4, $data)) ? $data[4] : "";
-							if ($row>0 && !empty($data[0]))
+							if ($data[0] != "")
 								$competences[$job . $activity . $facet . $data[0]] = new Competence(
 										$name,
 										$description,
@@ -47,7 +46,6 @@ class Competence {
 										$job,
 										$facet,
 										$activity);
-							$row++;
 						}
 						fclose($handle);
 					}
@@ -172,6 +170,20 @@ class Competence {
 		return $activities;
 	}
 
+	public static function getActivityFieldsDistinct() {
+		$activities = self::getActivityFields();
+		$distinctActivities = array();
+		$present = array();
+		foreach ($activities as $activity) {
+			if (in_array($activity->name, $present))
+				continue;
+			$distinctActivities []= $activity;
+			$present []= $activity->name;
+		}
+		return $distinctActivities;
+	}
+
+	
 	public static function getFacets() {
 		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		if (!empty(self::$facets)){
