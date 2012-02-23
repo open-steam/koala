@@ -1,34 +1,17 @@
-;"berufliche Kompetenzen";"Beschreibung";"Quelle Curriculum"
-"K1";"Kennt Methoden der Informationssuche und potentielle Informationsquellen ";;"L2, L5, L6a"
-"K2";" Kennt die Regelungen zum Umgang mit Gefahrenstoffe, mit Lackrohstoffen  und mit Gasen ";;"L1, L2, L19, L2"
-"K3";"Kennt grundlegende Regelungen zum Umweltrecht, zum Gesundheitsschutz  zur Arbeitssicherheit  ";" Kennt  Richtlinien zum  Umgang mit der Persönlichen Schutzausrüstung ";"L2, L5, L16, L6a, L6b, L1"
-"K4";"Kennt Prinzipien von großtechnischen Verfahren ";;"L6.a"
-"K5";"Kennt Grundlagen von Scale- up Verfahren ";;"L12"
-"K6";" Kennt diskontinuierliche und kontinuierliche Produktionsverfahren ";;"L12"
-"K7";" Kennt Möglichkeiten zur Verfahrensoptimierung ";;"L11"
-"K8";" Kennt Prinzipien des produktionsintegrierten Umweltschutzes ";;"L12"
-"K9";"Kennt unterschiedliche Apparaturen (Reaktionsapparaturen/Syntheseapparaturen)  zur labortechnischen Realisierung der Reaktionen ";;"L5, L6a, L6b, L11"
-"K10";"Kennt Prinzipien der Aufarbeitung und Charakterisierung von Produkten ";;"L5, L6a"
-"K11";" Kennt für die Herstellung eines Präparates verschiedene (mehrstufige) Synthesemöglichkeiten ";"Kennt die Bedeutung von Benzol und dessen Synthesemöglichkeiten ";"L11, L6b"
-"K12";"Kennt verschiedene Reaktionstypen und Mechanismen ";" Kennt Möglichkeiten zur Beeinflussung von der Reaktionsgeschwindigkeit und des chemischen Gleichgewichts
- Kennt Zusammenhang zwischen Reaktionsbedingungen und  Reaktionsablauf )
-Kennt Reaktionsverhalten anorganischer und organischer Stoffe )
- Kennt Gesetz von der Erhaltung der Masse, Gesetz der konstanten und multiplen Masseverhältnisse, Massewirkungsgesetz 
- Kennt Merkmale des chemischen Gleichgewichts und Prinzip von LE CHATELIER 
-";"L6a, L6b, L11, L5,  "
-"K13";"Kennt Möglichkeiten zur Gewinnung, Speicherung und Anwendung elektrischer Energie bei chemischen Prozessen ";;"L15"
-"K14";" Kennt Prinzipien mechanischer und thermischen Trennverfahren ";;"L2"
-"K15";" Kennt Prinzipien von Trocknungsmethoden ";;"L2"
-"K16";"Kennt  Herstellungsmöglichkeiten und Methoden von aromatischen Stoffen ";;"L6b"
-"K17";" Kennt biotechnische Verfahren und deren Prinzipien ";" Kennt Regeln und Vorschriften für den Umgang mit biologischen Material 
- Kennt die Eignung von biologischen Reststoffe zur Entsorgung über das Abwasser
- Kennt Methoden und Prinzipien zur Aufarbeitung von Fermentationsprodukten 
- Kennt Prinzipien und Methoden zur Entsorgung von biologisch- kontaminierten Material
-
-";"L14, L18"
-"K18";" Kennt Herstellungsmöglichkeiten und Methoden von Beschichtungsstoffen";" Kennt manuelle und technische Applikationstechniken und deren Prinzipien 
- Kennt Methoden und Prinzipien des physikalischen Trocknens und chemischen Härtens 
-";"L19"
-"K19";" Kennt Verfahren und Prinzipien zur Reinhaltung von Luft und Wasser ";;"L2, L16"
-"K20";" Kennt Prinzipien der Abfallwirtschaft, der Kreislaufwirtschaft und des Recycling ";;"L16"
-"K21";" Kennt Prinzipien der Protokollführung und der Dokumentation von Arbeitsabläufen und Ergebnisse ";;"L1, L5, L11, L6a, L6b"
+;berufliche Kompetenzen;Beschreibung;Quelle Curriculum
+1;"Kann Präparate unterschiedlicher Stoffklassen mittels üblicher Reaktionstypen
+(wie z.B. Addition oder Substitution) und üblicher Synthesetechniken herstellen";;
+2;"Kann übliche verfahrenstechnische mechanische Grundoperationen (trennen,
+vereinigen, reingingen usw.) durchführen";;
+3;"Kann übliche verfahrenstechnische thermische Grundoperationen (trennen,
+vereinigen, reinigen usw.) durchführen";;
+4;"Kann übliche verfahrenstechnische chemische Grundoperationen (trennen,
+vereinigen, reinigen usw.) durchführen";;
+5;"Kann übliche verfahrenstechnische biologische Grundoperationen (trennen,
+vereinigen, reinigen usw.) durchführen";;
+6;"Kann Energieträger auswählen und im eigenen Arbeitsbereich rationell
+Einsetzen";;
+7;"Kann Herstellungsverfahren auf veränderte Maßstäbe (vom Labor-auf
+Produktionsmaßstab) durch die Anwendung von „Scale up“ Verfahren
+übertragen und optimieren.";;
+8;Kann Beschichtungsstoffe herstellen, prüfen und applizieren;;
