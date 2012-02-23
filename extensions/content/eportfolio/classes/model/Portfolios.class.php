@@ -1,6 +1,6 @@
 <?php
 namespace Portfolio\Model;
-class Portfolio {
+class Portfolios {
 	
 	private $user;
 	private $portfolioContainer;

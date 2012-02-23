@@ -19,7 +19,7 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 			isset($this->params["type"]) ? $type = $this->params["type"]: null;
 		}
 		if (isset($env)) {
-			$portfolioInstance = \Portfolio\Model\Portfolio::getInstanceByRoom($env);
+			$portfolioInstance = \Portfolio\Model\Portfolios::getInstanceByRoom($env);
 			$this->entry = $portfolioInstance->createEntry($type);
 		} else {
 			$room = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);

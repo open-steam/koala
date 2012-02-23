@@ -1,7 +1,6 @@
 <?php
 namespace Portfolio\Model;
-class Entry extends Portfolio{
-	
+class Entry extends Portfolios{
 	private $room;
 	public $entryAttributes  = array();
 
@@ -305,7 +304,7 @@ class Entry extends Portfolio{
 	
 	private function getViewHtml() {
 		$contentHtml = "";
-		foreach($this->entryAttributes as $key => $entryAttribute) {
+		foreach($this->entryAttributes as $entryAttribute) {
 			$contentHtml .= $entryAttribute["label"] . ": <em>" . "</em><br clear=all>";
 		}
 		
@@ -322,10 +321,6 @@ class Entry extends Portfolio{
 END
 ;
 		return $html;
-	}
-	
-	public function getEntryAttributeValue($key) {
-		$entryAttribute = $this->entryAttributes
 	}
 	
 	public static function getEntryTypeDescription() {
