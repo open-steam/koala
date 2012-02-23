@@ -43,7 +43,11 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		$html .=
 		'<select style="width:175px;" id="activities">';
 		$html .= '<option value="">Fertigkeiten Auswahl</option>';
+		$present = array();
 		foreach ($activities as $activity) {
+			if (in_array($activity->name, $present))
+				continue;
+			$present []= $activity->name;
 			$selected = ($this->activity == $activity->index) ? "selected" : "";
 			$html .=
 			'<option ' . $selected . ' value="' . $activity->index . '">' . $activity->index .": ". $activity->name . '</option>';
