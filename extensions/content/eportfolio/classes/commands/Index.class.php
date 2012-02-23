@@ -198,6 +198,14 @@ END;
 		$actionBar = new \Widgets\ActionBar();
 		$actionBar->setActions(\Portfolio::getActionBarArray());
 		$frameResponseObject->addWidget($actionBar);
+		$tabBar = new \Widgets\TabBar();
+		$tabBar->setTabs(array(array("name"=>"Kompetenzportfolio", "link"=>"/"), 
+								array("name"=>"Bildungbiographie", "link"=>"/"), 
+								array("name"=>"Kompetenzübersicht", "link"=>"/"), 
+								array("name"=>"Kommentare", "link"=>"/"),
+								array("name"=>"Kompetenzmodell", "link"=>"/")
+								));
+		$frameResponseObject->addWidget($tabBar);
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
