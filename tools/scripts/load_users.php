@@ -3,7 +3,7 @@ require_once( "../etc/koala.conf.php");
 ini_set('memory_limit', '1024M');
   $steam_user = new lms_user( STEAM_ROOT_LOGIN, STEAM_ROOT_PW );
   $steam_user->login();
-  echo "loading users\n";
+  echo "loadin g users\n";
   
   $group_steam = steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), "steam", 0 );
   
