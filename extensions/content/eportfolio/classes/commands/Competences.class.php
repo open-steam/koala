@@ -12,8 +12,8 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 	}
 
 	public function processData(\IRequestObject $requestObject) {
-		$this->job = isset($_GET["job"]) ? $_GET["job"] : null;
-		$this->activity = isset($_GET["activity"]) ? $_GET["activity"] : null;
+		$this->job = (isset($_GET["job"]) && $_GET["job"] != "") ? $_GET["job"] : null;
+		$this->activity = (isset($_GET["activity"]) && $_GET["activity"] != "") ? $_GET["activity"] : null;
 		$this->params = array(
 				"job" => $this->job,
 				"activity" => $this->activity,
@@ -32,7 +32,9 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		$breadcrumb->setData(array(array("name"=>"Kompetenzportfolio")));
 		
 		$html = 
-		'<select id="jobs"><option value="">Berufsfeld Auswahl</option>';
+		'<div align="right">
+		Berufsfeld: 
+		<select id="jobs"><option value="">keine Auswahl</option>';
 		foreach ($jobs as $job) {
 			$selected = (strtolower($this->job) == strtolower($job->name)) ? "selected" : "";
 			$html .= 
@@ -41,8 +43,9 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		$html .= 
 		"</select> ";
 		$html .=
-		'<select style="width:175px;" id="activities">';
-		$html .= '<option value="">Fertigkeiten Auswahl</option>';
+		'Fertigkeiten:
+		 <select style="width:175px;" id="activities">';
+		$html .= '<option value="">keine Auswahl</option>';
 		$present = array();
 		foreach ($activities as $activity) {
 			if (in_array($activity->name, $present))
@@ -54,6 +57,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		}
 		$html .=
 		'</select>
+		</div>
 		<div id="items"><table width=100% class="grid">';
 		foreach ($activities as $activity){
 			if (isset($this->activity) && $this->activity != $activity->index)
