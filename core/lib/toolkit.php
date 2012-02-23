@@ -238,6 +238,8 @@ function getObjectType($object) {
 		$type = "group";
 	} else if ($object instanceof \steam_trashbin) {
 		$type = "trashbin";
+	} else if ($object instanceof \steam_docextern) {
+		$type = "docextern";
 	} else if ($object instanceof \steam_container) {
 		$bidDocType = $object->get_attribute("bid:doctype");
 		$bidType = $object->get_attribute("bid:collectiontype");

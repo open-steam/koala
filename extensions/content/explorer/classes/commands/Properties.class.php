@@ -100,15 +100,17 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				$labelName = "Ordnername";
 				$typeName = "Ordner";
 				break;
-
+			case "docextern":
+				$labelName = "Internet-Link-Name";
+				$typeName = "Internet-Referenz";
+				break;
 			case "unknown":
 				$labelName = "Name";
-				$typeName = "unbekannt";
+				$typeName = "unbekannt".$type;
 				break;
-
 			default:
 				$labelName = "Name";
-				$typeName = "unbekannt";
+				$typeName = "unbekannt".$type;
 				break;
 		}
 
@@ -160,7 +162,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			 $titelInput->setData($object);
 			 $titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));*/
 		}
-
+		
+		if($type == "docextern"){
+			$urlInput = new \Widgets\TextInput();
+			$urlInput->setLabel("URL");
+			$urlInput->setData($object);
+			$urlInput->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_EXTERN_URL"));
+		}
+		
 		$ownerField = new \Widgets\TextField();
 		$ownerField->setLabel("Besitzer");
 		$creator= $object->get_creator();
@@ -251,6 +260,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$dialog->addWidget($dataNameInput);
 		}
 
+		if($type=="docextern"){
+			$dialog->addWidget($seperator);
+			$dialog->addWidget($urlInput);
+		}
+		
 		$dialog->addWidget($seperator);
 		$dialog->addWidget($ownerField);
 		$dialog->addWidget($seperator);
