@@ -77,25 +77,16 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 			foreach ($currentCompetences as $competence) {
 				$html .=
 				"<tr>
-				<td>{$competence->short}</td>
-				<td>{$competence->name}</td>
+				<td><input type=\"checkbox\" value=\"{$competence->short}\" 
+                                    onchange=\"sendRequest('toggleCompetences', {'id': {$this->id}, 'competence': this.value, 'value': this.checked}, '', 'data', function() {}, function() {})\">
+                                <br><div style=\"font-size:80%\">{$competence->short}</div></td>
+				<td>{$competence->name} (Niveau {$competence->niveau})</td>
 				</tr>";
 			}
 		}
 		$html .= <<<END
 </table>
 </div>
-<script type="text/javascript">
-
-$('select[id="jobs"]').change(function() {
-    job = $('select[id="jobs"] option:selected').val();
-    activity = $('select[id="activities"] option:selected').val();
-});
-$('select[id="activities"]').change(function() {
-    job = $('select[id="jobs"] option:selected').val();
-    activity = $('select[id="activities"] option:selected').val();
-});
-</script>
 END;
 		
                 $rawHtml = new \Widgets\RawHtml();

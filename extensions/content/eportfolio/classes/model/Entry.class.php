@@ -81,7 +81,7 @@ class Entry extends Portfolios {
      */
 
     public function addCompetenceString($competenceString, $rating = "1") { //TODO: Rating
-        $competence = CompetenceRaster::getCompetenceById($competenceString);
+        $competence = Competence::getCompetenceById($competenceString);
         $this->addCompetence($competence, $rating);
     }
 
@@ -93,7 +93,7 @@ class Entry extends Portfolios {
     public function addCompetence(Competence $competence, $rating = "1") {
         $this->checkCompetence();
         $competencesRoom = $this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES");
-        $competence = steam_factory::create_document(
+        $competence = \steam_factory::create_document(
                         $GLOBALS["STEAM"]->get_id(), $competence->short, "", "", $competencesRoom
         );
         $competence->set_attribute(PORTFOLIO_PREFIX . "RATING", $rating);
