@@ -22,6 +22,18 @@ class Portfolios {
 		return $allEntries;
 	}
 	
+	public function getAchievedCompetences(){
+		$entries = $this->getAllEntries();
+		$competences = array();
+		foreach ($entries as $entry) {
+			$indexes = $entry->getCompetencesStrings();
+			$objects = $entry->getCompetences();
+			foreach ($indexes as $key => $index)
+				$competences[$index] = $objects[$key];
+		}
+		return $competences;
+	}
+	
 	public function getEntriesByClass($className) {
 		$result = array();
 		foreach($this->getAllEntries() as $entry) {

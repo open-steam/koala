@@ -1,20 +1,42 @@
 <?php
 class Portfolio extends AbstractExtension implements IObjectExtension {
 
-	public static function getActionBarArray(){
-		$array = array(
+	public static function getActionBar(){
+		$actionBar = new \Widgets\ActionBar();
+		$actionBar->setActions(array(
 				//array("name"=>"Bildungsbiographie", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
 				//array("name"=>"Kompetenzübersicht", "link"=>self::getInstance()->getExtensionUrl() . "competences/"),
 				//array("name"=>"Kommentare", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
 				//array("name"=>"Kompetenzmodell", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
-				array("name"=>"Import der Belege", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
-				array("name"=>"Export der Belege", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
-				array("name"=>"Drucken", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup")))
-				);
-		return $array;
+				array("name"=>"Import der Belege",
+						"ajax"=>
+						array("onclick"=>
+								array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
+				array("name"=>"Export der Belege",
+						"ajax"=>
+						array("onclick"=>
+								array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
+				array("name"=>"Drucken",
+						"ajax"=>
+						array("onclick"=>
+								array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup")))
+		));
+		return $actionBar;
 	}
-	
-	
+
+	public static function getTabBar(){
+		$tabBar = new \Widgets\TabBar();
+		$tabBar->setTabs(
+				array(
+						array("name"=>"Kompetenzportfolio", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "/"),
+						array("name"=>"Bildungbiographie", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "biography/"),
+						array("name"=>"Kompetenzübersicht", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "achieved/"),
+						array("name"=>"Kommentare", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "comments/"),
+						array("name"=>"Kompetenzmodell", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "competences/")
+				));
+		return $tabBar;
+	}
+
 	public function getName() {
 		return "Portfolio";
 	}

@@ -34,6 +34,10 @@ class Entry extends Portfolios{
 		}
 	}
 
+	public function getRoom(){
+		return $this->room;
+	}
+	
 	public function addArtefact($name, $content, $mimeType){
 		$room = $this->getArtefactRoom();
 		if ($room->get_object_by_name($name) instanceof steam_document){
@@ -144,13 +148,13 @@ class Entry extends Portfolios{
 	 * Check for existing or need to create competences folder
 	 */
 	private function checkCompetence(){
-		if (!($this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES") instanceof steam_room));
-		\steam_factory::create_room(
-				$GLOBALS[ "STEAM" ]->get_id(),
-				PORTFOLIO_PREFIX . "COMPETENCES",
-				$this->getRoom(),
-				"Kompetenzen"
-		);
+		if (!($this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES") instanceof steam_room))
+			\steam_factory::create_room(
+					$GLOBALS[ "STEAM" ]->get_id(),
+					PORTFOLIO_PREFIX . "COMPETENCES",
+					$this->getRoom(),
+					"Kompetenzen"
+			);
 	}
 
 	/**

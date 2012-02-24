@@ -199,17 +199,8 @@ END;
 		
 		$frameResponseObject->setTitle("Kompetenzportfolio");
 		$frameResponseObject->addWidget($breadcrumb);
-		$actionBar = new \Widgets\ActionBar();
-		$actionBar->setActions(\Portfolio::getActionBarArray());
-		$frameResponseObject->addWidget($actionBar);
-		$tabBar = new \Widgets\TabBar();
-		$tabBar->setTabs(array(array("name"=>"Kompetenzportfolio", "link"=>"/"), 
-								array("name"=>"Bildungbiographie", "link"=>"/"), 
-								array("name"=>"Kompetenzübersicht", "link"=>"/"), 
-								array("name"=>"Kommentare", "link"=>"/"),
-								array("name"=>"Kompetenzmodell", "link"=>"/")
-								));
-		$frameResponseObject->addWidget($tabBar);
+		$frameResponseObject->addWidget(\Portfolio::getActionBar());
+		$frameResponseObject->addWidget(\Portfolio::getTabBar());
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;

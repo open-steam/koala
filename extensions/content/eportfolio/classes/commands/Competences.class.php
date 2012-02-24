@@ -12,6 +12,17 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 	}
 
 	public function processData(\IRequestObject $requestObject) {
+		$params = $requestObject->getParams();
+		if(!isset($params[0])) {
+			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "competences/" .  \lms_steam::get_current_user()->get_name());
+			exit;
+		} else {
+			$this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
+		}
+		if (!isset($this->user) || !($this->user instanceof \steam_user)) {
+			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "competences/" .  \lms_steam::get_current_user()->get_name());
+			exit;
+		}
 		$this->job = (isset($_GET["job"]) && $_GET["job"] != "") ? $_GET["job"] : null;
 		$this->activity = (isset($_GET["activity"]) && $_GET["activity"] != "") ? $_GET["activity"] : null;
 		$this->params = array(
@@ -29,10 +40,24 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		$content = $portfolioExtension->loadTemplate("portfolio.template.html");
 		
 		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array(array("name"=>"Kompetenzportfolio")));
+		$breadcrumb->setData(array(array("name"=>"Kompetenzmodell")));
+
+		$infobar = new \Widgets\InfoBar();
+		$infobar->setHeadline("");
+		$infobar->addParagraph('
+				Mithilfe dieses Kompetenzportfolio-Systems können  zentrale chemieberufliche
+				Kompetenzen zur Bilanzierung gesichtet, bestimmt, geordnet und dokumentiert werden.<br><br>
+				Das Kompetenzportfolio ist durch seine Bilanzierungs- und Dokumentationsfunktionen
+				dafür geeignet, Ausbilder, Dozenten, Auszubildende, Schüler, Personalreferenten oder
+				Angestellte von Berufen der chemischen Industrie bei Fragestellungen der Aus- und
+				Weiterbildungseignung/-vorbereitung , der Anrechnung von Aus- und Weiterbildungszielen,
+				der Personalauswahl, der Personalentwicklung, der Berufswahl sowie bei der Bewerbung zu unterstützen.
+				'
+		);
+		$content->setVariable("INFOBAR", $infobar->getHtml());
 		
 		$html = 
-		'<div align="right">
+		'<br><div align="right">
 		Beruf: 
 		<select id="jobs"><option value="">keine Auswahl</option>';
 		foreach ($jobs as $job) {
@@ -58,8 +83,6 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		foreach ($activities as $activity){
 			if (isset($this->activity) && $this->activity != $activity->index)
 				continue;
-			if (isset($this->job) && strtolower($this->job) != strtolower($activity->job))
-				continue;			
 			$html .=
 			'<tr>
 			<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
@@ -73,7 +96,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 				</tr>";
 			}
 		}
-		$competencesPath = \Portfolio::getInstance()->getExtensionUrl() . "/competences/?job=";
+		$competencesPath = \Portfolio::getInstance()->getExtensionUrl() . "competences/" . $this->user->get_name() . "/?job=";
 		$html .= <<<END
 </table>
 </div>
@@ -94,9 +117,10 @@ END;
 	$rawHtml = new \Widgets\RawHtml();
 	$rawHtml->setHtml($html);
 	$frameResponseObject->addWidget($breadcrumb);
-	$actionBar = new \Widgets\ActionBar();
-	$actionBar->setActions(\Portfolio::getActionBarArray());
-	$frameResponseObject->addWidget($actionBar);
+	$frameResponseObject->addWidget(\Portfolio::getActionBar());
+	$tabbar = \Portfolio::getTabBar();
+	$tabbar->setActiveTab(4);
+	$frameResponseObject->addWidget($tabbar);
 	$frameResponseObject->addWidget($rawHtml);
 	return $frameResponseObject;
 	}
