@@ -114,24 +114,26 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				break;
 		}
 
+		
+		
+		//create dialog
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>({$typeName})");
-
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
 
+		
+		//userhome and workroom
 		if ($type == "userHome" || $type == "groupWorkroom") {
 			$dataNameInput= new \Widgets\TextInput();
 			$dataNameInput->setLabel("{$labelName}");
 			$dataNameInput->setData($object);
 			$dataNameInput->setReadOnly(true);
 			$dataNameInput->setContentProvider(\Widgets\DataProvider::staticProvider(getCleanName($object, -1)));
+		}
 
-			/*		$titelInput = new \Widgets\TextInput();
-			 $titelInput->setLabel("Titel (Beschreibung)");
-			 $titelInput->setData($object);
-			 $titelInput->setContentProvider(\Widgets\DataProvider::staticProvider(getCleanName($object)));*/
-		} else {
+		
+		if (!($type == "userHome" || $type == "groupWorkroom")) {
 			$dataNameInput= new \Widgets\TextInput();
 			$dataNameInput->setLabel("{$labelName}");
 			$dataNameInput->setData($object);
@@ -153,16 +155,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 						$jsWrapperPicture = new \Widgets\JSWrapper();
 						$jsWrapperPicture->setJs('$(".plain").val("'.$desc.'")');
 					}
-
 				}
 			}
-
-			/*		$titelInput = new \Widgets\TextInput();
-			 $titelInput->setLabel("Titel (Beschreibung)");
-			 $titelInput->setData($object);
-			 $titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));*/
 		}
 		
+		
+		//www-link
 		if($type == "docextern"){
 			$urlInput = new \Widgets\TextInput();
 			$urlInput->setLabel("URL");
@@ -170,31 +168,31 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$urlInput->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_EXTERN_URL"));
 		}
 		
+		//owner field
 		$ownerField = new \Widgets\TextField();
 		$ownerField->setLabel("Besitzer");
 		$creator= $object->get_creator();
 		$creatorName = getCleanName($creator);
 		$ownerField->setValue($creatorName);
 
+		
+		//last modified
 		$changedField = new \Widgets\TextField();
 		$changedField->setLabel("zuletzt geändert");
 		$changedDate = $object->get_attribute(OBJ_LAST_CHANGED);
 		$changedDate = getFormatedDate($changedDate);
 		$changedField->setValue($changedDate);
 
+		
+		//creation time
 		$createdField = new \Widgets\TextField();
 		$createdField->setLabel("erstellt");
 		$createDate = $object->get_attribute(OBJ_CREATION_TIME);
 		$createDate = getFormatedDate($createDate);
 		$createdField->setValue($createDate);
 
-		//$hiddenCheckbox = new \Widgets\Checkbox();
-		//$hiddenCheckbox->setLabel("Verstecken");
-		//$hiddenCheckbox->setCheckedValue("1");
-		//$hiddenCheckbox->setUncheckedValue(0);
-		//$hiddenCheckbox->setData($object);
-		//$hiddenCheckbox->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:hidden"));
-
+		
+		
 		$containerViewRadio = new \Widgets\RadioButton();
 		$containerViewRadio->setLabel("Erstes Dokument");
 		$containerViewRadio->setData($object);
@@ -202,17 +200,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$containerViewRadio->setDefaultChecked("normal");
 		$containerViewRadio->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:presentation"));
 
-		// 		$descriptionTextarea = new \Widgets\Textarea();
-		// 		$descriptionTextarea->setLabel("Beschreibung");
-		// 		$descriptionTextarea->setData($object);
-		// 		$descriptionTextarea->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:description"));
-
 		//TODO: value is array
 		$keywordArea = new \Widgets\TextInput();
 		$keywordArea->setLabel("Schlüsselwörter");
 		$keywordArea->setData($object);
 		$keywordArea->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_KEYWORDS"));
-
 
 		//TODO: bid-attribute
 		$descriptionInput = new \Widgets\TextInput();
@@ -220,13 +212,15 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$descriptionInput->setData($object);
 		$descriptionInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:description"));
 
+		
+		//forum
 		$checkboxInput = new \Widgets\Checkbox();
 		$checkboxInput->setLabel("Benutzer dürfen editieren?");
 		$checkboxInput->setCheckedValue("1");
 		$checkboxInput->setUncheckedValue(0);
 		$checkboxInput->setData($object);
 		$checkboxInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:forum_is_editable"));
-
+		
 
 		$seperator= new \Widgets\RawHtml();
 		$seperator->setHtml("<br style=\"clear:both\"/>");
@@ -238,11 +232,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$headlineView->setHtml("<h3>Darstellung</h3>");
 
 		$dialog->addWidget($headlineAlg);
-		//$dialog->addWidget($titelInput);
-		//$dialog->addWidget($seperator);
 
 		if($type == "document"){
-				
 			$docType = $object->get_attribute("DOC_MIME_TYPE");
 			$isJpg=strpos($docType,"jpg") !== false;
 			$isJpeg= strpos($docType,"jpeg") !== false;
@@ -254,10 +245,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				$fileName->setData($object);
 				$fileName->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
 				$dialog->addWidget($fileName);
+			}else{
+				$dialog->addWidget($dataNameInput); //tritt ein wenn nicht document
 			}
-				
 		}else{
-			$dialog->addWidget($dataNameInput);
+			//do nothing
 		}
 
 		if($type=="docextern"){
@@ -272,6 +264,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$dialog->addWidget($seperator);
 		$dialog->addWidget($createdField);
 		$dialog->addWidget($seperator);
+		
+		
 		if ($type == "container" || $type == "room") {
 			$dialog->addWidget($headlineView);
 			//$dialog->addWidget($hiddenCheckbox);
@@ -281,36 +275,28 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$dialog->setForceReload(true);
 		}
 		else if($type == "document"){
-				$docType = $object->get_attribute("DOC_MIME_TYPE");
-				$isJpg=strpos($docType,"jpg") !== false; 
-				$isJpeg= strpos($docType,"jpeg") !== false;
-				$isGif= strpos($docType,"gif") !== false;
-				$isPng = strpos($docType,"png") !== false;
-				if($isGif || $isJpeg  || $isJpg || $isPng){
-					$dialog->addWidget($textArea);
-					$dialog->addWidget($jsWrapperPicture);
-				}
-			
-
+			$docType = $object->get_attribute("DOC_MIME_TYPE");
+			$isJpg=strpos($docType,"jpg") !== false; 
+			$isJpeg= strpos($docType,"jpeg") !== false;
+			$isGif= strpos($docType,"gif") !== false;
+			$isPng = strpos($docType,"png") !== false;
+			if($isGif || $isJpeg  || $isJpg || $isPng){
+				$dialog->addWidget($textArea);
+				$dialog->addWidget($jsWrapperPicture);
+			}
 		}
 		else if ($type == "forum") {
 			$creatorId=$creator->get_id();
 			$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 			$currentUserId = $currentUser->get_id();
 			if($currentUserId == $creatorId){
-				//				$checkValue= $object->get_attribute("bid:forum_is_editable");
-				//				$checked = $checkValue ? 1 : 0;
-				//				$checkboxInput;
 				$dialog->addWidget($checkboxInput);
 				$dialog->addWidget($seperator);
 			}
 		}
+		
 
-		// 		$dialog->addWidget($headlineMeta);
-		// 		$dialog->addWidget($keywordArea);
-		// 		$dialog->addWidget($seperator);
-		// 		$dialog->addWidget($descriptionInput);
-
+		//finish response
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($dialog);
 		return $ajaxResponseObject;
