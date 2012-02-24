@@ -16,7 +16,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             header("location: " . PATH_URL . "portfolio/index/" . \lms_steam::get_current_user()->get_name());
             exit;
         } else {
-            if (\Portfolio::isManager() || \Portfolio::isViewer()) {
+            if (\Portfolio\Model\Portfolios::isManager() || \Portfolio\Model\Portfolios::isViewer() || \lms_steam::get_current_user()->get_name() === $params[0]) {
                 $this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
             }
         }
@@ -59,7 +59,8 @@ Das Kompetenzportfolio ist durch seine Bilanzierungs- und Dokumentationsfunktion
 dafür geeignet, Ausbilder, Dozenten, Auszubildende, Schüler, Personalreferenten oder 
 Angestellte von Berufen der chemischen Industrie bei Fragestellungen der Aus- und 
 Weiterbildungseignung/-vorbereitung , der Anrechnung von Aus- und Weiterbildungszielen,
-der Personalauswahl, der Personalentwicklung, der Berufswahl sowie bei der Bewerbung zu unterstützen.				
+der Personalauswahl, der Personalentwicklung, der Berufswahl sowie bei der Bewerbung zu unterstützen.<br><br>
+<b>{$portfolio->getStatusString()}</b>
 END
         );
         $content->setVariable("INFOBAR", $infobar->getHtml());
