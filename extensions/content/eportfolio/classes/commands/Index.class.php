@@ -10,11 +10,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 	public function processData(\IRequestObject $requestObject) {
 		$params = $requestObject->getParams();
-		if (isset($params) && isset($params[0])) {
+                if(!isset($params[0])) {
+                    header("location: " . PATH_URL . "portfolio/index/" .  \lms_steam::get_current_user()->get_name());
+                    exit;
+                } else {
 			$this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
 		}
 		if (!isset($this->user) || !($this->user instanceof \steam_user)) {
-			$this->user = \lms_steam::get_current_user();
+                    header("location: " . PATH_URL . "portfolio/index/" .  \lms_steam::get_current_user()->get_name());
+                    exit;
 		}
 	}
 	
