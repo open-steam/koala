@@ -1,7 +1,6 @@
 <?php
 namespace Portfolio\Model;
-class Entry extends Portfolio{
-	
+class Entry extends Portfolios{
 	private $room;
 	public $entryAttributes  = array();
 
@@ -12,8 +11,7 @@ class Entry extends Portfolio{
 				"label"=>"Datum",
 				"description"=>"",
 				"widget"=>"\Widgets\DatePicker",
-				"widgetMethods"=>array(
-						array("setPlaceholder"=>array("z.B. 01.01.1995"))
+				"widgetMethods"=>array("setPlaceholder"=>"z.B. 01.01.1995"
 				),
 				"defaultValue"=>""
 		);
@@ -22,8 +20,7 @@ class Entry extends Portfolio{
 				"label"=>"Bemerkung",
 				"description"=>"",
 				"widget"=>"\Widgets\TextInput",
-				"widgetMethods"=>array(
-						array("setPlaceholder"=>array("z.B. inhaltliche Schwerpunkte; besondere Leistungen"))
+				"widgetMethods"=>array("setPlaceholder"=>"z.B. inhaltliche Schwerpunkte; besondere Leistungen"
 				),
 				"defaultValue"=>""
 		);
@@ -37,6 +34,10 @@ class Entry extends Portfolio{
 		}
 	}
 
+	public function getRoom(){
+		return $this->room;
+	}
+	
 	public function addArtefact($name, $content, $mimeType){
 		$room = $this->getArtefactRoom();
 		if ($room->get_object_by_name($name) instanceof steam_document){
@@ -147,13 +148,13 @@ class Entry extends Portfolio{
 	 * Check for existing or need to create competences folder
 	 */
 	private function checkCompetence(){
-		if (!($this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES") instanceof steam_room));
-		\steam_factory::create_room(
-				$GLOBALS[ "STEAM" ]->get_id(),
-				PORTFOLIO_PREFIX . "COMPETENCES",
-				$this->getRoom(),
-				"Kompetenzen"
-		);
+		if (!($this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES") instanceof steam_room))
+			\steam_factory::create_room(
+					$GLOBALS[ "STEAM" ]->get_id(),
+					PORTFOLIO_PREFIX . "COMPETENCES",
+					$this->getRoom(),
+					"Kompetenzen"
+			);
 	}
 
 	/**
@@ -306,16 +307,16 @@ class Entry extends Portfolio{
 	private function getViewHtml() {
 		$contentHtml = "";
 		foreach($this->entryAttributes as $entryAttribute) {
-			$contentHtml .= $entryAttribute["label"] . ": <em>" . "</em><br clear=all>";
+			$contentHtml .= $entryAttribute["label"] . ": <em>" . $this->getReadableData($entryAttribute) . "</em><br clear=all>";
 		}
 		
 		$html = <<<END
 		<div style="border: 3px dotted lightblue; padding: 5px; background-color: #ffe">
 			{$contentHtml}
 			<div style="float: right; display: inline">
-				<a href="#" onclick="sendRequest('edit', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/menu/rename.png"> Eintrag bearbeiten</a> |
+				<a href="#" onclick="sendRequest('edit', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/menu/rename.png"> bearbeiten</a> |
 				<a href="#"><img src="/explorer/asset/icons/mimetype/generic.png"> Beleg anfügen</a> |
-				<a href="#" onclick="sendRequest('comment', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> Eintrag diskutieren</a>
+				<a href="#" onclick="sendRequest('comment', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren</a>
 			</div>
 			<br clear=all>
 		</div>
@@ -323,6 +324,27 @@ END
 ;
 		return $html;
 	}
+        
+        private function getReadableData($entryAttribute) {
+            $value = "";
+            $raw = $this->get_attribute($entryAttribute["attributeName"]);
+            if ($entryAttribute["widget"] === "\Widgets\ComboBox" && isset($entryAttribute["widgetMethods"]["setOptions"])) {
+                $options = $entryAttribute["widgetMethods"]["setOptions"];
+                foreach ($options as $options) {
+                    if ($options["value"] === $raw) {
+                        $value = $options["name"];
+                        return $value;
+                    }
+                }
+            } else {
+                if ($raw === 0) {
+                    $value = "";
+                } else {
+                    $value = $raw;
+                }
+            }
+            return $value;
+        }
 	
 	public static function getEntryTypeDescription() {
 		return static::entryTypeDescription;

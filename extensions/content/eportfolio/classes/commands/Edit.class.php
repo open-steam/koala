@@ -19,7 +19,7 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 			isset($this->params["type"]) ? $type = $this->params["type"]: null;
 		}
 		if (isset($env)) {
-			$portfolioInstance = \Portfolio\Model\Portfolio::getInstanceByRoom($env);
+			$portfolioInstance = \Portfolio\Model\Portfolios::getInstanceByRoom($env);
 			$this->entry = $portfolioInstance->createEntry($type);
 		} else {
 			$room = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
@@ -51,6 +51,12 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 			$widget->setData($this->id);
 			$widget->setContentProvider(new \Widgets\AttributeDataProvider($entryAttribute["attributeName"]));
 			$widget->setLabel($entryAttribute["label"]);
+                        if (isset($entryAttribute["widgetMethods"])) {
+                            $methodes = $entryAttribute["widgetMethods"];
+                            foreach($methodes as $method => $params) {
+                                call_user_func(array($widget, $method), $params);
+                            }
+                        }
 			$dialog->addWidget($widget);
 			$dialog->addWidget($clearer);
 		}

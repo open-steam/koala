@@ -10,11 +10,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 	public function processData(\IRequestObject $requestObject) {
 		$params = $requestObject->getParams();
-		if (isset($params) && isset($params[0])) {
+                if(!isset($params[0])) {
+                    header("location: " . PATH_URL . "portfolio/index/" .  \lms_steam::get_current_user()->get_name());
+                    exit;
+                } else {
 			$this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
 		}
 		if (!isset($this->user) || !($this->user instanceof \steam_user)) {
-			$this->user = \lms_steam::get_current_user();
+                    header("location: " . PATH_URL . "portfolio/index/" .  \lms_steam::get_current_user()->get_name());
+                    exit;
 		}
 	}
 	
@@ -35,7 +39,7 @@ END
 		$portfolioExtension = \Portfolio::getInstance();
 		$content = $portfolioExtension->loadTemplate("portfolio.template.html");
 		
-		$portfolio = \Portfolio\Model\Portfolio::getInstanceForUser($this->user);
+		$portfolio = \Portfolio\Model\Portfolios::getInstanceForUser($this->user);
 				
 		$rawHtml = new \Widgets\RawHtml();
 		
@@ -195,17 +199,8 @@ END;
 		
 		$frameResponseObject->setTitle("Kompetenzportfolio");
 		$frameResponseObject->addWidget($breadcrumb);
-		$actionBar = new \Widgets\ActionBar();
-		$actionBar->setActions(array(
-									array("name"=>"Bildungsbiographie", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
-									array("name"=>"Kompetenzübersicht", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>"1"), "requestType"=>"popup"))), 							
-									array("name"=>"Diskussionen", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
-									array("name"=>"Kompetenzmodell", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
-									array("name"=>"Import der Belege", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
-									array("name"=>"Export der Belege", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
-									array("name"=>"Drucken", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup")))
-		));
-		$frameResponseObject->addWidget($actionBar);
+		$frameResponseObject->addWidget(\Portfolio::getActionBar());
+		$frameResponseObject->addWidget(\Portfolio::getTabBar());
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;

@@ -1,6 +1,6 @@
 <?php
 namespace Portfolio\Model;
-class Portfolio {
+class Portfolios {
 	
 	private $user;
 	private $portfolioContainer;
@@ -20,6 +20,18 @@ class Portfolio {
 			$allEntries[] = Entry::getEntryByRoom($room);
 		}
 		return $allEntries;
+	}
+	
+	public function getAchievedCompetences(){
+		$entries = $this->getAllEntries();
+		$competences = array();
+		foreach ($entries as $entry) {
+			$indexes = $entry->getCompetencesStrings();
+			$objects = $entry->getCompetences();
+			foreach ($indexes as $key => $index)
+				$competences[$index] = $objects[$key];
+		}
+		return $competences;
 	}
 	
 	public function getEntriesByClass($className) {

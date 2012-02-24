@@ -15,50 +15,53 @@ class EntryEducation extends Entry{
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_COMPANY",
 				"label"=>"Ausbildungsbetrieb",
 				"description"=>"",
-				"values"=>"",
+				"widget"=>"\Widgets\TextInput",
 				"defaultValue"=>""
 		);
 		$this->entryAttributes["educationinstitution"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_INSTITUTION",
 				"label"=>"Ausbildungsstätte",
 				"description"=>"",
-				"values"=>"",
+				"widget"=>"\Widgets\TextInput",
 				"defaultValue"=>""
 		);
 		$this->entryAttributes["educationstate"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_STATE",
 				"label"=>"Status",
 				"description"=>"",
-				"values"=>array(
+				"widget" => "\Widgets\ComboBox",
+				"widgetMethods" => array("setOptions" => array(
 						array("name"=>"", "value"=>0),
-						array("name"=>"abgeschlossen", "value"=>1),
-						array("name"=>"im Gange", "value"=>2),
-						array("name"=>"abgebrochen", "value"=>3)),
+						array("name"=>"abgeschlossen", "value"=>"1"),
+						array("name"=>"im Gange", "value"=>"2"),
+						array("name"=>"abgebrochen", "value"=>"3"))),
 				"defaultValue"=>""
 		);
 		$this->entryAttributes["educationtype"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_TYPE",
 				"label"=>"Abschluss",
 				"description"=>"",
-				"values"=>array(
+				"widget" => "\Widgets\ComboBox",
+				"widgetMethods" => array("setOptions" => array(
 						array("name"=>"", "value"=>0),
-						array("name"=>"Chemikant", "value"=>2),
-						array("name"=>"Chemielaborant", "value"=>3),
-						array("name"=>"Chemietechniker", "value"=>4),
-						array("name"=>"Industriemeister Chemie", "value"=>5),
-						array("name"=>"Sonstige", "value"=>6)),
+						array("name"=>"Chemikant", "value"=>"1"),
+						array("name"=>"Chemielaborant", "value"=>"2"),
+						array("name"=>"Chemietechniker", "value"=>"3"),
+						array("name"=>"Industriemeister Chemie", "value"=>"4"),
+						array("name"=>"Sonstige", "value"=>"5"))),
 				"defaultValue"=>""
 		);
 		$this->entryAttributes["educationgrade"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_GRADE",
 				"label"=>"Druchschnittsnote",
 				"description"=>"",
-				"values"=>array(
+				"widget" => "\Widgets\ComboBox",
+				"widgetMethods" => array("setOptions" => array(
 						array("name"=>"", "value"=>0),
-						array("name"=>"Sehr gut (1)", "value"=>1),
-						array("name"=>"Gut (2)", "value"=>2),
-						array("name"=>"Befriedigend (3)", "value"=>3),
-						array("name"=>"Ausreichend (4)", "value"=>4)),
+						array("name"=>"Sehr gut (1)", "value"=>"1"),
+						array("name"=>"Gut (2)", "value"=>"2"),
+						array("name"=>"Befriedigend (3)", "value"=>"3"),
+						array("name"=>"Ausreichend (4)", "value"=>"4"))),
 				"defaultValue"=>""
 		);
 	}
