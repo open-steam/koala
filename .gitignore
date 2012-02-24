@@ -21,4 +21,6 @@ platforms/koala/etc/local.def.php
 platforms/default/etc/local.def.php
 .buildpath
 .project
+.idea
 org.eclipse.php.core.prefs
+nbproject
