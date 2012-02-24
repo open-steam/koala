@@ -1,5 +1,5 @@
 function htmlEncodeHelper(value){
-  return $('<div/>').text(value).html();
+  return $('<div/>').text(value).html().replace('&amp;','&');
 }
 
 function widgets_textinput_changed(elementId) {
