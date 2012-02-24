@@ -161,7 +161,7 @@ class Competence {
 		if (($handle = fopen($path."taetigkeitsfelder.csv", "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
 				if ($row>1)
-					$activities[] = new CompetenceActivity($data[0], $data[1], $data[2], $data[3], $data[4]);
+					$activities[] = new CompetenceActivity($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 				$row++;
 			}
 			fclose($handle);
