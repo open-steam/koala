@@ -51,6 +51,12 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 			$widget->setData($this->id);
 			$widget->setContentProvider(new \Widgets\AttributeDataProvider($entryAttribute["attributeName"]));
 			$widget->setLabel($entryAttribute["label"]);
+                        if (isset($entryAttribute["widgetMethods"])) {
+                            $methodes = $entryAttribute["widgetMethods"];
+                            foreach($methodes as $method => $params) {
+                                call_user_func(array($widget, $method), $params);
+                            }
+                        }
 			$dialog->addWidget($widget);
 			$dialog->addWidget($clearer);
 		}

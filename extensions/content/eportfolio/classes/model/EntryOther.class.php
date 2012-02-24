@@ -15,7 +15,7 @@ class EntryOther extends Entry{
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_OTHER_NAME",
 				"label"=>"Name",
 				"description"=>"",
-				"values"=>"",
+				"widget"=>"\Widgets\TextInput",
 				"defaultValue"=>""
 		);
 	}

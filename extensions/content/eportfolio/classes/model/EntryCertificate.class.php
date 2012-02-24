@@ -15,17 +15,18 @@ class EntryCertificate extends Entry{
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_CERTIFICATE_TYPE",
 				"label"=>"Schulabschluss",
 				"description"=>"",
-				"values"=>array(
+				"widget" => "\Widgets\ComboBox",
+				"widgetMethods" => array("setOptions" => array(
 						array("name"=>"", "value"=>0),
 						array("name"=>"DAWINCI Lernmodul", "value"=>"dawinci"),
-						array("name"=>"Sonstige", "value"=>"sonst")),
+						array("name"=>"Sonstige", "value"=>"sonst"))),
 				"defaultValue"=>""
 		);
 		$this->entryAttributes["certificatename"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_CERTIFICATE_NAME",
 				"label"=>"Name",
 				"description"=>"",
-				"values"=>"",
+				"widget"=>"\Widgets\TextInput",
 				"defaultValue"=>""
 		);
 	}

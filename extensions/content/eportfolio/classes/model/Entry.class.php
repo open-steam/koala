@@ -11,8 +11,7 @@ class Entry extends Portfolios{
 				"label"=>"Datum",
 				"description"=>"",
 				"widget"=>"\Widgets\DatePicker",
-				"widgetMethods"=>array(
-						array("setPlaceholder"=>array("z.B. 01.01.1995"))
+				"widgetMethods"=>array("setPlaceholder"=>"z.B. 01.01.1995"
 				),
 				"defaultValue"=>""
 		);
@@ -21,8 +20,7 @@ class Entry extends Portfolios{
 				"label"=>"Bemerkung",
 				"description"=>"",
 				"widget"=>"\Widgets\TextInput",
-				"widgetMethods"=>array(
-						array("setPlaceholder"=>array("z.B. inhaltliche Schwerpunkte; besondere Leistungen"))
+				"widgetMethods"=>array("setPlaceholder"=>"z.B. inhaltliche Schwerpunkte; besondere Leistungen"
 				),
 				"defaultValue"=>""
 		);
@@ -305,7 +303,7 @@ class Entry extends Portfolios{
 	private function getViewHtml() {
 		$contentHtml = "";
 		foreach($this->entryAttributes as $entryAttribute) {
-			$contentHtml .= $entryAttribute["label"] . ": <em>" . "</em><br clear=all>";
+			$contentHtml .= $entryAttribute["label"] . ": <em>" . $this->getReadableData($entryAttribute) . "</em><br clear=all>";
 		}
 		
 		$html = <<<END
@@ -322,6 +320,27 @@ END
 ;
 		return $html;
 	}
+        
+        private function getReadableData($entryAttribute) {
+            $value = "";
+            $raw = $this->get_attribute($entryAttribute["attributeName"]);
+            if ($entryAttribute["widget"] === "\Widgets\ComboBox" && isset($entryAttribute["widgetMethods"]["setOptions"])) {
+                $options = $entryAttribute["widgetMethods"]["setOptions"];
+                foreach ($options as $options) {
+                    if ($options["value"] === $raw) {
+                        $value = $options["name"];
+                        return $value;
+                    }
+                }
+            } else {
+                if ($raw === 0) {
+                    $value = "";
+                } else {
+                    $value = $raw;
+                }
+            }
+            return $value;
+        }
 	
 	public static function getEntryTypeDescription() {
 		return static::entryTypeDescription;
