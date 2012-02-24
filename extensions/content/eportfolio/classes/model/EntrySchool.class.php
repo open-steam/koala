@@ -9,6 +9,7 @@ class EntrySchool extends Entry {
     public static $entryTypeEditDescription = "Schulabschlusses eintragen";
     public static $entryTypeEditInfo = "Dieser Dialog dient der Erfassung eines schulischen Abschlusses. Wenn mehrere Abschlüsse vorliegen, muss diese Dialog erneut geöffnet werden.";
     public static $entryType = "SCHOOL";
+    public static $entryTypeHasCompetences = false;
 
     public function __construct(\steam_room $room) {
         parent::__construct($room);

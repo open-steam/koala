@@ -295,13 +295,19 @@ class Entry extends Portfolios {
         foreach ($this->entryAttributes as $entryAttribute) {
             $contentHtml .= $entryAttribute["label"] . ": <em>" . $this->getReadableData($entryAttribute) . "</em><br clear=all>";
         }
+        if (static::$entryTypeHasCompetences) {
+            $editCompetencesHtml = "<a href=\"#\" onclick=\"sendRequest('competencesDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;\"><img src=\"/explorer/asset/icons/menu/rename.png\"> Kompetenzen bearbeiten</a> |";
+        } else {
+            $editCompetencesHtml = "";
+        }
         if (Portfolios::isManager()) {
             $html = <<<END
 		<div style="border: 3px dotted lightblue; padding: 5px; background-color: #ffe">
 			{$contentHtml}
 			<div style="float: right; display: inline">
 				<a href="#" onclick="sendRequest('editDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/menu/rename.png"> bearbeiten</a> |
-				<a href="#"><img src="/explorer/asset/icons/mimetype/generic.png"> Beleg prüfen ({$this->getArtefactCount()})</a> |
+				{$editCompetencesHtml}
+                                <a href="#"><img src="/explorer/asset/icons/mimetype/generic.png"> Beleg prüfen ({$this->getArtefactCount()})</a> |
 				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren ({$this->getCommentsCount()})</a>
 			</div>
 			<br clear=all>

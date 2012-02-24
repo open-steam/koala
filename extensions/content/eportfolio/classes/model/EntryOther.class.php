@@ -7,6 +7,7 @@ class EntryOther extends Entry{
 	public static $entryTypeEditDescription ="";
 	public static $entryTypeEditInfo ="";
 	public static $entryType = "OTHER";
+        public static $entryTypeHasCompetences = true;
 	
 	public function __construct(\steam_room $room) {
 		parent::__construct($room);
