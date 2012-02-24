@@ -1,7 +1,7 @@
 <?php
 namespace Portfolio\Commands;
 
-class Comment extends \AbstractCommand implements \IAjaxCommand {
+class CommentDialog extends \AbstractCommand implements \IAjaxCommand {
 
 	private $params;
 	private $id;
@@ -42,14 +42,17 @@ class Comment extends \AbstractCommand implements \IAjaxCommand {
 		
 		// get discussion thread between portfolio owner and current user or create empty thread
 		$threads = $this->entry->get_annotations();
-		$discussion = null;
-		foreach ($threads as $thread) {
-			if ($thread->get_name() === $currentUserName) {
-				$discussion = $thread;
-			}
-		} 
+                if (is_array($threads) && isset($threads[0])) {
+                    $discussion = $threads[0];
+                }
+		//foreach ($threads as $thread) {
+		//	if ($thread->get_name() === $currentUserName) {
+		//		$discussion = $thread;
+		//	}
+		//} 
 		if (!isset($discussion)) {
-			$discussion = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $currentUserName, "Discussing with " . $currentUserName . ".", "text/plain");
+			$discussion = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), "Comments", "Portfolio Comments.", "text/plain");
+                        $discussion->set_sanction_all(\steam_factory::get_group($GLOBALS["STEAM"]->get_id(), "steam"));
 			$this->entry->add_annotation($discussion);
 		}
 		

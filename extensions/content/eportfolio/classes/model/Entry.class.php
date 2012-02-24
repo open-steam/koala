@@ -284,7 +284,7 @@ class Entry extends Portfolios{
 	public static function getViewWidget($portfolio) {
 		$entries = $portfolio->getEntriesByClass(get_called_class());
 		$addButton = new \Widgets\RawHtml();
-		$addButton->setHtml("<a class=\"\" title=\"Abschluss hinzufügen\" onclick=\"sendRequest('edit', {'env':'{$portfolio->getId()}','type':'" . static::$entryType . "'}, '', 'popup', null, null);return false;\" href=\"#\">+</a>");
+		$addButton->setHtml("<a class=\"\" title=\"Eintrag hinzufügen\" onclick=\"sendRequest('editDialog', {'env':'{$portfolio->getId()}','type':'" . static::$entryType . "'}, '', 'popup', null, null);return false;\" href=\"#\">+</a>");
 		$box = new \Widgets\Box();
 		$box->addWidget($addButton);
 		$box->setTitle("<div style=\"float:right\">" . $addButton->getHtml() . "</div>" . static::$entryTypeDescription);
@@ -314,9 +314,9 @@ class Entry extends Portfolios{
 		<div style="border: 3px dotted lightblue; padding: 5px; background-color: #ffe">
 			{$contentHtml}
 			<div style="float: right; display: inline">
-				<a href="#" onclick="sendRequest('edit', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/menu/rename.png"> bearbeiten</a> |
+				<a href="#" onclick="sendRequest('editDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/menu/rename.png"> bearbeiten</a> |
 				<a href="#"><img src="/explorer/asset/icons/mimetype/generic.png"> Beleg anfügen</a> |
-				<a href="#" onclick="sendRequest('comment', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren</a>
+				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren</a>
 			</div>
 			<br clear=all>
 		</div>

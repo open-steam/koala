@@ -19,7 +19,7 @@ class Chat extends Widget {
 			if ($lastAnnotation === 0) {
 				$lastAnnotation = $annotation->get_attribute("OBJ_CREATION_TIME");
 				$this->getContent()->setCurrentBlock("BLOCK_STATUS");
-				$this->getContent()->setVariable("STATUS_MESSAGE", "Diskussion mit " . $portal->get_user()->get_forename() . " " . $portal->get_user()->get_surname() . ".<br>" . getReadableDate($lastAnnotation));
+				$this->getContent()->setVariable("STATUS_MESSAGE", /*"Diskussion mit " . $portal->get_user()->get_forename() . " " . $portal->get_user()->get_surname() . ".<br>" . */getReadableDate($lastAnnotation));
 				$this->getContent()->parse("BLOCK_STATUS");
 			} else {
 				$tmp = $lastAnnotation;
@@ -30,13 +30,22 @@ class Chat extends Widget {
 					$this->getContent()->parse("BLOCK_STATUS");
 				}
 			}
-			
-			$this->getContent()->setCurrentBlock("BLOCK_OUTGOING");
-			$this->getContent()->setVariable("OUTGOING_MESSAGE", $annotation->get_content());
-			$this->getContent()->setVariable("OUTGOING_IMG", \lms_user::get_user_image_url(32, 32));
-			$this->getContent()->setVariable("OUTGOING_TITLE", $portal->get_user()->get_forename() . " " . $portal->get_user()->get_surname());
-			$this->getContent()->parse("BLOCK_OUTGOING");
-			$this->getContent()->parse("BLOCK_CHAT");
+			$creator = $annotation->get_creator();
+                        if ($creator->get_name() === $portal->get_user()->get_login()) {
+                            $this->getContent()->setCurrentBlock("BLOCK_OUTGOING");
+                            $this->getContent()->setVariable("OUTGOING_MESSAGE", $annotation->get_content());
+                            $this->getContent()->setVariable("OUTGOING_IMG", \lms_user::get_user_image_url(32, 32));
+                            $this->getContent()->setVariable("OUTGOING_TITLE", $portal->get_user()->get_forename() . " " . $portal->get_user()->get_surname());
+                            $this->getContent()->parse("BLOCK_OUTGOING");
+                            $this->getContent()->parse("BLOCK_CHAT");
+                        } else {
+                            $this->getContent()->setCurrentBlock("BLOCK_INCOMING");
+                            $this->getContent()->setVariable("INCOMING_MESSAGE", $annotation->get_content());
+                            $this->getContent()->setVariable("INCOMING_IMG", \lms_user::get_user_image_url(32, 32, $creator->get_attribute("OBJ_ICON")));
+                            $this->getContent()->setVariable("INCOMING_TITLE", $creator->get_attribute("USER_FIRSTNAME") . " " . $creator->get_attribute("USER_FULLNAME"));
+                            $this->getContent()->parse("BLOCK_INCOMING");
+                            $this->getContent()->parse("BLOCK_CHAT");
+                        }
 		}
 		return $this->getContent()->get();
 	}

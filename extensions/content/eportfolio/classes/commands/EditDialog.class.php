@@ -1,7 +1,7 @@
 <?php
 namespace Portfolio\Commands;
 
-class Edit extends \AbstractCommand implements \IAjaxCommand {
+class EditDialog extends \AbstractCommand implements \IAjaxCommand {
 
 	private $params;
 	private $id;
