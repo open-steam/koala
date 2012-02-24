@@ -42,9 +42,9 @@ class Databinding extends \AbstractCommand implements \IAjaxCommand {
 				$array = array();
 			} 
 			$array[$arrayId] = $value;
-			return html_entity_decode($object->set_attribute($attribute, $array)); //html decodeing
+			return $object->set_attribute($attribute, $array); //html decodeing
 		} else {
-			return html_entity_decode($object->set_attribute($attribute, $value)); //html decodeing
+			return $object->set_attribute($attribute, html_entity_decode($value)); //html decodeing
 		}
 	}
 	
