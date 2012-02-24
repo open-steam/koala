@@ -1,10 +1,5 @@
 ;Kompetenzbereiche;;;;
 Kompetenzbereich;Beschreibung;Index;Berufsfeld;Niveau;Niveau Beschreibung
-Stoffe analysieren (untersuchen);"Der Kompetenzbereich  beinhaltet Kompetenzen, 
-die für die erfolgreiche Planung, Durchführung, 
-Optimierung und Dokumentation chemischer, 
-physikalischer und biologischer Analyseverfahren
-vorhanden sein sollten. ";1;CK;;
 "Herstellungsverfahren vorbereiten/planen,
 durchführen und optimieren";"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
 die erfolgreiche Planung, Durchführung, Optimierung
@@ -83,11 +78,6 @@ auftretende Probleme zu lösen sowie
 Arbeitsergebnisse unter Beachtung
 von Wechselwirkungen zu beurteilen.
 "
-Mitarbeiter organisieren, fördern und beurteilen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
-die erfolgreiche Bewältigung der Personalbesetzung,
-der Personalführung und der Personalentwicklung
-vorhanden sein sollten.";7;CK;;"
-"
 Tätigkeitsübergreifende Kompetenzen;"Tätigkeitsübergreifende Kompetenzen sind
 Kompetenzen, die für die erfolgreiche Bewältigung
 der gestellten Anforderungen aus den
@@ -100,12 +90,6 @@ planen, zu bearbeiten, ggf. hierbei
 auftretende Probleme zu lösen sowie
 Arbeitsergebnisse unter Beachtung
 von Wechselwirkungen zu beurteilen."
-Stoffe analysieren (untersuchen);"Der Kompetenzbereich  beinhaltet Kompetenzen, 
-die für die erfolgreiche Planung, Durchführung, 
-Optimierung und Dokumentation chemischer, 
-physikalischer und biologischer Analyseverfahren
-vorhanden sein sollten. ";1;IC;;"
-"
 "Herstellungsverfahren vorbereiten/planen,
 durchführen und optimieren";"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
 die erfolgreiche Planung, Durchführung, Optimierung
@@ -514,10 +498,6 @@ planen, zu bearbeiten, ggf. hierbei
 auftretende Probleme zu lösen sowie
 Arbeitsergebnisse unter Beachtung
 von Wechselwirkungen zu beurteilen."
-Mitarbeiter organisieren, fördern und beurteilen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
-die erfolgreiche Bewältigung der Personalbesetzung,
-der Personalführung und der Personalentwicklung
-vorhanden sein sollten.";7;CL;4;
 Tätigkeitsübergreifende Kompetenzen;"Tätigkeitsübergreifende Kompetenzen sind
 Kompetenzen, die für die erfolgreiche Bewältigung
 der gestellten Anforderungen aus den

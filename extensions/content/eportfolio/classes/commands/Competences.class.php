@@ -59,7 +59,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		$html = 
 		'<br><div align="right">
 		Beruf: 
-		<select id="jobs"><option value="">keine Auswahl</option>';
+		<select id="jobs"><option value="">Alle</option>';
 		foreach ($jobs as $job) {
 			$selected = (strtolower($this->job) == strtolower($job->name)) ? "selected" : "";
 			$html .= 
@@ -70,7 +70,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		$html .=
 		'Tätigkeitsfeld:
 		 <select style="width:175px;" id="activities">';
-		$html .= '<option value="">keine Auswahl</option>';
+		$html .= '<option value="">Alle</option>';
 		foreach ($activities as $activity) {
 			$selected = ($this->activity == $activity->index) ? "selected" : "";
 			$html .=
