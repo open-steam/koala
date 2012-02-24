@@ -278,6 +278,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			//$dialog->addWidget($seperator);
 			$dialog->addWidget($containerViewRadio);
 			$dialog->addWidget($seperator);
+			$dialog->setForceReload(true);
 		}
 		else if($type == "document"){
 				$docType = $object->get_attribute("DOC_MIME_TYPE");
