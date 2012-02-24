@@ -32,7 +32,8 @@ class Portfolio extends AbstractExtension implements IObjectExtension {
 						array("name"=>"Bildungbiographie", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "biography/"),
 						array("name"=>"Kompetenzübersicht", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "achieved/"),
 						array("name"=>"Kommentare", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "comments/"),
-						array("name"=>"Kompetenzmodell", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "competences/")
+						array("name"=>"Kompetenzmodell", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "competences/"),
+						array("name"=>"Beschreibungen", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "descriptions/")
 				));
 		return $tabBar;
 	}
