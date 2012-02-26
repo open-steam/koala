@@ -78,6 +78,34 @@ function widgets_textarea_save_success(elementId, response) {
 					}, mce_defaults));
 	    		});
 	    	} else if (element.find("textarea").hasClass("mce-full")) {
+	    		
+	    		//protect unsaved text
+	    		$(window).unload(function(){
+	    		var dirtyTextareas = jQuery('#content').find('.widget.textarea.dirty');
+	    		if (dirtyTextareas.length > 0) {
+	    			if (confirm('Sollen alle nicht gespeicherte Daten gesichert werden?')) {
+	    				$(dirtyTextareas[0]).textarea('save');
+	    				$(dirtyTextareas[0]).addClass('saved');
+	    				$(dirtyTextareas[0]).removeClass('dirty');
+	    				
+	    				//saveing
+	    				if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
+			    			$(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable"); 
+			    			//tinyMCE.activeEditor.getBody().click(); 
+			    			var value = tinyMCE.activeEditor.getContent(); 
+		    			} else if (element.find("textarea").hasClass("plain")) {
+		    				var value = element.find("textarea").val(); 
+		    			}
+		    			//this.addClass("saving"); 
+	    				sendFunction(value);
+	    			}else{
+	    				//nicht speichern
+	    			}
+	    		}
+	    		});
+	    		
+	    		
+	    		//load tinymce
 	    		load("mce", function() {
 	    			tinyMCE.init($.extend({
 						editor_selector: "mce-full", 
