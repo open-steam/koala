@@ -28,7 +28,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		}
 		
 		//hack
-		include_once(PATH_BASE."koala-core/lib/bid/slashes.php");
+		include_once(PATH_BASE."core/lib/bid/slashes.php");
 		
 		//get content of portlet
 		$content = $portlet->get_attribute("bid:portlet:content");
@@ -71,7 +71,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 			
 		
 			$UBB = new \UBBCode();
-			include_once(PATH_BASE."koala-core/lib/bid/derive_url.php");
+			include_once(PATH_BASE."core/lib/bid/derive_url.php");
 			
 			$tmpl->setVariable("DUMMY","");
 			$tmpl->setVariable("EDIT_BUTTON","");

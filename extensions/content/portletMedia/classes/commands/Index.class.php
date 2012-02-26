@@ -30,7 +30,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		}
 		
 		//hack
-		include_once(PATH_BASE."koala-core/lib/bid/slashes.php");
+		include_once(PATH_BASE."core/lib/bid/slashes.php");
 		
 		
 		//get content of portlet
