@@ -34,6 +34,10 @@ class ActionBar extends Widget {
 						}
 						$this->getContent()->setVariable("AJAX", $html);
 						$this->getContent()->parse("ACTIONBAR_ITEM");
+					} else if (isset($item["name"]) && isset($item["onclick"])) {
+						$this->getContent()->setVariable("ACTIONBAR_ITEM_LINK", "#");
+                                                $this->getContent()->setVariable("AJAX", "onclick=\"" . $item["onclick"] . "\"");
+						$this->getContent()->parse("ACTIONBAR_ITEM");
 					} else if (isset($item["name"]) && isset($item["link"])) {
 						$this->getContent()->setVariable("ACTIONBAR_ITEM_LINK", $item["link"]);
 						$this->getContent()->parse("ACTIONBAR_ITEM");

@@ -22,3 +22,5 @@ platforms/default/etc/local.def.php
 .buildpath
 .project
 org.eclipse.php.core.prefs
+.idea
+nbproject
