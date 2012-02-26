@@ -78,6 +78,7 @@ class EditTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, 
 		$linkurlInput->setContentProvider(new AttributeDataProviderPortletAppointmentTerm($termIndex, "linkurl"));
 		$dialog->addWidget($linkurlInput);
 		$dialog->addWidget(new \Widgets\Clearer());
+		$dialog->setForceReload(true);
 		
 		$this->dialog = $dialog;
 	}
