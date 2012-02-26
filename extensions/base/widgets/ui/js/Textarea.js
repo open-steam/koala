@@ -86,6 +86,7 @@ function widgets_textarea_save_success(elementId, response) {
 						theme_advanced_buttons1 : "formatselect,fontsizeselect,|, bold,italic,underline,sub,sup,|,bullist,numlist,table,tablecontrols,visualaid,|,justifyleft,justifycenter,justifyright,justifyfull,hr,|,forecolor,backcolor",
 						theme_advanced_buttons2 : "undo,redo,pasteword,|,removeformat,|,search,|,fullscreen,|,charmap,|,emotions,image,media,link,unlink,|,asciimathcharmap,asciisvg",
 						theme_advanced_fonts : "Times New Roman=times new roman,times,serif;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n",
+						theme_advanced_blockformats : "p,pre,h1,h2,h3,h4",
 						//plugins
 						
 						AScgiloc : '{PATH_URL}styles/standard/php/svgimg.php',
