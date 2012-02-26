@@ -271,7 +271,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		//pictures
 		if(($type == "document") && $documentIsPicture){
 			$dialog->addWidget($documentFileNameInput);
-			$nameFieldSet = false;
+			$nameFieldSet = true;
 		}
 		/*
 		if(($type == "document") && !$documentIsPicture){
