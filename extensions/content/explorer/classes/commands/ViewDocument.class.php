@@ -35,7 +35,7 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
 			if ($object instanceof \steam_docextern) {
 				$actionBar = new \Widgets\ActionBar();
 				$actionBar->setActions(array(
-								array("name"=>"URL in neuem Fenster öffnen", "link"=> "javascript:window.open('{$object->get_attribute("DOC_EXTERN_URL")}');")
+								array("name"=>"URL in neuem Fenster öffnen", "onclick"=> "javascript:window.open('{$object->get_attribute("DOC_EXTERN_URL")}');return false;")
 								));
 				$rawHtml = new \Widgets\RawHtml();
 				$rawHtml->setHtml("<iframe height=\"800px\" width=\"100%\" src=\"{$object->get_attribute("DOC_EXTERN_URL")}\" scrolling=\"yes\"></iframe>");
