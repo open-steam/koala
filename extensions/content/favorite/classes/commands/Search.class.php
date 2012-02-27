@@ -31,16 +31,14 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 
 		$searchResult = array();
 		$min_search_string_count = 4;
-		if ($action != "") {
+		if ($action != ""){
 			$searchString = trim($searchString);
 
-			if (strlen($searchString) < $min_search_string_count) {
+			if (strlen($searchString) < $min_search_string_count){
 				//$frameResponseObject->setProblemDescription(gettext("Search string too short"));
 				$frameResponseObject->setProblemDescription("Länge der Suchanfrage zu klein! Eine Suchanfrage muss aus mindestens 4 Zeichen bestehen.");
-
 			}
-			else
-			{
+			else{
 				/* prepare search string */
 
 				$modSearchString = $searchString;
@@ -51,23 +49,18 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 
 				$searchModule = $steam->get_module("searching");
 				$searchobject = new \searching($searchModule);
-					
-
 				$search = new \search_define();
 
 					
-				if ($searchType == "searchUser")
-				{
+				if ($searchType == "searchUser"){
 					$search->extendAttr("OBJ_NAME", \search_define::like($modSearchString));
 					$resultItems = $searchobject->search($search, CLASS_USER);
-					foreach($resultItems as $r)
-					{
+					foreach($resultItems as $r){
 						$id = $r->get_id();
 						$resultItemName[$id] = $r->get_name(1);
 					}
 				}
-				elseif ($searchType == "searchGroup")
-				{
+				elseif($searchType == "searchGroup"){
 					$search->extendAttr("GROUP_NAME", \search_define::like($modSearchString));
 					$resultItems = $searchobject->search($search, CLASS_GROUP);
 					foreach($resultItems as $r) {
@@ -83,9 +76,9 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 						$resultItems[$i]=\steam_factory::get_object($steam->get_id(), $resultUser[$i]["OBJ_ID"]);
 					}
 
-					foreach($resultItems as $r) {
-						$id = $r->get_id();
-						$resultItemName[$id] = $r->get_name();
+					foreach($resultItems as $resultItem){
+						$id = $resultItem->get_id();
+						$resultItemName[$id] = $resultItem->get_name();
 					}
 				}
 				if($searchType!="searchUserFullname"){
@@ -94,49 +87,43 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 				else{
 					$result=array();
 					$counter=0;
-					foreach($resultItems as $r){
-						$result[$r->get_name()] = $r->get_id();
+					foreach($resultItems as $resultItem){
+						$result[$resultItem->get_name()] = $resultItem->get_id();
 						$counter++;
 
 					}
 				}
 				$helper=array();
 				
-				foreach($resultItems as $r)
-				{
-					$id = $r->get_id();
-					if($r instanceof \steam_user){
-						$helper[$r->get_name()] = $id;
+				foreach($resultItems as $resultItem){
+					$id = $resultItem->get_id();
+					if($resultItem instanceof \steam_user){
+						$helper[$resultItem->get_name()] = $id;
 					}else{
-						$helper[$r->get_groupname()] = $id;
+						$helper[$resultItem->get_groupname()] = $id;
 					}
 					$resultItemName[$id] = $result[$resultItemName[$id]];
 					$searchResult[] = $resultItemName[$id];
 				}
 			}
 		}
+		
+		
+		
 		// sort favourites
 		natcasesort($searchResult);
 		$content=\Favorite::getInstance()->loadTemplate("fav_search.html");
-		//$content->setVariable("TITLE", gettext("Search for favorites"));
 		$content->setVariable("TITLE", "Favoritensuche");
 
-		//$content->setVariable("SEARCH",gettext("Search"));
 		$content->setVariable("SEARCH","Suche");
-		//$content->setVariable("BUTTON_LABEL", gettext("Search"));
 		$content->setVariable("BUTTON_LABEL", "Suchen");
 
-		//$content->setVariable("GROUPS",gettext("Groups"));
-		//$content->setVariable("USER_LOGIN",gettext("User (login)"));
-		//$content->setVariable("USER_FULLNAME", gettext("User (fullname)"));
-
+		
 		$content->setVariable("GROUPS","Gruppen");
 		$content->setVariable("USER_LOGIN","Benutzer (Login)");
 		$content->setVariable("USER_FULLNAME", "Benutzer (Namen)");
 
 		if($action != ""){
-			//$content->setVariable("SEARCH_RESULTS", gettext("Search results"));
-			
 			$loopCount = 0;
 			if($searchType=="searchUser" || $searchType=="searchUserFullname"){
 				$category="user";
@@ -172,8 +159,6 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 						$content->setCurrentBlock("BLOCK_SEARCH_RESULTS");
 						$content->setVariable("BUDDY_NAME", PATH_URL."profile/index/" . $resultEntry ."/");
 
-						//$content->setVariable("BUDDY_NAME1",$resultEntry);
-
 						$resultUser = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $urlId);
 						
 						$fullname = $resultUser->get_full_name();
@@ -181,18 +166,15 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 						$picId = $resultUser->get_attribute("OBJ_ICON")->get_id();
 						$content->setVariable("BUDDY_PIC_LINK", PATH_URL."download/image/".$picId."/60/40/" );
 						if($steamUser->get_id() == $resultUser->get_id()){
-							//$content->setVariable("ALREADY_BUDDY",gettext("Your profile"));
 							$content->setVariable("ALREADY_BUDDY","Das bist Du!");
 
 						}
 						elseif(!($steamUser->is_buddy($resultUser))){
-							//$content->setVariable("ADD_FAVORITE_BUDDY", gettext("Add favorite"));
 							$content->setVariable("ADD_FAVORITE_BUDDY", "Favorit hinzufügen");
 
 							$content->setVariable("FAVORITE_BUDDY_LINK", PATH_URL."favorite/add/". $urlId . "/" . $category . "/");
 						}
 						else{
-							//$content->setVariable("ALREADY_BUDDY", gettext("Already your favorite"));
 							$content->setVariable("ALREADY_BUDDY", "Bereits Teil der Favoritenliste");
 							
 
@@ -210,7 +192,6 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 						if(!($steamUser->is_buddy($resultGroup))){
 
 							$content->setVariable("ADD_FAVORITE_GROUP", "Favorit hinzufügen");
-							//$content->setVariable("ALREADY_BUDDY", "Bereits Teil der Favoritenliste");
 
 							$content->setVariable("FAVORITE_GROUP_LINK", PATH_URL."favorite/add/". $urlId . "/" . $category . "/");
 						}
@@ -232,10 +213,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 		}
 
 
-
-
 		$headline = new \Widgets\Breadcrumb();
-		//$headline->setData(array(array("name"=>gettext("Profile"), "link"=>PATH_URL."profile/index/"),array("name"=>" / ".gettext("Favorites"), "link"=>PATH_URL."favorite/index/"),array("name"=>" / ".gettext("Favorite search"))));
 		$headline->setData(array(array("name"=>"Profil", "link"=>PATH_URL."profile/index/"),array("name"=>"Favoriten", "link"=>PATH_URL."favorite/index/"),array("name"=>"Favoritensuche")));
 
 		$rawHtml=new \Widgets\RawHtml();
@@ -243,9 +221,6 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 		$frameResponseObject->addWidget($headline);
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
-
 	}
-
-
 }
 ?>
