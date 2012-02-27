@@ -47,6 +47,8 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/lo
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/log/errors.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/log/messages.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/log/security.log", 0666);
+
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../extensions/content/worksheet/templates_c", 0777);
 $required_paths_okay = TRUE;
 output("Checking files and directories for existance and permissions ...\n");
 foreach ($required_paths as $path) {
