@@ -2,6 +2,7 @@
 include_once dirname(__FILE__) . '/etc/local.def.php';
 include_once dirname(__FILE__) . '/etc/default.def.php';
 
+include_once PATH_ETC . 'version.php';
 include_once PATH_ETC . 'php.def.php';
 include_once PATH_ETC . 'core.def.php';
 
