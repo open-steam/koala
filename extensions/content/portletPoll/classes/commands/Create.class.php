@@ -54,7 +54,10 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	        "bid:portlet:version" => $version,
 	        "bid:portlet:content" => $pollContent,
 	    ));
-		
+	    
+	    //sanctions
+	    $everybody = \steam_factory::get_group( $GLOBALS["STEAM"]->get_id(), "steam" );
+		$pollObject->set_sanction($everybody, SANCTION_READ | SANCTION_WRITE );
 	}
 	
 	public function idResponse(\IdResponseObject $idResponseObject) {
