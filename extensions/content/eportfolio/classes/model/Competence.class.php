@@ -341,6 +341,19 @@ class Competence {
 	public function setRating($rating) {
 		$this->rating = $rating;
 	}
+        
+        public function getViewHtml(Entry $entry) {
+            $html = "";
+            $competences = $entry->getCompetences();
+            if ($entry::$entryTypeHasCompetences && count($competences) > 0) {
+                $html .= "<b>Kompetenzen</b><br><table>";
+                foreach ($competences as $competence) {
+                    $html .= "<tr><td>" . $competence->short . "</td><td>" . $competence->name . "</td></tr>";
+                }
+                $html .= "</table>";
+            }
+            return $html;
+        }
 
 }
 

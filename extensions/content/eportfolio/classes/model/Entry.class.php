@@ -120,7 +120,7 @@ class Entry extends Portfolios {
             $rating = $steamObject->get_attribute(PORTFOLIO_PREFIX . "RATING");
             //		var_dump($steamObject);
             //		print $steamObject->get_name() . "<br>";
-            $competencesArray[] = CompetenceRaster::getCompetenceByIdRated($steamObject->get_name(), $rating);
+            $competencesArray[] = Competence::getCompetenceByIdRated($steamObject->get_name(), $rating);
         }
         //		die;
         return $competencesArray;
@@ -300,6 +300,9 @@ class Entry extends Portfolios {
         } else {
             $editCompetencesHtml = "";
         }
+        
+        $competenceHtml = Competence::getViewHtml($this);
+        
         if (Portfolios::isManager()) {
             $html = <<<END
 		<div style="border: 3px dotted lightblue; padding: 5px; background-color: #ffe">
@@ -311,6 +314,7 @@ class Entry extends Portfolios {
 				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren ({$this->getCommentsCount()})</a>
 			</div>
 			<br clear=all>
+                        {$competenceHtml}
 		</div>
 END
             ;
@@ -323,6 +327,7 @@ END
 				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren ({$this->getCommentsCount()})</a>
 			</div>
 			<br clear=all>
+                        {$competenceHtml}
 		</div>
 END
             ;
@@ -335,6 +340,7 @@ END
 				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> Kommentare anzeigen ({$this->getCommentsCount()})</a>
 			</div>
 			<br clear=all>
+                        {$competenceHtml}
 		</div>
 END
             ;
