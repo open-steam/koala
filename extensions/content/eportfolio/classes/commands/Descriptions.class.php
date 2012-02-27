@@ -48,11 +48,10 @@ class Descriptions extends \AbstractCommand implements \IFrameCommand {
 		foreach ($sortedActivities as $activityItem){
 			$html .=
 			'<tr>
-			<th colspan=4>Tätigkeitsfeld ' . $activityItem[0]->index .': '. $activityItem[0]->name . '</td>
+			<th colspan=2>Tätigkeitsfeld ' . $activityItem[0]->index .': '. $activityItem[0]->name . '</td>
 			</tr>
 			<tr>
-			<td>Tätigkeitsbeschreibung:</td>
-			<td colspan=2>' . $activityItem[0]->description . '</td>
+			<th colspan=2><i>' . $activityItem[0]->description . '</td>
 			</tr>
 			<tr>
 			<td>Niveau</td>
