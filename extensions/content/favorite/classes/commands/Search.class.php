@@ -99,9 +99,12 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 					$id = $resultItem->get_id();
 					if($resultItem instanceof \steam_user){
 						$helper[$resultItem->get_name()] = $id;
-					}else{
+					}
+					
+					else if($resultItem instanceof \steam_group){
 						$helper[$resultItem->get_groupname()] = $id;
 					}
+					
 					$resultItemName[$id] = $result[$resultItemName[$id]];
 					$searchResult[] = $resultItemName[$id];
 				}
