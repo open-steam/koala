@@ -91,7 +91,6 @@ function widgets_textarea_save_success(elementId, response) {
 	    				//saveing
 	    				if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
 			    			$(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable"); 
-			    			//tinyMCE.activeEditor.getBody().click(); 
 			    			var value = tinyMCE.activeEditor.getContent(); 
 		    			} else if (element.find("textarea").hasClass("plain")) {
 		    				var value = element.find("textarea").val(); 
