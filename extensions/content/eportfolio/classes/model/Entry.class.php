@@ -93,10 +93,14 @@ class Entry extends Portfolios {
     public function addCompetence(Competence $competence, $rating = "1") {
         $this->checkCompetence();
         $competencesRoom = $this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES");
-        $competence = \steam_factory::create_document(
-                        $GLOBALS["STEAM"]->get_id(), $competence->short, "", "", $competencesRoom
-        );
-        $competence->set_attribute(PORTFOLIO_PREFIX . "RATING", $rating);
+        $obj = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $competencesRoom->get_path() . "/" . $competence->short);
+        $obj = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $competencesRoom->get_path() . "/" . $competence->short);
+        if (!($competence instanceof \steam_document)) {
+            $obj = \steam_factory::create_document(
+                            $GLOBALS["STEAM"]->get_id(), $competence->short, "", "", $competencesRoom
+            );
+            $obj->set_attribute(PORTFOLIO_PREFIX . "RATING", $rating);
+        }
     }
 
     public function removeCompetence(Competence $competence) {
@@ -292,9 +296,9 @@ class Entry extends Portfolios {
         } else {
             $editCompetencesHtml = "";
         }
-        
+
         $competenceHtml = Competence::getViewHtml($this);
-        
+
         if (Portfolios::isManager()) {
             $html = <<<END
 		<div style="border: 3px dotted lightblue; padding: 5px; background-color: #ffe">
@@ -384,7 +388,7 @@ END
     public function getEntryAttributes() {
         return $this->entryAttributes;
     }
-    
+
     public function getCommentsCount() {
         $threads = $this->get_annotations();
         if (isset($threads[0])) {
@@ -393,7 +397,7 @@ END
             return "0";
         }
     }
-    
+
     public function getArtefactCount() {
         return "0";
     }
