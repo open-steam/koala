@@ -349,7 +349,17 @@ class Competence {
             if ($entry::$entryTypeHasCompetences && count($competences) > 0) {
                 $html .= "<b>Kompetenzen</b><br><table>";
                 foreach ($competences as $competence) {
-                    $html .= "<tr><td>" . $competence->short . "<div style=\"font-size:80%\">(".$competence->job.")</div>" . "</td><td>" . $competence->name . " (Niveau )</td><td><div style=\"white-space: nowrap;\"><a href=\"#\" onclick=\"sendRequest('commentDialog', {'id':'{$entry->get_id()}'}, '', 'popup', null, null);return false;\"><img src=\"/explorer/asset/icons/mimetype/text.png\">(".count($entry->get_annotations()).")</a></div></td></tr>";
+                    $html .= "<tr>
+                    <td>" . $competence->short . 
+                    "<div style=\"font-size:80%\">(".\Portfolio\Model\Competence::getJobByName($competence->job)->description.")
+                    </div>" . "</td>
+                    <td>" . $competence->name . " (Niveau " . $competence->niveau . ")</td>
+                    <td>
+                    <div style=\"white-space: nowrap;\">
+                    <a href=\"#\" onclick=\"sendRequest('commentDialog', {'id':'{$entry->get_id()}'}, '', 'popup', null, null);return false;\">
+                    <img src=\"/explorer/asset/icons/mimetype/text.png\">(".count($entry->get_annotations()).")
+                    </a>
+                    </div></td></tr>";
                 }
                 $html .= "</table>";
             }
