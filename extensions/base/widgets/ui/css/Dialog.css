@@ -7,8 +7,8 @@
 .dialog {
 	display: none;
 	font-family: 'Lucida Grande',Verdana,Arial,Helvetica,sans-serif;
-    font-size: 10px;
-    line-height: 20px;
+        font-size: 10px;
+        line-height: 20px;
   	position: relative;;
 	z-index: 255;
 	padding: 5px;
