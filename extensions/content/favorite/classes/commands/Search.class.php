@@ -93,6 +93,8 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 
 					}
 				}
+				
+				//helper array: name-->id
 				$helper=array();
 				
 				foreach($resultItems as $resultItem){
@@ -137,74 +139,87 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 			}
 			foreach($searchResult as $resultEntry){
 				$content->setVariable("SEARCH_RESULTS", "Suchergebnisse");
-				$b = false;
+				$ignoredUser = false;
+				
+				
 				if($searchType!="searchUserFullname"){
 					$urlId=$helper[$resultEntry];
 				}
 				else{
 					$urlId=$resultEntry;
 				}
+				
+				//remove ignored user
 				if ($category == "user"){
 					foreach ($ignoredUser as $ignore){
 						if($ignore == $resultEntry){
-							$b = true;
+							$ignoredUser = true;
 						}
 					}
 				}
 				if ($category == "group"){
 					foreach ($ignoredGroups as $ignore){
 						if($ignore == $resultEntry){
-							$b = true;
+							$ignoredUser = true;
 						}
 					}
 				}
-				if(!$b){
+				
+				
+				
+				if(!$ignoredUser){
 					if($category == "user"){
-						$content->setCurrentBlock("BLOCK_SEARCH_RESULTS");
-						$content->setVariable("BUDDY_NAME", PATH_URL."profile/index/" . $resultEntry ."/");
-
-						$resultUser = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $urlId);
 						
-						$fullname = $resultUser->get_full_name();
-						$content->setVariable("BUDDY_NAME1",$fullname);
-						$picId = $resultUser->get_attribute("OBJ_ICON")->get_id();
-						$content->setVariable("BUDDY_PIC_LINK", PATH_URL."download/image/".$picId."/60/40/" );
-						if($steamUser->get_id() == $resultUser->get_id()){
-							$content->setVariable("ALREADY_BUDDY","Das bist Du!");
-
-						}
-						elseif(!($steamUser->is_buddy($resultUser))){
-							$content->setVariable("ADD_FAVORITE_BUDDY", "Favorit hinzufügen");
-
-							$content->setVariable("FAVORITE_BUDDY_LINK", PATH_URL."favorite/add/". $urlId . "/" . $category . "/");
-						}
-						else{
-							$content->setVariable("ALREADY_BUDDY", "Bereits Teil der Favoritenliste");
+						
+						$resultUser = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $urlId);
+						if($resultUser instanceof \steam_user){
+						
+							$content->setCurrentBlock("BLOCK_SEARCH_RESULTS");
+							$content->setVariable("BUDDY_NAME", PATH_URL."profile/index/" . $resultEntry ."/");
+	
 							
-
+							$fullname = $resultUser->get_full_name();
+							$content->setVariable("BUDDY_NAME1",$fullname);
+							$picId = $resultUser->get_attribute("OBJ_ICON")->get_id();
+							$content->setVariable("BUDDY_PIC_LINK", PATH_URL."download/image/".$picId."/60/40/" );
+							if($steamUser->get_id() == $resultUser->get_id()){
+								$content->setVariable("ALREADY_BUDDY","Das bist Du!");
+	
+							}
+							elseif(!($steamUser->is_buddy($resultUser))){
+								$content->setVariable("ADD_FAVORITE_BUDDY", "Favorit hinzufügen");
+	
+								$content->setVariable("FAVORITE_BUDDY_LINK", PATH_URL."favorite/add/". $urlId . "/" . $category . "/");
+							}
+							else{
+								$content->setVariable("ALREADY_BUDDY", "Bereits Teil der Favoritenliste");
+								
+	
+							}
+							$content->parse("BLOCK_SEARCH_RESULTS");
+							$loopCount++;
 						}
-						$content->parse("BLOCK_SEARCH_RESULTS");
-						$loopCount++;
 					}
 					else if($category == "group"){
-						$content->setCurrentBlock("BLOCK_GROUP_LIST");
-						$content->setVariable("GROUP_NAME",$resultEntry);
 						$resultGroup = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $urlId);
-
-						$groupDesc=$resultGroup->get_attribute("OBJ_DESC");
-						$content->setVariable("GROUP_DESC",$groupDesc);
-						if(!($steamUser->is_buddy($resultGroup))){
-
-							$content->setVariable("ADD_FAVORITE_GROUP", "Favorit hinzufügen");
-
-							$content->setVariable("FAVORITE_GROUP_LINK", PATH_URL."favorite/add/". $urlId . "/" . $category . "/");
-						}
-						else{
-							$content->setVariable("ALREADY_GROUP",  "Bereits Teil der Favoritenliste");
+						if($resultUser instanceof \steam_group){
+						
+							$content->setCurrentBlock("BLOCK_GROUP_LIST");
+							$content->setVariable("GROUP_NAME",$resultEntry);
 							
+							$groupDesc=$resultGroup->get_attribute("OBJ_DESC");
+							$content->setVariable("GROUP_DESC",$groupDesc);
+							if(!($steamUser->is_buddy($resultGroup))){
+								$content->setVariable("ADD_FAVORITE_GROUP", "Favorit hinzufügen");
+								$content->setVariable("FAVORITE_GROUP_LINK", PATH_URL."favorite/add/". $urlId . "/" . $category . "/");
+							}
+							else{
+								$content->setVariable("ALREADY_GROUP",  "Bereits Teil der Favoritenliste");
+							}
+							$content->parse("BLOCK_GROUP_LIST");
+							$loopCount++;
+						
 						}
-						$content->parse("BLOCK_GROUP_LIST");
-						$loopCount++;
 					}
 				}
 			}
