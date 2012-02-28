@@ -19,9 +19,9 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 	}
 	public function execute (\FrameResponseObject $frameResponseObject) {
 		//DEFINITION OF IGNORED USERS AND GROUPS
-		$ignoredUser = array(0=>"postman", 1=>"root",2=>"guest");
-		$ignoredGroups = array(0=>"sTeam", 1=>"admin");
-
+		$ignoredUserNames = array(0=>"postman", 1=>"root",2=>"guest");
+		$ignoredGroupNames = array(0=>"sTeam", 1=>"admin");
+		
 		$steam = $GLOBALS["STEAM"];
 		$action = (isset($_POST["action"]))?$_POST["action"]:"";
 		$searchString = (isset($_POST["searchString"]))?$_POST["searchString"]:"";
@@ -40,7 +40,6 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 			}
 			else{
 				/* prepare search string */
-
 				$modSearchString = $searchString;
 				if ($modSearchString[0] != "%")
 				$modSearchString = "%" . $modSearchString;
@@ -151,20 +150,19 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 				
 				//remove ignored user
 				if ($category == "user"){
-					foreach ($ignoredUser as $ignore){
+					foreach ($ignoredUserNames as $ignore){
 						if($ignore == $resultEntry){
 							$ignoredUser = true;
 						}
 					}
 				}
 				if ($category == "group"){
-					foreach ($ignoredGroups as $ignore){
+					foreach ($ignoredGroupNames as $ignore){
 						if($ignore == $resultEntry){
 							$ignoredUser = true;
 						}
 					}
 				}
-				
 				
 				
 				if(!$ignoredUser){
@@ -173,18 +171,14 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 						
 						$resultUser = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $urlId);
 						if($resultUser instanceof \steam_user){
-						
 							$content->setCurrentBlock("BLOCK_SEARCH_RESULTS");
 							$content->setVariable("BUDDY_NAME", PATH_URL."profile/index/" . $resultEntry ."/");
-	
-							
 							$fullname = $resultUser->get_full_name();
 							$content->setVariable("BUDDY_NAME1",$fullname);
 							$picId = $resultUser->get_attribute("OBJ_ICON")->get_id();
 							$content->setVariable("BUDDY_PIC_LINK", PATH_URL."download/image/".$picId."/60/40/" );
 							if($steamUser->get_id() == $resultUser->get_id()){
 								$content->setVariable("ALREADY_BUDDY","Das bist Du!");
-	
 							}
 							elseif(!($steamUser->is_buddy($resultUser))){
 								$content->setVariable("ADD_FAVORITE_BUDDY", "Favorit hinzufügen");
@@ -193,8 +187,6 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 							}
 							else{
 								$content->setVariable("ALREADY_BUDDY", "Bereits Teil der Favoritenliste");
-								
-	
 							}
 							$content->parse("BLOCK_SEARCH_RESULTS");
 							$loopCount++;
