@@ -3,7 +3,7 @@ namespace Portfolio\Model;
 class EntryCertificate extends Entry{
 	
 	public static $entryTypeDescription = "Zertifizierte Zusatzqualifikationen";
-	public static $entryTypeInfo = "Hier können relevante Zusatzqualifikation eingetragen werden (z.B. Ausbilderschein, Gabelstablerschein, einzelne Weiterbildungszertifikate).";
+	public static $entryTypeInfo = "Hier können relevante Zusatzqualifikationen eingetragen werden (z.B. Ausbilderschein, Gabelstablerschein, einzelne Weiterbildungszertifikate).";
 	public static $entryTypeEditDescription ="";
 	public static $entryTypeEditInfo ="";
 	public static $entryType = "CERTIFICATE";
@@ -14,7 +14,7 @@ class EntryCertificate extends Entry{
 	
 		$this->entryAttributes["certificatetype"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_CERTIFICATE_TYPE",
-				"label"=>"Schulabschluss",
+				"label"=>"Art",
 				"description"=>"",
 				"widget" => "\Widgets\ComboBox",
 				"widgetMethods" => array("setOptions" => array(

@@ -6,8 +6,8 @@ class EntrySchool extends Entry {
 
     public static $entryTypeDescription = "Schulischer Werdegang";
     public static $entryTypeInfo = "Hier können relevante Informationen zum schulischen Werdegang (wie die Art des Abschlusses) hinterlegt, erläutert und belegt werden.";
-    public static $entryTypeEditDescription = "Schulabschlusses eintragen";
-    public static $entryTypeEditInfo = "Dieser Dialog dient der Erfassung eines schulischen Abschlusses. Wenn mehrere Abschlüsse vorliegen, muss diese Dialog erneut geöffnet werden.";
+    public static $entryTypeEditDescription = "Schulabschluss eintragen";
+    public static $entryTypeEditInfo = "Dieser Dialog dient der Erfassung eines schulischen Abschlusses. Wenn mehrere Abschlüsse vorliegen, muss dieser Dialog erneut geöffnet werden.";
     public static $entryType = "SCHOOL";
     public static $entryTypeHasCompetences = false;
 
@@ -21,7 +21,7 @@ class EntrySchool extends Entry {
             "widget" => "\Widgets\ComboBox",
             "widgetMethods" => array("setOptions" => array(
                             array("name" => "", "value" => 0),
-                            array("name" => "Volks/- Hauptschulabschluss", "value" => "haupt"),
+                            array("name" => "Volks-/ Hauptschulabschluss", "value" => "haupt"),
                             array("name" => "Mittlere Reife/Realschulabschluss", "value" => "real"),
                             array("name" => "Fachhochschulreife", "value" => "fh"),
                             array("name" => "Abitur", "value" => "abi"),
@@ -31,7 +31,7 @@ class EntrySchool extends Entry {
         );
         $this->entryAttributes["schoolgrade"] = array(
             "attributeName" => PORTFOLIO_PREFIX . "ENTRY_SCHOOL_GRADE",
-            "label" => "Druchschnittsnote",
+            "label" => "Durchschnittsnote",
             "description" => "",
             "widget" => "\Widgets\ComboBox",
             "widgetMethods" => array("setOptions" => array(

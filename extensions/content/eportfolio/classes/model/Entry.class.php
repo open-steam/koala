@@ -307,7 +307,7 @@ class Entry extends Portfolios {
 				<a href="#" onclick="sendRequest('editDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/menu/rename.png"> bearbeiten</a> |
 				{$editCompetencesHtml}
                                 <a href="#"><img src="/explorer/asset/icons/mimetype/generic.png"> Beleg prüfen ({$this->getArtefactCount()})</a> |
-				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren ({$this->getCommentsCount()})</a>
+				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/comment.png"> kommentieren ({$this->getCommentsCount()})</a>
 			</div>
 			<br clear=all>
                         {$competenceHtml}
@@ -320,7 +320,7 @@ END
 			{$contentHtml}
 			<div style="float: right; display: inline">
 				<a href="#"><img src="/explorer/asset/icons/mimetype/generic.png"> Beleg anfügen ({$this->getArtefactCount()})</a> |
-				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> kommentieren ({$this->getCommentsCount()})</a>
+				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/comment.png"> kommentieren ({$this->getCommentsCount()})</a>
 			</div>
 			<br clear=all>
                         {$competenceHtml}
@@ -333,7 +333,7 @@ END
 			{$contentHtml}
 			<div style="float: right; display: inline">
 				<a href="#"><img src="/explorer/asset/icons/mimetype/generic.png"> Beleg einsehen ({$this->getArtefactCount()})</a> |
-				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/mimetype/text.png"> Kommentare anzeigen ({$this->getCommentsCount()})</a>
+				<a href="#" onclick="sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;"><img src="/explorer/asset/icons/comment.png"> Kommentare anzeigen ({$this->getCommentsCount()})</a>
 			</div>
 			<br clear=all>
                         {$competenceHtml}

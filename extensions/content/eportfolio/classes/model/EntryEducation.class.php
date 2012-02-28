@@ -34,7 +34,7 @@ class EntryEducation extends Entry{
 				"widgetMethods" => array("setOptions" => array(
 						array("name"=>"", "value"=>0),
 						array("name"=>"abgeschlossen", "value"=>"1"),
-						array("name"=>"im Gange", "value"=>"2"),
+						array("name"=>"laufend", "value"=>"2"),
 						array("name"=>"abgebrochen", "value"=>"3"))),
 				"defaultValue"=>""
 		);
@@ -54,7 +54,7 @@ class EntryEducation extends Entry{
 		);
 		$this->entryAttributes["educationgrade"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_GRADE",
-				"label"=>"Druchschnittsnote",
+				"label"=>"Durchschnittsnote",
 				"description"=>"",
 				"widget" => "\Widgets\ComboBox",
 				"widgetMethods" => array("setOptions" => array(

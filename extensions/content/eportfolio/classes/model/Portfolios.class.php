@@ -180,9 +180,9 @@ class Portfolios {
         if ($this->isOwner()) {
             return "Sie sind Eigentümer dieses Portfolios.";
         } else if (self::isManager()) {
-            return "Sie sind Portfolio-Verwalter";
+            return "Sie sind Portfolio-Verwalter.";
         } else if (self::isViewer()) {
-            return "Sie sind Portfolio-Betrachter";
+            return "Sie sind Portfolio-Betrachter.";
         } else {
             return "";
         }

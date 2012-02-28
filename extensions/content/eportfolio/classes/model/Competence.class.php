@@ -357,7 +357,7 @@ class Competence {
                     <td>
                     <div style=\"white-space: nowrap;\">
                     <a href=\"#\" onclick=\"sendRequest('commentDialog', {'id':'{$entry->get_id()}'}, '', 'popup', null, null);return false;\">
-                    <img src=\"/explorer/asset/icons/mimetype/text.png\">(".count($entry->get_annotations()).")
+                    <img src=\"/explorer/asset/icons/comment.png\">(".count($entry->get_annotations()).")
                     </a>
                     </div></td></tr>";
                 }
