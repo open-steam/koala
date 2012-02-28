@@ -66,26 +66,39 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 		'</select>
 		</div>
 		<div id="items" style="max-height:400px;overflow-y:auto">
-		<table width=100% class="grid">';
+		<table id="tableItems" width=100% class="grid">';
 		$competencesStrings = $entry->getCompetencesStrings();
+		$htmlPre = "";
+		$htmlPost = "";
+		$htmlPre .=
+		'<tr id="auswahl" >
+		<th colspan=2>Auswahl</td>
+		</tr>';
 		foreach ($activities as $activity){
 			if (isset($this->activity) && $this->activity != $activity->index)
 				continue;
-			$html .=
-			'<tr>
-			<th id="headline" colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
+			$htmlPost .=
+			'<tr id="headline" >
+			<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
 			</tr>';
 			$currentCompetences = \Portfolio\Model\Competence::getCompetences(null, $activity->index);
 			foreach ($currentCompetences as $competence) {
-				$checked = in_array($competence->short, $competencesStrings) ? " checked=\"true\"" : "";
-				$html .=
-				"<tr short=\"{$competence->short}\" job=\"{$competence->job}\" activity=\"{$competence->activity}\">
-				<td><input type=\"checkbox\" value=\"{$competence->short}\" {$checked}>
-				<br><div style=\"font-size:80%\">{$competence->short}</div></td>
-				<td>{$competence->name} (Niveau {$competence->niveau})</td>
-				</tr>";
+				$checked = in_array($competence->short, $competencesStrings);
+				$checkedString = $checked ? " checked=\"true\"" : "";
+				$tmp = 
+					"<tr short=\"{$competence->short}\" job=\"{$competence->job}\" activity=\"{$competence->activity}\">
+					<td><input type=\"checkbox\" value=\"{$competence->short}\" {$checkedString}>
+					<br><div style=\"font-size:80%\">{$competence->short}</div></td>
+					<td>{$competence->name} (Niveau {$competence->niveau})</td>
+					</tr>";
+				if ($checked){
+					$htmlPre .= $tmp;
+				} else {
+					$htmlPost .= $tmp;
+				}
 			}
 		}
+		$html .= $htmlPre . $htmlPost;
 		$html .= 
 		'</table>
 		</div>';
@@ -116,7 +129,16 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 			<!-- listener for each checkbox -->
 			$(':checkbox').change(function() {
 				sendRequest("toggleCompetences", {"id": "{$this->id}", "competence": $(this).val(), "value": $(this).prop("checked")}, "", "data", function() {}, function() {});
-			});
+				 if ($(this).prop("checked")){
+					   $('tr[short="'+$(this).val()+'"]').fadeOut("slow", function() {
+						   $(this).detach().insertAfter($('#auswahl')).fadeIn("slow");
+					   });
+					} else {
+					   $('tr[short="'+$(this).val()+'"]').fadeOut("slow", function() {
+						   $(this).detach().appendTo($('#tableItems > tbody:last')).fadeIn("slow");
+					   });
+				   }
+	});
 		</script>
 END
 ;
