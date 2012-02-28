@@ -62,7 +62,7 @@ class Achieved extends \AbstractCommand implements \IFrameCommand {
 				$html .=
 				"<tr>
 				<td>{$competence->short}</td>
-				<td>{$competence->name}</td>
+				<td>{$competence->name} (Niveau {$competence->niveau})</td>
 				</tr>";
 			}
 		}

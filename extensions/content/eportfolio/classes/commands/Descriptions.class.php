@@ -56,12 +56,13 @@ class Descriptions extends \AbstractCommand implements \IFrameCommand {
 			</tr>
 			<tr>
 			<td><i>Niveau</i></td>
-			<td><i>Niveabeschreibung</i></td>
+			<td><i>Niveaubeschreibung</i></td>
 			</tr>';
 			foreach ($activityItem as $activity){
+				$jobName = \Portfolio\Model\Competence::getJobByName($activity->job)->description;
 				$html .=
 				"<tr>
-				<td>{$activity->niveau}</td>
+				<td>{$activity->niveau} <div style=\"font-size:80%\">({$jobName})</div></td>
 				<td>{$activity->niveauDescription}</td>
 				</tr>";
 			}
