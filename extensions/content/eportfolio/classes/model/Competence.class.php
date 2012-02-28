@@ -3,6 +3,7 @@ namespace Portfolio\Model;
 class Competence {
 
 	static $activities;
+	static $niveaus;
 	static $facets;
 	static $jobs;
 	static $competences;
@@ -36,7 +37,8 @@ class Competence {
 							$name = (array_key_exists(1, $data)) ? $data[1] : "";
 							$description = (array_key_exists(2, $data)) ? $data[2] : "";
 							$index = (array_key_exists(0, $data)) ? $data[0] : "";
-							$niveau = (array_key_exists(4, $data)) ? $data[4] : "";
+// 							$niveau = (array_key_exists(4, $data)) ? $data[4] : "";
+							$niveau = self::getNiveauObject($activity, $job)->niveau;
 							if ($data[0] != "")
 								$competences[$job . $activity . $facet . $data[0]] = new Competence(
 										$name,
@@ -177,9 +179,10 @@ class Competence {
 		foreach ($activities as $activity) {
 			if (in_array($activity->name, $present))
 				continue;
-			$distinctActivities []= $activity;
+			$distinctActivities [$activity->index]= $activity;
 			$present []= $activity->name;
 		}
+		ksort($distinctActivities);
 		return $distinctActivities;
 	}
 
@@ -241,6 +244,32 @@ class Competence {
 		return $competencesArray;
 	}
 
+	public static function initNiveaus(){
+		$activities = self::getActivityFields();
+		$niveausArray = array();
+		$tmp = array();
+		foreach ($activities as $activity) {
+			$niveausArray [$activity->index . $activity->job]= new Niveau($activity->name, $activity->niveau,  $activity->job, $activity->description, $activity);
+		}
+		self::$niveaus = $niveausArray;
+	}
+
+	public static function getNiveaus(){
+		if (empty(self::$niveaus)){
+			self::initNiveaus();
+		}
+		return self::$niveaus;
+	}
+	
+	public static function getNiveauObject($activity, $job){
+		if (empty(self::$niveaus)){
+			self::initNiveaus();
+		} 
+// 		print "<pre>";
+// 		var_dump(self::$niveaus);
+		return self::$niveaus[$activity . $job];
+	}
+	
 	public static function getCompetencesQuantity(){
 		if (self::$competencesQuantity){
 			return self::$competencesQuantity;

@@ -44,7 +44,8 @@ class Descriptions extends \AbstractCommand implements \IFrameCommand {
 			$sortedActivities[$activity->index] []= $activity;
 		}
 		$html =
-		'<div id="items"><table width=100% class="grid">';
+		'<div id="items">
+		<table width=100% class="grid">';
 		foreach ($sortedActivities as $activityItem){
 			$html .=
 			'<tr>
@@ -65,6 +66,8 @@ class Descriptions extends \AbstractCommand implements \IFrameCommand {
 				</tr>";
 			}
 		}
+		$html .= 
+		"</table></div>";
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($html);
 		$frameResponseObject->addWidget($breadcrumb);
