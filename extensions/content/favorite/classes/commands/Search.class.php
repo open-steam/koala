@@ -55,17 +55,17 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 				if ($searchType == "searchUser"){
 					$search->extendAttr("OBJ_NAME", \search_define::like($modSearchString));
 					$resultItems = $searchobject->search($search, CLASS_USER);
-					foreach($resultItems as $r){
-						$id = $r->get_id();
-						$resultItemName[$id] = $r->get_name(1);
+					foreach($resultItems as $resultItem){
+						$id = $resultItem->get_id();
+						$resultItemName[$id] = $resultItem->get_name(1);
 					}
 				}
 				elseif($searchType == "searchGroup"){
 					$search->extendAttr("GROUP_NAME", \search_define::like($modSearchString));
 					$resultItems = $searchobject->search($search, CLASS_GROUP);
-					foreach($resultItems as $r) {
-						$id = $r->get_id();
-						$resultItemName[$id] = $r->get_groupname(1);
+					foreach($resultItems as $resultItem) {
+						$id = $resultItem->get_id();
+						$resultItemName[$id] = $resultItem->get_groupname(1);
 					}
 				}
 				elseif($searchType == "searchUserFullname"){
@@ -97,11 +97,12 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 				
 				foreach($resultItems as $resultItem){
 					$id = $resultItem->get_id();
-					if($resultItem instanceof \steam_user){
+					
+					if($resultItem instanceof \steam_object){
 						$helper[$resultItem->get_name()] = $id;
 					}
 					
-					else if($resultItem instanceof \steam_group){
+					if($resultItem instanceof \steam_group){
 						$helper[$resultItem->get_groupname()] = $id;
 					}
 					
