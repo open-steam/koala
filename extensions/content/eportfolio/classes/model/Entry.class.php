@@ -53,7 +53,7 @@ class Entry extends Portfolios {
 
     public function deleteArtefact($name) {
         $room = $this->getArtefactRoom();
-        if ($room->get_object_by_name($name) instanceof steam_document) {
+        if ($room->get_object_by_name($name) instanceof \steam_document) {
             $room->get_object_by_name($name)->delete();
         }
     }
@@ -86,7 +86,7 @@ class Entry extends Portfolios {
     }
 
     public function removeCompetenceString($competenceString) {
-        $competence = CompetenceRaster::getCompetenceById($competenceString);
+        $competence = Competence::getCompetenceById($competenceString);
         $this->removeCompetence($competence);
     }
 
@@ -102,8 +102,8 @@ class Entry extends Portfolios {
     public function removeCompetence(Competence $competence) {
         $this->checkCompetence();
         $competenceObject = $this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES")->get_object_by_name($competence->short);
-        if ($competenceObject instanceof steam_document)
-            $competenceObject->delete();
+        if ($competenceObject instanceof \steam_document)
+         	$competenceObject->delete();
     }
 
     /**
@@ -112,28 +112,20 @@ class Entry extends Portfolios {
     public function getCompetences() {
         $this->checkCompetence();
         $competences = $this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES")->get_inventory();
-        //		$competences = $this->getRoom()->get_attribute(PORTFOLIO_PREFIX . "COMPETENCES");
-        //		$competenceStrings = array_keys($competences);
         $competencesArray = array();
-        //		print "<pre>";
         foreach ($competences as $steamObject) {
             $rating = $steamObject->get_attribute(PORTFOLIO_PREFIX . "RATING");
-            //		var_dump($steamObject);
-            //		print $steamObject->get_name() . "<br>";
             $competencesArray[] = Competence::getCompetenceByIdRated($steamObject->get_name(), $rating);
         }
-        //		die;
         return $competencesArray;
     }
 
     public function getCompetencesStrings() {
-        $this->checkCompetence();
-        $competences = $this->getRoom()->get_object_by_name(PORTFOLIO_PREFIX . "COMPETENCES")->get_inventory();
-        $competenceStrings = array();
-        foreach ($competences as $steamObject) {
-            $competenceStrings[] = $steamObject->get_name();
-        }
-        return $competences;
+		$competences = $this->getCompetences();
+		$stringArray = array();
+		foreach ($competences as $competence)
+			$stringArray [$competence->short]= $competence->short;
+		return $stringArray;
     }
 
     /**

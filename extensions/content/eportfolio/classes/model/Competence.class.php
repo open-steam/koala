@@ -37,7 +37,6 @@ class Competence {
 							$name = (array_key_exists(1, $data)) ? $data[1] : "";
 							$description = (array_key_exists(2, $data)) ? $data[2] : "";
 							$index = (array_key_exists(0, $data)) ? $data[0] : "";
-// 							$niveau = (array_key_exists(4, $data)) ? $data[4] : "";
 							$niveau = self::getNiveauObject($activity, $job)->niveau;
 							if ($data[0] != "")
 								$competences[$job . $activity . $facet . $data[0]] = new Competence(
@@ -76,33 +75,6 @@ class Competence {
 				$filtered []= $competence;
 		}
 		return $filtered;
-		/*
-		 if ($job != null && $job != ""){
-		foreach ($competences_tmp as $key => $competence) {
-		if ($job != $competence->job)
-			unset($competences_tmp[$key]);
-		}
-		}
-		if ($activity != null && $activity != ""){
-		foreach ($competences_tmp as $key => $competence) {
-		if ($activity != $competence->activity)
-			unset($competences_tmp[$key]);
-		}
-		}
-		if ($facet != null && $facet != ""){
-		foreach ($competences_tmp as $key => $competence) {
-		if ($facet != $competence->facet)
-			unset($competences_tmp[$key]);
-		}
-		}
-		if ($index != null && $index != ""){
-		foreach ($competences_tmp as $key => $competence) {
-		if ($index != $competence->index)
-			unset($competences_tmp[$key]);
-		}
-		}
-		return $competences_tmp;
-		*/
 	}
 
 	public static function getCompetence($job, $activity, $facet, $index){
@@ -148,7 +120,7 @@ class Competence {
 	public static function getJobByName($name){
 		$jobs = self::getJobs();
 		foreach ($jobs as $job){
-			if (strtolower($job->description) == strtolower($name))
+			if (strtolower($job->name) == strtolower($name))
 				return $job;
 		}
 	}
@@ -163,11 +135,12 @@ class Competence {
 		if (($handle = fopen($path."taetigkeitsfelder.csv", "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
 				if ($row>1)
-					$activities[] = new CompetenceActivity($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
+					$activities[$data[2] . $data[3] . $data[4]] = new CompetenceActivity($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 				$row++;
 			}
 			fclose($handle);
 		}
+		ksort($activities);
 		self::$activities = $activities;
 		return $activities;
 	}
@@ -182,7 +155,6 @@ class Competence {
 			$distinctActivities [$activity->index]= $activity;
 			$present []= $activity->name;
 		}
-		ksort($distinctActivities);
 		return $distinctActivities;
 	}
 

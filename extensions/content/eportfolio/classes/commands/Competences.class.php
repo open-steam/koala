@@ -13,16 +13,6 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 
 	public function processData(\IRequestObject $requestObject) {
 		$params = $requestObject->getParams();
-		if(!isset($params[0])) {
-			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "competences/" .  \lms_steam::get_current_user()->get_name());
-			exit;
-		} else {
-			$this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
-		}
-		if (!isset($this->user) || !($this->user instanceof \steam_user)) {
-			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "competences/" .  \lms_steam::get_current_user()->get_name());
-			exit;
-		}
 		$this->job = (isset($_GET["job"]) && $_GET["job"] != "") ? $_GET["job"] : null;
 		$this->activity = (isset($_GET["activity"]) && $_GET["activity"] != "") ? $_GET["activity"] : null;
 		$this->params = array(
@@ -96,7 +86,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 				</tr>";
 			}
 		}
-		$competencesPath = \Portfolio::getInstance()->getExtensionUrl() . "competences/" . $this->user->get_name() . "/?job=";
+		$competencesPath = \Portfolio::getInstance()->getExtensionUrl() . "competences/?job=";
 		$html .= <<<END
 </table>
 </div>
