@@ -194,7 +194,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 					}
 					else if($category == "group"){
 						$resultGroup = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $urlId);
-						if($resultUser instanceof \steam_group){
+						if($resultGroup instanceof \steam_group){
 						
 							$content->setCurrentBlock("BLOCK_GROUP_LIST");
 							$content->setVariable("GROUP_NAME",$resultEntry);
