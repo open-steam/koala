@@ -128,7 +128,7 @@ class Entry extends Portfolios {
 		$competences = $this->getCompetences();
 		$stringArray = array();
 		foreach ($competences as $competence)
-			$stringArray [$competence->short]= $competence->short;
+			$stringArray []= $competence->short;
 		return $stringArray;
     }
 
