@@ -77,7 +77,7 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 			</tr>';
 			$currentCompetences = \Portfolio\Model\Competence::getCompetences(null, $activity->index);
 			foreach ($currentCompetences as $competence) {
-				$checked = key_exists($competence->short, $competencesStrings) ? " checked=\"true\"" : "";
+				$checked = in_array($competence->short, $competencesStrings) ? " checked=\"true\"" : "";
 				$html .=
 				"<tr short=\"{$competence->short}\" job=\"{$competence->job}\" activity=\"{$competence->activity}\">
 				<td><input type=\"checkbox\" value=\"{$competence->short}\" {$checked}>
