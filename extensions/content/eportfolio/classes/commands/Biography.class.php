@@ -34,7 +34,7 @@ class Biography extends \AbstractCommand implements \IFrameCommand {
 		$rawHtml = new \Widgets\RawHtml();
 
 		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array(array("name" => "Kompetenzportfolio")));
+		$breadcrumb->setData(array(array("name" => "Bildungsbiographie")));
 
 		$infobar = new \Widgets\InfoBar();
 		$infobar->setHeadline("");
@@ -65,8 +65,8 @@ class Biography extends \AbstractCommand implements \IFrameCommand {
 			$html .= "<h1>{$year}:</h1>";
 			foreach ($sortedEntries[$year] as $entry){
 				$html .= $entry->getViewHtml($portfolio);
+				$html .= "<br>";
 			}
-			$html .= "<br>";
 		}
 
 

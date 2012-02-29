@@ -367,7 +367,7 @@ class Competence {
 	}
 	
 	public function getShortHtml(){
-		return "<div style=\"font-size:80%\">{$this->short}</div>";
+		return "<div style=\"font-size:80%\">({$this->short})</div>";
 	}
 		
 }

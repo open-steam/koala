@@ -51,7 +51,7 @@ class Achieved extends \AbstractCommand implements \IFrameCommand {
 				continue;
 			$html .=
 			'<tr>
-			<th colspan=3>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
+			<th colspan=3>' . $activity->getDescriptionHtml() . '</td>
 			</tr>';
 			$currentCompetences = array();
 			foreach ($competences as $competence){
