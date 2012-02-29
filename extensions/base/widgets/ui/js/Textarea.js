@@ -60,10 +60,10 @@ function widgets_textarea_save_success(elementId, response) {
 					theme_advanced_statusbar_location : "none",
 					theme_advanced_resizing : false,
 					
-					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty")}; if(!tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}},
+					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(!tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}},
 					oninit : function(e) {tinyMCE.activeEditor.setContent(value), tinyMCE.activeEditor.isNotDirty = 1},
 					setup :  function(e) {
-						setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty")}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}}, 2000 );
+						setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}}, 2000 );
 					}
 	    	};
 	    	
@@ -80,9 +80,14 @@ function widgets_textarea_save_success(elementId, response) {
 	    	} else if (element.find("textarea").hasClass("mce-full")) {
 	    		
 	    		//protect unsaved text
+	    		/*
 	    		$(window).unload(function(){
 	    		var dirtyTextareas = jQuery('#content').find('.widget.textarea.dirty');
 	    		if (dirtyTextareas.length > 0) {
+	    			//$(window).unbind( “unload” );
+	    			//window.onbeforeunload = state ? function() { return "text1"; } : null;
+	    			//return false;
+	    			
 	    			if (confirm('Sollen alle nicht gespeicherte Daten gesichert werden?')) {
 	    				$(dirtyTextareas[0]).textarea('save');
 	    				$(dirtyTextareas[0]).addClass('saved');
@@ -100,9 +105,10 @@ function widgets_textarea_save_success(elementId, response) {
 	    			}else{
 	    				//nicht speichern
 	    			}
+	    			
 	    		}
 	    		});
-	    		
+	    		*/
 	    		
 	    		//load tinymce
 	    		load("mce", function() {
@@ -120,7 +126,6 @@ function widgets_textarea_save_success(elementId, response) {
 						ASdloc : '{PATH_URL}styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
 						
 						
-						
 						fullscreen_new_window : true,       
 						fullscreen_settings : {
 							theme_advanced_path_location : "top"
@@ -129,7 +134,7 @@ function widgets_textarea_save_success(elementId, response) {
 	    		});
 	    	} else if (element.find("textarea").hasClass("plain")) {
 	    		element.find("textarea").val(value);
-	    		element.find("textarea").bind('keyup', function() { element.addClass("dirty") });
+	    		element.find("textarea").bind('keyup', function() { element.addClass("dirty"); });
 	    	}
 	    },
 	    save : function() { 
@@ -141,7 +146,8 @@ function widgets_textarea_save_success(elementId, response) {
 	    			} else if (element.find("textarea").hasClass("plain")) {
 	    				var value = element.find("textarea").val(); 
 	    			}
-	    			this.addClass("saving"); 
+	    			this.addClass("saving");
+	    			$(window).unbind('beforeunload');
 	    			sendFunction(value);
 	    		},
 	    undo : function() {
