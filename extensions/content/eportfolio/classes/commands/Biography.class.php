@@ -56,10 +56,10 @@ class Biography extends \AbstractCommand implements \IFrameCommand {
 		$years = array();
 		foreach ($entries as $entry){
 			$dates = getdate(strtotime($entry->getRawData($entry->entryAttributes["date"])));
-			$sortedEntries[$dates["year"]] []= $entry;
+			$sortedEntries[$dates["year"]] [] = $entry;
 			$years [$dates["year"]]= $dates["year"];
 		}
-
+		krsort($years);
 		$html = "<br>";
 		foreach ($years as $year){
 			$html .= "<h1>{$year}:</h1>";
