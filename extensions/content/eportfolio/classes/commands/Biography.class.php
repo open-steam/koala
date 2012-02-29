@@ -64,9 +64,10 @@ class Biography extends \AbstractCommand implements \IFrameCommand {
 		foreach ($years as $year){
 			$html .= "<h1>{$year}:</h1>";
 			foreach ($sortedEntries[$year] as $entry){
+				$html .= "<h3>{$entry::$entryTypeDescription}</h3>";
 				$html .= $entry->getViewHtml($portfolio);
-				$html .= "<br>";
 			}
+			$html .= "<br>";
 		}
 
 

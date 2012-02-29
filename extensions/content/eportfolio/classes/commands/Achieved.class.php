@@ -40,10 +40,19 @@ class Achieved extends \AbstractCommand implements \IFrameCommand {
 
 		$portfolioExtension = \Portfolio::getInstance();
 		$content = $portfolioExtension->loadTemplate("portfolio.template.html");
-		
+
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name"=>"Kompetenzportfolio")));
-		
+
+		$entries = $portfolio->getAllEntries();
+		$achievedEntries = array();
+		foreach ($entries as $entry){
+			$competencesStrings = $entry->getCompetencesStrings();
+			foreach ($competencesStrings as $competenceString){
+				$achievedEntries [$competenceString] []= $entry;
+			}
+		}
+
 		$html =
 		'<div id="items"><table width=100% class="grid">';
 		foreach ($activities as $activity){
@@ -51,7 +60,7 @@ class Achieved extends \AbstractCommand implements \IFrameCommand {
 				continue;
 			$html .=
 			'<tr>
-			<th colspan=3>' . $activity->getDescriptionHtml() . '</td>
+			<th colspan=4>' . $activity->getDescriptionHtml() . '</td>
 			</tr>';
 			$currentCompetences = array();
 			foreach ($competences as $competence){
@@ -59,25 +68,32 @@ class Achieved extends \AbstractCommand implements \IFrameCommand {
 					$currentCompetences []= $competence;
 			}
 			foreach ($currentCompetences as $competence) {
+				$competencesLinks = "";
+				$uri = \Portfolio::getInstance()->getExtensionUrl() . "index/" . $this->user->get_name() . "/";
+				foreach ($achievedEntries[$competence->short] as $entry)
+					$competencesLinks .=
+					"<div style=\"border: 1px dotted lightblue; font-size:80%\"><a href={$uri}#{$entry->getRoom()->get_id()}>{$entry::$entryTypeDescription}</a></div>
+					";
 				$html .=
 				"<tr>
 				<td>{$competence->getJobObject()->getDescriptionHtml()}{$competence->getShortHtml()}</td>
 				<td>{$competence->name}</td>
 				<td>{$competence->getNiveauObject()->getHtml()}</td>
+				<td>$competencesLinks</td>
 				</tr>";
 			}
 		}
 		$html .=
 		"</table></div>";
-	$rawHtml = new \Widgets\RawHtml();
-	$rawHtml->setHtml($html);
-	$frameResponseObject->addWidget($breadcrumb);
-	$frameResponseObject->addWidget(\Portfolio::getActionBar());
-	$tabbar = \Portfolio::getTabBar();
-	$tabbar->setActiveTab(2);
-	$frameResponseObject->addWidget($tabbar);
-	$frameResponseObject->addWidget($rawHtml);
-	return $frameResponseObject;
+		$rawHtml = new \Widgets\RawHtml();
+		$rawHtml->setHtml($html);
+		$frameResponseObject->addWidget($breadcrumb);
+		$frameResponseObject->addWidget(\Portfolio::getActionBar());
+		$tabbar = \Portfolio::getTabBar();
+		$tabbar->setActiveTab(2);
+		$frameResponseObject->addWidget($tabbar);
+		$frameResponseObject->addWidget($rawHtml);
+		return $frameResponseObject;
 	}
 }
 ?>
