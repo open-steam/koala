@@ -309,7 +309,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		else if($type == "document"){
 			if($documentIsPicture){
 				$dialog->addWidget($descriptionTextArea);
-				$dialog->addWidget($jsWrapperPicture);
+				//$dialog->addWidget($jsWrapperPicture); //TODO: i didn't understand why this makes an error
 			}
 		}
 		else if ($type == "forum") {
