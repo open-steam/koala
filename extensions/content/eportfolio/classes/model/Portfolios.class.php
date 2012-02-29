@@ -16,32 +16,40 @@ class Portfolios {
 
     public function getAllEntries() {
         $all = $this->getEntriesContainer()->get_inventory_filtered(
-                array(array('+', 'class', CLASS_ROOM)));
+        		array(array('+', 'class', CLASS_ROOM)));
         $allEntries = array();
         foreach ($all as $room) {
-            $allEntries[] = Entry::getEntryByRoom($room);
+        	$allEntries[] = Entry::getEntryByRoom($room);
         }
         return $allEntries;
     }
 
     public function getAchievedCompetences() {
-        $entries = $this->getAllEntries();
-        $competences = array();
-        foreach ($entries as $entry) {
-            $indexes = $entry->getCompetencesStrings();
-            $objects = $entry->getCompetences();
-            foreach ($indexes as $key => $index)
-                $competences[$index] = $objects[$key];
-        }
-        return $competences;
+    	$entries = $this->getAllEntries();
+    	$competences = array();
+    	foreach ($entries as $entry) {
+    		$indexes = $entry->getCompetencesStrings();
+    		$objects = $entry->getCompetences();
+    		foreach ($indexes as $key => $index)
+    			$competences[$index] = $objects[$key];
+    	}
+    	return $competences;
+    }
+    public function getAchievedCompetencesStrings() {
+    	$achievedCompetences = $this->getAchievedCompetences();
+    	$achievedCompetencesStrings = array();
+    	foreach ($achievedCompetences as $achievedCompetence){
+    		$achievedCompetencesStrings []= $achievedCompetence->name;
+    	}
+    	return $achievedCompetencesStrings;
     }
 
     public function getEntriesByClass($className) {
-        $result = array();
-        foreach ($this->getAllEntries() as $entry) {
-            if ($entry instanceof $className) {
-                $result[] = $entry;
-            }
+    	$result = array();
+    	foreach ($this->getAllEntries() as $entry) {
+    		if ($entry instanceof $className) {
+    			$result[] = $entry;
+    		}
         }
         return $result;
     }

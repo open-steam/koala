@@ -37,7 +37,7 @@ class Competence {
 							$name = (array_key_exists(1, $data)) ? $data[1] : "";
 							$description = (array_key_exists(2, $data)) ? $data[2] : "";
 							$index = (array_key_exists(0, $data)) ? $data[0] : "";
-							$niveau = self::getNiveauObject($activity, $job)->niveau;
+							$niveau = self::getNiveau($activity, $job)->niveau;
 							if ($data[0] != "")
 								$competences[$job . $activity . $facet . $data[0]] = new Competence(
 										$name,
@@ -116,7 +116,7 @@ class Competence {
 
 	/*
 	 * get a job object by the long name like Chemiemeister
-	 */
+	*/
 	public static function getJobByName($name){
 		$jobs = self::getJobs();
 		foreach ($jobs as $job){
@@ -124,8 +124,15 @@ class Competence {
 				return $job;
 		}
 	}
-	
+
 	public static function getActivityFields() {
+		if (!empty(self::$activities)){
+			return self::$activities;
+		}
+		return self::initActivities();
+	}
+
+	public static function initActivities() {
 		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		if (!empty(self::$activities)){
 			return self::$activities;
@@ -221,7 +228,7 @@ class Competence {
 		$niveausArray = array();
 		$tmp = array();
 		foreach ($activities as $activity) {
-			$niveausArray [$activity->index . $activity->job]= new Niveau($activity->name, $activity->niveau,  $activity->job, $activity->description, $activity);
+			$niveausArray [$activity->index . $activity->job]= new Niveau($activity->name, $activity->niveau,  $activity->job, $activity->niveauDescription, $activity);
 		}
 		self::$niveaus = $niveausArray;
 	}
@@ -233,12 +240,10 @@ class Competence {
 		return self::$niveaus;
 	}
 	
-	public static function getNiveauObject($activity, $job){
+	public static function getNiveau($activity, $job){
 		if (empty(self::$niveaus)){
 			self::initNiveaus();
 		} 
-// 		print "<pre>";
-// 		var_dump(self::$niveaus);
 		return self::$niveaus[$activity . $job];
 	}
 	
@@ -331,10 +336,28 @@ class Competence {
 		return $this->activity;
 	}
 
+	/**
+	 * index must be formatted like ActivityJobIndex
+	 * @param unknown_type $index
+	 * @return Ambigous <\Portfolio\Model\CompetenceActivity>
+	 */
+	public static function getActivityObject($index){
+		$activities = self::getActivityFields();
+		return $activities[$index];
+	}
+	
 	public function getIndex(){
 		return $this->index;
 	}
 
+	public function getNiveauObject(){
+		return $this->getNiveau($this->activity, $this->job);
+	}
+	
+	public function getJobObject(){
+		return $this->getJobByName($this->job);
+	}
+	
 	public function getRating() {
 		return $this->rating;
 	}
@@ -343,28 +366,39 @@ class Competence {
 		$this->rating = $rating;
 	}
         
-        public function getViewHtml(Entry $entry) {
-            $html = "";
-            $competences = $entry->getCompetences();
-            if ($entry::$entryTypeHasCompetences && count($competences) > 0) {
-                $html .= "<b>Kompetenzen</b><br><table>";
-                foreach ($competences as $competence) {
-                    $html .= "<tr>
-                    <td>" . $competence->short . 
-                    "<div style=\"font-size:80%\">(".\Portfolio\Model\Competence::getJobByName($competence->job)->description.")
-                    </div>" . "</td>
-                    <td>" . $competence->name . " (Niveau " . $competence->niveau . ")</td>
-                    <td>
-                    <div style=\"white-space: nowrap;\">
-                    <a href=\"#\" onclick=\"sendRequest('commentDialog', {'id':'{$entry->get_id()}'}, '', 'popup', null, null);return false;\">
-                    <img src=\"/explorer/asset/icons/comment.png\">(".count($entry->get_annotations()).")
-                    </a>
-                    </div></td></tr>";
-                }
-                $html .= "</table>";
-            }
-            return $html;
-        }
+	public function getViewHtml(Entry $entry) {
+		$html = "";
+		$competences = $entry->getCompetences();
+		$sortedCompetences = array();
+		foreach ($competences as $competence){
+			$sortedCompetences [$competence->activity][] = $competence;
+		}
+		if ($entry::$entryTypeHasCompetences && count($competences) > 0) {
+			$html .= "<b>Kompetenzen</b><br><table>";
+			foreach ($sortedCompetences as $competencesActivity){
+				$activity = self::getActivityObject($competencesActivity[0]->activity . $competencesActivity[0]->job . $competencesActivity[0]->niveau);
+				$html .=
+				'<tr activity="' . $activity->index . '" id="headline" >
+				<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
+				</tr>';
+				foreach ($competencesActivity as $competence) {
+					$html .= "<tr>
+					<td>" . $competence->short .
+					"<div style=\"font-size:80%\">(".\Portfolio\Model\Competence::getJobByName($competence->job)->description.")
+					</div>" . "</td>
+					<td>" . $competence->name . " (Niveau " . $competence->niveau . ")</td>
+					<td>
+					<div style=\"white-space: nowrap;\">
+					<a href=\"#\" onclick=\"sendRequest('commentDialog', {'id':'{$entry->get_id()}'}, '', 'popup', null, null);return false;\">
+					<img src=\"/explorer/asset/icons/comment.png\">(".count($entry->get_annotations()).")
+					</a>
+					</div></td></tr>";
+				}
+			}
+			$html .= "</table>";
+		}
+		return $html;
+	}
 
 }
 

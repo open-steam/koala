@@ -9,13 +9,8 @@ class CompetenceJob {
 		$this->description = $description;
 	}
 
-	public static function getJobByName($name){
-		$jobs = CompetenceRaster::getJobs();
-		foreach ($jobs as $job){
-			if ($job->name == $name)
-				return $job;
-		}
-		return null;
+	public function getJobDescriptionHtml(){
+		return "<div style=\"font-size:80%\">{$this->description}</div>";
 	}
 }
 ?>
