@@ -51,7 +51,7 @@ class Achieved extends \AbstractCommand implements \IFrameCommand {
 				continue;
 			$html .=
 			'<tr>
-			<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
+			<th colspan=3>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
 			</tr>';
 			$currentCompetences = array();
 			foreach ($competences as $competence){
@@ -61,8 +61,9 @@ class Achieved extends \AbstractCommand implements \IFrameCommand {
 			foreach ($currentCompetences as $competence) {
 				$html .=
 				"<tr>
-				<td>{$competence->short}</td>
-				<td>{$competence->name} (Niveau {$competence->niveau})</td>
+				<td>{$competence->getJobObject()->getDescriptionHtml()}{$competence->getShortHtml()}</td>
+				<td>{$competence->name}</td>
+				<td>{$competence->getNiveauObject()->getHtml()}</td>
 				</tr>";
 			}
 		}

@@ -90,7 +90,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 				continue;
 			$html .=
 			'<tr>
-			<th colspan=5>' . $activity->getDescriptionHtml() . '</td>
+			<th colspan=4>' . $activity->getDescriptionHtml() . '</td>
 			</tr>';
 			$currentCompetences = \Portfolio\Model\Competence::getCompetences($this->job, $activity->index);
 			foreach ($currentCompetences as $competence) {
@@ -98,8 +98,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 				$html .=
 				"<tr>
 				<td>{$checked}</td>
-				<td>{$competence->getJobObject()->getJobDescriptionHtml()}</td>
-				<td>{$competence->short}</td>
+				<td>{$competence->getJobObject()->getDescriptionHtml()}{$competence->getShortHtml()}</td>
 				<td>{$competence->name}</td>
 				<td>{$competence->getNiveauObject()->getHtml()}</td>
 				</tr>";

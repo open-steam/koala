@@ -28,37 +28,59 @@ class Biography extends \AbstractCommand implements \IFrameCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$portfolioExtension = \Portfolio::getInstance();
 		$content = $portfolioExtension->loadTemplate("portfolio.template.html");
+
 		$portfolio = \Portfolio\Model\Portfolios::getInstanceForUser($this->user);
-		$competences = $portfolio->getAllEntries();
-		$jobs = \Portfolio\Model\Competence::getJobs();
-		$activities = \Portfolio\Model\Competence::getActivityFieldsDistinct();
+
+		$rawHtml = new \Widgets\RawHtml();
+
+		$breadcrumb = new \Widgets\Breadcrumb();
+		$breadcrumb->setData(array(array("name" => "Kompetenzportfolio")));
 
 		$infobar = new \Widgets\InfoBar();
 		$infobar->setHeadline("");
-		$infobar->addParagraph('
+		$infobar->addParagraph("
 				Mithilfe dieses Kompetenzportfolio-Systems können  zentrale chemieberufliche
 				Kompetenzen zur Bilanzierung gesichtet, bestimmt, geordnet und dokumentiert werden.<br><br>
 				Das Kompetenzportfolio ist durch seine Bilanzierungs- und Dokumentationsfunktionen
 				dafür geeignet, Ausbilder, Dozenten, Auszubildende, Schüler, Personalreferenten oder
 				Angestellte von Berufen der chemischen Industrie bei Fragestellungen der Aus- und
 				Weiterbildungseignung/-vorbereitung , der Anrechnung von Aus- und Weiterbildungszielen,
-				der Personalauswahl, der Personalentwicklung, der Berufswahl sowie bei der Bewerbung zu unterstützen.
-				'
-		);
+				der Personalauswahl, der Personalentwicklung, der Berufswahl sowie bei der Bewerbung zu unterstützen.<br><br>
+				<b>{$portfolio->getStatusString()}</b>
+				"
+				);
 		$content->setVariable("INFOBAR", $infobar->getHtml());
 
-		$rawHtml = new \Widgets\RawHtml();
-		$rawHtml->setHtml($content->get());
+		$entries = $portfolio->getAllEntries();
+		$sortedEntries = array();
+		$years = array();
+		foreach ($entries as $entry){
+			$dates = getdate(strtotime($entry->getRawData($entry->entryAttributes["date"])));
+			$sortedEntries[$dates["year"]] []= $entry;
+			$years [$dates["year"]]= $dates["year"];
+		}
 
-		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array(array("name"=>"Bildungsbiographie")));
+		$html = "<br>";
+		foreach ($years as $year){
+			$html .= "<h1>{$year}:</h1>";
+			foreach ($sortedEntries[$year] as $entry){
+				$html .= $entry->getViewHtml($portfolio);
+			}
+			$html .= "<br>";
+		}
+
+
+		$frameResponseObject->setTitle("Bildungsbiographie");
 		$frameResponseObject->addWidget($breadcrumb);
 		$frameResponseObject->addWidget(\Portfolio::getActionBar());
 		$tabbar = \Portfolio::getTabBar();
 		$tabbar->setActiveTab(1);
 		$frameResponseObject->addWidget($tabbar);
+		$rawHtml->setHtml($html);
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
 	}
+
 }
+
 ?>

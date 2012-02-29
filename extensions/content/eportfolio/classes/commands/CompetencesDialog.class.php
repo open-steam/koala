@@ -68,18 +68,19 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 		$html .=
 		'</select>
 		</div>
-		<div id="items" style="max-height:200px;overflow-y:auto">
+		<div id="items" style="max-height:200px;overflow-y:auto; border: 2px dotted lightgrey;">
+		Zur Auswahl stehende Kompetenzen:
 		<table id="selectableItems" width=100% class="grid">';
 		foreach ($activities as $activity){
 			if (isset($this->activity) && $this->activity != $activity->index)
 				continue;
 			$trPost .=
 			'<tr activity="' . $activity->index . '" id="headline" >
-			<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
+			<th colspan=2>' . $activity->getDescriptionHtml() . '</td>
 			</tr>';
 			$trPre .=
 			'<tr activity="' . $activity->index . '" id="headline" >
-			<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
+			<th colspan=2>' . $activity->getDescriptionHtml() . '</td>
 			</tr>';
 			$currentCompetences = \Portfolio\Model\Competence::getCompetences(null, $activity->index);
 			foreach ($currentCompetences as $competence) {
@@ -87,9 +88,9 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 				$checkedString = $checked ? " checked=\"true\"" : "";
 				$tmp =
 				"<tr short=\"{$competence->short}\" job=\"{$competence->job}\" activity=\"{$competence->activity}\">
-				<td><input type=\"checkbox\" value=\"{$competence->short}\" {$checkedString}>
-				<br><div style=\"font-size:80%\">{$competence->short}</div></td>
-				<td>{$competence->name} (Niveau {$competence->niveau})</td>
+				<td><input type=\"checkbox\" value=\"{$competence->short}\" {$checkedString}>" . $competence->getJobObject()->getDescriptionHtml() . $competence->getShortHtml() . "</td>
+				<td>" . $competence->name . "</td>
+				<td>" . $competence->getNiveauObject()->getHtml() . "</td>
 				</tr>";
 				if ($checked){
 					$trPre .= $tmp;
@@ -102,7 +103,9 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 		$html .=
 		'</table>
 		</div>
-		<div id="itemsSelected" style="max-height:200px;overflow-y:auto">
+		<br>
+		<div id="itemsSelected" style="max-height:200px;overflow-y:auto; border: 2px dotted lightgrey;">
+		Zugewiesene Kompetenzen:
 		<table id="selectedItems" width=100% class="grid">
 		'.$trPre.'
 		</table>

@@ -365,41 +365,11 @@ class Competence {
 	public function setRating($rating) {
 		$this->rating = $rating;
 	}
-        
-	public function getViewHtml(Entry $entry) {
-		$html = "";
-		$competences = $entry->getCompetences();
-		$sortedCompetences = array();
-		foreach ($competences as $competence){
-			$sortedCompetences [$competence->activity][] = $competence;
-		}
-		if ($entry::$entryTypeHasCompetences && count($competences) > 0) {
-			$html .= "<b>Kompetenzen</b><br><table>";
-			foreach ($sortedCompetences as $competencesActivity){
-				$activity = self::getActivityObject($competencesActivity[0]->activity . $competencesActivity[0]->job . $competencesActivity[0]->niveau);
-				$html .=
-				'<tr activity="' . $activity->index . '" id="headline" >
-				<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
-				</tr>';
-				foreach ($competencesActivity as $competence) {
-					$html .= "<tr>
-					<td>" . $competence->short .
-					"<div style=\"font-size:80%\">(".\Portfolio\Model\Competence::getJobByName($competence->job)->description.")
-					</div>" . "</td>
-					<td>" . $competence->name . " (Niveau " . $competence->niveau . ")</td>
-					<td>
-					<div style=\"white-space: nowrap;\">
-					<a href=\"#\" onclick=\"sendRequest('commentDialog', {'id':'{$entry->get_id()}'}, '', 'popup', null, null);return false;\">
-					<img src=\"/explorer/asset/icons/comment.png\">(".count($entry->get_annotations()).")
-					</a>
-					</div></td></tr>";
-				}
-			}
-			$html .= "</table>";
-		}
-		return $html;
+	
+	public function getShortHtml(){
+		return "<div style=\"font-size:80%\">{$this->short}</div>";
 	}
-
+		
 }
 
 ?>

@@ -9,7 +9,7 @@ class CompetenceJob {
 		$this->description = $description;
 	}
 
-	public function getJobDescriptionHtml(){
+	public function getDescriptionHtml(){
 		return "<div style=\"font-size:80%\">{$this->description}</div>";
 	}
 }

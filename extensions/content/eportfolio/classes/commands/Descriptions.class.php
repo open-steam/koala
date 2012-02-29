@@ -49,24 +49,24 @@ class Descriptions extends \AbstractCommand implements \IFrameCommand {
 		foreach ($sortedActivities as $activityItem){
 			$html .=
 			'<tr>
-			<th colspan=3>Tätigkeitsfeld ' . $activityItem[0]->index .': '. $activityItem[0]->name . '</td>
+			<th colspan=3>' . $activityItem[0]->getDescriptionHtml() . '</td>
 			</tr>
 			<tr>
-			<td colspan=3>Tätigkeitsbeschreibung: ' . $activityItem[0]->description . '</td>
+			<td colspan=3>Tätigkeitsfeldbeschreibung: ' . $activityItem[0]->description . '</td>
 			</tr>
 			<tr>
 			<td><i>Beruf</i></td>
-			<td><i>Niveau</i></td>
 			<td><i>Niveaubeschreibung</i></td>
+			<td><i>Niveau</i></td>
 			</tr>';
 			foreach ($activityItem as $activity){
-				$jobName = \Portfolio\Model\Competence::getJobByName($activity->job)->getJobDescriptionHtml();
+				$jobName = \Portfolio\Model\Competence::getJobByName($activity->job)->getDescriptionHtml();
 				$niveau = \Portfolio\Model\Competence::getNiveau($activity->index, $activity->job)->getHtml();
 				$html .=
 				"<tr>
 				<td>{$jobName}</td>
-				<td>{$niveau}</td>
 				<td>{$activity->niveauDescription}</td>
+				<td>{$niveau}</td>
 				</tr>";
 			}
 		}
