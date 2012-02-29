@@ -259,45 +259,45 @@ class Entry extends Portfolios {
     }
 
     public static function getViewWidget(Portfolios $portfolio) {
-        $entries = $portfolio->getEntriesByClass(get_called_class());
-        $box = new \Widgets\Box();
-        if (Portfolios::isManager()) {
-            $addButton = new \Widgets\RawHtml();
-            $addButton->setHtml("<a class=\"\" title=\"Eintrag hinzufügen\" onclick=\"sendRequest('editDialog', {'env':'{$portfolio->getId()}','type':'" . static::$entryType . "'}, '', 'popup', null, null);return false;\" href=\"#\">+</a>");
-            $box->addWidget($addButton);
-            $box->setTitle("<div style=\"float:right\">" . $addButton->getHtml() . "</div>" . static::$entryTypeDescription);
-        } else {
-            $box->setTitle(static::$entryTypeDescription);
-        }
+    	$entries = $portfolio->getEntriesByClass(get_called_class());
+    	$box = new \Widgets\Box();
+    	if (Portfolios::isManager()) {
+    		$addButton = new \Widgets\RawHtml();
+    		$addButton->setHtml("<a class=\"\" title=\"Eintrag hinzufügen\" onclick=\"sendRequest('editDialog', {'env':'{$portfolio->getId()}','type':'" . static::$entryType . "'}, '', 'popup', null, null);return false;\" href=\"#\">+</a>");
+    		$box->addWidget($addButton);
+    		$box->setTitle("<div style=\"float:right\">" . $addButton->getHtml() . "</div>" . static::$entryTypeDescription);
+    	} else {
+    		$box->setTitle(static::$entryTypeDescription);
+    	}
 
-        $box->setTitleLink(PATH_URL . "portfolio/");
+    	$box->setTitleLink(PATH_URL . "portfolio/");
 
-        $html = "<div style=\"text-align: center; color: gray; font-size: 80%\">" . static::$entryTypeInfo . "</div><br>";
+    	$html = "<div style=\"text-align: center; color: gray; font-size: 80%\">" . static::$entryTypeInfo . "</div><br>";
 
-        $class = get_called_class();
-        foreach ($entries as $entry) {
-            if ($entry instanceof $class) {
-                $html .= $entry->getViewHtml($portfolio) . "<br>";
-            }
-        }
+    	$class = get_called_class();
+    	foreach ($entries as $entry) {
+    		if ($entry instanceof $class) {
+    			$html .= $entry->getViewHtml($portfolio) . "<br>";
+    		}
+    	}
 
-        $box->setContent($html);
-        $box->setContentMoreLink(PATH_URL . "portfolio/");
-        return $box;
+    	$box->setContent($html);
+    	$box->setContentMoreLink(PATH_URL . "portfolio/");
+    	return $box;
     }
 
-    private function getViewHtml(Portfolios $portfolio) {
-        $contentHtml = "";
-        foreach ($this->entryAttributes as $entryAttribute) {
-            $contentHtml .= $entryAttribute["label"] . ": <em>" . $this->getReadableData($entryAttribute) . "</em><br clear=all>";
-        }
-        if (static::$entryTypeHasCompetences) {
-            $editCompetencesHtml = "<a href=\"#\" onclick=\"sendRequest('competencesDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;\"><img src=\"/explorer/asset/icons/menu/rename.png\"> Kompetenzen bearbeiten</a> |";
-        } else {
-            $editCompetencesHtml = "";
-        }
+    public function getViewHtml(Portfolios $portfolio) {
+    	$contentHtml = "";
+    	foreach ($this->entryAttributes as $entryAttribute) {
+    		$contentHtml .= $entryAttribute["label"] . ": <em>" . $this->getReadableData($entryAttribute) . "</em><br clear=all>";
+    	}
+    	if (static::$entryTypeHasCompetences) {
+    		$editCompetencesHtml = "<a href=\"#\" onclick=\"sendRequest('competencesDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;\"><img src=\"/explorer/asset/icons/menu/rename.png\"> Kompetenzen bearbeiten</a> |";
+    	} else {
+    		$editCompetencesHtml = "";
+    	}
 
-        $competenceHtml = Competence::getViewHtml($this);
+    	$competenceHtml = $this->getViewHtmlCompetences();
 
         if (Portfolios::isManager()) {
             $html = <<<END
@@ -365,6 +365,18 @@ END
         return $value;
     }
 
+    public function getRawData($entryAttribute) {
+    	$value = "";
+    	$raw = $this->get_attribute($entryAttribute["attributeName"]);
+    	if ($raw === 0) {
+    		$value = "";
+    	} else {
+    		$value = $raw;
+    	}
+    	return $value;
+    }
+
+
     public static function getEntryTypeDescription() {
         return static::entryTypeDescription;
     }
@@ -378,28 +390,61 @@ END
     }
 
     public static function getEntryTypeEditInfo() {
-        return static::$entryTypeEditInfo;
+    	return static::$entryTypeEditInfo;
     }
 
     public static function getEntryType() {
-        return static::$entryType;
+    	return static::$entryType;
     }
 
     public function getEntryAttributes() {
-        return $this->entryAttributes;
+    	return $this->entryAttributes;
     }
 
     public function getCommentsCount() {
-        $threads = $this->get_annotations();
-        if (isset($threads[0])) {
-            return sizeof($threads[0]->get_annotations());
-        } else {
-            return "0";
-        }
+    	$threads = $this->get_annotations();
+    	if (isset($threads[0])) {
+    		return sizeof($threads[0]->get_annotations());
+    	} else {
+    		return "0";
+    	}
     }
 
     public function getArtefactCount() {
-        return "0";
+    	return "0";
+    }
+
+    public function getViewHtmlCompetences() {
+    	$html = "";
+    	$competences = $this->getCompetences();
+    	$sortedCompetences = array();
+    	foreach ($competences as $competence){
+    		$sortedCompetences [$competence->activity][] = $competence;
+    	}
+    	if (static::$entryTypeHasCompetences && count($competences) > 0) {
+    		$html .= "<b>Kompetenzen</b><br><table>";
+    		foreach ($sortedCompetences as $competencesActivity){
+    			$activity = Competence::getActivityObject($competencesActivity[0]->activity . $competencesActivity[0]->job . $competencesActivity[0]->niveau);
+    			$html .=
+    			'<tr activity="' . $activity->index . '" id="headline" >
+    			<th colspan=3>' . $activity->getDescriptionHtml() . '</td>
+    			</tr>';
+    			foreach ($competencesActivity as $competence) {
+    				$html .= "<tr>
+    				<td>" . $competence->getJobObject()->getDescriptionHtml() . $competence->getShortHtml() . "</td>
+    				<td>" . $competence->name . "</td>
+    				<td>" . $competence->getNiveauObject()->getHtml() . "</td>
+    				<td>
+    				<div style=\"white-space: nowrap;\">
+    				<a href=\"#\" onclick=\"sendRequest('commentDialog', {'id':'{$this->get_id()}'}, '', 'popup', null, null);return false;\">
+    				<img src=\"/explorer/asset/icons/comment.png\">(".count($this->get_annotations()).")
+    				</a>
+    				</div></td></tr>";
+    			}
+    		}
+    		$html .= "</table>";
+    	}
+    	return $html;
     }
 
 }

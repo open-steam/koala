@@ -6,13 +6,24 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 	private $job;
 	private $activity;
 	private $index;
-
+	private $user;
+	
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
 
 	public function processData(\IRequestObject $requestObject) {
 		$params = $requestObject->getParams();
+		if(!isset($params[0])) {
+			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "competences/" .  \lms_steam::get_current_user()->get_name()) . "/";
+			exit;
+		} else {
+			$this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
+		}
+		if (!isset($this->user) || !($this->user instanceof \steam_user)) {
+			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "competences/" .  \lms_steam::get_current_user()->get_name()) . "/";
+			exit;
+		}
 		$this->job = (isset($_GET["job"]) && $_GET["job"] != "") ? $_GET["job"] : null;
 		$this->activity = (isset($_GET["activity"]) && $_GET["activity"] != "") ? $_GET["activity"] : null;
 		$this->params = array(
@@ -25,7 +36,11 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 		$competences = \Portfolio\Model\Competence::getCompetences();
 		$jobs = \Portfolio\Model\Competence::getJobs();
 		$activities = \Portfolio\Model\Competence::getActivityFieldsDistinct();
-
+		$portfolio = \Portfolio\Model\Portfolios::getInstanceForUser($this->user);
+		$competences = $portfolio->getAllEntries();
+		$achievedCompetencesStrings = $portfolio->getAchievedCompetencesStrings();
+		$checkedImgUri = "<img src=\"" . PATH_URL . "widgets/asset/icon_ok.png\" >";
+		
 		$portfolioExtension = \Portfolio::getInstance();
 		$content = $portfolioExtension->loadTemplate("portfolio.template.html");
 		
@@ -75,18 +90,21 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 				continue;
 			$html .=
 			'<tr>
-			<th colspan=2>Tätigkeitsfeld ' . $activity->index .': '. $activity->name . '</td>
+			<th colspan=4>' . $activity->getDescriptionHtml() . '</td>
 			</tr>';
 			$currentCompetences = \Portfolio\Model\Competence::getCompetences($this->job, $activity->index);
 			foreach ($currentCompetences as $competence) {
+				$checked = in_array($competence->name, $achievedCompetencesStrings) ? $checkedImgUri : "";
 				$html .=
 				"<tr>
-				<td>{$competence->short}</td>
-				<td>{$competence->name} (Niveau {$competence->niveau})</td>
+				<td>{$checked}</td>
+				<td>{$competence->getJobObject()->getDescriptionHtml()}{$competence->getShortHtml()}</td>
+				<td>{$competence->name}</td>
+				<td>{$competence->getNiveauObject()->getHtml()}</td>
 				</tr>";
 			}
 		}
-		$competencesPath = \Portfolio::getInstance()->getExtensionUrl() . "competences/?job=";
+		$competencesPath = \Portfolio::getInstance()->getExtensionUrl() . "competences/{$this->user->get_name()}/?job=";
 		$html .= <<<END
 </table>
 </div>
