@@ -31,6 +31,18 @@ class EntryAcademic extends Entry{
 				"widget"=>"\Widgets\TextInput",
 				"defaultValue"=>""
 		);
+                $this->entryAttributes["academicstate"] = array(
+				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_ACADEMIC_STATE",
+				"label"=>"Status",
+				"description"=>"",
+				"widget" => "\Widgets\ComboBox",
+				"widgetMethods" => array("setOptions" => array(
+						array("name"=>"", "value"=>0),
+						array("name"=>"abgeschlossen", "value"=>"1"),
+						array("name"=>"laufend", "value"=>"2"),
+						array("name"=>"nicht abgeschlossen", "value"=>"3"))),
+				"defaultValue"=>""
+		);
 		$this->entryAttributes["academicgrade"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_ACADEMIC_GRADE",
 				"label"=>"Druchschnittsnote",

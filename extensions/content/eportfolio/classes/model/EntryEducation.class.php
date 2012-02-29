@@ -35,7 +35,7 @@ class EntryEducation extends Entry{
 						array("name"=>"", "value"=>0),
 						array("name"=>"abgeschlossen", "value"=>"1"),
 						array("name"=>"laufend", "value"=>"2"),
-						array("name"=>"abgebrochen", "value"=>"3"))),
+						array("name"=>"nicht abgeschlossen", "value"=>"3"))),
 				"defaultValue"=>""
 		);
 		$this->entryAttributes["educationtype"] = array(
