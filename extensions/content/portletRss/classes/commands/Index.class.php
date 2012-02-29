@@ -51,7 +51,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$num_items = (isset($content["num_items"]))?$content["num_items"]:0;
 		if (isset($content["address"])) {
 			$feed = new \SimplePie();
-			$feed->set_cache_location(PATH_CACHE);
+			$feed->enable_cache(false);
+			//$feed->set_cache_location(PATH_CACHE);
 			$feed->set_feed_url(derive_url($content["address"]));
 			$feed->init();
 			if ($num_items == 0){
