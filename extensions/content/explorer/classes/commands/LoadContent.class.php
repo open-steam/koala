@@ -111,7 +111,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 					$id = $exitObject->get_id();
 				} else {
 					$linkError = true;
-					$html .= "<div style=\"color:red\">Link defekt</div>";
+					$html .= "<div style=\"color:red\">Referenz defekt</div>";
 				}
 			} else if ($contentItem instanceof \steam_link) {
 				$linkObject = $contentItem->get_link_object();
@@ -119,7 +119,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 					$id = $linkObject->get_id();
 				} else {
 					$linkError = true;
-					$html .= "<div style=\"color:red\">Link defekt</div>";
+					$html .= "<div style=\"color:red\">Referenz defekt</div>";
 				}
 			} else {
 				$id = $contentItem->get_id();
