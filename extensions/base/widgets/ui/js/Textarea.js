@@ -21,6 +21,7 @@ function widgets_textarea_save_success(elementId, response) {
 				widget.addClass("saved");
 				widget.attr("oldValue", widget.attr("value"));
 				widget.attr("value", data.newValue);
+				$(window).unbind('beforeunload');
 			} else {
 				widget.addClass("error");
 				widget.removeClass("dirty");
@@ -159,7 +160,8 @@ function widgets_textarea_save_success(elementId, response) {
 	    			} else if (element.find("textarea").hasClass("plain")) {
 	    				var value = this.attr("oldValue");
 	    			}
-	    			this.addClass("saving"); 
+	    			this.addClass("saving");
+	    			$(window).unbind('beforeunload');
 	    			sendFunction(value)
 	    		},
 	  };
