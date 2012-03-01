@@ -79,6 +79,13 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_source_object()->get_id(), "view");
 			$desc = $contentItem->get_source_object()->get_attribute("OBJ_DESC");
 			$name = getCleanName($contentItem, 50);
+			
+			//check existence of link target
+			$sourceObject = $contentItem->get_link_object();
+			if (!(($sourceObject!=null) && ($sourceObject instanceof \steam_object))){
+				return "<div style=\"color:red\">$name (Lesezeichenziel gelöscht)</div>";
+			}
+			
 			if (isset($url) && $url != "") {
 				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>";
 			} else {
