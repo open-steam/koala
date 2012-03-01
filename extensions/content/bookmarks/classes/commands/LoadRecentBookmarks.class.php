@@ -74,18 +74,18 @@ class ContentProvider implements \Widgets\IContentProvider {
 		}
 		
 		if ($cell == $this->rawImage) {
-			return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem->get_link_object())."\"></img>";
+			return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem->get_source_object())."\"></img>";
 		} else if ($cell == $this->rawName) {
-			$url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_link_object()->get_id(), "view");
-			$desc = $contentItem->get_link_object()->get_attribute("OBJ_DESC");
-			$name = getCleanName($contentItem->get_link_object(), 50);
+			$url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_source_object()->get_id(), "view");
+			$desc = $contentItem->get_source_object()->get_attribute("OBJ_DESC");
+			$name = getCleanName($contentItem, 50);
 			if (isset($url) && $url != "") {
 				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>";
 			} else {
 				return $name;
 			}
 		} else if ($cell == $this->rawChangeDate) {
-			return getReadableDate($contentItem->get_link_object()->get_attribute("OBJ_LAST_CHANGED"));
+			return getReadableDate($contentItem->get_source_object()->get_attribute("OBJ_LAST_CHANGED"));
 		}
 	}
 	
