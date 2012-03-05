@@ -887,6 +887,7 @@ return $rand_value;
 
 	public function show_html()
 	{
+            $this->template->setVariable("PATH_URL", PATH_URL);
 		// GENERATE HTML FOR MENU
 	    if ($this->offline_status) {
 	    	$html_menu = $this->get_menu_html( "guest", FALSE );
