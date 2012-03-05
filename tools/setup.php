@@ -39,6 +39,15 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/log/messages.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/log/security.log", 0666);
 
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/cache", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/log", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/temp", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/403.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/404.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/errors.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/messages.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/security.log", 0666);
+
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/koala/cache", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/koala/log", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/koala/temp", 0777);

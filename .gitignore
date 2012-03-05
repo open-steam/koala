@@ -14,6 +14,13 @@ platforms/dawinci/public/.htaccess
 platforms/dawinci/public/styles
 platforms/dawinci/etc/local.def.php
 
+platforms/elab/cache/*
+platforms/elab/log/*
+platforms/elab/temp/*
+platforms/elab/public/.htaccess
+platforms/elab/public/styles
+platforms/elab/etc/local.def.php
+
 platforms/koala/cache/*
 platforms/koala/log/*
 platforms/koala/temp/*
