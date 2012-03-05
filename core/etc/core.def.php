@@ -11,7 +11,7 @@ defined("ENABLE_CACHING") or define("ENABLE_CACHING", FALSE);
 defined("JAVASCRIPT_SECURITY") or define("JAVASCRIPT_SECURITY", FALSE);
 
 defined("PORTAL_TEMPLATE") or define("PORTAL_TEMPLATE",	PATH_EXTENSIONS . "system/frame/ui/html/portal.template.html" );
-defined("PORTAL_ICON_BAR") or defin("PORTAL_ICON_BAR", TRUE);
+defined("PORTAL_ICON_BAR") or define("PORTAL_ICON_BAR", TRUE);
 defined("PATH_JAVASCRIPT") or define("PATH_JAVASCRIPT", PATH_URL . "styles/standard/javascript/");
 
 /// String: Encryption key for session data
