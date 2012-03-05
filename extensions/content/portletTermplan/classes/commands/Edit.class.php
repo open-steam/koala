@@ -109,7 +109,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$term5->setContentProvider(new AttributeDataProviderPortletTermplanEntries("5"));
 		$dialog->addWidget($term5);
 		$dialog->addWidget($clearer);
-		
+                $dialog->setForceReload(true);
 		$this->dialog = $dialog;
 	}
 	
