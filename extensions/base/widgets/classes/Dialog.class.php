@@ -8,7 +8,7 @@ class Dialog extends Widget {
 	private $positionX = 0;
 	private $positionY = 0;
 	private $width = "500px";
-	private $closeJs = "window.location.reload()";
+	private $closeJs = "location.reload();";
 	private $showCloseIcon = false;
 	private $closeButtonLabel = "Schließen";
 	private $forceReload = false;
@@ -73,7 +73,7 @@ class Dialog extends Widget {
 				$this->getContent()->parse("DIALOG_BUTTONS");
 			}
 		}
-		if ($this->showCloseIcon) {
+		if ($this->closeJs) {
 			$this->getContent()->setVariable("DIALOG_CLOSE_JS", $this->closeJs);
 		}
 		if (isset($this->closeButtonLabel)) {

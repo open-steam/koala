@@ -1,4 +1,4 @@
-<div class="ichat">
+<div class="ichat" {CHAT_STYLE}>
 <!-- BEGIN BLOCK_CHAT -->
 	<!-- BEGIN BLOCK_STATUS -->
 	<div class="status-message">{STATUS_MESSAGE}</div>
@@ -17,3 +17,6 @@
 	<!-- END BLOCK_INCOMING -->
 <!-- END BLOCK_CHAT -->
 </div>
+<script>
+    window.setTimeout("jQuery('.ichat').animate({ scrollTop: jQuery('.ichat').prop('scrollHeight') }, 3000)", 1000);
+</script>

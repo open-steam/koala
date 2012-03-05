@@ -4,8 +4,8 @@ class EntryOther extends Entry{
 	
 	public static $entryTypeDescription = "Sonstiges";
 	public static $entryTypeInfo = "Hier können relevante Informationen zu sonstigen Erfahrungen (wie z.B. Trainerschein für Fußball, Handball etc., Nachweise über soziales Engagement usw.) hinterlegt, erläutert und belegt werden.";
-	public static $entryTypeEditDescription ="";
-	public static $entryTypeEditInfo ="";
+	public static $entryTypeEditDescription ="Sonstige Leistung eintragen";
+	public static $entryTypeEditInfo ="Dieser Dialog dient der Erfassung einer sonstigen Leistung. Wenn mehrere Leistungen vorliegen, muss dieser Dialog erneut geöffnet werden.";
 	public static $entryType = "OTHER";
         public static $entryTypeHasCompetences = true;
 	
@@ -17,7 +17,8 @@ class EntryOther extends Entry{
 				"label"=>"Name",
 				"description"=>"",
 				"widget"=>"\Widgets\TextInput",
-				"defaultValue"=>""
+				"defaultValue"=>"",
+                                "order" => 1
 		);
 	}
 }

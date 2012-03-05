@@ -6,12 +6,26 @@ class Descriptions extends \AbstractCommand implements \IFrameCommand {
 	private $job;
 	private $activity;
 	private $index;
+        private $user;
 
-	public function validateData(\IRequestObject $requestObject) {
+        public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
 
 	public function processData(\IRequestObject $requestObject) {
+                $params = $requestObject->getParams();
+		if(!isset($params[0])) {
+			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "descriptions/" .  \lms_steam::get_current_user()->get_name()) . "/";
+			exit;
+		} else {
+		    if (\Portfolio\Model\Portfolios::isManager() || \Portfolio\Model\Portfolios::isViewer() || \lms_steam::get_current_user()->get_name() === $params[0]) {
+                        $this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
+                    }
+		}
+		if (!isset($this->user) || !($this->user instanceof \steam_user)) {
+			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "descriptions/" .  \lms_steam::get_current_user()->get_name()) . "/";
+			exit;
+		}
 	}
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -76,7 +90,7 @@ class Descriptions extends \AbstractCommand implements \IFrameCommand {
 		$rawHtml->setHtml($html);
 		$frameResponseObject->addWidget($breadcrumb);
 		$frameResponseObject->addWidget(\Portfolio::getActionBar());
-		$tabbar = \Portfolio::getTabBar();
+		$tabbar = \Portfolio::getTabBar($this->user->get_name());
 		$tabbar->setActiveTab(5);
 		$frameResponseObject->addWidget($tabbar);
 		$frameResponseObject->addWidget($rawHtml);

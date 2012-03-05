@@ -4,8 +4,8 @@ class EntryEducation extends Entry{
 	
 	public static $entryTypeDescription = "Berufliche Aus- und Weiterbildungsgänge";
 	public static $entryTypeInfo = "Hier können relevante Informationen zu den beruflichen Aus- und Weiterbildungsgängen (wie die Art des Ausbildungsberufes sowie ggf. des Weiterbildungsberufes) hinterlegt, erläutert und belegt werden.";
-	public static $entryTypeEditDescription ="";
-	public static $entryTypeEditInfo ="";
+	public static $entryTypeEditDescription ="Beruflichen Aus- oder Weiterbildungsgang eintragen";
+	public static $entryTypeEditInfo ="Dieser Dialog dient der Erfassung eines beruflichen Aus- oder Weiterbildungsganges. Wenn mehrere Abschlüsse vorliegen, muss dieser Dialog erneut geöffnet werden.";
 	public static $entryType = "EDUCATION";
         public static $entryTypeHasCompetences = true;
 	
@@ -17,14 +17,16 @@ class EntryEducation extends Entry{
 				"label"=>"Ausbildungsbetrieb",
 				"description"=>"",
 				"widget"=>"\Widgets\TextInput",
-				"defaultValue"=>""
+				"defaultValue"=>"",
+                                "order" => 5
 		);
 		$this->entryAttributes["educationinstitution"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_INSTITUTION",
 				"label"=>"Ausbildungsstätte",
 				"description"=>"",
 				"widget"=>"\Widgets\TextInput",
-				"defaultValue"=>""
+				"defaultValue"=>"",
+                                "order" => 4
 		);
 		$this->entryAttributes["educationstate"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_STATE",
@@ -36,7 +38,8 @@ class EntryEducation extends Entry{
 						array("name"=>"abgeschlossen", "value"=>"1"),
 						array("name"=>"laufend", "value"=>"2"),
 						array("name"=>"nicht abgeschlossen", "value"=>"3"))),
-				"defaultValue"=>""
+				"defaultValue"=>"",
+                                "order" => 3
 		);
 		$this->entryAttributes["educationtype"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_TYPE",
@@ -45,12 +48,13 @@ class EntryEducation extends Entry{
 				"widget" => "\Widgets\ComboBox",
 				"widgetMethods" => array("setOptions" => array(
 						array("name"=>"", "value"=>0),
-						array("name"=>"Chemikant", "value"=>"1"),
-						array("name"=>"Chemielaborant", "value"=>"2"),
-						array("name"=>"Chemietechniker", "value"=>"3"),
-						array("name"=>"Industriemeister Chemie", "value"=>"4"),
+						array("name"=>"Chemikant", "value"=>"CK"),
+						array("name"=>"Chemielaborant", "value"=>"CL"),
+						array("name"=>"Chemietechniker", "value"=>"CT"),
+						array("name"=>"Industriemeister Chemie", "value"=>"IC"),
 						array("name"=>"Sonstige", "value"=>"5"))),
-				"defaultValue"=>""
+				"defaultValue"=>"",
+                                "order" => 2
 		);
 		$this->entryAttributes["educationgrade"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_EDUCATION_GRADE",
@@ -63,7 +67,8 @@ class EntryEducation extends Entry{
 						array("name"=>"Gut (2)", "value"=>"2"),
 						array("name"=>"Befriedigend (3)", "value"=>"3"),
 						array("name"=>"Ausreichend (4)", "value"=>"4"))),
-				"defaultValue"=>""
+				"defaultValue"=>"",
+                                "order" => 1
 		);
 	}
 }

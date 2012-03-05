@@ -11,6 +11,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function processData(\IRequestObject $requestObject) {
+        $portfolioManagerGroup = \steam_factory::get_group($GLOBALS["STEAM"]->get_id(), PORTFOLIO_MANAGER_GROUP);
+        if (!($portfolioManagerGroup instanceof \steam_group)) {
+            throw new \Exception("Portfolio manager group is missing.");
+        }
+        $portfolioManagerViewer = \steam_factory::get_group($GLOBALS["STEAM"]->get_id(), PORTFOLIO_VIEWER_GROUP);
+        if (!($portfolioManagerViewer instanceof \steam_group)) {
+            throw new \Exception("Portfolio viewer group is missing.");
+        }
         $params = $requestObject->getParams();
         if (!isset($params[0])) {
             header("location: " . PATH_URL . "portfolio/index/" . \lms_steam::get_current_user()->get_name());
@@ -205,7 +213,7 @@ END
         $frameResponseObject->setTitle("Kompetenzportfolio");
         $frameResponseObject->addWidget($breadcrumb);
         $frameResponseObject->addWidget(\Portfolio::getActionBar());
-        $frameResponseObject->addWidget(\Portfolio::getTabBar());
+        $frameResponseObject->addWidget(\Portfolio::getTabBar($this->user->get_name()));
         $rawHtml->setHtml($content->get());
         $frameResponseObject->addWidget($rawHtml);
         return $frameResponseObject;

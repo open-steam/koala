@@ -27,7 +27,8 @@ class EntrySchool extends Entry {
                             array("name" => "Abitur", "value" => "abi"),
                             array("name" => "Sonstige", "value" => "sonst"))
             ),
-            "defaultValue" => ""
+            "defaultValue" => "",
+            "order" => 2
         );
         $this->entryAttributes["schoolgrade"] = array(
             "attributeName" => PORTFOLIO_PREFIX . "ENTRY_SCHOOL_GRADE",
@@ -41,7 +42,8 @@ class EntrySchool extends Entry {
                             array("name" => "Befriedigend (3)", "value" => "3"),
                             array("name" => "Ausreichend (4)", "value" => "4"))
             ),
-            "defaultValue" => ""
+            "defaultValue" => "",
+            "order" => 1
         );
     }
 

@@ -37,6 +37,7 @@ class EditDialog extends \AbstractCommand implements \IAjaxCommand {
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle($entry::getEntryTypeEditDescription());
 		$dialog->setDescription($entry::getEntryTypeEditInfo());
+                $dialog->setCloseJs("sendRequest('updateEntry',{'id':'{$this->id}'}, '', 'data', null, function() {location.reload();});");
 
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
@@ -45,8 +46,9 @@ class EditDialog extends \AbstractCommand implements \IAjaxCommand {
 		
 		$clearer = new \Widgets\Clearer();
 		
-		$entryAttributes = $entry->getEntryAttributes();
-		foreach($entryAttributes as $entryAttribute) {
+		$sortedEntryAttributes = $entry->getEntryAttributes();
+                usort($sortedEntryAttributes, array($entry, "sortEntryAttributes"));
+		foreach($sortedEntryAttributes as $entryAttribute) {
 			$widget = new $entryAttribute["widget"]();
 			$widget->setData($this->id);
 			$widget->setContentProvider(new \Widgets\AttributeDataProvider($entryAttribute["attributeName"]));

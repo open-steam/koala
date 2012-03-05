@@ -10,10 +10,16 @@ class ComboBox extends Widget {
 	private $defaultValue;
 	private $data;
 	private $label;
+        private $labelWidth;
 	private $size = 1;
+        private $onchange;
 	
 	public function setLabel($label) {
 		$this->label = $label;
+	}
+        
+        public function setLabelWidth($width) {
+		$this->labelWidth = $width;
 	}
 	
 	public function setSize($size) {
@@ -28,6 +34,10 @@ class ComboBox extends Widget {
 			$this->objectId = $data->get_id();
 		}
 	}
+        
+        public function setOnChange($js) {
+            $this->onchange = $js;
+        }
 	
 	public function setOptions($options) {
 		$this->options = $options;
@@ -43,9 +53,13 @@ class ComboBox extends Widget {
 		if (isset($this->label)) {
 			$this->getContent()->setVariable("LABEL", $this->label);
 		}
+                if (isset($this->labelWidth)) {
+			$this->getContent()->setVariable("LABEL_STYLE", "style=\"width:{$this->labelWidth}px\"");
+		}
 		if ($this->data) {
 			$currentValue = $this->contentProvider->getData($this->data);
 		}
+                
 		$this->getContent()->setVariable("ID", $this->id);
 		$this->getContent()->setVariable("ID2", $this->id);
 		$this->getContent()->setVariable("ID3", $this->id);
@@ -54,6 +68,11 @@ class ComboBox extends Widget {
 		if ($this->data) {
 			$this->getContent()->setVariable("ONCHANGE", $this->contentProvider->getUpdateCode($this->data, $this->id . "_select"));
 		}
+                
+                if ($this->onchange) {
+                    $this->getContent()->setVariable("ONCHANGE", $this->onchange);
+                }
+               
 		if (isset($this->options)) {
 			foreach ($this->options as $option) {
 				$this->getContent()->setCurrentBlock("BLOCK_OPTION");

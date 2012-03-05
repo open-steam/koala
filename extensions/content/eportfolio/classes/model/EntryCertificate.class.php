@@ -4,8 +4,8 @@ class EntryCertificate extends Entry{
 	
 	public static $entryTypeDescription = "Zertifizierte Zusatzqualifikationen";
 	public static $entryTypeInfo = "Hier können relevante Zusatzqualifikationen eingetragen werden (z.B. Ausbilderschein, Gabelstablerschein, einzelne Weiterbildungszertifikate).";
-	public static $entryTypeEditDescription ="";
-	public static $entryTypeEditInfo ="";
+	public static $entryTypeEditDescription ="Zertifizierte Zusatzqualifikation eintragen";
+	public static $entryTypeEditInfo ="Dieser Dialog dient der Erfassung einer zertifizierte Zusatzqualifikation. Wenn mehrere Qualifikationen vorliegen, muss dieser Dialog erneut geöffnet werden.";
 	public static $entryType = "CERTIFICATE";
         public static $entryTypeHasCompetences = true;
 	
@@ -21,14 +21,16 @@ class EntryCertificate extends Entry{
 						array("name"=>"", "value"=>0),
 						array("name"=>"DAWINCI Lernmodul", "value"=>"dawinci"),
 						array("name"=>"Sonstige", "value"=>"sonst"))),
-				"defaultValue"=>""
+				"defaultValue"=>"",
+                                "order" => 2
 		);
 		$this->entryAttributes["certificatename"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_CERTIFICATE_NAME",
 				"label"=>"Name",
 				"description"=>"",
 				"widget"=>"\Widgets\TextInput",
-				"defaultValue"=>""
+				"defaultValue"=>"",
+                                "order" => 1
 		);
 	}
 }

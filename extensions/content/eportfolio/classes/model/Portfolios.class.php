@@ -37,8 +37,9 @@ class Portfolios {
     	foreach ($entries as $entry) {
     		$indexes = $entry->getCompetencesStrings();
     		$objects = $entry->getCompetences();
+                $keys = array_keys($objects);
     		foreach ($indexes as $key => $index)
-    			$competences[$index] = $objects[$key];
+    			$competences[$index] = $objects[$keys[$key]];
     	}
     	return $competences;
     }
@@ -125,22 +126,14 @@ class Portfolios {
     }
 
     public static function getInstanceForUser($user = null) {
-        if (!isset($user)) {
-            $user = \lms_steam::get_current_user();
-        }
-        $elements = $user->get_workroom()->get_inventory();
-        foreach ($elements as $element) {
-            if ($element->get_attribute("OBJ_TYPE") === PORTFOLIO_PREFIX . "PORTFOLIOCONTAINER") {
-                $portfolioContainer = $element;
-                break;
-            }
-        }
-        if (isset($portfolioContainer)) {
+        $portfolioContainerName = "/home/" . $user->get_name() . "/portfolio/";
+        $portfolioContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $portfolioContainerName);
+        if ($portfolioContainer instanceof \steam_room && $portfolioContainer->get_attribute("OBJ_TYPE") === PORTFOLIO_PREFIX . "PORTFOLIOCONTAINER") {
             $entryContainer = $portfolioContainer->get_object_by_name("entries");
+            return new self($user, $portfolioContainer, $entryContainer);
         } else {
             return self::init($user);
         }
-        return new self($user, $portfolioContainer, $entryContainer);
     }
 
     public static function getInstanceByRoom($room) {
@@ -157,7 +150,7 @@ class Portfolios {
                         $GLOBALS["STEAM"]->get_id(), "portfolio", $workroom, "room for portfolio module"
         );
         $portfolioContainer->set_sanction_all(\steam_factory::get_group($GLOBALS["STEAM"]->get_id(), PORTFOLIO_MANAGER_GROUP));
-        $portfolioContainer->set_sanction_read(\steam_factory::get_group($GLOBALS["STEAM"]->get_id(), PORTFOLIO_VIEWER_GROUP));
+        $portfolioContainer->set_read_access(\steam_factory::get_group($GLOBALS["STEAM"]->get_id(), PORTFOLIO_VIEWER_GROUP));
         $portfolioContainer->set_attribute("OBJ_TYPE", PORTFOLIO_PREFIX . "PORTFOLIOCONTAINER");
 
         $entryContainer = \steam_factory::create_room(

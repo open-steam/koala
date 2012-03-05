@@ -38,15 +38,16 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 		$activities = \Portfolio\Model\Competence::getActivityFieldsDistinct();
 		$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		$dialog = new \Widgets\Dialog();
-		$dialog->setTitle($entry::getEntryTypeEditDescription());
-		$dialog->setDescription($entry::getEntryTypeEditInfo());
+		$dialog->setTitle("Kompetenzen hinzufügen oder entfernen");
+		$dialog->setDescription("Mit diesem Dialog können dem ausgewählten Portfolio-Eintrag Kompetenzen aus dem Kompetenzmodell zugeordnet werden.");
 
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
+                $dialog->setWidth("900");
 		$dialog->setForceReload(true);
 
 		$html =
-		'<br><div align="right">
+		'<div align="left">
 		Beruf:
 		<select id="jobs"><option value="undefined">Alle</option>';
 		foreach ($jobs as $job) {
@@ -68,8 +69,8 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 		$html .=
 		'</select>
 		</div>
-		<div id="items" style="max-height:200px;overflow-y:auto; border: 2px dotted lightgrey;">
-		Zur Auswahl stehende Kompetenzen:
+                <h2>Zur Auswahl stehende Kompetenzen</h2>
+		<div id="items" style="line-height:13px; max-height:200px;overflow-y:auto; padding: 5px; border: 2px dotted lightgrey;">
 		<table id="selectableItems" width=100% class="grid">';
 		foreach ($activities as $activity){
 			if (isset($this->activity) && $this->activity != $activity->index)
@@ -103,9 +104,8 @@ class CompetencesDialog extends \AbstractCommand implements \IAjaxCommand {
 		$html .=
 		'</table>
 		</div>
-		<br>
-		<div id="itemsSelected" style="max-height:200px;overflow-y:auto; border: 2px dotted lightgrey;">
-		Zugewiesene Kompetenzen:
+		<h2>Zugewiesene Kompetenzen</h2>
+		<div id="itemsSelected" style="line-height:13px; max-height:140px;overflow-y:auto; padding: 5px; border: 2px dotted lightgrey;">
 		<table id="selectedItems" width=100% class="grid">
 		'.$trPre.'
 		</table>

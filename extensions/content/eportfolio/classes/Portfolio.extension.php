@@ -9,31 +9,25 @@ class Portfolio extends AbstractExtension implements IObjectExtension {
 				//array("name"=>"Kommentare", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
 				//array("name"=>"Kompetenzmodell", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
 				array("name"=>"Import der Belege",
-						"ajax"=>
-						array("onclick"=>
-								array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
+						"onclick"=>"alert('Diese Funktion steht im Moment nicht zur Verfügung.');return false;"),
 				array("name"=>"Export der Belege",
-						"ajax"=>
-						array("onclick"=>
-								array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup"))),
+						"onclick"=>"alert('Diese Funktion steht im Moment nicht zur Verfügung.');return false;"),
 				array("name"=>"Drucken",
-						"ajax"=>
-						array("onclick"=>
-								array("command"=>"Sanctions", "params"=>array("id"=>"1"), "requestType"=>"popup")))
+						"onclick"=>"window.print()")
 		));
 		return $actionBar;
 	}
 
-	public static function getTabBar(){
+	public static function getTabBar($userName){
 		$tabBar = new \Widgets\TabBar();
 		$tabBar->setTabs(
 				array(
-						array("name"=>"Kompetenzportfolio", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "/"),
-						array("name"=>"Bildungsbiographie", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "biography/"),
-						array("name"=>"Kompetenzübersicht", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "achieved/"),
-						array("name"=>"Kommentare", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "comments/"),
-						array("name"=>"Kompetenzmodell", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "competences/"),
-						array("name"=>"Beschreibungen", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "descriptions/?job=CK")
+						array("name"=>"Kompetenzportfolio", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "/index/" . $userName),
+						array("name"=>"Bildungsbiographie", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "biography/" . $userName),
+						array("name"=>"Kompetenzübersicht", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "achieved/" . $userName),
+						array("name"=>"Kommentare", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "comments/" . $userName),
+						array("name"=>"Kompetenzmodell", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "competences/" . $userName),
+						array("name"=>"Beschreibungen", "link"=>\Portfolio::getInstance()->getExtensionUrl() . "descriptions/" . $userName . "/?job=CK")
 				));
 		return $tabBar;
 	}

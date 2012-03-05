@@ -23,9 +23,11 @@ class CommentDialog extends \AbstractCommand implements \IAjaxCommand {
         if (!isset($this->id) || $this->id === "") {
             throw new \Exception("no valid id");
         } else {
-            $room = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-            if ($room instanceof \steam_room) {
-                $this->entry = \Portfolio\Model\Entry::getEntryByRoom($room);
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            if ($object instanceof \steam_room) {
+                $this->entry = \Portfolio\Model\Entry::getEntryByRoom($object);
+            } else if ($object instanceof \steam_document) {
+                $this->entry = $object;
             }
         }
         $this->id = $this->entry->get_id();
@@ -33,10 +35,12 @@ class CommentDialog extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $portal = \lms_portal::get_instance();
         $currentUserName = $currentUser->get_name();
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Eintrag kommentieren");
-        $dialog->setDescription("...");
+        $dialog->setDescription("Hier können Sie der ausgewählten Eintrag kommentieren.");
+        $dialog->setWidth("600");
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
@@ -58,6 +62,7 @@ class CommentDialog extends \AbstractCommand implements \IAjaxCommand {
         }
 
         $chat = new \Widgets\Chat();
+        $chat->setMaxHeight("350");
         $chat->setData($discussion);
         $dialog->addWidget($chat);
 
@@ -67,35 +72,41 @@ class CommentDialog extends \AbstractCommand implements \IAjaxCommand {
         $rawHtml->setHtml("<hr>");
         $dialog->addWidget($rawHtml);
 
-        $comboBox = new \Widgets\ComboBox();
-        $comboBox->setLabel("Kompetenzbezogene<br> Strukturhilfe");
-        $comboBox->setOptions(array(
-            array("name" => "", "value" => ""),
-            array("name" => "Kompetenzerweiterung (z.B.  weitere Arbeitsmethoden)", "value" => ""),
-            array("name" => "Kompetenzanpassung (z.B. betriebliche Spezialisierungen)", "value" => ""),
-            array("name" => "Kompetenzvervollständigung (z.B. bei fehlenden Teilaspekten)", "value" => ""),
-        ));
-        $dialog->addWidget($comboBox);
-        
-        $dialog->addWidget(new \Widgets\Clearer());
-        
-        $comboBox = new \Widgets\ComboBox();
-        $comboBox->setLabel("Bildungsempfehlung");
-        $comboBox->setOptions(array(
-            array("name" => "", "value" => ""),
-            array("name" => "DAWINCI Modul", "value" => ""),
-            array("name" => "Elchmodul", "value" => ""),
-            array("name" => "...", "value" => ""),
-        ));
-        $dialog->addWidget($comboBox);
-        
-        
-        $dialog->addWidget(new \Widgets\Clearer());
-        
+        if ($this->entry instanceof \steam_document) {
+            $comboBox = new \Widgets\ComboBox();
+            $comboBox->setLabel("Kompetenzbezogene Strukturhilfe");
+            $comboBox->setLabelWidth("200");
+            $comboBox->setOnChange("jQuery('#dialog').find('input').attr('pre', '<b>'+value+': </b>');");
+            $comboBox->setOptions(array(
+                array("name" => "", "value" => ""),
+                array("name" => "Kompetenzerweiterung (z.B.  weitere Arbeitsmethoden)", "value" => "Kompetenzerweiterung"),
+                array("name" => "Kompetenzanpassung (z.B. betriebliche Spezialisierungen)", "value" => "Kompetenzanpassung"),
+                array("name" => "Kompetenzvervollständigung (z.B. bei fehlenden Teilaspekten)", "value" => "Kompetenzvervollständigung"),
+            ));
+            $dialog->addWidget($comboBox);
+
+            $dialog->addWidget(new \Widgets\Clearer());
+
+            $comboBox = new \Widgets\ComboBox();
+            $comboBox->setLabel("Bildungsempfehlung");
+            $comboBox->setLabelWidth("200");
+            $comboBox->setOnChange("jQuery('#dialog').find('input').attr('post', ' (<em>Bildungsempfehlung: '+value+')</em>');");
+            $comboBox->setOptions(array(
+                array("name" => "", "value" => ""),
+                array("name" => "DAWINCI Modul", "value" => "DAWINCI Modul"),
+                //array("name" => "Elchmodul", "value" => ""),
+                //array("name" => "...", "value" => ""),
+            ));
+            $dialog->addWidget($comboBox);
+            $dialog->addWidget(new \Widgets\Clearer());
+        }
+
         $textinput = new \Widgets\TextInput();
         $textinput->setData($discussion);
         $textinput->setContentProvider(\Widgets\DataProvider::annotationDataProvider());
         $textinput->setLabel("Kommentar schreiben");
+        $textinput->setInputWidth("400");
+        $textinput->setCustomSaveCode("jQuery('.ichat').append('<div class=\'outgoing_row\'><img src=\'".\lms_user::get_user_image_url(32, 32)."\' title=\'".$portal->get_user()->get_forename() . " " . $portal->get_user()->get_surname()."\'><div class=\'message\'>'+value+'</div></div>'); jQuery('.ichat').animate({ scrollTop: jQuery('.ichat').prop('scrollHeight') }, 3000);");
         $dialog->addWidget($textinput);
 
         $ajaxResponseObject->setStatus("ok");

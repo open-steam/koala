@@ -18,7 +18,9 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "competences/" .  \lms_steam::get_current_user()->get_name()) . "/";
 			exit;
 		} else {
-			$this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
+		    if (\Portfolio\Model\Portfolios::isManager() || \Portfolio\Model\Portfolios::isViewer() || \lms_steam::get_current_user()->get_name() === $params[0]) {
+                        $this->user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $params[0]);
+                    }
 		}
 		if (!isset($this->user) || !($this->user instanceof \steam_user)) {
 			header("location: " . \Portfolio::getInstance()->getExtensionUrl() . "competences/" .  \lms_steam::get_current_user()->get_name()) . "/";
@@ -97,7 +99,7 @@ class Competences extends \AbstractCommand implements \IFrameCommand {
 				$checked = in_array($competence->name, $achievedCompetencesStrings) ? $checkedImgUri : "";
 				$html .=
 				"<tr>
-				<td>{$checked}</td>
+				<td style=\"width:18px\">{$checked}</td>
 				<td>{$competence->getJobObject()->getDescriptionHtml()}{$competence->getShortHtml()}</td>
 				<td>{$competence->name}</td>
 				<td>{$competence->getNiveauObject()->getHtml()}</td>
@@ -126,7 +128,7 @@ END;
 	$rawHtml->setHtml($html);
 	$frameResponseObject->addWidget($breadcrumb);
 	$frameResponseObject->addWidget(\Portfolio::getActionBar());
-	$tabbar = \Portfolio::getTabBar();
+	$tabbar = \Portfolio::getTabBar($this->user->get_name());
 	$tabbar->setActiveTab(4);
 	$frameResponseObject->addWidget($tabbar);
 	$frameResponseObject->addWidget($rawHtml);

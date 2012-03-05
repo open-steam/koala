@@ -4,12 +4,20 @@ namespace Widgets;
 class Chat extends Widget {
 	private $label;
 	private $data;
+        private $maxHeight;
+        
+        public function setMaxHeight($maxHeight) {
+            $this->maxHeight = $maxHeight;
+        }
 	
 	public function setData($data) {
 		$this->data = $data;
 	}
 	
 	public function getHtml() {
+                if (isset($this->maxHeight)) {
+                    $this->getContent()->setVariable("CHAT_STYLE", "style=\"max-height:{$this->maxHeight}px\"");
+                }
 		$portal = \lms_portal::get_instance();
 		$annotations = $this->data->get_annotations();
 		$annotations = array_reverse($annotations);
