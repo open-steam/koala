@@ -90,7 +90,7 @@ if (!file_exists($autoloaderIndexFile)) {
 }
 
 // start session
-session_name(str_replace(".", "-", PLATFORM_ID . KOALA_VERSION));
+session_name(SESSION_NAME);
 session_start();
 
 // style

@@ -31,4 +31,5 @@ is_writable(LOG_SECURITY) or die("Not write access to file " . LOG_SECURITY);
 
 defined("BLACKLISTED_EXTENSIONS") or define("BLACKLISTED_EXTENSIONS", "");
 defined("PLATFROM_MENUS") or define("PLATFROM_MENUS", "");
+defined("SESSION_NAME") or define("SESSION_NAME", str_replace(".", "-", PLATFORM_ID . KOALA_VERSION));
 ?>
