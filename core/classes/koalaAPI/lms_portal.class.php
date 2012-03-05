@@ -469,7 +469,7 @@ return $rand_value;
 	}
 	
 	public function get_icon_bar_html($is_logged_in) {
-		if ( $is_logged_in ) {
+		if ( $is_logged_in && PORTAL_ICON_BAR) {
 			$user = lms_steam::get_current_user();
 			$koala_html_menu = new koala_html_menu();
 			if (USERMANAGEMENT) {
