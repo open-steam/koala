@@ -2,7 +2,7 @@
 
 RewriteEngine on
 
-RewriteBase /koala-3_0
+RewriteBase /
 
 RewriteRule ^styles/.*$					- [L]
 RewriteRule ^(.*)$						index.php?path=$1 [L,QSA]
