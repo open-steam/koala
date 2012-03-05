@@ -19,6 +19,32 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$RapidfeedbackExtension->addCSS();
+		$RapidfeedbackExtension->addJS();
+		
+		// access not allowed for non-admins
+		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
+		if (($staff instanceof \steam_group && !($staff->is_member($user))) || $staff instanceof \steam_user && !($staff->get_id() == $user->get_id())) {
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			$frameResponseObject->setHeadline(array(
+				array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id),
+				array("name" => "Konfiguration")
+			));
+			return $frameResponseObject;
+		}
+		
+		// configuration got submitted
+		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_rapidfeedback"])) {
+			$rapidfeedback->set_name($_POST["title"]);
+			$rapidfeedback->set_attribute("OBJ_DESC", $_POST["desc"]);
+			if (isset($_POST["adminsurvey"]) && $_POST["adminsurvey"] == "on") {
+				$rapidfeedback->set_attribute("RAPIDFEEDBACK_ADMIN_SURVEY", 1);
+			} else {
+				$rapidfeedback->set_attribute("RAPIDFEEDBACK_ADMIN_SURVEY", 0);
+			}
+			$frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
+		}
 		
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_configuration.template.html");
 		$content->setCurrentBlock("BLOCK_CONFIGURATION_TABLE");
@@ -38,21 +64,10 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("EDIT_RAPIDFEEDBACK", "Änderungen speichern");
 		$content->parse("BLOCK_CONFIGURATION_TABLE");
 		
-		$group = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
-		
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 			array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id),
 			array("name" => "Konfiguration")
 		));

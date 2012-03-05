@@ -59,28 +59,33 @@ class Survey extends \AbstractObjectModel {
 	
 	public function createSurvey($old = null) {
 		if ($old == null) {
-			$survey_container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $this->name, $this->rapidfeedback, $this->name);
+			$survey_container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "rapidfeedback_" . time(), $this->rapidfeedback, $this->name);
 			$results_container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "results", $survey_container, "container for results");
 		} else {
 			$survey_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $old);
+			$survey_container->set_attribute("OBJ_DESC", $this->name);
 			$results_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey_container->get_path() . "/results");
 		}
-		$survey_container->set_attribute("RAPIDFEEDBACK_STATE", 0);
-		$survey_container->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
-		$survey_container->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
+		
+		if ($survey_container->get_attribute("RAPIDFEEDBACK_STATE") == 0 || $survey_container->get_attribute("RAPIDFEEDBACK_STATE") == "0") {
+			$survey_container->set_attribute("RAPIDFEEDBACK_STATE", 0);
+			$survey_container->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
+			$survey_container->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
+			$survey_container->set_attribute("RAPIDFEEDBACK_QUESTIONS", count($this->questions));
+		}
+		
 		if ($this->starttype == 0) {
 			$survey_container->set_attribute("RAPIDFEEDBACK_STARTTYPE", 0);
 		} else {
 			$begin = $this->begin;
 			$end = $this->end;
-			$begin = mktime(0, 0, 0, substr($begin,3,2), substr($begin,0,2), substr($begin,6,4));
-			$end = mktime(0, 0, 0, substr($end,3,2), substr($end,0,2), substr($end,6,4));
+			$begin = mktime(substr($begin,11,2), substr($begin,14,2), 0, substr($begin,3,2), substr($begin,0,2), substr($begin,6,4));
+			$end = mktime(substr($end,11,2), substr($end,14,2), 0, substr($end,3,2), substr($end,0,2), substr($end,6,4));
 			$times = array();
 			array_push($times, $end);
 			array_push($times, $begin);
 			$survey_container->set_attribute("RAPIDFEEDBACK_STARTTYPE", $times);
 		}
-		$survey_container->set_attribute("RAPIDFEEDBACK_QUESTIONS", count($this->questions));
 		
 		$xml = new \SimpleXMLElement("<survey></survey>");
        	$xml->addChild("name", $this->name);

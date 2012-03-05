@@ -43,5 +43,9 @@ class TCR extends AbstractExtension implements IObjectExtension{
 		}
 		return null;
 	}
+	
+	public function getPriority() {
+		return 8;
+	}
 }
 ?>

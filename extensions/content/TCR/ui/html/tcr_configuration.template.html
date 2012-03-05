@@ -1,5 +1,5 @@
 <!-- BEGIN BLOCK_TCR_CONFIGURATION -->
-<form action="" method="post">
+<form action="" method="post" onsubmit="return checkConfiguration();" style="font-size:11px">
 	<div id="options">
 		<center>
 			<table class="tcr_table" border="1" width="50%">
@@ -8,11 +8,17 @@
 				</tr>
 				<tr>
 					<td class="label">{TITLE_LABEL}</td>
-					<td width="70%"><input type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
+					<td width="70%"><input id="title" type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
+				</tr>
+				<tr>
+					<td class="label">{INFO_LABEL}</td>
+					<td width="70%">
+						<textarea id="info" name="info" style="width:99%;">{INFO_VALUE}</textarea>
+					</td>
 				</tr>
 				<tr>
 					<td class="label">{ROUNDS_LABEL}</td>
-					<td><input type="text" name="rounds" value="{ROUNDS_VALUE}" style="width:30px"></td>
+					<td><input id="rounds" type="text" name="rounds" value="{ROUNDS_VALUE}" style="width:30px"></td>
 				</tr>
 				<tr>
 					<td class="label">{GROUP_LABEL}</td>

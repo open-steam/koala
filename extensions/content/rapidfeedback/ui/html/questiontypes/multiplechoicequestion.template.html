@@ -1,8 +1,8 @@
 <!-- BEGIN BLOCK_EDIT -->
-<li class="ui-state-default" id="element{ELEMENT_ID}">
-	<table width="100%" class="rapidfeedback_style">
+<li class="ui-state-default-rf" id="element{ELEMENT_ID}">
+	<table width="100%">
 		<tr>
-			<td align="right">
+			<td align="right" style="padding:0px; border:0px;">
 				<img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
 				&nbsp
 				<img onclick="copyElement({ELEMENT_ID});" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
@@ -11,20 +11,24 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<!-- BEGIN BLOCK_EDIT_REQUIRED -->
-				<h1>{QUESTION_TEXT}<font color="red"> *</font></h1>
+			<td style="padding:0px; border:0px;">
+				<h2 style="margin:0px;">{QUESTION_TEXT}</h2>
 				{HELP_TEXT}
-				<!-- END BLOCK_EDIT_REQUIRED -->
-				<!-- BEGIN BLOCK_EDIT_NOT_REQUIRED -->
-				<h1>{QUESTION_TEXT}</h1>
-				{HELP_TEXT}
-				<!-- END BLOCK_EDIT_NOT_REQUIRED -->
 				<br>
-				<!-- BEGIN BLOCK_EDIT_OPTION -->
-				<input type="checkbox" name="multiplechoice_{QUESTION_ID}_{OPTION_COUNT}">{OPTION_LABEL}
-				<br>
-				<!-- END BLOCK_EDIT_OPTION -->
+				<table style="text-align: center;">
+					<!-- BEGIN BLOCK_ROW_VIEW -->
+					<tr>
+						<!-- BEGIN BLOCK_COLUMN_VIEW -->
+						<td style="padding: 0px 0px 0px 0px; border:0px;">
+							<!-- BEGIN BLOCK_OPTION_VIEW -->
+							<input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}" style="vertical-align:middle;">
+							<!-- END BLOCK_OPTION_VIEW -->
+						</td>
+						<td style="padding: 0px 5px 0px 0px; border:0px;">{OPTION_LABEL}</td>
+						<!-- END BLOCK_COLUMN_VIEW -->
+					</tr>
+					<!-- END BLOCK_ROW_VIEW -->
+				</table>
 			</td>
 		</tr>
 	</table>
@@ -36,26 +40,37 @@
 <!-- BEGIN BLOCK_VIEW -->
 <tr>
 	<td style="{ERROR_BORDER}">
-		<!-- BEGIN BLOCK_VIEW_REQUIRED -->
-		<b>{QUESTION_TEXT}<font color="red"> *</font></b>
-		<!-- END BLOCK_VIEW_REQUIRED -->
-		<!-- BEGIN BLOCK_VIEW_NOT_REQUIRED -->
 		<b>{QUESTION_TEXT}</b>
-		<!-- END BLOCK_VIEW_NOT_REQUIRED -->
 		<br>
 		{HELP_TEXT}
 		<br>
-		<!-- BEGIN BLOCK_OPTION_SELECTED -->
-		<input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}" checked>{OPTION_LABEL}
-		{INSERT_BR}
-		<!-- END BLOCK_OPTION_SELECTED -->
-		<!-- BEGIN BLOCK_OPTION_VIEW -->
-		<input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}">{OPTION_LABEL}
-		{INSERT_BR}
-		<!-- END BLOCK_OPTION_VIEW -->
+		<table class="rapidfeedback_style" style="text-align: center;">
+			<!-- BEGIN BLOCK_ROW_VIEW -->
+			<tr>
+				<!-- BEGIN BLOCK_COLUMN_VIEW -->
+				<td style="padding: 0px 0px 0px 0px; border:0px;">
+					<!-- BEGIN BLOCK_OPTION_VIEW -->
+					<input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}" {OPTION_CHECKED} style="vertical-align:middle;">
+					<!-- END BLOCK_OPTION_VIEW -->
+				</td>
+				<td style="padding: 0px 5px 0px 0px; border:0px;">{OPTION_LABEL}</td>
+				<!-- END BLOCK_COLUMN_VIEW -->
+			</tr>
+			<!-- END BLOCK_ROW_VIEW -->
+		</table>
 	</td>
 </tr>
 <!-- END BLOCK_VIEW -->
+
+<!-- BEGIN BLOCK_NO_RESULTS -->
+<tr>
+	<td>
+		<font size="2"><b>{QUESTION_TEXT}</b></font>
+		<br>
+		{NO_RESULTS}
+	</td>
+</tr>
+<!-- END BLOCK_NO_RESULTS -->
 
 <!-- BEGIN BLOCK_RESULTS -->
 <tr>
@@ -67,9 +82,9 @@
 				<td width="50%">
 					<table border="1" width="100%">
 						<tr>
-							<th>Antwortmöglichkeit</th>
-							<th>Antworten</th>
-							<th>% der Befragten</th>
+							<th style="border:1px solid black;">{POSSIBLE_ANSWER_LABEL}</th>
+							<th style="border:1px solid black;">{POSSIBLE_ANSWER_AMOUNT}</th>
+							<th style="border:1px solid black;">{POSSIBLE_ANSWER_PERCENT}</th>
 						</tr>
 						<!-- BEGIN BLOCK_RESULTS_OPTION -->
 						<tr>
@@ -79,7 +94,12 @@
 						</tr>
 						<!-- END BLOCK_RESULTS_OPTION -->
 					</table>
-					(Die Prozentwerte können zusammengerechnet mehr als 100% ergeben, weil die Befragten mehrere Antworten auswählen konnten.)
+					<br>
+					<center>
+						{QUESTION_STATS}
+					</center>
+					<br>
+					{INFO_TEXT}
 				</td>
 				<td>
 					<div id="chart_div_{QUESTION_ID}"></div>
@@ -100,7 +120,7 @@
 	 	data.setValue({OPTION_COUNTER}, 1, {OPTION_SCRIPT_RESULT});
 		<!-- END BLOCK_SCRIPT_OPTION -->
 		var chart = new google.visualization.BarChart(document.getElementById("chart_div_{QUESTION_ID}"));
-		chart.draw(data, {width: 350, height: 200, backgroundColor: "#EEEEEE", hAxis: {minValue: 0, maxValue: 100}});
+		chart.draw(data, {width: 450, height: 200, backgroundColor: "#EEEEEE", hAxis: {minValue: 0, maxValue: 100}});
     }
 </script>
 <!-- END BLOCK_RESULTS -->

@@ -1,8 +1,9 @@
 <!-- BEGIN BLOCK_CREATE_SURVEY -->
-<form action="{BACK_URL}" method="post" onsubmit="return getSortables();">
+<form action="" method="post" onsubmit="return getSortables();" style="font-size:11px">
 	<input type="hidden" id="sortable_array" name="sortable_array" value="">
 	<input type="hidden" id="elementcounter" value="{ELEMENT_COUNTER}">
 	<input type="hidden" id="editID" value="-1">
+	<input type="hidden" id="editRF" name="editRF" value="{EDIT_ID}">
 	<input type="hidden" id="asseturl" value="{ASSET_URL}">
 	<div id="options">
 		<center>
@@ -12,7 +13,7 @@
 				</tr>
 				<tr>
 					<td class="label">{TITLE_LABEL}</td>
-					<td width="90%"><input type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
+					<td width="90%"><input id="title" type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
 				</tr>
 				<tr>
 					<td class="label">{BEGINTEXT_LABEL}</td>
@@ -29,33 +30,33 @@
 						<input type="radio" value="1" name="starttype" onclick="document.getElementById('starttype_automatic').style.display = ''" {STARTTYPE_SECOND}>{STARTTYPE1_LABEL}
 						<div id="starttype_automatic" style="display:{DISPLAY_DATEPICKER};">
 							{START_LABEL}
-							<input id="datepicker_begin" name="begin" value="{BEGIN_VALUE}" maxlength="10" size="7">
+							<input id="datepicker_begin" name="begin" value="{BEGIN_VALUE}" maxlength="16" size="12">
 							{END_LABEL}
-							<input id="datepicker_end" name="end" value="{END_VALUE}" maxlength="10" size="7">	
+							<input id="datepicker_end" name="end" value="{END_VALUE}" maxlength="16" size="12">	
 						</div>
 					</td>
 				</tr>
-				<tr>
+				<tr style="display:{DISPLAY_QUESTIONS}">
 					<td colspan="2">
-						<ul id="sortable" style="cursor: move; overflow: auto;">
+						<ul id="sortable_rf" style="cursor: move; overflow: auto;">
 							{QUESTIONS_HTML}
-							<li id="newquestion" class="ui-state-default" style="display:none">
-								<table class="rapidfeedback_style" width="100%">
+							<li id="newquestion" class="ui-state-default-rf" style="display:none">
+								<table width="100%">
 									<tr>
-										<td width="20%" class="label">{QUESTION_LABEL}:*</td>
-										<td width="80%">
+										<td width="20%" class="label" style="padding:3px 5px 0px 0px;">{QUESTION_LABEL}:*</td>
+										<td width="80%" style="padding:0px;">
 											<input type="text" name="question" id="questionText" style="width: 100%">
 										</td>
 									</tr>
 									<tr>
-										<td class="label">{HELPTEXT_LABEL}:</td>
-										<td>
+										<td class="label" style="padding:3px 5px 0px 0px;">{HELPTEXT_LABEL}:</td>
+										<td style="padding:0px;">
 											<input type="text" name="helpText" id="helpText" style="width: 100%">
 										</td>
 									</tr>
 									<tr>
-										<td class="label">{QUESTIONTYPE_LABEL}:*</td>
-										<td>
+										<td class="label" style="padding:6px 5px 0px 0px;">{QUESTIONTYPE_LABEL}:*</td>
+										<td style="padding:0px;">
 											<select name="questionType" id="questionType" onchange="changeCreateDialog(options[selectedIndex].value);">
 												<option value="0">{TEXTQUESTION_LABEL}</option>
 												<option value="1">{TEXTAREAQUESTION_LABEL}</option>
@@ -68,8 +69,8 @@
 										</td>
 									</tr>
 									<tr>
-										<td></td>
-										<td>
+										<td style="padding:3px 5px 0px 0px;"></td>
+										<td style="padding:5px 0px 0px 0px;">
 											<input id="text_preview" style="border: 1.5px dotted; width: 100%" type="text" value="Antwort" disabled>
 											<textarea id="textarea_preview" style="border: 1.5px dotted; width: 100%; display: none;" disabled rows="4">Antwort</textarea>
 											<div id="singlechoice_preview" style="display:none;">
@@ -85,7 +86,7 @@
 												<br>
 												<b>{POSSIBLEANSWERS_LABEL}:</b>
 												<ol id="singlechoice_options">
-													<li style="border:none; margin: 0px; padding: 0px 0px 0px 1px"><input type="text" name="singlechoice_0" value="" style="width: 100%;"></li>
+													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px"><input type="text" name="singlechoice_0" value="" style="width: 95%;"></li>
 												</ol>
 												<div id="singlechoice_newoption" onclick="createSingleChoiceOption();">
 													<a class="button">{ADDOPTION_LABEL}</a>
@@ -104,7 +105,7 @@
 												<br>
 												<b>{POSSIBLEANSWERS_LABEL}:</b>
 												<ol id="multiplechoice_options">
-													<li style="border:none;"><input type="text" name="multiplechoice_0" value="" style="width: 100%;"></li>
+													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px"><input type="text" name="multiplechoice_0" value="" style="width: 95%;"></li>
 												</ol>
 												<div id="multiplechoice_newoption" onclick="createMultipleChoiceOption();">
 													<a class="button">{ADDOPTION_LABEL}</a>
@@ -123,29 +124,29 @@
 												<br>
 												<b>{COLUMNSLABEL_LABEL}:</b>
 												<ol>
-													<li id="matrix_column_1"  style="border:none;">
-														<input type="text" style="width:100%" name="matrix_column_1">
+													<li id="matrix_column_1" style="border:none; margin: 0px; padding: 0px 0px 2px 1px">
+														<input type="text" style="width:95%" name="matrix_column_1">
 													</li>
-													<li id="matrix_column_2" style="display:none; border:none;">
-														<input type="text" style="width:100%" name="matrix_column_2">
+													<li id="matrix_column_2" style="border:none; margin: 0px; padding: 0px 0px 2px 1px; display:none;">
+														<input type="text" style="width:95%" name="matrix_column_2">
 													</li>
-													<li id="matrix_column_3" style="display:none; border:none;">
-														<input type="text" style="width:100%" name="matrix_column_3">
+													<li id="matrix_column_3" style="border:none; margin: 0px; padding: 0px 0px 2px 1px; display:none;">
+														<input type="text" style="width:95%" name="matrix_column_3">
 													</li>
-													<li id="matrix_column_4" style="display:none; border:none;">
-														<input type="text" style="width:100%" name="matrix_column_4">
+													<li id="matrix_column_4" style="border:none; margin: 0px; padding: 0px 0px 2px 1px; display:none;">
+														<input type="text" style="width:95%" name="matrix_column_4">
 													</li>
-													<li id="matrix_column_5" style="display:none; border:none;">
-														<input type="text" style="width:100%" name="matrix_column_5">
+													<li id="matrix_column_5" style="border:none; margin: 0px; padding: 0px 0px 2px 1px; display:none;">
+														<input type="text" style="width:95%" name="matrix_column_5">
 													</li>
-													<li id="matrix_column_6" style="display:none; border:none;">
-														<input type="text" style="width:100%" name="matrix_column_6">
+													<li id="matrix_column_6" style="border:none; margin: 0px; padding: 0px 0px 2px 1px; display:none;">
+														<input type="text" style="width:95%" name="matrix_column_6">
 													</li>
 												</ol>
 												<br>
 												<b>{ROWSLABEL_LABEL}:</b>
 												<ol id="matrix_options">
-													<li style="border:none;"><input type="text" name="matrix_0" value="" style="width: 100%;"></li>
+													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;"><input type="text" name="matrix_0" value="" style="width: 95%;"></li>
 												</ol>
 												<div id="matrix_newoption" onclick="createMatrixOption();">
 													<a class="button">{ADDROWS_LABEL}</a>
@@ -154,7 +155,7 @@
 											<div id="grading_preview" style="display:none;">
 												<b>{ELEMENTS_LABEL}:</b>
 												<ol id="grading_options">
-													<li id="grading_0" style="border:none;"><input type="text" name="grading_0" value="" style="width: 100%;"></li>
+													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="grading_0"><input type="text" name="grading_0" value="" style="width: 95%;"></li>
 												</ol>
 												<div id="grading_newoption" onclick="createGradingOption();">
 													<a class="button">{ADDROWS_LABEL}</a>
@@ -177,7 +178,7 @@
 												<br>
 												<b>{ELEMENTS_LABEL}:</b>
 												<ol id="tendency_options">
-													<li id="tendency_0" style="border:none;"><input type="text" name="tendency_0_0" value="" style="width: 30%;"> - - - <input type="text" name="tendency_0_1" value="" style="width: 30%;"></li>
+													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="tendency_0"><input type="text" name="tendency_0_0" value="" style="width: 30%;"> - - - <input type="text" name="tendency_0_1" value="" style="width: 30%;"></li>
 												</ol>
 												<div id="tendency_newoption" onclick="createTendencyOption();">
 													<a class="button">{ADDROWS_LABEL}</a>
@@ -186,48 +187,15 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="label">{MANDATORY_LABEL}:</td>
-										<td>
+										<td class="label" style="padding:3px 5px 0px 0px;">{MANDATORY_LABEL}:</td>
+										<td style="padding:0px;">
 											<input type="checkbox" name="required" id="required">
 										</td>
 									<tr>
-										<td></td>
-										<td>
+										<td style="padding:3px 5px 0px 0px;"></td>
+										<td style="padding:0px;">
 											<a class="button" onclick="addElement();">{SAVE_LABEL}</a>
 											<a class="button" onclick="hideCreateDialog();">{CANCEL_LABEL}</a>
-										</td>
-									</tr>
-								</table>
-							</li>
-							<li id="newlayout" class="ui-state-default" style="display:none">
-								<table class="rapidfeedback_style" width="100%">
-									<tr>
-										<td class="label">Elementtyp:*</td>
-										<td>
-											<select name="layoutType" id="layoutType" onchange="changeLayoutDialog(options[selectedIndex].value);">
-												<option value="0">Leerzeile</option>
-												<option value="1">Linie</option>
-												<option value="2">Seitenumbruch</option>
-												<option value="3">Überschrift</option>
-												<option value="4">Beschreibung</option>
-											</select>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div id="text_layout">
-												<input name="text_layout" style="width: 100%; display: none" type="text">
-											</div>
-											<div id="textarea_layout">
-												<textarea name="textarea_layout" style="width: 100%;" rows="4; display: none"></textarea>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td></td>
-										<td>
-											<a class="button" onclick="addLayoutElement();">{SAVE_LABEL}</a>
-											<a class="button" onclick="hideLayoutDialog();">{CANCEL_LABEL}</a>
 										</td>
 									</tr>
 								</table>
@@ -235,7 +203,6 @@
 						</ul>
 						<div id="newquestion_button" align="center">
 							<a class="button" onclick="showCreateDialog();">{ADDQUESTION_LABEL}</a>
-							<a class="button" onclick="showLayoutDialog();">{ADDLAYOUT_LABEL}</a>
 						</div>
 					</td>
 				</tr>

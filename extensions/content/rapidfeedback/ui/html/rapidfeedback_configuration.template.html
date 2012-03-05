@@ -1,5 +1,5 @@
 <!-- BEGIN BLOCK_CONFIGURATION_TABLE -->
-<form action="{BACK_URL}" method="post">
+<form action="" method="post" onsubmit="return checkTitle();" style="font-size:11px">
 	<div id="options">
 		<center>
 			<table class="rapidfeedback_table" border="1" width="70%">
@@ -8,7 +8,7 @@
 				</tr>
 				<tr>
 					<td class="label">{TITLE_LABEL}</td>
-					<td width="70%"><input type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
+					<td width="70%"><input id="title" type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
 				</tr>
 				<tr>
 					<td class="label">{DESC_LABEL}</td>

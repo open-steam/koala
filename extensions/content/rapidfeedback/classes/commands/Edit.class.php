@@ -23,6 +23,137 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$RapidfeedbackExtension->addJS();
 		$create_label = "Neue Umfrage erstellen";
 		
+		// access not allowed for non-admins
+		$user = $GLOBALS["STEAM"]->get_current_steam_user();
+		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
+		if (($staff instanceof \steam_group && !($staff->is_member($user))) || $staff instanceof \steam_user && !($staff->get_id() == $user->get_id())) {
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			$frameResponseObject->setHeadline(array(
+				array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id),
+				array("name" => "Umfrage erstellen/bearbeiten")
+			));
+			return $frameResponseObject;
+		}
+		
+		// create/edit survey got submitted
+		$editID = 0;
+		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_survey"])) {
+			$active = false;
+			if (isset($_POST["editRF"]) && intval($_POST["editRF"]) != 0) {
+				$survey_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), intval($_POST["editRF"]));
+				if ($survey_container->get_attribute("RAPIDFEEDBACK_STATE") == 1) {
+					$active = true;
+				}
+				$editID = $_POST["editRF"];
+			}
+			if ($active) {
+				$survey_object = new \Rapidfeedback\Model\Survey($survey_container);
+				$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey_container->get_path() . "/survey.xml");
+				$survey_object->parseXML($xml);
+				
+				$survey_object->setName($_POST["title"]);
+				$survey_object->setBeginText($_POST["begintext"]);
+				$survey_object->setEndText($_POST["endtext"]);
+				if ($_POST["starttype"] == 1) {
+					$survey_object->setStartType(1, $_POST["begin"], $_POST["end"]);
+				} else {
+					$survey_object->setStartType(0);
+				}
+				$survey_object->createSurvey($this->params[1]);
+				$frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
+			} else {
+				$survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
+				$survey_object->setName($_POST["title"]);
+				$survey_object->setBeginText($_POST["begintext"]);
+				$survey_object->setEndText($_POST["endtext"]);
+				
+				$questioncounter = 0;
+				$sortedQuestions = $_POST["sortable_array"];
+				$sortedQuestions != '' ? ($sortedQuestions = explode(',',$sortedQuestions)) : '';
+				foreach ($sortedQuestions as $question) {
+					if ($question != "newquestion" && $question != "newlayout" && $question != "") {
+						$questionValues = $_POST[$question];
+						$questionValues != '' ? ($questionValues = explode(',',$questionValues)) : '';
+						switch ($questionValues[0]) {
+							case 0:
+								$newquestion = new \Rapidfeedback\Model\TextQuestion();
+								break;
+							case 1:
+								$newquestion = new \Rapidfeedback\Model\TextareaQuestion();
+								break;
+							case 2:
+								$newquestion = new \Rapidfeedback\Model\SingleChoiceQuestion();
+								$options = $_POST[$question . "_options"];
+								$options != '' ? ($options = explode(',',$options)) : '';
+								foreach ($options as $option) {
+									$newquestion->addOption(rawurldecode($option));
+								}
+								$newquestion->setArrangement($questionValues[4]);
+								break;
+							case 3:
+								$newquestion = new \Rapidfeedback\Model\MultipleChoiceQuestion();
+								$options = $_POST[$question . "_options"];
+								$options != '' ? ($options = explode(',',$options)) : '';
+								foreach ($options as $option) {
+									$newquestion->addOption(rawurldecode($option));
+								}
+								$newquestion->setArrangement($questionValues[4]);
+								break;
+							case 4:
+								$newquestion = new \Rapidfeedback\Model\MatrixQuestion();
+								$columns = $_POST[$question . "_columns"];
+								$columns != '' ? ($columns = explode(',',$columns)) : '';
+								foreach ($columns as $column) {
+									$newquestion->addcolumn(rawurldecode($column));
+								}
+								$rows = $_POST[$question . "_rows"];
+								$rows != '' ? ($rows = explode(',',$rows)) : '';
+								foreach ($rows as $row) {
+									$newquestion->addRow(rawurldecode($row));
+								}
+								break;
+							case 5:
+								$newquestion = new \Rapidfeedback\Model\GradingQuestion();
+								$options = $_POST[$question . "_rows"];
+								$options != '' ? ($options = explode(',',$options)) : '';
+								foreach ($options as $option) {
+									$newquestion->addRow(rawurldecode($option));
+								}
+								break;
+							case 6:
+								$newquestion = new \Rapidfeedback\Model\TendencyQuestion();
+								$options = $_POST[$question . "_options"];
+								$options != '' ? ($options = explode(',',$options)) : '';
+								$newquestion->setSteps($questionValues[4]);
+								for ($count = 0; $count < count($options); $count = $count+2) {
+									$newquestion->addOption(array(rawurldecode($options[$count]), rawurldecode($options[$count+1])));
+								}
+								break;
+						}
+						$newquestion->setQuestionText(rawurldecode($questionValues[1]));
+						$newquestion->setHelpText(rawurldecode($questionValues[2]));
+						$newquestion->setRequired($questionValues[3]);
+						$survey_object->addQuestion($newquestion);
+					}
+				}
+				if ($_POST["starttype"] == 1) {
+					$survey_object->setStartType(1, $_POST["begin"], $_POST["end"]);
+				} else {
+					$survey_object->setStartType(0);
+				}
+				if ($editID != 0) {
+					$survey_object->createSurvey($editID);
+					$frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
+				} else {
+					$con = $survey_object->createSurvey();	
+					$editID = $con->get_id();
+					$frameResponseObject->setConfirmText("Umfrage erfolgreich erstellt.");
+				}
+			}
+		}
+		
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_edit.template.html");
 		$content->setCurrentBlock("BLOCK_CREATE_SURVEY");
 		$content->setVariable("CREATE_LABEL", "Umfrage erstellen");
@@ -40,8 +171,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("QUESTION_LABEL", "Frage");
 		$content->setVariable("HELPTEXT_LABEL", "Hilfetext");
 		$content->setVariable("QUESTIONTYPE_LABEL", "Fragetyp");
-		$content->setVariable("TEXTQUESTION_LABEL", "Text");
-		$content->setVariable("TEXTAREAQUESTION_LABEL", "Textarea");
+		$content->setVariable("TEXTQUESTION_LABEL", "kurzer Text");
+		$content->setVariable("TEXTAREAQUESTION_LABEL", "langer Text");
 		$content->setVariable("SINGLECHOICE_LABEL", "Single Choice");
 		$content->setVariable("MULTIPLECHOICE_LABEL", "Multiple Choice");
 		$content->setVariable("MATRIX_LABEL", "Matrix");
@@ -56,19 +187,22 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("COLUMNSLABEL_LABEL", "Spalten Label");
 		$content->setVariable("ROWSLABEL_LABEL", "Zeilen Label");
 		$content->setvariable("ELEMENTS_LABEL", "Elemente");
-		$content->setVariable("ADDROWS_LABEL", "Weitere Zeilen hinzufügen");
+		$content->setVariable("ADDROWS_LABEL", "Weitere Zeile hinzufügen");
 		$content->setVariable("MANDATORY_LABEL", "Als Pflichtfrage definieren");
 		$content->setVariable("SAVE_LABEL", "Speichern");
 		$content->setVariable("CANCEL_LABEL", "Abbrechen");
 		$content->setVariable("ADDQUESTION_LABEL", "Neue Frage hinzufügen");
-		$content->setVariable("ADDLAYOUT_LABEL", "Layout-Element hinzufügen");
 		$content->setVariable("CREATE_SURVEY", "Umfrage erstellen");
 		$content->setVariable("BACK_LABEL", "Zurück");
 		$content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id());
 		
 		// if command is called with an object id load the corresponding survey data
-		if (isset($this->params[1])) {
-			$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params[1]);
+		if ($editID == 0 && isset($this->params[1])) {
+			$editID = $this->params[1];
+		}
+		if ($editID != 0) {
+			$content->setVariable("EDIT_ID", $editID);
+			$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $editID);
 			$survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
 			$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
 			$survey_object->parseXML($xml);
@@ -93,30 +227,24 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			}
 			$content->setVariable("ELEMENT_COUNTER", $id_counter);
 			$content->setVariable("QUESTIONS_HTML", $question_html);
-			$content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/" . $survey->get_id());
+			$content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id());
 			$content->setVariable("CREATE_LABEL", "Umfrage bearbeiten");
 			$content->setVariable("CREATE_SURVEY", "Änderungen speichern");
 			$create_label = "Umfrage bearbeiten";
+			if ($survey->get_attribute("RAPIDFEEDBACK_STATE") == 1) {
+				$content->setVariable("DISPLAY_QUESTIONS", "none");
+			}
+		} else {
+			$content->setVariable("EDIT_ID", 0);
 		}
 		
 		$content->setVariable("ASSET_URL", $RapidfeedbackExtension->getAssetUrl() . "icons");
 		$content->parse("BLOCK_CREATE_SURVEY");
 		
-		$group = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
-		
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 			array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id()),
 			array("name" => $create_label)
 		));
