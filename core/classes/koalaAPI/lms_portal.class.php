@@ -142,7 +142,7 @@ class lms_portal
 		language_support::choose_language();
 		
 		// SET LOGO URL
-		$this->template->setVariable( "PATH_URL", PATH_URL );
+		$this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
 
 		// SET STYLEPATH AND ADDITIONAL HEADERS
 		$this->template->setVariable( "STYLE_PATH", PATH_STYLE );
@@ -887,7 +887,6 @@ return $rand_value;
 
 	public function show_html()
 	{
-            $this->template->setVariable("PATH_URL", PATH_URL);
 		// GENERATE HTML FOR MENU
 	    if ($this->offline_status) {
 	    	$html_menu = $this->get_menu_html( "guest", FALSE );
