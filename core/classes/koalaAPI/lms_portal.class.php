@@ -507,9 +507,13 @@ return $rand_value;
 
 	public static function get_menu_html( $cacheid, $is_logged_in )
 	{
-		$koala_html_menu = new koala_html_menu();
 		if ( $is_logged_in )
 		{
+                        if (isset($_SESSION["menu"])) {
+                            $koala_html_menu = new koala_html_menu($_SESSION["menu"]);
+                            return $koala_html_menu->get_html(); 
+                        }
+                        $koala_html_menu = new koala_html_menu();
 			$user = lms_steam::get_current_user();
 			// HOME
 			// removed for version 1_5  
