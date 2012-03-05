@@ -15,6 +15,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+                if (STARTPAGE_REDIRECT) {
+                    header("location: " . STARTPAGE_REDIRECT_URL);
+                    exit;
+                }
 		$portal = \lms_portal::get_instance();
 		$lms_user = $portal->get_user();
 		
