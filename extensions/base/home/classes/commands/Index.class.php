@@ -11,6 +11,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+                if (HOME_REDIRECT) {
+                    header("location: " . HOME_REDIRECT_URL);
+                    exit;
+                }
 		$portal = \lms_portal::get_instance();
 		$user = \lms_steam::get_current_user();
 		$frameResponseObject->setTitle(gettext("Your Desktop"));

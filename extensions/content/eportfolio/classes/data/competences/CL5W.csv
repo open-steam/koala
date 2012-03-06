@@ -1,4 +1,7 @@
-;"berufliche Kompetenzen";"Beschreibung";"Quelle Curriculum"
-"K1";" Kennt Reglungen der GMP  und GLP ";;"L7, L8, L6a"
-"K2";" Kennt Maßnahmen/ Instrumente  der Qualitätssicherung ";;"L6a, L7, L8, L11, L12"
-"K3";"Kennt Prinzipien und Methoden der statistischen Auswertung ";;"L12"
+;berufliche Kompetenzen;Beschreibung;Quelle Curriculum
+1;"Kann betriebsspezifische Instrumente des Qualitätsmanagements im eigenen
+Arbeitsbereich anwenden";;
+2;"Kann im Rahmen berufsüblicher Tätigkeiten (z.B. bei der Herstellung von
+Präparaten) die Regeln „Guter Herstellungspraxis“ (GMP) beachten";;
+3;"Kann im Rahmen berufsüblicher Tätigkeiten (z.B. bei der Durchführung einer
+qualitative Analyse) die Regeln „Guter Laborpraxis“ (GLP) beachten";;

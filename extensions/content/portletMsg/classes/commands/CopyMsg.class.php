@@ -37,6 +37,7 @@ class CopyMsg extends \AbstractCommand implements \IAjaxCommand {
 				if($pictrueId!=""){
 					$pictureObject = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $pictrueId );
 					$pictuteCopy = \steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $pictureObject);
+					$pictuteCopy->move($portletCopy); //test
 					$msgCopy->set_attribute("bid:portlet:msg:picture_id",$pictuteCopy->get_id());
 					$msgCopy->move($portletCopy);
 				}

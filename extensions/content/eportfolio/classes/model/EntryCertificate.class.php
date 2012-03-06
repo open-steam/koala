@@ -3,30 +3,34 @@ namespace Portfolio\Model;
 class EntryCertificate extends Entry{
 	
 	public static $entryTypeDescription = "Zertifizierte Zusatzqualifikationen";
-	public static $entryTypeInfo = "Hier können relevante Zusatzqualifikation eingetragen werden (z.B. Ausbilderschein, Gabelstablerschein, einzelne Weiterbildungszertifikate).";
-	public static $entryTypeEditDescription ="";
-	public static $entryTypeEditInfo ="";
+	public static $entryTypeInfo = "Hier können relevante Zusatzqualifikationen eingetragen werden (z.B. Ausbilderschein, Gabelstablerschein, einzelne Weiterbildungszertifikate).";
+	public static $entryTypeEditDescription ="Zertifizierte Zusatzqualifikation eintragen";
+	public static $entryTypeEditInfo ="Dieser Dialog dient der Erfassung einer zertifizierte Zusatzqualifikation. Wenn mehrere Qualifikationen vorliegen, muss dieser Dialog erneut geöffnet werden.";
 	public static $entryType = "CERTIFICATE";
+        public static $entryTypeHasCompetences = true;
 	
 	public function __construct(\steam_room $room) {
 		parent::__construct($room);
 	
 		$this->entryAttributes["certificatetype"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_CERTIFICATE_TYPE",
-				"label"=>"Schulabschluss",
+				"label"=>"Art",
 				"description"=>"",
-				"values"=>array(
+				"widget" => "\Widgets\ComboBox",
+				"widgetMethods" => array("setOptions" => array(
 						array("name"=>"", "value"=>0),
 						array("name"=>"DAWINCI Lernmodul", "value"=>"dawinci"),
-						array("name"=>"Sonstige", "value"=>"sonst")),
-				"defaultValue"=>""
+						array("name"=>"Sonstige", "value"=>"sonst"))),
+				"defaultValue"=>"",
+                                "order" => 2
 		);
 		$this->entryAttributes["certificatename"] = array(
 				"attributeName"=>PORTFOLIO_PREFIX . "ENTRY_CERTIFICATE_NAME",
 				"label"=>"Name",
 				"description"=>"",
-				"values"=>"",
-				"defaultValue"=>""
+				"widget"=>"\Widgets\TextInput",
+				"defaultValue"=>"",
+                                "order" => 1
 		);
 	}
 }

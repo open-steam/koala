@@ -50,7 +50,7 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
 		$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		if (isset($object) && $object->check_access_write($currentUser)) {
 			return array(
-							array("name"=>"<img src=\"" . PATH_URL . "styles/bid-green/images/icons/portal/edit.gif\">", "link"=>"", "onclick"=>"portalLockButton({$object->get_id()}); return false;"),
+							array("name"=>"<img src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "link"=>"", "onclick"=>"portalLockButton({$object->get_id()}); return false;"),
 							array("name" => "<img src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;"),
 							array("name" => "<img src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;")
 						);

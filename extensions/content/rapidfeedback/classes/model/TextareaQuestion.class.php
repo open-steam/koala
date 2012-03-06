@@ -32,16 +32,11 @@ class TextareaQuestion extends AbstractQuestion {
 		$content->setVariable("COPY_LABEL", "Kopieren");
 		$content->setVariable("DELETE_LABEL", "Löschen");
 		if ($this->required == 1) {
-			$content->setCurrentBlock("BLOCK_EDIT_REQUIRED");
-			$content->setVariable("QUESTION_TEXT", $this->questionText);
-			$content->setVariable("HELP_TEXT", $this->helpText);
-			$content->parse("BLOCK_EDIT_REQUIRED");
+			$content->setVariable("QUESTION_TEXT", $this->questionText . " (Pflichtfrage)");
 		} else {
-			$content->setCurrentBlock("BLOCK_EDIT_NOT_REQUIRED");
 			$content->setVariable("QUESTION_TEXT", $this->questionText);
-			$content->setVariable("HELP_TEXT", $this->helpText);
-			$content->parse("BLOCK_EDIT_NOT_REQUIRED");
 		}
+		$content->setVariable("HELP_TEXT", $this->helpText);
 		$data = "1," . rawurlencode($this->questionText) . "," . rawurlencode($this->helpText) . "," . $this->required;
 		$content->setVariable("ELEMENT_DATA", $data);
 		$content->parse("BLOCK_EDIT");
@@ -59,13 +54,9 @@ class TextareaQuestion extends AbstractQuestion {
 			$content->setVariable("ERROR_BORDER", "border-right-color:red;");
 		}
 		if ($this->required == 1) {
-			$content->setCurrentBlock("BLOCK_VIEW_REQUIRED");
-			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText);
-			$content->parse("BLOCK_VIEW_REQUIRED");
+			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText . " (Pflichtfrage)");
 		} else {
-			$content->setCurrentBlock("BLOCK_VIEW_NOT_REQUIRED");
 			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText);
-			$content->parse("BLOCK_VIEW_NOT_REQUIRED");
 		}
 		$content->setVariable("HELP_TEXT", $this->helpText);
 		$content->setVariable("ELEMENT_INPUT", $input);
@@ -76,14 +67,21 @@ class TextareaQuestion extends AbstractQuestion {
 	function getResultHTML($id) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("questiontypes/textareaquestion.template.html");
-		$content->setCurrentBlock("BLOCK_RESULTS");
-		$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
-		foreach ($this->results as $result) {
-			$content->setCurrentBlock("BLOCK_RESULT");
-			$content->setVariable("RESULT_TEXT", $result);
-			$content->parse("BLOCK_RESULT");
+		if (count($this->results) == 0) {
+			$content->setCurrentBlock("BLOCK_NO_RESULTS");
+			$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
+			$content->setVariable("NO_RESULTS", "Keine Antworten zu dieser Frage vorhanden.");
+			$content->parse("BLOCK_NO_RESULTS");
+		} else {
+			$content->setCurrentBlock("BLOCK_RESULTS");
+			$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
+			foreach ($this->results as $result) {
+				$content->setCurrentBlock("BLOCK_RESULT");
+				$content->setVariable("RESULT_TEXT", $result);
+				$content->parse("BLOCK_RESULT");
+			}
+			$content->parse("BLOCK_RESULTS");
 		}
-		$content->parse("BLOCK_RESULTS");
 		return $content->get();
 	}
 }

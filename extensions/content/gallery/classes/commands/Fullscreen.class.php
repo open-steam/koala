@@ -23,6 +23,11 @@ class Fullscreen extends \AbstractCommand implements \IFrameCommand {
 	}
 	public function getHtmlForFullScreen(\FrameResponseObject $frameResponseObject){
 		$objectId = $this->id;
+		
+		//update chronic
+		$steamPicOb = \steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $objectId );
+		\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($steamPicOb);
+		
 		$content = '<img src='.PATH_URL.'download/image/'.$objectId.'/946/710"
           border="0"
           title="Vollbild"

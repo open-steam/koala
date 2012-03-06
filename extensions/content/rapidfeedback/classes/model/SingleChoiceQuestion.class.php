@@ -60,23 +60,28 @@ class SingleChoiceQuestion extends AbstractQuestion {
 		$content->setVariable("COPY_LABEL", "Kopieren");
 		$content->setVariable("DELETE_LABEL", "Löschen");
 		if ($this->required == 1) {
-			$content->setCurrentBlock("BLOCK_EDIT_REQUIRED");
-			$content->setVariable("QUESTION_TEXT", $this->questionText);
-			$content->setVariable("HELP_TEXT", $this->helpText);
-			$content->parse("BLOCK_EDIT_REQUIRED");
+			$content->setVariable("QUESTION_TEXT", $this->questionText . " (Pflichtfrage)");
 		} else {
-			$content->setCurrentBlock("BLOCK_EDIT_NOT_REQUIRED");
 			$content->setVariable("QUESTION_TEXT", $this->questionText);
-			$content->setVariable("HELP_TEXT", $this->helpText);
-			$content->parse("BLOCK_EDIT_NOT_REQUIRED");
 		}
+		$content->setVariable("HELP_TEXT", $this->helpText);
 		$options = "";
+		$counter = 0;
 		foreach ($this->options as $option) {
-			$content->setCurrentBlock("BLOCK_EDIT_OPTION");
+			if ((($counter) % $this->arrangement) == 0 || $counter == 0) {
+				$content->setCurrentBlock("BLOCK_ROW_VIEW");
+			}
+			$content->setCurrentBlock("BLOCK_COLUMN_VIEW");
+			$content->setCurrentBlock("BLOCK_OPTION_VIEW");
 			$content->setVariable("QUESTION_ID", $id);
 			$content->setVariable("OPTION_LABEL", $option);
-			$content->parse("BLOCK_EDIT_OPTION");
+			$content->parse("BLOCK_OPTION_VIEW");
+			$content->parse("BLOCK_COLUMN_VIEW");
+			if ((($counter+1) % $this->arrangement) == 0) {
+				$content->parse("BLOCK_ROW_VIEW");
+			}
 			$options = $options . rawurlencode($option) . ",";
+			$counter++;
 		}
 		$options = substr($options, 0, strlen($options)-1);
 		$data = "2," . rawurlencode($this->questionText) . "," . rawurlencode($this->helpText) . "," . $this->required . "," . $this->arrangement;
@@ -94,36 +99,29 @@ class SingleChoiceQuestion extends AbstractQuestion {
 			$content->setVariable("ERROR_BORDER", "border-right-color:red;");
 		}
 		if ($this->required == 1) {
-			$content->setCurrentBlock("BLOCK_VIEW_REQUIRED");
-			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText);
-			$content->parse("BLOCK_VIEW_REQUIRED");
+			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText . " (Pflichtfrage)");
 		} else {
-			$content->setCurrentBlock("BLOCK_VIEW_NOT_REQUIRED");
 			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText);
-			$content->parse("BLOCK_VIEW_NOT_REQUIRED");
 		}
 		$content->setVariable("HELP_TEXT", $this->helpText);
 		
 		$counter = 0;
 		foreach ($this->options as $option) {
+			if ((($counter) % $this->arrangement) == 0 || $counter == 0) {
+				$content->setCurrentBlock("BLOCK_ROW_VIEW");
+			}
+			$content->setCurrentBlock("BLOCK_COLUMN_VIEW");
+			$content->setCurrentBlock("BLOCK_OPTION_VIEW");
+			$content->setVariable("QUESTION_ID", $id);
+			$content->setVariable("OPTION_LABEL", $option);
+			$content->setVariable("QUESTION_COUNTER", $counter);
 			if ($counter == $input) {
-				$content->setCurrentBlock("BLOCK_OPTION_SELECTED");
-				$content->setVariable("QUESTION_ID", $id);
-				$content->setVariable("OPTION_COUNT", $counter);
-				$content->setVariable("OPTION_LABEL", $option);
-				if ((($counter+1) % $this->arrangement) == 0) {
-					$content->setVariable("INSERT_BR", "<br>");
-				}
-				$content->parse("BLOCK_OPTION_SELECTED");
-			} else {
-				$content->setCurrentBlock("BLOCK_OPTION_VIEW");
-				$content->setVariable("QUESTION_ID", $id);
-				$content->setVariable("OPTION_COUNT", $counter);
-				$content->setVariable("OPTION_LABEL", $option);
-				if ((($counter+1) % $this->arrangement) == 0) {
-					$content->setVariable("INSERT_BR", "<br>");
-				}
-				$content->parse("BLOCK_OPTION_VIEW");
+				$content->setVariable("OPTION_CHECKED", "checked");
+			}
+			$content->parse("BLOCK_OPTION_VIEW");
+			$content->parse("BLOCK_COLUMN_VIEW");
+			if ((($counter+1) % $this->arrangement) == 0) {
+				$content->parse("BLOCK_ROW_VIEW");
 			}
 			$counter++;
 		}
@@ -139,32 +137,75 @@ class SingleChoiceQuestion extends AbstractQuestion {
 		
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("questiontypes/singlechoicequestion.template.html");
-		$content->setCurrentBlock("BLOCK_RESULTS");
-		$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
-		
-		$counter = 0;
-		foreach ($this->options as $option) {
-			$content->setCurrentBlock("BLOCK_RESULTS_OPTION");
-			$content->setVariable("OPTION_LABEL", $option);
-			$content->setVariable("OPTION_RESULT", $this->results[$counter]);
-			$content->setVariable("OPTION_PERCENT", round((($this->results[$counter] / $resultCount)*100),1));
-			$content->parse("BLOCK_RESULTS_OPTION");
-			$counter++;
+		if ($resultCount == 0) {
+			$content->setCurrentBlock("BLOCK_NO_RESULTS");
+			$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
+			$content->setVariable("NO_RESULTS", "Keine Antworten zu dieser Frage vorhanden.");
+			$content->parse("BLOCK_NO_RESULTS");
+		} else {
+			$content->setCurrentBlock("BLOCK_RESULTS");
+			$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
+			$content->setVariable("POSSIBLE_ANSWER_LABEL", "Antwortmöglichkeit");
+			$content->setVariable("POSSIBLE_ANSWER_AMOUNT", "Antworten");
+			$content->setVariable("POSSIBLE_ANSWER_PERCENT", "% der Befragten");
+			
+			$counter = 0;
+			foreach ($this->options as $option) {
+				$content->setCurrentBlock("BLOCK_RESULTS_OPTION");
+				$content->setVariable("OPTION_LABEL", $option);
+				$content->setVariable("OPTION_RESULT", $this->results[$counter]);
+				if ($resultCount != 0) {
+					$content->setVariable("OPTION_PERCENT", round((($this->results[$counter] / $resultCount)*100),1));
+				} else {
+					$content->setVariable("OPTION_PERCENT", 0);
+				}
+				$content->parse("BLOCK_RESULTS_OPTION");
+				$counter++;
+			}
+			
+			$content->setVariable("QUESTION_ID", $id);
+			$content->setVariable("OPTION_COUNT", count($this->options));
+			$counter = 0;
+			foreach ($this->options as $option) {
+				$content->setCurrentBlock("BLOCK_SCRIPT_OPTION");
+				$content->setVariable("OPTION_SCRIPT_LABEL", $option);
+				$content->setVariable("OPTION_COUNTER", $counter);
+				$content->setVariable("OPTION_SCRIPT_RESULT", $this->results[$counter]);
+				$content->parse("BLOCK_SCRIPT_OPTION");
+				$counter++;
+			}
+			
+			// calculate statistics
+			$counter = 0;
+			$resultArray = array();
+			for ($count = 0; $count < count($this->options); $count++) {
+				for ($count2 = 0; $count2 < $this->results[$count]; $count2++){
+					$resultArray[$counter] = $count+1;
+					$counter++;
+				}
+			}
+			// arithmetic mean
+			$mw = 0;
+			for ($count = 0; $count < count($resultArray); $count++) {
+				$mw = $mw + $resultArray[$count];
+			}
+			$mw = round(($mw / $resultCount),1);
+			// median
+			$md = 0;
+			if ($resultCount % 2 == 0) {
+				$md = 0.5 * ($resultArray[($resultCount / 2) - 1] + $resultArray[$resultCount / 2]);
+			} else {
+				$md = $resultArray[(($resultCount+1) / 2)-1];
+			}
+			// standard deviation
+			$s = 0;
+			for ($count = 0; $count < count($resultArray); $count++) {
+				$s = $s + ($resultArray[$count] - $mw) * ($resultArray[$count] - $mw);
+			}
+			$s = round(sqrt($s), 1);
+			$content->setVariable("QUESTION_STATS", "n = " . $resultCount . ", mw = " . $mw . ", md = " . $md . ", s = " . $s);
+			$content->parse("BLOCK_RESULTS");
 		}
-		
-		$content->setVariable("QUESTION_ID", $id);
-		$content->setVariable("OPTION_COUNT", count($this->options));
-		$counter = 0;
-		foreach ($this->options as $option) {
-			$content->setCurrentBlock("BLOCK_SCRIPT_OPTION");
-			$content->setVariable("OPTION_SCRIPT_LABEL", $option);
-			$content->setVariable("OPTION_COUNTER", $counter);
-			$content->setVariable("OPTION_SCRIPT_RESULT", $this->results[$counter]);
-			$content->parse("BLOCK_SCRIPT_OPTION");
-			$counter++;
-		}
-		
-		$content->parse("BLOCK_RESULTS");
 		return $content->get();
 	}
 }

@@ -1,5 +1,5 @@
 <!-- BEGIN BLOCK_DOCUMENTS_TABLE -->
-<div align="right">
+<div align="right" style="font-size:11px">
 	<b>{FILTER_LABEL}</b>
 	<select name="round" id="round_dropdown" onchange="hideDocuments(options[selectedIndex].value, {ROUNDS_VALUE})">
 	<!-- BEGIN BLOCK_DOCUMENTS_DROPDOWN -->
@@ -7,7 +7,7 @@
 	<!-- END BLOCK_DOCUMENTS_DROPDOWN -->
 	</select>
 </div>
-<table class="tcr_table" border="1" width="100%">
+<table class="tcr_table" border="1" width="100%" style="font-size:11px">
 	<tr>
 		<th width="10%">{ROUND_LABEL}</th>
 		<th width="18%">{DOCUMENT_KIND_LABEL}</th>
@@ -24,7 +24,7 @@
 				<!-- BEGIN BLOCK_DOCUMENTS_ELEMENT -->
 				<tr>
 					<td width="18%">{DOCUMENT_KIND}</td>
-					<td width="18%"><a href="{ELEMENT_URL}"><img src="{ASSETURL}icons/view_32.png" title="{VIEW_ELEMENT}">{VIEW_ELEMENT}</a></td>
+					<td width="18%"><a href="{ELEMENT_URL}" class="button" title="{VIEW_ELEMENT}">{VIEW_ELEMENT}</a></td>
 					<td width="18%">{AUTHOR_VALUE}</td>
 					<td width="18%">{DATE_VALUE}</td>
 					<td width="18%"><a href="{COMMENTS_URL}">{COMMENTS_VALUE}</a></td>

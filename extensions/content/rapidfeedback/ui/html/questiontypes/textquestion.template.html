@@ -1,8 +1,8 @@
 <!-- BEGIN BLOCK_EDIT -->
-<li class="ui-state-default" id="element{ELEMENT_ID}">
-	<table width="100%" class="rapidfeedback_style">
+<li class="ui-state-default-rf" id="element{ELEMENT_ID}" >
+	<table width="100%">
 		<tr>
-			<td align="right">
+			<td align="right" style="padding:0px; border:0px;">
 				<img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
 				&nbsp
 				<img onclick="copyElement({ELEMENT_ID});" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
@@ -11,15 +11,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<!-- BEGIN BLOCK_EDIT_REQUIRED -->
-				<h1>{QUESTION_TEXT}<font color="red"> *</font></h1>
+			<td style="padding:0px; border:0px;">
+				<h2 style="margin:0px;">{QUESTION_TEXT}</h2>
 				{HELP_TEXT}
-				<!-- END BLOCK_EDIT_REQUIRED -->
-				<!-- BEGIN BLOCK_EDIT_NOT_REQUIRED -->
-				<h1>{QUESTION_TEXT}</h1>
-				{HELP_TEXT}
-				<!-- END BLOCK_EDIT_NOT_REQUIRED -->
 				<br>
 				<input type="text" style="width: 99%;" disabled>
 			</td>
@@ -32,19 +26,24 @@
 <!-- BEGIN BLOCK_VIEW -->
 <tr>
 	<td style="{ERROR_BORDER}">
-		<!-- BEGIN BLOCK_VIEW_REQUIRED -->
-		<b>{QUESTION_TEXT}<font color="red"> *</font></b>
-		<!-- END BLOCK_VIEW_REQUIRED -->
-		<!-- BEGIN BLOCK_VIEW_NOT_REQUIRED -->
 		<b>{QUESTION_TEXT}</b>
-		<!-- END BLOCK_VIEW_NOT_REQUIRED -->
 		<br>
 		{HELP_TEXT}
 		<br>
-		<input type="text" style="width: 50%" value="{ELEMENT_INPUT}" name="question{ELEMENT_ID}">
+		<input type="text" style="width: 99%" value="{ELEMENT_INPUT}" name="question{ELEMENT_ID}">
 	</td>
 </tr>
 <!-- END BLOCK_VIEW -->
+
+<!-- BEGIN BLOCK_NO_RESULTS -->
+<tr>
+	<td>
+		<font size="2"><b>{QUESTION_TEXT}</b></font>
+		<br>
+		{NO_RESULTS}
+	</td>
+</tr>
+<!-- END BLOCK_NO_RESULTS -->
 
 <!-- BEGIN BLOCK_RESULTS -->
 <tr>

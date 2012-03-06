@@ -46,6 +46,7 @@ class PortalCopy extends \AbstractCommand implements \IAjaxCommand, \IFrameComma
 						if($pictrueId!=""){
 							$pictureObject = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $pictrueId );
 							$pictuteCopy = \steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $pictureObject);
+							$pictuteCopy->move($portletObject); //test
 							$msgCopy->set_attribute("bid:portlet:msg:picture_id",$pictuteCopy->get_id());
 							$msgCopy->move($portletObject);
 						}

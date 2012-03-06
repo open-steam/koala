@@ -1,7 +1,7 @@
 <div class="dialog_wrapper" id="dialog_wrapper">
 	<div class="dialog" id="dialog" style="width:{DIALOG_WIDTH}">
 		<!-- BEGIN BLOCK_CLOSE_BUTTON -->
-		<div title="schließen" class="close-button" onclick="javascript:if (closeDialog()) { {DIALOG_CLOSE_JS} }"></div>
+		<div title="schließen" class="close-button" onclick="javascript:closeDialog()"></div>
 		<!-- END BLOCK_CLOSE_BUTTON -->
 		<div class="infoBar"><h2>{DIALOG_TITLE}</h2>
 		<!-- BEGIN BLOCK_DIALOG_DESCRIPTION -->
@@ -11,7 +11,7 @@
 		{DIALOG_CONTENT}
 		<br style="clear:both">
 		<!-- BEGIN DIALOG_BUTTON -->
-		<div style="float:right"><a class="button pill" onclick="if (closeDialog() && {RELOAD_CODE}) { location.reload();}; return false;" href="#">{CLOSE_BUTTON_LABEL}</a></div>
+		<div style="float:right"><a class="button pill" onclick="if (closeDialog() && {RELOAD_CODE}) { {DIALOG_CLOSE_JS} }; return false;" href="#">{CLOSE_BUTTON_LABEL}</a></div>
 		<!-- END DIALOG_BUTTON -->
 		<!-- BEGIN DIALOG_BUTTONS -->
 		<div style="float:right"><a class="button pill {BUTTON_CLASS}" onclick="{BUTTON_JS}" href="#">{BUTTON_LABEL}</a>&nbsp;</div>

@@ -51,7 +51,7 @@ class DatePicker extends Widget {
 			$currentDateValue = $this->contentProvider->getData($this->data);
 			$currentDateValue = ($currentDateValue == 0) ? "" : $currentDateValue;
 			$this->getContent()->setVariable("VALUE", $currentDateValue);
-			$this->getContent()->setVariable("CHANGE_FUNCTION", "onChange=\"widgets_datepicker_changed({$this->id});\"");
+			$this->getContent()->setVariable("CHANGE_FUNCTION", "onChange=\"widgets_datepicker_changed({$this->id}); value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")}\"");
 			$this->getContent()->setVariable("SAVE_FUNCTION", "onClick=\"value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")}\"");
 			$this->getContent()->setVariable("UNDO_FUNCTION", "onClick=\"value = getElementById({$this->id}).oldValue; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_undo_success")}\"");
 		} else {

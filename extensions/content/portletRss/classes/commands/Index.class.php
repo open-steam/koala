@@ -34,7 +34,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$this->getExtension()->addJS();
 		
 		//old bib
-		include_once(PATH_BASE."koala-core/lib/bid/slashes.php");
+		include_once(PATH_BASE."core/lib/bid/slashes.php");
 		
 		
 		//get content of portlet
@@ -51,7 +51,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$num_items = (isset($content["num_items"]))?$content["num_items"]:0;
 		if (isset($content["address"])) {
 			$feed = new \SimplePie();
-			$feed->set_cache_location(PATH_CACHE);
+			$feed->enable_cache(false);
+			//$feed->set_cache_location(PATH_CACHE);
 			$feed->set_feed_url(derive_url($content["address"]));
 			$feed->init();
 			if ($num_items == 0){
@@ -70,7 +71,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		
 		
 		$UBB = new \UBBCode();
-		include_once(PATH_BASE."koala-core/lib/bid/derive_url.php");
+		include_once(PATH_BASE."core/lib/bid/derive_url.php");
 		
 		
 		$portletFileName=$portletPath."/ui/html/index.html";

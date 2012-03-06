@@ -9,8 +9,8 @@ var tendencyCounter = 1;
  * function to initiate the datepicker
  */
 function initiateDatepicker() {
-	$( "#datepicker_begin" ).datepicker();
-	$( "#datepicker_end" ).datepicker();
+	$( "#datepicker_begin" ).datetimepicker();
+	$( "#datepicker_end" ).datetimepicker();
 	$.datepicker.regional['de'] = {clearText: 'löschen', clearStatus: 'aktuelles Datum löschen',
              closeText: 'schließen', closeStatus: 'ohne Änderungen schließen',
              prevText: '&#x3c;Zurück', prevStatus: 'letzten Monat zeigen',
@@ -40,25 +40,9 @@ function showCreateDialog() {
 		$('#element'+document.getElementById('editID').value).show();
 		document.getElementById('editID').value = '-1';
 	}
+	changeCreateDialog("0");
 	$('#newquestion').show();
 	$('#newquestion_button').hide();
-}
-
-/*
- * function to show the layout dialog
- */
-function showLayoutDialog() {
-	$('#newlayout').show();
-	$('#newquestion_button').hide();
-}
-
-/*
- * function to hide the layout dialog
- */
-function hideLayoutDialog() {
-	$('#newlayout').hide();
-	$('#text_preview').show();
-	$('#newquestion_button').show();
 }
 
 /*
@@ -69,7 +53,6 @@ function hideCreateDialog() {
 		$('#element'+document.getElementById('editID').value).show();
 		document.getElementById('editID').value = '-1';
 	}
-
 	$('#textarea_preview').hide();
 	$('#singlechoice_preview').hide();
 	$('#multiplechoice_preview').hide();
@@ -79,24 +62,6 @@ function hideCreateDialog() {
 	$('#newquestion').hide();
 	$('#text_preview').show();
 	$('#newquestion_button').show();
-
-}
-
-function changeLayoutDialog(id) {
-	switch (id) {
-		case "3":
-			$('#text_layout').show();
-			$('#textarea_layout').hide();
-			break;
-		case "4":
-			$('#text_preview').hide();
-			$('#textarea_preview').show();
-			break;
-		default:
-			$('#text_preview').hide();
-			$('#textarea_preview').hide();
-			break;	
-	} 
 }
 
 /*
@@ -163,7 +128,7 @@ function resetCreateDialog() {
 	tendencyCounter = 1;
 	
 	// move newquestion dialog to the end of sortable
-	$('#newquestion').appendTo('#sortable');
+	$('#newquestion').appendTo('#sortable_rf');
 }
 
 /*
@@ -239,8 +204,8 @@ function changeCreateDialog(type) {
 
 // initiate sortable
 $(function() {
-	$( "#sortable" ).sortable({
-		placeholder: "ui-state-highlight",
+	$( "#sortable_rf" ).sortable({
+		placeholder: "ui-state-placeholder-rf",
 		axis: "y",
 		forcePlaceholderSize: true
 	});
@@ -251,7 +216,7 @@ $(function() {
  */
 function createSingleChoiceOption() {
 	var asseturl = document.getElementById('asseturl').value;
-	$('<li class="option_element" id="singlechoice_'+singleChoiceCounter+'" style="border:none;"><input name="singlechoice_'+singleChoiceCounter+'" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteSingleChoiceOption('+singleChoiceCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#singlechoice_options'));
+	$('<li style="margin: 0px; padding: 0px 0px 2px 1px; border:none;" class="option_element" id="singlechoice_'+singleChoiceCounter+'"><input name="singlechoice_'+singleChoiceCounter+'" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteSingleChoiceOption('+singleChoiceCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#singlechoice_options'));
 	singleChoiceCounter++;
 }
 
@@ -267,7 +232,7 @@ function deleteSingleChoiceOption(id) {
  */
 function createMultipleChoiceOption() {
 	var asseturl = document.getElementById('asseturl').value;
-	$('<li id="multiplechoice_'+multipleChoiceCounter+'" style="border:none;"><input name="multiplechoice_'+multipleChoiceCounter+'" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteMultipleChoiceOption('+multipleChoiceCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#multiplechoice_options'));
+	$('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px" id="multiplechoice_'+multipleChoiceCounter+'"><input name="multiplechoice_'+multipleChoiceCounter+'" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteMultipleChoiceOption('+multipleChoiceCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#multiplechoice_options'));
 	multipleChoiceCounter++;
 }
 
@@ -283,7 +248,7 @@ function deleteMultipleChoiceOption(id) {
  */
 function createMatrixOption() {
 	var asseturl = document.getElementById('asseturl').value;
-	$('<li id="matrix_'+matrixCounter+'" style="border:none;"><input name="matrix_'+matrixCounter+'" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteMatrixOption('+matrixCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#matrix_options'));
+	$('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="matrix_'+matrixCounter+'"><input name="matrix_'+matrixCounter+'" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteMatrixOption('+matrixCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#matrix_options'));
 	matrixCounter++;
 }
 
@@ -312,7 +277,7 @@ function showMatrixColumn(count) {
  */
 function createGradingOption() {
 	var asseturl = document.getElementById('asseturl').value;
-	$('<li id="grading_'+gradingCounter+'" style="border:none;"><input name="grading_'+gradingCounter+'" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteGradingOption('+gradingCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#grading_options'));
+	$('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="grading_'+gradingCounter+'"><input name="grading_'+gradingCounter+'" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteGradingOption('+gradingCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#grading_options'));
 	gradingCounter++;
 }
 
@@ -328,7 +293,7 @@ function deleteGradingOption(id) {
  */
 function createTendencyOption() {
 	var asseturl = document.getElementById('asseturl').value;
-	$('<li id="tendency_'+tendencyCounter+'" style="border:none;"><input type="text" name="tendency_'+tendencyCounter+'_0" value="" style="width: 30%;"> - - - <input type="text" name="tendency_'+tendencyCounter+'_1" value="" style="width: 30%;">&nbsp<input type="image" onclick="deleteTendencyOption('+tendencyCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#tendency_options'));
+	$('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="tendency_'+tendencyCounter+'"><input type="text" name="tendency_'+tendencyCounter+'_0" value="" style="width: 30%;"> - - - <input type="text" name="tendency_'+tendencyCounter+'_1" value="" style="width: 30%;">&nbsp<input type="image" onclick="deleteTendencyOption('+tendencyCounter+')" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#tendency_options'));
 	tendencyCounter++;
 }
 
@@ -350,7 +315,8 @@ function initiateCounter() {
  * function to save the order in sortable
  */
 function getSortables() {
-	var result = $('#sortable').sortable('toArray');
+	if (!checkTitle()) return false;
+	var result = $('#sortable_rf').sortable('toArray');
 	document.getElementById("sortable_array").value = result;
 }
 
@@ -632,163 +598,96 @@ function createTextQuestion(data, insertPoint) {
  * function to create textareaquestion
  */
 function createTextareaQuestion(data, insertPoint) {
-	var asseturl = document.getElementById('asseturl').value;
-	var required_text = '';
-	if (data[3] == 1) {
-		required_text = '<font color="red"> *</font>';
-	}
-	$('<li class="ui-state-default" id="element'+elementCounter+'"><table width="100%" class="rapidfeedback_style"><tr><td align="right"><img onclick="editElement('+elementCounter+');" src="'+asseturl+'/edit.png" title="Bearbeiten" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="copyElement('+elementCounter+');" src="'+asseturl+'/copy.png" title="Kopieren" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="deleteElement('+elementCounter+');" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px" style="cursor: pointer; cursor: hand;"></td></tr><tr><td><h1>'+decodeURIComponent(data[1])+required_text+'</h1>'+decodeURIComponent(data[2])+'<br><textarea style="width: 99%;" disabled rows="4"></textarea></td></tr></table></li>').insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'" value="'+data+'">').insertBefore($(insertPoint));
-	elementCounter++;
+	createTextQuestion(data, insertPoint);
 }
 
 /*
  * function to create singlechoice question
  */
 function createSingleChoiceQuestion(data, options, insertPoint) {
-	var asseturl = document.getElementById('asseturl').value;
-	var required_text = '';
-	if (data[3] == 1) {
-		required_text = '<font color="red"> *</font>';
+	params = {};
+	params.questionType = data[0];
+	params.questionText = data[1];
+	params.questionHelp = data[2];
+	params.questionRequired = data[3];
+	params.questionID = elementCounter;	 
+	params.questionArrangement = data[4];
+	params.options = options;
+	var successFunction = function(response){
+		responseData = jQuery.parseJSON(response); 
+		$(responseData.html).insertBefore($(insertPoint));
 	}
-	var html = '<li class="ui-state-default" id="element'+elementCounter+'"><table width="100%" class="rapidfeedback_style"><tr><td align="right"><img onclick="editElement('+elementCounter+');" src="'+asseturl+'/edit.png" title="Bearbeiten" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="copyElement('+elementCounter+');" src="'+asseturl+'/copy.png" title="Kopieren" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="deleteElement('+elementCounter+');" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px" style="cursor: pointer; cursor: hand;"></td></tr><tr><td><h1>'+decodeURIComponent(data[1])+required_text+'</h1>'+decodeURIComponent(data[2])+'<br>';
-	for (var i=0; i < options.length; i++) {
-		html = html + '<input type="radio" name="singlechoice_'+elementCounter+'_'+i+'">'+ decodeURIComponent(options[i]) + '<br>';
-	}
-	html = html + '</td></tr></table></li>';
-	$(html).insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'" value="'+data+'">').insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'_options" value="'+options+'">').insertBefore($(insertPoint));
-	elementCounter++;
+	var response = sendRequest('AddQuestion', params, 0, 'data', '', successFunction);
+	elementCounter++;   
 }
 
 /*
  * function to create multiple choice question
  */
 function createMultipleChoiceQuestion(data, options, insertPoint) {
-	var asseturl = document.getElementById('asseturl').value;
-	var required_text = '';
-	if (data[3] == 1) {
-		required_text = '<font color="red"> *</font>';
-	}
-	var html = '<li class="ui-state-default" id="element'+elementCounter+'"><table width="100%" class="rapidfeedback_style"><tr><td align="right"><img onclick="editElement('+elementCounter+');" src="'+asseturl+'/edit.png" title="Bearbeiten" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="copyElement('+elementCounter+');" src="'+asseturl+'/copy.png" title="Kopieren" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="deleteElement('+elementCounter+');" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px" style="cursor: pointer; cursor: hand;"></td></tr><tr><td><h1>'+decodeURIComponent(data[1])+required_text+'</h1>'+decodeURIComponent(data[2])+'<br>';
-	for (var i=0; i < options.length; i++) {
-		html = html + '<input type="checkbox" name="multiplechoice_'+elementCounter+'_'+i+'">'+ decodeURIComponent(options[i]) + '<br>';
-	}
-	html = html + '</td></tr></table></li>';
-	$(html).insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'" value="'+data+'">').insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'_options" value="'+options+'">').insertBefore($(insertPoint));
-	elementCounter++;
+	createSingleChoiceQuestion(data, options, insertPoint);
 }
 
 /*
  * function to create matrix question
  */
 function createMatrixQuestion(data, columns, rows, insertPoint) {
-	var asseturl = document.getElementById('asseturl').value;
-	var required_text = '';
-	if (data[3] == 1) {
-		required_text = '<font color="red"> *</font>';
+	params = {};
+	params.questionType = data[0];
+	params.questionText = data[1];
+	params.questionHelp = data[2];
+	params.questionRequired = data[3];
+	params.questionID = elementCounter;
+	params.columns = columns;
+	params.rows = rows;
+	var successFunction = function(response){
+		responseData = jQuery.parseJSON(response); 
+		$(responseData.html).insertBefore($(insertPoint));
 	}
-	var html = '<li class="ui-state-default" id="element'+elementCounter+'"><table width="100%" class="rapidfeedback_style"><tr><td colspan="'+(columns.length+1)+'" align="right"><img onclick="editElement('+elementCounter+');" src="'+asseturl+'/edit.png" title="Bearbeiten" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="copyElement('+elementCounter+');" src="'+asseturl+'/copy.png" title="Kopieren" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="deleteElement('+elementCounter+');" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px" style="cursor: pointer; cursor: hand;"></td></tr><tr><td colspan="'+(columns.length+1)+'"><h1>'+decodeURIComponent(data[1])+required_text+'</h1>'+decodeURIComponent(data[2])+'</td></tr><tr><td></td>';
-	for (var i=0; i < columns.length; i++) {
-		html = html + '<td>'+decodeURIComponent(columns[i])+'</td>';
-	}
-	html = html + '</tr>';
-	var currentRow = 0;
-	for (var i=0; i < rows.length; i++) {
-			html = html + '<tr>';
-			for (var j=0; j <= columns.length; j++) {
-				if (j == 0) {
-					html = html + '<td>'+decodeURIComponent(rows[i])+'</td>';
-				} else {
-					html = html + '<td><input type="radio" name="matrix_'+elementCounter+'_'+currentRow+'"></td>';
-				}
-			}
-		currentRow++;
-		html = html + '</tr>';
-	}
-	html = html + '</table></li>';
-	$(html).insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'" value="'+data+'">').insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'_columns" value="'+columns+'">').insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'_rows" value="'+rows+'">').insertBefore($(insertPoint));
-	elementCounter++;
+	var response = sendRequest('AddQuestion', params, 0, 'data', '', successFunction);
+	elementCounter++;   
+	return;
 }
 
 /*
  * function to create grading question
  */
-function createGradingQuestion(data, options, insertPoint) {
-	var asseturl = document.getElementById('asseturl').value;
+function createGradingQuestion(data, rows, insertPoint) {
 	var columns = new Array('sehr gut', 'gut', 'befriedigend', 'ausreichend', 'mangelhaft', 'ungenügend');
-	var required_text = '';
-	if (data[3] == 1) {
-		required_text = '<font color="red"> *</font>';
-	}
-	var html = '<li class="ui-state-default" id="element'+elementCounter+'"><table width="100%" class="rapidfeedback_style"><tr><td colspan="'+(columns.length+1)+'" align="right"><img onclick="editElement('+elementCounter+');" src="'+asseturl+'/edit.png" title="Bearbeiten" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="copyElement('+elementCounter+');" src="'+asseturl+'/copy.png" title="Kopieren" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="deleteElement('+elementCounter+');" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px" style="cursor: pointer; cursor: hand;"></td></tr><tr><td colspan="'+(columns.length+1)+'"><h1>'+decodeURIComponent(data[1])+required_text+'</h1>'+decodeURIComponent(data[2])+'</td></tr><tr><td></td>';
-	for (var i=0; i < columns.length; i++) {
-		html = html + '<td>'+decodeURIComponent(columns[i])+'</td>';
-	}
-	html = html + '</tr>';
-	var currentRow = 0;
-	for (var i=0; i < options.length; i++) {
-			html = html + '<tr>';
-			for (var j=0; j <= columns.length; j++) {
-				if (j == 0) {
-					html = html + '<td>'+decodeURIComponent(options[i])+'</td>';
-				} else {
-					html = html + '<td><input type="radio" name="grading_'+elementCounter+'_'+currentRow+'"></td>';
-				}
-			}
-		currentRow++;
-		html = html + '</tr>';
-	}
-	html = html + '</table></li>';
-	$(html).insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'" value="'+data+'">').insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'_rows" value="'+options+'">').insertBefore($(insertPoint));
-	elementCounter++;
-}
-
-function createTendencyQuestion(data, options, insertPoint) {
-	var asseturl = document.getElementById('asseturl').value;
-	var required_text = '';
-	if (data[3] == 1) {
-		required_text = '<font color="red"> *</font>';
-	}
-	var html = '<li class="ui-state-default" id="element'+elementCounter+'"><table width="100%" class="rapidfeedback_style"><tr><td align="right"><img onclick="editElement('+elementCounter+');" src="'+asseturl+'/edit.png" title="Bearbeiten" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="copyElement('+elementCounter+');" src="'+asseturl+'/copy.png" title="Kopieren" width="12px" height="12px" style="cursor: pointer; cursor: hand;">&nbsp<img onclick="deleteElement('+elementCounter+');" src="'+asseturl+'/delete.png" title="Löschen" width="12px" height="12px" style="cursor: pointer; cursor: hand;"></td></tr><tr><td><h1>'+decodeURIComponent(data[1])+required_text+'</h1>'+decodeURIComponent(data[2])+'<br>';
-	var counter = 0;
-	for (var i=0; i < options.length; i = i+2) {
-		html = html + options[i];
-		for (var j=0; j < data[4]; j++) {
-			html = html + '<input type="radio" name="tendency_'+elementCounter+'_'+counter+'">';
-		}
-		html = html + options[i+1] +'<br>';
-		counter++;
-	}
-	html = html + '</td></tr></table></li>';
-	$(html).insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'" value="'+data+'">').insertBefore($(insertPoint));
-	$('<input type="hidden" name="element'+elementCounter+'_options" value="'+options+'">').insertBefore($(insertPoint));
-	elementCounter++;
+	createMatrixQuestion(data, columns, rows, insertPoint);
 }
 
 /*
- * function to initialize admin action fields for post request
+ * function to create tendency question
  */
-function admin_action(action, id, name) {
+function createTendencyQuestion(data, options, insertPoint) {
+	createSingleChoiceQuestion(data, options, insertPoint);
+}
+
+/*
+ * function to request admin actions
+ */
+function admin_action(action, id, name, rf) {
+	params = {};
+	params.id = id;
+	params.action = action;
+	params.rf = rf;
 	if (action == 4) {
 		var check = confirm('Umfrage '+name+' wirklich löschen?');
 		if (check == true) {
-			document.getElementById("admin_action").value = action;
-			document.getElementById("element_id").value = id;
-			document.getElementById("admin_option").submit();
+			sendRequest('AdminAction', params, '', 'reload');
 		}
 	} else {
-		document.getElementById("admin_action").value = action;
-		document.getElementById("element_id").value = id;
-		document.getElementById("admin_option").submit();
+		sendRequest('AdminAction', params, '', 'reload');
 	}
+}
+
+/*
+ * function to check title input
+ */
+function checkTitle() {
+	if ($.trim(document.getElementById("title").value) == "") {
+		alert("Bitte einen Titel eingeben.");
+		return false;
+	} else return true;
 }

@@ -19,20 +19,12 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$TCRExtension = \TCR::getInstance();
 		$TCRExtension->addCSS();
+		$TCRExtension->addJS();
 		$content = $TCRExtension->loadTemplate("tcr_configuration.template.html");
 		$group = $TCR->get_attribute("TCR_GROUP");
 		$members = $group->get_members();
 		$admins = $TCR->get_attribute("TCR_ADMINS"); 
 		$users = $TCR->get_attribute("TCR_USERS");
-		
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
 		
 		if ($group->get_name() == "learners") {
 			$parent = $group->get_parent_group();
@@ -55,7 +47,8 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		
 		// configuration form got submitted
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["change_configuration"])) {
-			$TCR->set_attribute("OBJ_DESC", $_POST["title"]);
+			$TCR->set_name($_POST["title"]);
+			$TCR->set_attribute("OBJ_DESC", $_POST["info"]);
 			if (intval($_POST["rounds"]) > 0) {
 				$TCR->set_attribute("TCR_ROUNDS", $_POST["rounds"]);
 			}
@@ -105,6 +98,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 			}
 			$TCR->set_attribute("TCR_ADMINS", $admins);
 			$TCR->set_attribute("TCR_USERS", $users);
+			$frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
 		}
 		
 		// display error message if current user is no admin
@@ -121,7 +115,6 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in diesem Thesen-Kritik-Replik-Verfahren</center>");
 			$frameResponseObject->addWidget($rawWidget);
 			$frameResponseObject->setHeadline(array(
-				array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 				array("name" => "Thesen-Kritik-Replik-Verfahren", "link" => $TCRExtension->getExtensionUrl() . "Index/" . $this->id),
 				array("name" => "Konfiguration")
 			));
@@ -132,6 +125,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$actionbar = new \Widgets\Actionbar();
 		$actions = array(
 			array("name" => "Konfiguration" , "link" => $TCRExtension->getExtensionUrl() . "configuration/" . $this->id),
+			array("name" => "Rundmail erstellen" , "link" => $TCRExtension->getExtensionUrl() . "mail/" . $this->id),
 			array("name" => "Private Dokumente" , "link" => $TCRExtension->getExtensionUrl() . "privateDocuments/" . $this->id),
 			array("name" => "Übersicht" , "link" => $TCRExtension->getExtensionUrl() . "Index/" . $this->id),
 			array("name" => "Alle Dokumente" , "link" => $TCRExtension->getExtensionUrl() . "documents/" . $this->id));
@@ -141,11 +135,13 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		// display configuration table
 		$content->setCurrentBlock("BLOCK_TCR_CONFIGURATION");
 		$content->setVariable("TCR_OPTIONS", "Thesen-Kritik-Replik-Verfahren Konfiguration");
-		$content->setVariable("TITLE_LABEL", "Titel");
-		$content->setVariable("TITLE_VALUE", $TCR->get_attribute("OBJ_DESC"));
-		$content->setVariable("ROUNDS_LABEL", "Runden");
+		$content->setVariable("TITLE_LABEL", "Titel:*");
+		$content->setVariable("TITLE_VALUE", $TCR->get_name());
+		$content->setVariable("INFO_LABEL", "Infotext:");
+		$content->setVariable("INFO_VALUE", $TCR->get_attribute("OBJ_DESC"));
+		$content->setVariable("ROUNDS_LABEL", "Runden:*");
 		$content->setVariable("ROUNDS_VALUE", $TCR->get_attribute("TCR_ROUNDS"));
-		$content->setVariable("GROUP_LABEL", "Arbeitsgruppe");
+		$content->setVariable("GROUP_LABEL", "Arbeitsgruppe:");
 		$content->setVariable("GROUP_VALUE", $groupname);
 		
 		// user management
@@ -184,7 +180,6 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 			array("name" => "Thesen-Kritik-Replik-Verfahren", "link" => $TCRExtension->getExtensionUrl() . "Index/" . $this->id),
 			array("name" => "Konfiguration")
 		));

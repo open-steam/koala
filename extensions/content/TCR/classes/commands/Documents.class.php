@@ -36,6 +36,7 @@ class Documents extends \AbstractCommand implements \IFrameCommand {
 		if (in_array($user->get_id(), $admins)) {
 			$actions = array(
 				array("name" => "Konfiguration" , "link" => $TCRExtension->getExtensionUrl() . "configuration/" . $this->id),
+				array("name" => "Rundmail erstellen" , "link" => $TCRExtension->getExtensionUrl() . "mail/" . $this->id),
 				array("name" => "Private Dokumente" , "link" => $TCRExtension->getExtensionUrl() . "privateDocuments/" . $this->id),
 				array("name" => "Übersicht" , "link" => $TCRExtension->getExtensionUrl() . "Index/" . $this->id),
 				array("name" => "Alle Dokumente" , "link" => $TCRExtension->getExtensionUrl() . "documents/" . $this->id));
@@ -71,10 +72,12 @@ class Documents extends \AbstractCommand implements \IFrameCommand {
 			$theses[$count] = array();
 		}
 		foreach ($theses_inventory as $thesis) {
-			$critics = $thesis->get_attribute("TCR_REVIEWS");
-			if (count($critics) > 0 && in_array($thesis->get_creator()->get_id(), $members)) {
-				$current_round = $thesis->get_attribute("TCR_ROUND");
-				array_push($theses[$current_round], $thesis);
+			$current_round = $thesis->get_attribute("TCR_ROUND");
+			if ($current_round <= $rounds) {
+				$critics = $thesis->get_attribute("TCR_REVIEWS");
+				if (count($critics) > 0 && in_array($thesis->get_creator()->get_id(), $members) && !($thesis instanceof \steam_container)) {
+					array_push($theses[$current_round], $thesis);
+				}
 			}
 		}
 		
@@ -84,7 +87,7 @@ class Documents extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("ROUND_LABEL", "Runde");
 		$content->setVariable("DOCUMENT_KIND_LABEL", "Art");
 		$content->setVariable("CONTENT_LABEL", "Inhalt");
-		$content->setVariable("AUTHOR_LABEL", "Autor(in)");
+		$content->setVariable("AUTHOR_LABEL", "Autor");
 		$content->setVariable("DATE_LABEL", "Veröffentlicht am");
 		$content->setVariable("COMMENTS_LABEL", "Kommentare");
 		for ($count = 1; $count <= $rounds; $count++) {
@@ -99,17 +102,19 @@ class Documents extends \AbstractCommand implements \IFrameCommand {
 					$content->setCurrentBlock("BLOCK_DOCUMENTS_ELEMENT");
 					$content->setVariable("ASSETURL", $TCRExtension->getAssetUrl());
 					$content->setVariable("DOCUMENT_KIND", "These");
-					$content->setVariable("ELEMENT_URL", $TCRExtension->getExtensionUrl() . "release/" . $current_thesis->get_id());
+					$content->setVariable("ELEMENT_URL", $TCRExtension->getExtensionUrl() . "view/" . $current_thesis->get_id());
 					$content->setVariable("VIEW_ELEMENT", "Inhalt anzeigen");
 					$content->setVariable("ASSETURL", $TCRExtension->getAssetUrl());
-					$content->setVariable("AUTHOR_VALUE", $creator->get_full_name() . " (" . $creator->get_name() . ")");
+					$pic_id = $creator->get_attribute("OBJ_ICON")->get_id();
+					$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/20/30";
+					$content->setVariable("AUTHOR_VALUE", "<img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $creator->get_name() . ">" . $creator->get_full_name() . "</a>");
 					$content->setVariable("DATE_VALUE", date("d.m.Y H:i:s",$date));
 					if (count($current_thesis->get_annotations()) == 1) {
 						$content->setVariable("COMMENTS_VALUE", "(1 Kommentar)");
 					} else {
 						$content->setVariable("COMMENTS_VALUE", "(" .count($current_thesis->get_annotations()) . " Kommentare)");
 					}
-					$content->setVariable("COMMENTS_URL", $TCRExtension->getExtensionUrl() . "release/" . $current_thesis->get_id());
+					$content->setVariable("COMMENTS_URL", $TCRExtension->getExtensionUrl() . "view/" . $current_thesis->get_id());
 					$content->parse("BLOCK_DOCUMENTS_ELEMENT");
 				}
 				
@@ -126,17 +131,19 @@ class Documents extends \AbstractCommand implements \IFrameCommand {
 								$content->setCurrentBlock("BLOCK_DOCUMENTS_ELEMENT");
 								$content->setVariable("ASSETURL", $TCRExtension->getAssetUrl());
 								$content->setVariable("DOCUMENT_KIND", "Kritik");
-								$content->setVariable("ELEMENT_URL", $TCRExtension->getExtensionUrl() . "release/" . $review_object->get_id());
+								$content->setVariable("ELEMENT_URL", $TCRExtension->getExtensionUrl() . "view/" . $review_object->get_id());
 								$content->setVariable("VIEW_ELEMENT", "Inhalt anzeigen");
 								$content->setVariable("ASSETURL", $TCRExtension->getAssetUrl());
-								$content->setVariable("AUTHOR_VALUE", $creator->get_full_name() . " (" . $creator->get_name() . ")");
+								$pic_id = $creator->get_attribute("OBJ_ICON")->get_id();
+								$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/20/30";
+								$content->setVariable("AUTHOR_VALUE", "<img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $creator->get_name() . ">" . $creator->get_full_name() . "</a>");
 								$content->setVariable("DATE_VALUE", date("d.m.Y H:i:s",$date));
 								if (count($review_object->get_annotations()) == 1) {
 									$content->setVariable("COMMENTS_VALUE", "(1 Kommentar)");
 								} else {
 									$content->setVariable("COMMENTS_VALUE", "(" .count($review_object->get_annotations()) . " Kommentare)");
 								}
-								$content->setVariable("COMMENTS_URL", $TCRExtension->getExtensionUrl() . "release/" . $review_object->get_id());
+								$content->setVariable("COMMENTS_URL", $TCRExtension->getExtensionUrl() . "view/" . $review_object->get_id());
 								$content->parse("BLOCK_DOCUMENTS_ELEMENT");
 							}
 							
@@ -152,17 +159,19 @@ class Documents extends \AbstractCommand implements \IFrameCommand {
 										$content->setCurrentBlock("BLOCK_DOCUMENTS_ELEMENT");
 										$content->setVariable("ASSETURL", $TCRExtension->getAssetUrl());
 										$content->setVariable("DOCUMENT_KIND", "Replik");
-										$content->setVariable("ELEMENT_URL", $TCRExtension->getExtensionUrl() . "release/" . $response_object->get_id());
+										$content->setVariable("ELEMENT_URL", $TCRExtension->getExtensionUrl() . "view/" . $response_object->get_id());
 										$content->setVariable("VIEW_ELEMENT", "Inhalt anzeigen");
 										$content->setVariable("ASSETURL", $TCRExtension->getAssetUrl());
-										$content->setVariable("AUTHOR_VALUE", $creator->get_full_name() . " (" . $creator->get_name() . ")");
+										$pic_id = $creator->get_attribute("OBJ_ICON")->get_id();
+										$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/20/30";
+										$content->setVariable("AUTHOR_VALUE", "<img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $creator->get_name() . ">" . $creator->get_full_name() . "</a>");
 										$content->setVariable("DATE_VALUE", date("d.m.Y H:i:s",$date));
 										if (count($response_object->get_annotations()) == 1) {
 											$content->setVariable("COMMENTS_VALUE", "(1 Kommentar)");
 										} else {
 											$content->setVariable("COMMENTS_VALUE", "(" .count($response_object->get_annotations()) . " Kommentare)");
 										}
-										$content->setVariable("COMMENTS_URL", $TCRExtension->getExtensionUrl() . "release/" . $response_object->get_id());
+										$content->setVariable("COMMENTS_URL", $TCRExtension->getExtensionUrl() . "view/" . $response_object->get_id());
 										$content->parse("BLOCK_DOCUMENTS_ELEMENT");
 									}
 								}
@@ -190,21 +199,10 @@ class Documents extends \AbstractCommand implements \IFrameCommand {
 		}
 		$content->parse("BLOCK_DOCUMENTS_TABLE");
 		
-		$group = $TCR->get_attribute("TCR_GROUP");
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
-		
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 			array("name" => "Thesen-Kritik-Replik-Verfahren", "link" => $TCRExtension->getExtensionUrl() . "Index/" . $TCR->get_id()),
 			array("name" => "Alle Dokumente")
 		));

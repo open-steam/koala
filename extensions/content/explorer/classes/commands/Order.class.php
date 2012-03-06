@@ -29,7 +29,7 @@ class Order extends \AbstractCommand implements \IAjaxCommand {
 			$environment->swap_inventory($index, $index+1);
 		} else if ($this->direction == "top") {
 			//$environment->swap_inventory($index, 0);
-			for($i=0;$i<$index;$i++){
+			for($i=0;$i<$index+1;$i++){
 				$environment->swap_inventory(0,$i); 
 			}
 		} else if ($this->direction == "bottom") {

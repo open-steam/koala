@@ -24,7 +24,7 @@ define("STARTPAGE_IMAGE_TEXT_SHORT", "\"teilen\",\"lernen\",\"juntar\",\"share\"
 defined("DISCLAIMER") or define("DISCLAIMER", FALSE);
 defined("CHANGE_PASSWORD") or define("CHANGE_PASSWORD", FALSE);
 
-define("BLACKLISTED_EXTENSIONS", "BookmarksHome, ChangeLogHome, LastVisitedHome, SchoolHome");
+define("BLACKLISTED_EXTENSIONS", "BookmarksHome, ChangeLogHome, LastVisitedHome, SchoolHome, PortfolioHome");
 define("YOUR_COURSES", false);
 define("YOUR_GROUPS", false);
 define("YOUR_PORTFOLIO", true);

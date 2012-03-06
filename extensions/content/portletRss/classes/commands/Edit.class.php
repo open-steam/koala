@@ -61,6 +61,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($lengthInput);
 		$dialog->addWidget($clearer);
 		$dialog->addWidget($checkbox);
+                $dialog->setForceReload(true);
 		$this->dialog = $dialog;
 	}
 	

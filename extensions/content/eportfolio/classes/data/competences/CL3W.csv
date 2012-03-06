@@ -1,10 +1,3 @@
-;"berufliche Kompetenzen";"Beschreibung";"Quelle Curriculum"
-"K1";" Kennt Labor- Informations- und Managementsysteme ";;"II.23.d"
-"K2";"Kennt elektronische Grundlagen von Mess- und Untersuchungsverfahren ";" Kennt gerätetechnische Grundlagen der Chromatografie 
- Kennt Funktionsweise eines Fotometers 
- Kennt Funktionsweise von optischen Sensoren /Sensoren";"II.25.c, L4, L12"
-"K3";" Kennt unterschiedliche Kalibrierverfahren ";;"L12"
-"K4";" Kennt  Methoden zur Nutzung von Eichplänen ";;"L12"
-"K5";"Kennt Prinzipien von Ladung, Stromstärke, Spannung, elektrischer Widerstand, Kirchhoff’sche und Ohm‘sche Gesetz ";;"L20"
-"K6";" Kennt Bedeutung von Funktionssymbolen ";;"L20"
-"K7";" Kennt Funktion und Arbeitsweise von Halbleiterbauelemente und Grundschaltungen";;"L20"
+;berufliche Kompetenzen;Beschreibung;Quelle Curriculum
+1;"Kann betriebsübliche Arbeitsmitteln (z.B. Laborgeräte) handhaben, pflegen und
+Instandhalten";;
