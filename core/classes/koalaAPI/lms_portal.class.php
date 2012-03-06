@@ -469,7 +469,15 @@ return $rand_value;
 	}
 	
 	public function get_icon_bar_html($is_logged_in) {
-		if ( $is_logged_in && PORTAL_ICON_BAR) {
+		if ( $is_logged_in ) {
+                        if (SESSION_RESTORE_PORTAL_DATA) {
+                            if (isset($_SESSION["icon_bar"])) {
+                                $koala_html_menu = new koala_html_menu($_SESSION["icon_bar"]);
+                                return $koala_html_menu->get_html(); 
+                            } else {
+                                return "";
+                            }
+                        }
 			$user = lms_steam::get_current_user();
 			$koala_html_menu = new koala_html_menu();
 			if (USERMANAGEMENT) {
@@ -509,9 +517,13 @@ return $rand_value;
 	{
 		if ( $is_logged_in )
 		{
-                        if (isset($_SESSION["menu"])) {
-                            $koala_html_menu = new koala_html_menu($_SESSION["menu"]);
-                            return $koala_html_menu->get_html(); 
+                        if (SESSION_RESTORE_PORTAL_DATA) {
+                            if (isset($_SESSION["menu"])) {
+                                $koala_html_menu = new koala_html_menu($_SESSION["menu"]);
+                                return $koala_html_menu->get_html(); 
+                            } else {
+                                return "<div id='menu'></div>";
+                            }
                         }
                         $koala_html_menu = new koala_html_menu();
 			$user = lms_steam::get_current_user();
