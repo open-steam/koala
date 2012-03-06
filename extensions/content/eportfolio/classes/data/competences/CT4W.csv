@@ -1,7 +1,5 @@
-;"berufliche Kompetenzen";"Beschreibung";"Quelle Curriculum"
-"K1";" Kennt Prinzipien chemischer Technologie ";;"L5, L6"
-"K2";"Kennt Prinzipien der Prozessdatenauswertung ";;"L5, L6"
-"K3";"Kennt Prinzipien der Prozessleittechnik ";;"L5-SP:Betriebstechnik,
-L6-SP:Betriebstechnik"
-"K4";"Kennt Prinzipien der Verfahrenstechnik ";;"L5-SP:Betriebstechnik,
-L6-SP:Betriebstechnik"
+;berufliche Kompetenzen;Beschreibung;Quelle Curriculum
+1;Kann Prozessdaten berechnen und in Hinblick auf Effektivität bewerten;;
+2;"Kann Steuerungs- und Regelungssysteme in Prozessleitsystemen zur
+Optimierung von Prozessabläufen nutzen (Schwerpunkt: Betriebstechnik)";;
+3;Kann Ablaufsteuerungen projektieren (Schwerpunkt: Betriebstechnik);;

@@ -16,5 +16,10 @@ class CompetenceActivity {
 		$this->niveau = $niveau;
 		$this->niveauDescription = $niveauDescription;
 	}
+	
+	public function getDescriptionHtml(){
+		return "<span title=\"Tätigkeitsfeldbeschreibung: {$this->description}\" style=\"border-bottom:dotted 2px;\">Tätigkeitsfeld {$this->index}: {$this->name}</span>";
+	}
+	
 }
 ?>

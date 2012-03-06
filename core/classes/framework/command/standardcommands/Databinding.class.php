@@ -109,6 +109,7 @@ class Databinding extends \AbstractCommand implements \IAjaxCommand {
 			$oldValue = "";
 			try {
 				$annotation = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), "Annotation", $newValue, "text/plain");
+                                $annotation->set_sanction_all(\steam_factory::get_group($GLOBALS["STEAM"]->get_id(), "steam"));
 				$this->object->add_annotation($annotation);
 				$data["oldValue"] = "";
 				$data["newValue"] = "";

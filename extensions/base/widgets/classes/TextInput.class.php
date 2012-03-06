@@ -15,6 +15,7 @@ class TextInput extends Widget {
 	private $inputWidth;
 	private $inputBackgroundColor;
 	private $autosave = true;
+        private $customSaveCode = "";
 	
 	public function setLabel($label) {
 		$this->label = $label;
@@ -64,7 +65,12 @@ class TextInput extends Widget {
 	public function setAutoSave($autosave) {
 		$this->autosave = $autosave;
 	}
-	
+        
+        public function setCustomSaveCode($js) {
+            $this->customSaveCode = $js;
+        }
+
+
 	public function getHtml() {
 		$reverseSpecialHtmlWidget = new \Widgets\JSWrapper();
 		$reverseSpecialHtmlWidget->setJs("function rSHW(value){
@@ -113,10 +119,10 @@ class TextInput extends Widget {
 			$valueString = htmlspecialchars($valueString);
 			$this->getContent()->setVariable("VALUE", $valueString);
 			if (!$this->autosave) {
-				$this->getContent()->setVariable("CHANGE_FUNCTION", "onClick=\"event.stopPropagation();\" onKeyup=\"if (event.keyCode==13) { value = getElementById({$this->id}).value;rSHW(value); widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")} } else { widgets_textinput_changed({$this->id});}\"");
+				$this->getContent()->setVariable("CHANGE_FUNCTION", "onClick=\"event.stopPropagation();\" onKeyup=\"if (event.keyCode==13) { value = getElementById({$this->id}).value;rSHW(value); widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")}; {$this->customSaveCode} } else { widgets_textinput_changed({$this->id});}\"");
 				$this->getContent()->setVariable("SAVE_FUNCTION", "onClick=\"event.stopPropagation(); value = jQuery('#{$this->id}').val();rSHW(value); widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")}\"");
 			} else {
-				$this->getContent()->setVariable("CHANGE_FUNCTION", "onBlur=\"if (jQuery('#{$this->id}').hasClass('changed')) {value = getElementById({$this->id}).value; widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")}}\" onClick=\"event.stopPropagation();\" onKeyup=\"if (event.keyCode==13) { value = getElementById({$this->id}).value; widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")} } else { widgets_textinput_changed_autosave({$this->id});}\"");
+				$this->getContent()->setVariable("CHANGE_FUNCTION", "onBlur=\"if (jQuery('#{$this->id}').hasClass('changed')) {value = getElementById({$this->id}).value; widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")}}\" onClick=\"event.stopPropagation();\" onKeyup=\"if (event.keyCode==13) { value = jQuery(getElementById({$this->id})).attr('pre') + getElementById({$this->id}).value + jQuery(getElementById({$this->id})).attr('post'); widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")}; {$this->customSaveCode} } else { widgets_textinput_changed_autosave({$this->id});}\"");
 			}
 			$this->getContent()->setVariable("UNDO_FUNCTION", "onClick=\"event.stopPropagation(); value = jQuery('#{$this->id}').attr('oldValue'); widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_undo_success")}\"");
 		} else {

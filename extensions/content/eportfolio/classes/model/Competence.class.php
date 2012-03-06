@@ -3,6 +3,7 @@ namespace Portfolio\Model;
 class Competence {
 
 	static $activities;
+	static $niveaus;
 	static $facets;
 	static $jobs;
 	static $competences;
@@ -19,13 +20,12 @@ class Competence {
 	public $short;
 
 	public static function initReadCompetences(){
-		$path = Portfolio::getInstance()->getExtensionPath(). "classes/data/";
+		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		$competences = array();
 		if (is_dir($path . "competences/")) {
 			if ($dh = opendir($path . "competences/")) {
 				while (($file = readdir($dh)) !== false) {
 					$rows = array();
-					$row = 0;
 					if (($handle = fopen($path."competences/" . $file, "r")) !== FALSE) {
 						$affil = basename($file, ".csv");
 						$job = substr($affil, 0, 2);
@@ -37,8 +37,8 @@ class Competence {
 							$name = (array_key_exists(1, $data)) ? $data[1] : "";
 							$description = (array_key_exists(2, $data)) ? $data[2] : "";
 							$index = (array_key_exists(0, $data)) ? $data[0] : "";
-							$niveau = (array_key_exists(4, $data)) ? $data[4] : "";
-							if ($row>0 && !empty($data[0]))
+							$niveau = self::getNiveau($activity, $job)->niveau;
+							if ($data[0] != "")
 								$competences[$job . $activity . $facet . $data[0]] = new Competence(
 										$name,
 										$description,
@@ -47,7 +47,6 @@ class Competence {
 										$job,
 										$facet,
 										$activity);
-							$row++;
 						}
 						fclose($handle);
 					}
@@ -76,33 +75,6 @@ class Competence {
 				$filtered []= $competence;
 		}
 		return $filtered;
-		/*
-		 if ($job != null && $job != ""){
-		foreach ($competences_tmp as $key => $competence) {
-		if ($job != $competence->job)
-			unset($competences_tmp[$key]);
-		}
-		}
-		if ($activity != null && $activity != ""){
-		foreach ($competences_tmp as $key => $competence) {
-		if ($activity != $competence->activity)
-			unset($competences_tmp[$key]);
-		}
-		}
-		if ($facet != null && $facet != ""){
-		foreach ($competences_tmp as $key => $competence) {
-		if ($facet != $competence->facet)
-			unset($competences_tmp[$key]);
-		}
-		}
-		if ($index != null && $index != ""){
-		foreach ($competences_tmp as $key => $competence) {
-		if ($index != $competence->index)
-			unset($competences_tmp[$key]);
-		}
-		}
-		return $competences_tmp;
-		*/
 	}
 
 	public static function getCompetence($job, $activity, $facet, $index){
@@ -124,7 +96,7 @@ class Competence {
 	}
 
 	public static function getJobs() {
-		$path = Portfolio::getInstance()->getExtensionPath(). "classes/data/";
+		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		if (!empty(self::$jobs)){
 			return self::$jobs;
 		}
@@ -142,8 +114,26 @@ class Competence {
 		return $jobs;
 	}
 
+	/*
+	 * get a job object by the long name like Chemiemeister
+	*/
+	public static function getJobByName($name){
+		$jobs = self::getJobs();
+		foreach ($jobs as $job){
+			if (strtolower($job->name) == strtolower($name))
+				return $job;
+		}
+	}
+
 	public static function getActivityFields() {
-		$path = Portfolio::getInstance()->getExtensionPath(). "classes/data/";
+		if (!empty(self::$activities)){
+			return self::$activities;
+		}
+		return self::initActivities();
+	}
+
+	public static function initActivities() {
+		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		if (!empty(self::$activities)){
 			return self::$activities;
 		}
@@ -152,17 +142,32 @@ class Competence {
 		if (($handle = fopen($path."taetigkeitsfelder.csv", "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 0, ";")) !== FALSE) {
 				if ($row>1)
-					$activities[] = new CompetenceActivity($data[0], $data[1], $data[2], $data[3], $data[4]);
+					$activities[$data[2] . $data[3] . $data[4]] = new CompetenceActivity($data[0], $data[1], $data[2], $data[3], $data[4], $data[5]);
 				$row++;
 			}
 			fclose($handle);
 		}
+		ksort($activities);
 		self::$activities = $activities;
 		return $activities;
 	}
 
+	public static function getActivityFieldsDistinct() {
+		$activities = self::getActivityFields();
+		$distinctActivities = array();
+		$present = array();
+		foreach ($activities as $activity) {
+			if (in_array($activity->name, $present))
+				continue;
+			$distinctActivities [$activity->index]= $activity;
+			$present []= $activity->name;
+		}
+		return $distinctActivities;
+	}
+
+	
 	public static function getFacets() {
-		$path = Portfolio::getInstance()->getExtensionPath(). "classes/data/";
+		$path = \Portfolio::getInstance()->getExtensionPath(). "classes/data/";
 		if (!empty(self::$facets)){
 			return self::$facets;
 		}
@@ -218,6 +223,30 @@ class Competence {
 		return $competencesArray;
 	}
 
+	public static function initNiveaus(){
+		$activities = self::getActivityFields();
+		$niveausArray = array();
+		$tmp = array();
+		foreach ($activities as $activity) {
+			$niveausArray [$activity->index . $activity->job]= new Niveau($activity->name, $activity->niveau,  $activity->job, $activity->niveauDescription, $activity);
+		}
+		self::$niveaus = $niveausArray;
+	}
+
+	public static function getNiveaus(){
+		if (empty(self::$niveaus)){
+			self::initNiveaus();
+		}
+		return self::$niveaus;
+	}
+	
+	public static function getNiveau($activity, $job){
+		if (empty(self::$niveaus)){
+			self::initNiveaus();
+		} 
+		return self::$niveaus[$activity . $job];
+	}
+	
 	public static function getCompetencesQuantity(){
 		if (self::$competencesQuantity){
 			return self::$competencesQuantity;
@@ -307,10 +336,28 @@ class Competence {
 		return $this->activity;
 	}
 
+	/**
+	 * index must be formatted like ActivityJobIndex
+	 * @param unknown_type $index
+	 * @return Ambigous <\Portfolio\Model\CompetenceActivity>
+	 */
+	public static function getActivityObject($index){
+		$activities = self::getActivityFields();
+		return $activities[$index];
+	}
+	
 	public function getIndex(){
 		return $this->index;
 	}
 
+	public function getNiveauObject(){
+		return $this->getNiveau($this->activity, $this->job);
+	}
+	
+	public function getJobObject(){
+		return $this->getJobByName($this->job);
+	}
+	
 	public function getRating() {
 		return $this->rating;
 	}
@@ -318,7 +365,11 @@ class Competence {
 	public function setRating($rating) {
 		$this->rating = $rating;
 	}
-
+	
+	public function getShortHtml(){
+		return "<div style=\"font-size:80%\">({$this->short})</div>";
+	}
+		
 }
 
 ?>

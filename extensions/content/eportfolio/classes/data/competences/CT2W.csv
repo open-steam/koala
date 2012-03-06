@@ -1,9 +1,13 @@
-;"berufliche Kompetenzen";"Beschreibung";"Quelle Curriculum"
-"K1";"Kennt grundlegende mathematisch- naturwissenschaftliche Prinzipien ";;"L1"
-"K2";"Kennt Prinzipien der präparativen Chemie ";;"L6-SP.Labortechnik, 
-L5-SP.Labortechnik"
-"K3";"Kennt Prinzipien der anorganischen, organischen, physikalischen, analytischen Chemie ";;"L1, L2"
-"K4";"Kennt Regelungen zum Arbeits-, Umweltschutz und Arbeitssicherheit ";;"L1"
-"K5";"Kennt Prinzipen des Umweltmanagement und des Sicherheitsmanagement ";;"L4"
-"K6";"Kennt Prinzipien integrierter Managementsysteme ";;"L7"
-"K7";"Kennt Moderations- und Präsentationstechniken ";;"L1"
+;berufliche Kompetenzen;Beschreibung;Quelle Curriculum
+1;"Kann grundlegende und komplexe Synthese- und Produktionsverfahren
+konzeptionieren und die Qualität der erstellten Konzepte im Hinblick auf den
+Realisierungsprozess sowie der Effektivität bewerten";;
+2;"Kann grundlegende und komplexe Synthese- und Produktionsverfahren
+projektieren, dimensionieren, realisieren, validieren und dabei auf Basis der
+Prozessparameter die notwendigen Geräte, Messsysteme, Apparate und
+Maschinen auswählen";;
+3;"Kann zur Optimierung von Synthese- und Produktionsverfahren den Einsatz von
+Stoffen/Geräten/Apparaturen und Maschinen variieren";;
+4;"Kann Wege zur Erstellung von chemischen, biologischen und
+pharmazeutischen Stoffen analysieren, bewerten, entwickeln und ausführen
+(Schwerpunkt: Labortechnik)";;
