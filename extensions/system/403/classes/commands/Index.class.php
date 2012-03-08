@@ -18,7 +18,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		header("HTTP/1.0 403 Not Found");
 		$content = \NotAccess::getInstance()->loadTemplate("403-inline.template.html");
 		$content->setVariable("TITLE", "Kein Zugriff");
-		$content->setVariable("MESSAGE", "Sie haben keine Zugriff auf dieses Dokument.<br/><br/><a href=\"javascript:history.back();\">Der einzige Weg führt zurück.</a>");
+		$content->setVariable("MESSAGE", "Sie haben keinen Zugriff auf dieses Dokument.<br/><br/><a href=\"javascript:history.back();\">Der einzige Weg führt zurück.</a>");
 		
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($content->get());
