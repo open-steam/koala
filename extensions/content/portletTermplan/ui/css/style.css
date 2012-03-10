@@ -9,3 +9,11 @@
 .termplansum{
     text-align:center;
 }
+
+.dateaccepted{
+    background-color:#99EE99;
+}
+
+.datedeclined{
+    background-color:#EE9999;
+}
