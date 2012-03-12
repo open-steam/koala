@@ -1,0 +1,19 @@
+.termplanopenvote{
+    text-align:center;
+}
+
+.termplanclosedvote{
+    text-align:center;
+}
+
+.termplansum{
+    text-align:center;
+}
+
+.dateaccepted{
+    background-color:#99EE99;
+}
+
+.datedeclined{
+    background-color:#EE9999;
+}

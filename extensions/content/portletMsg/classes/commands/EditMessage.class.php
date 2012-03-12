@@ -70,6 +70,7 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$widget->setCheckedValue("checked");
 		$widget->setUncheckedValue("");
 		$dialog->addWidget($widget);
+                $dialog->setForceReload(true);
 		
 		//create widgets
 		//$button1 = new \Widgets\Button();
