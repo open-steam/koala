@@ -1,0 +1,139 @@
+/**
+ *	notification boxes
+ */
+#ex_success {
+    background-color: #1F3;
+    border: 3px solid #1A3;
+    color: #000;
+    font-size: 110%;
+    padding: 8px;
+    text-align: center;
+}
+
+/**
+ *	Layout for Display(...) pages
+ */
+.obj-details {
+	padding-bottom: 15px;
+	width: 70%;
+}
+.obj-details div.split {
+	width: 48%;
+	text-align: left;
+	vertical-align: top;
+	display: inline-block;
+	margin-right: 6px;
+}
+.obj-details div.entry {
+	width: 100%;
+}
+.obj-details div.attribute {
+	width: 143px;
+	color: #036;
+	font-weight: bold;
+	vertical-align: top;
+	padding-bottom: 8px;
+	margin-right: 10px;
+	display: inline-block;
+}
+.obj-details div.value {
+	width: auto;
+	color: #000;
+	vertical-align: top;
+	padding-bottom: 8px;
+	display: inline-block;
+}
+
+/**
+ *	list of files necessary for solution
+ */
+.obj-details div.solution-file {
+	background-color: #b0;
+	border: 1px solid #aff9ae;
+	padding: 3px;
+	margin-bottom: 2px;
+}
+.obj-details div.solution-file span.name {
+	font-weight: bold;
+	color: #555;
+	padding-right: 10px;
+}
+.obj-details div.solution-file span.format {
+	font-style: italic;
+	font-weight: bold;
+	padding-left: 3px;
+}
+
+/**
+ *	box with infos on object status and valid actions
+ */
+.obj-details div.box {
+	padding-bottom: 16px;
+}
+.obj-details div.open {
+	padding: 10px;
+	background-color: #bfc;
+}
+.obj-details div.submitted {
+	padding: 7px;
+	background-color: #ffb;
+}
+.obj-details div.expired {
+	background-color: #fbb;
+}
+.obj-details div.scheduled {
+	background-color: #bdd;
+}
+.obj-details span.option {
+	color: #000;
+	font-weight: bold;
+	font-size: 13px;
+}
+.obj-details span.info {
+	display: block;
+	padding-top: 4px;
+}
+
+/**
+ *	Displaying of Clickable sTeam Documents
+ */
+.obj-documents {
+	width: auto;
+}
+.obj-documents div.doc {
+	width: 265px;
+	background-color: #eff;
+	border: 1px solid #7fbfff;
+	padding: 8px;
+	padding-left: 30px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+/**
+ *	buttons for exerciseForm
+ */
+.buttons a, .buttons button{
+    display: inline-block; 
+    line-height:23px; 
+    padding: 3px 5px 3px 5px; 
+    font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; 
+    font-size: 12px; 
+    color: #3C3C3D; 
+    text-shadow: 1px 1px 0 #FFFFFF; 
+    background: #ECECEC url('../images/css3buttons_backgrounds.png') 0 0 no-repeat; 
+    white-space: nowrap; 
+    overflow: visible; 
+    cursor: pointer; 
+    text-decoration: none; 
+    border: 1px solid #CACACA; 
+    -webkit-border-radius: 2px; 
+    -moz-border-radius: 2px; 
+    -webkit-background-clip: padding-box; 
+    border-radius: 2px; 
+    outline: none; 
+    position: relative; 
+    zoom: 1; 
+    *display: inline;
+}

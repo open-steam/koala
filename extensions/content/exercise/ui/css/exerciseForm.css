@@ -1,0 +1,280 @@
+/**
+ *	information boxes
+ */
+#ex_err {
+    background-color: #D11E01;
+    border: 3px solid #C61C00;
+    color: #EEEEEE;
+    font-size: 110%;
+    padding: 8px;
+    text-align: center;
+}
+
+#exercise-details {
+	width: 80%;
+	text-align: left;
+}
+
+.exercise-information {
+	background-color: #ddd;
+	width: 70%;
+	margin-left:79px;
+	border: 1px solid #06B;
+	padding: 8px;
+}
+.exercise-information span {
+	display: block;
+}
+.exercise-information span.headline {
+	font-weight: bold;
+	font-size: 12px;
+}
+
+/**
+ *	forms for the exercise extension
+ */
+.exerciseForm {
+	border-collapse: collapse;
+	width: 100%;
+}
+.exerciseForm td {
+	border-style: none;
+	padding: 5px;
+	border-right: 3px solid #fff;
+	border-bottom: 2px solid #fff;
+	background-color: #fff;
+}
+.exerciseForm td.attribute {
+	width: 120px;
+	color: #003a6f;
+	font-weight: bold;
+	text-align: right;
+	vertical-align: top;
+	padding-top:8px;
+}
+.exerciseForm td.input {
+	
+}
+.exerciseForm td.headline {
+
+}
+div.valueinfo {
+	/*width: 25%;*/
+	background: #fff;
+	padding: 2px;
+	padding-right: 0px;
+	padding-bottom: 2px;
+	display: inline-block;	
+	
+	color: #06B;
+	font-size: 9px;
+	/*font-style: italic;*/
+}
+span.valueinfo {
+	color: #06B;
+	font-size: 9px;
+	/*font-style: italic;*/
+}
+	
+
+/**
+ *	dynamicList 
+ */
+.dynamicListCont {
+	width: 28%;
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 2px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	display: inline-block;	
+}
+.dynamicListAdder {
+	width: 50px;
+	background: #003A6F;
+	border: 1px solid #ccc;	
+	display: inline-block;
+	vertical-align: top;
+}
+.dynamicList {
+	border-style: none;
+	font-size: 11px;
+	font-family: 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
+	padding: 3px;
+}
+.dynamicList td {
+	padding: 0px;
+}
+
+input.dynamicCell {
+	width: 100%;
+	padding: 2px 0 2px 2px;
+	background: #D4DDF1;
+	border: 1px solid #a1b9e7;
+}
+input.dynamicCell:hover {
+	background: #fff;	
+}
+input.dynamicCell:focus {	
+}
+input.dynamicCell:focus:hover {	
+}
+
+button.dynamicAction {
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+	background: #F7ACAC;
+	border: 1px solid #a1b9e7;	
+	padding: 1px 12px 1px 1px;
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; 
+    font-size: 11px; 
+    font-weight: bold;
+}
+button.dynamicAction:hover {
+	background: red;
+}
+
+button.dynamicListAdder {
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+	background: #c6e6e9;
+	border: none;	
+	padding: 7px 2px 6px 1px;
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; 
+    font-size: 15px; 
+    font-weight: bold;
+}
+button.dynamicListAdder:hover {
+	background: cyan;
+}
+
+
+
+
+/**
+ *	buttons for exerciseForm
+ */
+.buttons a, .buttons button{
+    display: inline-block; 
+    line-height:23px; 
+    padding: 3px 5px 3px 5px; 
+    font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; 
+    font-size: 12px; 
+    color: #3C3C3D; 
+    text-shadow: 1px 1px 0 #FFFFFF; 
+    background: #ECECEC url('../images/css3buttons_backgrounds.png') 0 0 no-repeat; 
+    white-space: nowrap; 
+    overflow: visible; 
+    cursor: pointer; 
+    text-decoration: none; 
+    border: 1px solid #CACACA; 
+    -webkit-border-radius: 2px; 
+    -moz-border-radius: 2px; 
+    -webkit-background-clip: padding-box; 
+    border-radius: 2px; 
+    outline: none; 
+    position: relative; 
+    zoom: 1; 
+    *display: inline;
+}
+
+
+
+
+/**
+ *	style classes for documentUploader
+ */
+.fixedloader_text {
+	color: #003A6F;
+}
+.fixedloader_type {
+	font-weight: bold;
+	color: red;
+}
+.fixedloader_filename {
+	font-style: italic;
+	font-size: 12px;
+}
+ 
+.document-uploader { 
+	text-align:left;
+	width: 50%;
+	border: 1px solid #003a6f;
+	padding: 10px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-right: 0px;
+	display: inline-block;
+}
+
+.document-add-button {
+    display:block; /* or inline-block */
+    width: 190px; padding: 7px 0; text-align:center;    
+    background:#003A6F; border-bottom:1px solid #ddd;color:#fff;
+}
+.document-add-button-disabled {background:#AAAAAA;}
+.document-add-button-hover {background:#acf;}
+.document-add-button-focus {outline:1px dotted black;}
+
+.document-delete-button {
+	display:inline-block;
+	width: 45px; 
+	padding: 7px 0; 
+	margin-left: -1px;
+	margin-top: 5px;
+	vertical-align: top;
+	text-align:center;
+	background:#003A6F; 
+	border-bottom:1px solid #ddd;
+	color:#fff;
+}
+.document-delete-button-disabled {background:#AAAAAA;}
+.document-delete-button-hover {background:#cc0000;}
+.document-delete-button-focus {outline:1px dotted black;}
+
+.qq-uploader { position:relative; width: 100%;}
+
+.qq-upload-button {
+    display:inline-block; /* or inline-block */
+    width: 105px; padding: 7px 0; text-align:center;    
+    background:#003A6F; border-bottom:1px solid #ddd;color:#fff;
+}
+.qq-upload-button-disabled {background:#AAAAAA;}
+.qq-upload-button-hover {background:#22ff22;}
+.qq-upload-button-focus {outline:1px dotted black;}
+
+.qq-delete-button {
+	display:inline-block;
+	width: 105px; 
+	margin-left: 20px;
+	padding: 7px 0; text-align:center;
+	background:#003a6f; border-bottom:1px solid #ddd;color:#fff;
+}
+.qq-delete-button-disabled {background:#AAAAAA;}
+.qq-delete-button-hover {background:#cc0000;}
+.qq-delete-button-focus {outline:1px dotted black;}
+
+.qq-fileinfo {
+	
+}
+
+.qq-upload-list {
+	margin: 0px;
+	padding-left: 30px; 
+	list-style:disc;
+}
+.qq-upload-list li { margin:0; padding:0; line-height:15px; font-size:12px;}
+.qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {
+    margin-right: 7px;
+}
+
+.qq-upload-file {}
+.qq-upload-spinner {display:inline-block; background: url("loading.gif"); width:15px; height:15px; vertical-align:text-bottom;}
+.qq-upload-size,.qq-upload-cancel {font-size:11px;}
+
+.qq-upload-failed-text {display:none;}
+.qq-upload-fail .qq-upload-failed-text {display:inline;}
