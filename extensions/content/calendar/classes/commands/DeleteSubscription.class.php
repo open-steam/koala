@@ -30,10 +30,6 @@ class DeleteSubscription extends \AbstractCommand implements \IFrameCommand, \IA
 
 		$objCalendarId = $this->calendar;
 		$objCalendar = \steam_factory::get_object($steamId, $objCalendarId);
-		$calendarCreatorId = $objCalendar->get_creator()->get_id();
-		if($calendarCreatorId != $currentUserId){
-			throw new \Exception("User is not allowed to subscribe events");
-		}
 		if($objSubscription instanceof \steam_user){
 			$steamCalendar= $objSubscription->get_attribute("USER_CALENDAR");
 		}else{
@@ -52,7 +48,7 @@ class DeleteSubscription extends \AbstractCommand implements \IFrameCommand, \IA
 			}
 		}
 		if(!$deletedSubscription){
-			throw new \Exception("Subcription could not deleted. steam_calendar is not subscribed by the calendar!");
+			throw new \Exception("Subcription could not be deleted. steam_calendar is not subscribed by the calendar!");
 		}
 		$objCalendar->set_attribute("CALENDAR_SUBSCRIPTIONS", $subscriptions);
 

@@ -20,8 +20,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
 	}
 
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {	
-		
+	public function frameResponse(\FrameResponseObject $frameResponseObject) {			
 	
 		$obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$currentUser = \lms_steam::get_current_user();
@@ -37,7 +36,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		$sanctionWrapper->setExtensions("extensions");
 		$sanctions = $sanctionWrapper->getSanction();
 		
-		//RECHTE UND DATEN KÖNNEN ZUR KALENDERAUSGABE VERWENDET WERDEN
+		$dates = array();
+		foreach ($calendars as $id => $calendar){
+			$dates[$id] = $calendar->get_date_objects();
+		}
+		
+		
+		//HIER KÖNNTE DIE GRAFISCHE AUSGABE BEGINNEN, Rechte und Daten stehen bereit
 		
 		return $frameResponseObject;
 	}
@@ -46,8 +51,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		return $ajaxResponseObject;
 
 	}
-	private static function getSanctionForSemester(\steam_group $semester){
-		
-	}
+
 }
 ?>

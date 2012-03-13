@@ -9,7 +9,7 @@ class AddSubscriptions extends \AbstractCommand implements \IFrameCommand, \IAja
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-//TODO:FUNKTIONIERT FÜR KALENDER UND USERKALENDER
+	//TODO:FUNKTIONIERT FÜR KALENDER, GRUPPEN UND USERKALENDER
 	public function processData(\IRequestObject $requestObject) {
 		if ($requestObject instanceof \UrlRequestObject) {
 			$this->params = $requestObject->getParams();
@@ -20,6 +20,7 @@ class AddSubscriptions extends \AbstractCommand implements \IFrameCommand, \IAja
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 			isset($this->params["calendar"]) ? $this->calendar = $this->params["calendar"] : "";
 		}
+
 		$currentUser=\lms_steam::get_current_user();
 		$currentUserId=$currentUser->get_id();
 		$steam=$GLOBALS["STEAM"];
@@ -31,18 +32,16 @@ class AddSubscriptions extends \AbstractCommand implements \IFrameCommand, \IAja
 		$objCalendarId = $this->calendar;
 		$objCalendar = \steam_factory::get_object($steamId, $objCalendarId);
 		$calendarCreatorId = $objCalendar->get_creator()->get_id();
-		if($calendarCreatorId != $currentUserId){
-			throw new \Exception("User is not allowed to subscribe events in this calendar");
-		}
 		if(!($objCalendar instanceof \steam_room && $objCalendar->get_attribute("OBJ_TYPE") === "calendar")){
 			throw new \Exception("param 1 is not instance of calendar!");
 		}
 
+		//Unterscheide, ob Gruppe, Semester oder Kurs
 		if($objSubscription instanceof \steam_group){
 			$objType = $objSubscription->get_attribute("OBJ_TYPE");
-			//DO IT FOR COURSE 
+			//DO IT FOR COURSE
 			//if($objType=="course"){
-				
+
 			//}else if($objType=="group_tutorial_koala")
 			$parent = $objSubscription->get_parent_group();
 			$parentName = $parent->get_name();
@@ -51,27 +50,35 @@ class AddSubscriptions extends \AbstractCommand implements \IFrameCommand, \IAja
 				if(self::isSteamCalendarEmpty($steamCalendar)){
 					$semesterStart = $objSubscription->get_attribute("SEMESTER_START_DATE");
 					$semesterEnd = $objSubscription->get_attribute("SEMESTER_END_DATE");
-						
+
 					$data = array();
 					$data["DATE_END_DATE"] = $semesterStart;
 					$data["DATE_START_DATE"]= $semesterStart;
 					$data["DATE_TITLE"] = "Beginn des Semesters";
 					$data["DATE_DESCRIPTION"]= "Semesterbeginn";
 					$steamCalendar->add_entry($data);
-						
+
 					$data = array();
 					$data["DATE_END_DATE"] = $semesterEnd;
 					$data["DATE_START_DATE"]= $semesterEnd;
 					$data["DATE_TITLE"] = "Ende des Semesters";
 					$data["DATE_DESCRIPTION"]= "Semesterende";
 					$steamCalendar->add_entry($data);
-						
+
 				}
 				$subscriptions=$objCalendar->get_attribute("CALENDAR_SUBSCRIPTIONS");
-				$subscriptions[]=$steamCalendar->get_id();
+				$subscriptions[]=$steamCalendar;
 				$objCalendar->set_attribute("CALENDAR_SUBSCRIPTIONS", $subscriptions);
 			}else if($parentName == "PublicGroups"){
-					//NORMAL GROUP
+				$steamCalendar=$objSubscription->get_attribute("GROUP_CALENDAR");
+				$subscriptions=$objCalendar->get_attribute("CALENDAR_SUBSCRIPTIONS");
+				if(!self::isInSubscriptionArray($steamCalendar, $subscriptions)){
+					$subscriptions[]=$steamCalendar;
+					$objCalendar->set_attribute("CALENDAR_SUBSCRIPTIONS", $subscriptions);
+				}else{
+					echo "Already subscribed";
+				}
+
 			}else{
 				throw new \Exception("Kind of Group is not defined");
 			}
@@ -80,29 +87,33 @@ class AddSubscriptions extends \AbstractCommand implements \IFrameCommand, \IAja
 			if($objType == "calendar"){
 				$steamCalendar=$objSubscription->get_attribute("GROUP_CALENDAR");
 				$subscriptions=$objCalendar->get_attribute("CALENDAR_SUBSCRIPTIONS");
-				if(!self::isInSubscriptionArray($steamCalendar, $subscriptions));
-				$subscriptions[]=$steamCalendar;
-				$objCalendar->set_attribute("CALENDAR_SUBSCRIPTIONS", $subscriptions);
+				if(!self::isInSubscriptionArray($steamCalendar, $subscriptions)){
+					$subscriptions[]=$steamCalendar;
+					$objCalendar->set_attribute("CALENDAR_SUBSCRIPTIONS", $subscriptions);
+
+				}
 			} //INSERT NEW ROOM TYPES HERE
-				
-		//} else if($objSubscription instanceof \steam_container){
-				
+
+			//} else if($objSubscription instanceof \steam_container){
+
 		}else if($objSubscription instanceof \steam_user){
 			if($currentUser->get_id() == $objSubscriptionId){
 				$steamCalendar=$objSubscription->get_attribute("USER_CALENDAR");
 				$subscriptions = $objCalendar->get_attribute("CALENDAR_SUBSCRIPTIONS");
-				$subscriptions[]=$steamCalendar;
-				$objCalendar->set_attribute("CALENDAR_SUBSCRIPTIONS", $subscriptions);
-			}else{
-				throw new \Exception("You do not have the permission to subscribe this calendar. You are not allowed to subscribed the calendar of a diffrent user.");
+				if(!self::isInSubscriptionArray($steamCalendar, $subscriptions)){
+					$subscriptions[]=$steamCalendar;
+					$objCalendar->set_attribute("CALENDAR_SUBSCRIPTIONS", $subscriptions);
+				}else{
+					echo "Already subscribed";
+				}
 			}
-		}
-		else{
-			throw new \Exception("Extensiontype can not be subscribed!");
-		}
+			else{
+				throw new \Exception("Extensiontype can not be subscribed!");
+			}
+			return $requestObject;
 
+		}
 	}
-
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		return $frameResponseObject;
 	}
