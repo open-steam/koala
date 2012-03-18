@@ -34,7 +34,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 				if ($subgroup->get_name() == "staff") {
 					$staff = $subgroup->get_members();
 					foreach ($staff as $staffMember) {
-						if ($staffMember instanceof \steam_user) {
+						if ($staffMember instanceof \steam_user && !in_array($staffMember, $members)) {
 							array_push($members, $staffMember);
 						}
 					}
@@ -63,7 +63,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 				$members_post = array();
 			}
 			foreach ($members as $member) {
-				if ($member instanceof \steam_user) {
+				if ($member instanceof \steam_user && ($member->get_name() != "root")) {
 					if (!array_key_exists($member->get_id(), $admins_post)) {
 						$admins_post[$member->get_id()] = "off";
 					}
@@ -75,7 +75,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 			$former_admins_post = $_POST["formeradmin"];
 			$former_members_post = $_POST["formermember"];
 			foreach ($members as $member) {
-				if ($member instanceof \steam_user) {
+				if ($member instanceof \steam_user && ($member->get_name() != "root")) {
 					// set new admin rights
 					if ($admins_post[$member->get_id()] != $former_admins_post[$member->get_id()] && $member->get_id() != $TCR->get_creator()->get_id()) {
 						if ($admins_post[$member->get_id()] == "off" && $former_admins_post[$member->get_id()] == "on") {
@@ -151,7 +151,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("MEMBER_LABEL", "Teilnehmer");
 		usort($members, "sort_workplans");
 		foreach ($members as $member) {
-			if ($member instanceof \steam_user) {
+			if ($member instanceof \steam_user && ($member->get_name() != "root")) {
 				$content->setCurrentBlock("BLOCK_USER");
 				$content->setVariable("USER_NAME", $member->get_full_name() . " (" . $member->get_name() . ")");
 				$content->setVariable("USER_ID", $member->get_id());
