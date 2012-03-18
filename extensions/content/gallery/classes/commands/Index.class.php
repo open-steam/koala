@@ -49,9 +49,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 		//get inventory and inventorys attributes if allowed to
 
-		
-		
-		
+
+
+
 		$allowed = $currentRoom->check_access_read($steamUser, 1);
 		$result = $GLOBALS["STEAM"]->buffer_flush();
 		$writeAllowed = $result[$writeAllowed];
@@ -109,6 +109,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$tpl = \Gallery::getInstance()->loadTemplate("gallery.template.html");
 		//$tpl= new \HTML_TEMPLATE_IT();
 		//$tpl->loadTemplateFile(\Gallery::getInstance()->getExtensionPath()."ui/html/gallery.template.html");
+		$tpl->setVariable("CURRENT_OBJ_ID", $objectId);
 		$tpl->setVariable("IMAGEURL",\Gallery::getInstance()->getAssetUrl()."image/round_green_play_button_4044.jpg");
 			
 		$tpl->setVariable("FROM", max($from+1  , 1));
@@ -167,7 +168,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		//GET RIGHTS
 
 		$sanction=$currentRoom->get_sanction();
-		
+
 		$attrib = $this->object->get_attributes(array(OBJ_NAME, OBJ_DESC, "bid:doctype"));
 		$bid_doctype = isset($attrib["bid:doctype"]) ? $attrib["bid:doctype"] : "";
 		$docTypeQuestionary = strcmp($attrib["bid:doctype"], "questionary") == 0;
@@ -201,53 +202,54 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				if($envSanction[$steamUserId] >= $SANCTION_WRITE_FOR_CURRENT_OBJECT ){
 					$sanctionFlag=true;
 				}
-			}	
+			}
 		}
 		$currentRoomCreater = $currentRoom->get_creator();
 		$currentRoomCreaterId = $currentRoomCreater->get_id();
 		if($currentRoomCreaterId == $steamUserId){
 			$sanctionFlag=true;
 		}
-		
+
 
 		for ($i = 0; $i < count($inventory); $i++) {
-			$tpl->setCurrentBlock("ITEM");
 			$item = $inventory[$i];
-			if($sanctionFlag){
-				$tpl->setVariable("REMOVE_ICON",\Gallery::getInstance()->getAssetUrl()."icons/trash.png");
-				$tpl->setVariable("ITEM_PATH_URL2", PATH_URL);
-				$tpl->setVariable("ITEM_THUMBNAIL_ID2",$item->get_id());
-			}
-			$tpl->setVariable("FULLSCREEN_ICON", \Gallery::getInstance()->getAssetUrl()."icons/image_fullscreen.png");
-			$tpl->setVariable("SAVE_ICON", \Gallery::getInstance()->getAssetUrl()."icons/image_save.png");
-			$tpl->setVariable("EDIT_ICON", \Gallery::getInstance()->getAssetUrl()."icons/image_properties.gif");
-			$popupMenu= new \Widgets\PopupMenu();
-			$popupMenu->setData($item);
-			$popupMenu->setElementId("gallery-overlay");
-			$tpl->setVariable("POPUP_MENU", $popupMenu->getHtml());
-			$rawHtml->addWidget($popupMenu);
-			// Skip image if rights are insufficient
 			if (!$itemReadAccess[$item->get_id()]) {
 				$undisplayedPicCount++;
 				continue;
 			}
-			$itemName = $item->get_attribute(OBJ_NAME);
-			$itemDescription = $item->get_attribute(OBJ_DESC);
-			$itemKeywords = implode (", ", $item->get_attribute(OBJ_KEYWORDS));
-			$itemMimetype = $item->get_attribute(DOC_MIME_TYPE);
-
-			//set Item
-			$tpl->setVariable("OBJECT_ID",$item->get_id());
-			$tpl->setVariable("OBJECT_NAME", $itemName);
-			$tpl->setVariable("OBJECT_DESC", $itemDescription);
-			$tpl->setVariable("OBJECT_KEYWORDS", $itemKeywords);
+				
 
 			// render a steam_document
 			if($item instanceof \steam_document)
 			{
+				$itemMimetype = $item->get_attribute(DOC_MIME_TYPE);
 				//care for documents not to be displayed in the browser
 				if($itemMimetype === "image/gif" || $itemMimetype === "image/jpg"
 				|| $itemMimetype === "image/jpeg" || $itemMimetype === "image/png") {
+					$tpl->setCurrentBlock("ITEM");
+					if($sanctionFlag){
+						$tpl->setVariable("REMOVE_ICON",\Gallery::getInstance()->getAssetUrl()."icons/trash.png");
+						$tpl->setVariable("ITEM_PATH_URL2", PATH_URL);
+						$tpl->setVariable("ITEM_THUMBNAIL_ID2",$item->get_id());
+					}
+					$tpl->setVariable("FULLSCREEN_ICON", \Gallery::getInstance()->getAssetUrl()."icons/image_fullscreen.png");
+					$tpl->setVariable("SAVE_ICON", \Gallery::getInstance()->getAssetUrl()."icons/image_save.png");
+					$tpl->setVariable("EDIT_ICON", \Gallery::getInstance()->getAssetUrl()."icons/image_properties.gif");
+					$popupMenu= new \Widgets\PopupMenu();
+					$popupMenu->setData($item);
+					$popupMenu->setElementId("gallery-overlay");
+					$tpl->setVariable("POPUP_MENU", $popupMenu->getHtml());
+					$rawHtml->addWidget($popupMenu);
+					// Skip image if rights are insufficient
+
+					$itemName = $item->get_attribute(OBJ_NAME);
+					$itemDescription = $item->get_attribute(OBJ_DESC);
+					$itemKeywords = implode (", ", $item->get_attribute(OBJ_KEYWORDS));					
+					//set Item
+					$tpl->setVariable("OBJECT_ID",$item->get_id());
+					$tpl->setVariable("OBJECT_NAME", $itemName);
+					$tpl->setVariable("OBJECT_DESC", $itemDescription);
+					$tpl->setVariable("OBJECT_KEYWORDS", $itemKeywords);
 					$tpl->setVariable("ITEM_PATH_URL", PATH_URL);
 					$tpl->setVariable("ITEM_THUMBNAIL_ID", $item->get_id());
 					$tpl->setVariable("ITEM_BIGTHUMB_ID", $item->get_id());
@@ -259,41 +261,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				}
 			}
 		}
-		//set invisible items for colorbox
-		for ($i = 0; $i < count($inventory); $i++) {
-			$tpl->setCurrentBlock("INV");
-			$item = $inventory[$i];
-			// Skip image if rights are insufficient
-			if (!$itemReadAccess[$item->get_id()]) {
-				$undisplayedPicCount++;
-				continue;
-			}
-			$itemName = $item->get_attribute(OBJ_NAME);
-			$itemDescription = $item->get_attribute(OBJ_DESC);
-			$itemKeywords = implode (", ", $item->get_attribute(OBJ_KEYWORDS));
-			$itemMimetype = $item->get_attribute(DOC_MIME_TYPE);
-			// set display name
-			$objectDisplayName= $itemName;
-			if($itemDescription === 0){
-				$itemDescription="";
-			}
-			$tpl->setVariable("OBJECT_NAME", $objectDisplayName);
-			$tpl->setVariable("OBJECT_DESC", $itemDescription);
-			// render a steam_document
-			if($item instanceof \steam_document)
-			{
-				//care for documents not to be displayed in the browser
-				if($itemMimetype === "image/gif" || $itemMimetype === "image/jpg"
-				|| $itemMimetype === "image/jpeg" || $itemMimetype === "image/png") {
-					$tpl->setVariable("ITEM_PATH_URL", PATH_URL);
-					$tpl->setVariable("ITEM_THUMBNAIL_ID", $item->get_id());
-					$tpl->parse("INV");
-				}
-			}
-		}
-
 		$actionBar = new \Widgets\ActionBar();
-		$actionBar->setActions(array(array("name"=>"Neues Bild", "ajax"=>array("onclick"=>array("command"=>"Addpicture", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"Properties", "params"=>array("id"=>$this->id), "requestType"=>"popup", "namespace"=>"explorer"))), array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup", "namespace"=>"explorer")))));
+		$actionBar->setActions(array(array("name"=> "Explorer-Ansicht", "link" => PATH_URL."gallery/explorerView/".$this->id."/"),array("name"=>"Neues Bild", "ajax"=>array("onclick"=>array("command"=>"Addpicture", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"Properties", "params"=>array("id"=>$this->id), "requestType"=>"popup", "namespace"=>"explorer"))), array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup", "namespace"=>"explorer")))));
 
 		$css = self::auslesen(PATH_URL . "gallery/css/style.css");
 		$js = self::auslesen(PATH_URL . "gallery/js/code.js");
