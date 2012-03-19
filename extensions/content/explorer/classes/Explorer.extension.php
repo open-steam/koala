@@ -37,7 +37,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension{
 		                                 array("name"=>"Zwischenablage leeren", "onclick"=>"sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');")) : ""), 
 		             array("name"=> "<div id=\"trashbinIconbarWrapper\">".$trashbinModel->getIconbarHtml()."</div>", 
 		                   "menu"=> ($trashbinCount > 0 ) ? array(array("name"=>"Papierkorb leeren", "onclick"=>"sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');"), 
-		                                 array("name"=>"Papierkorb öffnen")) : "")
+		                                 array("name"=>"Papierkorb öffnen", "link" => "/trashbin/")) : "")
 		);
 	}
 	
