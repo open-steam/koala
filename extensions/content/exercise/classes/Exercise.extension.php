@@ -43,5 +43,9 @@ class Exercise extends AbstractExtension implements IObjectExtension{
 		}
 		return null;
 	}
+        
+        public function getPriority() {
+		return 5;
+	}
 }
 ?>
