@@ -140,6 +140,7 @@ class CreateSolution extends \AbstractCommand implements \IFrameCommand {
 				
 				if ( Index::existsContainer($sl_path .$ex_container_name) ) {
 					
+					//$ex_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $sl_path . $ex_container_name);
 					$ex_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $ex_container_name); //id of container is name of the container in sl path.
 					$ex_container_id = $ex_container->get_id();
 					
@@ -162,7 +163,8 @@ class CreateSolution extends \AbstractCommand implements \IFrameCommand {
 				
 				$ex_container_name = $this->params[0];
 				if ( Index::existsContainer($sl_path .$ex_container_name) ) {
-				
+					
+					//$ex_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $sl_path . $ex_container_name);
 					$ex_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $ex_container_name);
 					$ex_container_id = $ex_container->get_id();
 					
@@ -406,6 +408,9 @@ class CreateSolution extends \AbstractCommand implements \IFrameCommand {
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/"), array("name" => $ex_container->get_name(), "link" => PATH_URL . "exercise/DisplayExercise/" . $ex_container->get_name()), array("name" => "L&ouml;sung ".$operation_mode_string)));
 		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
+		
 		$tmplt = \Exercise::getInstance()->loadTemplate("CreateSolution.template.html");
 		
 		if ( isset($_SESSION['ERROR']) && isset($_SESSION['ERRMSG']) && $_SESSION['ERROR'] === TRUE ) {
@@ -540,6 +545,9 @@ class CreateSolution extends \AbstractCommand implements \IFrameCommand {
 		$tmplt->setVariable( "PRELOAD", $preload );
 		
 		
+		
+		
+		
 		/*
 		 * Set parameters for exerciseForm and fileUploaders
 		 */
@@ -561,6 +569,7 @@ class CreateSolution extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

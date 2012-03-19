@@ -204,7 +204,10 @@ class BalanceWorkloads extends \AbstractCommand implements \IFrameCommand {
 		 */
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Abgaben verteilen")));
-
+		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
+		
 		$tmplt = \Exercise::getInstance()->loadTemplate("BalanceWorkloads.template.html");
 		
 		if ( $err ) {
@@ -262,6 +265,7 @@ class BalanceWorkloads extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

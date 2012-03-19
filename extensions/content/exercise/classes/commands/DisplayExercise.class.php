@@ -20,7 +20,10 @@ class DisplayExercise extends \AbstractCommand implements \IFrameCommand {
 	}
 
 	public function execute( \FrameResponseObject $frameResponseObject ){
-
+		
+	#get Exercise Object from url
+		//$exercise = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+		//$courseroom = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), "Courses." . $prm[0] . "." . $prm[1]);
 		/*
 		 * for testing purpose preselect course EXT-01: 
 		 */
@@ -94,6 +97,8 @@ class DisplayExercise extends \AbstractCommand implements \IFrameCommand {
 			$ex_documents[] = $farr;
 		}
 		
+		
+		
 		/*
 		 * Template
 		 */
@@ -166,6 +171,7 @@ class DisplayExercise extends \AbstractCommand implements \IFrameCommand {
 				else {
 					#is open
 					$t = self::timeLeft($end);
+					//$link = '<a href="' . PATH_URL . 'exercise/CreateSolution/' . $container_id . '/">L&ouml;sung erstellen</a>';
 					$link =  '<div class="buttons" style="margin-top: 5px;"> ' .
 							 '<button type="submit" onClick="window.location.href = \'' . PATH_URL . 'exercise/CreateSolution/' . $container_id .'/\';">' .
 							 '&Uuml;bungsblatt einreichen' .
@@ -231,8 +237,9 @@ class DisplayExercise extends \AbstractCommand implements \IFrameCommand {
 	/**
 	 * function timeLeft()
 	 * 
+	 * Enter description here ...
 	 * @static
-	 * @param String $deadline
+	 * @param unknown_type $deadline
 	 */
 	public static function timeLeft ($deadline) {
 			

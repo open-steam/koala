@@ -48,7 +48,14 @@ class ListExercises extends \AbstractCommand implements \IFrameCommand {
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "Übungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Liste der Aufgaben")));
 		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
+		
 		$tmplt = \Exercise::getInstance()->loadTemplate("ListExercises.template.html");
+		
+		
+		
+		
 		
 		foreach ($exercises as $entry) {
 			
@@ -114,6 +121,7 @@ class ListExercises extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

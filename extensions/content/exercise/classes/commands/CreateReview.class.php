@@ -281,7 +281,10 @@ class CreateReview extends \AbstractCommand implements \IFrameCommand {
 		
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Lösung " . $rv_container_name, "link" => PATH_URL . "exercise/DisplaySolution/" . $ex_container_name . "/" . $rv_container_name ), array("name" => "Korrektur ".$operation_mode_string)));
-	
+		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
+		
 		$tmplt = \Exercise::getInstance()->loadTemplate("CreateReview.template.html");
 		
 		if ( isset($_SESSION['ERROR']) && isset($_SESSION['ERRMSG']) && $_SESSION['ERROR'] === TRUE ) {
@@ -367,6 +370,7 @@ class CreateReview extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

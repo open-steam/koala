@@ -38,6 +38,7 @@ class DisplaySolution extends \AbstractCommand implements \IFrameCommand {
 				
 				if ( Index::existsContainer($sl_path .$ex_container_name) ) {
 					
+					//$ex_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $sl_path . $ex_container_name);
 					$ex_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $ex_container_name); //id of container is name of the container in sl path.
 					$ex_container_id = $ex_container->get_id();
 					
@@ -103,11 +104,15 @@ class DisplaySolution extends \AbstractCommand implements \IFrameCommand {
 		}
 		
 		
+		
 		/*
 		 * Template
 		 */
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "Übungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Meine L&ouml;sungen", "link" => PATH_URL . "exercise/ListSolutions/"), array("name" => "L&ouml;sung zu " . $ex_container->get_name())));
+		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "L&ouml;sung", "link" => PATH_URL . "exercise/CreateSolution/" . $ex_container_name . "/" . $sl_container_name . "/"), ));
 		
 		$tmplt = \Exercise::getInstance()->loadTemplate("DisplaySolution.template.html");
 		
@@ -156,6 +161,7 @@ class DisplaySolution extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

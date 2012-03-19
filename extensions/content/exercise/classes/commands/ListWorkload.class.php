@@ -82,6 +82,9 @@ class ListWorkload extends \AbstractCommand implements \IFrameCommand {
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "Übungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Meine zugeteilten Abgaben f&uuml;r \"".$ex_container->get_name()."\"")));
 		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
+		
 		$tmplt = \Exercise::getInstance()->loadTemplate("ListWorkload.template.html");
 		
 		if ( !$submission_closed ) { 
@@ -155,6 +158,7 @@ class ListWorkload extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

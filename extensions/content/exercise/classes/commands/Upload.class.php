@@ -158,6 +158,27 @@ class qqFileUploader {
         $filename = $pathinfo['filename'];
         $ext = $pathinfo['extension'];
         
+        /*
+         * Do not validate file on server side
+         *
+        if (!$this->file){
+            return array('error' => 'No files were uploaded.');
+        }
+        $size = $this->file->getSize();
+        if ($size == 0) {
+            return array('error' => 'File is empty');
+        }
+        if ($size > $this->sizeLimit) {
+            return array('error' => 'File is too large');
+        }
+        if($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)){
+            $these = implode(', ', $this->allowedExtensions);
+            return array('error' => 'File has an invalid extension, it should be one of '. $these . '.');
+        }
+         *
+         *
+         */
+        
         if(!$replaceOldFile){
             /// don't overwrite previous files that were uploaded
             while (file_exists($uploadDirectory . $filename . '.' . $ext)) {

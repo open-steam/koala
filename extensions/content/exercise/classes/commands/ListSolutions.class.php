@@ -34,6 +34,28 @@ class ListSolutions extends \AbstractCommand implements \IFrameCommand {
 		 * Get Data
 		 */
 		$sl_base_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $sl_path);
+		/*
+		if ( isset ( $this->params[0] ) ) {
+			
+			$ex_container_name = $this->params[0];
+			
+			if ( self::existsContainer($sl_path . $ex_container_name) ) {
+				
+				$sl_base_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $sl_path);
+				//$ex_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $ex_container_name);
+				//$ex_container_id = $ex_container->get_id();
+				
+			}
+			else {
+				echo "error: Exercise does not exist"; 
+				die;
+			}
+		}
+		else {
+			echo "error: no Exercise selected!";
+			die;  
+		}
+		*/
 		
 		/*
 		 * Fetch all of the current users solutions in this course
@@ -68,6 +90,9 @@ class ListSolutions extends \AbstractCommand implements \IFrameCommand {
 		 */
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "Übungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Meine L&ouml;sungen")));
+		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
 		
 		$tmplt = \Exercise::getInstance()->loadTemplate("ListSolutions.template.html");
 		
@@ -166,6 +191,7 @@ class ListSolutions extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

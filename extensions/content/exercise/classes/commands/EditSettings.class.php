@@ -128,7 +128,13 @@ class EditSettings extends \AbstractCommand implements \IFrameCommand {
 	public function execute( \FrameResponseObject $frameResponseObject ){
 
 		$prm = array("WS1011", "Ext-01");
+		//$basepath = "/home/Courses." . $prm[0] . "." . $prm[1] . ".learners/";
 		$basepath = "/home/Courses." . $prm[0] . "." . $prm[1] . "/";
+		/*
+		$ex_path = $basepath . "exercises/";
+		$sl_path = $basepath . "solutions/";
+		$rv_path = $basepath . "reviews/";
+		*/
 		
 		$container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $basepath);
 		$container_id = $container->get_id();
@@ -278,6 +284,9 @@ class EditSettings extends \AbstractCommand implements \IFrameCommand {
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Einstellungen")));
 		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
+		
 		$tmplt = \Exercise::getInstance()->loadTemplate("EditSettings.template.html");
 		
 		if ( isset($_SESSION['ERROR']) && isset($_SESSION['ERRMSG']) && $_SESSION['ERROR'] === TRUE ) {
@@ -387,6 +396,7 @@ class EditSettings extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

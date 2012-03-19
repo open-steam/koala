@@ -160,7 +160,10 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 	}
 
 	public function execute( \FrameResponseObject $frameResponseObject ){
-
+		
+	#get Exercise Object from url
+		//$exercise = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+		//$courseroom = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), "Courses." . $prm[0] . "." . $prm[1]);
 		/*
 		 * for testing purpose preselect course EXT-01: 
 		 */
@@ -371,6 +374,9 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "&Uuml;bung ".$operation_mode_string)));
 		
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
+		
 		$tmplt = \Exercise::getInstance()->loadTemplate("CreateExercise.template.html");
 		
 		if ( isset($_SESSION['ERROR']) && isset($_SESSION['ERRMSG']) && $_SESSION['ERROR'] === TRUE ) {
@@ -434,14 +440,19 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 		}
 		$tmplt->setVariable( "SUBMIT_BUTTON_LABEL", $operation_button_label );
 		
+		
+		
+		
+		
+		
 		/*
 		 * Get existing documents in the exercise container for the documentUploader
 		 */
 		$fltr = array(array( '-', 'attribute', 'DELETEFLAG', '!=', 'FALSE' ),
 					  array( '+', 'class', CLASS_DOCUMENT ));
-		$sort = array(array( '<', 'attribute', 'OBJ_NAME' ));
+		$sort = array(array( '<', 'attribute', 'OBJ_NAME' ));  // '<' alphabetisch aufsteigend
 		
-		$document = $container->get_inventory_filtered( $fltr , $sort, 0, 0 );
+		$document = $container->get_inventory_filtered( $fltr , $sort, 0, 0 );  //@see steam_container for more filter options
 		$nofile = true;
 		$preload = "";
 		$preload_array = array();
@@ -463,6 +474,9 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 		}
 		
 		$tmplt->setVariable( "PRELOAD", $preload );
+		
+		
+		
 		
 		
 		/*
@@ -487,6 +501,7 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 		
 		$frameResponseObject->setTitle("Exercise");
 		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($rawHtml);
 		
 		return $frameResponseObject;

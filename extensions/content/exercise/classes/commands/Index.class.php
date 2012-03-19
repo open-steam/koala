@@ -60,11 +60,25 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		if ($chkexist == null) {
 			$exists = FALSE;
 		}
+		//$exists ? $html .= "Existiert." : $html .= "Existiert nicht!";
 		
 		return $exists;
 	}
 
-	public function execute( \FrameResponseObject $frameResponseObject ){		
+	public function execute( \FrameResponseObject $frameResponseObject ){
+		
+		
+		/* RIGHTS INFO
+			$sl_container->set_acquire_from_environment(); //inherit rights
+			$sl_container->set_acquire(0); //do not inherit rights
+			$container->set_write_access( $groupORperson, FALSE ); //revoke write access
+					  ->set_read_access( $learners, TRUE );//grant read access
+					  ->set_insert_access( $groupORperson, FALSE ); //revoke insert (right to create objects in it)
+					  ->set_sanction_all( $admins );//grant all rights
+		*/
+		
+		
+		
 		
 		/*
 		 * for testing purpose preselect course EXT-01: 
@@ -374,6 +388,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$tmplt->setVariable( "BALANCE_WORKLOADS_LINK", PATH_URL . "exercise/BalanceWorkloads/" );
 			$tmplt->parse("BLOCK_STAFF_ACTIONS");
 		}
+		
+		
+		
+		
+
+		
 		
 		/*
 		 * assemble frameResponse
