@@ -38,7 +38,7 @@ define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome"
 define("EXTENSIONS_WHITELIST",    "Chronic, Help, Home, Imprint, Startpage, Widgets, "
 								. "DocumentObject, DocumentPlainObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, "
 								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, Forum, Gallery, Portal, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
-								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload");
+								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
 /*
 $menus = array(
 array("name" => gettext("Schulen"), "link" => PATH_URL . "school/" . $user->get_name(), 
