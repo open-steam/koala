@@ -28,8 +28,7 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 		$listViewer = new \Widgets\ListViewer();
 
 		$contentProvider = new ContentProvider();
-		$contentProvider->setLastPlace($this->id);
-
+		
 		$listViewer->setHeadlineProvider(new HeadlineProvider());
 		$listViewer->setContentProvider($contentProvider);
 		$listViewer->setColorProvider(new ColorProvider());
@@ -65,13 +64,6 @@ class ContentProvider implements \Widgets\IContentProvider {
 	private $rawSize = 4;
 	private $rawMenu = 5;
 	private $rawCheckbox = 6;
-
-	private $lastPlace;
-
-	public function setLastPlace($id){
-		$this->lastPlace = $id;
-	}
-
 
 	public function getId($contentItem) {
 		return $contentItem->get_id();
