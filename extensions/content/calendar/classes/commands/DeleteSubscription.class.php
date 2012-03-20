@@ -30,19 +30,25 @@ class DeleteSubscription extends \AbstractCommand implements \IFrameCommand, \IA
 
 		$objCalendarId = $this->calendar;
 		$objCalendar = \steam_factory::get_object($steamId, $objCalendarId);
-		if($objSubscription instanceof \steam_user){
-			$steamCalendar= $objSubscription->get_attribute("USER_CALENDAR");
+		if($objSubscription instanceof \steam_docextern){
+				$deleteObjId = $objSubscriptionId;
 		}else{
-			$steamCalendar= $objSubscription->get_attribute("GROUP_CALENDAR");
+			if($objSubscription instanceof \steam_user){
+				$steamCalendar= $objSubscription->get_attribute("USER_CALENDAR");
+			}else{
+				$steamCalendar= $objSubscription->get_attribute("GROUP_CALENDAR");
+			}
+			if(!($steamCalendar instanceof \steam_calendar)){
+				throw new \Exception("steam_calendar is not set.");
+			}
+			$deleteObjId = $steamCalendar->get_id();
+		
 		}
-		if(!($steamCalendar instanceof \steam_calendar)){
-			throw new \Exception("steam_calendar is not set.");
-		}
-		$steamCalendarId=$steamCalendar->get_id();
+
 		$subscriptions = $objCalendar->get_attribute("CALENDAR_SUBSCRIPTIONS");
 		$deletedSubscription=false;
 		foreach($subscriptions as $index => $subscription){
-			if(($subscription->get_id()) == $steamCalendarId){
+			if(($subscription->get_id()) == $deleteObjId){
 				unset($subscriptions[$index]);
 				$deletedSubscription=true;
 			}

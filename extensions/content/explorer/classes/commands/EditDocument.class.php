@@ -54,11 +54,13 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 				$contentText->setWidth(945);
 				$contentText->setheight(400);
 				$contentText->setData($object);
-				$contentText->setTextareaClass("mce-full");
+				
 				if ($mimetype !== "text/html") {
 					$contentText->setTextareaClass("plain");
+				}else{
+					$contentText->setTextareaClass("mce-full");
 				}
-
+			
 				$html = cleanHTML($object->get_content());
 				$dirname = dirname($object->get_path()) . "/";
 				preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);

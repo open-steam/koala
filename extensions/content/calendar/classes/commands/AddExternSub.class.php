@@ -24,8 +24,8 @@ class AddExternSub extends \AbstractCommand implements \IFrameCommand, \IAjaxCom
 			throw new \Exception("$calendar is not a Calendar!");
 		}
 			
-		$url = "http://www.feiertage.de/";
-		$name = "Feiertage";
+		$url = "https://www.google.com/calendar/ical/bundesliga.kalender%40gmail.com/public/basic.ics";
+		$name = "Bundesliga";
 		$newObj = \steam_factory::create_docextern($GLOBALS["STEAM"]->get_id(), $name, $url, $obj); ;
 
 		$subscriptions = array();

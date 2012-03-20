@@ -21,7 +21,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 	}
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {			
-	
 		$obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$currentUser = \lms_steam::get_current_user();
 		$subscriptionWrapper = new SubscriptionWrapper();
@@ -31,16 +30,16 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		$extensions = $result["extensions"];
 		$calendars = array();
 		$calendars = $result["result"];
-		
 		$sanctionWrapper= new SanctionWrapper();
-		$sanctionWrapper->setExtensions("extensions");
+		$sanctionWrapper->setExtensions($calendars);
 		$sanctions = $sanctionWrapper->getSanction();
-		
+				
 		$dates = array();
 		foreach ($calendars as $id => $calendar){
-			$dates[$id] = $calendar->get_date_objects();
+			if($sanctions[$id] >= 1){
+				$dates[$id] = $calendar->get_date_objects();
+			}
 		}
-		
 		
 		//HIER KÖNNTE DIE GRAFISCHE AUSGABE BEGINNEN, Rechte und Daten stehen bereit
 		
