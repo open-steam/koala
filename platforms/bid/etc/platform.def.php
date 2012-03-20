@@ -54,7 +54,7 @@ $menus = array(
 array("name" => gettext("Übergreifendes"), "link" => "/portal/index/627794", 
       "menu" => array(
                     array( "name" => "Einstiegsseite", "link" => "/explorer/index/99" ),
-                    array( "name" => "Schulen", "link" => "/explorer/index/133621" ),
+                    array( "name" => "Schulen", "link" => "/explorer/index/163621" ),
                     array( "name" => "Lernstatt intern", "link" => "/explorer/index/163622" )
       )
 ));
