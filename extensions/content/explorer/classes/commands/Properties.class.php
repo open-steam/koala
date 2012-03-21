@@ -119,7 +119,24 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				$typeName = "unbekannt";
 				break;
 		}
+                
+                
+                // --- some tests ---
+		$documentIsPicture = false;
+		if($type == "document"){
+			$docType = $object->get_attribute("DOC_MIME_TYPE");
+			$isJpg=strpos($docType,"jpg") !== false;
+			$isJpeg= strpos($docType,"jpeg") !== false;
+			$isGif= strpos($docType,"gif") !== false;
+			$isPng = strpos($docType,"png") !== false;
+			if($isGif || $isJpeg  || $isJpg || $isPng){
+				$documentIsPicture = true;
+			}	
+		}
 
+                
+                
+                //--- create dialog section ---
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>({$typeName})");
 
@@ -210,11 +227,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			//WIDGET-Eigenschaft fehlt noch
 		}
 
-		// 		$descriptionTextarea = new \Widgets\Textarea();
-		// 		$descriptionTextarea->setLabel("Beschreibung");
-		// 		$descriptionTextarea->setData($object);
-		// 		$descriptionTextarea->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:description"));
-
+		
 		//TODO: value is array
 		$keywordArea = new \Widgets\TextInput();
 		$keywordArea->setLabel("Schlüsselwörter");
@@ -253,17 +266,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$headlineView->setHtml("<h3>Darstellung</h3>");
 
 		$dialog->addWidget($headlineAlg);
-		//$dialog->addWidget($titelInput);
-		//$dialog->addWidget($seperator);
-
+		
 		if($type == "document"){
-
-			$docType = $object->get_attribute("DOC_MIME_TYPE");
-			$isJpg=strpos($docType,"jpg") !== false;
-			$isJpeg= strpos($docType,"jpeg") !== false;
-			$isGif= strpos($docType,"gif") !== false;
-			$isPng = strpos($docType,"png") !== false;
-			if($isGif || $isJpeg  || $isJpg || $isPng){
+			if($documentIsPicture){
 				$fileName = new \Widgets\TextInput();
 				$fileName->setLabel("Dateiname");
 				if(!$isWriteable){
@@ -274,9 +279,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				$dialog->addWidget($fileName);
 			}
 
-		}else{
+		}
+                
+                if(($type == "document") && !$documentIsPicture){
 			$dialog->addWidget($dataNameInput);
 		}
+                
 
 		$dialog->addWidget($seperator);
 		$dialog->addWidget($ownerField);
@@ -285,20 +293,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$dialog->addWidget($seperator);
 		$dialog->addWidget($createdField);
 		$dialog->addWidget($seperator);
-		if ($type == "container" || $type == "room") {
+		
+                if ($type == "container" || $type == "room") {
 			$dialog->addWidget($headlineView);
-			//$dialog->addWidget($hiddenCheckbox);
-			//$dialog->addWidget($seperator);
 			$dialog->addWidget($containerViewRadio);
 			$dialog->addWidget($seperator);
 		}
 		else if($type == "document"){
-			$docType = $object->get_attribute("DOC_MIME_TYPE");
-			$isJpg=strpos($docType,"jpg") !== false;
-			$isJpeg= strpos($docType,"jpeg") !== false;
-			$isGif= strpos($docType,"gif") !== false;
-			$isPng = strpos($docType,"png") !== false;
-			if($isGif || $isJpeg  || $isJpg || $isPng){
+			if($documentIsPicture){
 				$dialog->addWidget($textArea);
 				$dialog->addWidget($jsWrapperPicture);
 			}
@@ -317,11 +319,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				$dialog->addWidget($seperator);
 			}
 		}
-
-		// 		$dialog->addWidget($headlineMeta);
-		// 		$dialog->addWidget($keywordArea);
-		// 		$dialog->addWidget($seperator);
-		// 		$dialog->addWidget($descriptionInput);
 
                 
                 //www-link
