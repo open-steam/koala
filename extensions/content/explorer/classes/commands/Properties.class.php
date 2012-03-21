@@ -103,12 +103,17 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				$labelName = "Ordnername";
 				$typeName = "Ordner";
 				break;
-
+                        
+                        case "docextern":
+				$labelName = "Internet-Link-Name";
+				$typeName = "Internet-Referenz";
+				break;
+            
 			case "unknown":
 				$labelName = "Name";
 				$typeName = "unbekannt";
 				break;
-
+    
 			default:
 				$labelName = "Name";
 				$typeName = "unbekannt";
