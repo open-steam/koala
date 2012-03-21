@@ -149,12 +149,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$dataNameInput->setData($object);
 			$dataNameInput->setReadOnly(true);
 			$dataNameInput->setContentProvider(\Widgets\DataProvider::staticProvider(getCleanName($object, -1)));
-
-			/*		$titelInput = new \Widgets\TextInput();
-			 $titelInput->setLabel("Titel (Beschreibung)");
-			 $titelInput->setData($object);
-			 $titelInput->setContentProvider(\Widgets\DataProvider::staticProvider(getCleanName($object)));*/
-		} else {
+                } else {
 			$dataNameInput= new \Widgets\TextInput();
 			$dataNameInput->setLabel("{$labelName}");
 			if(!$isWriteable){
@@ -184,11 +179,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 					}
 				}
 			}
-
-			/*		$titelInput = new \Widgets\TextInput();
-			 $titelInput->setLabel("Titel (Beschreibung)");
-			 $titelInput->setData($object);
-			 $titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));*/
 		}
 
 		$ownerField = new \Widgets\TextField();
@@ -208,14 +198,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$createDate = $object->get_attribute(OBJ_CREATION_TIME);
 		$createDate = getFormatedDate($createDate);
 		$createdField->setValue($createDate);
-		
-
-		//$hiddenCheckbox = new \Widgets\Checkbox();
-		//$hiddenCheckbox->setLabel("Verstecken");
-		//$hiddenCheckbox->setCheckedValue("1");
-		//$hiddenCheckbox->setUncheckedValue(0);
-		//$hiddenCheckbox->setData($object);
-		//$hiddenCheckbox->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:hidden"));
 
 		$containerViewRadio = new \Widgets\RadioButton();
 		$containerViewRadio->setLabel("Erstes Dokument");
@@ -267,18 +249,15 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
 		$dialog->addWidget($headlineAlg);
 		
-		if($type == "document"){
-			if($documentIsPicture){
-				$fileName = new \Widgets\TextInput();
-				$fileName->setLabel("Dateiname");
-				if(!$isWriteable){
-					$fileName->setReadOnly(true);
-				}
-				$fileName->setData($object);
-				$fileName->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
-				$dialog->addWidget($fileName);
-			}
-
+		if(($type == "document") && $documentIsPicture){
+                    $fileName = new \Widgets\TextInput();
+                    $fileName->setLabel("Dateiname");
+                    if(!$isWriteable){
+                            $fileName->setReadOnly(true);
+                    }
+                    $fileName->setData($object);
+                    $fileName->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
+                    $dialog->addWidget($fileName);
 		}
                 
                 if(($type == "document") && !$documentIsPicture){
