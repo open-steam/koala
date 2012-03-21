@@ -323,6 +323,19 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		// 		$dialog->addWidget($seperator);
 		// 		$dialog->addWidget($descriptionInput);
 
+                
+                //www-link
+		if($type == "docextern"){
+			$urlInput = new \Widgets\TextInput();
+			$urlInput->setLabel("URL");
+			$urlInput->setData($object);
+			$urlInput->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_EXTERN_URL"));
+                        $dialog->addWidget($urlInput);
+			$dialog->addWidget($seperator);
+		}
+
+                
+                
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($dialog);
 		return $ajaxResponseObject;
