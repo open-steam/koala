@@ -158,12 +158,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$dataNameInput->setData($object);
 			$dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
 			if($type == "document"){
-				$docType = $object->get_attribute("DOC_MIME_TYPE");
-				$isJpg=strpos($docType,"jpg") !== false;
-				$isJpeg= strpos($docType,"jpeg") !== false;
-				$isGif= strpos($docType,"gif") !== false;
-				$isPng = strpos($docType,"png") !== false;
-				if($isGif || $isJpeg  || $isJpg || $isPng){
+				if($documentIsPicture){
 					$textArea = new \Widgets\Textarea();
 					$textArea->setLabel("Beschreibung");
 					$textArea->setData($object);
@@ -264,7 +259,10 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$dialog->addWidget($dataNameInput);
 		}
                 
-
+                if(($type !== "document")){
+			$dialog->addWidget($dataNameInput);
+		}
+                
 		$dialog->addWidget($seperator);
 		$dialog->addWidget($ownerField);
 		$dialog->addWidget($seperator);
@@ -291,9 +289,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 			$currentUserId = $currentUser->get_id();
 			if($currentUserId == $creatorId){
-				//				$checkValue= $object->get_attribute("bid:forum_is_editable");
-				//				$checked = $checkValue ? 1 : 0;
-				//				$checkboxInput;
+				//$checkValue= $object->get_attribute("bid:forum_is_editable");
+				//$checked = $checkValue ? 1 : 0;
+				//$checkboxInput;
 				$dialog->addWidget($checkboxInput);
 				$dialog->addWidget($seperator);
 			}
