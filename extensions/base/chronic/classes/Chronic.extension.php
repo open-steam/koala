@@ -46,7 +46,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 	}
 	
 	public function setCurrentObject($steamObject) {
-		if ($steamObject instanceof steam_object) {
+                if ($steamObject instanceof steam_object && $steamObject->check_access_read()) {
 			self::$currentObject = $steamObject;
 			$this->updateChronic($steamObject);
 		}
