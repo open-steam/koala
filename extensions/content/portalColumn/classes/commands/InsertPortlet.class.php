@@ -41,44 +41,14 @@ class InsertPortlet extends \AbstractCommand implements \IAjaxCommand {
 			$portletType = $steamObject->get_attribute("bid:portlet");
 			$isPortlet = false;
 			
-			if($portletType!=0){
-				switch($portletType){
-					case "msg":
-						$isPortlet=true;
-						break;
-					case "appointment":
-						$isPortlet=true;
-						break;
-					case "termplan":
-						$isPortlet=true;
-						break;
-					case "topic":
-						$isPortlet=true;
-						break;
-					case "headline":
-						$isPortlet=true;
-						break;
-					case "poll":
-						$isPortlet=true;
-						break;
-					case "media":
-						$isPortlet=true;
-						break;
-					case "rss":
-						$isPortlet=true;
-						break;
-					default:
-						$isPortlet=false;
-						break;
-				}
-			}
-			
+			if( $portletType=="msg" || $portletType=="appointment" || $portletType=="termplan" || $portletType=="topic" || $portletType=="headline" || $portletType=="poll" || $portletType=="media" || $portletType=="rss"){
+                            $isPortlet=true;
+                        }   
+                        
 			if($isPortlet){
 				$steamObject->move($columnObject);
-			}
-			
+                        }
 		}
-		
 		$ajaxResponseObject->setStatus("ok");
 		$jswrapper = new \Widgets\JSWrapper();
 		$jswrapper->setJs(<<<END
