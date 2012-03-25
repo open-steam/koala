@@ -110,7 +110,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		
 		
 		if(sizeof($content) > 0){
-			if ($feed->error()){
+                    if ($feed->error()){
 				$tmpl->setVariable("NOITEMSTEXT","RSS-Ladefehler");
 			} else {
 				if (count($items) == 0) {
@@ -119,30 +119,30 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 					foreach($items as $item){
 						$tmpl->setCurrentBlock("BLOCK_RSS_ITEM");
 						if ($allow_html) {
-					        $itemtitle = $item->get_title();
-					        $itemdesc = $item->get_description();
-					      }
-					      else {
-					        $itemtitle = strip_tags($item->get_title());
-					        $itemdesc = strip_tags($item->get_description());
-					      }
+                                                    $itemtitle = $item->get_title();
+                                                    $itemdesc = $item->get_description();
+                                                }else{
+                                                    $itemtitle = strip_tags($item->get_title());
+                                                    $itemdesc = strip_tags($item->get_description());
+                                                }
 					      
-					      if ($desc_length == 0)
-					        $itemdesc = "";
-					      else if ($desc_length > 0 && strlen($itemdesc) > $desc_length){
-					      	$itemdesc = substr($itemdesc, 0, $desc_length) . "...";
-					      }
+                                                if ($desc_length == 0){
+                                                    $itemdesc = "";
+                                                }
+                                                else if (($desc_length > 0 && strlen($itemdesc) > $desc_length) && !$allow_html){
+                                                    $itemdesc = substr($itemdesc, 0, $desc_length) . "...";
+                                                }
 					      
-					      $tmpl->setVariable("ITEMTITLE",$itemtitle);
-					      $tmpl->setVariable("ITEMDESC",$itemdesc);
+                                                $tmpl->setVariable("ITEMTITLE",$itemtitle);
+                                                $tmpl->setVariable("ITEMDESC",$itemdesc);
 					      
-					      $tmpl->setVariable("ITEMURL",derive_url($item->get_permalink()));
-					      $tmpl->setVariable("LINK","");
+                                                $tmpl->setVariable("ITEMURL",derive_url($item->get_permalink()));
+                                                $tmpl->setVariable("LINK","");
 					      
-					      $tmpl->parse("BLOCK_RSS_ITEM");
+                                                $tmpl->parse("BLOCK_RSS_ITEM");
 					}
 				}
-			}
+                    }
 		}
 		else{
 			 $tmpl->setVariable("NOITEMSTEXT","RSS-Feed nicht konfiguriert.");

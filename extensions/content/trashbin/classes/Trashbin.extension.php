@@ -37,6 +37,7 @@ class Trashbin extends AbstractExtension implements IObjectExtension, IObjectMod
 	}
 
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
+                return false; //quick fix TODO: test object for trashbin
 		return new \Trashbin\Commands\Index();
 	}
 	
@@ -48,7 +49,7 @@ class Trashbin extends AbstractExtension implements IObjectExtension, IObjectMod
 	}
 
 	public function getCurrentObject(UrlRequestObject $urlRequestObject) {
-		$params = $urlRequestObject->getParams();
+                $params = $urlRequestObject->getParams();
 		$id = $params[0];
 		if (isset($id)) {
 			if (!isset($GLOBALS["STEAM"])) {
@@ -66,7 +67,7 @@ class Trashbin extends AbstractExtension implements IObjectExtension, IObjectMod
 		return null;
 	}
 	public function getPriority() {
-		return 5;
+		return 6;
 	}
 }
 ?>

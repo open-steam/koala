@@ -46,7 +46,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$lengthInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:content([desc_length])"));
 		
 		$checkbox = new \Widgets\Checkbox();
-		$checkbox->setLabel("HTML zulassen");
+		$checkbox->setLabel("HTML zulassen (hebt die Beschränkung der Länge des Inhalts auf)");
 		$checkbox->setData($object);
 		$checkbox->setCheckedValue("checked");
 		$checkbox->setUncheckedValue("");

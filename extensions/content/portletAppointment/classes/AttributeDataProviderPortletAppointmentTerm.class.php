@@ -46,6 +46,10 @@ class AttributeDataProviderPortletAppointmentTerm {
 				case "linkurl":
 					if(0===$term["linkurl"]) return ""; //steam bug 
 					return $term["linkurl"];
+				case "linkurl_open_extern":
+					if(!isset($term["linkurl_open_extern"])) return "";
+                                        if(0===$term["linkurl_open_extern"]) return ""; //steam bug 
+					return $term["linkurl_open_extern"];
 				case "location":
 					if(0===$term["location"]) return ""; //steam bug 
 					return $term["location"];
