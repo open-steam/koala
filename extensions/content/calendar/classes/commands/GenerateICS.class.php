@@ -85,6 +85,7 @@ class GenerateICS extends \AbstractCommand implements \IFrameCommand, \IAjaxComm
 		}
 		$icsFile.="END:VCALENDAR\n";
 		header("Content-type: text/calendar");
+		header('Content-Disposition: attachment; filename="'.$this->id.'.ics"');
 		echo $icsFile;die;
 	}
 

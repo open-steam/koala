@@ -33,8 +33,12 @@ class DeleteSubscription extends \AbstractCommand implements \IFrameCommand, \IA
 		if($objSubscription instanceof \steam_docextern){
 				$deleteObjId = $objSubscriptionId;
 		}else{
-			if($objSubscription instanceof \steam_user){
+			if($objSubscription instanceof \steam_calendar){
+				$steamCalendar = $objSubscription;
+			}
+			else if($objSubscription instanceof \steam_user){
 				$steamCalendar= $objSubscription->get_attribute("USER_CALENDAR");
+				
 			}else{
 				$steamCalendar= $objSubscription->get_attribute("GROUP_CALENDAR");
 			}
@@ -68,6 +72,9 @@ class DeleteSubscription extends \AbstractCommand implements \IFrameCommand, \IA
 	}
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
+		$jsWrapper = new \Widgets\JSWrapper();
+		$jsWrapper->setPostJsCode("closeDialog()");
+		$ajaxResponseObject->addWidget($jsWrapper);
 		return $ajaxResponseObject;
 
 	}

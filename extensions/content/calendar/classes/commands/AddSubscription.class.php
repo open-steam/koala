@@ -18,9 +18,10 @@ class AddSubscription extends \AbstractCommand implements \IFrameCommand, \IAjax
 		} else if ($requestObject instanceof \AjaxRequestObject) {
 			$this->params = $requestObject->getParams();
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
-			isset($this->params["calendar"]) ? $this->calendar = $this->params["calendar"] : "";
+			$array = explode("/", $this->params["path"]);
+			$this->calendar = $array[2];			
 		}
-		if($this->id === "" || $this->calendar === ""){
+		if($this->id == "" || $this->calendar == ""){
 			throw new \Exception("Parameter is not set!");
 		}
 		$currentUser=\lms_steam::get_current_user();
@@ -121,6 +122,9 @@ class AddSubscription extends \AbstractCommand implements \IFrameCommand, \IAjax
 	}
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
+		$jsWrapper = new \Widgets\JSWrapper();
+		$jsWrapper->setPostJsCode("closeDialog();return false;");
+		$ajaxResponseObject->addWidget($jsWrapper);
 		return $ajaxResponseObject;
 
 	}
