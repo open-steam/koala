@@ -16,8 +16,6 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 	}
 	
 	public function processData(\IRequestObject $requestObject){
-                //var_dump($requestObject);
-                
                 //$objectId=$requestObject->getId();
 		//$portletObject = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $objectId );
 		$params = $requestObject->getParams();
@@ -69,52 +67,22 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		include_once(PATH_BASE."core/lib/bid/derive_url.php");
 		
 		$portletFileName=$portletPath."/ui/html/index.html";
-		$tmpl = new \HTML_TEMPLATE_IT();
-		$tmpl->loadTemplateFile($portletFileName);
-		$tmpl->setVariable("PORTLET_ID",$portlet->get_id());
+		//$tmpl = new \HTML_TEMPLATE_IT();
+		//$tmpl->loadTemplateFile($portletFileName);
+		//$tmpl->setVariable("PORTLET_ID",$portlet->get_id());
 		
                 
+                //$htmlBody=$tmpl->get();
+		//$this->content=$htmlBody;
                 
-                //other stuff
-                
-                
-                $htmlBody=$tmpl->get();
-		$this->content=$htmlBody;
-                
-                
-                // ------old stuff ---------
-
-
-                //$object = (int) (isset($_GET["object"]))?trim($_GET["object"]):0;
-                //$object = $portletObject->get_id();
-                
-                //login und $steam def. in "./includes/login.php"
-                //$steam = new steam_connector(	$config_server_ip, $config_server_port, $login_name, $login_pwd);
 
                 if( !$steam || !$steam->get_login_status() ) {
                     echo("*** Login fehlgeschlagen! ***<br>");
                     exit();
                 }
-
-                //$UBB = new UBBCode();
-
-                // if ID has been properly specified => download rss feed by calling /scripts/rss.pike and deliver output
+ 
                 
-                
-                /*
-                if( (int) $object != 0 )
-                    $current_room = steam_factory::get_object( $steam, $object );
-                else {
-                    echo "This script can only render a valid RSS feed if you provide a valid ObjectID.<br/>";
-                    echo "Example: " . $config_webserver_ip . "/modules/portal2/portlets/msg/rss.php?object=" . $steamUser->get_workroom()->get_id();
-                    exit;
-                }
-                */
-                
-                
-                
-                
-                if (true || $current_room->check_access_read($steam->get_login_user())) {
+                if ($portletObject->check_access_read($steamUser)) {
                     
                     
                     /*
@@ -126,8 +94,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     }
                     */
                     
-                    //$feed_description = $feed_title;
-                    $feed_description = "feed_title"; //TODO
+                    $feed_description = $portletObject->get_name(); //TODO
                     
                     
                     
@@ -157,7 +124,6 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $item_link = $item->get_attribute("bid:portlet:msg:link_url");
                             if ($item_link == ' '){
                                 $item_link = $feed_link;
-
                             }
                             $item_link = '<link>' . $feed_link . '</link>';
 
@@ -204,7 +170,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     
                     echo "</channel>\n";
                     echo "</rss>\n";
-
+                    exit;
                 }
                 else {
                     echo "The access rights of the requested object do not allow you to read it.";
@@ -218,10 +184,9 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 
                 
 		//widgets
-		$outputWidget = new \Widgets\RawHtml();
+		//$outputWidget = new \Widgets\RawHtml();
 		//$outputWidget->addWidget(new \Widgets\PopupMenu());
-		$outputWidget->setHtml("<div> Ein Rss feed <div>");
-		$this->rawHtmlWidget = $outputWidget;
+		//$this->rawHtmlWidget = $outputWidget;
 	}
 	
 	public function idResponse(\IdResponseObject $idResponseObject) {
