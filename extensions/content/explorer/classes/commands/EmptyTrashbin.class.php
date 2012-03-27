@@ -18,8 +18,10 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
         $this->trashbin = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_TRASHBIN");
         if (isset($this->params["id"])) {
             $this->id = $this->params["id"];
-            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-            $object->delete();
+            if ($this->id !== 0) {
+                $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+                $object->delete();
+            }
         } else {
             $this->elements = $this->trashbin->get_inventory();
         }
@@ -27,6 +29,12 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $ajaxResponseObject->setStatus("ok");
+        if($this->id === 0){
+            $rawHtml = new \Widgets\RawHtml();
+            $rawHtml->setHtml("");
+            $ajaxResponseObject->addWidget($rawHtml);
+            return $ajaxResponseObject;
+        }
         if (!isset($this->id)) {
 
             $jswrapper = new \Widgets\JSWrapper();
@@ -47,10 +55,9 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
             $ajaxResponseObject->addWidget($jswrapper);
         } else if ($this->params["path"] == "trashbin/") {
             $hideCurrentItem = new \Widgets\JSWrapper();
-            $hideCurrentItem->setJs("$('#".$this->id."').hide();");
+            $hideCurrentItem->setJs("$('#" . $this->id . "').hide();");
             $ajaxResponseObject->addWidget($hideCurrentItem);
         } else {
-
             $trashbinModel = new \Explorer\Model\Trashbin($this->trashbin);
             $jswrapper = new \Widgets\JSWrapper();
             $js = "document.getElementById('trashbinIconbarWrapper').innerHTML = '" . $trashbinModel->getIconbarHtml() . "'; jQuery('.justTrashed').hide();";
