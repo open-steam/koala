@@ -31,10 +31,10 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		
 		//reference handling
 		if(isset($params["referenced"]) && $params["referenced"]==true){
-			$portletIsReference = true;
-			$referenceId = $params["referenceId"];
+                    $portletIsReference = true;
+                    $referenceId = $params["referenceId"];
 		}else{
-			$portletIsReference = false;
+                    $portletIsReference = false;
 		}
 		
 		
@@ -46,9 +46,9 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		//get content of portlet
 		$content = $portlet->get_attribute("bid:portlet:content");
 		if(is_array($content) && count($content) > 0){
-			array_walk($content, "_stripslashes");
+                    array_walk($content, "_stripslashes");
 		} else {
-			$content = array();
+                    $content = array();
 		}
 		
 		$portletInstance = \PortletMsg::getInstance();
