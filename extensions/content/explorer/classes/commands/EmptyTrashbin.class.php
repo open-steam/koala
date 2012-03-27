@@ -46,11 +46,9 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
 
             $ajaxResponseObject->addWidget($jswrapper);
         } else if ($this->params["path"] == "trashbin/") {
-            $reloadId = $this->trashbin->get_id();
-            $reload = new \Widgets\JSWrapper();
-            $reload->setJs("window.location.href = '" . PATH_URL . $this->params["path"] . "'");
-
-            $ajaxResponseObject->addWidget($reload);
+            $hideCurrentItem = new \Widgets\JSWrapper();
+            $hideCurrentItem->setJs("$('#".$this->id."').hide();");
+            $ajaxResponseObject->addWidget($hideCurrentItem);
         } else {
 
             $trashbinModel = new \Explorer\Model\Trashbin($this->trashbin);
