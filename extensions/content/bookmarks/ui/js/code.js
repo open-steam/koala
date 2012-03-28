@@ -38,7 +38,7 @@ function removeDirectEditor(objectId, elementId) {
 	
 	var obj = new Object;
 	obj.id = objectId;
-	sendRequest("GetLabel", obj, elementId, "updater");
+	sendRequest("GetLabel", obj, elementId, "updater",null,null,"explorer");
 }
 
 function getSelectionAsArray() {
