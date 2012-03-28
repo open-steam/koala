@@ -84,7 +84,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $itemImage = $item->get_attribute("bid:portlet:msg:picture_id");
                             
                             if ($itemImage){
-                                $itemContent = $itemContent . '<div><img src="' . $configWebserverIp . '/tools/get.php?object=' . $itemImage . '" /></div>';
+                                $itemContent = $itemContent . '<div><img src="' . getDownloadUrlForObjectId($itemImage) . '" /></div>';
                             }
 
                             $itemDescription = '<description><![CDATA[' . $itemContent . ']]></description>';
