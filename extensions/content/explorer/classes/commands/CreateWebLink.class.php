@@ -26,8 +26,7 @@ class CreateWebLink extends \AbstractCommand implements \IFrameCommand, \IAjaxCo
 		
                 $url = strip_tags($this->params["url"]);
                 
-
-                if(substr($url, 0, 6) != "http://"){
+                if(substr($url, 0, 7) != "http://"){
                     $url = "http://". $url;
                 }
                 $portal = \steam_factory::create_docextern($GLOBALS["STEAM"]->get_id(), strip_tags($this->params["name"]), $url, $current_room, "");
