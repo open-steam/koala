@@ -24,7 +24,13 @@ class CreateWebLink extends \AbstractCommand implements \IFrameCommand, \IAjaxCo
 
 		$current_room = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		
-        $portal = \steam_factory::create_docextern($GLOBALS["STEAM"]->get_id(), strip_tags($this->params["name"]), strip_tags($this->params["url"]), $current_room, "");
+                $url = strip_tags($this->params["url"]);
+                
+
+                if(substr($url, 0, 6) != "http://"){
+                    $url = "http://". $url;
+                }
+                $portal = \steam_factory::create_docextern($GLOBALS["STEAM"]->get_id(), strip_tags($this->params["name"]), $url, $current_room, "");
        
 		$jswrapper = new \Widgets\JSWrapper();
 		$jswrapper->setJs(<<<END

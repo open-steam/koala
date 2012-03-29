@@ -54,13 +54,17 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
 
             $ajaxResponseObject->addWidget($jswrapper);
         } else if ($this->params["path"] == "trashbin/") {
+            $trashbinModel = new \Explorer\Model\Trashbin($this->trashbin);
             $hideCurrentItem = new \Widgets\JSWrapper();
-            $hideCurrentItem->setJs("$('#" . $this->id . "').hide();");
+            $js="$('#" . $this->id . "').hide();";
+            $js .= "$('#trashbinIconbarWrapper').html('" . $trashbinModel->getIconbarHtml() . "');";
+            
+            $hideCurrentItem->setJs($js);
             $ajaxResponseObject->addWidget($hideCurrentItem);
         } else {
             $trashbinModel = new \Explorer\Model\Trashbin($this->trashbin);
             $jswrapper = new \Widgets\JSWrapper();
-            $js = "document.getElementById('trashbinIconbarWrapper').innerHTML = '" . $trashbinModel->getIconbarHtml() . "'; jQuery('.justTrashed').hide();";
+            $js = "$('#trashbinIconbarWrapper').html('" . $trashbinModel->getIconbarHtml() . "'); $('.justTrashed').hide();";
             $jswrapper->setJs($js);
             $ajaxResponseObject->addWidget($jswrapper);
         }

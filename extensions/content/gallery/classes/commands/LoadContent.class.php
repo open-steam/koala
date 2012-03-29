@@ -135,6 +135,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			return getObjectReadableSize($contentItem);
 		} else if ($cell == $this->rawMenu) {
 			$popupMenu = new \Widgets\PopupMenu();
+                        $popupMenu->setCommand("GetPopupMenu2");
 			$popupMenu->setData($contentItem);
 			$popupMenu->setElementId("listviewer-overlay");
 			return $popupMenu;
