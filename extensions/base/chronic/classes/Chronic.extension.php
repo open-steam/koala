@@ -2,6 +2,7 @@
 class Chronic extends AbstractExtension implements IMenuExtension {
 	
 	private static $currentObject;
+        private $chronicLength = 10;
 	
 	public function getName() {
 		return "Chronic";
@@ -12,16 +13,17 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 	}
 	
 	public function getVersion() {
-		return "v1.0.0";
+		return "v1.0.1";
 	}
 	
 	public function getAuthors() {
 		$result = array();
-		$result[] = new Person("Dominik", "Niehus", "nicke@uni-paderborn.de");
+		$result[] = new Person("Marcel", "Jakoblew", "mjako@uni-paderborn.de");
 		return $result;
 	}
 	
 	public function getMenuEntries() {
+                /*
 		$chronic = $this->loadChronic();
 		$length = count($chronic);
 		$result = array(array("name" => "Chronik", "menu" => array(
@@ -43,39 +45,124 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 			$result[0]["menu"] = $menuArray;
 		}
 		return $result;
+                */
+            
+            
+                //-------------
+                $chronic = $this->loadChronic();
+                $length = count($chronic);
+                $result = array(array("name" => "Chronik", "menu" => array($this->getBackEntry(),$this->getParentEntry())));
+		
+                if ($length > 1) {
+                    $menuArray = $result[0]["menu"];
+                    $menuArray[] = array("name" => "SEPARATOR");
+                    $count = 0;
+                    foreach ($chronic as $chronicItem){
+                        $count++;
+                        if($count<2) continue; //skip this and last element
+                        $menuArray[] = array("name" => $this->getEntryName($chronicItem), "link" => $this->getEntryPath($chronicItem)); //todo
+                    }
+                    $result[0]["menu"] = $menuArray;
+                }
+                return $result;
 	}
 	
+        
+        
 	public function setCurrentObject($steamObject) {
-                if ($steamObject instanceof steam_object && $steamObject->check_access_read()) {
-			self::$currentObject = $steamObject;
-			$this->updateChronic($steamObject);
-		}
-	}
-	
+                if ($steamObject instanceof steam_object && $steamObject->check_access_read()){
+                    $this->updateChronic("oid:".$steamObject->get_id());
+                    $this->currentObject = $steamObject;
+                }
+        }
+        
+        public function setCurrentCommand($namespace, $command) {
+                $this->updateChronic("cmd:".$namespace.":".$command);
+        }
+        
+        public function setCurrentPath($path) {
+                $this->updateChronic("pth:".$path);
+        }
+        
+        public function setCurrentOther($other) {
+                if($other=="profile") $this->updateChronic("oth:profile");
+                if($other=="desktop") $this->updateChronic("oth:desktop");
+                if($other=="bookmarks") $this->updateChronic("oth:bookmarks");
+        }
+        
+        
+        
+        
+        
+	//get entry for back button
 	private function getBackEntry() {
-		$chronic = $this->loadChronic();
+		
+                $chronic = $this->loadChronic();
 		$length = count($chronic);
 		if ($length > 1) {
-			$steam_object = $chronic[$length-2];
-			return array("name" => "zurück", "link" => \ExtensionMaster::getInstance()->getUrlForObjectId($steam_object->get_id(), "view"));
+                    //$steam_object = $chronic[$length-2];
+                    //return array("name" => "zurück", "link" => \ExtensionMaster::getInstance()->getUrlForObjectId($steam_object->get_id(), "view"));
+                    
+                    $backEntry = $chronic[1];
+                    return array("name" => "zurück", "link" => $this->getEntryPath($backEntry));
 		}
 		return "";
-	}
+                
+ 	}
 	
+        
+        
+        
+        //get entry for up button
 	private function getParentEntry() {
 		$type = getObjectType(self::$currentObject);
 		if (array_search($type, array("forum", "referenceFolder", "trashbin", "gallery", "portal", "room", "container")) !== false) {
 			$steam_object = self::$currentObject->get_environment();
-			return array("name" => "nach oben ( <img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($steam_object)."\"></img> " . getCleanName($steam_object, 20) . " )", "link" => \ExtensionMaster::getInstance()->getUrlForObjectId($steam_object->get_id(), "view"));
+		        return array("name" => "nach oben ( <img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($steam_object)."\"></img> " . getCleanName($steam_object, 20) . " )", "link" => $this->getEntryPath("oid:".$steam_object->get_id()));
 		}
 		return "";
 	}
-	
-	private function getChronicEntry($steam_object) {
-		$result = array("name" => "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($steam_object)."\"></img> " . getCleanName($steam_object, 20), "link" => \ExtensionMaster::getInstance()->getUrlForObjectId($steam_object->get_id(), "view"));
-		return $result;
-	}
-	
+       
+        
+        //add a new object to chronic
+        private function updateChronic($entry){
+            $chronic = $this->loadChronic();
+            
+            //put new element on pos 0
+            $chronic = array_reverse($chronic);
+            $chronic[] = $entry;
+            $chronic = array_reverse($chronic);
+            
+            
+            //dedupe
+            $cleandChronic = array();
+            $lastElement = "";
+            foreach ($chronic as $chronicItem){
+                if($chronicItem !== $lastElement){
+                    $lastElement=$chronicItem;
+                    $cleandChronic[] = $chronicItem;
+                }else{
+                    
+                }
+            }
+            $chronic = $cleandChronic;
+            
+            
+            //throw tail away
+            $counter=1;
+            $cleandChronic = array();
+            foreach ($chronic as $chronicItem){
+                $cleandChronic[] = $chronicItem;
+                if ($counter==$this->chronicLength) break;
+                $counter++;
+            }
+            $chronic = $cleandChronic;
+            $this->saveChronic($chronic);
+        }
+        
+        
+        
+        /*
 	private function updateChronic($steamObject) {
 		$type = getObjectType($steamObject);
 		if (array_search($type, array("document", "forum", "referenceFolder", "user", "trashbin", "gallery", "portal", "userHome", "groupWorkroom", "room", "container")) !== false) {
@@ -96,6 +183,11 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 		}
 	}
 	
+        */
+        
+        
+        
+        /*
 	private function loadChronic() {
 		$ids = array();
 		$user = lms_steam::get_current_user();
@@ -117,5 +209,72 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 		}
 		return $result;
 	}
+        */
+      
+        
+        private function getEntryName($chronicEntry){
+            $content = explode(":", $chronicEntry);
+            $entryType = $content[0];
+            if($entryType=="oid"){
+                $objectId = $content[1];
+                $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+		return $steamObject->get_name();
+            }
+            else if($entryType=="cmd"){
+                return "command";
+            }
+            else if($entryType=="pth"){
+                return "path";
+            }
+            else if($entryType=="oth"){
+                $type = $content[1];
+                var_dump($type);
+                if($type=="profile") return "Profil";
+                if($type=="desktop") return "Schreibtisch";
+                if($type=="bookmarks") return "Lesezeichen";
+                return "Unbekannt";
+            }
+            return "Unbekannter Name";
+        }
+        
+        
+        private function getEntryPath($chronicEntry){
+            $content = explode(":", $chronicEntry);
+            $entryType = $content[0];
+            
+            if($entryType=="oid"){
+                $objectId = $content[1];
+                return \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
+                //return "dummypath";
+            }
+            else if($entryType=="cmd"){
+                return "command";
+            }
+            else if($entryType=="pth"){
+                return "path";
+            }
+            else if($entryType=="oth"){
+                $type = $content[1];
+                if($type=="profile") return "profile";
+                if($type=="desktop") return "desktop";
+                if($type=="bookmarks") return "bookmarks";
+                return "";
+            }
+            return "";
+        }
+        
+        
+        //loads the chronic and returns it
+        private function loadChronic(){
+            $user = lms_steam::get_current_user();
+            $chronic = $user->get_attribute("USER_CHRONIC");
+            return $chronic;
+        }
+        
+        private function saveChronic($chronic){
+            $user = lms_steam::get_current_user();
+            $chronic = $user->set_attribute("USER_CHRONIC",$chronic);
+        }
+        
 }
 ?>

@@ -21,8 +21,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		isset($this->params[0]) ? $this->id = $this->params[0]: "";
 	}
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-
-		$current_user = \lms_steam::get_current_user();
+                //chronic
+                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("profile");
+		
+                $current_user = \lms_steam::get_current_user();
 
 		$name = $this->id;
 		if(isset($name)){
