@@ -37,8 +37,9 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 			if (strlen($searchString) < $min_search_string_count){
 				//$frameResponseObject->setProblemDescription(gettext("Search string too short"));
 				$frameResponseObject->setProblemDescription("Länge der Suchanfrage zu klein! Eine Suchanfrage muss aus mindestens 4 Zeichen bestehen.");
-			}
-			else{
+			}else if(((strpos($searchString,"*")!==FALSE) || (strpos($searchString,"?")!==FALSE)) && ($searchType == "searchUserFullname")){
+                            $frameResponseObject->setProblemDescription("Eine Suchanfrage nach Namen darf aus Datenschutzgründen keine Wildcards enthalten");
+                        }else{
 				/* prepare search string */
 				$modSearchString = $searchString;
 				if ($modSearchString[0] != "%")
@@ -121,13 +122,25 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("TITLE", "Favoritensuche");
 
 		$content->setVariable("SEARCH","Suche");
+                
+                
+                
+                
 		$content->setVariable("BUTTON_LABEL", "Suchen");
 
 		
 		$content->setVariable("GROUPS","Gruppen");
 		$content->setVariable("USER_LOGIN","Benutzer (Login)");
 		$content->setVariable("USER_FULLNAME", "Benutzer (Namen)");
-
+                
+                //preselect search
+                $content->setVariable("PRE_SELECT_USER","");
+                $content->setVariable("PRE_SELECT_FULLNAME",'');
+                $content->setVariable("PRE_SELECT_GROUP",'');
+                if($searchType == "searchUserFullname") $content->setVariable("PRE_SELECT_FULLNAME",'checked');
+                else if($searchType == "searchGroup") $content->setVariable("PRE_SELECT_GROUP",'checked');
+                else $content->setVariable("PRE_SELECT_USER","checked");
+                
 		if($action != ""){
 			$loopCount = 0;
 			if($searchType=="searchUser" || $searchType=="searchUserFullname"){

@@ -1,0 +1,174 @@
+% LaTeX Template for a short article
+% 
+% To use:
+%
+% Copy into a new file, replace all
+% [BRACKETED UPPER CASE TEXT]
+% with your own, then run the latex command on it.
+% Use dvips to print the .dvi output
+\documentclass[DIV=10,BCOR=0cm]{scrartcl}
+%\documentclass{article}
+\usepackage{pslatex}
+\usepackage{titling}
+\usepackage[english,ngerman]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage{longtable}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{graphicx}
+
+\author{Jan Petertonkoker
+\texttt{janp@mail.upb.de}
+}
+
+\title{Pyramidendiskussion in koaLA}
+
+\begin{document}
+
+\setlength{\droptitle}{-80pt}
+\maketitle
+
+\pagestyle{plain}
+
+\noindent
+Dieses Dokument ist eine Dokumentation der koaLA-Erweiterung zur Durchführung einer Pyramidendiskussion. Es dient als Benutzerhandbuch sowohl für die normalen Benutzer als auch für die Administratoren einer Pyramidendiskussion. \\
+In Kapitel \ref{erstellen} wird zunächst der Erstellvorgang einer neuen Pyramidendiskussion in einem Kurs oder einer Gruppe für den Administrator dargestellt. Danach folgt in Kapitel \ref{durch} der generelle Ablauf einer Pyramidendiskussion in koaLA aus Benutzersicht. Abschließend werden in Kapitel \ref{admin} die zusätzlichen Administrationsmöglichkeiten dargestellt.
+
+\section{Erstellen einer Pyramidendiskussion}\label{erstellen}
+
+\section{Durchführung einer Pyramidendiskussion}\label{durch}
+In diesem Kapitel wird die Durchführung einer Pyramidendiskussion in koaLA aus Benutzersicht dargestellt. Eine Pyramidendiskussion ist in verschiedene Phasen aufgeteilt und läuft typischerweise wie folgt ab:
+\begin{itemize}
+\item{Gruppeneinteilungsphase: \\
+In dieser Phase wählen die Teilnehmer und Teilnehmerinnen ihr Startfeld in der Pyramide. Es ist möglich beliebig oft zwischen Startfeldern zu wechseln oder die Pyramide komplett zu verlassen.}
+\newpage
+\item{Erste Diskussionsphase: \\
+Auf die Gruppeneinteilungsphase folgt eine erste Diskussionsphase. In dieser Phase ist es nicht mehr möglich die eigene Position zu wechseln oder zu verlassen. Man kann nur die eigene Position lesen und bearbeiten.}
+\item{Weitere Diskussionsphasen: \\
+In den weiteren Diskussionsphasen kann man alle Positionen der vergangenen Diskussionsphasen lesen und kommentieren, aber nicht mehr ändern. In der aktuellen Diskussionsphase kann man wiederum nur die eigene Position lesen und bearbeiten.}
+\item{Endphase: Die Pyramidendiskussion ist beendet und alle Positionen können gelesen werden. Die Positionen können nicht mehr verändert werden, Kommentare sind aber weiterhin möglich.}
+\item{Außerdem können Administratoren die Pyramide nach der Endphase einfrieren. Die Positionen einer eingefrorenen Pyramide können durch niemanden mehr geändert oder kommentiert werden.}
+\end{itemize}
+
+\noindent
+Im Folgenden wird die Funktionsweise der koaLA-Erweiterung anhand einer Pyramidendiskussion mit vier Teilnehmern und vier Startpositionen aus der Sicht des Benutzers "'Test Student"' dargestellt. In diesem Beispiel werden keine Deadlines benutzt, die aktuelle Phase wird manuell durch einen Administrator geändert.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/user_pyramide_einteilungsphase_leer}
+\captionof{figure}[Gruppeneinteilungsphase]{\label{usereinteilung}Gruppeneinteilungsphase}
+\end{center}
+Abbildung \ref{usereinteilung} zeigt die Benutzersicht der Pyramide in der Gruppeneinteilungsphase, nachdem eine neue Pyramidendiskussion erstellt wurde. Es sind noch keine Benutzer den Positionen beigetreten. Oberhalb der Pyramide sind allgemeine Informationen zum aktuellen Status der Pyramidendiskussion dargestellt: Die aktuelle Phase, die Deadline der aktuellen Phase (wenn eine Deadline vom Administrator festgelegt wurde) und ein Infotext, in den der Administrator aktuelle Informationen eintragen kann. Mit einem Klick auf den Button "'Position beitreten"' in einer der Startpositionen, kann ein Benutzer nun der jeweiligen Position beitreten.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/user_pyramide_einteilungsphase_voll}
+\captionof{figure}[Einteilungsphase nach Zuordnung]{\label{usereinteilungvoll}Einteilungsphase nach Zuordnung}
+\end{center}
+Abbildung \ref{usereinteilungvoll} zeigt die Gruppeneinteilungsphase, nachdem jeder Startposition ein Benutzer beigetreten ist. Die eigene Position wird mit einem grünen Hintergrund verdeutlicht. Mit einem Klick auf den Button "'Position beitreten"' in einer der anderen Startpositionen, verlässt man die aktuelle und wechselt in die gewählte Startposition. Mit einem Klick auf den Button "'Position verlassen"' kann man die aktuelle Startposition verlassen und ist dann keiner Startposition zugeordnet. Ein Administrator beendet die Gruppeneinteilungsphase und schaltet die Pyramide in die erste Diskussionsphase um.\\
+
+\noindent
+Abbildung \ref{erstephase} zeigt die Pyramidendiskussion in der ersten Diskussionsphase. Nun kann man nur die eigene Position lesen und bearbeiten, auf alle anderen Positionen hat man keinen Zugriff. Alle inaktiven Positionen der späteren Phasen sind ausgegraut. Mit einem Klick auf den "'Position lesen und bearbeiten"' Button gelangt man auf eine neue Seite, auf der die eigene Position angezeigt wird.
+
+\begin{center} 
+\includegraphics[scale=0.58]{images/user_pyramide_erstephase}
+\captionof{figure}[Erste Diskussionsphase]{\label{erstephase}Erste Diskussionsphase}
+\end{center}
+
+\begin{center} 
+\includegraphics[scale=0.57]{images/position11_leer}
+\captionof{figure}[Eigene Position in der ersten Diskussionsphase]{\label{eigposition}Eigene Position in der ersten Diskussionsphase}
+\end{center}
+Abbildung \ref{eigposition} zeigt den Anzeigedialog der eigenen Position zu Beginn der ersten Diskussionsphase. Zunächst ist diese Position leer und es sind keine Kommentare vorhanden. Mit einem Klick auf den "'Position bearbeiten"' Button erscheint ein Overlay mit einem Texteditor, um die Position zu bearbeiten.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/user_pyramide_position_bearbeiten}
+\captionof{figure}[Position Bearbeitungsdialog]{\label{posbearbeitung}Position Bearbeitungsdialog}
+\end{center}
+Abbildung \ref{posbearbeitung} zeigt den Bearbeitungsdialog einer Position. Er besteht aus einer Zeile, in der man einen Titel für die Position eingeben kann und einem Texteditor für den eigentlichen Text der Position. Der Titel gibt initial die Stelle der Position in der Pyramide an. Nach dem Bearbeiten schließt man diesen Dialog, die Seite wird aktualisiert und in der Ansicht aus Abbildung \ref{eigposition} erscheinen die gemachten Änderungen.\\
+Wenn die erste Diskussionsphase geschlossen werden soll, schaltet ein Administrator die Pyramide in die zweite Diskussionsphase weiter. Abbildung \ref{zweitephase} zeigt die Pyramidendiskussion in der zweiten Diskussionsphase. Nun kann man die eigene Position in der zweiten Phase lesen und bearbeiten und alle Positionen der ersten Phase lesen und kommentieren.\\
+
+\noindent
+Jede Position der Pyramide enthält eine Statusleiste mit zwei Icons: Einen Kreis, der ausgefüllt ist, wenn es Änderungen in der Position gibt, die noch nicht gelesen wurden und ein Symbol für die Kommentare, welches ebenfalls ausgefüllt ist, wenn neue Kommentare vorhanden sind. Außerdem wird die Anzahl der insgesamt abgegebenen Kommentare zu der jeweiligen Position angegeben, welche zusätzlich fett dargestellt wird, wenn es ungelesene Kommentare gibt. Abbildung \ref{position} zeigt die Darstellung einer eigenen Position (grüner Hintergrund), die gelesen wurde und zu der es keine neuen Kommentare gibt. Abbildung \ref{positionneu} zeigt die Darstellung der Position eines anderen Benutzers (weißer Hintergrund), die man noch nicht gelesen hat und zu der es einen neuen Kommentar gibt.
+
+\begin{center} 
+\includegraphics[scale=0.7]{images/user_pyramide_zweitephase}
+\captionof{figure}[Zweite Diskussionsphase]{\label{zweitephase}Zweite Diskussionsphase}
+\end{center}
+
+\begin{center} 
+\includegraphics[scale=0.8]{images/position_kommentare_gelesen}
+\captionof{figure}[Position - Keine Änderungen]{\label{position}Position - Keine Änderungen}
+\end{center}
+
+\begin{center} 
+\includegraphics[scale=0.8]{images/position_ungelesen_neue_kommentare}
+\captionof{figure}[Position - Neue Kommentare und Position geändert]{\label{positionneu}Position - Neue Kommentare und Position geändert}
+\end{center}
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/position21}
+\captionof{figure}[Eigene Position in der zweiten Diskussionsphase]{\label{eigposition2}Eigene Position in der zweiten Diskussionsphase}
+\end{center}
+Abbildung \ref{eigposition2} zeigt den Anzeigedialog der eigenen Position in der zweiten Diskussionsphase. Die Anzeige ist ähnlich zu den Positionen der ersten Phase, sie enthält zusätzliche Buttons um die zugehörigen Positionen der vorherigen Diskussionsphase anzuzeigen. Abbildung \ref{eigposition3} zeigt die Anzeige mit den eingeblendeten vorherigen Positionen.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/position21_fruehere}
+\captionof{figure}[Fortgeschrittene Diskussionsphase: Vorherige Positionen]{\label{eigposition3}Fortgeschrittene Diskussionsphase: Vorherige Positionen}
+\end{center}
+
+\begin{center} 
+\includegraphics[scale=0.55]{images/kommentar}
+\captionof{figure}[Kommentare zu einer Position]{\label{kommentare}Kommentare zu einer Position}
+\end{center}
+Abbildung \ref{kommentare} zeigt den Dialog zum Erstellen eines neuen Kommentars zu einer Position. Zu jedem Kommentar kann man einen Titel und den eigentlichen Kommentartext eingeben. Kommentare kann man nach dem Hinzufügen zur Position durch einen Klick auf das "'Bearbeiten"' Icon rechts oben am Kommentar bearbeiten. Der Dialog gleicht dem Kommentar hinzufügen Dialog.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/user_pyramide_endphase}
+\captionof{figure}[Endphase]{\label{endphase}Endphase}
+\end{center}
+Auf die zweite folgt eine dritte Diskussionsphase. Wenn diese abgeschlossen ist, wurde die Pyramidendiskussion komplett durchgeführt und wird in die Endphase geschaltet. Abbildung \ref{endphase} zeigt die Pyramidendiskussion in der Endphase. Nun können alle Benutzer alle Positionen der Pyramide lesen und kommentieren, Positionen können allerdings nicht mehr verändert werden.\\
+
+\noindent
+Zusätzlich zur manuellen Weiterschaltung der Phasen durch einen Administrator ist es möglich Deadlines für die verschiedenen Diskussionsphasen festzulegen. Abbildung \ref{deadlines} zeigt die Darstellung der Deadlines in der Benutzersicht der Pyramide. Über jeder Spalte der Pyramide steht die zugehörige Deadline der jeweiligen Diskussionsphase.
+
+\begin{center} 
+\includegraphics[scale=0.8]{images/pyramide_deadlines}
+\captionof{figure}[Pyramide mit Deadlines]{\label{deadlines}Pyramide mit Deadlines}
+\end{center}
+
+\section{Administratoren Sicht}\label{admin}
+In diesem Kapitel werden die Unterschiede zwischen Benutzer und Administratoren Sicht der Pyramidendiskussion und die zusätzlichen Administrationsfunktionen dargestellt. Abbildung \ref{adminpyramide} zeigt zunächst die Administratoren Sicht auf eine neu erstellte Pyramide in der Gruppeneinteilungsphase.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/admin_einteilungsphase}
+\captionof{figure}[Administratoren Sicht Pyramide]{\label{adminpyramide}Administratoren Sicht Pyramide}
+\end{center}
+Für Administratoren enthält die Übersicht der Pyramide eine weitere Leiste, die Links zu allen Administrationsfunktionen enthält: Konfiguration, Teilnehmerverwaltung und ein Formular um Rundmails zu erstellen. Zusätzlich kann man den Adminmodus ausschalten um die Pyramide aus Benutzersicht zu betrachten.\\
+Außerdem können Administratoren in der Übersicht über die Pyramide (in dem Abschnitt über die allgemeinen Informationen) direkt die aktuelle Phase ändern. Dies ist auch möglich, wenn Deadlines eingestellt wurden. Wenn dies der Fall ist, wird für den Administrator in den allgemeinen Informationen eine Meldung darüber angezeigt. Abbildung \ref{adminallgemein} zeigt diese Meldung. Mit einem Klick auf den Button "'Deadlines aktivieren"' kann ein Administrator die Deadlines direkt wieder aktivieren, alternativ geht dies über die Konfiguration der Pyramidendiskussion.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/admin_allgemein}
+\captionof{figure}[Deadlines - Phase manuell geändert]{\label{adminallgemein}Deadlines - Phase manuell geändert}
+\end{center}
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/admin_konfiguration}
+\captionof{figure}[Konfiguration]{\label{konfiguration}Konfiguration}
+\end{center}
+Abbildung \ref{konfiguration} zeigt den Konfigurationsdialog einer Pyramidendiskussion. Einige der Einstellungen werden beim Erstellen der Pyramidendiskussion festgelegt und können später nicht mehr verändert werden (Anzahl der Startfelder, Basisgruppe, Admingruppe, Editor-Typ). In der Konfiguration können das Thema (Titel), der Infotext, die aktuelle Phase und die Deadline Einstellungen verändert werden. Wenn "'Deadlines benutzen"' markiert wurde, kann man die Deadlines der einzelnen Diskussionsphase bearbeiten. Wenn man dort in eine Zeile klickt, erscheint ein Kalender um eine einfache Datumseingabe möglich zu machen.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/admin_rundmail}
+\captionof{figure}[Rundmail]{\label{rundmail}Rundmail}
+\end{center}
+Abbildung \ref{rundmail} zeigt den Dialog zum erstellen einer Rundmail. Man kann dazu einen Titel und den eigentlich Inhalt der Nachricht eingeben. Bei einem Klick auf den "'Rundmail senden"' Button wird die Nachricht an alle Mitglieder der Basisgruppe und der Admingruppe der Pyramidendiskussion gesendet.
+
+\begin{center} 
+\includegraphics[scale=0.6]{images/admin_teilnehmer}
+\captionof{figure}[Teilnehmerverwaltung]{\label{teilnehmerverwaltung}Teilnehmerverwaltung}
+\end{center}
+Abbildung \ref{teilnehmerverwaltung} zeigt die Teilnehmerverwaltung einer Pyramidendiskussion. Hier werden alle Mitglieder der Basisgruppe und der Admingruppe aufgelistet. Es ist jederzeit möglich die Startpositionen der Benutzer in der Pyramide zu verändern. Außerdem kann man, falls ein Benutzer vor dem Ende der Pyramidendiskussion aussteigt, dies in der Teilnehmerverwaltung vermerken. Der Benutzer wird dann in der Pyramide nur in den Positionen angezeigt, bei denen er mitgearbeitet hat. Wenn man Administrator in der Admingruppe ist, kann man über den Dialog zusätzlich Administratoren ernennen und entfernen. Wenn nicht, sind die jeweiligen Felder ausgegraut und nicht bearbeitbar.\\
+
+\noindent
+Ein Administrator hat außerdem mehr Rechte als ein normaler Benutzer. Als Administrator kann man jederzeit (nach der Gruppeneinteilungsphase) jede Position und jeden Kommentar bearbeiten. Erst wenn die Pyramide eingefroren wird, kann auch ein Administrator nichts mehr verändern.
+
+\end{document}
+

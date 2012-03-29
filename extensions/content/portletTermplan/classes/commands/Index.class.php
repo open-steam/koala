@@ -182,16 +182,16 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 					//$userTimeTable.= "<td>";
 					$portletId = $portlet->get_id();
 					if(isset($votingForCurrentUser[$i]) && $votingForCurrentUser[$i]=="X"){
-						if (!$pollActive) $userTimeTable.= "<td style='background-color:$backGroundGreen;'>";
-						if ($pollActive) $userTimeTable.= "<td style='background-color:$backGroundGreen;'>";
+						if (!$pollActive) $userTimeTable.= "<td class='termplanopenvote dateaccepted'>";
+						if ($pollActive) $userTimeTable.= "<td class='termplanopenvote dateaccepted'>";
 						$voteCommand = 'sendRequest("VoteTerm",	{"portletObjectId": "'.$objectId.'", "termId": "'.$i.'"}, "", "popup", "","", "PortletTermplan");return false;';
 						if ($pollActive) $userTimeTable.="<input onclick='$voteCommand;'  type='checkbox' name='termitem' value='$i' checked='checked'>";
 						
-						if (!$pollActive) $userTimeTable.="X";
+						if (!$pollActive) $userTimeTable.="<input type='checkbox' checked disabled>";
 						$voteCount[$i]++;
 						$userTimeTable.= "</td>";
 					}else{
-						$userTimeTable.= "<td>";
+						$userTimeTable.= "<td class='termplanopenvote datedeclined'>";
 						$voteCommand = 'sendRequest("VoteTerm",	{"portletObjectId": "'.$objectId.'", "termId": "'.$i.'"}, "", "popup", "","", "PortletTermplan");return false;';
 						if ($pollActive)$userTimeTable.="<input onclick='$voteCommand;' type='checkbox' name='termitem' value='$i'>";
 						if (!$pollActive) $userTimeTable.="";
@@ -243,11 +243,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 						$userTimeTable.="<td></td>";
 						//DO NOTHING
 					}else{
-						$userTimeTable.="<td style='background-color:$backGroundGreen;'>X</td>";
+						$userTimeTable.="<td class='termplanclosedvote dateaccepted'><input type='checkbox' checked disabled> </td>";
 					}
 					$voteCount[$i]++;
 				} else {
-					$userTimeTable.="<td></td>";
+					$userTimeTable.="<td class='termplanclosedvote datedeclined'></td>";
 					if($currentUserName==$realName){
 						//DO NOTHING
 					}
@@ -261,7 +261,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 	  	$userTimeTable.= "<td>Summe</td>";
 	  	$portletId=$portlet->get_id();
 	  	for ($i = 0; $i < $optionsCount; $i++) {
-	  		$userTimeTable.= "<td id='".$portletId."TermSum$i'>$voteCount[$i]</td>";
+	  		$userTimeTable.= "<td class='termplansum' id='".$portletId."TermSum$i'>$voteCount[$i]</td>";
 	  	}
 	  	$userTimeTable.= "</tr>";
 		

@@ -136,7 +136,16 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		    
 			if(trim($appointment["linkurl"]) != "" && trim($appointment["linkurl"]) != "0"){
 				$tmpl->setCurrentBlock("BLOCK_TERM_LINK");
-				$tmpl->setVariable("LINKURL",derive_url($appointment["linkurl"]));
+				
+                                //open link in new window
+                                if(isset($appointment["linkurl_open_extern"]) && $appointment["linkurl_open_extern"]=="checked"){
+                                    $tmpl->setVariable("LINKURL_OPEN_EXTERN",'target="_blank"');
+                                }else{
+                                    $tmpl->setVariable("LINKURL_OPEN_EXTERN","");
+                                }
+                                
+                                    
+                                $tmpl->setVariable("LINKURL",derive_url($appointment["linkurl"]));
 				$tmpl->setVariable("TOPIC",$UBB->encode($appointment["topic"]));
 				$tmpl->parse("BLOCK_TERM_LINK");
 			} else {

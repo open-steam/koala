@@ -34,12 +34,12 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 				// need to set OBJ_ICON to "0" and then to icons module to avoid weird
 				// effects in icon handling (server side fix done but not testedyet)
 				$old_icon = $user->get_attribute( "OBJ_ICON" );
-				$user->set_acquire_attribute( "OBJ_ICON", 0 );
-				$user->set_attribute( "OBJ_ICON", 0 );
+				$user->set_acquire_attribute( "OBJ_ICON");
+				$user->set_attribute( "OBJ_ICON");
 				// set the default user icon by acquiring OBJ_ICON from icons module
 				$user->set_acquire_attribute( "OBJ_ICON", $GLOBALS[ "STEAM" ]->get_module("icons"));
 				// delete previous user icon object
-				if ( $old_icon instanceof steam_document )
+				if ( $old_icon instanceof \steam_document )
 				{
 					if ( $old_icon->get_path() != "/images/doctypes/user_unknown.jpg" && $old_icon->check_access_write( $user ) ) {
 						$this->clean_iconcache($old_icon);
@@ -116,7 +116,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 		}else{
 			$content->setVariable( "INFO_TEXT", "Das Benutzerbild wird Sie in ".PLATFORM_NAME." repräsentieren" );
 		}
-		
+
 		$content->setVariable( "WINDOW_CONFIRM_TEXT", gettext( "Are you sure you want to delete your current buddy icon?" ) );
 		$content->setVariable( "LABEL_DELETE", gettext( "DELETE" ) );
 		$user->delete_value("OBJ_ICON");
@@ -196,9 +196,9 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 			$cache->drop( "lms_steam::user_get_profile", $user->get_name() );
 			// TODO: In Menu "Your Desktop" some Icon data comes from lms_user
 			// stored in session => delete/refresh this value in session here
-			$portal = $GLOBALS[ "portal" ];
-			$steam_user = $portal->get_user();
-			$steam_user->init_attributes();
+			//$portal = $GLOBALS[ "portal" ];
+			//$steam_user = $portal->get_user();
+			//$steam_user->init_attributes();
 		}
 	}
 

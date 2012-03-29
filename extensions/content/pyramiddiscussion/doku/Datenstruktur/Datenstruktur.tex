@@ -1,0 +1,145 @@
+% LaTeX Template for a short article
+% 
+% To use:
+%
+% Copy into a new file, replace all
+% [BRACKETED UPPER CASE TEXT]
+% with your own, then run the latex command on it.
+% Use dvips to print the .dvi output
+\documentclass[DIV=10,BCOR=0cm]{scrartcl}
+%\documentclass{article}
+\usepackage{pslatex}
+\usepackage{titling}
+\usepackage[english,ngerman]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage{longtable}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{graphicx}
+
+
+\author{Jan Petertonkoker
+\texttt{janp@mail.upb.de}
+}
+
+\title{Pyramidendiskussion - Datenstruktur}
+
+\begin{document}
+
+\setlength{\droptitle}{-80pt}
+\maketitle
+
+\pagestyle{plain}
+
+\noindent
+Dieses Dokument ist eine Beschreibung der Datenstrukturen, die der koaLA-/bidOWL-Extension zur Pyramidendiskussion, dem Pyramid Discussion Tool der open-sTeam Weboberfläche und dem Pyramidendiskussion-Lernszenario im Mediarena Webcomposer zugrunde liegen. In Abschnitt \ref{raumobjekt} wird zunächst die Raumstruktur beschrieben, die für jede neue Pyramidendiskussion erstellt wird. Danach wird in Abschnitt \ref{gruppenstruktur} die Gruppenstruktur dargestellt, die zur Durchführung der Pyramidendiskussion benutzt wird. Abschließend folgt in Abschnitt \ref{beispiel} noch ein Beispiel, dass eine konkrete Datenstruktur bei einer durchgeführten Pyramidendiskussion zeigt.
+
+\section{Raum-Objekt}\label{raumobjekt}
+\noindent
+%\textbf{THIS} \it{THIS}
+Um eine neue Pyramidendiskussion zu erstellen, wird zunächst ein Raum-Objekt auf dem open-sTeam Server erzeugt. Damit dieses Objekt als Pyramidendiskussions-Objekt identifiziert werden kann, wird dem Attribut "'OBJ\_TYPE"' der Wert "'container\_pyramiddiscussion"' zugewiesen. Außerdem werden einige zusätzliche Attribute benötigt, um die gewünschten Funktionalitäten bereitstellen zu können (siehe: Erwägungsorientierte Pyramidendiskussionen, Bettina Blanck, Mai 2005). Diese sind in der folgenden Tabelle jeweils mit einer kurzen Beschreibung über ihre Bedeutung und ihre möglichen Werte dargestellt. Dabei ist zu beachten, dass beim Erstellen des Objekts noch nicht sofort alle aufgelisteten Attribute gesetzt werden. Einige werden erst gesetzt, wenn bestimmte Funktionalitäten benutzt werden (z.B. wenn nicht alle Benutzer bei der gesamten Pyramidendiskussion mitmachen).\\
+
+\noindent
+\textbf{Attribute des Raum-Objekts}
+
+\begin{longtable}{|p{6.9cm}|p{7cm}|}
+\hline
+\textsc{Name} & \textsc{Beschreibung} \\ 
+\hline
+\hline
+PYRAMIDDISCUSSION\_ACTCOL & aktuell aktive Phase/Spalte der Pyramide \newline
+Mögliche Werte: 0 bei Einteilungsphase, Nummer der Diskussionsphase, Diskussion beendet bei Anzahl Diskussionsphasen + 1\\
+\hline
+PYRAMIDDISCUSSION\_ACTROW & \\
+\hline
+PYRAMIDDISCUSSION\_ADMINCONFIG & enthält die Einstellungen der verschiedenen Administratoren\newline
+Mögliche Werte: Array, welches die User-Objekte der Administratoren und jeweils ein weiteres Array mit den zugehörigen Einstellungen enthält (z.B. "'show\_adminoptions"' : '"true"' oder "'false"') \\
+\hline
+PYRAMIDDISCUSSION\_ADMINGROUP & Gruppenobjekt der Gruppe, die die Pyramidendiskussion administriert\\
+\hline
+PYRAMIDDISCUSSION\_BASEGROUP & Gruppenobjekt der Gruppe, die die Pyramidendiskussion durchführt\\
+\hline
+PYRAMIDDISCUSSION\_DEADLINES & Array, welches (falls eingegeben) Timestamps der Deadlines für die verschiedenen Diskussionsphasen enthält\\
+\hline
+PYRAMIDDISCUSSION\_EDITOR & gibt die Art des Editors zur Eingabe der Positionen und der Kommentare an \newline
+Mögliche Werte: "'text/html"', "'text/plain"', "'text/wiki"' ("'text/rtf"' zusätzlich beim Webcomposer)\\
+\hline
+PYRAMIDDISCUSSION\_INITIALIZED & gibt an, ob die Pyramidendiskussion initialisiert wurde (Wert = 1)\\
+\hline
+PYRAMIDDISCUSSION\_MAX & Anzahl der Startfelder \\
+\hline
+PYRAMIDDISCUSSION\_MAXCOL & Anzahl der Diskussionsphasen\\
+\hline
+PYRAMIDDISCUSSION\_OVERRIDE \newline \_DEADLINES & wenn Wert = 1: Deadlines nicht aktiv, Phase manuell durch Administrator geändert\\
+\hline
+PYRAMIDDISCUSSION\_PARTICIPANT \newline \_MANAGEMENT & gibt an, bis zu welcher Diskussionsphase die Benutzer mitmachen \newline
+Array mit den IDs aller Benutzer und jeweils einem Integer-Wert, der die letzte Diskussionsphase angibt, in der der jeweilige Benutzer mitmacht (0 wenn er bei allen mitmacht)\\
+\hline
+PYRAMIDDISCUSSION \newline \_RESTRICTREADACCESS & \\
+\hline
+PYRAMIDDISCUSSION\_USEDEADLINES & gibt an, ob Deadlines verwendet werden \newline Mögliche Werte: yes, no\\
+\hline
+PYRAMIDDISCUSSION\_VERSION & Version der pyramiddiscussion-Extension, mit der das Objekt erstellt wurde\\
+\hline
+\end{longtable}
+
+\subsection*{Dokument-Objekte}
+Zusätzlich zum Setzen einiger Attribute des Raum-Objekts, werden beim Erstellen einer Pyramidendiskussion Dokument-Objekte für alle Positionen der Pyramide erstellt. Sie werden direkt im Raum der Pyramidendiskussion abgelegt. Diese Dokumente werden nach dem Namensschema "'Position\_Spalte\_Zeile"', wobei Spalte die Nummer der zugehörigen Diskussionsphase (also Spalte in der Pyramide) und die Zeile die Nummer der zugehörigen Position in der Diskussionsphase (also Zeile in der jeweiligen Spalte der Pyramide) bezeichnet. In diesen Dokumenten werden die Texte der zugehörigen Position in der Pyramide gespeichert.\\ Außerdem werden Kommentare zu einer Position, als Annotation zu dem jeweiligen Dokument-Objekt auf dem open-sTeam Server gespeichert. Diese Kommentare bekommen im Webcomposer ein Attribut PYRAMIDDISCUSSION\_COMMENT\_READ\_STATES, welches angibt welche Benutzer diesen Kommentar schon gelesen haben. Es enthält ein Array mit den Benutzer-IDs, denen jeweils eine 1 (gelesen) oder 0 zuordnet.\\
+Die folgende Tabelle zeigt die Attribute, die jedem Dokument-Objekt zugewiesen werden. Die beiden letzten Attribute werden durch den Webcomposer benutzt, die open-sTeam Weboberfläche benutzt diese Attribute nicht.\\
+
+\noindent
+\textbf{Attribute der Dokument-Objekte}
+
+\begin{longtable}{|p{6.9cm}|p{7cm}|}
+\hline
+\textsc{Name} & \textsc{Beschreibung} \\ 
+\hline
+\hline
+PYRAMIDDISCUSSION\_COLUMN & Spalte der Pyramide\\
+\hline
+PYRAMIDDISCUSSION\_RELGROUP & zugehöriges Gruppenobjekt\\
+\hline
+PYRAMIDDISCUSSION\_ROW & Zeile in der jeweiligen Spalte der Pyramide\\
+\hline
+PYRAMIDDISCUSSION\_POS\_READ \newline \_STATES & Array, welches angibt welche Benutzer diese Position gelesen haben (Einträge: "'BenutzerID"' : "'1"' oder "'0"' [1 = gelesen])\\
+\hline
+PYRAMIDDISCUSSION\_POS\_TITLE & Titel der Position\\
+\hline
+\end{longtable}
+
+\noindent
+Zu jeder Position wird also ein zugehöriges Gruppenobjekt in den Attributen gespeichert. Im folgenden Abschnitt \ref{gruppenstruktur} wird die Gruppenstruktur, die auch sofort beim Erstellen einer Pyramidendiskussion angelegt wird, genauer erläutert.
+
+\section{Gruppenstruktur}\label{gruppenstruktur}
+Beim Erstellen einer Pyramidendiskussion, wird die Gruppe angegeben, welche die Pyramidendiskussion durchführt. In dieser Gruppe wird nun eine Untergruppe mit dem Namen \linebreak "'pyramid\_OID"' erstellt, wobei OID die Objekt-ID des Raum-Objekts der Pyramidendiskussion auf dem open-sTeam Server ist. \\
+Innerhalb dieser Gruppe wird nun eine verschachtelte Untergruppenhierarchie erstellt, die sich am Aufbau der Pyramide orientiert. Alle dieser Untergruppen werden nach dem Namensschema "'group\_Spalte\_Zeile"' (parallel zu den Dokument-Objekten) benannt.\\
+Zunächst wird die Untergruppe für die Spitze der Pyramide (letzte Diskussionsrunde bzw. letzte Spalte) erstellt. Danach werden in dieser Gruppe zwei Untergruppen für die Pyramiden-Elemente der vorherigen Diskussionsrunde (vorherige Spalte) erstellt. Als Mitglieder der Gruppe der Spitze der Pyramide werden ihr ihre beiden Untergruppen der vorherigen Diskussionsrunde zugewiesen. Dieser Aufbau wird nun für die weiteren Ebenen der Pyramide fortgesetzt: Alle Untergruppen (bis auf die der ersten Spalte der Pyramide) haben also als Mitglieder ihre zwei Untergruppen der vorherigen Diskussionsrunde bzw. Spalte. Abbildung \ref{grupstruk} zeigt einen beispielhaften Aufbau bei einer Pyramidendiskussion mit vier Teilnehmern.\\
+Wenn nun ein Benutzer einer bestimmten Position in der ersten Spalte beitritt, wird er Mitglied der zugehörigen Untergruppe und somit auch Mitglied der Untergruppen der anderen Positionen, die er von der beigetretenen Position aus, im Laufe der Pyramidendiskussion besetzt.
+
+\section{Beispiel}\label{beispiel}
+
+In diesem Abschnitt wird eine Durchführung einer Pyramidendiskussion dargestellt und die konkreten zugehörigen Instanzen der Datenstrukturen erläutert.
+Die Beispiel-Pyramidendiskussion wird von vier Benutzern durchgeführt: root, student, dozent und postman. Es genügt also eine Pyramide mit vier Startfeldern und drei Diskussionsrunden. Abbildung \ref{pyrdisk} zeigt die Pyramidendiskussion in der open-sTeam Weboberfläche zu Beginn der ersten Diskussionsrunde.
+
+\begin{center} 
+\includegraphics[scale=0.4]{images/pyramid.png}
+\captionof{figure}[Beispiel Pyramidendiskussion]{\label{pyrdisk}Beispiel Pyramidendiskussion}
+\end{center}
+
+\noindent
+Außerdem zeigt Abbildung \ref{grupstruk} die zugehörige Gruppenstruktur. Hier kann man die Hierarchie der Struktur und den Zusammenhang zur Pyramide gut erkennen: group\_2\_1 hat beispielsweise die Untergruppen group\_1\_1 (Mitglied root) und group\_1\_2 (Mitglied student), also die Mitglieder root und student. Dies ist auch in der Pyramide in Abbildung \ref{pyrdisk} ähnlich dargestellt.
+
+\begin{center} 
+\includegraphics[scale=0.47]{images/gruppenstruktur.pdf}
+\captionof{figure}[Beispiel Gruppenstruktur]{\label{grupstruk}Beispiel Gruppenstruktur}
+\end{center}
+
+\begin{center} 
+\includegraphics[scale=0.8]{images/raumobjekt.pdf}
+\captionof{figure}[Beispiel Raumobjekt]{\label{raumbei}Beispiel Raum-Objekt}
+\end{center}
+
+\noindent
+Abbildung \ref{raumbei} zeigt den konkreten Inhalt der Datenstruktur des Raum-Objekts. Dabei sieht man, dass nicht alle der zuvor betrachteten Attribute vorhanden sind, weil bestimmte Funktionen hier nicht benutzt wurden. Zu jeder Position gibt es ein Dokument-Objekt in dem der Inhalt dieser Position gespeichert ist. Die Kommentare, die als Annotation zu dem jeweiligen Dokument-Objekt gespeichert werden, sind hier nicht dargestellt. Es wurden ebenfalls nur die für die Pyramidendiskussion wichtigen Attribute notiert. Jedes Objekt hat natürlich noch weitere Attribute, diese sind an dieser Stelle allerdings nicht von Bedeutung.
+
+\end{document}
+

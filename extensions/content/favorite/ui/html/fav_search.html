@@ -4,12 +4,10 @@
 	<tr>
 		<td class="label">{SEARCH}:</td>
 		<td class="value"><input type="text" name="searchString" /></td>
-		<td class="value"><input type="radio" checked=""
-			style="width: 20px;" value="searchUser" name="searchType">
-		{USER_LOGIN} <input type="radio" style="width: 20px;" value="searchUserFullname"
-			name="searchType">
-		{USER_FULLNAME} <input type="radio" style="width: 20px;" value="searchGroup"
-			name="searchType"> {GROUPS}</td>
+		<td class="value">
+                                <input type="radio" {PRE_SELECT_USER} style="width: 20px;" value="searchUser" name="searchType">
+		{USER_LOGIN}    <input type="radio" {PRE_SELECT_FULLNAME} style="width: 20px;" value="searchUserFullname" name="searchType">
+		{USER_FULLNAME} <input type="radio" {PRE_SELECT_GROUP} style="width: 20px;" value="searchGroup" name="searchType"> {GROUPS}</td>
 
 	</tr>
 </table>

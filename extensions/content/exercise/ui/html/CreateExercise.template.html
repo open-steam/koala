@@ -1,0 +1,146 @@
+<div id="main" align="center">
+	{NOTIFICATION_TEXT}
+	<div id="exercise-details">
+		<form name="exerciseFormular" method="post" action="{FORM_ACTION}">
+			<table class="exerciseForm" cellpadding="4" cellspacing="0">
+				<!-- BEGIN BLOCK_ATTR_NAME -->
+				<tr>
+					<td class="attribute">{ATTR_NAME}:</td>
+					<td class="input"><input name="attributes[NAME]" type="text" size="30" onChange="changed()" value="{ATTR_NAME_VALUE}"/></td>
+				</tr>
+				<!-- END BLOCK_ATTR_NAME -->
+				<!-- BEGIN BLOCK_ATTR_MINGROUP -->
+				<tr>
+					<td class="attribute">{ATTR_MINGROUP}:</td>
+					<td class="input"><input name="attributes[MINGROUP]" type="text" size="4" onChange="changed()" value="{ATTR_MINGROUP_VALUE}"/></td>
+				</tr>
+				<!-- END BLOCK_ATTR_MINGROUP -->
+				<!-- BEGIN BLOCK_ATTR_MAXGROUP -->
+				<tr>
+					<td class="attribute">{ATTR_MAXGROUP}:</td>
+					<td class="input"><input name="attributes[MAXGROUP]" type="text" size="4" onChange="changed()" value="{ATTR_MAXGROUP_VALUE}"/></td>
+				</tr>
+				<!-- END BLOCK_ATTR_MAXGROUP -->
+				<!-- BEGIN BLOCK_ATTR_START -->
+				<tr>
+					<td class="attribute">{ATTR_START}:</td>
+					<td class="input">
+						<input name="attributes[STARTDT]" type="text" size="15" onChange="changed()" value="{ATTR_START_DT_VALUE}"/>
+						<input name="attributes[STARTTM]" type="text" size="13" onChange="changed()" value="{ATTR_START_TM_VALUE}"/>
+						<span class="valueinfo">[dd.mm.yyyy / hh:mm]</span>
+					</td>
+				</tr>
+				<!-- END BLOCK_ATTR_START -->
+				<!-- BEGIN BLOCK_ATTR_DEADLINE -->
+				<tr>
+					<td class="attribute">{ATTR_DEADLINE}:</td>
+					<td class="input">
+						<input name="attributes[DEADLINEDT]" type="text" size="15" onChange="changed()" value="{ATTR_DEADLINE_DT_VALUE}"/>
+						<input name="attributes[DEADLINETM]" type="text" size="13" onChange="changed()" value="{ATTR_DEADLINE_TM_VALUE}"/>
+						<span class="valueinfo">[dd.mm.yyyy / hh:mm]</span>
+					</td>
+				</tr>
+				<!-- END BLOCK_ATTR_DEADLINE -->
+				<!-- BEGIN BLOCK_ATTR_POINTS -->
+				<tr>
+					<td class="attribute">{ATTR_POINTS}:</td>
+					<td class="input"><input name="attributes[POINTS]" type="text" size="4" onChange="changed()" value="{ATTR_POINTS_VALUE}"/></td>
+				</tr>
+				<!-- END BLOCK_ATTR_POINTS -->
+				<!-- BEGIN BLOCK_ATTR_DESCRIPTION -->
+				<tr>
+					<td class="attribute">{ATTR_DESCRIPTION}:</td>
+					<td class="input"><textarea name="attributes[DESCRIPTION]" onChange="changed()" style="width: 95%;" rows="10">{ATTR_DESCRIPTION_VALUE}</textarea></td>
+				</tr>
+				<!-- END BLOCK_ATTR_DESCRIPTION -->
+				<!-- BEGIN BLOCK_ATTR_SOLUTIONFILES -->
+				<tr>
+					<td class="attribute">{ATTR_SOLUTIONFILES}:</td>
+					<td class="input">
+						<div class="valueinfo" style="display: block;">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Dokumenttitel]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Dateityp]
+						</div>
+						<div class="dynamicListCont">
+							<table class="dynamicList" cellpadding="0" cellspacing="2">
+								<tbody id="dynamicList">
+									<!-- BEGIN BLOCK_SOLUTIONFILES -->
+									<tr id="dynamicEntry_{SF_ENTRYNR}">
+										<td style="width:60%;">
+											<input type="text" class="dynamicCell" onChange="changed()" name="sf_names[]" value="{SF_NAME}" />
+										</td>
+										<td style="width:30%;">
+											<input type="text" class="dynamicCell" onChange="changed()" name="sf_types[]" value="{SF_TYPE}" />
+											<input type="hidden" name="sf_ids[]" value="{SF_ID}" />
+	 									</td>
+										<td style="width:10%;">
+											<button type="button" class="dynamicAction" onClick="changed();dynamicList.removeEntry('dynamicEntry_{SF_ENTRYNR}');">X</button>
+										</td>
+									</tr>
+									<!-- END BLOCK_SOLUTIONFILES -->
+								</tbody>
+							</table>
+						</div>
+						<div class="dynamicListAdder">
+							<button type="button" class="dynamicListAdder" onClick="changed();dynamicList.addEntry()">
+								+
+							</button>
+						</div>
+						
+					</td>
+				</tr>
+				<!-- END BLOCK_ATTR_SOLUTIONFILES -->
+			</table>
+			<input type="hidden" id="CMD_ABORT" name="CMD_ABORT" value="FALSE" />
+			<input type="hidden" id="OPERATION" value="{OPERATION}" />
+		</form>
+	</div>
+	<div align="left" style="width:80%;">
+		<hr>
+		<div id="document-uploader-array">
+			<h1>Aufgabenstellung &amp; Unterlagen</h1>
+			<div id="document-add-button" class="document-add-button">Neues Dokument hinzuf&uuml;gen</div>
+			<div id="document-uploader" class="document-uploader">		
+				<noscript>			
+					<p>Bitte aktivieren Sie JavaScript in Ihrem Webbrowser.</p>
+				</noscript>         
+			</div>
+		</div>
+		<hr>
+		<div class="buttons" align="right">
+			<button type="submit" onClick="validSubmit(); document.exerciseFormular.submit();">
+				{SUBMIT_BUTTON_LABEL}
+			</button>
+		</div>
+	</div>
+	<script type="text/javascript"> 
+		    
+		 		
+	 		// create exerciseForm
+	 		var uploaderarray = new exerciseForm( '{BACKEND}',
+												  '{BASEROOM}',
+												   {SIZELIMIT},
+												  'document-uploader-array',
+												  'document-uploader',
+												  'document-add-button',
+												   {FIXED_UPLOADERS},
+												   {PRELOAD}
+	 											);
+	 		
+	 		// set number of loaded entries in dynamicList
+	 		dynamicList.entries = {SF_ENTRYAMT};
+	 		dynamicList.newId = {SF_ENTRYAMT}+1;
+		 	
+		 	
+		 	handleChanges = {CHANGED_FLAG};
+		 	function validSubmit() {
+		 		//jQuery(window).bind('unload', null);
+		 		jQuery(window).unbind('unload');
+		 	}
+		 	function changed() {
+		 		handleChanges = true;
+		 	}
+		 	
+		 	jQuery(window).bind('unload', function() {displayConfirmation()});
+		 	{NOTIFICATION_VIEW}
+		</script>
+</div>

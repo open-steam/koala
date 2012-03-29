@@ -56,7 +56,7 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
 						array("name" => "Kopieren<img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"), 
 						array("name" => "Ausschneiden<img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Referenzieren<img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->sourceObjectId}','user':'{$this->user}'}", "type"=>"popup"), 
-						array("name" => "Löschen<img src=\"{$trashIcon}\">",  "command" => "Delete", "namespace" => "PortletMsg", "params" => "{'linkObjectId':'{$this->linkObjectId}'}", "type"=>"popup"),
+						array("name" => "Löschen<img src=\"{$trashIcon}\">",  "command" => "DeleteReference", "namespace" => "PortalColumn", "params" => "{'linkObjectId':'{$this->linkObjectId}'}", "type"=>"popup"),
 						array("name" => "SEPARATOR"),
 						array("name" => "Rechte<img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->linkObjectId}'}", "type"=>"popup"),
 						);

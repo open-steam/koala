@@ -1,0 +1,110 @@
+.index-page {
+	width: 80%;	
+}
+.index-area {
+	width: 100%;
+	border: 1px solid #06B;
+	padding: 10px;
+	padding-left: 10px;	
+	padding-right: 10px;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+.split {
+	text-align: left;
+	vertical-align: top;
+	display: inline-block;
+	margin-right: 6px;
+	width: 48%;
+}
+
+span.headline {
+	font-size: 15px;
+	color: #06B;
+	font-weight: bold;
+	display: block;	
+	margin-bottom: 3px;
+}
+span.exercise {
+	font-size: 14px;
+	color: #000;
+	display: block;	
+}
+span.infotxt {
+	font-size: 100%;
+	color: #000;
+	display: block;	
+	margin-bottom: 5px;
+}
+span.points {
+	font-size: 15px;	
+}
+div.workload {
+	width: 70%;
+	background-color: #DBE5FF;
+	padding: 4px;
+	padding-top: 5px;
+	padding-left: 13px;
+	margin-top: 7px;
+	font-size: 13px;
+	font-weight: bold;	
+}
+div.action {
+	width: 23%;
+	display: inline-block;
+	text-align: center;	
+	margin-top: 10px;
+}
+div.icon {
+	display: block;	
+}
+
+/**
+ *	buttons for exerciseExtension
+ */
+.buttons a, .buttons button{
+    display: inline-block; 
+    line-height:23px; 
+    padding: 3px 5px 3px 5px; 
+    font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; 
+    font-size: 12px; 
+    color: #3C3C3D; 
+    text-shadow: 1px 1px 0 #FFFFFF; 
+    background: #ECECEC url('../images/css3buttons_backgrounds.png') 0 0 no-repeat; 
+    white-space: nowrap; 
+    overflow: visible; 
+    cursor: pointer; 
+    text-decoration: none; 
+    border: 1px solid #CACACA; 
+    -webkit-border-radius: 2px; 
+    -moz-border-radius: 2px; 
+    -webkit-background-clip: padding-box; 
+    border-radius: 2px; 
+    outline: none; 
+    position: relative; 
+    zoom: 1; 
+    *display: inline;
+}
+.disabledbuttons button{
+    display: inline-block; 
+    line-height:23px; 
+    padding: 3px 5px 3px 5px; 
+    font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; 
+    font-size: 12px; 
+    color: #A5A5A8; 
+    text-shadow: 1px 1px 0 #FFFFFF; 
+    background: #ECECEC url('../images/css3buttons_backgrounds.png') 0 0 no-repeat; 
+    white-space: nowrap; 
+    overflow: visible; 
+    text-decoration: none; 
+    border: 1px solid #CACACA; 
+    -webkit-border-radius: 2px; 
+    -moz-border-radius: 2px; 
+    -webkit-background-clip: padding-box; 
+    border-radius: 2px; 
+    outline: none; 
+    position: relative; 
+    zoom: 1; 
+    *display: inline;
+}

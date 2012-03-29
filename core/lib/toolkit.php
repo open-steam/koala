@@ -270,6 +270,7 @@ function getObjectType($object) {
 }
 
 function deriveIcon($object) {
+	if(!($object instanceof steam_object)) return "";
 	$worksheet_role = $object->get_attribute("worksheet_role");
 	if ($worksheet_role === "build")
 		return "worksheet.png";

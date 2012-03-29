@@ -40,7 +40,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		$title = "Papierkorb";
 
 		$actionBar = new \Widgets\ActionBar();
-		$actionBar->setActions(array(array("name"=>"Papierkorb leeren", "ajax"=>array("onclick"=>array("command"=>"EmptyTrashbin", "params"=>array("fromNameSpace"=>"Trashbin"), "requestType"=>"popup", "namespace"=>"explorer")))));
+		$actionBar->setActions(array(array("name"=>"Papierkorb leeren", "ajax"=>array("onclick"=>array("command"=>"EmptyTrashbin", "params"=>array(), "requestType"=>"popup", "namespace"=>"explorer")))));
 
 		$loader = new \Widgets\Loader();
 		$loader->setWrapperId("trashbinWrapper");
