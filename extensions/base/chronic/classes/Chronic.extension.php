@@ -2,8 +2,8 @@
 class Chronic extends AbstractExtension implements IMenuExtension {
 	
 	private static $currentObject;
-        private $chronicLength = 10;
-	
+        private $chronicLength = 15;
+        
 	public function getName() {
 		return "Chronic";
 	}
@@ -133,7 +133,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             $chronic[] = $entry;
             $chronic = array_reverse($chronic);
             
-            
+            /*
             //dedupe
             $cleandChronic = array();
             $lastElement = "";
@@ -146,7 +146,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 }
             }
             $chronic = $cleandChronic;
-            
+            */
             
             //throw tail away
             $counter=1;
@@ -228,10 +228,9 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             }
             else if($entryType=="oth"){
                 $type = $content[1];
-                var_dump($type);
-                if($type=="profile") return "Profil";
-                if($type=="desktop") return "Schreibtisch";
-                if($type=="bookmarks") return "Lesezeichen";
+                if($type==="profile") return "Profil";
+                if($type==="home") return "Schreibtisch";
+                if($type==="bookmarks") return "Lesezeichen";
                 return "Unbekannt";
             }
             return "Unbekannter Name";
@@ -245,7 +244,6 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             if($entryType=="oid"){
                 $objectId = $content[1];
                 return \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
-                //return "dummypath";
             }
             else if($entryType=="cmd"){
                 return "command";
@@ -255,9 +253,9 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             }
             else if($entryType=="oth"){
                 $type = $content[1];
-                if($type=="profile") return "profile";
-                if($type=="desktop") return "desktop";
-                if($type=="bookmarks") return "bookmarks";
+                if($type==="profile") return "/profile/";
+                if($type==="home") return "/desktop/";
+                if($type==="bookmarks") return "/bookmarks/";
                 return "";
             }
             return "";

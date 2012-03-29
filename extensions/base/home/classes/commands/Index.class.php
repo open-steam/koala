@@ -15,6 +15,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     header("location: " . HOME_REDIRECT_URL);
                     exit;
                 }
+                
+                //chronic
+                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("home");
+                
 		$portal = \lms_portal::get_instance();
 		$user = \lms_steam::get_current_user();
 		$frameResponseObject->setTitle(gettext("Your Desktop"));
