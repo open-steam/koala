@@ -60,7 +60,7 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
 		$this->getExtension()->addCSS();
 		
 		$actionBar = new \Widgets\ActionBar();
-		$actionBar->setActions(array(array("name"=> "Galerie-Ansicht", "link" => PATH_URL."gallery/index/".$this->id."/"),array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))), array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))), array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))));
+		$actionBar->setActions(array(array("name"=> "Galerie-Ansicht", "link" => PATH_URL."gallery/index/".$this->id."/"),array("name"=>"Neues Bild", "ajax"=>array("onclick"=>array("command"=>"Addpicture", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"Properties", "params"=>array("id"=>$this->id), "requestType"=>"popup", "namespace"=>"explorer"))), array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup", "namespace"=>"explorer")))));
 		//$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 		
 		
