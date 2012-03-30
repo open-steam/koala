@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
 					var obj = new Object;
 					obj.id = element.attr('id');
 					
-					sendRequest("GetDirectEditor", obj, item.attr('id'), "updater");
+					sendRequest("GetDirectEditor", obj, item.attr('id'), "updater", null, null, "explorer");
 				} else {
 					removeAllDirectEditors();
 				}
@@ -38,7 +38,7 @@ function removeDirectEditor(objectId, elementId) {
 	
 	var obj = new Object;
 	obj.id = objectId;
-	sendRequest("GetLabel", obj, elementId, "updater");
+	sendRequest("GetLabel", obj, elementId, "updater",null,null,"explorer");
 }
 
 function getSelectionAsArray() {
