@@ -229,7 +229,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$checkboxInput->setUncheckedValue(0);
 		$checkboxInput->setData($object);
 		$checkboxInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:forum_is_editable"));
-		if(!$isWriteable){
+		
+                $checkboxWWW = new \Widgets\Checkbox();
+		$checkboxWWW->setLabel("Neues Fenster öffnen:");
+		$checkboxWWW->setCheckedValue("1");
+		$checkboxWWW->setUncheckedValue(0);
+		$checkboxWWW->setData($object);
+		$checkboxWWW->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_BLANK"));
+                if(!$isWriteable){
 			//WIDGET-Eigenschaft fehlt noch
 		}
 
@@ -305,7 +312,10 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$urlInput->setData($object);
 			$urlInput->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_EXTERN_URL"));
                         $dialog->addWidget($urlInput);
-			$dialog->addWidget($seperator);
+                        $dialog->addWidget($seperator);
+                        $dialog->addWidget($checkboxWWW);
+                        $dialog->setForceReload(true);
+                        
 		}
 
                 
