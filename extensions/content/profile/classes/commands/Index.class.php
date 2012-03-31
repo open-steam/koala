@@ -403,9 +403,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 		if(ENABLED_ICQ_NUMBER || ENABLED_BID_IM){
 			$icq=h($user_profile[ "USER_PROFILE_IM_ICQ" ]);
-			if(isset($icq) && $icq!== 0 && $icq!=""){
-				$icq1='<a href="http://www.icq.com/whitepages/cmd.php?uin='.$icq.'&amp;action=add">'.$icq.'</a>';
-				$this->display( "CONTACT_DATA", "ICQ number", $icq1);
+			if(isset($icq) && $icq!= 0 && $icq!=""){
+				$this->display( "CONTACT_DATA", "ICQ number", $icq);
 			}
 		}
 		if(ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM){
