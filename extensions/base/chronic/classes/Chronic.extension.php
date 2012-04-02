@@ -218,7 +218,11 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             if($entryType=="oid"){
                 $objectId = $content[1];
                 $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
-		return $steamObject->get_name();
+		if($steamObject instanceof \steam_object){
+                    return $steamObject->get_name();
+                }else{
+                    return "invalid_name";
+                }
             }
             else if($entryType=="cmd"){
                 return "command";
@@ -248,7 +252,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 		if($steamObject instanceof \steam_object){
                     return \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
                 }  else {
-                    return "";
+                    return "invalid_path";
                 }
                 
             }
