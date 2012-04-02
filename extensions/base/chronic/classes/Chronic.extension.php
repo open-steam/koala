@@ -213,7 +213,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
       
         
         private function getEntryName($chronicEntry){
-            return "name";
+            //return "name";
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
             if($entryType=="oid"){
@@ -243,7 +243,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         
         
         private function getEntryPath($chronicEntry){
-            //return "path";
+            return "path";
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
             
