@@ -238,6 +238,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         
         
         private function getEntryPath($chronicEntry){
+            return "Name";
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
             
