@@ -66,29 +66,22 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 
 	public function execute( \FrameResponseObject $frameResponseObject ){
-		
-		
-		/* RIGHTS INFO
-			$sl_container->set_acquire_from_environment(); //inherit rights
-			$sl_container->set_acquire(0); //do not inherit rights
-			$container->set_write_access( $groupORperson, FALSE ); //revoke write access
-					  ->set_read_access( $learners, TRUE );//grant read access
-					  ->set_insert_access( $groupORperson, FALSE ); //revoke insert (right to create objects in it)
-					  ->set_sanction_all( $admins );//grant all rights
-		*/
-		
-		
-		
-		
-		/*
-		 * for testing purpose preselect course EXT-01: 
-		 * in live environment use $this->params[0]
-		 */
-		$prm = array("WS1011", "Ext-01");
-		$basepath = "/home/Courses." . $prm[0] . "." . $prm[1] . ".learners/";
-		$ex_path = $basepath . "exercises/";
-		$sl_path = $basepath . "solutions/";
-		$rv_path = $basepath . "reviews/";
+            
+            if (!isset($this->id)) {
+                header("location: " . PATH_URL . "404/");
+                exit;
+            }
+            
+            $exerciseObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            if (!$exerciseObject instanceof \steam_object) {
+                header("location: " . PATH_URL . "404/");
+                exit;
+            }
+            
+            $basepath = $exerciseObject->get_path() . "/";
+            $ex_path = $basepath . "exercises/";
+            $sl_path = $basepath . "solutions/";
+            $rv_path = $basepath . "reviews/";
 		
 		/*
 		 * Get Data
@@ -132,7 +125,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		
 		# Check for Usergroup
 		$user = \lms_steam::get_current_user();
-		$course_group = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), "Courses." . $prm[0] . "." . $prm[1]);
+                
+                $url = $exerciseObject->get_environment()->get_path();
+                $urlArray = explode("/", $url);
+                $learnersGroupName = $urlArray[2];
+                $courseGroupName = str_replace(".learners", "", $learnersGroupName);
+                
+		$course_group = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), $courseGroupName);
 		$group = new \koala_group_course( $course_group );
 		
 		if ($group->is_learner($user)) {
@@ -277,12 +276,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		 * Template
 		 */
 		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "&Uuml;bungsaufgaben")));
+		$breadcrumb->setData(array(array("name" => "&Uuml;bungsaufgaben")));
 		
 		if (!$user_is_learner) {
 			
 			$actionBar = new \Widgets\ActionBar();
-			$actionBar->setActions(array(array( "name" => "&Uuml;bungsbetrieb konfigurieren", "link" => PATH_URL . "exercise/EditSettings")));
+			$actionBar->setActions(array(array( "name" => "&Uuml;bungsbetrieb konfigurieren", "link" => PATH_URL . "exercise/EditSettings/" . $this->id)));
 		}
 		
 		$tmplt = \Exercise::getInstance()->loadTemplate("Index.template.html");
@@ -362,8 +361,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			
 			$tmplt->setCurrentBlock("BLOCK_LEARNERS_ACTIONS");
 			$tmplt->setVariable( "ICON_BASE_PATH", PATH_URL );
-			$tmplt->setVariable( "LIST_SOLUTIONS_LINK", PATH_URL . 'exercise/ListSolutions/' );
-			$tmplt->setVariable( "LIST_EXERCISES_LINK", PATH_URL . 'exercise/ListExercises/' );
+			$tmplt->setVariable( "LIST_SOLUTIONS_LINK", PATH_URL . 'exercise/ListSolutions/' . $this->id);
+			$tmplt->setVariable( "LIST_EXERCISES_LINK", PATH_URL . 'exercise/ListExercises/' . $this->id);
 			$tmplt->parse("BLOCK_LEARNERS_ACTIONS");
 		}
 		else {
@@ -382,10 +381,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			
 			$tmplt->setCurrentBlock("BLOCK_STAFF_ACTIONS");
 			$tmplt->setVariable( "ICON_BASE_PATH", PATH_URL );
-			$tmplt->setVariable( "LIST_REVIEWS_LINK", PATH_URL . 'exercise/ListReviews/' );
-			$tmplt->setVariable( "LIST_EXERCISES_LINK", PATH_URL . 'exercise/ListExercises/' );
-			$tmplt->setVariable( "CREATE_EXERCISE_LINK", PATH_URL . "exercise/CreateExercise/" );
-			$tmplt->setVariable( "BALANCE_WORKLOADS_LINK", PATH_URL . "exercise/BalanceWorkloads/" );
+			$tmplt->setVariable( "LIST_REVIEWS_LINK", PATH_URL . 'exercise/ListReviews/' . $this->id );
+			$tmplt->setVariable( "LIST_EXERCISES_LINK", PATH_URL . 'exercise/ListExercises/' . $this->id );
+			$tmplt->setVariable( "CREATE_EXERCISE_LINK", PATH_URL . "exercise/CreateExercise/" . $this->id);
+			$tmplt->setVariable( "BALANCE_WORKLOADS_LINK", PATH_URL . "exercise/BalanceWorkloads/" . $this->id);
 			$tmplt->parse("BLOCK_STAFF_ACTIONS");
 		}
 		
