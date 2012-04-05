@@ -6,7 +6,7 @@ class Label extends Widget {
 	
 
 	public function setLabel($label) {
-		$this->value = $value;
+		$this->value = $label;
 	}
 	
 	

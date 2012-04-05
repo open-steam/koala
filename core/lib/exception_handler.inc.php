@@ -2,11 +2,12 @@
 include_once( PATH_LIB . 'encryption_handling.inc.php' );
 
 function send_http_error($pException, $pBacktrace = "", $silent = false) {
-	if ($pException->getCode() == E_USER_ACCESS_DENIED ) {
-		logging::write_log( LOG_403, date("d.m.Y H:i", time()) . " USER: " . $_ENV["USER"] . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]);
+	/*if ($pException->getCode() == E_USER_ACCESS_DENIED ) {
+		logging::write_log( LOG_403, date("d.m.Y H:i", time()) . " USER: " . $_ENV["USER"] . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ] . "\n" . $pException->getTraceAsString());
+                die;
                 header( 'Location: ' . PATH_URL . "403/");
 		exit;
-	}
+	}*/
 	if ( $pException->getCode() == E_USER_AUTHORIZATION )
 	{
 		try {
