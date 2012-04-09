@@ -126,18 +126,27 @@ class EditSettings extends \AbstractCommand implements \IFrameCommand {
 	}
 
 	public function execute( \FrameResponseObject $frameResponseObject ){
-
-		$prm = array("WS1011", "Ext-01");
-		//$basepath = "/home/Courses." . $prm[0] . "." . $prm[1] . ".learners/";
-		$basepath = "/home/Courses." . $prm[0] . "." . $prm[1] . "/";
+            
+            if (!isset($this->id)) {
+                header("location: " . PATH_URL . "404/");
+                exit;
+            }
+            
+            $exerciseObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            if (!$exerciseObject instanceof \steam_object) {
+                header("location: " . PATH_URL . "404/");
+                exit;
+            }
+            
+            $basepath = $exerciseObject->get_path() . "/";
+            
 		/*
 		$ex_path = $basepath . "exercises/";
 		$sl_path = $basepath . "solutions/";
 		$rv_path = $basepath . "reviews/";
 		*/
 		
-		$container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $basepath);
-		$container_id = $container->get_id();
+		$container = $exerciseObject;
 		
 		/*
 		 * BRANCH on form input
@@ -160,14 +169,14 @@ class EditSettings extends \AbstractCommand implements \IFrameCommand {
 					$_SESSION['ERROR'] 	= TRUE;
 					$_SESSION['ERRMSG'] = $errmsg;
 					session_write_close();
-					header("Location: " . PATH_URL . "exercise/EditSettings/");
+					header("Location: " . PATH_URL . "exercise/EditSettings/" . $this->id);
 					exit;
 				}
 				
 				$_SESSION['SUCCESS'] = TRUE;
 				$_SESSION['SUCMSG']  = 'Die Einstellungen wurden gespeichert.';
 				session_write_close();
-				header("Location: " . PATH_URL . "exercise/EditSettings/");
+				header("Location: " . PATH_URL . "exercise/EditSettings/". $this->id);
 				exit;
 			}
 		}
@@ -199,8 +208,8 @@ class EditSettings extends \AbstractCommand implements \IFrameCommand {
 			$bonus = $container->get_attribute("EX_BONI");
 			$bonus = explode("#", $bonus);
 			$ex_bonus1 = $bonus[0];
-			$ex_bonus2 = $bonus[1];
-			$ex_bonus3 = $bonus[2];
+			$ex_bonus2 = isset($bonus[1]) ? $bonus[1] : null;
+			$ex_bonus3 = isset($bonus[2]) ? $bonus[2] : null;
 			
 			# get reviewrs
 			$ex_reviewers = array();
@@ -282,7 +291,7 @@ class EditSettings extends \AbstractCommand implements \IFrameCommand {
 		$changed_flag = ($operation_context=='ABORT') ? 'true' : 'false';
 		
 		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Einstellungen")));
+		$breadcrumb->setData(array(array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/index/" . $this->id), array("name" => "Einstellungen")));
 		
 		//$actionBar = new \Widgets\ActionBar();
 		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
@@ -309,7 +318,7 @@ class EditSettings extends \AbstractCommand implements \IFrameCommand {
 			unset($_SESSION['SUCMSG']);
 		}
 		
-		$tmplt->setVariable( "FORM_ACTION", PATH_URL . "exercise/EditSettings/" );
+		$tmplt->setVariable( "FORM_ACTION", PATH_URL . "exercise/EditSettings/" . $this->id );
 		#preserve change flag in case of aborted leave
 		$tmplt->setVariable( "CHANGED_FLAG" , $changed_flag );
 

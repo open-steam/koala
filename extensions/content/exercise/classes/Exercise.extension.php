@@ -36,9 +36,9 @@ class Exercise extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
-		$galleryObject = steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $idRequestObject->getId() );
-		$galleryType = $galleryObject->get_attribute("OBJ_TYPE");
-		if ($galleryType==="container_exercise") {
+		$exerciseObject = steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $idRequestObject->getId() );
+		$exerciseType = $exerciseObject->get_attribute("OBJ_TYPE");
+                if ($exerciseType != "0" && strStartsWith($exerciseType, "container_exercise")) {
 			return new \Exercise\Commands\Index();
 		}
 		return null;
