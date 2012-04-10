@@ -21,16 +21,22 @@ class ListExercises extends \AbstractCommand implements \IFrameCommand {
 
 	public function execute( \FrameResponseObject $frameResponseObject ){
 		
-		/*
-		 * for testing purpose preselect course EXT-01: 
-		 */
-		$prm = array("WS1011", "Ext-01");
-		$basepath = "/home/Courses." . $prm[0] . "." . $prm[1] . ".learners/";
-		$ex_path = $basepath . "exercises/";
-		$sl_path = $basepath . "solutions/";
-		$rv_path = $basepath . "reviews/";
-		
-	
+		if (!isset($this->id)) {
+                    header("location: " . PATH_URL . "404/");
+                    exit;
+                }
+
+                $exerciseObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+                if (!$exerciseObject instanceof \steam_object) {
+                    header("location: " . PATH_URL . "404/");
+                    exit;
+                }
+
+                $basepath = $exerciseObject->get_path() . "/";
+                $ex_path = $basepath . "exercises/";
+                $sl_path = $basepath . "solutions/";
+                $rv_path = $basepath . "reviews/";
+
 		/*
 		 * Get Data
 		 */
@@ -46,7 +52,7 @@ class ListExercises extends \AbstractCommand implements \IFrameCommand {
 		 * Template
 		 */
 		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "Übungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "Liste der Aufgaben")));
+		$breadcrumb->setData(array(array("name" => "Übungsaufgaben", "link" => PATH_URL . "exercise/index/" . $this->id), array("name" => "Liste der Aufgaben")));
 		
 		//$actionBar = new \Widgets\ActionBar();
 		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
