@@ -122,11 +122,10 @@ function widgets_textarea_save_success(elementId, response) {
 						theme_advanced_fonts : "Times New Roman=times new roman,times,serif;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n",
 						theme_advanced_blockformats : "p,pre,h1,h2,h3,h4",
 						//plugins
-						
+						fix_table_elements : true,
+
 						AScgiloc : '{PATH_URL}styles/standard/php/svgimg.php',
 						ASdloc : '{PATH_URL}styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
-						
-						
 						fullscreen_new_window : true,       
 						fullscreen_settings : {
 							theme_advanced_path_location : "top"

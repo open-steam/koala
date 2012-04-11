@@ -49,6 +49,7 @@ class Databinding extends \AbstractCommand implements \IAjaxCommand {
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+            
 		$data = array();
 		if (isset($this->params["attribute"]) && isset($this->params["value"])) {
 			$oldValue = self::getAttributeValue($this->object, $this->params["attribute"]);
@@ -79,7 +80,9 @@ class Databinding extends \AbstractCommand implements \IAjaxCommand {
 			 $ajaxResponseObject->setData($data);
 		} else if (isset($this->params["value"]) && !isset($this->params["attribute"]) && ($this->object instanceof steam_document)) {
 			$oldValue = $this->object->get_content();
+  
 			try {
+                            
 				$this->object->set_content(cleanHTML($this->params["value"]));
 			} catch (steam_exception $e) {
 				$data["oldValue"] = $oldValue;
