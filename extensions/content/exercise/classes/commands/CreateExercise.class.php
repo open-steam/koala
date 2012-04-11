@@ -161,23 +161,27 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 
 	public function execute( \FrameResponseObject $frameResponseObject ){
 		
-	#get Exercise Object from url
-		//$exercise = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		//$courseroom = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), "Courses." . $prm[0] . "." . $prm[1]);
-		/*
-		 * for testing purpose preselect course EXT-01: 
-		 */
-		$prm = array("WS1011", "Ext-01");
-		$basepath = "/home/Courses." . $prm[0] . "." . $prm[1] . ".learners/";
-		$ex_path = $basepath . "exercises/";
-		$sl_path = $basepath . "solutions/";
-		$rv_path = $basepath . "reviews/";
+		if (!isset($this->id)) {
+                    header("location: " . PATH_URL . "404/");
+                    exit;
+                }
+
+                $exerciseObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+                if (!$exerciseObject instanceof \steam_object) {
+                    header("location: " . PATH_URL . "404/");
+                    exit;
+                }
+
+                $basepath = $exerciseObject->get_path() . "/";
+                $ex_path = $basepath . "exercises/";
+                $sl_path = $basepath . "solutions/";
+                $rv_path = $basepath . "reviews/";
 		
 		
 		/*
 		 * decide if create or edit mode
 		 */
-		if ( isset ( $this->params[0] ) ) {
+		if (isset($this->params[1]) && isset($this->params[2]) && $this->params[1] === "create") {
 			
 			#set operation mode and operation context
 			if ( (isset($_SESSION['EX_CREATE'])) && ($_SESSION['EX_CREATE'] === TRUE) ) 
@@ -185,7 +189,7 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 			else	define('OPERATION', 'EDIT');
 			$operation_context = "NORMAL"; #normal operation, can be "ABORT" in specific cases
 			
-			$container_name = $this->params[0];
+			$container_name = $this->params[2];
 			
 			if ( Index::existsContainer($ex_path.$container_name) ) {
 				
@@ -246,15 +250,20 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 			$sl_container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), (string)($container_id), $sl_parent);
 			
 			#Rights Management
-			$learners = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), "Courses." . $prm[0] . "." . $prm[1] . ".learners");
-			$staff = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), "Courses." . $prm[0] . "." . $prm[1] . ".staff");
+                        $url = $exerciseObject->get_environment()->get_path();
+                        $urlArray = explode("/", $url);
+                        $learnersGroupName = $urlArray[2];
+                        $courseGroupName = str_replace(".learners", "", $learnersGroupName);
+                        
+			$learners = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), $courseGroupName . ".learners");
+			$staff = \steam_factory::groupname_to_object( $GLOBALS[ "STEAM" ]->get_id(), $courseGroupName . ".staff");
 		
 			$sl_container->set_insert_access( $learners, TRUE );
 			$sl_container->set_insert_access( $staff, FALSE );
 			
 			#instant reload after creating container
 			session_write_close();
-			header("Location: " . PATH_URL . "exercise/CreateExercise/" . $container_name);
+			header("Location: " . PATH_URL . "exercise/CreateExercise/" . $this->id . "/create/". $container_name);
 			exit;
 		}
 		
@@ -372,7 +381,7 @@ class CreateExercise extends \AbstractCommand implements \IFrameCommand {
 			 $changed_flag = 'true';
 		
 		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array(array("name" => "SoSe12", "link" => PATH_URL . "exercise/Index/"), array("name" => "Vorlesung A", "link" => PATH_URL . "exercise/Index/"), array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/index/"), array("name" => "&Uuml;bung ".$operation_mode_string)));
+		$breadcrumb->setData(array(array("name" => "&Uuml;bungsaufgaben", "link" => PATH_URL . "exercise/index/" . $this->id), array("name" => "&Uuml;bung ".$operation_mode_string)));
 		
 		//$actionBar = new \Widgets\ActionBar();
 		//$actionBar->setActions(array(array( "name" => "-", "ajax" => array( "onClick" => array( "command" => "none", "params" => array( "1" , "2" ), "requestType" => "data" )))));
