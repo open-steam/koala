@@ -97,20 +97,16 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         private function updateChronic($entry){
             $chronic = $this->loadChronic();
             
-            //put new element on pos 0
-            if(array_search($entry, $chronic)!==FALSE){
-                //entry alread exists TODO
+            //remove entry before adding
+            while(array_search($entry, $chronic)!==FALSE){
                 $key = array_search($entry, $chronic);
                 unset($chronic[$key]);
-                $chronic = array_reverse($chronic);
-                $chronic[] = $entry;
-                $chronic = array_reverse($chronic);
-            }else{
-                //new entry
-                $chronic = array_reverse($chronic);
-                $chronic[] = $entry;
-                $chronic = array_reverse($chronic);
             }
+            
+            //add entry
+            $chronic = array_reverse($chronic);
+            $chronic[] = $entry;
+            $chronic = array_reverse($chronic);
             
             
             //dedupe
