@@ -129,11 +129,21 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             $chronic = $this->loadChronic();
             
             //put new element on pos 0
-            $chronic = array_reverse($chronic);
-            $chronic[] = $entry;
-            $chronic = array_reverse($chronic);
+            if(array_search($entry, $chronic)!==FALSE){
+                //entry alread exists TODO
+                $key = array_search($entry, $chronic);
+                unset($chronic[$key]);
+                $chronic = array_reverse($chronic);
+                $chronic[] = $entry;
+                $chronic = array_reverse($chronic);
+            }else{
+                //new entry
+                $chronic = array_reverse($chronic);
+                $chronic[] = $entry;
+                $chronic = array_reverse($chronic);
+            }
             
-            /*
+            
             //dedupe
             $cleandChronic = array();
             $lastElement = "";
@@ -146,7 +156,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 }
             }
             $chronic = $cleandChronic;
-            */
+            
             
             //throw tail away
             $counter=1;
@@ -222,7 +232,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 try{
                 $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
                 }  catch (Exception $e){
-                    return "";
+                    return "(Objekt gelöscht)";
                 }
                 
                 if($steamObject instanceof \steam_object){
@@ -249,19 +259,21 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         
         
         private function getEntryPath($chronicEntry){
-            return "path";
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
             
             if($entryType=="oid"){
                 $objectId = $content[1];
-                $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
-		if($steamObject instanceof \steam_object){
-                    return \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
-                }  else {
-                    return "invalid_path";
+                try{
+                    $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+                    if($steamObject instanceof \steam_object){
+                        return \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
+                    }  else {
+                        return "/";
+                    }
+                }  catch (Exception $e){
+                    return "(Objekt gelöscht)";
                 }
-                
             }
             else if($entryType=="cmd"){
                 return "command";
@@ -292,5 +304,16 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             $chronic = $user->set_attribute("USER_CHRONIC",$chronic);
         }
         
+        
+        //TODO
+        private function validateChronic($chronic){
+            
+            foreach ($chronic as $chronicEntry){
+                $content = explode(":", $chronicEntry);
+                $entryType = $content[0];
+            }
+            
+            return $chronic;
+        }
 }
 ?>
