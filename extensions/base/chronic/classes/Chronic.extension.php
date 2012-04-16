@@ -163,7 +163,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             else if($entryType=="oth"){
                 $type = $content[1];
                 if($type==="profile") return "Profil";
-                if($type==="home") return "Schreibtisch";
+                if($type==="desktop") return "Schreibtisch";
                 if($type==="bookmarks") return "Lesezeichen";
                 return "Ungültiger oth-Eintrag";
             }
@@ -197,7 +197,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             else if($entryType=="oth"){
                 $type = $content[1];
                 if($type==="profile") return "/profile/";
-                if($type==="home") return "/desktop/";
+                if($type==="desktop") return "/desktop/";
                 if($type==="bookmarks") return "/bookmarks/";
                 return "";
             }
