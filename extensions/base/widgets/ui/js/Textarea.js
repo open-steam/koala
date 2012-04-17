@@ -123,9 +123,11 @@ function widgets_textarea_save_success(elementId, response) {
 						theme_advanced_blockformats : "p,pre,h1,h2,h3,h4",
 						//plugins
 						fix_table_elements : true,
+                                     
+                                                verify_html : false,
 
-						AScgiloc : '{PATH_URL}styles/standard/php/svgimg.php',
-						ASdloc : '{PATH_URL}styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
+                                                AScgiloc : 'http://www.imathas.com/imathas/filter/graph/svgimg.php',
+						ASdloc : 'http://www.imathas.com/cgi-bin/mimetex.cgi',
 						fullscreen_new_window : true,       
 						fullscreen_settings : {
 							theme_advanced_path_location : "top"

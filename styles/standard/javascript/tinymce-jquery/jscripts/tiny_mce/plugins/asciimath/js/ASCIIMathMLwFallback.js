@@ -29,9 +29,9 @@ General Public License (at http://www.gnu.org/copyleft/gpl.html)
 for more details.
 */
 
-//var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi"; //path to CGI script that
-						     //can render a TeX strin
-var AMTcgiloc = null;
+var AScgiloc = 'http://www.imathas.com/imathas/filter/graph/svgimg.php';
+var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";
+
 var checkForMathML = true;   // check if browser can display MathML
 var notifyIfNoMathML = false; // display note if no MathML capability
 var alertIfNoMathML = false;  // show alert box if no MathML capability
