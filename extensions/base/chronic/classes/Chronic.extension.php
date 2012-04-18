@@ -65,12 +65,20 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 	//get entry for back button
 	private function getBackEntry() {
 		$chronic = $this->loadChronic();
-		$length = count($chronic);
-		if ($length > 1) {
-                    $backEntry = $chronic[1];
-                    return array("name" => "zurück", "link" => $this->getEntryPath($backEntry));
-		}
-		return "";
+                $startBackIndex = 1;
+                
+                while(isset($chronic[$startBackIndex])){
+                   $steamObject = $this->getEntryObject($chronic[$startBackIndex]); 
+                   if($steamObject===FALSE || ($steamObject->get_attribute("bid:presentation")==="index")){
+                       $startBackIndex++;
+                       continue;
+                   }
+                       
+                   $backEntry = $chronic[$startBackIndex];
+                   return array("name" => "zurück", "link" => $this->getEntryPath($backEntry)); 
+                    
+                }
+                return "";
         }
 	
         
@@ -234,6 +242,27 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 return "";
             }
             return "Debug:$chronicEntry";
+        }
+        
+        
+        private function getEntryObject($chronicEntry){
+            $content = explode(":", $chronicEntry);
+            $entryType = $content[0];
+            
+            if($entryType=="oid"){
+                $objectId = $content[1];
+                try{
+                    $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+                    if($steamObject instanceof \steam_object){
+                        return $steamObject;
+                    }  else {
+                        return FALSE;
+                    }
+                }  catch (\steam_exception $e){
+                    return FALSE;
+                }
+            }
+            return FALSE;
         }
         
         
