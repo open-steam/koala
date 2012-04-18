@@ -181,7 +181,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 }
                 
                 if($steamObject instanceof \steam_object){
-                    return $steamObject->get_name();
+                    return getCleanName($steamObject);
                 }else{
                     return "invalid_name";
                 }
