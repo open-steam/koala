@@ -1,8 +1,6 @@
 <?php
 class Chronic extends AbstractExtension implements IMenuExtension {
-	
-	private static $currentObject;
-        private $chronicLength = 15;
+	private $chronicLength = 15;
         
 	public function getName() {
 		return "Chronic";
@@ -46,7 +44,6 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 	public function setCurrentObject($steamObject) {
                 if ($steamObject instanceof steam_object && $steamObject->check_access_read()){
                     $this->updateChronic("oid:".$steamObject->get_id());
-                    $this->currentObject = $steamObject;
                 }
         }
         
@@ -65,9 +62,6 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         }
         
         
-        
-        
-        
 	//get entry for back button
 	private function getBackEntry() {
 		$chronic = $this->loadChronic();
@@ -80,21 +74,59 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         }
 	
         
-        
-        
         //get entry for up button
 	private function getParentEntry() {
-		$type = getObjectType(self::$currentObject);
-		if (array_search($type, array("forum", "referenceFolder", "trashbin", "gallery", "portal", "room", "container")) !== false) {
-			$steam_object = self::$currentObject->get_environment();
-		        return array("name" => "nach oben ( <img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($steam_object)."\"></img> " . getCleanName($steam_object, 20) . " )", "link" => $this->getEntryPath("oid:".$steam_object->get_id()));
-		}
-		return "";
-	}
+            /*
+            $type = getObjectType(self::$currentObject);
+            if (array_search($type, array("forum", "referenceFolder", "trashbin", "gallery", "portal", "room", "container")) !== false) {
+                    $steam_object = self::$currentObject->get_environment();
+                    return array("name" => "nach oben ( <img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($steam_object)."\"></img> " . getCleanName($steam_object, 20) . " )", "link" => $this->getEntryPath("oid:".$steam_object->get_id()));
+            }
+            return "";
+            */
+            
+            $chronic = $this->loadChronic();
+            
+            if (!isset($chronic[0])) return "";
+            
+            $currentLocation = $chronic[0];
+            $content = explode(":", $currentLocation);
+            $entryType = $content[0];
+            $currentObjectId = $content[1];
+            
+            if($entryType==="oid"){
+                //find object
+                try{
+                    $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectId);
+                }  catch (\steam_exception $e){
+                    //object not found
+                    return "";
+                }
+                
+                
+                //find parent
+                $environmentObject = $steamObject;
+                try{
+                    $environmentObject = $steamObject->get_environment();
+                    if("0"==$environmentObject) throw new \steam_exception;
+                }catch (\steam_exception $e){
+                    //no environment
+                    return "";
+                }
+                
+                //is Presentation, autoforward case
+                while($environmentObject->get_attribute("bid:presentation")==="index"){ 
+                    $environmentObject = $environmentObject->get_environment();
+                }
+                return array("name" => "nach oben ( <img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($environmentObject)."\"></img> " . getCleanName($environmentObject, 20) . " )", "link" => $this->getEntryPath("oid:".$environmentObject->get_id()));
+            }
+            return "";
+        }
        
         
         //add a new object to chronic
         private function updateChronic($entry){
+            //var_dump($entry);
             $chronic = $this->loadChronic();
             
             //remove entry before adding
@@ -223,7 +255,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             foreach ($chronic as $chronicKey => $chronicEntry){
                 $content = explode(":", $chronicEntry);
                 $entryType = $content[0];
-                $target = $content[0];
+                $target = $content[1];
                 
                 $valid=false;
                 if($entryType==="oth") $valid = true;
