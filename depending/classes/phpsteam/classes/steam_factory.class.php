@@ -82,8 +82,7 @@ class steam_factory
 			return $object;
 		}
 		
-		if ( $pType === FALSE )
-		{
+		if ( $pType === FALSE ) {
 			$obj = new steam_object( $pSteamConnectorID, $pID );
 			$pType = steam_connection::get_instance($pSteamConnectorID)->predefined_command(
 			$obj,
@@ -139,12 +138,17 @@ class steam_factory
 			case ( ( $pType & CLASS_DATABASE ) == CLASS_DATABASE ):
 				$obj = new steam_database( $pSteamConnectorID, $pID );
 				break;
+                        case ($pType === 0):
+                            $obj = null;
+                            break;
 			default:
 				$obj = new steam_object( $pSteamConnectorID, $pID, $pType );
 				break;
 		}
 		//cache in
-		self::$objectCache[$globalID] = $obj;
+                if ($obj) {
+                    self::$objectCache[$globalID] = $obj;
+                }
 		return $obj;
 	}
 	
