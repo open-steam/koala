@@ -174,10 +174,9 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 
                 try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
-                } catch (Exception $e) {
-                    return "invalid_name";
+                } catch (\steam_exception $e) {
+                    return "(Objekt gelöscht)";
                 }
-                
                 
                 return getCleanName($steamObject);
             }
@@ -299,6 +298,13 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 $valid=false;
                 if($entryType==="oth") $valid = true;
                 if($entryType==="oid") $valid = true;
+                
+                try {
+                    $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $target);
+                } catch (\steam_exception $e) {
+                    $valid = false;
+                }
+                
                 if (!$valid) unset($chronic[$chronicKey]);
             }
             return $chronic;
