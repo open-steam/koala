@@ -34,7 +34,8 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
             $this->id = $this->params["id"];
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
             $environment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->env);
-            $object->move($environment);
+            //$object->move($environment);
+            $this->protectedInsert($object, $environment);
         } else {
             $this->elements = $this->clipboard->get_inventory();
         }
@@ -71,6 +72,38 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
             $ajaxResponseObject->addWidget($jswrapper);
             return $ajaxResponseObject;
         }
+    }
+    
+    
+    
+    private function protectedInsert($steamObject, $steamEnvironment){
+        $userObject = $GLOBALS["STEAM"]->get_current_steam_user();
+        $userObjectId = $userObject->get_id();
+        $steamEnvironmentId = $steamEnvironment->get_id();
+        
+        //case bookmarks
+        $bookmarksRoom = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute(USER_BOOKMARKROOM);
+	$bookmarksRoomId = $bookmarksRoom->get_id();
+        
+        if($bookmarksRoomId === $steamEnvironmentId){
+            if($steamObject instanceof \steam_link){
+                $steamObject->move($steamEnvironment);
+                return TRUE;
+            }
+            return FALSE;
+        }
+        
+        
+        //case portal
+        $objectType = $steamObject->get_attribute("OBJ_TYPE");
+        if ($objectType==="container_portal_bid") {
+            return false;
+        }
+        
+        
+        //case normal
+        $steamObject->move($steamEnvironment);
+        return true;
     }
 
 }
