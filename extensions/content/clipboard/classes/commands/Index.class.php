@@ -38,7 +38,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //$breadcrumb->setData(array(array("name"=>"<img src=\"{$bookmarkIcon}\"> Lesezeichenordner")));
 
         $actionBar = new \Widgets\ActionBar();
-        $actionBar->setActions(array(array("name" => "Zwischenablage löschen", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
+        $actionBar->setActions(array(array("name" => "Zwischenablage leeren", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
         $loader = new \Widgets\Loader();
