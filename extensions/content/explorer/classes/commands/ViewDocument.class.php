@@ -32,6 +32,10 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
           } */
         if (isset($this->id)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            
+            //chronic
+            \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
+            
             $objName = $object->get_name();
             if ($object instanceof \steam_docextern) {
                 $actionBar = new \Widgets\ActionBar();
