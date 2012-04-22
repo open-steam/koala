@@ -17,7 +17,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 }
                 
                 //chronic
-                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("home");
+                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("desktop");
                 
 		$portal = \lms_portal::get_instance();
 		$user = \lms_steam::get_current_user();
