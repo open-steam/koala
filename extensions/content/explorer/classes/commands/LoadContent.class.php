@@ -99,7 +99,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                             if($contentItem instanceof \steam_docextern){
                                 $blank = $contentItem->get_attribute("DOC_BLANK");
                                 if($blank != 0){
-                                    return "<a href=\"".$url."\" target=\"_blank\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                                    return "<a href=\"".$url."new/"."\" target=\"_blank\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
                                 }else{
                                     return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
                                 }

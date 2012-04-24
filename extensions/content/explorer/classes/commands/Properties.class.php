@@ -231,7 +231,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$checkboxInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:forum_is_editable"));
 		
                 $checkboxWWW = new \Widgets\Checkbox();
-		$checkboxWWW->setLabel("Neues Fenster öffnen:");
+		$checkboxWWW->setLabel("Neues Fenster öffnen");
 		$checkboxWWW->setCheckedValue("1");
 		$checkboxWWW->setUncheckedValue(0);
 		$checkboxWWW->setData($object);

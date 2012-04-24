@@ -38,6 +38,10 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
             
             $objName = $object->get_name();
             if ($object instanceof \steam_docextern) {
+                if(isset($this->params[1]) && $this->params[1] === "new"){
+                  header('Location: '.$object->get_attribute("DOC_EXTERN_URL").'');
+                  die;
+                }
                 $actionBar = new \Widgets\ActionBar();
                 $actionBar->setActions(array(
                     array("name" => "URL in neuem Fenster öffnen", "onclick" => "javascript:window.open('{$object->get_attribute("DOC_EXTERN_URL")}');return false;")
