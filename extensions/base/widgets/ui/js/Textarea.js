@@ -127,7 +127,7 @@ function widgets_textarea_save_success(elementId, response) {
                                                 verify_html : false,
 
                                                 AScgiloc : 'http://www.imathas.com/imathas/filter/graph/svgimg.php',
-						ASdloc : 'http://www.imathas.com/cgi-bin/mimetex.cgi',
+						ASdloc : 'http://www.bid-owl.de.localhost/styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
 						fullscreen_new_window : true,       
 						fullscreen_settings : {
 							theme_advanced_path_location : "top"
