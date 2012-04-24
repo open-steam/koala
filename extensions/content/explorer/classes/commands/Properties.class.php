@@ -224,14 +224,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		}
 
 		$checkboxInput = new \Widgets\Checkbox();
-		$checkboxInput->setLabel("Benutzer dürfen editieren?");
+		$checkboxInput->setLabel("Benutzer dürfen editieren:");
 		$checkboxInput->setCheckedValue("1");
 		$checkboxInput->setUncheckedValue(0);
 		$checkboxInput->setData($object);
 		$checkboxInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:forum_is_editable"));
 		
                 $checkboxWWW = new \Widgets\Checkbox();
-		$checkboxWWW->setLabel("Neues Fenster öffnen");
+		$checkboxWWW->setLabel("Neues Fenster öffnen:");
 		$checkboxWWW->setCheckedValue("1");
 		$checkboxWWW->setUncheckedValue(0);
 		$checkboxWWW->setData($object);
