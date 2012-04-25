@@ -645,14 +645,17 @@ END;
 }
 
 function cleanHTML($dirtyHTML) {
-    return $dirtyHTML; //TODO: this is for testing, remove later
+    //return $dirtyHTML; //TODO: this is for testing, remove later
     define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
+    
     $config->set('HTML.SafeEmbed', true);
     $config->set('HTML.SafeObject', true);
-    //$config->set('HTML.SafeIframe', true);
-    //$config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/)%');
+    $config->set('HTML.SafeIframe', true);
+    
+    $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/)%');
+    
     $def = $config->getHTMLDefinition(true);
     $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
                     array('_blank', '_self', '_target', '_top')
