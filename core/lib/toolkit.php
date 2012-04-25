@@ -645,7 +645,6 @@ END;
 }
 
 function cleanHTML($dirtyHTML) {
-    //return $dirtyHTML; //TODO: this is for testing, remove later
     define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
