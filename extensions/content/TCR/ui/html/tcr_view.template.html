@@ -1,0 +1,137 @@
+<!-- BEGIN BLOCK_EDIT_ELEMENT-->
+<center style="font-size:11px">
+	<table class="tcr_table" border="1" width="80%" height="100%">
+		<tr style="display:{ELEMENT_RELEASED};">
+			<th colspan="2">
+				<center>
+					<a class="button" onclick="sendRequest('EditDialog', {PARAMS_AJAX}, '', 'popup');">{EDIT_LABEL}</a>
+					<a class="button" onclick="release({RELEASE_ID}, {RELEASE_TYPE}, {RELEASE_TCR_ID});">{RELEASE_LABEL}</a>
+				</center>
+			</th>
+		</tr>
+		<tr>
+			<td style="height:400px; vertical-align:top; width:80%;" {NOT_RELEASED_COLSPAN}>
+				<h2>{TITLE_VALUE}</h2>
+				{CONTENT_VALUE}
+			</td>
+			<td valign="top" style="display:{ELEMENT_NOT_RELEASED};" {RELEASED_ROWSPAN}>
+				<b>Autor:</b>
+				<br>
+				<div style="height:56px; white-space: nowrap; overflow:auto">
+					<img style='vertical-align:middle;' src="{AUTHOR_PIC}">
+					<a href="{AUTHOR_URL}">{AUTHOR_NAME}</a>
+				</div>
+				<b>{DOCUMENT_RELEASED_LABEL}</b>
+				<br>
+				{DOCUMENT_RELEASED}
+			</td>
+		</tr>
+		<tr style="display:{DISPLAY_FILES};">
+			<td {NOT_RELEASED_COLSPAN}>
+				<b>{FILE_LABEL}</b>
+				<ul>
+					<!-- BEGIN BLOCK_FILE -->
+					<li>
+						<a href="{FILE_URL}">{FILE_NAME}</a> {FILE_TIME}
+						<a style="width:13px; height:13px; display:{ELEMENT_RELEASED};" onclick="deleteUpload({FILE_ID}, '{FILE_NAME}')"><input type="image" style="cursor: hand; position:relative; top:1px;" src="{ASSET_URL}/delete.png" title="{DELETE_TITLE}" width="10px" height="10px"></a>
+					</li>
+					<!-- END BLOCK_FILE -->
+				</ul>
+				<a class="button" style="display:{ELEMENT_RELEASED};" onclick="sendRequest('EditDialog', {PARAMS_AJAX_FILE}, '', 'popup');">{UPLOAD_FILES}</a>
+			</td>
+		</tr>
+		<tr style="display:{ELEMENT_NOT_RELEASED};">
+			<td colspan="2">
+				<table id="comments" class="tcr_table" border="1" width="100%">
+					<tr>
+						<th colspan="2">{COMMENTS_LABEL}</th>
+					</tr>
+					<!-- BEGIN BLOCK_NO_COMMENTS -->
+					<tr>
+						<td colspan="2">
+						{NO_COMMENTS}
+						</td>
+					</tr>
+					<!-- END BLOCK_NO_COMMENTS -->
+					<!-- BEGIN BLOCK_COMMENT -->
+					<tr valign="top">
+						<td width="70%">
+							{COMMENT_CONTENT}
+						</td>
+						<td id="title">
+						<b>{COMMENT_TITLE}</b>
+						<img name="edit_comment" align="right" onclick="show_editcomment('{COMMENT_TITLE}', {COMMENT_ID});" style="cursor: pointer; cursor: hand; display:{SHOW_COMMENT_EDIT}" src="{ASSET}icons/edit.png" title="{EDIT_COMMENT}">
+						<input type="hidden" id="content{COMMENT_ID}" value="{COMMENT_CONTENT_NOBR}">
+						<br>
+						{COMMENT_AUTHOR}
+						<br>
+						{COMMENT_DATE}
+						</td>
+					</tr>
+					<!-- END BLOCK_COMMENT -->
+				</table>
+				<br>
+				<center>
+					<div id="createbutton" style="text-align:center" class="buttons">
+						<a class="button" onclick="show_createcomment();">{CREATE_COMMENT}</a>
+					</div>
+					<br>
+					<div id="createform" style="display:none; width:70%">
+						<form action="" method="post">
+							<table class="tcr_table" border="1" width="100%">
+								<tr>
+									<th colspan="2">{CREATE_COMMENT}</th>
+								</tr>
+								<tr>
+									<td class="label">{TITLE_LABEL}</td>
+									<td><input name="title" style="width: 99%" value="{NEW_TITLE}"></td>
+								</tr>
+								<tr>
+									<td class="label">{CONTENT_LABEL}</td>
+									<td><textarea name="content" style="width: 99%; height:200px"></textarea></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div style="text-align:center" class="buttons">
+											<a class="button" onclick="return check_comment(0, {COMMENT_ELEMENT_ID}, {COMMENT_TCR_ID});">{CREATE_COMMENT}</a>
+											<a class="button" onclick="hide_createcomment();">{CANCEL_LABEL}</a>
+										</div>
+									</td>
+							</table>
+						</form>
+					</div>
+					<div id="editform" style="display:none; width:70%">
+						<form action="" method="post">
+							<table class="tcr_table" border="1" width="100%">
+								<tr>
+									<th colspan="2">{EDIT_COMMENT}</th>
+								</tr>
+								<tr>
+									<td class="label">{TITLE_LABEL}</td>
+									<td><input name="title" id="edit_title" style="width: 99%"></td>
+								</tr>
+								<tr>
+									<td class="label">{CONTENT_LABEL}</td>
+									<td><textarea name="content" id="edit_content" style="width: 99%; height:200px"></textarea></td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div style="text-align:center" class="buttons">
+											<a class="button" onclick="return check_comment(1, {COMMENT_ELEMENT_ID}, {COMMENT_TCR_ID});">{EDIT_COMMENT_SUBMIT}</a>
+											<a class="button" onclick="hide_editcomment();">{CANCEL_LABEL}</a>
+										</div>
+									</td>
+							</table>
+							<input type="hidden" id="edit_id" name="edit_id" value="">
+						</form>
+					</div>
+				</center>
+			</td>
+		</tr>
+	</table>
+	<br>
+	<div class="buttons">
+		<a class="button" href="{BACK_URL}">{BACK_LABEL}</a>
+	</div>
+</center>
+<!-- END BLOCK_EDIT_ELEMENT -->

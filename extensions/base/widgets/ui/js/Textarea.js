@@ -1,3 +1,4 @@
+
 function widgets_textarea_save_success(elementId, response) {
 	var widget = jQuery("#" + elementId);
 	deJSON = jQuery.parseJSON(response.responseText);
@@ -21,6 +22,7 @@ function widgets_textarea_save_success(elementId, response) {
 				widget.addClass("saved");
 				widget.attr("oldValue", widget.attr("value"));
 				widget.attr("value", data.newValue);
+				$(window).unbind('beforeunload');
 			} else {
 				widget.addClass("error");
 				widget.removeClass("dirty");
@@ -60,10 +62,10 @@ function widgets_textarea_save_success(elementId, response) {
 					theme_advanced_statusbar_location : "none",
 					theme_advanced_resizing : false,
 					
-					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty")}; if(!tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}},
+					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(!tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}},
 					oninit : function(e) {tinyMCE.activeEditor.setContent(value), tinyMCE.activeEditor.isNotDirty = 1},
 					setup :  function(e) {
-						setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty")}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}}, 2000 );
+						setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}}, 2000 );
 					}
 	    	};
 	    	
@@ -78,21 +80,55 @@ function widgets_textarea_save_success(elementId, response) {
 					}, mce_defaults));
 	    		});
 	    	} else if (element.find("textarea").hasClass("mce-full")) {
+	    		
+	    		//protect unsaved text
+	    		/*
+	    		$(window).unload(function(){
+	    		var dirtyTextareas = jQuery('#content').find('.widget.textarea.dirty');
+	    		if (dirtyTextareas.length > 0) {
+	    			//$(window).unbind( “unload” );
+	    			//window.onbeforeunload = state ? function() { return "text1"; } : null;
+	    			//return false;
+	    			
+	    			if (confirm('Sollen alle nicht gespeicherte Daten gesichert werden?')) {
+	    				$(dirtyTextareas[0]).textarea('save');
+	    				$(dirtyTextareas[0]).addClass('saved');
+	    				$(dirtyTextareas[0]).removeClass('dirty');
+	    				
+	    				//saveing
+	    				if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
+			    			$(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable"); 
+			    			var value = tinyMCE.activeEditor.getContent(); 
+		    			} else if (element.find("textarea").hasClass("plain")) {
+		    				var value = element.find("textarea").val(); 
+		    			}
+		    			//this.addClass("saving"); 
+	    				sendFunction(value);
+	    			}else{
+	    				//nicht speichern
+	    			}
+	    			
+	    		}
+	    		});
+	    		*/
+	    		
+	    		//load tinymce
 	    		load("mce", function() {
 	    			tinyMCE.init($.extend({
 						editor_selector: "mce-full", 
-						plugins : 'fullscreen,searchreplace,paste,table,emotions,asciimath,asciisvg,media,noneditable',
+						plugins : 'searchreplace,paste,table,emotions,asciimath,asciisvg,media,noneditable',
 						// Theme options
 						theme_advanced_buttons1 : "formatselect,fontsizeselect,|, bold,italic,underline,sub,sup,|,bullist,numlist,table,tablecontrols,visualaid,|,justifyleft,justifycenter,justifyright,justifyfull,hr,|,forecolor,backcolor",
-						theme_advanced_buttons2 : "undo,redo,pasteword,|,removeformat,|,search,|,fullscreen,|,charmap,|,emotions,image,media,link,unlink,|,asciimathcharmap,asciisvg",
+						theme_advanced_buttons2 : "undo,redo,pasteword,|,removeformat,|,search,|,charmap,|,emotions,image,media,link,unlink,|,asciimathcharmap,asciisvg",
 						theme_advanced_fonts : "Times New Roman=times new roman,times,serif;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n",
+						theme_advanced_blockformats : "p,pre,h1,h2,h3,h4",
 						//plugins
-						
-						AScgiloc : '{PATH_URL}styles/standard/php/svgimg.php',
-						ASdloc : '{PATH_URL}styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
-						
-						
-						
+						fix_table_elements : true,
+                                     
+                                                verify_html : false,
+
+                                                AScgiloc : 'http://www.imathas.com/imathas/filter/graph/svgimg.php',
+						ASdloc : pathUrl + '/styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
 						fullscreen_new_window : true,       
 						fullscreen_settings : {
 							theme_advanced_path_location : "top"
@@ -101,7 +137,7 @@ function widgets_textarea_save_success(elementId, response) {
 	    		});
 	    	} else if (element.find("textarea").hasClass("plain")) {
 	    		element.find("textarea").val(value);
-	    		element.find("textarea").bind('keyup', function() { element.addClass("dirty") });
+	    		element.find("textarea").bind('keyup', function() { element.addClass("dirty"); });
 	    	}
 	    },
 	    save : function() { 
@@ -113,7 +149,8 @@ function widgets_textarea_save_success(elementId, response) {
 	    			} else if (element.find("textarea").hasClass("plain")) {
 	    				var value = element.find("textarea").val(); 
 	    			}
-	    			this.addClass("saving"); 
+	    			this.addClass("saving");
+	    			$(window).unbind('beforeunload');
 	    			sendFunction(value);
 	    		},
 	    undo : function() {
@@ -125,7 +162,8 @@ function widgets_textarea_save_success(elementId, response) {
 	    			} else if (element.find("textarea").hasClass("plain")) {
 	    				var value = this.attr("oldValue");
 	    			}
-	    			this.addClass("saving"); 
+	    			this.addClass("saving");
+	    			$(window).unbind('beforeunload');
 	    			sendFunction(value)
 	    		},
 	  };

@@ -34,7 +34,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$this->getExtension()->addJS();
 		
 		//old bib
-		include_once(PATH_BASE."koala-core/lib/bid/slashes.php");
+		include_once(PATH_BASE."core/lib/bid/slashes.php");
 		
 		
 		//get content of portlet
@@ -51,7 +51,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$num_items = (isset($content["num_items"]))?$content["num_items"]:0;
 		if (isset($content["address"])) {
 			$feed = new \SimplePie();
-			$feed->set_cache_location(PATH_CACHE);
+			$feed->enable_cache(false);
+			//$feed->set_cache_location(PATH_CACHE);
 			$feed->set_feed_url(derive_url($content["address"]));
 			$feed->init();
 			if ($num_items == 0){
@@ -70,7 +71,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		
 		
 		$UBB = new \UBBCode();
-		include_once(PATH_BASE."koala-core/lib/bid/derive_url.php");
+		include_once(PATH_BASE."core/lib/bid/derive_url.php");
 		
 		
 		$portletFileName=$portletPath."/ui/html/index.html";
@@ -109,7 +110,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		
 		
 		if(sizeof($content) > 0){
-			if ($feed->error()){
+                    if ($feed->error()){
 				$tmpl->setVariable("NOITEMSTEXT","RSS-Ladefehler");
 			} else {
 				if (count($items) == 0) {
@@ -118,30 +119,30 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 					foreach($items as $item){
 						$tmpl->setCurrentBlock("BLOCK_RSS_ITEM");
 						if ($allow_html) {
-					        $itemtitle = $item->get_title();
-					        $itemdesc = $item->get_description();
-					      }
-					      else {
-					        $itemtitle = strip_tags($item->get_title());
-					        $itemdesc = strip_tags($item->get_description());
-					      }
+                                                    $itemtitle = $item->get_title();
+                                                    $itemdesc = $item->get_description();
+                                                }else{
+                                                    $itemtitle = strip_tags($item->get_title());
+                                                    $itemdesc = strip_tags($item->get_description());
+                                                }
 					      
-					      if ($desc_length == 0)
-					        $itemdesc = "";
-					      else if ($desc_length > 0 && strlen($itemdesc) > $desc_length){
-					      	$itemdesc = substr($itemdesc, 0, $desc_length) . "...";
-					      }
+                                                if ($desc_length == 0){
+                                                    $itemdesc = "";
+                                                }
+                                                else if (($desc_length > 0 && strlen($itemdesc) > $desc_length) && !$allow_html){
+                                                    $itemdesc = substr($itemdesc, 0, $desc_length) . "...";
+                                                }
 					      
-					      $tmpl->setVariable("ITEMTITLE",$itemtitle);
-					      $tmpl->setVariable("ITEMDESC",$itemdesc);
+                                                $tmpl->setVariable("ITEMTITLE",$itemtitle);
+                                                $tmpl->setVariable("ITEMDESC",$itemdesc);
 					      
-					      $tmpl->setVariable("ITEMURL",derive_url($item->get_permalink()));
-					      $tmpl->setVariable("LINK","");
+                                                $tmpl->setVariable("ITEMURL",derive_url($item->get_permalink()));
+                                                $tmpl->setVariable("LINK","");
 					      
-					      $tmpl->parse("BLOCK_RSS_ITEM");
+                                                $tmpl->parse("BLOCK_RSS_ITEM");
 					}
 				}
-			}
+                    }
 		}
 		else{
 			 $tmpl->setVariable("NOITEMSTEXT","RSS-Feed nicht konfiguriert.");

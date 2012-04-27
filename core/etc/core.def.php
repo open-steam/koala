@@ -1,5 +1,4 @@
-<?php 
-define("KOALA_VERSION", "3.1.2");
+<?php
 defined("RED_BANNER_ERROR_LEVEL") or define("RED_BANNER_ERROR_LEVEL", E_ERROR);
 defined("DEVELOPMENT_MODE") or define("DEVELOPMENT_MODE", FALSE);
 defined("STATISTICS_LEVEL") or define("STATISTICS_LEVEL", 0);
@@ -12,6 +11,7 @@ defined("ENABLE_CACHING") or define("ENABLE_CACHING", FALSE);
 defined("JAVASCRIPT_SECURITY") or define("JAVASCRIPT_SECURITY", FALSE);
 
 defined("PORTAL_TEMPLATE") or define("PORTAL_TEMPLATE",	PATH_EXTENSIONS . "system/frame/ui/html/portal.template.html" );
+defined("SESSION_RESTORE_PORTAL_DATA") or define("SESSION_RESTORE_PORTAL_DATA", FALSE);
 defined("PATH_JAVASCRIPT") or define("PATH_JAVASCRIPT", PATH_URL . "styles/standard/javascript/");
 
 /// String: Encryption key for session data
@@ -32,4 +32,5 @@ is_writable(LOG_SECURITY) or die("Not write access to file " . LOG_SECURITY);
 
 defined("BLACKLISTED_EXTENSIONS") or define("BLACKLISTED_EXTENSIONS", "");
 defined("PLATFROM_MENUS") or define("PLATFROM_MENUS", "");
+defined("SESSION_NAME") or define("SESSION_NAME", str_replace(".", "-", PLATFORM_ID . KOALA_VERSION));
 ?>

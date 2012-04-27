@@ -40,7 +40,9 @@ class MultipleChoiceQuestion extends AbstractQuestion {
 					$this->results[$count] = ($this->results[$count])+1;
 				}
 			}
-			$this->resultCount++;
+			if (!empty($result)) {
+				$this->resultCount++;
+			}
 		}
 	}
 	
@@ -66,24 +68,27 @@ class MultipleChoiceQuestion extends AbstractQuestion {
 		$content->setVariable("COPY_LABEL", "Kopieren");
 		$content->setVariable("DELETE_LABEL", "Löschen");
 		if ($this->required == 1) {
-			$content->setCurrentBlock("BLOCK_EDIT_REQUIRED");
-			$content->setVariable("QUESTION_TEXT", $this->questionText);
-			$content->setVariable("HELP_TEXT", $this->helpText);
-			$content->parse("BLOCK_EDIT_REQUIRED");
+			$content->setVariable("QUESTION_TEXT", $this->questionText . " (Pflichtfrage)");
 		} else {
-			$content->setCurrentBlock("BLOCK_EDIT_NOT_REQUIRED");
 			$content->setVariable("QUESTION_TEXT", $this->questionText);
-			$content->setVariable("HELP_TEXT", $this->helpText);
-			$content->parse("BLOCK_EDIT_NOT_REQUIRED");
 		}
+		$content->setVariable("HELP_TEXT", $this->helpText);
 		$options = "";
 		$counter = 0;
 		foreach ($this->options as $option) {
-			$content->setCurrentBlock("BLOCK_EDIT_OPTION");
+			if ((($counter) % $this->arrangement) == 0 || $counter == 0) {
+				$content->setCurrentBlock("BLOCK_ROW_VIEW");
+			}
+			$content->setCurrentBlock("BLOCK_COLUMN_VIEW");
+			$content->setCurrentBlock("BLOCK_OPTION_VIEW");
 			$content->setVariable("QUESTION_ID", $id);
 			$content->setVariable("OPTION_COUNT", $counter);
 			$content->setVariable("OPTION_LABEL", $option);
-			$content->parse("BLOCK_EDIT_OPTION");
+			$content->parse("BLOCK_OPTION_VIEW");
+			$content->parse("BLOCK_COLUMN_VIEW");
+			if ((($counter+1) % $this->arrangement) == 0) {
+				$content->parse("BLOCK_ROW_VIEW");
+			}
 			$options = $options . rawurlencode($option) . ",";
 			$counter++;
 		}
@@ -103,36 +108,29 @@ class MultipleChoiceQuestion extends AbstractQuestion {
 			$content->setVariable("ERROR_BORDER", "border-right-color:red;");
 		}
 		if ($this->required == 1) {
-			$content->setCurrentBlock("BLOCK_VIEW_REQUIRED");
-			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText);
-			$content->parse("BLOCK_VIEW_REQUIRED");
+			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText . " (Pflichtfrage)");
 		} else {
-			$content->setCurrentBlock("BLOCK_VIEW_NOT_REQUIRED");
 			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText);
-			$content->parse("BLOCK_VIEW_NOT_REQUIRED");
 		}
 		$content->setVariable("HELP_TEXT", $this->helpText);
 		
 		$counter = 0;
 		foreach ($this->options as $option) {
-			if ($counter == $input) {
-				$content->setCurrentBlock("BLOCK_OPTION_SELECTED");
-				$content->setVariable("QUESTION_ID", $id);
-				$content->setVariable("OPTION_COUNT", $counter);
-				$content->setVariable("OPTION_LABEL", $option);
-				if ((($counter+1) % $this->arrangement) == 0) {
-					$content->setVariable("INSERT_BR", "<br>");
-				}
-				$content->parse("BLOCK_OPTION_SELECTED");
-			} else {
-				$content->setCurrentBlock("BLOCK_OPTION_VIEW");
-				$content->setVariable("QUESTION_ID", $id);
-				$content->setVariable("OPTION_COUNT", $counter);
-				$content->setVariable("OPTION_LABEL", $option);
-				if ((($counter+1) % $this->arrangement) == 0) {
-					$content->setVariable("INSERT_BR", "<br>");
-				}
-				$content->parse("BLOCK_OPTION_VIEW");
+			if ((($counter) % $this->arrangement) == 0 || $counter == 0) {
+				$content->setCurrentBlock("BLOCK_ROW_VIEW");
+			}
+			$content->setCurrentBlock("BLOCK_COLUMN_VIEW");
+			$content->setCurrentBlock("BLOCK_OPTION_VIEW");
+			$content->setVariable("QUESTION_ID", $id);
+			$content->setVariable("OPTION_COUNT", $counter);
+			$content->setVariable("OPTION_LABEL", $option);
+			if (in_array($counter, $input)) {
+				$content->setVariable("OPTION_CHECKED", "checked");
+			}
+			$content->parse("BLOCK_OPTION_VIEW");
+			$content->parse("BLOCK_COLUMN_VIEW");
+			if ((($counter+1) % $this->arrangement) == 0) {
+				$content->parse("BLOCK_ROW_VIEW");
 			}
 			$counter++;
 		}
@@ -143,32 +141,43 @@ class MultipleChoiceQuestion extends AbstractQuestion {
 	function getResultHTML($id) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("questiontypes/multiplechoicequestion.template.html");
-		$content->setCurrentBlock("BLOCK_RESULTS");
-		$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
-		
-		$counter = 0;
-		foreach ($this->options as $option) {
-			$content->setCurrentBlock("BLOCK_RESULTS_OPTION");
-			$content->setVariable("OPTION_LABEL", $option);
-			$content->setVariable("OPTION_RESULT", $this->results[$counter]);
-			$content->setVariable("OPTION_PERCENT", round((($this->results[$counter] / $this->resultCount)*100),1));
-			$content->parse("BLOCK_RESULTS_OPTION");
-			$counter++;
+		if ($this->resultCount == 0) {
+			$content->setCurrentBlock("BLOCK_NO_RESULTS");
+			$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
+			$content->setVariable("NO_RESULTS", "Keine Antworten zu dieser Frage vorhanden.");
+			$content->parse("BLOCK_NO_RESULTS");
+		} else {
+			$content->setCurrentBlock("BLOCK_RESULTS");
+			$content->setVariable("QUESTION_TEXT", $id . ". " . $this->questionText);
+			$content->setVariable("POSSIBLE_ANSWER_LABEL", "Antwortmöglichkeit");
+			$content->setVariable("POSSIBLE_ANSWER_AMOUNT", "Antworten");
+			$content->setVariable("POSSIBLE_ANSWER_PERCENT", "% der Befragten");
+			
+			$counter = 0;
+			foreach ($this->options as $option) {
+				$content->setCurrentBlock("BLOCK_RESULTS_OPTION");
+				$content->setVariable("OPTION_LABEL", $option);
+				$content->setVariable("OPTION_RESULT", $this->results[$counter]);
+				$content->setVariable("OPTION_PERCENT", round((($this->results[$counter] / $this->resultCount)*100),1));
+				$content->parse("BLOCK_RESULTS_OPTION");
+				$counter++;
+			}
+			
+			$content->setVariable("QUESTION_ID", $id);
+			$content->setVariable("OPTION_COUNT", count($this->options));
+			$counter = 0;
+			foreach ($this->options as $option) {
+				$content->setCurrentBlock("BLOCK_SCRIPT_OPTION");
+				$content->setVariable("OPTION_SCRIPT_LABEL", $option);
+				$content->setVariable("OPTION_COUNTER", $counter);
+				$content->setVariable("OPTION_SCRIPT_RESULT", round((($this->results[$counter] / $this->resultCount)*100),1));
+				$content->parse("BLOCK_SCRIPT_OPTION");
+				$counter++;
+			}
+			$content->setVariable("QUESTION_STATS", "n = " . $this->resultCount);
+			$content->setVariable("INFO_TEXT", "Die Prozentwerte können zusammengerechnet mehr als 100% ergeben, weil die Befragten mehrere Antworten auswählen konnten.");
+			$content->parse("BLOCK_RESULTS");
 		}
-		
-		$content->setVariable("QUESTION_ID", $id);
-		$content->setVariable("OPTION_COUNT", count($this->options));
-		$counter = 0;
-		foreach ($this->options as $option) {
-			$content->setCurrentBlock("BLOCK_SCRIPT_OPTION");
-			$content->setVariable("OPTION_SCRIPT_LABEL", $option);
-			$content->setVariable("OPTION_COUNTER", $counter);
-			$content->setVariable("OPTION_SCRIPT_RESULT", round((($this->results[$counter] / $this->resultCount)*100),1));
-			$content->parse("BLOCK_SCRIPT_OPTION");
-			$counter++;
-		}
-		
-		$content->parse("BLOCK_RESULTS");
 		return $content->get();
 	}
 }

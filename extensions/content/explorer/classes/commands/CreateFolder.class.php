@@ -24,7 +24,7 @@ class CreateFolder extends \AbstractCommand implements \IFrameCommand, \IAjaxCom
 
 		$current_room = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		
-        $portal = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), strip_tags($this->params["name"]), $current_room);
+                $portal = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), strip_tags($this->params["name"]), $current_room);
 
        
 		$jswrapper = new \Widgets\JSWrapper();

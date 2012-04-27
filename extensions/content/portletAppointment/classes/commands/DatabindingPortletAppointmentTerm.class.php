@@ -122,6 +122,9 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 			case "linkurl": 
 				$term["linkurl"] = $value;
 				break;
+			case "linkurl_open_extern": 
+				$term["linkurl_open_extern"] = $value;
+				break;
 			case "location":
 				$term["location"] = $value;
 				break;

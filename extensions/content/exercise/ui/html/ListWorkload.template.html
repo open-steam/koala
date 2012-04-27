@@ -1,0 +1,38 @@
+<div id="obj-list">
+	{NOTIFICATION_TEXT}
+	<table class="obj-list" cellpadding="0" cellspacing="0">
+		<thead>
+			<tr>
+				<th class="name" colspan="2">L&ouml;sung</th>
+				<th>Abgegeben von</th>
+				<th>Teilnehmer</th>
+				<th>Aktionen</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN BLOCK_ENTRY -->
+			<tr class="obj">
+				<td class="icon"><img src="{ICON_PATH}" /></td>
+				<td class="name">
+					<span class="main">{EX_NAME}</span>
+					<span class="additional">{EX_ID}</span>
+				</td>
+				<td class="chng">
+					<span class="main">{SL_AUTHOR}</span>
+					<span class="additional">{SL_CHANGED}</span>
+				</td>
+				<td class="athrs">
+					<span>{SL_PARTICIPANTS}</span>
+				</td>
+				<td class="comm" align="left">
+					<div class="actionbutton" align="center">{ACTION_SHOWSL}</div>
+					<div class="actionbutton" align="center">{ACTION_REVIEW}</div>
+				</td>
+			</tr>
+			<!-- END BLOCK_ENTRY -->
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript"> 
+	{NOTIFICATION_VIEW}
+</script>

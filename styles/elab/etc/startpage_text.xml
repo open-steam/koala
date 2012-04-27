@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<startpage>
+	<left>
+		<![CDATA[
+			<div style="padding: 0px 15px 15px 15px;position: absolute;top: 100px;left: -50px;background-color: #FDED90;-moz-box-shadow:2px 2px 5px #888;-webkit-box-shadow:2px 2px 5px #888;box-shadow:2px 2px 5px #888;">
+		    <h3>Kurseinrichtung für Dozenten<br/>
+		    (Wintersemester)</h3>
+		    Ab jetzt ist die Anmeldung<br />
+		    für Kurse in koaLA<br /> 
+		    im Wintersemester möglich.<br />
+		    <a href="/requestcourses">Weitere Informationen<br />
+		    zum Verfahren finden sie hier.</a>
+		    </div>
+            <h3>Koaktiv Lernen &amp; Arbeiten</h3>         
+            <p>Die „koaktive Lern- und Arbeitsumgebung“ koaLA ist die zentrale eLearning-Plattform der Universität Paderborn. Eine wesentliche Funktion von koaLA ist die Verwaltung der Lehrmaterialien zu Lehrveranstaltungen. Skripte, Folien, Übungszettel und sonstige Dokumente lassen sich einfach herunterladen.<br><br> Studierende und Dozenten können sich über die Lerninhalte austauschen und darüber hinaus eigene Bereiche für Lern- und Interessengruppen erstellen. Dort können unabhängig von den Lehrveranstaltungen Diskussionen stattfinden oder Aufgaben innerhalb von Kleingruppen bearbeitet werden. 
+            <a href="http://www.uni-paderborn.de" target="_new"><img src="./styles/koala/images/unilogo.png" alt="unilogo" style="margin-top: 50px;"></a></p>
+		]]>              
+	</left>
+	<center>
+		<![CDATA[
+			<h3>Web 2.0</h3>            
+            <p>koaLA setzt dazu Konzepte des „Web 2.0“ und „Social Networking“ um, die es gestatten, aktiv mit dem Lernmaterial zu arbeiten und persönliche Lernbereiche selbst zu strukturieren. Studierende können sich untereinander – z. B. auf Basis gleicher Interessengebiete – vernetzen, Dokumente innerhalb von Gruppen erstellen, verteilen oder diskutieren sowie mit anderen Materialien im System verknüpfen.</p>
+            <h3>Infos zum eLearning</h3>
+			<p><a href="/styles/koala/assets/UPB_koaLA.pdf">Quickstart-Broschüre</a> zu koaLA. Praktische Informationen und Hilfen zum Einstieg in die koaLA-Nutzung.</p>
+			<p><a href="http://www.uni-paderborn.de/studium/elearning/" target="_blank">Universität Paderborn: eLearning </a>:Ein Informationsportal zum Thema E-Learning an der Universität Paderborn mit vielen Informationen für Lehrende und Studierende.</p>
+ 		]]>
+	</center>
+	<right>
+		<![CDATA[
+			<h3>Anmeldung</h3>
+            <p>Zum Anmelden bei koaLA benötigen Sie Ihren zentralen IMT-Zugang.</p>
+			<p>Wenn Sie auf dieser Seite Login-Probleme haben, wenn Sie einen Kurs in koaLA einrichten wollen oder wenn Sie allgemein Fragen zur Umsetzung von eLearning in Ihrer Lehre haben, dann wenden Sie sich bitte an <a href="mailto:elearning@uni-paderborn.de">elearning@uni-paderborn.de</a>.</p>         
+			<h3>Technische Hinweise</h3>
+			<p>Das koaLA System wird jeweils Dienstags von 16:30 - 18:30 Uhr gewartet. Bitte beachten Sie dass es in dieser Zeit zu Beeinträchtigungen bei der Nutzung von KoaLA kommen kann.</p>
+		]]>
+	</right>
+</startpage>

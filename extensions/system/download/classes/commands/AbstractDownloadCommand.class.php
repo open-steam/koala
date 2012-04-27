@@ -10,7 +10,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
 	private $data;
 	
 	public function isGuestAllowed(\IRequestObject $iRequestObject) {
-		return false;
+		return true;
 	}
 	
 	public function validateData(\IRequestObject $requestObject) {

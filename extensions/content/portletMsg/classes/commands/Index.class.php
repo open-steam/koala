@@ -34,7 +34,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$portletName = $portlet->get_attribute(OBJ_DESC);
 		
 		//hack
-		include_once(PATH_BASE."koala-core/lib/bid/slashes.php");
+		include_once(PATH_BASE."core/lib/bid/slashes.php");
 		
 		//get content of portlet
 		$content = $portlet->get_attribute("bid:portlet:content");
@@ -48,7 +48,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$portletPath = $portletInstance->getExtensionPath();
 		
 		$UBB = new \UBBCode();
-		include_once(PATH_BASE."koala-core/lib/bid/derive_url.php");
+		include_once(PATH_BASE."core/lib/bid/derive_url.php");
 		
 		$portletFileName=$portletPath."/ui/html/index.html";
 		$tmpl = new \HTML_TEMPLATE_IT();

@@ -21,16 +21,15 @@ class Test extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 	}
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		$obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), 2226);
-		$obj->delete();
-	
 		return $frameResponseObject;
 	}
+	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		return $ajaxResponseObject;
 
 	}
-	
 }
+
+
 ?>

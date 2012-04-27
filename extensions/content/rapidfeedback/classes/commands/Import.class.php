@@ -1,4 +1,11 @@
 <?php
+/**
+ * 
+ * Import function to import bidowl questionnaires
+ * atm working: importing of questions
+ * work on this class stopped
+ *
+ */
 namespace Rapidfeedback\Commands;
 class Import extends \AbstractCommand implements \IFrameCommand {
 
@@ -19,7 +26,21 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$RapidfeedbackExtension->addCSS();
 		
-		// TODO: import funktion
+		// access not allowed for non-admins
+		$user = $GLOBALS["STEAM"]->get_current_steam_user();
+		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
+		if (($staff instanceof \steam_group && !($staff->is_member($user))) || $staff instanceof \steam_user && !($staff->get_id() == $user->get_id())) {
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			$frameResponseObject->setHeadline(array(
+				array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id),
+				array("name" => "Import")
+			));
+			return $frameResponseObject;
+		}
+		
+		// TODO: import function
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["import_survey"])) {
 			echo($_POST["id"]);
 			$bidowl_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $_POST["id"]);
@@ -130,7 +151,6 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 							$isQuestion = true;
 							break;
 					}
-					// TODO: bug: bearbeiten single choice geöffnet --> auf neue frage erstellen klicken --> antwortmöglichkeiten
 					// TODO: evtl weitere attribute
 					if ($isQuestion) {
 						$newquestion->setQuestionText($question_geometry["question"]);
@@ -162,21 +182,10 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("BACK_LABEL", "Zurück");
 		$content->parse("BLOCK_IMPORT_DIALOG");
 		
-		$group = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
-		
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl),
 			array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id()),
 			array("name" => "Import")
 		));

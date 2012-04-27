@@ -4,10 +4,10 @@
  *   David Lippman and Peter Jipsen
  *
  * @author David Lippman
- * @copyright Copyright © 2008 David Lippman.
+ * @copyright Copyright ï¿½ 2008 David Lippman.
  *
  * Plugin format based on code that is:
- * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright ï¿½ 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function() {
@@ -98,6 +98,7 @@
 							}
 							rep = '<embed type="image/svg+xml" src="'+ed.getParam('ASdloc')+'" style="'+style+'" sscr="'+decodeURIComponent(sscr)+'" />';
 							o.content = o.content.replace(imgs[i],rep);
+                                                        
 						}
 					}
 				} 
@@ -120,6 +121,7 @@
 							}
 							rep = '<img src="'+ed.getParam('AScgiloc')+'?sscr='+encodeURIComponent(sscr)+'" style="'+style+'" sscr="'+decodeURIComponent(sscr)+'" />';
 							o.content = o.content.replace(imgs[i],rep);
+                                                        
 						}
 					}
 			});

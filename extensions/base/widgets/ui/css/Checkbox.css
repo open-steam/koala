@@ -1,3 +1,5 @@
-.widgets_checkbox, .widgets_checkbox input, .widgets_checkbox .widgets_lable {
+.widgets_checkbox {
 	float: left;
+	white-space: nowrap;
 }
+

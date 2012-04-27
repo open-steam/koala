@@ -19,6 +19,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$TCRExtension = \TCR::getInstance();
 		$TCRExtension->addCSS();
+		$TCRExtension->addJS();
 		$content = $TCRExtension->loadTemplate("tcr_index.template.html");
 		
 		// display actionbar
@@ -27,6 +28,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		if (in_array($user->get_id(), $admins)) {
 			$actions = array(
 				array("name" => "Konfiguration" , "link" => $TCRExtension->getExtensionUrl() . "configuration/" . $this->id),
+				array("name" => "Rundmail erstellen" , "link" => $TCRExtension->getExtensionUrl() . "mail/" . $this->id),
 				array("name" => "Private Dokumente" , "link" => $TCRExtension->getExtensionUrl() . "privateDocuments/" . $this->id),
 				array("name" => "Übersicht" , "link" => $TCRExtension->getExtensionUrl() . "Index/" . $this->id),
 				array("name" => "Alle Dokumente" , "link" => $TCRExtension->getExtensionUrl() . "documents/" . $this->id));
@@ -39,7 +41,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$actionbar->setActions($actions);
 		$frameResponseObject->addWidget($actionbar);
 		
-		// create array data structure of the theses (identified by writer of the thesis and writer of the review)
+		// create array structure of the theses (identified by writer of the thesis and writer of the review)
 		$theses_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $TCR->get_path() . "/theses");
 		$theses_inventory = $theses_container->get_inventory();
 		$theses = array();
@@ -53,16 +55,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			}	
 		}
 		
-		$group = $TCR->get_attribute("TCR_GROUP");
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
-		
 		// display message if there are no members specified
 		if (count($members) == 0) {
 			$content->setCurrentBlock("BLOCK_OVERVIEW_TABLE");
@@ -74,8 +66,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$rawWidget = new \Widgets\RawHtml();
 			$rawWidget->setHtml($content->get());
 			$frameResponseObject->addWidget($rawWidget);
-			$frameResponseObject->setHeadline(array(
-				array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
+			$frameResponseObject->setHeadline(array( 
 				array("name" => "Thesen-Kritik-Replik-Verfahren")
 			));
 			return $frameResponseObject;
@@ -118,7 +109,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		
 		// display document table
 		$content->setCurrentBlock("BLOCK_OVERVIEW_TABLE");
-		$content->setVariable("TCR_TITLE", $TCR->get_attribute("OBJ_DESC"));
+		$content->setVariable("TCR_TITLE", $TCR->get_name());
+		$content->setVariable("INFOTEXT", nl2br($TCR->get_attribute("OBJ_DESC")));
 		if ($divide == 1) {
 			$content->setVariable("DISPLAY_MANY", "none");
 		} else {
@@ -147,16 +139,20 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		for ($count = $area*8; $count < min(count($members), ($area+1)*8); $count++) {
 			$content->setCurrentBlock("BLOCK_USER_TH");
 			$member_object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $members[$count]);
-			$content->setVariable("USER_NAME", $member_object->get_name());
+			$pic_id = $member_object->get_attribute("OBJ_ICON")->get_id();
+			$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/15/20";
+			$content->setVariable("USER_NAME", "<img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $member_object->get_name() . ">" . $member_object->get_full_name() . "</a>");
+			//$content->setVariable("USER_NAME", $member_object->get_name());
 			if (count($members) < 8) {
-				$content->setVariable("USER_WIDTH", 80 / count($members));
+				$content->setVariable("USER_WIDTH", round(80 / count($members)) . "%");
 			} else {
-				$content->setVariable("USER_WIDTH", 10);
+				$content->setVariable("USER_WIDTH", "11%");
 			}
+			$content->setVariable("USER_TH_ID", "th" . $member_object->get_id());
 			$content->parse("BLOCK_USER_TH");
 		}
 		if (count($members) > 8) {
-			$tablewidth = 20 + (min(count($members), ($area+1)*8) - ($area*8))*10;
+			$tablewidth = 12 + round(min(count($members), ($area+1)*8) - ($area*8))*11;
 		} else {
 			$tablewidth = 100;
 		}
@@ -166,11 +162,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		for ($count = 0; $count < count($members); $count++) {
 			$content->setCurrentBlock("BLOCK_TABLE_ROW");
 			$creator = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $members[$count]);
-			$content->setVariable("USER_NAME2", $creator->get_full_name() . " (" . $creator->get_name() . ")");
+			$pic_id = $creator->get_attribute("OBJ_ICON")->get_id();
+			$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/15/20";
+			$content->setVariable("USER_NAME2", "<img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $creator->get_name() . ">" . $creator->get_full_name() . "</a>");
+			$content->setVariable("USER_TD_ID_LABEL", "td" . $creator->get_id());
 			for ($count2 = $area*8; $count2 < min(count($members), ($area+1)*8); $count2++) {
 				$content->setCurrentBlock("BLOCK_TABLE_COLUMN");
 				$current_critic = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $members[$count2]);
-				$content->setVariable("COLUMN_TITLE", "Autor: " . $creator->get_name() . " Kritiker: " . $current_critic->get_name());
+				$content->setVariable("USER_TD_ID", "td" . $creator->get_id());
+				$content->setVariable("USER_TH_ID", "th" . $current_critic->get_id());
+				$content->setVariable("COLUMN_TITLE", "Autor: " . $creator->get_full_name() . " Kritiker: " . $current_critic->get_full_name());
 				for ($count3 = 1; $count3 <= $rounds; $count3++) {
 					if (isset($theses[$members[$count]][$members[$count2]][$count3])) {
 						$current_thesis = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $theses[$members[$count]][$members[$count2]][$count3]);
@@ -184,7 +185,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 							$content->setVariable("THESIS_LABEL", "T" . $count3);
 							$content->setVariable("OTHER_WIDTH", "33");
 						}
-						$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "release/" . $theses[$members[$count]][$members[$count2]][$count3]);
+						$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "view/" . $theses[$members[$count]][$members[$count2]][$count3]);
 						$current_review = $current_critics[$members[$count2]];
 						if ($current_review != 0) {
 							$review = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $current_review);
@@ -195,7 +196,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 								} else {
 									$content->setVariable("REVIEW_LABEL", "K" . $count3);
 								}
-								$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "release/" . $current_review);
+								$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "view/" . $current_review);
 							}
 							$current_response = $review->get_attribute("TCR_RESPONSE");
 							if ($current_response != 0) {
@@ -207,7 +208,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 									} else {
 										$content->setVariable("RESPONSE_LABEL", "R" . $count3);
 									}
-									$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "release/" . $current_response);
+									$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "view/" . $current_response);
 								}
 							}
 						}
@@ -228,7 +229,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 			array("name" => "Thesen-Kritik-Replik-Verfahren")
 		));
 		return $frameResponseObject;

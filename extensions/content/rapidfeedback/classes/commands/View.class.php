@@ -27,11 +27,44 @@ class View extends \AbstractCommand implements \IFrameCommand {
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$RapidfeedbackExtension->addCSS();
 		
+		// check if displaying preview
+		$preview = 0;
+		if (isset($this->params[2])) {
+			$preview = 1;
+		}
+			
 		// check if current user is admin
 		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
 		$admin = 0;
 		if (($staff instanceof \steam_group && $staff->is_member($user)) || $staff instanceof \steam_user && $staff->get_id() == $user->get_id()) {
 			$admin = 1;
+		}
+		
+		// check if user is allowed to view survey
+		$participants = $survey->get_attribute("RAPIDFEEDBACK_PARTICIPANTS");
+		$state = $survey->get_attribute("RAPIDFEEDBACK_STATE");
+		$notAllowed = false;
+		if ($admin = 0) {
+			if (in_array($user->get_id(), $participants) || $state != 1) {
+				$notAllowed  = true;
+			}
+		} else {
+			$adminsAllowed = $rapidfeedback->get_attribute("RAPIDFEEDBACK_ADMIN_SURVEY");
+			if ($preview == 0 && $adminsAllowed == 0) {
+				$notAllowed  = true;
+			} else if ($preview == 0 && (in_array($user->get_id(), $participants) || $state != 1)) {
+				$notAllowed  = true;
+			}
+		}
+		if ($notAllowed) {
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Zugang verwehrt. Sie dürfen diese Umfrage im Moment nicht ausfüllen.</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			$frameResponseObject->setHeadline(array(
+				array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id),
+				array("name" => "Umfrage ausfüllen")
+			));
+			return $frameResponseObject;
 		}
 		
 		// collect user input if view got submitted (and check for errors)
@@ -76,11 +109,29 @@ class View extends \AbstractCommand implements \IFrameCommand {
 					$rowCount = count($question->getRows());
 					$results = array();
 					for ($count = 0; $count < $rowCount; $count++) {
-					if (isset($_POST["question" . $questionCounter . "_" . $count])) {
+						if (isset($_POST["question" . $questionCounter . "_" . $count])) {
 							array_push($results, $_POST["question" . $questionCounter . "_" . $count]);
 						}
 					}
 					if ($question->getRequired() == 1 && (count($results) < $rowCount)) {
+						array_push($errors, $questionCounter);
+						$values[$questionCounter] = $results;
+					} else {
+						$values[$questionCounter] = $results;
+					}
+				} else if ($question instanceof \Rapidfeedback\Model\TendencyQuestion) {
+					$rowCount = count($question->getOptions());
+					$results = array();
+					$complete = true;
+					for ($count = 0; $count < $rowCount; $count++) {
+						if (isset($_POST["question" . $questionCounter . "_" . $count])) {
+							$results[$count] = $_POST["question" . $questionCounter . "_" . $count];
+						} else {
+							$results[$count] = -1;
+							$complete = false;
+						}
+					}
+					if ($question->getRequired() == 1 && !$complete) {
 						array_push($errors, $questionCounter);
 						$values[$questionCounter] = $results;
 					} else {
@@ -92,7 +143,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
 			
 			// if there are errors show error msg, else save answers
 			if (!empty($errors)) {
-				$problemdescription = "Erforderliche Fragen nicht beantwortet: ";
+				$problemdescription = "Pflichtfragen nicht beantwortet: ";
 				foreach ($errors as $error) {
 					$problemdescription = $problemdescription . ($error+1) . ", ";
 				}
@@ -136,9 +187,16 @@ class View extends \AbstractCommand implements \IFrameCommand {
 			$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_view.template.html");
 			$content->setCurrentBlock("BLOCK_VIEW_SURVEY");
 			$content->setVariable("SURVEY_NAME", $survey_object->getName());
-			$content->setVariable("SURVEY_BEGIN", $survey_object->getBeginText());
-			$content->setVariable("SURVEY_END", $survey_object->getEndText());
-			$content->setVariable("QUESTION_NEEDED", "Erforderlich");
+			if (trim($survey_object->getBeginText()) == "") {
+				$content->setVariable("DISPLAY_BEGIN", "none");
+			} else {
+				$content->setVariable("SURVEY_BEGIN", nl2br($survey_object->getBeginText()));
+			}
+			if (trim($survey_object->getEndText()) == "") {
+				$content->setVariable("DISPLAY_END", "none");
+			} else {
+				$content->setVariable("SURVEY_END", nl2br($survey_object->getEndText()));	
+			}
 			$state = $survey->get_attribute("RAPIDFEEDBACK_STATE");
 			if ($admin == 0 | $state != 0) {
 				$content->setVariable("DISPLAY_EDIT", "none");
@@ -167,10 +225,6 @@ class View extends \AbstractCommand implements \IFrameCommand {
 			}
 			$content->setVariable("QUESTIONS_HTML", $html);
 			$content->setVariable("SUBMIT_SURVEY", "Antworten abschicken");
-			$preview = 0;
-			if (isset($this->params[2])) {
-				$preview = 1;
-			}
 			if ($preview == 1) {
 				$content->setVariable("DISPLAY_SUBMIT", "none");
 				$headline_label = "Umfrage: Vorschau";
@@ -183,21 +237,10 @@ class View extends \AbstractCommand implements \IFrameCommand {
 			$html = $content->get();
 		}
 		
-		$group = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
-		
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($html);
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 			array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id()),
 			array("name" => $headline_label)
 		));

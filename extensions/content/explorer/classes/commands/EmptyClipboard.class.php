@@ -47,7 +47,11 @@ class EmptyClipboard extends \AbstractCommand implements \IAjaxCommand {
 			$clipboardModel = new \Explorer\Model\Clipboard($this->clipboard);
 			$jswrapper = new \Widgets\JSWrapper();
 			$js = "document.getElementById('clipboardIconbarWrapper').innerHTML = '" . $clipboardModel->getIconbarHtml() . "';";
-			$jswrapper->setJs($js);
+			$url = $this->params["path"];
+                        if(strpos($url,"clipboard")!==false){
+                            $js .='location.href="'.PATH_URL.'clipboard/"';
+                        }
+                        $jswrapper->setJs($js);
 			$ajaxResponseObject->addWidget($jswrapper);
 			return $ajaxResponseObject;
 		}

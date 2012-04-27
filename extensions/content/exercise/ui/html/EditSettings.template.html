@@ -1,0 +1,146 @@
+<div id="main">
+	{NOTIFICATION_TEXT}
+	<div id="exercise-details">
+		<form name="exerciseFormular" method="post" action="{FORM_ACTION}">
+			
+			<table class="exerciseForm" width="100%" cellpadding="4" cellspacing="0">
+				<!-- BEGIN BLOCK_ATTRIBS -->
+				<tr>
+					<td class="attribute">&Uuml;bungsbetrieb aktiviert:</td>
+					<td class="input"><input name="attributes[ENABLED]" type="checkbox" onChange="changed()" {ATTR_ENABLED_VALUE} value="TRUE"/></td>
+				</tr>
+				<tr>
+					<td class="attribute">Abgabeturnus:</td>
+					<td class="input">
+						<select name="attributes[CYCLE]" onChange="changed()">
+							{ATTR_CYCLE_VALUE}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="attribute">min. Gruppenst&auml;rke:</td>
+					<td class="input"><input name="attributes[MINGROUP]" type="text" size="4" onChange="changed()" value="{ATTR_MINGROUP_VALUE}"/></td>
+				</tr>
+				<tr>
+					<td class="attribute">max. Gruppenst&auml;rke:</td>
+					<td class="input"><input name="attributes[MAXGROUP]" type="text" size="4" onChange="changed()" value="{ATTR_MAXGROUP_VALUE}"/></td>
+				</tr>
+				<tr>
+					<td class="attribute">Bonusnotenschritte:</td>
+					<td class="input">
+						<input name="attributes[BON1]" type="text" size="4" onChange="changed()" value="{ATTR_BON1_VALUE}"/>
+						<span class="valueinfo">[Punkte f&uuml;r 1. Schritt]</span><br />
+						<input name="attributes[BON2]" type="text" size="4" onChange="changed()" value="{ATTR_BON2_VALUE}"/>
+						<span class="valueinfo">[Punkte f&uuml;r 2. Schritt]</span><br />
+						<input name="attributes[BON3]" type="text" size="4" onChange="changed()" value="{ATTR_BON3_VALUE}"/>
+						<span class="valueinfo">[Punkte f&uuml;r 3. Schritt]</span><br />
+					</td>
+				</tr>
+				<!-- END BLOCK_ATTRIBS -->
+				<!-- BEGIN BLOCK_ATTR_REVIEWERS -->
+				<tr>
+					<td class="attribute">Tutoren:</td>
+					<td class="input">
+						<div class="valueinfo" style="display: block;">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[koaLA ID]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="grey">[Name]</font>
+						</div>
+						<div class="dynamicListCont">
+							<table class="dynamicList" cellpadding="0" cellspacing="2">
+								<tbody id="reviewerList">
+									<!-- BEGIN BLOCK_REVIEWERS -->
+									<tr id="dynamicEntry_{TT_ENTRYNR}">
+										<td style="width:40%;">
+											<input type="text" class="dynamicCell" onChange="changed()" name="tt_names[]" value="{TT_ID}" />
+										</td>
+										<td style="width:50%;">
+											<input type="text" class="dynamicCell" readonly="readonly" name="tt_fnames[]" value="{TT_FN}" />
+	 									</td>
+										<td style="width:10%;">
+											<button type="button" class="dynamicAction" onClick="changed();reviewers.removeEntry('dynamicEntry_{TT_ENTRYNR}');">X</button>
+										</td>
+									</tr>
+									<!-- END BLOCK_REVIEWERS -->
+								</tbody>
+							</table>
+						</div>
+						<div class="dynamicListAdder">
+							<button type="button" class="dynamicListAdder" onClick="changed();reviewers.addEntry()">+</button>
+						</div>
+					</td>
+				</tr>
+				<!-- END BLOCK_ATTR_REVIEWERS -->
+				<!-- BEGIN BLOCK_ATTR_TUTORIALS -->
+				<tr>
+					<td class="attribute">&Uuml;bungsgruppen:</td>
+					<td class="input">
+						<div class="valueinfo" style="display: block;">
+							&nbsp;&nbsp;&nbsp;&nbsp;[Gruppenname]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Tutor]
+						</div>
+						<div class="dynamicListCont">
+							<table class="dynamicList" cellpadding="0" cellspacing="2">
+								<tbody id="tutorialList">
+									<!-- BEGIN BLOCK_TUTORIALS -->
+									<tr id="dynamicEntry_GRP_{GR_ENTRYNR}">
+										<td style="width:50%;">
+											<input type="text" class="dynamicCell" onChange="changed()" name="gr_names[]" value="{GR_NAME}" />
+										</td>
+										<td style="width:40%;">
+											<input type="text" class="dynamicCell" onChange="changed()" name="gr_tts[]" value="{GR_TT_ID}" />
+	 									</td>
+										<td style="width:10%;">
+											<button type="button" class="dynamicAction" onClick="changed();tutorials.removeEntry('dynamicEntry_GRP_{GR_ENTRYNR}');">X</button>
+										</td>
+									</tr>
+									<!-- END BLOCK_TUTORIALS -->
+								</tbody>
+							</table>
+						</div>
+						<div class="dynamicListAdder">
+							<button type="button" class="dynamicListAdder" onClick="changed();tutorials.addEntry()">+</button>
+						</div>
+					</td>
+				</tr>
+				<!-- END BLOCK_ATTR_TUTORIALS -->
+				<!-- BEGIN BLOCK_ATTR_WORKLOAD -->
+				<tr>
+					<td class="attribute">Arbeitsverteilung:</td>
+					<td class="input">
+						<select name="attributes[WLMODE]" onChange="changed()">
+							{ATTR_WLMODE_VALUE}
+						</select>
+					</td>
+				</tr>
+				<!-- END BLOCK_ATTR_WORKLOAD -->
+			</table>
+			<input type="hidden" id="CMD_ABORT" name="CMD_ABORT" value="FALSE" />
+		</form>
+	</div>
+	<div align="left" style="width:55%;margin-left:100px;">
+		<hr>
+		<div class="buttons" align="right">
+			<button type="submit" onClick="validSubmit(); document.exerciseFormular.submit();">
+				Einstellungen speichern
+			</button>
+		</div>
+	</div>
+	<script type="text/javascript"> 
+		   
+		 	// set number of loaded entries in dynamicList
+	 		//dynamicList.entries = {SF_ENTRYAMT};
+	 		//dynamicList.newId = {SF_ENTRYAMT}+1;
+	 		
+	 		var reviewers = new dynamicList('reviewerList', {TT_ENTRYAMT}, {TT_ENTRYAMT}+1, 1);
+	 		var tutorials = new dynamicList('tutorialList', {GR_ENTRYAMT}, {GR_ENTRYAMT}+1, 2);
+		 	
+		 	handleChanges = {CHANGED_FLAG};
+		 	function validSubmit() {
+		 		jQuery(window).unbind('unload');
+		 	}
+		 	function changed() {
+		 		handleChanges = true;
+		 	}
+		 	
+		 	jQuery(window).bind('unload', function() {displayConfirmation()});
+		 	{NOTIFICATION_VIEW}
+		</script>
+</div>

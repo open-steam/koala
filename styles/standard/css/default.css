@@ -896,39 +896,39 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	
 	#short1{
 		position:absolute;
-		top:5%; /*anpassen*/
-		left:8%; /*anpassen*/
+		top: 5%;
+		left: 8%;
 		font-size:50px;
 		text-shadow: #ddd 2px 2px 2px;
 	}
 	
 	#short2{
 		position:absolute;
-		top:4%; /*anpassen*/
-		right:60%; /*anpassen*/
+		top: 4%;
+		right: 50%;
 		text-shadow: #ddd 2px 2px 2px;
 	}
 	
 	#short3{
 		position:absolute;
-		top:15%; /*anpassen*/
-		right:55%; /*anpassen*/
+		top: 9%;
+		right: 48%;
 		font-size:60px;
 		text-shadow: #ddd 2px 2px 2px;
 	}
 	
 	#long{
 		position:absolute;
-		top:30%; /*anpassen*/
-		left:13%; /*anpassen*/
+		top: 28%;
+		left: 13%;
 		font-size:30px;
 		text-shadow: #ddd 2px 2px 2px;
 	}
 	
 	#medium{
 		position:absolute;
-		top:20%; /*anpassen*/
-		left:5%; /*anpassen*/
+		top: 20%;
+		left: 5%;
 		font-size:40px;
 		text-shadow: #ddd 2px 2px 2px;
 	}

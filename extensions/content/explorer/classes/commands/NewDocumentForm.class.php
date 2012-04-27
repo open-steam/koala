@@ -34,7 +34,7 @@ class NewDocumentForm extends \AbstractCommand implements \IFrameCommand, \IAjax
 		$ajaxUploader->setDestId($this->id);
 		
 		$rawHTML = new \Widgets\RawHtml();
-		$rawHTML->setHtml("<div style=\"float:right\"><a class=\"button pill negative\" onclick=\"closeDialog();return false;\" href=\"#\">Schließen</a></div>");
+		$rawHTML->setHtml("<div style=\"float:right\"><a class=\"button pill negative\" onclick=\"closeDialog();window.location.reload();return false;\" href=\"#\">Schließen</a></div>");
 		
 		$ajaxResponseObject->addWidget($ajaxUploader);
 		$ajaxResponseObject->addWidget($rawHTML);

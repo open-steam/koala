@@ -1,0 +1,113 @@
+<div id="main">
+	{NOTIFICATION_TEXT}
+	<div id="exercise-details">
+		<div class="exercise-information">
+			<span class="headline">Abgabe f&uuml;r "{EX_NAME}"</span>
+			<span>&Auml;nderungen m&ouml;glich bis {EX_DEADLINE}</span>
+			<span>Erreichbare Punkte: {EX_POINTS}</span>
+			<span>Gruppenst&auml;rke: {EX_GROUP}</span>
+		</div>
+		<form name="exerciseFormular" method="post" action="{FORM_ACTION}">
+			<table class="exerciseForm" width="100%" cellpadding="4" cellspacing="0">
+				<!-- BEGIN BLOCK_ATTR_PARTICIPANTS -->
+				<tr>
+					<td class="attribute">{ATTR_PARTICIPANTS}:</td>
+					<td class="input">
+						<div class="valueinfo" style="display: block;">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[koaLA-ID]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="grey">[Name]</font>
+						</div>
+						<div class="dynamicListCont">
+							<table class="dynamicList" cellpadding="0" cellspacing="2">
+								<tbody id="dynamicList">
+									<!-- BEGIN BLOCK_PARTICIPANTS -->
+									<tr id="dynamicEntry_{PP_ENTRYNR}">
+										<td style="width:40%;">
+											<input type="text" class="dynamicCell" {PP_RO} onChange="changed()" name="pp_names[]" value="{PP_NAME}" />
+										</td>
+										<td style="width:50%;">
+											<input type="text" class="dynamicCell" readonly="readonly" value="{PP_FULLNAME}" />
+										</td>
+										<td style="width:10%;">
+											{PP_XBUTTON}
+										</td>
+									</tr>
+									<!-- END BLOCK_PARTICIPANTS -->
+								</tbody>
+							</table>
+						</div>
+						<div class="dynamicListAdder">
+							<button type="button" class="dynamicListAdder" onClick="changed();dynamicList.addEntry()">+</button>
+						</div>
+						
+					</td>
+				</tr>
+				<!-- END BLOCK_ATTR_PARTICIPANTS -->
+				<!-- BEGIN BLOCK_ATTR_DESCRIPTION -->
+				<tr>
+					<td class="attribute">Gruppe:</td>
+					<td class="input">
+						<select name="NOT.YET.NAMED" onChange="">
+							<option value="1">Gruppe 1</option>
+							<option value="2">Gruppe 2</option>
+							<option value="3">Gruppe 3</option>
+							<option value="4">Gruppe 4</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="attribute">{ATTR_DESCRIPTION}:</td>
+					<td class="input"><textarea name="attributes[DESCRIPTION]" onChange="changed()" style="width: 95%;" rows="10">{ATTR_DESCRIPTION_VALUE}</textarea></td>
+				</tr>
+				<!-- END BLOCK_ATTR_DESCRIPTION -->
+			</table>
+			<input type="hidden" id="CMD_ABORT" name="CMD_ABORT" value="FALSE" />
+			<input type="hidden" id="OPERATION" value="{OPERATION}" />
+		</form>
+	</div>
+	<div align="left" style="width:80%;margin-left:85px;">
+		<hr>
+		<div id="document-uploader-array">
+			<h1>Abgabedokumente</h1>
+			<div id="document-uploader" class="document-uploader">		
+				<noscript>			
+					<p>Bitte aktivieren Sie JavaScript in Ihrem Webbrowser.</p>
+				</noscript>         
+			</div>
+		</div>
+		<hr>
+		<div class="buttons" align="right">
+			<button type="submit" onClick="validSubmit(); document.exerciseFormular.submit();">
+				{SUBMIT_BUTTON_LABEL}
+			</button>
+		</div>
+	</div>
+	<script type="text/javascript"> 
+		 		
+	 		// create exerciseForm
+	 		var uploaderarray = new exerciseForm( '{BACKEND}',
+	 											  '{BASEROOM}',
+	 											   {SIZELIMIT},
+	 											  'document-uploader-array',
+	 											  'document-uploader',
+	 											  'document-add-button',
+	 											   {FIXED_UPLOADERS},
+	 											   {PRELOAD}
+	 											);
+	 		
+	 		// set number of loaded entries in dynamicList
+	 		dynamicList.entries = {PP_ENTRYAMT};
+	 		dynamicList.newId = {PP_ENTRYAMT}+1;
+	 		dynamicList.type = 2;
+		 	
+		 	handleChanges = {CHANGED_FLAG};
+		 	function validSubmit() {
+		 		jQuery(window).unbind('unload');
+		 	}
+		 	function changed() {
+		 		handleChanges = true;
+		 	}
+		 	
+		 	jQuery(window).bind('unload', function() {displayConfirmation()});
+		 	{NOTIFICATION_VIEW}
+		</script>
+</div>

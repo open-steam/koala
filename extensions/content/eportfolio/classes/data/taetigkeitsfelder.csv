@@ -1,53 +1,512 @@
 ;Kompetenzbereiche;;;;
 Kompetenzbereich;Beschreibung;Index;Berufsfeld;Niveau;Niveau Beschreibung
-Chemische/ physikalische/biologische Stoffe analysieren (untersuchen);"Der Kompetenzbereich  beinhaltet Kompetenzen, 
-die für die erfolgreiche Planung, Durchführung, 
-Optimierung und Dokumentation chemischer, 
-physikalischer und biologischer Analyseverfahren
-vorhanden sein sollten. ";1;Chemikant;;
-Chemische/biologische  Produktionsverfahren vorbereiten/ planen, durchführen und optimieren ;"Der Kompetenzbereich beinhaltet  Kompetenzen, 
-die für die erfolgreiche Planung, Durchführung, 
-Optimierung und Dokumentation chemischer/ 
-biologischer Produktionsverfahren vorhanden 
-sein sollten.";2;Chemikant;4;Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen im Rahmen der Vorbereitung/Planung, Durchführung und Optimierung von chemischer/biologischer Produktionsverfahren (bspw. Feststoffe zu zerkleinern und klassieren)  auch unter sich verändernden und nicht eindeutigen Rahmenbedingungen selbständig zu planen, zu bearbeiten, ggf. hierbei auftretende Probleme zu lösen sowie Arbeitsergebnisse unter Beachtung von Wechselwirkungen zu beurteilen.
-Anlagen bedienen, installieren und instandhalten;"Der Kompetenzbereich beinhaltet  Kompetenzen, die
- für die erfolgreiche Bewältigung, der Maschinen ,Apparate-, Anlagenbedienung, der technisch-
- mechanischen Vorbereitung von Maschinen, 
-Apparate und Anlagen, und der dauerhaften 
-Gewährleistung der technischen Funktionalität 
-vorhanden sein sollten.";3;Chemikant;4;"Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen im Rahmen der Bedienung, Installation und Instandhaltung von Anlagen (wie bspw. Installationsschaltungen herzustellen) auch unter sich verändernden und nicht eindeutigen Rahmenbedingungen selbständig zu planen, zu bearbeiten, ggf. hierbei auftretende Probleme zu lösen sowie Arbeitsergebnisse unter Beachtung von Wechselwirkungen zu beurteilen.     
+"Herstellungsverfahren vorbereiten/planen,
+durchführen und optimieren";"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Planung, Durchführung, Optimierung
+und Dokumentation von Herstellungsverfahren
+vorhanden sein sollten.";2;CK;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Vorbereitung/Planung, Durchführung
+und Optimierung von
+Herstellungsverfahren auch unter sich
+verändernden und nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen."
+Anlagen bedienen, installieren und instandhalten;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung, der Maschinen-,
+Apparate-, Anlagenbedienung, der technisch-
+mechanischen Vorbereitung von Maschinen,
+Apparate und Anlagen, und der dauerhaften
+Gewährleistung der technischen Funktionalität
+vorhanden sein sollten.";3;CK;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Bedienung, Installation und
+Instandhaltung von Anlagen auch
+unter sich verändernden und nicht
+eindeutigen Rahmenbedingungen
+selbständig zu planen, zu bearbeiten,
+ggf. hierbei auftretende Probleme zu
+lösen sowie Arbeitsergebnisse unter
+Beachtung von Wechselwirkungen zu
+Beurteilen."
+Verfahrensprozesse steuern und überwachen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Beurteilung und
+Beeinflussung von Verfahrensprozessen hinsichtlich
+eines gewünschten Ablaufes vorhanden sein sollten.";4;CK;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Steuerung und Überwachung von
+Verfahrensprozessen auch unter sich
+verändernden und nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen.
 "
-Chemische/biologische Verfahrensprozesse steuern und überwachen;Der Kompetenzbereich beinhaltet  Kompetenzen, die für die erfolgreiche Bewältigung der Beurteilung und Beeinflussung von Produktionsprozessen hinsichtlich eines gewünschten Ablaufes vorhanden sein sollten.;4;Chemikant;4;"Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen im Rahmen der Steuerung und Überwachung von chemischen/biologischen Verfahrensprozessen (wie bspw. Mess- und Regelungseinrichtungen einzustellen) auch unter sich verändernden und nicht eindeutigen Rahmenbedingungen selbständig zu planen, zu bearbeiten, ggf. hierbei auftretende Probleme zu lösen sowie Arbeitsergebnisse unter Beachtung von Wechselwirkungen zu beurteilen.     
+Qualität prüfen, gewährleisten und verbessern  ;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Einhaltung oder
+Entwicklung organisierter Maßnahmen, die der
+Verbesserung von Produkten, Prozessen oder
+Leistungen dienen, vorhanden sein sollten.";5;CK;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Prüfung, Gewährleistung und
+Verbesserung der Qualität von
+Produkten, Prozessen oder Leistungen
+auch unter sich verändernden und
+nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen.
 "
-Qualität prüfen, gewährleisten und verbessern  ;Der Kompetenzbereich beinhaltet Kompetenzen, die für die erfolgreiche Bewältigung der Einhaltung oder Entwicklung organisierter Maßnahmen, die der Verbesserung von Produkten, Prozessen oder Leistungen dienen, vorhanden sein sollten.;5;Chemikant;4;"Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen im Rahmen der Prüfung, Gewährleistung und Verbesserung der Qualität von Produkten, Prozessen oder Leistungen (wie bspw. die Dokumentation eines eingesetzten Qualitätsmanagementsystems) auch unter sich verändernden und nicht eindeutigen Rahmenbedingungen selbständig zu planen, zu bearbeiten, ggf. hierbei auftretende Probleme zu lösen sowie Arbeitsergebnisse unter Beachtung von Wechselwirkungen zu beurteilen.
+Kosten kalkulieren, planen und beeinflussen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Planung, Beurteilung
+und Beeinflussung betrieblicher Abläufe nach
+wirtschaftlichen Gesichtspunkten vorhanden sein
+Sollten.";6;CK;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Kalkulation, Planung und
+Beeinflussung auch unter sich
+verändernden und nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen.
 "
-Kosten kalkulieren, planen und beeinflussen;Der Kompetenzbereich beinhaltet  Kompetenzen, die für die erfolgreiche Bewältigung der Planung, Beurteilung und Beeinflussung betrieblicher Abläufe nach wirtschaftlichen Gesichtspunkten vorhanden sein sollten.;6;Chemikant;4;"Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen im Rahmen der Kalkulation, Planung und Beeinflussung (wie bspw. Kostenvorgaben einzuhalten) auch unter sich verändernden und nicht eindeutigen Rahmenbedingungen selbständig zu planen, zu bearbeiten, ggf. hierbei auftretende Probleme zu lösen sowie Arbeitsergebnisse unter Beachtung von Wechselwirkungen zu beurteilen.     
-"
-Mitarbeiter organisieren, fördern und beurteilen;Der Kompetenzbereich beinhaltet  Kompetenzen, die für die erfolgreiche Bewältigung der Personalbesetzung, der Personalführung und der Personalentwicklung vorhanden sein sollten.;7;Chemikant;4;"Er/Sie ist in der Lage  kompetenzbezogene tätigkeitsübergreifende Aufgabenstellungen (wie bspw. Umweltbelastungen zu vermeiden)        auch unter sich verändernden und nicht eindeutigen Rahmenbedingungen selbständig zu planen, zu bearbeiten, ggf. hierbei auftretende Probleme zu lösen sowie Arbeitsergebnisse unter Beachtung von Wechselwirkungen zu beurteilen.     
-"
-Tätigkeitsübergreifende Kompetenzen;Tätigkeitsübergreifende Kompetenzen sind  Kompetenzen, die für die erfolgreiche Bewältigung der gestellten Anforderungen aus  den Tätigkeitsfeldern I-VII vorhanden sein sollten.;8;Chemikant;4;Er/Sie ist in der Lage  kompetenzbezogene tätigkeitsübergreifende Aufgabenstellungen (wie bspw. Umweltbelastungen zu vermeiden)        auch unter sich verändernden und nicht eindeutigen Rahmenbedingungen selbständig zu planen, zu bearbeiten, ggf. hierbei auftretende Probleme zu lösen sowie Arbeitsergebnisse unter Beachtung von Wechselwirkungen zu beurteilen.      
-Chemische/ physikalische/biologische Stoffe analysieren (untersuchen);"Der Kompetenzbereich  beinhaltet Kompetenzen, 
-die für die erfolgreiche Planung, Durchführung, 
-Optimierung und Dokumentation chemischer, 
-physikalischer und biologischer Analyseverfahren
-vorhanden sein sollten. ";1;Industriemeister;;"
-"
-Chemische/biologische  Produktionsverfahren vorbereiten/ planen, durchführen und optimieren ;"Der Kompetenzbereich beinhaltet  Kompetenzen, 
-die für die erfolgreiche Planung, Durchführung, 
-Optimierung und Dokumentation chemischer/ 
-biologischer Produktionsverfahren vorhanden 
-sein sollten.";2;Industriemeister;6;"Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen/Arbeitsprozesse und -abläufe  im Rahmen der Vorbereitung/Planung, Durchführung und Optimierung von chemischer/biologischer Produktionsverfahren (wie bspw. produktionstechnischer Einrichtungen und Verfahren auszuwählen) eigenverantwortlich zu
+Tätigkeitsübergreifende Kompetenzen;"Tätigkeitsübergreifende Kompetenzen sind
+Kompetenzen, die für die erfolgreiche Bewältigung
+der gestellten Anforderungen aus den
+Tätigkeitsfeldern I-VII vorhanden sein sollten.";8;CK;4;"Er/Sie ist in der Lage
+tätigkeitsübergreifende
+Aufgabenstellungen auch unter sich
+verändernden und nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen."
+"Herstellungsverfahren vorbereiten/planen,
+durchführen und optimieren";"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Planung, Durchführung, Optimierung
+und Dokumentation von Herstellungsverfahren
+vorhanden sein sollten.";2;IC;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Vorbereitung/Planung, Durchführung
+und Optimierung von
+Herstellungsverfahren
+eigenverantwortlich zu
+planen und zu steuern bzw. zu leiten
+sowie komplexe fachliche
+Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen.
 planen und zu steuern bzw. zu leiten sowie komplexe fachliche Problemlösungs-/ Innovationsstrategien zu entwickeln und umzusetzen.     
 "
-Anlagen bedienen, installieren und instandhalten;"Der Kompetenzbereich beinhaltet  Kompetenzen, die
- für die erfolgreiche Bewältigung, der Maschinen ,Apparate-, Anlagenbedienung, der technisch-
- mechanischen Vorbereitung von Maschinen, 
-Apparate und Anlagen, und der dauerhaften 
-Gewährleistung der technischen Funktionalität 
-vorhanden sein sollten.";3;Industriemeister;6;"Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen/Arbeitsprozesse und -abläufe  im Rahmen der Bedienung, Installation und Instandhaltung (wie bspw. Anfahr- und Abfahrvorschriften für Produktionsanlagen zu erstellen) eigenverantwortlich zu
-planen und zu steuern bzw. zu leiten sowie komplexe fachliche Problemlösungs-/Innovationsstrategien zu entwickeln und umzusetzen."
-Chemische/biologische Verfahrensprozesse steuern und überwachen;Der Kompetenzbereich beinhaltet  Kompetenzen, die für die erfolgreiche Bewältigung der Beurteilung und Beeinflussung von Produktionsprozessen hinsichtlich eines gewünschten Ablaufes vorhanden sein sollten.;4;Industriemeister;6;Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen/Arbeitsprozesse und -abläufe  im Rahmen der Steuerung und Überwachung von chemischen/biologischen Verfahrensprozessen (wie bspw. Maßnahmen zur Störungsbehebung zu veranlassen) eigenverantwortlich zu planen und zu steuern bzw. zu leiten sowie komplexe fachliche Problemlösungs-/Innovationsstrategien zu entwickeln und umzusetzen.  
-Qualität prüfen, gewährleisten und verbessern  ;Der Kompetenzbereich beinhaltet Kompetenzen, die für die erfolgreiche Bewältigung der Einhaltung oder Entwicklung organisierter Maßnahmen, die der Verbesserung von Produkten, Prozessen oder Leistungen dienen, vorhanden sein sollten.;5;Industriemeister;6;Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen/Arbeitsprozesse und -abläufe  im Rahmen der Prüfung, Gewährleistung und Verbesserung von Qualität von Produkten, Prozessen oder Leistungen (wie bspw. Maßnahmen zur Einhaltung von Qualitätsnormen bei den Mitarbeitern zu fördern) eigenverantwortlich zu planen und zu steuern bzw. zu leiten sowie komplexe fachliche Problemlösungs-/ Innovationsstrategien zu entwickeln und umzusetzen.   
-Kosten kalkulieren, planen und beeinflussen;Der Kompetenzbereich beinhaltet  Kompetenzen, die für die erfolgreiche Bewältigung der Planung, Beurteilung und Beeinflussung betrieblicher Abläufe nach wirtschaftlichen Gesichtspunkten vorhanden sein sollten.;6;Industriemeister;6;Er/Sie ist in der Lage kompetenzbezogene Aufgabenstellungen/Arbeitsprozesse und -abläufe im Rahmen der Planung, Beeinflussung, Kalkulation von Kosten (wie bspw. die Fertigungslogistik zu verbessern) eigenverantwortlich zu planen und zu steuern bzw. zu leiten sowie komplexe fachliche Problemlösungs-/ Innovationsstrategien zu entwickeln und umzusetzen.  
-Mitarbeiter organisieren, fördern und beurteilen;Der Kompetenzbereich beinhaltet  Kompetenzen, die für die erfolgreiche Bewältigung der Personalbesetzung, der Personalführung und der Personalentwicklung vorhanden sein sollten.;7;Industriemeister;6;Er/Sie ist in der Lage  kompetenzbezogene Aufgabenstellungen/Arbeitsprozesse und -abläufe im Rahmen der Organisation, Förderung und Beurteilung von Mitarbeitern (wie bspw. gezielte Mitarbeitergespräche durchzuführen) eigenverantwortlich zu planen und zu steuern bzw. zu leiten sowie komplexe fachliche Problemlösungs-/ Innovationsstrategien zu entwickeln und umzusetzen.    
-Tätigkeitsübergreifende Kompetenzen;Tätigkeitsübergreifende Kompetenzen sind  Kompetenzen, die für die erfolgreiche Bewältigung der gestellten Anforderungen aus  den Tätigkeitsfeldern I-VII vorhanden sein sollten.;8;Industriemeister;6;Er/Sie ist in der Lage  kompetenzbezogene tätigkeitsübergreifende Aufgabenstellungen/Arbeitsprozesse und -abläufe (wie bspw. den Gesundheitsschutz durch Einleitung von vorbeugenden Maßnahmen zu gewährleisten) eigenverantwortlich zu planen und zu steuern bzw. zu leiten sowie komplexe fachliche Problemlösungs-/ Innovationsstrategien zu entwickeln und umzusetzen.  
+Anlagen bedienen, installieren und instandhalten;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung, der Maschinen-,
+Apparate-, Anlagenbedienung, der technisch-
+mechanischen Vorbereitung von Maschinen,
+Apparate und Anlagen, und der dauerhaften
+Gewährleistung der technischen Funktionalität
+vorhanden sein sollten.";3;IC;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und –abläufe im Rahmen der
+Bedienung, Installation und
+Instandhaltung eigenverantwortlich
+zu planen und zu steuern bzw. zu
+leiten sowie komplexe fachliche
+Problemlösungs-
+/Innovationsstrategien zu entwickeln
+und umzusetzen."
+Verfahrensprozesse steuern und überwachen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Beurteilung und
+Beeinflussung von Verfahrensprozessen hinsichtlich
+eines gewünschten Ablaufes vorhanden sein sollten.";4;IC;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Steuerung und Überwachung von
+Verfahrensprozessen
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-
+/Innovationsstrategien zu entwickeln
+und umzusetzen."
+Qualität prüfen, gewährleisten und verbessern  ;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Einhaltung oder
+Entwicklung organisierter Maßnahmen, die der
+Verbesserung von Produkten, Prozessen oder
+Leistungen dienen, vorhanden sein sollten.";5;IC;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der Prüfung,
+Gewährleistung und Verbesserung
+von Qualität von Produkten,
+Prozessen oder Leistungen
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Kosten kalkulieren, planen und beeinflussen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Planung, Beurteilung
+und Beeinflussung betrieblicher Abläufe nach
+wirtschaftlichen Gesichtspunkten vorhanden sein
+Sollten.";6;IC;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der Planung,
+Beeinflussung, Kalkulation von Kosten
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Mitarbeiter organisieren, fördern und beurteilen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Personalbesetzung,
+der Personalführung und der Personalentwicklung
+vorhanden sein sollten.";7;IC;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Organisation, Förderung und
+Beurteilung von Mitarbeitern
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Tätigkeitsübergreifende Kompetenzen;"Tätigkeitsübergreifende Kompetenzen sind
+Kompetenzen, die für die erfolgreiche Bewältigung
+der gestellten Anforderungen aus den
+Tätigkeitsfeldern I-VII vorhanden sein sollten.";8;IC;6;"Er/Sie ist in der Lage
+tätigkeitsübergreifende
+Aufgabenstellungen/Arbeitsprozesse
+und –abläufe eigenverantwortlich zu
+planen und zu steuern bzw. zu leiten
+sowie komplexe fachliche
+Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Stoffe analysieren (untersuchen);"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Planung, Durchführung, Optimierung
+und Dokumentation von Analyseverfahren vorhanden
+sein sollten.";1;BA;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der Analyse
+(Untersuchung) von Stoffen
+eigenverantwortlich zu
+planen und zu steuern bzw. zu leiten
+sowie komplexe fachliche
+Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+"Herstellungsverfahren vorbereiten/planen,
+durchführen und optimieren";"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Planung, Durchführung, Optimierung
+und Dokumentation von Herstellungsverfahren
+vorhanden sein sollten.";2;BA;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Vorbereitung/Planung, Durchführung
+und Optimierung von
+Herstellungsverfahren
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Anlagen bedienen, installieren und instandhalten;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung, der Maschinen-,
+Apparate-, Anlagenbedienung, der technisch-
+mechanischen Vorbereitung von Maschinen,
+Apparate und Anlagen, und der dauerhaften
+Gewährleistung der technischen Funktionalität
+vorhanden sein sollten.";3;BA;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Bedienung, Installation und
+Instandhaltung eigenverantwortlich
+zu planen und zu steuern bzw. zu
+leiten sowie komplexe fachliche
+Problemlösungs-
+/Innovationsstrategien zu entwickeln
+und umzusetzen."
+Verfahrensprozesse steuern und überwachen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Beurteilung und
+Beeinflussung von Verfahrensprozessen hinsichtlich
+eines gewünschten Ablaufes vorhanden sein sollten.";4;BA;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Steuerung und Überwachung von
+Verfahrensprozessen
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-
+/Innovationsstrategien zu entwickeln
+und umzusetzen."
+Qualität prüfen, gewährleisten und verbessern  ;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Einhaltung oder
+Entwicklung organisierter Maßnahmen, die der
+Verbesserung von Produkten, Prozessen oder
+Leistungen dienen, vorhanden sein sollten.";5;BA;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der Prüfung,
+Gewährleistung und Verbesserung
+von Qualität von Produkten,
+Prozessen oder Leistungen
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Kosten kalkulieren, planen und beeinflussen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Planung, Beurteilung
+und Beeinflussung betrieblicher Abläufe nach
+wirtschaftlichen Gesichtspunkten vorhanden sein
+Sollten.";6;BA;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der Planung,
+Beeinflussung, Kalkulation von Kosten
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Mitarbeiter organisieren, fördern und beurteilen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Personalbesetzung,
+der Personalführung und der Personalentwicklung
+vorhanden sein sollten.";7;BA;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Organisation, Förderung und
+Beurteilung von Mitarbeitern
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Tätigkeitsübergreifende Kompetenzen;"Tätigkeitsübergreifende Kompetenzen sind
+Kompetenzen, die für die erfolgreiche Bewältigung
+der gestellten Anforderungen aus den
+Tätigkeitsfeldern I-VII vorhanden sein sollten.";8;BA;6;"Er/Sie ist in der Lage
+tätigkeitsübergreifende
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe eigenverantwortlich zu
+planen und zu steuern bzw. zu leiten
+sowie komplexe fachliche
+Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Stoffe analysieren (untersuchen);"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Planung, Durchführung, Optimierung
+und Dokumentation von Analyseverfahren vorhanden
+sein sollten.";1;CT;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der Analyse
+(Untersuchung) von Stoffen
+eigenverantwortlich zu
+planen und zu steuern bzw. zu leiten
+sowie komplexe fachliche
+Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+"Herstellungsverfahren vorbereiten/planen,
+durchführen und optimieren";"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Planung, Durchführung, Optimierung
+und Dokumentation von Herstellungsverfahren
+vorhanden sein sollten.";2;CT;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Vorbereitung/Planung, Durchführung
+und Optimierung von
+Herstellungsverfahren
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Anlagen bedienen, installieren und instandhalten;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung, der Maschinen-,
+Apparate-, Anlagenbedienung, der technisch-
+mechanischen Vorbereitung von Maschinen,
+Apparate und Anlagen, und der dauerhaften
+Gewährleistung der technischen Funktionalität
+vorhanden sein sollten.";3;CT;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Bedienung, Installation und
+Instandhaltung eigenverantwortlich
+zu planen und zu steuern bzw. zu
+leiten sowie komplexe fachliche
+Problemlösungs-
+/Innovationsstrategien zu entwickeln
+und umzusetzen."
+Verfahrensprozesse steuern und überwachen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Beurteilung und
+Beeinflussung von Verfahrensprozessen hinsichtlich
+eines gewünschten Ablaufes vorhanden sein sollten.";4;CT;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Steuerung und Überwachung von
+Verfahrensprozessen
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-
+/Innovationsstrategien zu entwickeln
+und umzusetzen."
+Qualität prüfen, gewährleisten und verbessern  ;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Einhaltung oder
+Entwicklung organisierter Maßnahmen, die der
+Verbesserung von Produkten, Prozessen oder
+Leistungen dienen, vorhanden sein sollten.";5;CT;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der Prüfung,
+Gewährleistung und Verbesserung
+von Qualität von Produkten,
+Prozessen oder Leistungen
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Kosten kalkulieren, planen und beeinflussen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Planung, Beurteilung
+und Beeinflussung betrieblicher Abläufe nach
+wirtschaftlichen Gesichtspunkten vorhanden sein
+Sollten.";6;CT;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der Planung,
+Beeinflussung, Kalkulation von Kosten
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Mitarbeiter organisieren, fördern und beurteilen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Personalbesetzung,
+der Personalführung und der Personalentwicklung
+vorhanden sein sollten.";7;CT;6;"Er/Sie ist in der Lage
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe im Rahmen der
+Organisation, Förderung und
+Beurteilung von Mitarbeitern
+eigenverantwortlich zu planen und zu
+steuern bzw. zu leiten sowie
+komplexe fachliche Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Tätigkeitsübergreifende Kompetenzen;"Tätigkeitsübergreifende Kompetenzen sind
+Kompetenzen, die für die erfolgreiche Bewältigung
+der gestellten Anforderungen aus den
+Tätigkeitsfeldern I-VII vorhanden sein sollten.";8;CT;6;"Er/Sie ist in der Lage
+tätigkeitsübergreifende
+Aufgabenstellungen/Arbeitsprozesse
+und -abläufe eigenverantwortlich zu
+planen und zu steuern bzw. zu leiten
+sowie komplexe fachliche
+Problemlösungs-/
+Innovationsstrategien zu entwickeln
+und umzusetzen."
+Stoffe analysieren (untersuchen);"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Planung, Durchführung, Optimierung
+und Dokumentation von Analyseverfahren vorhanden
+sein sollten.";1;CL;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Analyse (Untersuchung) von Stoffen
+auch unter sich verändernden und
+nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen"
+"Herstellungsverfahren vorbereiten/planen,
+durchführen und optimieren";"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Planung, Durchführung, Optimierung
+und Dokumentation von Herstellungsverfahren
+vorhanden sein sollten.";2;CL;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Vorbereitung/Planung, Durchführung
+und Optimierung von
+Herstellungsverfahren auch unter sich
+verändernden und nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen."
+Anlagen bedienen, installieren und instandhalten;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung, der Maschinen-,
+Apparate-, Anlagenbedienung, der technisch-
+mechanischen Vorbereitung von Maschinen,
+Apparate und Anlagen, und der dauerhaften
+Gewährleistung der technischen Funktionalität
+vorhanden sein sollten.";3;CL;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Bedienung, Installation und
+Instandhaltung von Anlagen auch
+unter sich verändernden und nicht
+eindeutigen Rahmenbedingungen
+selbständig zu planen, zu bearbeiten,
+ggf. hierbei auftretende Probleme zu
+lösen sowie Arbeitsergebnisse unter
+Beachtung von Wechselwirkungen zu
+Beurteilen."
+Verfahrensprozesse steuern und überwachen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Beurteilung und
+Beeinflussung von Verfahrensprozessen hinsichtlich
+eines gewünschten Ablaufes vorhanden sein sollten.";4;CL;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Steuerung und Überwachung von
+Verfahrensprozessen auch unter sich
+verändernden und nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen."
+Qualität prüfen, gewährleisten und verbessern  ;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Einhaltung oder
+Entwicklung organisierter Maßnahmen, die der
+Verbesserung von Produkten, Prozessen oder
+Leistungen dienen, vorhanden sein sollten.";5;CL;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Prüfung, Gewährleistung und
+Verbesserung der Qualität von
+Produkten, Prozessen oder Leistungen
+auch unter sich verändernden und
+nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen."
+Kosten kalkulieren, planen und beeinflussen;"Das Tätigkeitsfeld beinhaltet Kompetenzen, die für
+die erfolgreiche Bewältigung der Planung, Beurteilung
+und Beeinflussung betrieblicher Abläufe nach
+wirtschaftlichen Gesichtspunkten vorhanden sein
+Sollten.";6;CL;4;"Er/Sie ist in der Lage
+Aufgabenstellungen im Rahmen der
+Kalkulation, Planung und
+Beeinflussung auch unter sich
+verändernden und nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen."
+Tätigkeitsübergreifende Kompetenzen;"Tätigkeitsübergreifende Kompetenzen sind
+Kompetenzen, die für die erfolgreiche Bewältigung
+der gestellten Anforderungen aus den
+Tätigkeitsfeldern I-VII vorhanden sein sollten.";8;CL;4;"Er/Sie ist in der Lage
+tätigkeitsübergreifende
+Aufgabenstellungen auch unter sich
+verändernden und nicht eindeutigen
+Rahmenbedingungen selbständig zu
+planen, zu bearbeiten, ggf. hierbei
+auftretende Probleme zu lösen sowie
+Arbeitsergebnisse unter Beachtung
+von Wechselwirkungen zu beurteilen."

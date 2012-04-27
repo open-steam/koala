@@ -1,0 +1,106 @@
+<div id="main" style="width:80%; padding-left: 100px;">
+	{NOTIFICATION_TEXT}
+	<!-- BEGIN BLOCK_DISPLAYFORM -->
+	<div id="exercise-details">
+		<div class="split" style="width:70%;">
+			<form name="exerciseFormular" method="post" action="{FORM_ACTION}">
+				<table class="exerciseForm" width="100%" cellpadding="4" cellspacing="0">
+					<tr>
+						<td class="attribute">Aktion:</td>
+						<td class="input">
+							<select id="switch1" name="action[ACTION]" onChange="actionChanged()">
+								<option value="distribute">Verteile Abgaben gleichm&auml;&szlig;ig</option>
+								<option value="relieve">Entlaste einen Tutor</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="attribute">Abgaben f&uuml;r:</td>
+						<td class="input">
+							<select name="action[EXERCISE]">
+								{EXERCISES}
+							</select>
+						</td>
+					</tr>
+					<tr id="show_sources" style="display:none;">
+						<td class="attribute">nehme Workload von:</td>
+						<td class="input">
+							<select name="action[SOURCE]">
+								{SOURCES}
+							</select>
+						</td>
+					</tr>
+					<tr id="show_relieveswitch" style="display:none;">
+						<td class="attribute">beurlaube Tutor f&uuml;r Zeitraum:</td>
+						<td class="input"><input name="action[RELIEVE]" type="checkbox" value="TRUE"/></td>
+					</tr>
+					<tr id="show_switch2" style="display:none;">
+						<td class="attribute">Verfahren:</td>
+						<td class="input">
+							<select id="switch2" name="action[SUBACTION]" onChange="subActionChanged()">
+								<option value="distribute">Verteile Abgaben auf alle Anderen</option>
+								<option value="assign">Weise alle Abgaben einem Tutor zu</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="show_targets" style="display:none;">
+						<td class="attribute">vergebe Workload an:</td>
+						<td class="input">
+							<select name="action[TARGET]">
+								{TARGETS}
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="split" style="width:26%;">
+			<div class="rv_list">
+				<span class="hd">Workloads aller Tutoren</span>
+				{WORKLOADS}
+			</div>
+		</div>
+		<hr>
+		<div class="buttons" align="right">
+			<button type="submit" onClick="document.exerciseFormular.submit();">
+				Workloads ausgleichen
+			</button>
+		</div>
+	</div>
+	<!-- END BLOCK_DISPLAYFORM -->
+	<script type="text/javascript"> 
+		   
+			function actionChanged() {
+				var value = document.exerciseFormular.switch1.selectedIndex;
+				if(value==0) {
+					document.getElementById('show_sources').style.display = 'none';
+					document.getElementById('show_relieveswitch').style.display = 'none';
+					document.getElementById('show_switch2').style.display = 'none';
+					document.getElementById('show_targets').style.display = 'none';
+				}
+				else {
+					document.getElementById('show_sources').style.display = 'table-row';
+					document.getElementById('show_relieveswitch').style.display = 'table-row';
+					document.getElementById('show_switch2').style.display = 'table-row';
+					var value2 = document.exerciseFormular.switch2.selectedIndex;
+					if(value2==0) {
+						document.getElementById('show_targets').style.display = 'none';
+					}
+					else {
+						document.getElementById('show_targets').style.display = 'table-row';
+					}
+				}
+			}
+			function subActionChanged() {
+				var value = document.exerciseFormular.switch2.selectedIndex;
+				if(value==0) {
+					document.getElementById('show_targets').style.display = 'none';
+				}
+				else {
+					document.getElementById('show_targets').style.display = 'table-row';
+				}
+			}
+	
+		 	{NOTIFICATION_VIEW}
+	</script>
+</div>

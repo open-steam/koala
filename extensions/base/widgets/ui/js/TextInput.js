@@ -1,3 +1,7 @@
+function htmlEncodeHelper(value){
+  return $('<div/>').text(value).html().replace('&amp;','&');
+}
+
 function widgets_textinput_changed(elementId) {
 	var widgets_textinput = jQuery("#" + elementId).parent();
 	widgets_textinput.find(".widgets_textinput_save_button").show();
@@ -8,7 +12,7 @@ function widgets_textinput_changed(elementId) {
 }
 
 function widgets_textinput_changed_autosave(elementId) {
-	if (jQuery("#" + elementId).val() !== jQuery("#" + elementId).attr("oldValue")) {
+	if (htmlEncodeHelper(jQuery("#" + elementId).val()) !== htmlEncodeHelper(jQuery("#" + elementId).attr("oldValue"))) {
 		jQuery("#" + elementId).addClass("changed");
 	} else {
 		jQuery("#" + elementId).removeClass("changed");
@@ -42,21 +46,21 @@ function widgets_textinput_save_success(elementId, response) {
 			widgets_textinput.find(".widgets_textinput_save_button").hide();
 			widgets_textinput.find(".widgets_textinput_loader").hide();
 			if (data.error == "none") {
-				jQuery("#" + elementId).val(data.newValue);
+				jQuery("#" + elementId).val(htmlEncodeHelper(data.newValue));
 				widgets_textinput.find(".widgets_textinput_ok").show();
 				widgets_textinput.find(".widgets_textinput_error").hide();
 				jQuery("#" + elementId).removeClass("changed");
 				jQuery("#" + elementId).addClass("saved");
 			} else {
-				jQuery("#" + elementId).val(data.oldValue);
+				jQuery("#" + elementId).val(htmlEncodeHelper(data.oldValue));
 				widgets_textinput.find(".widgets_textinput_ok").hide();
 				widgets_textinput.find(".widgets_textinput_error").show();
 				widgets_textinput.find(".widgets_textinput_error").title = data.error;
 			}
 			if (data.undo) {
 				jQuery("#" + elementId).attr("undo", true);
-				if (data.oldValue != data.newValue) {
-					jQuery("#" + elementId).attr("oldValue", data.oldValue);
+				if (htmlEncodeHelper(data.oldValue) != htmlEncodeHelper(data.newValue)) {
+					jQuery("#" + elementId).attr("oldValue", htmlEncodeHelper(data.oldValue));
 				}
 				widgets_textinput.find(".widgets_textinput_undo_button").show();
 			} else {
@@ -73,7 +77,7 @@ function widgets_textinput_undo_success(elementId, response) {
 	widgets_textinput.find(".widgets_textinput_save_button").hide();
 	widgets_textinput.find(".widgets_textinput_loader").hide();
 	if (data.error == "none") {
-		jQuery("#" + elementId).val(data.newValue);
+		jQuery("#" + elementId).val(htmlEncodeHelper(data.newValue));
 		widgets_textinput.find(".widgets_textinput_ok").show();
 		widgets_textinput.find(".widgets_textinput_error").hide();
 	} else {

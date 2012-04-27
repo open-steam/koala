@@ -30,19 +30,47 @@ define("GROUPS_MENU", false);
 
 define("SERVERMENU", false);
 
+//$schoolObj = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(),"/home/mjako");
+
+//$schoolObj->get_id()
+
 define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome");
-define("EXTENSIONS_WHITELIST",    "Chronic, Help, Home, Imprint, Startpage, Widgets, "
+/* config for development
+define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
 								. "DocumentObject, DocumentPlainObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, "
 								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, Forum, Gallery, Portal, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
-								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload");
+								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
+*/
 
+/* config for bid.lspb.de */
+define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
+								. "DocumentObject, DocumentPlainObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, "
+								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, Forum, Gallery, Portal, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
+								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
+
+
+/*
 $menus = array(
-//array("name" => gettext("Schulen")/*, "link" => PATH_URL . "school/" . $user->get_name()*/, 
-//      "menu" => array( array("name" => "Meine Schule"/*, "link" => "" */), 
-//                array("name" => "Meine Klasse"/*, "link" => "" */), 
-//                array("name" => "Alle Schulen"/*, "link" => "" */)
-//     ) 
-//),
+array("name" => gettext("Schulen"), "link" => PATH_URL . "school/" . $user->get_name(), 
+      "menu" => array( array("name" => "Meine Schule"/*, "link" => ""), 
+                array("name" => "Meine Klasse"/*, "link" => "" ), 
+                array("name" => "Alle Schulen"/*, "link" => "" )
+     ) 
+),
+*/    
+
+// bid.lspb.de
+$menus = array(  
+array("name" => gettext("Übergreifendes"), "link" => "/portal/index/627794", 
+      "menu" => array(
+                    array( "name" => "Einstiegsseite", "link" => "/explorer/index/99" ),
+                    array( "name" => "Schulen", "link" => "/explorer/index/163621" ),
+                    array( "name" => "Lernstatt intern", "link" => "/explorer/index/163622" )
+      )
+));
+
+/*
+// bid-owl.de
 array("name" => gettext("Übergreifendes"), "link" => "/portal/index/627794", 
       "menu" => array( //array( "name" => "Startseite", "link" => "/portal/index/627794" ),
 					   array( "name" => "Schulen", "link" => "/explorer/index/51354" ),
@@ -51,6 +79,9 @@ array("name" => gettext("Übergreifendes"), "link" => "/portal/index/627794",
                        array( "name" => "Fundgrube", "link" => "/explorer/index/51386" )
       )
 ));
+*/
+
+
 define("PLATFROM_MENUS", json_encode($menus));
 define("YOUR_COURSES", false);
 define("YOUR_GROUPS", false);

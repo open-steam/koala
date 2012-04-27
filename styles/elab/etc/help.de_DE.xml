@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+	<content>
+	<![CDATA[
+		<div class="box" style="width: 70%; margin-left: auto; margin-right: auto">
+			<h3>koaLA Dokumentation</h3>
+			<p class="boxContent">
+			<img src="/styles/koala/images/info.png" style="float: left"></img>
+			<ul>
+				<li>Anleitungen, Beschreibungen</li>
+			</ul>
+			<a href="/styles/koala/assets/UPB_koaLA.pdf" style="font-size:120%"><img src="/styles/koala/images/pdficon_small.gif"> koaLA Broschüre</img></a>
+			</p>
+			<br clear="all" />
+		</div>
+		
+		<div class="box" style="width: 70%; margin-left: auto; margin-right: auto">
+			<h3>Support Anfragen</h3>
+			<p class="boxContent">
+			<img src="/styles/koala/images/email.png" style="float: left"></img>
+			<ul>
+				<li>Erstellung von Kursen</li>
+				<li>Weiterentwicklung und Verbesserungsvorschäge</li>
+				<li>Hilfestellung bei Probleme</li>
+			</ul>
+			<a href="mailto:elearning@uni-paderborn.de" style="font-size:120%"><img src="/styles/koala/images/letter_16.png" style="vertical-align:middle"></img> elearning@uni-paderborn.de</a>
+			</p>
+			<br clear="all" />
+		</div>
+		<br clear="all" />
+		
+		<div class="box" style="width: 70%; margin-left: auto; margin-right: auto">
+			<h3>Hilfscommunity</h3>
+			<p class="boxContent">
+			<img src="/styles/koala/images/forum.png" style="float: left"></img>
+			<ul>
+				<li>Neuerungen, Ideen, Forum</li>
+			</ul>
+			<a href="https://koala.uni-paderborn.de/groups/7720/communication/">koaLA Support Forum</a>
+			</p>
+			<br clear="all" />
+		</div>
+	]]> 
+	</content>
+</help>

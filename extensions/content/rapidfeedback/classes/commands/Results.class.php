@@ -24,6 +24,20 @@ class Results extends \AbstractCommand implements \IFrameCommand {
 		$RapidfeedbackExtension->addCSS();
 		$RapidfeedbackExtension->addJS();
 		
+		// access not allowed for non-admins
+		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
+		if (($staff instanceof \steam_group && !($staff->is_member($user))) || $staff instanceof \steam_user && !($staff->get_id() == $user->get_id())) {
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			$frameResponseObject->setHeadline(array(
+				array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id),
+				array("name" => "Auswertung")
+			));
+			return $frameResponseObject;
+		}
+		
+		// display results
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_results.template.html");
 		$content->setCurrentBlock("BLOCK_RESULTS");
 		$content->setVariable("RESULTS_LABEL", "Auswertung");
@@ -32,6 +46,7 @@ class Results extends \AbstractCommand implements \IFrameCommand {
 		} else {
 			$content->setVariable("RESULTS_AMOUNT", $survey->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgabe");
 		}
+		$content->setVariable("RESULTS_LEGEND", "Legende: n = Anzahl, mw = Mittelwert, md = Median, s = Standardabweichung");
 		$survey_object->parseXML($xml);
 		$survey_object->generateResults($survey);
 		$questions = $survey_object->getQuestions();
@@ -39,7 +54,8 @@ class Results extends \AbstractCommand implements \IFrameCommand {
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
     	<script type="text/javascript">
       		google.load("visualization", "1", {packages:["corechart"]});
-		</script>';
+		</script>
+		<script type="text/javascript" src="' . $RapidfeedbackExtension->getAssetUrl() . 'wz_tooltip.js"></script>';
 		for ($count = 0; $count < count($questions); $count++) {
 			$question_html = $question_html . $questions[$count]->getResultHTML($count+1);
 		}
@@ -48,21 +64,10 @@ class Results extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id);
 		$content->parse("BLOCK_RESULTS");
 		
-		$group = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
-		
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 			array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id()),
 			array("name" => "Auswertung")
 		));

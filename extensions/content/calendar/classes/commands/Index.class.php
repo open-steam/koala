@@ -20,25 +20,18 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
 	}
 
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {	
+	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+		$rawHtml = new \Widgets\RawHtml();
+		$html = "<div><a onclick=\"sendRequest('subView', {'id':'".$this->id."'}, '', 'popup', null, null);return false;\" href=\"#\">Übersicht der Abonnements</a></div><br />";
+		$html .= "<div><a onclick=\"sendRequest('AddSubMenu', {'id':'".$this->id."'}, '', 'popup', null, null);return false;\" href=\"#\">Kalender einer Extension abonnieren</a></div><br />";
+		$html .= "<div><a onclick=\"sendRequest('AddExtSubMenu', {'id':'".$this->id."'}, '', 'popup', null, null);return false;\" href=\"#\">Kalender von Außerhalb abonnieren</a></div><br />";
+		$html .= "<div>Diesen Kalender mit einer externen Kalenderapplikation abonnieren:</div>";
+		$html .= "<div>".PATH_URL."calendar/GenerateICS/".$this->id."/</div>";
+		$rawHtml->setHtml($html);
 		
-	
-		$obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		$currentUser = \lms_steam::get_current_user();
-		$subscriptionWrapper = new SubscriptionWrapper();
-		$subscriptionWrapper->setCalendar($obj);
-		$result = $subscriptionWrapper->getSubscriptions();
-		$extensions = array();
-		$extensions = $result["extensions"];
-		$calendars = array();
-		$calendars = $result["result"];
-		
-		$sanctionWrapper= new SanctionWrapper();
-		$sanctionWrapper->setExtensions("extensions");
-		$sanctions = $sanctionWrapper->getSanction();
-		
-		//RECHTE UND DATEN KÖNNEN ZUR KALENDERAUSGABE VERWENDET WERDEN
-		
+		$frameResponseObject->addWidget($rawHtml);
+		//HIER KÖNNTE DIE GRAFISCHE AUSGABE BEGINNEN, Rechte und Daten stehen bereit
+
 		return $frameResponseObject;
 	}
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
@@ -46,8 +39,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		return $ajaxResponseObject;
 
 	}
-	private static function getSanctionForSemester(\steam_group $semester){
-		
-	}
+
 }
 ?>

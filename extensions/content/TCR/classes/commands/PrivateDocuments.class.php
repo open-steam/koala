@@ -19,126 +19,11 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$TCRExtension = \TCR::getInstance();
 		$TCRExtension->addCSS();
+		
 		// determine kind of documents of the current user to display (0 = theses, 1 = reviews, 2 = responses)
 		$kindOfDocument = 0;
 		if (isset($this->params[1])) {
 			$kindOfDocument = $this->params[1];
-		}
-		
-		// release document dialog was submitted
-		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["release_element"])) {
-			$element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $_POST["element_id"]);
-			if ($_POST["kind"] == 0) {
-				$critics = array();
-				$critics[$_POST["critic"]] = 0;
-				$element->set_attribute("TCR_REVIEWS", $critics);
-				$element->set_attribute("TCR_RELEASED", time());
-			} else {
-				$element->set_attribute("TCR_RELEASED", time());
-			}
-		}
-		
-		// edit document dialog was submitted
-		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_element"])) {
-			$old_element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $_POST["old_id"]);
-			// old element was plain text
-			if ($old_element->get_attribute("DOC_MIME_TYPE") == "text/plain") {
-				// new element is plain text
-				if ($_POST["new_upload_text"] == 0) {
-					$old_element->set_name($_POST["title"]);
-					$old_element->set_attribute("OBJ_DESC", $_POST["desc"]);
-					$old_element->set_content($_POST["content"]);
-				// new element is an upload
-				} else {
-					$old_element->delete();
-					$radio = 1;
-				}
-			// old element was an upload
-			} else {
-				// new element is the same
-				if ($_POST["new_upload"] == 0) {
-					$old_element->set_name($_POST["title"]);
-					$old_element->set_attribute("OBJ_DESC", $_POST["desc"]);
-				// new element is a new upload
-				} else if ($_POST["new_upload"] == 1) {
-					$old_element->delete();
-					$radio = 1;
-				// new element is plain text
-				} else {
-					$old_element->set_attribute("DOC_MIME_TYPE", "text/plain");
-					$old_element->set_name($_POST["title"]);
-					$old_element->set_attribute("OBJ_DESC", $_POST["desc"]);
-					$old_element->set_content($_POST["new_content"]);
-				}
-			}
-		}
-		
-		// if a new element got created or already existing element gets a new upload
-		if (($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST["create_element"]))) || isset($radio)) {
-			$problems = "";
-			$hints    = "";
-			if (!isset($radio)) {
-				$radio = $_POST["radio"];
-			}
-			if ($radio == 1) {
-				// handle upload
-				require_once( PATH_LIB . "format_handling.inc.php" );
-				$max_file_size = parse_filesize(ini_get('upload_max_filesize'));
-				$max_post_size = parse_filesize(ini_get('post_max_size'));
-				if ($max_post_size > 0 && $max_post_size < $max_file_size) {
-					$max_file_size = $max_post_size;
-				}
-				if (empty($_FILES) || (!empty( $_FILES["file"]["error"]) && $_FILES["file"]["error"] > 0)) {
-		        	if (!empty($_FILES) && empty($_FILES["file"]["name"])) {
-			            $problems = gettext( "No file chosen." ) . " ";
-			            $hints = gettext( "Please choose a local file to upload." ) . " ";
-		       		} else {
-		            	$problems = gettext( "Could not upload document." ) . " ";
-		            	$hints = str_replace(
-		              		array("%SIZE", "%TIME"),
-		              		array(readable_filesize($max_file_size), (string)ini_get('max_execution_time')),
-		              			gettext("Maybe your document exceeded the allowed file size (max. %SIZE) or the upload might have taken too long (max. %TIME seconds).")
-		            		) . " ";
-		          	}
-				}
-				if (empty($problems)) {
-					$content = file_get_contents($_FILES["file"]["tmp_name"]);
-					$type = $_FILES["file"]["type"];
-				}
-			} else {
-				$content = $_POST["content"];
-				$type = "text/plain";
-			}
-			if ($_POST["kind"] == 0) {
-				$container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $TCR->get_path() . "/theses");
-			} else if ($_POST["kind"] == 1) {
-				$container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $TCR->get_path() . "/reviews");
-			} else {
-				$container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $TCR->get_path() . "/responses");
-			}
-			$title = $_POST["title"];
-			$desc = $_POST["desc"];
-			if (empty($problems)) {
-				$new_element = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $title, $content, $type, $container, $desc);
-				if ($_POST["kind"] == 0) {
-					$new_element->set_attribute("TCR_ROUND", $_POST["round"]);
-					$new_element->set_attribute("TCR_REVIEWS", array());
-					$new_element->set_attribute("TCR_RELEASED", 0);
-				} else if ($_POST["kind"] == 1) {
-					$new_element->set_attribute("TCR_RELEASED", 0);
-					$correspondingThesis = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $_POST["elementID"]);
-					$critics_thesis = $correspondingThesis->get_attribute("TCR_REVIEWS");
-					$critics_thesis[$user->get_id()] = $new_element->get_id();
-					$correspondingThesis->set_attribute("TCR_REVIEWS", $critics_thesis);
-				} else {
-					$new_element->set_attribute("TCR_RELEASED", 0);
-					$correspondingReview = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $_POST["elementID"]);
-					$correspondingReview->set_attribute("TCR_RESPONSE", $new_element->get_id());
-				}
-			} else {
-				$frameResponseObject->setProblemDescription($problems);
-				$frameResponseObject->setProblemSolution($hints);
-			}
 		}
 		
 		// display actionbar
@@ -147,6 +32,7 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 		if (in_array($user->get_id(), $admins)) {
 			$actions = array(
 				array("name" => "Konfiguration" , "link" => $TCRExtension->getExtensionUrl() . "configuration/" . $this->id),
+				array("name" => "Rundmail erstellen" , "link" => $TCRExtension->getExtensionUrl() . "mail/" . $this->id),
 				array("name" => "Private Dokumente" , "link" => $TCRExtension->getExtensionUrl() . "privateDocuments/" . $this->id),
 				array("name" => "Übersicht" , "link" => $TCRExtension->getExtensionUrl() . "Index/" . $this->id),
 				array("name" => "Alle Dokumente" , "link" => $TCRExtension->getExtensionUrl() . "documents/" . $this->id));
@@ -158,17 +44,7 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 		}
 		$actionbar->setActions($actions);
 		$frameResponseObject->addWidget($actionbar);
-		
-		$group = $TCR->get_attribute("TCR_GROUP");
-		if ($group->get_name() == "learners") {
-			$parent = $group->get_parent_group();
-			$courseOrGroup = "Kurs: " . $parent->get_attribute("OBJ_DESC") . " (" . $parent->get_name() . ")";
-			$courseOrGroupUrl = PATH_URL . "semester/" . $parent->get_id();
-		} else {
-			$courseOrGroup = "Gruppe: " . $group->get_name();
-			$courseOrGroupUrl = PATH_URL . "groups/" . $group->get_id();
-		}
-		
+
 		$content = $TCRExtension->loadTemplate("tcr_privatedocuments.template.html");
 		// display a message if current user is not a user of this tcr
 		$members = $TCR->get_attribute("TCR_USERS");
@@ -182,7 +58,6 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 			$rawWidget->setHtml($content->get());
 			$frameResponseObject->addWidget($rawWidget);
 			$frameResponseObject->setHeadline(array(
-				array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 				array("name" => "Thesen-Kritik-Replik-Verfahren", "link" => $TCRExtension->getExtensionUrl() . "Index/" . $this->id),
 				array("name" => "Private Dokumente")
 			));
@@ -201,18 +76,22 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 		// create array structure and add theses for their round
 		$rounds = $TCR->get_attribute("TCR_ROUNDS");
 		$theses_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $TCR->get_path() . "/theses");
+		$reviews_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $TCR->get_path() . "/reviews");
+		$responses_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $TCR->get_path() . "/responses");
 		$theses_inventory = $theses_container->get_inventory();
 		$theses = array();
 		$theses_response = array();
 		foreach ($theses_inventory as $thesis) {
-			$current_round = $thesis->get_attribute("TCR_ROUND");
-			if ($thesis->get_creator()->get_id() == $user->get_id()) {
-				$theses[$current_round] = $thesis;
-			}
-			$critics = $thesis->get_attribute("TCR_REVIEWS");
-			if (is_array($critics)) {
-				if (array_key_exists($user->get_id(), $critics)) {
-					$theses_response[$current_round] = $thesis;
+			if (!($thesis instanceof \steam_container)) {
+				$current_round = $thesis->get_attribute("TCR_ROUND");
+				if ($thesis->get_creator()->get_id() == $user->get_id()) {
+					$theses[$current_round] = $thesis;
+				}
+				$critics = $thesis->get_attribute("TCR_REVIEWS");
+				if (is_array($critics)) {
+					if (array_key_exists($user->get_id(), $critics)) {
+						$theses_response[$current_round] = $thesis;
+					}
 				}
 			}
 		}
@@ -225,69 +104,70 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("RESPONSES_LABEL", "Erstellte Repliken");
 			if ($kindOfDocument == 0) {
 				// thesis view
+				$first = true;
 				for ($count = 1; $count <= $rounds; $count++) {
 					$content->setCurrentBlock("BLOCK_DOCUMENTS_TABLE_ELEMENT");
 					$content->setVariable("ROUND_VALUE", "Runde " . $count);
 					if (!array_key_exists($count, $theses)) {
-						$content->setVariable("CREATE_THESIS", "These erstellen");
-						$content->setVariable("THESIS_ICON", "create_32");
-						$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "create/" . $this->id . "/" . $count . "/" . $kindOfDocument);
-						$content->setVariable("DISPLAY_THESIS_SECOND", "none");
+						$new_thesis = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $user->get_id() . "_thesis_round" . $count, "", "text/plain", $theses_container, "These Runde " . $count);
+						$new_thesis->set_attribute("TCR_ROUND", $count);
+						$new_thesis->set_attribute("TCR_REVIEWS", array());
+						$new_thesis->set_attribute("TCR_RELEASED", 0);
+						$theses[$count] = $new_thesis;
+					}
+					$current_critics = $theses[$count]->get_attribute("TCR_REVIEWS");
+					if (count($current_critics) > 0) {
+						$content->setVariable("THESIS_NAME", "<font style='font-size:13px;'>" . $theses[$count]->get_attribute("OBJ_DESC") . "</font><br>");
+						$content->setVariable("CREATE_THESIS", "Anzeigen");
+						$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "view/" . $theses[$count]->get_id());
+						foreach ($current_critics as $critic => $review) {
+							if ($review == 0) {
+								$content->setVariable("DISPLAY_REVIEW", "none");
+								$content->setVariable("DISPLAY_RESPONSE", "none");
+								$review_released = 0;
+							} else {
+								$current_review = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $review);
+								$review_released = $current_review->get_attribute("TCR_RELEASED");
+							}
+							if ($review_released != 0) {
+								$author = $current_review->get_creator();
+								$pic_id = $author->get_attribute("OBJ_ICON")->get_id();
+								$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/15/20";
+								$content->setVariable("REVIEW_NAME", "<font style='font-size:13px;'>" . $current_review->get_attribute("OBJ_DESC") . "</font><br>von <img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $author->get_name() . ">" . $author->get_full_name() . "</a><br>");
+								$content->setVariable("CREATE_REVIEW", "Anzeigen");
+								$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "view/" . $current_review->get_id());
+								$responseID = $current_review->get_attribute("TCR_RESPONSE");
+								if ($responseID == 0) {
+									$response_released = 0;
+								} else {
+									$response_element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $responseID);
+									$response_released = $response_element->get_attribute("TCR_RELEASED");
+								}
+								if ($response_released == 0) {
+									$content->setVariable("DISPLAY_RESPONSE", "none");
+								} else {
+									$content->setVariable("RESPONSE_NAME", "<font style='font-size:13px;'>" . $response_element->get_attribute("OBJ_DESC") . "<br>");
+									$content->setVariable("CREATE_RESPONSE", "Anzeigen");
+									$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "view/" . $response_element->get_id());
+								}
+							} else {
+								$content->setVariable("DISPLAY_REVIEW", "none");
+								$content->setVariable("DISPLAY_RESPONSE", "none");
+							}
+						}
+					} else if ($first) {
+						$content->setVariable("THESIS_NAME", "<font style='font-size:13px;'>" . $theses[$count]->get_attribute("OBJ_DESC") . "</font><br>");
+						$content->setVariable("THESIS_BACKGROUND", "background: #DEEAAA");
+						$content->setVariable("CREATE_THESIS", "Anzeigen und bearbeiten");
+						$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "view/" . $theses[$count]->get_id());
 						$content->setVariable("DISPLAY_REVIEW", "none");
 						$content->setVariable("DISPLAY_RESPONSE", "none");
+						$first = false;
 					} else {
-						$current_critics = $theses[$count]->get_attribute("TCR_REVIEWS");
-						if (count($current_critics) > 0) {
-							$content->setVariable("CREATE_THESIS", "Anzeigen");
-							$content->setVariable("THESIS_ICON", "view_32");
-							$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "release/" . $theses[$count]->get_id());
-							$content->setVariable("DISPLAY_THESIS_SECOND", "none");
-							foreach ($current_critics as $critic => $review) {
-								if ($review == 0) {
-									$content->setVariable("DISPLAY_REVIEW", "none");
-									$content->setVariable("DISPLAY_RESPONSE", "none");
-									$review_released = 0;
-								} else {
-									$current_review = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $review);
-									$review_released = $current_review->get_attribute("TCR_RELEASED");
-								}
-								if ($review_released != 0) {
-									$content->setVariable("CREATE_REVIEW", "Anzeigen");
-									$content->setVariable("REVIEW_ICON", "view_32");
-									$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "release/" . $current_review->get_id());
-									$content->setVariable("DISPLAY_REVIEW_SECOND", "none");
-									$responseID = $current_review->get_attribute("TCR_RESPONSE");
-									if ($responseID == 0) {
-										$response_released = 0;
-									} else {
-										$response_element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $responseID);
-										$response_released = $response_element->get_attribute("TCR_RELEASED");
-									}
-									if ($response_released == 0) {
-										$content->setVariable("DISPLAY_RESPONSE", "none");
-									} else {
-										$content->setVariable("CREATE_RESPONSE", "Anzeigen");
-										$content->setVariable("RESPONSE_ICON", "view_32");
-										$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "release/" . $response_element->get_id());
-										$content->setVariable("DISPLAY_RESPONSE_SECOND", "none");
-									}
-								} else {
-									$content->setVariable("DISPLAY_REVIEW", "none");
-									$content->setVariable("DISPLAY_RESPONSE", "none");
-								}
-							}
-						} else {
-							$content->setVariable("CREATE_THESIS", "Anzeigen / Bearbeiten");
-							$content->setVariable("THESIS_ICON", "view_32");
-							$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "edit/" . $theses[$count]->get_id());
-							$content->setVariable("THESIS_ICON2", "release_32");
-							$content->setVariable("THESIS_URL2", $TCRExtension->getExtensionUrl() . "release/" . $theses[$count]->get_id());
-							$content->setVariable("RELEASE_THESIS", "Veröffentlichen");
-							$content->setVariable("DISPLAY_REVIEW", "none");
-							$content->setVariable("DISPLAY_RESPONSE", "none");
-						}
+						$content->setVariable("DISPLAY_THESIS", "none");
+						$content->setVariable("DISPLAY_REVIEW", "none");
+						$content->setVariable("DISPLAY_RESPONSE", "none");
 					}
-					$content->setVariable("ASSETURL", $TCRExtension->getAssetUrl());
 					$content->parse("BLOCK_DOCUMENTS_TABLE_ELEMENT");
 				}
 			// response view
@@ -302,10 +182,9 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 					} else {
 						$current_critics = $theses[$count]->get_attribute("TCR_REVIEWS");
 						if (count($current_critics) > 0) {
+							$content->setVariable("THESIS_NAME", "<font style='font-size:13px;'>" . $theses[$count]->get_attribute("OBJ_DESC") . "</font><br>");
 							$content->setVariable("CREATE_THESIS", "Anzeigen");
-							$content->setVariable("THESIS_ICON", "view_32");
-							$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "release/" . $theses[$count]->get_id());
-							$content->setVariable("DISPLAY_THESIS_SECOND", "none");
+							$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "view/" . $theses[$count]->get_id());
 							foreach ($current_critics as $critic => $review) {
 								if ($review == 0) {
 									$review_released = 0;
@@ -314,32 +193,29 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 									$review_released = $current_review->get_attribute("TCR_RELEASED");
 								}
 								if ($review_released != 0) {
+									$author = $current_review->get_creator();
+									$pic_id = $author->get_attribute("OBJ_ICON")->get_id();
+									$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/15/20";
+									$content->setVariable("REVIEW_NAME", "<font style='font-size:13px;'>" . $current_review->get_attribute("OBJ_DESC") . "</font><br>von <img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $author->get_name() . ">" . $author->get_full_name() . "</a><br>");
 									$content->setVariable("CREATE_REVIEW", "Anzeigen");
-									$content->setVariable("REVIEW_ICON", "view_32");
-									$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "release/" . $current_review->get_id());
-									$content->setVariable("DISPLAY_REVIEW_SECOND", "none");
+									$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "view/" . $current_review->get_id());
 									$responseID = $current_review->get_attribute("TCR_RESPONSE");
 									if ($responseID == 0) {
-										$content->setVariable("CREATE_RESPONSE", "Replik erstellen");
-										$content->setVariable("RESPONSE_ICON", "create_32");
-										$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "create/" . $this->id . "/" . $count . "/" . $kindOfDocument . "/" . $current_review->get_id());
-										$content->setVariable("DISPLAY_RESPONSE_SECOND", "none");
+										$new_response = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $user->get_id() . "_response_round" . $count, "", "text/plain", $responses_container, "Replik Runde " . $count);
+										$new_response->set_attribute("TCR RELEASED", 0);
+										$responseID = $new_response->get_id();
+										$current_review->set_attribute("TCR_RESPONSE", $responseID);
+									}
+									$response_element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $responseID);
+									$response_released = $response_element->get_attribute("TCR_RELEASED");
+									$content->setVariable("RESPONSE_NAME", "<font style='font-size:13px;'>" . $response_element->get_attribute("OBJ_DESC") . "</font><br>");
+									if ($response_released == 0) {
+										$content->setVariable("RESPONSE_BACKGROUND", "background: #DEEAAA");
+										$content->setVariable("CREATE_RESPONSE", "Anzeigen und bearbeiten");
+										$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "view/" . $response_element->get_id());
 									} else {
-										$response_element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $responseID);
-										$response_released = $response_element->get_attribute("TCR_RELEASED");
-										if ($response_released == 0) {
-											$content->setVariable("CREATE_RESPONSE", "Anzeigen / Bearbeiten");
-											$content->setVariable("RESPONSE_ICON", "view_32");
-											$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "edit/" . $response_element->get_id());
-											$content->setVariable("RESPONSE_ICON2", "release_32");
-											$content->setVariable("RESPONSE_URL2", $TCRExtension->getExtensionUrl() . "release/" . $response_element->get_id());
-											$content->setVariable("RELEASE_RESPONSE", "Veröffentlichen");
-										} else {
-											$content->setVariable("CREATE_RESPONSE", "Anzeigen");
-											$content->setVariable("RESPONSE_ICON", "view_32");
-											$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "release/" . $response_element->get_id());
-											$content->setVariable("DISPLAY_RESPONSE_SECOND", "none");
-										}
+										$content->setVariable("CREATE_RESPONSE", "Anzeigen");
+										$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "view/" . $response_element->get_id());
 									}
 								} else {
 									$content->setVariable("DISPLAY_REVIEW", "none");
@@ -369,49 +245,47 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 					$content->setVariable("DISPLAY_REVIEW", "none");
 					$content->setVariable("DISPLAY_RESPONSE", "none");
 				} else {
+					$author = $theses_response[$count]->get_creator();
+					$pic_id = $author->get_attribute("OBJ_ICON")->get_id();
+					$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/15/20";
+					$content->setVariable("THESIS_NAME", "<font style='font-size:13px;'>" . $theses_response[$count]->get_attribute("OBJ_DESC") . "</font><br>von <img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $author->get_name() . ">" . $author->get_full_name() . "</a><br>");				
 					$content->setVariable("CREATE_THESIS", "Anzeigen");
-					$content->setVariable("THESIS_ICON", "view_32");
-					$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "release/" . $theses_response[$count]->get_id());
-					$content->setVariable("DISPLAY_THESIS_SECOND", "none");
+					$content->setVariable("THESIS_URL", $TCRExtension->getExtensionUrl() . "view/" . $theses_response[$count]->get_id());
 					$critics_array = $theses_response[$count]->get_attribute("TCR_REVIEWS");
 					if ($critics_array[$user->get_id()] == 0) {
-						$content->setVariable("CREATE_REVIEW", "Kritik erstellen");
-						$content->setVariable("REVIEW_ICON", "create_32");
-						$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "create/" . $this->id . "/" . $count . "/" . $kindOfDocument . "/" . $theses_response[$count]->get_id());
-						$content->setVariable("DISPLAY_REVIEW_SECOND", "none");
+						$new_review = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $user->get_id() . "_review_round" . $count, "", "text/plain", $reviews_container, "Kritik Runde " . $count);
+						$new_review->set_attribute("TCR_RELEASED", 0);
+						$new_review->set_attribute("TCR_RESPONSE", 0);
+						$critics_array[$user->get_id()] = $new_review->get_id();				
+						$theses_response[$count]->set_attribute("TCR_REVIEWS", $critics_array);
+					}
+					$review = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $critics_array[$user->get_id()]);
+					$released = $review->get_attribute("TCR_RELEASED");
+					$content->setVariable("REVIEW_NAME", "<font style='font-size:13px;'>" . $review->get_attribute("OBJ_DESC") . "</font><br>");				
+					if ($released == 0) {
+						$content->setVariable("CREATE_REVIEW", "Anzeigen und bearbeiten");
+						$content->setVariable("REVIEW_BACKGROUND", "background: #DEEAAA");
+						$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "view/" . $review->get_id());
 						$content->setVariable("DISPLAY_RESPONSE", "none");
-						$content->setVariable("DISPLAY_RESPONSE_SECOND", "none");
 					} else {
-						$review = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $critics_array[$user->get_id()]);
-						$released = $review->get_attribute("TCR_RELEASED");
-						if ($released == 0) {
-							$content->setVariable("CREATE_REVIEW", "Anzeigen / Bearbeiten");
-							$content->setVariable("REVIEW_ICON", "view_32");
-							$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "edit/" . $review->get_id());
-							$content->setVariable("REVIEW_ICON2", "release_32");
-							$content->setVariable("REVIEW_URL2", $TCRExtension->getExtensionUrl() . "release/" . $review->get_id());
-							$content->setVariable("RELEASE_REVIEW", "Veröffentlichen");
+						$content->setVariable("CREATE_REVIEW", "Anzeigen");
+						$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "view/" . $review->get_id());
+						$responseID = $review->get_attribute("TCR_RESPONSE");
+						if ($responseID == 0) {
+							$response_released = 0;
+						} else {
+							$response_element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $responseID);
+							$response_released = $response_element->get_attribute("TCR_RELEASED");
+						}
+						if ($response_released == 0) {
 							$content->setVariable("DISPLAY_RESPONSE", "none");
 						} else {
-							$content->setVariable("CREATE_REVIEW", "Anzeigen");
-							$content->setVariable("REVIEW_ICON", "view_32");
-							$content->setVariable("REVIEW_URL", $TCRExtension->getExtensionUrl() . "release/" . $review->get_id());
-							$content->setVariable("DISPLAY_REVIEW_SECOND", "none");
-							$responseID = $review->get_attribute("TCR_RESPONSE");
-							if ($responseID == 0) {
-								$response_released = 0;
-							} else {
-								$response_element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $responseID);
-								$response_released = $response_element->get_attribute("TCR_RELEASED");
-							}
-							if ($response_released == 0) {
-								$content->setVariable("DISPLAY_RESPONSE", "none");
-							} else {
-								$content->setVariable("CREATE_RESPONSE", "Anzeigen");
-								$content->setVariable("RESPONSE_ICON", "view_32");
-								$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "release/" . $response_element->get_id());
-								$content->setVariable("DISPLAY_RESPONSE_SECOND", "none");
-							}
+							$author = $response_element->get_creator();
+							$pic_id = $author->get_attribute("OBJ_ICON")->get_id();
+							$pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/15/20";
+							$content->setVariable("RESPONSE_NAME", "<font style='font-size:13px;'>" . $response_element->get_attribute("OBJ_DESC") . "</font><br>von <img style='vertical-align:middle;' src=" . $pic_link . ">&nbsp<a href=" . PATH_URL . "user/index/" . $author->get_name() . ">" . $author->get_full_name() . "</a><br>");				
+							$content->setVariable("CREATE_RESPONSE", "Anzeigen");
+							$content->setVariable("RESPONSE_URL", $TCRExtension->getExtensionUrl() . "edit/" . $response_element->get_id());
 						}
 					}
 				}
@@ -425,7 +299,6 @@ class PrivateDocuments extends \AbstractCommand implements \IFrameCommand {
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
 		$frameResponseObject->setHeadline(array(
-			array("name" => $courseOrGroup , "link" => $courseOrGroupUrl), 
 			array("name" => "Thesen-Kritik-Replik-Verfahren", "link" => $TCRExtension->getExtensionUrl() . "Index/" . $this->id),
 			array("name" => "Private Dokumente")
 		));

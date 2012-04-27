@@ -30,29 +30,35 @@ class DeleteSubscription extends \AbstractCommand implements \IFrameCommand, \IA
 
 		$objCalendarId = $this->calendar;
 		$objCalendar = \steam_factory::get_object($steamId, $objCalendarId);
-		$calendarCreatorId = $objCalendar->get_creator()->get_id();
-		if($calendarCreatorId != $currentUserId){
-			throw new \Exception("User is not allowed to subscribe events");
-		}
-		if($objSubscription instanceof \steam_user){
-			$steamCalendar= $objSubscription->get_attribute("USER_CALENDAR");
+		if($objSubscription instanceof \steam_docextern){
+				$deleteObjId = $objSubscriptionId;
 		}else{
-			$steamCalendar= $objSubscription->get_attribute("GROUP_CALENDAR");
+			if($objSubscription instanceof \steam_calendar){
+				$steamCalendar = $objSubscription;
+			}
+			else if($objSubscription instanceof \steam_user){
+				$steamCalendar= $objSubscription->get_attribute("USER_CALENDAR");
+				
+			}else{
+				$steamCalendar= $objSubscription->get_attribute("GROUP_CALENDAR");
+			}
+			if(!($steamCalendar instanceof \steam_calendar)){
+				throw new \Exception("steam_calendar is not set.");
+			}
+			$deleteObjId = $steamCalendar->get_id();
+		
 		}
-		if(!($steamCalendar instanceof \steam_calendar)){
-			throw new \Exception("steam_calendar is not set.");
-		}
-		$steamCalendarId=$steamCalendar->get_id();
+
 		$subscriptions = $objCalendar->get_attribute("CALENDAR_SUBSCRIPTIONS");
 		$deletedSubscription=false;
 		foreach($subscriptions as $index => $subscription){
-			if(($subscription->get_id()) == $steamCalendarId){
+			if(($subscription->get_id()) == $deleteObjId){
 				unset($subscriptions[$index]);
 				$deletedSubscription=true;
 			}
 		}
 		if(!$deletedSubscription){
-			throw new \Exception("Subcription could not deleted. steam_calendar is not subscribed by the calendar!");
+			throw new \Exception("Subcription could not be deleted. steam_calendar is not subscribed by the calendar!");
 		}
 		$objCalendar->set_attribute("CALENDAR_SUBSCRIPTIONS", $subscriptions);
 
@@ -66,6 +72,9 @@ class DeleteSubscription extends \AbstractCommand implements \IFrameCommand, \IA
 	}
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
+		$jsWrapper = new \Widgets\JSWrapper();
+		$jsWrapper->setPostJsCode("closeDialog()");
+		$ajaxResponseObject->addWidget($jsWrapper);
 		return $ajaxResponseObject;
 
 	}

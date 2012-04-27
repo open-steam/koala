@@ -26,7 +26,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 		}
 		
 		//default values
-		$descripton="keine Beschreibung";
+		$descripton="";
 		$mediaType="movie";
 		//$url="http://www.bid-owl.de/download/347240/video.flv"; //test url
 		$url="";

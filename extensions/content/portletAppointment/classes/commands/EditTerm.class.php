@@ -79,6 +79,19 @@ class EditTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, 
 		$dialog->addWidget($linkurlInput);
 		$dialog->addWidget(new \Widgets\Clearer());
 		
+                
+                //open url extern
+                $linkurlInputOpenExtern = new \Widgets\Checkbox();
+		$linkurlInputOpenExtern->setLabel("Link in einem neuen Fenster öffnen");
+		$linkurlInputOpenExtern->setData($object);
+		$linkurlInputOpenExtern->setCheckedValue("checked");
+		$linkurlInputOpenExtern->setUncheckedValue("");
+                $linkurlInputOpenExtern->setContentProvider(new AttributeDataProviderPortletAppointmentTerm($termIndex, "linkurl_open_extern"));
+		$dialog->addWidget($linkurlInputOpenExtern);
+		$dialog->addWidget(new \Widgets\Clearer());
+		
+                $dialog->setForceReload(true);
+		
 		$this->dialog = $dialog;
 	}
 	

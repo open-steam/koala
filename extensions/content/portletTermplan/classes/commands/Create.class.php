@@ -56,6 +56,11 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	    
 	    $termChoices = "0"; //initial value
 	    $termPlanObject->set_attribute("termChoices", $termChoices);
+	    
+	    //sanctions
+	    $everybody = \steam_factory::get_group( $GLOBALS["STEAM"]->get_id(), "steam" );
+		$termPlanObject->set_sanction($everybody, SANCTION_READ | SANCTION_WRITE );
+	
 		
 	}
 	

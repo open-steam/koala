@@ -42,6 +42,7 @@ class Textarea extends Widget {
 	
 	public function getHtml() {
 		$this->id = rand();
+                $this->getContent()->setVariable("PATH_URL", PATH_URL);
 		$this->getContent()->setVariable("ID", $this->id);
 		
 		$additinalWidgetClasses = "";
