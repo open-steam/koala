@@ -38,8 +38,10 @@ class Explorer extends AbstractExtension implements IIconBarExtension{
                                        array("name"=>"Objekte hier einfügen", "onclick"=>"event.stopPropagation();sendRequest('Paste', {'env':jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer');"), 
 		                       array("name"=>"Zwischenablage leeren", "onclick"=>"event.stopPropagation();sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');")) : ""),
                              array("name"=> "<div id=\"trashbinIconbarWrapper\">".$trashbinModel->getIconbarHtml()."</div>", 
-		                   "menu"=> ($trashbinCount > 0 ) ? array(array("name"=>"Papierkorb leeren", "onclick"=>"event.stopPropagation();sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');"), 
-		                                 array("name"=>"Papierkorb öffnen", "link" => "/trashbin/")) : "")
+		                   "menu"=> ($trashbinCount > 0 ) ? array(
+                                                    array("name"=>"Papierkorb öffnen", "link" => "/trashbin/"),
+                                                    array("name"=>"Papierkorb leeren", "onclick"=>"event.stopPropagation();sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');") 
+		                                 ) : "")
 		);
 	}
 	
