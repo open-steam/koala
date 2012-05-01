@@ -65,12 +65,14 @@ class NewDocumentHTMLForm extends \AbstractCommand implements \IFrameCommand, \I
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
 	<div class="attributeName">Dateiname:</div>
-	<div class="attributeValue"><input type="text" class="text" value="" name="name"></div>
+	<div class="attributeValue"><input id="nameInput" type="text" class="text" value="" name="name"></div>
 </div>
 <br>
 END
 );
+                $ajaxForm->setPostJsCode('document.getElementById("nameInput").focus();');
 		$ajaxResponseObject->addWidget($ajaxForm);
+               
 		return $ajaxResponseObject;
 	}
 	

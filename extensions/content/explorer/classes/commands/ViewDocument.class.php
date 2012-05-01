@@ -154,19 +154,10 @@ END
                     );
                     $noActionbar = true;
                 }else if ((strpos($mimetype, "video") !== false)) {
-                    $mediaplayerHtml = new \Widgets\RawHtml();
-                    $mediaplayerPath = \PortletMedia::getInstance()->getAssetUrl() . 'mediaplayer.swf';
-                    $mediaplayerWidth = "500";
-                    $mediaplayerHeight = round(500 * 10 / 16) . "";
-                    $mediaPlayerUrl = getDownloadUrlForObjectId($this->id);
-                    $mediaplayerHtml->setHtml(<<<END
-                        
-			<embed src="{$mediaplayerPath}" width="{$mediaplayerWidth}" height="{$mediaplayerHeight}" allowscriptaccess="always" allowfullscreen="true" flashvars="width={$mediaplayerWidth}&height={$mediaplayerHeight}&file={$mediaPlayerUrl}&autostart=false" />
-			
-                            
-END
-                    );
-                    $noActionbar = true;
+                   $mediaplayerHtml = new \Widgets\Videoplayer();
+                   $mediaplayerHtml->setTarget(getDownloadUrlForObjectId($this->id));
+                   
+                   $noActionbar = true;
                 } else {
                     header("location: " . PATH_URL . "Download/Document/" . $this->id . "/");
                 }
