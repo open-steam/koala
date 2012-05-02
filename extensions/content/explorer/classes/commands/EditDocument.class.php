@@ -30,6 +30,7 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 
 				$actionBar = new \Widgets\ActionBar();
 				if($mimetype == "text/html"){
+                                    
 					$actionBar->setActions(array(
 					array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
 					//array("name"=>"Bearbeiten", "link"=> PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
