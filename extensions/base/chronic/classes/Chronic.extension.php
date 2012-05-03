@@ -108,6 +108,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 try{
                     $environmentObject = $steamObject->get_environment();
                     if("0"==$environmentObject) throw new \steam_exception;
+                    if($environmentObject instanceof \steam_object) throw new \steam_exception;
                 }catch (\steam_exception $e){
                     //no environment
                     return "";
