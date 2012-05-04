@@ -51,8 +51,8 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 $this->updateChronic("cmd:".$namespace.":".$command);
         }
         
-        public function setCurrentPath($path) {
-                $this->updateChronic("pth:".$path);
+        public function setCurrentPath($path,$title) {
+                $this->updateChronic("pth:".$path.":".$title);
         }
         
         public function setCurrentOther($other) {
@@ -120,6 +120,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 
                 return array("name" => "nach oben ( <img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($environmentObject)."\"></img> " . getCleanName($environmentObject, 20) . " )", "link" => $this->getEntryPath("oid:".$environmentObject->get_id()));
             }
+            
             return "";
         }
        
@@ -182,10 +183,12 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 return getCleanName($steamObject);
             }
             else if($entryType=="cmd"){
+                //not yet supported
                 return "command";
             }
             else if($entryType=="pth"){
-                return "path";
+                $name = $content[2];
+                return $name;
             }
             else if($entryType=="oth"){
                 $type = $content[1];
@@ -216,10 +219,12 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 }
             }
             else if($entryType=="cmd"){
+                //not yet supported 
                 return "command";
             }
             else if($entryType=="pth"){
-                return "path";
+                $path = $content[1];
+                return $path;
             }
             else if($entryType=="oth"){
                 $type = $content[1];
