@@ -61,6 +61,7 @@
     ".mp2v" => "video/mpeg-2",                      //MPEG-2 video
     ".mp3" => "audio/mpeg",                         //MP3 audio
     ".mp4" => "video/mpeg",                         //MPEG-4 video
+    ".m4v" => "video/x-m4v",                         //MPEG-4 video
     ".mpa" => "video/mpeg",                         //MPEG audio
     ".mpa2" => "audio/x-mpeg-2",                    //MPEG-2 audio
     ".mpe" => "video/mpeg",                         //MPEG video
