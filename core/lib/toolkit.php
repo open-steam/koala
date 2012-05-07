@@ -371,6 +371,7 @@ function deriveIcon($object) {
         "text/xml" => "text.png",
         "video/x-flv" => "video.png",
         "video/mpeg" => "video.png",
+        "video/mp4" => "video.png",
         "video/quicktime" => "video.png",
         "video/x-msvideo" => "video.png",
         "video/3gpp" => "video.png",

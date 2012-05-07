@@ -156,6 +156,7 @@ END
                 }else if ((strpos($mimetype, "video/x-flv") !== false)
                         || (strpos($mimetype, "video/x-m4v") !== false)
                         || (strpos($mimetype, "video/mpeg") !== false)
+                        || (strpos($mimetype, "video/mp4") !== false)
                         || (strpos($mimetype, "video/3gpp") !== false)
                         || (strpos($mimetype, "video/quicktime") !== false)
                         ) {
