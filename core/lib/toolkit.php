@@ -373,6 +373,8 @@ function deriveIcon($object) {
         "video/mpeg" => "video.png",
         "video/quicktime" => "video.png",
         "video/x-msvideo" => "video.png",
+        "video/3gpp" => "video.png",
+        "video/x-m4v" => "video.png",
         "video/x-ms-wmv" => "video.png"
     );
 
