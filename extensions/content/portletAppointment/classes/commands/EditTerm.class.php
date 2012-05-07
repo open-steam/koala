@@ -82,7 +82,7 @@ class EditTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, 
                 
                 //open url extern
                 $linkurlInputOpenExtern = new \Widgets\Checkbox();
-		$linkurlInputOpenExtern->setLabel("Link in einem neuen Fenster öffnen");
+		$linkurlInputOpenExtern->setLabel("Link in einem </br>neuen Fenster öffnen");
 		$linkurlInputOpenExtern->setData($object);
 		$linkurlInputOpenExtern->setCheckedValue("checked");
 		$linkurlInputOpenExtern->setUncheckedValue("");
