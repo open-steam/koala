@@ -157,6 +157,7 @@ END
                         || (strpos($mimetype, "video/x-m4v") !== false)
                         || (strpos($mimetype, "video/mpeg") !== false)
                         || (strpos($mimetype, "video/3gpp") !== false)
+                        || (strpos($mimetype, "video/quicktime") !== false)
                         ) {
                    $mediaplayerHtml = new \Widgets\Videoplayer();
                    $mediaplayerHtml->setTarget(getDownloadUrlForObjectId($this->id));
