@@ -153,7 +153,11 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
 END
                     );
                     $noActionbar = true;
-                }else if ((strpos($mimetype, "video/x-flv") !== false) || (strpos($mimetype, "video/x-m4v") !== false)) {
+                }else if ((strpos($mimetype, "video/x-flv") !== false)
+                        || (strpos($mimetype, "video/x-m4v") !== false)
+                        || (strpos($mimetype, "video/mpeg") !== false)
+                        || (strpos($mimetype, "video/3gpp") !== false)
+                        ) {
                    $mediaplayerHtml = new \Widgets\Videoplayer();
                    $mediaplayerHtml->setTarget(getDownloadUrlForObjectId($this->id));
                    

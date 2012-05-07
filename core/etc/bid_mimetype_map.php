@@ -26,7 +26,8 @@
   ****************************************************************************/
 
   $mimetype_map = array(
-    ".ai" => "application/postscript",               //PostScript
+    ".3gp" => "video/3gpp",                         //3gp
+    ".ai" => "application/postscript",              //PostScript
     ".avi" => "video/x-msvideo",                    //Microsoft video
     ".bin" => "application/octet-stream",           //Binary, UUencoded
     ".bmp" => "image/x-ms-bmp",                     //Microsoft Windows bitmap
