@@ -47,7 +47,7 @@ class EditMessageImage extends \AbstractCommand implements \IFrameCommand, \IIdC
 		$dialog->addWidget($ajaxUploader);
 		$raw = new \Widgets\RawHtml();
 		$raw->setHtml(<<<END
-		<a href="#" class="button pill negative" onclick="sendRequest('DeleteImage', {'id':{$object->get_id()}}, '', 'data', null, function() {document.getElementById('uploaderImage').src = '{$emptyImageUrl}'; jQuery('#uploaderImage').addClass('saved')}, 'PortletMsg');">Bild löschen</a>
+		<a href="#" class="button pill negative" onclick="sendRequest('DeleteImage', {'id':{$object->get_id()}}, '', 'data', null, function() {document.getElementById('uploaderImage').src = '{$emptyImageUrl}'; jQuery('#uploaderImage').addClass('saved')}, 'Forum');">Bild löschen</a>
 END
 );
 		$dialog->addWidget($raw);

@@ -1,5 +1,5 @@
 <?php
-namespace PortletMsg\Commands;
+namespace Forum\Commands;
 class DeleteImage extends \AbstractCommand implements \IAjaxCommand {
 	
 	private $params;
@@ -20,13 +20,13 @@ class DeleteImage extends \AbstractCommand implements \IAjaxCommand {
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		$destObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            	$destObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		//remove old image
-		$oldImageId = $destObject->get_attribute("bid:forum:msg:picture_id");
+		$oldImageId = $destObject->get_attribute("bid:forum:category:picture_id");
 		if ($oldImageId !== 0) {
 			$oldImage = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $oldImageId);
 			if ($oldImage instanceof \steam_document) {
-				$destObject->delete_attribute("bid:forum:msg:picture_id");
+				$destObject->delete_attribute("bid:forum:category:picture_id");
 				$oldImage ->delete();
 			}
 		}
