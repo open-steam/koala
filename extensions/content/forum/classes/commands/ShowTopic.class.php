@@ -325,7 +325,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
 		$html1 = '<a href="'.PATH_URL ."forum/index/". $forumId.'">';
 		$html2 = $forum->get_name().'</a></div>';
 		$widget->setHtml($html. $html1.$html2);
-		$frameResponseObject->addWidget($widget);
+		//$frameResponseObject->addWidget($widget);
 		$frameResponseObject->addWidget($actionbar);
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
