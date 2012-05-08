@@ -15,16 +15,16 @@ class UploadImage extends \AbstractCommand implements \IFrameCommand, \IAjaxComm
 			isset($this->params[0]) ? $this->id = $this->params[0]: "";
 		} else if ($requestObject instanceof \AjaxRequestObject) {
 			$this->params = $requestObject->getParams();
-			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
+			isset($this->params["destid"]) ? $this->id = $this->params["destid"]: "";
 		}
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		// list of valid extensions, ex. array("jpeg", "xml", "bmp")
-		$allowedExtensions = array();
+                // list of valid extensions, ex. array("jpeg", "xml", "bmp")
+                $allowedExtensions = array();
 		// max file size in bytes
 		$sizeLimit = return_bytes(ini_get('post_max_size'));
-		$destId = $_REQUEST["destid"];
+		$destId = $this->id;
 		$destObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $destId);
 		//remove old image
 		$oldImageId = $destObject->get_attribute("bid:forum:category:picture_id");
@@ -38,7 +38,7 @@ class UploadImage extends \AbstractCommand implements \IFrameCommand, \IAjaxComm
 		
 		// upload image
 		//$envid = $destObject->get_environment()->get_id();
-		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit, 0);
+		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit, $this->id);
 		$result = $uploader->handleUpload(PATH_TEMP);
 		
 		// set new image
@@ -192,7 +192,10 @@ class qqFileUploader {
         }
         
         //create empty steam_document and check write access
-        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $this->file->getName(), "", "" , \steam_factory::get_object($GLOBALS["STEAM"]->get_id()));
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $this->file->getName(), "", "" , 0);
+        $destObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
+		
+        $steam_document->set_acquire($destObject);
         
         if(!$replaceOldFile){
             /// don't overwrite previous files that were uploaded
