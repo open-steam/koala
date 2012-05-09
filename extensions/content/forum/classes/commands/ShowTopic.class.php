@@ -195,11 +195,11 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
 			if ($categoryAttributes[OBJ_CREATION_TIME] != $categoryAttributes["DOC_LAST_MODIFIED"]) {
 				if (strlen(trim($categoryContent)) > 0) {
 					$content->setVariable("AUTHOR_EDIT", $categoryAttributes["DOC_USER_MODIFIED"]->get_full_name());
-					$content->setVariable("TIMESTAMP_EDIT", date("j.m.Y G:i", $categoryAttributes["DOC_LAST_MODIFIED"]));
+					$content->setVariable("TIMESTAMP_EDIT", date("d.m.Y G:i", $categoryAttributes["DOC_LAST_MODIFIED"]));
 				}
 				else {
 					$content->setVariable("AUTHOR_DELETE", $categoryAttributes["DOC_USER_MODIFIED"]->get_full_name());
-					$content->setVariable("TIMESTAMP_DELETE", date("j.m.Y G:i", $categoryAttributes["DOC_LAST_MODIFIED"]));
+					$content->setVariable("TIMESTAMP_DELETE", date("d.m.Y G:i", $categoryAttributes["DOC_LAST_MODIFIED"]));
 				}
 			}
 			$column_width=763;
@@ -237,17 +237,17 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
 					$content->setVariable("MESSAGE_CONTENT", $messageContent[$id]);
 					$content->setVariable("MESSAGE_CREATOR", $messageCreator[$id]->get_full_name());
 					$content->setVariable("MESSAGE_CREATOR_PROFILE", PATH_URL."profile/index/".$messageCreator[$id]->get_name());
-					$content->setVariable("MESSAGE_CREATION_TIME", date("j.m.Y G:i", $messageAttributes[$id][OBJ_CREATION_TIME]));
+					$content->setVariable("MESSAGE_CREATION_TIME", date("d.m.Y G:i", $messageAttributes[$id][OBJ_CREATION_TIME]));
 					$content->setVariable("MESSAGE_NAME", $messageAttributes[$id][OBJ_DESC]);
 					$content->setVariable("MES_ID", "message_".$id);
 					if ($messageAttributes[$id][OBJ_CREATION_TIME] != $messageAttributes[$id]["DOC_LAST_MODIFIED"]) {
 						if (strlen(trim($messageContent[$id])) > 0) {
 							$content->setVariable("AUTHOR_MES_EDIT", $messageAttributes[$id]["DOC_USER_MODIFIED"]->get_full_name());
-							$content->setVariable("TIMESTAMP_MES_EDIT", date("j.m.Y G:i", $messageAttributes[$id]["DOC_LAST_MODIFIED"]));
+							$content->setVariable("TIMESTAMP_MES_EDIT", date("d.m.Y G:i", $messageAttributes[$id]["DOC_LAST_MODIFIED"]));
 						}
 						else {
 							$content->setVariable("AUTHOR_MES_DELETE", $messageAttributes[$id]["DOC_USER_MODIFIED"]->get_full_name());
-							$content->setVariable("TIMESTAMP_MES_DELETE", date("j.m.Y G:i", $messageAttributes[$id]["DOC_LAST_MODIFIED"]));
+							$content->setVariable("TIMESTAMP_MES_DELETE", date("d.m.Y G:i", $messageAttributes[$id]["DOC_LAST_MODIFIED"]));
 						}
 					}
 					if($canAnnotate){
