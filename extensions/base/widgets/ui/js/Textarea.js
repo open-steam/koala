@@ -61,11 +61,13 @@ function widgets_textarea_save_success(elementId, response) {
 					theme_advanced_toolbar_align : "left",
 					theme_advanced_statusbar_location : "none",
 					theme_advanced_resizing : false,
+                                        onchange_callback : function(e) {element.addClass("dirty");},
+
 					
 					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(!tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}},
 					oninit : function(e) {tinyMCE.activeEditor.setContent(value), tinyMCE.activeEditor.isNotDirty = 1},
 					setup :  function(e) {
-						setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}}, 2000 );
+						setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {/*element.addClass("dirty");*/$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}}, 2000 );
 					}
 	    	};
 	    	
@@ -131,7 +133,7 @@ function widgets_textarea_save_success(elementId, response) {
 						ASdloc : pathUrl + '/styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
 						fullscreen_new_window : true,       
 						fullscreen_settings : {
-							theme_advanced_path_location : "top"
+						theme_advanced_path_location : "top"
 						}
 					}, mce_defaults));
 	    		});
