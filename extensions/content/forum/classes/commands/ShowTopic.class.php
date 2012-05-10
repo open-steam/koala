@@ -253,7 +253,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
 					if($canAnnotate){
 						$popupMenu2= new \Widgets\PopupMenu();
 						$popupMenu2->setData($message);
-						$popupMenu2->setElementId("overlay_menu2");
+						$popupMenu2->setElementId("overlay_menu");
 						$popupMenu2->setParams(array(array("key" => "forum", "value" => $forumId), array("key"=>"category", "value" => $category_id)));
 						$content->setVariable("POPUP_MENU2", $popupMenu2->getHtml());
 							
