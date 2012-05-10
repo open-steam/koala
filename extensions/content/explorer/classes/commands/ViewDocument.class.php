@@ -182,6 +182,9 @@ END
                     $frameResponseObject->addWidget($mediaplayerHtml);
                 }
                 $frameResponseObject->addWidget($rawHtml);
+                $cssStyle = new \Widgets\RawHtml();
+                $cssStyle->setCss('#content_wrapper {overflow:scroll;}');
+                $frameResponseObject->addWidget($cssStyle);
                 return $frameResponseObject;
             }
         } else {
