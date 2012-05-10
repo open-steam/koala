@@ -17,20 +17,26 @@
 		<td class="posting_details">
 		<div class="creation">erstellt am {CATEGORIE_CREATION_TIME}</div>
 		</td>
-                <td class="posting_content"><div style="float:{MESSAGE_PICTURE_ALIGNMENT1}">{CATEGORIE_CONTENT}</div>
-
-		<!-- BEGIN BLOCK_TOPIC_PICTURE -->
-		<div class="topic_picturer"><img src="{MESSAGE_PICTURE_URL1}"
-			width="{MESSAGE_PICTURE_WIDTH1}">
-		</div>
+                <td class="posting_content">
+                    <div>
+                    <!-- BEGIN BLOCK_TOPIC_PICTURE -->
+		<img class="{MESSAGE_PICTURE_ALIGNMENT1}"src="{MESSAGE_PICTURE_URL1}" width="{MESSAGE_PICTURE_WIDTH1}">
 		<!-- END BLOCK_TOPIC_PICTURE -->
+                    
+                    <div>{CATEGORIE_CONTENT}</div>
+
+                    <!-- BEGIN BLOCK_TOPIC_PICTURE_NONE -->
+		<img src="{MESSAGE_PICTURE_URL_NONE}" width="{MESSAGE_PICTURE_WIDTH_NONE}">
+		<!-- END BLOCK_TOPIC_PICTURE_NONE -->
+		
 		<!-- BEGIN edit_category_annotation -->
 		<div class="editing">Der Inhalt wurde vom Benutzer {AUTHOR_EDIT}
 		am {TIMESTAMP_EDIT} geändert.</div>
 		<!-- END edit_category_annotation --> <!-- BEGIN delete_category_annotation -->
 		<div class="editing">Der urspr&uuml;ngliche Inhalt wurde vom
 		Benutzer {AUTHOR_DELETE} am {TIMESTAMP_DELETE} gelöscht.</div>
-		<!-- END delete_category_annotation --></td>
+		<!-- END delete_category_annotation -->
+                    </div></td>
 	</tr>
 </table>
 <!-- END CH --> <br />
@@ -47,13 +53,25 @@
 		<td class="posting_details">
 		<div class="creation">erstellt am {MESSAGE_CREATION_TIME}</div>
 		</td>
-		<td class="posting_content">{MESSAGE_CONTENT} <!-- BEGIN BLOCK_MESSAGE_PICTURE -->
+		<td class="posting_content">
+                    
+                    <!-- BEGIN BLOCK_MESSAGE_PICTURE -->
 
-		<div class="msg_pictures"><img class="img_pic" src="{MESSAGE_PICTURE_URL}"
-			align="{MESSAGE_PICTURE_ALIGNMENT}" width="{MESSAGE_PICTURE_WIDTH}">
-		</div>
+		<img class="{MESSAGE_PICTURE_ALIGNMENT}" src="{MESSAGE_PICTURE_URL}" width="{MESSAGE_PICTURE_WIDTH}">
+		
 
-		<!-- END BLOCK_MESSAGE_PICTURE --> <!-- BEGIN edit_message_annotation -->
+		<!-- END BLOCK_MESSAGE_PICTURE -->
+                
+                                  
+                <div>{MESSAGE_CONTENT}</div> 
+                    <!-- BEGIN BLOCK_MESSAGE_PICTURE_NONE -->
+
+		<img src="{MESSAGE_PICTURE_URL_NONE}" width="{MESSAGE_PICTURE_WIDTH_NONE}">
+		
+
+		<!-- END BLOCK_MESSAGE_PICTURE_NONE -->
+                    
+                    <!-- BEGIN edit_message_annotation -->
 		<div class="editing">Der Inhalt wurde vom Benutzer
 		{AUTHOR_MES_EDIT} am {TIMESTAMP_MES_EDIT} ge&auml;ndert.</div>
 		<!-- END edit_message_annotation --> <!-- BEGIN delete_message_annotation -->

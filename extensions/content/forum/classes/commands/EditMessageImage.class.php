@@ -66,7 +66,7 @@ END
 		$sizeInput->setData($object);
 		$sizeInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:forum:category:picture_width"));
 		$dialog->addWidget($sizeInput);
-		
+		$dialog->setForceReload(true);
 		
 		$this->dialog = $dialog;
 	}
