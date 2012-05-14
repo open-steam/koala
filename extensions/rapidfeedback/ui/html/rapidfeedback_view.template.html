@@ -1,0 +1,28 @@
+<!-- BEGIN BLOCK_VIEW_SURVEY -->
+<form action="" id="form" method="post" style="font-size:11px">
+	<center>
+		<h1>
+			{SURVEY_NAME}
+			<a href="{EDIT_URL}" style="display:{DISPLAY_EDIT}"><img src="{ASSET_URL}/edit.png" title="{EDIT_TITLE}" width="12px" height="12px"></a>
+			{SURVEY_PAGE}
+		</h1>
+		<table class="grid" border="0" width="75%">
+			<tr style="display:{DISPLAY_BEGIN};">
+				<td>{SURVEY_BEGIN}</td>
+			</tr>
+			{QUESTIONS_HTML}
+			<tr style="display:{DISPLAY_END};">
+				<td>{SURVEY_END}</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="buttons">
+						<a class="button" href="{PREVIOUS_URL}" onclick="" name="previous" style="text-align:left; display:{DISPLAY_PREVIOUS}">{PREVIOUS_LABEL}</a>
+						<a class="button" onclick="submitNext('{NEXT_URL}');" name="next" style="float: right; display:{DISPLAY_NEXT}">{NEXT_LABEL}</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</center>
+</form>
+<!-- END BLOCK_VIEW_SURVEY -->
