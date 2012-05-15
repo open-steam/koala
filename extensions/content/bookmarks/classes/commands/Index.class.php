@@ -63,11 +63,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$loader->setElementId("bookmarksWrapper");
 		$loader->setType("updater");
 
-
+                
+                $environmentData = new \Widgets\RawHtml();
+		$environmentData->setHtml("<input type=\"hidden\" id=\"environment\" value=\"$this->id\">");
+		
 		$frameResponseObject->setTitle("Lesezeichen");
 		$frameResponseObject->addWidget($actionBar);
+                $frameResponseObject->addWidget($environmentData);
 		$frameResponseObject->addWidget($breadcrumb);
-		$frameResponseObject->addWidget($loader);
+		
+                $frameResponseObject->addWidget($loader);
 		return $frameResponseObject;
 	}
 }
