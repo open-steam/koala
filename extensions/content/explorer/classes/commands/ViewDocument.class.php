@@ -193,6 +193,8 @@ END
                 else {
                     header("location: " . PATH_URL . "Download/Document/" . $this->id . "/");
                 }
+                
+                //default
                 $rawHtml = new \Widgets\RawHtml();
                 $rawHtml->setHtml($html);
 

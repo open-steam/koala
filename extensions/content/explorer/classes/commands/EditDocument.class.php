@@ -29,9 +29,10 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 				}
 
 				$actionBar = new \Widgets\ActionBar();
-				if($mimetype == "text/html"){
-                                    
-					$actionBar->setActions(array(
+				
+                                //document type: html text
+                                if($mimetype == "text/html"){
+                                	$actionBar->setActions(array(
 					array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
 					//array("name"=>"Bearbeiten", "link"=> PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
 					array("name"=>"Quelltext", "link"=> PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
@@ -40,8 +41,11 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 					array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
 					));
 
-				}else{
-					$actionBar->setActions(array(
+				}
+                                
+                                //document type: simple text    
+                                else{
+                                	$actionBar->setActions(array(
 					array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
 					//array("name"=>"Bearbeiten", "link"=> PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
 					//array("name"=>"Quelltext", "link"=> PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
@@ -56,12 +60,18 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 				$contentText->setheight(400);
 				$contentText->setData($object);
 				
-				if ($mimetype !== "text/html") {
-					$contentText->setTextareaClass("plain");
-				}else{
-					$contentText->setTextareaClass("mce-full");
+                                
+                                //document type: html text
+                                if ($mimetype !== "text/html") {
+                                    $contentText->setTextareaClass("plain");
+				}
+                                
+                                //document type: simple text    
+                                else{
+                                    $contentText->setTextareaClass("mce-full");
 				}
 			
+                                
 				$html = cleanHTML($object->get_content());
 				$dirname = dirname($object->get_path()) . "/";
 				preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
