@@ -61,6 +61,10 @@ class Survey extends \AbstractObjectModel {
 		if ($old == null) {
 			$survey_container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "rapidfeedback_" . time(), $this->rapidfeedback, $this->name);
 			$results_container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "results", $survey_container, "container for results");
+			$groups = $this->rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
+			foreach ($groups as $group) {
+				$results_container->set_sanction($group, SANCTION_READ | SANCTION_WRITE | SANCTION_INSERT);
+			}
 		} else {
 			$survey_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $old);
 			$survey_container->set_attribute("OBJ_DESC", $this->name);
@@ -69,8 +73,8 @@ class Survey extends \AbstractObjectModel {
 		
 		if ($survey_container->get_attribute("RAPIDFEEDBACK_STATE") == 0 || $survey_container->get_attribute("RAPIDFEEDBACK_STATE") == "0") {
 			$survey_container->set_attribute("RAPIDFEEDBACK_STATE", 0);
-			$survey_container->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
-			$survey_container->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
+			$results_container->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
+			$results_container->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
 		}
 		
 		if ($this->starttype == 0) {

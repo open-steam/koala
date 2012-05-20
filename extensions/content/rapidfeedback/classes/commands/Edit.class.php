@@ -143,11 +143,11 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 								break;
 							case 7:
 								$newquestion = new \Rapidfeedback\Model\DescriptionLayoutElement();
-								$newquestion->setDescription($questionValues[1]);
+								$newquestion->setDescription(rawurldecode($questionValues[1]));
 								break;
 							case 8:
 								$newquestion = new \Rapidfeedback\Model\HeadlineLayoutElement();
-								$newquestion->setHeadline($questionValues[1]);
+								$newquestion->setHeadline(rawurldecode($questionValues[1]));
 								break;
 							case 9:
 								$newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
@@ -209,12 +209,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_edit.template.html");
 		$content->setCurrentBlock("BLOCK_CREATE_SURVEY");
 		$content->setVariable("CREATE_LABEL", "Fragebogen erstellen");
-		$content->setVariable("TITLE_LABEL", "Titel:*");
+		$content->setVariable("TITLE_LABEL", "Titel:");
 		$content->setVariable("BEGINTEXT_LABEL", "Willkommenstext:");
 		$content->setVariable("ENDTEXT_LABEL", "Abschlusstext:");
-		$content->setVariable("STARTTYPE_LABEL", "Starttyp:*");
+		$content->setVariable("STARTTYPE_LABEL", "Durchführungszeitraum:");
 		$content->setVariable("STARTTYPE0_LABEL", "Manuell");
-		$content->setVariable("STARTTYPE1_LABEL", "Automatisch");
+		$content->setVariable("STARTTYPE1_LABEL", "Zeitgesteuert");
 		$content->setVariable("START_LABEL", "von:");
 		$content->setVariable("END_LABEL", "bis:");
 		$content->setVariable("ELEMENT_COUNTER", 0);
@@ -274,8 +274,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				$content->setVariable("STARTTYPE_FIRST", "");
 				$content->setVariable("STARTTYPE_SECOND", "checked");
 				$content->setVariable("DISPLAY_DATEPICKER", "");
-				$content->setVariable("BEGIN_VALUE", date('d.m.Y', $starttype[1]));
-				$content->setVariable("END_VALUE", date('d.m.Y', $starttype[0]));
+				$content->setVariable("BEGIN_VALUE", date('d.m.Y H:i', $starttype[1]));
+				$content->setVariable("END_VALUE", date('d.m.Y H:i', $starttype[0]));
 			}
 			$questions = $survey_object->getQuestions();
 			$question_html = "";

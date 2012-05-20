@@ -83,10 +83,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				if ($state == 0) {
 					array_push($surveys_inactive, $survey);
 				} else if ($state == 1) {
-					$participants = $survey->get_attribute("RAPIDFEEDBACK_PARTICIPANTS");
-					if ($admin == 1 || !in_array($user->get_id(), $participants)) {
-						array_push($surveys_running, $survey);
-					}
+					array_push($surveys_running, $survey);
 				} else {
 					array_push($surveys_ended, $survey);
 				}
@@ -130,7 +127,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			foreach ($surveys as $survey) {
 				$content->setCurrentBlock("BLOCK_SURVEY_ELEMENT");
 				$content->setVariable("NAME_VALUE", $survey->get_attribute("OBJ_DESC"));
-				$participants = $survey->get_attribute("RAPIDFEEDBACK_PARTICIPANTS");
+				$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
+				$participants = $resultContainer->get_attribute("RAPIDFEEDBACK_PARTICIPANTS");
 				$state = $survey->get_attribute("RAPIDFEEDBACK_STATE");
 				$groups = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
 				foreach ($groups as $group) {
@@ -148,6 +146,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					$content->setVariable("VIEW_TITLE", "Fragebogen ausfüllen");
 				} else {
 					$content->setVariable("DISPLAY_VIEW", "none");
+					$content->setVariable("NAME_VALUE_NOLINK", $survey->get_attribute("OBJ_DESC"));
 				}
 				$starttype = $survey->get_attribute("RAPIDFEEDBACK_STARTTYPE");
 				if ($state == 0) {
@@ -169,7 +168,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					}
 					$content->setVariable("DISPLAY_START", "none");
 					$content->setVariable("DISPLAY_REPEAT", "none");
-					if ($survey->get_attribute("RAPIDFEEDBACK_RESULTS") == 0) {
+					if ($resultContainer->get_attribute("RAPIDFEEDBACK_RESULTS") == 0) {
 						$content->setVariable("DISPLAY_RESULTS", "none");
 					} 
 				} else {
@@ -177,12 +176,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					$content->setVariable("DISPLAY_EDIT", "none");
 					$content->setVariable("DISPLAY_START", "none");
 					$content->setVariable("DISPLAY_STOP", "none");
-					if ($survey->get_attribute("RAPIDFEEDBACK_RESULTS") == 0) {
+					if ($resultContainer->get_attribute("RAPIDFEEDBACK_RESULTS") == 0) {
 						$content->setVariable("DISPLAY_RESULTS", "none");
 					}
 				}
 				$content->setVariable("QUESTIONS_VALUE", $survey->get_attribute("RAPIDFEEDBACK_QUESTIONS"));
-				$content->setVariable("RESULTS_VALUE", $survey->get_attribute("RAPIDFEEDBACK_RESULTS"));
+				$content->setVariable("RESULTS_VALUE", $resultContainer->get_attribute("RAPIDFEEDBACK_RESULTS"));
 				$content->setVariable("ASSET_URL", $RapidfeedbackExtension->getAssetUrl() . "icons");
 				$content->setVariable("PREVIEW_TITLE", "Vorschau");
 				$content->setVariable("PREVIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/preview");

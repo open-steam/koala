@@ -13,7 +13,6 @@
 }
 .rapidfeedback_table td.label {
     color: #003A6F;
-    font-weight: bold;
     padding-top: 8px;
     vertical-align: top;
     width: 130px;
@@ -21,6 +20,10 @@
 .rapidfeedback_style td {
 	border-right: none;
 	border-bottom: none;
+}
+
+.grid td.label {
+	font-weight: normal;
 }
 
 #sortable_rf { 

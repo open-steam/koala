@@ -36,15 +36,16 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 			$admin = 1;
 		}
 		
-		$allowed = false;
+		$allowed = true;
 		// if current user is no admin, questionnaire is active, result is his unreleased result or editing is allowed
-		if ($state == 1 && $admin == 0 && $creator  == $user->get_id()) {
+		if ($state == 1 && $admin == 0 && $result->get_creator()->get_id()  == $user->get_id()) {
 			if ($released == 0 || $rapidfeedback->get_attribute("RAPIDFEEDBACK_OWN_EDIT") == 1) {
 				$allowed = true;
 			}
 		}
+		// if current user is admin, it is his own unreleased result or own editing is allowed or admin editing is allowed
 		if ($admin == 1) {
-			if ($creator  == $user->get_id() && ($released == 0 || $rapidfeedback->get_attribute("RAPIDFEEDBACK_OWN_EDIT") == 1)) {
+			if ($state == 1 && $result->get_creator()->get_id()  == $user->get_id() && ($released == 0 || $rapidfeedback->get_attribute("RAPIDFEEDBACK_OWN_EDIT") == 1)) {
 				$allowed = true;
 			}
 			if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_ADMIN_EDIT") == 1) {
@@ -54,22 +55,34 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 		
 		// if user is allowed to delete result, delete it and update participation array
 		if ($result instanceof \steam_object && $allowed) {
-			$participants = $survey->get_attribute("RAPIDFEEDBACK_PARTICIPANTS");
-			$results = $participants[$creator];
+			$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
+			$participants = $resultContainer->get_attribute("RAPIDFEEDBACK_PARTICIPANTS");
+			$results = $participants[$result->get_creator()->get_id()];
 			$newResults = array();
 			foreach ($results as $oneResult) {
 				if ($result->get_id() != $oneResult) {
 					array_push($newResults, $oneResult);
 				}
 			}
-			$count = $survey->get_attribute("RAPIDFEEDBACK_RESULTS");
+			$count = $resultContainer->get_attribute("RAPIDFEEDBACK_RESULTS");
 			if ($result->get_attribute("RAPIDFEEDBACK_RELEASED") != 0) $count--;
+			
+			if (count($newResults) == 0) {
+				$participantsHelp = array();
+				foreach ($participants as $participant => $resultArray) {
+					if ($participant != $result->get_creator()->get_id()) {
+						$participantsHelp[$participant] = $resultArray;
+					}
+				}
+				$participants = $participantsHelp;
+			} else {
+				$participants[$result->get_creator()->get_id()] = $newResults;
+			}
 			
 			$result->delete();
 			
-			$participants[$creator] = $newResults;
-			$survey->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", $participants);
-			$survey->set_attribute("RAPIDFEEDBACK_RESULTS", $count);
+			$resultContainer->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", $participants);
+			$resultContainer->set_attribute("RAPIDFEEDBACK_RESULTS", $count);
 		}
 		$ajaxResponseObject->setStatus("ok");
 		return $ajaxResponseObject;

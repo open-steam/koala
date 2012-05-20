@@ -69,10 +69,10 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$content->setCurrentBlock("BLOCK_RESULTS");
 		$content->setVariable("TOOLTIP_IMPORT", '<script type="text/javascript" src="' . $RapidfeedbackExtension->getAssetUrl() . 'wz_tooltip.js"></script>');
 		$content->setVariable("RESULTS_LABEL", "Individuelle Auswertung");
-		if ($survey->get_attribute("RAPIDFEEDBACK_RESULTS") != 1) {
-			$content->setVariable("RESULTS_AMOUNT", $survey->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgaben");
+		if ($result_container->get_attribute("RAPIDFEEDBACK_RESULTS") != 1) {
+			$content->setVariable("RESULTS_AMOUNT", $result_container->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgaben");
 		} else {
-			$content->setVariable("RESULTS_AMOUNT", $survey->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgabe");
+			$content->setVariable("RESULTS_AMOUNT", $result_container->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgabe");
 		}
 		
 		// display questions in the first line

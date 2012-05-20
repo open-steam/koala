@@ -17,6 +17,7 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params[0]);
 		$rapidfeedback = $survey->get_environment();
+		$result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 		$survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
@@ -65,9 +66,9 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		$content->setCurrentBlock("BLOCK_RESULTS");
 		$content->setVariable("RESULTS_LABEL", "Gesamtauswertung");
 		if ($survey->get_attribute("RAPIDFEEDBACK_RESULTS") != 1) {
-			$content->setVariable("RESULTS_AMOUNT", $survey->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgaben");
+			$content->setVariable("RESULTS_AMOUNT", $result_container->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgaben");
 		} else {
-			$content->setVariable("RESULTS_AMOUNT", $survey->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgabe");
+			$content->setVariable("RESULTS_AMOUNT", $result_container->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgabe");
 		}
 		$content->setVariable("RESULTS_LEGEND", "Legende: n = Anzahl, mw = Mittelwert, md = Median, s = Standardabweichung");
 		$survey_object->parseXML($xml);

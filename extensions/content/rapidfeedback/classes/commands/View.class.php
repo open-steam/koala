@@ -29,6 +29,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
 		$RapidfeedbackExtension->addCSS();
 		$RapidfeedbackExtension->addJS();
 		$times = $rapidfeedback->get_attribute("RAPIDFEEDBACK_PARTICIPATION_TIMES");
+		$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 		
 		// check if displaying preview
 		$preview = 0;
@@ -94,10 +95,10 @@ class View extends \AbstractCommand implements \IFrameCommand {
 		}
 		// if user is editing or viewing his own result and is allowed to
 		if ($admin == 0 && $resultObject instanceof \steam_object) {
-			if ($resultObject->get_creator()->get_id() == $user->get_id() && state == 1 && (($rapidfeedback->get_attribute("RAPIDFEEDBACK_OWN_EDIT") == 1) || $resultObject>get_attribute("RAPIDFEEDBACK_RELEASED") == 0)) {
+			if ($resultObject->get_creator()->get_id() == $user->get_id() && $state == 1 && (($rapidfeedback->get_attribute("RAPIDFEEDBACK_OWN_EDIT") == 1) || $resultObject->get_attribute("RAPIDFEEDBACK_RELEASED") == 0)) {
 				$allowed = true;
 			}
-			if ($resultObject->get_creator()->get_id() == $user->get_id() && disabled == 1) {
+			if ($resultObject->get_creator()->get_id() == $user->get_id() && $disabled == 1) {
 				$allowed = true;
 			}
 		}
@@ -213,17 +214,16 @@ class View extends \AbstractCommand implements \IFrameCommand {
 					}
 				} else {
 					// create new result object
-					$participants = $survey->get_attribute("RAPIDFEEDBACK_PARTICIPANTS");
+					$participants = $resultContainer->get_attribute("RAPIDFEEDBACK_PARTICIPANTS");
 					if (!isset($participants[$user->get_id()]) || $times == 0) {
 						$resultIDs = array();
 						if (isset($participants[$user->get_id()])) {
 							$resultIDs = $participants[$user->get_id()];
 						}
-						$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 						$resultObject = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), "result" . time(), "", "text/plain", $resultContainer, "result" . time());
 						array_push($resultIDs, $resultObject->get_id());
 						$participants[$user->get_id()] = $resultIDs;
-						$survey->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", $participants);
+						$resultContainer->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", $participants);
 						$save = true;
 					}
 				}
@@ -261,8 +261,8 @@ class View extends \AbstractCommand implements \IFrameCommand {
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && ($page > $pages) && empty($errors) && $preview == 0) {
 			if ($resultObject->get_attribute("RAPIDFEEDBACK_RELEASED") == 0) {
 				$resultObject->set_attribute("RAPIDFEEDBACK_RELEASED", time());
-				$resultCount = $survey->get_attribute("RAPIDFEEDBACK_RESULTS");
-				$survey->set_attribute("RAPIDFEEDBACK_RESULTS", ($resultCount+1));
+				$resultCount = $resultContainer->get_attribute("RAPIDFEEDBACK_RESULTS");
+				$resultContainer->set_attribute("RAPIDFEEDBACK_RESULTS", ($resultCount+1));
 			}
 			
 			$html = '

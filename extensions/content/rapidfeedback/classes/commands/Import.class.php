@@ -177,12 +177,22 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 				
 				$survey_container = $survey_object->createSurvey();
 				
+				/* import start type and times
 				$edittime = $bidowl_container->get_attribute("bid:questionary:edittime");
 				if ($edittime[0]) {
 					$times = array();
 					array_push($times, $edittime[2]);
 					array_push($times, $edittime[1]);
 					$survey_container->set_attribute("RAPIDFEEDBACK_STARTTYPE", $times);
+				}*/
+				
+				// set sanctions on resultcontainer
+				$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey_container->get_path() . "/results");
+				if ($resultContainer instanceof \steam_container) {
+					$groups = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
+					foreach ($groups as $group) {
+						$resultContainer->set_sanction($group, SANCTION_READ | SANCTION_WRITE | SANCTION_INSERT);
+					}
 				}
 				$frameResponseObject->setConfirmText("Import erfolgreich");
 			}
@@ -220,7 +230,7 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_import.template.html");
 		$content->setCurrentBlock("BLOCK_IMPORT_DIALOG");
 		$content->setVariable("RAPIDFEEDBACK_IMPORT", "Fragebogen importieren");
-		$content->setVariable("ID_LABEL", "Objekt ID:*");
+		$content->setVariable("ID_LABEL", "Objekt ID:");
 		$content->setVariable("IMPORT_SURVEY", "Fragebogen importieren");
 		$content->parse("BLOCK_IMPORT_DIALOG");
 		
