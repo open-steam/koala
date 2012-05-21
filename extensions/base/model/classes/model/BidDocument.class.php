@@ -194,22 +194,25 @@ class BidDocument
     */
     
     
-    //ext url
+    //ext url - works
     $content = preg_replace('/\[\[Bild:http:([^|]*)\|(.*)\]\]/U',
             '<div class="wikiimage"><img src="http:\1" alt="\2" title="\2"></div>', $content);
     
-    //abs pfad
+    /*
+    //abs pfad - not supported
     $content = preg_replace('/\[\[Bild:\/([^|]*)\|(.*)\]\]/U',
             '<div class="wikiimage"><img src="' . $config_webserver_ip . '/Download/Document/\1/" alt="\2" title="\2"></div>', $content);
+    */
     
-    //obj id
+    //obj id - works
     $content = preg_replace('/\[\[Bild:([0-9]*)\|(.*)\]\]/U',
             '<div class="wikiimage"><img src="' . $config_webserver_ip . '/Download/Document/\1/" alt="\2" title="\2"></div>', $content);
     
-    //rel pfad
+    /*
+    //rel pfad - not supported
     $content = preg_replace('/\[\[Bild:([^\]\]]*)\|(.*)\]\]/U',
             '<div class="wikiimage"><img src="' . $config_webserver_ip . '/tools/get.php?object=' . $path . '\1" alt="\2" title="\2"></div>', $content);
-    
+    */
     
     
     
