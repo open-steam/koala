@@ -259,9 +259,16 @@ class View extends \AbstractCommand implements \IFrameCommand {
 		
 		// display actionbar
 		$actionbar = new \Widgets\Actionbar();
-		$actions = array(
-			array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id())
-		);
+		if ($admin == 1 && $preview == 1 && ($state == 0 || $state == 1)) {
+			$actions = array(
+				array("name" => "Fragebogen bearbeiten", "link" =>  $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $rapidfeedback->get_id() . "/" . $survey->get_id()),
+				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id())
+			);
+		} else {
+			$actions = array(
+				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id())
+			);
+		}
 		$actionbar->setActions($actions);
 		$frameResponseObject->addWidget($actionbar);
 			
@@ -307,8 +314,6 @@ class View extends \AbstractCommand implements \IFrameCommand {
 				$content->setVariable("DISPLAY_EDIT", "none");
 			}
 			$content->setVariable("ASSET_URL", $RapidfeedbackExtension->getAssetUrl() . "icons");
-			$content->setVariable("EDIT_TITLE", "Fragebogen bearbeiten");
-			$content->setVariable("EDIT_URL", $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $rapidfeedback->get_id() . "/" . $survey->get_id());
 				
 			$html = "";
 			$counter = 0;
