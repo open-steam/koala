@@ -910,9 +910,19 @@ function checkTitle() {
 }
 
 /*
- * function to submit one page of a survey
+ * function to submit one page of a survey when clicking on the next page button
+ */
+function submitPrevious(url) {
+	document.getElementById('action').value = 'previous';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
+}
+
+/*
+ * function to submit one page of a survey when clicking on the next page button
  */
 function submitNext(url) {
+	document.getElementById('action').value = 'next';
 	document.getElementById('form').action = url;
 	document.getElementById('form').submit();
 }

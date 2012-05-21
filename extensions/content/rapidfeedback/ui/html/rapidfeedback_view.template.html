@@ -17,12 +17,13 @@
 			<tr>
 				<td>
 					<div class="buttons">
-						<a class="button" href="{PREVIOUS_URL}" onclick="" name="previous" style="text-align:left; display:{DISPLAY_PREVIOUS}">{PREVIOUS_LABEL}</a>
+						<a class="button" onclick="submitPrevious('{PREVIOUS_URL}');" name="previous" style="text-align:left; display:{DISPLAY_PREVIOUS}">{PREVIOUS_LABEL}</a>
 						<a class="button" onclick="submitNext('{NEXT_URL}');" name="next" style="float: right; display:{DISPLAY_NEXT}">{NEXT_LABEL}</a>
 					</div>
 				</td>
 			</tr>
 		</table>
 	</center>
+	<input type="hidden" id="action" name="action">
 </form>
 <!-- END BLOCK_VIEW_SURVEY -->

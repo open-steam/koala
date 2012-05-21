@@ -121,7 +121,11 @@ class View extends \AbstractCommand implements \IFrameCommand {
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && $preview == 0 &&  $disabled == 0) {
 			$questionCounter = 0;
 			$pageCounter = 1;
-			$resultPage = $page-1;
+			if ($_POST["action"] == "next") {
+				$resultPage = $page - 1;
+			} else {
+				$resultPage = $page + 1;
+			}
 			foreach ($questions as $question) {
 				if ($question instanceof \Rapidfeedback\Model\AbstractQuestion) {
 					if ($resultPage == $pageCounter) {
@@ -204,7 +208,11 @@ class View extends \AbstractCommand implements \IFrameCommand {
 				}
 				$problemdescription = substr($problemdescription, 0, strlen($problemdescription)-2);
 				$frameResponseObject->setProblemDescription($problemdescription);
-				$page = $page - 1;
+				if ($_POST["action"] == "next") {
+					$page = $page - 1;
+				} else {
+					$page = $page + 1;
+				}
 			} else {
 				$save = false;
 				if ($resultObject instanceof \steam_object) {

@@ -222,8 +222,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 							$questionCount = $survey->get_attribute("RAPIDFEEDBACK_QUESTIONS");
 							$questionsAnswered = 0;
 							$attributeNames = $resultObject->get_attribute_names();
-							for ($count = 0; $count < $questionCount; $count++) {
-								if (in_array("RAPIDFEEDBACK_ANSWER_" . $count, $attributeNames)) {
+							for ($count2 = 0; $count2 < $questionCount; $count2++) {
+								if (in_array("RAPIDFEEDBACK_ANSWER_" . $count2, $attributeNames)) {
 									$questionsAnswered++;
 								}
 							}
