@@ -176,7 +176,7 @@ class BidDocument
     $path = substr($this->object->get_path(), 0, strrpos($this->object->get_path(), "/")) . "/";
     
     
-    $config_webserver_ip = "localhost";
+    //$config_webserver_ip = "localhost";
     
     //bilder
     /*
