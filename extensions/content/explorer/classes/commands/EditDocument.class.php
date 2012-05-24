@@ -68,7 +68,7 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
                                 
                                 }
                                 
-                                
+                                /* test
 				$dirname = dirname($object->get_path()) . "/";
 				preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
 				$orig_matches = $matches[0];
@@ -86,7 +86,8 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 					}
 					$html = str_replace($orig_matches[$key], "src=\"$new_path\" data-mce-src=\"$path\"", $html);
 				}
-
+                                */
+                                
 				$contentText->setContentProvider( new \Widgets\TextContentDataProvider($html));
 				$clearer = new \Widgets\Clearer();
 				
