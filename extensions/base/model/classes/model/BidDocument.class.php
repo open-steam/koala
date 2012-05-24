@@ -272,9 +272,11 @@ class BidDocument
     //video
     //extern
     $content = preg_replace('/\[\[Video:http:([^\]\]]*)\]\]/U',
-            '<video src="\1"></video>', $content);
+            '<video src="http:\1"></video>', $content);
     
-   
+    $content = preg_replace('/\[\[Video:https:([^\]\]]*)\]\]/U',
+            '<video src="https:\1"></video>', $content);
+    
     //object id
     $content = preg_replace('/\[\[Video:([0-9]*)\]\]/U',
             '<video src="\1"></video>', $content);
