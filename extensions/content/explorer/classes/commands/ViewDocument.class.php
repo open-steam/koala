@@ -126,6 +126,11 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     $actionBar->setActions(array(array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"), array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/"), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))), array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))));
                     //$html = "<pre>{$object->get_content()}</pre>";
                     $html = $bidDokument->get_content();
+                    
+                    //make html modifications
+                    $htmlDocument = new \HtmlDocument();
+                    $html = $htmlDocument->makeViewModifications($html);
+                    $html = cleanHTML($html);
                 }
                 
                 //document type: audio

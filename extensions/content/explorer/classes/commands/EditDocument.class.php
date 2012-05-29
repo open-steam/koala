@@ -63,9 +63,14 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
                                 if (strstr($mimetype, "text/plain")) {
                                     $bidDokument = new \BidDocument($object);
                                     $html = $bidDokument->get_content();
+                                    //$html = cleanHTML($html); //TODO
                                 }else{
                                     $html = cleanHTML($object->get_content());
-                                
+                                    
+                                    //make html modifications
+                                    $htmlDocument = new \HtmlDocument();
+                                    $html = $htmlDocument->makeEditorModifications($html);
+                                    //$html = cleanHTML($html); //TODO
                                 }
                                 
                                 /* test
