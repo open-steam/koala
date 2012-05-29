@@ -279,7 +279,7 @@ class BidDocument
     
     //object id
     $content = preg_replace('/\[\[Video:([0-9]*)\]\]/U',
-            '<video src="\1"></video>', $content);
+            '<video src="objectid://\1"></video>', $content);
     
    
     

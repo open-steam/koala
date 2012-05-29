@@ -108,43 +108,13 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                         array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
                         array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
                     ));
-                    $html = cleanHTML($object->get_content());
-
-                    $dirname = dirname($object->get_path()) . "/";
-
-                    preg_match_all('/href="([%a-z0-9.-_\/]*)"/iU', $html, $matches);
-                    $orig_matches = $matches[0];
-                    $path_matches = $matches[1];
-                    foreach ($path_matches as $key => $path) {
-                        $path = urldecode($path);
-                        if (parse_url($path, PHP_URL_SCHEME) != null) {
-                            continue;
-                        }
-                        $ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-                        if ($ref_object instanceof \steam_object) {
-                            $new_path = PATH_URL . "explorer/index/" . $ref_object->get_id();
-                        } else {
-                            $new_path = PATH_URL . "404/";
-                        }
-                        $html = str_replace($orig_matches[$key], "href=\"" . $new_path . "\"", $html);
-                    }
-
-                    preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
-                    $orig_matches = $matches[0];
-                    $path_matches = $matches[1];
-                    foreach ($path_matches as $key => $path) {
-                        $path = urldecode($path);
-                        if (parse_url($path, PHP_URL_SCHEME) != null) {
-                            continue;
-                        }
-                        $ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-                        if ($ref_object instanceof \steam_object) {
-                            $new_path = PATH_URL . "Download/Document/" . $ref_object->get_id();
-                        } else {
-                            $new_path = PATH_URL . "styles/standard/images/404.jpg";
-                        }
-                        $html = str_replace($orig_matches[$key], "src=\"" . $new_path . "\"", $html);
-                    }
+                    
+                    $htmlDocument = new \HtmlDocument($object);
+                    $html = $htmlDocument->getHtmlContent();
+                    $html = cleanHTML($html);
+                    
+                    
+                    //old stuff
                     //	die;
                     //	$html = preg_replace('/href="([a-z0-9.-_\/]*)"/iU', 'href="' . $config_webserver_ip . '/tools/get.php?object=' . $current_path . '$1"', $html);
                     //	$html = preg_replace('/src="([a-z0-9.\-_\/]*)"/iU', 'src="' . $config_webserver_ip . '/tools/get.php?object=' . $current_path . '$1"', $html);
