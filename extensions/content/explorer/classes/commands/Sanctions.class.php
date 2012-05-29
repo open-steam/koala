@@ -61,6 +61,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $userdefPicUrl = PATH_URL . "explorer/asset/icons/user_defined.png";
         $userglobalPicUrl = PATH_URL . "explorer/asset/icons/server_public.png";
         $worldglobalPicUrl = PATH_URL . "explorer/asset/icons/world_public.png";
+        $userPicUrl = PATH_URL . "explorer/asset/icons/user.png";
+        $groupPicUrl = PATH_URL . "explorer/asset/icons/group.png";
+        $favPicUrl = PATH_URL . "explorer/asset/icons/red.png";
+
         //GET OWNER OF THE CURRENT OBJECT
         $owner = $object->get_creator();
         $creatorId = $owner->get_id();
@@ -120,18 +124,22 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $SANCTION_WRITE_FOR_CURRENT_OBJECT = SANCTION_WRITE | SANCTION_EXECUTE | SANCTION_MOVE | SANCTION_INSERT | SANCTION_ANNOTATE;
         }
         //MAPPING GROUPS
+        $groupsMappingName = array();
         $groupsMapping = array();
-        $groupsMapping[$everyone->get_id()] = $everyone->get_name();
         foreach ($groups as $group) {
-            $groupsMapping[$group->get_id()] = $group->get_name();
+            $id = $group->get_id();
+            $name = $group->get_groupname();
+            $groupsMappingName[$name] = $id;
+            $groupsMapping[$id] = $name;
         }
         //MAPPING FAVORITES
         $favoritesMapping = array();
         foreach ($favorites as $favorite) {
-
             if ($favorite instanceof \steam_user) {
                 $favoritesMapping[$favorite->get_id()] = $favorite->get_full_name();
-            } 
+            } else {
+                $favoritesMapping[$favorite->get_id()] = $favorite->get_groupname();
+            }
         }
         //MAPPING ADDITIONAL USERS
         $additionalMapping = array();
@@ -253,10 +261,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
             $content->setVariable("NO_GROUP_MEMBER_ACQ", "Sie sind kein Mitglied einer Gruppe");
         } else {
-            foreach ($groupsMapping as $id => $name) {
-
+            sort($groupsMapping);
+            $lastExplotedArray = array();
+            $lastExplotedArray[0] = 0;
+            $lastIntendIndex = 1;
+            $lastDropDownValue = 0;
+            foreach ($groupsMapping as $name) {
+                $id = $groupsMappingName[$name];
                 $group = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
-
                 $readCheck = $object->check_access_read($group);
                 $writeCheck = $object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $group);
                 $sanctionCheck = $object->check_access(SANCTION_SANCTION, $group);
@@ -271,13 +283,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $sanctionCheckAcq = 0;
                 }
 
-
                 if ($sanctionCheck) {
                     $dropDownValue = 3;
+                    
                 } elseif ($writeCheck) {
                     $dropDownValue = 2;
+                    
                 } elseif ($readCheck) {
                     $dropDownValue = 1;
+                    
                 } else {
                     $dropDownValue = 0;
                 }
@@ -292,15 +306,62 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $dropDownValueAcq = 1;
                 }
 
+                $explodeName = array();
+                $explodeName = explode(".", $name);
+
+                $explodeLength = count($explodeName);
+                $lastExploteLength = count($lastExplotedArray);
+                 
+                $ddl = new \Widgets\DropDownList();
+                $ddl->setId("group_" . $id . "_dd");
+                $ddl->setName("ddlist");
+                $ddl->setOnChange("specificChecked(id, value);");
+                $ddl->setSize("1");
+                $ddl->setDisabled(false);
+                
+                //hack
+                if ($explodeLength > $lastExploteLength) {
+                    if (($explodeName[0] == $lastExplotedArray[0]) && ($explodeName[$lastExploteLength - 1] == $lastExplotedArray[$lastExploteLength - 1])) {
+                        $indentIndex = $lastIntendIndex + 1;
+                        if($dropDownValue == $lastDropDownValue){
+                            $ddl->setDisabled(true);                          
+                            $optionValues = self::getOptionsValues($dropDownValue);
+                
+                            
+                        }
+                    }
+                } else if ($explodeLength == $lastExploteLength) {
+                    if ($explodeName[0] == $lastExplotedArray[0]) {
+                        $indentIndex = $lastIntendIndex;
+                         $ddl->setDisabled(true);
+                         $optionValues = self::getOptionsValues($dropDownValue);
+                        
+                    }
+                } else {
+                    $indentIndex = 1;
+                    $optionValues = self::getOptionsValues(1);
+                }
+               $ddl->setOptionValues($optionValues);
+                
+                $lastExplotedArray = $explodeName;
+                $lastIntendIndex = $indentIndex;
 
                 $groupname = $group->get_groupname();
+
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
                     $content->setCurrentBlock("GROUPS");
                     $content->setCurrentBlock("GROUP_DDSETTINGS");
                     $content->setVariable("GROUPID", $id);
                     $content->setVariable("GROUP_ID", $id);
-                    $content->setVariable("GROUPNAME", $group->get_groupname());
+                    $content->setVariable("GROUPNAME", $groupname);
                     $content->setVariable("OPTIONVALUE", $dropDownValue);
+                    $content->setVariable("INDENTINDEX", $indentIndex);                  
+                    $content->setVariable("DROPDOWNLIST", $ddl->getHtml());
+                    if (isset($favoritesMapping[$id])) {
+                        $content->setVariable("IMG_PATH", $favPicUrl);
+                    } else {
+                        $content->setVariable("IMG_PATH", $groupPicUrl);
+                    }
                     $content->parse("GROUP_DDSETTINGS");
                     $content->parse("GROUPS");
                 }
@@ -315,6 +376,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $content->parse("GROUP_DDSETTINGS_ACQ");
                     $content->parse("GROUPS_ACQ");
                 }
+                $lastDropDownValue = $dropDownValue;
             }
         }
 
@@ -349,6 +411,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $content->setVariable("FAV_ID", $id);
                     $content->setVariable("FAVNAME", $name);
                     $content->setVariable("FAV_OPTION_VALUE", $dropDownValue);
+                    if (isset($favoritesMapping[$id])) {
+                        $content->setVariable("IMG_PATH", $favPicUrl);
+                    } else {
+                        $content->setVariable("IMG_PATH", $userPicUrl);
+                    }
                     $content->parse("FAV_DDSETTINGS");
                     $content->parse("FAVORITES");
 
@@ -454,6 +521,21 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $ajaxResponseObject->addWidget($dialog);
         return $ajaxResponseObject;
+    }
+
+    private static function getOptionsValues($dropDownValue) {
+        $optionValues = array();
+        $optionValues[0]= "";
+        for($i=$dropDownValue;$i<=3;$i++){
+            if($i == 1){
+                $optionValues[1] = "Lesen"; 
+            }else if($i == 2){
+                $optionValues[2] = "Lesen und Schreiben";
+            }else if($i == 3){
+                $optionValues[3] = "Lesen, Schreiben und Berechtigen";
+            }
+        }
+        return $optionValues;
     }
 
 }

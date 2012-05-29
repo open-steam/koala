@@ -86,15 +86,18 @@ und hat volle Zugriffsrechte.</p></div>
 	<!-- BEGIN GROUPS -->
 
 	<tr valign="middle">
-		<td width="50%" style="text-indent: 1em;">{GROUPNAME}</td>
-		<td width="50%" align="right" ><select name="ddlist"
+            <td width="50%"><img style="float:left" src="{IMG_PATH}"> <div style="text-indent: {INDENTINDEX}em;">{GROUPNAME}</div></td>
+		<td width="50%" align="right" > 
+                {DROPDOWNLIST}
+               </td>
+               <!--    <select name="ddlist"
 			id="group_{GROUPID}_dd" size="1"
 			onChange="specificChecked(id, value);" class="ddlist"">
 			<option value="0"></option>
 			<option value="1">Nur Lesen</option>
 			<option value="2">Lesen und Schreiben</option>
 			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
+		</select> -->
 
 	</tr>
 
@@ -112,7 +115,7 @@ und hat volle Zugriffsrechte.</p></div>
 
 	<!-- BEGIN FAVORITES -->
 	<tr valign="middle">
-		<td style="text-indent: 1em;">{FAVNAME}</td>
+            <td><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
 		<td align="right"><select name="ddlist" id="fav_{FAVID}_dd"
 			size="1" onChange="specificChecked(id, value);" class="ddlist">
 			<option value="0"></option>
@@ -307,35 +310,45 @@ function specificChecked(id, value){
 	id=objId[1];
 	{SEND_REQUEST_SANCTION}
 }
-document.getElementById("everyone_dd").options[{EVERYONE_VALUE}].selected=true;
-document.getElementById("steam_dd").options[{STEAM_VALUE}].selected=true;
+$('#everyone_dd').val('{EVERYONE_VALUE}');
+//document.getElementById("everyone_dd").options[{EVERYONE_VALUE}].selected=true;
+//document.getElementById("steam_dd").options[{STEAM_VALUE}].selected=true;
+$('#steam_dd').val('{STEAM_VALUE}');
 // <!-- BEGIN GROUP_DDSETTINGS -->
 //document.getElementById("group_67_dd").options[2].selected=true;
-document.getElementById("group_{GROUP_ID}_dd").options[{OPTIONVALUE}].selected=true;
+//document.getElementById("group_{GROUP_ID}_dd").options[{OPTIONVALUE}].selected=true;
+$('#group_{GROUP_ID}_dd').val('{OPTIONVALUE}');
 
 // <!-- END GROUP_DDSETTINGS -->
 
 // <!-- BEGIN FAV_DDSETTINGS -->
-document.getElementById("fav_{FAV_ID}_dd").options[{FAV_OPTION_VALUE}].selected=true;
+//document.getElementById("fav_{FAV_ID}_dd").options[{FAV_OPTION_VALUE}].selected=true;
+$('#fav_{FAV_ID}_dd').val('{FAV_OPTION_VALUE}');
 //<!-- END FAV_DDSETTINGS  -->
 
 // <!-- BEGIN AU_DDSETTINGS -->
-document.getElementById("au_{AU_ID}_dd").options[{AU_OPTION_VALUE}].selected=true;
+//document.getElementById("au_{AU_ID}_dd").options[{AU_OPTION_VALUE}].selected=true;
+$('#au_{AU_ID}_dd').val('{AU_OPTION_VALUE}');
 //<!-- END AU_DDSETTINGS  --> 
-document.getElementById("everyone_dd_acq").options[{EVERYONE_VALUE_ACQ}].selected=true;
-document.getElementById("steam_dd_acq").options[{STEAM_VALUE_ACQ}].selected=true;
-
+//document.getElementById("everyone_dd_acq").options[{EVERYONE_VALUE_ACQ}].selected=true;
+//document.getElementById("steam_dd_acq").options[{STEAM_VALUE_ACQ}].selected=true;
+$('#everyone_dd_acq').val('{EVERYONE_VALUE_ACQ}');
+$('#steam_dd_acq').val('{STEAM_VALUE_ACQ}');
 // <!-- BEGIN GROUP_DDSETTINGS_ACQ -->
 //document.getElementById("group_67_dd").options[2].selected=true;
-document.getElementById("group_{GROUP_ID_ACQ}_dd_acq").options[{OPTIONVALUE_ACQ}].selected=true;
+//document.getElementById("group_{GROUP_ID_ACQ}_dd_acq").options[{OPTIONVALUE_ACQ}].selected=true;
+$('#group_{GROUP_ID_ACQ}_dd_acq').val('{OPTIONVALUE_ACQ}');
 // <!-- END GROUP_DDSETTINGS_ACQ -->
 
 // <!-- BEGIN FAV_DDSETTINGS_ACQ -->
-document.getElementById("fav_{FAV_ID_ACQ}_dd_acq").options[{FAV_OPTION_VALUE_ACQ}].selected=true;
+//document.getElementById("fav_{FAV_ID_ACQ}_dd_acq").options[{FAV_OPTION_VALUE_ACQ}].selected=true;
+$('#fav_{FAV_ID_ACQ}_dd_acq').val('{FAV_OPTION_VALUE_ACQ}');
+
 //<!-- END FAV_DDSETTINGS_ACQ -->
 
 // <!-- BEGIN AU_DDSETTINGS_ACQ -->
-document.getElementById("au_{AU_ID_ACQ}_dd_acq").options[{AU_OPTION_VALUE_ACQ}].selected=true;
+//document.getElementById("au_{AU_ID_ACQ}_dd_acq").options[{AU_OPTION_VALUE_ACQ}].selected=true;
+$('#au_{AU_ID_ACQ}_dd_acq').val('{AU_OPTION_VALUE_ACQ}');
 // <!-- END AU_DDSETTINGS_ACQ --> 
 {ACQUIRE_START}
 
