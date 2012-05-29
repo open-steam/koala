@@ -1,9 +1,9 @@
 <?php
 
-class Favorite extends AbstractExtension {
+class Map extends AbstractExtension {
 	
 	public function getName() {
-		return "Favorite";
+		return "Map";
 	}
 	
 	public function getDesciption() {

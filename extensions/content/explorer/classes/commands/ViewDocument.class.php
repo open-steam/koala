@@ -64,7 +64,7 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     $actionBar = new \Widgets\ActionBar();
                     $downloadUrl = getDownloadUrlForObjectId($this->id);
                     $actionBar->setActions(array(
-                        array("name" => "URL in neuem Fenster öffnen", "onclick" => "javascript:window.open('http://maps.google.de/maps?f=q&hl=de&q=" . $downloadUrl . "');return false;")
+                        array("name" => "URL in neuem Fenster öffnen", "onclick" => "javascript:window.open('http://maps.google.de/maps?f=q&hl=de&q=" . $downloadUrl . "&output=embed');return false;")
                     ));
 
                     $rawHtml = new \Widgets\RawHtml();
