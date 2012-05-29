@@ -63,12 +63,17 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
                                 if (strstr($mimetype, "text/plain")) {
                                     $bidDokument = new \BidDocument($object);
                                     $html = $bidDokument->get_content();
+                                    //$html = cleanHTML($html); //TODO
                                 }else{
                                     $html = cleanHTML($object->get_content());
-                                
+                                    
+                                    //make html modifications
+                                    $htmlDocument = new \HtmlDocument();
+                                    $html = $htmlDocument->makeEditorModifications($html);
+                                    //$html = cleanHTML($html); //TODO
                                 }
                                 
-                                
+                                /* test
 				$dirname = dirname($object->get_path()) . "/";
 				preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
 				$orig_matches = $matches[0];
@@ -86,7 +91,8 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 					}
 					$html = str_replace($orig_matches[$key], "src=\"$new_path\" data-mce-src=\"$path\"", $html);
 				}
-
+                                */
+                                
 				$contentText->setContentProvider( new \Widgets\TextContentDataProvider($html));
 				$clearer = new \Widgets\Clearer();
 				

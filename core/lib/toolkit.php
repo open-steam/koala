@@ -663,6 +663,52 @@ function cleanHTML($dirtyHTML) {
                     array('_blank', '_self', '_target', '_top')
     ));
     
+    
+    //videotag ok
+    $videotag = $def->addElement(
+    'video',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'src' => 'CDATA',
+        'width' => 'CDATA',
+        'height' => 'CDATA',
+        'preload' => 'CDATA'
+    )
+    );
+    
+
+    $audiotag = $def->addElement(
+    'audio',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'src' => 'CDATA',
+        'width' => 'CDATA',
+        'height' => 'CDATA',
+        'preload' => 'CDATA'
+    )
+    );
+   
+    
+    $videoObject = $def->addElement(
+    'object',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'src' => 'CDATA',
+        'width' => 'CDATA',
+        'height' => 'CDATA',
+        'preload' => 'CDATA'
+    )
+    );
+   
+    
+    //$videotag->excludes = array('form' => true); //test
+    
     $purifier = new HTMLPurifier($config);
     $dirtyHTML = $purifier->purify($dirtyHTML);
     //$tidy = tidy_parse_string($dirtyHTML);
