@@ -206,7 +206,7 @@ class BidDocument
     
     //obj id - works
     $content = preg_replace('/\[\[Bild:([0-9]*)\|(.*)\]\]/U',
-            '<img src="\1" alt="\2" title="\2">', $content);
+            '<img src="/Download/Document/\1" alt="\2" title="\2">', $content);
  
     
     /*

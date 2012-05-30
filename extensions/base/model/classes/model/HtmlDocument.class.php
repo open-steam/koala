@@ -35,7 +35,7 @@ class HtmlDocument
         $dirname = dirname($this->object->get_path()) . "/";
     }  
     else{
-        $dirname = "/";
+        $dirname = "";
     }
         
         
@@ -59,7 +59,7 @@ class HtmlDocument
     }
     
     
-
+    /*
     //document mod: replace not vaild srcs
     preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
     $orig_matches = $matches[0];
@@ -69,6 +69,7 @@ class HtmlDocument
         if (parse_url($path, PHP_URL_SCHEME) != null) {
             continue;
         }
+        var_dump($dirname . $path);
         $ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
         if ($ref_object instanceof \steam_object) {
             $new_path = PATH_URL . "Download/Document/" . $ref_object->get_id();
@@ -76,6 +77,34 @@ class HtmlDocument
             $new_path = PATH_URL . "styles/standard/images/404.jpg";
         }
         $html = str_replace($orig_matches[$key], "src=\"" . $new_path . "\"", $html);
+    }
+    
+    */
+    
+    
+    //test
+    //document mod: replace not vaild srcs for pics
+    preg_match_all('/<img.*src="(.*)".*>/iU', $html, $matches);
+    
+    $origMatches = $matches[0];
+    $pathMatches = $matches[1];
+    
+    foreach ($pathMatches as $key => $path) {
+        if(substr($path, 0, 19)=="/Download/Document/"){
+            $objectId = intval(substr($path, 19));
+        }else{
+            continue;
+        }
+        
+        try{
+            $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+            if(!($steamObject instanceof \steam_object)) throw new \steam_exception;
+            if($steamObject===NULL) throw new \steam_exception;
+        }  catch (\steam_exception $e){
+            //echo "fehler: objekt nicht gefunden";
+            $newPath = PATH_URL . "styles/standard/images/404.jpg";
+            $html = str_replace($origMatches[$key], "<img src=\"" . $newPath . "\">", $html);
+        }
     }
     
     
