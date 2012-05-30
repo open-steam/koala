@@ -28,7 +28,7 @@ class HtmlDocument
   
   
   //content with modifications
-  function makeViewModifications($html) {
+  function makeViewModifications($html, $steamObject=NULL) {
     
     //mod 0  
     if($this->object!==NULL){
@@ -36,6 +36,10 @@ class HtmlDocument
     }  
     else{
         $dirname = "";
+    }
+    
+    if($steamObject!==NULL){
+        $dirname = dirname($steamObject->get_path()) . "/";
     }
         
         
@@ -92,7 +96,6 @@ class HtmlDocument
     
     
     
-    
     //works for relative steam paths
     preg_match_all('/<img.*src="(.*)".*>/iU', $html, $matches);
     
@@ -105,13 +108,11 @@ class HtmlDocument
         }else{
             continue;
         }
-        //echo "try rel steam paths mod; ";
         try{
             $steamObject = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
             if(!($steamObject instanceof \steam_object)) throw new \steam_exception;
             if($steamObject===NULL) throw new \steam_exception;
         }  catch (\steam_exception $e){
-            //echo "fehler:rel steam paths: objekt nicht gefunden; ";
             $newPath = PATH_URL . "styles/standard/images/404.jpg";
             $html = str_replace($origMatches[$key], "<img src=\"" . $newPath . "\">", $html);
             continue;
@@ -199,7 +200,7 @@ class HtmlDocument
   
   
   
-  function makeEditorModifications($html) {
+  function makeEditorModifications($html, $steamObject=NULL) {
     
     //mod 0  
     if($this->object!==NULL){
@@ -207,6 +208,11 @@ class HtmlDocument
     }  
     else{
         $dirname = "/";
+    }
+    
+    
+    if($steamObject!==NULL){
+        $dirname = dirname($steamObject->get_path()) . "/";
     }
         
     
@@ -252,6 +258,33 @@ class HtmlDocument
     */
     
     
+    
+    //works for relative steam paths
+    preg_match_all('/<img.*src="(.*)".*>/iU', $html, $matches);
+    
+    $origMatches = $matches[0];
+    $pathMatches = $matches[1];
+    
+    foreach ($pathMatches as $key => $path) {
+        if(!(substr($path, 0, 19)=="/Download/Document/") && (!(substr($path, 0, 4)=="http"))){
+            //$path = $path;
+        }else{
+            continue;
+        }
+        try{
+            $steamObject = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
+            if(!($steamObject instanceof \steam_object)) throw new \steam_exception;
+            if($steamObject===NULL) throw new \steam_exception;
+        }  catch (\steam_exception $e){
+            $newPath = PATH_URL . "styles/standard/images/404.jpg";
+            $html = str_replace($origMatches[$key], "<img src=\"" . $newPath . "\">", $html);
+            continue;
+        }
+        
+        //here it is a real steam path
+        $newPath = PATH_URL . "Download/Document/" . $steamObject->get_id();
+        $html = str_replace($origMatches[$key], "<img src=\"" . $newPath . "\">", $html);
+    }
     
     
     

@@ -69,7 +69,7 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
                                     
                                     //make html modifications
                                     $htmlDocument = new \HtmlDocument();
-                                    $html = $htmlDocument->makeEditorModifications($html);
+                                    $html = $htmlDocument->makeEditorModifications($html, $object);
                                     //$html = cleanHTML($html); //TODO
                                 }
                                 
