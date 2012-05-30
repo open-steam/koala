@@ -285,13 +285,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
                 if ($sanctionCheck) {
                     $dropDownValue = 3;
-                    
                 } elseif ($writeCheck) {
                     $dropDownValue = 2;
-                    
                 } elseif ($readCheck) {
                     $dropDownValue = 1;
-                    
                 } else {
                     $dropDownValue = 0;
                 }
@@ -311,7 +308,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
                 $explodeLength = count($explodeName);
                 $lastExploteLength = count($lastExplotedArray);
-                 
+
                 $ddl = new \Widgets\DropDownList();
                 $ddl->setId("group_" . $id . "_dd");
                 $ddl->setName("ddlist");
@@ -319,30 +316,29 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $ddl->setSize("1");
                 $ddl->setDisabled(false);
                 
+                $optionValues = self::getOptionsValues(1);
                 //hack
                 if ($explodeLength > $lastExploteLength) {
                     if (($explodeName[0] == $lastExplotedArray[0]) && ($explodeName[$lastExploteLength - 1] == $lastExplotedArray[$lastExploteLength - 1])) {
                         $indentIndex = $lastIntendIndex + 1;
-                        if($dropDownValue == $lastDropDownValue){
-                            $ddl->setDisabled(true);                          
+                        if ($dropDownValue == $lastDropDownValue) {
+                            $ddl->setDisabled(true);
                             $optionValues = self::getOptionsValues($dropDownValue);
-                
-                            
                         }
                     }
                 } else if ($explodeLength == $lastExploteLength) {
                     if ($explodeName[0] == $lastExplotedArray[0]) {
                         $indentIndex = $lastIntendIndex;
-                         $ddl->setDisabled(true);
-                         $optionValues = self::getOptionsValues($dropDownValue);
-                        
+                        $ddl->setDisabled(true);
+                        $optionValues = self::getOptionsValues($dropDownValue);
                     }
                 } else {
                     $indentIndex = 1;
                     $optionValues = self::getOptionsValues(1);
                 }
-               $ddl->setOptionValues($optionValues);
                 
+                $ddl->setOptionValues($optionValues);
+
                 $lastExplotedArray = $explodeName;
                 $lastIntendIndex = $indentIndex;
 
@@ -355,7 +351,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $content->setVariable("GROUP_ID", $id);
                     $content->setVariable("GROUPNAME", $groupname);
                     $content->setVariable("OPTIONVALUE", $dropDownValue);
-                    $content->setVariable("INDENTINDEX", $indentIndex);                  
+                    $content->setVariable("INDENTINDEX", $indentIndex);
                     $content->setVariable("DROPDOWNLIST", $ddl->getHtml());
                     if (isset($favoritesMapping[$id])) {
                         $content->setVariable("IMG_PATH", $favPicUrl);
@@ -525,13 +521,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
     private static function getOptionsValues($dropDownValue) {
         $optionValues = array();
-        $optionValues[0]= "";
-        for($i=$dropDownValue;$i<=3;$i++){
-            if($i == 1){
-                $optionValues[1] = "Lesen"; 
-            }else if($i == 2){
+        $optionValues[0] = "";
+        for ($i = $dropDownValue; $i <= 3; $i++) {
+            if ($i == 1) {
+                $optionValues[1] = "Lesen";
+            } else if ($i == 2) {
                 $optionValues[2] = "Lesen und Schreiben";
-            }else if($i == 3){
+            } else if ($i == 3) {
                 $optionValues[3] = "Lesen, Schreiben und Berechtigen";
             }
         }
