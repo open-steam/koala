@@ -100,17 +100,18 @@ class HtmlDocument
     $pathMatches = $matches[1];
     
     foreach ($pathMatches as $key => $path) {
-        if(!(substr($path, 0, 19)=="/Download/Document/") && (substr($path, 0, 1)=="/")){
+        if(!(substr($path, 0, 19)=="/Download/Document/") && (!(substr($path, 0, 4)=="http"))){
             //$path = $path;
         }else{
             continue;
         }
+        //echo "try rel steam paths mod; ";
         try{
             $steamObject = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
             if(!($steamObject instanceof \steam_object)) throw new \steam_exception;
             if($steamObject===NULL) throw new \steam_exception;
         }  catch (\steam_exception $e){
-            //echo "fehler: objekt nicht gefunden";
+            //echo "fehler:rel steam paths: objekt nicht gefunden; ";
             $newPath = PATH_URL . "styles/standard/images/404.jpg";
             $html = str_replace($origMatches[$key], "<img src=\"" . $newPath . "\">", $html);
             continue;
