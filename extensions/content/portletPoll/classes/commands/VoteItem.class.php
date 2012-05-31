@@ -49,7 +49,7 @@ class VoteItem extends \AbstractCommand implements \IFrameCommand, \IIdCommand, 
 		$ajaxResponseObject->setStatus("ok");
 		$jswrapper = new \Widgets\JSWrapper();
 		$jswrapper->setJs(<<<END
-		alert("Ihre Stimme wurde gezählt");
+		alert("Die Stimme wurde gezählt.");
 		window.location.reload();
 END
 		);
