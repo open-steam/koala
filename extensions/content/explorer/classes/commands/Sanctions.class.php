@@ -317,6 +317,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $ddl->setDisabled(false);
                 
                 $optionValues = self::getOptionsValues(1);
+                
                 //hack
                 if ($explodeLength > $lastExploteLength) {
                     if (($explodeName[0] == $lastExplotedArray[0]) && ($explodeName[$lastExploteLength - 1] == $lastExplotedArray[$lastExploteLength - 1])) {
