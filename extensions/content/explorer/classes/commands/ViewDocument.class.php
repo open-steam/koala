@@ -61,18 +61,8 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                 
                 //document type: map
                 if ((strpos($objName, ".kml") !== false) || (strpos($objName, ".kmz") !== false)) {
-                    $actionBar = new \Widgets\ActionBar();
-                    $downloadUrl = getDownloadUrlForObjectId($this->id);
-                    $actionBar->setActions(array(
-                        array("name" => "URL in neuem Fenster öffnen", "onclick" => "javascript:window.open('http://maps.google.de/maps?f=q&hl=de&q=" . $downloadUrl . "&output=embed');return false;")
-                    ));
-
-                    $rawHtml = new \Widgets\RawHtml();
-                    $rawHtml->setHtml("<iframe height=\"800px\" width=\"100%\" src=\"http://maps.google.de/maps?f=q&hl=de&q=" . $downloadUrl . "\" scrolling=\"yes\"></iframe>");
-                    $frameResponseObject->setTitle($objName);
-                    $frameResponseObject->addWidget($actionBar);
-                    $frameResponseObject->addWidget($rawHtml);
-                    return $frameResponseObject;
+                    header("location: " . PATH_URL . "map/Index/" . $this->id . "/");
+                    die;
                 }
                 
                 

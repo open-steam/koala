@@ -227,7 +227,12 @@ function isGroupWorkroom($container) {
 
 function getObjectType($object) {
     if ($object instanceof \steam_document) {
-        $type = "document";
+        $objName=$object->get_name();
+        if ((strpos($objName, ".kml") !== false) || (strpos($objName, ".kmz") !== false)) {
+            $type = "map";
+        }else{
+            $type = "document";
+        }        
     } else if ($object instanceof \steam_messageboard) {
         $type = "forum";
     } else if ($object instanceof \steam_exit) {
