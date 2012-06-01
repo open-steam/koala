@@ -71,7 +71,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		// configuration got submitted
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_rapidfeedback"])) {
 			$rapidfeedback->set_name($_POST["title"]);
-			$rapidfeedback->set_attribute("OBJ_DESC", $_POST["desc"]);
+			$rapidfeedback->set_attribute("RAPIDFEEDBACK_DESC", $_POST["desc"]);
 			$rapidfeedback->set_attribute("RAPIDFEEDBACK_PARTICIPATION_TIMES", $_POST["times"]);
 			$rapidfeedback->set_attribute("RAPIDFEEDBACK_SHOW_PARTICIPANTS", $_POST["participants"]);
 			$rapidfeedback->set_attribute("RAPIDFEEDBACK_SHOW_CREATIONTIME", $_POST["creationtime"]);
@@ -146,8 +146,8 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("TITLE_LABEL", "Titel:*");
 		$content->setVariable("TITLE_VALUE", $rapidfeedback->get_name());
 		$content->setVariable("DESC_LABEL", "Beschreibung:");
-		if ($rapidfeedback->get_attribute("OBJ_DESC") != "0") {
-			$content->setVariable("DESC_VALUE", $rapidfeedback->get_attribute("OBJ_DESC"));
+		if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_DESC") != "0") {
+			$content->setVariable("DESC_VALUE", $rapidfeedback->get_attribute("RAPIDFEEDBACK_DESC"));
 		}
 		$content->setVariable("TIMES_LABEL", "Ausfüllen:");
 		$content->setVariable("ONE_TIME", "einfach");

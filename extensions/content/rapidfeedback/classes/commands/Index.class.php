@@ -108,15 +108,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				$content->setVariable("NO_SURVEYS", "Keine aktiven Fragebögen vorhanden.");
 			}
 			$content->setVariable("RAPIDFEEDBACK_NAME", $rapidfeedback->get_name());
-			if ($rapidfeedback->get_attribute("OBJ_DESC") != "0") {
-				$content->setVariable("RAPIDFEEDBACK_DESC", nl2br($rapidfeedback->get_attribute("OBJ_DESC")));
+			if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_DESC") != "0") {
+				$content->setVariable("RAPIDFEEDBACK_DESC", nl2br($rapidfeedback->get_attribute("RAPIDFEEDBACK_DESC")));
 			}
 			$content->parse("BLOCK_NO_SURVEYS");
 		} else {
 			$content->setCurrentBlock("BLOCK_SURVEY_TABLE");
 			$content->setVariable("RAPIDFEEDBACK_NAME", $rapidfeedback->get_name());
-			if ($rapidfeedback->get_attribute("OBJ_DESC") != "0") {
-				$content->setVariable("RAPIDFEEDBACK_DESC", nl2br($rapidfeedback->get_attribute("OBJ_DESC")));
+			if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_DESC") != "0") {
+				$content->setVariable("RAPIDFEEDBACK_DESC", nl2br($rapidfeedback->get_attribute("RAPIDFEEDBACK_DESC")));
 			}
 			$content->setVariable("NAME_LABEL", "Name des Fragebogens");
 			$content->setVariable("STATUS_LABEL", "Status");
@@ -192,7 +192,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				$content->setVariable("DELETE_TITLE", "Fragebogen löschen");
 				$content->setVariable("START_TITLE", "Fragebogen starten");
 				$content->setVariable("STOP_TITLE", "Fragebogen beenden");
-				$content->setVariable("REPEAT_TITLE", "Fragebogen wiederholen");
+				$content->setVariable("REPEAT_TITLE", "Fragebogen kopieren");
 				$content->setVariable("RF_VALUE", $rapidfeedback->get_id());
 				$content->setVariable("ELEMENT_ID", $survey->get_id());
 				if ($admin == 0) {
