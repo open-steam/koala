@@ -36,7 +36,7 @@ class EditTopicEntry extends \AbstractCommand implements \IFrameCommand, \IIdCom
 		$titel->setLabel("Titel");
 		$description->setLabel("Beschreibung");
 		$link->setLabel("Link-Adresse");
-		$newBrowser->setLabel("Link in einem neuen Fenster öffnen");
+		$newBrowser->setLabel("Link in einem </br>neuen Fenster öffnen");
 		
 		
 		$titel->setData($object);

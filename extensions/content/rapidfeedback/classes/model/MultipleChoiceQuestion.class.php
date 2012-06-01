@@ -100,7 +100,7 @@ class MultipleChoiceQuestion extends AbstractQuestion {
 		return $content->get();
 	}
 	
-	function getViewHTML($id, $error, $input = array()) {
+	function getViewHTML($id, $disabled, $error, $input = array()) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("questiontypes/multiplechoicequestion.template.html");
 		$content->setCurrentBlock("BLOCK_VIEW");
@@ -126,6 +126,9 @@ class MultipleChoiceQuestion extends AbstractQuestion {
 			$content->setVariable("OPTION_LABEL", $option);
 			if (in_array($counter, $input)) {
 				$content->setVariable("OPTION_CHECKED", "checked");
+			}
+			if ($disabled == 1) {
+				$content->setVariable("QUESTION_DISABLED", "disabled");
 			}
 			$content->parse("BLOCK_OPTION_VIEW");
 			$content->parse("BLOCK_COLUMN_VIEW");
@@ -179,6 +182,14 @@ class MultipleChoiceQuestion extends AbstractQuestion {
 			$content->parse("BLOCK_RESULTS");
 		}
 		return $content->get();
+	}
+	
+	function getIndividualResult($result) {
+		$return = array();
+		foreach ($result as $option) {
+			array_push($return, $this->options[$option]);
+		}
+		return $return;
 	}
 }
 ?>

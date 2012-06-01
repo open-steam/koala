@@ -15,7 +15,7 @@
 				<h2 style="margin:0px;">{QUESTION_TEXT}</h2>
 				{HELP_TEXT}
 				<br>
-				<textarea style="width: 99%;" disabled rows="4"></textarea>
+				<textarea style="width: 99%;" disabled rows="{ELEMENT_ROWS}"></textarea>
 			</td>
 		</tr>
 	</table>
@@ -30,7 +30,7 @@
 		<br>
 		{HELP_TEXT}
 		<br>
-		<textarea style="width: 99%" name="question{ELEMENT_ID}" rows="4">{ELEMENT_INPUT}</textarea>
+		<textarea style="width: 99%" name="question{ELEMENT_ID}" rows="{ELEMENT_ROWS}" {QUESTION_DISABLED}>{ELEMENT_INPUT}</textarea>
 	</td>
 </tr>
 <!-- END BLOCK_VIEW -->

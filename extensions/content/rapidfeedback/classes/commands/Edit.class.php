@@ -21,19 +21,26 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$RapidfeedbackExtension->addCSS();
 		$RapidfeedbackExtension->addJS();
-		$create_label = "Neue Umfrage erstellen";
+		$create_label = "Neuen Fragebogen erstellen";
 		
 		// access not allowed for non-admins
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
-		if (($staff instanceof \steam_group && !($staff->is_member($user))) || $staff instanceof \steam_user && !($staff->get_id() == $user->get_id())) {
+		$admin = 0;
+		foreach ($staff as $group) {
+			if ($group->is_member($user)) {
+				$admin = 1;
+				break;
+			}
+		}
+		if ($rapidfeedback->get_creator()->get_id() == $user->get_id()) {
+			$admin = 1;
+		}
+		// non admins are not allowed to edit survey
+		if ($admin == 0) {
 			$rawWidget = new \Widgets\RawHtml();
 			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
 			$frameResponseObject->addWidget($rawWidget);
-			$frameResponseObject->setHeadline(array(
-				array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id),
-				array("name" => "Umfrage erstellen/bearbeiten")
-			));
 			return $frameResponseObject;
 		}
 		
@@ -48,6 +55,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				}
 				$editID = $_POST["editRF"];
 			}
+			// if survey is active do not change survey structure, only update some settings
 			if ($active) {
 				$survey_object = new \Rapidfeedback\Model\Survey($survey_container);
 				$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey_container->get_path() . "/survey.xml");
@@ -79,9 +87,11 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 						switch ($questionValues[0]) {
 							case 0:
 								$newquestion = new \Rapidfeedback\Model\TextQuestion();
+								$newquestion->setInputLength($questionValues[4]);
 								break;
 							case 1:
 								$newquestion = new \Rapidfeedback\Model\TextareaQuestion();
+								$newquestion->setRows($questionValues[4]);
 								break;
 							case 2:
 								$newquestion = new \Rapidfeedback\Model\SingleChoiceQuestion();
@@ -131,10 +141,23 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 									$newquestion->addOption(array(rawurldecode($options[$count]), rawurldecode($options[$count+1])));
 								}
 								break;
+							case 7:
+								$newquestion = new \Rapidfeedback\Model\DescriptionLayoutElement();
+								$newquestion->setDescription(rawurldecode($questionValues[1]));
+								break;
+							case 8:
+								$newquestion = new \Rapidfeedback\Model\HeadlineLayoutElement();
+								$newquestion->setHeadline(rawurldecode($questionValues[1]));
+								break;
+							case 9:
+								$newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
+								break;
 						}
-						$newquestion->setQuestionText(rawurldecode($questionValues[1]));
-						$newquestion->setHelpText(rawurldecode($questionValues[2]));
-						$newquestion->setRequired($questionValues[3]);
+						if ($questionValues[0] < 7) {
+							$newquestion->setQuestionText(rawurldecode($questionValues[1]));
+							$newquestion->setHelpText(rawurldecode($questionValues[2]));
+							$newquestion->setRequired($questionValues[3]);
+						}
 						$survey_object->addQuestion($newquestion);
 					}
 				}
@@ -149,20 +172,49 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				} else {
 					$con = $survey_object->createSurvey();	
 					$editID = $con->get_id();
-					$frameResponseObject->setConfirmText("Umfrage erfolgreich erstellt.");
+					$frameResponseObject->setConfirmText("Fragebogen erfolgreich erstellt.");
 				}
 			}
 		}
 		
+		// display actionbar
+		$surveys = $rapidfeedback->get_inventory();
+		$surveyCount = 0;
+		foreach ($surveys as $survey) {
+			if ($survey instanceof \steam_object && (!$survey instanceof \steam_user)) {
+				$surveyCount++;
+			}
+		}
+		if ($surveyCount > 0) {
+			$actionbar = new \Widgets\Actionbar();
+			$actions = array(
+				array("name" => "Neuen Fragebogen erstellen" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id),
+				array("name" => "Import" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "import/" . $this->id),
+				array("name" => "Konfiguration" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "configuration/" . $this->id),
+				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id)
+			);
+			$actionbar->setActions($actions);
+		} else {
+			$actionbar = new \Widgets\Actionbar();
+			$actions = array(
+				array("name" => "Neuen Fragebogen erstellen" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id),
+				array("name" => "Import" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "import/" . $this->id),
+				array("name" => "Konfiguration" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "configuration/" . $this->id)
+			);
+			$actionbar->setActions($actions);
+		}
+		$frameResponseObject->addWidget($actionbar);
+		
+		// display edit form
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_edit.template.html");
 		$content->setCurrentBlock("BLOCK_CREATE_SURVEY");
-		$content->setVariable("CREATE_LABEL", "Umfrage erstellen");
-		$content->setVariable("TITLE_LABEL", "Titel:*");
+		$content->setVariable("CREATE_LABEL", "Fragebogen erstellen");
+		$content->setVariable("TITLE_LABEL", "Titel:");
 		$content->setVariable("BEGINTEXT_LABEL", "Willkommenstext:");
 		$content->setVariable("ENDTEXT_LABEL", "Abschlusstext:");
-		$content->setVariable("STARTTYPE_LABEL", "Starttyp:*");
+		$content->setVariable("STARTTYPE_LABEL", "Durchführungszeitraum:");
 		$content->setVariable("STARTTYPE0_LABEL", "Manuell");
-		$content->setVariable("STARTTYPE1_LABEL", "Automatisch");
+		$content->setVariable("STARTTYPE1_LABEL", "Zeitgesteuert");
 		$content->setVariable("START_LABEL", "von:");
 		$content->setVariable("END_LABEL", "bis:");
 		$content->setVariable("ELEMENT_COUNTER", 0);
@@ -178,6 +230,11 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("MATRIX_LABEL", "Matrix");
 		$content->setVariable("GRADING_LABEL", "Benotung");
 		$content->setVariable("TENDENCY_LABEL", "Tendenz");
+		$content->setVariable("ANSWER_LABEL", "Antwort");
+		$content->setVariable("AREA_ROWS", "Zeilen");
+		$content->setVariable("MAX_INPUT_LABEL", "Maximale Eingabelänge");
+		$content->setVariable("MAX_INPUT_HELP", "(0 = keine Beschränkung)");
+		$content->setVariable("AREA_ROWS_LABEL", "Textfeldhöhe");
 		$content->setVariable("ARRANGEMENT_LABEL", "Anordnung in");
 		$content->setVariable("SCALE_LABEL", "Skala");
 		$content->setVariable("STEPS_LABEL", "Schritte");
@@ -192,9 +249,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("SAVE_LABEL", "Speichern");
 		$content->setVariable("CANCEL_LABEL", "Abbrechen");
 		$content->setVariable("ADDQUESTION_LABEL", "Neue Frage hinzufügen");
-		$content->setVariable("CREATE_SURVEY", "Umfrage erstellen");
-		$content->setVariable("BACK_LABEL", "Zurück");
-		$content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id());
+		$content->setVariable("LAYOUTELEMENT_LABEL", "Layout-Element");
+		$content->setVariable("DESCRIPTIONLAYOUT_LABEL", "Beschreibung");
+		$content->setVariable("HEADLINELAYOUT_LABEL", "Überschrift");
+		$content->setVariable("PAGEBREAKLAYOUT_LABEL", "Seitenumbruch");
+		$content->setVariable("ADDLAYOUT_LABEL", "Neues Layout-Element hinzufügen");
+		$content->setVariable("CREATE_SURVEY", "Fragebogen erstellen");
 		
 		// if command is called with an object id load the corresponding survey data
 		if ($editID == 0 && isset($this->params[1])) {
@@ -214,8 +274,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				$content->setVariable("STARTTYPE_FIRST", "");
 				$content->setVariable("STARTTYPE_SECOND", "checked");
 				$content->setVariable("DISPLAY_DATEPICKER", "");
-				$content->setVariable("BEGIN_VALUE", date('d.m.Y', $starttype[1]));
-				$content->setVariable("END_VALUE", date('d.m.Y', $starttype[0]));
+				$content->setVariable("BEGIN_VALUE", date('d.m.Y H:i', $starttype[1]));
+				$content->setVariable("END_VALUE", date('d.m.Y H:i', $starttype[0]));
 			}
 			$questions = $survey_object->getQuestions();
 			$question_html = "";
@@ -228,7 +288,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("ELEMENT_COUNTER", $id_counter);
 			$content->setVariable("QUESTIONS_HTML", $question_html);
 			$content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id());
-			$content->setVariable("CREATE_LABEL", "Umfrage bearbeiten");
+			$content->setVariable("CREATE_LABEL", "Fragebogen bearbeiten");
 			$content->setVariable("CREATE_SURVEY", "Änderungen speichern");
 			$create_label = "Umfrage bearbeiten";
 			if ($survey->get_attribute("RAPIDFEEDBACK_STATE") == 1) {
@@ -244,10 +304,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
-		$frameResponseObject->setHeadline(array(
-			array("name" => "Rapid Feedback", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id()),
-			array("name" => $create_label)
-		));
 		return $frameResponseObject;
 	}
 }

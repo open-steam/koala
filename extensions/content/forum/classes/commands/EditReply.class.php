@@ -58,7 +58,12 @@ class EditReply extends \AbstractCommand implements \IFrameCommand, \IAjaxComman
 
 
 		$dialog = new \Widgets\Dialog();
-		$dialog->setTitle("Bearbeite aktuelles Thema »" . getCleanName($object) . "«");
+                if($title !== ""){
+                    $dialog->setTitle("Bearbeite aktuelles Thema »" . getCleanName($object) . "«");
+                }else{
+                    $dialog->setTitle("Bearbeite aktuelles Thema");
+                }
+		
 
 		$clearer = new \Widgets\Clearer();
 

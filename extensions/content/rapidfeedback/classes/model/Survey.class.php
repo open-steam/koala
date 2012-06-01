@@ -61,6 +61,10 @@ class Survey extends \AbstractObjectModel {
 		if ($old == null) {
 			$survey_container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "rapidfeedback_" . time(), $this->rapidfeedback, $this->name);
 			$results_container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "results", $survey_container, "container for results");
+			$groups = $this->rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
+			foreach ($groups as $group) {
+				$results_container->set_sanction($group, SANCTION_READ | SANCTION_WRITE | SANCTION_INSERT);
+			}
 		} else {
 			$survey_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $old);
 			$survey_container->set_attribute("OBJ_DESC", $this->name);
@@ -69,9 +73,8 @@ class Survey extends \AbstractObjectModel {
 		
 		if ($survey_container->get_attribute("RAPIDFEEDBACK_STATE") == 0 || $survey_container->get_attribute("RAPIDFEEDBACK_STATE") == "0") {
 			$survey_container->set_attribute("RAPIDFEEDBACK_STATE", 0);
-			$survey_container->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
-			$survey_container->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
-			$survey_container->set_attribute("RAPIDFEEDBACK_QUESTIONS", count($this->questions));
+			$results_container->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
+			$results_container->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
 		}
 		
 		if ($this->starttype == 0) {
@@ -91,10 +94,20 @@ class Survey extends \AbstractObjectModel {
        	$xml->addChild("name", $this->name);
        	$xml->addChild("begintext", $this->begintext);
        	$xml->addChild("endtext", $this->endtext);
+       	$questionCount = 0;
+       	$pageCount = 1;
 		foreach ($this->questions as $question) {
 			$xml_question = $xml->addChild("question");
 			$question->saveXML($xml_question);
+			if ($question instanceof AbstractQuestion) {
+				$questionCount++;
+			}
+			if ($question instanceof PageBreakLayoutElement) {
+				$pageCount++;
+			}
 		}
+		$survey_container->set_attribute("RAPIDFEEDBACK_QUESTIONS", $questionCount);
+		$survey_container->set_attribute("RAPIDFEEDBACK_PAGES", $pageCount);
 		
 		if ($old == null) {
 			$xml_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), "survey.xml", $xml->saveXML(), "text/xml", $survey_container);
@@ -135,6 +148,15 @@ class Survey extends \AbstractObjectModel {
 				case 6:
 					$new_question = new \Rapidfeedback\Model\TendencyQuestion($question);
 					break;
+				case 7:
+					$new_question = new \Rapidfeedback\Model\DescriptionLayoutElement($question);
+					break;
+				case 8:
+					$new_question = new \Rapidfeedback\Model\HeadlineLayoutElement($question);
+					break;
+				case 9:
+					$new_question = new \Rapidfeedback\Model\PageBreakLayoutElement($question);
+					break;
 			}
 			array_push($questions, $new_question);
 		}
@@ -149,19 +171,41 @@ class Survey extends \AbstractObjectModel {
 		$result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $container->get_path() . "/results");
 		$result_objects = $result_container->get_inventory();
 		foreach ($result_objects as $result_object) {
-			if ($result_object instanceof \steam_document) {
-				for ($count = 0; $count < count($this->questions); $count++) {
-					if ($result_object->get_attribute("RAPIDFEEDBACK_ANSWER_" . $count) != -1) {
-						array_push($results[$count], $result_object->get_attribute("RAPIDFEEDBACK_ANSWER_" . $count));
+			if ($result_object instanceof \steam_document && $result_object->get_attribute("RAPIDFEEDBACK_RELEASED") != 0) {
+				$questionCount = 0;
+				foreach ($this->questions as $question) {
+					if ($question instanceof AbstractQuestion) {
+						if ($result_object->get_attribute("RAPIDFEEDBACK_ANSWER_" . $questionCount) != -1) {
+							array_push($results[$questionCount], $result_object->get_attribute("RAPIDFEEDBACK_ANSWER_" . $questionCount));
+						}
+						$questionCount++;
 					}
 				}
 			}
 		}
-		$counter = 0;
+		$questionCount = 0;
 		foreach ($this->questions as $question) {
-			$question->setResults($results[$counter]);
-			$counter++;
+			if ($question instanceof AbstractQuestion) {
+				$question->setResults($results[$questionCount]);
+				$questionCount++;
+			}
 		}
+	}
+	
+	public function getIndividualResult($resultfile) {
+		$result = array();
+		$questionCount = 0;
+		foreach ($this->questions as $question) {
+			if ($question instanceof AbstractQuestion) {
+				if ($resultfile->get_attribute("RAPIDFEEDBACK_ANSWER_" . $questionCount) != -1) {
+					$result[$questionCount] = $question->getIndividualResult($resultfile->get_attribute("RAPIDFEEDBACK_ANSWER_" . $questionCount));
+				} else {
+					$result[$questionCount] = array("");
+				}
+				$questionCount++;
+			}
+		}
+		return $result;
 	}
 }
 ?>

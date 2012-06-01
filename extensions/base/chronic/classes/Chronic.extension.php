@@ -51,8 +51,8 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 $this->updateChronic("cmd:".$namespace.":".$command);
         }
         
-        public function setCurrentPath($path) {
-                $this->updateChronic("pth:".$path);
+        public function setCurrentPath($path,$title) {
+                $this->updateChronic("pth:".$path.":".$title);
         }
         
         public function setCurrentOther($other) {
@@ -67,11 +67,10 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 		$chronic = $this->loadChronic();
                 $startBackIndex = 1;
                 
-                while(isset($chronic[$startBackIndex])){
+                if(isset($chronic[$startBackIndex])){
                    $steamObject = $this->getEntryObject($chronic[$startBackIndex]); 
                    if($steamObject===FALSE || ($steamObject->get_attribute("bid:presentation")==="index")){
                        $startBackIndex++;
-                       continue;
                    }
                        
                    $backEntry = $chronic[$startBackIndex];
@@ -108,18 +107,20 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 try{
                     $environmentObject = $steamObject->get_environment();
                     if("0"==$environmentObject) throw new \steam_exception;
-                    if($environmentObject instanceof \steam_object) throw new \steam_exception;
+                    if(!($environmentObject instanceof \steam_object)) throw new \steam_exception;
+                
+                    //is Presentation, autoforward case
+                        if($environmentObject->get_attribute("bid:presentation")==="index"){ 
+                        $environmentObject = $environmentObject->get_environment();
+                    }
                 }catch (\steam_exception $e){
                     //no environment
                     return "";
                 }
                 
-                //is Presentation, autoforward case
-                while($environmentObject->get_attribute("bid:presentation")==="index"){ 
-                    $environmentObject = $environmentObject->get_environment();
-                }
                 return array("name" => "nach oben ( <img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($environmentObject)."\"></img> " . getCleanName($environmentObject, 20) . " )", "link" => $this->getEntryPath("oid:".$environmentObject->get_id()));
             }
+            
             return "";
         }
        
@@ -182,10 +183,12 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 return getCleanName($steamObject);
             }
             else if($entryType=="cmd"){
+                //not yet supported
                 return "command";
             }
             else if($entryType=="pth"){
-                return "path";
+                $name = $content[2];
+                return $name;
             }
             else if($entryType=="oth"){
                 $type = $content[1];
@@ -216,10 +219,12 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 }
             }
             else if($entryType=="cmd"){
+                //not yet supported 
                 return "command";
             }
             else if($entryType=="pth"){
-                return "path";
+                $path = $content[1];
+                return $path;
             }
             else if($entryType=="oth"){
                 $type = $content[1];

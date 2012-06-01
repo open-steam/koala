@@ -151,13 +151,25 @@ class BidDocument
   * Get text content with \n\r exchanged with <br>
   * @access   private
   **/
-  function _get_textplain($config_webserver_ip, $content)
-  {
+  function _get_textplain($config_webserver_ip, $content){
     $content = preg_replace('/\r/', '', $content);
     $content = preg_replace('/\{\{([^}}|\|]*)\|(.*)\}\}/', '<span class="note" title="\2" style="cursor:pointer;">\1</span>', $content);
     $content = preg_replace('/\{\{(.*)\}\}/', '<span class="marked">\1</span>', $content);
-    $content = preg_replace('/\[http(.*?)\ (.*)\]/', '<a href="http\1" target="_new">\2</a>', $content);
-    $content = preg_replace('/\[http(.*)\]/', '<a href="http\1" target="_new">http\1</a>', $content);
+    
+    //link extern
+    function replace_callback_url($match){
+    if(isset($match[4])){
+        return sprintf('<a href="%s">%s</a>', $match[1], $match[4]);
+    } else {
+        return sprintf('<a href="%s">%s</a>', $match[1], $match[1]);
+    }
+    }
+    
+    $pattern = "~\[(http(s)?://([^\]\s]*))(\s(.*?))?\]~i";
+    $content = preg_replace_callback($pattern, "replace_callback_url", $content);
+
+
+    
     $content = preg_replace('/\'\'\'(.*)\'\'\'/U', '<strong>\1</strong>', $content);
     $content = preg_replace('/\'\'(.*)\'\'/U', '<em>\1</em>', $content);
     $content = preg_replace('/=====(.*)=====/', '<h4>\1</h4>', $content);
@@ -165,8 +177,68 @@ class BidDocument
     $content = preg_replace('/===(.*)===/', '<h2>\1</h2>', $content);
     $content = preg_replace('/==(.*)==/', '<h1>\1</h1>', $content);
     $content = preg_replace('/^----$/m', '<hr>', $content);
-    $content = preg_replace('/^\*(.*)/m', '<div class="unnumbered">\1</div>', $content);
-	$content = preg_replace('/^#(.*)/m', '<div class="numbered">\1</div>', $content);
+    
+    
+    
+    //lists
+    //$content = preg_replace('/^\*(.*)/m', '<div class="unnumbered">\1</div>', $content); //old bid regex
+    //$content = preg_replace('/^#(.*)/m', '<div class="numbered">\1</div>', $content); //old bid regex
+    
+    $content = str_replace("\r\n", "\n", $content);
+    $lines = explode("\n", $content);
+    $contentNew = "";
+    
+    $inNumberedList = false;    //ol
+    $inUnnumberedList = false;  //ul
+    
+    foreach ($lines as $line) {
+        //begin a list
+        if(!$inNumberedList && substr($line, 0,1)=="#"){
+            $cleanedLine = substr($line,1);
+            $contentNew.="<ol><li>".$cleanedLine."</li>\n";
+            $inNumberedList = true;
+        } else
+        
+        if(!$inUnnumberedList && substr($line, 0,1)=="*"){
+            $cleanedLine = substr($line,1);
+            $contentNew.="<ul><li>".$cleanedLine."</li>\n";
+            $inUnnumberedList=true;
+        } else
+
+            
+        //inside a list
+        if($inNumberedList && substr($line, 0,1)=="#"){
+            $cleanedLine = substr($line,1);
+            $contentNew.="<li>".$cleanedLine."</li>\n";
+        } else
+        
+        if($inUnnumberedList && substr($line, 0,1)=="*"){
+            $cleanedLine = substr($line,1);
+            $contentNew.="<li>".$cleanedLine."</li>\n";
+        } else
+        
+        
+        //end a list
+        if($inUnnumberedList && substr($line, 0,1)!="*"){
+            $cleanedLine = substr($line,1);
+            $inUnnumberedList = false;
+            $contentNew.="</ul>".$cleanedLine."\n";
+        } else
+            
+        if($inNumberedList && substr($line, 0,1)!="#"){
+            $cleanedLine = substr($line,1);
+            $inNumberedList = false;
+            $contentNew.="</ol>".$cleanedLine."\n";
+        } else
+            
+        //not in a list
+        $contentNew.=$line."\n";
+    }
+    
+    $content = $contentNew;
+    
+    
+    //table
     $content = preg_replace('/^\{\|(.*)$/m', '<table \1><tr>', $content);
     $content = preg_replace('/^\|\}$/m', '</tr></table>', $content);
     $content = preg_replace('/^\|-$/m', '</tr><tr>', $content);
@@ -174,21 +246,166 @@ class BidDocument
     $content = preg_replace('/^\!(.*)$/m', '<th>\1</th>', $content);
 
     $path = substr($this->object->get_path(), 0, strrpos($this->object->get_path(), "/")) . "/";
-    $content = preg_replace('/\[\[Bild:http:([^|]*)\|(.*)\]\]/U', '<div class="wikiimage"><img src="http:\1" alt="\2" title="\2"></div>', $content);
-    $content = preg_replace('/\[\[Bild:\/([^|]*)\|(.*)\]\]/U', '<div class="wikiimage"><img src="' . $config_webserver_ip . '/tools/get.php?object=/\1" alt="\2" title="\2"></div>', $content);
-    $content = preg_replace('/\[\[Bild:([0-9]*)\|(.*)\]\]/U', '<div class="wikiimage"><img src="' . $config_webserver_ip . '/tools/get.php?object=\1" alt="\2" title="\2"></div>', $content);
-    $content = preg_replace('/\[\[Bild:([^\]\]]*)\|(.*)\]\]/U', '<div class="wikiimage"><img src="' . $config_webserver_ip . '/tools/get.php?object=' . $path . '\1" alt="\2" title="\2"></div>', $content);
-    $content = preg_replace('/\[\[Audio:http:([^\]\]]*)\]\]/U', '<div class="wikiaudio"><object type="application/x-shockwave-flash" data="' . $config_webserver_ip . '/tools/emff_lila_info.swf" width="200" height="55"><param name="movie" value="' . $config_webserver_ip . '/tools/emff_lila_info.swf" /><param name="FlashVars" value="src=http:\1" /></object></div>', $content);
-    $content = preg_replace('/\[\[Audio:\/([^\]\]]*)\]\]/U', '<div class="wikiaudio"><object type="application/x-shockwave-flash" data="' . $config_webserver_ip . '/tools/emff_lila_info.swf" width="200" height="55"><param name="movie" value="' . $config_webserver_ip . '/tools/emff_lila_info.swf" /><param name="FlashVars" value="src=' . $config_webserver_ip . '/tools/get.php?object=/\1" /></object></div>', $content);
-    $content = preg_replace('/\[\[Audio:([0-9]*)\]\]/U', '<div class="wikiaudio"><object type="application/x-shockwave-flash" data="' . $config_webserver_ip . '/tools/emff_lila_info.swf" width="200" height="55"><param name="movie" value="' . $config_webserver_ip . '/tools/emff_lila_info.swf" /><param name="FlashVars" value="src=' . $config_webserver_ip . '/tools/get.php?object=\1" /></object></div>', $content);
-    $content = preg_replace('/\[\[Audio:([^\]\]]*)\]\]/U', '<div class="wikiaudio"><object type="application/x-shockwave-flash" data="' . $config_webserver_ip . '/tools/emff_lila_info.swf" width="200" height="55"><param name="movie" value="' . $config_webserver_ip . '/tools/emff_lila_info.swf" /><param name="FlashVars" value="src=' . $config_webserver_ip . '/tools/get.php?object=' . $path . '\1" /></object></div>', $content);
-    $content = preg_replace('/\[\[Video:http:([^\]\]]*)\]\]/U', '<div class="wikivideo"><embed src="' . $config_webserver_ip . '/tools/mediaplayer.swf" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file=http:\1&autostart=false" /></div>', $content);
-    $content = preg_replace('/\[\[Video:\/([^\]\]]*)\]\]/U', '<div class="wikivideo"><embed src="' . $config_webserver_ip . '/tools/mediaplayer.swf" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file=' . $config_webserver_ip . '/tools/get.php?object=/\1&autostart=false" /></div>', $content);
-    $content = preg_replace('/\[\[Video:([0-9]*)\]\]/U', '<div class="wikivideo"><embed src="' . $config_webserver_ip . '/tools/mediaplayer.swf" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file=' . $config_webserver_ip . '/download/\1/video.flv&autostart=false" /></div>', $content);
-    $content = preg_replace('/\[\[Video:([^\]\]]*)\]\]/U', '<div class="wikivideo"><embed src="' . $config_webserver_ip . '/tools/mediaplayer.swf" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file=' . $config_webserver_ip . '/tools/get.php?object=' . $path . '\1&autostart=false" /></div>', $content);
+    
+    
+    //$config_webserver_ip = "localhost";
+    
+    //bilder
+    /*
+    $content = preg_replace('/\[\[Bild:http:([^|]*)\|(.*)\]\]/U',
+            '<div class="wikiimage"><img src="http:\1" alt="\2" title="\2"></div>', $content);
+    
+    $content = preg_replace('/\[\[Bild:\/([^|]*)\|(.*)\]\]/U',
+            '<div class="wikiimage"><img src="' . $config_webserver_ip . '/tools/get.php?object=/\1" alt="\2" title="\2"></div>', $content);
+    
+    $content = preg_replace('/\[\[Bild:([0-9]*)\|(.*)\]\]/U',
+            '<div class="wikiimage"><img src="' . $config_webserver_ip . '/tools/get.php?object=\1" alt="\2" title="\2"></div>', $content);
+    
+    $content = preg_replace('/\[\[Bild:([^\]\]]*)\|(.*)\]\]/U',
+            '<div class="wikiimage"><img src="' . $config_webserver_ip . '/tools/get.php?object=' . $path . '\1" alt="\2" title="\2"></div>', $content);
+    */
+    
+    
+    //ext url - works
+    $content = preg_replace('/\[\[Bild:http:([^|]*)\|(.*)\]\]/U',
+            '<img src="http:\1" alt="\2" title="\2">', $content);
+    
+    /*
+    //abs path - not supported
+    $content = preg_replace('/\[\[Bild:\/([^|]*)\|(.*)\]\]/U',
+            '<div class="wikiimage"><img src="' . $config_webserver_ip . '/Download/Document/\1/" alt="\2" title="\2"></div>', $content);
+    */
+    
+    //obj id - works
+    $content = preg_replace('/\[\[Bild:([0-9]*)\|(.*)\]\]/U',
+            '<img src="/Download/Document/\1" alt="\2" title="\2">', $content);
+ 
+    
+    /*
+    //rel path - not supported
+    $content = preg_replace('/\[\[Bild:([^\]\]]*)\|(.*)\]\]/U',
+            '<div class="wikiimage"><img src="' . $config_webserver_ip . '/tools/get.php?object=' . $path . '\1" alt="\2" title="\2"></div>', $content);
+    */
+    
+    
+    
+    //old atuff
+    /*
+    //audio
+    //extern
+    $content = preg_replace('/\[\[Audio:http:([^\]\]]*)\]\]/U',
+            '<div class="wikiaudio"><object type="application/x-shockwave-flash" data="' . $config_webserver_ip . '/tools/emff_lila_info.swf" width="200" height="55"><param name="movie" value="' . $config_webserver_ip . '/tools/emff_lila_info.swf" /><param name="FlashVars" value="src=http:\1" /></object></div>', $content);
+    
+    //abs path
+    $content = preg_replace('/\[\[Audio:\/([^\]\]]*)\]\]/U',
+            '<div class="wikiaudio"><object type="application/x-shockwave-flash" data="' . $config_webserver_ip . '/tools/emff_lila_info.swf" width="200" height="55"><param name="movie" value="' . $config_webserver_ip . '/tools/emff_lila_info.swf" /><param name="FlashVars" value="src=' . $config_webserver_ip . '/tools/get.php?object=/\1" /></object></div>', $content);
+    
+    //object id
+    $content = preg_replace('/\[\[Audio:([0-9]*)\]\]/U',
+            '<div class="wikiaudio"><object type="application/x-shockwave-flash" data="' . $config_webserver_ip . '/tools/emff_lila_info.swf" width="200" height="55"><param name="movie" value="' . $config_webserver_ip . '/tools/emff_lila_info.swf" /><param name="FlashVars" value="src=' . $config_webserver_ip . '/tools/get.php?object=\1" /></object></div>', $content);
+    
+    //rel path
+    $content = preg_replace('/\[\[Audio:([^\]\]]*)\]\]/U',
+            '<div class="wikiaudio"><object type="application/x-shockwave-flash" data="' . $config_webserver_ip . '/tools/emff_lila_info.swf" width="200" height="55"><param name="movie" value="' . $config_webserver_ip . '/tools/emff_lila_info.swf" /><param name="FlashVars" value="src=' . $config_webserver_ip . '/tools/get.php?object=' . $path . '\1" /></object></div>', $content);
+    
+    
+    //video
+    //extern
+    $content = preg_replace('/\[\[Video:http:([^\]\]]*)\]\]/U',
+            '<div class="wikivideo"><embed src="' . $config_webserver_ip . '/tools/mediaplayer.swf" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file=http:\1&autostart=false" /></div>', $content);
+    
+    //abs path
+    $content = preg_replace('/\[\[Video:\/([^\]\]]*)\]\]/U',
+            '<div class="wikivideo"><embed src="' . $config_webserver_ip . '/tools/mediaplayer.swf" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file=' . $config_webserver_ip . '/tools/get.php?object=/\1&autostart=false" /></div>', $content);
+    
+    //object id
+    $content = preg_replace('/\[\[Video:([0-9]*)\]\]/U',
+            '<div class="wikivideo"><embed src="' . $config_webserver_ip . '/tools/mediaplayer.swf" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file=' . $config_webserver_ip . '/download/\1/video.flv&autostart=false" /></div>', $content);
+    
+    //rel path
+    $content = preg_replace('/\[\[Video:([^\]\]]*)\]\]/U',
+            '<div class="wikivideo"><embed src="' . $config_webserver_ip . '/tools/mediaplayer.swf" width="300" height="220" allowscriptaccess="always" allowfullscreen="true" flashvars="width=300&height=220&file=' . $config_webserver_ip . '/tools/get.php?object=' . $path . '\1&autostart=false" /></div>', $content);
+    */
+    
+    
+    
+    
+    //audio
+    //extern
+    $content = preg_replace('/\[\[Audio:http:([^\]\]]*)\]\]/U',
+            '<audio src="http:\1"></audio>', $content);
+    
+ 
+    //object id
+    $content = preg_replace('/\[\[Audio:([0-9]*)\]\]/U',
+            '<audio src="/Download/Document/\1"></audio>', $content);
+  
+    
+    //video
+    //extern
+    $content = preg_replace('/\[\[Video:http:([^\]\]]*)\]\]/U',
+            '<video src="http:\1"></video>', $content);
+    
+    $content = preg_replace('/\[\[Video:https:([^\]\]]*)\]\]/U',
+            '<video src="https:\1"></video>', $content);
+    
+    //object id
+    $content = preg_replace('/\[\[Video:([0-9]*)\]\]/U',
+            '<video src="/Download/Document/\1"></video>', $content);
+    
+    
+  
+    
+    //link, intern
     $content = preg_replace('/\[\[([^\]\]|\|]*)\|([^\]\]]*)\]\]/', '<a href="' . $config_webserver_ip . $path . '\1" target="_top">\2</a>', $content);
     $content = preg_replace('/\[\[([^\]\]]*)\]\]/', '<a href="' . $config_webserver_ip . $path . '\1" target="_top">\1</a>', $content);
+    
+    /*
+    //link case 1
+    preg_match_all('/\[\[([^\]\]|\|]*)\|([^\]\]]*)\]\]/', $html, $matches);
+    
+    $origMatches = $matches[0];
+    $pathMatches = $matches[1];
+    
+    
+    foreach ($pathMatches as $key => $path) {
+        if(!(substr($path, 0, 19)=="/Download/Document/") && (!(substr($path, 0, 4)=="http"))){
+            //$path = $path;
+        }else{
+            continue;
+        }
+        try{
+            $steamObject = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
+            if(!($steamObject instanceof \steam_object)) throw new \steam_exception;
+            if($steamObject===NULL) throw new \steam_exception;
+        }  catch (\steam_exception $e){
+            $new_path = PATH_URL . "404/";
+            //$html = str_replace($origMatches[$key], "<img src=\"" . $newPath . "\">", $html);
+            continue;
+        }
+        
+        //here it is a real steam path
+        $newPath = PATH_URL . "Download/Document/" . $steamObject->get_id();
+        $html = str_replace($orig_matches[$key], "href=\"" . $new_path . "\"", $html);
+    }
+    */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //p
     $content = preg_replace('/^$/m', '</p><p>', $content);
+    
+    
+    
+    
 //    $content = preg_replace('/\n\n(.*)\n\n/m', '<p>*\1*</p>', $content);
     return $content;
 #	$content = eregi_replace("\r", '', $content);

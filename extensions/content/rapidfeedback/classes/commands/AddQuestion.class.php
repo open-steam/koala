@@ -18,9 +18,11 @@ class AddQuestion extends \AbstractCommand implements \IAjaxCommand {
 		switch (intval($this->params["questionType"])) {
 			case 0:
 				$newquestion = new \Rapidfeedback\Model\TextQuestion();
+				$newquestion->setInputLength(intval($this->params["questionInputLength"]));
 				break;
 			case 1:
 				$newquestion = new \Rapidfeedback\Model\TextAreaQuestion();
+				$newquestion->setRows(intval($this->params["questionRows"]));
 				break;
 			case 2:
 				$newquestion = new \Rapidfeedback\Model\SingleChoiceQuestion();

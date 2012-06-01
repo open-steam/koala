@@ -43,7 +43,7 @@
 							<li id="newquestion" class="ui-state-default-rf" style="display:none">
 								<table width="100%">
 									<tr>
-										<td width="20%" class="label" style="padding:3px 5px 0px 0px;">{QUESTION_LABEL}:*</td>
+										<td width="20%" class="label" style="padding:3px 5px 0px 0px;">{QUESTION_LABEL}:</td>
 										<td width="80%" style="padding:0px;">
 											<input type="text" name="question" id="questionText" style="width: 100%">
 										</td>
@@ -55,7 +55,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="label" style="padding:6px 5px 0px 0px;">{QUESTIONTYPE_LABEL}:*</td>
+										<td class="label" style="padding:6px 5px 0px 0px;">{QUESTIONTYPE_LABEL}:</td>
 										<td style="padding:0px;">
 											<select name="questionType" id="questionType" onchange="changeCreateDialog(options[selectedIndex].value);">
 												<option value="0">{TEXTQUESTION_LABEL}</option>
@@ -71,8 +71,18 @@
 									<tr>
 										<td style="padding:3px 5px 0px 0px;"></td>
 										<td style="padding:5px 0px 0px 0px;">
-											<input id="text_preview" style="border: 1.5px dotted; width: 100%" type="text" value="Antwort" disabled>
-											<textarea id="textarea_preview" style="border: 1.5px dotted; width: 100%; display: none;" disabled rows="4">Antwort</textarea>
+											<div id="text_preview">
+												<b>{MAX_INPUT_LABEL}:</b>
+												<input type="text" id="textquestionLength" size="3"> {MAX_INPUT_HELP}
+												<br><br>
+												<input style="border: 1.5px dotted; width: 100%" type="text" value="{ANSWER_LABEL}" disabled>
+											</div>
+											<div id="textarea_preview">
+												<b>{AREA_ROWS_LABEL}:</b>
+												<input type="text" id="textareaRows" size="3" value="4">{AREA_ROWS}
+												<br><br>
+												<textarea style="border: 1.5px dotted; width: 100%;" disabled rows="4">{ANSWER_LABEL}</textarea>
+											</div>
 											<div id="singlechoice_preview" style="display:none;">
 												<b>{ARRANGEMENT_LABEL}:</b>
 												<select id="singleChoiceColumns">
@@ -200,9 +210,43 @@
 									</tr>
 								</table>
 							</li>
+							<li id="newlayout" class="ui-state-default-rf" style="display:none">
+								<table width="100%">
+									<tr>
+										<td class="label" style="padding:6px 5px 0px 0px; width:177px;">{LAYOUTELEMENT_LABEL}:</td>
+										<td style="padding:0px;">
+											<select name="layoutType" id="layoutType" onchange="changeLayoutDialog(options[selectedIndex].value);">
+												<option value="7">{DESCRIPTIONLAYOUT_LABEL}</option>
+												<option value="8">{HEADLINELAYOUT_LABEL}</option>
+												<option value="9">{PAGEBREAKLAYOUT_LABEL}</option>
+											</select>
+										</td>
+									</tr>
+									<tr id="description_preview">
+										<td width="20%" class="label" style="padding:3px 5px 0px 0px;">{DESCRIPTIONLAYOUT_LABEL}:</td>
+										<td width="80%" style="padding:0px;">
+											<textarea name="layout_description" id="layout_description" style="width: 100%"></textarea>
+										</td>
+									</tr>
+									<tr id="headline_preview" style="display:none;">
+										<td width="20%" class="label" style="padding:3px 5px 0px 0px;">{HEADLINELAYOUT_LABEL}:</td>
+										<td width="80%" style="padding:0px;">
+											<input type="text" name="layout_headline" id="layout_headline" style="width: 100%">
+										</td>
+									</tr>
+									<tr>
+										<td style="padding:3px 5px 0px 0px;"></td>
+										<td style="padding:0px;">
+											<a class="button" onclick="addLayoutElement();">{SAVE_LABEL}</a>
+											<a class="button" onclick="hideLayoutDialog();">{CANCEL_LABEL}</a>
+										</td>
+									</tr>
+								</table>
+							</li>
 						</ul>
 						<div id="newquestion_button" align="center">
 							<a class="button" onclick="showCreateDialog();">{ADDQUESTION_LABEL}</a>
+							<a class="button" onclick="showLayoutDialog();">{ADDLAYOUT_LABEL}</a>
 						</div>
 					</td>
 				</tr>
@@ -210,7 +254,6 @@
 					<td colspan="2">
 						<div style="text-align:center" class="buttons">
 							<input type="submit" value="{CREATE_SURVEY}" name="create_survey" onclick="">
-							<a class="button" href="{BACK_URL}">{BACK_LABEL}</a>
 						</div>
 					</td>
 				</tr>

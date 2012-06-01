@@ -37,16 +37,18 @@ define("SERVERMENU", false);
 define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome");
 /* config for development
 define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
-								. "DocumentObject, DocumentPlainObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, "
+								. "DocumentObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map,"
 								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, Forum, Gallery, Portal, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
-								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
+								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, Map");
 */
 
 /* config for bid.lspb.de */
 define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
-								. "DocumentObject, DocumentPlainObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, "
+								. "DocumentObject, DocumentPlainObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, Map,"
 								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, Forum, Gallery, Portal, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
 								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
+
+
 
 
 /*

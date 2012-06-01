@@ -64,11 +64,12 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$dialog->addWidget($clearer);
 		
 		$widget = new \Widgets\Checkbox();
-		$widget->setLabel("Link in einem neuen Fenster öffnen");
+		$widget->setLabel("Link in einem </br>neuen Fenster öffnen");
 		$widget->setData($object);
 		$widget->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:msg:link_open"));
 		$widget->setCheckedValue("checked");
 		$widget->setUncheckedValue("");
+                
 		$dialog->addWidget($widget);
                 $dialog->setForceReload(true);
 		

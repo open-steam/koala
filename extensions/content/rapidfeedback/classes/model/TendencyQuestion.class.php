@@ -105,7 +105,7 @@ class TendencyQuestion extends AbstractQuestion {
 		return $content->get();
 	}
 	
-	function getViewHTML($id, $error, $input = array()) {
+	function getViewHTML($id, $disabled, $error, $input = array()) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("questiontypes/tendencyquestion.template.html");
 		$content->setCurrentBlock("BLOCK_VIEW");
@@ -131,6 +131,9 @@ class TendencyQuestion extends AbstractQuestion {
 				$content->setVariable("STEP_VALUE", $count);
 				if (isset($input[$counter]) && $input[$counter] == $count) {
 					$content->setVariable("STEP_CHECKED", "checked");
+				}
+				if ($disabled == 1) {
+					$content->setVariable("QUESTION_DISABLED", "disabled");
 				}
 				$content->parse("BLOCK_STEP_VIEW");
 			}
@@ -245,6 +248,18 @@ class TendencyQuestion extends AbstractQuestion {
 			$content->parse("BLOCK_RESULTS");
 		}
 		return $content->get();
+	}
+	
+	function getIndividualResult($result) {
+		$return = array();
+		for ($count = 0; $count < count($this->options); $count++) {
+			if ($result[$count] != -1) {
+				$return[$count] = $result[$count]+1;
+			} else {
+				$return[$count] = "";
+			}
+		}
+		return $return;
 	}
 }
 ?>

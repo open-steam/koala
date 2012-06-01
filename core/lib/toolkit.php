@@ -227,7 +227,12 @@ function isGroupWorkroom($container) {
 
 function getObjectType($object) {
     if ($object instanceof \steam_document) {
-        $type = "document";
+        $objName=$object->get_name();
+        if ((strpos($objName, ".kml") !== false) || (strpos($objName, ".kmz") !== false)) {
+            $type = "map";
+        }else{
+            $type = "document";
+        }        
     } else if ($object instanceof \steam_messageboard) {
         $type = "forum";
     } else if ($object instanceof \steam_exit) {
@@ -371,8 +376,11 @@ function deriveIcon($object) {
         "text/xml" => "text.png",
         "video/x-flv" => "video.png",
         "video/mpeg" => "video.png",
+        "video/mp4" => "video.png",
         "video/quicktime" => "video.png",
         "video/x-msvideo" => "video.png",
+        "video/3gpp" => "video.png",
+        "video/x-m4v" => "video.png",
         "video/x-ms-wmv" => "video.png"
     );
 
@@ -653,12 +661,58 @@ function cleanHTML($dirtyHTML) {
     $config->set('HTML.SafeObject', true);
     $config->set('HTML.SafeIframe', true);
     
-    $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/)%');
+    $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
     
     $def = $config->getHTMLDefinition(true);
     $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
                     array('_blank', '_self', '_target', '_top')
     ));
+    
+    
+    //videotag ok
+    $videotag = $def->addElement(
+    'video',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'src' => 'CDATA',
+        'width' => 'CDATA',
+        'height' => 'CDATA',
+        'preload' => 'CDATA'
+    )
+    );
+    
+
+    $audiotag = $def->addElement(
+    'audio',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'src' => 'CDATA',
+        'width' => 'CDATA',
+        'height' => 'CDATA',
+        'preload' => 'CDATA'
+    )
+    );
+   
+    
+    $videoObject = $def->addElement(
+    'object',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'src' => 'CDATA',
+        'width' => 'CDATA',
+        'height' => 'CDATA',
+        'preload' => 'CDATA'
+    )
+    );
+   
+    
+    //$videotag->excludes = array('form' => true); //test
     
     $purifier = new HTMLPurifier($config);
     $dirtyHTML = $purifier->purify($dirtyHTML);

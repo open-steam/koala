@@ -36,12 +36,23 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 			$columnWidth = $columnWidthPx;
 			$columnWidthExt = "px";
 		}
-		if ((int)$columnWidth > 0) {
-			$columnWidthPx = $columnWidth . $columnWidthExt;
-		} else {
-			$columnWidthPx = "200px";
-		}
-		
+                
+                $columnWidthMin = 100;
+                $columnWidthMax = 930;
+                $columnWidthCommon = 200;
+                
+                $columnWidth = (int) $columnWidth;
+                $columnWidthPx = $columnWidth . $columnWidthExt;
+                
+                
+                if(($columnWidth > $columnWidthMax)  || ($columnWidth < $columnWidthMin)){
+                    if($columnWidth > $columnWidthMax){ //bigger than max
+                        $columnWidthPx = $columnWidthMax . $columnWidthExt;
+                    }else{ //smaller than min
+                        $columnWidthPx = $columnWidthMin . $columnWidthExt;
+                    }
+                }
+            	
 		
 		$this->rawHtmlWidget = new \Widgets\RawHtml();
 		$htmlBody.='<div class="column" style="width:'.$columnWidthPx.';">';

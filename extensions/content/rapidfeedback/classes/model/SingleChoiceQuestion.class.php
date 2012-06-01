@@ -91,7 +91,7 @@ class SingleChoiceQuestion extends AbstractQuestion {
 		return $content->get();
 	}
 	
-	function getViewHTML($id, $error, $input = -1) {
+	function getViewHTML($id, $disabled, $error, $input = -1) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("questiontypes/singlechoicequestion.template.html");
 		$content->setCurrentBlock("BLOCK_VIEW");
@@ -117,6 +117,9 @@ class SingleChoiceQuestion extends AbstractQuestion {
 			$content->setVariable("QUESTION_COUNTER", $counter);
 			if ($counter == $input) {
 				$content->setVariable("OPTION_CHECKED", "checked");
+			}
+			if ($disabled == 1) {
+				$content->setVariable("QUESTION_DISABLED", "disabled");
 			}
 			$content->parse("BLOCK_OPTION_VIEW");
 			$content->parse("BLOCK_COLUMN_VIEW");
@@ -207,6 +210,10 @@ class SingleChoiceQuestion extends AbstractQuestion {
 			$content->parse("BLOCK_RESULTS");
 		}
 		return $content->get();
+	}
+	
+	function getIndividualResult($result) {
+		return array($this->options[$result]);
 	}
 }
 ?>

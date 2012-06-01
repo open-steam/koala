@@ -50,7 +50,7 @@ public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 	$count = count($this->selection);
 	$explorerAssetUrl = \Explorer::getInstance()->getAssetUrl();
 	if (!in_array($this->id, $this->selection) ||(in_array($this->id, $this->selection) && $count == 1)) {
-		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+                $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$env = $object->get_environment();
 			
 		$inventory = $env->get_inventory();
