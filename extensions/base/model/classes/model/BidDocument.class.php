@@ -151,8 +151,7 @@ class BidDocument
   * Get text content with \n\r exchanged with <br>
   * @access   private
   **/
-  function _get_textplain($config_webserver_ip, $content)
-  {
+  function _get_textplain($config_webserver_ip, $content){
     $content = preg_replace('/\r/', '', $content);
     $content = preg_replace('/\{\{([^}}|\|]*)\|(.*)\}\}/', '<span class="note" title="\2" style="cursor:pointer;">\1</span>', $content);
     $content = preg_replace('/\{\{(.*)\}\}/', '<span class="marked">\1</span>', $content);
@@ -178,8 +177,68 @@ class BidDocument
     $content = preg_replace('/===(.*)===/', '<h2>\1</h2>', $content);
     $content = preg_replace('/==(.*)==/', '<h1>\1</h1>', $content);
     $content = preg_replace('/^----$/m', '<hr>', $content);
-    $content = preg_replace('/^\*(.*)/m', '<div class="unnumbered">\1</div>', $content);
-    $content = preg_replace('/^#(.*)/m', '<div class="numbered">\1</div>', $content);
+    
+    
+    
+    //lists
+    //$content = preg_replace('/^\*(.*)/m', '<div class="unnumbered">\1</div>', $content); //old bid regex
+    //$content = preg_replace('/^#(.*)/m', '<div class="numbered">\1</div>', $content); //old bid regex
+    
+    $content = str_replace("\r\n", "\n", $content);
+    $lines = explode("\n", $content);
+    $contentNew = "";
+    
+    $inNumberedList = false;    //ol
+    $inUnnumberedList = false;  //ul
+    
+    foreach ($lines as $line) {
+        //begin a list
+        if(!$inNumberedList && substr($line, 0,1)=="#"){
+            $cleanedLine = substr($line,1);
+            $contentNew.="<ol><li>".$cleanedLine."</li>\n";
+            $inNumberedList = true;
+        } else
+        
+        if(!$inUnnumberedList && substr($line, 0,1)=="*"){
+            $cleanedLine = substr($line,1);
+            $contentNew.="<ul><li>".$cleanedLine."</li>\n";
+            $inUnnumberedList=true;
+        } else
+
+            
+        //inside a list
+        if($inNumberedList && substr($line, 0,1)=="#"){
+            $cleanedLine = substr($line,1);
+            $contentNew.="<li>".$cleanedLine."</li>\n";
+        } else
+        
+        if($inUnnumberedList && substr($line, 0,1)=="*"){
+            $cleanedLine = substr($line,1);
+            $contentNew.="<li>".$cleanedLine."</li>\n";
+        } else
+        
+        
+        //end a list
+        if($inUnnumberedList && substr($line, 0,1)!="*"){
+            $cleanedLine = substr($line,1);
+            $inUnnumberedList = false;
+            $contentNew.="</ul>".$cleanedLine."\n";
+        } else
+            
+        if($inNumberedList && substr($line, 0,1)!="#"){
+            $cleanedLine = substr($line,1);
+            $inNumberedList = false;
+            $contentNew.="</ol>".$cleanedLine."\n";
+        } else
+            
+        //not in a list
+        $contentNew.=$line."\n";
+    }
+    
+    $content = $contentNew;
+    
+    
+    //table
     $content = preg_replace('/^\{\|(.*)$/m', '<table \1><tr>', $content);
     $content = preg_replace('/^\|\}$/m', '</tr></table>', $content);
     $content = preg_replace('/^\|-$/m', '</tr><tr>', $content);
@@ -295,12 +354,7 @@ class BidDocument
             '<video src="/Download/Document/\1"></video>', $content);
     
     
-    
-    
-    
-    //var_dump($config_webserver_ip); //nix
-    //var_dump($path); //steam path
-    
+  
     
     //link, intern
     $content = preg_replace('/\[\[([^\]\]|\|]*)\|([^\]\]]*)\]\]/', '<a href="' . $config_webserver_ip . $path . '\1" target="_top">\2</a>', $content);
