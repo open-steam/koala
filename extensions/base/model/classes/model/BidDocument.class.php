@@ -156,8 +156,21 @@ class BidDocument
     $content = preg_replace('/\r/', '', $content);
     $content = preg_replace('/\{\{([^}}|\|]*)\|(.*)\}\}/', '<span class="note" title="\2" style="cursor:pointer;">\1</span>', $content);
     $content = preg_replace('/\{\{(.*)\}\}/', '<span class="marked">\1</span>', $content);
-    $content = preg_replace('/\[http(.*?)\ (.*)\]/', '<a href="http\1" target="_new">\2</a>', $content);
-    $content = preg_replace('/\[http(.*)\]/', '<a href="http\1" target="_new">http\1</a>', $content);
+    
+    //link extern
+    function replace_callback_url($match){
+    if(isset($match[4])){
+        return sprintf('<a href="%s">%s</a>', $match[1], $match[4]);
+    } else {
+        return sprintf('<a href="%s">%s</a>', $match[1], $match[1]);
+    }
+    }
+    
+    $pattern = "~\[(http(s)?://([^\]\s]*))(\s(.*?))?\]~i";
+    $content = preg_replace_callback($pattern, "replace_callback_url", $content);
+
+
+    
     $content = preg_replace('/\'\'\'(.*)\'\'\'/U', '<strong>\1</strong>', $content);
     $content = preg_replace('/\'\'(.*)\'\'/U', '<em>\1</em>', $content);
     $content = preg_replace('/=====(.*)=====/', '<h4>\1</h4>', $content);
@@ -266,7 +279,7 @@ class BidDocument
  
     //object id
     $content = preg_replace('/\[\[Audio:([0-9]*)\]\]/U',
-            '<audio src="\1"></audio>', $content);
+            '<audio src="/Download/Document/\1"></audio>', $content);
   
     
     //video
@@ -279,14 +292,59 @@ class BidDocument
     
     //object id
     $content = preg_replace('/\[\[Video:([0-9]*)\]\]/U',
-            '<video src="objectid://\1"></video>', $content);
-    
-   
+            '<video src="/Download/Document/\1"></video>', $content);
     
     
-    //link
+    
+    
+    
+    //var_dump($config_webserver_ip); //nix
+    //var_dump($path); //steam path
+    
+    
+    //link, intern
     $content = preg_replace('/\[\[([^\]\]|\|]*)\|([^\]\]]*)\]\]/', '<a href="' . $config_webserver_ip . $path . '\1" target="_top">\2</a>', $content);
     $content = preg_replace('/\[\[([^\]\]]*)\]\]/', '<a href="' . $config_webserver_ip . $path . '\1" target="_top">\1</a>', $content);
+    
+    /*
+    //link case 1
+    preg_match_all('/\[\[([^\]\]|\|]*)\|([^\]\]]*)\]\]/', $html, $matches);
+    
+    $origMatches = $matches[0];
+    $pathMatches = $matches[1];
+    
+    
+    foreach ($pathMatches as $key => $path) {
+        if(!(substr($path, 0, 19)=="/Download/Document/") && (!(substr($path, 0, 4)=="http"))){
+            //$path = $path;
+        }else{
+            continue;
+        }
+        try{
+            $steamObject = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
+            if(!($steamObject instanceof \steam_object)) throw new \steam_exception;
+            if($steamObject===NULL) throw new \steam_exception;
+        }  catch (\steam_exception $e){
+            $new_path = PATH_URL . "404/";
+            //$html = str_replace($origMatches[$key], "<img src=\"" . $newPath . "\">", $html);
+            continue;
+        }
+        
+        //here it is a real steam path
+        $newPath = PATH_URL . "Download/Document/" . $steamObject->get_id();
+        $html = str_replace($orig_matches[$key], "href=\"" . $new_path . "\"", $html);
+    }
+    */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //p
     $content = preg_replace('/^$/m', '</p><p>', $content);
