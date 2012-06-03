@@ -173,7 +173,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 			$content->setVariable("DISPLAY_OVERRIDE", "none");
 		}
 		$content->setVariable("INFO_LABEL", "Infotext:");
-		$content->setVariable("INFO_VALUE", nl2br($pyramidRoom->get_attribute("OBJ_DESC")));
+		if ($pyramidRoom->get_attribute("PYRAMIDDISCUSSION_DESC") != "0") {
+			$content->setVariable("INFO_VALUE", nl2br($pyramidRoom->get_attribute("PYRAMIDDISCUSSION_DESC")));
+		}
 		$content->parse("BEGIN BLOCK_PYRAMID_INFORMATION");
 		
 		// display pyramid
@@ -426,7 +428,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
-		$frameResponseObject->setHeadline("Pyramidendiskussion: " . $pyramidRoom->get_name());
+		$frameResponseObject->setHeadline("Pyramidendiskussion: " . $pyramidRoom->get_attribute("OBJ_DESC"));
 		return $frameResponseObject;
 	}
 }

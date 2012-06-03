@@ -47,8 +47,8 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		
 		// configuration form got submitted
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["change_configuration"])) {
-			$TCR->set_name($_POST["title"]);
-			$TCR->set_attribute("OBJ_DESC", $_POST["info"]);
+			$TCR->set_attribute("OBJ_DESC", $_POST["title"]);
+			$TCR->set_attribute("TCR_DESC", $_POST["info"]);
 			if (intval($_POST["rounds"]) > 0) {
 				$TCR->set_attribute("TCR_ROUNDS", $_POST["rounds"]);
 			}
@@ -136,9 +136,11 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setCurrentBlock("BLOCK_TCR_CONFIGURATION");
 		$content->setVariable("TCR_OPTIONS", "Thesen-Kritik-Replik-Verfahren Konfiguration");
 		$content->setVariable("TITLE_LABEL", "Titel:*");
-		$content->setVariable("TITLE_VALUE", $TCR->get_name());
+		$content->setVariable("TITLE_VALUE", $TCR->get_attribute("OBJ_DESC"));
 		$content->setVariable("INFO_LABEL", "Infotext:");
-		$content->setVariable("INFO_VALUE", $TCR->get_attribute("OBJ_DESC"));
+		if ($TCR->get_attribute("TCR_DESC") != "0") {
+			$content->setVariable("INFO_VALUE", $TCR->get_attribute("TCR_DESC"));
+		}
 		$content->setVariable("ROUNDS_LABEL", "Runden:*");
 		$content->setVariable("ROUNDS_VALUE", $TCR->get_attribute("TCR_ROUNDS"));
 		$content->setVariable("GROUP_LABEL", "Arbeitsgruppe:");

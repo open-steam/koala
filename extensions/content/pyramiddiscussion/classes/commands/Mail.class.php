@@ -25,7 +25,7 @@ class Mail extends \AbstractCommand implements \IFrameCommand {
 			$basegroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_BASEGROUP");
 			$admingroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ADMINGROUP");
 			if ($admingroup->is_member($user)) {
-				$title = "Rundmail zur Pyramidendiskussion: ". $pyramidRoom->get_name();
+				$title = "Rundmail zur Pyramidendiskussion: ". $pyramidRoom->get_attribute("OBJ_DESC");
 				$content = nl2br($_POST["content"]);
 				if ($basegroup->get_id() != $admingroup->get_id()) {
 					$basegroup->mail($title, $content);

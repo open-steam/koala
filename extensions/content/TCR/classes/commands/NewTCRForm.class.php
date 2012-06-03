@@ -76,36 +76,37 @@ class NewTCRForm extends \AbstractCommand implements \IAjaxCommand {
 }
 </style>
 <div class="attribute">
-	<div class="attributeNameRequired">Titel*:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
+	<div class="attributeName">Titel:</div>
+	<div class="attributeValue"><input type="text" class="text" value="" name="title"></div>
 </div>
 <div class="attribute">
-	<div class="attributeNameRequired">Runden*:</div>
-	<div><input type="text" class="text" value="" name="rounds"></div>
+	<div class="attributeName">Runden:</div>
+	<div class="attributeValue"><input type="text" class="text" value="" name="rounds"></div>
 </div>
 <div class="attribute">
-	<div class="attributeNameRequired">Erstellen in*:</div>
-	<div>
+	<div class="attributeName">Erstellen in:</div>
+	<div class="attributeValue">
 		<input type="radio" value="1" name="group_course" onClick="document.getElementById('group').style.display = 'none'; document.getElementById('course').style.display = '';">Kurs
 		<input type="radio" value="2" name="group_course" onClick="document.getElementById('group').style.display = ''; document.getElementById('course').style.display = 'none';">Gruppe
 	</div>
 </div>
 <div class="attribute" id="course" style="display:none;">
-	<div class="attributeNameRequired">Kurs*:</div>
-	<div>
+	<div class="attributeName">Kurs:</div>
+	<div class="attributeValue">
 		<select name="course">
 		{$options_course}
 		</select>
 	</div>
 </div>
 <div class="attribute" id="group" style="display:none;" title="">
-	<div class="attributeNameRequired">Gruppe*:</div>
-	<div>
+	<div class="attributeName">Gruppe:</div>
+	<div class="attributeValue">
 		<select name="group">
 		{$options_group}
 		</select>
 	</div>
 </div>
+<input type="hidden" name="id" value="{$this->id}">
 END
 );
 

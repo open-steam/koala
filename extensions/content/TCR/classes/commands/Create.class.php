@@ -65,7 +65,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 			return $ajaxResponseObject;
 		}
 		// create data structure and set access rights
-		$TCR = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["title"], $group->get_workroom(), "");
+		$TCR = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["title"], $group->get_workroom(), $this->params["title"]);
         \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "theses", $TCR, "container for theses");
 		\steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "reviews", $TCR, "container for reviews");
 		\steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "responses", $TCR, "container for responses");
@@ -80,6 +80,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 		$jswrapper = new \Widgets\JSWrapper();
 		$jswrapper->setJs(<<<END
 		closeDialog();
+		sendRequest("LoadContent", {"id":"{$this->id}"}, "explorerWrapper", "updater", null, null, "explorer");
 END
 		);
 		$ajaxResponseObject->addWidget($jswrapper);
