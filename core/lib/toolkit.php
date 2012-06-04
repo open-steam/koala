@@ -698,6 +698,8 @@ function cleanHTML($dirtyHTML) {
     );
    
     
+    //tine mce advanced video objects
+    //TODO: self closing tags
     $videoObject = $def->addElement(
     'object',   // name
     'Block',  // content set
@@ -705,9 +707,22 @@ function cleanHTML($dirtyHTML) {
     'Optional', // attribute collection
     array( // attributes
         'src' => 'CDATA',
+        'data' => 'CDATA',
+        'type' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
         'preload' => 'CDATA'
+    )
+    );
+   
+    $videoObjectParam = $def->addElement(
+    'param',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'name' => 'CDATA',
+        'value' => 'CDATA'
     )
     );
    
