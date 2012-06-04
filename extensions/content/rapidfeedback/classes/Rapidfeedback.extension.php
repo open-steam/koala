@@ -2,11 +2,11 @@
 class Rapidfeedback extends AbstractExtension implements IObjectExtension{
 
 	public function getName() {
-		return "Rapidfeedback";
+		return "rapidfeedback";
 	}
 
 	public function getDesciption() {
-		return "Extension for Rapid Feedback.";
+		return "Extension for Questionnaires.";
 	}
 
 	public function getVersion() {
@@ -20,11 +20,11 @@ class Rapidfeedback extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Rapid Feedback";
+		return "Fragebogen";
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Rapid Feedback Umfragen";
+		return "Fragebogen";
 	}
 	
 	public function getObjectIconUrl() {

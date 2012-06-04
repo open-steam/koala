@@ -7,7 +7,7 @@ class Favorite extends AbstractExtension {
 	}
 	
 	public function getDesciption() {
-		return "Extension to manage your favorites";
+		return "";
 	}
 	
 	public function getVersion() {

@@ -47,11 +47,12 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
 		$propertiesIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties.png";
 		$rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
 		$blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
+                $addImage = \PortletMsg::getInstance()->getAssetUrl() . "icons/add_image.png";
 		
 		
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"),
-						array("name" => "Bild bearbeiten <img src=\"{$blankIcon}\">",  "command" => "EditMessageImage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"), 
+						array("name" => "Bild bearbeiten <img src=\"{$addImage}\">",  "command" => "EditMessageImage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"), 
 						array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
 							array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "OrderMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}','order':'up'}", "type"=>"popup"),
 							array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "OrderMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}','order':'down'}", "type"=>"popup"),

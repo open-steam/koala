@@ -42,6 +42,7 @@ function showCreateDialog() {
 	}
 	changeCreateDialog("0");
 	$('#newquestion').show();
+	$('#newlayout').hide();
 	$('#newquestion_button').hide();
 }
 
@@ -65,6 +66,45 @@ function hideCreateDialog() {
 }
 
 /*
+ * function to show the layout element dialog
+ */
+function showLayoutDialog() {
+	resetLayoutDialog();
+	if (document.getElementById('editID').value != '-1') {
+		$('#element'+document.getElementById('editID').value).show();
+		document.getElementById('editID').value = '-1';
+	}
+	changeLayoutDialog("7");
+	$('#newquestion').hide();
+	$('#newlayout').show();
+	$('#newquestion_button').hide();
+}
+
+/*
+ * function to hide the layout element dialog
+ */
+function hideLayoutDialog() {
+	if (document.getElementById('editID').value != '-1') {
+		$('#element'+document.getElementById('editID').value).show();
+		document.getElementById('editID').value = '-1';
+	}
+	$('#newlayout').hide();
+	$('#newquestion_button').show();
+}
+
+/**
+ * function to reset the layout element dialog
+ */
+function resetLayoutDialog() {
+	document.getElementById("layout_description").value = "";
+	document.getElementById("layout_headline").value = "";
+	document.getElementById('layoutType').value = "7";
+	$('#description_preview').show();
+	$('#headline_preview').hide();
+	$('#newlayout').appendTo('#sortable_rf');
+}
+
+/*
  * function to reset the create dialog
  */
 function resetCreateDialog() {
@@ -72,6 +112,9 @@ function resetCreateDialog() {
 	document.getElementById('helpText').value = '';
 	document.getElementById('required').checked = false;
 	document.getElementById('questionType')[0].selected = true;
+	
+	document.getElementById('textquestionLength').value = 0;
+	document.getElementById('textareaRows').value = 4;
 	
 	// remove single choice options
 	document.getElementById('singleChoiceColumns').value = 1;
@@ -129,6 +172,27 @@ function resetCreateDialog() {
 	
 	// move newquestion dialog to the end of sortable
 	$('#newquestion').appendTo('#sortable_rf');
+}
+
+/**
+ * change the layout dialog to display the dialog corresponding to type
+ * @param type
+ */
+function changeLayoutDialog(type) {
+	switch(type) {
+		case "7":
+			$('#description_preview').show();
+			$('#headline_preview').hide();
+			break;
+		case "8":
+			$('#description_preview').hide();
+			$('#headline_preview').show();
+			break;
+		case "9":
+			$('#description_preview').hide();
+			$('#headline_preview').hide();
+			break;
+	}
 }
 
 /*
@@ -326,7 +390,20 @@ function getSortables() {
 function deleteElement(id) {
 	var data = document.getElementsByName('element'+id)[0].value;
 	data = data.split(',');
-	var check = confirm('Frage "'+decodeURIComponent(data[1])+'" wirklich löschen?');
+	switch (data[0]) {
+		case "7":
+			var check = confirm('Beschreibung "'+decodeURIComponent(data[1])+'" wirklich löschen?');
+			break;
+		case "8":
+			var check = confirm('Überschrift "'+decodeURIComponent(data[1])+'" wirklich löschen?');
+			break;
+		case "9":
+			var check = confirm('Seitenumbruch wirklich löschen?');
+			break;
+		default:
+			var check = confirm('Frage "'+decodeURIComponent(data[1])+'" wirklich löschen?');
+			break;
+	}
 	if (check == true) {
 		$('#element'+id).remove();
 		$('input[name=element'+id+']').remove();
@@ -336,6 +413,35 @@ function deleteElement(id) {
 	}
 }
 
+function editLayoutElement(id) {
+	var data = document.getElementsByName('element'+id)[0].value;
+	data = data.split(',');
+	resetLayoutDialog();
+	resetCreateDialog();
+	if (document.getElementById('editID').value != '-1') {
+		$('#element'+document.getElementById('editID').value).show();
+		document.getElementById('editID').value = '-1';
+	}
+	document.getElementById('newquestion_button').style.display = '';
+	document.getElementById('editID').value = id;
+	document.getElementById('layoutType').value = data[0];
+	$('#newlayout').insertBefore($('#element'+id));
+	$('#element'+id).hide();
+	$('#newquestion').hide();
+	changeLayoutDialog(data[0]);
+	switch (data[0]) {
+		case "7":
+			document.getElementById('layout_description').value = decodeURIComponent(data[1]);
+			break;
+		case "8":
+			document.getElementById('layout_headline').value = decodeURIComponent(data[1]);
+			break;
+		case "9":
+			break;
+	}
+	$('#newlayout').show();
+}
+
 /*
  * function to open the edit question dialog for question id
  */
@@ -343,8 +449,14 @@ function editElement(id) {
 	var data = document.getElementsByName('element'+id)[0].value;
 	data = data.split(',');
 	resetCreateDialog();
+	resetLayoutDialog();
+	if (document.getElementById('editID').value != '-1') {
+		$('#element'+document.getElementById('editID').value).show();
+		document.getElementById('editID').value = '-1';
+	}
 	document.getElementById('newquestion_button').style.display = '';
 	document.getElementById('editID').value = id;
+	$('#newlayout').hide();
 	$('#newquestion').insertBefore($('#element'+id));
 	$('#element'+id).hide();
 	changeCreateDialog(data[0]);
@@ -356,6 +468,14 @@ function editElement(id) {
 	}
 	
 	switch (data[0]) {
+		case "0":
+			document.getElementById('textquestionLength').value = data[4];
+			$('#newquestion').show();
+			break;
+		case "1":
+			document.getElementById('textareaRows').value = data[4];
+			$('#newquestion').show();
+			break;
 		case "2":
 			var options = document.getElementsByName('element'+id+'_options')[0].value;
 			options = options.split(',');
@@ -469,7 +589,86 @@ function copyElement(id) {
 			options = options.split(',');
 			createTendencyQuestion(data, options, '#element'+id);
 			break;
+		case "7":
+			createDescriptionLayoutElement(data[1], '#element'+id);
+			break;
+		case "8":
+			createHeadlineLayoutElement(data[1], '#element'+id);
+			break;
+		case "9":
+			createPageBreakLayoutElement('#element'+id);
+			break;
 	}
+}
+
+/*
+ * function to add a layout element
+ */
+function addLayoutElement() {
+	if (document.getElementById('editID').value != '-1') {
+		var deleteid = document.getElementById('editID').value;
+		$('#element'+deleteid).remove();
+		$('input[name=element'+deleteid+']').remove();
+		$('input[name=element'+deleteid+'_options]').remove();
+		$('input[name=element'+deleteid+'_rows]').remove();
+		$('input[name=element'+deleteid+'_columns]').remove();
+		document.getElementById('editID').value = '-1';
+	}
+	var type = document.getElementById('layoutType').value;
+	switch (type) {
+		case "7":
+			var description = document.getElementById('layout_description').value;
+			createDescriptionLayoutElement(description, '#newlayout');
+			hideLayoutDialog();
+			break;
+		case "8":
+			var headline = document.getElementById('layout_headline').value;
+			createHeadlineLayoutElement(headline, '#newlayout');
+			hideLayoutDialog();
+			break;
+		case "9":
+			createPageBreakLayoutElement('#newlayout');
+			hideLayoutDialog();
+			break;
+	}
+}
+	
+function createDescriptionLayoutElement(description, insertPoint) {
+	params = {};
+	params.layoutType = "7";
+	params.description = description;
+	params.layoutID = elementCounter;	 
+	var successFunction = function(response){
+		responseData = jQuery.parseJSON(response); 
+		$(responseData.html).insertBefore($(insertPoint));
+	}
+	var response = sendRequest('AddLayoutElement', params, 0, 'data', '', successFunction);
+	elementCounter++;
+}
+
+function createHeadlineLayoutElement(headline, insertPoint) {
+	params = {};
+	params.layoutType = "8";
+	params.headline = headline;
+	params.layoutID = elementCounter;	 
+	var successFunction = function(response){
+		responseData = jQuery.parseJSON(response); 
+		$(responseData.html).insertBefore($(insertPoint));
+	}
+	var response = sendRequest('AddLayoutElement', params, 0, 'data', '', successFunction);
+	elementCounter++;	
+}
+
+function createPageBreakLayoutElement(insertPoint) {
+	params = {};
+	params.layoutType = "9";
+	params.layoutID = elementCounter;	 
+	var successFunction = function(response){
+		responseData = jQuery.parseJSON(response); 
+		$(responseData.html).insertBefore($(insertPoint));
+	}
+	var response = sendRequest('AddLayoutElement', params, 0, 'data', '', successFunction);
+	elementCounter++;
 }
 
 /*
@@ -501,12 +700,14 @@ function addElement() {
 	}
 	switch (type) {
 		case "0":
-			var data = new Array(type, question, helpText, required);
+			var inputLength = document.getElementById('textquestionLength').value;
+			var data = new Array(type, question, helpText, required, inputLength);
 			createTextQuestion(data, '#newquestion');
 			hideCreateDialog();
 			break;
 		case "1":
-			var data = new Array(type, question, helpText, required);
+			var rows = document.getElementById('textareaRows').value;
+			var data = new Array(type, question, helpText, required, rows);
 			createTextareaQuestion(data, '#newquestion');
 			hideCreateDialog();
 			break;
@@ -585,6 +786,8 @@ function createTextQuestion(data, insertPoint) {
 	params.questionText = data[1];
 	params.questionHelp = data[2];
 	params.questionRequired = data[3];
+	params.questionInputLength = data[4];
+	params.questionRows = data[4];
 	params.questionID = elementCounter;	 
 	var successFunction = function(response){
 		responseData = jQuery.parseJSON(response); 
@@ -673,12 +876,26 @@ function admin_action(action, id, name, rf) {
 	params.action = action;
 	params.rf = rf;
 	if (action == 4) {
-		var check = confirm('Umfrage '+name+' wirklich löschen?');
+		var check = confirm('Umfrage "'+name+'" wirklich löschen?');
 		if (check == true) {
 			sendRequest('AdminAction', params, '', 'reload');
 		}
 	} else {
 		sendRequest('AdminAction', params, '', 'reload');
+	}
+}
+
+/*
+ * function to delete a result
+ */
+function deleteResult(id, survey, rf) {
+	params = {};
+	params.id = id;
+	params.survey = survey;
+	params.rf = rf;
+	var check = confirm('Ausgewählte Abgabe wirklich löschen?');
+	if (check == true) {
+		sendRequest('DeleteResult', params, '', 'reload');
 	}
 }
 
@@ -690,4 +907,22 @@ function checkTitle() {
 		alert("Bitte einen Titel eingeben.");
 		return false;
 	} else return true;
+}
+
+/*
+ * function to submit one page of a survey when clicking on the next page button
+ */
+function submitPrevious(url) {
+	document.getElementById('action').value = 'previous';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
+}
+
+/*
+ * function to submit one page of a survey when clicking on the next page button
+ */
+function submitNext(url) {
+	document.getElementById('action').value = 'next';
+	document.getElementById('form').action = url;
+	document.getElementById('form').submit();
 }

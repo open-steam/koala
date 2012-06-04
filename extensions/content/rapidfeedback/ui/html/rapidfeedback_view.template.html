@@ -1,9 +1,9 @@
 <!-- BEGIN BLOCK_VIEW_SURVEY -->
-<form action="" method="post" style="font-size:11px">
+<form action="" id="form" method="post" style="font-size:11px">
 	<center>
 		<h1>
 			{SURVEY_NAME}
-			<a href="{EDIT_URL}" style="display:{DISPLAY_EDIT}"><img src="{ASSET_URL}/edit.png" title="{EDIT_TITLE}" width="12px" height="12px"></a>
+			{SURVEY_PAGE}
 		</h1>
 		<table class="grid" border="0" width="75%">
 			<tr style="display:{DISPLAY_BEGIN};">
@@ -15,13 +15,14 @@
 			</tr>
 			<tr>
 				<td>
-					<div style="text-align:center" class="buttons">
-						<input type="submit" value="{SUBMIT_SURVEY}" name="submit_survey" style="display:{DISPLAY_SUBMIT}">
-						<a class="button" href="{BACK_URL}">{BACK_LABEL}</a>
+					<div class="buttons">
+						<a class="button" onclick="submitPrevious('{PREVIOUS_URL}');" name="previous" style="text-align:left; display:{DISPLAY_PREVIOUS}">{PREVIOUS_LABEL}</a>
+						<a class="button" onclick="submitNext('{NEXT_URL}');" name="next" style="float: right; display:{DISPLAY_NEXT}">{NEXT_LABEL}</a>
 					</div>
 				</td>
 			</tr>
 		</table>
 	</center>
+	<input type="hidden" id="action" name="action">
 </form>
 <!-- END BLOCK_VIEW_SURVEY -->

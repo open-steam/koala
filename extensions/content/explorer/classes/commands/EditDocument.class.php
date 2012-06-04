@@ -29,22 +29,22 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 				}
 
 				$actionBar = new \Widgets\ActionBar();
-				if($mimetype == "text/html"){
-					$actionBar->setActions(array(
+				
+                                //document type: html text
+                                if($mimetype == "text/html"){
+                                	$actionBar->setActions(array(
 					array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
-					//array("name"=>"Bearbeiten", "link"=> PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
 					array("name"=>"Quelltext", "link"=> PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
-					//array("name"=>"Herunterladen", "link"=> PATH_URL . "Download/Document/" . $this->id . "/"),
 					array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
 					array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
 					));
 
-				}else{
-					$actionBar->setActions(array(
+				}
+                                
+                                //document type: simple text    
+                                else{
+                                	$actionBar->setActions(array(
 					array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
-					//array("name"=>"Bearbeiten", "link"=> PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
-					//array("name"=>"Quelltext", "link"=> PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
-					//array("name"=>"Herunterladen", "link"=> PATH_URL . "Download/Document/" . $this->id . "/"),
 					array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
 					array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
 					));
@@ -55,13 +55,25 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 				$contentText->setheight(400);
 				$contentText->setData($object);
 				
-				if ($mimetype !== "text/html") {
-					$contentText->setTextareaClass("plain");
-				}else{
-					$contentText->setTextareaClass("mce-full");
-				}
-			
-				$html = cleanHTML($object->get_content());
+                                
+                                $contentText->setTextareaClass("mce-full");
+				
+                                
+                                //convert
+                                if (strstr($mimetype, "text/plain")) {
+                                    $bidDokument = new \BidDocument($object);
+                                    $html = $bidDokument->get_content();
+                                    //$html = cleanHTML($html); //TODO
+                                }else{
+                                    $html = cleanHTML($object->get_content());
+                                    
+                                    //make html modifications
+                                    $htmlDocument = new \HtmlDocument();
+                                    $html = $htmlDocument->makeEditorModifications($html, $object);
+                                    //$html = cleanHTML($html); //TODO
+                                }
+                                
+                                /* test
 				$dirname = dirname($object->get_path()) . "/";
 				preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
 				$orig_matches = $matches[0];
@@ -79,29 +91,14 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 					}
 					$html = str_replace($orig_matches[$key], "src=\"$new_path\" data-mce-src=\"$path\"", $html);
 				}
-
-				$contentText->setContentProvider(\Widgets\DataProvider::contentProvider($html));
+                                */
+                                
+				$contentText->setContentProvider( new \Widgets\TextContentDataProvider($html));
 				$clearer = new \Widgets\Clearer();
-				// 				$html = "";
-				// 				if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/gif") {  // Image
-				// 					$html = "<div style=\"text-align:center\"><img style=\"max-width:100%\" title=\"{$name}\" alt=\"Bild: {$name}\" src=\"" . PATH_URL . "Download/Document/" . $this->id . "/\"></div>";
-				// 				} else if ($mimetype == "text/html") {
-				// 					$html = strip_tags($object->get_content(),"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img>");
-				// 				} else if (strstr($mimetype, "text")) {
-				// 					$html = "<pre>{$object->get_content()}</pre>";
-				// 				} else {
-				// 					header("location: " . PATH_URL . "Download/Document/" . $this->id . "/");
-				// 				}
-				// 				$rawHtml = new \Widgets\RawHtml();
-				// 				$rawHtml->setHtml($html);
-
-				//$rawHtml->addWidget($breadcrumb);
-				//$rawHtml->addWidget($environment);
-				//$rawHtml->addWidget($loader);
+				
 
 				$frameResponseObject->setTitle($name);
 				$frameResponseObject->addWidget($actionBar);
-				//$frameResponseObject->addWidget($rawHtml);
 				$frameResponseObject->addWidget($contentText);
 				$frameResponseObject->addWidget($clearer);
 				return $frameResponseObject;

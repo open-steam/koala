@@ -124,7 +124,7 @@ class MatrixQuestion extends AbstractQuestion {
 		return $content->get();
 	}
 	
-	function getViewHTML($id, $error, $input = array()) {
+	function getViewHTML($id, $disabled, $error, $input = array()) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("questiontypes/matrixquestion.template.html");
 		$content->setCurrentBlock("BLOCK_VIEW");
@@ -170,6 +170,9 @@ class MatrixQuestion extends AbstractQuestion {
 					if ($selected+1 == $count) {
 						$content->setVariable("QUESTION_CHECKED", "checked");
 					}
+				}
+				if ($disabled == 1) {
+					$content->setVariable("QUESTION_DISABLED", "disabled");
 				}
 				$content->parse("BLOCK_VIEW_ROW_ELEMENT");
 			}
@@ -283,6 +286,18 @@ class MatrixQuestion extends AbstractQuestion {
 			$content->parse("BLOCK_RESULTS");
 		}
 		return $content->get();
+	}
+	
+	function getIndividualResult($result) {
+		$return = array();
+		for ($count = 0; $count < count($this->rows); $count++) {
+			if (isset($result[$count]) && $result[$count] != -1) {
+				$return[$count] = $this->columns[$result[$count]];
+			} else {
+				$return[$count] = "";
+			}
+		}
+		return $return;
 	}
 }
 ?>

@@ -21,25 +21,37 @@ class AdminAction extends \AbstractCommand implements \IAjaxCommand {
 		if ($element instanceof \steam_object) {
 			switch ($this->params["action"]) {
 				case 1:
+					// start
 					$element->set_attribute("RAPIDFEEDBACK_STATE", 1);
 					break;
 				case 2:
+					// stop
 					$element->set_attribute("RAPIDFEEDBACK_STATE", 2);
 					break;
 				case 3:
+					// copy
 					$copy = \steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $element);
 					$copy->move($rapidfeedback);
-					$copy->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
 					$copy->set_attribute("RAPIDFEEDBACK_STATE", 0);
-					$copy->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
 					$copy->set_attribute("RAPIDFEEDBACK_STARTTYPE", 0);
+					
 					$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $copy->get_path() . "/results");
-					$results = $resultContainer->get_inventory();
-					foreach ($results as $result) {
-						$result->delete();
+					$resultContainer->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
+					$resultContainer->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
+					// clean resultcontainer and set sanctions
+					if ($resultContainer instanceof \steam_container) {
+						$results = $resultContainer->get_inventory();
+						foreach ($results as $result) {
+							$result->delete();
+						}
+						$groups = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
+						foreach ($groups as $group) {
+							$resultContainer->set_sanction($group, SANCTION_READ | SANCTION_WRITE | SANCTION_INSERT);
+						}
 					}
 					break;
 				case 4:
+					// delete
 					$element->delete();
 					break;
 			}

@@ -45,7 +45,7 @@ class Mail extends \AbstractCommand implements \IFrameCommand {
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send_mail"])) {
 			$members = $TCR->get_attribute("TCR_USERS");
 			if (in_array($user->get_id(), $admins)) {
-				$title = "Rundmail zum Thesen-Kritik-Replik Verfahren: ". $TCR->get_name();
+				$title = "Rundmail zum Thesen-Kritik-Replik Verfahren: ". $TCR->get_attribute("OBJ_DESC");
 				$content = nl2br($_POST["content"]);
 				
 				foreach ($admins as $admin) {

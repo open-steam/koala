@@ -28,6 +28,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$sizeInput->setLabel("Breite der Spalte");
 		$sizeInput->setData($object);
 		$sizeInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portal:column:width"));
+                
 		$dialog->addWidget($sizeInput);
 		$dialog->addWidget($clearer);
 		

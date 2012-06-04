@@ -21,6 +21,7 @@ class Delete extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        
         $ajaxResponseObject->setStatus("ok");
         $jswrapper = new \Widgets\JSWrapper();
         $trashbinModel = new \Explorer\Model\Trashbin($this->trashbin);

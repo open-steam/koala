@@ -1,12 +1,14 @@
 <?php
 namespace Rapidfeedback\Model;
 class TextQuestion extends AbstractQuestion {
+	protected $inputLength = 0;
 	
 	function __construct($question = null) {
 		if ($question != null) {
 			$this->questionText = $question->questiontext;
 			$this->helpText = $question->helptext;
 			$this->required = $question->required;
+			$this->inputLength = $question->inputlength;
 		}
 	}
 	
@@ -15,7 +17,20 @@ class TextQuestion extends AbstractQuestion {
 		$question->addChild("questiontext", $this->questionText);
 		$question->addChild("helptext", $this->helpText);
 		$question->addChild("required", $this->required);
+		$question->addChild("inputlength", $this->inputLength);
 		return $question;
+	}
+	
+	public function setInputLength($inputLength) {
+		if (is_numeric($inputLength)) {
+			$this->inputLength = $inputLength;
+		} else {
+			$this->inputLength = 0;
+		}
+	}
+	
+	public function getInputLength($inputLength) {
+		return $this->inputLength;
 	}
 	
 	public function setResults($results) {
@@ -37,13 +52,13 @@ class TextQuestion extends AbstractQuestion {
 			$content->setVariable("QUESTION_TEXT", $this->questionText);
 		}
 		$content->setVariable("HELP_TEXT", $this->helpText);
-		$data = "0," . rawurlencode($this->questionText) . "," . rawurlencode($this->helpText) . "," . $this->required;
+		$data = "0," . rawurlencode($this->questionText) . "," . rawurlencode($this->helpText) . "," . $this->required . "," . $this->inputLength;
 		$content->setVariable("ELEMENT_DATA", $data);
 		$content->parse("BLOCK_EDIT");
 		return $content->get();
 	}
 	
-	function getViewHTML($id, $error, $input = "") {
+	function getViewHTML($id, $disabled, $error, $input = "") {
 		if ($input == -1) $input = "";
 		
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
@@ -60,6 +75,12 @@ class TextQuestion extends AbstractQuestion {
 		}
 		$content->setVariable("HELP_TEXT", $this->helpText);
 		$content->setVariable("ELEMENT_INPUT", $input);
+		if ($disabled == 1) {
+			$content->setVariable("QUESTION_DISABLED", "disabled");
+		}
+		if ($this->inputLength != 0) {
+			$content->setVariable("ELEMENT_MAXLENGTH", $this->inputLength);
+		}
 		$content->parse("BLOCK_VIEW");
 		return $content->get();
 	}
@@ -83,6 +104,10 @@ class TextQuestion extends AbstractQuestion {
 			$content->parse("BLOCK_RESULTS");
 		}
 		return $content->get();
+	}
+	
+	function getIndividualResult($result) {
+		return array($result);
 	}
 }
 ?>

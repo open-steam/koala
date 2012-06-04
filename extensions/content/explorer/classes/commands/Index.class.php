@@ -128,6 +128,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			case "container":
 				//ok
 				break;
+                        
+                        case "map":
+                            header("location: " . PATH_URL . "map/Index/" . $this->id . "/");
+                            die;
+                            break;
 				
 			case "unknown":
 				\ExtensionMaster::getInstance()->send404Error();

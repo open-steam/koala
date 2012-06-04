@@ -26,7 +26,8 @@
   ****************************************************************************/
 
   $mimetype_map = array(
-    ".ai" => "application/postscript",               //PostScript
+    ".3gp" => "video/3gpp",                         //3gp
+    ".ai" => "application/postscript",              //PostScript
     ".avi" => "video/x-msvideo",                    //Microsoft video
     ".bin" => "application/octet-stream",           //Binary, UUencoded
     ".bmp" => "image/x-ms-bmp",                     //Microsoft Windows bitmap
@@ -60,7 +61,8 @@
     ".mp2a" => "audio/x-mpeg-2",                    //MPEG-2 audio
     ".mp2v" => "video/mpeg-2",                      //MPEG-2 video
     ".mp3" => "audio/mpeg",                         //MP3 audio
-    ".mp4" => "video/mpeg",                         //MPEG-4 video
+    ".mp4" => "video/mp4",                         //MPEG-4 video
+    ".m4v" => "video/x-m4v",                         //MPEG-4 video
     ".mpa" => "video/mpeg",                         //MPEG audio
     ".mpa2" => "audio/x-mpeg-2",                    //MPEG-2 audio
     ".mpe" => "video/mpeg",                         //MPEG video

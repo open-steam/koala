@@ -134,6 +134,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		$jswrapper = new \Widgets\JSWrapper();
 		$jswrapper->setJs(<<<END
 		closeDialog();
+		sendRequest("LoadContent", {"id":"{$this->id}"}, "explorerWrapper", "updater", null, null, "explorer");
 END
 		);
 		$ajaxResponseObject->addWidget($jswrapper);

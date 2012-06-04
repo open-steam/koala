@@ -223,4 +223,18 @@ a.contentCreator:hover {
 .creation{
 	padding-top:10px;
 }
+img {
+	max-width: 100%;
+}
+img.left{
+    float: left;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+img.right{
+    float: right;
+    margin-left: 4px;
+    margin-bottom: 4px;
+}
+
 	
