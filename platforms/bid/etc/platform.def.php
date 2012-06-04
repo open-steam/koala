@@ -46,7 +46,7 @@ define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Star
 define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
 								. "DocumentObject, DocumentPlainObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, "
 								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, Forum, Gallery, Portal, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
-								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
+								. "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
 
 
 /*
