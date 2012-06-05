@@ -653,12 +653,15 @@ END;
 }
 
 function cleanHTML($dirtyHTML) {
+    //html purifier
     define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
     
     $config->set('HTML.SafeEmbed', true);
     $config->set('HTML.SafeObject', true);
+    $config->set('Output.FlashCompat', true); //not sure
+    
     $config->set('HTML.SafeIframe', true);
     
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
