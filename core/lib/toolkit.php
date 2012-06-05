@@ -653,12 +653,15 @@ END;
 }
 
 function cleanHTML($dirtyHTML) {
+    //html purifier
     define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
     
     $config->set('HTML.SafeEmbed', true);
     $config->set('HTML.SafeObject', true);
+    $config->set('Output.FlashCompat', true); //not sure
+    
     $config->set('HTML.SafeIframe', true);
     
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
@@ -698,6 +701,8 @@ function cleanHTML($dirtyHTML) {
     );
    
     
+    //tine mce advanced video objects
+    //TODO: self closing tags
     $videoObject = $def->addElement(
     'object',   // name
     'Block',  // content set
@@ -705,9 +710,22 @@ function cleanHTML($dirtyHTML) {
     'Optional', // attribute collection
     array( // attributes
         'src' => 'CDATA',
+        'data' => 'CDATA',
+        'type' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
         'preload' => 'CDATA'
+    )
+    );
+   
+    $videoObjectParam = $def->addElement(
+    'param',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'name' => 'CDATA',
+        'value' => 'CDATA'
     )
     );
    
