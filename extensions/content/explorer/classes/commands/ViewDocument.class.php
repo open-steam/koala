@@ -103,8 +103,9 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     $html = $htmlDocument->getHtmlContent();
                     $html = cleanHTML($html);
                     
+                    //testing
                     //$html.='<script src="styles/standard/javascript/Flowplayer/flowplayer-3.2.9.min.js"></script>';
-                    $html.='<script language="JavaScript"> flowplayer("player", "styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf");</script>';
+                    //$html.='<script language="JavaScript"> flowplayer("player", "styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf");</script>';
                     
                     //old stuff
                     //	die;
