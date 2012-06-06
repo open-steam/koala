@@ -22,7 +22,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        /*  $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+          $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
           $objId = $this->id;
           $ajaxResponseObject->setStatus("ok");
           $accessRight = $object->check_access(SANCTION_SANCTION);
@@ -527,7 +527,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
           $ajaxResponseObject->addWidget($dialog);
 
-          return $ajaxResponseObject; */
+          return $ajaxResponseObject; 
 
 
 
@@ -537,7 +537,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 
 
-        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        /*$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $objId = $this->id;
         $ajaxResponseObject->setStatus("ok");
         $accessRight = $object->check_access(SANCTION_SANCTION);
@@ -1006,7 +1006,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $dialog->addWidget($rawHtml);
 
         $ajaxResponseObject->addWidget($dialog);
-        return $ajaxResponseObject;
+        return $ajaxResponseObject;*/
     }
 
     private static function getOptionsValues($dropDownValue) {
