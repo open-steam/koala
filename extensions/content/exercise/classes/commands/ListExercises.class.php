@@ -67,7 +67,7 @@ class ListExercises extends \AbstractCommand implements \IFrameCommand {
 			
 			$tmplt->setCurrentBlock("BLOCK_ENTRY");
 			
-			$link = '<a href="' . PATH_URL . 'exercise/DisplayExercise/' . $entry->get_name() . '/">' . $entry->get_name() . '</a>';
+			$link = '<a href="' . PATH_URL . 'exercise/DisplayExercise/' . $this->id . "/" . $entry->get_name() . '/">' . $entry->get_name() . '</a>';
 			$tmplt->setVariable( "ICON_PATH", PATH_URL . "exercise/asset/exercise_doc.png" );
 			$tmplt->setVariable( "EX_NAME", $link );
 			
@@ -78,8 +78,8 @@ class ListExercises extends \AbstractCommand implements \IFrameCommand {
 			$authorobj = $entry->get_attribute("CONT_USER_MODIFIED");
 			if (!is_object($authorobj)) 
 				$authorobj = $entry->get_creator();
-			$author = $authorobj->get_name();
-			$authorlnk = '<a href="' . PATH_URL . 'user/index/' . $authorobj->get_name() . '/">' . $authorobj->get_name() . '</a>';
+			$author = $authorobj->get_attribute("USER_FIRSTNAME") . " " . $authorobj->get_attribute("USER_FULLNAME");
+			$authorlnk = '<a href="' . USER_EXTENSION_URL . $authorobj->get_name() . '/">' . $author . '</a>';
 			$tmplt->setVariable( "EX_AUTHOR", $authorlnk );
 			
 			$changed = $entry->get_attribute("OBJ_LAST_CHANGED");
@@ -88,7 +88,7 @@ class ListExercises extends \AbstractCommand implements \IFrameCommand {
 			$tmplt->setVariable( "EX_CHANGED", strftime("%d.%m.%Y, ", $changed) . strftime("%R", $changed) );
 			$tmplt->setVariable( "EX_COMMENTS", "0 Kommentare" );
 			
-			$actionCP  = '<a onClick="' .
+			/*$actionCP  = '<a onClick="' .
 						"sendRequest('Copy', {'id':'" . $entry->get_id() . "'}, '', 'updater', " .
 						"null, null, 'explorer'); return false;" . '" href="#">';
 			$actionCP .= '<img src="' . PATH_URL . 'exercise/asset/link.png"></a><br />';
@@ -96,20 +96,21 @@ class ListExercises extends \AbstractCommand implements \IFrameCommand {
 						"sendRequest('Copy', {'id':'" . $entry->get_id() . "'}, '', 'updater', " .
 						"null, null, 'explorer'); return false;" . '" href="#">Link</a>';
 			$tmplt->setVariable( "ACTION_COPY", $actionCP );
-
-			$actionED  = '<a href="' . PATH_URL . 'exercise/CreateExercise/' . $entry->get_name() . '/">';
+                        */
+                   
+			$actionED  = '<a href="' . PATH_URL . 'exercise/CreateExercise/' . $this->id . "/" . $entry->get_name() . '/">';
 			$actionED .= '<img src="' . PATH_URL . 'exercise/asset/edit.png"></a><br />';
-			$actionED .= '<a href="' . PATH_URL . 'exercise/CreateExercise/' . $entry->get_name() . '/">Ändern</a>';
+			$actionED .= '<a href="' . PATH_URL . 'exercise/CreateExercise/' . $this->id . "/" . $entry->get_name() . '/">Ändern</a>';
 			$tmplt->setVariable( "ACTION_EDIT", $actionED );
 			
-			$actionSV  = '<a href="' . PATH_URL . 'exercise/CreateSolution/' . $entry->get_id() . '/">';
+			$actionSV  = '<a href="' . PATH_URL . 'exercise/CreateSolution/' . $this->id . "/" . $entry->get_id() . '/">';
 			$actionSV .= '<img src="' . PATH_URL . 'exercise/asset/solve_small.png"></a><br />';
-			$actionSV .= '<a href="' . PATH_URL . 'exercise/CreateSolution/' . $entry->get_id() . '/">Abgabe</a>';
+			$actionSV .= '<a href="' . PATH_URL . 'exercise/CreateSolution/' . $this->id . "/" . $entry->get_id() . '/">Abgabe</a>';
 			$tmplt->setVariable( "ACTION_SOLVE", $actionSV );
 			
-			$actionVS  = '<a href="' . PATH_URL . 'exercise/DisplaySolution/">';
+			$actionVS  = '<a href="' . PATH_URL . 'exercise/DisplaySolution/' . $this->id . '/">';
 			$actionVS .= '<img src="' . PATH_URL . 'exercise/asset/solution_small.png"></a><br />';
-			$actionVS .= '<a href="' . PATH_URL . 'exercise/DisplaySolution/">Lösung</a>';
+			$actionVS .= '<a href="' . PATH_URL . 'exercise/DisplaySolution/' . $this->id . '/">Lösung</a>';
 			$tmplt->setVariable( "ACTION_VIEWSOLUTION", $actionVS );
 			
 			$tmplt->parse("BLOCK_ENTRY");
