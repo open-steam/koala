@@ -730,6 +730,18 @@ function cleanHTML($dirtyHTML) {
     );
    
     
+    $videoFlowATag = $def->addElement(
+    'a',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'id' => 'CDATA'
+    )
+    );
+   
+    
+    
     //$videotag->excludes = array('form' => true); //test
     
     $purifier = new HTMLPurifier($config);
