@@ -30,13 +30,13 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 
 
 		$searchResult = array();
-		$min_search_string_count = 4;
+		$min_search_string_count = 3;
 		if ($action != ""){
 			$searchString = trim($searchString);
 
 			if (strlen($searchString) < $min_search_string_count){
 				//$frameResponseObject->setProblemDescription(gettext("Search string too short"));
-				$frameResponseObject->setProblemDescription("Länge der Suchanfrage zu klein! Eine Suchanfrage muss aus mindestens 4 Zeichen bestehen.");
+				$frameResponseObject->setProblemDescription("Länge der Suchanfrage zu klein! Eine Suchanfrage muss aus mindestens 3 Zeichen bestehen.");
 			}else if(((strpos($searchString,"*")!==FALSE) || (strpos($searchString,"?")!==FALSE)) && ($searchType == "searchUserFullname")){
                             $frameResponseObject->setProblemDescription("Eine Suchanfrage nach Namen darf aus Datenschutzgründen keine Wildcards enthalten");
                         }else{
