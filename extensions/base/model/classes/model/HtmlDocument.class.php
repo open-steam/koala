@@ -175,25 +175,16 @@ class HtmlDocument
     
     
     
-    //modifcations for flow player: testing
+    //modifcations for flow player
     $pattern = '/<video .* src="([%a-z0-9:.\-_\/]*)".*<\/video>/iU';
-    $replace = '<a href="jhgh" id="player">';
-    //$replace = "wurstwasser";
-    
-    /*
-    //preg_replace($pattern, $replace, $html);
     preg_match_all($pattern, $html, $matches);
-    
     
     $fullMatches = $matches[0];
     $bracketMatches = $matches[1];
     
     foreach ($fullMatches as $key => $value) {
-        //var_dump("schleife".$value);
         $html = str_replace($value, '<a href="'.$bracketMatches[$key].'" id="player" style="display:block;width:425px;height:300px;"></a>', $html);
     }
-    //var_dump($bracketMatch);
-    */
     
     return $html;
   }
