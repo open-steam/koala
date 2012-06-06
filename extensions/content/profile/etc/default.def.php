@@ -43,4 +43,6 @@ defined("ENABLED_BID_NAME") or define("ENABLED_BID_NAME", false);
 
 defined("YOUR_FAVORITES") or define("YOUR_FAVORITES", false);
 
+defined("USER_EXTENSION_URL") or define("USER_EXTENSION_URL", PATH_URL . "user/index/");
+
 ?>

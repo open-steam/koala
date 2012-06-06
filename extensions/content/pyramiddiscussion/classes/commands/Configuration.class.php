@@ -34,8 +34,8 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		
 		// change configuration
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["change_options"])) {
-			$pyramidRoom->set_name($_POST["title"]);
-			$pyramidRoom->set_attribute("OBJ_DESC", $_POST["info"]);
+			$pyramidRoom->set_attribute("OBJ_DESC", $_POST["title"]);
+			$pyramidRoom->set_attribute("PYRAMIDDISCUSSION_DESC", $_POST["info"]);
 			$pyramidRoom->set_attribute("PYRAMIDDISCUSSION_ACTCOL", $_POST["phase"]);
 			if (isset($_POST["use_deadlines"]) && $_POST["use_deadlines"] == "on") {
 				$pyramidRoom->set_attribute("PYRAMIDDISCUSSION_USEDEADLINES", "yes");
@@ -65,9 +65,11 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setCurrentBlock("BLOCK_PYRAMID_OPTIONS");
 		$content->setVariable("PYRAMID_OPTIONS", "Konfiguration der Pyramidendiskussion");
 		$content->setVariable("TITLE_LABEL", "Diskussionsthema:");
-		$content->setVariable("TITLE_VALUE", $pyramidRoom->get_name());
+		$content->setVariable("TITLE_VALUE", $pyramidRoom->get_attribute("OBJ_DESC"));
 		$content->setVariable("INFO_LABEL", "Infotext:");
-		$content->setVariable("INFO_VALUE", $pyramidRoom->get_attribute("OBJ_DESC"));
+		if ($pyramidRoom->get_attribute("PYRAMIDDISCUSSION_DESC") != "0") {
+			$content->setVariable("INFO_VALUE", $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_DESC"));
+		}
 		$content->setVariable("START_LABEL", "Anzahl der Startfelder:");
 		$content->setVariable("START_VALUE", $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_MAX"));
 		$content->setVariable("BASEGROUP_LABEL", "Basisgruppe:");

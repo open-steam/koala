@@ -29,7 +29,6 @@ class HtmlDocument
   
   //content with modifications
   function makeViewModifications($html, $steamObject=NULL) {
-    
     //mod 0  
     if($this->object!==NULL){
         $dirname = dirname($this->object->get_path()) . "/";
@@ -41,7 +40,8 @@ class HtmlDocument
     if($steamObject!==NULL){
         $dirname = dirname($steamObject->get_path()) . "/";
     }
-        
+     
+    
         
     //mod1
     //document mod: replace not vaild hrefs
@@ -61,11 +61,6 @@ class HtmlDocument
         }
         $html = str_replace($orig_matches[$key], "href=\"" . $new_path . "\"", $html);
     }
-    
-    
-    
-    
-    
     
     
     
@@ -125,8 +120,6 @@ class HtmlDocument
     
     
     
-    
-    
     /* works not
     //document mod: replace not vaild srcs
     preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
@@ -150,25 +143,18 @@ class HtmlDocument
     
     
     
-    
     //new
     //video mod: replace not vaild src
     preg_match_all('/<video .* src="([%a-z0-9:.\-_\/]*)".*<\/video>/iU', $html, $matches); //get the video tag, works
 
-
     $origMatches = $matches[0];
     $pathMatches = $matches[1];
-
-    //var_dump($pathMatches);
 
     //case: objectid
     //case: steam path
     //case: ext path
 
-
     foreach ($pathMatches as $key => $src) {
-
-
         try {
             $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $src);
             if($steamObject===NULL) throw new \steam_exception;
@@ -179,22 +165,36 @@ class HtmlDocument
             }else{
                 throw new \steam_exception;
             }
-
-
         }catch(\steam_exception $e){
             //object not found
             //var_dump("not found");
         }
-
-
         //$ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-
-
-
-
         //replace
-
     }
+    
+    
+    
+    //modifcations for flow player: testing
+    $pattern = '/<video .* src="([%a-z0-9:.\-_\/]*)".*<\/video>/iU';
+    $replace = '<a href="jhgh" id="player">';
+    //$replace = "wurstwasser";
+    
+    /*
+    //preg_replace($pattern, $replace, $html);
+    preg_match_all($pattern, $html, $matches);
+    
+    
+    $fullMatches = $matches[0];
+    $bracketMatches = $matches[1];
+    
+    foreach ($fullMatches as $key => $value) {
+        //var_dump("schleife".$value);
+        $html = str_replace($value, '<a href="'.$bracketMatches[$key].'" id="player" style="display:block;width:425px;height:300px;"></a>', $html);
+    }
+    //var_dump($bracketMatch);
+    */
+    
     return $html;
   }
   

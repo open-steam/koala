@@ -113,6 +113,8 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                         if($environmentObject->get_attribute("bid:presentation")==="index"){ 
                         $environmentObject = $environmentObject->get_environment();
                     }
+                    if("0"==$environmentObject) throw new \steam_exception;
+                    if(!($environmentObject instanceof \steam_object)) throw new \steam_exception;
                 }catch (\steam_exception $e){
                     //no environment
                     return "";
