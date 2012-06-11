@@ -31,6 +31,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 
 		$searchResult = array();
 		$min_search_string_count = 3;
+                //IF THERE IS AN ACTION TO DO
 		if ($action != ""){
 			$searchString = trim($searchString);
 
@@ -39,6 +40,8 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 				$frameResponseObject->setProblemDescription("Länge der Suchanfrage zu klein! Eine Suchanfrage muss aus mindestens 3 Zeichen bestehen.");
 			}else if(((strpos($searchString,"*")!==FALSE) || (strpos($searchString,"?")!==FALSE)) && ($searchType == "searchUserFullname")){
                             $frameResponseObject->setProblemDescription("Eine Suchanfrage nach Namen darf aus Datenschutzgründen keine Wildcards enthalten");
+                        
+                            //IF SEARCH REQUEST IS CLEAN
                         }else{
 				/* prepare search string */
 				$modSearchString = $searchString;
@@ -184,7 +187,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 						
 						$resultUser = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $urlId);
 						if($resultUser instanceof \steam_user){
-							$content->setCurrentBlock("BLOCK_SEARCH_RESULTS");
+							$content->setCurrentBlock("BLOCK_SEARCH_RESULTS_BUDDY");
 							$content->setVariable("BUDDY_NAME", PATH_URL."profile/index/" . $resultEntry ."/");
 							$fullname = $resultUser->get_full_name();
 							$content->setVariable("BUDDY_NAME1",$fullname);
@@ -201,7 +204,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
 							else{
 								$content->setVariable("ALREADY_BUDDY", "Bereits Teil der Favoritenliste");
 							}
-							$content->parse("BLOCK_SEARCH_RESULTS");
+							$content->parse("BLOCK_SEARCH_RESULTS_BUDDY");
 							$loopCount++;
 						}
 					}
