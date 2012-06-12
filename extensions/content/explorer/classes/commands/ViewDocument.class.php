@@ -100,12 +100,11 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     ));
                     
                     $htmlDocument = new \HtmlDocument($object);
-                    $html = $htmlDocument->getHtmlContent();
-                    $html = cleanHTML($html);
+                    $html = $htmlDocument->getHtmlContent(); //this return cleand html, do not clean again
                     
                     //testing
-                    //$html.='<script src="styles/standard/javascript/Flowplayer/flowplayer-3.2.9.min.js"></script>';
-                    //$html.='<script language="JavaScript"> flowplayer("player", "styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf");</script>';
+                    //$html.='<script src="styles/standard/javascript/Flowplayer/flowplayer-3.2.9.min.js"></script>'; //head
+                    //$html.='<script language="JavaScript"> alert("vd");flowplayer("player", "styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf");</script>';
                     
                     //old stuff
                     //	die;

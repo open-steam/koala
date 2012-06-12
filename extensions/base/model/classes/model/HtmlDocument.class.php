@@ -26,8 +26,14 @@ class HtmlDocument
       return $html;
   }
   
-  
-  //content with modifications
+  /*
+   * transform a html document object to the html output
+   * 
+   * paths will be replaced
+   * 
+   * this retuns cleand html, do not clean again
+   * added javascript will be destroyd
+   */
   function makeViewModifications($html, $steamObject=NULL) {
     //mod 0  
     if($this->object!==NULL){
@@ -62,6 +68,8 @@ class HtmlDocument
         $html = str_replace($orig_matches[$key], "href=\"" . $new_path . "\"", $html);
     }
     
+    //clean html tags
+    $html = cleanHTML($html);
     
     
     //works for /download/document paths
@@ -183,7 +191,12 @@ class HtmlDocument
     $bracketMatches = $matches[1];
     
     foreach ($fullMatches as $key => $value) {
-        $html = str_replace($value, '<a href="'.$bracketMatches[$key].'" id="player" style="display:block;width:425px;height:300px;"></a>', $html);
+        $playerTagId = uniqid(); 
+        //this would be stripped by htmlclean
+        $jsPlayer='<script language="JavaScript"> flowplayer("'.$playerTagId.'","/styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf",{clip:{autoPlay: false,autoBuffering: true, url:"'.$bracketMatches[$key].'"}});</script>';
+        
+        $html = str_replace($value, '<div style="display:block;width:425px;height:300px;"><a href="'.$bracketMatches[$key].'" id="'.$playerTagId.'" style="display:block;width:425px;height:300px;"></a></div>'.$jsPlayer, $html);
+        //$html = str_replace($value, '<div style="display:block;width:425px;height:300px;"><a href="'.$bracketMatches[$key].'" id="player" style="display:block;width:425px;height:300px;"></a></div><script language="JavaScript">flowplayer("player", "styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf", {clip: {autoPlay: true,autoBuffering: true,url: "'.$bracketMatches[$key].'"}});</script>', $html);
     }
     
     return $html;
