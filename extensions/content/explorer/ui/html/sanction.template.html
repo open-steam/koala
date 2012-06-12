@@ -1,355 +1,348 @@
 <style>
-#buttons input{
-width:120px;
-}
-
-
+    #buttons input{
+        width:120px;
+    }
+    .scrollable{
+        height:200px;
+        overflow:auto;
+    }
+    table{
+        width: 100%;
+    }
 </style>
 
 <div id="crude_div" class="visible">
-	<table> 
-		<tr valign="middle">
-			<td><input id="radio_acquire" onClick="activateAcq()" type="checkbox" {NO_ENVIRONMENT} />
-			Übernehme Rechte von: <b> {INHERIT_FROM} </b> </td>
-		</tr>
-	</table>
+    <table> 
+        <tr valign="middle">
+            <td><input id="radio_acquire" onClick="activateAcq()" type="checkbox" {NO_ENVIRONMENT} />
+                       Übernehme Rechte von: <b> {INHERIT_FROM} </b> </td>
+        </tr>
+    </table>
 
-	<br />
+    <br />
 
-	<div id="buttons-label">Hier können vordefienierte Rechte verwendet werden:
-	</div>
-	
-	<div id="buttons">
-	<input type="button"  value="Privat" onclick="setCrude('privat');" />
-	<input type="button"  value="Benutzer-Öffentlich" onclick="setCrude('user_public');" />
-	<input type="button"  value="Welt-Öffentlich" onclick="setCrude('server_public');" />
-	</div>
-	
+    <div id="buttons-label">Hier können vordefienierte Rechte verwendet werden:
+    </div>
+
+    <div id="buttons">
+        <input type="button"  value="Privat" onclick="setCrude('privat');" />
+        <input type="button"  value="Benutzer-Öffentlich" onclick="setCrude('user_public');" />
+        <input type="button"  value="Welt-Öffentlich" onclick="setCrude('server_public');" />
+    </div>
+
 </div>
 
-	
+
 <div id="crude_acq_div" class="invisible">
-<table> <tr valign="middle">
-<td><input id="radio_acquire_acq" type="checkbox" onClick="deactivateAcq()" />
-Übernehme Rechte von: <b> {INHERIT_FROM} </b> </td>
-</tr>
-</table>
-	<br />
-	<div id="buttons-label">Hier können vordefienierte Rechte verwendet werden:
-	</div>
-	<div id="buttons">
-		<input type="button"  value="Privat" disabled />
-		<input type="button"  value="Benutzer-Öffentlich" disabled />
-		<input type="button"  value="Welt-Öffentlich" disabled />
-	</div>
+    <table> <tr valign="middle">
+            <td><input id="radio_acquire_acq" type="checkbox" onClick="deactivateAcq()" />
+                Übernehme Rechte von: <b> {INHERIT_FROM} </b> </td>
+        </tr>
+    </table>
+    <br />
+    <div id="buttons-label">Hier können vordefienierte Rechte verwendet werden:
+    </div>
+    <div id="buttons">
+        <input type="button"  value="Privat" disabled />
+        <input type="button"  value="Benutzer-Öffentlich" disabled />
+        <input type="button"  value="Welt-Öffentlich" disabled />
+    </div>
 </div>
 
 
 <div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist <b>{OWNER_FULL_NAME}</b>
-und hat volle Zugriffsrechte.</p></div>
+        und hat volle Zugriffsrechte.</p></div>
 
 <div id="specific_div" class="visible">
 
-<table id="right_settings_table" width="100%">
+    <table id="global" width="100%">
         <tr class="infoBar">
-		<td width="50%"><b>Globale Einstellungen</b></td>
-		<td width="50%"><b>Rechte</b></td>                
-	</tr>
+            <td width="60%"><b>Globale Einstellungen</b></td>
+            <td width="40%"><b>Rechte</b></td>                
+        </tr>
         <tr valign="middle">
-		<td width="50%" style="text-indent: 1em;">Jeder</td>
-		<td width="50%" align="right" ><select name="ddlist"
-			id="everyone_dd" size="1"
-			onChange="specificChecked('group_{EVERYONEID}_dd', value);" class="ddlist"">
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-	</tr>
+            <td width="60%" style="text-indent: 1em;">Jeder</td>
+            <td width="40%" align="right" ><select name="ddlist"
+                                                   id="everyone_dd" size="1"
+                                                   onChange="specificChecked('group_{EVERYONEID}_dd', value);" class="ddlist"">
+                                                   <option value="0"></option>
+                    <option value="1">Nur Lesen</option>
+                    <option value="2">Lesen und Schreiben</option>
+                    <option value="3">Lesen, Schreiben und Berechtigen</option>
+                </select></td>
+        </tr>
+
         <tr valign="middle">
-		<td width="50%" style="text-indent: 1em;">Angemeldete Benutzer</td>
-		<td width="50%" align="right" ><select name="ddlist"
-			id="steam_dd" size="1"
-			onChange="specificChecked('group_{STEAMID}_dd', value);" class="ddlist"">
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-	</tr>
-        
-	<tr class="infoBar">
-		<td width="50%"><b>Meine Gruppen</b></td>
-		<td width="50%"><b>Rechte</b></td>
-	</tr>
+            <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
+            <td width="40%" align="right" ><select name="ddlist"
+                                                   id="steam_dd" size="1"
+                                                   onChange="specificChecked('group_{STEAMID}_dd', value);" class="ddlist"">
+                                                   <option value="0"></option>
+                    <option value="1">Nur Lesen</option>
+                    <option value="2">Lesen und Schreiben</option>
+                    <option value="3">Lesen, Schreiben und Berechtigen</option>
+                </select></td>
+        </tr>
+        <tr class="infoBar">
+            <td width="60%"><b>Gruppen</b></td>
+            <td width="40%"><b>Rechte</b></td>
+        </tr>
+    </table>
 
-	<!-- BEGIN GROUPS -->
-
-	<tr valign="middle">
-            <td width="50%"><img style="float:left" src="{IMG_PATH}"> <div style="text-indent: {INDENTINDEX}em;">{GROUPNAME}</div></td>
-		<td width="50%" align="right" > 
-                {DROPDOWNLIST}
-               </td>
-               <!--    <select name="ddlist"
-			id="group_{GROUPID}_dd" size="1"
-			onChange="specificChecked(id, value);" class="ddlist"">
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select> -->
-
-	</tr>
-
-	<!-- END GROUPS -->
-	<!-- BEGIN NO_FAVS -->
-	<tr>
-		<td>&nbsp;</td>
-	</tr>
-	<tr class="infoBar">
-		<td><b>Benutzer {DUMMY_FAV}</b></td>
-		<td><b>Rechte</b></td>
-	</tr>
-	<!-- END NO_FAVS -->
+    <div class="scrollable">
+        <table >
 
 
-	<!-- BEGIN FAVORITES -->
-	<tr valign="middle">
-            <td><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
-		<td align="right"><select name="ddlist" id="fav_{FAVID}_dd"
-			size="1" onChange="specificChecked(id, value);" class="ddlist">
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-	</tr>
-	<!-- END FAVORITES -->
 
-	<!-- BEGIN AU -->
-	<tr valign="middle">
-		<td>{AUNAME}</td>
-		<td align="right"><select name="ddlist" id="au_{AUID}_dd"
-			size="1" onChange="specificChecked(id, value);" class="ddlist">
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-		<td>{AU_RIGHTS}</td>
-	</tr>
-	<!-- END AU -->
-</table>
+
+            <!-- BEGIN GROUPS -->
+
+            <tr valign="middle">
+                <td width="60%"><img style="float:left" src="{IMG_PATH}"> <div style="text-indent: {INDENTINDEX}em;">{GROUPNAME}</div></td>
+                <td width="40%" align="right" > 
+                    {DROPDOWNLIST}
+                </td>
+                <!--    <select name="ddlist"
+                         id="group_{GROUPID}_dd" size="1"
+                         onChange="specificChecked(id, value);" class="ddlist"">
+                         <option value="0"></option>
+                         <option value="1">Nur Lesen</option>
+                         <option value="2">Lesen und Schreiben</option>
+                         <option value="3">Lesen, Schreiben und Berechtigen</option>
+                 </select> -->
+
+            </tr>
+
+            <!-- END GROUPS -->
+        </table>
+    </div>
+
+    <div class="scrollable">
+        <table>
+            <!-- BEGIN NO_FAVS -->
+            <tr class="infoBar">
+                <td><b>Benutzer {DUMMY_FAV}</b></td>
+                <td><b>Rechte</b></td>
+            </tr>
+            <!-- END NO_FAVS -->
+
+
+            <!-- BEGIN FAVORITES -->
+            <tr valign="middle">
+                <td width="60%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
+                <td width="40%" align="right"><select name="ddlist" id="fav_{FAVID}_dd"
+                                                      size="1" onChange="specificChecked(id, value);" class="ddlist">
+                        <option value="0"></option>
+                        <option value="1">Nur Lesen</option>
+                        <option value="2">Lesen und Schreiben</option>
+                        <option value="3">Lesen, Schreiben und Berechtigen</option>
+                    </select></td>
+            </tr>
+            <!-- END FAVORITES -->
+        </table>
+    </div>
 </div>
 <div id="specific_acq_div" class="invisible">
-<table id="right_settings_table_acq" width="100%">
-	<tr class="infoBar">
-		<td width="50%"><b>Globale Einstellungen</b></td>
-		<td width="50%"><b>Rechte</b></td>                
-	</tr>
+    <table id="right_settings_table_acq" width="100%">
+        <tr class="infoBar">
+            <td width="60%"><b>Globale Einstellungen</b></td>
+            <td width="40%"><b>Rechte</b></td>                
+        </tr>
         <tr valign="middle">
-		<td width="50%" style="text-indent: 1em;">Jeder</td>
-		<td width="50%" align="right" ><select name="ddlist"
-			id="everyone_dd_acq" size="1"
-			disabled="disabled">
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-	</tr>
+            <td width="60%" style="text-indent: 1em;">Jeder</td>
+            <td width="40%" align="right" ><select name="ddlist"
+                                                   id="everyone_dd_acq" size="1"
+                                                   disabled="disabled">
+                    <option value="0"></option>
+                    <option value="1">Nur Lesen</option>
+                    <option value="2">Lesen und Schreiben</option>
+                    <option value="3">Lesen, Schreiben und Berechtigen</option>
+                </select></td>
+        </tr>
         <tr valign="middle">
-		<td width="50%" style="text-indent: 1em;">Angemeldete Benutzer</td>
-		<td width="50%" align="right" ><select name="ddlist"
-			id="steam_dd_acq" size="1" disabled="disabled">
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-	</tr>
-	<tr class="infoBar">
-		<td width="50%"><b>Meine Gruppen</b></td>
-		<td width="50%"><b>Rechte</b></td>
-	</tr>
-	
-	
-	
+            <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
+            <td width="40%" align="right" ><select name="ddlist"
+                                                   id="steam_dd_acq" size="1" disabled="disabled">
+                    <option value="0"></option>
+                    <option value="1">Nur Lesen</option>
+                    <option value="2">Lesen und Schreiben</option>
+                    <option value="3">Lesen, Schreiben und Berechtigen</option>
+                </select></td>
+        </tr>
+        <tr class="infoBar">
+            <td width="60%"><b> Gruppen</b></td>
+            <td width="40%"><b>Rechte</b></td>
+        </tr>
+    </table>
+    <div class="scrollable">
+        <table>
+            <!-- BEGIN GROUPS_ACQ -->
+            <tr valign="middle">
+                <td width="60%"><img style="float:left" src="{IMG_PATH_ACQ}"> <div style="text-indent: {INDENTINDEX_ACQ}em;">{GROUPNAME_ACQ}</div></td>
+                <td width="40%" align="right" > 
+                    {DROPDOWNLIST_ACQ}
+                </td>
+            </tr>
+            <!-- <tr valign="middle">
+                 <td style="text-indent: 1em;">{GROUPNAME_ACQ}</td>
+                 <td><select class="ddlist" id="group_{GROUPID_ACQ}_dd_acq" size="1" disabled>
+                         <option value="0"></option>
+                         <option value="1">Nur Lesen</option>
+                         <option value="2">Lesen und Schreiben</option>
+                         <option value="3">Lesen, Schreiben und Berechtigen</option>
+                     </select></td>
+             </tr> -->
 
-	<!-- BEGIN GROUPS_ACQ -->
+            <!-- END GROUPS_ACQ -->
+        </table>
+    </div>
 
-	<tr valign="middle">
-		<td style="text-indent: 1em;">{GROUPNAME_ACQ}</td>
-		<td><select class="ddlist" id="group_{GROUPID_ACQ}_dd_acq" size="1" disabled>
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-	</tr>
+    <div class="scrollable">
+        <table>
+            <!-- BEGIN NO_FAVS_ACQ -->
+            <tr class="infoBar">
+                <td><b>Benutzer {DUMMY_FAV_ACQ}</b></td>
+                <td><b>Rechte</b></td>
 
-	<!-- END GROUPS_ACQ -->
-	
-	<!-- BEGIN NO_FAVS_ACQ -->
-	<tr></tr>
-	<tr class="infoBar">
-		<td><b>Benutzer {DUMMY_FAV_ACQ}</b></td>
-		<td><b>Rechte</b></td>
-		
-	</tr>
-	
-	
-	<!-- END NO_FAVS_ACQ -->
+            </tr>
 
-	<!-- BEGIN FAVORITES_ACQ -->
-	<tr>
-		<td style="text-indent: 1em;">{FAVNAME_ACQ}</td>
-		<td><select class="ddlist" id="fav_{FAVID_ACQ}_dd_acq" size="1" disabled>
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-	</tr>
-	<!-- END FAVORITES_ACQ -->
-	<!-- BEGIN NO_AU_ACQ -->
-	<tr class="infoBar">
-		<td><b>Weitere berechtigte Nutzer {DUMMY_AU_ACQ}</b></td>
-		<td><b>Rechte</b></td>
-	</tr>
 
-	<!-- END NO_AU_ACQ -->
+            <!-- END NO_FAVS_ACQ -->
 
-	<!-- BEGIN AU_ACQ -->
-	<tr></tr>
-	<tr>
-		<td style="text-indent: 1em;">{AUNAME_ACQ}</td>
-		<td><select class="ddlist" id="au_{AUID_ACQ}_dd_acq" size="1" disabled>
-			<option value="0"></option>
-			<option value="1">Nur Lesen</option>
-			<option value="2">Lesen und Schreiben</option>
-			<option value="3">Lesen, Schreiben und Berechtigen</option>
-		</select></td>
-	</tr>
-	<!-- END AU_ACQ -->
-</table>
+            <!-- BEGIN FAVORITES_ACQ -->
+            <tr>
+                <td width="60%"><img style="float:left" src="{IMG_PATH_ACQ}"><div style="text-indent: 1em;">{FAVNAME_ACQ}</div></td>
+                <td><select class="ddlist" id="fav_{FAVID_ACQ}_dd_acq" size="1" disabled>
+                        <option value="0"></option>
+                        <option value="1">Nur Lesen</option>
+                        <option value="2">Lesen und Schreiben</option>
+                        <option value="3">Lesen, Schreiben und Berechtigen</option>
+                    </select></td>
+            </tr>
+            <!-- END FAVORITES_ACQ -->
+
+
+
+
+
+        </table></table></div>
 </div>
 
 
 <style type="text/css">
-.invisible {
-	display: none;
-	
-}
+    .invisible {
+        display: none;
 
-.visible {
-	display: block;
-	
-}
+    }
 
-.ddlist {
-	width: 100%;
-	
-}
-td{
-	 font-family: arial;
-}
-p{
-	 font-family: arial;
-}
+    .visible {
+        display: block;
+
+    }
+
+    .ddlist {
+        width: 100%;
+
+    }
+    td{
+        font-family: arial;
+    }
+    p{
+        font-family: arial;
+    }
 </style>
 <script language="JavaScript">
-function checkDDListStatus(){
-	var ddZero = 0;
-	var ddAll = 0;
-	$('select[name="ddlist"]').each(function(){
-		if($(this).val() == 0){
-			ddZero++;
-		}
-		ddAll++;
-	});
-	return (ddZero == ddAll);
+    function checkDDListStatus(){
+        var ddZero = 0;
+        var ddAll = 0;
+        $('select[name="ddlist"]').each(function(){
+            if($(this).val() == 0){
+                ddZero++;
+            }
+            ddAll++;
+        });
+        return (ddZero == ddAll);
 		
 	
-}
-function activateAcq(){	
-	document.getElementById("crude_div").className ="invisible";
-	document.getElementById("crude_acq_div").className ="visible";
-	document.getElementById("specific_div").className ="invisible";
-	document.getElementById("specific_acq_div").className ="visible";
-	document.getElementById("radio_acquire_acq").checked=true;
-	{SEND_REQUEST_ACQ_ACT}
-}
-function deactivateAcq(){
-	document.getElementById("crude_div").className ="visible";
-	document.getElementById("crude_acq_div").className ="invisible";
-	document.getElementById("specific_div").className ="visible";
-	document.getElementById("specific_acq_div").className ="invisible";
-	document.getElementById("radio_acquire").checked=false;
-	{SEND_REQUEST_ACQ_DEACT}
-}
-function setCrude(value){
-	if(value == "privat"){
-		$("select").val(0);		
-	}else if(value == "server_public"){
-		if($("#group_{EVERYONE_ID}_dd").val() == 0 ){
-			$("#group_{EVERYONE_ID}_dd").val(1);
-		}
+    }
+    function activateAcq(){	
+        document.getElementById("crude_div").className ="invisible";
+        document.getElementById("crude_acq_div").className ="visible";
+        document.getElementById("specific_div").className ="invisible";
+        document.getElementById("specific_acq_div").className ="visible";
+        document.getElementById("radio_acquire_acq").checked=true;
+        {SEND_REQUEST_ACQ_ACT}
+    }
+    function deactivateAcq(){
+        document.getElementById("crude_div").className ="visible";
+        document.getElementById("crude_acq_div").className ="invisible";
+        document.getElementById("specific_div").className ="visible";
+        document.getElementById("specific_acq_div").className ="invisible";
+        document.getElementById("radio_acquire").checked=false;
+        {SEND_REQUEST_ACQ_DEACT}
+    }
+    function setCrude(value){
+        if(value == "privat"){
+            $("select").val(0);		
+        }else if(value == "server_public"){
+            if($("#group_{EVERYONE_ID}_dd").val() == 0 ){
+                $("#group_{EVERYONE_ID}_dd").val(1);
+            }
 		
-	}else if(value == "user_public"){
-		$("#group_{EVERYONE_ID}_dd").val(0);
-		if($("#group_{STEAM_ID}_dd").val() == 0){
-			$("#group_{STEAM_ID}_dd").val(1);
-		}
+        }else if(value == "user_public"){
+            $("#group_{EVERYONE_ID}_dd").val(0);
+            if($("#group_{STEAM_ID}_dd").val() == 0){
+                $("#group_{STEAM_ID}_dd").val(1);
+            }
 		
-	}
-	{SEND_REQUEST_CRUDE}
-}
-function specificChecked(id, value){
-	objId=id.split("_");
-	id=objId[1];
-	{SEND_REQUEST_SANCTION}
-}
-$('#everyone_dd').val('{EVERYONE_VALUE}');
-//document.getElementById("everyone_dd").options[{EVERYONE_VALUE}].selected=true;
-//document.getElementById("steam_dd").options[{STEAM_VALUE}].selected=true;
-$('#steam_dd').val('{STEAM_VALUE}');
-// <!-- BEGIN GROUP_DDSETTINGS -->
-//document.getElementById("group_67_dd").options[2].selected=true;
-//document.getElementById("group_{GROUP_ID}_dd").options[{OPTIONVALUE}].selected=true;
-$('#group_{GROUP_ID}_dd').val('{OPTIONVALUE}');
+        }
+        {SEND_REQUEST_CRUDE}
+    }
+    function specificChecked(id, value){
+        objId=id.split("_");
+        id=objId[1];
+        {SEND_REQUEST_SANCTION}
+    }
+    $('#everyone_dd').val('{EVERYONE_VALUE}');
+    //document.getElementById("everyone_dd").options[{EVERYONE_VALUE}].selected=true;
+    //document.getElementById("steam_dd").options[{STEAM_VALUE}].selected=true;
+    $('#steam_dd').val('{STEAM_VALUE}');
+    // <!-- BEGIN GROUP_DDSETTINGS -->
+    //document.getElementById("group_67_dd").options[2].selected=true;
+    //document.getElementById("group_{GROUP_ID}_dd").options[{OPTIONVALUE}].selected=true;
+    $('#group_{GROUP_ID}_dd').val('{OPTIONVALUE}');
 
-// <!-- END GROUP_DDSETTINGS -->
+    // <!-- END GROUP_DDSETTINGS -->
 
-// <!-- BEGIN FAV_DDSETTINGS -->
-//document.getElementById("fav_{FAV_ID}_dd").options[{FAV_OPTION_VALUE}].selected=true;
-$('#fav_{FAV_ID}_dd').val('{FAV_OPTION_VALUE}');
-//<!-- END FAV_DDSETTINGS  -->
+    // <!-- BEGIN FAV_DDSETTINGS -->
+    //document.getElementById("fav_{FAV_ID}_dd").options[{FAV_OPTION_VALUE}].selected=true;
+    $('#fav_{FAV_ID}_dd').val('{FAV_OPTION_VALUE}');
+    //<!-- END FAV_DDSETTINGS  -->
 
-// <!-- BEGIN AU_DDSETTINGS -->
-//document.getElementById("au_{AU_ID}_dd").options[{AU_OPTION_VALUE}].selected=true;
-$('#au_{AU_ID}_dd').val('{AU_OPTION_VALUE}');
-//<!-- END AU_DDSETTINGS  --> 
-//document.getElementById("everyone_dd_acq").options[{EVERYONE_VALUE_ACQ}].selected=true;
-//document.getElementById("steam_dd_acq").options[{STEAM_VALUE_ACQ}].selected=true;
-$('#everyone_dd_acq').val('{EVERYONE_VALUE_ACQ}');
-$('#steam_dd_acq').val('{STEAM_VALUE_ACQ}');
-// <!-- BEGIN GROUP_DDSETTINGS_ACQ -->
-//document.getElementById("group_67_dd").options[2].selected=true;
-//document.getElementById("group_{GROUP_ID_ACQ}_dd_acq").options[{OPTIONVALUE_ACQ}].selected=true;
-$('#group_{GROUP_ID_ACQ}_dd_acq').val('{OPTIONVALUE_ACQ}');
-// <!-- END GROUP_DDSETTINGS_ACQ -->
+    // <!-- BEGIN AU_DDSETTINGS -->
+    //document.getElementById("au_{AU_ID}_dd").options[{AU_OPTION_VALUE}].selected=true;
+    $('#au_{AU_ID}_dd').val('{AU_OPTION_VALUE}');
+    //<!-- END AU_DDSETTINGS  --> 
+    //document.getElementById("everyone_dd_acq").options[{EVERYONE_VALUE_ACQ}].selected=true;
+    //document.getElementById("steam_dd_acq").options[{STEAM_VALUE_ACQ}].selected=true;
+    $('#everyone_dd_acq').val('{EVERYONE_VALUE_ACQ}');
+    $('#steam_dd_acq').val('{STEAM_VALUE_ACQ}');
+    // <!-- BEGIN GROUP_DDSETTINGS_ACQ -->
+    //document.getElementById("group_67_dd").options[2].selected=true;
+    //document.getElementById("group_{GROUP_ID_ACQ}_dd_acq").options[{OPTIONVALUE_ACQ}].selected=true;
+    $('#group_{GROUP_ID_ACQ}_dd_acq').val('{OPTIONVALUE_ACQ}');
+    // <!-- END GROUP_DDSETTINGS_ACQ -->
 
-// <!-- BEGIN FAV_DDSETTINGS_ACQ -->
-//document.getElementById("fav_{FAV_ID_ACQ}_dd_acq").options[{FAV_OPTION_VALUE_ACQ}].selected=true;
-$('#fav_{FAV_ID_ACQ}_dd_acq').val('{FAV_OPTION_VALUE_ACQ}');
+    // <!-- BEGIN FAV_DDSETTINGS_ACQ -->
+    //document.getElementById("fav_{FAV_ID_ACQ}_dd_acq").options[{FAV_OPTION_VALUE_ACQ}].selected=true;
+    $('#fav_{FAV_ID_ACQ}_dd_acq').val('{FAV_OPTION_VALUE_ACQ}');
 
-//<!-- END FAV_DDSETTINGS_ACQ -->
+    //<!-- END FAV_DDSETTINGS_ACQ -->
 
-// <!-- BEGIN AU_DDSETTINGS_ACQ -->
-//document.getElementById("au_{AU_ID_ACQ}_dd_acq").options[{AU_OPTION_VALUE_ACQ}].selected=true;
-$('#au_{AU_ID_ACQ}_dd_acq').val('{AU_OPTION_VALUE_ACQ}');
-// <!-- END AU_DDSETTINGS_ACQ --> 
-{ACQUIRE_START}
+    // <!-- BEGIN AU_DDSETTINGS_ACQ -->
+    //document.getElementById("au_{AU_ID_ACQ}_dd_acq").options[{AU_OPTION_VALUE_ACQ}].selected=true;
+    $('#au_{AU_ID_ACQ}_dd_acq').val('{AU_OPTION_VALUE_ACQ}');
+    // <!-- END AU_DDSETTINGS_ACQ --> 
+    {ACQUIRE_START}
 
 </script>
