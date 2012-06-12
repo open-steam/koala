@@ -191,10 +191,45 @@ class HtmlDocument
     $bracketMatches = $matches[1];
     
     foreach ($fullMatches as $key => $value) {
+        //get the resolution from the matches
+        //width
+        $videoWidth = 200; //default
+        if ($found = strpos($value, 'width="')){
+            $start = 7 + $found;
+            $current = $start;
+            $end = 0;
+            while(true){
+                if($value[$current]=='"' || $current>=strlen($value)){
+                    $end = $current;
+                    break;
+                }
+                $current++;
+            }
+        }
+        $videoWidth = intval(substr($value, $start, $end - $start));
+        
+        //width
+        $videoHeight =  200; //default
+        if ($found = strpos($value, 'height="')){
+            $start = 8 + $found;
+            $current = $start;
+            $end = 0;
+            while(true){
+                if($value[$current]=='"' || $current>=strlen($value)){
+                    $end = $current;
+                    break;
+                }
+                $current++;
+            }
+        }
+        $videoHeight = intval(substr($value, $start, $end - $start));
+        
+        
+        //create uid for player tag
         $playerTagId = uniqid(); 
         //this would be stripped by htmlclean
         $jsPlayer='<script language="JavaScript"> flowplayer("'.$playerTagId.'","/styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf",{clip:{autoPlay: false,autoBuffering: true, url:"'.$bracketMatches[$key].'"}});</script>';
-        $replacement = '<div style="display:block;width:425px;height:300px;"><a href="'.$bracketMatches[$key].'" id="'.$playerTagId.'" style="display:block;width:425px;height:300px;"></a></div>'.$jsPlayer;
+        $replacement = '<div style="display:block;width:'.$videoWidth.'px;height:'.$videoHeight.'px;"><a href="'.$bracketMatches[$key].'" id="'.$playerTagId.'" style="display:block;width:'.$videoWidth.'px;height:'.$videoHeight.'px;"></a></div>'.$jsPlayer;
         
         //version 1
         //$html = str_replace($value, $replacement, $html);
