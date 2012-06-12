@@ -194,9 +194,16 @@ class HtmlDocument
         $playerTagId = uniqid(); 
         //this would be stripped by htmlclean
         $jsPlayer='<script language="JavaScript"> flowplayer("'.$playerTagId.'","/styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf",{clip:{autoPlay: false,autoBuffering: true, url:"'.$bracketMatches[$key].'"}});</script>';
+        $replacement = '<div style="display:block;width:425px;height:300px;"><a href="'.$bracketMatches[$key].'" id="'.$playerTagId.'" style="display:block;width:425px;height:300px;"></a></div>'.$jsPlayer;
         
-        $html = str_replace($value, '<div style="display:block;width:425px;height:300px;"><a href="'.$bracketMatches[$key].'" id="'.$playerTagId.'" style="display:block;width:425px;height:300px;"></a></div>'.$jsPlayer, $html);
-        //$html = str_replace($value, '<div style="display:block;width:425px;height:300px;"><a href="'.$bracketMatches[$key].'" id="player" style="display:block;width:425px;height:300px;"></a></div><script language="JavaScript">flowplayer("player", "styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf", {clip: {autoPlay: true,autoBuffering: true,url: "'.$bracketMatches[$key].'"}});</script>', $html);
+        //version 1
+        //$html = str_replace($value, $replacement, $html);
+        
+        //alternative 2
+        $searchString=$value;
+        $start = strpos($html, $searchString);
+        $length = strlen($searchString);
+        $html=substr_replace($html, $replacement, $start, $length);
     }
     
     return $html;
