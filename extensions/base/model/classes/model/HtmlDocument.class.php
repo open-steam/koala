@@ -256,8 +256,13 @@ class HtmlDocument
     $mediaPlayerHeight = round(200 * 11 / 40) . "";
     
     foreach ($fullMatches as $key => $value) {
-        $mediaUrl = $value;
-        $audioPlayer= '<object style="width: '.$mediaPlayerWidth.'px; height:'.$mediaPlayerHeight.'px" type="application/x-shockwave-flash" data="'.$mediaPlayerPath.'"><param name="movie" value="'.$mediaPlayerPath.'" /><param name="FlashVars" value="src='.$mediaUrl.'" /><param name="bgcolor" value="#cccccc"></object>';
+        $mediaUrl = $bracketMatches[$key];
+        $audioPlayer = '<object style="width: '.$mediaPlayerWidth.'px; height:'.$mediaPlayerHeight.'px" type="application/x-shockwave-flash" data="'.$mediaPlayerPath.'">';
+        $audioPlayer.= '<param name="movie" value="'.$mediaPlayerPath.'" />';
+        $audioPlayer.= '<param name="FlashVars" value="src='.$mediaUrl.'" />';
+        $audioPlayer.= '<param name="bgcolor" value="#cccccc">';
+        $audioPlayer.= '</object>';
+        
         $replacement = $audioPlayer;
         
         //version 1
