@@ -185,16 +185,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				exit;
 			}
 		}
-		if ($preHtml !== "") {
-			$preHtml = "<div style=\"border-bottom: 1px solid #ccc; padding-bottom:10px; margin-bottom:10px\">{$preHtml}</div>";
-		}
 		
-                
                 //make html output modifications
                 $htmlDocument = new \HtmlDocument();
                 $preHtml = $htmlDocument->makeViewModifications($preHtml);
                 $preHtml = cleanHTML($preHtml);
                 
+                if ($preHtml !== "") {
+			$preHtml = "<div style=\"border-bottom: 1px solid #ccc; padding-bottom:10px; margin-bottom:10px\">{$preHtml}</div>";
+		}
+		
                 
 		$environment = new \Widgets\RawHtml();
 		$environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
