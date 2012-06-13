@@ -186,10 +186,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			}
 		}
 		
+                /*
                 //make html output modifications
                 $htmlDocument = new \HtmlDocument();
                 $preHtml = $htmlDocument->makeViewModifications($preHtml);
                 $preHtml = cleanHTML($preHtml);
+                */
                 
                 if ($preHtml !== "") {
 			$preHtml = "<div style=\"border-bottom: 1px solid #ccc; padding-bottom:10px; margin-bottom:10px\">{$preHtml}</div>";
