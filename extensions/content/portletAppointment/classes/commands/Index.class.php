@@ -87,6 +87,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		if(sizeof($content) > 0){
 
 		$indexCount = 0;
+                
+                //sort appointments
+                usort($content, "sortPortletAppointments");
+                
+                
 		foreach($content as $appointment){
 		  	$tmpl->setCurrentBlock("BLOCK_TERM");
 		  	

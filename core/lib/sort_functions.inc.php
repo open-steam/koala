@@ -122,4 +122,42 @@ function sortExtensions($extensionA, $extensionB) {
 	
 	return ($priorityA < $priorityB) ? 1:-1;
 }
+
+
+function sortPortletAppointments($appointmentA, $appointmentB){
+    //timestamp a
+    $startTime = $appointmentA["start_time"];
+    $startDate = $appointmentA["start_date"];
+    
+    $aYear = $startDate["year"];
+    $aMonth = $startDate["month"];
+    $aDay = $startDate["day"];
+    $aHour = $startTime["hour"];
+    $aMinute = $startTime["minutes"];
+    
+    $format = 'Y-m-d H:i:s';
+    $dateA = new DateTime();
+    $dateA = DateTime::createFromFormat($format, $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00');
+    $timestampA = $dateA->getTimestamp();
+    
+    //timestamp b
+    $startTime = $appointmentB["start_time"];
+    $startDate = $appointmentB["start_date"];
+    
+    $bYear = $startDate["year"];
+    $bMonth = $startDate["month"];
+    $bDay = $startDate["day"];
+    $bHour = $startTime["hour"];
+    $bMinute = $startTime["minutes"];
+    
+    $format = 'Y-m-d H:i:s';
+    $dateB = new DateTime();
+    $dateB = DateTime::createFromFormat($format, $bYear.'-'.$bMonth.'-'.$bDay.' '.$bHour.':'.$bMinute.':00');
+    $timestampB = $dateB->getTimestamp();
+    
+    if ($timestampA == $timestampB) {
+        return 0;
+    }
+    return ($timestampA < $timestampB) ? -1 : 1;
+}
 ?>
