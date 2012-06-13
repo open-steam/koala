@@ -173,16 +173,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					$preHtml = strip_tags($first->get_content(),"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
 				} else if (strstr($mimetype, "text")) {
 					$bidDokument = new \BidDocument($first);
-                                        
-                                        
                                         $preHtml = $bidDokument->get_content();
-                                        //make html modifications
-                                        $htmlDocument = new \HtmlDocument();
-                                        $html = $htmlDocument->makeViewModifications($preHtml);
-                                        $preHtml = cleanHTML($preHtml);
-                                        
-                                        
-					//$preHtml = $bidDokument->get_content();
 				}				
 			}
 		} else if ($presentation === "index" && !(isset($_GET["view"]) && ($_GET["view"] === "list"))) {
@@ -198,6 +189,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$preHtml = "<div style=\"border-bottom: 1px solid #ccc; padding-bottom:10px; margin-bottom:10px\">{$preHtml}</div>";
 		}
 		
+                
+                //make html output modifications
+                $htmlDocument = new \HtmlDocument();
+                $preHtml = $htmlDocument->makeViewModifications($preHtml);
+                $preHtml = cleanHTML($preHtml);
+                
+                
 		$environment = new \Widgets\RawHtml();
 		$environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
 		
