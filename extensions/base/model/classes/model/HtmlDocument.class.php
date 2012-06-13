@@ -240,6 +240,35 @@ class HtmlDocument
         $length = strlen($searchString);
         $html=substr_replace($html, $replacement, $start, $length);
     }
+    unset($matches);
+    
+    
+    
+    //modifcations for audio player
+    $pattern = '/<audio.*src="([%a-z0-9:.\-_\/]*)".*<\/audio>/iU';
+    preg_match_all($pattern, $html, $matches);
+    
+    $fullMatches = $matches[0];
+    $bracketMatches = $matches[1];
+    
+    $mediaPlayerPath = \PortletMedia::getInstance()->getAssetUrl() . 'emff_lila_info.swf';
+    $mediaPlayerWidth = 200;
+    $mediaPlayerHeight = round(200 * 11 / 40) . "";
+    
+    foreach ($fullMatches as $key => $value) {
+        $mediaUrl = $value;
+        $audioPlayer= '<object style="width: '.$mediaPlayerWidth.'px; height:'.$mediaPlayerHeight.'px" type="application/x-shockwave-flash" data="'.$mediaPlayerPath.'"><param name="movie" value="'.$mediaPlayerPath.'" /><param name="FlashVars" value="src='.$mediaUrl.'" /><param name="bgcolor" value="#cccccc"></object>';
+        $replacement = $audioPlayer;
+        
+        //version 1
+        //$html = str_replace($value, $replacement, $html);
+        
+        //alternative 2
+        $searchString=$value;
+        $start = strpos($html, $searchString);
+        $length = strlen($searchString);
+        $html=substr_replace($html, $replacement, $start, $length);
+    }
     
     return $html;
   }
