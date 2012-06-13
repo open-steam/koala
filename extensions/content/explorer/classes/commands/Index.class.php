@@ -174,11 +174,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				} else if (strstr($mimetype, "text")) {
 					$bidDokument = new \BidDocument($first);
                                         
+                                        
                                         $preHtml = $bidDokument->get_content();
                                         //make html modifications
                                         $htmlDocument = new \HtmlDocument();
                                         $html = $htmlDocument->makeViewModifications($preHtml);
-                                        $preHtml = cleanHTML($html);
+                                        $preHtml = cleanHTML($preHtml);
                                         
                                         
 					//$preHtml = $bidDokument->get_content();
