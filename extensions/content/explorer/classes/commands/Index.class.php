@@ -173,7 +173,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					$preHtml = strip_tags($first->get_content(),"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
 				} else if (strstr($mimetype, "text")) {
 					$bidDokument = new \BidDocument($first);
-					$preHtml = $bidDokument->get_content();
+                                        
+                                        $preHtml = $bidDokument->get_content();
+                                        //make html modifications
+                                        $htmlDocument = new \HtmlDocument();
+                                        $html = $htmlDocument->makeViewModifications($preHtml);
+                                        $preHtml = cleanHTML($html);
+                                        
+                                        
+					//$preHtml = $bidDokument->get_content();
 				}				
 			}
 		} else if ($presentation === "index" && !(isset($_GET["view"]) && ($_GET["view"] === "list"))) {
