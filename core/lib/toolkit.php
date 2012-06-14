@@ -643,7 +643,7 @@ div#container
 </style>
 <div id="container">
 <h1>Initializing System. Please wait ...</h1>
-<small style="font-weight: normal;">koala framework v$version</small>
+<small style="font-weight: normal;">koaLA-Framework v$version</small>
 </div>
 END;
         buffer_flush();
