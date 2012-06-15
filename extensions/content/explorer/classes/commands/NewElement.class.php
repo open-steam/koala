@@ -26,6 +26,10 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$extensions = \ExtensionMaster::getInstance()->getExtensionByType("IObjectExtension");
 		$commands = array();
 
+                //sort order of new dialog in explorer
+                //the order is defined in the platform whitelist constant
+                usort($extensions, "sortExplorerNewDialog");
+                
 		foreach ($extensions as $extension) {
 			if (!strstr(strtolower(get_class($extension)), "portlet")) {
 				$command = $extension->getCreateNewCommand($idRequestObject);
@@ -45,6 +49,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		
 		$html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px\">";
 		
+                
 		foreach ($commands as $command) {
 			$namespaces = $command->getExtension()->getUrlNamespaces();
 			$html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img src=\"{$command->getExtension()->getObjectIconUrl()}\"> {$command->getExtension()->getObjectReadableName()}</a><br>";

@@ -160,4 +160,24 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     }
     return ($timestampA < $timestampB) ? -1 : 1;
 }
+
+
+function sortExplorerNewDialog($extensionA, $extensionB){
+    $nameA = $extensionA->getName();
+    $nameB = $extensionB->getName();
+    
+    if(!defined("EXTENSIONS_WHITELIST")){
+        return 0;
+    }
+    
+    $posA = strpos(strtolower(EXTENSIONS_WHITELIST), strtolower($nameA));
+    $posB = strpos(strtolower(EXTENSIONS_WHITELIST), strtolower($nameB));
+    
+    if(FALSE === $posA || FALSE === $posB) return 0;
+    
+    if ($posA == $posB) {
+        return 0;
+    }
+    return ($posA < $posB) ? -1 : 1;
+}
 ?>
