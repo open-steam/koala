@@ -47,6 +47,12 @@ class Checkbox extends Widget {
 		if ($currentValue === $this->checkedValue) {
 			$this->getContent()->setVariable("CHECKED", "checked");
 		}
+                
+                //write sanction
+                if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
+                        $this->getContent()->setVariable("READONLY", "readonly");
+                }
+                
 		$this->getContent()->setVariable("CHECKEDVALUE", $this->checkedValue);
 		$this->getContent()->setVariable("UNCHECKEDVALUE", $this->uncheckedValue);
 		$this->getContent()->setVariable("ONCHANGE", $this->contentProvider->getUpdateCode($this->data, $this->id . "_checkbox"));
