@@ -47,7 +47,14 @@ class DatePicker extends Widget {
 		}
 		$this->getContent()->setVariable("PLACEHOLDER", $this->placeholder);
 		$this->getContent()->setVariable("ID", $this->id);
-		if ($this->contentProvider) {
+		
+                //write sanction
+                if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
+                        $this->getContent()->setVariable("READONLY", "readonly");
+                }
+                
+                
+                if ($this->contentProvider) {
 			$currentDateValue = $this->contentProvider->getData($this->data);
 			$currentDateValue = ($currentDateValue == 0) ? "" : $currentDateValue;
 			$this->getContent()->setVariable("VALUE", $currentDateValue);
