@@ -60,6 +60,12 @@ class ComboBox extends Widget {
 			$currentValue = $this->contentProvider->getData($this->data);
 		}
                 
+                //write sanction
+                if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
+                        $this->getContent()->setVariable("READONLY", "disabled");
+                }
+                
+                
 		$this->getContent()->setVariable("ID", $this->id);
 		$this->getContent()->setVariable("ID2", $this->id);
 		$this->getContent()->setVariable("ID3", $this->id);
