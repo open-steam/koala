@@ -384,7 +384,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         if (count($groupMapping) == 0) {
             $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
-
+            $groupsRights = array();
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
                 $groupname = $group->get_groupname();
@@ -403,15 +403,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $dropDownValue = 0;
                 }
 
+                $groupsRights[$id] = $dropDownValue;
 
-                $dropDownValueAcq = 0;
-                if ($sanctionCheckAcq) {
-                    $dropDownValueAcq = 3;
-                } elseif ($writeCheckAcq) {
-                    $dropDownValueAcq = 2;
-                } elseif ($readCheckAcq) {
-                    $dropDownValueAcq = 1;
-                }
 
                 $explodeName = array();
                 $explodeName = explode(".", $groupname);
@@ -426,10 +419,26 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $ddl->setSize("1");
                 $ddl->setDisabled(false);
 
-                $optionValues = self::getOptionsValues(1);
+                $intend = $explodeLength;
+                if ($intend == 1) {
+                    $optionValues = self::getOptionsValues(0);
+                } else {
+                    $parent = $group->get_parent_group();
+                    $readCheckParent = $object->check_access_read($parent);
+                    $writeCheckParent = $object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $parent);
+                    $sanctionCheckParent = $object->check_access(SANCTION_SANCTION, $parent);
+                    if ($sanctionCheckParent) {
+                        $dropDownValueParent = 3;
+                    } else if ($writeCheckParent) {
+                        $dropDownValueParent = 2;
+                    } else if ($readCheckParent) {
+                        $dropDownValueParent = 1;
+                    } else {
+                        $dropDownValueParent = 0;
+                    }
+                    $optionValues = self::getOptionsValues($dropDownValueParent);
+                }
                 $ddl->setOptionValues($optionValues);
-
-                $intend = count(explode(".", $groupname));
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
                     $content->setCurrentBlock("GROUPS");
                     $content->setCurrentBlock("GROUP_DDSETTINGS");
@@ -451,66 +460,67 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         }
         if (count($groupMappingAcq) == 0) {
             $content->setVariable("NO_GROUP_MEMBER_ACQ", "Sie sind kein Mitglied einer Gruppe");
-        }foreach ($groupMappingAcq as $id => $group) {
-            $name = $group->get_attribute("OBJ_DESC");
-            $groupname = $group->get_groupname();
-            if ($env instanceof \steam_room) {
-                $readCheckAcq = $env->check_access_read($group);
-                $writeCheckAcq = $env->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $group);
-                $sanctionCheckAcq = $env->check_access(SANCTION_SANCTION, $group);
-            } else {
-                $readCheckAcq = 0;
-                $writeCheckAcq = 0;
-                $sanctionCheckAcq = 0;
-            }
-            $dropDownValueAcq = 0;
-            if ($sanctionCheckAcq) {
-                $dropDownValueAcq = 3;
-            } elseif ($writeCheckAcq) {
-                $dropDownValueAcq = 2;
-            } elseif ($readCheckAcq) {
-                $dropDownValueAcq = 1;
-            }
-            $explodeName = array();
-            $explodeName = explode(".", $groupname);
-
-            $explodeLength = count($explodeName);
-
-            $ddlAcq = new \Widgets\DropDownList();
-            $ddlAcq->setId("group_" . $id . "_dd_acq");
-            $ddlAcq->setName("ddlist_acq");
-            $ddlAcq->setSize("1");
-            $ddlAcq->setDisabled(true);
-
-            $optionValuesAcq = self::getOptionsValues(1);
-
-            $ddlAcq->setOptionValues($optionValuesAcq);
-
-            $intend = count(explode(".", $groupname));
-
-            if ($name != "Everyone" && $name != "sTeam") {
-                $content->setCurrentBlock("GROUPS_ACQ");
-                $content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
-                $content->setVariable("GROUPID_ACQ", $id);
-                $content->setVariable("GROUP_ID_ACQ", $id);
-                $content->setVariable("GROUPNAME_ACQ", $name);
-                $content->setVariable("OPTIONVALUE_ACQ", $dropDownValueAcq);
-                $content->setVariable("INDENTINDEX_ACQ", $intend);
-                $content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
-                if (isset($favorites[$id])) {
-                    $content->setVariable("IMG_PATH_ACQ", $favPicUrl);
+        } else {
+            foreach ($groupMappingAcq as $id => $group) {
+                $name = $group->get_attribute("OBJ_DESC");
+                $groupname = $group->get_groupname();
+                if ($env instanceof \steam_room) {
+                    $readCheckAcq = $env->check_access_read($group);
+                    $writeCheckAcq = $env->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $group);
+                    $sanctionCheckAcq = $env->check_access(SANCTION_SANCTION, $group);
                 } else {
-                    $content->setVariable("IMG_PATH_ACQ", $groupPicUrl);
+                    $readCheckAcq = 0;
+                    $writeCheckAcq = 0;
+                    $sanctionCheckAcq = 0;
                 }
-                $content->parse("GROUP_DDSETTINGS_ACQ");
-                $content->parse("GROUPS_ACQ");
+                $dropDownValueAcq = 0;
+                if ($sanctionCheckAcq) {
+                    $dropDownValueAcq = 3;
+                } elseif ($writeCheckAcq) {
+                    $dropDownValueAcq = 2;
+                } elseif ($readCheckAcq) {
+                    $dropDownValueAcq = 1;
+                }
+                $explodeName = array();
+                $explodeName = explode(".", $groupname);
+
+                $explodeLength = count($explodeName);
+
+                $ddlAcq = new \Widgets\DropDownList();
+                $ddlAcq->setId("group_" . $id . "_dd_acq");
+                $ddlAcq->setName("ddlist_acq");
+                $ddlAcq->setSize("1");
+                $ddlAcq->setDisabled(true);
+
+                $optionValuesAcq = self::getOptionsValues(1);
+
+                $ddlAcq->setOptionValues($optionValuesAcq);
+
+                $intend = count(explode(".", $groupname));
+
+                if ($name != "Everyone" && $name != "sTeam") {
+                    $content->setCurrentBlock("GROUPS_ACQ");
+                    $content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
+                    $content->setVariable("GROUPID_ACQ", $id);
+                    $content->setVariable("GROUP_ID_ACQ", $id);
+                    $content->setVariable("GROUPNAME_ACQ", $name);
+                    $content->setVariable("OPTIONVALUE_ACQ", $dropDownValueAcq);
+                    $content->setVariable("INDENTINDEX_ACQ", $intend);
+                    $content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
+                    if (isset($favorites[$id])) {
+                        $content->setVariable("IMG_PATH_ACQ", $favPicUrl);
+                    } else {
+                        $content->setVariable("IMG_PATH_ACQ", $groupPicUrl);
+                    }
+                    $content->parse("GROUP_DDSETTINGS_ACQ");
+                    $content->parse("GROUPS_ACQ");
+                }
             }
         }
 
         //TEMPLATE FAVORITES
         if (count($userMapping) == 0) {
             $content->setVariable("NO_FAV_MEMBER", "Es können keinem Benutzer Rechte zugewiesen werden. ");
-            $content->setVariable("NO_FAV_MEMBER_ACQ", "Es können keinem Benutzer Rechte zugewiesen werden.");
         } else {
             $content->setVariable("DUMMY_FAV", "");
             $content->setVariable("DUMMY_FAV_ACQ", "");
@@ -530,12 +540,30 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     } elseif ($readCheck) {
                         $dropDownValue = 1;
                     }
+
+                    $userGroups = $favo->get_groups();
+                    $maxSanction = 0;
+                    foreach ($userGroups as $group) {
+                        if (isset($groupMapping[$group->get_id()])) {
+                            $currentValue = $groupsRights[$group->get_id()];
+                            if ($currentValue > $maxSanction) {
+                                $maxSanction = $currentValue;
+                            }
+                        }
+                    }
+                    $ddl = new \Widgets\DropDownList();
+                    $ddl->setId("fav_" . $id . "_dd");
+                    $ddl->setName("ddlist");
+                    $ddl->setOnChange("specificChecked(id, value);");
+                    $ddl->setSize("1");
+                    $ddl->setDisabled(false);
+                    $optionValues = self::getOptionsValues($maxSanction);
+                    $ddl->setOptionValues($optionValues);
+
                     $content->setCurrentBlock("FAVORITES");
                     $content->setCurrentBlock("FAV_DDSETINGS");
-                    $content->setVariable("FAVID", $id);
-                    $content->setVariable("FAV_ID", $id);
                     $content->setVariable("FAVNAME", $name);
-                    $content->setVariable("FAV_OPTION_VALUE", $dropDownValue);
+                    $content->setVariable("DROPDOWNLIST_USER", $ddl->getHtml());
                     if (isset($favorites[$id])) {
                         $content->setVariable("IMG_PATH", $favPicUrl);
                     } else {
@@ -594,7 +622,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
     private static function getOptionsValues($dropDownValue) {
         $optionValues = array();
-        $optionValues[0] = "";
         for ($i = $dropDownValue; $i <= 3; $i++) {
             if ($i == 1) {
                 $optionValues[1] = "Lesen";
@@ -602,6 +629,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $optionValues[2] = "Lesen und Schreiben";
             } else if ($i == 3) {
                 $optionValues[3] = "Lesen, Schreiben und Berechtigen";
+            } else if ($i == 0) {
+                $optionValues[0] = "";
             }
         }
         return $optionValues;

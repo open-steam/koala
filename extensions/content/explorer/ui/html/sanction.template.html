@@ -130,13 +130,19 @@
             <!-- BEGIN FAVORITES -->
             <tr valign="middle">
                 <td width="60%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
-                <td width="40%" align="right"><select name="ddlist" id="fav_{FAVID}_dd"
+                <td width="40%" align="right">
+                    {DROPDOWNLIST_USER}
+                    
+                    
+                    <!-- <select name="ddlist" id="fav_{FAVID}_dd"
                                                       size="1" onChange="specificChecked(id, value);" class="ddlist">
                         <option value="0"></option>
                         <option value="1">Nur Lesen</option>
                         <option value="2">Lesen und Schreiben</option>
                         <option value="3">Lesen, Schreiben und Berechtigen</option>
-                    </select></td>
+                    </select> -->
+                    
+                    </td>
             </tr>
             <!-- END FAVORITES -->
         </table>
