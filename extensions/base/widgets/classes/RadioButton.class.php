@@ -57,9 +57,20 @@ class RadioButton extends Widget {
 				$currentValue = $this->options[0]["value"];
 			}
 		}
+                
+               
+                
+                
 		$this->getContent()->setVariable("ID", $this->id);
 		foreach ($this->options as $option) {
 			$this->getContent()->setCurrentBlock("BLOCK_RADIOFIELD");
+                        
+                        //write sanction
+                        if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
+                                $this->getContent()->setVariable("READONLY", "readonly");
+                        }
+                        
+                        
 			$this->getContent()->setVariable("ID", $this->id);
 			$this->getContent()->setVariable("RADIONAME", $this->id);
 			$this->getContent()->setVariable("RADIOVALUE", $option["value"]);
