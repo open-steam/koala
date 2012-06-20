@@ -49,16 +49,6 @@ class DropDownList extends Widget {
             $this->getContent()->setVariable("DISABLED", "");
         }
 
-        //Geändert von Christoph, weil cP es in diesem Widget nicht gibt!
-        if (isset($this->contentProvider)) {
-            //write sanction
-            if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
-                $this->getContent()->setVariable("READONLY", "disabled");
-            }
-        }
-
-
-
         foreach ($this->optionValues as $index => $value) {
             $this->getContent()->setCurrentBlock("OPTION_VALUES");
             $this->getContent()->setVariable("INDEX", $index);
