@@ -67,7 +67,7 @@ class RadioButton extends Widget {
                         
                         //write sanction
                         if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
-                                $this->getContent()->setVariable("READONLY", "readonly");
+                                $this->getContent()->setVariable("READONLY", "disabled");
                         }
                         
                         
