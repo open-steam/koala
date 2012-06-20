@@ -78,6 +78,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		}
 		
 		$tmpl->setVariable("BODY", $htmlBody);
+                $tmpl->setVariable("PORTAL_OBJECT_ID", $this->portalObject->get_id());
+                
 		
 		$htmlBodyTemplated=$tmpl->get();
 		
