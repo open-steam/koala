@@ -178,7 +178,7 @@ END
                 }
                 $frameResponseObject->addWidget($rawHtml);
                 $cssStyle = new \Widgets\RawHtml();
-                $cssStyle->setCss('#content_wrapper {overflow:scroll;}');
+                $cssStyle->setCss('#content_wrapper {overflow-x:auto;}');
                 $frameResponseObject->addWidget($cssStyle);
                 return $frameResponseObject;
             }
