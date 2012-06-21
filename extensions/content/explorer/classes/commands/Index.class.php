@@ -174,8 +174,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					// Image
 					$preHtml = "<div style=\"text-align:center\"><img style=\"max-width:100%\" src=\"" . PATH_URL . "Download/Document/" . $first->get_id() . "/\"></div>";
 				} else if ($mimetype == "text/html") {
-					$preHtml = strip_tags($first->get_content(),"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
-				} else if (strstr($mimetype, "text")) {
+					$rawContent = $first->get_content();
+                                        //$preHtml = strip_tags($rawContent,"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
+                                        //$preHtml = $rawContent;
+                                        $htmlDocument = new \HtmlDocument();
+                                        $preHtml = $htmlDocument->makeViewModifications($rawContent);
+                                        $preHtml = cleanHTML($preHtml);
+                                } else if (strstr($mimetype, "text")) {
 					$bidDokument = new \BidDocument($first);
                                         $preHtml = $bidDokument->get_content();
 				}				
