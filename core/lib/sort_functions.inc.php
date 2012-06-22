@@ -135,6 +135,12 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $aHour = $startTime["hour"];
     $aMinute = $startTime["minutes"];
     
+    if ($aYear==0) $aYear=1990; 
+    if ($aMonth==0) $aMonth=1;
+    if ($aDay==0) $aDay=1;
+    if ($aHour==0) $aHour=0;
+    if ($aMinute==0) $aMinute=0;
+    
     $format = 'Y-m-d H:i:s';
     $dateA = new DateTime();
     $dateA = DateTime::createFromFormat($format, $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00');
@@ -149,6 +155,12 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $bDay = $startDate["day"];
     $bHour = $startTime["hour"];
     $bMinute = $startTime["minutes"];
+    
+    if ($bYear==0) $bYear=1990; 
+    if ($bMonth==0) $bMonth=1;
+    if ($bDay==0) $bDay=1;
+    if ($bHour==0) $bHour=0;
+    if ($bMinute==0) $bMinute=0;
     
     $format = 'Y-m-d H:i:s';
     $dateB = new DateTime();
