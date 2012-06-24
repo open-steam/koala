@@ -9,9 +9,8 @@ function showBox( imageID, width, height )
 	var newHeight = height;
 
 	var url = img.src;
-	
-	var to = url.indexOf("80");
-	url = url.substring( 0, to-5 );
+	//var to = url.indexOf( "&" );
+	url = url.substring( 0, url.length-6);
 
 	if ( width > screenWidth )
 	{
@@ -25,8 +24,8 @@ function showBox( imageID, width, height )
 		newHeight = screenHeight;
 	}
 
-url = url + "/" + newWidth + "/" + newHeight + "/";
-
+	url = url + "/" + newWidth;
+	url = url + "/" + newHeight;
 
 	document.getElementById("image").src = url;
 	document.getElementById("image").alt = img.alt;

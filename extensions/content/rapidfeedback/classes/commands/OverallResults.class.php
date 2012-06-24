@@ -78,8 +78,7 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
     	<script type="text/javascript">
       		google.load("visualization", "1", {packages:["corechart"]});
-		</script>
-		<script type="text/javascript" src="' . $RapidfeedbackExtension->getAssetUrl() . 'wz_tooltip.js"></script>';
+		</script>';
 		$questionCount = 0;
 		$allCount = 0;
 		foreach ($questions as $question) {
@@ -91,6 +90,9 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		}
 		$content->setVariable("QUESTIONS_HTML", $question_html);
 		$content->parse("BLOCK_RESULTS");
+		
+		$tipsy = new \Widgets\Tipsy();
+		$frameResponseObject->addWidget($tipsy);
 		
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());

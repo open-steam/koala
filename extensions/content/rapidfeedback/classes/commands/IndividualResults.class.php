@@ -24,6 +24,8 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$RapidfeedbackExtension->addCSS();
 		$RapidfeedbackExtension->addJS();
+		$RapidfeedbackExtension->addJS("jquery.tablesorter.js");
+		$RapidfeedbackExtension->addCSS("jquery.tablesorter.css");
 		
 		// access not allowed for non-admins
 		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
@@ -67,7 +69,6 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_individualresults.template.html");
 		$content->setCurrentBlock("BLOCK_RESULTS");
-		$content->setVariable("TOOLTIP_IMPORT", '<script type="text/javascript" src="' . $RapidfeedbackExtension->getAssetUrl() . 'wz_tooltip.js"></script>');
 		$content->setVariable("RESULTS_LABEL", "Individuelle Auswertung");
 		if ($result_container->get_attribute("RAPIDFEEDBACK_RESULTS") != 1) {
 			$content->setVariable("RESULTS_AMOUNT", $result_container->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgaben");
@@ -99,8 +100,13 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				if (strlen($text) > 25) {
 					$text = substr($text, 0, 25) . "...";
 				}
+				$text = $text . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
 				$content->setVariable("QUESTION_TEXT", $questionCount . "." . $text);
-				$content->setVariable("QUESTION_TEXT_LONG", $text_long);
+				$tipsy = new \Widgets\Tipsy();
+				$tipsy->setElementId("tipsy" . $questionCount);
+				$tipsy->setHtml($text_long);
+				$content->setVariable("TIPSY_ID", "tipsy" . $questionCount);
+				$content->setVariable("TIPSY_HTML", "<script>" . $tipsy->getHtml() . "</script>");
 				$content->parse("BLOCK_QUESTION");
 				$questionCount++;
 			}
@@ -109,13 +115,23 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_SHOW_PARTICIPANTS") == 0) {
 			$content->setVariable("DISPLAY_PARTICIPANTS", "none");
 		} else {
-			$content->setVariable("PARTICIPANT_LABEL", "Teilnehmer");
+			$content->setVariable("PARTICIPANT_LABEL", "Teilnehmer&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp");
 		}
 		if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_SHOW_CREATIONTIME") == 0) {
 			$content->setVariable("DISPLAY_TIME", "none");
 		} else {
 			$content->setVariable("TIME_LABEL", "Erstellungszeit");
 		}
+		
+		// initialize table sorting
+		$initJS = '$(document).ready(function() { 
+					        $("#resulttable").tablesorter({
+					        	headers : {' .
+					        	 	($questionCount+1) . ': { sorter : false }
+								}, sortList: [[' . $questionCount . ',1]]
+							}); 
+				   });';
+		$content->setVariable("INIT_JS_SORT", "<script>" . $initJS . "</script>");
 		
 		// display results
 		$results = $result_container->get_inventory();
@@ -174,6 +190,9 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			}
 		}
 		$content->parse("BLOCK_RESULTS");
+		
+		$tipsy = new \Widgets\Tipsy();
+		$frameResponseObject->addWIdget($tipsy);
 		
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());

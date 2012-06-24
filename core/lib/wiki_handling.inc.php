@@ -22,7 +22,7 @@ class StaticCallbackParameterBuffer
 
 function link_render_callback($matches)
 {
-  return '<a href="'.basename($matches[2]).'">'.$matches[4].'</a>';
+  return '<a'.$matches[1].'href="'.basename($matches[3]).'">'.$matches[5].'</a>';
 }
 
 function image_render_callback($matches) 
@@ -42,28 +42,30 @@ function image_render_callback($matches)
 		$height = -1;
 	}
   
-	preg_match( '/src="(.*?)"/', $matches[1], $title );
-	$wiki_path = StaticCallbackParameterBuffer::get_parameter( "wiki_path" );
-	$path = dirname($wiki_path) . '/' . $title[1];
+	preg_match( '/src=\'(.*?)\'/', $matches[1], $title );
+	$path = $title[1];
+	$path = urldecode($path);
 	$obj = steam_factory::path_to_object($GLOBALS[ "STEAM" ]->get_id(), $path);
 	
-	if ( is_object( $obj ) )
-	{
+	if ( is_object( $obj ) && $obj instanceof steam_document) {
 		$content = $obj->get_content();
 		$image = imagecreatefromstring( $content );
-		$width = imagesx( $image );
-		$height = imagesy( $image );
+		$width = $newWidth = imagesx( $image );
+		$height = $newHeight = imagesy( $image );
 
-		if ( $width > 770 )
+		if ( $width > 767 )
 		{
-			$height = (int) ( $height * 770 / $width );
-			$width = 770;
+			$newHeight = (int) ( $height * 767 / $width );
+			$newWidth = 767;
 		}
 		
-		$ret = '<img src="' . PATH_URL . 'get_document.php?id=' . $obj->get_id() . '&width=' . $width . '&height=' . $height . '" ';
+		$ret = '<a href="javascript:showBox(' . $obj->get_id() . ',' . $width . ',' . $height . ');">';
+		$ret .= '<img src="' . PATH_URL . 'download/image/' . $obj->get_id() . '/' . $newWidth . '/' . $newHeight . '" ';
+		$ret .= 'id="' . $obj->get_id() . '" ';
+		$ret .= 'name="' . $obj->get_attribute('OBJ_NAME') . '" ';
 		$ret .= 'alt="' . $obj->get_attribute('OBJ_DESC') . '" ';
 		$ret .= 'title="' . $obj->get_attribute('OBJ_DESC') . '" ';
-		$ret .= '/>';
+		$ret .= '/></a>';
 	}
 	else
 	{
@@ -72,6 +74,18 @@ function image_render_callback($matches)
 	
 	return $ret;
 }
+
+function annotation_render_callback($matches)
+{
+	$annotation = trim($matches[1]);
+	$text = trim($matches[2]);
+	if ($annotation == "") {
+		return "<span class=\"marked\">$text</span>";
+	} else {
+		return "<span class=\"annotated\">$text</span><div class=\"annotation\"><img src=\"". PATH_URL . "/styles/standard/images/wiki/comment_small.gif" ."\" title=\"$annotation\"></div>";
+	}
+}
+
 
 function wiki_to_html_plain( $wiki_doc, $version_doc = 0 )
 {
@@ -93,23 +107,34 @@ function wiki_to_html_plain( $wiki_doc, $version_doc = 0 )
 				array( $wiki_doc ),
 				0
 		);
+				
+		//Don't want preformated text.
+		$tmp = preg_replace("/<pre>(.*?)<\/pre>/iU", "<p>$1</p>", $tmp);
+		
 		// The Steam wiki rendering is related to the steam web interface. So we need to
 		// tweek the links to other wiki pages.
 		$tmp = preg_replace_callback( 
-		  '/<a.*href="(.*)\?path=(.*)&(.*)">(.*)<\/a>/U', 
+		  '/<a(.*)href="(.*)\?path=(.*)&(.*)">(.*)<\/a>/U', 
 		  'link_render_callback',
 		  $tmp 
 		);
 		// The Steam wiki rendering is related to the steam web interface. So we need to
-    // tweek the links to image resources.
-    
-	$wiki_path = $orig_doc->get_path();
-    StaticCallbackParameterBuffer::add_parameter("wiki_path", $wiki_path);
-    $tmp = preg_replace_callback( 
-      '/(<img .*?>)/', 
-      'image_render_callback',
-      $tmp 
-    );
+	    // tweek the links to image resources.
+	    
+		$wiki_path = $orig_doc->get_path();
+	    StaticCallbackParameterBuffer::add_parameter("wiki_path", $wiki_path);
+	    $tmp = preg_replace_callback( 
+	      '/(<img .*?>)/', 
+	      'image_render_callback',
+	      $tmp 
+	    );
+	    // reformat annotations
+	    $tmp = preg_replace_callback( 
+	      "/<div class='annotate'><div class='annotation'>(.*)<\/div><div class='annotated'>(.*)<\/div><\/div>/U", /*<div class="annotation">(.*)<\/div><div class="annotated">(.*)<\/div><\/div>/U', */
+	      "annotation_render_callback",
+	      $tmp 
+	    );
+	    
 		return $tmp;
 	}
 	else
@@ -197,4 +222,108 @@ function wiki_diff_html( $old_version, $new_version )
 	return $html;
 }	
 
+function wikitext_to_html( $text, $wiki_id )
+{	
+	/* &#039; is html-unicode for ' */
+	
+	// bold
+	$text = preg_replace("/(&#039;){3}(.*?)(&#039;){3}/iU", "<strong>$2</strong>", $text);
+
+	// italic
+	$text = preg_replace("/(&#039;){2}(.*?)(&#039;){2}/iU", "<em>$2</em>", $text);
+	
+	// h3
+	$text = preg_replace("/===(.*?)===/iU", "<h3>$1</h3>", $text);
+	
+	// h2
+	$text = preg_replace("/==(.*?)==/iU", "<h2>$1</h2>", $text);
+
+	// hr
+	$text = preg_replace("/-----------/iU", "<hr />", $text);
+	
+	// external image
+	$text = preg_replace("/\[\[Image:(.*?)\]\]/iU", "<img src=\"$1\" width=\"100\" />", $text);
+	
+	// internal wiki-link
+	$wiki_url = PATH_URL . "wiki/" . $wiki_id . "/";
+	$text = preg_replace("/\[\[(.*?)\]\]/iU", "<a href=\"" . $wiki_url . "$1.wiki\">$1</a>", $text);
+	
+	// external link
+	$text = preg_replace("/\[(.*?)\]/iU", "<a href=\"$1\">$1</a>", $text);
+	
+	// UL and OL
+	$inOL = false;
+	$inUL = false;
+	$inLI = false;
+	$html = "";
+	
+	for ( $n = 0 ; $n < strlen( $text ) ; $n++ )
+	{
+		if ( $text[$n] == "#" && !$inOL )
+		{
+			$html .= "<ol>";
+			$inOL = true;
+			$inLI = true;
+		}
+		elseif ( $text[$n] == "*" && !$inUL )
+		{
+			$html .= "<ul>";
+			$inUL = true;
+			$inLI = true;
+		} 
+		
+		// current character is '\n' or '\r'
+		$isLineReturn = ord( $text[$n] ) == 10 || ord( $text[$n] ) == 13;
+		
+		if ( $inOL )
+		{
+			if ( $isLineReturn )
+			{
+				$html .= "</li>";
+				$inLI = false;
+			}
+			elseif ( $text[$n] == "#" )
+			{
+				$html .= "<li>";
+				$inLI = true;
+			}
+			elseif ( !$inLI )
+			{
+				$html .= "</ol>";
+				$html .= $text[$n];
+				$inOL = false;
+			}
+			else $html .= $text[$n];
+		}
+		elseif ( $inUL )
+		{
+			if ( $isLineReturn )
+			{
+				$html .= "</li>";
+				$inLI = false;
+			}
+			elseif ( $text[$n] == "*" )
+			{
+				$html .= "<li>";
+				$inLI = true;
+			}
+			elseif ( !$inLI )
+			{
+				$html .= "</ul>";
+				$html .= $text[$n];
+				$inUL = false;
+			}
+			else $html .= $text[$n];
+		}
+		else $html .= $text[$n];
+	}
+	
+	$text = $html;
+	
+	// absätze beibehalten
+	$text = preg_replace("/(\n|\r){2,}/", "<br /><br />", $text);
+	//$text = preg_replace("/\n/", "<br />", $text);
+	
+	return $text;
+}
 ?>
