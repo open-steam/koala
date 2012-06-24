@@ -1,0 +1,44 @@
+<form action="" method="post">
+    <table class="grid"  cellpadding="5" cellspacing="0">
+	<tr>
+	    <td class="label">
+		{DESTINATION}:
+	    </td>
+	    <td class="value">
+		<!-- BEGIN BLOCK_GROUPS -->
+		{LABEL_GROUPS}: <br>
+		<p>
+		    <!-- BEGIN BLOCK_GROUP_ENTRIES -->
+		    <input type="radio" name="group" value="{VALUE_ID}" checked> {VALUE_GROUP_NAME}<br>
+		    <!-- END BLOCK_GROUP_ENTRIES -->
+		</p>
+		<!-- END BLOCK_GROUPS -->
+		<!-- BEGIN BLOCK_COURSES -->
+		{LABEL_COURSES}: <br>
+		<p>
+		    <!-- BEGIN BLOCK_COURSE_ENTRIES -->
+		    <input type="radio" name="group" value="{VALUE_ID}" checked> {VALUE_GROUP_NAME}<br>
+		    <!-- END BLOCK_COURSE_ENTRIES -->
+		</p>
+		<!-- END BLOCK_COURSES -->
+	    </td>
+	</tr>
+	<tr>
+	    <td class="label">
+		{ACTION}:
+	    </td>
+	    <td class="value">
+		<div>
+		    <input type="radio" name="action" value="move" checked> {LABEL_MOVE} <br>
+		    <p>{MOVE_HELP_TEXT}</p>
+		    <input type="radio" name="action" value="copy"> {LABEL_COPY} <br>
+		    <p>{COPY_HELP_TEXT}</p>
+		</div>
+	    </td>
+	</tr>
+	<tr>
+	    <td class="label"></td>
+	    <td class="value"><input type="submit"> </td>
+	</tr>
+    </table>
+</form>
