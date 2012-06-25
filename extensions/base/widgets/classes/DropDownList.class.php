@@ -12,6 +12,10 @@ class DropDownList extends Widget {
     private $optionValues = array();
     private $disabled = false;
 
+    public function setClass($c) {
+        $this->class = $c;
+    }
+
     public function setName($name) {
         $this->name = $name;
     }
@@ -39,6 +43,9 @@ class DropDownList extends Widget {
     }
 
     public function getHtml() {
+        if (isset($this->class)) {
+            $this->getContent()->setVariable("CLASS", $this->class);
+        }
         $this->getContent()->setVariable("NAME", $this->name);
         $this->getContent()->setVariable("ID", $this->id);
         $this->getContent()->setVariable("SIZE", $this->size);
