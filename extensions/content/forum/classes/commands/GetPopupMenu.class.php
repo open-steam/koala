@@ -47,6 +47,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+                
 		$path=$this->params["path"];
 		$forumId=$this->params["forum"];
 
@@ -133,7 +134,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				}
 			}
 			if($isTopicCreator){
-				$items[]=array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "command" => "EditTopic", "namespace" => "forum", "params" => "{'id':'{$this->id}','forum':'{$forumId}'}", "type" => "popup");
+				$items[]=array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "command" => "EditTopic", "namespace" => "forum", "params" => "{'id':'{$this->params["category"]}','forum':'{$forumId}'}", "type" => "popup");
 				$items[]=array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "DeleteTopic", "namespace" => "forum", "params" => "{'id':'{$this->id}','forum':'{$forumId}'}");
 				$items[]= array("name" => "Bild anfügen<img src=\"{$addImageIcon}\">", "command" => "EditMessageImage", "namespace" => "forum", "params" => "{'messageObjectId':'{$this->id}','forum':'{$forumId}'}", "type" => "popup");
 			}

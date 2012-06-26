@@ -73,7 +73,10 @@
     			alert("Bitte wählen sie Text aus, den sie kommentiern wollen.");
     		}
     		break;
-    	
+    	case "table":
+    		document.getElementById("popup_dialog_overlay").style.display = "block";
+			document.getElementById("popup_dialog_wiki_table").style.display = "block";
+			document.getElementById("popup_dialog_wiki_table").oldHTML = document.getElementById("popup_dialog_wiki_table").innerHTML;
     	default:
     		return;
     	
@@ -98,6 +101,12 @@
     		document.getElementById("popup_dialog_wiki_coment").innerHTML = document.getElementById("popup_dialog_wiki_coment").oldHTML;
     		document.getElementById("popup_dialog_overlay").style.display = "none";
     		document.getElementById("popup_dialog_wiki_coment").style.display = "none";
+    		break;
+    	
+    	case "table":
+    		document.getElementById("popup_dialog_wiki_table").innerHTML = document.getElementById("popup_dialog_wiki_table").oldHTML;
+    		document.getElementById("popup_dialog_overlay").style.display = "none";
+    		document.getElementById("popup_dialog_wiki_table").style.display = "none";
     		break;
     	
     	default:
@@ -229,6 +238,73 @@
         else if(the_sel_text == '') selection = set_selection(the_id, selection.start + left_str.length, selection.start + left_str.length);
         return selection;
     }
+    
+    function helpChangeState(){
+    	if($('wikiHelp').visible()){    		    		
+    		$('wikiHelp').hide();
+    		$$('.toolbar_icon_help').each(function(e){
+    			e.removeClassName('toolbar_icon_pressed');
+    		});
+    	}else{
+    		$('wikiHelp').show();
+    		$$('.toolbar_icon_help').each(function(e){
+    			e.addClassName('toolbar_icon_pressed');
+    		});
+    	}
+    }
+    
+    function switchHelpText(id){
+    	var label = (id.substr(1));
+    	
+    	$$('.pages .current').each(function(s){
+    		s.removeClassName('current');
+    		s.addClassName('disabled');
+    	});
+    	
+    	$$('.index .current').each(function(s){
+    		s.removeClassName('current');
+    	});
+    	
+    	$("P"+label).addClassName('current');
+    	$("S"+label).addClassName('current');
+    }
+    
+    function insertTable(){
+    	var generatedTable ="";
+    	var rows = $("popup_dialog_wiki_table_columnsBox").value;
+    	var columns = $("popup_dialog_wiki_table_columnsBox").value;
+    	var headers = $("popup_dialog_wiki_table_headerbox").checked;
+        
+        var cellText = "Beispiel";
+        var headerText = "Ueberschrift";
+    	
+        generatedTable += "{|";
+        
+        if(headers){
+            generatedTable += "\n|-\n!";
+            for(var i = 0 ;i< columns ;i++){
+                generatedTable += headerText;
+                    if(i != columns - 1){
+                        generatedTable+=" !! ";
+                    }
+            }
+        }
+        
+    	for(var i = 0; i< rows;i++){
+                generatedTable += "\n|-\n|";
+    		for(var j = 0;j< columns;j++){
+                    generatedTable += cellText;
+                    if(j != columns - 1){
+                        generatedTable+="||";
+                    }
+    		}
+    	}
+        generatedTable += "\n|}";
+        
+		wikiText.value = wikiText.value.substr(0, selectionStart) +generatedTable+ wikiText.value.substr(selectionEnd);
+		closeDialog("table");	
+    }
+    
     </script>
 	<table class="wiki_toolbar">
 	<tr>
@@ -307,10 +383,255 @@
 		<td>
 			<span onclick="wiki_dialog('Content', 'coment')"  title="ausgewählten Text kommentieren" class="toolbar_icon toolbar_icon_comment"></span>
 		</td>
+		<td>
+			<span onclick="wiki_dialog('Content', 'table')" title="Tabelle einfügen" class = "toolbar_icon toolbar_icon_table"> </span>
+		</td>
+		<td>
+			<span onclick="helpChangeState()" title="Hilfe" class = "toolbar_icon toolbar_icon_help"> </span>
+		</td>
+		
 	</tr>
 	</table>
 	
+	<div id="wikiHelp" style="display:none;">
+		<div class="index">
+			<div onClick="switchHelpText(this.id);" id="Sformat" class="current">Format</div>
+			<div onClick="switchHelpText(this.id);" id="Slist" >Listen</div>
+			<div onClick="switchHelpText(this.id);" id="Sueberschriften">Überschriften</div>
+                        <div onClick="switchHelpText(this.id);" id="Slinks">Links & Bilder</div>
+                        <div onClick="switchHelpText(this.id);" id="Selemente">Elemente</div>
+			<div onClick="switchHelpText(this.id);" id="Stabellen">Tabellen</div>
+		</div>
+		<div class ="pages">
+			<div id="Pformat" class="helpTable current">
+				<table>
+					<colgroup>
+    				<col width="25%">
+    				<col width="40%">
+    				<col width="35%">
+  					</colgroup>
+					<tr>
+						<th>Beschreibung</th>
+						<th>Was du eingibst</th>
+						<th>Wie es aussieht</th>
+					</tr>
+					<tr>
+						<td>Kursiv</td>
+						<td>''Kursiver Text''</td>
+						<td><i>Kursiver Text</i></td>
+					</tr>
+					<tr>
+						<td>Fett</td>
+						<td>'''Fetter Text'''</td>
+						<td><strong>Fetter Text</strong></td>
+					</tr>
+					<tr>
+						<td>Fett & kursiv</td>
+						<td>'''''Fetter & kursiver Text'''''</td>
+						<td><i><strong>Fetter & kursiver Text</strong></i></td>
+					</tr>
+				</table>
+			</div>
+			<div id="Plist" class="helpTable disabled">
+				<table>
+				<colgroup>
+    				<col width="25%">
+    				<col width="40%">
+    				<col width="35%">
+  					</colgroup>
+					<tr>
+						<th>Beschreibung</th>
+						<th>Was du eingibst</th>
+						<th>Wie es aussieht</th>
+					</tr>
+					<tr>
+						<td>Aufgezählte Liste</td>
+						<td>*Listeneintrag <br/> *Listeneintrag</td>
+						<td><ul><li>Listeneintrag</li><li>Listeneintrag</li></ul></td>
+					</tr>
+					<tr>
+						<td>Nummerierte Liste</td>
+						<td>#Listeneintrag <br/>#Listeneintrag</td>
+						<td><ol><li>Listeneintrag</li><li>Listeneintrag</li></ol></td>
+					</tr>
+				</table>
+			</div>
+			<div id="Pueberschriften" class="helpTable disabled">
+			<table>
+			<colgroup>
+    				<col width="25%">
+    				<col width="40%">
+    				<col width="35%">
+  					</colgroup>
+					<tr>
+						<th>Beschreibung</th>
+						<th>Was du eingibst</th>
+						<th>Wie es aussieht</th>
+					</tr>
+					<tr>
+						<td>Titel</td>
+						<td>=Überschrift=</td>
+						<td><h1>Überschrift</h1></td>
+					</tr>
+					<tr>
+						<td>Überschrift</td>
+						<td>==Überschrift==</td>
+						<td><h2>Überschrift</h2></td>
+					</tr>
+					<tr>
+						<td>Zwischenüberschrift</td>
+						<td>===Überschrift===</td>
+						<td><h3>Überschrift</h3></td>
+					</tr>
+				</table>
+			</div>
+                    <div id="Ptabellen" class="helpTable disabled">
+                        <table>
+                            <colgroup>
+                                <col width="25%">
+                                <col width="40%">
+                                <col width="35%">
+                            </colgroup>
+                            <tr>
+                                <th>Beschreibung</th>
+                                <th>Was du eingibst</th>
+                                <th>Wie es aussieht</th>
+                            </tr>
+                            <tr>
+                                <td>Tabelle</td>
+                                <td>|-<br/>
+                                    !Ueberschrift !! Ueberschrift <br/>
+                                    |- <br/>
+                                    |Beispiel||Beispiel <br/>
+                                    |- <br/>
+                                    |Beispiel||Beispiel <br/>
+                                    |} <br/> </td>
+                                <td><table><tbody><tr>
+                                            </tr><tr>
+                                                <th>Ueberschrift </th><th> Ueberschrift
+                                                </th></tr><tr>
+                                                <td>Beispiel</td>
+                                                <td>Beispiel
+                                                </td>
+                                            </tr><tr>
+                                                <td>Beispiel</td>
+                                                <td>Beispiel
+                                                </td>
+                                            </tr></tbody></table></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="Pelemente" class="helpTable disabled">
+			<table>
+			<colgroup>
+    				<col width="25%">
+    				<col width="40%">
+    				<col width="35%">
+  					</colgroup>
+					<tr>
+						<th>Beschreibung</th>
+						<th>Was du eingibst</th>
+						<th>Wie es aussieht</th>
+					</tr>
+					<tr>
+						<td>Trennlinie</td>
+						<td>
+                                                    -----------
+                                                </td>
+                                                <td><hr style="background-color: black; height: 1px;"></td>
+					</tr>
+                                        <tr>
+						<td>Text markieren</td>
+						<td>
+                                                    [Text[]]
+                                                </td>
+                                                <td><div class="marked">Text</div></td>
+					</tr>
+                                        <tr>
+						<td>Kommentar</td>
+						<td>
+                                                    [Text[Kommentar]]
+                                                </td>
+                                                <td><div class="annotated">Text</div><div class="annotation"><img title="Kommentar" src="{ANNOTATION_IMAGE_URL}"></div></td>
+					</tr>
+					
+				</table>
+			</div>
+                    <div id="Plinks" class="helpTable disabled">
+			<table>
+			<colgroup>
+    				<col width="25%">
+    				<col width="40%">
+    				<col width="35%">
+  					</colgroup>
+					<tr>
+						<th>Beschreibung</th>
+						<th>Was du eingibst</th>
+						<th>Wie es aussieht</th>
+					</tr>
+
+					<tr>
+						<td>Bild einfügen</td>
+						<td>[[http://bildurl.jpg]]</td>
+						<td></td>
+					</tr>
+                                        <tr>
+						<td>Link einfügen</td>
+                                                <td>[http://linkurl.com]</td>
+						<td><a href="http://linkurl.com" class="external">http://linkurl.com</a></td>
+					</tr>
+                                        <tr>
+						<td>Link mit Beschreibung einfügen</td>
+                                                <td>[http://linkurl.com|Beschreibung]</td>
+						<td><a href="http://linkurl.com" class="external">Beschreibung</a></td>
+					</tr>
+                                        <tr>
+						<td>internen Link einfügen</td>
+                                                <td>[[Wikieintrag]]</td>
+						<td><a href="Wikieintrag.wiki" class="notexistant">Wikieintrag</a></td>
+					</tr>
+                                        <tr>
+						<td>internen Link mit Beschreibung einfügen</td>
+                                                <td>[[Wikieintrag|Beschreibung]]</td>
+						<td><a href="Wikieintrag.wiki" class="notexistant">Beschreibung</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>	
+	</div>
+	
 	<div class="overlay" id="popup_dialog_overlay"></div>
+	<div class="popup_dialog" id="popup_dialog_wiki_table">
+		<div class="close-button" onclick="closeDialog('table');"></div>
+		<h2>Tabelle erstellen</h2>
+		<div>
+			<fieldset>
+                            <div>
+				<input type="checkbox" id="popup_dialog_wiki_table_headerbox">
+				<label for="popup_dialog_wiki_table_headerbox"> mit Kopfzeile</label>
+                            </div>
+			
+				
+                                <div style="float:left; padding-right: 5px;">
+				<label for="popup_dialog_wiki_table_columnsBox"> Spalten</label>
+                                <br/>
+				<input type="text" id="popup_dialog_wiki_table_columnsBox" size="4">
+                                </div>
+				
+				
+				
+                                <div style="float: left;">
+				<label for="popup_dialog_wiki_table_rowsBox"> Zeilen</label>
+                                <br/>
+				<input type="text" id ="popup_dialog_wiki_table_rowsBox" size="4">
+                                </div>
+				
+			</fieldset>
+			<div id = table_preview></div>
+		</div>
+		<div class="button" onclick="insertTable()">erstellen</div>
+		<br>
+	</div>
  	<div class="popup_dialog" id="popup_dialog_wiki_image">
 		<div class="close-button" onclick="closeDialog('image');"></div>
 		<h2>Bild einbinden</h2>

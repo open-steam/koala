@@ -252,7 +252,11 @@ class MatrixQuestion extends AbstractQuestion {
 					$s = 0;
 				}
 				$content->setVariable("STATS_LABEL", "Statistik");
-				$content->setVariable("QUESTION_STATS", "n = " . $this->resultCount[$counter] . "<br>mw = " . $mw . "<br>md = " . $md . "<br>s = " . $s);
+				$tipsy = new \Widgets\Tipsy();
+				$tipsy->setElementId("tipsy" . $id . "_" . $counter);
+				$tipsy->setHtml("<div>n = " . $this->resultCount[$counter] . "<br>mw = " . $mw . "<br>md = " . $md . "<br>s = " . $s . "</div>");
+				$content->setVariable("TIPSY_ID", "tipsy" . $id . "_" . $counter);
+				$content->setVariable("TIPSY_HTML", "<script>" . $tipsy->getHtml() . "</script>");
 				$content->parse("BLOCK_RESULTS_ROW");
 				$counter++;
 			}

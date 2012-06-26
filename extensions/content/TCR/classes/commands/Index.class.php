@@ -109,8 +109,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		
 		// display document table
 		$content->setCurrentBlock("BLOCK_OVERVIEW_TABLE");
-		$content->setVariable("TCR_TITLE", $TCR->get_name());
-		$content->setVariable("INFOTEXT", nl2br($TCR->get_attribute("OBJ_DESC")));
+		$content->setVariable("TCR_TITLE", $TCR->get_attribute("OBJ_DESC"));
+		$content->setVariable("INFOTEXT", nl2br($TCR->get_attribute("TCR_DESC")));
 		if ($divide == 1) {
 			$content->setVariable("DISPLAY_MANY", "none");
 		} else {

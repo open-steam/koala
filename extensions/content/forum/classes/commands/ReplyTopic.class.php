@@ -19,10 +19,12 @@ class ReplyTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		}
 	}
 
-	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {               
 		$title=$this->params["title"];
 		$content=$this->params["content"];
-		$objectId=$this->id;
+                $path = array();
+                $path = explode("/", $this->params["path"]);               
+		$objectId=$path[count($path)-1];               
 		$forumId=$this->params["forum"];
 
 		$steam=$GLOBALS["STEAM"];

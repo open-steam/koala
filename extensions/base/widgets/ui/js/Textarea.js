@@ -126,7 +126,7 @@ function widgets_textarea_save_success(elementId, response) {
 						theme_advanced_blockformats : "p,pre,h1,h2,h3,h4",
 						//plugins
 						fix_table_elements : true,
-                                     
+                                                readonly : tinymceReadOnly,
                                                 verify_html : false,
 
                                                 AScgiloc : 'http://www.imathas.com/imathas/filter/graph/svgimg.php',

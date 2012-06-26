@@ -65,7 +65,7 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
 			    			handleError("Falscher Anfragetyp", response, params);
 			    		}
 			    	} else {
-			    			handleError("Server meldet Fehler", response, params);
+			    			handleError("Server meldet Fehler(1)", response, params);
 			    	}
 				}
 			};
@@ -78,7 +78,7 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
 			   data: params,
 			   success: successFunction,
 			   complete: completeFunction,
-			   error: function(response){if (DEVELOPER) { handleError(response.status + " - Server meldet Fehler (" + elementId + ")", response.responseText, params) }}
+			   error: function(response){if (DEVELOPER) { handleError(response.status + " - Server meldet Fehler(2) (" + elementId + ")", response.responseText, params) }}
 			 });
 	} catch (e) {
 		handleError(e.name, e.message, params);
@@ -191,9 +191,9 @@ function handleError(errorTitle, errorDescription, requestParams) {
 		closeDialog();
 		createOverlay("black");
 		createDynamicWrapper("<div id=\"dialog\"><div id=\"dialog_title\"></div><center><h2>HTML:</h2><div class=\"dialog_content\" id=\"chtml\"></div><h2>RAW:</h2><div class=\"dialog_content\" id=\"ctext\"></div></center></div>");
-		jQuery('#dialog_title').html("<a style=\"color:white\" onclick=\"if (closeDialog()) {return false;}; return false;\" href=\"#\">[x]</a> Ajax-Fehler: " + errorTitle);
-		jQuery('#chtml').html("<b>request:</b><br>" + JSON.stringify(requestParams) + "<br><br><b>answer:</b><br>" + errorDescription);
-		jQuery('#ctext').text("request:\n" + JSON.stringify(requestParams) + "\n\nanswer:\n" + errorDescription);
+		jQuery('#dialog_title').html("<a style=\"color:white\" onclick=\"if (closeDialog()) {return false;}; return false;\" href=\"#\">[x]</a> Ajax-Fehler. Fehlertitel: -->" + errorTitle + "<--");
+		jQuery('#chtml').html("<b>request:</b><br>" + JSON.stringify(requestParams) + "<br><br><b><--Begin Error Description--></b><br><br><h2>Visit errors.log for error description!</h2><br>" + errorDescription+"<br><b><--End Error Description--></b><br>");
+		jQuery('#ctext').text("request:\n" + JSON.stringify(requestParams) + "\n\n<--Begin Error Description-->\n" + errorDescription+"\n<--End Error Description-->\n");
 		jQuery('#dialog').css({
 							"position": "absolute",
 							"top": "0px",

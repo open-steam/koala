@@ -26,10 +26,15 @@ class HtmlDocument
       return $html;
   }
   
-  
-  //content with modifications
+  /*
+   * transform a html document object to the html output
+   * 
+   * paths will be replaced
+   * 
+   * this retuns cleand html, do not clean again
+   * added javascript will be destroyd
+   */
   function makeViewModifications($html, $steamObject=NULL) {
-    
     //mod 0  
     if($this->object!==NULL){
         $dirname = dirname($this->object->get_path()) . "/";
@@ -41,7 +46,8 @@ class HtmlDocument
     if($steamObject!==NULL){
         $dirname = dirname($steamObject->get_path()) . "/";
     }
-        
+     
+    
         
     //mod1
     //document mod: replace not vaild hrefs
@@ -62,11 +68,8 @@ class HtmlDocument
         $html = str_replace($orig_matches[$key], "href=\"" . $new_path . "\"", $html);
     }
     
-    
-    
-    
-    
-    
+    //clean html tags
+    $html = cleanHTML($html);
     
     
     //works for /download/document paths
@@ -125,8 +128,6 @@ class HtmlDocument
     
     
     
-    
-    
     /* works not
     //document mod: replace not vaild srcs
     preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
@@ -150,25 +151,18 @@ class HtmlDocument
     
     
     
-    
     //new
     //video mod: replace not vaild src
     preg_match_all('/<video .* src="([%a-z0-9:.\-_\/]*)".*<\/video>/iU', $html, $matches); //get the video tag, works
 
-
     $origMatches = $matches[0];
     $pathMatches = $matches[1];
-
-    //var_dump($pathMatches);
 
     //case: objectid
     //case: steam path
     //case: ext path
 
-
     foreach ($pathMatches as $key => $src) {
-
-
         try {
             $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $src);
             if($steamObject===NULL) throw new \steam_exception;
@@ -179,22 +173,108 @@ class HtmlDocument
             }else{
                 throw new \steam_exception;
             }
-
-
         }catch(\steam_exception $e){
             //object not found
             //var_dump("not found");
         }
-
-
         //$ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-
-
-
-
         //replace
-
     }
+    
+    
+    
+    //modifcations for flow player
+    $pattern = '/<video .* src="([%a-z0-9:.\-_\/]*)".*<\/video>/iU';
+    preg_match_all($pattern, $html, $matches);
+    
+    $fullMatches = $matches[0];
+    $bracketMatches = $matches[1];
+    
+    foreach ($fullMatches as $key => $value) {
+        //get the resolution from the matches
+        //width
+        $videoWidth = 200; //default
+        if ($found = strpos($value, 'width="')){
+            $start = 7 + $found;
+            $current = $start;
+            $end = 0;
+            while(true){
+                if($value[$current]=='"' || $current>=strlen($value)){
+                    $end = $current;
+                    break;
+                }
+                $current++;
+            }
+        }
+        $videoWidth = intval(substr($value, $start, $end - $start));
+        
+        //width
+        $videoHeight =  200; //default
+        if ($found = strpos($value, 'height="')){
+            $start = 8 + $found;
+            $current = $start;
+            $end = 0;
+            while(true){
+                if($value[$current]=='"' || $current>=strlen($value)){
+                    $end = $current;
+                    break;
+                }
+                $current++;
+            }
+        }
+        $videoHeight = intval(substr($value, $start, $end - $start));
+        
+        
+        //create uid for player tag
+        $playerTagId = uniqid(); 
+        //this would be stripped by htmlclean
+        $jsPlayer='<script language="JavaScript"> flowplayer("'.$playerTagId.'","/styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf",{clip:{autoPlay: false,autoBuffering: true, url:"'.$bracketMatches[$key].'"}});</script>';
+        $replacement = '<div style="display:block;width:'.$videoWidth.'px;height:'.$videoHeight.'px;"><a href="'.$bracketMatches[$key].'" id="'.$playerTagId.'" style="display:block;width:'.$videoWidth.'px;height:'.$videoHeight.'px;"></a></div>'.$jsPlayer;
+        
+        //version 1
+        //$html = str_replace($value, $replacement, $html);
+        
+        //alternative 2
+        $searchString=$value;
+        $start = strpos($html, $searchString);
+        $length = strlen($searchString);
+        $html=substr_replace($html, $replacement, $start, $length);
+    }
+    unset($matches);
+    
+    
+    
+    //modifcations for audio player
+    $pattern = '/<audio.*src="([%a-z0-9:.\-_\/]*)".*<\/audio>/iU';
+    preg_match_all($pattern, $html, $matches);
+    
+    $fullMatches = $matches[0];
+    $bracketMatches = $matches[1];
+    
+    $mediaPlayerPath = \PortletMedia::getInstance()->getAssetUrl() . 'emff_lila_info.swf';
+    $mediaPlayerWidth = 200;
+    $mediaPlayerHeight = round(200 * 11 / 40) . "";
+    
+    foreach ($fullMatches as $key => $value) {
+        $mediaUrl = $bracketMatches[$key];
+        $audioPlayer = '<object style="width: '.$mediaPlayerWidth.'px; height:'.$mediaPlayerHeight.'px" type="application/x-shockwave-flash" data="'.$mediaPlayerPath.'">';
+        $audioPlayer.= '<param name="movie" value="'.$mediaPlayerPath.'" />';
+        $audioPlayer.= '<param name="FlashVars" value="src='.$mediaUrl.'" />';
+        $audioPlayer.= '<param name="bgcolor" value="#cccccc">';
+        $audioPlayer.= '</object>';
+        
+        $replacement = $audioPlayer;
+        
+        //version 1
+        //$html = str_replace($value, $replacement, $html);
+        
+        //alternative 2
+        $searchString=$value;
+        $start = strpos($html, $searchString);
+        $length = strlen($searchString);
+        $html=substr_replace($html, $replacement, $start, $length);
+    }
+    
     return $html;
   }
   

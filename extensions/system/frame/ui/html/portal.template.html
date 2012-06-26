@@ -32,8 +32,8 @@
 			window.console = function() {}; 
 			window.console.log = function(init){};
 		}
-		const DEVELOPER = "{DEVELOPER_MODE}";
-		const PATH_URL = "{PATH_URL}";
+		var DEVELOPER = "{DEVELOPER_MODE}";
+		var PATH_URL = "{PATH_URL}";
 		function loadScript(scriptname) {  
 			      var snode = document.createElement('script');  
 			      snode.setAttribute('type','text/javascript');  
@@ -80,7 +80,9 @@
 
 	<script src='{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js'></script>
 	<script src='{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/ASCIIsvg.js'></script>
-	<script src='{PATH_JAVASCRIPT_2}Flowplayer/flowplayer-3.2.9.min.js'></script>
+	
+        <script type="text/javascript" src='{PATH_JAVASCRIPT_2}Flowplayer/flowplayer-3.2.9.min.js'></script>
+        
         <script type="text/javascript">
              var AScgiloc = 'http://www.imathas.com/imathas/filter/graph/svgimg.php';
              var AMTcgiloc = "http://www.imathas.com/cgi-bin/mimetex.cgi";

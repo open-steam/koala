@@ -68,7 +68,16 @@ class Textarea extends Widget {
 				$this->labelClass = "texthidden";
 			}
 		}
-		$this->getContent()->setVariable("ADDITINAL_LABEL_CLASSES", $this->labelClass);
+		
+                //write sanction
+                if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
+                        $this->getContent()->setVariable("READONLY", "disabled");
+                        $this->getContent()->setVariable("READONLY_JS", "var tinymceReadOnly=true;");
+                }else{
+                       $this->getContent()->setVariable("READONLY_JS", "var tinymceReadOnly=false;");
+                }
+                
+                $this->getContent()->setVariable("ADDITINAL_LABEL_CLASSES", $this->labelClass);
 		$this->getContent()->setVariable("CUSTOM_TEXTAREA_STYLE", "width: {$this->width}; height: {$this->height}");
 		$this->getContent()->setVariable("ADDITINAL_LABEL_CLASSES", $this->textareaClass);
 		

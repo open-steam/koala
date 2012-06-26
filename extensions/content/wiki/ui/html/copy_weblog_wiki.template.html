@@ -1,0 +1,56 @@
+<h3>{LABEL_WEBLOGS}</h3>
+{LABEL_NO_WEBLOGS_FOUND}
+<!-- BEGIN BLOCK_WEBLOGS -->
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+	<tr>
+		<th style="width: 50px;"></th>
+		<th>{LABEL_WEBLOG_DESCRIPTION}</th>
+    	<th style="width: 125px;">{LABEL_WEBLOG_ACCESS}</th>
+		<th style="width: 125px;">{LABEL_WEBLOG_ENTRIES}</th>
+	</tr>
+    <!-- BEGIN BLOCK_WEBLOG -->
+	<tr>
+		<td style="text-align: center;"><input type="checkbox" name="weblogs[]" value="{WEBLOG_ID}" /></td>
+		<td><a href="{LINK_WEBLOG}"><b>{NAME_WEBLOG}</b></a><br/>{WEBLOG_OBJ_DESC}</td>
+    	<td align="center">{VALUE_WEBLOG_ACCESS}</td>
+		<td align="center">{VALUE_WEBLOG_ARTICLES}</td>
+	</tr>
+    <!-- END BLOCK_WEBLOG -->
+</table>
+<!-- END BLOCK_WEBLOGS -->
+
+<h3>{LABEL_WIKIS}</h3>
+{LABEL_NO_WIKIS_FOUND}
+<!-- BEGIN BLOCK_WIKIS -->
+<table class="grid" width="100%" cellspacing="1" cellpadding="5">
+  <tr>
+  	<th style="width: 50px;"></th>
+    <th>{LABEL_WIKI_DESCRIPTION}</th>
+    <th style="width: 125px;">{LABEL_WIKI_ACCESS}</th>
+    <th style="width: 125px;">{LABEL_WIKI_ENTRIES}</th>
+  </tr>
+<!-- BEGIN BLOCK_WIKI -->
+  <tr>
+  	<td style="text-align: center;"><input type="checkbox" name="wikis[]" value="{WIKI_ID}" /></td>
+    <td><a href="{LINK_WIKI}"><b>{NAME_WIKI}</b></a><br/>{WIKI_OBJ_DESC}</td>
+    <td align="center">{VALUE_WIKI_ACCESS}</td>
+    <td align="center">{VALUE_WIKI_ARTICLES}</td>
+  </tr>
+<!-- END BLOCK_WIKI -->
+</table>
+<!-- END BLOCK_WIKIS -->
+
+<h3>{LABEL_COPY_TO}</h3>
+
+<select name="copy_to" size="5">
+	<!-- BEGIN BLOCK_COPY_TO -->
+	<option>{ENTRY_COPY_TO}</option>
+	<!-- END BLOCK_COPY_TO -->
+</select>
+
+<p/>
+
+<div class="buttons" style="text-align: left;">
+	<input type="submit" name="copy" value="{LABEL_COPY}" />
+	<a href="{BACK_LINK}">{LABEL_RETURN}</a>
+</div>

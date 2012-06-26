@@ -1,11 +1,12 @@
 
 <script type="text/javascript">
     var pathUrl = "{PATH_URL}";
+    {READONLY_JS}
 </script>
 
 <div id="{ID}" class="widget textarea {ADDITINAL_WIDGET_CLASSES}" value="{WIDGET_VALUE}" oldvalue="{WIDGET_OLD_VALUE}">
 	<div class="widgets_label {ADDITINAL_LABEL_CLASSES}"><span>{LABEL}</span></div><br><br>
-	<textarea style="{CUSTOM_TEXTAREA_STYLE}" class="{ADDITINAL_LABEL_CLASSES}">{VALUE}</textarea>
+	<textarea {READONLY} style="{CUSTOM_TEXTAREA_STYLE}" class="{ADDITINAL_LABEL_CLASSES}">{VALUE}</textarea>
 	<div class="button save"></div>
 	<div class="icon loader"></div>
 	<div class="icon ok"></div>

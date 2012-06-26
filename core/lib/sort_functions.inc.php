@@ -122,4 +122,74 @@ function sortExtensions($extensionA, $extensionB) {
 	
 	return ($priorityA < $priorityB) ? 1:-1;
 }
+
+
+function sortPortletAppointments($appointmentA, $appointmentB){
+    //timestamp a
+    $startTime = $appointmentA["start_time"];
+    $startDate = $appointmentA["start_date"];
+    
+    $aYear = $startDate["year"];
+    $aMonth = $startDate["month"];
+    $aDay = $startDate["day"];
+    $aHour = $startTime["hour"];
+    $aMinute = $startTime["minutes"];
+    
+    if ($aYear==0) $aYear=1990; 
+    if ($aMonth==0) $aMonth=1;
+    if ($aDay==0) $aDay=1;
+    if ($aHour==0) $aHour=0;
+    if ($aMinute==0) $aMinute=0;
+    
+    $format = 'Y-m-d H:i:s';
+    $dateA = new DateTime();
+    $dateA = DateTime::createFromFormat($format, $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00');
+    $timestampA = $dateA->getTimestamp();
+    
+    //timestamp b
+    $startTime = $appointmentB["start_time"];
+    $startDate = $appointmentB["start_date"];
+    
+    $bYear = $startDate["year"];
+    $bMonth = $startDate["month"];
+    $bDay = $startDate["day"];
+    $bHour = $startTime["hour"];
+    $bMinute = $startTime["minutes"];
+    
+    if ($bYear==0) $bYear=1990; 
+    if ($bMonth==0) $bMonth=1;
+    if ($bDay==0) $bDay=1;
+    if ($bHour==0) $bHour=0;
+    if ($bMinute==0) $bMinute=0;
+    
+    $format = 'Y-m-d H:i:s';
+    $dateB = new DateTime();
+    $dateB = DateTime::createFromFormat($format, $bYear.'-'.$bMonth.'-'.$bDay.' '.$bHour.':'.$bMinute.':00');
+    $timestampB = $dateB->getTimestamp();
+    
+    if ($timestampA == $timestampB) {
+        return 0;
+    }
+    return ($timestampA < $timestampB) ? -1 : 1;
+}
+
+
+function sortExplorerNewDialog($extensionA, $extensionB){
+    $nameA = $extensionA->getName();
+    $nameB = $extensionB->getName();
+    
+    if(!defined("EXTENSIONS_WHITELIST")){
+        return 0;
+    }
+    
+    $posA = strpos(strtolower(EXTENSIONS_WHITELIST), strtolower($nameA));
+    $posB = strpos(strtolower(EXTENSIONS_WHITELIST), strtolower($nameB));
+    
+    if(FALSE === $posA || FALSE === $posB) return 0;
+    
+    if ($posA == $posB) {
+        return 0;
+    }
+    return ($posA < $posB) ? -1 : 1;
+}
 ?>

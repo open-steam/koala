@@ -87,6 +87,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		if(sizeof($content) > 0){
 
 		$indexCount = 0;
+                
+                //sort appointments
+                usort($content, "sortPortletAppointments");
+                
+                $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
+                if($sortOrder == "latest_first"){
+                    $content = array_reverse($content);
+                }
+                
 		foreach($content as $appointment){
 		  	$tmpl->setCurrentBlock("BLOCK_TERM");
 		  	

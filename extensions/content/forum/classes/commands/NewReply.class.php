@@ -22,16 +22,13 @@ class NewReply extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$objectId=$this->id;
 		$steam= $GLOBALS["STEAM"];
-		$steamId=$steam->get_id();
+		$steamId=$steam->get_id();            
 		/** log-in user */
 		$steamUser =  \lms_steam::get_current_user();
 		/** id of the log-in user */
 		$steamUserId = $steamUser instanceof \steam_user ? $steamUser->get_id() : 0;
 		/** the current category object */
 		$object = \steam_factory::get_object($steamId, $objectId);
-
-
-
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Füge Antwort hinzu »" . getCleanName($object) . "«");
 		$dialog->setCloseButtonLabel(null);

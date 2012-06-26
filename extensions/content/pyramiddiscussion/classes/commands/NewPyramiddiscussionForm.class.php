@@ -82,12 +82,12 @@ class NewPyramiddiscussionForm extends \AbstractCommand implements \IAjaxCommand
 }
 </style>
 <div class="attribute">
-	<div class="attributeNameRequired">Titel*:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
+	<div class="attributeName">Titel:</div>
+	<div class="attributeValue"><input type="text" class="text" value="" name="title"></div>
 </div>
 <div class="attribute">
-	<div class="attributeNameRequired">Anzahl der Startfelder*:</div>
-	<div>
+	<div class="attributeName">Anzahl der Startfelder:</div>
+	<div class="attributeValue">
 		<select name="startElements" size="1" style="width: 50%">
 			<option value="2">2</option>
 			<option value="4">4</option>
@@ -99,8 +99,8 @@ class NewPyramiddiscussionForm extends \AbstractCommand implements \IAjaxCommand
 	</div>
 </div>
 <div class="attribute">
-	<div class="attributeNameRequired">Eingabeeditor*:</div>
-	<div>
+	<div class="attributeName">Eingabeeditor:</div>
+	<div class="attributeValue">
 		<select name="editor" size="1" style="width: 50%">
 			<option value="text/plain">Einfacher Text</option>
 			<option value="text/html">HTML Notation</option>
@@ -109,36 +109,37 @@ class NewPyramiddiscussionForm extends \AbstractCommand implements \IAjaxCommand
 	</div>
 </div>
 <div class="attribute">
-	<div class="attributeNameRequired">Erstellen in*:</div>
-	<div>
+	<div class="attributeName">Erstellen in:</div>
+	<div class="attributeValue">
 		<input type="radio" value="1" name="group" onClick="document.getElementById('admingroup').style.display = 'none'; document.getElementById('basegroup').style.display = 'none'; document.getElementById('course').style.display = '';">Kurs
 		<input type="radio" value="2" name="group" onClick="document.getElementById('admingroup').style.display = ''; document.getElementById('basegroup').style.display = ''; document.getElementById('course').style.display = 'none';">Gruppe
 	</div>
 </div>
 <div class="attribute" id="course" style="display:none;">
-	<div class="attributeNameRequired">Kurs*:</div>
-	<div>
+	<div class="attributeName">Kurs:</div>
+	<div class="attributeValue">
 		<select name="course">
 			{$options_course}
 		</select>
 	</div>
 </div>
 <div class="attribute" id="basegroup" style="display:none;" title="Es werden nur Gruppen angezeigt, in denen Sie Administrator sind.">
-	<div class="attributeNameRequired">Basisgruppe*:</div>
-	<div>
+	<div class="attributeName">Basisgruppe:</div>
+	<div class="attributeValue">
 		<select name="basegroup">
 			{$options_basegroup}
 		</select>
 	</div>
 </div>
 <div class="attribute" id="admingroup" style="display:none;">
-	<div class="attributeNameRequired">Admingruppe*:</div>
-	<div>
+	<div class="attributeName">Admingruppe:</div>
+	<div class="attributeValue">
 		<select name="admingroup">
 			{$options_admingroup}
 		</select>
 	</div>
 </div>
+<input type="hidden" name="id" value="{$this->id}">
 END
 );
 

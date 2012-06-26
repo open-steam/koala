@@ -12,6 +12,10 @@ class DropDownList extends Widget {
     private $optionValues = array();
     private $disabled = false;
 
+    public function setClass($c) {
+        $this->class = $c;
+    }
+
     public function setName($name) {
         $this->name = $name;
     }
@@ -27,28 +31,32 @@ class DropDownList extends Widget {
     public function setOnChange($onChange) {
         $this->onChange = $onChange;
     }
+
     public function setDisabled($disabled) {
         $this->disabled = $disabled;
     }
 
     public function setOptionValues($optionValues) {
-        if(is_array($optionValues)){
+        if (is_array($optionValues)) {
             $this->optionValues = $optionValues;
         }
     }
 
     public function getHtml() {
+        if (isset($this->class)) {
+            $this->getContent()->setVariable("CLASS", $this->class);
+        }
         $this->getContent()->setVariable("NAME", $this->name);
         $this->getContent()->setVariable("ID", $this->id);
         $this->getContent()->setVariable("SIZE", $this->size);
-        $this->getContent()->setVariable("ONCHANGE", $this->onChange);                                 
-        if($this->disabled){
+        $this->getContent()->setVariable("ONCHANGE", $this->onChange);
+        if ($this->disabled) {
             $this->getContent()->setVariable("DISABLED", "disabled");
-        }else{
-            $this->getContent()->setVariable("DISABLED", ""); 
+        } else {
+            $this->getContent()->setVariable("DISABLED", "");
         }
 
-        foreach($this->optionValues as $index => $value){
+        foreach ($this->optionValues as $index => $value) {
             $this->getContent()->setCurrentBlock("OPTION_VALUES");
             $this->getContent()->setVariable("INDEX", $index);
             $this->getContent()->setVariable("VALUE", $value);

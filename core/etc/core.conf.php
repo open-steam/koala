@@ -84,7 +84,7 @@ if (!file_exists($autoloaderIndexFile)) {
 	}
 	
 	if (!isPhpCli() && !isAjaxRequest()) {
-		echo "\n\n Trying to reload in 10 sec.<script type=\"text/javascript\">window.setTimeout('window.location.reload()', 10000);</script>";
+		echo "\n\n Trying to reload in 10 sec.<script type=\"text/javascript\">window.setTimeout('window.location.href=window.location.href;', 10000);</script>";
 		die;
 	}
 }

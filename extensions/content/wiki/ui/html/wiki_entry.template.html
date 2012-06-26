@@ -1,3 +1,4 @@
+{SEARCH_WIDGET}
 <div class="wiki_text">
   {VALUE_ENTRY_TEXT}
 </div>
@@ -13,8 +14,8 @@ function showBox( imageID, width, height )
 	var newHeight = height;
 
 	var url = img.src;
-	var to = url.indexOf( "&" );
-	url = url.substring( 0, to );
+	//var to = url.indexOf( "&" );
+	//url = url.substring( 0, to );
 
 	if ( width > screenWidth )
 	{
@@ -28,8 +29,8 @@ function showBox( imageID, width, height )
 		newHeight = screenHeight;
 	}
 
-	url = url + "&width=" + newWidth;
-	url = url + "&height=" + newHeight;
+	url = url + "/" + newWidth;
+	url = url + "/" + newHeight;
 
 	document.getElementById("image").src = url;
 	document.getElementById("image").alt = img.alt;
@@ -129,20 +130,26 @@ function hideBox()
   <table width="100%">
     <tr valign="top">
       <td width="60">
-        <a href="{AUTHOR_LINK}"><img width="48" height="56" src="{IMAGE_SRC}"></a> 
+      	<!-- BEGIN BLOCK_AUTHOR_IMG -->
+        <a href="{AUTHOR_LINK}"><img width="48" height="56" src="{IMAGE_SRC}"></a>
+        <!-- END BLOCK_AUTHOR_IMG -->
       </td>
       <td>
+      	<!-- BEGIN BLOCK_AUTHOR_VERSION -->
       	<b>Version {VALUE_VERSION}</b> {LABEL_BY}<br />
         <a href="{AUTHOR_LINK}">{VALUE_POSTED_BY}</a> | {VALUE_DATE_TIME} <br/>
         <small><a href="{POST_PERMALINK}">{POST_PERMALINK_LABEL}</a></small>
+        <!-- END BLOCK_AUTHOR_VERSION -->
       </td>
 	  <td class="sidebar" width="220">
+	  	<!-- BEGIN BLOCK_VERSIONS -->
 	  	<h3>{VERSION_MANAGEMENT}</h3>
 		  <ul>
 		  {NUMBER_VERSIONS}
 	   	  {LINK_VERSION_MANAGEMENT}
 	   	  </ul>
 	   	<br />
+	   	<!-- END BLOCK_VERSIONS -->
 	   	<h3>{LINKS}</h3>
 	   	<ul>
 		  <!-- BEGIN BLOCK_LINKS -->

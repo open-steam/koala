@@ -155,8 +155,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$this->getExtension()->addJS();
 		$this->getExtension()->addCSS();
 		
+                
+                //check sanctions
+                $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
+	        
 		$actionBar = new \Widgets\ActionBar();
-		$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))), array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))), array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))));
+		$actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))), array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))), array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))));
 		//$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 		
 		$presentation = $object->get_attribute("bid:presentation");
@@ -170,10 +174,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					// Image
 					$preHtml = "<div style=\"text-align:center\"><img style=\"max-width:100%\" src=\"" . PATH_URL . "Download/Document/" . $first->get_id() . "/\"></div>";
 				} else if ($mimetype == "text/html") {
-					$preHtml = strip_tags($first->get_content(),"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
-				} else if (strstr($mimetype, "text")) {
+					$rawContent = $first->get_content();
+                                        //$preHtml = strip_tags($rawContent,"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
+                                        //$preHtml = $rawContent;
+                                        $htmlDocument = new \HtmlDocument();
+                                        $preHtml = $htmlDocument->makeViewModifications($rawContent);
+                                        $preHtml = cleanHTML($preHtml);
+                                } else if (strstr($mimetype, "text")) {
 					$bidDokument = new \BidDocument($first);
-					$preHtml = $bidDokument->get_content();
+                                        $preHtml = $bidDokument->get_content();
 				}				
 			}
 		} else if ($presentation === "index" && !(isset($_GET["view"]) && ($_GET["view"] === "list"))) {
@@ -185,10 +194,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				exit;
 			}
 		}
-		if ($preHtml !== "") {
+		
+                /*
+                //make html output modifications
+                $htmlDocument = new \HtmlDocument();
+                $preHtml = $htmlDocument->makeViewModifications($preHtml);
+                $preHtml = cleanHTML($preHtml);
+                */
+                
+                if ($preHtml !== "") {
 			$preHtml = "<div style=\"border-bottom: 1px solid #ccc; padding-bottom:10px; margin-bottom:10px\">{$preHtml}</div>";
 		}
 		
+                
 		$environment = new \Widgets\RawHtml();
 		$environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
 		

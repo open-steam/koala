@@ -3,7 +3,7 @@
 <!-- END BLOCK_RADIOBUTTON_LABEL -->
 <div id="{ID}" class="widgets_radiobutton">
 <!-- BEGIN BLOCK_RADIOFIELD -->
-	<input id="{ID}_{RADIOVALUE}" name="{RADIONAME}" value="{RADIOVALUE}" type="radio" {CHECKED}>{RADIOLABEL}<br>
+	<input {READONLY} id="{ID}_{RADIOVALUE}" name="{RADIONAME}" value="{RADIOVALUE}" type="radio" {CHECKED}>{RADIOLABEL}<br>
 	<script type="text/javascript">
 		$('#{ID}_{RADIOVALUE}').change(function() {var value=this.value;   {ONCHANGE}});
 	</script>

@@ -37,18 +37,16 @@ define("SERVERMENU", false);
 define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome");
 /* config for development
 define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
-								. "DocumentObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map,"
-								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, Forum, Gallery, Portal, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
-								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, Map");
+								. "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, "
+								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
+								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
 */
 
 /* config for bid.lspb.de */
 define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
-								. "DocumentObject, DocumentPlainObject, DocumentHTMLObject, FolderObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, Map,"
-								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, Forum, Gallery, Portal, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
-								. "NotAccess, NotFound, Ajax, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
-
-
+								. "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, "
+								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
+								. "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin");
 
 
 /*

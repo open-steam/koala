@@ -52,7 +52,8 @@ function widgets_textinput_save_success(elementId, response) {
 				jQuery("#" + elementId).removeClass("changed");
 				jQuery("#" + elementId).addClass("saved");
 			} else {
-				jQuery("#" + elementId).val(htmlEncodeHelper(data.oldValue));
+				//case save hasn't worked'
+                                //jQuery("#" + elementId).val(htmlEncodeHelper(data.oldValue));
 				widgets_textinput.find(".widgets_textinput_ok").hide();
 				widgets_textinput.find(".widgets_textinput_error").show();
 				widgets_textinput.find(".widgets_textinput_error").title = data.error;
