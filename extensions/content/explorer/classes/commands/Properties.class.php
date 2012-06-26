@@ -192,7 +192,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $embedField = new \Widgets\TextField();
 		$embedField->setLabel("Einbettungs-Link");
                 //$embedLink1 = PATH_SERVER."/download/document/".$object->get_id()."/".getCleanName($object);
-                $embedLink2 = PATH_SERVER."/download/document/".$object->get_id()."/";
+                $embedLink2 = PATH_SERVER."/download/document/".$object->get_id();
                 $embedField->setValue($embedLink2);
                 
 		$changedField = new \Widgets\TextField();
