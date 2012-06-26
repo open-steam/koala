@@ -254,7 +254,6 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                         $popupMenu2->setElementId("overlay_menu");
                         $popupMenu2->setParams(array(array("key" => "forum", "value" => $forumId), array("key" => "category", "value" => $category_id)));
                         $content->setVariable("POPUP_MENU2", $popupMenu2->getHtml());
-
                         $rawHtml->addWidget($popupMenu2);
                     }
                     if ($message->get_attribute("bid:forum:category:picture_id") !== 0) {
