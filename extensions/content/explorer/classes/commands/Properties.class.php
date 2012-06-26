@@ -121,7 +121,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		}
                 
                 
-                // --- some tests ---
+                //pic tests
 		$documentIsPicture = false;
 		if($type == "document"){
 			$docType = $object->get_attribute("DOC_MIME_TYPE");
@@ -133,7 +133,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				$documentIsPicture = true;
 			}	
 		}
-
+                
+                
+                //media tests
+		$documentIsMedia = false;
+		if($type == "document"){
+			$docType = $object->get_attribute("DOC_MIME_TYPE");
+			if (strpos($docType,"video") !== false) $documentIsMedia = true; else $documentIsMedia = false;
+		}
                 
                 
                 //--- create dialog section ---
@@ -181,7 +188,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$creator= $object->get_creator();
 		$creatorName = getCleanName($creator);
 		$ownerField->setValue($creatorName);
-
+                
+                $embedField = new \Widgets\TextField();
+		$embedField->setLabel("Einbettungs-Link");
+                //$embedLink1 = PATH_SERVER."/download/document/".$object->get_id()."/".getCleanName($object);
+                $embedLink2 = PATH_SERVER."/download/document/".$object->get_id()."/";
+                $embedField->setValue($embedLink2);
+                
 		$changedField = new \Widgets\TextField();
 		$changedField->setLabel("zuletzt geändert");
 		$changedDate = $object->get_attribute(OBJ_LAST_CHANGED);
@@ -268,6 +281,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 
                 if(($type !== "document")){
 			$dialog->addWidget($dataNameInput);
+		}
+                
+                //embed link
+                if($documentIsPicture || $documentIsMedia){
+                    $dialog->addWidget($seperator);
+                    $dialog->addWidget($embedField);
 		}
                 
 		$dialog->addWidget($seperator);
