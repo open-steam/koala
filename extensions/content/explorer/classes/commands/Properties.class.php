@@ -189,12 +189,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$creatorName = getCleanName($creator);
 		$ownerField->setValue($creatorName);
                 
-                
                 $embedField = new \Widgets\TextField();
 		$embedField->setLabel("Einbettungs-Link");
-		$embedField->setValue(PATH_SERVER."/download/document/".$object->get_id()."/".getCleanName($object));
+                //$embedLink1 = PATH_SERVER."/download/document/".$object->get_id()."/".getCleanName($object);
+                $embedLink2 = PATH_SERVER."/download/document/".$object->get_id()."/";
+                $embedField->setValue($embedLink2);
                 
-
 		$changedField = new \Widgets\TextField();
 		$changedField->setLabel("zuletzt geändert");
 		$changedDate = $object->get_attribute(OBJ_LAST_CHANGED);
