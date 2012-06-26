@@ -393,6 +393,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             }
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
+                if($name == "" || $name == "0"  ){
+                    $name = $group->get_name();
+                }
                 $groupname = $group->get_groupname();
                 $readCheck = $object->check_access_read($group);
                 $writeCheck = $object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $group);
@@ -469,6 +472,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         } else {
             foreach ($groupMappingAcq as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
+                if($name == "" || $name == "0"){
+                    $name = $group->get_name();
+                }
                 $groupname = $group->get_groupname();
                 if ($env instanceof \steam_room) {
                     $readCheckAcq = $env->check_access_read($group);
