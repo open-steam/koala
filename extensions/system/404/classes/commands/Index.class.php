@@ -17,8 +17,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		header("HTTP/1.0 404 Not Found");
 		$content = \NotFound::getInstance()->loadTemplate("404-inline.template.html");
-		$content->setVariable("TITLE", "Endstation Hbf");
-		$content->setVariable("MESSAGE", "Sie haben das Ende erreicht. Hier war noch niemand zuvor. Nicht mal wir Entwickler.<br/><br/><a href=\"javascript:history.back();\">Der einzige Weg führt zurück.</a>");
+		$content->setVariable("TITLE", "Dokument nicht gefunden");
+		$content->setVariable("MESSAGE", "Das angeforderte Dokument existiert in der Datenbank nicht.<br/><br/><a href=\"javascript:history.back();\">Zurück zum letzten Dokument.</a>");
 		
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($content->get());
