@@ -25,11 +25,11 @@ class ExplorerProperties extends \AbstractCommand implements \IFrameCommand, \IA
                 $userObject = $GLOBALS["STEAM"]->get_current_steam_user();
                 
                 $checkboxObjectsHidden = new \Widgets\Checkbox();
-		$checkboxObjectsHidden->setLabel("Verstecke Objekte anzeigen (noch ohne Funktion)");
-		$checkboxObjectsHidden->setCheckedValue("VISIBLE");
-		$checkboxObjectsHidden->setUncheckedValue("HIDDEN");
+		$checkboxObjectsHidden->setLabel("Verstecke Objekte anzeigen");
+		$checkboxObjectsHidden->setCheckedValue("TRUE");
+		$checkboxObjectsHidden->setUncheckedValue("FALSE");
 		$checkboxObjectsHidden->setData($userObject);
-		$checkboxObjectsHidden->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_HIDDEN_DOCUMENTS"));
+		$checkboxObjectsHidden->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_SHOW_HIDDEN_DOCUMENTS"));
 
                 $seperator= new \Widgets\RawHtml();
 		$seperator->setHtml("<br style=\"clear:both\"/>");

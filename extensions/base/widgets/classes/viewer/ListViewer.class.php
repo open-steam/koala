@@ -62,6 +62,7 @@ class ListViewer extends Widget {
 			$this->getContent()->parse("LISTVIEWER_NOITEMS");
 		} else {
 			foreach($this->content as $contentItem) {
+                                if ($this->isHiddenItem($contentItem)) continue;
 				$this->getContent()->setCurrentBlock("LISTVIEWER_ITEM");
 				$contentItemId =  $this->contentProvider->getId($contentItem);
 				$this->getContent()->setVariable("LISTVIEWER_DATA_ID", $contentItemId);
@@ -91,5 +92,22 @@ class ListViewer extends Widget {
 		return $this->getContent()->get();
 	}
 	
+        
+        private function isHiddenItem($steamObject) {
+            $userObject = $GLOBALS["STEAM"]->get_current_steam_user(); //TODO performance,get the user every time
+            $userHiddenAttribute = $userObject->get_attribute("EXPLORER_SHOW_HIDDEN_DOCUMENTS");
+            $userShowHiddenObjects = false;
+            if ($userHiddenAttribute==="TRUE") $userShowHiddenObjects = true;
+            if ($userHiddenAttribute==="FALSE") $userShowHiddenObjects = false;
+            if($userShowHiddenObjects) return false;
+            
+            //hidden item
+            $steamObjectHiddenAttribute = $steamObject->get_attribute("bid:hidden");
+            if($steamObjectHiddenAttribute==="1"){
+                return true;
+            }
+            
+            return false;
+        }
 }
 ?>
