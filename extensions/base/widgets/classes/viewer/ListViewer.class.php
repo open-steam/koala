@@ -101,6 +101,16 @@ class ListViewer extends Widget {
             if ($userHiddenAttribute==="FALSE") $userShowHiddenObjects = false;
             if($userShowHiddenObjects) return false;
             
+            
+            //head document todo
+            /*
+            $steamObjectHiddenAttribute = $steamObject->get_attribute("bid:hidden");
+            if($steamObjectHiddenAttribute==="1"){
+                return true;
+            }
+            */
+            
+            
             //hidden item
             $steamObjectHiddenAttribute = $steamObject->get_attribute("bid:hidden");
             if($steamObjectHiddenAttribute==="1"){
