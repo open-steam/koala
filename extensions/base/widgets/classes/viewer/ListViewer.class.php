@@ -63,9 +63,9 @@ class ListViewer extends Widget {
 		} else {
                         $itemCount = 1;
                     	foreach($this->content as $contentItem) {
-                                if ($this->isHiddenItem($contentItem,$itemCount)) continue;
+                                if ($this->isHiddenItem($contentItem,$itemCount)){$itemCount++;continue;}
 				$this->getContent()->setCurrentBlock("LISTVIEWER_ITEM");
-				$contentItemId =  $this->contentProvider->getId($contentItem);
+                        	$contentItemId =  $this->contentProvider->getId($contentItem);
 				$this->getContent()->setVariable("LISTVIEWER_DATA_ID", $contentItemId);
 				$this->getContent()->setVariable("LISTVIEWER_ITEM_ID", $contentItemId);
 				$this->getContent()->setVariable("LISTVIEWER_ITEM_ONCLICK", $this->contentProvider->getOnClickHandler($contentItem));
@@ -87,8 +87,7 @@ class ListViewer extends Widget {
 					$this->getContent()->parse("LISTVIEWER_ITEM_CELL");
 				}
 				$this->getContent()->parse("LISTVIEWER_ITEM");
-                                $itemCount++;
-			}
+                        }
 		}
 		return $this->getContent()->get();
 	}
@@ -96,7 +95,8 @@ class ListViewer extends Widget {
         
         private function isHiddenItem($steamObject,$itemCount=0) {
             //head document
-            if($itemCount==1){
+            if(1===$itemCount){
+                //var_dump("test",$itemCount."test");
                 $env = $steamObject->get_environment();
                 $presentation = $env->get_attribute("bid:presentation");
                 if($presentation==="head") return true;
