@@ -79,8 +79,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 			}
 			
 			$tmpl->setVariable("URL",$content["url"]);
-			$tmpl->setVariable("DESCRIPTION",$content["description"]);
-				
+			
+                        //description
+                        if($content["description"]===0){
+                            $tmpl->setVariable("DESCRIPTION","");
+			}else{
+                            $tmpl->setVariable("DESCRIPTION",$content["description"]);
+			}
+                        	
 		
 			$media_type = $content["media_type"];
 			if ($media_type == "image"){
