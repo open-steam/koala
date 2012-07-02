@@ -25,25 +25,23 @@ class ExplorerProperties extends \AbstractCommand implements \IFrameCommand, \IA
                 $userObject = $GLOBALS["STEAM"]->get_current_steam_user();
                 
                 $checkboxObjectsHidden = new \Widgets\Checkbox();
-		$checkboxObjectsHidden->setLabel("Verstecke Objekte anzeigen");
+		$checkboxObjectsHidden->setLabel("Verstecke Objekte <br> anzeigen");
 		$checkboxObjectsHidden->setCheckedValue("TRUE");
 		$checkboxObjectsHidden->setUncheckedValue("FALSE");
 		$checkboxObjectsHidden->setData($userObject);
 		$checkboxObjectsHidden->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_SHOW_HIDDEN_DOCUMENTS"));
 
-                $seperator= new \Widgets\RawHtml();
-		$seperator->setHtml("<br style=\"clear:both\"/>");
+                //$seperator= new \Widgets\RawHtml();
+		//$seperator->setHtml("<br style=\"clear:both\"/>");
+                //$clearer = new \Widgets\Clearer();
                 
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Allgemeine Explorer-Einstellungen");
-
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
 
-		$dialog->addWidget($seperator);
 		$dialog->addWidget($checkboxObjectsHidden);
-		$dialog->addWidget($seperator);
-                $dialog->setForceReload(true);
+		$dialog->setForceReload(true);
                 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($dialog);
