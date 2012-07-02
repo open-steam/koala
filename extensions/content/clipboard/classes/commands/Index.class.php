@@ -17,6 +17,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        //chronic
+        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("clipboard");
+                
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         $this->id = $currentUser->get_id();
       

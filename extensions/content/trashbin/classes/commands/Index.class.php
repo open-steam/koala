@@ -16,6 +16,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 	}
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+                //chronic
+                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("trashbin");
+                
 		$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		if (isset($this->id)) {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);

@@ -59,6 +59,8 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 if($other=="profile") $this->updateChronic("oth:profile");
                 if($other=="desktop") $this->updateChronic("oth:desktop");
                 if($other=="bookmarks") $this->updateChronic("oth:bookmarks");
+                if($other=="trashbin") $this->updateChronic("oth:trashbin");
+                if($other=="clipboard") $this->updateChronic("oth:clipboard");
         }
         
         
@@ -197,6 +199,8 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 if($type==="profile") return "Profil";
                 if($type==="desktop") return "Schreibtisch";
                 if($type==="bookmarks") return "Lesezeichen";
+                if($type==="trashbin") return "Papierkorb";
+                if($type==="clipboard") return "Zwischenablage";
                 return "Ungültiger oth-Eintrag";
             }
             return "Ungültiger Eintrag";
@@ -233,6 +237,8 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 if($type==="profile") return "/profile/";
                 if($type==="desktop") return "/desktop/";
                 if($type==="bookmarks") return "/bookmarks/";
+                if($type==="trashbin") return "/trashbin/";
+                if($type==="clipboard") return "/clipboard/";
                 return "";
             }
             return "Debug:$chronicEntry";
