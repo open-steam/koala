@@ -139,7 +139,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$documentIsMedia = false;
 		if($type == "document"){
 			$docType = $object->get_attribute("DOC_MIME_TYPE");
-			if (strpos($docType,"video") !== false) $documentIsMedia = true; else $documentIsMedia = false;
+			if (strpos($docType,"video") !== false) $documentIsMedia = true;
+                        if (strpos($docType,"audio") !== false) $documentIsMedia = true;
 		}
                 
                 
