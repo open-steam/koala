@@ -312,6 +312,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 
                 $valid=false;
                 if($entryType==="oth") $valid = true;
+                if($entryType==="pth") $valid = true;
                 if($entryType==="oid") $valid = true;
                 
                 try {
