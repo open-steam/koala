@@ -342,36 +342,36 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 
         $content->setVariable("STEAMID", $steamgroupId);
-        $readCheck = $object->check_access_read($steamgroup);
-        $writeCheck = $object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $steamgroup);
-        $sanctionCheck = $object->check_access(SANCTION_SANCTION, $steamgroup);
-        $dropdownValue = 0;
-        if ($sanctionCheck)
-            $dropdownValue = 3;
-        else if ($writeCheck)
-            $dropdownValue = 2;
-        else if ($readCheck)
-            $dropdownValue = 1;
-        $content->setVariable("STEAM_VALUE", $dropdownValue);
+        $readCheckSteamGroup = $object->check_access_read($steamgroup);
+        $writeCheckSteamGroup = $object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $steamgroup);
+        $sanctionCheckSteamGroup = $object->check_access(SANCTION_SANCTION, $steamgroup);
+        $dropdownValueSteamGroup = 0;
+        if ($sanctionCheckSteamGroup)
+            $dropdownValueSteamGroup = 3;
+        else if ($writeCheckSteamGroup)
+            $dropdownValueSteamGroup = 2;
+        else if ($readCheckSteamGroup)
+            $dropdownValueSteamGroup = 1;
+        $content->setVariable("STEAM_VALUE", $dropdownValueSteamGroup);
 
         if ($env instanceof \steam_room) {
-            $readCheckAcq = $env->check_access_read($steamgroup);
-            $writeCheckAcq = $env->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $steamgroup);
-            $sanctionCheckAcq = $env->check_access(SANCTION_SANCTION, $steamgroup);
+            $readCheckAcqSteamGroup = $env->check_access_read($steamgroup);
+            $writeCheckAcqSteamGroup = $env->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $steamgroup);
+            $sanctionCheckAcqSteamGroup = $env->check_access(SANCTION_SANCTION, $steamgroup);
         } else {
-            $readCheckAcq = 0;
-            $writeCheckAcq = 0;
-            $sanctionCheckAcq = 0;
+            $readCheckAcqSteamGroup = 0;
+            $writeCheckAcqSteamGroup = 0;
+            $sanctionCheckAcqSteamGroup = 0;
         }
 
-        $dropdownValueAcq = 0;
-        if ($sanctionCheckAcq)
-            $dropdownValueAcq = 3;
-        else if ($writeCheckAcq)
-            $dropdownValueAcq = 2;
-        else if ($readCheckAcq)
-            $dropdownValueAcq = 1;
-        $content->setVariable("STEAM_VALUE_ACQ", $dropdownValueAcq);
+        $dropdownValueAcqSteamGroup = 0;
+        if ($sanctionCheckAcqSteamGroup)
+            $dropdownValueAcqSteamGroup = 3;
+        else if ($writeCheckAcqSteamGroup)
+            $dropdownValueAcqSteamGroup = 2;
+        else if ($readCheckAcqSteamGroup)
+            $dropdownValueAcqSteamGroup = 1;
+        $content->setVariable("STEAM_VALUE_ACQ", $dropdownValueAcqSteamGroup);
 
         $content->setVariable("EVERYONE_ID", $everyoneId);
         $content->setVariable("STEAM_ID", $steamgroupId);
@@ -454,7 +454,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $content->setVariable("GROUPID", $id);
                     $content->setVariable("GROUP_ID", $id);
                     $content->setVariable("GROUPNAME", $name);
-                    $content->setVariable("OPTIONVALUE", $dropDownValue);
+                    $content->setVariable("OPTIONVALUE", max($dropDownValue, $dropdownValueSteamGroup));
                     $content->setVariable("INDENTINDEX", $intend);
                     $content->setVariable("DROPDOWNLIST", $ddl->getHtml());
                     if (isset($favorites[$id])) {
@@ -516,7 +516,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $content->setVariable("GROUPID_ACQ", $id);
                     $content->setVariable("GROUP_ID_ACQ", $id);
                     $content->setVariable("GROUPNAME_ACQ", $name);
-                    $content->setVariable("OPTIONVALUE_ACQ", $dropDownValueAcq);
+                    $content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq,$dropdownValueAcqSteamGroup));
                     $content->setVariable("INDENTINDEX_ACQ", $intend);
                     $content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
                     if (isset($favorites[$id])) {
@@ -642,7 +642,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $optionValues = array();
         for ($i = $dropDownValue; $i <= 3; $i++) {
             if ($i == 1) {
-                $optionValues[1] = "Lesen";
+                $optionValues[1] = "Nur Lesen";
             } else if ($i == 2) {
                 $optionValues[2] = "Lesen und Schreiben";
             } else if ($i == 3) {
