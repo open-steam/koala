@@ -648,7 +648,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             } else if ($i == 3) {
                 $optionValues[3] = "Lesen, Schreiben und Berechtigen";
             } else if ($i == 0) {
-                $optionValues[0] = "";
+                $optionValues[0] = "Kein Zugriff";
             }
         }
         return $optionValues;
