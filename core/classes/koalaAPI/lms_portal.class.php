@@ -542,12 +542,20 @@ return $rand_value;
 					//(YOUR_MAILBOX) ? array( "name" => gettext( "Your mailbox" ), "link" => PATH_URL . "messages.php" ) : "",
 					//(YOUR_CALENDER) ? array( "name" => gettext( "Your calendar" ), "link" => PATH_URL . "desktop/calendar/" ) : "",
 					(YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your documents" ) : "Dokumente"), "link" => PATH_URL . "explorer/" ) : "",
-					(YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "user/index/" . $user->get_name() . "/") : "",
-					
 					(YOUR_BOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Lesezeichen" ) : "Lesezeichen"), "link" => PATH_URL . "bookmarks/") : "",
-				    (YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
-					(YOUR_CONTACTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your contacts" ) : "Kontakte"), /*"link" => PATH_URL . "contacts/" . $user->get_name() . "/" */) : "",
-					(YOUR_MOKODESK && ($user->get_attribute("LARS_DESKTOP") !== 0)) ? array( "name" => ((MENU_YOU) ? gettext( "Mein MokoDesk" ) : "MokoDesk"), "link" => MOKODESK_URL) : ""
+                                        
+                                        //not used
+                                        //(YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
+					
+                                        (YOUR_CONTACTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your contacts" ) : "Kontakte"), /*"link" => PATH_URL . "contacts/" . $user->get_name() . "/" */) : "",
+					(YOUR_MOKODESK && ($user->get_attribute("LARS_DESKTOP") !== 0)) ? array( "name" => ((MENU_YOU) ? gettext( "Mein MokoDesk" ) : "MokoDesk"), "link" => MOKODESK_URL) : "",
+					
+                                        (YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Einstellungen2" ) : "Favoriten"), "link" => PATH_URL . "favorite/index/" ) : "",
+					
+                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "user/index/" . $user->get_name() . "/") : "",
+					
+                                        //not implemented yet
+                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Configuration" ) : "Einstellungen"), "link" => PATH_URL . "user/config/" ) : ""
 					
 					/*array( "name" => gettext( "Comments You've Made" ), "link" => PATH_URL . "desktop/comments/" ),
 					koala_html_menu::get_separator(),
