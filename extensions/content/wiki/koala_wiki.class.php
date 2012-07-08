@@ -46,10 +46,14 @@ class koala_wiki extends koala_object {
 			if (WIKI_MEDIATHEK && $wiki_obj->check_access_write($user))
 			$index_menu[] = array("link" => PATH_URL . "wiki/mediathek/" . $wiki_obj->get_id(), "name" => gettext("Mediathek"));
 
-			// $grp = lms_steam::get_koala_group_for_object_id($wiki_obj->get_id());
-			$grp = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $wiki_obj->get_id());
+			// TODO for groups
+			//$grp = lms_steam::get_koala_group_for_object_id($wiki_obj->get_id());
+			//$grp = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $wiki_obj->get_id());
 			//$is_admin = $grp->is_admin($user);
-			$is_admin = true;
+			$is_admin = false;
+			if ($wiki_obj->get_creator()->get_id() == $user->get_id()) {
+				$is_admin = true;
+			}
 			
 			if($wiki_obj->check_access_write( $user )){
 				$index_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => gettext("Create new entry"));
@@ -61,7 +65,7 @@ class koala_wiki extends koala_object {
 				(WIKI_EXPORT && ($place !== "units")) ? $index_menu[] = array("link" => PATH_URL . "wiki/export/" . $wiki_obj->get_id(), "name" => gettext("Export wiki")) : "";
 				
 			}
-			$this->template->setVariable("SPACER", "&nbsp;");
+			//$this->template->setVariable("SPACER", "&nbsp;");
 		}
 
 		if ($context == "entry") {
@@ -74,20 +78,20 @@ class koala_wiki extends koala_object {
 
 				$startpage = $wiki_obj->get_environment()->get_attribute("WIKI_STARTPAGE");
 				if (!(!$startpage || $startpage === "glossary")) {
-					$entry_menu[] = array("link" => PATH_URL . "wiki/" . $wiki_obj->get_environment()->get_id() . "/glossary/", "name" => gettext("Glossary"));
+					$entry_menu[] = array("link" => PATH_URL . "wiki/glossary/" . $wiki_obj->get_environment()->get_id() . "/", "name" => gettext("Glossary"));
 				}
 				$entry_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => gettext("Edit entry"));
 				if ($wiki_obj->check_access_move($user)) {
 					$entry_menu[] = array("link" => PATH_URL . "wiki/delete/" . $wiki_obj->get_environment()->get_id() . "/" . $wiki_obj->get_id(), "name" => gettext("Delete"));
 				}
 			} else {
-				$this->template->setVariable("SPACER", "&nbsp;");
+				//$this->template->setVariable("SPACER", "&nbsp;");
 			}
 		}
 
 		if ($context == "mediathek") {
 			if ($wiki_obj->check_access_write($user)) {
-				$mediathek_menu[] = array("link" => PATH_URL . "upload.php?env=" . $wiki_obj->get_id(), "name" => gettext("Upload new image"));
+				$mediathek_menu[] = array("onclick" => "sendRequest('Upload', { id : " . $wiki_obj->get_id() . "}, '', 'popup');", "name" => gettext("Upload new image"));
 			}
 		}
 
@@ -101,14 +105,18 @@ class koala_wiki extends koala_object {
 
 		(isset($menue[$context])) ? $fctns = $menue[$context] : $fctns = "";
 		if (is_array($fctns)) {
-			$this->template->setCurrentBlock("BLOCK_ADMIN");
-			foreach ($fctns as $fctn) {
+			$actionBar = new Widgets\ActionBar();
+			$actionBar->setActions($fctns);
+			
+			$this->template->setCurrentBlock("BLOCK_ADMIN_NEW");
+			$this->template->setVariable("ACTIONBAR", $actionBar->getHtml());
+			/*foreach ($fctns as $fctn) {
 				$this->template->setCurrentBlock("BLOCK_FUNCTION");
 				$this->template->setVariable("LINK_FCTN", $fctn["link"]);
 				$this->template->setVariable("LABEL_FCTN", $fctn["name"]);
 				$this->template->parse("BLOCK_FUNCTION");
-			}
-			$this->template->parse("BLOCK_ADMIN");
+			}*/
+			$this->template->parse("BLOCK_ADMIN_NEW");
 		}
 	}
 
@@ -282,7 +290,7 @@ class koala_wiki extends koala_object {
 		foreach ($links as $doc) {
 			if ($doc instanceof steam_document) {
 				$t->setCurrentBlock("BLOCK_LINK");
-				$t->setVariable("WIKI_DOC_LINK", PATH_URL . "wiki/" . $this->steam_wiki->get_id() . "/" . $doc->get_identifier());
+				$t->setVariable("WIKI_DOC_LINK", PATH_URL . "wiki/entry/" . $doc->get_identifier());
 				$t->setVariable("WIKI_DOC_NAME", str_replace(".wiki", "", h($doc->get_name())));
 				$t->parse("BLOCK_LINK");
 			}
@@ -429,7 +437,7 @@ class koala_wiki extends koala_object {
 		    "steam" => SANCTION_READ | SANCTION_ANNOTATE,
 			)
 			);
-		} else {
+		} else if ((string) $grp->get_attribute("OBJ_TYPE") == "group") {
 			$ret += array(
 			PERMISSION_PRIVATE_READONLY => array(
 		    "label" => gettext("Only members can read and make comments. Only %NAME can edit and post new entries."),
@@ -456,12 +464,34 @@ class koala_wiki extends koala_object {
 		    "steam" => SANCTION_READ | SANCTION_ANNOTATE | SANCTION_INSERT | SANCTION_WRITE | SANCTION_MOVE,
 			)
 			);
+		} else {
+			// wiki is not in a group or course
+			$ret += array(
+			PERMISSION_PRIVATE_READONLY => array(
+		    "label" => gettext("Only you can read, edit and post new entries."),
+		    "summary_short" => $private,
+		    "members" => 0,
+		    "steam" => 0,
+			),
+			PERMISSION_PUBLIC_READONLY => array(
+		    "label" => gettext("All users can read, only you can comment, edit and post new entries."),
+		    "summary_short" => $public,
+		    "members" => 0,
+		    "steam" => SANCTION_READ,
+			),
+			PERMISSION_PUBLIC => array(
+		    "label" => gettext("All users can read, edit and post new entries."),
+		    "summary_short" => $public,
+		    "members" => 0,
+		    "steam" => SANCTION_READ | SANCTION_ANNOTATE | SANCTION_INSERT | SANCTION_WRITE | SANCTION_MOVE,
+			)
+			);
 		}
 		return $ret;
 	}
 
 	public function get_url() {
-		return PATH_URL . "wiki/" . $this->get_id() . "/";
+		return PATH_URL . "wiki/Index/" . $this->get_id() . "/";
 	}
 
 }
