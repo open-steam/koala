@@ -60,7 +60,7 @@ class Application extends AbstractExtension implements IApplicationExtension, II
 				if (DEVELOPMENT_MODE) {
 					throw new Exception("Command {$urlRequestObject->getCommand()} not found.");
 				} else {
-					ExtensionMaster::getInstance()->send404Error("command not found");
+					ExtensionMaster::getInstance()->send404Error("Command not found");
 				}
 			}
 			
@@ -120,7 +120,7 @@ class Application extends AbstractExtension implements IApplicationExtension, II
 			if (DEVELOPMENT_MODE) {
 				throw new Exception("Command {$urlRequestObject->getCommand()} execution error.");
 			} else {
-				ExtensionMaster::getInstance()->send404Error();
+				ExtensionMaster::getInstance()->send404Error("Command execution error");
 			}
 		}
 		ExtensionMaster::getInstance()->send404Error();
