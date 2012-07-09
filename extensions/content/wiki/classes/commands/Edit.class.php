@@ -110,7 +110,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			
 				    // clean rsscache
 				    $rcache = get_cache_function("rss", 600);
-				    $feedlink = PATH_URL . "services/feeds/wiki_public.php?id=" . $wiki_container->get_id();
+				    $feedlink = PATH_URL . "wiki/RSS/" . $wiki_container->get_id();
 				    $rcache->drop("lms_rss::get_items", $feedlink);
 			
 				    header("Location: " . PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/");
@@ -182,7 +182,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		//$content->setVariable( "LABEL_WIKI_IMAGE", gettext( "IMG" ) );
 		//$content->setVariable( "HINT_WIKI_IMAGE", gettext( "image" ) );
 		
-		$content->setVariable("ANNOTATION_IMAGE_URL", PATH_SERVER . "/styles/standard/images/wiki/comment_small.gif");
+		$content->setVariable("ANNOTATION_IMAGE_URL", PATH_URL . "/wiki/asset/icons/comment_small.gif");
 
 		$content->setVariable("LABEL_PREVIEW", gettext("Preview"));
 		$content->setVariable("LABEL_SAVE_CHANGES", gettext("Save changes"));

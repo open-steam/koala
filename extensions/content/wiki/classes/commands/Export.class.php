@@ -42,12 +42,12 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 		
 			if ($action === "move") {
 				$object_to_move = $wiki_container;
-				$msg = gettext("Moved Wiki successfully!");
+				$msg = "Wiki erfolgreich verschoben!";
 			} else if ($action === "copy") {
 				//print_r($GLOBALS["STEAM"]);
 				$wiki_copy = \steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $wiki_container);
 				$object_to_move = $wiki_copy;
-				$msg = gettext("Copied Wiki successfully!");
+				$msg = "Wiki erfolgreich kopiert!";
 			} else {
 				exit;
 			}
@@ -70,8 +70,6 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 			header("Location: " . $backlink);
 			exit;
 		}
-		
-		
 		
 		//Load courses and groups
 		$scg = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), STEAM_COURSES_GROUP, CLASS_GROUP);
@@ -125,14 +123,14 @@ Beim Kopieren eines Wikis werden Sie zum Autor aller Wikieinträge des neu angel
 Das Wiki bleibt beim Kopieren im Ursprungsbereich erhalten.
 HELP;
 		
-		$content->setVariable('DESTINATION', gettext('destination'));
-		$content->setVariable('ACTION', gettext('action'));
+		$content->setVariable('DESTINATION', "Zielort");
+		$content->setVariable('ACTION', "Aktion");
 		
 		$content->setVariable('COPY_HELP_TEXT', $copy_wiki_help_text);
 		$content->setVariable('MOVE_HELP_TEXT', $move_wiki_help_text);
 		
-		$content->setVariable("LABEL_MOVE", gettext("Move Wiki"));
-		$content->setVariable("LABEL_COPY", gettext("Copy Wiki"));
+		$content->setVariable("LABEL_MOVE", "Wiki verschieben");
+		$content->setVariable("LABEL_COPY", "Wiki kopieren");
 		$content->setVariable("LABEL_CHOOSE", gettext("Choose a group or course"));
 		
 		

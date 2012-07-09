@@ -134,16 +134,16 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 		
 			$versions = $wiki_doc->get_previous_versions();
 			$no_versions = ( is_array( $versions ) ) ? count( $versions ) : 0;
-			$content->setVariable("VERSION_MANAGEMENT", gettext( "Version Management" ) );
+			$content->setVariable("VERSION_MANAGEMENT", "Versionsverwaltung" );
 			
 			if ( $no_versions > 0 )
 			{
-				$content->setVariable("NUMBER_VERSIONS", "<li>" . $no_versions . " " . gettext( "previous version(s) available" ) . "</li>" );
+				$content->setVariable("NUMBER_VERSIONS", "<li>" . $no_versions . " " . gettext( "Vorgängerversion(en) verfügbar" ) . "</li>" );
 				$content->setVariable("LINK_VERSION_MANAGEMENT", "<li><a href=\"" . PATH_URL . "wiki/versions/" . $wiki_doc->get_id() . "\">&raquo; " . gettext("enter version management") . "</a></li>");
 			}
 			else
 			{
-				$content->setVariable("NUMBER_VERSIONS", "<li>" . gettext( "no previous versions available" ) . "</li>" );
+				$content->setVariable("NUMBER_VERSIONS", "<li>" . "Keine Vorgängerversionen verfügbar" . "</li>" );
 			}
 		}
 		
@@ -163,7 +163,7 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 		if (!$found_doc)
 		{
 			$content->setCurrentBlock( "BLOCK_LINKS" );
-			$content->setVariable( "LINK", gettext("no links available"));
+			$content->setVariable( "LINK", "keine Links vorhanden");
 			$content->parse( "BLOCK_LINKS" );
 		}
 		else

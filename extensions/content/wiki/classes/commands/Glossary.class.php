@@ -134,7 +134,7 @@ class Glossary extends \AbstractCommand implements \IFrameCommand {
 			}
 		}
 		else{
-			$content->setVariable('NO_ENTRIES', gettext('There are no wiki entries.'));
+			$content->setVariable('NO_ENTRIES', "Es existieren keine Wiki Einträge.");
 		}
 		
 		/*TODO: check if these functions can be deleted

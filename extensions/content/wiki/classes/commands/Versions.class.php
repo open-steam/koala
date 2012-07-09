@@ -140,7 +140,7 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 			}
 			
 			//is user authorized to delete version?
-			$content->setVariable( "MESSAGE_DELETION", gettext( "Do you really want to delete this version?" ) );
+			$content->setVariable( "MESSAGE_DELETION", "Diese Version wirklich löschen?" );
 			$current_user = \lms_steam::get_current_user();
 			$admin_group = \steam_factory::get_group( $GLOBALS["STEAM"]->get_id(), "admin" );
 			$isAdmin = ( is_object( $admin_group ) && $admin_group->is_member( $current_user ) );
@@ -149,7 +149,7 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 			
 			if ( ( $isAdmin || $usersEntry ) && $notCurrentVersion )
 			{
-				$content->setVariable( "VALUE_ACTION_DELETE", "<a href=\"" . PATH_URL . "wiki/delete/version/" . $doc->get_id() . "\" onclick=\"return confirmDeletion();\">" . "&raquo; " . gettext("Delete this version") . "</a><br \/>" );
+				$content->setVariable( "VALUE_ACTION_DELETE", "<a href=\"" . PATH_URL . "wiki/delete/version/" . $doc->get_id() . "\" onclick=\"return confirmDeletion();\">" . "&raquo; " . "Diese Version löschen" . "</a><br \/>" );
 			}
 			
 			$content->parse( "BLOCK_VERSION" );

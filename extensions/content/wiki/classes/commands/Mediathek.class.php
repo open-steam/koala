@@ -35,8 +35,8 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
 		$inventory = $wiki_container->get_inventory();
 		if ( !is_array( $inventory ) ) $inventory = array();
 		
-		$question = gettext( "Do you really want to delete this image?" );
-		$note = gettext("NOTE: All wiki-entries containing this image have to be updated manually!" );
+		$question = "Dieses Bild wirklich löschen?";
+		$note = gettext("Achtung: Alle Wiki Einträge, die dieses Bild enthalten, müssen manuell aktualisiert werden.");
 		if ( sizeof( $inventory ) > 0 )
 		{
 			\steam_factory::load_attributes( $GLOBALS["STEAM"]->get_id(), $inventory , array( OBJ_NAME, OBJ_DESC, DOC_MIME_TYPE ) );
@@ -50,8 +50,8 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
 			
 			foreach( $images as $image )
 			{
-				$actions = '<a href="#" onclick="sendRequest(\'Properties\', {\'id\':' . $image->get_id() . '}, \'\', \'popup\', null, null, \'explorer\')">' . gettext("properties") . '</a><br>';
-				$actions .= '<a href="#" onclick="return confirmDeletion(\'' . $question . '\',\'' . $note . '\',' . $image->get_id() . ');">' . gettext("delete image") . '</a>';
+				$actions = '<a href="#" onclick="sendRequest(\'Properties\', {\'id\':' . $image->get_id() . '}, \'\', \'popup\', null, null, \'explorer\')">' . "Eigenschaften" . '</a><br>';
+				$actions .= '<a href="#" onclick="return confirmDeletion(\'' . $question . '\',\'' . $note . '\',' . $image->get_id() . ');">' . "Bild löschen" . '</a>';
 				
 				$imageData = imagecreatefromstring( $image->get_content() );
 		

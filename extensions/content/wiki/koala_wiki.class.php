@@ -62,7 +62,7 @@ class koala_wiki extends koala_object {
 			if ($is_admin) {
 				(WIKI_EDIT) ? $index_menu[] = array("link" => PATH_URL . "wiki/configuration/" . $wiki_obj->get_id(), "name" => gettext("Preferences")) : "";
 				(WIKI_DELETE) ? $index_menu[] = array("link" => PATH_URL . "wiki/delete/" . $wiki_obj->get_id(), "name" => gettext("Delete")) : "";
-				(WIKI_EXPORT && ($place !== "units")) ? $index_menu[] = array("link" => PATH_URL . "wiki/export/" . $wiki_obj->get_id(), "name" => gettext("Export wiki")) : "";
+				(WIKI_EXPORT && ($place !== "units")) ? $index_menu[] = array("link" => PATH_URL . "wiki/export/" . $wiki_obj->get_id(), "name" => "Wiki-Export") : "";
 				
 			}
 			//$this->template->setVariable("SPACER", "&nbsp;");
@@ -91,7 +91,7 @@ class koala_wiki extends koala_object {
 
 		if ($context == "mediathek") {
 			if ($wiki_obj->check_access_write($user)) {
-				$mediathek_menu[] = array("onclick" => "sendRequest('Upload', { id : " . $wiki_obj->get_id() . "}, '', 'popup');", "name" => gettext("Upload new image"));
+				$mediathek_menu[] = array("onclick" => "sendRequest('Upload', { id : " . $wiki_obj->get_id() . "}, '', 'popup');", "name" => "Bilder hinzufügen");
 			}
 		}
 
@@ -468,13 +468,13 @@ class koala_wiki extends koala_object {
 			// wiki is not in a group or course
 			$ret += array(
 			PERMISSION_PRIVATE_READONLY => array(
-		    "label" => gettext("Only you can read, edit and post new entries."),
+		    "label" => gettext("Nur Sie dürfen lesen, Einträge bearbeiten und neue Einträge erstellen."),
 		    "summary_short" => $private,
 		    "members" => 0,
 		    "steam" => 0,
 			),
 			PERMISSION_PUBLIC_READONLY => array(
-		    "label" => gettext("All users can read, only you can comment, edit and post new entries."),
+		    "label" => gettext("Alle Benutzer dürfen lesen, nur Sie können Einträge bearbeiten und neue Einträge erstellen."),
 		    "summary_short" => $public,
 		    "members" => 0,
 		    "steam" => SANCTION_READ,
