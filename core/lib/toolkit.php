@@ -739,7 +739,20 @@ function cleanHTML($dirtyHTML) {
         'id' => 'CDATA'
     )
     );
-   
+    
+    
+    $asciiSvgTag = $def->addElement(
+    'embed',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'type' => 'CDATA',
+        'src' => 'CDATA',
+        'style' => 'CDATA',
+        'sscr' => 'CDATA'
+    )
+    );
     
     
     //$videotag->excludes = array('form' => true); //test
