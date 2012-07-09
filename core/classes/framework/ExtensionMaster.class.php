@@ -272,8 +272,8 @@ class ExtensionMaster {
 		return $result;
 	}
 	
-	public function send404Error() {
-		logging::write_log( LOG_404, date("d.m.Y H:i", time()) . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]);
+	public function send404Error($message = "no error description") {
+		logging::write_log( LOG_404, date("d.m.Y H:i", time()) . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]." ".$message);
 		header("Location: " . URL_404);
 		die;
 	}
