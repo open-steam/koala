@@ -34,7 +34,7 @@ define("SERVERMENU", false);
 
 //$schoolObj->get_id()
 
-define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome");
+define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome, SchoolHome");
 /* config for development */
 define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
 								. "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map,"
