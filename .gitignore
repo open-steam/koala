@@ -28,6 +28,9 @@ platforms/koala/public/.htaccess
 platforms/koala/public/styles
 platforms/koala/etc/local.def.php
 
+extensions/content/worksheet/templates_c/%%*
+extensions/base/widgets/asset/temp/*
+
 platforms/default/etc/local.def.php
 .buildpath
 .project
