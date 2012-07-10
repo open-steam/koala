@@ -95,13 +95,22 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 				$tmpl->parse("image");
 			}
 			else if ($media_type == "movie") {
-				$tmpl->setCurrentBlock("movie");
-				$width = str_replace(array("px", "%"), "", $portlet->get_environment()->get_attribute("bid:portal:column:width")) - 10;
-				$media_player = $portletInstance->getAssetUrl() . 'mediaplayer.swf';
-				$tmpl->setVariable("MEDIA_PLAYER", $media_player);
-				$tmpl->setVariable("MEDIA_PLAYER_WIDTH", $width);
-				$tmpl->setVariable("MEDIA_PLAYER_HEIGHT", round($width * 3/4));
-				$tmpl->parse("movie");
+                                $tmpl->setCurrentBlock("movie");
+                                $mediaplayerHtml = new \Widgets\Videoplayer();
+                                $mediaArray = $portlet->get_attribute("bid:portlet:content");
+                                
+                                $mediaplayerHtml->setTarget($mediaArray["url"]);
+                                
+                                
+                                $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
+                                $tmpl->parse("movie");
+			//	$tmpl->setCurrentBlock("movie");
+			//	$width = str_replace(array("px", "%"), "", $portlet->get_environment()->get_attribute("bid:portal:column:width")) - 10;
+			//	$media_player = $portletInstance->getAssetUrl() . 'mediaplayer.swf';
+			//	$tmpl->setVariable("MEDIA_PLAYER", $media_player);
+			//	$tmpl->setVariable("MEDIA_PLAYER_WIDTH", $width);
+			//	$tmpl->setVariable("MEDIA_PLAYER_HEIGHT", round($width * 3/4));
+			//	$tmpl->parse("movie");
 			}
 			else if ($media_type == "audio") {
 				$tmpl->setCurrentBlock("audio");
