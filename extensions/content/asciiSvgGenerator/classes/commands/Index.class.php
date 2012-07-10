@@ -11,8 +11,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		//header
-                echo "funky graphic1";
+		//include something
+                //header
+                echo "funky svg graphic";
                 die;
 	}
 }
