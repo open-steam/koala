@@ -1,10 +1,10 @@
 <a href="{TARGET_URL}"
    style="display:block;width:425px;height:300px;"
-   id="player">
+   id="{PLAYERTAG_ID}">
 </a>
 
 <script language="JavaScript">
-  flowplayer("player", "{PATH_SWF}", { // supply the configuration
+  flowplayer("{PLAYERTAG_ID}", "{PATH_SWF}", { // supply the configuration
       clip: { // Clip is an object, hence '{...}'
           autoPlay: false,
           autoBuffering: true,
