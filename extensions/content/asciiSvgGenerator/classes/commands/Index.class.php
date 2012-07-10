@@ -11,9 +11,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		//include something
-                //header
-                echo "funky svg graphic";
+		$pathSvgImg = PATH_EXTENSIONS . "content/asciiSvgGenerator/asset/asciisvg/svgimg.php";
+                if(file_exists($pathSvgImg)){
+                    echo "funky svg";
+                    include($pathSvgImg);
+                }else{
+                    echo "asciisvg not found";
+                }
                 die;
 	}
 }
