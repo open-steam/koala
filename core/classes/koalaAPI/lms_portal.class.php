@@ -545,7 +545,7 @@ return $rand_value;
 					(YOUR_BOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Lesezeichen" ) : "Lesezeichen"), "link" => PATH_URL . "bookmarks/") : "",
                                         
                                         //not used
-                                        //(YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
+                                        (YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
 					
                                         (YOUR_CONTACTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your contacts" ) : "Kontakte"), /*"link" => PATH_URL . "contacts/" . $user->get_name() . "/" */) : "",
 					(YOUR_MOKODESK && ($user->get_attribute("LARS_DESKTOP") !== 0)) ? array( "name" => ((MENU_YOU) ? gettext( "Mein MokoDesk" ) : "MokoDesk"), "link" => MOKODESK_URL) : "",

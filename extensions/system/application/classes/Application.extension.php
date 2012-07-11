@@ -123,7 +123,7 @@ class Application extends AbstractExtension implements IApplicationExtension, II
 				ExtensionMaster::getInstance()->send404Error("Command execution error");
 			}
 		}
-		ExtensionMaster::getInstance()->send404Error();
+		ExtensionMaster::getInstance()->send404Error("Extension for namespace not found");
 	}
 }
 ?>

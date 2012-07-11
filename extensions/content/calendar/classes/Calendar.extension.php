@@ -37,6 +37,7 @@ class Calendar extends AbstractExtension implements IObjectExtension, IObjectMod
 	}
 	
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
+                return false; //TODO: test if object is a valid calendar, if not return false
 		return new \Calendar\Commands\Index();
 	}
 	
@@ -65,7 +66,7 @@ class Calendar extends AbstractExtension implements IObjectExtension, IObjectMod
 		return null;
 	}	
 	public function getPriority() {
-		return 5;
+		return 500;
 	}
 }
 ?>
