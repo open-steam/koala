@@ -69,7 +69,9 @@ class Portfolio extends AbstractExtension implements IObjectExtension {
 	}
 
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
-		return new \Portfolio\Commands\NewPortfolioForm();
+		return false;
+                //TODO: NewPortfolioForm dosn't exist
+                return new \Portfolio\Commands\NewPortfolioForm();
 	}
 
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
