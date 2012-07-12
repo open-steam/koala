@@ -91,6 +91,7 @@ class ExtensionMaster {
 	}
 	
 	private function findHighestPriorityExtension($extensions) {
+                //a higher number has higher priority
 		if (count($extensions) == 0) {
 			return null;
 		} else if (count($extensions) == 1) {
