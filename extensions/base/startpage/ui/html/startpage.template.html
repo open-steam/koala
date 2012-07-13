@@ -14,6 +14,32 @@
 		</tr>
 	</table>	
 </form>
+
+<div id="loginPanelWarning" style="display: none">
+    Ihr Browser wird nicht unterstützt.<br> Wir empfehlen eine aktuelle Version <br>von Firefox oder Chrome.
+</div>
+
+
+<script>
+    loginVisible = function(visible){
+        alert(jQuery.browser.version);
+        if(visible){
+            jQuery("#loginPanelWarning").css("display", "none");
+        }else{
+            jQuery("#loginPanel").attr("id", "loginPanelHidden");
+            jQuery("#loginPanelWarning").attr("id", "loginPanel");
+            jQuery("#loginPanelHidden").css("display", "none");
+        }
+    }
+    
+    //if(jQuery.browser.mozilla) loginVisible(false);
+    //if(jQuery.browser.webkit) loginVisible(true);
+    //if(jQuery.browser.safari) loginVisible(true);
+    //if(jQuery.browser.opera) loginVisible(true);
+    if(jQuery.browser.msie && jQuery.browser.version>10) loginVisible(false);
+</script>    
+
+
 <!-- END BLOCK_SIGN_IN -->
 
 <!-- BEGIN BLOCK_STARTPAGE_CONTENT -->
