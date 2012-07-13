@@ -24,11 +24,13 @@
     loginVisible = function(visible){
         alert(jQuery.browser.version);
         if(visible){
+            jQuery("#loginPanel").css("display", "block");
             jQuery("#loginPanelWarning").css("display", "none");
         }else{
-            jQuery("#loginPanel").attr("id", "loginPanelHidden");
-            jQuery("#loginPanelWarning").attr("id", "loginPanel");
-            jQuery("#loginPanelHidden").css("display", "none");
+            //jQuery("#loginPanel").attr("id", "loginPanelHidden");
+            //jQuery("#loginPanelWarning").attr("id", "loginPanel");
+            jQuery("#loginPanel").css("display", "none");
+            jQuery("#loginPanelWarning").css("display", "block");
         }
     }
     

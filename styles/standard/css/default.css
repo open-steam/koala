@@ -642,6 +642,14 @@
 		vertical-align:bottom;
 	}
 
+        #loginPanelWarning {
+		position:absolute;
+		right:0px;
+		top:-80px;
+	}
+	
+        
+        
 	/*
 	** Paginator
 	* used in tutorial.template.html, tutorials.template.html, units.template.html, units_homework_list_inventory.template.html, units_homework.template.html, 
