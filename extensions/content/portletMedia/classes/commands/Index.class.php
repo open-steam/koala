@@ -128,7 +128,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                                 
                                 //case embed
                                 else if(strpos($url, "embed")){
-                                    $begin = strpos($url, "/embed/")+8;
+                                    $begin = strpos($url, "/embed/")+7;
                                     $lenght = strpos(substr($url, $begin),'"');
                                     $youTubeUrlCode = substr($url, $begin, $lenght);
                                 }
