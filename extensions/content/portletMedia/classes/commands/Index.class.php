@@ -78,7 +78,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 				$tmpl->setVariable("REFERENCE_ICON","<img src='{$referIcon}'>");
 			}
 			
-			$tmpl->setVariable("URL",$content["url"]);
 			
                         //description
                         if($content["description"]===0){
@@ -89,29 +88,55 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         	
 		
 			$media_type = $content["media_type"];
+                        
+                        
+                        //determine youtube video TODO
+                        $isYoutubeVideo = false;
+                        $mediaArray = $portlet->get_attribute("bid:portlet:content");
+                        if( strpos($mediaArray["url"], "youtube")){
+                            $isYoutubeVideo = true;
+                        }
+                        
 			if ($media_type == "image"){
 				$tmpl->setCurrentBlock("image");
-				$tmpl->parse("MEDIA_ELEMENT", "image");
+                                $tmpl->setVariable("URL",$content["url"]);
 				$tmpl->parse("image");
 			}
-			else if ($media_type == "movie") {
+			else if ($media_type == "movie" && !$isYoutubeVideo) {
                                 $tmpl->setCurrentBlock("movie");
                                 $mediaplayerHtml = new \Widgets\Videoplayer();
                                 $mediaArray = $portlet->get_attribute("bid:portlet:content");
-                                
                                 $mediaplayerHtml->setTarget($mediaArray["url"]);
-                                
-                                
                                 $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
                                 $tmpl->parse("movie");
-			//	$tmpl->setCurrentBlock("movie");
-			//	$width = str_replace(array("px", "%"), "", $portlet->get_environment()->get_attribute("bid:portal:column:width")) - 10;
-			//	$media_player = $portletInstance->getAssetUrl() . 'mediaplayer.swf';
-			//	$tmpl->setVariable("MEDIA_PLAYER", $media_player);
-			//	$tmpl->setVariable("MEDIA_PLAYER_WIDTH", $width);
-			//	$tmpl->setVariable("MEDIA_PLAYER_HEIGHT", round($width * 3/4));
-			//	$tmpl->parse("movie");
 			}
+                        
+                        else if ($media_type == "movie" && $isYoutubeVideo) {
+                                $tmpl->setCurrentBlock("movieYoutube");
+                                $mediaArray = $portlet->get_attribute("bid:portlet:content");
+                                //$tmpl->setVariable("YOUTUBE_URL", $mediaArray["url"]);
+                                
+                                $url = $mediaArray["url"];
+                                $youTubeUrlCode = "";
+                                
+                                //case watch
+                                if (strpos($url, "watch")){
+                                    $begin = strpos($url, "watch?v=")+8;
+                                    $lenght = strpos(substr($url, $begin),"&");
+                                    $youTubeUrlCode = substr($url, $begin, $lenght);
+                                }
+                                
+                                //case embed
+                                else if(strpos($url, "embed")){
+                                    $begin = strpos($url, "/embed/")+8;
+                                    $lenght = strpos(substr($url, $begin),'"');
+                                    $youTubeUrlCode = substr($url, $begin, $lenght);
+                                }
+                                
+                                $tmpl->setVariable("YOUTUBE_URL_CODE", $youTubeUrlCode);
+                                $tmpl->parse("movieYoutube");
+			}
+                        
 			else if ($media_type == "audio") {
 				$tmpl->setCurrentBlock("audio");
 				$width = str_replace(array("px", "%"), "", $portlet->get_environment()->get_attribute("bid:portal:column:width")) - 10;
