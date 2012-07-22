@@ -555,7 +555,7 @@ return $rand_value;
                                         (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "user/index/" . $user->get_name() . "/") : "",
 					
                                         //not implemented yet
-                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Configuration" ) : "Einstellungen"), "link" => PATH_URL . "user/systemconfig/" ) : ""
+                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Configuration" ) : "Einstellungen"), "link" => PATH_URL . "user/SystemConfig/" ) : ""
 					
 					/*array( "name" => gettext( "Comments You've Made" ), "link" => PATH_URL . "desktop/comments/" ),
 					koala_html_menu::get_separator(),
