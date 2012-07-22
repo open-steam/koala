@@ -20,7 +20,7 @@ class PortletTopic extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Komponente Kategorien";
+		return "Kategorien";
 	}
 	
 	public function getObjectReadableDescription() {

@@ -20,7 +20,7 @@ class PortletPoll extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Komponente Abstimmung";
+		return "Abstimmung";
 	}
 	
 	public function getObjectReadableDescription() {

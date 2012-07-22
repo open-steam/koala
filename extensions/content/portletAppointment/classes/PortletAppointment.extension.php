@@ -20,7 +20,7 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 	}
 	
 	public function getObjectReadableName() {
-		return "Komponente Termine";
+		return "Termine";
 	}
 	
 	public function getObjectReadableDescription() {
