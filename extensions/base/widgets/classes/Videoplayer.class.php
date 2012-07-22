@@ -5,8 +5,10 @@ class Videoplayer extends Widget {
     
     
         private $playerWidth = 450;
-        private $playerHeight = 300;
+        //private $playerHeight = 300;
+        private $playerHeight = 338;
     
+        
 	private $target = "";
         private $swfPath = "";
                 //PATH_URL . "extensions/base/widgets/ui/swf/flowplayer-3.2.10.swf";
