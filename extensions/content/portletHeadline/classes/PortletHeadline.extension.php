@@ -20,7 +20,7 @@ class PortletHeadline extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Komponente Überschrift";
+		return "Überschrift";
 	}
 	
 	public function getObjectReadableDescription() {
