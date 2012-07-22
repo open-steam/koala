@@ -90,7 +90,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 			$media_type = $content["media_type"];
                         
                         
-                        //determine youtube video TODO
+                        //determine youtube video
                         $isYoutubeVideo = false;
                         $mediaArray = $portlet->get_attribute("bid:portlet:content");
                         if( strpos($mediaArray["url"], "youtube")){
@@ -105,6 +105,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 			else if ($media_type == "movie" && !$isYoutubeVideo) {
                                 $tmpl->setCurrentBlock("movie");
                                 $mediaplayerHtml = new \Widgets\Videoplayer();
+                                
+                                $column = $portlet->get_environment();
+                                $columnWidth = intval($column->get_attribute("bid:portal:column:width"));
+                                
+                                $mediaplayerHtml->setHeight(intval(($columnWidth-10)/4*3));
+                                $mediaplayerHtml->setWidth($columnWidth-10);
+                                
                                 $mediaArray = $portlet->get_attribute("bid:portlet:content");
                                 $mediaplayerHtml->setTarget($mediaArray["url"]);
                                 $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
