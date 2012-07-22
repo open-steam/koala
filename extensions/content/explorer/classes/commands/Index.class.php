@@ -162,8 +162,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$actionBar = new \Widgets\ActionBar();
 		$actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
                                                                     array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
-                                                                    array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
-                                                                    array("name"=>"Explorer-Einstellungen", "ajax"=>array("onclick"=>array("command"=>"explorerproperties", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
+                                                                    array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
                                             ));
                 
                 
