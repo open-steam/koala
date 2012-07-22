@@ -672,7 +672,7 @@ function cleanHTML($dirtyHTML) {
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
     
-    $config->set('HTML.SafeEmbed', true);
+    //$config->set('HTML.SafeEmbed', true); //Info: overrides custom tag. Removed for tinymce graphs. 
     $config->set('HTML.SafeObject', true);
     $config->set('Output.FlashCompat', true); //not sure
     
