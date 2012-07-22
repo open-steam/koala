@@ -1,11 +1,10 @@
 <?php
-//new dummy file for system config
 namespace Profile\Commands;
 
 include_once( PATH_LIB . "url_handling.inc.php" );
 include_once( PATH_LIB . "format_handling.inc.php" );
 
-class SystemConfig extends \AbstractCommand implements \IFrameCommand {
+class systemconfig extends \AbstractCommand implements \IFrameCommand {
 
     private $params;
     private $id;
