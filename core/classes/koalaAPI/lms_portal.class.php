@@ -539,7 +539,6 @@ return $rand_value;
 					(YOUR_DESKTOP) ? array( "name" => ((MENU_YOU) ? gettext( "Your desktop" ) : "Schreibtisch"), "link" => PATH_URL . "desktop/" ) : "",
 					(YOUR_PORTFOLIO) ? array( "name" => ((MENU_YOU) ? "Mein Portfolio" : "Portfolio"), "link" => PATH_URL . "portfolio/") : "",
 					//(YOUR_NEWS) ? array( "name" => gettext( "Your news" ), "link" => PATH_URL . "desktop/news/" ) : "",
-					//(YOUR_MAILBOX) ? array( "name" => gettext( "Your mailbox" ), "link" => PATH_URL . "messages.php" ) : "",
 					//(YOUR_CALENDER) ? array( "name" => gettext( "Your calendar" ), "link" => PATH_URL . "desktop/calendar/" ) : "",
 					(YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your documents" ) : "Dokumente"), "link" => PATH_URL . "explorer/" ) : "",
 					(YOUR_BOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Lesezeichen" ) : "Lesezeichen"), "link" => PATH_URL . "bookmarks/") : "",
@@ -550,19 +549,11 @@ return $rand_value;
                                         (YOUR_CONTACTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your contacts" ) : "Kontakte"), /*"link" => PATH_URL . "contacts/" . $user->get_name() . "/" */) : "",
 					(YOUR_MOKODESK && ($user->get_attribute("LARS_DESKTOP") !== 0)) ? array( "name" => ((MENU_YOU) ? gettext( "Mein MokoDesk" ) : "MokoDesk"), "link" => MOKODESK_URL) : "",
 					
-                                        (YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Einstellungen2" ) : "Favoriten"), "link" => PATH_URL . "favorite/index/" ) : "",
+                                        (YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Einstellungen2" ) : "Favoriten"), "link" => PATH_URL . "favorite/" ) : "",
 					
-                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "user/index/" . $user->get_name() . "/") : "",
+                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "profile/") : "",
 					
-                                        //not implemented yet
-                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Configuration" ) : "Einstellungen"), "link" => PATH_URL . "user/SystemConfig/" ) : ""
-					
-					/*array( "name" => gettext( "Comments You've Made" ), "link" => PATH_URL . "desktop/comments/" ),
-					koala_html_menu::get_separator(),
-					array( "name" => gettext( "Edit your profile" ), "link" => PATH_URL . "profile_edit.php" ),
-					array( "name" => gettext( "Set your buddy icon" ), "link" => PATH_URL . "profile_icon.php" ),
-					array( "name" => gettext( "Your mail preferences" ), "link" => PATH_URL . "messages_prefs.php" )
-					*/
+                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Configuration" ) : "Einstellungen"), "link" => PATH_URL . "profile/SystemConfig/" ) : ""
 				) ) );
 			}
 			
