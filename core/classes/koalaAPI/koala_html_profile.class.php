@@ -12,7 +12,7 @@ class koala_html_profile extends koala_html
 		if ( ! $steam_user instanceof steam_user )
 		throw new Exception( "not a user", E_PARAMETER );
 
-		parent::__construct( PATH_EXTENSIONS . "content/profile/ui/html/user_profile.template.html" );
+		parent::__construct( PATH_EXTENSIONS . "content/profile/ui/html/profile.template.html" );
 
 		$this->steam_user = $steam_user;
 		$this->networking_profile = new lms_networking_profile( $steam_user );
