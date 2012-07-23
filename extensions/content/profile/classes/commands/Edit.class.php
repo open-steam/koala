@@ -381,8 +381,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("LABEL_TELEPHONE_BID", "Telefon");
 			$content->setVariable("VALUE_TELEPHONE_BID",$user->get_attribute("bid:user_callto"));
 		}
-		//var_dump($user_profile);die;
-
+		
 		if(PLATFORM_ID=="bid"){
 			$frameResponseObject->setHeadline(array(
 			array( "link" => PATH_URL . "home/",

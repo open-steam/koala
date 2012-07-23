@@ -17,11 +17,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function validateData(\IRequestObject $requestObject) {
         return true;
     }
+    
 
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
     }
+    
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         //chronic
@@ -42,6 +44,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $frameResponseObject = $this->execute($frameResponseObject);
         return $frameResponseObject;
     }
+    
 
     public function display($block, $label, $value, $is_buddy = TRUE) {
         if (empty($value)) {
@@ -59,6 +62,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
     }
 
+    
     public function viewer_authorized($label) {
         $current_user = $GLOBALS["current user"];
         $current_userId = $current_user->get_id();
@@ -90,6 +94,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         return false;
     }
 
+    
     public function label_to_mapping($label) {
         switch ($label) {
             case "Origin": return "PRIVACY_FACULTY";
@@ -108,45 +113,36 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 break;
             case "Telefon": return "PRIVACY_TELEPHONE";
                 break;
-
-
             default: return "PRIVACY_" . strtoupper(str_replace(" ", "_", $label));
                 break;
         }
     }
+    
 
     public function execute(\FrameResponseObject $frameResponseObject) {
-
-        //var_dump($request);
         $current_user = \lms_steam::get_current_user();
-        //var_dump($current_user);die;
 
         $name = $this->id;
         if ($name != "") {
-
-            //$userName = $path[2];
             $user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $name);
         } else {
             $user = $current_user;
         }
 
 
-
         $login = $user->get_name();
         $cache = get_cache_function($login, 3600);
-        //$portal = \lms_portal::get_instance();
-        //$portal->set_page_title( $login );
         $user_profile = $cache->call("lms_steam::user_get_profile", $login);
         $html_handler_profile = new \koala_html_profile($user);
         $html_handler_profile->set_context("profile");
 
+        //template
         $GLOBALS["content"] = \Profile::getInstance()->loadTemplate("profile_display.template.html");
-        //$content = new HTML_TEMPLATE_IT();
-        //$content->loadTemplateFile( PATH_TEMPLATES . "profile_display.template.html" );
 
         if (!empty($user_profile["USER_PROFILE_DSC"])) {
             $GLOBALS["content"]->setVariable("HTML_CODE_DESCRIPTION", "<p>" . get_formatted_output($user_profile["USER_PROFILE_DSC"]) . "</p>");
         }
+        
         if (!empty($user_profile["USER_PROFILE_WEBSITE_URI"])) {
             $website_name = h(( empty($user_profile["USER_PROFILE_WEBSITE_NAME"]) ) ? $user_profile["USER_PROFILE_WEBSITE_URI"] : $user_profile["USER_PROFILE_WEBSITE_NAME"]);
             $GLOBALS["content"]->setVariable("HTML_CODE_PERSONAL_WEBSITE", "<br/><b>" . gettext("Website") . ":</b> <a href=\"" . h($user_profile["USER_PROFILE_WEBSITE_URI"]) . "\" target=\"_blank\">$website_name</a>");
@@ -167,10 +163,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $GLOBALS["authorizations"] = $user_privacy;
         $GLOBALS["current user"] = $current_user;
 
-        //$GLOBALS["content"] = $content;
-        ///////////////////////////////////////////////////
         //////////////  GENERAL INFORMATION  //////////////
-        ///////////////////////////////////////////////////
         // Status
         if (ENABLED_BID_DESCIPTION) {
             $user_profile_desc = $user_profile["OBJ_DESC"];
@@ -179,8 +172,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $this->display("GENERAL", "Beschreibung", $status);
             }
         }
-
-
 
 
         if (ENABLED_STATUS) {
@@ -202,11 +193,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             } else {
                 $mail = h($user_profile["USER_EMAIL"]);
                 $mail1 = '<a href="mailto:' . $mail . '">' . $mail . '</a>';
-                //var_dump($mail1);die;
                 $this->display("GENERAL", "E-Mail", $mail1);
             }
         }
-
 
         // Gender
         if (ENABLED_GENDER) {
@@ -281,9 +270,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if ($this->GENERAL_displayed)
             $GLOBALS["content"]->setVariable("HEADER_GENERAL_INFORMATION", gettext("General Information"));
 
-        ///////////////////////////////////////////////////
         ///////////////  CONTACTS & GROUPS  ///////////////
-        ///////////////////////////////////////////////////
         // CONTACTS
         if (ENABLED_CONTACTS) {
             $html_code_contacts = "";
@@ -336,11 +323,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if ($this->CONTACTS_AND_GROUPS_displayed)
             $GLOBALS["content"]->setVariable("HEADER_CONTACTS_AND_GROUPS", gettext("Contacts and Groups"));
 
-        /////////////////////////////////////////////////////
+        
         ///////////////  CONTACT INFORMATION  ///////////////
-        /////////////////////////////////////////////////////
-
-
         $is_buddy = ( $user->is_buddy($current_user) || $user->get_id() == $current_user->get_id() ) ? TRUE : FALSE;
         if (ENABLED_EMAIL) {
             $mail = h($user_profile["USER_EMAIL"]);
@@ -433,9 +417,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
         $GLOBALS["content"] = $GLOBALS["content"];
-        if ($this->CONTACT_DATA_displayed)
+        if ($this->CONTACT_DATA_displayed){
             $GLOBALS["content"]->setVariable("HEADER_CONTACT_DATA", gettext("Contact Data"));
-
+        }
+            
 
         $GLOBALS["content"]->setVariable("PATH_JAVASCRIPT", PATH_JAVASCRIPT);
         $GLOBALS["content"]->setVariable("KOALA_VERSION", KOALA_VERSION);
