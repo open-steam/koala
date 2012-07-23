@@ -133,7 +133,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $login = $user->get_name();
         $cache = get_cache_function($login, 3600);
         $user_profile = $cache->call("lms_steam::user_get_profile", $login);
-        $html_handler_profile = new \koala_html_profile($user);
+        
+        
+        $html_handler_profile = new \koala_html_profile($user); //spannend -----------------
         $html_handler_profile->set_context("profile");
 
         //template

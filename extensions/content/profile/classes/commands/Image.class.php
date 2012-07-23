@@ -19,9 +19,6 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 		return $frameResponseObject;
 	}
 	public function execute (\FrameResponseObject $frameResponseObject) {
-		//$portal = \lms_portal::get_instance();
-		//$portal->initialize( GUEST_NOT_ALLOWED );
-		//$portal->set_page_title( gettext( "Buddy Icon" ) );
 		$user = \lms_steam::get_current_user();
 
 		$confirmText = "";
@@ -108,9 +105,6 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 
 		}
 		$content = \Profile::getInstance()->loadTemplate("profile_icon.template.html");
-		//$content = new \HTML_TEMPLATE_IT();
-		//$content->loadTemplateFile( PATH_TEMPLATES . "profile_icon.template.html" );
-		//$content->setVariable( "INFO_TEXT", gettext( "Your buddy icon is what we use to represent you when you're in koaLA." ) );
 		if(PLATFORM_ID=="bid"){
 			$content->setVariable( "INFO_TEXT", "Hier können Sie ein Benutzerbild hinterlegen. Dieses wird beispielsweise an Ihren Dokumenten und Forenbeiträgen zusammen mit Ihrem Namen angezeigt." );
 		}else{
@@ -163,10 +157,10 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
-		//$portal->set_page_main($breadcrumb, $content->get(), "");
-		//return $portal->get_html();
 	}
-	public function clean_iconcache($icon) {
+	
+        
+        public function clean_iconcache($icon) {
 		$thumbs = array(
    			"140x185",
    			"40x47",
@@ -182,6 +176,8 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 			}
 		}
 	}
+        
+        
 	public function clean_usericoncache($user) {
 		if ($user instanceof \steam_user) {
 			$user->delete_value("OBJ_ICON");
@@ -194,11 +190,6 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 			// Clean profile data from cache
 			$cache = get_cache_function( $user->get_name(), 86400 );
 			$cache->drop( "lms_steam::user_get_profile", $user->get_name() );
-			// TODO: In Menu "Your Desktop" some Icon data comes from lms_user
-			// stored in session => delete/refresh this value in session here
-			//$portal = $GLOBALS[ "portal" ];
-			//$steam_user = $portal->get_user();
-			//$steam_user->init_attributes();
 		}
 	}
 

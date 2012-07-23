@@ -62,13 +62,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 
 			}
 
-			/*
-			 require_once( "Cache/Lite.php" );
-			 $cache = new Cache_Lite( array( "cacheDir" => PATH_CACHE ) );
-			 $cache->clean( $user->get_name() );
-			 $cache->clean( $user->get_id() );*/
 			if(!empty($values["USER_LANGUAGE"]) ){
-				//var_dump($values["USER_LANGUAGE"]);die;
 				$lang_index = \language_support::get_language_index();
 				\language_support::choose_language( $lang_index[ $values["USER_LANGUAGE"] ] );
 					
@@ -86,8 +80,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			header( "Location: " . PATH_URL . "profile/edit" );
 		}
 		$content = \Profile::getInstance()->loadTemplate("profile_edit.template.html");
-		//$content = new \HTML_TEMPLATE_IT();
-		//$content->loadTemplateFile( PATH_TEMPLATES . "profile_edit.template.html" );
 		if(PLATFORM_ID=="bid"){
 			$content->setVariable( "LABEL_INFO", "Hier können Sie Ihre persönlichen Kontaktdaten einrichten. Bis auf Ihren Namen sind alle Angaben freiwillig und können von Ihnen geändert werden. Klicken Sie auf den Button <b><i>Profil-Privatsphäre</i></b> um festzulegen, wem welche Informationen angezeigt werden sollen.");
 		}else{
@@ -233,7 +225,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		 *  Assure translations for statuses are available via gettext
 		 */
 
-		//var_dump($user_profile);die;
 		gettext("student");gettext("staff member");gettext("guest");gettext("alumni");
 		if(ENABLED_BID_DESCIPTION){
 			$content->setVariable( "VALUE_STATUS_BID", $this->safe_string( $user_profile[ "OBJ_DESC" ] ) );
@@ -408,18 +399,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
-		/*$portal->set_page_main(
-		 array(
-		 array( "link" => PATH_URL . "profile/index/" . $user->get_name() . "/",
-			"name" => $user->get_attribute( "USER_FIRSTNAME" ) . " " . $user->get_attribute( "USER_FULLNAME" )
-			),
-			array( "link" => "",
-			"name" => gettext( "Profile" )
-			)
-			),
-			$content->get(),
-			""
-			);*/
 		return $frameResponseObject;
 	}
 }

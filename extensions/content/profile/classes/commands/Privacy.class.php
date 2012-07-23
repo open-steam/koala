@@ -14,12 +14,10 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
 		isset($this->params[0]) ? $this->id = $this->params[0]: "";
 	}
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		//$frameResponseObject->setTitle("Edit");
 		$frameResponseObject = $this->execute($frameResponseObject);
 		return $frameResponseObject;
 	}
-	public function set_checkbox( $name, $integer_value, &$content )
-	{	
+	public function set_checkbox( $name, $integer_value, &$content ){	
 		$checked="";
 		$allusers_checked="";
 		$nobody="";
@@ -33,21 +31,10 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable( $name . "_ALLUSERS_CHECKED", $allusers_checked );
 		$content->setVariable( $name . "_CONTACTS_CHECKED", $checked );
 		$content->setVariable( $name . "_NONE_CHECKED", $nobody );
-		//if( constant("ENABLED_" . $name) || constant("ENABLED_BID_". $name) ){
+        }
 
-		//}
-
-		/*
-		 $checked = ( $integer_value & PROFILE_DENY_COURSEMATES ) ? "" : "checked=\"checked\"";
-		 $content->setVariable( $name . "_COURSEMATES_CHECKED", $checked );
-		 $content->setVariable( $name . "_COURSEMATES_DISABLED", $disabled );
-
-		 $checked = ( $integer_value & PROFILE_DENY_GROUPMATES ) ? "" : "checked=\"checked\"";
-		 $content->setVariable( $name . "_GROUPMATES_CHECKED", $checked );
-		 $content->setVariable( $name . "_GROUPMATES_DISABLED", $disabled );
-		 */
-	}
-	public function state_to_binary( $states )
+        
+        public function state_to_binary( $states )
 	{
 		$deny_all = PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS; // + PROFILE_DENY_COURSEMATES + PROFILE_DENY_GROUPMATES;
 
@@ -56,16 +43,11 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
 
 		$binary = PROFILE_DENY_ALLUSERS;
 		$binary += ( in_array("contacts", $states) ) ? 0 : PROFILE_DENY_CONTACTS;
-		// $binary += ( in_array("coursemates", $states) ) ? 0 : PROFILE_DENY_COURSEMATES;
-		// $binary += ( in_array("groupmates", $states) ) ? 0 : PROFILE_DENY_GROUPMATES;
-
 		return $binary;
 	}
 
+        
 	public function execute (\FrameResponseObject $frameResponseObject) {
-		//$portal = \lms_portal::get_instance();
-		//$portal->initialize( GUEST_NOT_ALLOWED );
-		//$portal->set_page_title( gettext( "Profile Privacy" ) );
 		$user = \lms_steam::get_current_user();
 
 		$cache = get_cache_function( $user->get_name(), 86400 );
@@ -112,13 +94,6 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
 
 			$privacy_object->set_attributes( $binary_values );
 
-			/*
-			 require_once( "Cache/Lite.php" );
-			 $cache = new Cache_Lite( array( "cacheDir" => PATH_CACHE ) );
-			 $cache->clean( $user->get_name() );
-			 $cache->clean( $user->get_id() );
-			 */
-
 			$cache = get_cache_function( \lms_steam::get_current_user()->get_name() );
 			$cache->drop( "\lms_portal::get_menu_html", \lms_steam::get_current_user()->get_name(), TRUE );
 
@@ -130,9 +105,8 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
 
 		}
 		$content = \Profile::getInstance()->loadTemplate("profile_privacy.template.html");
-		//$content = new HTML_TEMPLATE_IT();
-		//$content->loadTemplateFile( PATH_TEMPLATES . "profile_privacy.template.html" );
-		if(ENABLED_CONTACTS_GROUPS_TITLE)
+		
+                if(ENABLED_CONTACTS_GROUPS_TITLE)
 		$content->setVariable( "HEADER_CONTACTS_AND_GROUPS", gettext( "Contacts and Groups" ) );
 		if(ENABLED_CONTACTS_TITLE)
 		$content->setVariable( "HEADER_CONTACT_DATA", gettext( "Contact Data" ) );
@@ -144,131 +118,147 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
 		}
 
 		if(ENABLED_CONTACTS)
-		//$labelContacts = gettext( "Contacts" );
 		if(ENABLED_PROFILE_TITLE)
 		$content->setVariable( "LABEL_CONTACTS", gettext( "Contacts" ) );
-		//$content->setVariable( "LABEL_COURSEMATES", gettext( "Course Mates" ) );
-		//$content->setVariable( "LABEL_GROUPMATES", gettext( "Group Mates" ) );
-
+		
 		if(ENABLED_STATUS)
-		//$labelStatus = gettext("Status");
 		$content->setVariable( "LABEL_STATUS", gettext( "Status" ) );
 		if(ENABLED_BID_DESCIPTION){
 			$content->setVariable( "LABEL_STATUS", "Beschreibung" );
 		}
-		if(ENABLED_GENDER)
-		//$labelGender = gettext( "Gender" );
+		
+                if(ENABLED_GENDER)
 		$content->setVariable( "LABEL_GENDER", gettext( "Gender" ) );
-		if(ENABLED_FACULTY)
-		//$labelFaculty = gettext( "Origin" );
+		
+                if(ENABLED_FACULTY)
 		$content->setVariable( "LABEL_FACULTY", gettext( "Origin" ) );
-		if(ENABLED_MAIN_FOCUS)
-		//$labelMainFocus = gettext( "Main focus" );
+		
+                if(ENABLED_MAIN_FOCUS)
 		$content->setVariable( "LABEL_MAIN_FOCUS", gettext( "Main focus" ) );
-		if(ENABLED_WANTS)
-		//$labelWants = gettext( "Wants" );
+		
+                if(ENABLED_WANTS)
 		$content->setVariable( "LABEL_WANTS", gettext( "Wants" ) );
-		if(ENABLED_HAVES)
-		//$labelHaves = gettext("Haves");
+		
+                if(ENABLED_HAVES)
 		$content->setVariable( "LABEL_HAVES", gettext( "Haves" ) );
-		if(ENABLED_ORGANIZATIONS)
-		//$labelOrganizations = gettext( "Organizations" );
+		
+                if(ENABLED_ORGANIZATIONS)
 		$content->setVariable( "LABEL_ORGANIZATIONS", gettext( "Organizations" ) );
-		if(ENABLED_HOMETOWN)
-		//$labelHometown = gettext( "Hometown" );
+		
+                if(ENABLED_HOMETOWN)
 		$content->setVariable( "LABEL_HOMETOWN", gettext( "Hometown" ) );
-		if(ENABLED_OTHER_INTERESTS)
-		//$labelOtherInterests = gettext( "Other interests" );
+		
+                if(ENABLED_OTHER_INTERESTS)
 		$content->setVariable( "LABEL_OTHER_INTERESTS", gettext( "Other interests" ) );
-		if(ENABLED_LANGUAGES)
-		//$labelLanguages = gettext( "Language" );
+		
+                if(ENABLED_LANGUAGES)
 		$content->setVariable( "LABEL_LANGUAGES", gettext( "Language" ) );
-		//$content->setVariable( "LABEL_CONTACTS", gettext( "Contacts" ) ); -> siehe oben
-		if(ENABLED_GROUPS)
-		//$labelGroups = gettext( "Groups" );
+		
+                if(ENABLED_GROUPS)
 		$content->setVariable( "LABEL_GROUPS", gettext( "Groups" ) );
-		if(ENABLED_EMAIL || ENABLED_BID_EMAIL)
-		//$labelMail = gettext( "E-mail" );
+		
+                if(ENABLED_EMAIL || ENABLED_BID_EMAIL)
 		$content->setVariable( "LABEL_EMAIL", gettext( "E-mail" ) );
-		if(ENABLED_ADDRESS || ENABLED_BID_ADRESS)
-		//$labelAdress = gettext( "Address" );
+		
+                if(ENABLED_ADDRESS || ENABLED_BID_ADRESS)
 		$content->setVariable( "LABEL_ADDRESS", gettext( "Address" ) );
-		if(ENABLED_TELEPHONE || ENABLED_BID_PHONE)
-		//$labelTelephone = gettext( "Phone" );
+		
+                if(ENABLED_TELEPHONE || ENABLED_BID_PHONE)
 		$content->setVariable( "LABEL_TELEPHONE", gettext( "Phone" ) );
-		if(ENABLED_PHONE_MOBILE)
-		//$labelPhoneMobile = gettext( "Phone, mobile" );
+		
+                if(ENABLED_PHONE_MOBILE)
 		$content->setVariable( "LABEL_PHONE_MOBILE", gettext( "Phone, mobile" ) );
-		if(ENABLED_WEBSITE)
-		//$labelWebsite = gettext( "Website" );
+		
+                if(ENABLED_WEBSITE)
 		$content->setVariable( "LABEL_WEBSITE", gettext( "Website" ) );
-		if(ENABLED_ICQ_NUMBER || ENABLED_BID_IM)
-		//$labelIcqNumber = gettext( "ICQ number" );
+		
+                if(ENABLED_ICQ_NUMBER || ENABLED_BID_IM)
 		$content->setVariable( "LABEL_ICQ_NUMBER", gettext( "ICQ number" ) );
-		if(ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM)
-		//$labelMsnIdentification = gettext( "MSN identification" );
+		
+                if(ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM)
 		$content->setVariable( "LABEL_MSN_IDENTIFICATION", gettext( "MSN identification" ) );
-		if(ENABLED_AIM_ALIAS || ENABLED_BID_IM)
-		//$labelAimAlias = gettext( "AIM-alias" );
+		
+                if(ENABLED_AIM_ALIAS || ENABLED_BID_IM)
 		$content->setVariable( "LABEL_AIM_ALIAS", gettext( "AIM-alias" ) );
-		if(ENABLED_YAHOO_ID || ENABLED_BID_IM)
-		//$labelYahooId = gettext( "Yahoo-ID" );
+		
+                if(ENABLED_YAHOO_ID || ENABLED_BID_IM)
 		$content->setVariable( "LABEL_YAHOO_ID", gettext( "Yahoo-ID" ) );
-		if(ENABLED_SKYPE_NAME || ENABLED_BID_IM)
-		//$labelSkypeName = gettext( "Skype name" );
+		
+                if(ENABLED_SKYPE_NAME || ENABLED_BID_IM)
 		$content->setVariable( "LABEL_SKYPE_NAME", gettext( "Skype name" ) );
 
 		$content->setVariable( "LABEL_SAVE_IT", gettext( "Save changes" )  );
 
-		//TODO: Bei Bedarf wieder einbauen!
-		//$content->setVariable( "BACK_LINK", "<a href=\"" . PATH_URL . "profile/index/" . $user->get_name() . "/\">" . gettext( "back to your user profile" ) . "</a>" );
-
 		$deny_all = PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS;
-		if(ENABLED_STATUS || ENABLED_BID_DESCIPTION)
+		
+                if(ENABLED_STATUS || ENABLED_BID_DESCIPTION)
 		(isset($user_privacy[ "PRIVACY_STATUS" ])) ? $this->set_checkbox("STATUS", $user_privacy[ "PRIVACY_STATUS" ], $content): $this->set_checkbox("STATUS",$deny_all, $content);
-		if(ENABLED_GENDER)
+		
+                if(ENABLED_GENDER)
 		(isset($user_privacy[ "PRIVACY_GENDER" ])) ? $this->set_checkbox("GENDER", $user_privacy[ "PRIVACY_GENDER" ], $content):$this->set_checkbox("GENDER",$deny_all, $content);
-		if(ENABLED_FACULTY)
+		
+                if(ENABLED_FACULTY)
 		(isset($user_privacy[ "PRIVACY_FACULTY" ])) ? $this->set_checkbox("FACULTY", $user_privacy[ "PRIVACY_FACULTY" ], $content):$this->set_checkbox("FACULTY",$deny_all, $content);
-		if(ENABLED_MAIN_FOCUS)
+		
+                if(ENABLED_MAIN_FOCUS)
 		(isset($user_privacy[ "PRIVACY_MAIN_FOCUS" ])) ? $this->set_checkbox("MAIN_FOCUS", $user_privacy[ "PRIVACY_MAIN_FOCUS" ], $content):$this->set_checkbox("MAIN_FOCUS",$deny_all, $content);
-		if(ENABLED_WANTS)
+		
+                if(ENABLED_WANTS)
 		(isset($user_privacy[ "PRIVACY_WANTS" ])) ? $this->set_checkbox("WANTS", $user_privacy[ "PRIVACY_WANTS" ], $content):$this->set_checkbox("WANTS",$deny_all, $content);
-		if(ENABLED_HAVES)
+		
+                if(ENABLED_HAVES)
 		(isset($user_privacy[ "PRIVACY_HAVES" ])) ? $this->set_checkbox("HAVES", $user_privacy[ "PRIVACY_HAVES" ], $content):$this->set_checkbox("HAVES",$deny_all, $content);
-		if(ENABLED_ORGANIZATIONS)
+		
+                if(ENABLED_ORGANIZATIONS)
 		(isset($user_privacy[ "PRIVACY_ORGANIZATIONS" ])) ? $this->set_checkbox("ORGANIZATIONS", $user_privacy[ "PRIVACY_ORGANIZATIONS" ], $content):$this->set_checkbox("ORGANIZATIONS",$deny_all, $content);
-		if(ENABLED_HOMETOWN)
+		
+                if(ENABLED_HOMETOWN)
 		(isset($user_privacy[ "PRIVACY_HOMETOWN" ])) ? $this->set_checkbox("HOMETOWN", $user_privacy[ "PRIVACY_HOMETOWN" ], $content):$this->set_checkbox("HOMETOWN",$deny_all, $content);
-		if(ENABLED_OTHER_INTERESTS)
+		
+                if(ENABLED_OTHER_INTERESTS)
 		(isset($user_privacy[ "PRIVACY_OTHER_INTERESTS" ])) ? $this->set_checkbox("OTHER_INTERESTS", $user_privacy[ "PRIVACY_OTHER_INTERESTS" ], $content):$this->set_checkbox("OTHER_INTERESTS",$deny_all, $content);
-		if(ENABLED_LANGUAGES)
+		
+                if(ENABLED_LANGUAGES)
 		(isset($user_privacy[ "PRIVACY_LANGUAGES" ])) ? $this->set_checkbox("LANGUAGES", $user_privacy[ "PRIVACY_LANGUAGES" ], $content):$this->set_checkbox("LANGUAGES",$deny_all, $content);
-		if(ENABLED_CONTACTS)
+		
+                if(ENABLED_CONTACTS)
 		(isset($user_privacy[ "PRIVACY_CONTACTS" ])) ? $this->set_checkbox("CONTACTS", $user_privacy[ "PRIVACY_CONTACTS" ], $content):$this->set_checkbox("CONTACTS",$deny_all, $content);
-		if(ENABLED_GROUPS)
+		
+                if(ENABLED_GROUPS)
 		(isset($user_privacy[ "PRIVACY_GROUPS" ])) ? $this->set_checkbox("GROUPS", $user_privacy[ "PRIVACY_GROUPS" ], $content):$this->set_checkbox("GROUPS",$deny_all, $content);
-		if(ENABLED_EMAIL || ENABLED_BID_EMAIL)
+		
+                if(ENABLED_EMAIL || ENABLED_BID_EMAIL)
 		(isset($user_privacy[ "PRIVACY_EMAIL" ])) ? $this->set_checkbox("EMAIL", $user_privacy[ "PRIVACY_EMAIL" ], $content):$this->set_checkbox("EMAIL",$deny_all, $content);
-		if(ENABLED_ADDRESS || ENABLED_BID_ADRESS)
+		
+                if(ENABLED_ADDRESS || ENABLED_BID_ADRESS)
 		(isset($user_privacy[ "PRIVACY_ADDRESS" ])) ? $this->set_checkbox("ADDRESS", $user_privacy[ "PRIVACY_ADDRESS" ], $content):$this->set_checkbox("ADDRESS",$deny_all, $content);
-		if(ENABLED_TELEPHONE || ENABLED_BID_PHONE)
+		
+                if(ENABLED_TELEPHONE || ENABLED_BID_PHONE)
 		(isset($user_privacy[ "PRIVACY_TELEPHONE" ])) ? $this->set_checkbox("TELEPHONE", $user_privacy[ "PRIVACY_TELEPHONE" ], $content):$this->set_checkbox("TELEPHONE",$deny_all, $content);
-		if(ENABLED_PHONE_MOBILE)
+		
+                if(ENABLED_PHONE_MOBILE)
 		(isset($user_privacy[ "PRIVACY_PHONE_MOBILE" ])) ? $this->set_checkbox("PHONE_MOBILE", $user_privacy[ "PRIVACY_PHONE_MOBILE" ], $content):$this->set_checkbox("PHONE_MOBILE",$deny_all, $content);
-		if(ENABLED_WEBSITE)
+		
+                if(ENABLED_WEBSITE)
 		(isset($user_privacy[ "PRIVACY_WEBSITE" ])) ? $this->set_checkbox("WEBSITE", $user_privacy[ "PRIVACY_WEBSITE" ], $content):$this->set_checkbox("WEBSITE",$deny_all, $content);
-		if(ENABLED_ICQ_NUMBER || ENABLED_BID_IM)
+		
+                if(ENABLED_ICQ_NUMBER || ENABLED_BID_IM)
 		(isset($user_privacy[ "PRIVACY_ICQ_NUMBER" ])) ? $this->set_checkbox("ICQ_NUMBER", $user_privacy[ "PRIVACY_ICQ_NUMBER" ], $content):$this->set_checkbox("ICQ_NUMBER",$deny_all, $content);
-		if(ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM)
+		
+                if(ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM)
 		(isset($user_privacy[ "PRIVACY_MSN_IDENTIFICATION" ])) ? $this->set_checkbox("MSN_IDENTIFICATION", $user_privacy[ "PRIVACY_MSN_IDENTIFICATION" ], $content):$this->set_checkbox("MSN_IDENTIFICATION",$deny_all, $content);
-		if(ENABLED_AIM_ALIAS || ENABLED_BID_IM)
+		
+                if(ENABLED_AIM_ALIAS || ENABLED_BID_IM)
 		(isset($user_privacy[ "PRIVACY_AIM_ALIAS" ])) ? $this->set_checkbox("AIM_ALIAS", $user_privacy[ "PRIVACY_AIM_ALIAS" ], $content):$this->set_checkbox("AIM_ALIAS",$deny_all, $content);
-		if(ENABLED_YAHOO_ID || ENABLED_BID_IM )
+		
+                if(ENABLED_YAHOO_ID || ENABLED_BID_IM )
 		(isset($user_privacy[ "PRIVACY_YAHOO_ID" ])) ? $this->set_checkbox("YAHOO_ID", $user_privacy[ "PRIVACY_YAHOO_ID" ], $content):$this->set_checkbox("YAHOO_ID",$deny_all, $content);
-		if(ENABLED_SKYPE_NAME || ENABLED_BID_IM)
+		
+                if(ENABLED_SKYPE_NAME || ENABLED_BID_IM)
 		(isset($user_privacy[ "PRIVACY_SKYPE_NAME" ])) ? $this->set_checkbox("SKYPE_NAME", $user_privacy[ "PRIVACY_SKYPE_NAME" ], $content):$this->set_checkbox("SKYPE_NAME",$deny_all, $content);
-		if(PLATFORM_ID=="bid"){
+		
+                
+                if(PLATFORM_ID=="bid"){
 			$frameResponseObject->setHeadline(array(
 			array( "link" => PATH_URL . "home/",
 			"name" => $user->get_attribute( "USER_FIRSTNAME" ) . " " . $user->get_attribute( "USER_FULLNAME" )
@@ -299,15 +289,6 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
-
-
-
 	}
 }
-
-
-
-
-
-
 ?>
