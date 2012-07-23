@@ -60,7 +60,7 @@ class Groups extends \AbstractCommand implements \IFrameCommand {
 		$html_handler_profile = new \koala_html_profile( $user );
 		$html_handler_profile->set_context( "groups" );
 
-		$content = \Profile::getInstance()->loadTemplate("list_groups.template.html");
+		$content = \Profile::getInstance()->loadTemplate("groups.template.html");
 		
 		if ( $this->viewer_authorized( $current_user, $user ) )
 		{

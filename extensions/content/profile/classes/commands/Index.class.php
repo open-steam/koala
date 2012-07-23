@@ -139,7 +139,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $html_handler_profile->set_context("profile");
 
         //template
-        $GLOBALS["content"] = \Profile::getInstance()->loadTemplate("profile_display.template.html");
+        $GLOBALS["content"] = \Profile::getInstance()->loadTemplate("display.template.html");
 
         if (!empty($user_profile["USER_PROFILE_DSC"])) {
             $GLOBALS["content"]->setVariable("HTML_CODE_DESCRIPTION", "<p>" . get_formatted_output($user_profile["USER_PROFILE_DSC"]) . "</p>");

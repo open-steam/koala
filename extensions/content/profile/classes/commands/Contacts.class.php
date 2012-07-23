@@ -62,7 +62,7 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 			$unconfirmed_html = "";
 			// Contacts to confirm (visible only for the user himself)
 			if ($current_user->get_id() == $user->get_id() ) {
-				$content = \Profile::getInstance()->loadTemplate("list_users.template.html");
+				$content = \Profile::getInstance()->loadTemplate("contacts.template.html");
 				$contacts = $cache->call( "lms_steam::user_get_contacts_to_confirm", $login);
 				$no_contacts = count( $contacts );
 				if ( $no_contacts > 0 )
@@ -120,7 +120,7 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 				}
 				$unconfirmed_html = $content->get();
 			}
-			$content=\Profile::getInstance()->loadTemplate("list_users.template.html");
+			$content=\Profile::getInstance()->loadTemplate("contacts.template.html");
 			
 			// Contact list
 
@@ -205,7 +205,7 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 		else
 		{
 			$messagebox = "<div class=\"infoBar\"><h2>" . gettext("The user has restricted the display of this information.") . "</h2></div>";
-			$content = \Profile::getInstance()->loadTemplate("list_users.template.html");
+			$content = \Profile::getInstance()->loadTemplate("contacts.template.html");
 			$content->setVariable( "LABEL_PRIVACY_DENY_PARTICIPANTS", $messagebox );
 		}
 

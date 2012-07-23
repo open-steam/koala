@@ -104,7 +104,7 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
 			header( "Location: " . PATH_URL . "profile/privacy/".$user->get_name() );
 
 		}
-		$content = \Profile::getInstance()->loadTemplate("profile_privacy.template.html");
+		$content = \Profile::getInstance()->loadTemplate("privacy.template.html");
 		
                 if(ENABLED_CONTACTS_GROUPS_TITLE)
 		$content->setVariable( "HEADER_CONTACTS_AND_GROUPS", gettext( "Contacts and Groups" ) );

@@ -104,8 +104,9 @@ class Image extends \AbstractCommand implements \IFrameCommand {
 			}
 
 		}
-		$content = \Profile::getInstance()->loadTemplate("profile_icon.template.html");
-		if(PLATFORM_ID=="bid"){
+		$content = \Profile::getInstance()->loadTemplate("image.template.html");
+		
+                if(PLATFORM_ID=="bid"){
 			$content->setVariable( "INFO_TEXT", "Hier können Sie ein Benutzerbild hinterlegen. Dieses wird beispielsweise an Ihren Dokumenten und Forenbeiträgen zusammen mit Ihrem Namen angezeigt." );
 		}else{
 			$content->setVariable( "INFO_TEXT", "Das Benutzerbild wird Sie in ".PLATFORM_NAME." repräsentieren" );

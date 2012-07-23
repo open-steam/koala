@@ -79,7 +79,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 
 			header( "Location: " . PATH_URL . "profile/edit" );
 		}
-		$content = \Profile::getInstance()->loadTemplate("profile_edit.template.html");
+		$content = \Profile::getInstance()->loadTemplate("edit.template.html");
 		if(PLATFORM_ID=="bid"){
 			$content->setVariable( "LABEL_INFO", "Hier können Sie Ihre persönlichen Kontaktdaten einrichten. Bis auf Ihren Namen sind alle Angaben freiwillig und können von Ihnen geändert werden. Klicken Sie auf den Button <b><i>Profil-Privatsphäre</i></b> um festzulegen, wem welche Informationen angezeigt werden sollen.");
 		}else{
