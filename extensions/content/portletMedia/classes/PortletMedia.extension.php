@@ -20,7 +20,7 @@ class PortletMedia extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Komponente Medienelement";
+		return "Medienelement";
 	}
 	
 	public function getObjectReadableDescription() {

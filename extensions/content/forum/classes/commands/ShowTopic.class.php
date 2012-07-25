@@ -27,11 +27,11 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         $rawHtml = new \Widgets\RawHtml();
         $forumId = $this->forumId;
         $category_id = $this->id;
-
+        
+        
+        
         $myExtension = \Forum::getInstance();
         $myExtension->addCSS("style_topics.css");
-
-
 
 
         //******************************************************
@@ -167,6 +167,14 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         }
 
         //END CHECK RIGHTS OF THE CURRENT USER
+        
+        
+        //chronic
+        $entryTitle = $categoryAttributes[OBJ_DESC];
+        $chronicPath = "/forum/showTopic/$forumId/$category_id";
+        $chronicTitle = "Forum-Beitrag ($entryTitle)";
+        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentPath($chronicPath,$chronicTitle);
+        
 
         $content = \Forum::getInstance()->loadTemplate("forumShowTopic.template.html");
 

@@ -82,7 +82,7 @@ function annotation_render_callback($matches)
 	if ($annotation == "") {
 		return "<span class=\"marked\">$text</span>";
 	} else {
-		return "<span class=\"annotated\">$text</span><div class=\"annotation\"><img src=\"". PATH_URL . "/styles/standard/images/wiki/comment_small.gif" ."\" title=\"$annotation\"></div>";
+		return "<span class=\"annotated\">$text</span><div class=\"annotation\"><img src=\"". PATH_URL . "wiki/asset/icons/comment_small.gif" ."\" title=\"$annotation\"></div>";
 	}
 }
 

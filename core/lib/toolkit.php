@@ -225,6 +225,16 @@ function isGroupWorkroom($container) {
     return null;
 }
 
+function isRapidFeedback($steamObject) {
+        $rapidfeedbackObject = steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $steamObject->get_id() );
+        $rapidfeedbackType = $rapidfeedbackObject->get_attribute("OBJ_TYPE");
+        if ($rapidfeedbackType != "0" && $rapidfeedbackType == "RAPIDFEEDBACK_CONTAINER") {
+                return true;
+        }
+        return false;
+}
+
+
 function getObjectType($object) {
     if ($object instanceof \steam_document) {
         $objName=$object->get_name();
@@ -247,7 +257,9 @@ function getObjectType($object) {
         $type = "trashbin";
     } else if ($object instanceof \steam_docextern) {
         $type = "docextern";
-    } else if ($object instanceof \steam_container) {
+    }
+    //bid object types
+    else if ($object instanceof \steam_container) {
         $bidDocType = $object->get_attribute("bid:doctype");
         $bidType = $object->get_attribute("bid:collectiontype");
         $objType = $object->get_attribute("OBJ_TYPE");
@@ -265,6 +277,8 @@ function getObjectType($object) {
             $type = "userHome";
         } else if (isGroupWorkroom($object)) {
             $type = "groupWorkroom";
+        }   else if (isRapidfeedback($object)) {
+            $type = "rapidfeedback";
         } else if ($object instanceof \steam_room) {
             $type = "room";
         } else {
@@ -658,7 +672,7 @@ function cleanHTML($dirtyHTML) {
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
     
-    $config->set('HTML.SafeEmbed', true);
+    //$config->set('HTML.SafeEmbed', true); //Info: overrides custom tag. Removed for tinymce graphs. 
     $config->set('HTML.SafeObject', true);
     $config->set('Output.FlashCompat', true); //not sure
     
@@ -739,7 +753,20 @@ function cleanHTML($dirtyHTML) {
         'id' => 'CDATA'
     )
     );
-   
+    
+    
+    $asciiSvgTag = $def->addElement(
+    'embed',   // name
+    'Block',  // content set
+    'Flow', // allowed children
+    'Optional', // attribute collection
+    array( // attributes
+        'type' => 'CDATA',
+        'src' => 'CDATA',
+        'style' => 'CDATA',
+        'sscr' => 'CDATA'
+    )
+    );
     
     
     //$videotag->excludes = array('form' => true); //test

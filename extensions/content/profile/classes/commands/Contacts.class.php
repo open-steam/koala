@@ -42,8 +42,6 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 	public function execute (\FrameResponseObject $frameResponseObject) {
 		$current_user = \lms_steam::get_current_user();
 		
-		//$path = $request->getPath();
-		
 		if($this->id != ""){
 			$userName = $this->id;
 			$user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $userName );
@@ -54,9 +52,7 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 		$login = $current_user->get_name();
 
 		$cache = get_cache_function( $login, 86400 );
-		//$portal = \lms_portal::get_instance();
-		//$portal->set_page_title( $login );
-
+		
 		$html_handler_profile = new \koala_html_profile( $user );
 		$html_handler_profile->set_context( "contacts" );
 
@@ -66,9 +62,7 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 			$unconfirmed_html = "";
 			// Contacts to confirm (visible only for the user himself)
 			if ($current_user->get_id() == $user->get_id() ) {
-				$content = \Profile::getInstance()->loadTemplate("list_users.template.html");
-				//$content = new HTML_TEMPLATE_IT();
-				//$content->loadTemplateFile( PATH_TEMPLATES . "list_users.template.html" );
+				$content = \Profile::getInstance()->loadTemplate("contacts.template.html");
 				$contacts = $cache->call( "lms_steam::user_get_contacts_to_confirm", $login);
 				$no_contacts = count( $contacts );
 				if ( $no_contacts > 0 )
@@ -126,10 +120,8 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 				}
 				$unconfirmed_html = $content->get();
 			}
-			$content=\Profile::getInstance()->loadTemplate("list_users.template.html");
-			//$content = new HTML_TEMPLATE_IT();
-			//$content->loadTemplateFile( PATH_TEMPLATES . "list_users.template.html" );
-
+			$content=\Profile::getInstance()->loadTemplate("contacts.template.html");
+			
 			// Contact list
 
 			$confirmed = ( $user->get_id() != $current_user->get_id() ) ? TRUE : FALSE;
@@ -140,7 +132,8 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 			//HACK START DOMINIK FRAGEN!
 			$confirmed_contacts = "";
 			//HACK END
-			if (!$confirmed) {
+			
+                        if (!$confirmed) {
 				$confirmed_contacts = $user->get_attribute("USER_CONTACTS_CONFIRMED");
 			}
 			if (!is_array($confirmed_contacts)) $confirmed_contacts = array();
@@ -212,9 +205,7 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 		else
 		{
 			$messagebox = "<div class=\"infoBar\"><h2>" . gettext("The user has restricted the display of this information.") . "</h2></div>";
-			$content = \Profile::getInstance()->loadTemplate("list_users.template.html");
-			//$content = new \HTML_TEMPLATE_IT();
-			//$content->loadTemplateFile( PATH_TEMPLATES . "list_users.template.html" );
+			$content = \Profile::getInstance()->loadTemplate("contacts.template.html");
 			$content->setVariable( "LABEL_PRIVACY_DENY_PARTICIPANTS", $messagebox );
 		}
 
@@ -225,8 +216,6 @@ class Contacts extends \AbstractCommand implements \IFrameCommand {
 		$rawHtml->setHtml($html_handler_profile->get_html());
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
-		//$portal->set_page_main( $html_handler_profile->get_headline(), $html_handler_profile->get_html(), "vcard" );
-		//return $portal->get_html();
 	}
 }
 ?>

@@ -67,6 +67,8 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 
                 if ($portletObject->check_access_read($steamUser)) {
                     $feedDescription = $portletObject->get_name();
+                    $feedTitle = $portletObject->get_attribute("OBJ_DESC");
+                
                     $feedLink = getDownloadUrlForObjectId($portletObject->get_id());
                     
                     // Get inventory and store all relevant attributes in array entries

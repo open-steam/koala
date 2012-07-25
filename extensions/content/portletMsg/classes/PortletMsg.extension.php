@@ -20,7 +20,7 @@ class PortletMsg extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Komponente Meldungen";
+		return "Meldungen";
 	}
 	
 	public function getObjectReadableDescription() {

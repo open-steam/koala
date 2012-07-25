@@ -61,9 +61,11 @@ class ListViewer extends Widget {
 			$this->getContent()->setVariable("LISTVIEWER_NOITEMS_TEXT", $this->contentProvider->getNoContentText());
 			$this->getContent()->parse("LISTVIEWER_NOITEMS");
 		} else {
-			foreach($this->content as $contentItem) {
+                        $itemCount = 1;
+                    	foreach($this->content as $contentItem) {
+                                if ($this->isHiddenItem($contentItem,$itemCount)){$itemCount++;continue;}
 				$this->getContent()->setCurrentBlock("LISTVIEWER_ITEM");
-				$contentItemId =  $this->contentProvider->getId($contentItem);
+                        	$contentItemId =  $this->contentProvider->getId($contentItem);
 				$this->getContent()->setVariable("LISTVIEWER_DATA_ID", $contentItemId);
 				$this->getContent()->setVariable("LISTVIEWER_ITEM_ID", $contentItemId);
 				$this->getContent()->setVariable("LISTVIEWER_ITEM_ONCLICK", $this->contentProvider->getOnClickHandler($contentItem));
@@ -85,11 +87,46 @@ class ListViewer extends Widget {
 					$this->getContent()->parse("LISTVIEWER_ITEM_CELL");
 				}
 				$this->getContent()->parse("LISTVIEWER_ITEM");
-			}
+                        }
 		}
-		
 		return $this->getContent()->get();
 	}
 	
+        
+        private function isHiddenItem($steamObject,$itemCount=0) {
+            //head document
+            if(1===$itemCount){
+                //var_dump("test",$itemCount."test");
+                $env = $steamObject->get_environment();
+                $presentation = $env->get_attribute("bid:presentation");
+                if($presentation==="head") return true;
+            }
+            
+            //other
+            $userObject = $GLOBALS["STEAM"]->get_current_steam_user(); //TODO performance,get the user every time
+            $userHiddenAttribute = $userObject->get_attribute("EXPLORER_SHOW_HIDDEN_DOCUMENTS");
+            $userShowHiddenObjects = false;
+            if ($userHiddenAttribute==="TRUE") $userShowHiddenObjects = true;
+            if ($userHiddenAttribute==="FALSE") $userShowHiddenObjects = false;
+            if($userShowHiddenObjects) return false;
+            
+            
+            //head document todo
+            /*
+            $steamObjectHiddenAttribute = $steamObject->get_attribute("bid:hidden");
+            if($steamObjectHiddenAttribute==="1"){
+                return true;
+            }
+            */
+            
+            
+            //hidden item
+            $steamObjectHiddenAttribute = $steamObject->get_attribute("bid:hidden");
+            if($steamObjectHiddenAttribute==="1"){
+                return true;
+            }
+            
+            return false;
+        }
 }
 ?>

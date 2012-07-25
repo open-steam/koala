@@ -20,7 +20,7 @@ class Trashbin extends \AbstractObjectModel {
 		} else {
 			$trashbinIconName = "trashbin_white_16.png";
 		}
-		return "<img style=\"float:left\" titel=\"Paperkorb\" src=\"" . \Explorer::getInstance()->getExtensionUrl() . "asset/icons/{$trashbinIconName}\">$trashbinCount";
+		return "<img title=\"Papierkorb\" src=\"" . \Explorer::getInstance()->getExtensionUrl() . "asset/icons/{$trashbinIconName}\">$trashbinCount";
 	}
 	
 }

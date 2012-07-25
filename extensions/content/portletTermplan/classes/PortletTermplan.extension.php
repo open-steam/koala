@@ -20,7 +20,7 @@ class PortletTermplan extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Komponente Terminplaner";
+		return "Terminplaner";
 	}
 	
 	public function getObjectReadableDescription() {

@@ -20,7 +20,7 @@ class Profile extends AbstractExtension {
 	}
 	
 	public function getUrlNamespaces() {
-		return array(strtolower($this->getName()), "user");
+		return array(strtolower($this->getName()), "profile");
 	}
 }
 ?>

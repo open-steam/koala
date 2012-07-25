@@ -92,7 +92,7 @@ function widgets_textarea_save_success(elementId, response) {
 	    			//window.onbeforeunload = state ? function() { return "text1"; } : null;
 	    			//return false;
 	    			
-	    			if (confirm('Sollen alle nicht gespeicherte Daten gesichert werden?')) {
+	    			if (confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
 	    				$(dirtyTextareas[0]).textarea('save');
 	    				$(dirtyTextareas[0]).addClass('saved');
 	    				$(dirtyTextareas[0]).removeClass('dirty');

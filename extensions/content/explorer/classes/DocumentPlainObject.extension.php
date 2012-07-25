@@ -24,7 +24,7 @@ class DocumentPlainObject extends AbstractExtension implements IObjectExtension 
 	}
 	
 	public function getObjectReadableName() {
-		return "Text";
+		return "Text(deprecated)";
 	}
 	
 	public function getObjectReadableDescription() {

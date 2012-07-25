@@ -139,7 +139,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$documentIsMedia = false;
 		if($type == "document"){
 			$docType = $object->get_attribute("DOC_MIME_TYPE");
-			if (strpos($docType,"video") !== false) $documentIsMedia = true; else $documentIsMedia = false;
+			if (strpos($docType,"video") !== false) $documentIsMedia = true;
+                        if (strpos($docType,"audio") !== false) $documentIsMedia = true;
 		}
                 
                 
@@ -192,7 +193,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $embedField = new \Widgets\TextField();
 		$embedField->setLabel("Einbettungs-Link");
                 //$embedLink1 = PATH_SERVER."/download/document/".$object->get_id()."/".getCleanName($object);
-                $embedLink2 = PATH_SERVER."/download/document/".$object->get_id()."/";
+                $embedLink2 = PATH_SERVER."/download/document/".$object->get_id();
                 $embedField->setValue($embedLink2);
                 
 		$changedField = new \Widgets\TextField();
@@ -249,6 +250,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$checkboxWWW->setUncheckedValue(0);
 		$checkboxWWW->setData($object);
 		$checkboxWWW->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_BLANK"));
+                
+                $checkboxHiddenObject = new \Widgets\Checkbox();
+		$checkboxHiddenObject->setLabel("Verstecktes Objekt");
+		$checkboxHiddenObject->setCheckedValue("1");
+		$checkboxHiddenObject->setUncheckedValue(0);
+		$checkboxHiddenObject->setData($object);
+		$checkboxHiddenObject->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:hidden"));
+                
                 if(!$isWriteable){
 			//WIDGET-Eigenschaft fehlt noch
 		}
@@ -296,6 +305,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$dialog->addWidget($seperator);
 		$dialog->addWidget($createdField);
 		$dialog->addWidget($seperator);
+                $dialog->addWidget($checkboxHiddenObject);
+		$dialog->addWidget($seperator);
+		
 		
                 if ($type == "container" || $type == "room") {
 			$dialog->addWidget($headlineView);

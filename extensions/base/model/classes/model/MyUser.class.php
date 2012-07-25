@@ -13,7 +13,7 @@ class Clipboard extends \AbstractObjectModel {
 	
 	public function getIconbarHtml() {
 		$clipboardCount = count($this->clipboard->get_inventory());
-		return "<img style=\"float:left\" titel=\"Zwischenablage\" src=\"" . \Explorer::getInstance()->getExtensionUrl() . "asset/icons/clipboard_white_16.png\">$clipboardCount";
+		return "<img title=\"Zwischenablage\" src=\"" . \Explorer::getInstance()->getExtensionUrl() . "asset/icons/clipboard_white_16.png\">$clipboardCount";
 	}
 	
 }

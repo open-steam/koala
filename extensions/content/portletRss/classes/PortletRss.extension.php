@@ -20,7 +20,7 @@ class PortletRss extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Komponente RSS-Feed";
+		return "RSS-Feed-Reader";
 	}
 	
 	public function getObjectReadableDescription() {

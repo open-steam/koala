@@ -224,8 +224,19 @@
 	#icon_bar li ul {
 		margin-left: -100px;
 		margin-top: -5px;
-		width: 150px;
+		width: 160px;
 	}
+        
+        #trashbinIconbarWrapper img{
+            margin-right: 2px;
+            float: left;
+        }
+
+        #clipboardIconbarWrapper img{
+            margin-right: 2px;
+            float: left;
+        }
+        
 	
 	#menu #icon_bar li .menu_text {
 		padding: 7px 10px 7px 10px;
@@ -285,7 +296,7 @@
 		border-radius-topleft: 3px;
 		border-radius-topright: 3px;
 	}
-	
+       
 	#menu li .menu_text:hover, #menu .activemenu{
 		color:#000000;
 		background-color:#ccc;
@@ -316,7 +327,8 @@
 	}
 
 	#menu li ul{
-		background:#eee;
+		padding-top: 3px;
+                background:#eee;
 		display:none;
 		height:auto;
 		filter:alpha(opacity=95);
@@ -351,12 +363,17 @@
 	}
 	
 	#menu li ul .menu_text{
-	    color:black;
+                color:black;
 		display:block;
-		padding: 7px 25px 7px 10px;
+		padding: 3px 25px 3px 10px;
 		text-align:left;
 		border: 1px solid transparent;
 	}
+        
+        #menu li ul .menu_text img{
+            position: relative;
+            top: 2px;
+        }
 
 	#menu li ul .menu_text:hover{
 		background:#ccc;
@@ -562,6 +579,7 @@
 		text-align: right;
 		font-size: 90%;
 		color: #666;
+                height: 300px;
 	}
 	
 	/*
@@ -624,6 +642,14 @@
 		vertical-align:bottom;
 	}
 
+        #loginPanelWarning {
+		position:absolute;
+		right:0px;
+		top:-80px;
+	}
+	
+        
+        
 	/*
 	** Paginator
 	* used in tutorial.template.html, tutorials.template.html, units.template.html, units_homework_list_inventory.template.html, units_homework.template.html, 

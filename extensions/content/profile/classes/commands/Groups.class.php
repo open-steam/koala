@@ -43,10 +43,7 @@ class Groups extends \AbstractCommand implements \IFrameCommand {
 	}
 	public function execute (\FrameResponseObject $frameResponseObject) {
 		$current_user = \lms_steam::get_current_user();
-
-		$login = $current_user->get_name();
-		
-		//$path = $request->getPath();
+                $login = $current_user->get_name();
 		
 		if(isset($this->id)){
 			
@@ -56,18 +53,15 @@ class Groups extends \AbstractCommand implements \IFrameCommand {
 		else {
 			$user = $current_user;			
 		}
-		//$portal=\lms_portal::get_instance();
+		
 		$cache = get_cache_function( $login, 86400 );
-	//	$portal->set_page_title( $login );
 		
 
 		$html_handler_profile = new \koala_html_profile( $user );
 		$html_handler_profile->set_context( "groups" );
 
-		$content = \Profile::getInstance()->loadTemplate("list_groups.template.html");
-		//$content = new HTML_TEMPLATE_IT();
-		//$content->loadTemplateFile( PATH_TEMPLATES . "list_groups.template.html" );
-
+		$content = \Profile::getInstance()->loadTemplate("groups.template.html");
+		
 		if ( $this->viewer_authorized( $current_user, $user ) )
 		{
 			$public = ( $user->get_id() != $current_user->get_id() ) ? TRUE : FALSE;
@@ -141,8 +135,6 @@ class Groups extends \AbstractCommand implements \IFrameCommand {
 		$rawHtml->setHtml($html_handler_profile->get_html());
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
-		//$portal->set_page_main( $html_handler_profile->get_headline(), $html_handler_profile->get_html());
-		//return $portal->get_html();
 	}
 }
 

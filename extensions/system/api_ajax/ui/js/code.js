@@ -154,7 +154,7 @@ function closeDialog() {
 	if (!(jQuery('#dialog').length === 0)) {
 		var textinput_save_buttons = jQuery('#dialog').find('.widgets_textinput_save_button:visible');
 		if (!(textinput_save_buttons.length === 0)) {
-			if (!confirm('Sollen alle nicht gespeicherte Daten gesichert werden?')) {
+			if (!confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
 				window.closing = false;
 				return false;
 			}
@@ -165,7 +165,7 @@ function closeDialog() {
 		
 		var dirtyTextareas = jQuery('#dialog').find('.widget.textarea.dirty');
 		if (dirtyTextareas.length > 0) {
-			if (confirm('Sollen alle nicht gespeicherte Daten gesichert werden?')) {
+			if (confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
 				$(dirtyTextareas[0]).textarea('save');
 				$(dirtyTextareas[0]).addClass('saved');
 				$(dirtyTextareas[0]).removeClass('dirty');

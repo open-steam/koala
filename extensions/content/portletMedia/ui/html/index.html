@@ -14,8 +14,14 @@
 			<!-- END image -->
 			
 			<!-- BEGIN movie -->
-			<embed src="{MEDIA_PLAYER}" width="{MEDIA_PLAYER_WIDTH}" height="{MEDIA_PLAYER_HEIGHT}" allowscriptaccess="always" allowfullscreen="true" flashvars="width={MEDIA_PLAYER_WIDTH}&height={MEDIA_PLAYER_HEIGHT}&file={URL}&autostart=false" />
-			<!-- END movie -->
+                        {MEDIA_PLAYER}
+                        <!-- END movie -->
+		
+                        <!-- BEGIN movieYoutube -->
+                        
+                        <iframe style="max-width: 99%" src="http://www.youtube.com/embed/{YOUTUBE_URL_CODE}"></iframe>
+                        
+                        <!-- END movieYoutube -->
 		
 			<!-- BEGIN audio -->
 			<object style="width: {MEDIA_PLAYER_WIDTH}px; height:{MEDIA_PLAYER_HEIGHT}px" type="application/x-shockwave-flash" data="{MEDIA_PLAYER}"><param name="movie" value="{MEDIA_PLAYER}" /><param name="FlashVars" value="src={URL}" /><param name="bgcolor" value="#cccccc"></object>

@@ -24,7 +24,7 @@ class DocumentHTMLObject extends AbstractExtension implements IObjectExtension {
 	}
 	
 	public function getObjectReadableName() {
-		return "HTML-Text";
+		return "Text";
 	}
 	
 	public function getObjectReadableDescription() {
