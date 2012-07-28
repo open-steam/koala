@@ -293,6 +293,8 @@ function getObjectType($object) {
 function deriveIcon($object) {
     if (!($object instanceof steam_object))
         return "";
+    
+    //worksheet
     $worksheet_role = $object->get_attribute("worksheet_role");
     if ($worksheet_role === "build")
         return "worksheet.png";
@@ -326,9 +328,32 @@ function deriveIcon($object) {
       return "lars_desktop.gif";
       else if($doctype === "questionary")
       return "questionary.gif";
-      else */ if ($objtype === "text_forumthread_bid")
+      else */
+    
+    
+    if ($objtype === "text_forumthread_bid"){
         return "forumthread.png";
-
+    }
+        
+      
+    //bid3 modules
+    
+    //rapidfeedback
+    if ($object instanceof steam_container){
+        if ($objtype != "0" && $objtype == "RAPIDFEEDBACK_CONTAINER") {
+                return "rapidfeedback.png";
+        }
+    }  
+    
+    //wiki
+    if ($object instanceof steam_container){
+        if ($objtype != "0" && $objtype == "container_wiki_koala") {
+                return "wiki.png";
+        }
+    }  
+      
+      
+      
     //steam:Types
     if ($object instanceof steam_docextern)
         return "www.png";
