@@ -73,10 +73,14 @@ class TextInput extends Widget {
 
 	public function getHtml() {
 		$reverseSpecialHtmlWidget = new \Widgets\JSWrapper();
-		$reverseSpecialHtmlWidget->setJs("function rSHW(value){
-		value.replace(/&amp;/g,'&');value.replace(/&amp;/g,'&');
-		value.replace(/&quot;/g,'\"');value.replace(/&#039;/g,'\'');value.replace(/&lt;/g,'<');
-		value.replace(/&gt;/g,'>');}");
+		$reverseSpecialHtmlWidget->setJs("function rSHW(value){".
+                                                    "value.replace(/&amp;/g,'&');".
+                                                    "value.replace(/&amp;/g,'&');".
+                                                    "value.replace(/&quot;/g,'\"');".
+                                                    "value.replace(/&#039;/g,'\'');".
+                                                    "value.replace(/&lt;/g,'<');".
+                                                    "value.replace(/&gt;/g,'>');}");
+                
 		$this->id = rand();
 		$this->addWidget($reverseSpecialHtmlWidget);
 		if (isset($this->label) && trim($this->label) !== "") {
@@ -120,7 +124,7 @@ class TextInput extends Widget {
 			$this->getContent()->setVariable("VALUE", $valueString);
 			if (!$this->autosave) {
 				$this->getContent()->setVariable("CHANGE_FUNCTION", "onClick=\"event.stopPropagation();".
-                                                                    "\" onKeyup=\"if (event.keyCode==13)".
+                                                                    "\"onKeyup=\"if (event.keyCode==13)".
                                                                     "{value = getElementById({$this->id}).value;rSHW(value);".
                                                                     "widgets_textinput_save({$this->id});".
                                                                     "{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")};".
@@ -135,10 +139,10 @@ class TextInput extends Widget {
 			} else {
 				$this->getContent()->setVariable("CHANGE_FUNCTION", "onBlur=\"if (jQuery('#{$this->id}').hasClass('changed'))".
                                                                     "{value = getElementById({$this->id}).value;".
-                                                                    " widgets_textinput_save({$this->id});".
+                                                                    "widgets_textinput_save({$this->id});".
                                                                     "{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")}} ".
-                                                                    " \"onClick=\"event.stopPropagation();".
-                                                                    "\" onKeyup=\"if (event.keyCode==13)".
+                                                                    "\"onClick=\"event.stopPropagation();".
+                                                                    "\"onKeyup=\"if (event.keyCode==13)".
                                                                     "{value = jQuery(getElementById({$this->id})).attr('pre') + getElementById({$this->id}).value + jQuery(getElementById({$this->id})).attr('post');".
                                                                     "widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")};".
                                                                     "{$this->customSaveCode} }".
