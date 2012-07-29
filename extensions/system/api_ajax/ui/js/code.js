@@ -147,23 +147,34 @@ function isDefined(variable) {
 }
 
 function closeDialog() {
-	if (window.closing) {
+        if (window.closing) {
 		return false;
 	}
+        
+        //busy waiting, todo counter
+        if(window.ajaxSaving==true){
+            window.setTimeout("closeDialog();",500);
+            return;
+        }
+        
+        
 	window.closing = true;
 	if (!(jQuery('#dialog').length === 0)) {
-		var textinput_save_buttons = jQuery('#dialog').find('.widgets_textinput_save_button:visible');
+		//textinput fields
+                var textinput_save_buttons = jQuery('#dialog').find('.widgets_textinput_save_button:visible');
 		if (!(textinput_save_buttons.length === 0)) {
 			if (!confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
 				window.closing = false;
 				return false;
 			}
-			for (var i = 0; i < textinput_save_buttons.length; i++) {
+                        
+                        for (var i = 0; i < textinput_save_buttons.length; i++) {
 				jQuery(textinput_save_buttons[i]).click();
-			}
-		}
+                        }
+                }
 		
-		var dirtyTextareas = jQuery('#dialog').find('.widget.textarea.dirty');
+		//textareas
+                var dirtyTextareas = jQuery('#dialog').find('.widget.textarea.dirty');
 		if (dirtyTextareas.length > 0) {
 			if (confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
 				$(dirtyTextareas[0]).textarea('save');

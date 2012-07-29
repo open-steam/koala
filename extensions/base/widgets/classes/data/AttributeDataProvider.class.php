@@ -33,6 +33,7 @@ class AttributeDataProvider implements IDataProvider {
 		}
 		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
 		return <<< END
+window.ajaxSaving==true;
 sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': value}, '', 'data'{$function});
 END;
 	}

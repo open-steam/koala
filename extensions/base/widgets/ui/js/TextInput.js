@@ -70,6 +70,8 @@ function widgets_textinput_save_success(elementId, response) {
 			}
 		}
 	}
+        //test, prevent early dialog close
+        window.ajaxSaving==false;
 }
 
 function widgets_textinput_undo_success(elementId, response) {
