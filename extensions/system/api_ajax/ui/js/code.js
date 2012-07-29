@@ -153,7 +153,7 @@ function closeDialog() {
         
         //busy waiting, todo counter
         if(window.ajaxSaving==true){
-            window.setTimeout("closeDialog();",500);
+            window.setTimeout("closeDialog();",250);
             return;
         }
         
