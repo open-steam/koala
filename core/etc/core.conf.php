@@ -66,7 +66,7 @@ if (apache_getenv("AUTOLOADER_BUILD_RUNNING")) {
 	die("System Initialisation is running. Please wait.");
 }
 if (!file_exists($autoloaderIndexFile)) {
-        echo "autoloader file does not exist";
+        echo "autoloader file does not exist:".$autoloaderIndexFile;
 	displayStartupUserInfo();
 	try {
 		apache_setenv("AUTOLOADER_BUILD_RUNNING", true);
