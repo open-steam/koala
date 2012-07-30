@@ -44,11 +44,13 @@ require_once PATH_DEPENDING . "classes/autoloader/Autoloader.php";
 Autoloader::getRegisteredAutoloader()->remove();
 $autoloaderIndexFile = PATH_TEMP . "koala_autoloader.gz";
 
+/*
 if (DEVELOPMENT_MODE && browserNoCache() && !isAjaxRequest() && !isPhpCli()) {
 	if (file_exists($autoloaderIndexFile)) {
 		unlink($autoloaderIndexFile);
 	}
 }
+ */
 
 if (dropCache() && !isAjaxRequest()) {
 	emptyCacheFolder();
@@ -66,8 +68,7 @@ if (apache_getenv("AUTOLOADER_BUILD_RUNNING")) {
 	die("System Initialisation is running. Please wait.");
 }
 if (!file_exists($autoloaderIndexFile)) {
-        echo "autoloader file does not exist:".$autoloaderIndexFile;
-	displayStartupUserInfo();
+        displayStartupUserInfo();
 	try {
 		apache_setenv("AUTOLOADER_BUILD_RUNNING", true);
 		$autoloader->buildIndex();
