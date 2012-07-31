@@ -12,63 +12,74 @@ class Index extends \AbstractCommand implements \IFrameCommand{
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
                 $requestUrl = urldecode($_SERVER['REQUEST_URI']);
                 
-                //not implemented
+                //not tested
                 if(strpos($requestUrl, "index.php?object?=/")){
-                    $this->redirectToSteamPath("/");
+                        $searchString = "index.php?object?=/";
+                        $begin = strpos($requestUrl, $searchString) + strlen($searchString);
+                        $this->redirectToSteamPath("/");
                 }
                 
                 //not tested
                 if(strpos($requestUrl, "index.php?object?=")){
-                    $searchString = "index.php?object?=";
-                    $begin = strpos($requestUrl, $searchString) + strlen($searchString);
-                    $this->redirectToObjectId(substr($requestUrl,$begin));
+                        $searchString = "index.php?object?=";
+                        $begin = strpos($requestUrl, $searchString) + strlen($searchString);
+                        $this->redirectToObjectId(substr($requestUrl,$begin));
                 }
                 
-                //not implemented
-                if(strpos($requestUrl, "home")){
-                    $this->redirectToSteamPath("/");
+                //not tested
+                if(strpos($requestUrl, "/home/")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
                 }
             
-                //not implemented
-                if(strpos($requestUrl, "hilfe")){
-                    $this->redirectToSteamPath("/");
+                //not tested
+                if(strpos($requestUrl, "/hilfe/")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
                 }
                 
-                //not implemented
-                if(strpos($requestUrl, "schulen")){
-                        $this->redirectToSteamPath("/");
-                }
-                
-                //not implemented
-                if(strpos($requestUrl, "lernstatt_intern")){
-                        $this->redirectToSteamPath("/");
-                }
-                
-                //not implemented
-                if(strpos($requestUrl, "/externe_partner/")){
-                        $this->redirectToSteamPath("/");
-                }
-                
-                //not implemented
+                //not tested
                 if(strpos($requestUrl, "/schulen/")){
-                        $this->redirectToSteamPath("/");
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
                 }
                 
-                //not implemented
+                //not tested
+                if(strpos($requestUrl, "lernstatt_intern")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
+                }
+                
+                //not tested
+                if(strpos($requestUrl, "/externe_partner/")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
+                }
+                
+                //not tested
+                if(strpos($requestUrl, "/schulen/")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
+                }
+                
+                //not tested
                 if(strpos($requestUrl, "/dialog/")){
-                        $this->redirectToSteamPath("/");
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
                 }
             
-                //not implemented
+                //not tested
                 if(strpos($requestUrl, "/partner/")){
-                        $this->redirectToSteamPath("/");
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
                 }
                 
-                //not implemented
+                //not tested
                 if(strpos($requestUrl, "/projekte/")){
-                        $this->redirectToSteamPath("/");
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
                 }
-            
+                
             
                 $rawWidget = new \Widgets\RawHtml();
                 $rawWidget->setHtml("Test bid2PathCompatibility ".$requestUrl);
