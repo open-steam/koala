@@ -233,7 +233,7 @@
 	} 
 	 
 	.wiki .notexistant {
-			border-bottom: 2px dotted red;
+            color: #BA0000;
 	}
 		
 	.wiki_text hr {

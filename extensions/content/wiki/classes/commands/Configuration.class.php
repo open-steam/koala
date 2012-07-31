@@ -62,12 +62,10 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		    if (get_magic_quotes_gpc()) {
 			if (!empty($values['name']))
 			    $values['name'] = stripslashes($values['name']);
-			if (!empty($values['dsc']))
-			    $values['dsc'] = stripslashes($values['dsc']);
 		    }
 		
 		    if (empty($values["name"]) && !empty($_POST['new'])) {
-				$problems = gettext("The name of new wiki is missing.");
+				$problems = "Der Name des Wikis fehlt.";
 				$hints = gettext("Please type in a name.");
 		    }
 		    if (strpos($values["name"], "/")) {
@@ -102,9 +100,9 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 				    $_SESSION["confirmation"] = str_replace("%NAME", $values["name"], gettext("New wiki '%NAME' created."));
 				} else {
 				    $wiki_container->set_attribute(OBJ_NAME, $values["name"]);
+                                    $wiki_container->set_attribute(OBJ_DESC, $values["name"]);
 				    if ($values["wiki_startpage"] == gettext("Glossary")) $values["wiki_startpage"] = "glossary";
 				    $wiki_container->set_attribute("WIKI_STARTPAGE", $values["wiki_startpage"]);
-				    $wiki_container->set_attribute(OBJ_DESC, $values["dsc"]);
 				    $portal->set_confirmation(gettext("The changes have been saved."));
 				    $new_wiki = $wiki_container;
 				}
@@ -150,7 +148,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 				$values["access"] = $wiki_container->get_attribute(KOALA_ACCESS);
 		    }
 		    $breadcrumbheader = gettext("Preferences");
-		    $content->setVariable("OPTION_WIKI_GLOSSARY", gettext("Glossary"));
+		    $content->setVariable("OPTION_WIKI_GLOSSARY", "Glossar");
 		    $wiki_entries = $wiki_container->get_inventory(CLASS_DOCUMENT);
 		    $wiki_entries_sorted = array();
 		    foreach ($wiki_entries as $wiki_entry) {
@@ -177,7 +175,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		    if ($grp->get_attribute(OBJ_TYPE) == "course") {
 				$grpname = $grp->get_attribute(OBJ_DESC);
 		    }
-		    $content->setVariable("OPTION_WIKI_GLOSSARY", gettext("Glossary"));
+		    $content->setVariable("OPTION_WIKI_GLOSSARY", "Glossar");
 		    $content->setVariable("OPTION_WIKI_GLOSSARY_SELECTED", "selected");
 		    $content->setVariable("INFO_TEXT", str_replace("%ENV", h($grpname), gettext("You are going to create a new wiki in '<b>%ENV</b>'.")));
 		    $content->setVariable("LABEL_CREATE", gettext("Create wiki"));
@@ -196,7 +194,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("VALUE_BACKLINK", $backlink);
 		$content->setVariable("LABEL_NAME", gettext("Name"));
 		$content->setVariable("LABEL_DSC", gettext("Description"));
-		$content->setVariable("LABEL_WIKI_STARTPAGE", gettext("Startpage"));
+		$content->setVariable("LABEL_WIKI_STARTPAGE", "Startseite");
 		$content->setVariable("LABEL_ACCESS", gettext("Access"));
 		
 		$content->setVariable("LABEL_BB_BOLD", gettext("B"));
