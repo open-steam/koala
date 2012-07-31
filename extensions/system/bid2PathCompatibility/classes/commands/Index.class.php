@@ -94,6 +94,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
         private function redirectToSteamPath($steamPath){
                 $objectId = $this->getObjectId($steamPath);
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
+                echo $url;die; //test
 		header("Location: ".$url); //error
                 die;
         }
@@ -104,7 +105,8 @@ class Index extends \AbstractCommand implements \IFrameCommand{
          */
         private function redirectToObjectId($objectId){
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
-		header("Location: ".$url); //error
+		echo $url;die; //test
+                header("Location: ".$url); //error
                 die;
         }
         
