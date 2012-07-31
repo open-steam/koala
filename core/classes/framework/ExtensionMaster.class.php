@@ -61,19 +61,20 @@ class ExtensionMaster {
                 
                 
                 //bid 2 compatibility
-                $keyStrings = array("index.php?object?=","/home/","/hilfe/","/schulen/","/lernstatt_intern/","/externe_partner/",   //steam.lspb.de
-                                    "/schulen/", "/dialog/", "/partner/", "/projekte/"                                                //bid-owl.de
-                    );
-                
-                foreach ($keyStrings as $needle){
-                    if(strstr($requestUrl,$needle)){
-                        //found
-                        $result[0]="bid2pathCompatibility";
-                        $result[1]=$requestUrl;
-                        return $result;
+                $bid2PathCompatibilityExt = $this->getExtensionForNamespace("bid2PathCompatibility");
+                if($bid2PathCompatibilityExt){
+                    $keyStrings = $bid2PathCompatibilityExt->getOldPaths();
+		
+                    foreach ($keyStrings as $needle){
+                        if(strstr($requestUrl,$needle)){
+                            //found
+                            $result[0]="bid2PathCompatibility";
+                            //$result[1]=$requestUrl;
+                            return $result;
+                        }
                     }
                 }
-
+                
                 
                 
                 //decode request path string
@@ -93,7 +94,10 @@ class ExtensionMaster {
 				}
 			}
 		}
-		return $result;
+                
+                
+                
+                return $result;
 	}
 	
 	public function getExtensionForObjectId($objectId) {
