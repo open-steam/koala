@@ -438,7 +438,7 @@ return $rand_value;
         language_support::choose_language( lms_steam::get_user_language() );
 		if ( empty ( $request ) )
 		{
-			header( "Location: " . PATH_URL . "home/"  );
+			header( "Location: " . PATH_URL . "desktop/"  );
 		}
 		else
 		{

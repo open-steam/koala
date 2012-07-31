@@ -57,7 +57,27 @@ class ExtensionMaster {
 		$server_array =  explode("/", $server_name);
 		
 		$result = array();
-		$path = explode("/", urldecode($_SERVER['REQUEST_URI']));
+		$requestUrl = urldecode($_SERVER['REQUEST_URI']);
+                
+                
+                //bid 2 compatibility
+                $keyStrings = array("index.php?object?=","/home/","/hilfe/","/schulen/","/lernstatt_intern/","/externe_partner/",   //steam.lspb.de
+                                    "/schulen/", "/dialog/", "/partner/", "/projekte/"                                                //bid-owl.de
+                    );
+                
+                foreach ($keyStrings as $needle){
+                    if(strstr($requestUrl,$needle)){
+                        //found
+                        $result[0]="bid2pathCompatibility";
+                        $result[1]=$requestUrl;
+                        return $result;
+                    }
+                }
+
+                
+                
+                //decode request path string
+                $path = explode("/", $requestUrl);
 		
 		for($i=0; $i < count($path); $i++) {
 			if (isset($server_array[$i])) {
