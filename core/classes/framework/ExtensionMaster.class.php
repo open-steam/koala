@@ -66,7 +66,7 @@ class ExtensionMaster {
                     $keyStrings = $bid2PathCompatibilityExt->getOldPaths();
 		
                     foreach ($keyStrings as $needle){
-                        if(strstr($requestUrl,$needle)){
+                        if(strstr($requestUrl,$needle)){ //TODO: strpos should be faster
                             //found
                             $result[0]="bid2PathCompatibility";
                             //$result[1]=$requestUrl;
@@ -100,6 +100,10 @@ class ExtensionMaster {
                 return $result;
 	}
 	
+        /*
+         * TODO:
+         * warning, this is never used and doesn't work
+         */
 	public function getExtensionForObjectId($objectId) {
 		if ($objectId == null || $objectId == 0) {
 			throw new Exception("Object Id is missing.");
