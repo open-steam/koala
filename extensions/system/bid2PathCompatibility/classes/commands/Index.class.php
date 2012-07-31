@@ -13,15 +13,15 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                 $requestUrl = urldecode($_SERVER['REQUEST_URI']);
                 
                 //not tested
-                if(strpos($requestUrl, "index.php?object?=/")){
+                if(strpos($requestUrl, "index.php?object=/")){
                         $searchString = "index.php?object?=/";
                         $begin = strpos($requestUrl, $searchString) + strlen($searchString);
                         $this->redirectToSteamPath("/");
                 }
                 
-                //not tested
-                if(strpos($requestUrl, "index.php?object?=")){
-                        $searchString = "index.php?object?=";
+                //tested
+                if(strpos($requestUrl, "index.php?object=")){
+                        $searchString = "index.php?object=";
                         $begin = strpos($requestUrl, $searchString) + strlen($searchString);
                         $this->redirectToObjectId(substr($requestUrl,$begin));
                 }

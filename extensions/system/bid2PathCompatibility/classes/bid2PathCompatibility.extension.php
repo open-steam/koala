@@ -24,7 +24,7 @@ class bid2PathCompatibility extends AbstractExtension {
 	}
         
         public function getOldPaths(){
-            return $keyStrings = array("index.php?object?=","/home/","/hilfe/","/schulen/","/lernstatt_intern/","/externe_partner/",   //steam.lspb.de
+            return $keyStrings = array("index.php?object=","/home/","/hilfe/","/schulen/","/lernstatt_intern/","/externe_partner/",   //steam.lspb.de
                                     "/schulen/", "/dialog/", "/partner/", "/projekte/"                                                //bid-owl.de
                     );
         }
