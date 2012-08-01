@@ -10,3 +10,21 @@ function portalLockButton(id){
 		}
 	}
 }
+
+//jquery sortable code
+$(function() {
+        $(".column").sortable({
+                connectWith: ".column"
+        });
+        
+        /*
+        $(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+                .find(".portlet-header")
+                .addClass("ui-widget-header ui-corner-all")
+                .prepend("<span class='ui-icon ui-icon-minusthick'></span>")
+                .end()
+                .find(".portlet-content");
+        */
+        
+        $(".column").disableSelection();
+});
