@@ -15,7 +15,8 @@ function portalLockButton(id){
 $(function() {
         $(".column").sortable({
                 connectWith: ".column",
-                items:".portlet"
+                items:".portlet",
+                placeholder: "ui-state-highlight"
                 
         });
         
