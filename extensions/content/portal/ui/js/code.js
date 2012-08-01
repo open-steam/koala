@@ -16,7 +16,8 @@ $(function() {
         $(".column").sortable({
                 connectWith: ".column",
                 items:".portlet",
-                placeholder: "ui-state-highlight"
+                placeholder: "ui-state-highlight",
+                update: function(event, ui) { alert("jetzt sollte persistiert werden..."); }
                 
         });
         
