@@ -13,69 +13,70 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                 $requestUrl = urldecode($_SERVER['REQUEST_URI']);
                 
                 //not tested
-                if(strpos($requestUrl, "index.php?object=/")){
+                if(FALSE!==strpos($requestUrl, "index.php?object=/")){
                         $searchString = "index.php?object?=/";
                         $begin = strpos($requestUrl, $searchString) + strlen($searchString);
                         $this->redirectToSteamPath("/");
                 }
                 
                 //tested
-                if(strpos($requestUrl, "index.php?object=")){
+                if(FALSE!==strpos($requestUrl, "index.php?object=")){
                         $searchString = "index.php?object=";
                         $begin = strpos($requestUrl, $searchString) + strlen($searchString);
                         $this->redirectToObjectId(substr($requestUrl,$begin));
                 }
                 
                 //not tested
-                if(strpos($requestUrl, "/home/")){
+                if(FALSE!==strpos($requestUrl, "/home/")){
+                        $steamPath = $requestUrl;
+                        echo "case home";
+                        $this->redirectToSteamPath($steamPath);
+                }
+            
+                //not tested
+                if(FALSE!==strpos($requestUrl, "/hilfe/")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
+                }
+                
+                //not tested
+                if(FALSE!==strpos($requestUrl, "/schulen/")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
+                }
+                
+                //not tested
+                if(FALSE!==strpos($requestUrl, "lernstatt_intern")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
+                }
+                
+                //not tested
+                if(FALSE!==strpos($requestUrl, "/externe_partner/")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
+                }
+                
+                //not tested
+                if(FALSE!==strpos($requestUrl, "/schulen/")){
+                        $steamPath = $requestUrl;
+                        $this->redirectToSteamPath($steamPath);
+                }
+                
+                //not tested
+                if(FALSE!==strpos($requestUrl, "/dialog/")){
                         $steamPath = $requestUrl;
                         $this->redirectToSteamPath($steamPath);
                 }
             
                 //not tested
-                if(strpos($requestUrl, "/hilfe/")){
+                if(FALSE!==strpos($requestUrl, "/partner/")){
                         $steamPath = $requestUrl;
                         $this->redirectToSteamPath($steamPath);
                 }
                 
                 //not tested
-                if(strpos($requestUrl, "/schulen/")){
-                        $steamPath = $requestUrl;
-                        $this->redirectToSteamPath($steamPath);
-                }
-                
-                //not tested
-                if(strpos($requestUrl, "lernstatt_intern")){
-                        $steamPath = $requestUrl;
-                        $this->redirectToSteamPath($steamPath);
-                }
-                
-                //not tested
-                if(strpos($requestUrl, "/externe_partner/")){
-                        $steamPath = $requestUrl;
-                        $this->redirectToSteamPath($steamPath);
-                }
-                
-                //not tested
-                if(strpos($requestUrl, "/schulen/")){
-                        $steamPath = $requestUrl;
-                        $this->redirectToSteamPath($steamPath);
-                }
-                
-                //not tested
-                if(strpos($requestUrl, "/dialog/")){
-                        $steamPath = $requestUrl;
-                        $this->redirectToSteamPath($steamPath);
-                }
-            
-                //not tested
-                if(strpos($requestUrl, "/partner/")){
-                        $steamPath = $requestUrl;
-                        $this->redirectToSteamPath($steamPath);
-                }
-                
-                //not tested
-                if(strpos($requestUrl, "/projekte/")){
+                if(FALSE!==strpos($requestUrl, "/projekte/")){
                         $steamPath = $requestUrl;
                         $this->redirectToSteamPath($steamPath);
                 }
@@ -116,7 +117,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
          * gets a objectId to a steam path
          */
         private function getObjectId($path){
-            $object = \steam_factory::path_to_object($GLOBALS["STEAM"], $path);
+            $object = \steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $path);
             return $object->get_id();
         }
 }
