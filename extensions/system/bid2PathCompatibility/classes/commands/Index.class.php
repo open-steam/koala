@@ -45,7 +45,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                 }
                 
                 //not tested
-                if(FALSE!==strpos($requestUrl, "lernstatt_intern")){
+                if(FALSE!==strpos($requestUrl, "/lernstatt_intern/")){
                         $steamPath = $requestUrl;
                         $this->redirectToSteamPath($steamPath);
                 }
