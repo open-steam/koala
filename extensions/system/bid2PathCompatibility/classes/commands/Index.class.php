@@ -29,7 +29,6 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                 //not tested
                 if(FALSE!==strpos($requestUrl, "/home/")){
                         $steamPath = $requestUrl;
-                        echo "case home";
                         $this->redirectToSteamPath($steamPath);
                 }
             
