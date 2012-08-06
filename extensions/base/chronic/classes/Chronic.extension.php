@@ -23,7 +23,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 	public function getMenuEntries() {
                 $chronic = $this->loadChronic();
                 $length = count($chronic);
-                $result = array(array("name" => "Chronik", "menu" => array($this->getBackEntry(),$this->getParentEntry())));
+                $result = array(array("name" => "Verlauf", "menu" => array($this->getBackEntry(),$this->getParentEntry())));
 		
                 if ($length > 1) {
                     $menuArray = $result[0]["menu"];
