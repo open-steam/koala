@@ -126,21 +126,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                                 $url = $mediaArray["url"];
                                 $youTubeUrlCode = "";
                                 
-                                
-                                
-                                
                                 $column = $portlet->get_environment();
                                 $columnWidth = intval($column->get_attribute("bid:portal:column:width"));
-                                
-                                //$mediaplayerHtml->setHeight(intval(($columnWidth-10)/4*3));
-                                //$mediaplayerHtml->setWidth($columnWidth-10);
-                                
                                 
                                 $tmpl->setVariable("MEDIA_PLAYER_WIDTH", $columnWidth-10);
 				$tmpl->setVariable("MEDIA_PLAYER_HEIGHT", intval(($columnWidth-10)/4*3));
 				
-                                
-                                
                                 //case watch
                                 if (strpos($url, "watch")){
                                     $begin = strpos($url, "watch?v=")+8;
