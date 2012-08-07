@@ -114,7 +114,6 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                             
 END
                     );
-                  //  $noActionbar = true;
                     $actionBar->setActions(array(
                         array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
                         array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
