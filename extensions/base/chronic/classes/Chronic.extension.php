@@ -66,7 +66,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         
 	//get entry for back button
 	private function getBackEntry() {
-		return array("name" => "zurück", "onclick" => "history.back();"); //remove for php back method
+		return array("name" => "zurück", "onclick" => "history.back();return false;"); //remove for php back method
                    
                 $chronic = $this->loadChronic();
                 $startBackIndex = 1;
