@@ -52,7 +52,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$portletFileName=$portletPath."/ui/html/index.html";
 		$tmpl = new \HTML_TEMPLATE_IT();
 		$tmpl->loadTemplateFile($portletFileName);
-		
+		$tmpl->setVariable("PORTLET_ID",$portlet->get_id());
+                        
 		
 		if(sizeof($content) > 0){
 			//popupmenu
@@ -96,7 +97,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 				if ($option_votecount > $max_votecount) $max_votecount = $option_votecount;
 			}
 			
-		    $tmpl->setVariable("POLL_NAME",$portletName);
+                        $tmpl->setVariable("POLL_NAME",$portletName);
+                        
 			
 			//refernce icon
 			if($portletIsReference){

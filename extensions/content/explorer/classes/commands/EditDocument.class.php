@@ -63,35 +63,13 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
                                 if (strstr($mimetype, "text/plain")) {
                                     $bidDokument = new \BidDocument($object);
                                     $html = $bidDokument->get_content();
-                                    //$html = cleanHTML($html); //TODO
                                 }else{
                                     $html = cleanHTML($object->get_content());
                                     
                                     //make html modifications
                                     $htmlDocument = new \HtmlDocument();
                                     $html = $htmlDocument->makeEditorModifications($html, $object);
-                                    //$html = cleanHTML($html); //TODO
                                 }
-                                
-                                /* test
-				$dirname = dirname($object->get_path()) . "/";
-				preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
-				$orig_matches = $matches[0];
-				$path_matches = $matches[1];
-				foreach($path_matches as $key => $path) {
-					$path = urldecode($path);
-					if (parse_url($path, PHP_URL_SCHEME) != null) {
-						continue;
-					}
-					$ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-					if ($ref_object instanceof \steam_object) {
-						$new_path = PATH_URL . "Download/Document/" . $ref_object->get_id();
-					} else {
-						$new_path = PATH_URL . "styles/standard/images/404.jpg";
-					}
-					$html = str_replace($orig_matches[$key], "src=\"$new_path\" data-mce-src=\"$path\"", $html);
-				}
-                                */
                                 
 				$contentText->setContentProvider( new \Widgets\TextContentDataProvider($html));
 				$clearer = new \Widgets\Clearer();
