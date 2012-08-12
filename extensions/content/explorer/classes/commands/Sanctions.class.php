@@ -558,25 +558,35 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     } elseif ($readCheck) {
                         $dropDownValue = 1;
                     }
+                    
 
                     $userGroups = $favo->get_groups();
-                    $maxSanction = 0;
+                    $maxSanct = 0;
                     foreach ($userGroups as $group) {
                         if (isset($groupMapping[$group->get_id()])) {
                             $currentValue = $groupsRights[$group->get_id()];
-                            if ($currentValue > $maxSanction) {
-                                $maxSanction = $currentValue;
+                            if ($currentValue > $maxSanct) {
+                                $maxSanct = $currentValue;
                             }
-                        }
+                       }
                     }
+                    
+                    if($dropDownValue > $maxSanct){
+                        $selectedValue = $dropDownValue;
+                    }else{
+                        $selectedValue = $maxSanct;
+                    }
+                                      
                     $ddl = new \Widgets\DropDownList();
                     $ddl->setId("fav_" . $id . "_dd");
                     $ddl->setName("ddlist");
                     $ddl->setOnChange("specificChecked(id, value);");
                     $ddl->setSize("1");
                     $ddl->setDisabled(false);
-                    $optionValues = self::getOptionsValues($maxSanction);
+                    $ddl->setStartValue($selectedValue);
+                    $optionValues = self::getOptionsValues($maxSanct);
                     $ddl->setOptionValues($optionValues);
+                    
 
                     $content->setCurrentBlock("FAVORITES");
                     $content->setCurrentBlock("FAV_DDSETINGS");
@@ -613,6 +623,24 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             } elseif ($readCheckAcq) {
                 $dropDownValueAcq = 1;
             }
+            
+              $userGroups = $favo->get_groups();
+                    $maxSanct = 0;
+                    foreach ($userGroups as $group) {
+                        if (isset($groupMapping[$group->get_id()])) {
+                            $currentValue = $groupsRights[$group->get_id()];
+                            if ($currentValue > $maxSanct) {
+                                $maxSanct = $currentValue;
+                            }
+                       }
+                    }
+                    
+                    if($dropDownValue > $maxSanct){
+                        $selectedValue = $dropDownValue;
+                    }else{
+                        $selectedValue = $maxSanct;
+                    }
+                    
             $content->setCurrentBlock("FAVORITES_ACQ");
             $content->setCurrentBlock("FAV_DDSETINGS_ACQ");
             $content->setVariable("FAVID_ACQ", $id);
