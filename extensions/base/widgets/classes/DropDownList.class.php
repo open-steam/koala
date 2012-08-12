@@ -3,7 +3,8 @@
 namespace Widgets;
 
 class DropDownList extends Widget {
-
+    
+    private $startValue = "";
     private $name = '';
     private $id = '';
     private $size = 1;
@@ -12,6 +13,9 @@ class DropDownList extends Widget {
     private $optionValues = array();
     private $disabled = false;
 
+    public function setStartValue($sv){
+        $this->startValue = $sv;
+    }
     public function setClass($c) {
         $this->class = $c;
     }
@@ -61,6 +65,13 @@ class DropDownList extends Widget {
             $this->getContent()->setVariable("INDEX", $index);
             $this->getContent()->setVariable("VALUE", $value);
             $this->getContent()->parse("OPTION_VALUES");
+        }
+        if($this->startValue != ""){
+            $js = <<<END
+   $('#{$this->id}').val('{$this->startValue}');
+END
+            ;
+           $this->getContent()->setVariable("STARTVALUE", $js);
         }
         return $this->getContent()->get();
     }
