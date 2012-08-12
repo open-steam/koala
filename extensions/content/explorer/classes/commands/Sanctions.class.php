@@ -385,15 +385,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
             $groupsRights = array();
-            if(count($groupMapping) > 5){
+            if (count($groupMapping) > 5) {
                 $content->setVariable("CSS_GROUPS", "height: 125px;");
-                
-            }else{
+            } else {
                 $content->setVariable("CSS_GROUPS", "");
             }
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
-                if($name == "" || $name == "0"  ){
+                if ($name == "" || $name == "0") {
                     $name = $group->get_name();
                 }
                 $groupname = $group->get_groupname();
@@ -472,7 +471,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         } else {
             foreach ($groupMappingAcq as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
-                if($name == "" || $name == "0"){
+                if ($name == "" || $name == "0") {
                     $name = $group->get_name();
                 }
                 $groupname = $group->get_groupname();
@@ -516,7 +515,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $content->setVariable("GROUPID_ACQ", $id);
                     $content->setVariable("GROUP_ID_ACQ", $id);
                     $content->setVariable("GROUPNAME_ACQ", $name);
-                    $content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq,$dropdownValueAcqSteamGroup));
+                    $content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $dropdownValueAcqSteamGroup));
                     $content->setVariable("INDENTINDEX_ACQ", $intend);
                     $content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
                     if (isset($favorites[$id])) {
@@ -536,10 +535,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $content->setVariable("DUMMY_FAV", "");
             $content->setVariable("DUMMY_FAV_ACQ", "");
-            if(count($userMapping) > 5){
+            if (count($userMapping) > 5) {
                 $content->setVariable("CSS_USER", "height: 100px;");
-                
-            }else{
+            } else {
                 $content->setVariable("CSS_USER", "");
             }
             foreach ($userMapping as $id => $name) {
@@ -558,7 +556,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     } elseif ($readCheck) {
                         $dropDownValue = 1;
                     }
-                    
+
 
                     $userGroups = $favo->get_groups();
                     $maxSanct = 0;
@@ -568,15 +566,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                             if ($currentValue > $maxSanct) {
                                 $maxSanct = $currentValue;
                             }
-                       }
+                        }
                     }
-                    
-                    if($dropDownValue > $maxSanct){
+
+                    if ($dropDownValue > $maxSanct) {
                         $selectedValue = $dropDownValue;
-                    }else{
+                    } else {
                         $selectedValue = $maxSanct;
                     }
-                                      
+
                     $ddl = new \Widgets\DropDownList();
                     $ddl->setId("fav_" . $id . "_dd");
                     $ddl->setName("ddlist");
@@ -586,7 +584,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $ddl->setStartValue($selectedValue);
                     $optionValues = self::getOptionsValues($maxSanct);
                     $ddl->setOptionValues($optionValues);
-                    
+
 
                     $content->setCurrentBlock("FAVORITES");
                     $content->setCurrentBlock("FAV_DDSETINGS");
@@ -623,30 +621,39 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             } elseif ($readCheckAcq) {
                 $dropDownValueAcq = 1;
             }
-            
-              $userGroups = $favo->get_groups();
-                    $maxSanct = 0;
-                    foreach ($userGroups as $group) {
-                        if (isset($groupMapping[$group->get_id()])) {
-                            $currentValue = $groupsRights[$group->get_id()];
-                            if ($currentValue > $maxSanct) {
-                                $maxSanct = $currentValue;
-                            }
-                       }
+
+            $userGroups = $favo->get_groups();
+            $maxSanct = 0;
+            foreach ($userGroups as $group) {
+                if (isset($groupMapping[$group->get_id()])) {
+                    $currentValue = $groupsRights[$group->get_id()];
+                    if ($currentValue > $maxSanct) {
+                        $maxSanct = $currentValue;
                     }
-                    
-                    if($dropDownValue > $maxSanct){
-                        $selectedValue = $dropDownValue;
-                    }else{
-                        $selectedValue = $maxSanct;
-                    }
-                    
+                }
+            }
+
+            if ($dropDownValueAcq > $maxSanct) {
+                $selectedValue = $dropDownValueAcq;
+            } else {
+                $selectedValue = $maxSanct;
+            }
+
+            $ddl = new \Widgets\DropDownList();
+            $ddl->setId("fav_" . $id . "_dd_acq");
+            $ddl->setName("ddlist");
+            $ddl->setOnChange("specificChecked(id, value);");
+            $ddl->setSize("1");
+            $ddl->setDisabled(true);
+            $ddl->setStartValue($selectedValue);
+            $optionValues = self::getOptionsValues($maxSanct);
+            $ddl->setOptionValues($optionValues);
+
+
             $content->setCurrentBlock("FAVORITES_ACQ");
             $content->setCurrentBlock("FAV_DDSETINGS_ACQ");
-            $content->setVariable("FAVID_ACQ", $id);
-            $content->setVariable("FAV_ID_ACQ", $id);
             $content->setVariable("FAVNAME_ACQ", $name);
-            $content->setVariable("FAV_OPTION_VALUE_ACQ", $dropDownValueAcq);
+            $content->setVariable("DROPDOWNLIST_USER_ACQ", $ddl->getHtml());
             if (isset($favorites[$id])) {
                 $content->setVariable("IMG_PATH_ACQ", $favPicUrl);
             } else {
@@ -655,6 +662,22 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->parse("FAV_DDSETTING_ACQS");
             $content->parse("FAVORITES_ACQ");
         }
+
+
+        /*  $content->setCurrentBlock("FAVORITES_ACQ");
+          $content->setCurrentBlock("FAV_DDSETINGS_ACQ");
+          $content->setVariable("FAVID_ACQ", $id);
+          $content->setVariable("FAV_ID_ACQ", $id);
+          $content->setVariable("FAVNAME_ACQ", $name);
+          $content->setVariable("FAV_OPTION_VALUE_ACQ", $dropDownValueAcq);
+          if (isset($favorites[$id])) {
+          $content->setVariable("IMG_PATH_ACQ", $favPicUrl);
+          } else {
+          $content->setVariable("IMG_PATH_ACQ", $userPicUrl);
+          }
+          $content->parse("FAV_DDSETTING_ACQS");
+          $content->parse("FAVORITES_ACQ");
+          } */
 
 
         $rawHtml = new \Widgets\RawHtml();
@@ -666,7 +689,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         return $ajaxResponseObject;
     }
 
-    private static function getOptionsValues($dropDownValue) {
+    private static
+
+    function getOptionsValues($dropDownValue) {
         $optionValues = array();
         for ($i = $dropDownValue; $i <= 3; $i++) {
             if ($i == 1) {
