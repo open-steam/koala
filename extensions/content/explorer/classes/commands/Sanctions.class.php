@@ -613,6 +613,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $writeCheckAcq = 0;
                 $sanctionCheckAcq = 0;
             }
+           
             $dropDownValueAcq = 0;
             if ($sanctionCheckAcq) {
                 $dropDownValueAcq = 3;
@@ -632,6 +633,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     }
                 }
             }
+            
 
             if ($dropDownValueAcq > $maxSanct) {
                 $selectedValue = $dropDownValueAcq;
@@ -646,7 +648,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $ddl->setSize("1");
             $ddl->setDisabled(true);
             $ddl->setStartValue($selectedValue);
-            $optionValues = self::getOptionsValues($maxSanct);
+            $optionValues = self::getOptionsValues(0);
             $ddl->setOptionValues($optionValues);
 
 
