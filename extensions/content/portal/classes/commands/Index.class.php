@@ -102,7 +102,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         
 END
 );  
-               // $frameResponseObject->addWidget($testWidget);
+                $frameResponseObject->addWidget($testWidget);
                 return $frameResponseObject;
 	}
 }
