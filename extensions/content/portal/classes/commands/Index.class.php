@@ -97,7 +97,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $testWidget = new \Widgets\RawHtml();
                 //$testWidget->setHtml("sendRequest('Sort', {'id':".$this->id."}, '', 'popup', null, null);return false;");
 		$testWidget->setHtml(<<<END
-<a onclick="sendRequest('Sort', {'id':{$this->id}}, '', 'popup', null, null);return false;">Zum Sortieren (wird noch in die Iconbar verschoben)</a>  
+<a onclick="sendRequest('Sort', {'id':'{$this->id}'}, '', 'popup', null, null);return false;">Zum Sortieren (wird noch in die Iconbar verschoben)</a>  
                         
                         
 END

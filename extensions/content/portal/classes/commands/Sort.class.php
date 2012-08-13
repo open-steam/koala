@@ -28,10 +28,10 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
         foreach ($columnsObjArray as $c) {
             $columnsMapping[$c->get_id()] = $c;
         }
-        $portletsMapping = array();
-        $portletsMapping[] = array();
-        $portletsMappingName = array();
-        $portletsMappingName[] = array();
+      //  $portletsMapping = array();
+      //  $portletsMapping[] = array();
+      //  $portletsMappingName = array();
+      //  $portletsMappingName[] = array();
 
         $html = '<div class="sort">';
         foreach ($columnsMapping as $id => $column) {
@@ -40,8 +40,8 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             foreach ($inventory as $e) {
                 $eId = $e->get_id();
                 $eName = $e->get_name();
-                $portletsMapping[$id][$eId] = $e;
-                $portletsMappingName[$id][$eId] = $eName;
+        //        $portletsMapping[$id][$eId] = $e;
+        //        $portletsMappingName[$id][$eId] = $eName;
                 $html .= '<li id="' . $eId . '" class="elementSort">' . $eName . '</li>';
             }
             $html .= '</ul>';
@@ -73,29 +73,30 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
 ');
         $js = '<script>
 	$(function() {
-		$( ".columnSort" ).sortable({
+		$( "'.$string.'" ).sortable({
 			connectWith: "ul",
                         update: function(event, ui){
-        var column = this.id;                
-        var itemList = $("#"+this.id).children();
-        var elements = "";
-        $(itemList).each(function(index,value){
-           elements += value.id + ","; 
-        });
-        sendRequest("Update", { "id": column, "elements" : elements }, "", "data",  null, null, "portal");
-                     
-            }
+                            var column = this.id;                
+                            var itemList = $("#"+this.id).children();
+                            var elements = "";
+                            $(itemList).each(function(index,value){
+                                elements += value.id + ","; 
+                            });
+                            console.log(elements);
+                            sendRequest("Update", {"id": String(column), "elements" : String(elements)}, "", "data", null, null, "portal");
+                            console.log("Warum schließt sich jetzt das Fenster?");
+                        }        
 		});
-
-
-		$( "'.$string.'" ).disableSelection();
+                $( "'.$string.'" ).disableSelection();		
 	});
 	</script>';
         
         $rawHtml->setHtml($html.$js);
         $dialog = new \Widgets\Dialog();
         $dialog->setWidth(600);
-        $dialog->setTitle(" Sortieren des Portals »" . getCleanName($portalObj) . "«");
+        $dialog->setTitle(" Sortieren des Portals »" . getCleanName($portalObj) . "«");       
+        $dialog->setPositionX($this->params["mouseX"]);
+        $dialog->setPositionY($this->params["mouseY"]);
         $dialog->addWidget($rawHtml);
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);

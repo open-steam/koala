@@ -22,6 +22,7 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        $ajaxResponseObject->setStatus("ok");
         $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $portletsOld = $column->get_inventory();
         $portletsOldIds = array();
@@ -44,7 +45,9 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
         //    $difference = array_diff($portletsOldIds, $portletsIdsNew);
         //    $movedElementObj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $difference[0]);
         //}
-
+        if ($countPortOld < $countPortNew) {
+            return $ajaxResponseObject;
+        }
         if ($countPortOld < $countPortNew) {
 
             $difference = array();
@@ -67,7 +70,6 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
                 $portletsOldIds[] = $p->get_id();
             }
             $countPortOld = count($portletsOldIds);
-            
         }
         if ($countPortOld == $countPortNew) {
             $boolHelper = true;
@@ -82,14 +84,13 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
                     $counter++;
                 }
             }
-            
-            $column->swap_inventory($startValue, $startValue-1+$counter);
-            for($j=$startValue+1;$j<($startValue+$counter-1);$j++){
-                $column->swap_inventory($j, $j+1);
+
+            $column->swap_inventory($startValue, $startValue - 1 + $counter);
+            for ($j = $startValue + 1; $j < ($startValue + $counter - 1); $j++) {
+                $column->swap_inventory($j, $j + 1);
             }
         }
-        $ajaxResponseObject->setStatus("ok"); 
-              
+
         return $ajaxResponseObject;
     }
 
