@@ -22,7 +22,6 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-
         $portalObj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $columnsObjArray = $portalObj->get_inventory();
         $columnsMapping = array();
@@ -65,6 +64,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
         .elementSort{ margin: 5px; padding: 5px; width: 120px;background: #396d9c;
 	background: -webkit-gradient(linear, left top, left bottom, from(#7599bb),to(#356fa1));
 	background: -moz-linear-gradient(top,#7599bb,#356fa1); color: #ffffff; } 
+        
                 
 
                
@@ -74,7 +74,17 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
         $js = '<script>
 	$(function() {
 		$( ".columnSort" ).sortable({
-			connectWith: "ul"
+			connectWith: "ul",
+                        update: function(event, ui){
+        var column = this.id;                
+        var itemList = $("#"+this.id).children();
+        var elements = "";
+        $(itemList).each(function(index,value){
+           elements += value.id + ","; 
+        });
+        sendRequest("Update", { "id": column, "elements" : elements }, "", "data",  null, null, "portal");
+                     
+            }
 		});
 
 
