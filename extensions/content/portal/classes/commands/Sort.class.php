@@ -71,9 +71,10 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
 	
 
 ');
-        $js = '<script>
+        $js = <<<END
+        <script>
 	$(function() {
-		$( "'.$string.'" ).sortable({
+		$( "{$string}" ).sortable({
 			connectWith: "ul",
                         update: function(event, ui){
                             var column = this.id;                
@@ -82,19 +83,32 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                             $(itemList).each(function(index,value){
                                 var vID = $.trim(value.id);
                                 if(vID != ""){
-                                    elements += value.id + ",";
+                                    elements += vID + ",";
                                 }                                 
                             });
-                            console.log(elements);
-                            sendRequest("Update", {"id": String(column), "elements" : String(elements)}, "", "data", null, null, "portal");
-                            console.log("Warum schließt sich jetzt das Fenster?");
-                        }        
+                            console.log(elements);                                            
+                           // sendRequest("Update", { "id": column, "elements" : elements }, "", "data", null, null, "portal");
+                
+                           sendRequest("Update", { "id": column, "elements" : elements }, "", "data", function(response){jQuery('#dynamic_wrapper').remove(); jQuery("body").prepend('<div id="overlay" style="position: absolute; width: 2545px; height: 1469px; top: 491px; left: 0px; opacity: 0.8; background-color: white; z-index: 200;"></div>');sendRequest('Sort', {'id':'{$this->id}'}, '', 'popup', null, null);}, null, "portal");
+                            console.log("Warum schließt sich jetzt das Fenster?"); 
+                            
+                            
+                        }
+                        
 		});
-                $( "'.$string.'" ).disableSelection();		
+                $( "{$string}" ).disableSelection();		
 	});
-	</script>';
+      
+       
+	</script>
+   
+END
+        
+        ;
         
         $rawHtml->setHtml($html.$js);
+        $jsWrapper = new \Widgets\JSWrapper();
+        $jsWrapper->setJs($js);
         $dialog = new \Widgets\Dialog();
         $dialog->setWidth(600);
         $dialog->setTitle(" Sortieren des Portals »" . getCleanName($portalObj) . "«");       
@@ -103,7 +117,8 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
         $dialog->addWidget($rawHtml);
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);
-        return $ajaxResponseObject;
+        $ajaxResponseObject->setStatus("ok");
+	return $ajaxResponseObject;
     }
 
 }

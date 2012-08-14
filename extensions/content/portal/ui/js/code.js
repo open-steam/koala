@@ -12,7 +12,7 @@ function portalLockButton(id){
 }
 
 //jquery sortable code
-$(function() {
+/*$(function() {
         $(".column").sortable({
                 connectWith: ".column",
                 items:".portlet",
@@ -29,4 +29,5 @@ $(function() {
         });
         
         $(".column").disableSelection();
-});
+});*/
+

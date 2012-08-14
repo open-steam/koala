@@ -23,7 +23,10 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $ajaxResponseObject->setStatus("ok");
-        $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->setHtml("");
+        $ajaxResponseObject->addWidget($rawHtml);
+        $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);        
         $portletsOld = $column->get_inventory();
         $portletsOldIds = array();
 
@@ -88,11 +91,11 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             }
             $length = $startValue+$counter-1;
             if($length > $startValue){
-                $column->swap_inventory($startValue, ($length));           
+                $column->swap_inventory($startValue, ($length));
             }
             
-            for ($j=$startValue+1;$j<($length);$j++) {
-                
+           
+            for ($j=$startValue+1;$j<($length);$j++) {                
                 $column->swap_inventory($j, $j + 1);
             }
              
