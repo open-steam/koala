@@ -45,17 +45,19 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
         //    $difference = array_diff($portletsOldIds, $portletsIdsNew);
         //    $movedElementObj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $difference[0]);
         //}
-        if ($countPortOld < $countPortNew) {
+      //  if ($countPortOld < $countPortNew) {
+      //      return $ajaxResponseObject;
+      //  }
+        if($countPortNew < $countPortOld){
             return $ajaxResponseObject;
         }
         if ($countPortOld < $countPortNew) {
-
             $difference = array();
             $difference = array_diff($portletsIdsNew, $portletsOldIds);
             if (count($difference) != 1) {
                 $difference = array_diff($portletsOldIds, $portletsIdsNew);
             }
-
+            
             foreach ($difference as $d) {
                 $diffElement = $d;
             }
@@ -69,7 +71,7 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             foreach ($portletsOld as $p) {
                 $portletsOldIds[] = $p->get_id();
             }
-            $countPortOld = count($portletsOldIds);
+            $countPortOld = count($portletsOldIds);           
         }
         if ($countPortOld == $countPortNew) {
             $boolHelper = true;
@@ -84,11 +86,17 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
                     $counter++;
                 }
             }
-
-            $column->swap_inventory($startValue, $startValue - 1 + $counter);
-            for ($j = $startValue + 1; $j < ($startValue + $counter - 1); $j++) {
+            $length = $startValue+$counter-1;
+            if($length > $startValue){
+                $column->swap_inventory($startValue, ($length));           
+            }
+            
+            for ($j=$startValue+1;$j<($length);$j++) {
+                
                 $column->swap_inventory($j, $j + 1);
             }
+             
+
         }
 
         return $ajaxResponseObject;

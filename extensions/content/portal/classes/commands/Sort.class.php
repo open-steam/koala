@@ -80,7 +80,10 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                             var itemList = $("#"+this.id).children();
                             var elements = "";
                             $(itemList).each(function(index,value){
-                                elements += value.id + ","; 
+                                var vID = $.trim(value.id);
+                                if(vID != ""){
+                                    elements += value.id + ",";
+                                }                                 
                             });
                             console.log(elements);
                             sendRequest("Update", {"id": String(column), "elements" : String(elements)}, "", "data", null, null, "portal");
