@@ -87,10 +87,8 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                                 }                                 
                             });
                             console.log(elements);                                            
-                           // sendRequest("Update", { "id": column, "elements" : elements }, "", "data", null, null, "portal");
-                
-                           sendRequest("Update", { "id": column, "elements" : elements }, "", "data", function(response){jQuery('#dynamic_wrapper').remove(); jQuery("body").prepend('<div id="overlay" style="position: absolute; width: 2545px; height: 1469px; top: 491px; left: 0px; opacity: 0.8; background-color: white; z-index: 200;"></div>');sendRequest('Sort', {'id':'{$this->id}'}, '', 'popup', null, null);}, null, "portal");
-                            console.log("Warum schließt sich jetzt das Fenster?"); 
+                           sendRequest("Update", { "id": column, "elements" : elements }, "", "data", function(response){ }, function(response){ }, "portal");
+                           console.log("Warum schließt sich jetzt das Fenster?"); 
                             
                             
                         }

@@ -19,13 +19,6 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             $this->params = $requestObject->getParams();
             isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
         }
-    }
-
-    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        $ajaxResponseObject->setStatus("ok");
-        $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml("");
-        $ajaxResponseObject->addWidget($rawHtml);
         $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);        
         $portletsOld = $column->get_inventory();
         $portletsOldIds = array();
@@ -101,7 +94,10 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
              
 
         }
+    }
 
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        $ajaxResponseObject->setStatus("ok");        
         return $ajaxResponseObject;
     }
 
