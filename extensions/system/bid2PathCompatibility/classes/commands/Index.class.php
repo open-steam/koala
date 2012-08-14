@@ -80,6 +80,23 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                         $this->redirectToSteamPath($steamPath);
                 }
                 
+                //not tested, download case
+                if(FALSE!==strpos($requestUrl, "/tools/get.php?object=")){
+                        $searchString = "/tools/get.php?object=";
+                        $begin = strpos($requestUrl, $searchString) + strlen($searchString);
+                        
+                        $destination = substr($requestUrl,$begin);
+                        $isObjectId = $destination === (string)(intval($destination)) ;
+                        
+                        if($isObjectId){
+                            //destination is a number
+                            $this->redirectToDownloadObjectId($destination);
+                        }  else {
+                            //destination is a path/string
+                            $this->redirectToDownloadPath($destination);
+                        }
+                }
+                
             
                 $rawWidget = new \Widgets\RawHtml();
                 $rawWidget->setHtml("Test bid2PathCompatibility ".$requestUrl);
@@ -95,7 +112,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                 $objectId = $this->getObjectId($steamPath);
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
                 echo $url;die; //test
-		header("Location: ".$url); //error
+		header("Location: ".$url);
                 die;
         }
         
@@ -106,9 +123,24 @@ class Index extends \AbstractCommand implements \IFrameCommand{
         private function redirectToObjectId($objectId){
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
 		echo $url;die; //test
-                header("Location: ".$url); //error
+                header("Location: ".$url);
                 die;
         }
+        
+        private function redirectToDownloadObjectId($objectId){
+                $url = "/download/document/".$objectId;
+                echo $url;die; //test
+                header("Location: ".$url);
+                die;
+        }
+        
+        private function redirectToDownloadPath($steamPath){
+                $url = "/download/document/".$this->getObjectId($steamPath);
+                echo $url;die; //test
+                header("Location: ".$url);
+                die;
+        }
+        
         
         
         
