@@ -57,7 +57,28 @@ class ExtensionMaster {
 		$server_array =  explode("/", $server_name);
 		
 		$result = array();
-		$path = explode("/", urldecode($_SERVER['REQUEST_URI']));
+		$requestUrl = urldecode($_SERVER['REQUEST_URI']);
+                
+                
+                //bid 2 compatibility
+                $bid2PathCompatibilityExt = $this->getExtensionForNamespace("bid2PathCompatibility");
+                if($bid2PathCompatibilityExt){
+                    $keyStrings = $bid2PathCompatibilityExt->getOldPaths();
+		
+                    foreach ($keyStrings as $needle){
+                        if(strstr($requestUrl,$needle)){ //TODO: strpos should be faster
+                            //found
+                            $result[0]="bid2PathCompatibility";
+                            //$result[1]=$requestUrl;
+                            return $result;
+                        }
+                    }
+                }
+                
+                
+                
+                //decode request path string
+                $path = explode("/", $requestUrl);
 		
 		for($i=0; $i < count($path); $i++) {
 			if (isset($server_array[$i])) {
@@ -73,9 +94,16 @@ class ExtensionMaster {
 				}
 			}
 		}
-		return $result;
+                
+                
+                
+                return $result;
 	}
 	
+        /*
+         * TODO:
+         * warning, this is never used and doesn't work
+         */
 	public function getExtensionForObjectId($objectId) {
 		if ($objectId == null || $objectId == 0) {
 			throw new Exception("Object Id is missing.");

@@ -39,7 +39,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
 		if ( $lms_user->is_logged_in() ) {
-			header( "Location: " . PATH_URL . "home/"  );
+			header( "Location: " . PATH_URL . "desktop/"  );
 			exit;
 		} else {
 			$content->setCurrentBlock( "BLOCK_SIGN_IN" );

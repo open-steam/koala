@@ -57,9 +57,6 @@ class Textarea extends Widget {
 		} else {
 			$currentValue = "";
 		}
-		//$this->getContent()->setVariable("WIDGET_VALUE", $currentValue);
-		//$this->getContent()->setVariable("WIDGET_OLD_VALUE", $currentValue);
-		//$this->getContent()->setVariable("VALUE", $currentValue);
 		
 		if (isset($this->label)) {
 			$this->getContent()->setVariable("LABEL", $this->label . ":");

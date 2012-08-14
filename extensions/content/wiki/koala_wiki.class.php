@@ -39,6 +39,11 @@ class koala_wiki extends koala_object {
 		    $place = "communication";
 		}
 
+                $is_admin = false;
+		if ($wiki_obj->get_creator()->get_id() == $user->get_id()) {
+                    $is_admin = true;
+		}
+                        
 		if ($context == "index") {
 			if ($wiki_obj->check_access_insert($user) && !$wiki_obj->check_access_write($user)) {
 				$index_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => gettext("Create new entry"));
@@ -50,20 +55,17 @@ class koala_wiki extends koala_object {
 			//$grp = lms_steam::get_koala_group_for_object_id($wiki_obj->get_id());
 			//$grp = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $wiki_obj->get_id());
 			//$is_admin = $grp->is_admin($user);
-			$is_admin = false;
-			if ($wiki_obj->get_creator()->get_id() == $user->get_id()) {
-				$is_admin = true;
-			}
 			
+                        if ($is_admin) {
+				(WIKI_EDIT) ? $index_menu[] = array("link" => PATH_URL . "wiki/configuration/" . $wiki_obj->get_id(), "name" => gettext("Preferences")) : "";
+                        }
 			if($wiki_obj->check_access_write( $user )){
 				$index_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => gettext("Create new entry"));
 				$entry_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => gettext("Edit entry"));
 			}
 			if ($is_admin) {
-				(WIKI_EDIT) ? $index_menu[] = array("link" => PATH_URL . "wiki/configuration/" . $wiki_obj->get_id(), "name" => gettext("Preferences")) : "";
 				(WIKI_DELETE) ? $index_menu[] = array("link" => PATH_URL . "wiki/delete/" . $wiki_obj->get_id(), "name" => gettext("Delete")) : "";
 				(WIKI_EXPORT && ($place !== "units")) ? $index_menu[] = array("link" => PATH_URL . "wiki/export/" . $wiki_obj->get_id(), "name" => "Wiki-Export") : "";
-				
 			}
 			//$this->template->setVariable("SPACER", "&nbsp;");
 		}
@@ -76,16 +78,26 @@ class koala_wiki extends koala_object {
 					$index_menu[] = array("link" => PATH_URL . "wiki/delete/" . $wiki_obj->get_environment()->get_id() . "/" . $wiki_obj->get_id(), "name" => gettext("Delete"));
 				}
 
+                                if (WIKI_MEDIATHEK)
+                                    $entry_menu[] = array("link" => PATH_URL . "wiki/mediathek/" . $wiki_obj->get_environment()->get_id(), "name" => gettext("Mediathek"));
+
 				$startpage = $wiki_obj->get_environment()->get_attribute("WIKI_STARTPAGE");
 				if (!(!$startpage || $startpage === "glossary")) {
-					$entry_menu[] = array("link" => PATH_URL . "wiki/glossary/" . $wiki_obj->get_environment()->get_id() . "/", "name" => gettext("Glossary"));
+					$entry_menu[] = array("link" => PATH_URL . "wiki/glossary/" . $wiki_obj->get_environment()->get_id() . "/", "name" => "Glossar");
 				}
+                                if ($is_admin) {
+                                    (WIKI_EDIT) ? $entry_menu[] = array("link" => PATH_URL . "wiki/configuration/" . $wiki_obj->get_environment()->get_id(), "name" => gettext("Preferences")) : "";
+                                }
 				$entry_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => gettext("Edit entry"));
 				if ($wiki_obj->check_access_move($user)) {
 					$entry_menu[] = array("link" => PATH_URL . "wiki/delete/" . $wiki_obj->get_environment()->get_id() . "/" . $wiki_obj->get_id(), "name" => gettext("Delete"));
 				}
 			} else {
 				//$this->template->setVariable("SPACER", "&nbsp;");
+                            	$startpage = $wiki_obj->get_environment()->get_attribute("WIKI_STARTPAGE");
+				if (!(!$startpage || $startpage === "glossary")) {
+					$entry_menu[] = array("link" => PATH_URL . "wiki/glossary/" . $wiki_obj->get_environment()->get_id() . "/", "name" => "Glossar");
+				}
 			}
 		}
 

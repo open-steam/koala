@@ -41,7 +41,7 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 					header("Location: " . PATH_URL . "wiki/edit/" . $wiki_container->get_id() . "?title=" . str_replace( ".wiki", "", $this->params[1]));
 					exit;
 				} else {
-					$_SESSION[ "error" ] = gettext( "Wiki entry does not exist.");
+					$_SESSION[ "error" ] = "Der gewählte Wiki Eintrag existiert nicht.";
 					header("Location: " . PATH_URL . "wiki/glossary/" . $wiki_container->get_id());
 					exit;
 				}
@@ -118,7 +118,7 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 		if ($wiki_doc->check_access_write($user) || WIKI_SHOW_AUTHOR_TO_READER) {
 			$pic_link = ( $attributes[ "DOC_USER_MODIFIED" ]->get_attribute("OBJ_ICON")->get_id() == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $attributes[ "DOC_USER_MODIFIED" ]->get_attribute("OBJ_ICON")->get_id() . "/60/70";
 			$content->setVariable( "IMAGE_SRC", $pic_link);
-			$content->setVariable( "AUTHOR_LINK", PATH_URL . "user/index/" . $attributes[ "DOC_USER_MODIFIED" ]->get_name() . "/" );
+			$content->setVariable( "AUTHOR_LINK", PATH_URL . "profile/index/" . $attributes[ "DOC_USER_MODIFIED" ]->get_name() . "/" );
 			$content->setVariable( "VALUE_POSTED_BY", h($last_author[ "USER_FIRSTNAME" ]) . " " . h($last_author[ "USER_FULLNAME" ]) );
 			$content->setVariable( "LABEL_BY", gettext("created by"));
 			$content->setVariable( "VALUE_VERSION", h($attributes["DOC_VERSION"]));

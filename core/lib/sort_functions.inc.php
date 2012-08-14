@@ -144,6 +144,8 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $format = 'Y-m-d H:i:s';
     $dateA = new DateTime();
     $dateA = DateTime::createFromFormat($format, $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00');
+    
+    if($dateA===NULL | $dateA===FALSE) return 0;
     $timestampA = $dateA->getTimestamp();
     
     //timestamp b
@@ -165,6 +167,8 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $format = 'Y-m-d H:i:s';
     $dateB = new DateTime();
     $dateB = DateTime::createFromFormat($format, $bYear.'-'.$bMonth.'-'.$bDay.' '.$bHour.':'.$bMinute.':00');
+    
+    if($dateB===NULL | $dateB===FALSE) return 0;
     $timestampB = $dateB->getTimestamp();
     
     if ($timestampA == $timestampB) {

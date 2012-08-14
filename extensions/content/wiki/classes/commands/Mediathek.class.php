@@ -81,8 +81,12 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
 			}
 		}
 		$content->setVariable( "LABEL_CLOSE", gettext( "close" ) );
-		$content->setVariable( "BACK_LINK", PATH_URL . "wiki/Index/" . $wiki_container->get_id() . "/" );
-		$content->setVariable( "BACK_LABEL", gettext( "back" ) );
+                if (isset($_SERVER["HTTP_REFERER"])) {
+                    $content->setVariable( "BACK_LINK", $_SERVER["HTTP_REFERER"]);
+                } else {
+                    $content->setVariable( "BACK_LINK", PATH_URL . "wiki/Index/" . $wiki_container->get_id() . "/" );
+                }
+                $content->setVariable( "BACK_LABEL", gettext( "back" ) );
 		
 		$wiki_html_handler->set_main_html( $content->get() );
 		

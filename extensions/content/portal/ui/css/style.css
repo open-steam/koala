@@ -78,3 +78,6 @@
 .portlet .subheadline {
 	min-height:15px;
 }
+
+.ui-state-highlight { height: 2.5em; line-height: 1.2em; }
+	

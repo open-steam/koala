@@ -2,7 +2,7 @@
 abstract class AbstractCommand implements ICommand{
 	
 	public function isGuestAllowed(IRequestObject $requestObject) {
-		return false;
+		return true;
 	}
 	
 	public function serverAdminOnly(IRequestObject $requestObject) {

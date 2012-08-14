@@ -4,7 +4,7 @@
 	<li class="seperator" onmouseover="mark_parent(this,true);" onmouseout="mark_parent(this,false);"></li>
 	<!-- END BLOCK_SEPERATOR -->
 	<!-- BEGIN BLOCK_MENUITEM -->
-	<li onmouseover="mark_parent(this,true);" onmouseout="mark_parent(this,false);" onclick="menu_clicked(this);{MENUITEM_ONCLICK}">
+	<li onmouseover="mark_parent(this,true);" onmouseout="mark_parent(this,false);" onclick="{MENUITEM_ONCLICK};menu_clicked(this);">
 		{MENUITEM_LINK_START}
 		<!-- BEGIN BLOCK_MENUITEM_ICON -->
 		<span class="menu_icon">{MENUITEM_ICON}</span>

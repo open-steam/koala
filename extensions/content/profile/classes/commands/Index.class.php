@@ -28,7 +28,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         //chronic
         \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("profile");
-
+        
         $current_user = \lms_steam::get_current_user();
 
         $name = $this->id;
@@ -50,7 +50,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if (empty($value)) {
             return;
         }
-
+        
         if ($is_buddy && $this->viewer_authorized($label)) {
             //$c = $GLOBALS["content"];
             $GLOBALS["content"]->setCurrentBlock("BLOCK_" . $block);
@@ -70,7 +70,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $authorizations = $GLOBALS["authorizations"];
         (isset($authorizations[$this->label_to_mapping($label)])) ? $current_authorization = $authorizations[$this->label_to_mapping($label)] : $current_authorization = "";
 
-
+        
         if (!( $current_authorization & PROFILE_DENY_ALLUSERS ))
             return true;
         $is_contact = false;
@@ -327,35 +327,35 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         
         ///////////////  CONTACT INFORMATION  ///////////////
-        $is_buddy = ( $user->is_buddy($current_user) || $user->get_id() == $current_user->get_id() ) ? TRUE : FALSE;
+        //$is_buddy = ( $user->is_buddy($current_user) || $user->get_id() == $current_user->get_id() ) ? TRUE : FALSE;
         if (ENABLED_EMAIL) {
             $mail = h($user_profile["USER_EMAIL"]);
             $mail1 = '<a href="mailto:"' . $mail . '">' . $mail . '</a>';
-            $this->display("CONTACT_DATA", "E-mail", $mail1, $is_buddy);
+            $this->display("CONTACT_DATA", "E-mail", $mail1);
         }
         if (ENABLED_ADDRESS) {
             $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
 
-            $this->display("CONTACT_DATA", "Address", $adress, $is_buddy);
+            $this->display("CONTACT_DATA", "Address", $adress);
         }
         if (ENABLED_BID_ADRESS) {
             $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
             if (isset($adress) && !is_integer($adress) && trim($adress) != "") {
-                $this->display("GENERAL", "Address", h($user_profile["USER_ADRESS"]), $is_buddy);
+                $this->display("GENERAL", "Address", h($user_profile["USER_ADRESS"]));
             }
         }
         if (ENABLED_TELEPHONE) {
-            $this->display("CONTACT_DATA", "Telephone", h($user_profile["USER_PROFILE_TELEPHONE"]), $is_buddy);
+            $this->display("CONTACT_DATA", "Telephone", h($user_profile["USER_PROFILE_TELEPHONE"]));
         }
         if (ENABLED_BID_PHONE) {
             $phone = h($user_profile["bid:user_callto"]);
             if (isset($phone) && $phone != 0 && $phone != "") {
                 $phone1 = '<a href="callto:' . $phone . '">' . $phone . '</a>';
-                $this->display("GENERAL", "Telefon", $phone1, $is_buddy);
+                $this->display("GENERAL", "Telefon", $phone1);
             }
         }
         if (ENABLED_PHONE_MOBILE) {
-            $this->display("CONTACT_DATA", "Phone, mobile", h($user_profile["USER_PROFILE_PHONE_MOBILE"]), $is_buddy);
+            $this->display("CONTACT_DATA", "Phone, mobile", h($user_profile["USER_PROFILE_PHONE_MOBILE"]));
         }
 
 

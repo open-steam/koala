@@ -21,15 +21,15 @@ class ContentDataProvider implements IDataProvider {
 		}
 	}
 	
-	public function getUpdateCode($object, $elementId, $successMethode = null) {
+	public function getUpdateCode($object, $elementId, $successMethod = null) {
 		if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
 		$function = "";
-		if (isset($successMethode)) {
-			$function = ", function(response){{$successMethode}({$elementId}, response);}";
+		if (isset($successMethod)) {
+			$function = ", function(response){{$successMethod}({$elementId}, response);}";
 		}
 		return <<< END
 sendRequest('databinding', {'id': {$objectId}, 'value': value}, '', 'data'{$function});

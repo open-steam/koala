@@ -25,14 +25,15 @@ class AttributeDataProvider implements IDataProvider {
 		return $this->attribute;
 	}
 	
-	public function getUpdateCode($object, $elementId, $successMethode = "") {
+	public function getUpdateCode($object, $elementId, $successMethod = "") {
 		if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
-		$function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
+		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
 		return <<< END
+window.ajaxSaving==true;
 sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': value}, '', 'data'{$function});
 END;
 	}

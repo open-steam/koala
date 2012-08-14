@@ -12,32 +12,12 @@
 		<td class="label">{LABEL_NAME}*:</td>
 		<td class="value"><input type="text" name="values[name]" style="width: 400px;" value="{VALUE_NAME}" {NAME_DISABLED} /></td>
 	</tr>
-  <!-- BEGIN BLOCK_SHORT_DSC -->
- 	<tr>
-		<td class="label">{LABEL_SHORT_DSC}:</td>
-		<td class="value"><input type="text" name="values[short_dsc]" style="width: 400px;" value="{VALUE_SHORT_DSC}"/></td>
-	</tr>
-  <!-- END BLOCK_SHORT_DSC -->
-  <tr>
-    <td class="label">{LABEL_DSC}:</td>
-    <td>
-    <textarea name="values[dsc]" style="width: 400px;" rows="5">{VALUE_DSC}</textarea><br />
-	<a href="javascript:insert('[b]', '[/b]', 'formular', 'values[dsc]')" class="textformat_button" title="{HINT_BB_BOLD}"><b>{LABEL_BB_BOLD}</b></a>&nbsp;
-	<a href="javascript:insert('[i]', '[/i]', 'formular', 'values[dsc]')" class="textformat_button" title="{HINT_BB_ITALIC}"><i>{LABEL_BB_ITALIC}</i></a>&nbsp;
-	<a href="javascript:insert('[u]', '[/u]', 'formular', 'values[dsc]')" class="textformat_button" title="{HINT_BB_UNDERLINE}"><u>{LABEL_BB_UNDERLINE}</u></a>&nbsp;
-	<a href="javascript:insert('[s]', '[/s]', 'formular', 'values[dsc]')" class="textformat_button" style="text-decoration: line-through;" title="{HINT_BB_STRIKETHROUGH}">{LABEL_BB_STRIKETHROUGH}</a>&nbsp;
-	<a href="javascript:insert('[img]http://', '[/img]', 'formular', 'values[dsc]')" class="textformat_button" title="{HINT_BB_IMAGE}">{LABEL_BB_IMAGE}</a>&nbsp;
-	<a href="javascript:insert('[url=http://]', '[/url]', 'formular', 'values[dsc]')" class="textformat_button" title="{HINT_BB_URL}">{LABEL_BB_URL}</a>&nbsp;
-	<a href="javascript:insert('[mail=@]', '[/mail]', 'formular', 'values[dsc]')" class="textformat_button" title="{HINT_BB_MAIL}">{LABEL_BB_MAIL}</a>
-	<br />{LABEL_DSC_SHOW_UP}
-    </td>
-  </tr>
   <!-- BEGIN BLOCK_WIKI_STARTPAGE -->
  	<tr>
 		<td class="label">{LABEL_WIKI_STARTPAGE}:</td>
 		<td class="value">
 			<select name="values[wiki_startpage]" size="1">
-				<option {WIKI_STARTPAGE_GLOSSARY_SELECTED}>{OPTION_WIKI_GLOSSARY}</option> 
+				<option {WIKI_STARTPAGE_GLOSSARY_SELECTED} value="glossary">{OPTION_WIKI_GLOSSARY}</option> 
 				<!-- BEGIN BLOCK_WIKI_STARTPAGE_OPTION -->
 				<option {WIKI_STARTPAGE_SELECTED}>{OPTION_WIKI_STARTPAGE}</option>  
 				<!-- END BLOCK_WIKI_STARTPAGE_OPTION -->

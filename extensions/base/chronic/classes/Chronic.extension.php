@@ -23,7 +23,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 	public function getMenuEntries() {
                 $chronic = $this->loadChronic();
                 $length = count($chronic);
-                $result = array(array("name" => "Chronik", "menu" => array($this->getBackEntry(),$this->getParentEntry())));
+                $result = array(array("name" => "Verlauf", "menu" => array($this->getBackEntry(),$this->getParentEntry())));
 		
                 if ($length > 1) {
                     $menuArray = $result[0]["menu"];
@@ -66,7 +66,9 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         
 	//get entry for back button
 	private function getBackEntry() {
-		$chronic = $this->loadChronic();
+		return array("name" => "zurück", "onclick" => "history.back();return false;"); //remove for php back method
+                   
+                $chronic = $this->loadChronic();
                 $startBackIndex = 1;
                 
                 if(isset($chronic[$startBackIndex])){
@@ -77,7 +79,6 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                        
                    $backEntry = $chronic[$startBackIndex];
                    return array("name" => "zurück", "link" => $this->getEntryPath($backEntry)); 
-                    
                 }
                 return "";
         }
