@@ -13,7 +13,7 @@ function portalLockButton(id){
 
 
 function bid2PathFix() {
-    input = 'https://steam.lspb.de';
+    input = '/https://steam.lspb.de/g';
     output='http://bid.lspb.de';
     document.body.innerHTML = document.body.innerHTML.replace(input,output);
     return true;
