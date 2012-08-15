@@ -263,7 +263,12 @@ function getObjectType($object) {
         $bidDocType = $object->get_attribute("bid:doctype");
         $bidType = $object->get_attribute("bid:collectiontype");
         $objType = $object->get_attribute("OBJ_TYPE");
+        
+        //oldPortletTest
         $bidPortletType = $object->get_attribute("bid:portlet");
+        $isOldPortlet = false;
+        $isOldPortlet = ("0"!=$bidPortletType);
+        
         
         if ($bidDocType === "portal") {
             $type = "portal_old";
@@ -275,7 +280,7 @@ function getObjectType($object) {
             $type = "portal";
         } else if ($objType === "container_portalColumn_bid") {
             $type = "portalColumn";
-        } else if (($objType === "container_portlet_bid") || (0!=$bidPortletType)) {
+        } else if (($objType === "container_portlet_bid") || $isOldPortlet) {
             $type = "portalPortlet";
         } else if (isUserHome($object)) {
             $type = "userHome";
