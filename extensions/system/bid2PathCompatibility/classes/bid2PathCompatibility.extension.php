@@ -23,11 +23,22 @@ class bid2PathCompatibility extends AbstractExtension {
 		return 0;
 	}
         
+        
+        /*
+         * list of handled paths
+         */
         public function getOldPaths(){
             return $keyStrings = array("index.php?object=","/home/","/hilfe/","/schulen/","/lernstatt_intern/","/externe_partner/",     //steam.lspb.de
                                     "/schulen/", "/dialog/", "/partner/", "/projekte/" ,                                                //bid-owl.de
-                                    "/tools/get.php?"                                                                                   //download
+                                    "/tools/get.php?" , "/download/"                                                                                  //download
                     );
+        }    
+        
+        /*
+         * blacklist for not handled paths
+         */
+        public function getIgnorePaths(){
+            return $keyStrings = array("download/document");    
         }
 }
 ?>

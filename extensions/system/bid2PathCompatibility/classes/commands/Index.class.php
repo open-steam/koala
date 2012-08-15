@@ -97,7 +97,6 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                         }
                 }
                 
-                /*
                 //TODO /download/
                 //not tested, download case
                 if(FALSE!==strpos($requestUrl, "/download/")){
@@ -113,7 +112,6 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                              
                         $this->redirectToDownloadObjectId($objectId, $name);
                 }
-                */
                 
                 die("URL-Umleitung fehlgeschlagen");
             
