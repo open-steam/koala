@@ -275,7 +275,7 @@ function getObjectType($object) {
             $type = "portal";
         } else if ($objType === "container_portalColumn_bid") {
             $type = "portalColumn";
-        } else if (($objType === "container_portlet_bid") || (!$bidPortletType)) {
+        } else if (($objType === "container_portlet_bid") || (0!=$bidPortletType)) {
             $type = "portalPortlet";
         } else if (isUserHome($object)) {
             $type = "userHome";
