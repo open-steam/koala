@@ -97,6 +97,25 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                         }
                 }
                 
+                
+                //TODO /download/
+                //not tested, download case
+                if(FALSE!==strpos($requestUrl, "/download/")){
+                        $searchString = "/download/";
+                        $begin = strpos($requestUrl, $searchString) + strlen($searchString);
+                        
+                        $destination = substr($requestUrl,$begin);
+                        
+                        $destArray = explode("/", $destination);
+                        
+                        $objectId = $destArray[0];
+                        $name = $destArray[1];
+                             
+                        $this->redirectToDownloadObjectId($objectId, $name);
+                }
+                
+                
+                
             
                 $rawWidget = new \Widgets\RawHtml();
                 $rawWidget->setHtml("Test bid2PathCompatibility ".$requestUrl);
@@ -127,16 +146,20 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                 die;
         }
         
-        private function redirectToDownloadObjectId($objectId){
-                $url = "/download/document/".$objectId;
-                //echo $url;die; //test
+        private function redirectToDownloadObjectId($objectId, $name=""){
+                
+                if($name==""){
+                    $url = "/download/document/".$objectId;
+                }else{
+                    $url = "/download/document/".$objectId."/".$name;
+                }
+                    
                 header("Location: ".$url);
                 die;
         }
         
         private function redirectToDownloadPath($steamPath){
                 $url = "/download/document/".$this->getObjectId($steamPath);
-                //echo $url;die; //test
                 header("Location: ".$url);
                 die;
         }

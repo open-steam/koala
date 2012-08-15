@@ -20,6 +20,14 @@ function bid2PathFix() {
         document.body.innerHTML = document.body.innerHTML.replace(input,output);
     }
     
+    input = 'http://steam.lspb.de';
+    output='http://bid.lspb.de';
+    
+    while(document.body.innerHTML.search(input)!=-1){
+        document.body.innerHTML = document.body.innerHTML.replace(input,output);
+    }
+    
+    
     return true;
 }
 
