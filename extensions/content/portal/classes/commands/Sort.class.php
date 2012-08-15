@@ -47,6 +47,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             $html .= '</ul>';
         }
         $html .= "</div>";
+        $html .= '<div id="hiddenBox" class="" style="display:none"></div>';
         
         $string = "";
         $i=1;
@@ -85,11 +86,9 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                                 if(vID != ""){
                                     elements += vID + ",";
                                 }                                 
-                            });
-                            console.log(elements);                                            
+                            });                                            
                            sendRequest("Update", { "id": column, "elements" : elements }, "", "data", function(response){ }, function(response){ }, "portal");
-                           console.log("Warum schließt sich jetzt das Fenster?"); 
-                            
+                           $('#hiddenBox').addClass("changed"); 
                             
                         }
                         
