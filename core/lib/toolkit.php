@@ -267,7 +267,7 @@ function getObjectType($object) {
             $type = "portal_old";
         } else if ($bidType === "gallery") {
             $type = "gallery";
-        } else if($objType == "container_wiki_koala"){
+        } else if($objType === "container_wiki_koala"){
             $type = "wiki";
         } else if ($objType === "container_portal_bid") {
             $type = "portal";
