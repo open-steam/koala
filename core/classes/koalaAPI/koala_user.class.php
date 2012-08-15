@@ -90,8 +90,15 @@ class koala_user extends koala_object
     foreach ( $rss_feeds as $obj_id => $rss_feed ) {
 			try {
 				$obj = steam_factory::get_object( $GLOBALS['STEAM']->get_id(), $obj_id );
-			} catch ( Exception $e ) { continue; }
-      $feedobjects[$obj_id] = $obj;
+			} catch ( Exception $e ) { 
+				unset($rss_feeds[$obj_id]);
+				continue; 
+			}
+			if ($obj instanceof steam_object) {
+				$feedobjects[$obj_id] = $obj;
+			} else {
+				unset($rss_feeds[$obj_id]);
+			}
     }
     // Check for Read-Access
     $read_tnr = array();
