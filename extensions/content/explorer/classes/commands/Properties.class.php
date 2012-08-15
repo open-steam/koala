@@ -113,6 +113,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 				$labelName = "Name";
 				$typeName = "unbekannt";
 				break;
+                            
+                        case "wiki":
+                                $labelName = "Name";
+                                $typeName = "Wiki";
+                            
     
 			default:
 				$labelName = "Name";
