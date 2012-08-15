@@ -38,7 +38,7 @@ class bid2PathCompatibility extends AbstractExtension {
          * blacklist for not handled paths
          */
         public function getIgnorePaths(){
-            return $keyStrings = array("download/document");    
+            return $keyStrings = array("download/document","download/image");    
         }
 }
 ?>
