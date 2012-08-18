@@ -75,6 +75,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		    }
 		
 		    if (empty($problems) && array_key_exists("new", $_POST)) {
+                                /*
 				$group_members = $grp;
 				$group_admins = 0;
 				$group_staff = 0;
@@ -127,7 +128,13 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 						header("Location: " . $backlink);
 					}
 				    exit;
-				}
+				}*/
+                        
+                                $wiki_container->set_attribute(OBJ_NAME, $values["name"]);
+                                $wiki_container->set_attribute(OBJ_DESC, $values["name"]);
+				if ($values["wiki_startpage"] == gettext("Glossary")) $values["wiki_startpage"] = "glossary";
+				$wiki_container->set_attribute("WIKI_STARTPAGE", $values["wiki_startpage"]);
+				$portal->set_confirmation(gettext("The changes have been saved."));
 		    } else {
 				$portal->set_problem_description(isset($problems) ? $problems : "", isset($hints) ? $hints : "" );
 		    }
@@ -212,7 +219,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("LABEL_BB_MAIL", gettext("MAIL"));
 		$content->setVariable("HINT_BB_MAIL", gettext("email link"));
 		
-		if ($accessmergel) {
+		/*if ($accessmergel) {
 		    $mailto = "mailto:'.SUPPORT_EMAIL.'?subject=KoaLA:%20Invalid%20Access%20Rights&body=" . rawurlencode("\nLink: " . get_current_URL() . "\nCreator: " . $creator->get_identifier() . "\n");
 		    $content->setCurrentBlock("BLOCK_ACCESSMERGEL");
 		    $content->setVariable("LABEL_ACCESSMERGEL", str_replace("%MAILTO", $mailto, gettext("There is a problem with the access settings. Please <a href=\"%MAILTO\">contact the support team</a> to fix it by setting the access rights again.")));
@@ -244,7 +251,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 				}
 				$content->parse("BLOCK_ACCESS");
 		    }
-		}
+		}*/
 		
 		$content->setVariable("BACKLINK", "<a class='button' href=\"$backlink\">" . gettext("back") . "</a>");
 		if (isset($is_glossary)) {
