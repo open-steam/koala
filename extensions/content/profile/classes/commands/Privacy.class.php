@@ -90,15 +90,15 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
         $tableFirstPart->setHtml(
                 "<div class='grid' style='display:table; width:70%; margin-left:5px;'>
                     <div style='display:table-row;'>
-                        <div style='display:table-cell; width:25%;'></div>
-                        <div style='display:table-cell; width:25%;'><center><b>Alle Benutzer</b></center></div>
-                        <div style='display:table-cell; width:25%;'><center><b>". $contact_label . "</b></center></div>
-                        <div style='display:table-cell; width:25%;'><center><b>Niemand</b></center></div>
+                        <div style='display:table-cell; width:30%;'></div>
+                        <div style='display:table-cell; width:23%;'><center><b>Alle Benutzer</b></center></div>
+                        <div style='display:table-cell; width:23%;'><center><b>". $contact_label . "</b></center></div>
+                        <div style='display:table-cell; width:23%;'><center><b>Niemand</b></center></div>
                     </div>");
         $frameResponseObject->addWidget($tableFirstPart);
         
         $general_title = new \Widgets\RawHtml();
-        $general_title->setHtml("<br><b>" . gettext("General Information") . "</b><br><br>");
+        $general_title->setHtml("<br><b style='font-size:13px;'>" . gettext("General Information") . "</b><br><br>");
         $frameResponseObject->addWidget($general_title);
             
         if (ENABLED_STATUS || ENABLED_BID_DESCIPTION) {
@@ -207,7 +207,7 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
         
         if (ENABLED_CONTACTS_TITLE) {
             $contacts_title = new \Widgets\RawHtml();
-            $contacts_title->setHtml("<br><b>" . gettext("Contact Data") . "</b><br><br>");
+            $contacts_title->setHtml("<br><b style='font-size:13px;'>" . gettext("Contact Data") . "</b><br><br>");
             $frameResponseObject->addWidget($contacts_title);
         }
 
@@ -313,7 +313,7 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
         
         if (ENABLED_CONTACTS_GROUPS_TITLE) {
             $contacts_title = new \Widgets\RawHtml();
-            $contacts_title->setHtml("<br><b>" . gettext("Contacts and Groups") . "</b><br><br>");
+            $contacts_title->setHtml("<br><b style='font-size:13px;'>" . gettext("Contacts and Groups") . "</b><br><br>");
             $frameResponseObject->addWidget($contacts_title);
         }
          
