@@ -124,6 +124,15 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
 			$popupMenu->setWidth("170px");
 		} else {
+                        $writeAccess = TRUE;
+                        foreach ($this->selection as $selectedObjectID) {
+                            $selectedObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $selectedObjectID);
+                            if (!$selectedObject->check_access(SANCTION_WRITE)) {
+                                $writeAccess = FALSE;
+                                break;
+                            }
+                        }
+                    
 			$copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
 			$cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
 			$referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
@@ -133,10 +142,10 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			$popupMenu =  new \Widgets\PopupMenu();
 			$items = array(
 								array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Copy', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Kopiere Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte kopieren<img src=\"{$copyIcon}\"></a>"),
-								array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte ausschneiden<img src=\"{$cutIcon}\"></a>"),
+								($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte ausschneiden<img src=\"{$cutIcon}\"></a>") : "",
 								array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Referenziere Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte referenzieren<img src=\"{$referIcon}\"></a>"),
-								array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte löschen<img src=\"{$trashIcon}\"></a>"),
-								array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
+								($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte löschen<img src=\"{$trashIcon}\"></a>") : "",
+								($writeAccess) ? array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
 																											//array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Hide', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Verstecke Objekte ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$hideIcon}\">{$count} Objekte verstecken</a>"),
 																											array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'transparent'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/transparent.png\"></a>
 																									   					<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'red'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/red.png\"></a>
@@ -147,7 +156,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 																									   					<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'purple'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/purple.png\"></a>
 																									   					<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'grey'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/grey.png\"></a>"),
 								 
-																								)),
+																								)) : "",
 						   );
 			$popupMenu->setItems($items);
 			$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
