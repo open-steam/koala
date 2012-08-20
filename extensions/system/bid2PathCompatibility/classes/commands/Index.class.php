@@ -172,5 +172,10 @@ class Index extends \AbstractCommand implements \IFrameCommand{
             $object = \steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $path);
             return $object->get_id();
         }
+        
+        
+        public function isGuestAllowed(IRequestObject $requestObject) {
+		return true;
+	}
 }
 ?>
