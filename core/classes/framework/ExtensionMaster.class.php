@@ -63,6 +63,10 @@ class ExtensionMaster {
                 //bid 2 compatibility
                 $bid2PathCompatibilityExt = $this->getExtensionForNamespace("bid2PathCompatibility");
                 if($bid2PathCompatibilityExt){
+                    
+                    //error_log("b2pc-found");
+                    logging::write_log( LOG_ERROR, "b2pc-found"); //test
+                    
                     $keySearchStrings = $bid2PathCompatibilityExt->getOldPaths();
                     $keyIgnoreStrings = $bid2PathCompatibilityExt->getIgnorePaths();
                     
@@ -83,6 +87,8 @@ class ExtensionMaster {
                             return $result;
                         }
                     }
+                }  else {
+                    logging::write_log( LOG_ERROR, "b2pc-NOT-found"); //test
                 }
                 
                 
