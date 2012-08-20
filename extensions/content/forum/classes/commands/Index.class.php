@@ -149,8 +149,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 		  //$breadcrumb = new \Widgets\Breadcrumb();
 		  //$breadcrumb->setData(array($currentRoom));
-
-		  $frameResponseObject->setTitle("Forum - " . $forumAttributes["OBJ_DESC"]);
+                  
+		  $frameResponseObject->setTitle($forumObject->get_name());
 		  $rawHtml->setHtml($content->get());
 		  $frameResponseObject->addWidget($actionBar);
 		  $frameResponseObject->addWidget($rawHtml);

@@ -307,7 +307,8 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         //if($isForumCreator || $hasSanctionRights){
         //	$actions[] = array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id) , "requestType"=>"popup", "namespace"=>"explorer")));
         //}
-        $frameResponseObject->setTitle("Forum - " . $forumAttributes["OBJ_DESC"] . " - Thema - " . $categoryAttributes["OBJ_DESC"] . " ");
+        
+        $frameResponseObject->setTitle( $forum->get_name()  . " - " . $categoryAttributes["OBJ_DESC"]);
         $parent = $forum->get_environment();
         if ($parent instanceof \steam_container) {
             $parentLink = PATH_URL . "explorer/Index/" . $parent->get_id();
