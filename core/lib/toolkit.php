@@ -263,17 +263,24 @@ function getObjectType($object) {
         $bidDocType = $object->get_attribute("bid:doctype");
         $bidType = $object->get_attribute("bid:collectiontype");
         $objType = $object->get_attribute("OBJ_TYPE");
+        
+        //oldPortletTest
+        $bidPortletType = $object->get_attribute("bid:portlet");
+        $isOldPortlet = false;
+        $isOldPortlet = ("0"!=$bidPortletType);
+        
+        
         if ($bidDocType === "portal") {
             $type = "portal_old";
         } else if ($bidType === "gallery") {
             $type = "gallery";
-        } else if($objType == "container_wiki_koala"){
+        } else if($objType === "container_wiki_koala"){
             $type = "wiki";
         } else if ($objType === "container_portal_bid") {
             $type = "portal";
         } else if ($objType === "container_portalColumn_bid") {
             $type = "portalColumn";
-        } else if ($objType === "container_portlet_bid") {
+        } else if (($objType === "container_portlet_bid")) {
             $type = "portalPortlet";
         } else if (isUserHome($object)) {
             $type = "userHome";

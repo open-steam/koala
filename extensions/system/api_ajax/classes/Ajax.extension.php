@@ -127,8 +127,11 @@ END
 		// Is current request is an AJAX-Request, don't generate template code
 		if (self::isAjaxRequest()) {
 			$app = lms_portal::get_instance();
-			$app->initialize(GUEST_NOT_ALLOWED);
-			$frontController = new FrontController();
+                        
+                        //$app->initialize(GUEST_NOT_ALLOWED); 
+			$app->initialize(GUEST_ALLOWED); //TODO: check consequences
+			
+                        $frontController = new FrontController();
 			//$request = new HttpRequest();
 			//$response = new HttpResponse();
 			$ajaxRequestObject = new AjaxRequestObject();

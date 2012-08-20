@@ -1,44 +1,34 @@
 <h1>{TITLE}</h1>
 <form action="" method="post">
-<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+<table width="80%" cellpadding="5" cellspacing="0">
 	<tr>
 		<td class="label">{SEARCH}:</td>
 		<td class="value"><input type="text" name="searchString" /></td>
 		<td class="value">
                                 <input type="radio" {PRE_SELECT_USER} style="width: 20px;" value="searchUser" name="searchType">
 		{USER_LOGIN}    <input type="radio" {PRE_SELECT_FULLNAME} style="width: 20px;" value="searchUserFullname" name="searchType">
-		{USER_FULLNAME} <input type="radio" {PRE_SELECT_GROUP} style="width: 20px;" value="searchGroup" name="searchType"> {GROUPS}</td>
-
+		{USER_FULLNAME} <input type="radio" {PRE_SELECT_GROUP} style="width: 20px;" value="searchGroup" name="searchType"> {GROUPS}
+                &nbsp;&nbsp;&nbsp;<input type="submit" name="action" value="{BUTTON_LABEL}" /></td>
 	</tr>
 </table>
-<div style="text-align: right; padding-right: 5px"><input
-	type="submit" name="action" value="{BUTTON_LABEL}" /></div>
 </form>
-<table class="grid" width="100%" cellpadding="5" cellspacing="0">
+<table width="60%" cellpadding="5" cellspacing="0">
 	<!-- BEGIN BLOCK_NO_RESULT -->
 	<tr>
-		<th>{NO_RESULT}</th>
+		<th style="text-align:left;">{NO_RESULT}</th>
 	</tr>
 	<!--  END BLOCK_NO_RESULT -->
 	
 	<!-- BEGIN BLOCK_SEARCH_TITLE -->
 	<tr>
-		<th colspan="2" class="group">{SEARCH_RESULTS}</th>
+		<th colspan="2" class="group" style="text-align:left; font-size:18px;">{SEARCH_RESULTS}</th>
 	</tr>
 
 	<!-- END BLOCK_SEARCH_TITLE -->
 	<!-- BEGIN BLOCK_SEARCH_RESULTS_BUDDY -->
 	<tr>
-
-
-
-		<td style="align:left;" width="40"><a href="{BUDDY_NAME}"><img width="40"
-			height="60" src="{BUDDY_PIC_LINK}" /></a></td>
+		<td style="align:left;" width="40"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
 		<td class="value"><div style=""><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></div></td>
-
-
-
-
 
 		<!--  <td class="label" style="width:300px;vertical-align:middle">{BUDDY_NAME}</td> -->
 		<!-- BEGIN BLOCK_SEARCH_RESULTS2_BUDDY -->
