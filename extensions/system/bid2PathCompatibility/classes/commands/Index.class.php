@@ -10,6 +10,8 @@ class Index extends \AbstractCommand implements \IFrameCommand{
         }
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+                //logging::write_log( LOG_ERROR, "b2pc-frameResponse"); //test
+                
                 $requestUrl = urldecode($_SERVER['REQUEST_URI']);
                 
                 //not tested
@@ -126,6 +128,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
          * redirects to the extension/object with a steam path
          */
         private function redirectToSteamPath($steamPath){
+                //logging::write_log( LOG_ERROR, "b2pc-redirectToSteamPath"); //test
                 $objectId = $this->getObjectId($steamPath);
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
                 header("Location: ".$url);
@@ -137,6 +140,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
          * redirects to the extension/object with a object id
          */
         private function redirectToObjectId($objectId){
+                //logging::write_log( LOG_ERROR, "b2pc-redirectToObjectId"); //test
                 $objectId = (string)intval($objectId);
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
 		header("Location: ".$url);
@@ -144,6 +148,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
         }
         
         private function redirectToDownloadObjectId($objectId, $name=""){
+                //logging::write_log( LOG_ERROR, "b2pc-redirectToDownloadObjectId"); //test
                 $objectId = (string)intval($objectId);
                 
                 if($name==""){
@@ -157,6 +162,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
         }
         
         private function redirectToDownloadPath($steamPath){
+                //logging::write_log( LOG_ERROR, "b2pc-redirectToDownloadPath"); //test
                 $url = "/download/document/".$this->getObjectId($steamPath);
                 header("Location: ".$url);
                 die;
@@ -174,7 +180,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
         }
         
         
-        public function isGuestAllowed(IRequestObject $requestObject) {
+        public function isGuestAllowed(\IRequestObject $requestObject) {
 		return true;
 	}
 }
