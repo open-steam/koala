@@ -30,6 +30,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$myExtension = \Forum::getInstance();
 
 		$forumObject = \steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $objectId );
+                $forumCreator = $forumObject->get_creator();
+                $forumCreatorName = getCleanName($forumCreator);
 
 		$steamUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		$lastSessionTime= $steamUser->get_attribute("bid:last_session_time");
@@ -92,6 +94,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		  $myExtension->addCSS();
 
 		  $content = $myExtension->loadTemplate("forumIndex.template.html");
+                  
 
 		  $content->setCurrentBlock('BLOCK_FORUM_HEAD');
 		  $content->setVariable("FORUM_HEADING", urldecode($forumAttributes["OBJ_NAME"]));
@@ -99,7 +102,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		  $content->setVariable("FORUM_DESCRIPTION", ($forumAttributes["bid:description"] !== 0 ) ? $forumAttributes["bid:description"] : "");
 		  $content->parse('BLOCK_FORUM_HEAD');
 
-
+                  $content->setVariable("FORUM_OWNER_URL", PATH_URL . "user/index/" . $forumCreator->get_name());
+                  $content->setVariable("FORUM_OWNER", $forumCreatorName);
 		  // sort all forum topics
 		  usort($forumAnnotations, "sortTopicsByDate");
 
