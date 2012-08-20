@@ -112,12 +112,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		  		$content->setVariable("TOPIC_AUTHOR", getCleanName($annotation->get_attribute("DOC_USER_MODIFIED")));
 		  		$content->setVariable("TOPIC_DATE", getReadableDate($annotation->get_attribute("OBJ_CREATION_TIME")));
 		  		$content->setVariable("LINK_SHOW_TOPIC", PATH_URL."forum/showTopic/".$objectId."/".$annotation->get_id());
-		  		$count = count($annotation->get_annotations());
+		  		$annotationsArray = $annotation->get_annotations();
+                                $count = count($annotationsArray);
 		  		$content->setVariable("REPLY_COUNT", $count);
 		  		if ($count > 0) {
-					$content->setVariable("LAST_REPLY_TOPIC", $categoryLastMessageAttributes[$annotation->get_id() ][OBJ_DESC] );
+                                        $lastUser = $annotationsArray[0]->get_attribute("DOC_USER_MODIFIED");
+                                        $content->setVariable("LAST_REPLY_TOPIC", $categoryLastMessageAttributes[$annotation->get_id() ][OBJ_DESC] );
 		  			$content->setVariable("LAST_REPLY_DATE", date("d.m.Y G:i", $annotation->get_attribute("OBJ_LAST_CHANGED")));
-		  			$content->setVariable("LAST_REPLY_USER", getCleanName($annotation->get_attribute("DOC_USER_MODIFIED")));
+		  			$content->setVariable("LAST_REPLY_USER", getCleanName($lastUser));
 		  			$lastPostTime=$annotation->get_attribute("OBJ_CREATION_TIME");
 		  			if($lastSessionTime < $lastPostTime){
 		  				$imageUrl=\Forum::getInstance()->getAssetUrl()."icons/new_message_info.gif";

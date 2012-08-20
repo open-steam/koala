@@ -29,6 +29,8 @@ class ReplyTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
 		$steam=$GLOBALS["STEAM"];
 		$steamId=$steam->get_id();
+                
+                $currentUser = \lms_steam::get_current_user();
 
 
 		$object = \steam_factory::get_object($steamId, $objectId);
@@ -46,7 +48,9 @@ class ReplyTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			$new_annotation->set_attribute("OBJ_DESC",  $title);
 
 			$object->add_annotation( $new_annotation );
-			// set acquiring
+                        
+			       
+                        // set acquiring
 			$new_annotation->set_acquire($object);
 
 			$subscription = $forum->get_attribute("bid:forum_subscription");
@@ -68,6 +72,8 @@ class ReplyTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           );
 				}
 				$steam->buffer_flush();
+                                
+                                
 			}
 
 		}
