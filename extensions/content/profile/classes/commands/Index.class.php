@@ -33,7 +33,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $name = $this->id;
         if (isset($name)) {
-
             $user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $name);
         } else {
             $user = $current_user;
@@ -52,7 +51,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
         
         if ($is_buddy && $this->viewer_authorized($label)) {
-            //$c = $GLOBALS["content"];
             $GLOBALS["content"]->setCurrentBlock("BLOCK_" . $block);
             $GLOBALS["content"]->setVariable("LABEL_" . $block, secure_gettext($label));
             $GLOBALS["content"]->setVariable("VALUE_" . $block, $value);
@@ -69,7 +67,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $profileUser = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $this->id);
         $authorizations = $GLOBALS["authorizations"];
         (isset($authorizations[$this->label_to_mapping($label)])) ? $current_authorization = $authorizations[$this->label_to_mapping($label)] : $current_authorization = "";
-
         
         if (!( $current_authorization & PROFILE_DENY_ALLUSERS ))
             return true;
@@ -88,8 +85,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         } else {
             $is_contact = in_array($current_user->get_id(), $GLOBALS["contact_ids"]);
         }
-        if ($is_contact && !( $current_authorization & PROFILE_DENY_CONTACTS ))
+        
+        if ($is_contact && !($current_authorization & PROFILE_DENY_CONTACTS)) {
             return true;
+        }
 
         return false;
     }
@@ -102,6 +101,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             case "Language": return "PRIVACY_LANGUAGES";
                 break;
             case "E-Mail": return "PRIVACY_EMAIL";
+                break;
+            case "E-Mail-Adresse": return "PRIVACY_EMAIL";
                 break;
             case "AIM-alias": return "PRIVACY_AIM_ALIAS";
                 break;
@@ -117,326 +118,772 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 break;
         }
     }
-    
 
     public function execute(\FrameResponseObject $frameResponseObject) {
+        // get user object of the user which profile is to be displayed
         $current_user = \lms_steam::get_current_user();
-
-        $name = $this->id;
-        if ($name != "") {
-            $user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $name);
+        if ($this->id != "") {
+            $user = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $this->id);
         } else {
             $user = $current_user;
         }
 
-
         $login = $user->get_name();
         $cache = get_cache_function($login, 3600);
         $user_profile = $cache->call("lms_steam::user_get_profile", $login);
-        
-        
-        $html_handler_profile = new \koala_html_profile($user); //spannend -----------------
-        $html_handler_profile->set_context("profile");
 
         //template
-        $GLOBALS["content"] = \Profile::getInstance()->loadTemplate("display.template.html");
-
-        if (!empty($user_profile["USER_PROFILE_DSC"])) {
-            $GLOBALS["content"]->setVariable("HTML_CODE_DESCRIPTION", "<p>" . get_formatted_output($user_profile["USER_PROFILE_DSC"]) . "</p>");
-        }
+        $GLOBALS["content"] = \Profile::getInstance()->loadTemplate("index.template.html");
         
-        if (!empty($user_profile["USER_PROFILE_WEBSITE_URI"])) {
-            $website_name = h(( empty($user_profile["USER_PROFILE_WEBSITE_NAME"]) ) ? $user_profile["USER_PROFILE_WEBSITE_URI"] : $user_profile["USER_PROFILE_WEBSITE_NAME"]);
-            $GLOBALS["content"]->setVariable("HTML_CODE_PERSONAL_WEBSITE", "<br/><b>" . gettext("Website") . ":</b> <a href=\"" . h($user_profile["USER_PROFILE_WEBSITE_URI"]) . "\" target=\"_blank\">$website_name</a>");
-        }
-
-        //get Buddys from user and put them into the $globals-Array for authorization-query
+        // left side
+        $GLOBALS["content"]->setCurrentBlock("BLOCK_LEFT_SIDE");
+	$networking_profile = new \lms_networking_profile( $user );
+	$networking_profile->count_profile_visit( $current_user );
+	$itemId = $user_profile[ "OBJ_ICON" ];
+	$icon_link = ( $user_profile[ "OBJ_ICON" ] == 0 ) ? PATH_STYLE . "images/anonymous.jpg" : PATH_URL . "download/image/".$itemId."/140/185";
+		
+        $GLOBALS["content"]->setVariable( "USER_IMAGE", $icon_link);
+	$GLOBALS["content"]->setVariable( "GIVEN_NAME", $user_profile[ "USER_FIRSTNAME" ] );
+	$GLOBALS["content"]->setVariable( "FAMILY_NAME", $user_profile[ "USER_FULLNAME" ] );
+	if ( ! empty( $user_profile[ "USER_ACADEMIC_TITLE" ] ) ) {
+            $GLOBALS["content"]->setVariable( "ACADEMIC_TITLE", $user_profile[ "USER_ACADEMIC_TITLE" ] );
+	}
+	if ( ! empty( $user_profile[ "USER_ACADEMIC_DEGREE" ] ) ) {
+            $GLOBALS["content"]->setVariable( "ACADEMIC_DEGREE", "(" . $user_profile[ "USER_ACADEMIC_DEGREE" ] . ")" );
+	}
+	if( \lms_steam::is_koala_admin($current_user) ) {
+            $GLOBALS["content"]->setVariable( "LABEL_LAST_LOGIN", gettext("last login") . ":" );
+            $GLOBALS["content"]->setVariable( "LABEL_PAGE_HITS", gettext("page hits") . ":" );
+            $GLOBALS["content"]->setVariable( "LAST_LOGIN", how_long_ago( $user_profile[ "USER_LAST_LOGIN" ] ) );
+            $GLOBALS["content"]->setVariable( "PAGE_HITS", $networking_profile->get_profile_visits() );
+	}
+        $GLOBALS["content"]->parse("BLOCK_LEFT_SIDE");
+        
+        // get buddys of the user and put them into the $globals-array for authorization-query
         $confirmed = ( $user->get_id() != $current_user->get_id() ) ? TRUE : FALSE;
         $contacts = $cache->call("lms_steam::user_get_buddies", $login, $confirmed);
-
         $tmp = array();
         foreach ($contacts as $contact) {
             $tmp[] = $contact["OBJ_ID"];
         }
         $GLOBALS["contact_ids"] = $tmp;
 
-        //get Viewer-Authorization and put them into the $globals-Array for authorization-query
+        // get privacy settings and put them into the $globals-array for authorization-query
         $user_privacy = $cache->call("lms_steam::user_get_profile_privacy", $user->get_name());
         $GLOBALS["authorizations"] = $user_privacy;
         $GLOBALS["current user"] = $current_user;
 
-        //////////////  GENERAL INFORMATION  //////////////
-        // Status
-        if (ENABLED_BID_DESCIPTION) {
-            $user_profile_desc = $user_profile["OBJ_DESC"];
-            $status = secure_gettext($user_profile_desc);
-            if ($status != "" && !is_integer($status)) {
-                $this->display("GENERAL", "Beschreibung", $status);
-            }
+        // display actionbar
+        $profileActionBar = new \ProfileActionBar($user, $current_user);
+        $actions = $profileActionBar->getActions();
+        if (count($actions) > 1) {
+            $actionBar = new \Widgets\ActionBar();
+            $actionBar->setActions($actions);
+            $frameResponseObject->addWidget($actionBar);
         }
-
-
-        if (ENABLED_STATUS) {
-            $user_profile_desc = ( empty($user_profile["OBJ_DESC"]) ) ? "student" : $user_profile["OBJ_DESC"];
-            $status = secure_gettext($user_profile_desc);
-            $this->display("GENERAL", "Status", $status);
-        }
-
-        if (ENABLED_EMAIL) {
-            $user_email = (empty($user_profile["USER_EMAIL"])) ? "keine E-Mail-Adresse gesetzt" : $user_profile["USER_EMAIL"];
-            $this->display("GENERAL", "E-Mail-Adresse", h($user_email));
-        }
-
-        if (ENABLED_BID_EMAIL) {
-            $helper = (empty($user_profile["USER_EMAIL"])) ? true : false;
-            $user_email = (empty($user_profile["USER_EMAIL"])) ? "keine E-Mail-Adresse gesetzt" : $user_profile["USER_EMAIL"];
-            if ($helper) {
-                $this->display("GENERAL", "E-Mail", h($user_email));
-            } else {
-                $mail = h($user_profile["USER_EMAIL"]);
-                $mail1 = '<a href="mailto:' . $mail . '">' . $mail . '</a>';
-                $this->display("GENERAL", "E-Mail", $mail1);
-            }
-        }
-
-        // Gender
-        if (ENABLED_GENDER) {
-            switch (is_string($user_profile["USER_PROFILE_GENDER"]) ? $user_profile["USER_PROFILE_GENDER"] : "X") {
-                case( "F" ):
-                    $gender = gettext("female");
-                    break;
-
-                case( "M" ):
-                    $gender = gettext("male");
-                    break;
-
-                default:
-                    $gender = gettext("rather not say");
-                    break;
-            }
-            $this->display("GENERAL", "Gender", $gender);
-        }
-
-        // Origin - Faculty
-        if (ENABLED_FACULTY) {
-            $faculty = \lms_steam::get_faculty_name($user_profile["USER_PROFILE_FACULTY"]);
-            $this->display("GENERAL", "Origin", $faculty);
-        }
-        if (ENABLED_WANTS) {
-            $this->display("GENERAL", "Wants", h($user_profile["USER_PROFILE_WANTS"]));
-        }
-        if (ENABLED_HAVES) {
-            $this->display("GENERAL", "Haves", h($user_profile["USER_PROFILE_HAVES"]));
-        }
-        if (ENABLED_ORGANIZATIONS) {
-            $this->display("GENERAL", "Organizations", h($user_profile["USER_PROFILE_ORGANIZATIONS"]));
-        }
-        if (ENABLED_HOMETOWN) {
-            $this->display("GENERAL", "Hometown", h($user_profile["USER_PROFILE_HOMETOWN"]));
-        }
-        if (ENABLED_MAIN_FOCUS) {
-            $this->display("GENERAL", "Main focus", h($user_profile["USER_PROFILE_FOCUS"]));
-        }
-        if (ENABLED_OTHER_INTERESTS) {
-            $this->display("GENERAL", "Other interests", h($user_profile["USER_PROFILE_OTHER_INTERESTS"]));
-        }
-
-
-        // LANGUAGE
-        if (ENABLED_BID_LANGUAGE) {
-            $this->display("GENERAL", "Language", $user_profile["USER_LANGUAGE"]);
-        }
-        if (ENABLED_LANGUAGES) {
-            $languages = array(
-                "english" => array("name" => gettext("English"), "icon" => "flag_gb.gif", "lang_key" => "en_US"),
-                "german" => array("name" => gettext("German"), "icon" => "flag_de.gif", "lang_key" => "de_DE"));
-
-            $ulang = $user_profile["USER_LANGUAGE"];
-
-            if (!is_string($ulang) || $ulang === "0")
-                $ulang = LANGUAGE_DEFAULT_STEAM;
-            if (!array_key_exists($ulang, $languages))
-                $ulang = LANGUAGE_DEFAULT_STEAM;
-
-            $language_string = "";
-
-            foreach ($languages as $key => $language) {
-                if ($ulang == $key) {
-                    $language_string .= "<img class=\"flag\" src=\"" . PATH_EXTENSIONS . "/profile/asset/icons/images/" . $language["icon"] . "\" title=\"" . $language["name"] . "\" />";
-                }
-            }
-
-            $this->display("GENERAL", "Language", $language_string);
-        }
-
-        if ($this->GENERAL_displayed)
-            $GLOBALS["content"]->setVariable("HEADER_GENERAL_INFORMATION", gettext("General Information"));
-
-        ///////////////  CONTACTS & GROUPS  ///////////////
-        // CONTACTS
-        if (ENABLED_CONTACTS) {
-            $html_code_contacts = "";
-            $max_contacts = $counter = 25;
-
-            if (count($contacts) > 0) {
-                foreach ($contacts as $id => $contact) {
-                    if ($counter > 0) {
-                        $title = (!empty($contact["USER_ACADEMIC_TITLE"]) ) ? $contact["USER_ACADEMIC_TITLE"] . " " : "";
-                        $html_code_contacts .= "<a href=\"" . PATH_URL . "profile/" . $contact["OBJ_NAME"] . "/\">" . $title . $contact["USER_FIRSTNAME"] . " " . $contact["USER_FULLNAME"] . "</a>";
-                        $html_code_contacts .= ($id == count($contacts) - 1 || $counter == 1) ? "" : ", ";
-                        $counter--;
-                    } else {
-                        $html_code_contacts .= " <a href=\"" . PATH_URL . "profile/$login/contacts/\">(" . gettext("more") . "...)</a>";
-                        break;
-                    }
-                }
-            } else {
-                $html_code_contacts = gettext("No contacts yet.");
-            }
-            $this->display("CONTACTS_AND_GROUPS", "Contacts", $html_code_contacts);
-        }
-
-        if (ENABLED_GROUPS) {
-            // GROUPS
-            $public = ( $user->get_id() != $current_user->get_id() ) ? TRUE : FALSE;
-            $groups = $cache->call("lms_steam::user_get_groups", $login, $public);
-            $html_code_groups = "";
-            $max_groups = $counter = 25;
-
-            if (count($groups) > 0) {
-                usort($groups, "sort_objects");
-
-                foreach ($groups as $id => $group) {
-                    if ($counter > 0) {
-                        $html_code_groups .= "<a href=\"" . PATH_URL . "groups/" . $group["OBJ_ID"] . "/\">" . h($group["OBJ_NAME"]) . "</a>";
-                        $html_code_groups .= ($id == count($groups) - 1 || $counter == 1) ? "" : ", ";
-                        $counter--;
-                    } else {
-                        $html_code_groups .= " <a href=\"" . PATH_URL . "profile/$login/groups/\">(" . gettext("more") . "...)</a>";
-                        break;
-                    }
-                }
-            } else {
-                $html_code_groups = gettext("No memberships yet.");
-            }
-            $this->display("CONTACTS_AND_GROUPS", "Groups", $html_code_groups);
-        }
-
-        if ($this->CONTACTS_AND_GROUPS_displayed)
-            $GLOBALS["content"]->setVariable("HEADER_CONTACTS_AND_GROUPS", gettext("Contacts and Groups"));
-
         
-        ///////////////  CONTACT INFORMATION  ///////////////
-        //$is_buddy = ( $user->is_buddy($current_user) || $user->get_id() == $current_user->get_id() ) ? TRUE : FALSE;
-        if (ENABLED_EMAIL) {
-            $mail = h($user_profile["USER_EMAIL"]);
-            $mail1 = '<a href="mailto:"' . $mail . '">' . $mail . '</a>';
-            $this->display("CONTACT_DATA", "E-mail", $mail1);
-        }
-        if (ENABLED_ADDRESS) {
-            $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
-
-            $this->display("CONTACT_DATA", "Address", $adress);
-        }
-        if (ENABLED_BID_ADRESS) {
-            $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
-            if (isset($adress) && !is_integer($adress) && trim($adress) != "") {
-                $this->display("GENERAL", "Address", h($user_profile["USER_ADRESS"]));
-            }
-        }
-        if (ENABLED_TELEPHONE) {
-            $this->display("CONTACT_DATA", "Telephone", h($user_profile["USER_PROFILE_TELEPHONE"]));
-        }
-        if (ENABLED_BID_PHONE) {
-            $phone = h($user_profile["bid:user_callto"]);
-            if (isset($phone) && $phone != 0 && $phone != "") {
-                $phone1 = '<a href="callto:' . $phone . '">' . $phone . '</a>';
-                $this->display("GENERAL", "Telefon", $phone1);
-            }
-        }
-        if (ENABLED_PHONE_MOBILE) {
-            $this->display("CONTACT_DATA", "Phone, mobile", h($user_profile["USER_PROFILE_PHONE_MOBILE"]));
-        }
-
-
-        // Website
-        $website_name = $user_profile["USER_PROFILE_WEBSITE_NAME"];
-        $website_uri = $user_profile["USER_PROFILE_WEBSITE_URI"];
-        if (empty($website_name))
-            $website_name = $website_uri;
-        $website_link = ( empty($website_name) ) ? '' : '<a target="_blank" href="' . h($website_uri) . '">' . h($website_name) . '</a>';
-        if (ENABLED_WEBSITE) {
-            $this->display("CONTACT_DATA", gettext("Website"), $website_link);
-        }
-
-        if (ENABLED_ICQ_NUMBER || ENABLED_BID_IM) {
-            $icq = h($user_profile["USER_PROFILE_IM_ICQ"]);
-            if (isset($icq) && $icq != 0 && $icq != "") {
-                $this->display("CONTACT_DATA", "ICQ number", $icq);
-            }
-        }
-        if (ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM) {
-            $msn = h($user_profile["USER_PROFILE_IM_MSN"]);
-            if (isset($msn) && $msn !== 0 && $msn != "") {
-                $msn1 = '<a href="http://members.msn.com/' . $msn . '">' . $msn . '</a>';
-                $this->display("CONTACT_DATA", "MSN identification", $msn1);
-            }
-        }
-
-        // AIM
-        if (ENABLED_AIM_ALIAS || ENABLED_BID_IM) {
-            if (!empty($user_profile["USER_PROFILE_IM_AIM"])) {
-                $aim_alias = h($user_profile["USER_PROFILE_IM_AIM"]);
-                if (isset($aim_alias) && $aim_alias !== 0 && $aim_alias != "") {
-                    $aim = "<a href=\"aim:" . $aim_alias . "\">" . $aim_alias . "</a>";
-                    $this->display("CONTACT_DATA", "AIM-alias", $aim);
-                }
-
-                //$aim = "<span id=\"USER_PROFILE_IM_AIM\"><a href=\"{VALUE_AIM_LINK}\">{VALUE_AIM_ALIAS}</a></span>";
-            }
-        }
-
-        if (ENABLED_YAHOO_ID || ENABLED_BID_IM) {
-            $yahoo = (h($user_profile["USER_PROFILE_IM_YAHOO"]) !== 0) ? h($user_profile["USER_PROFILE_IM_YAHOO"]) : "";
-            if (isset($yahoo) && $yahoo != 0 && $yahoo != "") {
-                
-                $yahooUrl = "<a href=\"ymsgr:sendIM?".$yahoo."\">".$yahoo."</a>";
-                $this->display("CONTACT_DATA", "Yahoo-ID", $yahooUrl);
-            }
-        }
-
-        // Skype
-        if (ENABLED_SKYPE_NAME || ENABLED_BID_IM) {
-            if (!empty($user_profile["USER_PROFILE_IM_SKYPE"])) {
-                $skype_alias = h($user_profile["USER_PROFILE_IM_SKYPE"]);
-                if (isset($skype_alias) && $skype_alias !== 0 && $skype_alias != "") {
-                    $skype = "<a href=\"skype:" . $skype_alias . "\">" . $skype_alias . "</a>";
-                }
-                $this->display("CONTACT_DATA", "Skype name", $skype);
-            }
-        }
-
-
-
-        $GLOBALS["content"] = $GLOBALS["content"];
-        if ($this->CONTACT_DATA_displayed){
-            $GLOBALS["content"]->setVariable("HEADER_CONTACT_DATA", gettext("Contact Data"));
-        }
+        if ($current_user->get_id() == $user->get_id()) {
+            \Profile::getInstance()->addCSS();
             
+            // infobar
+            $infoBar = new \Widgets\InfoBar();
+            if (PLATFORM_ID=="bid"){
+                $infoBar->addParagraph("Hier können Sie Ihre persönlichen Kontaktdaten und Einstellungen einrichten. Bis auf Ihren Namen sind alle Angaben freiwillig und können von Ihnen geändert werden. Klicken Sie auf den Button <b><i>Profil-Privatsphäre</i></b> um festzulegen, wem welche Informationen angezeigt werden sollen.");
+            } else {
+                $infoBar->addParagraph(gettext("Please complete your profile. None of the fields are mandatory. Some of the fields can not be changed due to central identity management at the IMT.<br/><b>Note: With the button <i>Profile Privacy</i> you can control which information can be seen by other users.</b>" ) );
+            }
+            $frameResponseObject->addWidget($infoBar);
+            
+            $clearer = new \Widgets\Clearer();
+            
+            // table cell html
+            $rawHtml = new \Widgets\RawHtml();
+            $rawHtml->setHtml($GLOBALS["content"]->get() . '<td class="detail" valign="top" style="line-height: 13px;">'
+                    . '<style type="text/css"> .widget.textarea textarea { margin-top: 5px; margin-bottom: 5px; }</style>');
+            $frameResponseObject->addWidget($rawHtml);
+            
+            // general information label
+            $generalLabel = new \Widgets\RawHtml();
+            $generalLabel->setHtml("<div style='font-size:15px;'><b>" . gettext("General Information") . "</b></div>");
+            $frameResponseObject->addWidget($generalLabel);
+            
+            // first name
+            if (ENABLED_FIRST_NAME) {
+		$textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("First name"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setReadOnly(TRUE);
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_FIRSTNAME"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // last name
+            if (ENABLED_FULL_NAME) {
+		$textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Last name"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setReadOnly(TRUE);
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_FULLNAME"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // bid owl name
+            if (ENABLED_BID_NAME) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("name"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setReadOnly(TRUE);
+                $textWidget->setContentProvider(\Widgets\DataProvider::staticProvider($user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // bid description
+            if (ENABLED_BID_DESCIPTION) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Description"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // status
+            if (ENABLED_STATUS) {
+                $comboBoxWidget = new \Widgets\ComboBox();
+		$comboBoxWidget->setLabel(gettext("Status"));
+                $comboBoxWidget->setData($user);
+                $comboBoxWidget->setOptions(array(
+                    array( "name" => gettext("student"), "value" => "student"), 
+                    array( "name" => gettext("staff member"), "value" => "staff member"),
+                    array( "name" => gettext("guest"), "value" => "guest"),
+                    array( "name" => gettext("alumni"), "value" => "alumni")));
+                $comboBoxWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($comboBoxWidget);
+            }
+            
+            // academic degree and title
+            if (ENABLED_DEGREE) {
+                $dropDownWidget = new \Widgets\ComboBox();
+		$dropDownWidget->setLabel(gettext("Academic title"));
+                $dropDownWidget->setData($user);
+                $dropDownWidget->setOptions(array(
+                    array( "name" => "keiner", "value" => ""), 
+                    array( "name" => "Dr.", "value" => "Dr."),
+                    array( "name" => "PD Dr.", "value" => "PD Dr."),
+                    array( "name" => "Prof.", "value" => "Prof."),
+                    array( "name" => "Prof. Dr.", "value" => "Prof. Dr.")));
+                $dropDownWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_ACADEMIC_TITLE"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($dropDownWidget);
+   
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Academic degree"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_ACADEMIC_DEGREE"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // gender
+            if (ENABLED_GENDER){
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setLabel(gettext("Gender"));
+                $radioButton->setData($user);
+                $radioButton->setOptions(array(
+                    array( "name" => gettext("female"), "value" => "F"), 
+                    array( "name" => gettext("male"), "value" => "M"),
+                    array( "name" => gettext("rather not say"), "value" => "X")));
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_GENDER"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($radioButton);
+            }
+            
+            // faculty
+            if (ENABLED_FACULTY) {
+                $dropDownWidget = new \Widgets\ComboBox();
+		$dropDownWidget->setLabel(gettext("Origin"));
+                $dropDownWidget->setData($user);
+                $options = array();
+                array_push($options, array("name" => gettext("miscellaneous"), "value" => "miscellaneous"));
+                $faculties = $cache->call( "lms_steam::get_faculties_asc" );
+		foreach($faculties as $faculty) {
+                    array_push($options, array("name" => $faculty["OBJ_NAME"], "value" => $faculty["OBJ_ID"]));
+		}
+                $dropDownWidget->setOptions($options);
+                $dropDownWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_FACULTY"));
+                //$frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($dropDownWidget);
+            }
+            // wants
+            if (ENABLED_WANTS) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Wants"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_WANTS"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // haves
+            if (ENABLED_HAVES) {
+		$textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Haves"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_HAVES"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // hometown
+            if (ENABLED_HOMETOWN) {
+		$textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Hometown"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_HOMETOWN"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // main focus
+            // TODO: was textarea before
+            if (ENABLED_MAIN_FOCUS) {
+                //$textWidget = new \Widgets\Textarea();
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Main focus"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                //$textWidget->setWidth("400");
+                //$textWidget->setAutosave(TRUE);
+                //$textWidget->setLinebreaks("");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_FOCUS"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // other interests
+            if (ENABLED_OTHER_INTERESTS) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Other interests"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_OTHER_INTERESTS"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // organizations
+            if (ENABLED_ORGANIZATIONS) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Organizations"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_ORGANIZATIONS"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // user description
+            // TODO: autosave?
+            if (ENABLED_USER_DESC) {
+                $textWidget = new \Widgets\Textarea();
+                $textWidget->setLabel(gettext("Describe yourself"));
+                $textWidget->setData($user);
+                $textWidget->setWidth("400");
+                //$textWidget->setAutosave(TRUE);
+                $textWidget->setLinebreaks("");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_DSC"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // contacts title
+            if (ENABLED_CONTACTS_TITLE) {
+                $contactLabel = new \Widgets\RawHtml();
+                $contactLabel->setHtml("<div style='font-size:15px; padding-top:10px;'><b>" . gettext("Contact Data") . "</b></div>");
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($contactLabel);
+            }
+            
+            // email
+            if (ENABLED_EMAIL) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("E-mail"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setReadOnly("TRUE");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_EMAIL"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+                // Email Settings?
+            }
+            
+            // bid email
+            if (ENABLED_BID_EMAIL) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("E-mail"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_EMAIL"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // address
+            if (ENABLED_ADDRESS) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Address"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_ADDRESS"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // bid address
+            // TODO: was textarea before
+            if (ENABLED_BID_ADRESS) {
+                //$textWidget = new \Widgets\TextArea();
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Address"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_ADRESS"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // telephone number
+            if (ENABLED_TELEPHONE) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel("Telefon");
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_TELEPHONE"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // bid telephone number
+            if (ENABLED_BID_PHONE) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel("Telefon");
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:user_callto"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // mobile phone number
+            if (ENABLED_PHONE_MOBILE) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Phone, mobile"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_PHONE_MOBILE"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // website and name of the website
+            if (ENABLED_WEBSITE) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Website"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_WEBSITE_URI"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Website name"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_WEBSITE_NAME"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // icq number
+            if (ENABLED_ICQ_NUMBER || ENABLED_BID_IM) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("ICQ number"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_ICQ"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // msn identification
+            if (ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("MSN identification"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_MSN"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // aim alias
+            if (ENABLED_AIM_ALIAS || ENABLED_BID_IM) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("AIM-alias"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_AIM"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // yahoo id
+            if (ENABLED_YAHOO_ID || ENABLED_BID_IM) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Yahoo-ID"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_YAHOO"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // skype name
+            if (ENABLED_SKYPE_NAME || ENABLED_BID_IM) {
+                $textWidget = new \Widgets\TextInput();
+                $textWidget->setLabel(gettext("Skype name"));
+                $textWidget->setData($user);
+                $textWidget->setInputWidth("400");
+                $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_SKYPE"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($textWidget);
+            }
+            
+            // settings label
+            $settingsLabel = new \Widgets\RawHtml();
+            $settingsLabel->setHtml("<div style='font-size:15px; padding-top:10px;'><b>" . "Einstellungen" . "</b></div>");
+            $frameResponseObject->addWidget($clearer);
+            $frameResponseObject->addWidget($settingsLabel);
 
-        $GLOBALS["content"]->setVariable("PATH_JAVASCRIPT", PATH_JAVASCRIPT);
-        $GLOBALS["content"]->setVariable("KOALA_VERSION", KOALA_VERSION);
-        $GLOBALS["content"]->setVariable("USER_LOGIN", $login);
+            // languages
+            if (ENABLED_LANGUAGES || ENABLED_BID_LANGUAGE) {
+                $dropDownWidget = new \Widgets\ComboBox();
+		$dropDownWidget->setLabel(gettext("Language"));
+                $dropDownWidget->setData($user);
+                $dropDownWidget->setOptions(array(
+                    array("name" => "Deutsch", "value" => "german"),
+                    array("name" => "Englisch", "value" => "english")
+                ));
+                $dropDownWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_LANGUAGE"));
+                $frameResponseObject->addWidget($clearer);
+                $frameResponseObject->addWidget($dropDownWidget);
+            }
+            
+            // hidden documents in explorer
+            $checkboxWidget = new \Widgets\Checkbox();
+            $checkboxWidget->setLabel("Verstecke Objekte<br>im Explorer anzeigen");
+            $checkboxWidget->setCheckedValue("TRUE");
+            $checkboxWidget->setUncheckedValue("FALSE");
+            $checkboxWidget->setData($user);
+            $checkboxWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_SHOW_HIDDEN_DOCUMENTS"));
+            $frameResponseObject->addWidget($clearer);
+            $frameResponseObject->addWidget($checkboxWidget);
+            
+            // close table
+            $rawHtml = new \Widgets\RawHtml();
+            $rawHtml->setHtml("</td></tr></table>");
+            $frameResponseObject->addWidget($rawHtml);
+        } else {
+            //\Profile::getInstance()->addCSS();
+            $GLOBALS["content"]->setCurrentBlock("BLOCK_RIGHT_SIDE");
+            // display profile
+            if (!empty($user_profile["USER_PROFILE_DSC"])) {
+                $GLOBALS["content"]->setVariable("HTML_CODE_DESCRIPTION", "<p>" . get_formatted_output($user_profile["USER_PROFILE_DSC"]) . "</p>");
+            }
 
-        $html_handler_profile->set_html_left($GLOBALS["content"]->get());
+            if (!empty($user_profile["USER_PROFILE_WEBSITE_URI"])) {
+                $website_name = h(( empty($user_profile["USER_PROFILE_WEBSITE_NAME"]) ) ? $user_profile["USER_PROFILE_WEBSITE_URI"] : $user_profile["USER_PROFILE_WEBSITE_NAME"]);
+                $GLOBALS["content"]->setVariable("HTML_CODE_PERSONAL_WEBSITE", "<br/><b>" . gettext("Website") . ":</b> <a href=\"" . h($user_profile["USER_PROFILE_WEBSITE_URI"]) . "\" target=\"_blank\">$website_name</a>");
+            }
 
-        $frameResponseObject->setHeadline($html_handler_profile->get_headline());
-        $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml($html_handler_profile->get_html());
-        $frameResponseObject->addWidget($rawHtml);
+            //////////////  GENERAL INFORMATION  //////////////
+            // Status
+            if (ENABLED_BID_DESCIPTION) {
+                $user_profile_desc = $user_profile["OBJ_DESC"];
+                $status = secure_gettext($user_profile_desc);
+                if ($status != "" && !is_integer($status)) {
+                    $this->display("GENERAL", "Beschreibung", $status);
+                }
+            }
+
+            if (ENABLED_STATUS) {
+                $user_profile_desc = ( empty($user_profile["OBJ_DESC"]) ) ? "student" : $user_profile["OBJ_DESC"];
+                $status = secure_gettext($user_profile_desc);
+                $this->display("GENERAL", "Status", $status);
+            }
+
+            if (ENABLED_EMAIL) {
+                $user_email = (empty($user_profile["USER_EMAIL"])) ? "keine E-Mail-Adresse gesetzt" : $user_profile["USER_EMAIL"];
+                $this->display("GENERAL", "E-Mail-Adresse", h($user_email));
+            }
+
+            if (ENABLED_BID_EMAIL) {
+                $helper = (empty($user_profile["USER_EMAIL"])) ? true : false;
+                $user_email = (empty($user_profile["USER_EMAIL"])) ? "keine E-Mail-Adresse gesetzt" : $user_profile["USER_EMAIL"];
+                if ($helper) {
+                    $this->display("GENERAL", "E-Mail", h($user_email));
+                } else {
+                    $mail = h($user_profile["USER_EMAIL"]);
+                    $mail1 = '<a href="mailto:' . $mail . '">' . $mail . '</a>';
+                    $this->display("GENERAL", "E-Mail", $mail1);
+                }
+            }
+
+            // Gender
+            if (ENABLED_GENDER) {
+                switch (is_string($user_profile["USER_PROFILE_GENDER"]) ? $user_profile["USER_PROFILE_GENDER"] : "X") {
+                    case( "F" ):
+                        $gender = gettext("female");
+                        break;
+
+                    case( "M" ):
+                        $gender = gettext("male");
+                        break;
+
+                    default:
+                        $gender = gettext("rather not say");
+                        break;
+                }
+                $this->display("GENERAL", "Gender", $gender);
+            }
+
+            // Origin - Faculty
+            if (ENABLED_FACULTY) {
+                $faculty = \lms_steam::get_faculty_name($user_profile["USER_PROFILE_FACULTY"]);
+                $this->display("GENERAL", "Origin", $faculty);
+            }
+            if (ENABLED_WANTS) {
+                $this->display("GENERAL", "Wants", h($user_profile["USER_PROFILE_WANTS"]));
+            }
+            if (ENABLED_HAVES) {
+                $this->display("GENERAL", "Haves", h($user_profile["USER_PROFILE_HAVES"]));
+            }
+            if (ENABLED_ORGANIZATIONS) {
+                $this->display("GENERAL", "Organizations", h($user_profile["USER_PROFILE_ORGANIZATIONS"]));
+            }
+            if (ENABLED_HOMETOWN) {
+                $this->display("GENERAL", "Hometown", h($user_profile["USER_PROFILE_HOMETOWN"]));
+            }
+            if (ENABLED_MAIN_FOCUS) {
+                $this->display("GENERAL", "Main focus", h($user_profile["USER_PROFILE_FOCUS"]));
+            }
+            if (ENABLED_OTHER_INTERESTS) {
+                $this->display("GENERAL", "Other interests", h($user_profile["USER_PROFILE_OTHER_INTERESTS"]));
+            }
+
+            // LANGUAGE
+            if (ENABLED_BID_LANGUAGE) {
+                $this->display("GENERAL", "Language", $user_profile["USER_LANGUAGE"]);
+            }
+            if (ENABLED_LANGUAGES) {
+                $languages = array(
+                    "english" => array("name" => gettext("English"), "icon" => "flag_gb.gif", "lang_key" => "en_US"),
+                    "german" => array("name" => gettext("German"), "icon" => "flag_de.gif", "lang_key" => "de_DE"));
+
+                $ulang = $user_profile["USER_LANGUAGE"];
+
+                if (!is_string($ulang) || $ulang === "0")
+                    $ulang = LANGUAGE_DEFAULT_STEAM;
+                if (!array_key_exists($ulang, $languages))
+                    $ulang = LANGUAGE_DEFAULT_STEAM;
+
+                $language_string = "";
+
+                foreach ($languages as $key => $language) {
+                    if ($ulang == $key) {
+                        $language_string .= "<img class=\"flag\" src=\"" . PATH_EXTENSIONS . "/profile/asset/icons/images/" . $language["icon"] . "\" title=\"" . $language["name"] . "\" />";
+                    }
+                }
+
+                $this->display("GENERAL", "Language", $language_string);
+            }
+
+            ///////////////  CONTACTS & GROUPS  ///////////////
+            // CONTACTS
+            if (ENABLED_CONTACTS) {
+                $html_code_contacts = "";
+                $max_contacts = $counter = 25;
+
+                if (count($contacts) > 0) {
+                    foreach ($contacts as $id => $contact) {
+                        if ($counter > 0) {
+                            $title = (!empty($contact["USER_ACADEMIC_TITLE"]) ) ? $contact["USER_ACADEMIC_TITLE"] . " " : "";
+                            $html_code_contacts .= "<a href=\"" . PATH_URL . "profile/" . $contact["OBJ_NAME"] . "/\">" . $title . $contact["USER_FIRSTNAME"] . " " . $contact["USER_FULLNAME"] . "</a>";
+                            $html_code_contacts .= ($id == count($contacts) - 1 || $counter == 1) ? "" : ", ";
+                            $counter--;
+                        } else {
+                            $html_code_contacts .= " <a href=\"" . PATH_URL . "profile/$login/contacts/\">(" . gettext("more") . "...)</a>";
+                            break;
+                        }
+                    }
+                } else {
+                    $html_code_contacts = gettext("No contacts yet.");
+                }
+                $this->display("CONTACTS_AND_GROUPS", "Contacts", $html_code_contacts);
+            }
+
+            if (ENABLED_GROUPS) {
+                // GROUPS
+                $public = ( $user->get_id() != $current_user->get_id() ) ? TRUE : FALSE;
+                $groups = $cache->call("lms_steam::user_get_groups", $login, $public);
+                $html_code_groups = "";
+                $max_groups = $counter = 25;
+
+                if (count($groups) > 0) {
+                    usort($groups, "sort_objects");
+
+                    foreach ($groups as $id => $group) {
+                        if ($counter > 0) {
+                            $html_code_groups .= "<a href=\"" . PATH_URL . "groups/" . $group["OBJ_ID"] . "/\">" . h($group["OBJ_NAME"]) . "</a>";
+                            $html_code_groups .= ($id == count($groups) - 1 || $counter == 1) ? "" : ", ";
+                            $counter--;
+                        } else {
+                            $html_code_groups .= " <a href=\"" . PATH_URL . "profile/$login/groups/\">(" . gettext("more") . "...)</a>";
+                            break;
+                        }
+                    }
+                } else {
+                    $html_code_groups = gettext("No memberships yet.");
+                }
+                $this->display("CONTACTS_AND_GROUPS", "Groups", $html_code_groups);
+            }
+
+            ///////////////  CONTACT INFORMATION  ///////////////
+            //$is_buddy = ( $user->is_buddy($current_user) || $user->get_id() == $current_user->get_id() ) ? TRUE : FALSE;
+            if (ENABLED_EMAIL) {
+                $mail = h($user_profile["USER_EMAIL"]);
+                $mail1 = '<a href="mailto:"' . $mail . '">' . $mail . '</a>';
+                $this->display("CONTACT_DATA", "E-Mail", $mail1);
+            }
+            if (ENABLED_ADDRESS) {
+                $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
+
+                $this->display("CONTACT_DATA", "Address", $adress);
+            }
+            if (ENABLED_BID_ADRESS) {
+                $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
+                if (isset($adress) && !is_integer($adress) && trim($adress) != "") {
+                    $this->display("GENERAL", "Address", h($user_profile["USER_ADRESS"]));
+                }
+            }
+            if (ENABLED_TELEPHONE) {
+                $this->display("CONTACT_DATA", "Telephone", h($user_profile["USER_PROFILE_TELEPHONE"]));
+            }
+            if (ENABLED_BID_PHONE) {
+                $phone = h($user_profile["bid:user_callto"]);
+                if (isset($phone) && $phone != 0 && $phone != "") {
+                    $phone1 = '<a href="callto:' . $phone . '">' . $phone . '</a>';
+                    $this->display("GENERAL", "Telefon", $phone1);
+                }
+            }
+            if (ENABLED_PHONE_MOBILE) {
+                $this->display("CONTACT_DATA", "Phone, mobile", h($user_profile["USER_PROFILE_PHONE_MOBILE"]));
+            }
+
+            // Website
+            $website_name = $user_profile["USER_PROFILE_WEBSITE_NAME"];
+            $website_uri = $user_profile["USER_PROFILE_WEBSITE_URI"];
+            if (empty($website_name))
+                $website_name = $website_uri;
+            $website_link = ( empty($website_name) ) ? '' : '<a target="_blank" href="' . h($website_uri) . '">' . h($website_name) . '</a>';
+            if (ENABLED_WEBSITE) {
+                $this->display("CONTACT_DATA", gettext("Website"), $website_link);
+            }
+
+            if (ENABLED_ICQ_NUMBER || ENABLED_BID_IM) {
+                $icq = h($user_profile["USER_PROFILE_IM_ICQ"]);
+                if (isset($icq) && $icq != 0 && $icq != "") {
+                    $this->display("CONTACT_DATA", "ICQ number", $icq);
+                }
+            }
+            if (ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM) {
+                $msn = h($user_profile["USER_PROFILE_IM_MSN"]);
+                if (isset($msn) && $msn !== 0 && $msn != "") {
+                    $msn1 = '<a href="http://members.msn.com/' . $msn . '">' . $msn . '</a>';
+                    $this->display("CONTACT_DATA", "MSN identification", $msn1);
+                }
+            }
+
+            // AIM
+            if (ENABLED_AIM_ALIAS || ENABLED_BID_IM) {
+                if (!empty($user_profile["USER_PROFILE_IM_AIM"])) {
+                    $aim_alias = h($user_profile["USER_PROFILE_IM_AIM"]);
+                    if (isset($aim_alias) && $aim_alias !== 0 && $aim_alias != "") {
+                        $aim = "<a href=\"aim:" . $aim_alias . "\">" . $aim_alias . "</a>";
+                        $this->display("CONTACT_DATA", "AIM-alias", $aim);
+                    }
+
+                    //$aim = "<span id=\"USER_PROFILE_IM_AIM\"><a href=\"{VALUE_AIM_LINK}\">{VALUE_AIM_ALIAS}</a></span>";
+                }
+            }
+
+            if (ENABLED_YAHOO_ID || ENABLED_BID_IM) {
+                $yahoo = (h($user_profile["USER_PROFILE_IM_YAHOO"]) !== 0) ? h($user_profile["USER_PROFILE_IM_YAHOO"]) : "";
+                if (isset($yahoo) && $yahoo !== 0 && $yahoo != "") {
+                    $yahooUrl = "<a href=\"ymsgr:sendIM?".$yahoo."\">".$yahoo."</a>";
+                    $this->display("CONTACT_DATA", "Yahoo-ID", $yahooUrl);
+                } 
+            }
+
+            // Skype
+            if (ENABLED_SKYPE_NAME || ENABLED_BID_IM) {
+                if (!empty($user_profile["USER_PROFILE_IM_SKYPE"])) {
+                    $skype_alias = h($user_profile["USER_PROFILE_IM_SKYPE"]);
+                    if (isset($skype_alias) && $skype_alias !== 0 && $skype_alias != "") {
+                        $skype = "<a href=\"skype:" . $skype_alias . "\">" . $skype_alias . "</a>";
+                    }
+                    $this->display("CONTACT_DATA", "Skype name", $skype);
+                }
+            }
+
+            if ($this->GENERAL_displayed) {
+                $GLOBALS["content"]->setVariable("HEADER_GENERAL_INFORMATION", gettext("General Information"));
+            }
+            if ($this->CONTACT_DATA_displayed) {
+                $GLOBALS["content"]->setVariable("HEADER_CONTACT_DATA", gettext("Contact Data"));
+            }
+            if ($this->CONTACTS_AND_GROUPS_displayed) {
+                $GLOBALS["content"]->setVariable("HEADER_CONTACTS_AND_GROUPS", gettext("Contacts and Groups"));
+            }
+            
+            $GLOBALS["content"]->setVariable("DISPLAY_RIGHT_SIDE", "");
+            
+            // this needed?
+            $GLOBALS["content"]->setVariable("PATH_JAVASCRIPT", PATH_JAVASCRIPT);
+            $GLOBALS["content"]->setVariable("KOALA_VERSION", KOALA_VERSION);
+            $GLOBALS["content"]->setVariable("USER_LOGIN", $login);
+            
+            $GLOBALS["content"]->parse("BLOCK_RIGHT_SIDE");
+            
+            $rawHtml = new \Widgets\RawHtml();
+            $rawHtml->setHtml($GLOBALS["content"]->get());
+            $rawHtml->setCSS(".detail .widgets_label { width: 150px; }");
+            $frameResponseObject->addWidget($rawHtml);
+        }
+
         return $frameResponseObject;
     }
-
 }
-
 ?>

@@ -2,7 +2,15 @@
 abstract class AbstractCommand implements ICommand{
 	
 	public function isGuestAllowed(IRequestObject $requestObject) {
-		return true;
+		//idea: if params is set, in most cases an object id is given
+                //without the object id opening things as guest crashes
+                
+                $params = $requestObject->getParams();
+                $issetParams = isset($params);
+                return $issetParams;
+                
+                //default case
+                //return false;
 	}
 	
 	public function serverAdminOnly(IRequestObject $requestObject) {

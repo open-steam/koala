@@ -21,6 +21,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
 				$changed=true;
 			}
 		}
+                $buddies = array_values($buddies);
 		if(!$changed){
 			throw new \Exception("User isn't part of your buddylist");
 		}else{

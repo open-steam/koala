@@ -1,0 +1,19 @@
+.detail .widgets_textinput { 
+    margin-top: 7px;
+}
+
+.detail .widgets_label {
+    width: 150px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+}
+
+.detail .widgets_radiobutton {
+    line-height: 13px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.detail .widgets_checkbox {
+    margin-top: 7px;
+}

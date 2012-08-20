@@ -600,7 +600,8 @@ class lms_steam
 		}
 		else
 		{
-			return array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
+                        $deny_all = PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS;
+			return array( "PRIVACY_STATUS" => $deny_all, "PRIVACY_GENDER" => $deny_all, "PRIVACY_FACULTY" => $deny_all,  "PRIVACY_MAIN_FOCUS" => $deny_all, "PRIVACY_WANTS" => $deny_all, "PRIVACY_HAVES" => $deny_all, "PRIVACY_ORGANIZATIONS" => $deny_all, "PRIVACY_HOMETOWN" => $deny_all, "PRIVACY_OTHER_INTERESTS" => $deny_all, "PRIVACY_LANGUAGES" => $deny_all, "PRIVACY_CONTACTS" => $deny_all, "PRIVACY_GROUPS" => $deny_all, "PRIVACY_EMAIL" => $deny_all, "PRIVACY_ADDRESS" => $deny_all, "PRIVACY_TELEPHONE" => $deny_all, "PRIVACY_PHONE_MOBILE" => $deny_all, "PRIVACY_WEBSITE" => $deny_all, "PRIVACY_ICQ_NUMBER" => $deny_all, "PRIVACY_MSN_IDENTIFICATION" => $deny_all, "PRIVACY_AIM_ALIAS" => $deny_all, "PRIVACY_YAHOO_ID" => $deny_all, "PRIVACY_SKYPE_NAME" => $deny_all );
 		}
 	}
 

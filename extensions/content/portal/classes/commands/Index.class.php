@@ -93,16 +93,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$frameResponseObject->setTitle(getCleanName($this->portalObject));
 		$frameResponseObject->addWidget($this->rawHtmlWidget);
-                //sendRequest('newElement', {'id':81}, '', 'popup', null, null);return false;
-                $testWidget = new \Widgets\RawHtml();
-                //$testWidget->setHtml("sendRequest('Sort', {'id':".$this->id."}, '', 'popup', null, null);return false;");
-		$testWidget->setHtml(<<<END
-<a onclick="sendRequest('Sort', {'id':'{$this->id}'}, '', 'popup', null, null);return false;">Zum Sortieren (wird noch in die Iconbar verschoben)</a>  
-                        
-                        
-END
-);  
-                $frameResponseObject->addWidget($testWidget);
+             
                 return $frameResponseObject;
 	}
 }

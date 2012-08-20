@@ -117,7 +117,8 @@ class ContentProvider implements \Widgets\IContentProvider {
 		}
 		
 		if ($cell == $this->rawImage) {
-			return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem)."\"></img>";
+                        $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+			return "<a href=\"" . $url . "\"><img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem)."\"></img></a>";
 		} else if ($cell == $this->rawName) {
 			$url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			$desc = $contentItem->get_attribute("OBJ_DESC");

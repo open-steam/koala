@@ -712,6 +712,9 @@ function cleanHTML($dirtyHTML) {
     
     $config->set('HTML.SafeIframe', true);
     
+    //$config->set('Core.EscapeNonASCIICharacters', true); //html encoding test
+    
+    
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
     
     $def = $config->getHTMLDefinition(true);

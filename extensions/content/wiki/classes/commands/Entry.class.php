@@ -87,7 +87,8 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 		}
 		else
 		{
-			$wiki_html_handler->set_admin_menu( "version" , $version_doc );
+                        $wiki_html_handler->set_version($version_doc->get_id());
+			$wiki_html_handler->set_admin_menu( "version" , $wiki_doc );
 		 	$attributes = $version_doc->get_attributes( array( "DOC_VERSION", "DOC_AUTHORS", "OBJ_LAST_CHANGED", "DOC_USER_MODIFIED", "DOC_TIMES_READ", "DOC_LAST_MODIFIED", "OBJ_WIKILINKS" ));
 		}
 		
