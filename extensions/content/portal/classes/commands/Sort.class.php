@@ -39,7 +39,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             $html .= '<ul id="' . $id . '" class="columnSort">';
             foreach ($inventory as $e) {
                 $eId = $e->get_id();
-                $eName = $e->get_name();
+                $eName = $e->get_attribute(OBJ_DESC);
         //        $portletsMapping[$id][$eId] = $e;
         //        $portletsMappingName[$id][$eId] = $eName;
                 $html .= '<li id="' . $eId . '" class="elementSort">' . $eName . '</li>';
