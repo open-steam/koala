@@ -1,7 +1,3 @@
-#site_wrapper {
-	background: url({PATH_URL}404/asset/images/code2.png) no-repeat center left;
-}
-
 #content_wrapper{
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0;
@@ -26,95 +22,95 @@
     left: 50%;
 }
 
-    #container .leds {
-        width: 78px;
-        height: 68px;
-        overflow: hidden;
-        position: absolute;
-        top: 44px;
-        left: 0;
-    }
+#container .leds {
+    width: 78px;
+    height: 68px;
+    overflow: hidden;
+    position: absolute;
+    top: 44px;
+    left: 0;
+}
     
-        #container .leds .led {
-            width: 39px;
-            height: 68px;
-            background: url('{PATH_URL}404/asset/images/status_led_sprite.png') no-repeat;
-        }
+#container .leds .led {
+    width: 39px;
+    height: 68px;
+    background: url('{PATH_URL}404/asset/images/status_led_sprite.png') no-repeat;
+}
         
-            #container .leds .led.green {
-                background-position: bottom left;
-                float: left;
-            }
+#container .leds .led.green {
+    background-position: bottom left;
+    float: left;
+}
             
-                #container .leds .led.green.active { background-position: top left; }
+#container .leds .led.green.active { background-position: top left; }
             
-            #container .leds .led.red {
-                background-position: top right;
-                float: right;
-            }
+#container .leds .led.red {
+    background-position: top right;
+    float: right;
+}
 
-                #container .leds .led.red.active { background-position: bottom right; }
+#container .leds .led.red.active { background-position: bottom right; }
                 
-    #container .flip {
-        width: 622px;
-        height: 152px;
-        color: #dadada;
-        font-size: 54px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 145px;
-        letter-spacing: -2px;
-        background: url('{PATH_URL}404/asset/images/status_flip_container.png') no-repeat;
-        position: relative;
-    }
+#container .flip {
+    width: 622px;
+    height: 152px;
+    color: #dadada;
+    font-size: 54px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 145px;
+    letter-spacing: -2px;
+    background: url('{PATH_URL}404/asset/images/status_flip_container.png') no-repeat;
+    position: relative;
+}
     
-        #container .flip .break {
-            width: 584px;
-            height: 2px;
-            background: #181818;
-            border-bottom: 1px solid #343434;
-            position: absolute;
-            top: 50%;
-            left: 19px;
-        }
+#container .flip .break {
+    width: 584px;
+    height: 2px;
+    background: #181818;
+    border-bottom: 1px solid #343434;
+    position: absolute;
+    top: 50%;
+    left: 19px;
+}
         
-            #container .flip .break .link {
-                width: 5px;
-                height: 12px;
-                background: url('{PATH_URL}404/asset/images/status_flip_link.png') no-repeat;
-                position: absolute;
-                top: -3px;
-            }
+#container .flip .break .link {
+    width: 5px;
+    height: 12px;
+    background: url('{PATH_URL}404/asset/images/status_flip_link.png') no-repeat;
+    position: absolute;
+    top: -3px;
+}
             
-                #container .flip .break .link.left {
-                    left: 10px;
-                }
+#container .flip .break .link.left {
+    left: 10px;
+}
 
-                #container .flip .break .link.right {
-                    right: 10px;
-                }
+#container .flip .break .link.right {
+    right: 10px;
+}
                 
-        #container .sorry {
-            width: 550px;
-            color: #666;
-            font-size: 16px;
-            line-height: 24px;
-            margin: 0 0 0 35px;
-            background-color: white;
-            padding: 10px;
-        }
+#container .sorry {
+    width: 550px;
+    color: #666;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 0 0 35px;
+    background-color: white;
+    padding: 10px;
+}
         
-            #container .sorry *:first-child {
-                margin: 0;
-            }
+#container .sorry *:first-child {
+    margin: 0;
+}
 
-			#container .sorry p a, #container .sorry p a:visited{
-				color: #666;
-				text-decoration: none;
-			}
+#container .sorry p a, #container .sorry p a:visited{
+        color: #666;
+        text-decoration: none;
+}
 			
-				#container .sorry p a:hover {
-					color: #666;
-					text-decoration: none;
-					border-bottom: 1px solid #666;
-				}
+#container .sorry p a:hover {
+        color: #666;
+        text-decoration: none;
+        border-bottom: 1px solid #666;
+}
