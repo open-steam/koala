@@ -10,6 +10,8 @@ class Index extends \AbstractCommand implements \IFrameCommand{
         }
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+                //logging::write_log( LOG_ERROR, "b2pc-frameResponse"); //test
+                
                 $requestUrl = urldecode($_SERVER['REQUEST_URI']);
                 
                 //not tested
@@ -97,6 +99,23 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                         }
                 }
                 
+                //TODO /download/
+                //not tested, download case
+                if(FALSE!==strpos($requestUrl, "/download/")){
+                        $searchString = "/download/";
+                        $begin = strpos($requestUrl, $searchString) + strlen($searchString);
+                        
+                        $destination = substr($requestUrl,$begin);
+                        
+                        $destArray = explode("/", $destination);
+                        
+                        $objectId = $destArray[0];
+                        $name = $destArray[1];
+                             
+                        $this->redirectToDownloadObjectId($objectId, $name);
+                }
+                
+                die("URL-Umleitung fehlgeschlagen");
             
                 $rawWidget = new \Widgets\RawHtml();
                 $rawWidget->setHtml("Test bid2PathCompatibility ".$requestUrl);
@@ -109,10 +128,10 @@ class Index extends \AbstractCommand implements \IFrameCommand{
          * redirects to the extension/object with a steam path
          */
         private function redirectToSteamPath($steamPath){
+                //logging::write_log( LOG_ERROR, "b2pc-redirectToSteamPath"); //test
                 $objectId = $this->getObjectId($steamPath);
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
-                //echo $url;die; //test
-		header("Location: ".$url);
+                header("Location: ".$url);
                 die;
         }
         
@@ -121,22 +140,30 @@ class Index extends \AbstractCommand implements \IFrameCommand{
          * redirects to the extension/object with a object id
          */
         private function redirectToObjectId($objectId){
+                //logging::write_log( LOG_ERROR, "b2pc-redirectToObjectId"); //test
+                $objectId = (string)intval($objectId);
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
-		//echo $url;die; //test
-                header("Location: ".$url);
+		header("Location: ".$url);
                 die;
         }
         
-        private function redirectToDownloadObjectId($objectId){
-                $url = "/download/document/".$objectId;
-                //echo $url;die; //test
+        private function redirectToDownloadObjectId($objectId, $name=""){
+                //logging::write_log( LOG_ERROR, "b2pc-redirectToDownloadObjectId"); //test
+                $objectId = (string)intval($objectId);
+                
+                if($name==""){
+                    $url = "/download/document/".$objectId;
+                }else{
+                    $url = "/download/document/".$objectId."/".$name;
+                }
+                    
                 header("Location: ".$url);
                 die;
         }
         
         private function redirectToDownloadPath($steamPath){
+                //logging::write_log( LOG_ERROR, "b2pc-redirectToDownloadPath"); //test
                 $url = "/download/document/".$this->getObjectId($steamPath);
-                //echo $url;die; //test
                 header("Location: ".$url);
                 die;
         }
@@ -151,5 +178,10 @@ class Index extends \AbstractCommand implements \IFrameCommand{
             $object = \steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $path);
             return $object->get_id();
         }
+        
+        
+        public function isGuestAllowed(\IRequestObject $requestObject) {
+		return true;
+	}
 }
 ?>

@@ -11,6 +11,7 @@ class Textarea extends Widget {
 	private $height = "200px";
 	private $textareaClass = "plain"; // plain or code html or mce-small or mce-full
 	private $autosave = false;
+        private $linebreaks = "<br><br>";
 	
 	public function setLabel($label) {
 		$this->label = $label;
@@ -39,6 +40,10 @@ class Textarea extends Widget {
 	public function setAutosave($autosave) {
 		$this->autosave = $autosave;
 	}
+        
+        public function setLinebreaks($linebreaks) {
+		$this->linebreaks = $linebreaks;
+	}
 	
 	public function getHtml() {
 		$this->id = rand();
@@ -66,6 +71,8 @@ class Textarea extends Widget {
 			}
 		}
 		
+                $this->getContent()->setVariable("LINEBREAKS", $this->linebreaks);
+                
                 //write sanction
                 if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
                         $this->getContent()->setVariable("READONLY", "disabled");

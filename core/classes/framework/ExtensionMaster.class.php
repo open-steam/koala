@@ -63,16 +63,32 @@ class ExtensionMaster {
                 //bid 2 compatibility
                 $bid2PathCompatibilityExt = $this->getExtensionForNamespace("bid2PathCompatibility");
                 if($bid2PathCompatibilityExt){
-                    $keyStrings = $bid2PathCompatibilityExt->getOldPaths();
-		
-                    foreach ($keyStrings as $needle){
+                    
+                    //error_log("b2pc-found");
+                    //logging::write_log( LOG_ERROR, "b2pc-found"); //test
+                    
+                    $keySearchStrings = $bid2PathCompatibilityExt->getOldPaths();
+                    $keyIgnoreStrings = $bid2PathCompatibilityExt->getIgnorePaths();
+                    
+                    $ignoreFound = false;
+                    foreach ($keyIgnoreStrings as $needle){
                         if(strstr($requestUrl,$needle)){ //TODO: strpos should be faster
                             //found
-                            $result[0]="bid2PathCompatibility";
-                            //$result[1]=$requestUrl;
+                            $ignoreFound = true;
+                            break;
+                        }
+                    }
+                    
+                    if(!$ignoreFound)
+                    foreach ($keySearchStrings as $needle){
+                        if(strstr($requestUrl,$needle)){ //TODO: strpos should be faster
+                            //found
+                            $result[0]="bid2PathCompatibility"; //redirect to bid2PathCompatibility extension
                             return $result;
                         }
                     }
+                }  else {
+                    //logging::write_log( LOG_ERROR, "b2pc-NOT-found"); //test
                 }
                 
                 

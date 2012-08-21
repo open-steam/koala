@@ -30,6 +30,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$myExtension = \Forum::getInstance();
 
 		$forumObject = \steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $objectId );
+                $forumCreator = $forumObject->get_creator();
+                $forumCreatorName = getCleanName($forumCreator);
 
 		$steamUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		$lastSessionTime= $steamUser->get_attribute("bid:last_session_time");
@@ -92,6 +94,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		  $myExtension->addCSS();
 
 		  $content = $myExtension->loadTemplate("forumIndex.template.html");
+                  
 
 		  $content->setCurrentBlock('BLOCK_FORUM_HEAD');
 		  $content->setVariable("FORUM_HEADING", urldecode($forumAttributes["OBJ_NAME"]));
@@ -99,7 +102,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		  $content->setVariable("FORUM_DESCRIPTION", ($forumAttributes["bid:description"] !== 0 ) ? $forumAttributes["bid:description"] : "");
 		  $content->parse('BLOCK_FORUM_HEAD');
 
-
+                  $content->setVariable("FORUM_OWNER_URL", PATH_URL . "user/index/" . $forumCreator->get_name());
+                  $content->setVariable("FORUM_OWNER", $forumCreatorName);
 		  // sort all forum topics
 		  usort($forumAnnotations, "sortTopicsByDate");
 
@@ -112,12 +116,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		  		$content->setVariable("TOPIC_AUTHOR", getCleanName($annotation->get_attribute("DOC_USER_MODIFIED")));
 		  		$content->setVariable("TOPIC_DATE", getReadableDate($annotation->get_attribute("OBJ_CREATION_TIME")));
 		  		$content->setVariable("LINK_SHOW_TOPIC", PATH_URL."forum/showTopic/".$objectId."/".$annotation->get_id());
-		  		$count = count($annotation->get_annotations());
+		  		$annotationsArray = $annotation->get_annotations();
+                                $count = count($annotationsArray);
 		  		$content->setVariable("REPLY_COUNT", $count);
 		  		if ($count > 0) {
-					$content->setVariable("LAST_REPLY_TOPIC", $categoryLastMessageAttributes[$annotation->get_id() ][OBJ_DESC] );
+                                        $lastUser = $annotationsArray[0]->get_attribute("DOC_USER_MODIFIED");
+                                        $content->setVariable("LAST_REPLY_TOPIC", $categoryLastMessageAttributes[$annotation->get_id() ][OBJ_DESC] );
 		  			$content->setVariable("LAST_REPLY_DATE", date("d.m.Y G:i", $annotation->get_attribute("OBJ_LAST_CHANGED")));
-		  			$content->setVariable("LAST_REPLY_USER", getCleanName($annotation->get_attribute("DOC_USER_MODIFIED")));
+		  			$content->setVariable("LAST_REPLY_USER", getCleanName($lastUser));
 		  			$lastPostTime=$annotation->get_attribute("OBJ_CREATION_TIME");
 		  			if($lastSessionTime < $lastPostTime){
 		  				$imageUrl=\Forum::getInstance()->getAssetUrl()."icons/new_message_info.gif";
@@ -149,8 +155,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 		  //$breadcrumb = new \Widgets\Breadcrumb();
 		  //$breadcrumb->setData(array($currentRoom));
-
-		  $frameResponseObject->setTitle("Forum - " . $forumAttributes["OBJ_DESC"]);
+                  
+		  $frameResponseObject->setTitle($forumObject->get_name());
 		  $rawHtml->setHtml($content->get());
 		  $frameResponseObject->addWidget($actionBar);
 		  $frameResponseObject->addWidget($rawHtml);

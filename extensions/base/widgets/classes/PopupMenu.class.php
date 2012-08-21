@@ -103,9 +103,12 @@ class PopupMenu extends Widget {
 			}	
 			$html .= "</div>";	
 		} else {
-			
-			$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"myId = this.id; jQuery('#' + myId).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'updater', function(response){ jQuery('#'+myId).removeClass('popupmenuloading').addClass('popupmenuanker').addClass('open'); }, null {$this->namespace} );event.stopPropagation();\"></div>";	
-		}
+			if ($this->data->get_environment() instanceof \steam_object) {
+                                $html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"myId = this.id; jQuery('#' + myId).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; params.env = '{$this->data->get_environment()->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'updater', function(response){ jQuery('#'+myId).removeClass('popupmenuloading').addClass('popupmenuanker').addClass('open'); }, null {$this->namespace} );event.stopPropagation();\"></div>";	
+                        } else {
+                                $html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"myId = this.id; jQuery('#' + myId).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'updater', function(response){ jQuery('#'+myId).removeClass('popupmenuloading').addClass('popupmenuanker').addClass('open'); }, null {$this->namespace} );event.stopPropagation();\"></div>";	
+                        }
+                }
 		return $html;
 	}
 }

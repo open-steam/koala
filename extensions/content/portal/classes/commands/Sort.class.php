@@ -39,7 +39,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             $html .= '<ul id="' . $id . '" class="columnSort">';
             foreach ($inventory as $e) {
                 $eId = $e->get_id();
-                $eName = $e->get_name();
+                $eName = $e->get_attribute(OBJ_DESC);
         //        $portletsMapping[$id][$eId] = $e;
         //        $portletsMappingName[$id][$eId] = $eName;
                 $html .= '<li id="' . $eId . '" class="elementSort">' . $eName . '</li>';
@@ -47,6 +47,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             $html .= '</ul>';
         }
         $html .= "</div>";
+        $html .= '<div id="hiddenBox" class="" style="display:none"></div>';
         
         $string = "";
         $i=1;
@@ -85,11 +86,9 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                                 if(vID != ""){
                                     elements += vID + ",";
                                 }                                 
-                            });
-                            console.log(elements);                                            
+                            });                                            
                            sendRequest("Update", { "id": column, "elements" : elements }, "", "data", function(response){ }, function(response){ }, "portal");
-                           console.log("Warum schließt sich jetzt das Fenster?"); 
-                            
+                           $('#hiddenBox').addClass("changed"); 
                             
                         }
                         

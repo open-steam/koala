@@ -67,15 +67,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 				$tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
 			}
 			
-			
-		
 			$tmpl->setVariable("EDIT_BUTTON","");
 			$tmpl->setVariable("PORTLET_ID",$portlet->get_id());
 			$tmpl->setVariable("HEADLINE",$content["headline"]);
 			
 			//refernce icon
 			if($portletIsReference){
-				$tmpl->setVariable("REFERENCE_ICON","<img src='{$referIcon}'>");
+                                $envId = $portlet->get_environment()->get_environment()->get_id();
+                                $envUrl = PATH_URL . "portal/index/" . $envId;
+				$tmpl->setVariable("REFERENCE_ICON","<a href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
 			}
 			
 			

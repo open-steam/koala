@@ -86,8 +86,8 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return "";
             }
         } else if ($cell == $this->rawImage) {
-
-            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img>";
+            $url = PATH_URL . "explorer/index/" . $contentItem->get_id() . "/";
+            return "<a href=\"" . $url . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img></a>";
         } else if ($cell == $this->rawName) {
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
