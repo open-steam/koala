@@ -16,31 +16,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
-        // 		var_dump($this->params["selection"]);
-        // 		if(get_magic_quotes_gpc()){
-        // 			$d = stripslashes($this->params["selection"]);
-        // 			var_dump($d);
-        // 		}else{
-        // 			$d = $this->params["selection"];
-        // 		}
-        // 		$d = json_decode($d,true);
-        // 		var_dump($d);
-        // 		switch(json_last_error())
-        // 		{
-        // 			case JSON_ERROR_DEPTH:
-        // 				echo ' - Maximale Stacktiefe überschritten';
-        // 				break;
-        // 			case JSON_ERROR_CTRL_CHAR:
-        // 				echo ' - Unerwartetes Steuerzeichen gefunden';
-        // 				break;
-        // 			case JSON_ERROR_SYNTAX:
-        // 				echo ' - Syntaxfehler, ungültiges JSON';
-        // 				break;
-        // 			case JSON_ERROR_NONE:
-        // 				echo ' - Keine Fehler';
-        // 				break;
-        // 		}
-        //$this->selection = json_decode($this->params["selection"]);
+       
         $this->x = $this->params["x"];
         $this->y = $this->params["y"];
         $this->height = $this->params["height"];
@@ -133,7 +109,12 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     $items[] = array("name" => "Antworten<img src=\"{$replyIcon}\">", "command" => "NewReply", "namespace" => "forum", "params" => "{'id':'{$this->id}','forum':'{$forumId}'}", "type" => "popup");
                 }
             }
-            if ($isTopicCreator) {
+            if($isForumCreator){
+                $items[] = array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "command" => "EditTopic", "namespace" => "forum", "params" => "{'id':'{$this->params["category"]}','forum':'{$forumId}'}", "type" => "popup");
+                $items[] = array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "DeleteTopic", "namespace" => "forum", "params" => "{'id':'{$this->id}','forum':'{$forumId}'}");
+                $items[] = array("name" => "Bild anfügen<img src=\"{$addImageIcon}\">", "command" => "EditMessageImage", "namespace" => "forum", "params" => "{'messageObjectId':'{$this->id}','forum':'{$forumId}'}", "type" => "popup");
+            }
+            else if ($isTopicCreator) {
                 if ($isEditable) {
                     $items[] = array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "command" => "EditTopic", "namespace" => "forum", "params" => "{'id':'{$this->params["category"]}','forum':'{$forumId}'}", "type" => "popup");
                     $items[] = array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "DeleteTopic", "namespace" => "forum", "params" => "{'id':'{$this->id}','forum':'{$forumId}'}");
