@@ -117,28 +117,32 @@
     }
     
     function insertLink() {
-    	var description = document.getElementById("popup_dialog_wiki_link_description").value;
-    	if (description == "") {
-    		description = "";
-    	} else {
-    		description = "|" + description;
-    	}
-    	if (document.getElementById("popup_dialog_wiki_link_extern").checked){
-    		var url = document.getElementById("popup_dialog_wiki_link_url").value;
-        	wikiText.value = wikiText.value.substr(0, selectionStart) + "[" + url + description + "]" + wikiText.value.substr(selectionEnd);
-        	set_selection(wikiText.id, selectionStart + 1 + url.length + 1, selectionStart  + 1 + url.length + description.length);
-    	} else if (document.getElementById("popup_dialog_wiki_link_intern").checked) {
-    		var name = "";
-    		if (document.getElementById("popup_dialog_wiki_link_options").options[document.getElementById("popup_dialog_wiki_link_options").selectedIndex].value == 'newEntry') {
-    			name = document.getElementById("popup_dialog_wiki_link_name").value;
-    		} else {
-    			name = document.getElementById("popup_dialog_wiki_link_options").options[document.getElementById("popup_dialog_wiki_link_options").selectedIndex].value;
-    			name = name.replace(/.wiki/g, "");
-    		}
-    		wikiText.value = wikiText.value.substr(0, selectionStart) + "[[" + name + description + "]]" + wikiText.value.substr(selectionEnd);
-    		set_selection(wikiText.id, selectionStart + 2 + name.length + 1, selectionStart + 2 + name.length + description.length);
-    	}
-    	closeDialog("link");
+        var i = 0;
+        var description = document.getElementById("popup_dialog_wiki_link_description").value;
+        if (document.getElementById("popup_dialog_wiki_link_extern").checked){
+            var url = document.getElementById("popup_dialog_wiki_link_url").value;
+            if (url != "") {
+                description = "|" + description;
+                i = 1;
+            }
+            wikiText.value = wikiText.value.substr(0, selectionStart) + "[" + url + description + "]" + wikiText.value.substr(selectionEnd);
+            set_selection(wikiText.id, selectionStart + 1 + url.length + i, selectionStart  + 1 + url.length + description.length);
+        } else if (document.getElementById("popup_dialog_wiki_link_intern").checked) {
+            var name = "";
+            if (document.getElementById("popup_dialog_wiki_link_options").options[document.getElementById("popup_dialog_wiki_link_options").selectedIndex].value == 'newEntry') {
+                name = document.getElementById("popup_dialog_wiki_link_name").value;
+            } else {
+                name = document.getElementById("popup_dialog_wiki_link_options").options[document.getElementById("popup_dialog_wiki_link_options").selectedIndex].value;
+                name = name.replace(/.wiki/g, "");
+            }
+            if (name != "") {
+                description = "|" + description;
+                i = 1;
+            }
+            wikiText.value = wikiText.value.substr(0, selectionStart) + "[[" + name + description + "]]" + wikiText.value.substr(selectionEnd);
+            set_selection(wikiText.id, selectionStart + 2 + name.length + i, selectionStart + 2 + name.length + description.length);
+        }
+        closeDialog("link");
     }
     
     function insertComent() {
