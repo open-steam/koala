@@ -70,11 +70,21 @@ class CreateNewForm extends \AbstractCommand implements \IFrameCommand, \IIdComm
 </style>
 <input type="hidden" name="id" value="{$this->id}">
 
+
 <div class="attribute">
 	<div class="attributeNameRequired">Titel*:</div>
 	<div><input type="text" class="text" value="" name="title"></div>
 </div>
 
+<div class="attribute">
+    <div class="attributeName">Sortierung:</div>
+    <div> 
+    <select size="1">
+        <option selected="" name="earliest_first" value="earliest_first">Frühe Termine zuerst anzeigen</option>
+        <option name="latest_first" value="latest_first">Späte Termine zuerst anzeigen</option>
+    </select>
+    </div>
+</div>
 <div class="attribute">
 	<div><input type="hidden" name="parent" value="{$this->id}"></div>
 </div>
