@@ -30,8 +30,8 @@ class Report extends \AbstractCommand implements \IFrameCommand {
 				case E_AJAX_ERROR:
 				case E_JS_ERROR:
 					$frameResponseObject->setTitle("Error");
-					$frameResponseObject->setHeadline("Das hätte nicht passieren sollen.");
-					$frameResponseObject->setProblemDescription("Es ist ein undefinierter Fehler aufgetreten. Das Problem ist protokolliert und es wird bald behoben.");
+					$frameResponseObject->setHeadline("Es ist ein Javascript-Fehler aufgetreten.");
+					$frameResponseObject->setProblemDescription("Es ist ein Javascript-Fehler aufgetreten. Das Problem ist protokolliert.");
 					
 					$errorTitle = (isset($_COOKIE["title"])) ? $_COOKIE["title"] : "";
 					$errorDescription = (isset($_COOKIE["description"])) ? $_COOKIE["description"] : "";
