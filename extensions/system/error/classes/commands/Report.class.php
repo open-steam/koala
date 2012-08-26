@@ -43,6 +43,7 @@ class Report extends \AbstractCommand implements \IFrameCommand {
 					setcookie("description", "", -1);
 					setcookie("location", "", -1);
 					setcookie("params", "", -1);
+                                        die; //return no error message in case of a external (browserplugin) js
 				break;
 				case E_USER_RIGHTS:
 					$frameResponseObject->setTitle(gettext("No Access"));
