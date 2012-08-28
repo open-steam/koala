@@ -63,8 +63,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         //GET OWNER OF THE CURRENT OBJECT
         $owner = $object->get_creator();
         $creatorId = $owner->get_id();
-        $ownerFullName = $owner->get_full_name();
-
+        if($owner instanceof \steam_user){
+            $ownerFullName = $owner->get_full_name();
+        } else {
+            $ownerFullName = getCleanName($owner);
+        }
+        
         //GET ACQUIRE SETTINGS
         $acquire = $object->get_acquire();
         $acqChecked = $acquire instanceof \steam_room ? true : false;

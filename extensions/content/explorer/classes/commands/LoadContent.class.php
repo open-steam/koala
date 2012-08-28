@@ -132,8 +132,10 @@ class ContentProvider implements \Widgets\IContentProvider {
 			}
 		} else if ($cell == $this->rawMarker) {
 			$html = "";
-			$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
-			$html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
+			//$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>"; //normal
+			$html .= "<div class=\"marker\">"  . "</div>"; //test
+			
+                        $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
 			$linkError = false;
 			if ($contentItem instanceof \steam_exit) {
 				$exitObject = $contentItem->get_exit();

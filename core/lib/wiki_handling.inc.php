@@ -22,7 +22,7 @@ class StaticCallbackParameterBuffer
 
 function link_render_callback($matches)
 {
-  return '<a'.$matches[1].'href="'.basename($matches[3]).'">'.$matches[5].'</a>';
+  return '<a class="notexistant" href="'.basename($matches[2]).'">'.$matches[4].'</a>';
 }
 
 function image_render_callback($matches) 
@@ -107,20 +107,19 @@ function wiki_to_html_plain( $wiki_doc, $version_doc = 0 )
 				array( $wiki_doc ),
 				0
 		);
-				
 		//Don't want preformated text.
 		$tmp = preg_replace("/<pre>(.*?)<\/pre>/iU", "<p>$1</p>", $tmp);
 		
 		// The Steam wiki rendering is related to the steam web interface. So we need to
 		// tweek the links to other wiki pages.
 		$tmp = preg_replace_callback( 
-		  '/<a(.*)href="(.*)\?path=(.*)&(.*)">(.*)<\/a>/U', 
+		  '/<a class="notexistant" href="(.*)\?path=(.*)&(.*)">(.*)<\/a>/U', 
 		  'link_render_callback',
 		  $tmp 
 		);
+
 		// The Steam wiki rendering is related to the steam web interface. So we need to
 	    // tweek the links to image resources.
-	    
 		$wiki_path = $orig_doc->get_path();
 	    StaticCallbackParameterBuffer::add_parameter("wiki_path", $wiki_path);
 	    $tmp = preg_replace_callback( 

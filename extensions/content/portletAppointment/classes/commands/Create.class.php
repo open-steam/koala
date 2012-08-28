@@ -12,10 +12,10 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	}
 	
 	public function processData(\IRequestObject $requestObject){
-		$params = $requestObject->getParams();
-		
+		$params = $requestObject->getParams();               
 		$name = $params["title"];
 		$column = $params["parent"];
+                $order = $params["undefined"];               
 		$version = "3.0";	
 
 		//check diffrent types of parameter
@@ -32,6 +32,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
             OBJ_TYPE => "container_portlet_bid",
             "bid:portlet:version" => $version,
             "bid:portlet" => "appointment",
+            "bid:portlet:app:app_order" => $order
     	));
 		
 		

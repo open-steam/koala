@@ -150,7 +150,7 @@ class ContentProvider implements \Widgets\IContentProvider {
     }
 
     public function getNoContentText() {
-        return "Dieser Ordner enthält keine Objekte.";
+        return "Der Papierkorb ist leer.";
     }
 
     public function getOnClickHandler($contentItem) {
