@@ -167,7 +167,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$html .= "</div>";
 			return $html;
 		} else if ($cell == $this->rawChangeDate) {
-                        return "<div></div>";//speed test
+                        //return "<div></div>";//speed test
 			return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
 		}  else if ($cell == $this->rawSize) {
 			return getObjectReadableSize($contentItem);
