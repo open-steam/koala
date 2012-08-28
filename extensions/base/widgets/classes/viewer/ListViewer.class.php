@@ -8,6 +8,7 @@ class ListViewer extends Widget {
 	private $colorProvider;
 	private $contentFilter;
 	private $content;
+        private $userObject = NULL;
 	
 	public function setHeadlineProvider(IHeadlineProvider $headlineProvider) {
 		$this->headlineProvider = $headlineProvider;
@@ -94,7 +95,14 @@ class ListViewer extends Widget {
 	
         
         private function isHiddenItem($steamObject,$itemCount=0) {
-            return false;
+            
+            //cache user object
+            if ($this->userObject === NULL){
+                $this->userObject = $GLOBALS["STEAM"]->get_current_steam_user(); //TODO performance,get the user every time
+            }
+            $userObject = $this->userObject;
+            
+            
             //head document
             if(1===$itemCount){
                 //var_dump("test",$itemCount."test");
@@ -104,7 +112,6 @@ class ListViewer extends Widget {
             }
             
             //other
-            $userObject = $GLOBALS["STEAM"]->get_current_steam_user(); //TODO performance,get the user every time
             $userHiddenAttribute = $userObject->get_attribute("EXPLORER_SHOW_HIDDEN_DOCUMENTS");
             $userShowHiddenObjects = false;
             if ($userHiddenAttribute==="TRUE") $userShowHiddenObjects = true;
