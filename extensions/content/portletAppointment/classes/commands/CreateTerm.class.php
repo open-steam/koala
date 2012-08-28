@@ -12,7 +12,7 @@ class CreateTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand
 	}
 	
 	public function processData(\IRequestObject $requestObject){
-		$params = $requestObject->getParams();
+		$params = $requestObject->getParams();               
 		$objectId = $params["portletId"];
 		
 		$appointmentObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
