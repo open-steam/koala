@@ -10,7 +10,11 @@ class DatePicker extends Widget {
 	private $datePicker = true;
 	private $timePicker = false;
 	private $placeholder = "";
+        private $name = "";
 	
+        public function setName($name){
+            $this->name = $name;
+        }
 	public function setLabel($label) {
 		$this->label = $label;
 	}
@@ -72,6 +76,9 @@ class DatePicker extends Widget {
 		} else if ($this->timePicker) {
 			$this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").timepicker({hourGrid: 4, minuteGrid: 10});");
 		}
+                if($this->name !== ""){
+                    $this->getContent()->setVariable("NAME", $this->name);
+                }
 		
 		return $this->getContent()->get();
 	}
