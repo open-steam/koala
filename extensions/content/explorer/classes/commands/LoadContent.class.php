@@ -114,8 +114,10 @@ class ContentProvider implements \Widgets\IContentProvider {
 			              //  . (($contentItem instanceof \steam_document) ? "<br>" . $contentItem->get_attribute(DOC_MIME_TYPE) : ""));
 			*/
                         
+                        //$tipsyHtml = $tipsy->getHtml();
+                        $tipsyHtml="";
                         
-			$url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+                        $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			$desc = $contentItem->get_attribute("OBJ_DESC");
 			//$name = $objectModel->getReadableName();
 			$name = getCleanName($contentItem, 50);
@@ -123,15 +125,15 @@ class ContentProvider implements \Widgets\IContentProvider {
                             if($contentItem instanceof \steam_docextern){
                                 $blank = $contentItem->get_attribute("DOC_BLANK");
                                 if($blank != 0){
-                                    //return "<a href=\"".$url."new/"."\" target=\"_blank\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
-                                    return "<a href=\"".$url."new/"."\" target=\"_blank\" title=\"$desc\"> " . $name ."</a>" . "<script>" . "</script>"; //speed test
+                                    return "<a href=\"".$url."new/"."\" target=\"_blank\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsyHtml . "</script>";
+                                    
                                 }else{
-                                    return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                                    return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsyHtml . "</script>";
                                 }
                             }
-				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsyHtml . "</script>";
 			} else {
-				return $name . "<script>" . $tipsy->getHtml() . "</script>";
+				return $name . "<script>" . $tipsyHtml . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
 			$html = "";
