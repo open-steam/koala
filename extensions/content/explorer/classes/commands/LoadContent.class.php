@@ -32,8 +32,8 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 		$listViewer->setContent($this->objects);
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($listViewer);
-		//$tipsy = new \Widgets\Tipsy();
-		//$ajaxResponseObject->addWidget($tipsy);
+		$tipsy = new \Widgets\Tipsy();
+		$ajaxResponseObject->addWidget($tipsy);
 		return $ajaxResponseObject;
 	}
 }
@@ -102,7 +102,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                             $longName="";
                         }
                         
-                        /*
+                        
 			$tipsy = new \Widgets\Tipsy();
 			$tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
 			$tipsy->setHtml("<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"".PATH_URL."download/image/"
@@ -112,10 +112,10 @@ class ContentProvider implements \Widgets\IContentProvider {
 			                . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>"
 			                . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>".$longName);
 			              //  . (($contentItem instanceof \steam_document) ? "<br>" . $contentItem->get_attribute(DOC_MIME_TYPE) : ""));
-			*/
+			
                         
-                        //$tipsyHtml = $tipsy->getHtml();
-                        $tipsyHtml="";
+                        $tipsyHtml = $tipsy->getHtml();
+                        //$tipsyHtml="";
                         
                         $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			$desc = $contentItem->get_attribute("OBJ_DESC");
@@ -136,6 +136,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name . "<script>" . $tipsyHtml . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
+                        return "<div></div>";//speed test
 			$html = "";
 			$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
 			
@@ -166,6 +167,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$html .= "</div>";
 			return $html;
 		} else if ($cell == $this->rawChangeDate) {
+                        return "<div></div>";//speed test
 			return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
 		}  else if ($cell == $this->rawSize) {
 			return getObjectReadableSize($contentItem);
