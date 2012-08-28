@@ -29,6 +29,7 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 				}
 			}
 		}
+                
 		
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$dialog = new \Widgets\Dialog();
