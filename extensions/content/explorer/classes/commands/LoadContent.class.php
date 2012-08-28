@@ -136,7 +136,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name . "<script>" . $tipsyHtml . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
-                        return "<div></div>";//speed test
+                        return "<div></div>";//speed test //TODO: fix
 			$html = "";
 			$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
 			
