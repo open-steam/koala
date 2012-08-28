@@ -78,7 +78,6 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return "";
 			}
 		} else if ($cell == $this->rawImage) {
-                        return "";// speed up test
                         $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			return "<a href=\"" . $url . "\"><img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem)."\"></img></a>";
 		} else if ($cell == $this->rawName) {
