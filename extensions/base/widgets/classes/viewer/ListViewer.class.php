@@ -94,6 +94,7 @@ class ListViewer extends Widget {
 	
         
         private function isHiddenItem($steamObject,$itemCount=0) {
+            return false;
             //head document
             if(1===$itemCount){
                 //var_dump("test",$itemCount."test");
