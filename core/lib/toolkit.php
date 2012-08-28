@@ -531,6 +531,7 @@ function deriveIcon($object) {
 }
 
 function getObjectReadableSize($object) {
+    return ""; //test: speedup
     $type = getObjectType($object);
     try {
         if ($type == "document") {
