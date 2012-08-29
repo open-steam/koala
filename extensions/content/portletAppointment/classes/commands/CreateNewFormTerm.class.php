@@ -2,7 +2,7 @@
 
 namespace PortletAppointment\Commands;
 
-class CreateNewFormTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
+class CreateNewFormTerm extends \AbstractCommand implements \IAjaxCommand {
 
     private $params;
     private $id;
@@ -18,14 +18,6 @@ class CreateNewFormTerm extends \AbstractCommand implements \IFrameCommand, \IId
         $this->id = $this->params["portletId"];
     }
 
-    public function idResponse(\IdResponseObject $idResponseObject) {
-        
-    }
-
-    public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
-    }
-
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $ajaxResponseObject->setStatus("ok");
 
@@ -36,8 +28,8 @@ class CreateNewFormTerm extends \AbstractCommand implements \IFrameCommand, \IId
         $currentDay = date("d") . "";
         $currentMonth = date("m") . "";
         $currentYear = date("Y") . "";
-        
-        $currentDate = $currentDay.".".$currentMonth.".".$currentYear;
+
+        $currentDate = $currentDay . "." . $currentMonth . "." . $currentYear;
 
         $rawHtml = new \Widgets\RawHtml();
 
@@ -109,8 +101,8 @@ class CreateNewFormTerm extends \AbstractCommand implements \IFrameCommand, \IId
         $datepickerStart->setTimePicker(false);
         $datepickerStart->setName("startDate");
 
-        $html .= '<div class="attribute">'.$datepickerStart->getHtml()."</div>";
-        $html .='<script>$(".hasDatepicker").val("'.$currentDate.'");</script>';
+        $html .= '<div class="attribute">' . $datepickerStart->getHtml() . "</div>";
+        $html .='<script>$(".hasDatepicker").val("' . $currentDate . '");</script>';
         $ajaxForm->setHtml($html);
         $dialog = new \Widgets\Dialog();
         $dialog->setCloseButtonLabel(NULL);
