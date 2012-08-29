@@ -14,6 +14,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
     public function processData(\IRequestObject $requestObject) {
+        try{
+        
+        
         $objectId = $requestObject->getId();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $params = $requestObject->getParams();
@@ -212,6 +215,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl->parse("BLOCK_PORTLET_MESSAGE");
         $htmlBody = $tmpl->get();
         $this->content = $htmlBody;
+        
+        }  catch (\steam_exception $e){
+            $htmlBody = "<div>Die Meldungen wurde durch das Kopieren mit der alten Oberfläche zerstört. Kopieren Sie Portale nur mit der neuen Oberfläche.</div>";
+        }
+        
 
         //widgets
         $outputWidget = new \Widgets\RawHtml();
