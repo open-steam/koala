@@ -113,7 +113,11 @@ class ContentProvider implements \Widgets\IContentProvider {
 			                . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>".$longName);
 			              //  . (($contentItem instanceof \steam_document) ? "<br>" . $contentItem->get_attribute(DOC_MIME_TYPE) : ""));
 			
-			$url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+                        
+                        $tipsyHtml = $tipsy->getHtml();
+                        //$tipsyHtml="";
+                        
+                        $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			$desc = $contentItem->get_attribute("OBJ_DESC");
 			//$name = $objectModel->getReadableName();
 			$name = getCleanName($contentItem, 50);
@@ -121,19 +125,22 @@ class ContentProvider implements \Widgets\IContentProvider {
                             if($contentItem instanceof \steam_docextern){
                                 $blank = $contentItem->get_attribute("DOC_BLANK");
                                 if($blank != 0){
-                                    return "<a href=\"".$url."new/"."\" target=\"_blank\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                                    return "<a href=\"".$url."new/"."\" target=\"_blank\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsyHtml . "</script>";
+                                    
                                 }else{
-                                    return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                                    return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsyHtml . "</script>";
                                 }
                             }
-				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsyHtml . "</script>";
 			} else {
-				return $name . "<script>" . $tipsy->getHtml() . "</script>";
+				return $name . "<script>" . $tipsyHtml . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
+                        return "<div></div>";//speed test //TODO: fix
 			$html = "";
 			$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
-			$html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
+			
+                        $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
 			$linkError = false;
 			if ($contentItem instanceof \steam_exit) {
 				$exitObject = $contentItem->get_exit();
@@ -160,6 +167,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$html .= "</div>";
 			return $html;
 		} else if ($cell == $this->rawChangeDate) {
+                        //return "<div></div>";//speed test
 			return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
 		}  else if ($cell == $this->rawSize) {
 			return getObjectReadableSize($contentItem);
