@@ -216,8 +216,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $htmlBody = $tmpl->get();
         $this->content = $htmlBody;
         
-        }  catch (\steam_exception $e){
-            $htmlBody = "<div>Die Meldungen wurde durch das Kopieren mit der alten Oberfläche zerstört. Kopieren Sie Portale nur mit der neuen Oberfläche.</div>";
+        }catch (\steam_exception $e){
+            $htmlBody = '<div style="background-color:red;color:white;text-align:center;">';
+            $htmlBody.= "Die Meldungen wurden durch das Kopieren mit der alten Oberfläche zerstört.<br>";
+            $htmlBody.= "Eine Wiederherstellung ist nur durch den Support möglich.<br>";
+            $htmlBody.= "Kopieren Sie Portale nur mit der neuen Oberfläche.";
+            $htmlBody.= "</div>";
         }
         
 
