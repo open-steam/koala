@@ -50,7 +50,13 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
 
         /** the current category */
         $category = \steam_factory::get_object($steam->get_id(), $category_id);
-
+        
+        if(!($category instanceof \steam_document)){
+            $invalidType = new \Widgets\RawHtml();
+            $invalidType->setHtml("Sie versuchen ein nicht gültiges Thema anzuzeigen.");
+            $frameResponseObject->addWidget($invalidType);
+            return $frameResponseObject;
+        }
         /** additional required attributes */
         $categoryAttributes = $category->get_attributes(array(OBJ_NAME, OBJ_DESC,
             OBJ_CREATION_TIME, "bid:description", "DOC_LAST_MODIFIED", "DOC_USER_MODIFIED"), 1);
