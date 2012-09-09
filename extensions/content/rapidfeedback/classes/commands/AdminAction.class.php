@@ -35,11 +35,18 @@ class AdminAction extends \AbstractCommand implements \IAjaxCommand {
 					$copy->set_attribute("RAPIDFEEDBACK_STATE", 0);
 					$copy->set_attribute("RAPIDFEEDBACK_STARTTYPE", 0);
 					
-					$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $copy->get_path() . "/results");
-					$resultContainer->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
-					$resultContainer->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
+                                        $copyInventory = $copy->get_inventory();
+                                        $resultContainer = "";
+                                        foreach ($copyInventory as $element) {
+                                            if ($element->get_name() === "results") {
+                                                $resultContainer = $element;
+                                                break;
+                                            }
+                                        }
 					// clean resultcontainer and set sanctions
 					if ($resultContainer instanceof \steam_container) {
+                                                $resultContainer->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
+                                                $resultContainer->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
 						$results = $resultContainer->get_inventory();
 						foreach ($results as $result) {
 							$result->delete();

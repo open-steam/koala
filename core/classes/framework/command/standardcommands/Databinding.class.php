@@ -73,6 +73,9 @@ class Databinding extends \AbstractCommand implements \IAjaxCommand {
 				$data["error"] = "none";
 				$data["undo"] = true;
 			 } else {
+                                if ($oldValue !== $newValue) {
+                                    self::setAttributeValue($this->object, $this->params["attribute"], $oldValue);
+                                }
 			 	$data["oldValue"] = $oldValue;
 			 	$data["error"] = "Data could not be saved.";
 				$data["undo"] = false;
