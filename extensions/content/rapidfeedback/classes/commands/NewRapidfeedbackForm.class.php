@@ -68,6 +68,7 @@ class NewRapidfeedbackForm extends \AbstractCommand implements \IAjaxCommand {
 <input type="hidden" name="id" value="{$this->id}">
 END
 );
+                $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		$ajaxResponseObject->addWidget($ajaxForm);
 		return $ajaxResponseObject;
 	}

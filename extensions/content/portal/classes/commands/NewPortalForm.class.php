@@ -83,6 +83,7 @@ class NewPortalForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCo
 </div>
 END
 );
+                $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		$ajaxResponseObject->addWidget($ajaxForm);
 		return $ajaxResponseObject;
 	}
