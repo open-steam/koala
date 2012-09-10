@@ -47,7 +47,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 		
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditTopic", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "Kategorie einfügen <img src=\"{$blankIcon}\">",  "command" => "CreateCategory", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"), 
+						array("name" => "Kategorie einfügen <img src=\"{$blankIcon}\">",  "command" => "CreateCatForm", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"), 
 						array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
 							array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'up'}", "type"=>"popup"),
 							array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'down'}", "type"=>"popup"),
