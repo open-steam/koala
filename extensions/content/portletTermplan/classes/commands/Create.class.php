@@ -2,7 +2,7 @@
 
 namespace PortletTermplan\Commands;
 
-class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
+class Create extends \AbstractCommand implements \IAjaxCommand {
 
     private $params;
     private $id;
@@ -70,14 +70,6 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
         //sanctions
         $everybody = \steam_factory::get_group($GLOBALS["STEAM"]->get_id(), "steam");
         $termPlanObject->set_sanction($everybody, SANCTION_READ | SANCTION_WRITE);
-    }
-
-    public function idResponse(\IdResponseObject $idResponseObject) {
-        
-    }
-
-    public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
