@@ -26,19 +26,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 			$object = $currentUser->get_workroom();
 			$this->id = $object->get_id();
-
-                        // TODO
-                        define("DELETE_GROUP_HOME_EXITS", false);
-                        if (DELETE_GROUP_HOME_EXITS && PLATFORM_ID == "bid" && $object->get_attribute("DELETED_GROUP_HOME_EXITS") == "0") {
+                        
+                        if (defined("DELETE_GROUP_HOME_EXITS") && DELETE_GROUP_HOME_EXITS && $object->get_attribute("DELETED_GROUP_HOME_EXITS") == "0") {
                             $inventory = $object->get_inventory_filtered(array(
                                 array( '+', 'class', CLASS_EXIT ),
                             ));
                             foreach ($inventory as $element) {
                                 $exitElement = $element->get_exit();
                                 if ($exitElement instanceof \steam_room && $exitElement->get_creator() instanceof \steam_group) {
-                                    if ($exitElement->count_inventory() == 0) {
-                                        $element->delete();
-                                    }
+                                    $element->delete();
                                 }
                             }
                             $object->set_attribute("DELETED_GROUP_HOME_EXITS", 1);

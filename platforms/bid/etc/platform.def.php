@@ -135,4 +135,7 @@ defined("SEARCH_FAVORITES") or define("SEARCH_FAVORITES", true);
 defined("PROFILE_SEND_MAIL") or define("PROFILE_SEND_MAIL", false);
 defined("PROFILE_INTRODUCE_PERSON") or define("PROFILE_INTRODUCE_PERSON", false);
 defined("PROFILE_MANAGE_CONTACT") or define("PROFILE_MANAGE_CONTACT", false);
+
+// delete group home exits in user workrooms in explorer index command
+defined("DELETE_GROUP_HOME_EXITS") or define("DELETE_GROUP_HOME_EXITS", true);
 ?>
