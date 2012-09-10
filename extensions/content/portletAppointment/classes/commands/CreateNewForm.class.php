@@ -1,6 +1,6 @@
 <?php
 namespace PortletAppointment\Commands;
-class CreateNewForm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
+class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 	
 	private $params;
 	private $id;
@@ -14,14 +14,6 @@ class CreateNewForm extends \AbstractCommand implements \IFrameCommand, \IIdComm
 	public function processData(\IRequestObject $requestObject){
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
-	}
-	
-	public function idResponse(\IdResponseObject $idResponseObject) {
-		
-	}
-	
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
