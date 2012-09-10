@@ -1,6 +1,6 @@
 <?php
 namespace PortletRss\Commands;
-class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
+class Create extends \AbstractCommand implements \IAjaxCommand {
 	
 	private $params;
 	private $id;
@@ -65,14 +65,6 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	    ));
 	}
 	
-	
-	public function idResponse(\IdResponseObject $idResponseObject) {
-		
-	}
-	
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
-	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
