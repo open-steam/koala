@@ -3,7 +3,7 @@
 <div class="widgets_label">{LABEL}</div>
 <!-- END BLOCK_CHECKBOX_LABEL -->
 <div class="widgets_checkbox">
-   <input {READONLY} id="{ID2}_checkbox" type="checkbox" {CHECKED} ></input>
+   <input {READONLY} id="{ID2}_checkbox" name="{NAME}" type="checkbox" {CHECKED} ></input>
 </div>
 <script type="text/javascript">
     $('#{ID3}_checkbox').change(function() {if (this.checked) { var value="{CHECKEDVALUE}"; } else {var value="{UNCHECKEDVALUE}"; } {ONCHANGE}});
