@@ -1,6 +1,6 @@
 <?php
 namespace PortletMedia\Commands;
-class CreateNewForm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
+class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 	
 	private $params;
 	private $id;
@@ -15,74 +15,38 @@ class CreateNewForm extends \AbstractCommand implements \IFrameCommand, \IIdComm
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 	}
-	
-	public function idResponse(\IdResponseObject $idResponseObject) {
-		
-	}
-	
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
-	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("Create");
 		$ajaxForm->setSubmitNamespace("PortletMedia");
-
-		$ajaxForm->setHtml(<<<END
-<style type="text/css">
-.attribute {
-  clear: left;
-  padding: 5px 2px 5px 2px;
-}
-
-.attributeName {
-  float: left;
-  padding-right: 20px;
-  text-align: right;
-  width: 80px;
-}
-
-.attributeNameRequired {
-  float: left;
-  padding-right: 20px;
-  text-align: right;
-  font-weight: bold;
-  width: 80px;
-}
-
-.attributeValue {
-  float: left;
-  width: 300px;
-}
-
-.attributeValue .text, .attributeValue textarea {
-  wwidth: 100px;
-}
-
-.attributeValueColumn {
-  float: left;
-  position: relative;
-  text-align: center;
-}
-</style>
-<input type="hidden" name="id" value="{$this->id}">
-
-<div class="attribute">
-	<div class="attributeNameRequired">Titel*:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
-</div>
-
-<div class="attribute">
-	<div><input type="hidden" name="parent" value="{$this->id}"></div>
-</div>
-
-
-
-END
-);
+                
+                $headlineInput = new \Widgets\TextInput();
+		$headlineInput->setLabel("Überschrift");
+                $headlineInput->setName("title");
+                $html = $headlineInput->getHtml();
+                
+                $urlInput = new \Widgets\TextInput();
+		$urlInput->setLabel("Adresse");
+                $urlInput->setName("url");
+		$html .= $urlInput->getHtml();
+                
+                $descriptionInput = new \Widgets\TextInput();
+		$descriptionInput->setLabel("Beschreibung");
+                $descriptionInput->setName("desc");
+		$html .= $descriptionInput->getHtml();
+                
+                $radioButton = new \Widgets\RadioButton();
+		$radioButton->setLabel("Typ");
+		$radioButton->setOptions(array(array("name"=>"Film", "value"=>"movie"), array("name"=>"Bild", "value"=>"image"), array("name"=>"Ton", "value"=>"audio")));
+                $radioButton->setCurrentValue("Film");
+		$html.= $radioButton->getHtml();
+                
+                $html .= '<input type="hidden" name="id" value="'.$this->id.'">';
+                       
+                $ajaxForm->setHtml($html);
 		$ajaxResponseObject->addWidget($ajaxForm);
 		return $ajaxResponseObject;
 	}
