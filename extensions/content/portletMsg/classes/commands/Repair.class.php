@@ -25,10 +25,16 @@ class Repair extends \AbstractCommand implements \IFrameCommand {
                     echo "Sie haben nicht die erforderlichen Rechte für eine Reparatur";die;
                 }
                 
-                
+                /*
                 if($steamObject->get_attribute("bid:doctype")!=="portlet:msg"){
                     echo "Kein gültiges Meldungsobjekt";die;
                 }
+                */
+                
+                if($steamObject->get_attribute("OBJ_TYPE")!=="container_portlet_bid"){
+                    echo "Kein gültiges Meldungsobjekt";die;
+                }
+                
                 
                 $msgIdArray = array();
                 
