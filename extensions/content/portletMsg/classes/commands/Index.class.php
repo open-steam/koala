@@ -225,7 +225,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             //$htmlBody.= "Eine Wiederherstellung ist nur durch den Support möglich.<br>";
             $htmlBody.= "<br>";
             
-            $htmlBody.= "Bei einer Reperatur können die in den Meldungen enthaltenen Bilder nicht den ursprünglichen Meldungen zugeordnet werden. ";
+            $htmlBody.= "Bei einer Reparatur können die in den Meldungen enthaltenen Bilder nicht den ursprünglichen Meldungen zugeordnet werden. ";
             $htmlBody.= "Die Bilder werden daher in die Zwischeablage verschoben. ";
             $htmlBody.= "Ferner geht die ursprüngliche Reihenfolge der Meldungen verloren. ";
             $htmlBody.= "Eine Reparatur ist nur mit Schreibrechten möglich.<br>";
