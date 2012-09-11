@@ -20,6 +20,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 
         $ajaxResponseObject->setStatus("ok");
         $dialog = new \Widgets\Dialog();
+        $dialog->setTitle("Einfügen einer Meldung");
         $dialog->setCloseButtonLabel(NULL);
         $ajaxForm = new \Widgets\AjaxForm();
         $ajaxForm->setSubmitCommand("CreateMessage");
@@ -65,11 +66,11 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 <input type="hidden" name="id" value="{$this->id}">
 
 <div class="attribute">
-	<div class="attributeNameRequired">Titel*:</div>
+	<div class="attributeName">Titel:</div>
 	<div><input type="text" class="text" value="" name="title"></div>
 </div>
 <div class="attribute">
-	<div class="attributeNameRequired">Text*:</div>
+	<div class="attributeName">Text:</div>
 	<div><input type="text" class="text" value="" name="text"></div>
 </div>
 
