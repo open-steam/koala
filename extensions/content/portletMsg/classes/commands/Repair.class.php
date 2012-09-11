@@ -1,6 +1,6 @@
 <?php
 namespace PortletMsg\Commands;
-class Repair extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
+class Repair extends \AbstractCommand implements \IFrameCommand {
 	
 	private $params;
 	private $id;
@@ -12,9 +12,24 @@ class Repair extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	}
 	
 	public function processData(\IRequestObject $requestObject){
-		$objectId = $requestObject->getId();
+		
+                $params = $requestObject->getParams();
+                        
+                var_dump($params);
+                
+                $objectId = $this->params[0];
+                
+                var_dump($objectId);
+                
+                die;
+                $objectId = $requestObject->getId();
                 $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		
+                
+                
+                
+                
+                
                 $clipboard = $GLOBALS["STEAM"]->get_current_steam_user();
                 $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		
