@@ -17,7 +17,7 @@ class CreateTerm extends \AbstractCommand implements \IAjaxCommand {
                 $startDateParam = $params["startDate"];
                 $startDateArray = explode(".", $startDateParam);
                                             
-                $desc = $params["desc"];
+                $description = $params["desc"];
                 
 		$appointmentObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		$terms = $appointmentObject->get_attribute("bid:portlet:content");
@@ -29,13 +29,12 @@ class CreateTerm extends \AbstractCommand implements \IAjaxCommand {
                 $currentYear = $startDateArray[2];
 		
 		//new term parts
-		$description = "Beschreibung";
 		$endDate = array("day"=> "", "month" => "", "year" => "");
 		$linkurl = "";
 		$location = "";
 		$startDate = array("day"=> $currentDay, "month" => $currentMonth, "year" => $currentYear);
 		$startTime = array("hour" => "12", "minutes" => "00");
-		$topic = "Neuer Termin";
+		$topic = $params["title"];
 		
 		//compose term
 		$newTerm = array(	"description" => $description ,
