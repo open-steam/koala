@@ -12,31 +12,45 @@ class Repair extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	}
 	
 	public function processData(\IRequestObject $requestObject){
-		/*
-                $params = $requestObject->getParams();
+		$params = $requestObject->getParams();
 		$objectId = $params["portletObjectId"];
 		
 		$steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		
-		//select object for deletion
-		if($steamObject->get_attribute("bid:doctype")==="portlet:msg"){
-			//delete parent of steam object
-			$portletObject = $steamObject->get_environment();
-		} else if ($steamObject->get_attribute("bid:portlet")==="msg"){
-			//delete steam object
-			$portletObject = $steamObject;
-		} else {
-			//error not a valid object
-			return false;
-		}
+                $clipboard = $GLOBALS["STEAM"]->get_current_steam_user();
+                $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		
-		//delete the object
-		$trashbin = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_TRASHBIN");
-		$portletObject->move($trashbin);
-		//$portletObject->delete();
-                */
+                //check rights
+                if(!$steamObject->check_access_write()){
+                    echo "Sie haben nicht die erforderlichen Rechte für eine Reparatur";die;
+                }
                 
+                
+                if($steamObject->get_attribute("bid:doctype")!=="portlet:msg"){
+                    echo "Kein gültiges Meldungsobjekt";die;
+                }
+                
+                $msgIdArray = array();
+                
+                //remove the pics
+                $portletInventory = $steamObject->get_inventory();
+                foreach ($portletInventory as $msgObject) {
+                    $pictrueId = $msgObject->get_attribute("bid:portlet:msg:picture_id");
+                    
+                    //case message
+                    if($pictrueId==0){
+                        $msgIdArray[]=$msgObject->get_id();
+                    }
+                    
+                    //case picture
+                    if($pictrueId!=0){
+                        $msgObject->move($clipboard);
+                    }
+                }
+                
+                $steamObject->set_attribute("bid:portlet:content",$msgIdArray);
 	}
+        
 	
 	public function idResponse(\IdResponseObject $idResponseObject) {
 		//no response
@@ -45,7 +59,7 @@ class Repair extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		// no response
                 //echo "Reparatur abgeschlossen";die;
-                echo "Reparatur der Meldungen nicht möglich";die;
+                echo "Reparatur der Meldungen durchgeführt";die;
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
