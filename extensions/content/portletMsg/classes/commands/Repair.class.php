@@ -44,7 +44,8 @@ class Repair extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		// no response
-                echo "Reparatur abgeschlossen";die;
+                //echo "Reparatur abgeschlossen";die;
+                echo "Reparatur der Meldungen nicht möglich";die;
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

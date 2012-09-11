@@ -221,9 +221,18 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         }catch (\steam_exception $e){
             $htmlBody = '<div style="background-color:red;color:white;text-align:center;">';
             $htmlBody.= "Die Meldungen wurden durch das Kopieren mit der alten Oberfläche zerstört.<br>";
-            $htmlBody.= "Eine Wiederherstellung ist nur durch den Support möglich.<br>";
-            $htmlBody.= "Kopieren Sie Portale nur mit der neuen Oberfläche.";
-            $htmlBody.= '<a href="/portletmsg/repair/$objectId/">Reperatur durchführen</a>';
+            $htmlBody.= "Kopieren Sie Portale nur mit der neuen Oberfläche.<br>";
+            //$htmlBody.= "Eine Wiederherstellung ist nur durch den Support möglich.<br>";
+            $htmlBody.= "<br>";
+            
+            $htmlBody.= "Bei einer Reperatur können die in den Meldungen enthaltenen Bilder nicht den ursprünglichen Meldungen zugeordnet werden.<br>";
+            $htmlBody.= "Die Bilder werden daher in die Zwischeablage verschoben.<br>";
+            $htmlBody.= "Ferner geht die ursprüngliche Reihenfolge der Meldungen verloren.<br>";
+            $htmlBody.= "Eine Reparatur ist nur mit Schreibrechten möglich.<br>";
+            
+            $htmlBody.= "<br>";
+            
+            $htmlBody.= '<a style="color:white" href="/portletmsg/repair/'.$objectId.'/">Reperatur durchführen</a>';
             $htmlBody.= "</div>";
         }
         
