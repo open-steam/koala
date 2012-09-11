@@ -220,14 +220,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         
         }catch (\steam_exception $e){
             $htmlBody = '<div style="background-color:red;color:white;text-align:center;">';
-            $htmlBody.= "Die Meldungen im Portal wurden durch das Kopieren mit der alten Oberfläche zerstört.<br>";
+            $htmlBody.= "Die Meldungen im Portal wurden durch das Kopieren mit der alten Oberfläche zerstört. ";
             $htmlBody.= "Kopieren Sie Portale nur mit der neuen Oberfläche.<br>";
             //$htmlBody.= "Eine Wiederherstellung ist nur durch den Support möglich.<br>";
             $htmlBody.= "<br>";
             
-            $htmlBody.= "Bei einer Reperatur können die in den Meldungen enthaltenen Bilder nicht den ursprünglichen Meldungen zugeordnet werden.";
-            $htmlBody.= "Die Bilder werden daher in die Zwischeablage verschoben.";
-            $htmlBody.= "Ferner geht die ursprüngliche Reihenfolge der Meldungen verloren.";
+            $htmlBody.= "Bei einer Reparatur können die in den Meldungen enthaltenen Bilder nicht den ursprünglichen Meldungen zugeordnet werden. ";
+            $htmlBody.= "Die Bilder werden daher in die Zwischeablage verschoben. ";
+            $htmlBody.= "Ferner geht die ursprüngliche Reihenfolge der Meldungen verloren. ";
             $htmlBody.= "Eine Reparatur ist nur mit Schreibrechten möglich.<br>";
             
             $htmlBody.= "<br>";
