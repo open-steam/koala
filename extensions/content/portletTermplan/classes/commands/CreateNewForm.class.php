@@ -63,20 +63,15 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $html .='<script>$("input[name=\"endDate\"]").val("' . $futureDate . '");</script>';
 
 
-        $termLabelWidth = 50;
-        $termInputWidth = 300;
+
 
         $term0 = new \Widgets\TextInput();
-        $term0->setLabelWidth($termLabelWidth);
-        $term0->setInputWidth($termInputWidth);
         $term0->setLabel("Eintrag 1");
         $term0->setName("term0");
         $html .= $term0->getHtml();
         $html .='<script>$("input[name=\"term0\"]").val("Termin A");</script>';
 
         $term1 = new \Widgets\TextInput();
-        $term1->setLabelWidth($termLabelWidth);
-        $term1->setInputWidth($termInputWidth);
         $term1->setLabel("Eintrag 2");
         $term1->setName("term1");
         $html .= $term1->getHtml();
@@ -84,34 +79,29 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
 
         $term2 = new \Widgets\TextInput();
-        $term2->setLabelWidth($termLabelWidth);
-        $term2->setInputWidth($termInputWidth);
         $term2->setLabel("Eintrag 3");
         $term2->setName("term2");
         $html .= $term2->getHtml();
 
         $term3 = new \Widgets\TextInput();
-        $term3->setLabelWidth($termLabelWidth);
-        $term3->setInputWidth($termInputWidth);
         $term3->setLabel("Eintrag 4");
         $term3->setName("term3");
         $html .= $term3->getHtml();
 
         $term4 = new \Widgets\TextInput();
-        $term4->setLabelWidth($termLabelWidth);
-        $term4->setInputWidth($termInputWidth);
         $term4->setLabel("Eintrag 5");
         $term4->setName("term4");
         $html .= $term4->getHtml();
 
         $term5 = new \Widgets\TextInput();
-        $term5->setLabelWidth($termLabelWidth);
-        $term5->setInputWidth($termInputWidth);
         $term5->setLabel("Eintrag 6");
         $term5->setName("term5");
         $html .= $term5->getHtml();
         
-        $html .= '<input type="hidden" name="id" value="'.$this->id.'">';
+        $clearer = new \Widgets\Clearer();
+        $html .= $clearer->getHtml();
+
+        $html .= '<input type="hidden" name="id" value="' . $this->id . '">';
 
         $ajaxForm->setHtml($html);
         $ajaxResponseObject->addWidget($ajaxForm);

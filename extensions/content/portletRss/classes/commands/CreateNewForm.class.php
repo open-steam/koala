@@ -38,7 +38,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $addressInput->setName("rss");
 
         $checkbox = new \Widgets\Checkbox();
-        $checkbox->setLabel("HTML zulassen");
+        $checkbox->setLabel("HTML zulassen:");
         $checkbox->setCheckedValue("checked");
         $checkbox->setUncheckedValue("");
         $checkbox->setName("html2");

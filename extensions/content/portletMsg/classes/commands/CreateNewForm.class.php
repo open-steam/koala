@@ -1,6 +1,6 @@
 <?php
 namespace PortletMsg\Commands;
-class CreateNewForm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
+class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 	
 	private $params;
 	private $id;
@@ -15,15 +15,7 @@ class CreateNewForm extends \AbstractCommand implements \IFrameCommand, \IIdComm
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 	}
-	
-	public function idResponse(\IdResponseObject $idResponseObject) {
 		
-	}
-	
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
-	}
-	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		
@@ -71,7 +63,7 @@ class CreateNewForm extends \AbstractCommand implements \IFrameCommand, \IIdComm
 <input type="hidden" name="id" value="{$this->id}">
 
 <div class="attribute">
-	<div class="attributeNameRequired">Titel*:</div>
+	<div class="attributeName">Titel:</div>
 	<div><input type="text" class="text" value="" name="title"></div>
 </div>
 
