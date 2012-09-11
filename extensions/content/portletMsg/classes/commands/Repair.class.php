@@ -12,10 +12,8 @@ class Repair extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	}
 	
 	public function processData(\IRequestObject $requestObject){
-		$params = $requestObject->getParams();
-		$objectId = $params["portletObjectId"];
-		
-		$steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+		$objectId = $requestObject->getId();
+                $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		
                 $clipboard = $GLOBALS["STEAM"]->get_current_steam_user();
                 $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
