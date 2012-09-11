@@ -21,7 +21,7 @@ class Repair extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
                 $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		
                 //check rights
-                if(!$steamObject->check_access_write()){
+                if(!$steamObject->check_access_write($currentUser)){
                     echo "Sie haben nicht die erforderlichen Rechte für eine Reparatur";die;
                 }
                 
