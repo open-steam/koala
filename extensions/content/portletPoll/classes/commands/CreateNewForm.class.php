@@ -41,58 +41,25 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
         //$ajaxForm->setHtml(<<<END
         $html = ' 
-<style type="text/css">
-.attribute {
-  clear: left;
-  padding: 5px 2px 5px 2px;
-}
 
-.attributeName {
-  float: left;
-  padding-right: 20px;
-  text-align: right;
-  width: 80px;
-}
-
-.attributeNameRequired {
-  float: left;
-  padding-right: 20px;
-  text-align: right;
-  font-weight: bold;
-  width: 80px;
-}
-
-.attributeValue {
-  float: left;
-  width: 300px;
-}
-
-.attributeValue .text, .attributeValue textarea {
-  wwidth: 100px;
-}
-
-.attributeValueColumn {
-  float: left;
-  position: relative;
-  text-align: center;
-}
-</style>
 <input type="hidden" name="id" value="'.$this->id.'">
-
-<div class="attribute">
-	<div class="attributeNameRequired">Titel*:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
-</div>
-<div class="attribute">
-	<div class="attributeName">Beschreibung:</div>
-	<div><input type="text" class="text" value="" name="desc"></div>
-</div>
 
 <div class="attribute">
 	<div><input type="hidden" name="parent" value="'.$this->id.'"></div>
 </div>
 
 ';
+        $title = new \Widgets\TextInput();
+        $title->setLabel("Titel");
+        $title->setName("title");
+        $html .= $title->getHtml();
+        
+        $desc = new \Widgets\TextInput();
+        $desc->setLabel("Beschreibung");
+        $desc->setName("desc");
+        $html .= $desc->getHtml();
+        
+        
         $datepickerStart = new \Widgets\DatePicker();
         $datepickerStart->setLabel("Startdatum");
         $datepickerStart->setDatePicker(true);
@@ -111,53 +78,42 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $html .= '<div class="attribute">' . $datepickerEnd->getHtml() . "</div>";
         $html .='<script>$("input[name=\"endDate\"]").val("' . $futureDate . '");</script>';
 
-        $descLabelWidth = 60;
-        $descInputWidth = 250;
-
+    
         $item0Description = new \Widgets\TextInput();
-        $item0Description->setLabelWidth($descLabelWidth);
-        $item0Description->setInputWidth($descInputWidth);
         $item0Description->setInputBackgroundColor("rgb(255,120,111)");
         $item0Description->setLabel("Antworten");
         $item0Description->setName("input0");
-        $html .= '<div class="attribute">' . $item0Description->getHtml() . "</div>";
+        $html .= $item0Description->getHtml();
         $html .='<script>$("input[name=\"input0\"]").val("Eintrag A")</script>';
 
         $item1Description = new \Widgets\TextInput();
-        $item1Description->setLabelWidth($descLabelWidth);
-        $item1Description->setInputWidth($descInputWidth);
         $item1Description->setInputBackgroundColor("rgb(250,186,97)");
         $item1Description->setName("input1");
-        $html .= '<div class="attribute">' . $item1Description->getHtml() . "</div>";
+        $html .= $item1Description->getHtml();
         $html .='<script>$("input[name=\"input1\"]").val("Eintrag B")</script>';
 
         $item2Description = new \Widgets\TextInput();
-        $item2Description->setLabelWidth($descLabelWidth);
-        $item2Description->setInputWidth($descInputWidth);
         $item2Description->setInputBackgroundColor("rgb(244,229,123)");
         $item2Description->setName("input2");
-        $html .= '<div class="attribute">' . $item2Description->getHtml() . "</div>";
+        $html .= $item2Description->getHtml();
 
         $item3Description = new \Widgets\TextInput();
-        $item3Description->setLabelWidth($descLabelWidth);
-        $item3Description->setInputWidth($descInputWidth);
         $item3Description->setInputBackgroundColor("rgb(194,222,102)");
         $item3Description->setName("input3");
-        $html .= '<div class="attribute">' . $item3Description->getHtml() . "</div>";
+        $html .= $item3Description->getHtml();
 
         $item4Description = new \Widgets\TextInput();
-        $item4Description->setLabelWidth($descLabelWidth);
-        $item4Description->setInputWidth($descInputWidth);
         $item4Description->setInputBackgroundColor("rgb(113,182,255)");
         $item4Description->setName("input4");
-        $html .= '<div class="attribute">' . $item4Description->getHtml() . "</div>";
+        $html .= $item4Description->getHtml();
 
         $item5Description = new \Widgets\TextInput();
-        $item5Description->setLabelWidth($descLabelWidth);
-        $item5Description->setInputWidth($descInputWidth);
         $item5Description->setInputBackgroundColor("rgb(207,163,224)");
         $item5Description->setName("input5");
-        $html .= '<div class="attribute">' . $item5Description->getHtml() . "</div>";
+        $html .= $item5Description->getHtml();
+        
+        $clearer = new \Widgets\Clearer();
+        $html .= $clearer->getHtml();
         
         
 

@@ -23,10 +23,12 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 		$ajaxForm->setSubmitCommand("Create");
 		$ajaxForm->setSubmitNamespace("PortletMedia");
                 
+                $html = '';
+                
                 $headlineInput = new \Widgets\TextInput();
 		$headlineInput->setLabel("Überschrift");
                 $headlineInput->setName("title");
-                $html = $headlineInput->getHtml();
+                $html .= $headlineInput->getHtml();
                 
                 $urlInput = new \Widgets\TextInput();
 		$urlInput->setLabel("Adresse");

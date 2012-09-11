@@ -64,7 +64,7 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 
 
 <div class="attribute">
-	<div class="attributeNameRequired">Titel*:</div>
+	<div class="attributeName">Titel:</div>
 	<div><input type="text" class="text" value="" name="title"></div>
 </div>
 
