@@ -14,13 +14,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
     public function processData(\IRequestObject $requestObject) {
-        try{
         
         
         $objectId = $requestObject->getId();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $params = $requestObject->getParams();
 
+        
+        try{
+        
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
@@ -221,6 +223,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $htmlBody.= "Die Meldungen wurden durch das Kopieren mit der alten Oberfläche zerstört.<br>";
             $htmlBody.= "Eine Wiederherstellung ist nur durch den Support möglich.<br>";
             $htmlBody.= "Kopieren Sie Portale nur mit der neuen Oberfläche.";
+            $htmlBody.= '<a href="/portletmsg/repair/$objectId/">Reperatur durchführen</a>';
             $htmlBody.= "</div>";
         }
         
