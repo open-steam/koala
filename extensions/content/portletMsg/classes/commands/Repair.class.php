@@ -12,24 +12,11 @@ class Repair extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function processData(\IRequestObject $requestObject){
-		
-                $params = $requestObject->getParams();
-                        
-                var_dump($params);
+		$params = $requestObject->getParams();
+                $objectId = $params[0];
                 
-                $objectId = $this->params[0];
-                
-                var_dump($objectId);
-                
-                die;
-                $objectId = $requestObject->getId();
                 $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		
-                
-                
-                
-                
-                
                 $clipboard = $GLOBALS["STEAM"]->get_current_steam_user();
                 $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		
