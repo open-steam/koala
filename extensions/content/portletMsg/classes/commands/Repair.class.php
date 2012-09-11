@@ -37,13 +37,16 @@ class Repair extends \AbstractCommand implements \IFrameCommand {
                 foreach ($portletInventory as $msgObject) {
                     $pictrueId = $msgObject->get_attribute("bid:portlet:msg:picture_id");
                     
+                    $mimetype = $msgObject->get_attribute(DOC_MIME_TYPE);
+                    
                     //case message
-                    if($pictrueId==0){
+                    if($mimetype=="text/plain"){
                         $msgIdArray[]=$msgObject->get_id();
+                        $msgObject->set_attribute("bid:portlet:msg:picture_id","");
                     }
                     
                     //case picture
-                    if($pictrueId!=0){
+                    if($mimetype!="text/plain"){
                         $msgObject->move($clipboard);
                     }
                 }
