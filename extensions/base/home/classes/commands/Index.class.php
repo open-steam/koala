@@ -56,6 +56,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$content->parse("HOME_EXTENSION");
 		}
 		
+                $trashbin = $user->get_trashbin();
+                if ($trashbin->count_inventory() > 25) {
+                    $frameResponseObject->setProblemDescription("Ihr Papierkorb enthält zu viele Objekte.");
+                    $frameResponseObject->setProblemSolution("<a href=\"#\" onclick=\"sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer'); $('#error').fadeOut(1000);\">Jetzt den Papierkorb leeren.</a>");
+                }
+                
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
 		return $frameResponseObject;
