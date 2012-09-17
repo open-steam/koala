@@ -30,18 +30,20 @@ class Explorer extends AbstractExtension implements IIconBarExtension{
 		//$trashbinCount = count($trashbin->get_inventory());
 		$trashbinCount = 1;
 		$clipboardModel = new \Explorer\Model\Clipboard($currentUser);
-		//$clipboardCount = count($currentUser->get_inventory());
+                //$clipboardCount = count($currentUser->get_inventory());
 		$clipboardCount = 1;
 		return array(array("name"=>"<div id=\"clipboardIconbarWrapper\">".$clipboardModel->getIconbarHtml()."</div>", 
 		                   "menu"=> ($clipboardCount > 0 ) ? array(
                                        array("name" => "Zwischenablage öffnen", "link" => "/clipboard/"),          
-                                       array("name"=>"Objekte hier einfügen", "onclick"=>"event.stopPropagation();sendRequest('Paste', {'env':jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer');"), 
-		                       array("name"=>"Zwischenablage leeren", "onclick"=>"event.stopPropagation();sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');")) : ""),
+                                       array("name"=>"Objekte hier einfügen", "onclick"=>"event.stopPropagation();sendRequest('Paste', {'env':jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer');"),           
+                                       array("name"=>"Zwischenablage leeren", "onclick"=>"event.stopPropagation();sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');")) : ""),
                              array("name"=> "<div id=\"trashbinIconbarWrapper\">".$trashbinModel->getIconbarHtml()."</div>", 
 		                   "menu"=> ($trashbinCount > 0 ) ? array(
                                                     array("name"=>"Papierkorb öffnen", "link" => "/trashbin/"),
                                                     array("name"=>"Papierkorb leeren", "onclick"=>"event.stopPropagation();sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');") 
-		                                 ) : "")
+		                                 ) : ""),
+                             // array("name" => "<img title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">", "onclick"=>"sendRequest('Sort', {'id': jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer');return false;"),
+                             array("name" => "<img id=\"sort-icon\" name=\"false\"  onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">")
 		);
 	}
 	
