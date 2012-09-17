@@ -153,7 +153,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				break;
 		}
 		
-		$title = getCleanName($object);
+		$title = getCleanName($object, 65);
 		
 		$parent = $object->get_environment();
 		if ($parent instanceof \steam_container) {
