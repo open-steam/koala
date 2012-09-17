@@ -585,7 +585,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             // hidden documents in explorer
             $checkboxWidget = new \Widgets\Checkbox();
-            $checkboxWidget->setLabel("Verstecke Objekte<br>im Explorer anzeigen");
+            $checkboxWidget->setLabel("Versteckte Objekte<br>im Explorer anzeigen");
             $checkboxWidget->setCheckedValue("TRUE");
             $checkboxWidget->setUncheckedValue("FALSE");
             $checkboxWidget->setData($user);
