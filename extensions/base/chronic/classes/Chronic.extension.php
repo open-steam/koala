@@ -23,10 +23,21 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 	public function getMenuEntries() {
                 $chronic = $this->loadChronic();
                 $length = count($chronic);
-                $result = array(array("name" => "Verlauf", "menu" => array($this->getBackEntry(),$this->getParentEntry())));
-		
+                $result = array();
+                
+                // upwards menu
+                $result[] = array("name" => "Aufwärts", "menu" => array());
+                $menuArray = $result[0]["menu"];
+                $menuArray = $this->getUpwardsMenu($menuArray);
+                if (count($menuArray) == 0) {
+                    $menuArray[] = array("name" => "Keine Aufwärts-Navigation möglich.");
+                }
+                $result[0]["menu"] = $menuArray;
+                
+                // chronic
+                $result[] = array("name" => "Verlauf", "menu" => array($this->getBackEntry()));
                 if ($length > 1) {
-                    $menuArray = $result[0]["menu"];
+                    $menuArray = $result[1]["menu"];
                     $menuArray[] = array("name" => "SEPARATOR");
                     $count = 0;
                     foreach ($chronic as $chronicItem){
@@ -34,7 +45,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                         if($count<2) continue; //skip this and last element
                         $menuArray[] = array("name" => $this->getEntryIconTag($chronicItem)." ".$this->getEntryName($chronicItem), "link" => $this->getEntryPath($chronicItem)); //todo
                     }
-                    $result[0]["menu"] = $menuArray;
+                    $result[1]["menu"] = $menuArray;
                 }
                 return $result;
 	}
@@ -325,6 +336,57 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 if (!$valid) unset($chronic[$chronicKey]);
             }
             return $chronic;
+        }
+        
+        private function getUpwardsMenu($menuArray) {
+            $moreItems = true;
+            
+            $chronic = $this->loadChronic();
+            if (!isset($chronic[0])) $moreItems = false;
+            $currentLocation = $chronic[0];
+            $content = explode(":", $currentLocation);
+            $entryType = $content[0];
+            $currentObjectId = $content[1];
+            
+            if ($entryType==="oid"){
+                //find object
+                try{
+                    $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectId);
+                }  catch (\steam_exception $e){
+                    //object not found
+                    $moreItems = false;
+                }
+
+                //find parent
+                while ($moreItems) {
+                    try {
+                        $environmentObject = $steamObject->get_environment();
+                        if ("0" == $environmentObject) throw new \steam_exception;
+                        if (!($environmentObject instanceof \steam_object)) throw new \steam_exception;
+
+                        //is Presentation, autoforward case
+                        if ($environmentObject->get_attribute("bid:presentation") === "index") { 
+                            $environmentObject = $environmentObject->get_environment();
+                        }
+                        if ("0" == $environmentObject) throw new \steam_exception;
+                        if (!($environmentObject instanceof \steam_object)) throw new \steam_exception;
+                        
+                        $objectArray = array("name" => "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($environmentObject)."\"></img> " . getCleanName($environmentObject, 20));
+                    
+                        if ($environmentObject->check_access_read()) {
+                            $objectArray["link"] = $this->getEntryPath("oid:".$environmentObject->get_id());
+                        } else {
+                            $objectArray["name"] = $objectArray["name"] . " (Kein Zugriff)";
+                        }
+                        $menuArray[] = $objectArray;
+                        $steamObject = $environmentObject;
+                    } catch (\steam_exception $e){
+                        //no environment
+                        $moreItems = false;
+                    }
+                }
+            }
+            return $menuArray;
         }
 }
 ?>
