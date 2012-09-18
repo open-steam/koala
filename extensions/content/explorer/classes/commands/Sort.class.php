@@ -50,6 +50,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             }
         }
         if ($oldPosition > $newPosition) {
+            echo 1 . "          ";
             for ($i = $oldPosition; $i > $newPosition; $i--) {
                 $parent->swap_inventory($i, $i - 1);
             }

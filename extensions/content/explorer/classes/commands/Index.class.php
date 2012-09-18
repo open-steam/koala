@@ -276,12 +276,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $( ".listviewer-items" ).sortable({zIndex: 1});
             $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
                 var changedElement = $(ui.item).attr("id");
-                var itemList = $(".listviewer-items").children();
-                itemList.each(function(index, value){
-                if(index == itemList.length-1)newIds +=value.id; 
-                else newIds+=value.id + ", ";});
-                sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
-   
+                $(".listviewer-items").children();
+                $(".listviewer-items").children().each(function(index, value){
+                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id; 
+                    else newIds+=value.id + ", ";});
+                    sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
+                    newIds = ""; 
             });
                                     
     }';
