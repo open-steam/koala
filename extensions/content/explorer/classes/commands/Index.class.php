@@ -271,7 +271,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $script .= '
             $(".listviewer").css("border", "medium solid red");
             $("#sort-icon").attr("name", "true");$(".listviewer").prepend("<h1 style=\"color: red;\">Sortiermodus</h1>");
-            
+            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");});
             var newIds = "";                
             $( ".listviewer-items" ).sortable({zIndex: 1});
             $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
