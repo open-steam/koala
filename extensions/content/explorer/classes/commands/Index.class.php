@@ -268,24 +268,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $script .= '$("#sort-icon").attr("name", "true");$(".listviewer").prepend("<h1 style=\"color: red;\">Sortiermodus</h1>");
-            var oldIds = "";
-            var itemList = $(".listviewer-items").children();
-            itemList.each(function(index, value){
-                if(index == itemList.length-1){
-                    oldIds +=value.id;
-                }else{
-                    oldIds +=value.id + ", ";
-                }
-            });
+        $script .= '
+            $(".listviewer").css("border", "medium solid red");
+            $("#sort-icon").attr("name", "true");$(".listviewer").prepend("<h1 style=\"color: red;\">Sortiermodus</h1>");
+            
             var newIds = "";                
             $( ".listviewer-items" ).sortable({zIndex: 1});
             $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
+                var changedElement = $(ui.item).attr("id");
                 var itemList = $(".listviewer-items").children();
                 itemList.each(function(index, value){
                 if(index == itemList.length-1)newIds +=value.id; 
                 else newIds+=value.id + ", ";});
-                sendRequest("Sort", { "id": $("#environment").attr("value"), "oldIds" : oldIds, "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
+                sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
    
             });
                                     
