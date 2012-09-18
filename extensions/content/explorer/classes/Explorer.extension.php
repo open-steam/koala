@@ -32,7 +32,9 @@ class Explorer extends AbstractExtension implements IIconBarExtension{
 		$clipboardModel = new \Explorer\Model\Clipboard($currentUser);
                 //$clipboardCount = count($currentUser->get_inventory());
 		$clipboardCount = 1;
-		return array(array("name"=>"<div id=\"clipboardIconbarWrapper\">".$clipboardModel->getIconbarHtml()."</div>", 
+		return array(array("name" => "<img id=\"sort-icon\" name=\"false\"  onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">"),
+		
+                            array("name"=>"<div id=\"clipboardIconbarWrapper\">".$clipboardModel->getIconbarHtml()."</div>", 
 		                   "menu"=> ($clipboardCount > 0 ) ? array(
                                        array("name" => "Zwischenablage öffnen", "link" => "/clipboard/"),          
                                        array("name"=>"Objekte hier einfügen", "onclick"=>"event.stopPropagation();sendRequest('Paste', {'env':jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer');"),           
@@ -41,9 +43,9 @@ class Explorer extends AbstractExtension implements IIconBarExtension{
 		                   "menu"=> ($trashbinCount > 0 ) ? array(
                                                     array("name"=>"Papierkorb öffnen", "link" => "/trashbin/"),
                                                     array("name"=>"Papierkorb leeren", "onclick"=>"event.stopPropagation();sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');") 
-		                                 ) : ""),
+		                                 ) : "")
                              // array("name" => "<img title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">", "onclick"=>"sendRequest('Sort', {'id': jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer');return false;"),
-                             array("name" => "<img id=\"sort-icon\" name=\"false\"  onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">")
+                            // array("name" => "<img id=\"sort-icon\" name=\"false\"  onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">")
 		);
 	}
 	
