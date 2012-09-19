@@ -74,6 +74,7 @@ class NewWebLinkForm extends \AbstractCommand implements \IFrameCommand, \IAjaxC
 <br>
 END
 );
+                $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		$ajaxResponseObject->addWidget($ajaxForm);
 		return $ajaxResponseObject;
 	}

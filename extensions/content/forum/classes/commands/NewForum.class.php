@@ -64,7 +64,7 @@ class NewForum extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand
 END
 );
 		
-		
+		$ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		
 		$ajaxResponseObject->setStatus("ok");
 		

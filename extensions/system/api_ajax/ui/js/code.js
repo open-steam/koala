@@ -59,7 +59,8 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
 			    		} else if (requestType == "wizard") {
 			    			jQuery.globalEval(responseData.js);
 			    			jQuery('#' + elementId).fadeOut(1000, function() {jQuery('#' + elementId).html("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html).fadeIn(1000);});
-			    		} else if (requestType == "data") {
+                                                jQuery.globalEval(responseData.postjs);
+                                        } else if (requestType == "data") {
 			    			
 			    		} else {
 			    			handleError("Falscher Anfragetyp", response, params);

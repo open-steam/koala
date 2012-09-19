@@ -33,7 +33,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $portletName = $portlet->get_attribute(OBJ_DESC);
 
-        $this->getExtension()->addCSS();
+       // $this->getExtension()->addCSS();
         $this->getExtension()->addJS();
 
 

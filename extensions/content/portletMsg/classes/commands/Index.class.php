@@ -14,10 +14,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
     public function processData(\IRequestObject $requestObject) {
+        
+        
         $objectId = $requestObject->getId();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $params = $requestObject->getParams();
 
+        
+        try{
+        
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
@@ -212,6 +217,25 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl->parse("BLOCK_PORTLET_MESSAGE");
         $htmlBody = $tmpl->get();
         $this->content = $htmlBody;
+        
+        }catch (\steam_exception $e){
+            $htmlBody = '<div style="background-color:red;color:white;text-align:center;">';
+            $htmlBody.= "Die Meldungen im Portal wurden durch das Kopieren mit der alten Oberfläche zerstört. ";
+            $htmlBody.= "Kopieren Sie Portale nur mit der neuen Oberfläche.<br>";
+            //$htmlBody.= "Eine Wiederherstellung ist nur durch den Support möglich.<br>";
+            $htmlBody.= "<br>";
+            
+            $htmlBody.= "Bei einer Reparatur können die in den Meldungen enthaltenen Bilder nicht den ursprünglichen Meldungen zugeordnet werden. ";
+            $htmlBody.= "Die Bilder werden daher in die Zwischenablage verschoben. ";
+            $htmlBody.= "Ferner geht die ursprüngliche Reihenfolge der Meldungen verloren. ";
+            $htmlBody.= "Eine Reparatur ist nur mit Schreibrechten möglich.<br>";
+            
+            $htmlBody.= "<br>";
+            
+            $htmlBody.= '<a style="color:white" href="/portletmsg/repair/'.$objectId.'/">Reparaturversuch durchführen</a><br>';
+            $htmlBody.= "</div>";
+        }
+        
 
         //widgets
         $outputWidget = new \Widgets\RawHtml();

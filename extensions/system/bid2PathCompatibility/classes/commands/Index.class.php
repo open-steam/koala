@@ -175,8 +175,14 @@ class Index extends \AbstractCommand implements \IFrameCommand{
          * gets a objectId to a steam path
          */
         private function getObjectId($path){
-            $object = \steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $path);
-            return $object->get_id();
+            try{
+                $object = \steam_factory::path_to_object($GLOBALS["STEAM"]->get_id(), $path);
+                return $object->get_id();
+            }  catch (\steam_exception $e){
+                $url = "/404/";
+                header("Location: ".$url);
+                die;
+            }
         }
         
         

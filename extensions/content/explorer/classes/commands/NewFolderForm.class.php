@@ -70,6 +70,7 @@ class NewFolderForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCo
 <br>
 END
 );
+                $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		$ajaxResponseObject->addWidget($ajaxForm);
 		return $ajaxResponseObject;
 	}

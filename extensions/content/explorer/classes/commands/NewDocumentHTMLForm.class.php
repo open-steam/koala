@@ -70,7 +70,7 @@ class NewDocumentHTMLForm extends \AbstractCommand implements \IFrameCommand, \I
 <br>
 END
 );
-                $ajaxForm->setPostJsCode('document.getElementById("nameInput").focus();');
+                $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		$ajaxResponseObject->addWidget($ajaxForm);
                
 		return $ajaxResponseObject;

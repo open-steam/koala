@@ -64,7 +64,7 @@ class NewGallery extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 END
 	);
 		
-		
+		$ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		
 		$ajaxResponseObject->setStatus("ok");
 		

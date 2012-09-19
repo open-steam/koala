@@ -1,0 +1,13 @@
+ .widgets_label {
+	width: 120px;
+	margin: 3px;
+        float: left;
+}
+
+.widgets_textinput input, .widgets_datepicker input, .widgets_combobox select, .widgets_textfield {
+	width: 200px;
+	margin: 3px;
+}
+.widgets_radiobutton {
+    margin-left: 152px;
+}

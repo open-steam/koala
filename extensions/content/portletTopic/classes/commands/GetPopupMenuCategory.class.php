@@ -47,7 +47,7 @@ class GetPopupMenuCategory extends \AbstractCommand implements \IAjaxCommand {
 		
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditTopicCategory", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}','categoryIndex':'{$this->categoryIndex}'}", "type"=>"popup"),
-						array("name" => "Eintrag einfügen <img src=\"{$blankIcon}\">",  "command" => "CreateEntry", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}','categoryIndex':'{$this->categoryIndex}'}", "type"=>"popup"),
+						array("name" => "Eintrag einfügen <img src=\"{$blankIcon}\">",  "command" => "CreateEntryForm", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}','categoryIndex':'{$this->categoryIndex}'}", "type"=>"popup"),
 						array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
 							array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "OrderCategory", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','order':'up'}", "type"=>"popup"),
 							array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "OrderCategory", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','order':'down'}", "type"=>"popup"),

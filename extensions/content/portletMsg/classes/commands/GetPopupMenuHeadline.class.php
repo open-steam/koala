@@ -48,7 +48,7 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 		
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "Edit", "namespace" => "PortletMsg", "params" => "{'portletId':'{$this->portletObjectId}','user':'{$this->user}'}", "type"=>"popup"), 
-						array("name" => "Meldung einfügen <img src=\"{$blankIcon}\">",  "command" => "CreateMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}'}", "type"=>"popup"),
+						array("name" => "Meldung einfügen <img src=\"{$blankIcon}\">",  "command" => "CreateNewFormMsg", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}'}", "type"=>"popup"),
 						array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
 							array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'up'}", "type"=>"popup"),
 							array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'down'}", "type"=>"popup"),

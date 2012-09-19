@@ -17,18 +17,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function validateData(\IRequestObject $requestObject) {
         return true;
     }
-    
 
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
     }
-    
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         //chronic
         \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("profile");
-        
+
         $current_user = \lms_steam::get_current_user();
 
         $name = $this->id;
@@ -43,13 +41,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $frameResponseObject = $this->execute($frameResponseObject);
         return $frameResponseObject;
     }
-    
 
     public function display($block, $label, $value, $is_buddy = TRUE) {
         if (empty($value)) {
             return;
         }
-        
+
         if ($is_buddy && $this->viewer_authorized($label)) {
             $GLOBALS["content"]->setCurrentBlock("BLOCK_" . $block);
             $GLOBALS["content"]->setVariable("LABEL_" . $block, secure_gettext($label));
@@ -60,14 +57,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
     }
 
-    
     public function viewer_authorized($label) {
         $current_user = $GLOBALS["current user"];
         $current_userId = $current_user->get_id();
         $profileUser = \steam_factory::get_user($GLOBALS["STEAM"]->get_id(), $this->id);
         $authorizations = $GLOBALS["authorizations"];
         (isset($authorizations[$this->label_to_mapping($label)])) ? $current_authorization = $authorizations[$this->label_to_mapping($label)] : $current_authorization = "";
-        
+
         if (!( $current_authorization & PROFILE_DENY_ALLUSERS ))
             return true;
         $is_contact = false;
@@ -85,7 +81,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         } else {
             $is_contact = in_array($current_user->get_id(), $GLOBALS["contact_ids"]);
         }
-        
+
         if ($is_contact && !($current_authorization & PROFILE_DENY_CONTACTS)) {
             return true;
         }
@@ -93,7 +89,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         return false;
     }
 
-    
     public function label_to_mapping($label) {
         switch ($label) {
             case "Origin": return "PRIVACY_FACULTY";
@@ -134,31 +129,28 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         //template
         $GLOBALS["content"] = \Profile::getInstance()->loadTemplate("index.template.html");
-        
+
         // left side
         $GLOBALS["content"]->setCurrentBlock("BLOCK_LEFT_SIDE");
-	$networking_profile = new \lms_networking_profile( $user );
-	$networking_profile->count_profile_visit( $current_user );
-	$itemId = $user_profile[ "OBJ_ICON" ];
-	$icon_link = ( $user_profile[ "OBJ_ICON" ] == 0 ) ? PATH_STYLE . "images/anonymous.jpg" : PATH_URL . "download/image/".$itemId."/140/185";
-		
-        $GLOBALS["content"]->setVariable( "USER_IMAGE", $icon_link);
-	$GLOBALS["content"]->setVariable( "GIVEN_NAME", $user_profile[ "USER_FIRSTNAME" ] );
-	$GLOBALS["content"]->setVariable( "FAMILY_NAME", $user_profile[ "USER_FULLNAME" ] );
-	if ( ! empty( $user_profile[ "USER_ACADEMIC_TITLE" ] ) ) {
-            $GLOBALS["content"]->setVariable( "ACADEMIC_TITLE", $user_profile[ "USER_ACADEMIC_TITLE" ] );
-	}
-	if ( ! empty( $user_profile[ "USER_ACADEMIC_DEGREE" ] ) ) {
-            $GLOBALS["content"]->setVariable( "ACADEMIC_DEGREE", "(" . $user_profile[ "USER_ACADEMIC_DEGREE" ] . ")" );
-	}
-	if( \lms_steam::is_koala_admin($current_user) ) {
-            $GLOBALS["content"]->setVariable( "LABEL_LAST_LOGIN", gettext("last login") . ":" );
-            $GLOBALS["content"]->setVariable( "LABEL_PAGE_HITS", gettext("page hits") . ":" );
-            $GLOBALS["content"]->setVariable( "LAST_LOGIN", how_long_ago( $user_profile[ "USER_LAST_LOGIN" ] ) );
-            $GLOBALS["content"]->setVariable( "PAGE_HITS", $networking_profile->get_profile_visits() );
-	}
+
+        $itemId = $user_profile["OBJ_ICON"];
+        $icon_link = ( $user_profile["OBJ_ICON"] == 0 ) ? PATH_STYLE . "images/anonymous.jpg" : PATH_URL . "download/image/" . $itemId . "/140/185";
+
+        $GLOBALS["content"]->setVariable("USER_IMAGE", $icon_link);
+        $GLOBALS["content"]->setVariable("GIVEN_NAME", $user_profile["USER_FIRSTNAME"]);
+        $GLOBALS["content"]->setVariable("FAMILY_NAME", $user_profile["USER_FULLNAME"]);
+        if (!empty($user_profile["USER_ACADEMIC_TITLE"])) {
+            $GLOBALS["content"]->setVariable("ACADEMIC_TITLE", $user_profile["USER_ACADEMIC_TITLE"]);
+        }
+        if (!empty($user_profile["USER_ACADEMIC_DEGREE"])) {
+            $GLOBALS["content"]->setVariable("ACADEMIC_DEGREE", "(" . $user_profile["USER_ACADEMIC_DEGREE"] . ")");
+        }
+        if (\lms_steam::is_koala_admin($current_user)) {
+            $GLOBALS["content"]->setVariable("LABEL_LAST_LOGIN", gettext("last login") . ":");
+            $GLOBALS["content"]->setVariable("LAST_LOGIN", how_long_ago($user_profile["USER_LAST_LOGIN"]));
+        }
         $GLOBALS["content"]->parse("BLOCK_LEFT_SIDE");
-        
+
         // get buddys of the user and put them into the $globals-array for authorization-query
         $confirmed = ( $user->get_id() != $current_user->get_id() ) ? TRUE : FALSE;
         $contacts = $cache->call("lms_steam::user_get_buddies", $login, $confirmed);
@@ -181,35 +173,35 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $actionBar->setActions($actions);
             $frameResponseObject->addWidget($actionBar);
         }
-        
+
         if ($current_user->get_id() == $user->get_id()) {
             \Profile::getInstance()->addCSS();
-            
+
             // infobar
             $infoBar = new \Widgets\InfoBar();
-            if (PLATFORM_ID=="bid"){
+            if (PLATFORM_ID == "bid") {
                 $infoBar->addParagraph("Hier können Sie Ihre persönlichen Kontaktdaten und Einstellungen einrichten. Bis auf Ihren Namen sind alle Angaben freiwillig und können von Ihnen geändert werden. Klicken Sie auf den Button <b><i>Profil-Privatsphäre</i></b> um festzulegen, wem welche Informationen angezeigt werden sollen.");
             } else {
-                $infoBar->addParagraph(gettext("Please complete your profile. None of the fields are mandatory. Some of the fields can not be changed due to central identity management at the IMT.<br/><b>Note: With the button <i>Profile Privacy</i> you can control which information can be seen by other users.</b>" ) );
+                $infoBar->addParagraph(gettext("Please complete your profile. None of the fields are mandatory. Some of the fields can not be changed due to central identity management at the IMT.<br/><b>Note: With the button <i>Profile Privacy</i> you can control which information can be seen by other users.</b>"));
             }
             $frameResponseObject->addWidget($infoBar);
-            
+
             $clearer = new \Widgets\Clearer();
-            
+
             // table cell html
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml($GLOBALS["content"]->get() . '<td class="detail" valign="top" style="line-height: 13px;">'
                     . '<style type="text/css"> .widget.textarea textarea { margin-top: 5px; margin-bottom: 5px; }</style>');
             $frameResponseObject->addWidget($rawHtml);
-            
+
             // general information label
             $generalLabel = new \Widgets\RawHtml();
             $generalLabel->setHtml("<div style='font-size:15px;'><b>" . gettext("General Information") . "</b></div>");
             $frameResponseObject->addWidget($generalLabel);
-            
+
             // first name
             if (ENABLED_FIRST_NAME) {
-		$textWidget = new \Widgets\TextInput();
+                $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("First name"));
                 $textWidget->setData($user);
                 $textWidget->setInputWidth("400");
@@ -218,10 +210,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // last name
             if (ENABLED_FULL_NAME) {
-		$textWidget = new \Widgets\TextInput();
+                $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Last name"));
                 $textWidget->setData($user);
                 $textWidget->setInputWidth("400");
@@ -230,7 +222,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // bid owl name
             if (ENABLED_BID_NAME) {
                 $textWidget = new \Widgets\TextInput();
@@ -242,7 +234,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // bid description
             if (ENABLED_BID_DESCIPTION) {
                 $textWidget = new \Widgets\TextInput();
@@ -253,37 +245,37 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // status
             if (ENABLED_STATUS) {
                 $comboBoxWidget = new \Widgets\ComboBox();
-		$comboBoxWidget->setLabel(gettext("Status"));
+                $comboBoxWidget->setLabel(gettext("Status"));
                 $comboBoxWidget->setData($user);
                 $comboBoxWidget->setOptions(array(
-                    array( "name" => gettext("student"), "value" => "student"), 
-                    array( "name" => gettext("staff member"), "value" => "staff member"),
-                    array( "name" => gettext("guest"), "value" => "guest"),
-                    array( "name" => gettext("alumni"), "value" => "alumni")));
+                    array("name" => gettext("student"), "value" => "student"),
+                    array("name" => gettext("staff member"), "value" => "staff member"),
+                    array("name" => gettext("guest"), "value" => "guest"),
+                    array("name" => gettext("alumni"), "value" => "alumni")));
                 $comboBoxWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($comboBoxWidget);
             }
-            
+
             // academic degree and title
             if (ENABLED_DEGREE) {
                 $dropDownWidget = new \Widgets\ComboBox();
-		$dropDownWidget->setLabel(gettext("Academic title"));
+                $dropDownWidget->setLabel(gettext("Academic title"));
                 $dropDownWidget->setData($user);
                 $dropDownWidget->setOptions(array(
-                    array( "name" => "keiner", "value" => ""), 
-                    array( "name" => "Dr.", "value" => "Dr."),
-                    array( "name" => "PD Dr.", "value" => "PD Dr."),
-                    array( "name" => "Prof.", "value" => "Prof."),
-                    array( "name" => "Prof. Dr.", "value" => "Prof. Dr.")));
+                    array("name" => "keiner", "value" => ""),
+                    array("name" => "Dr.", "value" => "Dr."),
+                    array("name" => "PD Dr.", "value" => "PD Dr."),
+                    array("name" => "Prof.", "value" => "Prof."),
+                    array("name" => "Prof. Dr.", "value" => "Prof. Dr.")));
                 $dropDownWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_ACADEMIC_TITLE"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($dropDownWidget);
-   
+
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Academic degree"));
                 $textWidget->setData($user);
@@ -292,32 +284,32 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // gender
-            if (ENABLED_GENDER){
+            if (ENABLED_GENDER) {
                 $radioButton = new \Widgets\RadioButton();
                 $radioButton->setLabel(gettext("Gender"));
                 $radioButton->setData($user);
                 $radioButton->setOptions(array(
-                    array( "name" => gettext("female"), "value" => "F"), 
-                    array( "name" => gettext("male"), "value" => "M"),
-                    array( "name" => gettext("rather not say"), "value" => "X")));
+                    array("name" => gettext("female"), "value" => "F"),
+                    array("name" => gettext("male"), "value" => "M"),
+                    array("name" => gettext("rather not say"), "value" => "X")));
                 $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_GENDER"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($radioButton);
             }
-            
+
             // faculty
             if (ENABLED_FACULTY) {
                 $dropDownWidget = new \Widgets\ComboBox();
-		$dropDownWidget->setLabel(gettext("Origin"));
+                $dropDownWidget->setLabel(gettext("Origin"));
                 $dropDownWidget->setData($user);
                 $options = array();
                 array_push($options, array("name" => gettext("miscellaneous"), "value" => "miscellaneous"));
-                $faculties = $cache->call( "lms_steam::get_faculties_asc" );
-		foreach($faculties as $faculty) {
+                $faculties = $cache->call("lms_steam::get_faculties_asc");
+                foreach ($faculties as $faculty) {
                     array_push($options, array("name" => $faculty["OBJ_NAME"], "value" => $faculty["OBJ_ID"]));
-		}
+                }
                 $dropDownWidget->setOptions($options);
                 $dropDownWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_FACULTY"));
                 //$frameResponseObject->addWidget($clearer);
@@ -333,10 +325,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // haves
             if (ENABLED_HAVES) {
-		$textWidget = new \Widgets\TextInput();
+                $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Haves"));
                 $textWidget->setData($user);
                 $textWidget->setInputWidth("400");
@@ -344,10 +336,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // hometown
             if (ENABLED_HOMETOWN) {
-		$textWidget = new \Widgets\TextInput();
+                $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Hometown"));
                 $textWidget->setData($user);
                 $textWidget->setInputWidth("400");
@@ -355,7 +347,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // main focus
             // TODO: was textarea before
             if (ENABLED_MAIN_FOCUS) {
@@ -371,7 +363,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // other interests
             if (ENABLED_OTHER_INTERESTS) {
                 $textWidget = new \Widgets\TextInput();
@@ -382,7 +374,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // organizations
             if (ENABLED_ORGANIZATIONS) {
                 $textWidget = new \Widgets\TextInput();
@@ -393,7 +385,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // user description
             // TODO: autosave?
             if (ENABLED_USER_DESC) {
@@ -407,7 +399,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // contacts title
             if (ENABLED_CONTACTS_TITLE) {
                 $contactLabel = new \Widgets\RawHtml();
@@ -415,7 +407,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($contactLabel);
             }
-            
+
             // email
             if (ENABLED_EMAIL) {
                 $textWidget = new \Widgets\TextInput();
@@ -428,7 +420,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($textWidget);
                 // Email Settings?
             }
-            
+
             // bid email
             if (ENABLED_BID_EMAIL) {
                 $textWidget = new \Widgets\TextInput();
@@ -439,7 +431,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // address
             if (ENABLED_ADDRESS) {
                 $textWidget = new \Widgets\TextInput();
@@ -450,7 +442,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // bid address
             // TODO: was textarea before
             if (ENABLED_BID_ADRESS) {
@@ -463,7 +455,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // telephone number
             if (ENABLED_TELEPHONE) {
                 $textWidget = new \Widgets\TextInput();
@@ -474,7 +466,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // bid telephone number
             if (ENABLED_BID_PHONE) {
                 $textWidget = new \Widgets\TextInput();
@@ -485,7 +477,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // mobile phone number
             if (ENABLED_PHONE_MOBILE) {
                 $textWidget = new \Widgets\TextInput();
@@ -496,7 +488,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // website and name of the website
             if (ENABLED_WEBSITE) {
                 $textWidget = new \Widgets\TextInput();
@@ -506,7 +498,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_WEBSITE_URI"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
-            
+
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Website name"));
                 $textWidget->setData($user);
@@ -515,7 +507,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // icq number
             if (ENABLED_ICQ_NUMBER || ENABLED_BID_IM) {
                 $textWidget = new \Widgets\TextInput();
@@ -526,7 +518,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // msn identification
             if (ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM) {
                 $textWidget = new \Widgets\TextInput();
@@ -537,7 +529,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // aim alias
             if (ENABLED_AIM_ALIAS || ENABLED_BID_IM) {
                 $textWidget = new \Widgets\TextInput();
@@ -548,7 +540,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // yahoo id
             if (ENABLED_YAHOO_ID || ENABLED_BID_IM) {
                 $textWidget = new \Widgets\TextInput();
@@ -559,7 +551,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // skype name
             if (ENABLED_SKYPE_NAME || ENABLED_BID_IM) {
                 $textWidget = new \Widgets\TextInput();
@@ -570,7 +562,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
             }
-            
+
             // settings label
             $settingsLabel = new \Widgets\RawHtml();
             $settingsLabel->setHtml("<div style='font-size:15px; padding-top:10px;'><b>" . "Einstellungen" . "</b></div>");
@@ -580,7 +572,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             // languages
             if (ENABLED_LANGUAGES || ENABLED_BID_LANGUAGE) {
                 $dropDownWidget = new \Widgets\ComboBox();
-		$dropDownWidget->setLabel(gettext("Language"));
+                $dropDownWidget->setLabel(gettext("Language"));
                 $dropDownWidget->setData($user);
                 $dropDownWidget->setOptions(array(
                     array("name" => "Deutsch", "value" => "german"),
@@ -590,17 +582,17 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($dropDownWidget);
             }
-            
+
             // hidden documents in explorer
             $checkboxWidget = new \Widgets\Checkbox();
-            $checkboxWidget->setLabel("Verstecke Objekte<br>im Explorer anzeigen");
+            $checkboxWidget->setLabel("Versteckte Objekte<br>im Explorer anzeigen");
             $checkboxWidget->setCheckedValue("TRUE");
             $checkboxWidget->setUncheckedValue("FALSE");
             $checkboxWidget->setData($user);
             $checkboxWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_SHOW_HIDDEN_DOCUMENTS"));
             $frameResponseObject->addWidget($clearer);
             $frameResponseObject->addWidget($checkboxWidget);
-            
+
             // close table
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml("</td></tr></table>");
@@ -842,9 +834,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             if (ENABLED_YAHOO_ID || ENABLED_BID_IM) {
                 $yahoo = (h($user_profile["USER_PROFILE_IM_YAHOO"]) !== 0) ? h($user_profile["USER_PROFILE_IM_YAHOO"]) : "";
                 if (isset($yahoo) && $yahoo !== 0 && $yahoo != "") {
-                    $yahooUrl = "<a href=\"ymsgr:sendIM?".$yahoo."\">".$yahoo."</a>";
+                    $yahooUrl = "<a href=\"ymsgr:sendIM?" . $yahoo . "\">" . $yahoo . "</a>";
                     $this->display("CONTACT_DATA", "Yahoo-ID", $yahooUrl);
-                } 
+                }
             }
 
             // Skype
@@ -867,16 +859,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             if ($this->CONTACTS_AND_GROUPS_displayed) {
                 $GLOBALS["content"]->setVariable("HEADER_CONTACTS_AND_GROUPS", gettext("Contacts and Groups"));
             }
-            
+
             $GLOBALS["content"]->setVariable("DISPLAY_RIGHT_SIDE", "");
-            
+
             // this needed?
             $GLOBALS["content"]->setVariable("PATH_JAVASCRIPT", PATH_JAVASCRIPT);
             $GLOBALS["content"]->setVariable("KOALA_VERSION", KOALA_VERSION);
             $GLOBALS["content"]->setVariable("USER_LOGIN", $login);
-            
+
             $GLOBALS["content"]->parse("BLOCK_RIGHT_SIDE");
-            
+
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml($GLOBALS["content"]->get());
             $rawHtml->setCSS(".detail .widgets_label { width: 150px; }");
@@ -885,5 +877,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         return $frameResponseObject;
     }
+
 }
+
 ?>

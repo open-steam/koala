@@ -146,39 +146,48 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
   }
 }
 	}*/
-	
+
+        
+        
  private function get_document_data($login, $password, $identifier, $identifier_type, $width = false, $height = false) {
      $STEAM = \steam_connector::connect(STEAM_SERVER, STEAM_PORT, $login, $password );
      if ( $identifier_type === "name" ) {
      	$document = $STEAM->predefined_command( $STEAM->get_module("icons"), "get_icon_by_name", array( (string)$identifier ), 0 );
      }
+     
      else if ( $identifier_type === "id" ) {
-	     $document = \steam_factory::get_object( $STEAM->get_id(), (int)$identifier );
-	     if (!isset($this->filename)) {
-	     	header("location: " . PATH_URL . "Download/Document/{$identifier}/{$document->get_name()}");
-	     	exit;
-	     }
-     }
-     // If user is not logged in, open login dialog. If user is logged in
-     // and not guest, then display "Access denied" message.
-     if (!$document->check_access_read( $STEAM->get_current_steam_user())) {
+	    $document = \steam_factory::get_object( $STEAM->get_id(), (int)$identifier );
+	    if (!isset($this->filename)) {
+                header("location: " . PATH_URL . "Download/Document/{$identifier}/{$document->get_name()}");
+                exit;
+            }
+    }
+    
+    // If user is not logged in, open login dialog. If user is logged in
+    // and not guest, then display "Access denied" message.
+    if (!$document->check_access_read( $STEAM->get_current_steam_user())) {
        if ($login == 'guest') throw new \Exception( "Access denied. Please login.", E_USER_AUTHORIZATION );
        else {
          throw new \Exception( "Access denied.", E_USER_RIGHTS );
-       }
-     }
+        }
+    }
 
-	 if ( ! is_object( $document ) )
-	    return array( "content" => array() );  // array is considered to be an error
-     $document->get_attributes( array("OBJ_NAME","DOC_MIME_TYPE","DOC_LAST_MODIFIED"), TRUE );
+    if ( ! is_object( $document ) )
+        return array( "content" => array() );  // array is considered to be an error
+    
+    $document->get_attributes( array("OBJ_NAME","DOC_MIME_TYPE","DOC_LAST_MODIFIED"), TRUE );
    
+    
     if (!$width && !$height) {
       //$tnr_content = $document->get_content(TRUE);  // workaround: get data from sTeam webinterface
-      $tnr_contentsize = $document->get_content_size(TRUE);
+      //$tnr_contentsize = $document->get_content_size(TRUE); //Not used
     }
     else {
       $tnr_imagecontent = $document->get_thumbnail_data($width, $height, 0, TRUE);
     }
+    
+    
+    
     $result = $STEAM->buffer_flush();
     if (isset($tnr_imagecontent)) { // handle thumbnail data
       $data["mimetype"]    = $result[$tnr_imagecontent]["mimetype"];
@@ -188,42 +197,44 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       $data["contentsize"] = $result[$tnr_imagecontent]["contentsize"];
     }
     else if ( $identifier_type === "id" ) {
-      $data["mimetype"]    = $document->get_attribute( "DOC_MIME_TYPE" );
-      $data["lastmodified"]= $document->get_attribute( "DOC_LAST_MODIFIED" );
-      $data["name"]        = $document->get_name();
-	  $data["contentsize"] = $document->get_content_size();
- 	  $data["content"]     = $document->get_content();
-/*      $data["contentsize"] = $result[$tnr_contentsize];
-      //$data["content"]     = $result[$tnr_content];  // workaround: get data from sTeam webinterface
+        $data["mimetype"]    = $document->get_attribute( "DOC_MIME_TYPE" );
+        $data["lastmodified"]= $document->get_attribute( "DOC_LAST_MODIFIED" );
+        $data["name"]        = $document->get_name();
+        $data["contentsize"] = $document->get_content_size();
+        $data["content"]     = $document->get_content();
+        
+        /*
+        $data["contentsize"] = $result[$tnr_contentsize];
+        //$data["content"]     = $result[$tnr_content];  // workaround: get data from sTeam webinterface
       
-      // workaround: get content from sTeam webinterface, because 
-      //$data["content"] = $document->get_content();
-      //   results in *huge* memory overheads (a 15 MB download fails with 60 MB scrip memory limit!
-      if (defined("LOG_DEBUGLOG")) {
+        // workaround: get content from sTeam webinterface, because 
+        //$data["content"] = $document->get_content();
+        //   results in *huge* memory overheads (a 15 MB download fails with 60 MB scrip memory limit!
+        if (defined("LOG_DEBUGLOG")) {
         $time1 = microtime(TRUE);
         \logging::write_log( LOG_DEBUGLOG, "get_document::get_document_data(" . $login . ", *****" . ", " . $identifier . ", ". $identifier_type . ", false, false)\t " . $login . " \t". $identifier . " \t" . $document->get_name() . " \t" .  $data["contentsize"] . " Bytes \t... " );
-      }
-      $https_port = (int)$STEAM->get_config_value( "https_port" );
-      if ( $https_port == 443 || $https_port == 0 ) $https_port = "";
-      else $https_port = ":" . (string)$https_port;
-      $ch = curl_init( "https://" . STEAM_SERVER . $https_port . "/scripts/get.pike?object=" . $identifier );
-      curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
-      curl_setopt( $ch, CURLOPT_BINARYTRANSFER, TRUE );
-      curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
-      curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
-      curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 120 );
-      curl_setopt( $ch, CURLOPT_USERPWD, $login . ":" . $password );
-      $data["content"] = curl_exec( $ch );
-      curl_close( $ch );
-      
-      if (defined("LOG_DEBUGLOG")) {
+        }
+        $https_port = (int)$STEAM->get_config_value( "https_port" );
+        if ( $https_port == 443 || $https_port == 0 ) $https_port = "";
+        else $https_port = ":" . (string)$https_port;
+        $ch = curl_init( "https://" . STEAM_SERVER . $https_port . "/scripts/get.pike?object=" . $identifier );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+        curl_setopt( $ch, CURLOPT_BINARYTRANSFER, TRUE );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+        curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 120 );
+        curl_setopt( $ch, CURLOPT_USERPWD, $login . ":" . $password );
+        $data["content"] = curl_exec( $ch );
+        curl_close( $ch );
+        
+        if (defined("LOG_DEBUGLOG")) {
         \logging::append_log( LOG_DEBUGLOG, " \t" . round((microtime(TRUE) - $time1) * 1000 ) . " ms");
-      }
+        }
+        }
+        else {
+        $data = array( "content" => array() );  // array is considered an error
+        }*/
     }
-    else {
-      $data = array( "content" => array() );  // array is considered an error
-    }*/
-	}
     return $data;
   }
 }

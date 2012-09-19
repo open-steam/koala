@@ -1,6 +1,6 @@
 <?php
 namespace PortletRss\Commands;
-class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
+class Create extends \AbstractCommand implements \IAjaxCommand {
 	
 	private $params;
 	private $id;
@@ -14,9 +14,14 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	public function processData(\IRequestObject $requestObject){
 		//create portlet
 		$params = $requestObject->getParams();
-		
 		$name = $params["title"];
-		$column = $params["parent"];
+		$column = $params["id"];
+                
+                if(isset($params["html"])){
+                    $html = $params["html"];
+                }else{
+                    $html = "false";
+                }
 		
 		$version = "3.0";
 		
@@ -29,14 +34,17 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 		
 		
 		//default values
-		$address = "http://api.flickr.com/services/feeds/photoset.gne?set=72157603709124069&nsid=12597119@N03&lang=de-de&format=rss_200";
-		$address = "http://www.lehrer-online.de/rss-materialien.xml";
+		$address = $params["rss"];               
 		$num_items = "5";
 		$desc_length = "50";
 		$style = "message"; //Breit
 		$style = "rss_feed"; //Schmal
-		$allow_html = "checked";
-		
+		if($html){
+                    $allow_html = "checked";		
+                }else{
+                    $allow_html = "";
+                }
+                
 		//create object
 		$portletObject = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $name, $columnObject);
 		
@@ -57,14 +65,6 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	    ));
 	}
 	
-	
-	public function idResponse(\IdResponseObject $idResponseObject) {
-		
-	}
-	
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
-	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
