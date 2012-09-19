@@ -20,10 +20,11 @@ class CreateEntry extends \AbstractCommand implements \IAjaxCommand {
                 $window = $params["window"];
 		
 		if(isset($params["title"])){
-			$categoryTitle = $params["title"];
+			$categoryTitle1 = $params["title"];
 		}else{
-			$categoryTitle = "Neue Kategorie";
+			$categoryTitle1 = "Neue Kategorie";
 		}
+                
 		
 		$topicObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		$content = $topicObject->get_attribute("bid:portlet:content");
@@ -34,7 +35,7 @@ class CreateEntry extends \AbstractCommand implements \IAjaxCommand {
 		$newTopic = array(	"description" => $desc,
 							"link_target" => $window == "true" ? "checked" : "",
 							"link_url" => $link,	
-							"title" => $categoryTitle);
+							"title" => $categoryTitle1);
 		
 		$topics[] = $newTopic;
 		
