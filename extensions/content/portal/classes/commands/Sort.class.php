@@ -86,8 +86,9 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                                 if(vID != ""){
                                     elements += vID + ",";
                                 }                                 
-                            });                                            
-                           sendRequest("Update", { "id": column, "elements" : elements }, "", "data", function(response){ }, function(response){ }, "portal");
+                            }); 
+                           var changedElement = $(ui.item).attr("id");
+                           sendRequest("Update", {"changedElement": changedElement, "id": column, "elements" : elements }, "", "data", function(response){ }, function(response){ }, "portal");
                            $('#hiddenBox').addClass("changed"); 
                             
                         }
