@@ -32,7 +32,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension{
 		$clipboardModel = new \Explorer\Model\Clipboard($currentUser);
                 //$clipboardCount = count($currentUser->get_inventory());
 		$clipboardCount = 1;
-		return array(array("name" => "<img id=\"sort-icon\" name=\"false\"  onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">"),
+		return array(//array("name" => "<img id=\"sort-icon\" name=\"false\"  onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">"),
 		
                             array("name"=>"<div id=\"clipboardIconbarWrapper\">".$clipboardModel->getIconbarHtml()."</div>", 
 		                   "menu"=> ($clipboardCount > 0 ) ? array(
