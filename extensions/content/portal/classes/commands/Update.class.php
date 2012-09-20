@@ -6,6 +6,7 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
 
     private $params;
     private $id;
+    private $cE;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -19,9 +20,10 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             $this->params = $requestObject->getParams();
             isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
         }
-        $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);        
+        $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $portletsOld = $column->get_inventory();
         $portletsOldIds = array();
+        $this->cE=$this->params["changedElement"];
 
         foreach ($portletsOld as $p) {
             $portletsOldIds[] = $p->get_id();
@@ -31,20 +33,12 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
         $portletsIdsNew = explode(",", $this->params["elements"]);
         unset($portletsIdsNew[count($portletsIdsNew) - 1]);
 
+
         $countPortOld = count($portletsOldIds);
         $countPortNew = count($portletsIdsNew);
 
-        //element leave the current column
-        //kein löschen des aktuellen Objekts erforderlich... wird im folgenden Aufruf in andere Umwelt verschoben.
-        //if($countPortOld > $countPortNew){
-        //    $difference = array();
-        //    $difference = array_diff($portletsOldIds, $portletsIdsNew);
-        //    $movedElementObj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $difference[0]);
-        //}
-      //  if ($countPortOld < $countPortNew) {
-      //      return $ajaxResponseObject;
-      //  }
-        if($countPortNew < $countPortOld){
+
+        if ($countPortNew < $countPortOld) {
             return $ajaxResponseObject;
         }
         if ($countPortOld < $countPortNew) {
@@ -53,7 +47,7 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             if (count($difference) != 1) {
                 $difference = array_diff($portletsOldIds, $portletsIdsNew);
             }
-            
+
             foreach ($difference as $d) {
                 $diffElement = $d;
             }
@@ -67,37 +61,57 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             foreach ($portletsOld as $p) {
                 $portletsOldIds[] = $p->get_id();
             }
-            $countPortOld = count($portletsOldIds);           
+            $countPortOld = count($portletsOldIds);
         }
         if ($countPortOld == $countPortNew) {
-            $boolHelper = true;
-            $counter = 0;
-            $startValue = 0;
-            for ($i = 0; $i < $countPortOld; $i++) {
-                if ($portletsOldIds[$i] != $portletsIdsNew[$i]) {
-                    if ($boolHelper) {
-                        $boolHelper = false;
-                        $startValue = $i;
-                    }
-                    $counter++;
+            $oldIdArray = $portletsOldIds;
+            $newIdArray = $portletsIdsNew;
+            $parent=$column;
+            $oldPosition = 0;
+            while ($oldIdArray[$oldPosition] != $this->cE) {
+                $oldPosition++;
+            }
+            $newPosition = 0;
+            while ($newIdArray[$newPosition] != $this->cE) {
+                $newPosition++;
+            }
+            if ($oldPosition < $newPosition) {
+                for ($i = $oldPosition; $i < $newPosition; $i++) {
+                    $parent->swap_inventory($i, $i + 1);
                 }
             }
-            $length = $startValue+$counter-1;
-            if($length > $startValue){
-                $column->swap_inventory($startValue, ($length));
+            if ($oldPosition > $newPosition) {
+                echo 1 . "          ";
+                for ($i = $oldPosition; $i > $newPosition; $i--) {
+                    $parent->swap_inventory($i, $i - 1);
+                }
             }
-            
-           
-            for ($j=$startValue+1;$j<($length);$j++) {                
-                $column->swap_inventory($j, $j + 1);
-            }
-             
+            /* $boolHelper = true;
+              $counter = 0;
+              $startValue = 0;
+              for ($i = 0; $i < $countPortOld; $i++) {
+              if ($portletsOldIds[$i] != $portletsIdsNew[$i]) {
+              if ($boolHelper) {
+              $boolHelper = false;
+              $startValue = $i;
+              }
+              $counter++;
+              }
+              }
+              $length = $startValue+$counter-1;
+              if($length > $startValue){
+              $column->swap_inventory($startValue, ($length));
+              }
 
+
+              for ($j=$startValue+1;$j<($length);$j++) {
+              $column->swap_inventory($j, $j + 1);
+              } */
         }
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        $ajaxResponseObject->setStatus("ok");        
+        $ajaxResponseObject->setStatus("ok");
         return $ajaxResponseObject;
     }
 
