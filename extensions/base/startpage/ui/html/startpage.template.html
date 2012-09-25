@@ -1,23 +1,43 @@
-<!-- BEGIN BLOCK_SIGN_IN -->
-<form id="loginPanel" action="{LOGIN_FORM_ACTION}" method="post" name="loginform">
-	<table>
-            <tr>
-            <td>
-				{LABEL_LOGIN}:<br /> <input type="text" class="input" name="values[login]" size="15" id="first_field" />
-			</td>
-			<td>
-				{LABEL_PASSWORD}:<br /> <input type="password" class="input" name="values[password]" size="15" />
-			</td>
-			<td>
-				<input type="submit" class="pill button" type="submit" value="{SIGN_IN_BUTTON_TEXT}" />
-			</td>
-		</tr>
-	</table>	
-</form>
 
-<div id="loginPanelWarning" style="display: none">
+<!-- BEGIN BLOCK_SIGN_IN -->
+<div id="loginDiv" style="display:none">
+    <form id="loginPanel" action="{LOGIN_FORM_ACTION}" method="post" name="loginform">
+        <table>
+            <tr>
+                <td>
+                    {LABEL_LOGIN}:<br /> <input type="text" class="input" name="values[login]" size="15" id="first_field" />
+                </td>
+                <td>
+                    {LABEL_PASSWORD}:<br /> <input type="password" class="input" name="values[password]" size="15" />
+                </td>
+                <td>
+                    <input type="submit" class="pill button" type="submit" value="{SIGN_IN_BUTTON_TEXT}" />
+                </td>
+            </tr>
+        </table>	
+    </form>
+</div>
+
+<div id="noJs" style="display: block">
+    Bitte aktivieren Sie Javascript in ihrem Browser.
+</div>
+<div id="loginPanelWarning" style="display:none;">
     Ihr Browser wird nicht unterstützt.<br> Wir empfehlen eine aktuelle Version <br>von Firefox oder Chrome.
 </div>
+<script>
+    $("#noJs").hide();
+    if($.browser.msie){
+        if( 9 > parseInt($.browser.version)){ 
+            $("#loginPanelWarning").show();
+        }else{
+            $("#loginDiv").show();
+        }
+    }else{
+        $("#loginDiv").show();        
+    }
+</script>
+
+
 
 
 <script>
@@ -43,24 +63,24 @@
 
 <!-- BEGIN BLOCK_STARTPAGE_CONTENT -->
 <div id="topImage">                    
-	<div id="short1"></div>
-	<div id="short2"></div>
-	<div id="short3"></div>
-	<div id="medium"></div>
-	<div id="long"></div>              
+    <div id="short1"></div>
+    <div id="short2"></div>
+    <div id="short3"></div>
+    <div id="medium"></div>
+    <div id="long"></div>              
 </div>
 
 <table id="startpage">
-	<tr>
+    <tr>
         <td id="left">
             {STARTPAGE_TEXT_LEFT}
         </td>
         <td id="center">
-			{STARTPAGE_TEXT_CENTER}
-		</td>
+            {STARTPAGE_TEXT_CENTER}
+        </td>
         <td id="right">
             {STARTPAGE_TEXT_RIGHT}
-		</td>
+        </td>
     </tr>
 </table>
 <!-- END BLOCK_STARTPAGE_CONTENT -->
