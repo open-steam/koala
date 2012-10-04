@@ -310,6 +310,10 @@ function deriveIcon($object) {
         return "worksheets.png";
     if ($worksheet_role === "edit")
         return "worksheet.png";
+    //webarena
+    if ($object->get_attribute("isWebarena") == 1) {
+    	return "webarena.png";
+    }
     //bidOWL:Collection Types
     $collectiontype = $object->get_attribute("bid:collectiontype");
     /* if($collectiontype === "sequence")

@@ -96,7 +96,9 @@ class Object extends \AbstractCommand implements \IFrameCommand {
 					) {
 						$value = floatval($value);
 					}
-					//echo "SET:".$key."->".$value."<br>";
+					
+					if ($value === "unnamed") $value = "unnamed object"; //value=unnamed will cause error 403
+
 					$steamObject->set_attribute($key,$value);
 					 
 				}
