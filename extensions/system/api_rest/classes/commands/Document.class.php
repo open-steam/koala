@@ -53,6 +53,7 @@ class Document extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function create($name, $destId) {
+		error_reporting(E_ERROR);
         $destSteamContainer = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $destId);
         if ($destSteamContainer instanceof \steam_container) {
             return \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $name, "", detectMimeType($name), $destSteamContainer);
