@@ -1,13 +1,15 @@
 <?php
 class FrontController {
 	public function handleRequest (AjaxRequestObject $ajaxRequestObject, AjaxResponseObject $ajaxResponseObject) {
-		$response = new HttpResponse();
+                $response = new HttpResponse();
 		$extension = ExtensionMaster::getInstance()->getExtensionForNamespace($ajaxRequestObject->getNamespace());
 		if (isset($extension)) {
 			if ($extension instanceof ICommandAdapter) {
 				if ($ajaxRequestObject->getCommand() != "") {
 					if ($ajaxRequestObject->getCommand() == "databinding") {
 						$command = new Databinding();
+                                        } else if ($ajaxRequestObject->getCommand() == "DatabindingHTMLEncodeName") {
+                                                $command = new DatabindingHTMLEncodeName();
 					} else {
 						if ($extension->isValidCommand($ajaxRequestObject->getCommand())) {
 							$command = $extension->getCommand($ajaxRequestObject->getCommand());

@@ -7,7 +7,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 	private $content;
 	private $rawHtmlWidget;
         
-        public function httpAuth(\IRequestObject $requestObject) {
+        public function isGuestAllowed(\IRequestObject $iRequestObject) {
 		return true;
 	}
 	
@@ -78,7 +78,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     //collect data for feed
                     foreach ($inventory as $item) {
                         if ($item->get_attribute("DOC_MIME_TYPE") == "text/plain") {
-                            $itemTitle = '<title>' . $item->get_name() . '</title>';
+                            $itemTitle = '<title>' . rawurldecode($item->get_name()) . '</title>';
 
                             $itemContent = $item->get_content();
                             $itemImage = $item->get_attribute("bid:portlet:msg:picture_id");
@@ -141,6 +141,10 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     exit;
                 }
                 else {
+                    //$login = $steamUser->get_name();
+                    //if ($login == 'guest') throw new \Exception( "Access denied. Please login.", E_USER_AUTHORIZATION );
+                    //else throw new \Exception( "Access denied.", E_USER_RIGHTS );
+
                     echo "The access rights of the requested object do not allow you to read it.";
                     exit;
                 }

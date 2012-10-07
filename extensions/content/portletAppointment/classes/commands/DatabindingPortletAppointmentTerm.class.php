@@ -85,8 +85,8 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 				$valueMonth = substr($value, 3,2);
 				$valueYear = substr($value, 6,4);
 				//write
-				if(!($this->validDay($valueDay) && $this->validMonth($valueMonth) && $this->validYear($valueYear)) && $value!="") return false;
-				$startDate["day"]=$valueDay;
+				if(!(strlen($value) == 10 && $value{2} === "." && $value{5} === "." && $this->validDay($valueDay) && $this->validMonth($valueMonth) && $this->validYear($valueYear)) && $value!="") return false;
+                                $startDate["day"]=$valueDay;
 				$startDate["month"]=$valueMonth;
 				$startDate["year"]=$valueYear;
 				$term["start_date"] = $startDate;
@@ -97,7 +97,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 				$valueMonth = substr($value, 3,2);
 				$valueYear = substr($value, 6,4);
 				//write
-				if(!($this->validDay($valueDay) && $this->validMonth($valueMonth) && $this->validYear($valueYear)) && $value!="" ) return false;
+				if(!(strlen($value) == 10 && $value{2} === "." && $value{5} === "." && $this->validDay($valueDay) && $this->validMonth($valueMonth) && $this->validYear($valueYear)) && $value!="" ) return false;
 				$endDate["day"]=$valueDay;
 				$endDate["month"]=$valueMonth;
 				$endDate["year"]=$valueYear;
@@ -108,7 +108,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 			case "start_time":
 				$minutes = substr($value, 3,2);
 				$hour = substr($value, 0,2);
-				if(!($this->validMinute($minutes) && $this->validHour($hour)) && $value!="") return false;
+				if(!(strlen($value) == 5 && $value{2} === ":" && $this->validMinute($minutes) && $this->validHour($hour)) && $value!="") return false;
 				$startTime = $term["start_time"];
 				$startTime["minutes"]=$minutes;
 				$startTime["hour"]= $hour;
@@ -180,6 +180,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	
 	//validators
 	private function validDay($day){
+                if (!(is_numeric($day) && is_int($day + 0))) return false;
 		$day = intval($day);
 		if(0<$day && $day<=31){
 			return true;
@@ -189,6 +190,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	}
 	
 	private function validMonth($month){
+                if (!(is_numeric($month) && is_int($month + 0))) return false;
 		$month = intval($month);
 		if(0<$month && $month<=12){
 			return true;
@@ -198,6 +200,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	}
 	
 	private function validYear($year){
+                if (!(is_numeric($year) && is_int($year + 0))) return false;
 		$year = intval($year);
 		if(0<$year && $year<=9999){
 			return true;
@@ -207,6 +210,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	}
 	
 	private function validMinute($minute){
+                if (!(is_numeric($minute) && is_int($minute + 0))) return false;
 		$minute = intval($minute);
 		if(0<=$minute && $minute<=59){
 			return true;
@@ -216,6 +220,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	}
 	
 	private function validHour($hour){
+                if (!(is_numeric($hour) && is_int($hour + 0))) return false;
 		$hour = intval($hour);
 		if(0<$hour && $hour<=23){
 			return true;

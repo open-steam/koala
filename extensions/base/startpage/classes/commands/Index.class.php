@@ -42,12 +42,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			header( "Location: " . PATH_URL . "desktop/"  );
 			exit;
 		} else {
-			$content->setCurrentBlock( "BLOCK_SIGN_IN" );
-			$content->setVariable( "LOGIN_FORM_ACTION", URL_SIGNIN );
-			$content->setVariable( "LABEL_LOGIN", gettext( "Login" ) );
-			$content->setVariable( "LABEL_PASSWORD", gettext( "Password" ) );
-			$content->setVariable( "SIGN_IN_BUTTON_TEXT", gettext( "Sign in" ) );
-			$content->parse( "BLOCK_SIGN_IN" );
+			//$content->setCurrentBlock( "BLOCK_SIGN_IN" );
+			//$content->setVariable( "LOGIN_FORM_ACTION", URL_SIGNIN );
+			//$content->setVariable( "LABEL_LOGIN", gettext( "Login" ) );
+			//$content->setVariable( "LABEL_PASSWORD", gettext( "Password" ) );
+			//$content->setVariable( "SIGN_IN_BUTTON_TEXT", gettext( "Sign in" ) );
+			//$content->parse( "BLOCK_SIGN_IN" );
 			
 			if (STARTPAGE_AS_PORTAL) {
 				$rawHtml = new \Widgets\RawHtml();

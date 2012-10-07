@@ -246,6 +246,63 @@
                     <!-- END BLOCK_CONFIRMATION -->
 
                     <div id="content">
+                        <!-- BEGIN BLOCK_SIGN_IN -->
+                        <div id="loginDiv" style="display:none">
+                            <form id="loginPanel" action="{LOGIN_FORM_ACTION}" method="post" name="loginform">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            {LABEL_LOGIN}:<br /> <input type="text" class="input" name="values[login]" size="15" id="first_field" />
+                                        </td>
+                                        <td>
+                                            {LABEL_PASSWORD}:<br /> <input type="password" class="input" name="values[password]" size="15" />
+                                        </td>
+                                        <td>
+                                            <input type="hidden" name="values[req]" value="{SIGN_IN_REQUEST}">
+                                            <input type="submit" class="pill button" type="submit" value="{SIGN_IN_BUTTON_TEXT}" />
+                                        </td>
+                                    </tr>
+                                </table>	
+                            </form>
+                        </div>
+
+                        <div id="noJs" style="display: block">
+                            Bitte aktivieren Sie Javascript in ihrem Browser.
+                        </div>
+                        <div id="loginPanelWarning" style="display:none;">
+                            Ihr Browser wird nicht unterstützt.<br> Wir empfehlen eine aktuelle Version <br>von Firefox oder Chrome.
+                        </div>
+                        <script>
+                            $("#noJs").hide();
+                            if($.browser.msie){
+                                if( 9 > parseInt($.browser.version)){ 
+                                    $("#loginPanelWarning").show();
+                                }else{
+                                    $("#loginDiv").show();
+                                }
+                            }else{
+                                $("#loginDiv").show();        
+                            }
+                        </script>
+
+                        <script>
+                            loginVisible = function(visible){
+                                if(visible){
+                                    jQuery("#loginPanel").css("display", "block");
+                                    jQuery("#loginPanelWarning").css("display", "none");
+                                }else{
+                                    jQuery("#loginPanel").css("display", "none");
+                                    jQuery("#loginPanelWarning").css("display", "block");
+                                }
+                            }
+
+                            //if(jQuery.browser.mozilla) loginVisible(false);
+                            //if(jQuery.browser.webkit) loginVisible(true);
+                            //if(jQuery.browser.safari) loginVisible(true);
+                            //if(jQuery.browser.opera) loginVisible(true);
+                            if(jQuery.browser.msie) loginVisible(true);
+                        </script>    
+                        <!-- END BLOCK_SIGN_IN -->
                         {MAIN_HTML}
                     </div>
 
