@@ -1,5 +1,5 @@
 <?php
-class DatabindingHTMLEncodeName extends \AbstractCommand implements \IAjaxCommand {
+class DatabindingURLEncodeName extends \AbstractCommand implements \IAjaxCommand {
 	
 	private $params;
 	private $id;

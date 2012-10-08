@@ -8,8 +8,8 @@ class FrontController {
 				if ($ajaxRequestObject->getCommand() != "") {
 					if ($ajaxRequestObject->getCommand() == "databinding") {
 						$command = new Databinding();
-                                        } else if ($ajaxRequestObject->getCommand() == "DatabindingHTMLEncodeName") {
-                                                $command = new DatabindingHTMLEncodeName();
+                                        } else if ($ajaxRequestObject->getCommand() == "DatabindingURLEncodeName") {
+                                                $command = new DatabindingURLEncodeName();
 					} else {
 						if ($extension->isValidCommand($ajaxRequestObject->getCommand())) {
 							$command = $extension->getCommand($ajaxRequestObject->getCommand());

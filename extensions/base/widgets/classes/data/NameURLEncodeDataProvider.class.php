@@ -1,7 +1,7 @@
 <?php
 namespace Widgets;
 
-class NameHTMLEncodeDataProvider implements IDataProvider {
+class NameURLEncodeDataProvider implements IDataProvider {
 	
 	public function getData($object) {
 		if (is_int($object)) {
@@ -19,7 +19,7 @@ class NameHTMLEncodeDataProvider implements IDataProvider {
 		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
 		return <<< END
 window.ajaxSaving==true;
-sendRequest('DatabindingHTMLEncodeName', {'id': {$objectId}, 'value': value}, '', 'data'{$function});
+sendRequest('DatabindingURLEncodeName', {'id': {$objectId}, 'value': value}, '', 'data'{$function});
 END;
 	}
 	

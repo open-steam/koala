@@ -19,8 +19,8 @@ class DataProvider {
 		return new AnnotationDataProvider();
 	}
         
-        static function nameHTMLEncodeDataProvider() {
-                return new NameHTMLEncodeDataProvider();
+        static function nameURLEncodeDataProvider() {
+                return new NameURLEncodeDataProvider();
         }
 	
 }
