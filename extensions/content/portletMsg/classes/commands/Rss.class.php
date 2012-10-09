@@ -7,9 +7,24 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 	private $content;
 	private $rawHtmlWidget;
         
-        public function httpAuth(\IRequestObject $iRequestObject) {
-		return true;
+        public function httpAuth(\IRequestObject $requestObject) {
+            if (!isset($GLOBALS["STEAM"])) {
+                \lms_steam::connect();
+            }
+            
+            $params = $requestObject->getParams();
+                
+            $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params[0]);
+            $user = $GLOBALS["STEAM"]->get_current_steam_user();
+                
+            if ($portletObject->check_access_read($user)) {
+                return false;
+            } else return true;
 	}
+        
+        public function isGuestAllowed(\IRequestObject $iRequestObject) {
+            return true;
+        }
 	
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
