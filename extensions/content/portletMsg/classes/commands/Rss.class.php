@@ -7,7 +7,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 	private $content;
 	private $rawHtmlWidget;
         
-        public function isGuestAllowed(\IRequestObject $iRequestObject) {
+        public function httpAuth(\IRequestObject $iRequestObject) {
 		return true;
 	}
 	
@@ -69,7 +69,8 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $feedDescription = $portletObject->get_name();
                     $feedTitle = $portletObject->get_attribute("OBJ_DESC");
                 
-                    $feedLink = getDownloadUrlForObjectId($portletObject->get_id());
+                    $feedLink = PATH_SERVER . "/portletMsg/rss/" . $portletObject->get_id() . "/";
+                    $portal = $portletObject->get_environment()->get_environment();
                     
                     // Get inventory and store all relevant attributes in array entries
                     $inventory = $portletObject->get_inventory();
@@ -90,10 +91,10 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $itemDescription = '<description><![CDATA[' . $itemContent . ']]></description>';
 
                             $itemLink = $item->get_attribute("bid:portlet:msg:link_url");
-                            if ($itemLink == ' '){
-                                $itemLink = $feedLink;
+                            if ($itemLink == ''){
+                                $itemLink = PATH_SERVER . "/portal/index/" . $portal->get_id() . "/";
                             }
-                            $itemLink = '<link>' . $feedLink . '</link>';
+                            $itemLink = '<link>' . $itemLink . '</link>';
 
                             $lastchanged = $item->get_attribute(DOC_LAST_MODIFIED);
                             if ($lastchanged === 0) {

@@ -376,7 +376,8 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                         if ($environmentObject->check_access_read()) {
                             $objectArray["link"] = $this->getEntryPath("oid:".$environmentObject->get_id());
                         } else {
-                            $objectArray["name"] = $objectArray["name"] . " (Kein Zugriff)";
+                            $moreItems = false;
+                            break;
                         }
                         $menuArray[] = $objectArray;
                         $steamObject = $environmentObject;

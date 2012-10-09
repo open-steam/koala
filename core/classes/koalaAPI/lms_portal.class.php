@@ -90,7 +90,15 @@ class lms_portal
                         $url = $protocoll . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
                         $request_url = str_ireplace(PATH_URL, "/", $url);
                         $request_url = str_replace("/signin/request", "", $request_url);
+                        $request_url = str_replace("/signin", "", $request_url);
 
+                        // if user login was not successful get request url from post
+                        if ($_SERVER[ "REQUEST_METHOD" ] == "POST") {
+                            if (isset($_POST["values"]["req"])) {
+                                $request_url = $_POST["values"]["req"];
+                            }
+                        }
+                        
                         $this->template->setCurrentBlock( "BLOCK_SIGN_IN" );
 			$this->template->setVariable( "LOGIN_FORM_ACTION", URL_SIGNIN );
 			$this->template->setVariable( "LABEL_LOGIN", "Benutzername" );
