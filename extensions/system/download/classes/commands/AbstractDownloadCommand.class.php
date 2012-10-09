@@ -172,8 +172,17 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
         }
     }
 
-    if ( ! is_object( $document ) )
+    if ( ! is_object( $document ) ){
         return array( "content" => array() );  // array is considered to be an error
+    
+    }
+    
+    //somebody tries to download a container, this is not possible
+    if ( $document instanceof \steam_container){
+        $url = "/404/";
+        header("Location: ".$url);
+        die;
+    }
     
     $document->get_attributes( array("OBJ_NAME","DOC_MIME_TYPE","DOC_LAST_MODIFIED"), TRUE );
    
