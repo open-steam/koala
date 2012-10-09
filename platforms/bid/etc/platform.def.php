@@ -5,11 +5,11 @@ defined("STYLE") or define("STYLE", "bid");
 // short name and language variation
 defined("PLATFORM_ID") or define("PLATFORM_ID", "bid");
 // plattform name
-defined("PLATFORM_NAME") or define("PLATFORM_NAME", "bid-owl");
+defined("PLATFORM_NAME") or define("PLATFORM_NAME", "bid");
 // plattform folder
 defined("PLATFORM_FOLDER") or define("PLATFORM_FOLDER", PLATFORM_ID);
 //displayed in browser title
-defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "bid-owl");	
+defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "Lernstatt Paderborn");	
 //copyright information
 defined("COPYRIGHT_NAME") or define("COPYRIGHT_NAME", "Bezirksregierung Detmold");
 
