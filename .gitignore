@@ -6,6 +6,7 @@ platforms/bid/temp/*
 platforms/bid/public/.htaccess
 platforms/bid/public/styles
 platforms/bid/etc/local.def.php
+platforms/bid/etc/platform.def.php
 
 platforms/dawinci/cache/*
 platforms/dawinci/log/*
