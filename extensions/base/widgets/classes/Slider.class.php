@@ -9,7 +9,8 @@ class Slider extends Widget {
     private $min = 0;
     private $range = "true";
     private $value = 0;
-    private $change = "";
+    private $change = "function(){}";
+    private $width = "130px";
 
     public function setId($id) {
         $this->id = $id;
@@ -23,12 +24,16 @@ class Slider extends Widget {
         $this->min = $min;
     }
 
-    public function setStep($step) {
-        $this->step = $step;
+    public function setRange($range) {
+        $this->step = $range;
     }
 
     public function setValue($value) {
         $this->value = $value;
+    }
+
+    public function setChange($change) {
+        $this->change = $change;
     }
 
     public function getHtml() {
@@ -38,11 +43,8 @@ class Slider extends Widget {
         $this->getContent()->setVariable("MAX", $this->max);
         $this->getContent()->setVariable("VALUE", $this->value);
         $this->getContent()->setVariable("RANGE", $this->range);
-        if($this->change != ""){
-            $this->getContent()->setVariable("EVENT", "change:" . $this->change);
-        }
-        
-
+        $this->getContent()->setVariable("EVENT", $this->change);
+        $this->getContent()->setVariable("WIDTH", $this->width);
 
         return $this->getContent()->get();
     }
