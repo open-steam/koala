@@ -188,35 +188,9 @@
                 Ihr Browser wird nicht unterstützt.<br> Wir empfehlen eine aktuelle Version <br>von Firefox oder Chrome.
                         </div>
                         <script>
-                            $("#noJs").hide();
-                            if($.browser.msie){
-                                if( 9 > parseInt($.browser.version)){ 
-                                    $("#loginPanelWarning").show();
-                                }else{
-                                    $("#loginDiv").show();
-                                }
-                            }else{
-                                $("#loginDiv").show();        
-                            }
+                            $('#noJs').hide();              
                         </script>
 
-                        <script>
-                            loginVisible = function(visible){
-                                if(visible){
-                                    jQuery("#loginPanel").css("display", "block");
-                                    jQuery("#loginPanelWarning").css("display", "none");
-                                }else{
-                                    jQuery("#loginPanel").css("display", "none");
-                                    jQuery("#loginPanelWarning").css("display", "block");
-                                }
-                            }
-
-                            //if(jQuery.browser.mozilla) loginVisible(false);
-                            //if(jQuery.browser.webkit) loginVisible(true);
-                            //if(jQuery.browser.safari) loginVisible(true);
-                            //if(jQuery.browser.opera) loginVisible(true);
-                            if(jQuery.browser.msie) loginVisible(true); 
-                        </script>   
 
 
                         <!-- BEGIN STATUS_SIGNED_IN_BLOCK -->
@@ -306,6 +280,37 @@
                                                     </table>	
                                                 </form>
                                             </div>
+                                            <script>
+                                                if($.browser.msie){
+                                                    if( 9 > parseInt($.browser.version)){ 
+                                                        $("#loginPanelWarning").show();
+                                                    }else{
+                                                        $("#loginDiv").show();
+                                                    }
+                                                }else{
+                                                    $("#loginDiv").show();
+                                
+                                                }
+                                            </script>
+
+                                            <script>
+                                                //loginVisible = function(visible){
+                                                //    if(visible){
+                                                //        jQuery("#loginPanel").css("display", "block");
+                                                //        jQuery("#loginPanelWarning").css("display", "none");
+                                                //    }else{
+                                                //        jQuery("#loginPanel").css("display", "none");
+                                                //        jQuery("#loginPanelWarning").css("display", "block");
+                                                //    }
+                                                //}
+
+                                                //if(jQuery.browser.mozilla) loginVisible(false);
+                                                //if(jQuery.browser.webkit) loginVisible(true);
+                                                //if(jQuery.browser.safari) loginVisible(true);
+                                                //if(jQuery.browser.opera) loginVisible(true);
+                                                //if(jQuery.browser.msie) loginVisible(true); 
+                            
+                                            </script>  
 
 
 
