@@ -131,7 +131,8 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                 var array = id.split("_");
                 var objId = array[1];
                 var col = array[2];
-                //sendRequest("UpdateWidth", {"id": objId, "value": value}, "", "data", function(response){ }, function(response){ }, "portal");
+                sendRequest("UpdateWidth", {"id": objId, "value": value}, "", "data", function(response){ }, function(response){ }, "portal");
+                $('#hiddenBox').addClass("changed"); 
                 var old = parseInt($('#sum_'+col).text());
                 $('#sum_'+col).text(value);
                 var sum = $('#sum').text();
@@ -139,7 +140,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                 sum = sum - old + parseInt(value);
                 $('#sum').text(sum);
                 if(parseInt($('#sum').text())>900){
-                    $('#sum').css('color', 'red');
+                    $('#sum').css('color', '#FF0066');
                 }else{
                     $('#sum').css('color', 'black');
                 }
