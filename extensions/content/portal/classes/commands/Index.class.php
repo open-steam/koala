@@ -75,11 +75,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $htmlBody.= $data["html"];
             $count++;
         }
-        if ($portalWidth > 900) {
+    /*    if ($portalWidth > 900) {
             $warning = "Damit das Portal korrekt dargestellt werden kann, müssen die Breite der Spalten verringert werden.
                         Eine Verminderung der Spaltengröße kann in den <a onclick=\"sendRequest('Sort', {'id':" . $objectId . "}, '', 'popup', null, null, 'portal');return false;;menu_clicked(this);\">Optionen</a> vorgenommen werden.";
             $tmpl->setVariable("WARNING", $warning);
-        }
+        }*/
 
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         if (isset($this->portalObject) && $this->portalObject->check_access_write($currentUser)) {
