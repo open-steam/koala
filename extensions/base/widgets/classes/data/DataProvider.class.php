@@ -18,6 +18,10 @@ class DataProvider {
 	static function annotationDataProvider() {
 		return new AnnotationDataProvider();
 	}
+        
+        static function nameURLEncodeDataProvider() {
+                return new NameURLEncodeDataProvider();
+        }
 	
 }
 ?>

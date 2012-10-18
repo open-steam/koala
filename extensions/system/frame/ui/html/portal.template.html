@@ -1,171 +1,171 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-    <!-- BEGIN BLOCK_RSS_FEED -->
-    <link rel="alternate" type="application/rss+xml" title="{RSS_TITLE}" href="{RSS_LINK}" />
-    <!-- END BLOCK_RSS_FEED -->
+        <!-- BEGIN BLOCK_RSS_FEED -->
+        <link rel="alternate" type="application/rss+xml" title="{RSS_TITLE}" href="{RSS_LINK}" />
+        <!-- END BLOCK_RSS_FEED -->
 
-	<link rel="stylesheet" href="{STANDARD_STYLE_PATH}styles/standard/css/default.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
-	<link rel="stylesheet" href="{STANDARD_STYLE_PATH}styles/standard/css/smoothness/jquery-ui-1.8.14.custom.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
-	<link rel="stylesheet" href="{STANDARD_STYLE_PATH}styles/standard/css/print.css?version={KOALA_VERSION}" type="text/css" media="print" />
-	<link rel="stylesheet" href="{STYLE_PATH}css/default.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
-	<link rel="stylesheet" href="{STYLE_PATH}css/print.css?version={KOALA_VERSION}" type="text/css" media="print" />
-	
-    <link rel="apple-touch-icon" href="{STYLE_PATH}images/apple-touch-icon.png" type="text/css" media="screen" />
-    <link href="{STYLE_PATH}images/page_layout/favicon.ico" rel="shortcut icon"/>
+        <link rel="stylesheet" href="{STANDARD_STYLE_PATH}styles/standard/css/default.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
+        <link rel="stylesheet" href="{STANDARD_STYLE_PATH}styles/standard/css/smoothness/jquery-ui-1.8.14.custom.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
+        <link rel="stylesheet" href="{STANDARD_STYLE_PATH}styles/standard/css/print.css?version={KOALA_VERSION}" type="text/css" media="print" />
+        <link rel="stylesheet" href="{STYLE_PATH}css/default.css?version={KOALA_VERSION}" type="text/css" media="screen, print" />
+        <link rel="stylesheet" href="{STYLE_PATH}css/print.css?version={KOALA_VERSION}" type="text/css" media="print" />
 
-    <!-- HTML 5 Specifications -->
-    <meta name="application-name" content="{PORTAL_TITLE}"/>
-    <link rel="icon" href="{STYLE_PATH}images/page_layout/favicon.ico"/>
-    <!-- HTML 5 Specifications -->
+        <link rel="apple-touch-icon" href="{STYLE_PATH}images/apple-touch-icon.png" type="text/css" media="screen" />
+        <link href="{STYLE_PATH}images/page_layout/favicon.ico" rel="shortcut icon"/>
 
-    <!-- BEGIN HEAD_FURTHER_ENTRIES_BLOCK -->
-    {HEAD_FURTHER_ENTRIES_VAR}
-    <!-- END HEAD_FURTHER_ENTRIES_BLOCK -->
+        <!-- HTML 5 Specifications -->
+        <meta name="application-name" content="{PORTAL_TITLE}"/>
+        <link rel="icon" href="{STYLE_PATH}images/page_layout/favicon.ico"/>
+        <!-- HTML 5 Specifications -->
 
-	<!-- BEGIN HEAD_JAVASCRIPT_PROTOTYPE -->
-	<script type="text/javascript">
-		if (!window.console) {
-			window.console = function() {}; 
-			window.console.log = function(init){};
-		}
-		var DEVELOPER = "{DEVELOPER_MODE}";
-		var PATH_URL = "{PATH_URL}";
-		function loadScript(scriptname) {  
-			      var snode = document.createElement('script');  
-			      snode.setAttribute('type','text/javascript');  
-			      snode.setAttribute('src',scriptname);  
-			      document.getElementsByTagName('head')[0].appendChild(snode);  
-		}
-		
-		function load(library, callback) {
-			switch (library) {
-			case "mce":
-				window.tinyMCEPreInit = {
-			        base: '{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/',
-			        suffix : '',
-			        query : ''
-				}; 
-				jQuery.getScript('{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/tiny_mce.js?version={KOALA_VERSION_2}', 
-						function() {
-							tinymce.dom.Event.domLoaded = true;
-							callback();
-						});
-				break;
-			case "codemirror":
-				break;
-			}
-		} 
-		 
-	</script>
-	
-	<script src="{PATH_JAVASCRIPT_2}jquery-1.6.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}jquery-ui-1.8.13.custom.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}tipsy/src/javascripts/jquery.tipsy.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}jquery.json-2.2.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}timepicker/jquery-ui-timepicker-addon.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}timepicker/localization/jquery-ui-timepicker-de.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<link  href="{PATH_JAVASCRIPT_2}timepicker/jquery-ui-timepicker-addon.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
-	
-	<script src="{PATH_JAVASCRIPT_2}CodeMirror/lib/codemirror.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/xml/xml.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/javascript/javascript.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/css/css.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/htmlmixed/htmlmixed.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-	<link  href="{PATH_JAVASCRIPT_2}CodeMirror/lib/codemirror.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
-	<link  href="{PATH_JAVASCRIPT_2}CodeMirror/theme/default.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
+        <!-- BEGIN HEAD_FURTHER_ENTRIES_BLOCK -->
+        {HEAD_FURTHER_ENTRIES_VAR}
+        <!-- END HEAD_FURTHER_ENTRIES_BLOCK -->
 
-	<script src='{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js'></script>
-	<script src='{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/ASCIIsvg.js'></script>
-	
-        <script type="text/javascript" src='{PATH_JAVASCRIPT_2}Flowplayer/flowplayer-3.2.9.min.js'></script>
-        
-        
-        <script type="text/javascript" src='{PATH_JAVASCRIPT_2}bid2pathfix.js'></script>
-        
-        
-        
-        
+        <!-- BEGIN HEAD_JAVASCRIPT_PROTOTYPE -->
         <script type="text/javascript">
-             var AScgiloc = 'http://steam.lspb.de/tools/asciisvg/svgimg.php';
-             var AMTcgiloc = "http://steam.lspb.de/cgi-bin/mimetex.cgi";
+            if (!window.console) {
+                window.console = function() {}; 
+                window.console.log = function(init){};
+            }
+            var DEVELOPER = "{DEVELOPER_MODE}";
+            var PATH_URL = "{PATH_URL}";
+            function loadScript(scriptname) {  
+                var snode = document.createElement('script');  
+                snode.setAttribute('type','text/javascript');  
+                snode.setAttribute('src',scriptname);  
+                document.getElementsByTagName('head')[0].appendChild(snode);  
+            }
+		
+            function load(library, callback) {
+                switch (library) {
+                    case "mce":
+                        window.tinyMCEPreInit = {
+                            base: '{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/',
+                            suffix : '',
+                            query : ''
+                        }; 
+                        jQuery.getScript('{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/tiny_mce.js?version={KOALA_VERSION_2}', 
+                        function() {
+                            tinymce.dom.Event.domLoaded = true;
+                            callback();
+                        });
+                        break;
+                    case "codemirror":
+                        break;
+                }
+            } 
+		 
         </script>
-	
-	
-	   
-    <!-- END HEAD_JAVASCRIPT_PROTOTYPE -->
 
-	<script type="text/javascript">
-	//js for menu
-	function mark_parent(element,yesOrNo) {
-		  var parent = element.parentNode.parentNode;
-		  if (parent.tagName.toLowerCase()!=='li') return;
-		  //parent=parent.parentNode.parentNode;
-		  if (yesOrNo){
-		     parent.className='activemenu';
-		  } else {
-			  parent.className='';
-		  }
-	  }
+        <script src="{PATH_JAVASCRIPT_2}jquery-1.6.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}jquery-ui-1.8.13.custom.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}tipsy/src/javascripts/jquery.tipsy.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}jquery.json-2.2.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}timepicker/jquery-ui-timepicker-addon.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}timepicker/localization/jquery-ui-timepicker-de.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <link  href="{PATH_JAVASCRIPT_2}timepicker/jquery-ui-timepicker-addon.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
+
+        <script src="{PATH_JAVASCRIPT_2}CodeMirror/lib/codemirror.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/xml/xml.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/javascript/javascript.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/css/css.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/htmlmixed/htmlmixed.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <link  href="{PATH_JAVASCRIPT_2}CodeMirror/lib/codemirror.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
+        <link  href="{PATH_JAVASCRIPT_2}CodeMirror/theme/default.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
+
+        <script src='{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/plugins/asciimath/js/ASCIIMathMLwFallback.js'></script>
+        <script src='{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/ASCIIsvg.js'></script>
+
+        <script type="text/javascript" src='{PATH_JAVASCRIPT_2}Flowplayer/flowplayer-3.2.9.min.js'></script>
+
+
+        <script type="text/javascript" src='{PATH_JAVASCRIPT_2}bid2pathfix.js'></script>
+
+
+
+
+        <script type="text/javascript">
+            var AScgiloc = 'http://steam.lspb.de/tools/asciisvg/svgimg.php';
+            var AMTcgiloc = "http://steam.lspb.de/cgi-bin/mimetex.cgi";
+        </script>
+
+
+
+        <!-- END HEAD_JAVASCRIPT_PROTOTYPE -->
+
+        <script type="text/javascript">
+            //js for menu
+            function mark_parent(element,yesOrNo) {
+                var parent = element.parentNode.parentNode;
+                if (parent.tagName.toLowerCase()!=='li') return;
+                //parent=parent.parentNode.parentNode;
+                if (yesOrNo){
+                    parent.className='activemenu';
+                } else {
+                    parent.className='';
+                }
+            }
 	
-	var alreadyClicked=false;
+            var alreadyClicked=false;
 	
-	function menu_clicked(element) {
-		if (alreadyClicked) return;
+            function menu_clicked(element) {
+                if (alreadyClicked) return;
 	
-		var links=element.getElementsByTagName('a');
+                var links=element.getElementsByTagName('a');
 	
-		if (links.length==0) return;
+                if (links.length==0) return;
 	
-		alreadyClicked=true;
-		location.href=links[0].href;
-	}
+                alreadyClicked=true;
+                location.href=links[0].href;
+            }
 	
-	function unsavedContent() {
-// 		if ($('body').find('.changed').length > 0) {
-// 			return 'Sie haben noch nicht alles gespeichtet. Wenn sie fortfahren gehen diese Änderungen verlohren. Wollen sie fortfahren?';
-// 		}
-		return '';
-	}
-	</script>
-    
-    <!-- BEGIN HEAD_JAVASCRIPT_BLOCK -->
-    <!-- created by {HEAD_JAVASCRIPT_CALLER} -->
-    <script language="Javascript" type="text/javascript" {HEAD_JAVASCRIPT_SRC}>
-    {HEAD_JAVASCRIPT_SOURCECODE}
+            function unsavedContent() {
+                // 		if ($('body').find('.changed').length > 0) {
+                // 			return 'Sie haben noch nicht alles gespeichtet. Wenn sie fortfahren gehen diese Änderungen verlohren. Wollen sie fortfahren?';
+                // 		}
+                return '';
+            }
+        </script>
+
+        <!-- BEGIN HEAD_JAVASCRIPT_BLOCK -->
+        <!-- created by {HEAD_JAVASCRIPT_CALLER} -->
+        <script language="Javascript" type="text/javascript" {HEAD_JAVASCRIPT_SRC}>
+                {HEAD_JAVASCRIPT_SOURCECODE}
     </script>
     <!-- END HEAD_JAVASCRIPT_BLOCK -->
-    
+
     <!-- BEGIN HEAD_JAVASCRIPT_ONLOAD -->
     <script language="Javascript" type="text/javascript">
-    	<!-- BEGIN HEAD_JAVASCRIPT_ONLOAD_FUNCTION -->
-    	// created by {HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER}
-    	{HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CODE}
-    	<!-- END HEAD_JAVASCRIPT_ONLOAD_FUNCTION -->
+        <!-- BEGIN HEAD_JAVASCRIPT_ONLOAD_FUNCTION -->
+        // created by {HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER}
+        {HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CODE}
+        <!-- END HEAD_JAVASCRIPT_ONLOAD_FUNCTION -->
 
-    	function onload_body(){
-    		<!-- BEGIN HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL -->
-    		// created by {HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER}
-    		{HEAD_JAVASCRIPT_ONLOAD_FUNCION_NAME}
-    		<!-- END HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL -->
+        function onload_body(){
+            <!-- BEGIN HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL -->
+            // created by {HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER}
+            {HEAD_JAVASCRIPT_ONLOAD_FUNCION_NAME}
+            <!-- END HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL -->
         }
     </script>
     <!-- END HEAD_JAVASCRIPT_ONLOAD -->
 
-	<!-- BEGIN HEAD_CUSTOM_CSS -->
-	<!-- custom css-->
+    <!-- BEGIN HEAD_CUSTOM_CSS -->
+    <!-- custom css-->
     <style type="text/css" media="screen, print" >
-    /*<![CDATA[*/
-		{HEAD_CUSTOM_CSS_STYLE}
-    /*]]>*/
+        /*<![CDATA[*/
+        {HEAD_CUSTOM_CSS_STYLE}
+        /*]]>*/
     </style>
     <!-- END HEAD_CUSTOM_CSS -->
-    
+
     <!-- BEGIN HEAD_CUSTOM_CSS_LINK -->
-	<!-- custom css-->
+    <!-- custom css-->
     <link rel="stylesheet" type="text/css" href="{HEAD_CUSTOM_CSS_STYLE_LINK}" media="screen, print"/>
     <!-- END HEAD_CUSTOM_CSS_LINK -->
 
@@ -174,105 +174,174 @@
 
 <body {BODY_PARAMS} onbeforeunload="var question = unsavedContent(); if (question !== '') {return question}">
 
-	<div id="background"></div>
-	
+    <div id="background"></div>
+
     <div id="header_wrapper" class="content_width">
         <div id="header">
-        	<div id="logo_wrapper">
-            	<a id="logo" href="{LOGO_PATH_URL}"></a>
+            <div id="logo_wrapper">
+                <a id="logo" href="{LOGO_PATH_URL}"></a>
             </div>
-
-			<!-- BEGIN STATUS_SIGNED_IN_BLOCK -->
-            {SIGNED_IN_TEXT} <a href="{SIGNED_IN_LOGIN_HOME}">{SIGNED_IN_LOGIN_NAME}</a> |
-            <!-- BEGIN STATUS_MAIL_BLOCK -->
-            <a href="{MESSAGES_URL}">{INBOX}</a> {MESSAGES_UNREAD} |
-            <!-- END STATUS_MAIL_BLOCK -->
-      		<!-- BEGIN BLOCK_HELP -->
-            <a href="{HELP_URL}">{HELP_TEXT}</a> |
-      		<!-- END BLOCK_HELP -->
-            <a href="{SIGN_OUT_URL}">{SIGN_OUT_TEXT}</a> |
-			<!-- END STATUS_SIGNED_IN_BLOCK -->
-
-            <!-- BEGIN STATUS_GUEST_BLOCK -->
-            {NOT_SIGNED_IN_TEXT} |
-            <!-- BEGIN BLOCK_HELP -->
-            <a href="{HELP_URL}">{HELP_TEXT}</a> | 
-      		<!-- END BLOCK_HELP -->
-            <a href="{STATUS_PATH_URL}signin/">{SIGN_IN_TEXT}</a> |
-            <!-- END STATUS_GUEST_BLOCK -->
-
-            {CURRENT_DATE}
-            <!-- BEGIN PORTAL_LANGUAGES -->
-              <form name="portal_language" method="post" action="{PORTAL_LANGUAGES_ACTION}">
-              <input type="hidden" name="portal_values[redirect]" value="{PORTAL_LANGUAGES_REDIRECT}">
-              <!-- BEGIN LANGUAGE -->
-                <span id="USER_LANGUAGE">
-                  <input type="radio" id="{LABEL_LANGUAGE_LABEL}" name="portal_values[USER_LANGUAGE]" value="{LANGUAGE_VALUE}" {LANGUAGE_CHECKED} onClick="JavaScript:form.submit()"/>
-                  <label for="{LABEL_LANGUAGE_LABEL}"><img class="flag" src="{LANGUAGE_ICON}" title="{LABEL_LANGUAGE}" /></label>&#160;&#160;
-                </span>
-
-              <!-- END LANGUAGE -->
-              </form>
-            <!-- END PORTAL_LANGUAGES -->
-        </div>
-    </div>
-
-    <div id="menu_wrapper_bg">
-    	<div id="menu_wrapper" class="content_width">
-    	    <div id="menu">
-	            <div id="icon_bar">{ICON_BAR_HTML}</div>{MENU_HTML}
-        	</div>
-	    </div>
-    </div>
-
-	<div id="site_wrapper">
-        <div id="page_wrapper_bg">
-            <div id="page_wrapper" class="content_width">
-            	<div id="betaInfo"></div>
-
-                <div id="content_wrapper">
-                    <div id="headline">
-                        {HEADLINE1}{HEADLINE2}
-                    </div>
-
-                    <!-- BEGIN PROBLEM_BLOCK -->
-                    <p id="error" style="display:none">{PROBLEM_DESCRIPTION}<br/>{PROBLEM_SOLUTION}</p>
-                    <script type="text/javascript">$('#error').fadeIn('slow');</script>
-                    <!-- END PROBLEM_BLOCK -->
-
-                    <!-- BEGIN BLOCK_CONFIRMATION -->
-                    <p id="confirmation" style="display:none">{CONFIRMATION_TEXT}</p>
-                    <script type="text/javascript">$('#confirmation').fadeIn('slow');</script>
-                    <!-- END BLOCK_CONFIRMATION -->
-
-                    <div id="content">
-                        {MAIN_HTML}
-                    </div>
-
-                    <!-- BEGIN FEEDS_BLOCK -->
-                    <div id="feeds">
-                        <!-- BEGIN RSS_FEED_BLOCK -->
-                        <a href="{RSS_FEED_LINK}" title="RSS 2.0 feed"><img src="{RSS_STYLE_PATH}/images/feed-icon-16x16.png" width="16" height="16" alt="" align="absmiddle" /></a>
-                        <a href="{RSS_FEED_LINK}" title="RSS 2.0 feed">{RSS_FEED_NAME}</a> &ndash; {RSS_FEED_DSC}
-                        <!-- END RSS_FEED_BLOCK -->
-                    </div>
-                    <!-- END FEEDS_BLOCK -->
-                </div>
+            <div id="noJs" style="display: block;font-size:1.5em;">
+                Um bid-owl nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser. 
             </div>
-        </div>
-    </div>
+            <div id="loginPanelWarning" style="display:none;font-size:1.5em;">
+                Ihr Browser wird nicht unterstützt.<br> Wir empfehlen eine aktuelle Version <br>von Firefox oder Chrome.
+                        </div>
+                        <script>
+                            $('#noJs').hide();              
+                        </script>
 
-    <div id="footer_shadow"></div>
 
-    <div id="footer_wrapper" class="content_width">
-        <div id="footer">
-		{COPYRIGHT_INFO} {IMPRESSUM_INFO} {POLICY_INFO} {SECURITY_INFO}  {FUNDING_INFO} {POWERED_BY_INFO}
-		{STATISTICS_REQUESTS} {STATISTICS_PAGETIME}
-        </div>
-    </div>
 
-    <span id="USER_LOGIN" value="{USER_LOGIN}"></span>
+                        <!-- BEGIN STATUS_SIGNED_IN_BLOCK -->
+                        {SIGNED_IN_TEXT} <a href="{SIGNED_IN_LOGIN_HOME}">{SIGNED_IN_LOGIN_NAME}</a> |
+                        <!-- BEGIN STATUS_MAIL_BLOCK -->
+                        <a href="{MESSAGES_URL}">{INBOX}</a> {MESSAGES_UNREAD} |
+                        <!-- END STATUS_MAIL_BLOCK -->
+                        <!-- BEGIN BLOCK_HELP -->
+                        <a href="{HELP_URL}">{HELP_TEXT}</a> |
+                        <!-- END BLOCK_HELP -->
+                        <a href="{SIGN_OUT_URL}">{SIGN_OUT_TEXT}</a> |
+                        <!-- END STATUS_SIGNED_IN_BLOCK -->
 
-</body>
+                        <!-- BEGIN STATUS_GUEST_BLOCK -->
+                        {NOT_SIGNED_IN_TEXT} |
+                        <!-- BEGIN BLOCK_HELP -->
+                        <a href="{HELP_URL}">{HELP_TEXT}</a> | 
+                        <!-- END BLOCK_HELP -->
+                        <a href="{STATUS_PATH_URL}signin/">{SIGN_IN_TEXT}</a> |
+                        <!-- END STATUS_GUEST_BLOCK -->
 
-</html>
+                        {CURRENT_DATE}
+                        <!-- BEGIN PORTAL_LANGUAGES -->
+                        <form name="portal_language" method="post" action="{PORTAL_LANGUAGES_ACTION}">
+                            <input type="hidden" name="portal_values[redirect]" value="{PORTAL_LANGUAGES_REDIRECT}">
+                                <!-- BEGIN LANGUAGE -->
+                                <span id="USER_LANGUAGE">
+                                    <input type="radio" id="{LABEL_LANGUAGE_LABEL}" name="portal_values[USER_LANGUAGE]" value="{LANGUAGE_VALUE}" {LANGUAGE_CHECKED} onClick="JavaScript:form.submit()"/>
+                                           <label for="{LABEL_LANGUAGE_LABEL}"><img class="flag" src="{LANGUAGE_ICON}" title="{LABEL_LANGUAGE}" /></label>&#160;&#160;
+                                </span>
+
+                                <!-- END LANGUAGE -->
+                        </form>
+                        <!-- END PORTAL_LANGUAGES -->
+                        </div>
+                        </div>
+
+                        <div id="menu_wrapper_bg">
+                            <div id="menu_wrapper" class="content_width">
+                                <div id="menu">
+                                    <div id="icon_bar">{ICON_BAR_HTML}</div>{MENU_HTML}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="site_wrapper">
+                            <div id="page_wrapper_bg">
+                                <div id="page_wrapper" class="content_width">
+                                    <div id="betaInfo"></div>
+
+                                    <div id="content_wrapper">
+
+                                        <div id="headline">
+                                            {HEADLINE1}{HEADLINE2}
+                                        </div>
+
+
+                                        <!-- BEGIN PROBLEM_BLOCK -->
+                                        <p id="error" style="display:none">{PROBLEM_DESCRIPTION}<br/>{PROBLEM_SOLUTION}</p>
+                                        <script type="text/javascript">$('#error').fadeIn('slow');</script>
+                                        <!-- END PROBLEM_BLOCK -->
+
+                                        <!-- BEGIN BLOCK_CONFIRMATION -->
+                                        <p id="confirmation" style="display:none">{CONFIRMATION_TEXT}</p>
+                                        <script type="text/javascript">$('#confirmation').fadeIn('slow');</script>
+                                        <!-- END BLOCK_CONFIRMATION -->
+
+
+
+                                        <div id="content">
+                                            <!-- BEGIN BLOCK_SIGN_IN --> 
+                                            <div id="loginDiv" style="display:none">
+                                                <form id="loginPanel" action="{LOGIN_FORM_ACTION}" method="post" name="loginform">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                {LABEL_LOGIN}:<br /> <input type="text" class="input" name="values[login]" size="15" id="first_field" />
+                                                            </td>
+                                                            <td>
+                                                                {LABEL_PASSWORD}:<br /> <input type="password" class="input" name="values[password]" size="15" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" name="values[req]" value="{SIGN_IN_REQUEST}">
+                                                                    <input type="submit" class="pill button" type="submit" value="{SIGN_IN_BUTTON_TEXT}" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>	
+                                                </form>
+                                            </div>
+                                            <script>
+                                                if($.browser.msie){
+                                                    if( 9 > parseInt($.browser.version)){ 
+                                                        $("#loginPanelWarning").show();
+                                                    }else{
+                                                        $("#loginDiv").show();
+                                                    }
+                                                }else{
+                                                    $("#loginDiv").show();
+                                
+                                                }
+                                            </script>
+
+                                            <script>
+                                                //loginVisible = function(visible){
+                                                //    if(visible){
+                                                //        jQuery("#loginPanel").css("display", "block");
+                                                //        jQuery("#loginPanelWarning").css("display", "none");
+                                                //    }else{
+                                                //        jQuery("#loginPanel").css("display", "none");
+                                                //        jQuery("#loginPanelWarning").css("display", "block");
+                                                //    }
+                                                //}
+
+                                                //if(jQuery.browser.mozilla) loginVisible(false);
+                                                //if(jQuery.browser.webkit) loginVisible(true);
+                                                //if(jQuery.browser.safari) loginVisible(true);
+                                                //if(jQuery.browser.opera) loginVisible(true);
+                                                //if(jQuery.browser.msie) loginVisible(true); 
+                            
+                                            </script>  
+
+
+
+                                            <!-- END BLOCK_SIGN_IN -->
+                                            {MAIN_HTML}
+                                        </div>
+
+                                        <!-- BEGIN FEEDS_BLOCK -->
+                                        <div id="feeds">
+                                            <!-- BEGIN RSS_FEED_BLOCK -->
+                                            <a href="{RSS_FEED_LINK}" title="RSS 2.0 feed"><img src="{RSS_STYLE_PATH}/images/feed-icon-16x16.png" width="16" height="16" alt="" align="absmiddle" /></a>
+                                            <a href="{RSS_FEED_LINK}" title="RSS 2.0 feed">{RSS_FEED_NAME}</a> &ndash; {RSS_FEED_DSC}
+                                            <!-- END RSS_FEED_BLOCK -->
+                                        </div>
+                                        <!-- END FEEDS_BLOCK -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="footer_shadow"></div>
+
+                        <div id="footer_wrapper" class="content_width">
+                            <div id="footer">
+                                {COPYRIGHT_INFO} {IMPRESSUM_INFO} {POLICY_INFO} {SECURITY_INFO}  {FUNDING_INFO} {POWERED_BY_INFO}
+                                {STATISTICS_REQUESTS} {STATISTICS_PAGETIME}
+                            </div>
+                        </div>
+
+                        <span id="USER_LOGIN" value="{USER_LOGIN}"></span>
+
+                        </body>
+
+                        </html>

@@ -30,12 +30,18 @@ class Drawing extends \AbstractCommand implements \IFrameCommand {
         exit;
     }
 
-    public function create($name, $destId) {
+    public function create($name, $destId, $type) {
         $destSteamContainer = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $destId);
         if ($destSteamContainer instanceof \steam_container) {
-            return \steam_factory::create_dawing($GLOBALS["STEAM"]->get_id(), $name, $destSteamContainer);
+            $obj = \steam_factory::create_drawing($GLOBALS["STEAM"]->get_id(), $name, $destSteamContainer);
+        	$obj->unlock_attributes();
+            $obj->set_attribute("GRAPHIC_TYPE", $type);
+        	return $obj;
         }
         HTTPStatus(400);
     }
+    
+    
+    
 }
 ?>

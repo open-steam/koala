@@ -5,7 +5,8 @@ function send_http_error($pException, $pBacktrace = "", $silent = false) {
 	if ($pException->getCode() == E_USER_ACCESS_DENIED ) {
 		logging::write_log( LOG_403, date("d.m.Y H:i", time()) . " USER: " . $_ENV["USER"] . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]);
                 
-                if (lms_portal::get_instance()->get_user()->is_logged_in()) {
+                $user = lms_portal::get_instance()->get_user();
+                if ($user instanceof steam_user && $user->is_logged_in()) {
                     header( 'Location: ' . PATH_URL . "403/");
                     exit;
                 } else {

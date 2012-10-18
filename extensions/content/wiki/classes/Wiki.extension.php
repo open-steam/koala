@@ -24,7 +24,7 @@ class Wiki extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Wiki Darstellung";
+		return "In Wikis können Benutzer gemeinsam an einem Projekt arbeiten. Die Versionsverwaltung ermöglicht es, den Entstehungsprozess jedes Eintrags nachvollziehen zu können.";
 	}
 	
 	public function getObjectIconUrl() {

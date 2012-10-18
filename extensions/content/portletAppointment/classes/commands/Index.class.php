@@ -88,18 +88,30 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         include_once(PATH_BASE . "core/lib/bid/derive_url.php");
 
         if (sizeof($content) > 0) {
-
-            $indexCount = 0;
-
             //sort appointments
             usort($content, "sortPortletAppointments");
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
            
-            if ($sortOrder === "latest_first") {                
+            if($sortOrder !== "latest_first"){
+                $reverseOrder = true;
+            } else{
+                $reverseOrder = false;
+            }
+            
+            
+            if ($reverseOrder) {                
                 $content = array_reverse($content);
             }
 
+            
+            if(!$reverseOrder){
+                $indexCount=sizeof($content)-1;
+            }else{
+               $indexCount = 0; 
+            }
+            
+            
             foreach ($content as $appointment) {
                 $tmpl->setCurrentBlock("BLOCK_TERM");
 
@@ -116,8 +128,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->setVariable("POPUPMENU_ENTRY", $popupmenu->getHtml());
                     $tmpl->parse("BLOCK_EDIT_BUTTON_TERM");
                 }
-                $indexCount++;
-
+                
+                //revert sort order
+                if(!$reverseOrder){
+                    $indexCount--;
+                }else{
+                    $indexCount++;
+                }
+                
                 $tmpl->setVariable("STARTDATE", $appointment["start_date"]["day"] . "." . $appointment["start_date"]["month"] . "." . $appointment["start_date"]["year"]);
 
                 if (trim($appointment["location"]) != "" && trim($appointment["location"]) != "0") {

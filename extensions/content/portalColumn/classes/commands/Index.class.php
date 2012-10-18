@@ -82,6 +82,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		
 		$htmlBody.="</div>";
 		$this->rawHtmlWidget->setHtml($htmlBody);
+                
 	}
 	
 	public function idResponse(\IdResponseObject $idResponseObject) {

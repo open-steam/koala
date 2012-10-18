@@ -226,23 +226,22 @@ function isGroupWorkroom($container) {
 }
 
 function isRapidFeedback($steamObject) {
-        $rapidfeedbackObject = steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $steamObject->get_id() );
-        $rapidfeedbackType = $rapidfeedbackObject->get_attribute("OBJ_TYPE");
-        if ($rapidfeedbackType != "0" && $rapidfeedbackType == "RAPIDFEEDBACK_CONTAINER") {
-                return true;
-        }
-        return false;
+    $rapidfeedbackObject = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamObject->get_id());
+    $rapidfeedbackType = $rapidfeedbackObject->get_attribute("OBJ_TYPE");
+    if ($rapidfeedbackType != "0" && $rapidfeedbackType == "RAPIDFEEDBACK_CONTAINER") {
+        return true;
+    }
+    return false;
 }
-
 
 function getObjectType($object) {
     if ($object instanceof \steam_document) {
-        $objName=$object->get_name();
+        $objName = $object->get_name();
         if ((strpos($objName, ".kml") !== false) || (strpos($objName, ".kmz") !== false)) {
             $type = "map";
-        }else{
+        } else {
             $type = "document";
-        }        
+        }
     } else if ($object instanceof \steam_messageboard) {
         $type = "forum";
     } else if ($object instanceof \steam_exit) {
@@ -263,18 +262,18 @@ function getObjectType($object) {
         $bidDocType = $object->get_attribute("bid:doctype");
         $bidType = $object->get_attribute("bid:collectiontype");
         $objType = $object->get_attribute("OBJ_TYPE");
-        
+
         //oldPortletTest
         $bidPortletType = $object->get_attribute("bid:portlet");
         $isOldPortlet = false;
-        $isOldPortlet = ("0"!=$bidPortletType);
-        
-        
+        $isOldPortlet = ("0" != $bidPortletType);
+
+
         if ($bidDocType === "portal") {
             $type = "portal_old";
         } else if ($bidType === "gallery") {
             $type = "gallery";
-        } else if($objType === "container_wiki_koala"){
+        } else if ($objType === "container_wiki_koala") {
             $type = "wiki";
         } else if ($objType === "container_portal_bid") {
             $type = "portal";
@@ -286,7 +285,7 @@ function getObjectType($object) {
             $type = "userHome";
         } else if (isGroupWorkroom($object)) {
             $type = "groupWorkroom";
-        }   else if (isRapidfeedback($object)) {
+        } else if (isRapidfeedback($object)) {
             $type = "rapidfeedback";
         } else if ($object instanceof \steam_room) {
             $type = "room";
@@ -302,7 +301,7 @@ function getObjectType($object) {
 function deriveIcon($object) {
     if (!($object instanceof steam_object))
         return "";
-    
+
     //worksheet
     $worksheet_role = $object->get_attribute("worksheet_role");
     if ($worksheet_role === "build")
@@ -311,6 +310,10 @@ function deriveIcon($object) {
         return "worksheets.png";
     if ($worksheet_role === "edit")
         return "worksheet.png";
+    //webarena
+    if ($object->get_attribute("isWebarena") == 1) {
+    	return "webarena.png";
+    }
     //bidOWL:Collection Types
     $collectiontype = $object->get_attribute("bid:collectiontype");
     /* if($collectiontype === "sequence")
@@ -338,31 +341,30 @@ function deriveIcon($object) {
       else if($doctype === "questionary")
       return "questionary.gif";
       else */
-    
-    
-    if ($objtype === "text_forumthread_bid"){
+
+
+    if ($objtype === "text_forumthread_bid") {
         return "forumthread.png";
     }
-        
-      
+
+
     //bid3 modules
-    
     //rapidfeedback
-    if ($object instanceof steam_container){
+    if ($object instanceof steam_container) {
         if ($objtype != "0" && $objtype == "RAPIDFEEDBACK_CONTAINER") {
-                return "rapidfeedback.png";
+            return "rapidfeedback.png";
         }
-    }  
-    
+    }
+
     //wiki
-    if ($object instanceof steam_container){
+    if ($object instanceof steam_container) {
         if ($objtype != "0" && $objtype == "container_wiki_koala") {
-                return "wiki.png";
+            return "wiki.png";
         }
-    }  
-      
-      
-      
+    }
+
+
+
     //steam:Types
     if ($object instanceof steam_docextern)
         return "www.png";
@@ -536,13 +538,24 @@ function getObjectReadableSize($object) {
         if ($type == "document") {
             $html = getReadableSize($object->get_content_size());
         } else if ($type == "container" || $type == "room" || $type == "groupWorkroom" || $type == "userHome") {
-            $html = count($object->get_inventory()) . " Objekte";
+            $counter = count($object->get_inventory());
+            if ($counter == 1) {
+                $html = $counter . " Objekt";
+            } else {
+                $html = $counter . " Objekte";
+            }
         } else if ($type == "portal") {
-            $html = count($object->get_inventory()) . " Spalten";
+            $counter = count($object->get_inventory());
+            $html = $counter;
+            $html .= $counter == 1 ? " Spalte" : " Spalten";
         } else if ($type == "gallery") {
-            $html = count($object->get_inventory()) . " Bilder";
+            $counter = count($object->get_inventory());
+            $html = $counter;
+            $html .= $counter == 1 ? " Bild" : " Bilder";
         } else if ($type == "forum") {
-            $html = count($object->get_annotations()) . " Themen";
+            $counter = count($object->get_annotations());
+            $html = $counter;
+            $html .= $counter == 1 ? " Thema" : " Themen";
         } else if ($type == "referenceFile") {
             $linkObject = $object->get_link_object();
             $html = getObjectReadableSize($linkObject);
@@ -702,112 +715,113 @@ END;
 
 function cleanHTML($dirtyHTML) {
     //html purifier
-    if(!defined("HTMLPURIFIER_PREFIX")) define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
+    if (!defined("HTMLPURIFIER_PREFIX"))
+        define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
-    
+
     //$config->set('HTML.SafeEmbed', true); //Info: overrides custom tag. Removed for tinymce graphs. 
     $config->set('HTML.SafeObject', true);
     $config->set('Output.FlashCompat', true); //not sure
-    
+
     $config->set('HTML.SafeIframe', true);
-    
+
     //$config->set('Core.EscapeNonASCIICharacters', true); //html encoding test
-    
-    
+
+
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
-    
+
     $def = $config->getHTMLDefinition(true);
     $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
                     array('_blank', '_self', '_target', '_top')
     ));
-    
-    
+
+
     //videotag ok
     $videotag = $def->addElement(
-    'video',   // name
-    'Block',  // content set
-    'Flow', // allowed children
-    'Optional', // attribute collection
-    array( // attributes
+            'video', // name
+            'Block', // content set
+            'Flow', // allowed children
+            'Optional', // attribute collection
+            array(// attributes
         'src' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
         'preload' => 'CDATA'
-    )
+            )
     );
-    
+
 
     $audiotag = $def->addElement(
-    'audio',   // name
-    'Block',  // content set
-    'Flow', // allowed children
-    'Optional', // attribute collection
-    array( // attributes
+            'audio', // name
+            'Block', // content set
+            'Flow', // allowed children
+            'Optional', // attribute collection
+            array(// attributes
         'src' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
         'preload' => 'CDATA'
-    )
+            )
     );
-   
-    
+
+
     //tine mce advanced video objects
     //TODO: self closing tags
     $videoObject = $def->addElement(
-    'object',   // name
-    'Block',  // content set
-    'Flow', // allowed children
-    'Optional', // attribute collection
-    array( // attributes
+            'object', // name
+            'Block', // content set
+            'Flow', // allowed children
+            'Optional', // attribute collection
+            array(// attributes
         'src' => 'CDATA',
         'data' => 'CDATA',
         'type' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
         'preload' => 'CDATA'
-    )
+            )
     );
-   
+
     $videoObjectParam = $def->addElement(
-    'param',   // name
-    'Block',  // content set
-    'Flow', // allowed children
-    'Optional', // attribute collection
-    array( // attributes
+            'param', // name
+            'Block', // content set
+            'Flow', // allowed children
+            'Optional', // attribute collection
+            array(// attributes
         'name' => 'CDATA',
         'value' => 'CDATA'
-    )
+            )
     );
-   
-    
+
+
     $videoFlowATag = $def->addElement(
-    'a',   // name
-    'Block',  // content set
-    'Flow', // allowed children
-    'Optional', // attribute collection
-    array( // attributes
+            'a', // name
+            'Block', // content set
+            'Flow', // allowed children
+            'Optional', // attribute collection
+            array(// attributes
         'id' => 'CDATA'
-    )
+            )
     );
-    
-    
+
+
     $asciiSvgTag = $def->addElement(
-    'embed',   // name
-    'Block',  // content set
-    'Flow', // allowed children
-    'Optional', // attribute collection
-    array( // attributes
+            'embed', // name
+            'Block', // content set
+            'Flow', // allowed children
+            'Optional', // attribute collection
+            array(// attributes
         'type' => 'CDATA',
         'src' => 'CDATA',
         'style' => 'CDATA',
         'sscr' => 'CDATA'
-    )
+            )
     );
-    
-    
+
+
     //$videotag->excludes = array('form' => true); //test
-    
+
     $purifier = new HTMLPurifier($config);
     $dirtyHTML = $purifier->purify($dirtyHTML);
     //$tidy = tidy_parse_string($dirtyHTML);
@@ -974,7 +988,7 @@ function replaceSteamObject($object) {
     if ($object instanceof steam_object) {
         return "\u2323" . $object->get_id() . "\u2323";
     } else if (is_array($object)) {
-        foreach($object as $key => $value) {
+        foreach ($object as $key => $value) {
             $object[$key] = replaceSteamObject($value);
         }
         return $object;
@@ -1030,10 +1044,10 @@ function HTTPStatus($num) {
     header($http[$num]);
 
     return
-        array(
-            'code' => $num,
-            'error' => $http[$num],
-        );
+            array(
+                'code' => $num,
+                'error' => $http[$num],
+    );
 }
 
 ?>

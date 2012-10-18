@@ -43,7 +43,7 @@ class CreateMessage extends \AbstractCommand implements \IAjaxCommand {
         $pEnvironment = $portletObject; //default is FALSE
         $pDescription = "";
 
-        $messageObject = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $pName, $pContent, $pMimeType, $pEnvironment, $pDescription);
+        $messageObject = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), rawurlencode(strip_tags($pName)), $pContent, $pMimeType, $pEnvironment, $pDescription);
 
         $messageObject->set_attribute("bid:doctype", "portlet:msg");
         $messageObject->set_attribute("bid:portlet:msg:link_open", "checked");

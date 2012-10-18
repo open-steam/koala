@@ -15,8 +15,14 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 		$params = $requestObject->getParams();               
 		$name = $params["title"];
 		$column = $params["parent"];
-                $order = $params["undefined"];               
-		$version = "3.0";	
+                
+                if(isset($params["undefined"])){
+                    $order = $params["undefined"];               
+		}else{
+                    $order = "";
+                }
+                
+                $version = "3.0";	
 
 		//check diffrent types of parameter
 		if(is_string($column)){
