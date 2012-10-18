@@ -8,8 +8,12 @@ defined("PLATFORM_ID") or define("PLATFORM_ID", "bid");
 defined("PLATFORM_NAME") or define("PLATFORM_NAME", "bid");
 // plattform folder
 defined("PLATFORM_FOLDER") or define("PLATFORM_FOLDER", PLATFORM_ID);
+
 //displayed in browser title
-defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "Lernstatt Paderborn");	
+defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "Lernstatt Paderborn"); //lspb.de	
+//defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "bid-owl"); //bid-owl.de
+//defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "schulen-gt"); //schulen-gt
+
 //copyright information
 defined("COPYRIGHT_NAME") or define("COPYRIGHT_NAME", "Bezirksregierung Detmold");
 
@@ -30,38 +34,49 @@ define("GROUPS_MENU", false);
 
 define("SERVERMENU", false);
 
-//$schoolObj = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(),"/home/mjako");
-
-//$schoolObj->get_id()
-
 define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome, SchoolHome");
-/* config for development
+
+/* config for development 
 define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
 								. "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map,"
 								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
-								. "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility");
+								. "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Worksheet, Webarena");
 */
 
-/* config for bid.lspb.de */
+
+
+
+/* config for live systems
 define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
 								. "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, Map,"
 								. "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
-								. "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Rest, Worksheet, Webarena");
+								. "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility");
+*/
 
 
-/*
-$menus = array(
-array("name" => gettext("Schulen"), "link" => PATH_URL . "school/" . $user->get_name(), 
-      "menu" => array( array("name" => "Meine Schule"/*, "link" => ""), 
-                array("name" => "Meine Klasse"/*, "link" => "" ), 
-                array("name" => "Alle Schulen"/*, "link" => "" )
-     ) 
-),
-*/    
+$whitelistDevelopment = "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
+                        . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map,"
+                        . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
+                        . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Worksheet, Webarena";
 
-// bid.lspb.de
-$menus = array(  
-array("name" => gettext("Übergreifendes"), "link" => "/portal/index/627794", 
+
+$whitelistLiveSystems = "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
+                        . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, Map,"
+                        . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
+                        . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility";
+
+
+
+
+//choose the extensions set
+define("EXTENSIONS_WHITELIST", $whitelistLiveSystems);
+
+
+    
+
+// bid.lspb.de / develompent
+$menusLspb = array(  
+array("name" => "Übergreifendes", "link" => "/portal/index/99", 
       "menu" => array(
                     array( "name" => "Einstiegsseite", "link" => "/explorer/index/99" ),
                     array( "name" => "Schulen", "link" => "/explorer/index/163621" ),
@@ -69,17 +84,20 @@ array("name" => gettext("Übergreifendes"), "link" => "/portal/index/627794",
       )
 ));
 
-/*
-// bid-owl.de
-array("name" => gettext("Übergreifendes"), "link" => "/portal/index/627794", 
-      "menu" => array( //array( "name" => "Startseite", "link" => "/portal/index/627794" ),
-					   array( "name" => "Schulen", "link" => "/explorer/index/51354" ),
-					   array( "name" => "Partner", "link" => "/explorer/index/51354" ),
-                	   array( "name" => "Dialog in OWL", "link" => "/explorer/index/51375" ),
-                       array( "name" => "Fundgrube", "link" => "/explorer/index/51386" )
+
+// bid-owl.de / schulen-gt
+$menusBidGt = array(
+array("name" => "Übergreifendes", "link" => "/portal/index/99", 
+      "menu" => array(
+                    array( "name" => "Schulen", "link" => "/explorer/index/51331" ),
+                    array( "name" => "Partner", "link" => "/explorer/index/51354" ),
+                    array( "name" => "Dialog in OWL", "link" => "/explorer/index/51375" ),
+                    array( "name" => "Fundgrube", "link" => "/explorer/index/51386" )
       )
 ));
-*/
+
+//choose menu set
+$menus = $menusLspb;
 
 
 define("PLATFROM_MENUS", json_encode($menus));
