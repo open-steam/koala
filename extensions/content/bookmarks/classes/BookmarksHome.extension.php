@@ -20,18 +20,27 @@ class BookmarksHome extends AbstractExtension implements IHomeExtension {
 	}
 	
 	public function getWidget() {
-		$box = new \Widgets\Box();
+                $box = new \Widgets\Box();
 		$box->setId(\BookmarksHome::getInstance()->getId());
 		$box->setTitle("Meine Lesezeichen");
 		$box->setTitleLink(PATH_URL . "bookmarks/");
-		//$box->setCustomStyle("width: 375px; height: 215px; float: left;clear: none");
 		$loader = new \Widgets\DivLoader();
 		$loader->setWrapperId("bookmarksWrapper");
 		$loader->setMessage("Lade Lesezeichen ...");
 		$loader->setCommand("loadRecentBookmarks");
 		$loader->setNamespace("Bookmarks");
-		$loader->setParams(array("id"=>$GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_BOOKMARKROOM")->get_id()));
-		$loader->setElementId("bookmarksWrapper");
+		
+                try{
+                    $id = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_BOOKMARKROOM")->get_id();
+                }  catch (Exception $e){
+                    //fallback
+                    $user = $GLOBALS["STEAM"]->get_current_steam_user();
+                    $id = $user->get_workroom();
+                }
+        
+                $loader->setParams(array("id"=>$id));
+		
+                $loader->setElementId("bookmarksWrapper");
 		$loader->setType("updater");
 		$box->addWidget($loader);
 		$box->setContent($loader->getHtml());
