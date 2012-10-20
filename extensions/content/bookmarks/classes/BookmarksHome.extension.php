@@ -35,7 +35,7 @@ class BookmarksHome extends AbstractExtension implements IHomeExtension {
                 }  catch (Exception $e){
                     //fallback
                     $user = $GLOBALS["STEAM"]->get_current_steam_user();
-                    $id = $user->get_workroom();
+                    $id = $user->get_workroom()->get_id();
                 }
         
                 $loader->setParams(array("id"=>$id));
