@@ -18,7 +18,7 @@ function bid2PathFix() {
     
     //schulen-gt
     input = 'http://www.schulen-gt.de/';
-    output='http://www2.schulen-gt.de/';
+    output='http://www3.schulen-gt.de/';
     
     while(document.body.innerHTML.search(input)!=-1){
         document.body.innerHTML = document.body.innerHTML.replace(input,output);
@@ -27,7 +27,7 @@ function bid2PathFix() {
     
     //bidowl
     input = 'http://www.bid-owl.de';
-    output='http://www2.bid-owl.de';
+    output='http://www3.bid-owl.de';
     
     while(document.body.innerHTML.search(input)!=-1){
         document.body.innerHTML = document.body.innerHTML.replace(input,output);
