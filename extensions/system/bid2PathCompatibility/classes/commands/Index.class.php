@@ -181,7 +181,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                     throw new \steam_exception;
                 }
                 return $object->get_id();
-            }  catch (\steam_exception $e){
+            }  catch (\Exception $e){
                 $url = "/404/";
                 header("Location: ".$url);
                 die;

@@ -3,7 +3,24 @@
 define("PATH_SERVER", "http://www.bid-owl.de.localhost");
 
 //*** useful developer setting
+<<<<<<< HEAD
 define("DISPLAY_ERRORS", 1);
 define("STATISTICS_LEVEL", 2);
 define("DEVELOPMENT_MODE", true);
+=======
+//define("DISPLAY_ERRORS", 1);
+//define("STATISTICS_LEVEL", 2);
+//define("DEVELOPMENT_MODE", true);
+
+//define("SEND_ERROR_MAIL", TRUE);
+//define("ERROR_MAIL_SENDER", "error@bid.lspb.de");
+//define("ERROR_MAIL_RECEIVER", "mjako@uni-paderborn.de");
+
+//portal as start page
+//defined("STARTPAGE_AS_PORTAL") or define("STARTPAGE_AS_PORTAL", true);
+//defined("STARTPAGE_AS_PORTAL_ID") or define("STARTPAGE_AS_PORTAL_ID", 524868);
+
+//help url
+//define("HELP_URL",  "http://bid.lspb.de/explorer/Index/177250/");
+>>>>>>> ea211c78c5b51e0a46f1514448c5ac162ed3e89a
 ?>
