@@ -1,4 +1,9 @@
 #explorerContent {
-	padding-left: 50px;
-	padding-right: 50px;
+    	padding-right: 50px;
+}
+.listviewer{
+    margin-left: 50px;
+}
+.breadcrumb{
+    margin-left: 50px;
 }
