@@ -30,6 +30,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$myExtension = \Forum::getInstance();
 
 		$forumObject = \steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $objectId );
+                if(!$forumObject instanceof \steam_messageboard){
+                    $errorHtml = new \Widgets\RawHtml();
+                    $errorHtml->setHtml("Dieses Forum kann leider nicht angezeigt werden. Bitte überprüfen Sie erneut die angegebene Adresse.");
+                    $frameResponseObject->addWidget($errorHtml);
+                    return $frameResponseObject;
+                }
                 $forumCreator = $forumObject->get_creator();
                 $forumCreatorName = getCleanName($forumCreator);
 
