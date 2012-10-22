@@ -1,13 +1,7 @@
 <?php
 //*** 
-define("PATH_SERVER", "http://www.bid-owl.de.localhost");
+define("PATH_SERVER", "http://localhost");
 
-//*** useful developer setting
-<<<<<<< HEAD
-define("DISPLAY_ERRORS", 1);
-define("STATISTICS_LEVEL", 2);
-define("DEVELOPMENT_MODE", true);
-=======
 //define("DISPLAY_ERRORS", 1);
 //define("STATISTICS_LEVEL", 2);
 //define("DEVELOPMENT_MODE", true);
@@ -22,5 +16,4 @@ define("DEVELOPMENT_MODE", true);
 
 //help url
 //define("HELP_URL",  "http://bid.lspb.de/explorer/Index/177250/");
->>>>>>> ea211c78c5b51e0a46f1514448c5ac162ed3e89a
 ?>
