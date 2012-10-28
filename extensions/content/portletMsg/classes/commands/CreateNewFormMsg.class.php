@@ -22,6 +22,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Einfügen einer Meldung");
         $dialog->setCloseButtonLabel(NULL);
+        $dialog->setWidth("600");
         $ajaxForm = new \Widgets\AjaxForm();
         $ajaxForm->setSubmitCommand("CreateMessage");
         $ajaxForm->setSubmitNamespace("PortletMsg");
@@ -54,9 +55,9 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 }
 
 .attributeValue .text, .attributeValue textarea {
-  wwidth: 100px;
+  width: 100px;
 }
-
+.widgets_textarea{width:250px}
 .attributeValueColumn {
   float: left;
   position: relative;
@@ -71,7 +72,43 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 </div>
 <div class="attribute">
 	<div class="attributeName">Text:</div>
-	<div><input type="text" class="text" value="" name="text"></div>
+	<div class="widgets_textarea"><textarea rows="10" style="width:100%" class="mce-small"  value="" name="text" id="text"></textarea><br clear="all">
+	<script type="text/javascript">
+		    	var mce_defaults = {
+	    			mode : "specific_textareas",
+	    			
+	    			// General options
+					theme : "advanced",
+					content_css : "{PATH_URL}widgets/css/tinymce.css",
+					skin: "o2k7",
+					remove_linebreaks: false,
+				    convert_urls : false,
+				    verify_html: "false",
+					language: "de",
+					
+					// Theme options
+					theme_advanced_buttons3 : "",
+					theme_advanced_buttons4 : "",
+					theme_advanced_toolbar_location : "top",
+					theme_advanced_toolbar_align : "left",
+					theme_advanced_statusbar_location : "none",
+					theme_advanced_resizing : false,
+					
+	    	};
+	    	
+	    	
+	    		load("mce", function() {
+					tinyMCE.init($.extend({
+						editor_selector: "mce-small", 
+						plugins : "emotions,paste,noneditable",
+						// Theme options
+						theme_advanced_buttons1 : "bold,italic,underline,|,bullist,numlist,|,link,unlink,|,forecolor,removeformat,|,undo,redo,pasteword",
+						theme_advanced_buttons2 : ""
+					}, mce_defaults));
+	    		});
+	
+
+	</script>
 </div>
 
 <div class="attribute">
