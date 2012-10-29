@@ -16,10 +16,8 @@ class CreateMessage extends \AbstractCommand implements \IAjaxCommand {
     public function processData(\IRequestObject $requestObject) {
         $params = $requestObject->getParams();
         $parentObjectId = $params["id"];
-        $title = $params["title"];
+        $title = urldecode($params["title"]);
         $text = $params["text"];
-        
-        
 
         //check diffrent types of parameter
         if (is_string($parentObjectId)) {
