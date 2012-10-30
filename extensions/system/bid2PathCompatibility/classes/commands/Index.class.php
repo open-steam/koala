@@ -180,6 +180,11 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                 if (is_null($object)){
                     throw new \steam_exception;
                 }
+                
+                if (!is_object($object)){
+                    throw new \steam_exception;
+                }
+                
                 return $object->get_id();
             }  catch (\Exception $e){
                 $url = "/404/";
