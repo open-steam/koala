@@ -27,12 +27,13 @@ class NewPyramiddiscussionForm extends \AbstractCommand implements \IAjaxCommand
         $options_basegroup = "";
         $options_admingroup = "<option value=\"0\">Keine</option> \n";
         $options_course = "";
+        $buddies = array();
         if (PLATFORM_ID == "bid") {
             $buddies = $user->get_buddies();
             foreach ($buddies as $buddy) {
-                if ($buddy instanceof \steam_group && !in_array($buddy, $groups) && $buddy->get_attribute("GROUP_INVISIBLE") !== 1 && $group->get_name() !== "sTeam") {
-                    $options_basegroup = $options_basegroup . "<option value=\"" . $group->get_id() . "\">" . $group->get_name() . "</option> \n";
-                    $options_admingroup = $options_admingroup . "<option value=\"" . $group->get_id() . "\">" . $group->get_name() . "</option> \n";
+                if ($buddy instanceof \steam_group && !in_array($buddy, $groups) && $buddy->get_attribute("GROUP_INVISIBLE") !== 1) {
+                    $options_basegroup = $options_basegroup . "<option value=\"" . $buddy->get_id() . "\">" . $buddy->get_name() . "</option> \n";
+                    $options_admingroup = $options_admingroup . "<option value=\"" . $buddy->get_id() . "\">" . $buddy->get_name() . "</option> \n";
                 }
             }
         }
