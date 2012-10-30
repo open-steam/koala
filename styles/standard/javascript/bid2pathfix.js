@@ -27,7 +27,7 @@ function bid2PathFix() {
     
     
     inputAbort = 'http://www.bid-owl.de.localhost';
-    while(document.body.innerHTML.search(input)!=-1){
+    while(document.body.innerHTML.search(inputAbort)!=-1){
         return false;
     }
     
