@@ -31,7 +31,12 @@ class BookmarksHome extends AbstractExtension implements IHomeExtension {
 		$loader->setNamespace("Bookmarks");
 		
                 try{
-                    $id = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_BOOKMARKROOM")->get_id();
+                    $obj = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_BOOKMARKROOM");
+                    
+                    if (!is_object($object)){
+                        throw new \steam_exception;
+                    }
+                    $id = $object->get_id();
                 }  catch (Exception $e){
                     //fallback
                     $user = $GLOBALS["STEAM"]->get_current_steam_user();
