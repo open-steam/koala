@@ -6,7 +6,7 @@ function send_http_error($pException, $pBacktrace = "", $silent = false) {
 		logging::write_log( LOG_403, date("d.m.Y H:i", time()) . " USER: " . $_ENV["USER"] . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]);
                 
                 $user = lms_portal::get_instance()->get_user();
-                if ($user instanceof steam_user && $user->is_logged_in()) {
+                if ($user instanceof lms_user && $user->is_logged_in()) {
                     header( 'Location: ' . PATH_URL . "403/");
                     exit;
                 } else {

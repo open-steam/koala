@@ -27,7 +27,7 @@ class Pyramiddiscussion extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Pyramiddiscussion";
+		return "Pyramidendiskussion";
 	}
 	
 	public function getObjectReadableDescription() {

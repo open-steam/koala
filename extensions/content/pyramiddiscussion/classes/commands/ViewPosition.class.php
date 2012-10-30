@@ -22,8 +22,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 		$positionGroup = $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_RELGROUP");
 		$pyramidRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->pyramiddiscussion);
 		$phase = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ACTCOL");
-		$basegroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_BASEGROUP");
-		$admingroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ADMINGROUP");
+                $group = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
 		$adminconfig = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ADMINCONFIG");
 		$pyramiddiscussionExtension = \Pyramiddiscussion::getInstance();
 		$pyramiddiscussionExtension->addCSS();
@@ -33,10 +32,8 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 		// if a new comment was submitted
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_comment"])) {
 			$new_comment = \steam_factory::create_textdoc($GLOBALS[ "STEAM" ]->get_id(), $_POST["title"], stripslashes($_POST["content"]));
-			$new_comment->set_read_access($basegroup);
-			$new_comment->set_read_access($admingroup);
-			$new_comment->set_write_access($basegroup);
-			$new_comment->set_write_access($admingroup);
+			$new_comment->set_read_access($group);
+			$new_comment->set_write_access($group);
 			$read_states = array();
 			$read_states[$user->get_id()] = 1;
 			$new_comment->set_attribute("PYRAMIDDISCUSSION_COMMENT_READ_STATES", $read_states);
@@ -55,7 +52,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 		
 		// check if user is admin and if adminoptions are shown
 		$showadmin = 1;
-		if ($admingroup->is_member($user)) {
+		if ($group->is_admin($user)) {
 			if(array_key_exists($user->get_id(), $adminconfig)) {
 				$options = $adminconfig[$user->get_id()];
 				if (isset($options["show_adminoptions"]) && $options["show_adminoptions"] == "false") {
@@ -66,7 +63,6 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 		// get names of the users participating in this position
 		$participants = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_PARTICIPANT_MANAGEMENT");
 		$positionMembers = $positionGroup->get_members();
-		$names = "";
 		$users = array();
 		while (count($positionMembers) > 0) {
 			$currentMember = array_pop($positionMembers);
