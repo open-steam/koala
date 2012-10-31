@@ -1,0 +1,84 @@
+<!-- BEGIN BLOCK_SPREADSHEET_TABLE -->
+	<!-- BEGIN BLOCK_SPREADSHEET_SCRIPTS -->
+	<script type="text/javascript" src="{SCRIPT_SRC}"></script>
+	<!-- END BLOCK_SPREADSHEET_SCRIPTS -->
+	<!-- BEGIN BLOCK_SPREADSHEET_CSS -->
+	<link rel="stylesheet" href="{CSS_HREF}" type="text/css" />
+	<!-- END BLOCK_SPREADSHEET_CSS -->
+	<!-- BEGIN BLOCK_SHEET_NAME_SCRIPT -->
+	<script type="text/javascript">
+		var docID = '{SHEET_ID}';
+		var docTitle = '{SHEET_TITLE}';
+		var userName = '{USER_NAME}';
+		var sheetEditable = {SHEET_EDITABLE};
+		var rtServer = '{RT_SERVER}';
+	</script>
+	<!-- END BLOCK_SHEET_NAME_SCRIPT -->
+
+	<div id="mainWrapper" class="ui-corner-all wrapper">
+     	<div id="jQuerySheet" class="jQuerySheet" style="height: 380px;">
+    	</div>
+    	<div id="userDialog">
+			<div class="ui-widget-header ui-corner-tr">
+				<p></p>
+			</div>
+
+			<div class="ui-widget-content ui-corner-br" style="min-height: 200px">
+				<ul id="userList">
+				</ul>
+			</div>
+		</div>
+		<div id="disconnectedDialog">
+			<p></p>
+		</div>
+    </div>
+
+    <!-- BEGIN BLOCK_SHEET_TOOLBAR -->
+    <span id="inlineMenu" style="display: none;">
+		<span>
+			<a href="#" onclick="$.sheet.instance[0].controlFactory.addRow(null, true); return false;" id="toolbar_insertRowBefore">
+				<img alt="Insert Row Before Selected" src="{EXTENSION_URL}asset/sheet_row_add.png"/></a>
+			<a href="#" onclick="$.sheet.instance[0].controlFactory.addRow(); return false;" id="toolbar_insertRowAfter">
+				<img alt="Insert Row After Selected" src="{EXTENSION_URL}asset/sheet_row_add.png"/></a>
+			<a href="#" onclick="$.sheet.instance[0].deleteRow(); return false;" id="toolbar_deleteRow">
+				<img alt="Delete Row" src="{EXTENSION_URL}asset/sheet_row_delete.png"/></a>
+			<a href="#" onclick="$.sheet.instance[0].controlFactory.addColumn(null, true); return false;" id="toolbar_insertColumnBefore">
+				<img alt="Insert Column Before Selected" src="{EXTENSION_URL}asset/sheet_col_add.png"/></a>
+			<a href="#" onclick="$.sheet.instance[0].controlFactory.addColumn(); return false;" id="toolbar_insertColumnAfter">
+				<img alt="Insert Column After Selected" src="{EXTENSION_URL}asset/sheet_col_add.png"/></a>
+			<a href="#" onclick="$.sheet.instance[0].deleteColumn(); return false;" id="toolbar_deleteColumn">
+				<img alt="Delete Column" src="{EXTENSION_URL}asset/sheet_col_delete.png"/></a>
+			<a href="#" onclick="$.sheet.instance[0].cellFind(); return false;" id="toolbar_find">
+				<img alt="Find" src="{EXTENSION_URL}asset/find.png"/></a>
+			<a href="#" onclick="toggleCellStyle('styleBold'); return false;" id="toolbar_bold">
+				<img alt="Bold" src="{EXTENSION_URL}asset/text_bold.png"/></a>
+			<a href="#" onclick="toggleCellStyle('styleItalics'); return false;" id="toolbar_italic">
+				<img alt="Italic" src="{EXTENSION_URL}asset/text_italic.png"/></a>
+			<a href="#" onclick="toggleCellStyle('styleUnderline', 'styleLineThrough'); return false;" id="toolbar_underline">
+				<img alt="Underline" src="{EXTENSION_URL}asset/text_underline.png"/></a>
+			<a href="#" onclick="toggleCellStyle('styleLineThrough', 'styleUnderline'); return false;" id="toolbar_strikethrough">
+				<img alt="Strikethrough" src="{EXTENSION_URL}asset/text_strikethrough.png"/></a>
+			<a href="#" onclick="toggleCellStyle('styleLeft', 'styleCenter styleRight'); return false;" id="toolbar_alignLeft">
+				<img alt="Align Left" src="{EXTENSION_URL}asset/text_align_left.png"/></a>
+			<a href="#" onclick="toggleCellStyle('styleCenter', 'styleLeft styleRight'); return false;" id="toolbar_alignCenter">
+				<img alt="Align Center" src="{EXTENSION_URL}asset/text_align_center.png"/></a>
+			<a href="#" onclick="toggleCellStyle('styleRight', 'styleLeft styleCenter'); return false;" id="toolbar_alignRight">
+				<img alt="Align Right" src="{EXTENSION_URL}asset/text_align_right.png"/></a>
+			<a href="#" onclick="resizeCellFont('up'); return false;" id="toolbar_increaseFontSize">
+				<img alt="Increase Font Size" src="{EXTENSION_URL}asset/increase-font.png"/></a>
+			<a href="#" onclick="resizeCellFont('down'); return false;" id="toolbar_decreaseFontSize">
+				<img alt="Decrease Font Size" src="{EXTENSION_URL}asset/decrease-font.png"/></a>
+			<a href="#" onclick="$.sheet.instance[0].obj.formula().val('=HYPERLINK(\'' + prompt('Enter Web Address', 'https://www.koala.upb.de') + '\')').keydown(); return false;" id="toolbar_hyperLink">
+				<img alt="Web Link" src="{EXTENSION_URL}asset/page_link.png"/></a>
+		</span>
+		<span class="colorPickers">
+			<input id="toolbar_foregroundColor" class="colorPickerFont" style="width: 16px; height: 16px;"/>
+			<input id="toolbar_backgroundColor" class="colorPickerCell" style="width: 16px; height: 16px;"/>
+		</span>
+		<span id="exportBar" style="padding-left: 10px;">
+			<span id="toolbar_export">Exportieren: </span><a href="{EXTENSION_URL}Export/{SHEET_ID}/xls" target="_blank">Excel</a>
+			|<a href="{EXTENSION_URL}/Export/{SHEET_ID}/csv" target="_blank">CSV</a>
+		</span>
+		<a id="formula_button" href="#"><img src="{EXTENSION_URL}asset/function.png"/></a>
+	<!-- END BLOCK_SHEET_TOOLBAR -->
+<!-- END BLOCK_SPREADSHEET_TABLE -->

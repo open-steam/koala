@@ -1,0 +1,3 @@
+<?php
+defined("SPREADSHEETS_RT_SERVER") or define("SPREADSHEETS_RT_SERVER", "192.168.200.3:8000");
+?>
