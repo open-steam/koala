@@ -177,8 +177,8 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
     
     }
     
-    //somebody tries to download a container, this is not possible
-    if ( $document instanceof \steam_container){
+    //somebody tries to download a container or link, this is not possible
+    if ( $document instanceof \steam_container  || $document instanceof \steam_link){
         $url = "/404/";
         header("Location: ".$url);
         die;
