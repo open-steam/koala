@@ -1112,8 +1112,11 @@ qq.extend(qq.UploadHandlerForm.prototype, {
         // Because in this case file won't be attached to request
         var form = qq.toElement('<form method="post" enctype="multipart/form-data"></form>');
 
-        var queryString = qq.obj2url(params, this._options.action);
-
+        // build query string
+        params = params || {};
+        params['destid'] = this._options.destid;
+        var queryString = qq.obj2url(params, this._options.action + 'Upload/');
+        
         form.setAttribute('action', queryString);
         form.setAttribute('target', iframe.name);
         form.style.display = 'none';
@@ -1213,7 +1216,7 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         params['command'] = this._options.command;
         params['destid'] = this._options.destid;
         var queryString = qq.obj2url(params, this._options.action);
-
+        
         xhr.open("POST", queryString, true);
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));

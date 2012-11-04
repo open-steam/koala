@@ -36,7 +36,17 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+		// list of valid extensions, ex. array("jpeg", "xml", "bmp")
+		$allowedExtensions = array();
+		// max file size in bytes
+		$sizeLimit = return_bytes(ini_get('post_max_size'));
+		$envid = $_REQUEST["destid"];
 		
+		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit, $envid);
+		$result = $uploader->handleUpload(PATH_TEMP);
+		// to pass data through iframe you will need to encode all html tags
+		echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+		die;
 	}
 }
 
@@ -187,9 +197,23 @@ class qqFileUploader {
         }
         
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
-        	$steam_document->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
-        	unlink($uploadDirectory . $filename . '.' . $ext);
-            return array('success'=>true);
+                try {
+                    $imagick = new \Imagick();
+                    $imagick->readimage($uploadDirectory . $filename . '.' . $ext);
+                    if ($imagick->valid()) {
+                        $imageProperties = $imagick->getimagegeometry();
+                        if ($imageProperties["width"] > 1920 || $imageProperties["height"] > 1080) {
+                            $imagick->resizeimage(1920, 1080, \Imagick::FILTER_UNDEFINED, 0, true);
+                            $imagick->writeimage($uploadDirectory . $filename . '.' . $ext);
+                        }
+                    }
+                } catch (\IMagickException $e) {
+                    // file is no picture
+                }
+                
+                $steam_document->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
+                unlink($uploadDirectory . $filename . '.' . $ext);
+                return array('success'=>true);
         } else {
             return array('error'=> 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
