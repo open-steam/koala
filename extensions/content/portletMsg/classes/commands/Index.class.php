@@ -154,8 +154,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 if ($UBB->encode($message->get_attribute("OBJ_DESC")) != "") {
                     $tmpl->setVariable("MESSAGE_SUBHEADLINE", $UBB->encode($message->get_attribute("OBJ_DESC")));
                 }
-                $tmpl->setVariable("MESSAGE_CONTENT", $message->get_content());
-
+                
+                //edit message content
+                $messageContent = $message->get_content();
+                $messageContent = cleanHTML($messageContent);
+                
+                $tmpl->setVariable("MESSAGE_CONTENT", $messageContent);
 
                 //get column width
                 $columnObject = $portletObject->get_environment();
@@ -240,6 +244,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //widgets
         $outputWidget = new \Widgets\RawHtml();
         $outputWidget->addWidget(new \Widgets\PopupMenu());
+        
         $outputWidget->setHtml($htmlBody);
         $this->rawHtmlWidget = $outputWidget;
     }
