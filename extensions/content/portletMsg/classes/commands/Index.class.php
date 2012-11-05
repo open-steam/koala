@@ -161,6 +161,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 
                 $tmpl->setVariable("MESSAGE_CONTENT", $messageContent);
 
+
                 //get column width
                 $columnObject = $portletObject->get_environment();
                 $column_width = $columnObject->get_attribute("bid:portal:column:width");
