@@ -160,8 +160,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $messageContent = cleanHTML($messageContent);
                 
                 $tmpl->setVariable("MESSAGE_CONTENT", $messageContent);
-                
 
+                
                 //get column width
                 $columnObject = $portletObject->get_environment();
                 $column_width = $columnObject->get_attribute("bid:portal:column:width");
@@ -245,6 +245,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //widgets
         $outputWidget = new \Widgets\RawHtml();
         $outputWidget->addWidget(new \Widgets\PopupMenu());
+        
         $outputWidget->setHtml($htmlBody);
         $this->rawHtmlWidget = $outputWidget;
     }
