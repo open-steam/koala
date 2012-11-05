@@ -24,39 +24,80 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $parent = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $this->inv = $parent->get_inventory();
-
         $numberOfInvalidObjs = $this->countInvalidObjs();
-
+        
         $newIdArray = array();
         $newIdArray = explode(",", $this->newIds);
-
+        foreach($newIdArray as $index=>$ele){
+            $newIdArray[$index] = intval($ele);
+        }
+       
+        
         $oldIdArray = array();
+        
         for ($i = $numberOfInvalidObjs; $i < count($this->inv); $i++) {
             $oldIdArray[$i - $numberOfInvalidObjs] = $this->inv[$i]->get_id();
         }
-        $oldPosition = 0;
-        while ($oldIdArray[$oldPosition] != $this->cE) {
-            $oldPosition++;
+        
+        
+        $hiddenElements = array();
+        $hiddenElements = array_diff($oldIdArray, $newIdArray);
+        
+        $exchangeArray = array();
+        
+        for($i = 0; $i < $numberOfInvalidObjs; $i++){
+            $exchangeArray[$i] = $this->inv[$i]->get_id();
         }
-        $newPosition = 0;
-        while ($newIdArray[$newPosition] != $this->cE) {
-            $newPosition++;
+         
+        for($i=$numberOfInvalidObjs;$i<(count($newIdArray)+$numberOfInvalidObjs);$i++){
+            $exchangeArray[$i] = $newIdArray[$i-$numberOfInvalidObjs];
         }
-        $oldPosition +=$numberOfInvalidObjs;
-        $newPosition +=$numberOfInvalidObjs;
-        if ($oldPosition < $newPosition) {
-            for ($i = $oldPosition; $i < $newPosition; $i++) {
-                $parent->swap_inventory($i, $i + 1);
-            }
+        
+        $i=count($newIdArray)+$numberOfInvalidObjs;
+        foreach($hiddenElements as $he){
+            $exchangeArray[$i] = $he;
+            $i++;
         }
-        if ($oldPosition > $newPosition) {
-            echo 1 . "          ";
-            for ($i = $oldPosition; $i > $newPosition; $i--) {
-                $parent->swap_inventory($i, $i - 1);
-            }
-        }
-        $ajaxResponseObject->setStatus("ok");
+        
+        $parent->order_inventory_objects($exchangeArray);
+
+        $ajaxResponseObject->setStatus("ok"); 
         return $ajaxResponseObject;
+        
+        /* $parent = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+          $this->inv = $parent->get_inventory();
+
+          $numberOfInvalidObjs = $this->countInvalidObjs();
+
+          $newIdArray = array();
+          $newIdArray = explode(",", $this->newIds);
+
+          $oldIdArray = array();
+          for ($i = $numberOfInvalidObjs; $i < count($this->inv); $i++) {
+          $oldIdArray[$i - $numberOfInvalidObjs] = $this->inv[$i]->get_id();
+          }
+          $oldPosition = 0;
+          while ($oldIdArray[$oldPosition] != $this->cE) {
+          $oldPosition++;
+          }
+          $newPosition = 0;
+          while ($newIdArray[$newPosition] != $this->cE) {
+          $newPosition++;
+          }
+          $oldPosition +=$numberOfInvalidObjs;
+          $newPosition +=$numberOfInvalidObjs;
+          if ($oldPosition < $newPosition) {
+          for ($i = $oldPosition; $i < $newPosition; $i++) {
+          $parent->swap_inventory($i, $i + 1);
+          }
+          }
+          if ($oldPosition > $newPosition) {
+          for ($i = $oldPosition; $i > $newPosition; $i--) {
+          $parent->swap_inventory($i, $i - 1);
+          }
+          }
+          $ajaxResponseObject->setStatus("ok"); 
+        return $ajaxResponseObject; */
     }
 
     private function repairOrder($obj) {

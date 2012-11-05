@@ -87,6 +87,18 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         $category_allowed_sanction = $category->check_access(SANCTION_SANCTION);
 
         /** the environment of the forum object */
+        if(!($forum instanceof \steam_messageboard)){
+            $errorHtml = new \Widgets\RawHtml();
+            $errorHtml->setHtml("Das gewünschte Thema kann nicht angezeigt werden. Bitte überprüfen Sie die angegebene Adresse.");
+            $frameResponseObject->addWidget($errorHtml);
+            return $frameResponseObject;     
+        }
+        if(!($category instanceof \steam_document)){
+            $errorHtml = new \Widgets\RawHtml();
+            $errorHtml->setHtml("Das gewünschte Thema kann nicht angezeigt werden. Bitte überprüfen Sie die angegebene Adresse.");
+            $frameResponseObject->addWidget($errorHtml);
+            return $frameResponseObject;     
+        }
         $forumEnvironment = $forum->get_environment();
         /** additional required attributes */
         $forumEnvironmentAttributes = $forumEnvironment->get_attributes(array(OBJ_NAME, OBJ_DESC), 1);

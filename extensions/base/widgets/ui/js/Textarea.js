@@ -17,7 +17,7 @@ function widgets_textarea_save_success(elementId, response) {
 				} else if (widget.find("textarea").hasClass("plain")) {
 					widget.find("textarea").val(data.newValue);
 				}
-				widget.removeClass("dirty");
+			//	widget.removeClass("dirty");
 				widget.addClass("undo");
 				widget.addClass("saved");
 				widget.attr("oldValue", widget.attr("value"));
@@ -25,7 +25,7 @@ function widgets_textarea_save_success(elementId, response) {
 				$(window).unbind('beforeunload');
 			} else {
 				widget.addClass("error");
-				widget.removeClass("dirty");
+				//widget.removeClass("dirty");
 				widget.find(".icon.error").title = data.error;
 			}
 		}
@@ -64,10 +64,10 @@ function widgets_textarea_save_success(elementId, response) {
                                         onchange_callback : function(e) {element.addClass("dirty");},
 
 					
-					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(!tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}},
+					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(!tinyMCE.activeEditor.isDirty()) {/*element.removeClass("dirty")*/}},
 					oninit : function(e) {tinyMCE.activeEditor.setContent(value), tinyMCE.activeEditor.isNotDirty = 1},
 					setup :  function(e) {
-						setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {/*element.addClass("dirty");*/$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty")}}, 2000 );
+                                                setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {/*element.removeClass("dirty")*/}}, 2000 );
 					}
 	    	};
 	    	
@@ -136,7 +136,8 @@ function widgets_textarea_save_success(elementId, response) {
                                                 //AScgiloc : '/tools/asciisvg/svgimg.php',
                                                 
 						ASdloc : pathUrl + '/styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
-						fullscreen_new_window : true,       
+						fullscreen_new_window : true,  
+                                                extended_valid_elements : "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style]",
 						fullscreen_settings : {
 						theme_advanced_path_location : "top"
 						}

@@ -22,17 +22,11 @@ class Mail extends \AbstractCommand implements \IFrameCommand {
 		
 		// mail form got submitted
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["send_mail"])) {
-			$basegroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_BASEGROUP");
-			$admingroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ADMINGROUP");
-			if ($admingroup->is_member($user)) {
+			$group = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
+			if ($group->is_admin($user)) {
 				$title = "Rundmail zur Pyramidendiskussion: ". $pyramidRoom->get_attribute("OBJ_DESC");
 				$content = nl2br($_POST["content"]);
-				if ($basegroup->get_id() != $admingroup->get_id()) {
-					$basegroup->mail($title, $content);
-					$admingroup->mail($title, $content);
-				} else {
-					$basegroup->mail($title, $content);
-				}
+				$group->mail($title, $content);
 				$frameResponseObject->setConfirmText("Rundmail erfolgreich gesendet.");
 			}
 		}

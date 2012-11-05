@@ -1,0 +1,50 @@
+.jQuerySheet {
+	/*float: left;*/
+	width: 80%;
+	max-width: 810px;
+}
+
+/*.jSheetControls_formula {
+	padding-left: 20px;
+}*/
+
+#formula_button {
+	height: 16px;
+	width: 16px;
+	position: relative;
+
+	top: 2px;
+	right: 2px;
+}
+
+#userDialog {
+	position:absolute; 
+	top:20px; 
+	right:-140px;
+	width:140px;
+	display: none;
+}
+
+#userDialog p {
+	margin: 2px;
+	padding-left: 4px;
+}
+
+#userList 4 {
+	font-size: 10pt;
+}
+
+.ui-autocomplete {
+	max-height: 100px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	/* add padding to account for vertical scrollbar */
+	padding-right: 20px;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+	height: 100px;
+}

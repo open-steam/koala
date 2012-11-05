@@ -22,10 +22,11 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$pyramiddiscussionExtension->addJS();
 		$basegroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_BASEGROUP");
 		$admingroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ADMINGROUP");
+                $group = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
 		$content = $pyramiddiscussionExtension->loadTemplate("pyramiddiscussion_configuration.template.html");
 		
 		// if user is no admin display error msg
-		if (!$admingroup->is_member($user)) {
+		if (!$group->is_admin($user)) {
 			$rawWidget = new \Widgets\RawHtml();
 			$rawWidget->setHtml("Error: Kein Administrator");
 			$frameResponseObject->addWidget($rawWidget);
@@ -75,7 +76,11 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("BASEGROUP_LABEL", "Basisgruppe:");
 		$content->setVariable("BASEGROUP_VALUE", $basegroup->get_name());
 		$content->setVariable("ADMINGROUP_LABEL", "Admingruppe:");
-		$content->setVariable("ADMINGROUP_VALUE", $admingroup->get_name());
+                if ($admingroup instanceof \steam_group) {
+                    $content->setVariable("ADMINGROUP_VALUE", $admingroup->get_name());
+                } else {
+                    $content->setVariable("ADMINGROUP_VALUE", "Keine");
+                }
 		$content->setVariable("EDITOR_LABEL", "Editor-Typ:");
 		$editortype = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_EDITOR");
 		if ($editortype == "text/plain") {
@@ -111,8 +116,6 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("DEADLINE_PHASE_LABEL", "Diskussionsphase");
 		$content->setVariable("DEADLINE_LABEL", "Deadline");
 		for ($count = 1; $count <= $maxcol; $count++) {
-			$hours = 0;
-			$minutes = 0;
 			$content->setCurrentBlock("BLOCK_DEADLINE_ENTRY");
 			$content->setVariable("DEADLINE_PHASE", $count);
 			if (array_key_exists($count, $deadlines)) {

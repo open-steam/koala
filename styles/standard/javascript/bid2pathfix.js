@@ -25,6 +25,13 @@ function bid2PathFix() {
     }
     
     
+    
+    inputAbort = 'http://www.bid-owl.de.localhost';
+    while(document.body.innerHTML.search(inputAbort)!=-1){
+        return false;
+    }
+    
+    
     //bidowl
     input = 'http://www.bid-owl.de';
     output='http://www3.bid-owl.de';
@@ -32,8 +39,6 @@ function bid2PathFix() {
     while(document.body.innerHTML.search(input)!=-1){
         document.body.innerHTML = document.body.innerHTML.replace(input,output);
     }
-    
-    
     
     return true;
 }
