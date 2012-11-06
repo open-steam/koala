@@ -197,6 +197,7 @@ class qqFileUploader {
         }
         
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
+            if (defined("ENABLE_AUTOMATIC_IMAGE_SCALING") && ENABLE_AUTOMATIC_IMAGE_SCALING) {
                 try {
                     $imagick = new \Imagick();
                     $imagick->readimage($uploadDirectory . $filename . '.' . $ext);
@@ -210,10 +211,11 @@ class qqFileUploader {
                 } catch (\IMagickException $e) {
                     // file is no picture
                 }
+            }
                 
-                $steam_document->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
-                unlink($uploadDirectory . $filename . '.' . $ext);
-                return array('success'=>true);
+            $steam_document->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
+            unlink($uploadDirectory . $filename . '.' . $ext);
+            return array('success'=>true);
         } else {
             return array('error'=> 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');

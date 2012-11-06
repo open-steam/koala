@@ -156,4 +156,7 @@ defined("PROFILE_MANAGE_CONTACT") or define("PROFILE_MANAGE_CONTACT", false);
 
 // delete group home exits in user workrooms in explorer index command
 defined("DELETE_GROUP_HOME_EXITS") or define("DELETE_GROUP_HOME_EXITS", true);
+
+// enable automatic image scaling on uploads, needs imagick library
+defined("ENABLE_AUTOMATIC_IMAGE_SCALING") or define("ENABLE_AUTOMATIC_IMAGE_SCALING", false);
 ?>
