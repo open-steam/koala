@@ -1,3 +1,3 @@
 <?php
-defined("SPREADSHEETS_RT_SERVER") or define("SPREADSHEETS_RT_SERVER", "vm04-iug.cs.uni-paderborn.de:8000");
+defined("SPREADSHEETS_RT_SERVER") or define("SPREADSHEETS_RT_SERVER", "192.168.200.3:8000");
 ?>

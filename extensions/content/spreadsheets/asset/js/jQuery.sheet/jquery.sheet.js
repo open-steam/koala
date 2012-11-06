@@ -5060,7 +5060,18 @@ var jFN = jQuery.sheet.fn = {//fn = standard functions used in cells
 		//return [expression, resultTrue, resultFalse] + "";
 		return (expression ? resultTrue : resultFalse);
 	},
-	FIXED: 		function(v, decimals, noCommas) { 
+	FIXED: 		function(v, decimals, noCommas) {
+		var delimiter, kiloDelimiter;
+
+		if (jQuery.sheet.instance[0].s.numberFormatDE) {
+			delimiter = ",";
+			kiloDelimiter = ".";
+		}
+		else {
+			delimiter = ".";
+			kiloDelimiter = ",";
+		}
+
 		if (decimals == null) {
 			decimals = 2;
 		}
@@ -5069,7 +5080,7 @@ var jFN = jQuery.sheet.fn = {//fn = standard functions used in cells
 		var p = n.indexOf('.');
 		if (p < 0) {
 			p = n.length;
-			n += '.';
+			n += delimiter;
 		}
 		for (var i = n.length - p - 1; i < decimals; i++) {
 			n += '0';
@@ -5082,18 +5093,18 @@ var jFN = jQuery.sheet.fn = {//fn = standard functions used in cells
 		var first  = true;
 		while (arr[0].length > 0) { // LHS of decimal point.
 			if (!first) {
-				result.unshift(',');
+				result.unshift(kiloDelimiter);
 			}
 			result.unshift(arr[0].slice(-3));
 			arr[0] = arr[0].slice(0, -3);
 			first = false;
 		}
 		if (decimals > 0) {
-			result.push('.');
+			result.push(delimiter);
 			var first = true;
 			while (arr[1].length > 0) { // RHS of decimal point.
 				if (!first) {
-					result.push(',');
+					result.push(kiloDelimiter);
 				}
 				result.push(arr[1].slice(0, 3));
 				arr[1] = arr[1].slice(3);
