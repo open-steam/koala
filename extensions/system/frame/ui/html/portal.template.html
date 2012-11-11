@@ -173,7 +173,11 @@
 </head>
 
 <body {BODY_PARAMS} onbeforeunload="var question = unsavedContent(); if (question !== '') {return question}">
-
+    
+    <div id="treeDialog" style="display:none;">
+        <div id="fileTree"></div>
+    </div>
+    
     <div id="background"></div>
 
     <div id="header_wrapper" class="content_width">
