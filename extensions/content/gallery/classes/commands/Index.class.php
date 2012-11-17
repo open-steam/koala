@@ -243,7 +243,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $tpl->setVariable("OBJECT_ID", $item->get_id());
                     $tpl->setVariable("OBJECT_NAME", $itemName);
                     $tpl->setVariable("OBJECT_DESC", $itemDescription);
-                    $tpl->setVariable("OBJECT_KEYWORDS", $itemKeywords);
                     $tpl->setVariable("ITEM_PATH_URL", PATH_URL);
                     $tpl->setVariable("ITEM_THUMBNAIL_ID", $item->get_id());
                     $tpl->setVariable("ITEM_BIGTHUMB_ID", $item->get_id());
