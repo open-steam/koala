@@ -57,12 +57,13 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         $html = "";
         if (($room->get_id() == $currentUser->get_workroom()->get_id()) || $room->get_id() != $this->params["dir"]) {
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($room->get_id(), "view");
-            $html = "<a class=\"treeRoot\" href=\"" . $url . "\" rel=\"" . $room->get_id() . "/\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($room) . "\"></img> " . htmlentities($room->get_name()) . "</a></li></ul>"; 
+            $html = "<a class=\"treeRoot\" href=\"" . $url . "\" rel=\"" . $room->get_id() . "/\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($room) . "\"></img> " . getCleanName($room, -1) . "</a></li></ul>"; 
         }
         $html .= $this->getFolderHTML($room);
         $rawHtml = new \Widgets\RawHTML();
         $rawHtml->setHTML($html);
         $ajaxResponseObject->addWidget($rawHtml);
+        $ajaxResponseObject->setStatus("ok");
         return $ajaxResponseObject;
     }
 
@@ -94,7 +95,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
                     }
                     
                     $url = \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view");
-                    $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $object->get_id() . "/\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . htmlentities($object->get_name()) . "</a>";
+                    $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $object->get_id() . "/\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . getCleanName($object, -1) . "</a>";
                     if (in_array($object->get_id(), $this->openFolders)) {
                         $html .= $this->getFolderHTML($object);
                     }

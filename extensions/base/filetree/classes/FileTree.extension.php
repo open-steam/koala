@@ -42,7 +42,7 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
                               "height" => 500);
         }
         
-        \lms_portal::get_instance()->add_javascript_code("FileTree", 
+        \lms_portal::get_instance()->add_javascript_code($this->getName(), 
                 "var filetreeVisible = " . $filetree["visible"] . ";
                  var filetreePosition = " . $filetree["position"] . ";
                  var filetreeWidth = " . $filetree["width"] . ";
@@ -62,9 +62,11 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
                } else {
                    $('#treeDialog').dialog('open');
                };";
+        $iconHtml = "<img name=\"false\" title=\"Navigationsbaum\" 
+                        src=\"" . $this->getAssetUrl() . "icons/tree_white.png\">";
         
         $result = array();
-        $result[] = array("name" => "Navigationsbaum", "onclick" => $js);
+        $result[] = array("name" => $iconHtml, "onclick" => $js);
         return $result;
     }
 }

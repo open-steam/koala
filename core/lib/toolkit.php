@@ -190,7 +190,7 @@ function getCleanName($object, $length = 30) {
         }
     }
     if ($length != -1 && $length < strlen($title)) {
-        $title = substr($title, 0, $length - 1) . "...";
+        $title = mb_substr($title, 0, $length, "UTF-8") . "...";
     }
     return $title;
 }
