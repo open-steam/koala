@@ -1,5 +1,5 @@
 <?php
-class FileTree extends AbstractExtension implements IMenuExtension {
+class FileTree extends AbstractExtension implements IIconBarExtension {
 
     public function getName() {
         return "FileTree";
@@ -19,23 +19,51 @@ class FileTree extends AbstractExtension implements IMenuExtension {
         return $result;
     }
     
-    public function getMenuEntries() {
-        $this->addJS('jqueryFileTree.js');
-        $this->addCSS('jqueryFileTree.css');
+    public function getIconBarEntries() {
+        $this->addJS();
+        $this->addCSS();
         
-        $result = array();
+        if (strpos($_SERVER['REQUEST_URI'], "/explorer/") === 0) {
+            $currentID = substr($_SERVER['REQUEST_URI'], 16);
+            if (strpos($currentID, "/") !== -1) {
+                $currentID = substr($currentID, 0, strlen($currentID) - 1);
+            }
+        } else {
+            $currentID = "";
+        }
         
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
-        $workRoom = $currentUser->get_workroom();
+        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $filetree = $user->get_attribute("FILETREE");
+        if (!is_array($filetree)) {
+            // default options
+            $filetree = array("visible" => 0,
+                              "position" => "'center'",
+                              "width" => 250,
+                              "height" => 500);
+        }
+        
+        \lms_portal::get_instance()->add_javascript_code("FileTree", 
+                "var filetreeVisible = " . $filetree["visible"] . ";
+                 var filetreePosition = " . $filetree["position"] . ";
+                 var filetreeWidth = " . $filetree["width"] . ";
+                 var filetreeHeight = " . $filetree["height"] . ";
+                 var filetreeCurrentID = '" . $currentID . "';");
+        
         $js = "if ($('#fileTree').html() == '') {
                     $('#fileTree').fileTree({
-                        root: '" . $workRoom->get_id() . "',
+                        root: 'root" . $currentID . "',
                         script: 'FileTree',
                     }, function(file) {
                         alert(file);
                     });
-               }
-               $('#treeDialog').dialog({ height: 500, width: 250, title: 'Navigationsbaum' });";
+               };
+               if ($('#treeDialog').dialog('isOpen')) {
+                   $('#treeDialog').dialog('close');
+               } else {
+                   $('#treeDialog').dialog('open');
+               };";
+        
+        $result = array();
         $result[] = array("name" => "Navigationsbaum", "onclick" => $js);
         return $result;
     }
