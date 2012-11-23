@@ -13,16 +13,31 @@ ul.jqueryFileTree li {
 	margin: 0px;
 	white-space: nowrap;
 }
+.jqueryFileTree li.collapsed { 
+    background: url("/filetree/asset/tree_plus.gif") left top no-repeat; 
+}
+
+.jqueryFileTree li.expanded { 
+    background: url("/filetree/asset/tree_minus.gif") left top no-repeat; 
+}
+
+.jqueryFileTree li.wait { 
+    background: url("/filetree/asset/spinner.gif") left top no-repeat; 
+}
 
 ul.jqueryFileTree a {
 	color: #333;
 	text-decoration: none;
-        /*display: block;*/
+        display: block;
 	padding: 0px 2px;
 }
 
 ul.jqueryFileTree a:hover {
 	background: #BDF;
+}
+
+.jqueryFileTree li a.highlighted { 
+    background-color: #DDDDDD; 
 }
 
 a.treeRoot {
@@ -34,13 +49,13 @@ a.treeRoot {
     	color: #333;
 	text-decoration: none;
 	padding: 0px 2px;
+        display: block;
 }
 
 a.treeRoot:hover {
 	background: #BDF;
 }
 
-/* Core Styles */
-.jqueryFileTree li.collapsed { background: url("/filetree/asset/tree_plus.gif") left top no-repeat; }
-.jqueryFileTree li.expanded { background: url("/filetree/asset/tree_minus.gif") left top no-repeat; }
-.jqueryFileTree li.wait { background: url("/filetree/asset/spinner.gif") left top no-repeat; }
+a.treeRoot.highlighted { 
+    background-color: #DDDDDD; 
+}

@@ -41,11 +41,17 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
                 onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" 
                 title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() .
                 "icons/portal_sort_white.png\">");
+            $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" 
+                src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">", 
+                "onclick" => "openFileTree()");
         } else if (strpos($path, "/explorer/index/") !== false) {
             $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\"  
                 onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" 
                 title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() .
                 "icons/portal_sort_white.png\">");
+            $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" 
+                src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">", 
+                "onclick" => "openFileTree()");
         }
         if ($showClipboard) {
             $array[] = array("name" => "<div id=\"clipboardIconbarWrapper\">" . $clipboardModel->getIconbarHtml() . "</div>",
