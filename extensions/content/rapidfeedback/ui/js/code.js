@@ -388,7 +388,7 @@ function getSortables() {
  * function to delete a question
  */
 function deleteElement(id) {
-	var data = document.getElementsByName('element'+id)[0].value;
+	var data = document.getElementsByName('rfelement'+id)[0].value;
 	data = data.split(',');
 	switch (data[0]) {
 		case "7":
@@ -414,7 +414,7 @@ function deleteElement(id) {
 }
 
 function editLayoutElement(id) {
-	var data = document.getElementsByName('element'+id)[0].value;
+	var data = document.getElementsByName('rfelement'+id)[0].value;
 	data = data.split(',');
 	resetLayoutDialog();
 	resetCreateDialog();
@@ -446,7 +446,7 @@ function editLayoutElement(id) {
  * function to open the edit question dialog for question id
  */
 function editElement(id) {
-	var data = document.getElementsByName('element'+id)[0].value;
+	var data = document.getElementsByName('rfelement'+id)[0].value;
 	data = data.split(',');
 	resetCreateDialog();
 	resetLayoutDialog();
@@ -477,7 +477,7 @@ function editElement(id) {
 			$('#newquestion').show();
 			break;
 		case "2":
-			var options = document.getElementsByName('element'+id+'_options')[0].value;
+			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
 			for (var i=0; i < options.length; i++) {
 				if (i != 0) {
@@ -489,7 +489,7 @@ function editElement(id) {
 			$('#newquestion').show();
 			break;
 		case "3":
-			var options = document.getElementsByName('element'+id+'_options')[0].value;
+			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
 			for (var i=0; i < options.length; i++) {
 				if (i != 0) {
@@ -501,7 +501,7 @@ function editElement(id) {
 			$('#newquestion').show();
 			break;
 		case "4":
-			var columns = document.getElementsByName('element'+id+'_columns')[0].value;
+			var columns = document.getElementsByName('rfelement'+id+'_columns')[0].value;
 			columns = columns.split(',');
 			showMatrixColumn(columns.length);
 			document.getElementById('matrixColumns').value = columns.length;
@@ -509,7 +509,7 @@ function editElement(id) {
 				document.getElementsByName('matrix_column_'+i)[0].value = decodeURIComponent(columns[i-1]);
 			}
 			
-			var rows = document.getElementsByName('element'+id+'_rows')[0].value;
+			var rows = document.getElementsByName('rfelement'+id+'_rows')[0].value;
 			rows = rows.split(',');
 			for (var i=0; i < rows.length; i++) {
 				if (i != 0) {
@@ -520,7 +520,7 @@ function editElement(id) {
 			$('#newquestion').show();
 			break;
 		case "5":
-			var options = document.getElementsByName('element'+id+'_rows')[0].value;
+			var options = document.getElementsByName('rfelement'+id+'_rows')[0].value;
 			options = options.split(',');
 			for (var i=0; i < options.length; i++) {
 				if (i != 0) {
@@ -531,7 +531,7 @@ function editElement(id) {
 			$('#newquestion').show();
 			break;
 		case "6":
-			var options = document.getElementsByName('element'+id+'_options')[0].value;
+			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
 			for (var i=0; i < options.length; i=i+2) {
 				if (i != 0) {
@@ -553,7 +553,7 @@ function editElement(id) {
  * function to copy question id
  */
 function copyElement(id) {
-	var data = document.getElementsByName('element'+id)[0].value;
+	var data = document.getElementsByName('rfelement'+id)[0].value;
 	data = data.split(',');
 	switch(data[0]) {
 		case "0":
@@ -563,29 +563,29 @@ function copyElement(id) {
 			createTextareaQuestion(data, '#element'+id);
 			break;
 		case "2":
-			var options = document.getElementsByName('element'+id+'_options')[0].value;
+			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
 			createSingleChoiceQuestion(data, options, '#element'+id);
 			break;
 		case "3":
-			var options = document.getElementsByName('element'+id+'_options')[0].value;
+			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
 			createMultipleChoiceQuestion(data, options, '#element'+id);
 			break;
 		case "4":
-			var columns = document.getElementsByName('element'+id+'_columns')[0].value;
+			var columns = document.getElementsByName('rfelement'+id+'_columns')[0].value;
 			columns = columns.split(',');
-			var rows = document.getElementsByName('element'+id+'_rows')[0].value;
+			var rows = document.getElementsByName('rfelement'+id+'_rows')[0].value;
 			rows = rows.split(',');
 			createMatrixQuestion(data, columns, rows, '#element'+id);
 			break;
 		case "5":
-			var options = document.getElementsByName('element'+id+'_rows')[0].value;
+			var options = document.getElementsByName('rfelement'+id+'_rows')[0].value;
 			options = options.split(',');
 			createGradingQuestion(data, options, '#element'+id);
 			break;
 		case "6":
-			var options = document.getElementsByName('element'+id+'_options')[0].value;
+			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
 			createTendencyQuestion(data, options, '#element'+id);
 			break;

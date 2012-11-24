@@ -25,12 +25,45 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
         
         $currentID = "";
         $path = explode("/", $_SERVER['REQUEST_URI']);
-        if ($path[1] != "404" && $path[1] != "403") {
-            for ($count = count($path)-1; $count >= 0; $count--) {
-                if (intval($path[$count]) !== 0) {
-                    $currentID = $path[$count];
+        if (isset($path[1])) {
+            switch ($path[1]) {
+                case "forum":
+                    if ($path[2] === "showTopic") {
+                        $currentID = $path[3];
+                        break;
+                    }
+                case "pyramiddiscussion";
+                    if ($path[2] === "view" || $path[2] === "Index") {
+                        $currentID = $path[3];
+                        break;
+                    }
+                case "rapidfeedback":
+                    if ($path[2] === "view" || $path[2] === "edit") {
+                        $currentID = $path[3];
+                        break;
+                    }
+                case "wiki":
+                    if ($path[2] === "compare" || $path[2] === "recover" || $path[2] === "entry") {
+                        $currentID = $path[3];
+                        break;
+                    }
+                case "worksheet":
+                    if ($path[2] === "EditBlock" || $path[2] === "DeleteBlock") {
+                        $currentID = $path[3];
+                        break;
+                    }
+                case "404":
                     break;
-                }
+                case "403":
+                    break;
+                default:
+                    for ($count = count($path)-1; $count >= 0; $count--) {
+                        if (intval($path[$count]) !== 0) {
+                            $currentID = $path[$count];
+                            break;
+                        }
+                    }
+                    break;
             }
         }
         

@@ -49,8 +49,8 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		// display actionbar
 		$actionBar = new \Widgets\ActionBar();
 		$actions = array(
-			array("name" => "Export als CSV-Datei" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "export/" . $this->id),
-			array("name" => "Übersicht" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id())
+			array("name" => "Export als CSV-Datei" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "export/" . $this->id . "/"),
+			array("name" => "Übersicht" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/")
 			);
 		$actionBar->setActions($actions);
 		$frameResponseObject->addWidget($actionBar);
@@ -58,8 +58,8 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		// display tabbar
 		$tabBar = new \Widgets\TabBar();
 		$tabBar->setTabs(array(
-			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id), 
-			array("name"=>"Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id)
+			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id . "/"), 
+			array("name"=>"Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
 		));	
 		$tabBar->setActiveTab(0);
 		$frameResponseObject->addWidget($tabBar);
@@ -174,10 +174,10 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				}
 				$content->setVariable("ASSET_URL", $RapidfeedbackExtension->getAssetUrl() . "icons");
 				$content->setVariable("VIEW_TITLE", "Details");
-				$content->setVariable("VIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $this->id . "/1/" . $result->get_id() . "/1");
+				$content->setVariable("VIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $this->id . "/1/" . $result->get_id() . "/1" . "/");
 				if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_ADMIN_EDIT") == 1) {
 					$content->setVariable("EDIT_TITLE", "Bearbeiten");
-					$content->setVariable("EDIT_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $this->id . "/1/" . $result->get_id());
+					$content->setVariable("EDIT_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $this->id . "/1/" . $result->get_id() . "/");
 				} else {
 					$content->setVariable("DISPLAY_EDIT", "none");
 				}

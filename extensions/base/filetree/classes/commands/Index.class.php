@@ -76,41 +76,43 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
 
     private function getFolderHTML($containerObject) {
         $html = "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
-        foreach ($containerObject->get_inventory() as $object) {
-            if ($object instanceof \steam_container && (getObjectType($object) === "room" || getObjectType($object) === "container")) {
-                // check if container contains more containers
-                $empty = true;
-                $inventory = $object->get_inventory_filtered(array(
-                                    array('+', 'class', CLASS_ROOM),
-                                    array('+', 'class', CLASS_CONTAINER),
-                                ));
-                foreach ($inventory as $inventoryItem) {
-                    if (getObjectType($inventoryItem) === "container" || getObjectType($inventoryItem) === "room") {
-                        $empty = false;
-                        break;
+        if ($containerObject instanceof \steam_container) {
+            foreach ($containerObject->get_inventory() as $object) {
+                if ($object instanceof \steam_container && (getObjectType($object) === "room" || getObjectType($object) === "container")) {
+                    // check if container contains more containers
+                    $empty = true;
+                    $inventory = $object->get_inventory_filtered(array(
+                                        array('+', 'class', CLASS_ROOM),
+                                        array('+', 'class', CLASS_CONTAINER),
+                                    ));
+                    foreach ($inventory as $inventoryItem) {
+                        if (getObjectType($inventoryItem) === "container" || getObjectType($inventoryItem) === "room") {
+                            $empty = false;
+                            break;
+                        }
                     }
-                }
-                if ($empty) {
-                    $css = "empty"; 
-                } else {
-                    if (!in_array($object->get_id(), $this->openFolders) && $object->get_id() != $this->params["dir"]) {
-                        $css = "collapsed";
+                    if ($empty) {
+                        $css = "empty"; 
                     } else {
-                        $css = "expanded";
+                        if (!in_array($object->get_id(), $this->openFolders) && $object->get_id() != $this->params["dir"]) {
+                            $css = "collapsed";
+                        } else {
+                            $css = "expanded";
+                        }
                     }
+                    if ($this->highlight == $object->get_id()) {
+                        $cssHighlight = "highlighted";
+                    } else {
+                        $cssHighlight = "";
+                    }
+
+                    $url = \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view");
+                    $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $object->get_id() . "/\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . getCleanName($object, -1) . "</a>";
+                    if (in_array($object->get_id(), $this->openFolders)) {
+                        $html .= $this->getFolderHTML($object);
+                    }
+                    $html .= "</li>";
                 }
-                if ($this->highlight == $object->get_id()) {
-                    $cssHighlight = "highlighted";
-                } else {
-                    $cssHighlight = "";
-                }
-                
-                $url = \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view");
-                $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $object->get_id() . "/\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . getCleanName($object, -1) . "</a>";
-                if (in_array($object->get_id(), $this->openFolders)) {
-                    $html .= $this->getFolderHTML($object);
-                }
-                $html .= "</li>";
             }
         }
         $html .= "</ul>";
