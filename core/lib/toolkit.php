@@ -190,7 +190,7 @@ function getCleanName($object, $length = 30) {
         }
     }
     if ($length != -1 && $length < strlen($title)) {
-        $title = substr($title, 0, $length - 1) . "...";
+        $title = mb_substr($title, 0, $length, "UTF-8") . "...";
     }
     return $title;
 }
@@ -223,15 +223,6 @@ function isGroupWorkroom($container) {
         }
     }
     return null;
-}
-
-function isRapidFeedback($steamObject) {
-    $rapidfeedbackObject = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamObject->get_id());
-    $rapidfeedbackType = $rapidfeedbackObject->get_attribute("OBJ_TYPE");
-    if ($rapidfeedbackType != "0" && $rapidfeedbackType == "RAPIDFEEDBACK_CONTAINER") {
-        return true;
-    }
-    return false;
 }
 
 function getObjectType($object) {
@@ -285,8 +276,14 @@ function getObjectType($object) {
             $type = "userHome";
         } else if (isGroupWorkroom($object)) {
             $type = "groupWorkroom";
-        } else if (isRapidfeedback($object)) {
+        } else if ($objType === "RAPIDFEEDBACK_CONTAINER") {
             $type = "rapidfeedback";
+        } else if ($objType === "container_pyramiddiscussion")  {
+            $type = "pyramiddiscussion";
+        } else if ($object->get_attribute("worksheet_valid") === 1) {
+            $type = "worksheet";
+        } else if ($object->get_attribute("isWebarena") === 1) {
+            $type = "webarena";
         } else if ($object instanceof \steam_room) {
             $type = "room";
         } else {
@@ -350,20 +347,19 @@ function deriveIcon($object) {
 
     //bid3 modules
     //rapidfeedback
-    if ($object instanceof steam_container) {
-        if ($objtype != "0" && $objtype == "RAPIDFEEDBACK_CONTAINER") {
-            return "rapidfeedback.png";
-        }
+    if ($objtype === "RAPIDFEEDBACK_CONTAINER") {
+        return "rapidfeedback.png";
     }
 
     //wiki
-    if ($object instanceof steam_container) {
-        if ($objtype != "0" && $objtype == "container_wiki_koala") {
-            return "wiki.png";
-        }
+    if ($objtype === "container_wiki_koala") {
+        return "wiki.png";
     }
 
-
+    //pyramiddiscussion
+    if ($objtype === "container_pyramiddiscussion") {
+        return "pyramiddiscussion.png";
+    }
 
     //steam:Types
     if ($object instanceof steam_docextern)

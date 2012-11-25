@@ -7,5 +7,5 @@ RewriteBase /
 RewriteRule ^styles/.*$					- [L]
 RewriteRule ^(.*)$						index.php?path=$1 [L,QSA]
 
-
 </IfModule>
+php_flag magic_quotes_gpc off  

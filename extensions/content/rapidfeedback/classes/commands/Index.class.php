@@ -44,7 +44,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			}
 		}
 		if ($admin == 1 && $surveyCount == 0) {
-			header('Location: ' . $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id);
+			header('Location: ' . $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id . "/");
     		die('Redirect');
 		}
     	
@@ -52,10 +52,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		if ($admin == 1) {
 			$actionbar = new \Widgets\Actionbar();
 			$actions = array(
-				array("name" => "Neuen Fragebogen erstellen" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id),
-				array("name" => "Import" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "import/" . $this->id),
-				array("name" => "Konfiguration" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "configuration/" . $this->id),
-				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id)
+				array("name" => "Neuen Fragebogen erstellen" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id . "/"),
+				array("name" => "Import" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "import/" . $this->id . "/"),
+				array("name" => "Konfiguration" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "configuration/" . $this->id . "/"),
+				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id . "/")
 			);
 			$actionbar->setActions($actions);
 			$frameResponseObject->addWidget($actionbar);
@@ -142,7 +142,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					$allowed  = false;
 				}
 				if ($allowed) {
-					$content->setVariable("VIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1");
+					$content->setVariable("VIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1" . "/");
 					$content->setVariable("VIEW_TITLE", "Fragebogen ausfüllen");
 				} else {
 					$content->setVariable("DISPLAY_VIEW", "none");
@@ -184,11 +184,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				$content->setVariable("RESULTS_VALUE", $resultContainer->get_attribute("RAPIDFEEDBACK_RESULTS"));
 				$content->setVariable("ASSET_URL", $RapidfeedbackExtension->getAssetUrl() . "icons");
 				$content->setVariable("PREVIEW_TITLE", "Vorschau");
-				$content->setVariable("PREVIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/preview");
+				$content->setVariable("PREVIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/preview" . "/");
 				$content->setVariable("EDIT_TITLE", "Fragebogen bearbeiten");
-				$content->setVariable("EDIT_URL", $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id . "/" . $survey->get_id());
+				$content->setVariable("EDIT_URL", $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id . "/" . $survey->get_id() . "/");
 				$content->setVariable("RESULTS_TITLE", "Auswertung");
-				$content->setVariable("RESULTS_URL", $RapidfeedbackExtension->getExtensionUrl() . "individualResults/" . $survey->get_id());
+				$content->setVariable("RESULTS_URL", $RapidfeedbackExtension->getExtensionUrl() . "individualResults/" . $survey->get_id() . "/");
 				$content->setVariable("DELETE_TITLE", "Fragebogen löschen");
 				$content->setVariable("START_TITLE", "Fragebogen starten");
 				$content->setVariable("STOP_TITLE", "Fragebogen beenden");
@@ -231,10 +231,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 						}
 						$content->setVariable("P_ASSET_URL", $RapidfeedbackExtension->getAssetUrl() . "icons");
 						$content->setVariable("P_VIEW_TITLE", "Details");
-						$content->setVariable("P_VIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/" . $result . "/1");
+						$content->setVariable("P_VIEW_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/" . $result . "/1" . "/");
 						if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_OWN_EDIT") == 1 || $resultObject->get_attribute("RAPIDFEEDBACK_RELEASED") == 0) {
 							$content->setVariable("P_EDIT_TITLE", "Bearbeiten");
-							$content->setVariable("P_EDIT_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/" . $result);
+							$content->setVariable("P_EDIT_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/" . $result . "/");
 						} else {
 							$content->setVariable("P_DISPLAY_EDIT", "none");
 						}
