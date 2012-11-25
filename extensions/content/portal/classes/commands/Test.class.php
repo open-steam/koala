@@ -24,13 +24,14 @@ class Test extends \AbstractCommand implements \IFrameCommand {
 <C:free-busy-query xmlns:C="urn:ietf:params:xml:ns:caldav">
 <C:time-range start="20060104T140000Z" end="20060105T220000Z"/>
 </C:free-busy-query>';
-        $fp = fsockopen("www.google.com", 80);
+        $fp = fsockopen("ssl://www.google.com", 443);
         if (!$fp) {
             echo "Keine Verbindung möglich!";
         } else {
             echo "Verbindung hergestellt!";
             fputs($fp, "POST /calendar/dav/christoph.sens@gmail.com/user HTTP/1.1\r\n");
             fputs($fp, "Host: www.google.com\r\n");
+            fputs($fp,"Authorization: Basic ".base64_encode("".':'."")."\r\n");
             fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
             fputs($fp, "Content-length: " . strlen($data_to_send) . "\r\n");
             fputs($fp, "Connection: close\r\n\r\n");
