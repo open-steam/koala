@@ -40,6 +40,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $steam = $GLOBALS["STEAM"]->get_id();
         $currentRoom = \steam_factory::get_object($steam, $objectId);
+        $objType = getObjectType($currentRoom);
+        if($objType !== "gallery"){
+            $errorHtml = new \Widgets\RawHtml();
+            $errorHtml->setHtml("Die angeforderte Seite kann nicht dargestellt werden.");
+            $frameResponseObject->addWidget($errorHtml);
+            return $frameResponseObject;
+        }
+        
         $this->object = $currentRoom;
         $currentRoomPath = $currentRoom->get_path(1);
         $currentRoomData = $currentRoom->get_attributes(array(OBJ_NAME, OBJ_DESC), 1);
