@@ -655,6 +655,15 @@ function isAjaxRequest() {
     return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 }
 
+
+function isRestRequest() {
+    $data = $_SERVER['REQUEST_URI'];
+    return (isset($data) && substr(strtolower($data), 0, 6)=="/rest/");
+}
+
+
+
+
 function isPhpCli() {
     return php_sapi_name() == "cli";
 }

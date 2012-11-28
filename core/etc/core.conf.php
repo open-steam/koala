@@ -20,7 +20,7 @@ if (DEVELOPMENT_MODE) {
 }
 
 // ERROR-HANDLING
-if (!isPhpCli() && !isAjaxRequest()){
+if (!isPhpCli() && !isAjaxRequest() && !isRestRequest() ){
 	include_once(PATH_LIB . "error_handler.inc.php");
 	include_once(PATH_LIB . "exception_handler.inc.php");
 	set_error_handler("myErrorHandler");
