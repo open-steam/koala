@@ -28,6 +28,12 @@ if (!isPhpCli() && !isAjaxRequest() && !isRestRequest() ){
 	set_exception_handler("send_http_error");
 }
 
+if(isRestRequest()){
+    set_error_handler(array("Rest","errorHandler"));
+    register_shutdown_function(array("Rest","shutdownHandler"));
+    set_exception_handler(array("Rest","exceptionHandler"));	
+}
+
 //clean disconnect handling
 register_shutdown_function(function() {
 	if (isset($GLOBALS["STEAM"])) {
