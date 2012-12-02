@@ -57,7 +57,10 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 .attributeValue .text, .attributeValue textarea {
   width: 100px;
 }
-.widgets_textarea{width:250px}
+.widgets_textarea {
+    width:250px;
+    float:left;
+}
 .attributeValueColumn {
   float: left;
   position: relative;
