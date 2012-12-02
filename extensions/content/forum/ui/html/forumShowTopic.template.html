@@ -6,7 +6,7 @@
 <div class="admin">Forum-Verwalter: <a href="{FORUM_OWNER_URL}" target="_blank">{FORUM_OWNER}</a></div>
 <!-- END ADMIN --> <!-- BEGIN CH -->
 <table width="100%" class="category_table">
-	<tr class="heading0">
+    <tr class="heading0" onclick="$(this).css('border-style', 'none');">
 		<td class="name"><a class="contentCreator"
 			href="{CATEGORIE_CREATOR_URL}">{CATEGORIE_CREATOR}</a></td>
 		<td class="title">
@@ -42,7 +42,7 @@
 <!-- END CH --> <br />
 <table width="100%">
 	<!-- BEGIN message -->
-	<tr class="heading">
+	<tr class="heading" onclick="$(this).css('border-style', 'none');">
 		<td class="name"><a class="contentCreator"
 			href="{MESSAGE_CREATOR_PROFILE}">{MESSAGE_CREATOR} </a></td>
 		<td class="title">
