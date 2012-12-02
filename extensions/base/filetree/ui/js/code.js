@@ -53,7 +53,11 @@ if(jQuery) (function($){
 					$(".jqueryFileTree.start").remove();
 					$.post(o.script, { dir: t, command: 'Index', namespace: 'FileTree' }, function(data) {
 						$(c).find('.start').html('');
-						$(c).removeClass('wait').append(jQuery.parseJSON(data).html);
+                                                if (jQuery.parseJSON(data) != null) {
+                                                    $(c).removeClass('wait').append(jQuery.parseJSON(data).html);
+                                                } else {
+                                                    $(c).removeClass('wait');
+                                                }
 						if( o.root == t ) $(c).find('ul:hidden').show(); else $(c).find('ul:hidden').slideDown({ duration: o.expandSpeed, easing: o.expandEasing });
 						bindTree(c);
 					});
