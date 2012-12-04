@@ -62,7 +62,7 @@ class NewTopic extends \AbstractCommand implements \IAjaxCommand {
 						editor_selector: "mce-small", 
 						plugins : "emotions,paste,noneditable",
 						// Theme options
-						theme_advanced_buttons1 : "bold,italic,underline,|,bullist,numlist,|,link,unlink,|,forecolor,removeformat,|,undo,redo,pasteword",
+						theme_advanced_buttons1 : "bold,italic,underline,|,bullist,numlist,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo,pasteword",
 						theme_advanced_buttons2 : ""
 					}, mce_defaults));
 	    		});
