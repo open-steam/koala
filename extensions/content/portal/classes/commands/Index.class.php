@@ -76,6 +76,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $htmlBody .= "<script>if (readCookie(\"portalEditMode\") === \"{$objectId}\") {portalLockButton({$objectId})}</script>";
         }
 
+        $tmpl->setVariable("PORTAL_WIDTH", $portalWidth + 40);
         $tmpl->setVariable("BODY", $htmlBody);
         $tmpl->setVariable("PORTAL_OBJECT_ID", $this->portalObject->get_id());
 
