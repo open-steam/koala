@@ -21,8 +21,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $this->id = $requestObject->getId();
         }
 
-        $steam = $GLOBALS["STEAM"];
-
         //get singleton and portlet path
         $portalInstance = \Portal::getInstance();
         $portalPath = $portalInstance->getExtensionPath();
@@ -34,10 +32,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $this->getExtension()->addCSS();
         $this->getExtension()->addJS();
-
-
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
-        $object = $currentUser->get_workroom();
 
         $objectId = $this->id;
 
@@ -59,10 +53,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $extensionMaster = \ExtensionMaster::getInstance();
 
         $count = 0;
-
-        $htmlCollectorColRow[][] = array();
-        $col = 0;
-        $row = 0;
 
         $this->rawHtmlWidget = new \Widgets\RawHtml();
         $portalWidth = 0;
