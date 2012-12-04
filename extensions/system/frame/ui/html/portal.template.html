@@ -173,7 +173,11 @@
 </head>
 
 <body {BODY_PARAMS} onbeforeunload="var question = unsavedContent(); if (question !== '') {return question}">
-
+    
+    <div id="treeDialog" style="display:none;">
+        <div id="fileTree"></div>
+    </div>
+    
     <div id="background"></div>
 
     <div id="header_wrapper" class="content_width">
@@ -182,7 +186,7 @@
                 <a id="logo" href="{LOGO_PATH_URL}"></a>
             </div>
             <div id="noJs" style="display: block;font-size:1.5em;">
-                Um bid-owl nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser. 
+                Um den Server nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser. 
             </div>
             <div id="loginPanelWarning" style="display:none;font-size:1.5em;">
                 Ihr Browser wird nicht unterstützt.<br> Wir empfehlen eine aktuelle Version <br>von Firefox oder Chrome.
@@ -191,10 +195,10 @@
                             $('#noJs').hide();              
                         </script>
 
-
+                        <a href="mailto:DSchubert@hnf.de?subject=Problem%20mit%20dem%20bid-Server">Ein Problem melden</a>
 
                         <!-- BEGIN STATUS_SIGNED_IN_BLOCK -->
-                        {SIGNED_IN_TEXT} <a href="{SIGNED_IN_LOGIN_HOME}">{SIGNED_IN_LOGIN_NAME}</a> |
+                         | {SIGNED_IN_TEXT} <a href="{SIGNED_IN_LOGIN_HOME}">{SIGNED_IN_LOGIN_NAME}</a> |
                         <!-- BEGIN STATUS_MAIL_BLOCK -->
                         <a href="{MESSAGES_URL}">{INBOX}</a> {MESSAGES_UNREAD} |
                         <!-- END STATUS_MAIL_BLOCK -->

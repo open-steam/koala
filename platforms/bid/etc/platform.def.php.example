@@ -54,13 +54,13 @@ define("EXTENSIONS_WHITELIST",    "Chronic, Clipboard, Help, Home, Imprint, Star
 */
 
 
-$whitelistDevelopment = "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
+$whitelistDevelopment = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Startpage, Widgets, "
                         . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map,"
                         . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
                         . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Worksheet, Webarena, Spreadsheets";
 
 
-$whitelistLiveSystems = "Chronic, Clipboard, Help, Home, Imprint, Startpage, Widgets, "
+$whitelistLiveSystems = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Startpage, Widgets, "
                         . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, Map,"
                         . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
                         . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility";
@@ -156,4 +156,7 @@ defined("PROFILE_MANAGE_CONTACT") or define("PROFILE_MANAGE_CONTACT", false);
 
 // delete group home exits in user workrooms in explorer index command
 defined("DELETE_GROUP_HOME_EXITS") or define("DELETE_GROUP_HOME_EXITS", true);
+
+// enable automatic image scaling on uploads, needs imagick library
+defined("ENABLE_AUTOMATIC_IMAGE_SCALING") or define("ENABLE_AUTOMATIC_IMAGE_SCALING", false);
 ?>

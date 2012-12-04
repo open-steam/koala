@@ -9,6 +9,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	
 	private $params;
 	private $document;
+	private $write_access;
 	private $NodeServer = SPREADSHEETS_RT_SERVER;
 	
 	public function validateData(\IRequestObject $requestObject) {
@@ -19,8 +20,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$this->params = $requestObject->getParams();
 		
 		if (isset($this->params[0])) {
+			$user = $GLOBALS["STEAM"]->get_current_steam_user();
 			$this->id = $this->params[0];
 			$this->document = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+			$this->write_access = $this->document->check_access_write($user);
 
 			//see if the document already exists on the node.js server
 			$response = file_get_contents("http://$this->NodeServer/doc/exists/$this->id");
@@ -29,17 +32,20 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				$this->setNodeDocument($this->document->get_content());
 			}
 
-			$user = $GLOBALS["STEAM"]->get_current_steam_user();
-			if ($this->document->check_access_write($user)) {
+			if ($this->write_access) {
 				$this->document->set_attribute("RT_EDIT", 1);
 			}
 		}		
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+		$doc_title = "Tabelle " . $this->document->get_name();
+		if (!$this->write_access) {
+			$doc_title .= " (schreibgeschützt)";
+		}
 		$rawWidget = $this->displaySpreadsheet();
-		$frameResponseObject->setTitle("Tabelle " . $this->document->get_name());
-		$frameResponseObject->setHeadline("Tabelle " . $this->document->get_name());
+		$frameResponseObject->setTitle($doc_title);
+		$frameResponseObject->setHeadline($doc_title);
 		$frameResponseObject->addWidget($rawWidget);
 		return $frameResponseObject;
 	}
@@ -123,7 +129,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("SHEET_TITLE", $this->document->get_name());
 		$content->setVariable("USER_NAME", $user_name);
 		$content->setVariable("RT_SERVER", $this->NodeServer);
-		if ($this->document->check_access_write($user)) {
+		if ($this->write_access) {
 			$content->setVariable("SHEET_EDITABLE", "true");
 		}
 		else {

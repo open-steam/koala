@@ -261,12 +261,12 @@ class View extends \AbstractCommand implements \IFrameCommand {
 		$actionbar = new \Widgets\Actionbar();
 		if ($admin == 1 && $preview == 1 && ($state == 0 || $state == 1)) {
 			$actions = array(
-				array("name" => "Fragebogen bearbeiten", "link" =>  $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $rapidfeedback->get_id() . "/" . $survey->get_id()),
-				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id())
+				array("name" => "Fragebogen bearbeiten", "link" =>  $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $rapidfeedback->get_id() . "/" . $survey->get_id() . "/"),
+				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/")
 			);
 		} else {
 			$actions = array(
-				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id())
+				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/")
 			);
 		}
 		$actionbar->setActions($actions);
@@ -284,7 +284,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
 			<center>
 				<h1>Ihre Antworten wurden erfolgreich gespeichert.</h1>
 				<div style="text-align:center" class="buttons">
-					<a class="button" href="' . $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . '">Zurück zur Übersicht</a>
+					<a class="button" href="' . $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . '/">Zurück zur Übersicht</a>
 				</div>
 			</center>';
 		} else {
@@ -358,7 +358,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("QUESTIONS_HTML", $html);
 			// construct next/previous/submit urls
 			if ($resultOrPreview != "" && $disabled == 1) {
-				$resultOrPreview = $resultOrPreview . "/1";
+				$resultOrPreview = $resultOrPreview . "1";
 			}
 			if ($pages > $page) {
 				$content->setVariable("NEXT_LABEL", "Nächste Seite");
@@ -366,7 +366,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
 			} else if ($pages == $page) {
 				if ($preview == 1 || $disabled == 1) {
 					$content->setVariable("NEXT_LABEL", "Zurück zur Übersicht");
-					$content->setVariable("NEXT_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id());
+					$content->setVariable("NEXT_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/");
 				} else {
 					$content->setVariable("NEXT_LABEL", "Fragebogen abschließen");
 					$content->setVariable("NEXT_URL", $RapidfeedbackExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/" . ($page+1) . "/" . $resultOrPreview);

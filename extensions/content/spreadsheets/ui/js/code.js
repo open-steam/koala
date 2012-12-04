@@ -12,7 +12,7 @@ function readCookie(name) {
     for(var i=0;i < ca.length;i++) {
         var c = ca[i];
         while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length,c.length);
     }
     return null;
 }
@@ -34,7 +34,7 @@ $(function() {
     $("#disconnectedDialog").dialog(dialog_options);
 
     //open the shareJS document and initiate the jQuery.sheet
-    connection = new sharejs.Connection('http://'+rtServer+'/channel', readCookie("koala3-1"));
+    connection = new sharejs.Connection('http://'+rtServer+'/channel', readCookie("bid3-4-2"));
     connection.open(docID, 'json', function(error, doc) {
         sharejs_doc = doc;
 
@@ -96,7 +96,7 @@ $(function() {
             .insertBefore('.jSheetControls_formulaParent');
 
         for(var fn in spreadsheetTexts.functions) {
-            fn_object = spreadsheetTexts.functions[fn]
+            fn_object = spreadsheetTexts.functions[fn];
             fn_string = '='+fn_object.name+'(';
             paramList = [];
 
@@ -153,6 +153,10 @@ function initSpreadsheet(doc) {
         cols = doc.at('sheets', 0, 'columns'),
         users = doc.at('users'),
         cells,
+        row,
+        col,
+        color,
+        style,
         value;
         
     
@@ -170,6 +174,7 @@ function initSpreadsheet(doc) {
         title : docTitle,
         buildSheet: col_count+'x'+row_count,
         editable : sheetEditable,
+        resizable: sheetEditable,
         inlineMenu: $('#inlineMenu').html(),
         barMenus: false,
         menu: false,
@@ -181,7 +186,7 @@ function initSpreadsheet(doc) {
     $('.jSheetTabContainer').hide();
 
     //set localized texts for jQuery.sheet
-    $.sheet.instance[0].msg = spreadsheetTexts.msg;  
+    $.sheet.instance[0].msg = spreadsheetTexts.msg;
 
     //Init the color-pickers
     $('.colorPickerCell').colorPicker().change(function(){
@@ -204,14 +209,14 @@ function initSpreadsheet(doc) {
     row_count = rows.get().length;
     row_count = row_count ? row_count : 15;
 
-    for (var row=0; row<row_count; row++) {
+    for (row=0; row<row_count; row++) {
         cells = doc.at('sheets', sheet, 'rows', row, 'cells');
         col_count = cells.get().length;
         col_count = col_count ? col_count : 5;
         var size = doc.at('sheets', sheet, 'rows', row, 'size');
         $.sheet.instance[0].setRowSize(row, size.get());
 
-        for (var col=0; col<col_count; col++) {
+        for (col=0; col<col_count; col++) {
             var cell = doc.at('sheets', sheet, 'rows', row, 'cells', col);
 
             //set value and formatting of the cell
@@ -226,24 +231,24 @@ function initSpreadsheet(doc) {
             }
             $.sheet.instance[0].setCellValue(row, col, sheet, value);
             
-            for (var style in cell.get().style) {
+            for (style in cell.get().style) {
 
                 if (style == 'font-size') {
                     var font_size = cell.get().style[style];
                     $.sheet.instance[0].setFontSize(sheet, row, col, font_size);
                 }
                 else if (style == 'background-color') {
-                    var color = cell.get().style[style];
+                    color = cell.get().style[style];
                     $.sheet.instance[0].cellSetStyle(sheet, row, col, style, color);
                 }
                 else if (style == 'color') {
-                    var color = cell.get().style[style];
+                    color = cell.get().style[style];
                     $.sheet.instance[0].cellSetStyle(sheet, row, col,style, color);
                 }
                 else if (style == 'flags') {
                     //style-flags
-                    for (var style in cell.get().style.flags) {
-                        $.sheet.instance[0].addCellStyle(row, col, sheet, style);
+                    for (var flag in cell.get().style.flags) {
+                        $.sheet.instance[0].addCellStyle(row, col, sheet, flag);
                     }
                 }
             }
@@ -261,6 +266,8 @@ function initSpreadsheet(doc) {
         }
     }
 
+    $.sheet.instance[0].sheetSyncSize();
+    
     //mark the selection of other users
     for (var user in users.get()) {
         if (user && (user != userName)) {
@@ -764,7 +771,7 @@ function updateUserList() {
     item.css('color', color);
     $('<li></li>').css('color', color).append(item).appendTo($('#userList'));
 
-    for (var name in users) {
+    for (name in users) {
         if (name && users.hasOwnProperty(name)) {
             userCount++;
 

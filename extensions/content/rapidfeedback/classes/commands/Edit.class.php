@@ -188,18 +188,18 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		if ($surveyCount > 0) {
 			$actionbar = new \Widgets\Actionbar();
 			$actions = array(
-				array("name" => "Neuen Fragebogen erstellen" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id),
-				array("name" => "Import" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "import/" . $this->id),
-				array("name" => "Konfiguration" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "configuration/" . $this->id),
-				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id)
+				array("name" => "Neuen Fragebogen erstellen" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id . "/"),
+				array("name" => "Import" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "import/" . $this->id . "/"),
+				array("name" => "Konfiguration" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "configuration/" . $this->id . "/"),
+				array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $this->id . "/")
 			);
 			$actionbar->setActions($actions);
 		} else {
 			$actionbar = new \Widgets\Actionbar();
 			$actions = array(
-				array("name" => "Neuen Fragebogen erstellen" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id),
-				array("name" => "Import" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "import/" . $this->id),
-				array("name" => "Konfiguration" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "configuration/" . $this->id)
+				array("name" => "Neuen Fragebogen erstellen" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id . "/"),
+				array("name" => "Import" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "import/" . $this->id . "/"),
+				array("name" => "Konfiguration" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "configuration/" . $this->id . "/")
 			);
 			$actionbar->setActions($actions);
 		}
@@ -287,7 +287,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			}
 			$content->setVariable("ELEMENT_COUNTER", $id_counter);
 			$content->setVariable("QUESTIONS_HTML", $question_html);
-			$content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id());
+			$content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/");
 			$content->setVariable("CREATE_LABEL", "Fragebogen bearbeiten");
 			$content->setVariable("CREATE_SURVEY", "Änderungen speichern");
 			$create_label = "Umfrage bearbeiten";

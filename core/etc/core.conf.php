@@ -20,12 +20,18 @@ if (DEVELOPMENT_MODE) {
 }
 
 // ERROR-HANDLING
-if (!isPhpCli() && !isAjaxRequest()){
+if (!isPhpCli() && !isAjaxRequest() && !isRestRequest() ){
 	include_once(PATH_LIB . "error_handler.inc.php");
 	include_once(PATH_LIB . "exception_handler.inc.php");
 	set_error_handler("myErrorHandler");
 	register_shutdown_function("shutdown");
 	set_exception_handler("send_http_error");
+}
+
+if(isRestRequest()){
+    set_error_handler(array("Rest","errorHandler"));
+    register_shutdown_function(array("Rest","shutdownHandler"));
+    set_exception_handler(array("Rest","exceptionHandler"));	
 }
 
 //clean disconnect handling

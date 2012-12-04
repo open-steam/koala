@@ -40,6 +40,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $steam = $GLOBALS["STEAM"]->get_id();
         $currentRoom = \steam_factory::get_object($steam, $objectId);
+        $objType = getObjectType($currentRoom);
+        if($objType !== "gallery"){
+            $errorHtml = new \Widgets\RawHtml();
+            $errorHtml->setHtml("Die angeforderte Seite kann nicht dargestellt werden.");
+            $frameResponseObject->addWidget($errorHtml);
+            return $frameResponseObject;
+        }
+        
         $this->object = $currentRoom;
         $currentRoomPath = $currentRoom->get_path(1);
         $currentRoomData = $currentRoom->get_attributes(array(OBJ_NAME, OBJ_DESC), 1);
@@ -243,7 +251,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $tpl->setVariable("OBJECT_ID", $item->get_id());
                     $tpl->setVariable("OBJECT_NAME", $itemName);
                     $tpl->setVariable("OBJECT_DESC", $itemDescription);
-                    $tpl->setVariable("OBJECT_KEYWORDS", $itemKeywords);
                     $tpl->setVariable("ITEM_PATH_URL", PATH_URL);
                     $tpl->setVariable("ITEM_THUMBNAIL_ID", $item->get_id());
                     $tpl->setVariable("ITEM_BIGTHUMB_ID", $item->get_id());

@@ -47,7 +47,7 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		// display actionbar
 		$actionbar = new \Widgets\Actionbar();
 		$actions = array(
-			array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id())
+			array("name" => "Übersicht", "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/")
 		);
 		$actionbar->setActions($actions);
 		$frameResponseObject->addWidget($actionbar);
@@ -55,8 +55,8 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		// display tabbar
 		$tabBar = new \Widgets\TabBar();
 		$tabBar->setTabs(array(
-			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id), 
-			array("name"=>"Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id)
+			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id . "/"), 
+			array("name"=>"Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
 		));	
 		$tabBar->setActiveTab(1);
 		$frameResponseObject->addWidget($tabBar);

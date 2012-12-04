@@ -17,16 +17,16 @@
 	<tr>
 		<td>
 			<table class="toolbar_select_wrapper" id="toolbar_select_wrapper_style">
-				<tr>
+				<tr >
 					<td class="toolbar_select_text_td">
-						<span class="toolbar_select_text" title="unterschiedliche Stil-Varianten für ausgewählten Text">Stil-Varianten</span>
+						<span unselectable="on" class="toolbar_select_text" title="unterschiedliche Stil-Varianten für ausgewählten Text">Stil-Varianten</span>
 					</td>
 					<td class="toolbar_combo_button_td">
 						<div class="toolbar_combo_button" title="unterschiedliche Stil-Varianten für ausgewählten Text" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_style').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_style').style.display='none'">
 							<div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_style">
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '=', '=', 'Bitte wählen sie den Text aus, der den Titel-Stil bekommen soll.');" title="Stile Titel für ausgewählten Text" class="toolbar_select_popup_item"><h1>Titel</h1></div>
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '==', '==', 'Bitte wählen sie den Text aus, der den Überschrift-Stil bekommen soll.')" title="Stile Überschrift für ausgewählten Text" class="toolbar_select_popup_item"><h2>Überschrift</h2></div>
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '===', '===', 'Bitte wählen sie den Text aus, der den Zwischenüberschrift-Stil bekommen soll.')" title="Stile Zwischenüberschrift für ausgewählten Text" class="toolbar_select_popup_item"><h3>Zwischenüberschrift</h3></div>
+								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '=', '=', 'Bitte wählen sie den Text aus, der den Titel-Stil bekommen soll.');" title="Stile Titel für ausgewählten Text" class="toolbar_select_popup_item"><h1 unselectable="on">Titel</h1></div>
+								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '==', '==', 'Bitte wählen sie den Text aus, der den Überschrift-Stil bekommen soll.')" title="Stile Überschrift für ausgewählten Text" class="toolbar_select_popup_item"><h2 unselectable="on">Überschrift</h2></div>
+								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '===', '===', 'Bitte wählen sie den Text aus, der den Zwischenüberschrift-Stil bekommen soll.')" title="Stile Zwischenüberschrift für ausgewählten Text" class="toolbar_select_popup_item"><h3 unselectable="on">Zwischenüberschrift</h3></div>
 							</div>
 						</div>
 					</td>
@@ -34,10 +34,10 @@
 			</table>
 		</td>
 		<td>
-			<span onclick="wiki_markup('Content', '\'\'\'', '\'\'\'', 'Bitte wählen sie Text aus, den sie fett hervorheben wollen.')"  title="ausgewählten Text fett hervorheben" class="toolbar_icon toolbar_icon_bold"></span>
+			<span unselectable="on" onclick="wiki_markup('Content', '\'\'\'', '\'\'\'', 'Bitte wählen sie Text aus, den sie fett hervorheben wollen.')"  title="ausgewählten Text fett hervorheben" class="toolbar_icon toolbar_icon_bold"></span>
 		</td>
 		<td>
-			<span onclick="wiki_markup('Content', '\'\'', '\'\'', 'Bitte wählen sie Text aus, den sie kursiv hervorheben wollen.')"  title="ausgewählten Text kursiv hervorheben" class="toolbar_icon toolbar_icon_italic"></span>
+			<span unselectable="on" onclick="wiki_markup('Content', '\'\'', '\'\'', 'Bitte wählen sie Text aus, den sie kursiv hervorheben wollen.')"  title="ausgewählten Text kursiv hervorheben" class="toolbar_icon toolbar_icon_italic"></span>
 		</td>
 		<td>
 			<table class="toolbar_select_wrapper" id="toolbar_select_wrapper_ul">
@@ -76,25 +76,25 @@
 			</table>
 		</td>
 		<td>
-			<span onclick="wiki_markup('Content', '\n-----------\n', '', '')"  title="fügt Trennline ein" class="toolbar_icon toolbar_icon_line"></span>
+			<span unselectable="on" onclick="wiki_markup('Content', '\n-----------\n', '', '')"  title="fügt Trennline ein" class="toolbar_icon toolbar_icon_line"></span>
 		</td>
 		<td>
-			<span onclick="wiki_dialog('Content', 'image')"  title="fügt ein Bild ein" class="toolbar_icon toolbar_icon_image"></span>
+			<span unselectable="on" onclick="wiki_dialog('Content', 'image')"  title="fügt ein Bild ein" class="toolbar_icon toolbar_icon_image"></span>
 		</td>
 		<td>
-			<span onclick="wiki_dialog('Content', 'link')"  title="fügt eine Verknüpfung ein" class="toolbar_icon toolbar_icon_link"></span>
+			<span unselectable="on" onclick="wiki_dialog('Content', 'link')"  title="fügt eine Verknüpfung ein" class="toolbar_icon toolbar_icon_link"></span>
 		</td>
 		<td>
-			<span onclick="wiki_markup('Content', '[', '[ ]]', 'Bitte wählen sie Text aus, den sie markieren wollen.')"  title="ausgewählten Text markieren" class="toolbar_icon toolbar_icon_note"></span>
+			<span unselectable="on" onclick="wiki_markup('Content', '[', '[ ]]', 'Bitte wählen sie Text aus, den sie markieren wollen.')"  title="ausgewählten Text markieren" class="toolbar_icon toolbar_icon_note"></span>
 		</td>
 		<td>
-			<span onclick="wiki_dialog('Content', 'coment')"  title="ausgewählten Text kommentieren" class="toolbar_icon toolbar_icon_comment"></span>
+			<span unselectable="on" onclick="wiki_dialog('Content', 'coment')"  title="ausgewählten Text kommentieren" class="toolbar_icon toolbar_icon_comment"></span>
 		</td>
 		<td>
-			<span onclick="wiki_dialog('Content', 'table')" title="Tabelle einfügen" class = "toolbar_icon toolbar_icon_table"> </span>
+			<span unselectable="on" onclick="wiki_dialog('Content', 'table')" title="Tabelle einfügen" class = "toolbar_icon toolbar_icon_table"> </span>
 		</td>
 		<td>
-			<span onclick="helpChangeState()" title="Hilfe" class = "toolbar_icon toolbar_icon_help"> </span>
+			<span unselectable="on" onclick="helpChangeState()" title="Hilfe" class = "toolbar_icon toolbar_icon_help"> </span>
 		</td>
 		
 	</tr>
