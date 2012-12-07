@@ -135,6 +135,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		else {
 			$content->setVariable("SHEET_EDITABLE", "false");
 		}
+                
+                $content->setVariable("SESSION_COOKIE_NAME", SESSION_NAME);
+		
+                
 		$content->parse("BLOCK_SHEET_NAME_SCRIPT");
 
 		//insert URLs for toolbar buttons
