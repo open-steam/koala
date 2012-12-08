@@ -30,6 +30,12 @@ class Index extends \AbstractCommand implements \IIdCommand {
         for ($i = 0; $i < $n; $i++) {
             $viewBookmarks[$i] = $bookmarks[$i];
         }
+        $popupMenu = new \Widgets\PopupMenu();
+        $popupMenu->setData($obj);
+        $popupMenu->setCommand("GetPopupMenu");
+        $popupMenu->setNamespace("PortletBookmarks");
+        $popupMenu->setElementId("overlay_menu");
+        $popupMenu->setParams(array(array("key" => "id", "value" => $this->id)));
         $listViewer = new \Widgets\ListViewer();
         $listViewer->setHeadlineProvider(new HeadlineProvider());
         $listViewer->setContentProvider(new ContentProvider());
@@ -37,8 +43,17 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $listViewer->setContentFilter(new ContentFilter());
         $listViewer->setContent($viewBookmarks);
         $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->addWidget($popupMenu);
         $rawHtml->addWidget($listViewer);
-        $rawHtml->setHtml($listViewer->getHtml() . "<br><a class=\"pill button\" href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a>");
+        $rawHtml->setCss('
+            .headline .popupmenuanker {
+             display: none;
+            }
+            .headline:hover .popupmenuanker {
+             display: block;
+}
+');
+        $rawHtml->setHtml('<h1 class="headline">Meine Lesezeichen' . $popupMenu->getHtml() . "</h1>" . $listViewer->getHtml() . "<br><a class=\"pill button\" href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a>" . '<div id="overlay_menu"></div>');
 
         $this->content = $rawHtml;
     }
@@ -65,8 +80,8 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
     }
 
     public function getHeadLineWidths() {
-        return array(22, 580, 150);
-        //return array(22, 200, 130);
+        //return array(22, 580, 150);
+        return array(22, 200, 130);
     }
 
     public function getHeadLineAligns() {
