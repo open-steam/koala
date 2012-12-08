@@ -97,10 +97,12 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         }
         $empty = true;
         if ($room->check_access_read()) {
-            foreach ($room->get_inventory() as $inventoryItem) {
+            foreach ($room->get_inventory_filtered(array(array('+', 'class', CLASS_ROOM))) as $inventoryItem) {
                 if ($inventoryItem->check_access_read() && (getObjectType($inventoryItem) === "room") && !$this->isHiddenItem($inventoryItem, $currentUser)) {
-                    $empty = false;
-                    break;
+                    if (!($root === 1 && $inventoryItem->get_name() === "home")) {
+                        $empty = false;
+                        break;
+                    }
                 }
             }
         }
@@ -140,12 +142,12 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         $bid = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
         $html = "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
         if ($containerObject->check_access_read() && $containerObject instanceof \steam_container) {
-            foreach ($containerObject->get_inventory() as $object) {
+            foreach ($containerObject->get_inventory_filtered(array(array('+', 'class', CLASS_ROOM))) as $object) {
                 if (getObjectType($object) === "room" && !$this->isHiddenItem($object, $currentUser) && !($containerObject->get_id() === $bid->get_id() && $object->get_name() === "home")) {
                     // check if container contains more containers
                     $empty = true;
                     if ($object->check_access_read()) {
-                        foreach ($object->get_inventory() as $inventoryItem) {
+                        foreach ($object->get_inventory_filtered(array(array('+', 'class', CLASS_ROOM))) as $inventoryItem) {
                             if ($inventoryItem->check_access_read() && (getObjectType($inventoryItem) === "room") && !$this->isHiddenItem($inventoryItem, $currentUser)) {
                                 $empty = false;
                                 break;

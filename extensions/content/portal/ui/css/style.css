@@ -17,9 +17,7 @@
 }
 
 .portal {
-    padding-top: 1px;
-    overflow-x: auto;       
-    width: 940px;        
+    padding-top: 1px;       
 }
 
 #portal-overlay {
@@ -95,3 +93,7 @@
 }
 
 .ui-state-highlight { height: 2.5em; line-height: 1.2em; }
+
+.portal-wrapper {
+    overflow-x: auto;
+}
