@@ -43,16 +43,6 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
                         break;
                     if (!($currentContainer instanceof \steam_object))
                         break;
-
-                    //is Presentation, autoforward case
-                    if ($currentContainer->get_attribute("bid:presentation") === "index") {
-                        $currentContainer = $currentContainer->get_environment();
-                    }
-                    if ("0" == $currentContainer)
-                        break;
-                    if (!($currentContainer instanceof \steam_object))
-                        break;
-
                     if (!$currentContainer->check_access_read()) {
                         break;
                     }
