@@ -19,6 +19,14 @@ class AttributeDataProviderPortletAppointmentTerm {
 		}
 		if ($object instanceof \steam_object) {
 			$portletContent = $object->get_attribute("bid:portlet:content");
+                            
+                        usort($portletContent, "sortPortletAppointments");
+                        $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
+
+                        if ($sortOrder === "latest_first"){
+                            $portletContent = array_reverse($portletContent);
+                        }
+                        
 			$term = $portletContent[$this->termIndex];
 			
 			switch($this->field){
