@@ -45,7 +45,7 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$contentText->setWidth(480);
 		$contentText->setData($object);
 		$contentText->setContentProvider(\Widgets\DataProvider::contentProvider());
-		$dialog->addWidget($contentText);
+                $dialog->addWidget($contentText);
 		$dialog->addWidget($clearer);
 		$dialog->addWidget($clearer);
 		

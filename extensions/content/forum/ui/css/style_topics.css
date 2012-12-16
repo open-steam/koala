@@ -92,7 +92,7 @@
 
 .thema .heading0 {
     background: #cccccc;
-    background: -webkit-gradient(linear, left top, left bottom, from(#F6F&F6),
+    background: -webkit-gradient(linear, left top, left bottom, from(#F6F6F6),
         to(#FEFEFE) );
     background: -moz-linear-gradient(top, #F6F6F6, #FEFEFE);
 }
