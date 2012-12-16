@@ -18,6 +18,10 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $bookmarkRoom = $user->get_attribute("USER_BOOKMARKROOM");
 
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $parent = $obj->get_environment();
+        $portletWidth = $parent->get_attribute("bid:portal:column:width");
+        $portletWidth = substr($portletWidth, 0, count($portletWidth)-3);
+       
         $numberOfBookmarks = $obj->get_attribute("PORTLET_BOOKMARK_COUNT");
 
         $bookmarks = $bookmarkRoom->get_inventory();
@@ -37,7 +41,9 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $popupMenu->setElementId("overlay_menu");
         $popupMenu->setParams(array(array("key" => "id", "value" => $this->id)));
         $listViewer = new \Widgets\ListViewer();
-        $listViewer->setHeadlineProvider(new HeadlineProvider());
+        $headline = new HeadlineProvider();
+        $headline->setWidth($portletWidth);
+        $listViewer->setHeadlineProvider($headline);
         $listViewer->setContentProvider(new ContentProvider());
         $listViewer->setColorProvider(new ColorProvider());
         $listViewer->setContentFilter(new ContentFilter());
@@ -53,7 +59,7 @@ class Index extends \AbstractCommand implements \IIdCommand {
              display: block;
 }
 ');
-        $rawHtml->setHtml('<h1 class="headline">Meine Lesezeichen' . $popupMenu->getHtml() . "</h1>" . $listViewer->getHtml() . "<br><a class=\"pill button\" href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a>" . '<div id="overlay_menu"></div>');
+        $rawHtml->setHtml('<h1 class="headline">Meine Lesezeichen' . $popupMenu->getHtml() . "</h1>" . $listViewer->getHtml() . "<br><a class=\"pill button\" href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a>" . '<div id="overlay_menu"></div><br>');
 
         $this->content = $rawHtml;
     }
@@ -73,7 +79,11 @@ class Index extends \AbstractCommand implements \IIdCommand {
 }
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
-
+    private $width = 352;
+    
+    public function setWidth($w){
+        $this->width = $w;
+    }
     public function getHeadlines() {
         //return array("", "Name", "Marker","Änderungsdatum", "Größe");
         return array("", "", "");
@@ -81,7 +91,8 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadLineWidths() {
         //return array(22, 580, 150);
-        return array(22, 200, 130);
+        
+        return array(22, $this->width-172, 130);
     }
 
     public function getHeadLineAligns() {
