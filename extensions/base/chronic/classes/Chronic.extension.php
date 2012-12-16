@@ -50,7 +50,28 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 return $result;
 	}
 	
-        
+        public function getChronic() {
+                $chronic = $this->loadChronic();
+                $result = array();
+                $count = 0;
+                $minusCount = -1;
+                foreach ($chronic as $chronicItem) {
+                    $count++;
+                    if ($count < 2) continue; //skip this and last element
+                    
+                    $content = explode(":", $chronicItem);
+                    $entryType = $content[0];
+
+                    if ($entryType=="oid"){
+                        $objectId = $content[1];
+                    } else {
+                        $objectId = $minusCount;
+                        $minusCount--;
+                    }
+                    $result[] = array("id" => $objectId, "name" => $this->getEntryName($chronicItem, -1), "image" => $this->getEntryIconTag($chronicItem), "link" => $this->getEntryPath($chronicItem));
+                }
+                return $result;
+	}
         
 	public function setCurrentObject($steamObject) {
                 if ($steamObject instanceof steam_object && $steamObject->check_access_read()){
@@ -184,7 +205,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         }
  
         
-        private function getEntryName($chronicEntry){
+        private function getEntryName($chronicEntry, $length = 30){
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
             if($entryType=="oid"){
@@ -196,7 +217,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     return "(Objekt gelöscht)";
                 }
                 
-                return getCleanName($steamObject);
+                return getCleanName($steamObject, $length);
             }
             else if($entryType=="cmd"){
                 //not yet supported
