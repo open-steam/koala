@@ -17,15 +17,15 @@ function widgets_textarea_save_success(elementId, response) {
 				} else if (widget.find("textarea").hasClass("plain")) {
 					widget.find("textarea").val(data.newValue);
 				}
-			//	widget.removeClass("dirty");
-				widget.addClass("undo");
+				widget.removeClass("dirty");
+			//	widget.addClass("undo");
 				widget.addClass("saved");
 				widget.attr("oldValue", widget.attr("value"));
 				widget.attr("value", data.newValue);
 				$(window).unbind('beforeunload');
 			} else {
 				widget.addClass("error");
-				//widget.removeClass("dirty");
+				widget.removeClass("dirty");
 				widget.find(".icon.error").title = data.error;
 			}
 		}
@@ -145,7 +145,7 @@ function widgets_textarea_save_success(elementId, response) {
 	    		});
 	    	} else if (element.find("textarea").hasClass("plain")) {
 	    		element.find("textarea").val(value);
-	    		element.find("textarea").bind('keyup', function() { element.addClass("dirty"); });
+	    		element.find("textarea").bind('keyup', function() {/* element.addClass("dirty"); */ });
 	    	}
 	    },
 	    save : function() { 
@@ -157,7 +157,8 @@ function widgets_textarea_save_success(elementId, response) {
 	    			} else if (element.find("textarea").hasClass("plain")) {
 	    				var value = element.find("textarea").val(); 
 	    			}
-	    			this.addClass("saving");
+	    			//this.addClass("saving");
+                                this.removeClass("dirty");
 	    			$(window).unbind('beforeunload');
 	    			sendFunction(value);
 	    		},

@@ -8,7 +8,12 @@ class ListViewer extends Widget {
 	private $colorProvider;
 	private $contentFilter;
 	private $content;
-        private $userObject = NULL;
+        private $userObject = NULL;        
+        private $length = -1;
+        
+        public function setLength($l){
+            $this->length = $l; 
+        }
 	
 	public function setHeadlineProvider(IHeadlineProvider $headlineProvider) {
 		$this->headlineProvider = $headlineProvider;

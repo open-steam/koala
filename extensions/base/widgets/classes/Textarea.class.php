@@ -10,10 +10,8 @@ class Textarea extends Widget {
 	private $width = "250px";
 	private $height = "200px";
 	private $textareaClass = "plain"; // plain or code html or mce-small or mce-full
-	//Vielleicht später wieder auf false setzen.
-        private $autosave = true;
-        ////Vielleicht später wieder auf false setzen.
-        private $linebreaks = "<br><br>";
+	private $autosave = false;
+         private $linebreaks = "<br><br>";
 	
 	public function setLabel($label) {
 		$this->label = $label;
