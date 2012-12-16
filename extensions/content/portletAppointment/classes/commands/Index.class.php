@@ -93,24 +93,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
            
-            if($sortOrder !== "latest_first"){
-                $reverseOrder = true;
-            } else{
-                $reverseOrder = false;
-            }
-            
-            
-            if ($reverseOrder) {                
+            if ($sortOrder === "latest_first"){
                 $content = array_reverse($content);
             }
-
             
-            if(!$reverseOrder){
-                $indexCount=sizeof($content)-1;
-            }else{
-               $indexCount = 0; 
-            }
-            
+            $indexCount = 0; 
             
             foreach ($content as $appointment) {
                 $tmpl->setCurrentBlock("BLOCK_TERM");
@@ -129,12 +116,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->parse("BLOCK_EDIT_BUTTON_TERM");
                 }
                 
-                //revert sort order
-                if(!$reverseOrder){
-                    $indexCount--;
-                }else{
-                    $indexCount++;
-                }
+                $indexCount++;
                 
                 $tmpl->setVariable("STARTDATE", $appointment["start_date"]["day"] . "." . $appointment["start_date"]["month"] . "." . $appointment["start_date"]["year"]);
 

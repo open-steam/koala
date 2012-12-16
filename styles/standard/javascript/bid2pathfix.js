@@ -1,43 +1,43 @@
 //bid 2 path fix
 function bid2PathFix() {
-    //lernstatt
-    input = 'https://steam.lspb.de';
-    output='http://bid.lspb.de';
     
-    while(document.body.innerHTML.search(input)!=-1){
-        document.body.innerHTML = document.body.innerHTML.replace(input,output);
+    inputAbort = false;
+    if (document.body.innerHTML.search('http://www.bid-owl.de.localhost')!=-1){
+       inputAbort = true;
+    }
+   
+    // lernstatt
+    inputLSPBS = 'https://steam.lspb.de';
+    outputLSPBS ='http://bid.lspb.de';
+    inputLSPB = 'http://steam.lspb.de';
+    outputLSPB ='http://bid.lspb.de';
+    
+    // schulen-gt
+    inputGT = 'http://www.schulen-gt.de/';
+    outputGT= 'http://www3.schulen-gt.de/';
+    
+    // bid-owl
+    inputBid = 'http://www.bid-owl.de';
+    outputBid ='http://www3.bid-owl.de';
+    
+    var aList = document.body.getElementsByTagName("a");
+    for (i = 0; i < aList.length; i++) {
+        aList[i].href = aList[i].href.replace(inputLSPBS, outputLSPBS);
+        aList[i].href = aList[i].href.replace(inputLSPB, outputLSPB);
+        aList[i].href = aList[i].href.replace(inputGT, outputGT);
+        if (!inputAbort) {
+            aList[i].href = aList[i].href.replace(inputBid, outputBid);
+        }
     }
     
-    input = 'http://steam.lspb.de';
-    output='http://bid.lspb.de';
-    
-    while(document.body.innerHTML.search(input)!=-1){
-        document.body.innerHTML = document.body.innerHTML.replace(input,output);
-    }
-    
-    
-    //schulen-gt
-    input = 'http://www.schulen-gt.de/';
-    output='http://www3.schulen-gt.de/';
-    
-    while(document.body.innerHTML.search(input)!=-1){
-        document.body.innerHTML = document.body.innerHTML.replace(input,output);
-    }
-    
-    
-    
-    inputAbort = 'http://www.bid-owl.de.localhost';
-    while(document.body.innerHTML.search(inputAbort)!=-1){
-        return false;
-    }
-    
-    
-    //bidowl
-    input = 'http://www.bid-owl.de';
-    output='http://www3.bid-owl.de';
-    
-    while(document.body.innerHTML.search(input)!=-1){
-        document.body.innerHTML = document.body.innerHTML.replace(input,output);
+    var imgList = document.body.getElementsByTagName("img");
+    for (i = 0; i < imgList.length; i++) {
+        imgList[i].src = imgList[i].src.replace(inputLSPBS, outputLSPBS);
+        imgList[i].src = imgList[i].src.replace(inputLSPB, outputLSPB);
+        imgList[i].src = imgList[i].src.replace(inputGT, outputGT);
+        if (!inputAbort) {
+            imgList[i].src = imgList[i].src.replace(inputBid, outputBid);
+        }
     }
     
     return true;
