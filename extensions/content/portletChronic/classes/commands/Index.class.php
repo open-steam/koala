@@ -3,7 +3,9 @@ namespace PortletChronic\Commands;
 
 class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
-    private $content;
+    private $contentHtml;
+    private $endHtml;
+    private $listViewer;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -89,6 +91,10 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $display = $chronic;
         }
         
+        $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->setHtml($tmpl->get());
+        $this->contentHtml = $rawHtml;
+        
         $listViewer = new \Widgets\ListViewer();
         $headlineProvider = new HeadlineProvider();
         $headlineProvider->setWidth($width);
@@ -98,23 +104,24 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $listViewer->setContentProvider($contentProvider);
         $listViewer->setFilterHidden(FALSE);
         $listViewer->setContent($display);
-        
-        $tmpl->setCurrentBlock("BLOCK_CHRONIC");
-        $tmpl->setVariable("LIST_CONTENT", $listViewer->getHtml());
-        $tmpl->parse("BLOCK_CHRONIC");
+        $this->listViewer = $listViewer;
         
         $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml($tmpl->get());
-        $this->content = $rawHtml;
+        $rawHtml->setHtml("</div></div>");
+        $this->endHtml = $rawHtml;
     }
 
     public function idResponse(\IdResponseObject $idResponseObject) {
-        $idResponseObject->addWidget($this->content);
+        $idResponseObject->addWidget($this->contentHtml);
+        $idResponseObject->addWidget($this->listViewer);
+        $idResponseObject->addWidget($this->endHtml);
         return $idResponseObject;
     }
     
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        $frameResponseObject->addWidget($this->content);
+        $idResponseObject->addWidget($this->contentHtml);
+        $idResponseObject->addWidget($this->listViewer);
+        $idResponseObject->addWidget($this->endHtml);
 	return $frameResponseObject;
     }
 }
