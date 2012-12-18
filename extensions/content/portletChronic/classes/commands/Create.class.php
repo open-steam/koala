@@ -1,7 +1,7 @@
 <?php
 namespace PortletChronic\Commands;
 
-class Create extends \AbstractCommand implements \IAjaxCommand {
+class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IFrameCommand {
 
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
@@ -9,7 +9,11 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 	
 	public function processData(\IRequestObject $requestObject){
             $params = $requestObject->getParams();
-            $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["id"]);
+            if (isset($params["parent"])) {
+                $column = $params["parent"];
+            } else {
+                $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["id"]);
+            }
 		
             //create object
             $chronicPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Verlauf", $column);
@@ -23,6 +27,14 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 	    ));
 	}
 	
+        public function idResponse(\IdResponseObject $idResponseObject) {
+	
+	}
+        
+        public function frameResponse(\FrameResponseObject $frameResponseObject) {
+		
+	}
+        
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		$jswrapper = new \Widgets\JSWrapper();
