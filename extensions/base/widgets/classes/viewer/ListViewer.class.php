@@ -10,6 +10,11 @@ class ListViewer extends Widget {
 	private $content;
         private $userObject = NULL;        
         private $length = -1;
+        private $filterHidden = TRUE;
+        
+        public function setFilterHidden($boolean) {
+            $this->filterHidden = $boolean;
+        }
         
         public function setLength($l){
             $this->length = $l; 
@@ -100,6 +105,7 @@ class ListViewer extends Widget {
 	
         
         private function isHiddenItem($steamObject,$itemCount=0) {
+            if (!$this->filterHidden) return false;
             
             //cache user object
             if ($this->userObject === NULL){

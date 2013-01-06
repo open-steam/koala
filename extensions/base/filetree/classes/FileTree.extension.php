@@ -34,6 +34,9 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
         if ($currentID === "403" || $currentID === "404") {
             $currentID = "";
         }
+        if (strpos($_SERVER['REQUEST_URI'], "/favorite/") === 0) {
+            $currentID = "";
+        }
            
         if ($currentID !== "") {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentID);

@@ -18,8 +18,11 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
                
 		
 		//check diffrent types of parameter
-		
-		$column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+		if (isset($params["parent"])) {
+                    $column = $params["parent"];
+                } else {
+                    $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+                }
 		
 		//create object
 		$bookmarkPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Übersicht der Lesezeichen", $column);
