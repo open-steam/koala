@@ -41,7 +41,7 @@ class InsertPortlet extends \AbstractCommand implements \IAjaxCommand {
 			$portletType = $steamObject->get_attribute("bid:portlet");
 			$isPortlet = false;
 			
-			if( $portletType=="msg" || $portletType=="appointment" || $portletType=="termplan" || $portletType=="topic" || $portletType=="headline" || $portletType=="poll" || $portletType=="media" || $portletType=="rss" || $portletType=="chronic"){
+			if( $portletType=="msg" || $portletType=="appointment" || $portletType=="termplan" || $portletType=="topic" || $portletType=="headline" || $portletType=="poll" || $portletType=="media" || $portletType=="rss" || $portletType=="chronic" || $portletType=="userpicture"){
                             $isPortlet=true;
                         }   
                         

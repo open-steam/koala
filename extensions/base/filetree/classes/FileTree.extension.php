@@ -41,7 +41,9 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
         if ($currentID !== "") {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentID);
             if ($object instanceof \steam_object && !(getObjectType($object) === "room") && !(getObjectType($object) === "userHome")) {
-                $currentID = $object->get_environment()->get_id();
+                if ($object->get_environment() instanceof \steam_object) {
+                    $currentID = $object->get_environment()->get_id();
+                }
             }
         }
         

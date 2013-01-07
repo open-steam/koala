@@ -20,7 +20,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $portal = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Home Portal", $current_room);
                 $portal->set_attribute( "OBJ_TYPE", "container_portal_bid" );
 
-                $columnWidth = array("200px", "500px", "200px");
+                $columnWidth = array("170px", "530px", "200px");
                 $columns = array();
 
                 for($i = 1; $i <= 3 ; $i++) {
@@ -31,8 +31,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 }
 
                 // populate columns with default portlets
+                \ExtensionMaster::getInstance()->callCommand("Create", "PortletUserPicture", array("parent" => $columns[1], "version"=>"3.0"));
                 \ExtensionMaster::getInstance()->callCommand("Create", "PortletHeadline", array("parent" => $columns[2], "title" => $user->get_full_name(), "version"=>"3.0"));
-                \ExtensionMaster::getInstance()->callCommand("Create", "PortletBookmarks", array("parent" => $columns[2], "title" => "Meldungen", "number" => "5", "version"=>"3.0"));
+                \ExtensionMaster::getInstance()->callCommand("Create", "PortletBookmarks", array("parent" => $columns[2], "number" => "5", "version"=>"3.0"));
                 \ExtensionMaster::getInstance()->callCommand("Create", "PortletChronic", array("parent" => $columns[2], "elements" => "15", "version"=>"3.0"));
                 
                 $user->set_attribute("HOME_PORTAL", $portal);
