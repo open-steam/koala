@@ -34,7 +34,7 @@ class HtmlDocument
    * this retuns cleand html, do not clean again
    * added javascript will be destroyd
    */
-  function makeViewModifications($html, $steamObject=NULL) {
+  function makeViewModifications($html, $steamObject=NULL, $isHead=false) {
     //mod 0  
     if($this->object!==NULL){
         $dirname = dirname($this->object->get_path()) . "/";
@@ -45,7 +45,11 @@ class HtmlDocument
     
     if($steamObject!==NULL){
         $dirname = dirname($steamObject->get_path()) . "/";
+        if($isHead){
+            $dirname .= $steamObject->get_name()."/";
+        }
     }
+    
      
     
         
@@ -115,7 +119,7 @@ class HtmlDocument
             $steamObject = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
             if(!($steamObject instanceof \steam_object)) throw new \steam_exception;
             if($steamObject===NULL) throw new \steam_exception;
-        }  catch (\steam_exception $e){
+        }  catch (\steam_exception $e){            
             $newPath = PATH_URL . "styles/standard/images/404.jpg";
             $html = str_replace($origMatches[$key], "<img src=\"" . $newPath . "\">", $html);
             continue;
