@@ -95,8 +95,10 @@ class Textarea extends Widget {
 			$('#{$this->id}').find('.button.undo').bind('click', function() { $('#{$this->id}').textarea('undo'); });
 
 END
-				);	
-		return $this->getContent()->get();
+				);
+                $pollingDummy = new PollingDummy();
+                
+		return $this->getContent()->get().$pollingDummy->getHtml();
 	}
 }
 ?>
