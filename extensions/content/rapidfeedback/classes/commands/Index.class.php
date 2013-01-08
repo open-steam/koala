@@ -35,6 +35,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$allowed = true;
 		}
 		
+                // chronic
+                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($rapidfeedback);
+        
 		// redirect if there is no survey
 		$surveyCount = 0;
 		$surveys = $rapidfeedback->get_inventory();

@@ -317,6 +317,19 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 }  catch (\steam_exception $e){
                     return $defaultIcon;
                 }
+            } else if($entryType=="pth"){
+                $objectPath = $content[1];
+                try{
+                    if(strpos($objectPath, "/forum/showTopic/") === 0) {
+                        return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/forumthread.png\"></img>";
+                    }  else if (strpos($objectPath, "/wiki/entry/") === 0) {
+                        return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/wiki.png\"></img>";
+                    } else {
+                        return $defaultIcon;
+                    }
+                }  catch (\steam_exception $e){
+                    return $defaultIcon;
+                }
             }
             return $defaultIcon;
         }

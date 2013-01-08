@@ -17,6 +17,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$myExtension = \Worksheet::getInstance();
 
+                // chronic
+                $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
 		
 		$worksheet = new \Worksheet\Worksheet($this->id);
 
