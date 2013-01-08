@@ -58,7 +58,7 @@ $whitelistDevelopment = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Star
                         . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map,"
                         . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
                         . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Worksheet, Webarena, Spreadsheets, "
-                        . "homePortal, portletUserPicture, portletChronic, portletBookmarks";
+                        . "HomePortal, PortletUserPicture, PortletChronic, PortletBookmarks";
 
 
 $whitelistLiveSystems = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Startpage, Widgets, "
