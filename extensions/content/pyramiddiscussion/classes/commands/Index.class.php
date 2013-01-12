@@ -56,6 +56,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             return $frameResponseObject;
         }
 
+        // chronic
+        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($pyramidRoom);
+                
         // if one or more deadlines passed by since the last visit on this page, change the phase
         $phase = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ACTCOL");
         if ($phase != 0 && $phase <= $maxcol && $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_USEDEADLINES") == "yes" && $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_OVERRIDE_DEADLINES") == 0) {
