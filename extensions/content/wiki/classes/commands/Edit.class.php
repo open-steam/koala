@@ -272,6 +272,8 @@ END
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
 		$frameResponseObject->setHeadline($headline);
+                $pollingDummy = new \Widgets\PollingDummy();
+                $frameResponseObject->addWidget($pollingDummy);
 		return $frameResponseObject;
 	}
 }

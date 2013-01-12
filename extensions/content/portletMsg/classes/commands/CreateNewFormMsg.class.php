@@ -124,6 +124,8 @@ END
         );
         $dialog->addWidget($ajaxForm);       
         $ajaxResponseObject->addWidget($dialog);
+        $pollingDummy = new \Widgets\PollingDummy();
+        $ajaxResponseObject->addWidget($pollingDummy);
         return $ajaxResponseObject;
     }
 
