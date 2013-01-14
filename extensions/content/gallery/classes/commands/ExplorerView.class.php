@@ -37,8 +37,8 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
 		
 		if ($object && $object instanceof \steam_container) {
 			$count = $object->count_inventory();
-			if ($count > 150) {
-				die ("Es befinden sich $count Objekte im diesem Ordner. Das Laden ist nicht möglich.");
+			if ($count > 500) {
+				die ("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
 			}
 			$objects = $object->get_inventory();
 		} else {
