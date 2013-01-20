@@ -51,15 +51,8 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->addWidget($popupMenu);
         $rawHtml->addWidget($listViewer);
-        $rawHtml->setCss('
-            .headline .popupmenuanker {
-             display: none;
-            }
-            .headline:hover .popupmenuanker {
-             display: block;
-}
-');
-        $rawHtml->setHtml('<h1 class="headline">Meine Lesezeichen' . $popupMenu->getHtml() . "</h1>" . $listViewer->getHtml() . "<br><a class=\"pill button\" href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a>" . '<div id="overlay_menu"></div><br>');
+        
+        $rawHtml->setHtml('<h1 class="headline">Meine Lesezeichen <div class="editbutton" style="display:none;float:right;padding-right:5px;">' . $popupMenu->getHtml() . "</div></h1>" . $listViewer->getHtml() . "<br><a class=\"pill button\" href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a>" . '<div id="overlay_menu"></div><br>');
 
         $this->content = $rawHtml;
     }
