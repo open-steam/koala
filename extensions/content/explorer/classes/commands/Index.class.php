@@ -284,7 +284,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                     newIds = ""; 
             });
-            $(".actionBar").prepend("<div style=\"margin-top:35px;position:absolute;height:200px;width:30px;float:left;background-image:url('.$assetUrl.');\"></div>"); 
+            $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url('.$assetUrl.');\"></div>"); 
                                     
     }';
         $rawHtml->setJs($script);
