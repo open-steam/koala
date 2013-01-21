@@ -81,7 +81,7 @@ class ListViewer extends Widget {
 				$this->getContent()->setVariable("LISTVIEWER_ITEM_ID", $contentItemId);
 				$this->getContent()->setVariable("LISTVIEWER_ITEM_ONCLICK", $this->contentProvider->getOnClickHandler($contentItem));
 				($this->colorProvider) ? $this->getContent()->setVariable("LISTVIEWER_ITEM_COLOR_LABEL", $this->colorProvider->getColor($contentItem)) : "";
-                                if ($contentItem->get_attribute("bid:hidden") === "1") {
+                                if ($this->filterHidden && $contentItem->get_attribute("bid:hidden") === "1") {
                                     $this->getContent()->setVariable("LISTVIEWER_ITEM_HIDDEN", "hiddenObject");
                                 }
 				for ($i = 0; $i < count($this->headlineProvider->getHeadlines()); $i++) {
