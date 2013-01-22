@@ -20,7 +20,7 @@ class Home extends AbstractExtension {
 	}
 	
 	public function getUrlNamespaces() {
-		return array(strtolower($this->getName()), "desktop");
+		return array(strtolower($this->getName()));
 	}
 }
 ?>
