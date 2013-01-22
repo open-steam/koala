@@ -1010,9 +1010,10 @@ return $rand_value;
 			$body_start = $r[1][0];
 			$clean_html = preg_replace("/<body[^>]*>.*<\\/body>/is", $body_start . $body_content . "</body>", $clean_html);
 			
-			return print $clean_html;
+			return print $this->bid2PathFix($clean_html);
 		} else {
-			return $this->template->show();
+                        $pageHtml = $this->template->get();
+			return print $this->bid2PathFix($pageHtml);
 		}
 		
 	}
@@ -1069,5 +1070,23 @@ return $rand_value;
 		lms_steam::disconnect();
 	}
 
+        public function bid2PathFix($html) {
+            // lernstatt
+            $html = str_replace('https://steam.lspb.de', 'http://bid.lspb.de', $html);
+            $html = str_replace('http://steam.lspb.de', 'http://bid.lspb.de', $html);
+
+            // schulen-gt
+            $html = str_replace('http://www.schulen-gt.de', 'http://www3.schulen-gt.de', $html);
+
+            // abort vm
+            if (strpos($html, 'http://www.bid-owl.de.localhost') != FALSE) {
+                return $html;
+            }
+            
+            // bid-owl
+            $html = str_replace('http://www.bid-owl.de', 'http://www3.bid-owl.de', $html);
+            
+            return $html;
+        }
 }
 ?>
