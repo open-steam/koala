@@ -26,6 +26,8 @@ class ColorGeneratorPortal {
         $content_bgcolor = $obj->get_attribute("bid:portal:content_bgcolor");
         $link_fontcolor = $obj->get_attribute("bid:portal:link_fontcolor");
         $bgcolor = $obj->get_attribute("bid:portal:bgcolor");
+        
+        //Die Farben liegen in Hexcode vor, oder sind 0 (Default) 
     }
 
 }

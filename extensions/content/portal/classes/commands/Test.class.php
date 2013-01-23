@@ -2,10 +2,6 @@
 
 namespace Portal\Commands;
 
-require_once 'ical/When.php';
-require_once 'ical/When_Iterator.php';
-require_once 'ical/reader.php';
-
 class Test extends \AbstractCommand implements \IFrameCommand {
 
     public function validateData(\IRequestObject $requestObject) {
@@ -15,42 +11,45 @@ class Test extends \AbstractCommand implements \IFrameCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
+
+        $value = "51 51 51";
+        $array = array();
+        $array[0] = $array[1] = $array[2] = 51/255  ;
+        var_dump(self::_color_rgb2hsl($array));die;
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-
-
-        $data_to_send = '<?xml version="1.0" encoding="utf-8" ?>
-<C:free-busy-query xmlns:C="urn:ietf:params:xml:ns:caldav">
-<C:time-range start="20060104T140000Z" end="20060105T220000Z"/>
-</C:free-busy-query>';
-        $fp = fsockopen("ssl://www.google.com", 443);
-        if (!$fp) {
-            echo "Keine Verbindung möglich!";
-        } else {
-            echo "Verbindung hergestellt!";
-            fputs($fp, "POST /calendar/dav/christoph.sens@gmail.com/user HTTP/1.1\r\n");
-            fputs($fp, "Host: www.google.com\r\n");
-            fputs($fp,"Authorization: Basic ".base64_encode("".':'."")."\r\n");
-            fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
-            fputs($fp, "Content-length: " . strlen($data_to_send) . "\r\n");
-            fputs($fp, "Connection: close\r\n\r\n");
-            fputs($fp, $data_to_send);
-            $res = "";
-            while (!feof($fp)) {
-                $res .= fgets($fp, 128);
-            }
-            printf("Done!\n");
-            fclose($fp);
-
-            echo $res;
-        }
-        die;
 
 
 
         return $frameResponseObject;
     }
 
+    static  function color_rgb2hsl($rgb) {
+        $r = $rgb[0];
+        $g = $rgb[1];
+        $b = $rgb[2];
+        $min = min($r, min($g, $b));
+        $max = max($r, max($g, $b));
+        $delta = $max - $min;
+        $l = ($min + $max) / 2;
+        $s = 0;
+        if ($l > 0 && $l < 1) {
+            $s = $delta / ($l < 0.5 ? (2 * $l) : (2 - 2 * $l));
+        }
+        $h = 0;
+        if ($delta > 0) {
+            if ($max == $r && $max != $g)
+                $h += ($g - $b) / $delta;
+            if ($max == $g && $max != $b)
+                $h += (2 + ($b - $r) / $delta);
+            if ($max == $b && $max != $r)
+                $h += (4 + ($r - $g) / $delta);
+            $h /= 6;
+        }
+        return array($h, $s, $l);
+    }
+
 }
 
+?>
