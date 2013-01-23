@@ -932,6 +932,17 @@ return $rand_value;
 	      $this->template->setVariable( "ICON_BAR_HTML", $html_icon_bar );
 	    }
 		
+                            
+                // override standard logo with custom logo if available
+                $customLogo = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/platform_logo");
+                if ($customLogo instanceof \steam_object) {
+                    $everyone = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "everyone");
+                    if ($customLogo->check_access_read($everyone)) {
+                        $customLogoURL = PATH_URL . "download/image/" . $customLogo->get_id();
+                        $this->template->setVariable("CUSTOM_LOGO_STYLE", "background: url(" . $customLogoURL . ") no-repeat;");
+                    }
+                }
+            
 		if ($this->prototype_enabled) {
 			$this->template->setCurrentBlock('HEAD_JAVASCRIPT_PROTOTYPE');
 			$this->template->setVariable( "PATH_JAVASCRIPT_2", PATH_JAVASCRIPT);
@@ -999,9 +1010,10 @@ return $rand_value;
 			$body_start = $r[1][0];
 			$clean_html = preg_replace("/<body[^>]*>.*<\\/body>/is", $body_start . $body_content . "</body>", $clean_html);
 			
-			return print $clean_html;
+			return print $this->bid2PathFix($clean_html);
 		} else {
-			return $this->template->show();
+                        $pageHtml = $this->template->get();
+			return print $this->bid2PathFix($pageHtml);
 		}
 		
 	}
@@ -1058,5 +1070,23 @@ return $rand_value;
 		lms_steam::disconnect();
 	}
 
+        public function bid2PathFix($html) {
+            // lernstatt
+            $html = str_replace('https://steam.lspb.de', 'http://bid.lspb.de', $html);
+            $html = str_replace('http://steam.lspb.de', 'http://bid.lspb.de', $html);
+
+            // schulen-gt
+            $html = str_replace('http://www.schulen-gt.de', 'http://www3.schulen-gt.de', $html);
+
+            // abort vm
+            if (strpos($html, 'http://www.bid-owl.de.localhost') != FALSE) {
+                return $html;
+            }
+            
+            // bid-owl
+            $html = str_replace('http://www.bid-owl.de', 'http://www3.bid-owl.de', $html);
+            
+            return $html;
+        }
 }
 ?>

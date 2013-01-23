@@ -121,6 +121,10 @@
 	background-color: #D6D6D6;
 }
 
+.hiddenObject {
+        opacity: 0.5;
+}
+
 .justTrashed{
 	border: 1px solid #fff;
 	background-color: #fff;
