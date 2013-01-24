@@ -52,7 +52,7 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $rawHtml->addWidget($popupMenu);
         $rawHtml->addWidget($listViewer);
         
-        $rawHtml->setHtml('<div class="portlet"><h1 class="headline">Meine Lesezeichen <div class="editbutton" style="display:none;float:right;padding-right:5px;">' . $popupMenu->getHtml() . "</div></h1><div style=\"padding:5px;\">" . $listViewer->getHtml() . "</div><br><div style=\"padding-left:".($portletWidth/2-80)."px;padding-right:".($portletWidth/2-80)."px;\"><a href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a></div>" . '<div id="overlay_menu"></div></div><br>');
+        $rawHtml->setHtml('<div class="portlet"><h1 class="headline">Meine Lesezeichen <div class="editbutton" style="display:none;float:right;padding-right:5px;">' . $popupMenu->getHtml() . "</div></h1><div style=\"padding:5px;\">" . $listViewer->getHtml() . "</div><div style=\"padding-left:".($portletWidth/2-80)."px;padding-right:".($portletWidth/2-80)."px;\"><a href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a></div><br>" . '<div id="overlay_menu"></div></div><br>');
 
         $this->content = $rawHtml;
     }
