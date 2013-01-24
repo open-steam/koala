@@ -15,6 +15,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
+
 		$myExtension = \Webarena::getInstance();
 
 		$obj = \steam_factory::get_object($GLOBALS[ "STEAM" ]->get_id(), $this->id);
@@ -22,16 +23,42 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		if ($obj->get_attribute("isWebarena") == 1) {
 
 			$host = WEBARENA_HOST;
-			$port = WEBARENA_PORT;
+            $port = WEBARENA_PORT;
 
-			if ($host == "localhost") {
+            if ($host == "localhost") {
 				$host = $_SERVER['HTTP_HOST'];
+            }
+
+            $fp = fsockopen($host, $port);
+
+        	if ($fp) {
+                
+				$data = http_build_query(Array(
+					"id" => session_id(),
+					"username" => $_SESSION[ "LMS_USER" ]->get_login(),
+					"password" => $_SESSION[ "LMS_USER" ]->get_password()
+				));
+
+				// send the request headers:
+				fputs($fp, "POST /pushSession HTTP/1.1\r\n");
+				fputs($fp, "Host: ".$host."\r\n");
+
+				fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
+				fputs($fp, "Content-length: ". strlen($data) ."\r\n");
+				fputs($fp, "Connection: close\r\n\r\n");
+				fputs($fp, $data);
+
+			} else { 
+				throw new Exception("unable to connect to webarena server");
 			}
 
-			header("Location: http://".$host.":".$port."/room/".$this->id);
+			fclose($fp);
+			
+			header("Location: http://".$host.":".$port."/room/".$this->id."#externalSession/".$_SESSION[ "LMS_USER" ]->get_login()."/".session_id());
 		}
 
 		return $frameResponseObject;
+
 	}
 }
 ?>
