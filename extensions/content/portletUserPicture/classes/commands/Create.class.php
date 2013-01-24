@@ -18,10 +18,14 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
             //create object
             $chronicPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Benutzerbild", $column);
 	    
+            //username
+            $user = $GLOBALS["STEAM"]->get_current_steam_user();
+            $username = $user->get_full_name();
+            
             if (isset($params["title"])) {
                 $title = $params["title"];
             } else {
-                $title = "";
+                $title = $username;
             }
             
 	    $chronicPortlet->set_attributes(array(
