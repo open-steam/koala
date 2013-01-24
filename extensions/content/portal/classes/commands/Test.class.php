@@ -25,7 +25,7 @@ class Test extends \AbstractCommand implements \IFrameCommand {
         return $frameResponseObject;
     }
 
-    static  function color_rgb2hsl($rgb) {
+    static function color_rgb2hsl($rgb) {
         $r = $rgb[0];
         $g = $rgb[1];
         $b = $rgb[2];
