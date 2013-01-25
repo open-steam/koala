@@ -24,7 +24,7 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Termine";
+		return "... für das Anzeigen von Terminen";
 	}
 	
 	public function getObjectIconUrl() {

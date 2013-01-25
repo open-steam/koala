@@ -24,7 +24,7 @@ class PortletMedia extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Medienelement";
+		return "Medienelement das Einbinden von Audio und Video";
 	}
 	
 	public function getObjectIconUrl() {

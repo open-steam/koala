@@ -24,7 +24,7 @@ class PortletMsg extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Meldungen";
+		return "... für das Verfassen von Meldungen";
 	}
 	
 	public function getObjectIconUrl() {

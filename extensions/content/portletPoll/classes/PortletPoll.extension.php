@@ -24,7 +24,7 @@ class PortletPoll extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Abstimmung";
+		return "... zur Abstimmung über Stichpunkte";
 	}
 	
 	public function getObjectIconUrl() {
