@@ -20,11 +20,11 @@ class PortletChronic extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Verlauf";
+		return "Eigener Verlauf";
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Verlauf";
+		return "Verlauf  für den persönlichen Schreibtisch";
 	}
 	
 	public function getObjectIconUrl() {

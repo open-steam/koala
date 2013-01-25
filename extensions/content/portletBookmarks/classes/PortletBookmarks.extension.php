@@ -20,11 +20,11 @@ class PortletBookmarks extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Übersicht der Lesezeichen";
+		return "Eigene Lesezeichen (Schreibtisch)";
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Übersicht der Lesezeichen";
+		return "Übersicht der Lesezeichen für den persönlichen Schreibtisch";
 	}
 	
 	public function getObjectIconUrl() {

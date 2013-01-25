@@ -45,7 +45,7 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 	}
         
         public function getPriority() {
-		return 51;
+		return 56;
 	}
 }
 ?>
