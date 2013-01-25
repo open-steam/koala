@@ -24,7 +24,7 @@ class PortletHeadline extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "... zur Erstellung von Überschriften mit verschiedenen Textgrößen";
+		return "... zur Erstellung von Überschriften mit verschiedenen Textgrößen.";
 	}
 	
 	public function getObjectIconUrl() {

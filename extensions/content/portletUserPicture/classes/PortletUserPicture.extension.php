@@ -24,7 +24,7 @@ class PortletUserPicture extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Benutzerbild für den persönlichen Schreibtisch";
+		return "Benutzerbild für den persönlichen Schreibtisch.";
 	}
 	
 	public function getObjectIconUrl() {

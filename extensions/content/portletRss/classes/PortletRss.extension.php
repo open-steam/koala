@@ -24,7 +24,7 @@ class PortletRss extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "...zum Abonnieren RSS-Feeds";
+		return "...zum Abonnieren RSS-Feeds.";
 	}
 	
 	public function getObjectIconUrl() {

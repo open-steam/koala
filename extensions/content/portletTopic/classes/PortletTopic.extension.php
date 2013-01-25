@@ -24,7 +24,7 @@ class PortletTopic extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "...zum Anlegen von strukturierten Aufzählungen";
+		return "...zum Anlegen von strukturierten Aufzählungen.";
 	}
 	
 	public function getObjectIconUrl() {
