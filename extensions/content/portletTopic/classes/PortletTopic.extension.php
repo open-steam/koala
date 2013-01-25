@@ -44,5 +44,10 @@ class PortletTopic extends AbstractExtension implements IObjectExtension{
 			return new \PortletTopic\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 31;
+	}
 }
 ?>

@@ -44,5 +44,10 @@ class PortletRss extends AbstractExtension implements IObjectExtension{
 			return new \PortletRss\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 31;
+	}
 }
 ?>

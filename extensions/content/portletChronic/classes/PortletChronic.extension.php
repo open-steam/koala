@@ -44,5 +44,10 @@ class PortletChronic extends AbstractExtension implements IObjectExtension{
 			return new \PortletChronic\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 42;
+	}
 }
 ?>

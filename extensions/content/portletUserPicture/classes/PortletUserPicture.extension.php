@@ -44,5 +44,10 @@ class PortletUserPicture extends AbstractExtension implements IObjectExtension{
 			return new \PortletUserPicture\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 43;
+	}
 }
 ?>

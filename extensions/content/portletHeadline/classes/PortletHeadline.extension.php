@@ -44,5 +44,10 @@ class PortletHeadline extends AbstractExtension implements IObjectExtension{
 			return new \PortletHeadline\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 31;
+	}
 }
 ?>

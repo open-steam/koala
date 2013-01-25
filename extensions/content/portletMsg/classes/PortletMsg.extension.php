@@ -49,5 +49,10 @@ class PortletMsg extends AbstractExtension implements IObjectExtension{
 			return new \PortletMsg\Commands\Properties();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 31;
+	}
 }
 ?>

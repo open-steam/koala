@@ -44,5 +44,10 @@ class PortletPoll extends AbstractExtension implements IObjectExtension{
 			return new \PortletPoll\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 31;
+	}
 }
 ?>

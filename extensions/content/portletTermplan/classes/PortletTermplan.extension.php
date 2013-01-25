@@ -44,5 +44,10 @@ class PortletTermplan extends AbstractExtension implements IObjectExtension{
 			return new \PortletTermplan\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 31;
+	}
 }
 ?>

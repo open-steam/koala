@@ -44,5 +44,10 @@ class PortletBookmarks extends AbstractExtension implements IObjectExtension{
 			return new \PortletBookmarks\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 41;
+	}
 }
 ?>

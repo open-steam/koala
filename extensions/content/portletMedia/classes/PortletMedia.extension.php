@@ -44,5 +44,10 @@ class PortletMedia extends AbstractExtension implements IObjectExtension{
 			return new \PortletMedia\Commands\Index();
 		}
 	}
+        
+                
+        public function getPriority() {
+		return 31;
+	}
 }
 ?>
