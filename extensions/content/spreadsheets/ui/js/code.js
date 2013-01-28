@@ -34,7 +34,7 @@ $(function() {
     $("#disconnectedDialog").dialog(dialog_options);
 
     //open the shareJS document and initiate the jQuery.sheet
-    connection = new sharejs.Connection('http://'+rtServer+'/channel', sessionCookieName);
+    connection = new sharejs.Connection('http://'+rtServer+'/channel', readCookie(sessionCookieName));
     connection.open(docID, 'json', function(error, doc) {
         sharejs_doc = doc;
 
