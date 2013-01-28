@@ -1,4 +1,0 @@
-<?php
-defined("SPREADSHEETS_RT_SERVER") or define("SPREADSHEETS_RT_SERVER", "127.0.0.1:8000");
-//defined("SPREADSHEETS_RT_SERVER") or define("SPREADSHEETS_RT_SERVER", "131.234.31.82:8000"); //vm04
-?>
