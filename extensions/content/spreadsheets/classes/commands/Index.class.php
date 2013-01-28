@@ -10,10 +10,18 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	private $params;
 	private $document;
 	private $write_access;
-	private $NodeServer = SPREADSHEETS_RT_SERVER;
+        private $NodeServer = SPREADSHEETS_RT_SERVER;
 	
+        
 	public function validateData(\IRequestObject $requestObject) {
-		return true;
+		if(defined("SPREADSHEETS_RT_SERVER")){
+                    echo("Error<br>");
+                    echo("default.def.php does not exist for spreadsheets extension<br>");
+                    echo("copy default.def.php.example to default.def.php in spreadsheets dir<br>");
+                    echo("and change server ip<br>");
+                    die("");
+                }
+                return true;
 	}
 	
 	public function processData(\IRequestObject $requestObject) {
