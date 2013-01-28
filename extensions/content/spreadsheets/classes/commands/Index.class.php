@@ -14,14 +14,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	
         
 	public function validateData(\IRequestObject $requestObject) {
-		if(defined("SPREADSHEETS_RT_SERVER")){
-                    echo("Error<br>");
-                    echo("default.def.php does not exist for spreadsheets extension<br>");
-                    echo("copy default.def.php.example to default.def.php in spreadsheets dir<br>");
-                    echo("and change server ip<br>");
-                    die("");
-                }
-                return true;
+		return true;
 	}
 	
 	public function processData(\IRequestObject $requestObject) {
@@ -47,7 +40,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		$doc_title = $this->document->get_name();
+                if(defined("SPREADSHEETS_RT_SERVER")){
+                    echo("Error<br>");
+                    echo("default.def.php does not exist for spreadsheets extension<br>");
+                    echo("copy default.def.php.example to default.def.php in spreadsheets dir<br>");
+                    echo("and change server ip<br>");
+                    die("");
+                }
+                
+                $doc_title = $this->document->get_name();
 		if (!$this->write_access) {
 			$doc_title .= " (schreibgeschützt)";
 		}
