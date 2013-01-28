@@ -94,16 +94,6 @@ var spreadsheetTexts = (function() {
                 }
             ]
         },
-        COUNTA: {
-            name: 'COUNTA',
-            params: [
-                {
-                    name: 'any',
-                    type: 'any',
-                    optional: false
-                }
-            ]
-        },
         SUM: {
             name: 'SUM',
             params: [
@@ -213,7 +203,7 @@ var spreadsheetTexts = (function() {
         TODAY: {
             name: 'TODAY',
             params: []
-        }
+        },
         DAYSFROM: {
             name: 'DAYSFROM',
             params: [
@@ -417,8 +407,8 @@ var spreadsheetTexts = (function() {
             name: 'CHECKBOX',
             params: [
                 {
-                    name: 'Values',
-                    type: 'Cell Range',
+                    name: 'Caption',
+                    type: 'Text',
                     optional: false
                 }
             ]
@@ -430,16 +420,6 @@ var spreadsheetTexts = (function() {
                     name: 'Values',
                     type: 'Cell Range',
                     optional: false
-                },
-                {
-                    name: 'Legend',
-                    type: 'Text',
-                    optional: true
-                },
-                {
-                    name: 'Title',
-                    type: 'Text',
-                    optional: true
                 }
             ]
         },
@@ -450,16 +430,6 @@ var spreadsheetTexts = (function() {
                     name: 'Values',
                     type: 'Cell Range',
                     optional: false
-                },
-                {
-                    name: 'Legend',
-                    type: 'Text',
-                    optional: true
-                },
-                {
-                    name: 'Title',
-                    type: 'Text',
-                    optional: true
                 }
             ]
         },
@@ -490,11 +460,6 @@ var spreadsheetTexts = (function() {
                     name: 'Legend',
                     type: 'Text',
                     optional: true
-                },
-                {
-                    name: 'Title',
-                    type: 'Text',
-                    optional: true
                 }
             ]
         },
@@ -510,26 +475,6 @@ var spreadsheetTexts = (function() {
                     name: 'ValuesY',
                     type: 'Cell Range',
                     optional: false
-                },
-                {
-                    name: 'Values',
-                    type: 'Cell Range',
-                    optional: true
-                },
-                {
-                    name: 'LegendX',
-                    type: 'Text',
-                    optional: true
-                },
-                {
-                    name: 'LegendY',
-                    type: 'Text',
-                    optional: true
-                },
-                {
-                    name: 'Title',
-                    type: 'Text',
-                    optional: true
                 }
             ]
         }

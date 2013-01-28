@@ -11,7 +11,7 @@
 }
 
 .widget .button {
-	display: none;
+	display: block;
 	cursor: pointer;
 	height: 20px;
 	width: 68px;
@@ -25,13 +25,13 @@
 	background-image: url("{PATH_URL}widgets/asset/save-hover.gif");
 }
 
-.widget .button.undo {
+/*.widget .button.undo {
 	background-image: url("{PATH_URL}widgets/asset/undo.gif");
 }
 
 .widget .button.undo:hover {
 	background-image: url("{PATH_URL}widgets/asset/undo-hover.gif");
-}
+} */
 
 .widget .icon {
 	display: none;
@@ -81,7 +81,7 @@
 
 /* button states */
 .widget.undo .button.undo{
-	display: block;
+	display: none;
 }
 
 .widget.dirty .button.undo{
@@ -97,11 +97,11 @@
 }
 
 .widget.saving .button.save {
-	display: none;
+	display: block;
 }
 
 .widget.autosave .button.save {
-	display: none;
+	display: block;
 }
 
 .widget.saving .icon.loader {

@@ -1,0 +1,200 @@
+<?php
+namespace PortletChronic\Commands;
+
+class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
+
+    private $contentHtml;
+    private $endHtml;
+    private $listViewer;
+
+    public function validateData(\IRequestObject $requestObject) {
+        return true;
+    }
+
+    public function processData(\IRequestObject $requestObject) {
+        $objectId = $requestObject->getId();
+        $portlet = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+        $params = $requestObject->getParams();
+        $elements = $portlet->get_attribute("PORTLET_CHRONIC_COUNT");
+        if (intval($elements) <= 0) {
+            $elements = 5;
+        }
+        $column = $portlet->get_environment();
+        $width = $column->get_attribute("bid:portal:column:width");
+        if (strpos($width, "px") === TRUE) {
+            $width = substr($width, 0, count($width)-3);
+        }
+        
+        //icon
+        $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
+
+        //reference handling
+        if (isset($params["referenced"]) && $params["referenced"] == true) {
+            $portletIsReference = true;
+            $referenceId = $params["referenceId"];
+        } else {
+            $portletIsReference = false;
+        }
+
+        $portletName = getCleanName($portlet);
+        $portletInstance = \PortletChronic::getInstance();
+        $portletPath = $portletInstance->getExtensionPath();
+
+        $tmpl = new \HTML_TEMPLATE_IT();
+        $tmpl->loadTemplateFile($portletPath . "/ui/html/index.template.html");
+        $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
+
+        //headline
+        $tmpl->setCurrentBlock("BLOCK_CHRONIC_HEADLINE");
+        $tmpl->setVariable("HEADLINE", $portletName);
+
+        //refernce icon
+        if ($portletIsReference) {
+            $envId = $portlet->get_environment()->get_environment()->get_id();
+            $envUrl = PATH_URL . "portal/index/" . $envId;
+            $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
+        }
+
+        if (!$portletIsReference) {
+            $popupmenu = new \Widgets\PopupMenu();
+            $popupmenu->setData($portlet);
+            $popupmenu->setNamespace("PortletChronic");
+            $popupmenu->setElementId("portal-overlay");
+            $popupmenu->setParams(array(array("key" => "portletObjectId", "value" => $portlet->get_id())));
+            $popupmenu->setCommand("GetPopupMenuHeadline");
+            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
+        } else {
+            $popupmenu = new \Widgets\PopupMenu();
+            $popupmenu->setData($portlet);
+            $popupmenu->setNamespace("Portal");
+            $popupmenu->setElementId("portal-overlay");
+            $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
+                array("key" => "linkObjectId", "value" => $referenceId)
+            ));
+            $popupmenu->setCommand("PortletGetPopupMenuReference");
+            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
+        }
+
+        if (trim($portletName) == "") {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
+        } else {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline");
+        }
+
+        $tmpl->parse("BLOCK_CHRONIC_HEADLINE");
+
+        $chronic = \Chronic::getInstance()->getChronic();
+        $display = array();
+        if (count($chronic) > $elements) {
+            $display = array_slice($chronic, 0, $elements);
+        } else {
+            $display = $chronic;
+        }
+        
+        $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->setHtml($tmpl->get());
+        $this->contentHtml = $rawHtml;
+        
+        $listViewer = new \Widgets\ListViewer();
+        $headlineProvider = new HeadlineProvider();
+        $headlineProvider->setWidth($width);
+        $listViewer->setHeadlineProvider($headlineProvider);
+        $contentProvider = new ContentProvider();
+        $contentProvider->setId($objectId);
+        $listViewer->setContentProvider($contentProvider);
+        $listViewer->setFilterHidden(FALSE);
+        $listViewer->setContent($display);
+        $this->listViewer = $listViewer;
+        
+        $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->setHtml("</div></div>");
+        $this->endHtml = $rawHtml;
+    }
+
+    public function idResponse(\IdResponseObject $idResponseObject) {
+        $idResponseObject->addWidget($this->contentHtml);
+        $idResponseObject->addWidget($this->listViewer);
+        $idResponseObject->addWidget($this->endHtml);
+        return $idResponseObject;
+    }
+    
+    public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        $idResponseObject->addWidget($this->contentHtml);
+        $idResponseObject->addWidget($this->listViewer);
+        $idResponseObject->addWidget($this->endHtml);
+	return $frameResponseObject;
+    }
+}
+
+class HeadlineProvider implements \Widgets\IHeadlineProvider {
+    
+    private $width;
+    
+    public function setWidth($width) {
+        if (($width - 40) < 0) {
+            $this->width = 40;
+        } else {
+            $this->width = $width;
+        }
+    }
+    
+    public function getHeadlines() {
+        return array("", "", "");
+    }
+
+    public function getHeadLineWidths() {
+        return array(22, $this->width-40, 0);
+    }
+
+    public function getHeadLineAligns() {
+        return array("left", "left", "right");
+    }
+
+}
+
+class ContentProvider implements \Widgets\IContentProvider {
+
+    private $rawImage = 0;
+    private $rawName = 1;
+    private $rawChangeDate = 2;
+    private $id;
+    
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function getId($contentItem) {
+        return $contentItem["id"] . $this->id;
+    }
+
+    public function getCellData($cell, $contentItem) {
+        if (!is_int($cell)) {
+            throw new \Exception("cell must be an integer!!");
+        }
+
+        if ($cell == $this->rawImage) {
+            return $contentItem["image"];
+        } else if ($cell == $this->rawName) {
+            $url = $contentItem["link"];
+            $name = $contentItem["name"];
+
+            if (isset($url) && $url != "") {
+                return "<a href=\"" . $url . "\" title=\"$name\"> " . $name . "</a>";
+            } else {
+                return $name;
+            }
+        } else if ($cell == $this->rawChangeDate) {
+            return "";
+        }
+    }
+
+    public function getNoContentText() {
+        return "Ihr Verlauf ist leer.";
+    }
+
+    public function getOnClickHandler($contentItem) {
+        return "";
+    }
+
+}
+?>

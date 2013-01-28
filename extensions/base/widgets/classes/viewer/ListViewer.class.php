@@ -8,7 +8,17 @@ class ListViewer extends Widget {
 	private $colorProvider;
 	private $contentFilter;
 	private $content;
-        private $userObject = NULL;
+        private $userObject = NULL;        
+        private $length = -1;
+        private $filterHidden = TRUE;
+        
+        public function setFilterHidden($boolean) {
+            $this->filterHidden = $boolean;
+        }
+        
+        public function setLength($l){
+            $this->length = $l; 
+        }
 	
 	public function setHeadlineProvider(IHeadlineProvider $headlineProvider) {
 		$this->headlineProvider = $headlineProvider;
@@ -71,6 +81,9 @@ class ListViewer extends Widget {
 				$this->getContent()->setVariable("LISTVIEWER_ITEM_ID", $contentItemId);
 				$this->getContent()->setVariable("LISTVIEWER_ITEM_ONCLICK", $this->contentProvider->getOnClickHandler($contentItem));
 				($this->colorProvider) ? $this->getContent()->setVariable("LISTVIEWER_ITEM_COLOR_LABEL", $this->colorProvider->getColor($contentItem)) : "";
+                                if ($this->filterHidden && $contentItem->get_attribute("bid:hidden") === "1") {
+                                    $this->getContent()->setVariable("LISTVIEWER_ITEM_HIDDEN", "hiddenObject");
+                                }
 				for ($i = 0; $i < count($this->headlineProvider->getHeadlines()); $i++) {
 					$this->getContent()->setCurrentBlock("LISTVIEWER_ITEM_CELL");
 					$this->getContent()->setVariable("LISTVIEWER_ITEM_CELL_ID", $contentItemId . "_" . $i);
@@ -95,6 +108,7 @@ class ListViewer extends Widget {
 	
         
         private function isHiddenItem($steamObject,$itemCount=0) {
+            if (!$this->filterHidden) return false;
             
             //cache user object
             if ($this->userObject === NULL){

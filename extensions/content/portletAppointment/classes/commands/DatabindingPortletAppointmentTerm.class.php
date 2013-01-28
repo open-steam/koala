@@ -68,6 +68,13 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		$content = $object->get_attribute("bid:portlet:content");
 		
+                usort($content, "sortPortletAppointments");
+                $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
+           
+                if ($sortOrder === "latest_first"){
+                    $content = array_reverse($content);
+                }
+                
 		//read
 		$term = $content[$termIndex];
 		
@@ -142,6 +149,14 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 		$objectId = $object->get_id();
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		$portletContent = $object->get_attribute("bid:portlet:content");
+                
+                usort($portletContent, "sortPortletAppointments");
+                $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
+           
+                if ($sortOrder === "latest_first"){
+                    $portletContent = array_reverse($portletContent);
+                }
+                
 		$term = $portletContent[$this->termIndex];
 		
 		//fields

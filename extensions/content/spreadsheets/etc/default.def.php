@@ -1,3 +1,0 @@
-<?php
-defined("SPREADSHEETS_RT_SERVER") or define("SPREADSHEETS_RT_SERVER", "131.234.31.82:8000");
-?>

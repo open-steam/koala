@@ -4,7 +4,7 @@ class Object extends \AbstractCommand implements \IFrameCommand {
 
 	private $params;
 	private $function;
-	private $functionList = array("getAttributes", "duplicate", "setAttributes", "getAttribute", "setAttribute", "move", "delete", "getObjectById", "getObjectByPath");
+	private $functionList = array("getAttributes", "duplicate", "setAttributes", "getAttribute", "setAttribute", "move", "delete", "getObjectById", "getObjectByPath", "checkRight");
 
 	public function httpAuth(\IRequestObject $requestObject) {
 		return true;
@@ -70,7 +70,7 @@ class Object extends \AbstractCommand implements \IFrameCommand {
 		HTTPStatus(400);
 	}
 
-	public function setAttributes($id, $attributesXXX) {
+	public function setAttributes($id, $attributes) {
 		 
 		//generate attributes from params (avoid uncomplete attributes string if string contains forward slashes)
 		$attributes = $this->params;
@@ -162,5 +162,24 @@ class Object extends \AbstractCommand implements \IFrameCommand {
 		}
 		HTTPStatus(400);
 	}
+
+	public function checkRight($id, $type) {
+		$steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+		if ($steamObject instanceof \steam_object) {
+			$type = strtolower($type);
+			if ($type == "read") {
+				return $steamObject->check_access_read();	
+			} elseif ($type == "write") {
+				return $steamObject->check_access_write();   
+			} elseif ($type == "insert") {
+				return $steamObject->check_access_insert();   
+			} else {
+				HTTPStatus(404);
+				return;
+			}
+		}
+		HTTPStatus(400);
+	}
+
 }
 ?>

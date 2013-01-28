@@ -24,7 +24,7 @@ class PortletHeadline extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Überschrift";
+		return "... zur Erstellung von Überschriften mit verschiedenen Textgrößen.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -43,6 +43,11 @@ class PortletHeadline extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletHeadline\Commands\Index();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 58;
 	}
 }
 ?>

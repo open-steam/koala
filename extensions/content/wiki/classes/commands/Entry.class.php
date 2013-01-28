@@ -49,10 +49,15 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 		// end check for .wiki
 		} else {
 			$wiki_doc = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		}
+                }
+                
+                //chronic
+                $entryName = $wiki_doc->get_name();
+                $chronicPath = "/wiki/entry/" . $wiki_doc->get_id() . "/";
+                $chronicTitle = "Wiki-Eintrag (" . substr($entryName, 0, strpos($entryName, ".wiki")) . ")";
+                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentPath($chronicPath,$chronicTitle);
 		
-		$wiki_container = $wiki_doc->get_environment();
-		
+                $wiki_container = $wiki_doc->get_environment();
 		if($wiki_container->get_attribute("UNIT_TYPE")){
 		    $place = "units";
 		}

@@ -1,30 +1,32 @@
 <?php
+
 namespace Rapidfeedback\Commands;
+
 class NewRapidfeedbackForm extends \AbstractCommand implements \IAjaxCommand {
-	
-	private $params;
-	private $id;
-	
-	public function validateData(\IRequestObject $requestObject) {
-		return true;
-	}
-	
-	public function processData(\IRequestObject $requestObject) {
-		if ($requestObject instanceof \UrlRequestObject) {
-			$this->params = $requestObject->getParams();
-			isset($this->params[0]) ? $this->id = $this->params[0]: "";
-		} else if ($requestObject instanceof \AjaxRequestObject) {
-			$this->params = $requestObject->getParams();
-			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
-		}
-	}
-	
-	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		$ajaxResponseObject->setStatus("ok");
-		$ajaxForm = new \Widgets\AjaxForm();
-		$ajaxForm->setSubmitCommand("Create");
-		$ajaxForm->setSubmitNamespace("Rapidfeedback");
-		$ajaxForm->setHtml(<<<END
+
+    private $params;
+    private $id;
+
+    public function validateData(\IRequestObject $requestObject) {
+        return true;
+    }
+
+    public function processData(\IRequestObject $requestObject) {
+        if ($requestObject instanceof \UrlRequestObject) {
+            $this->params = $requestObject->getParams();
+            isset($this->params[0]) ? $this->id = $this->params[0] : "";
+        } else if ($requestObject instanceof \AjaxRequestObject) {
+            $this->params = $requestObject->getParams();
+            isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
+        }
+    }
+
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        $ajaxResponseObject->setStatus("ok");
+        $ajaxForm = new \Widgets\AjaxForm();
+        $ajaxForm->setSubmitCommand("Create");
+        $ajaxForm->setSubmitNamespace("Rapidfeedback");
+        $ajaxForm->setHtml(<<<END
 <style type="text/css">
 .attribute {
   clear: left;
@@ -67,10 +69,14 @@ class NewRapidfeedbackForm extends \AbstractCommand implements \IAjaxCommand {
 </div>
 <input type="hidden" name="id" value="{$this->id}">
 END
-);
-                $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
-		$ajaxResponseObject->addWidget($ajaxForm);
-		return $ajaxResponseObject;
-	}
+        );
+        $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
+        $ajaxResponseObject->addWidget($ajaxForm);
+        $pollingDummy = new \Widgets\PollingDummy();
+        $ajaxResponseObject->addWidget($pollingDummy);
+        return $ajaxResponseObject;
+    }
+
 }
+
 ?>

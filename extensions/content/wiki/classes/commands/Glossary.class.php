@@ -22,12 +22,15 @@ class Glossary extends \AbstractCommand implements \IFrameCommand {
 		// TODO: Work on cache handling. An enabled cache leads to bugs
 		// if used with the wiki.
 		\CacheSettings::disable_caching();
-		
+                
 		$WikiExtension = \Wiki::getInstance();
 		$wiki_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$wiki_html_handler = new \koala_wiki($wiki_container);
 		$wiki_html_handler->set_admin_menu("index", $wiki_container);
 		
+                // chronic
+                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($wiki_container);
+                
 		$content = $WikiExtension->loadTemplate("wiki_entries.template.html");
 		
 		if($wiki_container->get_attribute("UNIT_TYPE")){

@@ -1,12 +1,14 @@
-.jQuerySheet {
-	/*float: left;*/
-	width: 80%;
-	max-width: 810px;
+#mainWrapper {
+	display: inline-block;
+	width: 100%;
 }
 
-/*.jSheetControls_formula {
-	padding-left: 20px;
-}*/
+.jQuerySheet {
+	float: left;
+	max-width: 808px;
+	height: auto ! important;
+	width: inherit ! important;
+}
 
 #formula_button {
 	height: 16px;
@@ -18,11 +20,17 @@
 }
 
 #userDialog {
-	position:absolute; 
-	top:20px; 
-	right:-140px;
+	/*position:absolute; 
+	top:-1px;
+	right:-140px;*/
 	width:140px;
-	display: none;
+	display: inline-block;
+	visibility: hidden;
+	/*float: right;*/
+}
+
+#userDialog div.ui-widget-header {
+	min-height: 44px;
 }
 
 #userDialog p {
@@ -32,6 +40,7 @@
 
 #userList {
 	font-size: 10pt;
+	padding-left: 28px;
 }
 
 .ui-autocomplete {

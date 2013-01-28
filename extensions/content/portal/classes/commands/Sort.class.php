@@ -62,7 +62,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
         $html .= "</div>";
         $html .= '<div id="hiddenBox" class="" style="display:none"></div>';
         $info = '<div class="info">Die korrekte Darstellung des Portals kann nur gewährleistet werden, wenn die Breite aller Spalten 
-            addiert maximal 900 beträgt. Zudem können die unten aufgelisteten Komponenten eines Protals per Drag and Drop sortiert werden.</div>';
+            addiert maximal 900 beträgt. Zudem können die unten aufgelisteten Komponenten eines Portals per Drag and Drop sortiert werden.</div>';
         $info.='<div class="currentValue">Die aktuelle Summe aller Spaltenbreiten beträgt: ';
         foreach($widthArray as $id => $value){
             $ele = $numberOfColumns-1 > $id ? " + " : " ";

@@ -24,7 +24,7 @@ class PortletTopic extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Kategorien";
+		return "...zum Anlegen von strukturierten Aufzählungen.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -43,6 +43,11 @@ class PortletTopic extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletTopic\Commands\Index();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 57;
 	}
 }
 ?>

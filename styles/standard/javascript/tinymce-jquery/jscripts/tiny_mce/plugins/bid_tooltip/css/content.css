@@ -1,0 +1,35 @@
+acronym {
+	border: none !important;
+	cursor: default !important;
+}
+
+acronym.bid_tooltip_color_yellow {
+	background-color: #FFF8B8 !important;
+}
+acronym.bid_tooltip_color_green {
+	background-color: #B8FFBA !important;
+}
+acronym.bid_tooltip_color_red {
+	background-color: #FFB8B8 !important;
+}
+acronym.bid_tooltip_color_blue {
+	background-color: #B8D4FF !important;
+}
+acronym.bid_tooltip_color_orange {
+	background-color: #FFDCB8 !important;
+}
+acronym.bid_tooltip_color_pink {
+	background-color: #FFB8F9 !important;
+}
+
+
+#bid_tooltip {
+	position: absolute;
+	z-index: 200000;
+	background-color: #F1F1F1;
+	border: 1px solid #B4B4B4;
+	padding: 5px;
+	-moz-box-shadow: 0px 0px 2px #C5C5C5;
+	-webkit-box-shadow: 0px 0px 2px #C5C5C5;
+	box-shadow: 0px 0px 2px #C5C5C5;
+}

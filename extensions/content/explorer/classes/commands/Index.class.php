@@ -51,8 +51,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         if ($object && $object instanceof \steam_container) {
             $count = $object->count_inventory();
-            if ($count > 150) {
-                die("Es befinden sich $count Objekte im diesem Ordner. Das Laden ist nicht möglich.");
+            if ($count > 500) {
+                die("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
             $objects = $object->get_inventory();
         } else {
@@ -210,7 +210,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     //$preHtml = strip_tags($rawContent,"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
                     //$preHtml = $rawContent;
                     $htmlDocument = new \HtmlDocument();
-                    $preHtml = $htmlDocument->makeViewModifications($rawContent);
+       
+                    $preHtml = $htmlDocument->makeViewModifications($rawContent,$object, true);
                     $preHtml = cleanHTML($preHtml);
                 } else if (strstr($mimetype, "text")) {
                     $bidDokument = new \BidDocument($first);
@@ -283,7 +284,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                     newIds = ""; 
             });
-            $(".actionBar").prepend("<div style=\"margin-top:30px;position:absolute;height:190px;width:30px;float:left;background-image:url('.$assetUrl.');\"></div>"); 
+            $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url('.$assetUrl.');\"></div>"); 
                                     
     }';
         $rawHtml->setJs($script);

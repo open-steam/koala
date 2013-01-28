@@ -16,6 +16,9 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params[0]);
+                if (!($survey instanceof \steam_object)) {
+                    \ExtensionMaster::getInstance()->send404Error();
+                }
 		$rapidfeedback = $survey->get_environment();
 		$result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 		$survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);

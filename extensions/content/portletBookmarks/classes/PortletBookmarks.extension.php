@@ -20,11 +20,11 @@ class PortletBookmarks extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Übersicht der Lesezeichen";
+		return "Eigene Lesezeichen";
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Übersicht der Lesezeichen";
+		return "Übersicht der Lesezeichen für den persönlichen Schreibtisch.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -43,6 +43,11 @@ class PortletBookmarks extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletBookmarks\Commands\Index();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 41;
 	}
 }
 ?>

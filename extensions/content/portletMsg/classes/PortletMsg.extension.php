@@ -24,7 +24,7 @@ class PortletMsg extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Meldungen";
+		return "... für das Verfassen von Meldungen.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -48,6 +48,11 @@ class PortletMsg extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "properties") {
 			return new \PortletMsg\Commands\Properties();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 59;
 	}
 }
 ?>

@@ -42,7 +42,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
                 title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() .
                 "icons/portal_sort_white.png\">");
             $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" 
-                src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">", 
+                src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">",
                 "onclick" => "openFileTree()");
         } else if (strpos($path, "/explorer/index/") !== false) {
             $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\"  
@@ -50,9 +50,20 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
                 title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() .
                 "icons/portal_sort_white.png\">");
             $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" 
-                src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">", 
+                src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">",
                 "onclick" => "openFileTree()");
+        } else if ($path == "/bookmarks/") {
+            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\"  
+                onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" 
+                title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() .
+                "icons/portal_sort_white.png\">");
+        } else if (strpos($path, "/bookmarks/index/") !== false) {
+            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\"  
+                onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" 
+                title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() .
+                "icons/portal_sort_white.png\">");
         }
+
         if ($showClipboard) {
             $array[] = array("name" => "<div id=\"clipboardIconbarWrapper\">" . $clipboardModel->getIconbarHtml() . "</div>",
                 "menu" => array(

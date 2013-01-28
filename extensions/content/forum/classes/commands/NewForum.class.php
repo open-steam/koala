@@ -69,6 +69,12 @@ END
 		$ajaxResponseObject->setStatus("ok");
 		
 		$ajaxResponseObject->addWidget($ajaxForm);
+                
+                $pollingDummy = new \Widgets\PollingDummy();
+                
+                $ajaxResponseObject->addWidget($pollingDummy);
+                
+                
 		
 		//$idRequestObject = new \IdRequestObject();
 		//$idRequestObject->setId($this->id);

@@ -1,44 +1,46 @@
 <?php
+
 namespace Forum\Commands;
 
 class NewReply extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
-	private $id;
-	private $params;
+    private $id;
+    private $params;
 
-	public function validateData(\IRequestObject $requestObject) {
-		return true;
-	}
+    public function validateData(\IRequestObject $requestObject) {
+        return true;
+    }
 
-	public function processData(\IRequestObject $requestObject) {
-		if ($requestObject instanceof \UrlRequestObject) {
-			$this->params = $requestObject->getParams();
-			isset($this->params[0]) ? $this->id = $this->params[0]: "";
-		} else if ($requestObject instanceof \AjaxRequestObject) {
-			$this->params = $requestObject->getParams();
-			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
-		}
-	}
-	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		$objectId=$this->id;
-		$steam= $GLOBALS["STEAM"];
-		$steamId=$steam->get_id();            
-		/** log-in user */
-		$steamUser =  \lms_steam::get_current_user();
-		/** id of the log-in user */
-		$steamUserId = $steamUser instanceof \steam_user ? $steamUser->get_id() : 0;
-		/** the current category object */
-		$object = \steam_factory::get_object($steamId, $objectId);
-		$dialog = new \Widgets\Dialog();
-		$dialog->setTitle("Füge Antwort hinzu »" . getCleanName($object) . "«");
-		$dialog->setCloseButtonLabel(null);
+    public function processData(\IRequestObject $requestObject) {
+        if ($requestObject instanceof \UrlRequestObject) {
+            $this->params = $requestObject->getParams();
+            isset($this->params[0]) ? $this->id = $this->params[0] : "";
+        } else if ($requestObject instanceof \AjaxRequestObject) {
+            $this->params = $requestObject->getParams();
+            isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
+        }
+    }
 
-		$ajaxForm = new \Widgets\AjaxForm();
-		$ajaxForm->setSubmitCommand("ReplyTopic");
-		$ajaxForm->setSubmitNamespace("Forum");
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        $objectId = $this->id;
+        $steam = $GLOBALS["STEAM"];
+        $steamId = $steam->get_id();
+        /** log-in user */
+        $steamUser = \lms_steam::get_current_user();
+        /** id of the log-in user */
+        $steamUserId = $steamUser instanceof \steam_user ? $steamUser->get_id() : 0;
+        /** the current category object */
+        $object = \steam_factory::get_object($steamId, $objectId);
+        $dialog = new \Widgets\Dialog();
+        $dialog->setTitle("Füge Antwort hinzu »" . getCleanName($object) . "«");
+        $dialog->setCloseButtonLabel(null);
+
+        $ajaxForm = new \Widgets\AjaxForm();
+        $ajaxForm->setSubmitCommand("ReplyTopic");
+        $ajaxForm->setSubmitNamespace("Forum");
 
 
-		$ajaxForm->setHtml(<<<END
+        $ajaxForm->setHtml(<<<END
 	<input type="hidden" name="id" value="{$this->id}">
 	<input type="hidden" name="forum" value="{$this->params["forum"]}">
 	<div class="widgets_lable">Überschrift:</div>
@@ -82,16 +84,23 @@ class NewReply extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand
 
 	</script>
 END
-		);
+        );
 
-		$dialog->addWidget($ajaxForm);
 
-		$ajaxResponseObject->setStatus("ok");
-		$ajaxResponseObject->addWidget($dialog);
-		return $ajaxResponseObject;
-	}
+        $dialog->addWidget($ajaxForm);
 
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-	}
+        $ajaxResponseObject->setStatus("ok");
+        $ajaxResponseObject->addWidget($dialog);
+        $pollingDummy = new \Widgets\PollingDummy();
+               
+        $ajaxResponseObject->addWidget($pollingDummy);
+        return $ajaxResponseObject;
+    }
+
+    public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        
+    }
+
 }
+
 ?>

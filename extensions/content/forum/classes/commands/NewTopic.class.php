@@ -1,33 +1,35 @@
 <?php
+
 namespace Forum\Commands;
 
 class NewTopic extends \AbstractCommand implements \IAjaxCommand {
-	
-	private $id;
-	private $params;
-	
-	public function validateData(\IRequestObject $requestObject) {
-		$this->params = $requestObject->getParams();
-		 if (isset($this->params["id"])) {
-		 	$this->id = $this->params["id"];
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public function processData(\IRequestObject $requestObject) {
-	}
-	
-	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {	
-		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		$dialog = new \Widgets\Dialog();
-		$dialog->setTitle("Erstelle neues Thema in »" . getCleanName($object) . "«");
-		$ajaxForm = new \Widgets\AjaxForm();
-		$ajaxForm->setSubmitCommand("CreateTopic");
-		$ajaxForm->setSubmitNamespace("Forum");
-		
-		$ajaxForm->setHtml(<<<END
+
+    private $id;
+    private $params;
+
+    public function validateData(\IRequestObject $requestObject) {
+        $this->params = $requestObject->getParams();
+        if (isset($this->params["id"])) {
+            $this->id = $this->params["id"];
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function processData(\IRequestObject $requestObject) {
+        
+    }
+
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $dialog = new \Widgets\Dialog();
+        $dialog->setTitle("Erstelle neues Thema in »" . getCleanName($object) . "«");
+        $ajaxForm = new \Widgets\AjaxForm();
+        $ajaxForm->setSubmitCommand("CreateTopic");
+        $ajaxForm->setSubmitNamespace("Forum");
+
+        $ajaxForm->setHtml(<<<END
 	<input type="hidden" name="id" value="{$this->id}">
 	<div class="widgets_lable">Überschrift:</div>
 	<div class="widgets_textinput"><input type="text" value="" name="title"></div><br clear="all">
@@ -70,17 +72,21 @@ class NewTopic extends \AbstractCommand implements \IAjaxCommand {
 
 	</script>
 END
-);
-		$dialog->addWidget($ajaxForm);
-		$dialog->setCloseButtonLabel(null);
-		$ajaxResponseObject->setStatus("ok");
-		$ajaxResponseObject->addWidget($dialog);
-		return $ajaxResponseObject;
-	}
-	
-	
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {		
-	
-	}
+        );
+        $dialog->addWidget($ajaxForm);
+        $dialog->setCloseButtonLabel(null);
+        $ajaxResponseObject->setStatus("ok");
+        $ajaxResponseObject->addWidget($dialog);
+        $pollingDummy = new \Widgets\PollingDummy();
+
+        $ajaxResponseObject->addWidget($pollingDummy);
+        return $ajaxResponseObject;
+    }
+
+    public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        
+    }
+
 }
+
 ?>

@@ -11,7 +11,7 @@ class Textarea extends Widget {
 	private $height = "200px";
 	private $textareaClass = "plain"; // plain or code html or mce-small or mce-full
 	private $autosave = false;
-        private $linebreaks = "<br><br>";
+         private $linebreaks = "<br><br>";
 	
 	public function setLabel($label) {
 		$this->label = $label;
@@ -95,8 +95,10 @@ class Textarea extends Widget {
 			$('#{$this->id}').find('.button.undo').bind('click', function() { $('#{$this->id}').textarea('undo'); });
 
 END
-				);	
-		return $this->getContent()->get();
+				);
+                $pollingDummy = new PollingDummy();
+                
+		return $this->getContent()->get().$pollingDummy->getHtml();
 	}
 }
 ?>
