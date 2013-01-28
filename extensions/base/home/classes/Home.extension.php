@@ -24,7 +24,7 @@ class Home extends AbstractExtension {
 	}
         
         public function getPriority() {
-		return 71;
+		return 70;
 	}
 }
 ?>

@@ -24,7 +24,7 @@ class HomePortal extends AbstractExtension {
 	}
         
         public function getPriority() {
-		return 70;
+		return 71;
 	}
         
 }
