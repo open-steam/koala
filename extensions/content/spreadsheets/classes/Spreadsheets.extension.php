@@ -42,10 +42,5 @@ class Spreadsheets extends AbstractExtension implements IObjectExtension {
 		}
 		return false;
 	}
-        
-        public function getPriority() {
-		return 20;
-	}
-        
 }
 ?>

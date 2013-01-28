@@ -11,6 +11,7 @@
 {
 	width: 99%;
     height: 17px;
+    resize: vertical;
 }
 
 .jSheetControls_formulaParent 
@@ -156,7 +157,7 @@
 	border: none ! important;
 	margin: none ! important;
 	padding: none ! important;
-	position: absolute ! important;
+	/*position: absolute ! important;*/
 }
 
 /* Sheet styling */
@@ -296,7 +297,7 @@
 {
 	position: relative ! important;
 	border-width: 0px ! important;
-	min-height: 100000px;
+	/*min-height: 100000px;*/
 }
 .jSheetBarLeft span
 {
@@ -308,6 +309,7 @@
 .jSheetBarLeftTd
 {
 	border: none ! important;
+	vertical-align: top;
 }
 
 .jSheetBarLeft > div

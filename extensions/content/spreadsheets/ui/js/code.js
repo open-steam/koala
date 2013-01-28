@@ -34,7 +34,7 @@ $(function() {
     $("#disconnectedDialog").dialog(dialog_options);
 
     //open the shareJS document and initiate the jQuery.sheet
-    connection = new sharejs.Connection('http://'+rtServer+'/channel', readCookie(sessionCookieName));
+    connection = new sharejs.Connection('http://'+rtServer+'/channel', sessionCookieName);
     connection.open(docID, 'json', function(error, doc) {
         sharejs_doc = doc;
 
@@ -87,8 +87,7 @@ $(function() {
         $('#toolbar_export').text(spreadsheetTexts.toolbar['export']);
 
         //attach the user list and show it
-        $('.jQuerySheet').append($("#userDialog"));
-        $("#userDialog").show();
+        $("#userDialog").css("visibility", "visible");
 
         //insert the formula button
         $('<td></td>').append($('#formula_button'))

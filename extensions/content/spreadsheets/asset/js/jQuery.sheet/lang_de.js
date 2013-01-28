@@ -93,16 +93,6 @@ var spreadsheetTexts = (function() {
                 }
             ]
         },
-        COUNTA: {
-            name: 'ANZAHL2',
-            params: [
-                {
-                    name: 'beliebig',
-                    type: 'beliebig',
-                    optional: false
-                }
-            ]
-        },
         SUM: {
             name: 'SUMME',
             params: [
@@ -154,7 +144,7 @@ var spreadsheetTexts = (function() {
             ]
         },
         CEILING: {
-            name: 'OBERGRENZE',
+            name: 'AUFRUNDEN',
             params: [
                 {
                     name: 'Zahl',
@@ -164,7 +154,7 @@ var spreadsheetTexts = (function() {
             ]
         },
         FLOOR: {
-            name: 'UNTERGRENZE',
+            name: 'ABRUNDEN',
             params: [
                 {
                     name: 'Zahl',
@@ -249,7 +239,7 @@ var spreadsheetTexts = (function() {
             ]
         },
         DATEVALUE: {
-            name: 'DATWERT',
+            name: 'DATUMSWERT',
             params: [
                 {
                     name: 'Datum',
@@ -319,7 +309,7 @@ var spreadsheetTexts = (function() {
             ]
         },
         DOLLAR: {
-            name: 'DM',
+            name: 'WÄHRUNG',
             params: [
                 {
                     name: 'Wert',
@@ -416,8 +406,8 @@ var spreadsheetTexts = (function() {
             name: 'CHECKBOX',
             params: [
                 {
-                    name: 'Werte',
-                    type: 'Zellenbereich',
+                    name: 'Beschriftung',
+                    type: 'Text',
                     optional: false
                 }
             ]
@@ -429,16 +419,6 @@ var spreadsheetTexts = (function() {
                     name: 'Werte',
                     type: 'Zellenbereich',
                     optional: false
-                },
-                {
-                    name: 'Legende',
-                    type: 'Text',
-                    optional: true
-                },
-                {
-                    name: 'Titel',
-                    type: 'Text',
-                    optional: true
                 }
             ]
         },
@@ -449,16 +429,6 @@ var spreadsheetTexts = (function() {
                     name: 'Werte',
                     type: 'Zellenbereich',
                     optional: false
-                },
-                {
-                    name: 'Legende',
-                    type: 'Text',
-                    optional: true
-                },
-                {
-                    name: 'Titel',
-                    type: 'Text',
-                    optional: true
                 }
             ]
         },
@@ -489,11 +459,6 @@ var spreadsheetTexts = (function() {
                     name: 'Legende',
                     type: 'Text',
                     optional: true
-                },
-                {
-                    name: 'Titel',
-                    type: 'Text',
-                    optional: true
                 }
             ]
         },
@@ -509,34 +474,10 @@ var spreadsheetTexts = (function() {
                     name: 'WerteY',
                     type: 'Zellenbereich',
                     optional: false
-                },
-                {
-                    name: 'Werte',
-                    type: 'Zellenbereich',
-                    optional: true
-                },
-                {
-                    name: 'LegendeX',
-                    type: 'Text',
-                    optional: true
-                },
-                {
-                    name: 'LegendeY',
-                    type: 'Text',
-                    optional: true
-                },
-                {
-                    name: 'Titel',
-                    type: 'Text',
-                    optional: true
                 }
             ]
         }        
     };
-
-    //Synonyms for functions
-    exports.functions.AVG = exports.functions.AVERAGE;
-    exports.functions.RND = exports.functions.RAND;
 
     return exports;
 }());

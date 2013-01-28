@@ -39,7 +39,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		$doc_title = "Tabelle " . $this->document->get_name();
+		$doc_title = $this->document->get_name();
 		if (!$this->write_access) {
 			$doc_title .= " (schreibgeschützt)";
 		}
@@ -137,8 +137,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		}
                 
                 $content->setVariable("SESSION_COOKIE_NAME", SESSION_NAME);
-		
-                
+
 		$content->parse("BLOCK_SHEET_NAME_SCRIPT");
 
 		//insert URLs for toolbar buttons
