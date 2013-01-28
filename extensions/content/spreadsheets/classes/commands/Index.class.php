@@ -40,7 +40,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-                if(defined("SPREADSHEETS_RT_SERVER")){
+                if(!defined("SPREADSHEETS_RT_SERVER")){
                     echo("Error<br>");
                     echo("default.def.php does not exist for spreadsheets extension<br>");
                     echo("copy default.def.php.example to default.def.php in spreadsheets dir<br>");
