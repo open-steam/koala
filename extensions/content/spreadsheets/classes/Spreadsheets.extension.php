@@ -35,15 +35,6 @@ class Spreadsheets extends AbstractExtension implements IObjectExtension {
 	}
 	
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
-                if(!defined("SPREADSHEETS_RT_SERVER")){
-                    echo("Error<br>");
-                    echo("default.def.php does not exist for spreadsheets extension<br>");
-                    echo("copy default.def.php.example to default.def.php in spreadsheets dir<br>");
-                    echo("and change server ip<br>");
-                    die("");
-                }
-                
-            
                 $galleryObject = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $idRequestObject->getId() );
 		$galleryType = $galleryObject->get_attribute("OBJ_TYPE");
 		if ($galleryType==="document_spreadsheet") {
