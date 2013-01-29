@@ -126,7 +126,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             $name = getCleanName($contentItemObject, 50);
 
             //check existence of link target
-            $sourceObject = $contentItem->get_link_object();
+            $sourceObject = $contentItemObject;
             if (!(($sourceObject != null) && ($sourceObject instanceof \steam_object))) {
                 return "<div style=\"color:red\">$name (Lesezeichenziel gelöscht)</div>";
             }
