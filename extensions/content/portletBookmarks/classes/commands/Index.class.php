@@ -108,9 +108,22 @@ class ContentProvider implements \Widgets\IContentProvider {
         if (!is_int($cell)) {
             throw new \Exception("cell must be an integer!!");
         }
-
+        
+        //case there is an not bookmark in bookmarks
+        if( $contentItem instanceof \steam_link){
+            $so = $contentItem->get_source_object();
+            $soid = $so->get_id();
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($soid, "view");
+        }else if ($contentItem instanceof \steam_link){
+            $soid = $contentItem;
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($soid, "view");
+        } else {
+            $url = "";
+        }
+        
+        
         if ($cell == $this->rawImage) {
-            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem->get_source_object()) . "\"></img>";
+            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($so) . "\"></img>";
         } else if ($cell == $this->rawName) {
             
             if( $contentItem instanceof \steam_link){
