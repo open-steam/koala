@@ -112,7 +112,19 @@ class ContentProvider implements \Widgets\IContentProvider {
         if ($cell == $this->rawImage) {
             return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem->get_source_object()) . "\"></img>";
         } else if ($cell == $this->rawName) {
-            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_source_object()->get_id(), "view");
+            
+            if( $contentItem instanceof \steam_link){
+                $so = $contentItem->get_source_object();
+                $soid = $so->get_id();
+                $url = \ExtensionMaster::getInstance()->getUrlForObjectId($soid, "view");
+            }else if ($contentItem instanceof \steam_link){
+                $soid = $contentItem;
+                $url = \ExtensionMaster::getInstance()->getUrlForObjectId($soid, "view");
+            } else {
+                $url = "";
+            }
+            
+            
             $desc = $contentItem->get_source_object()->get_attribute("OBJ_DESC");
             $name = getCleanName($contentItem, 50);
 
