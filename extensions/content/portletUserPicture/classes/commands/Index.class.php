@@ -16,7 +16,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
         $column = $portlet->get_environment();
         $width = $column->get_attribute("bid:portal:column:width");
-        if (strpos($width, "px") === TRUE) {
+        if (strpos($width, "px") == TRUE) {
             $width = substr($width, 0, count($width)-3);
         }
         
@@ -79,7 +79,9 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $currentUser = \lms_steam::get_current_user();
         $tmpl->setVariable("DESCRIPTION", "Zum Profil");
 	$tmpl->setVariable("URL", PATH_URL . "user/index/" . $user->get_name() . "/");
-	$tmpl->setVariable("PICTURE_URL", \lms_user::get_user_image_url($width-20, round(($width-20)*(185/140))));
+        $pic_id = $user->get_attribute("OBJ_ICON")->get_id();
+        $pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/" . ($width-20) . "/" . round(($width-20)*(185/140));
+        $tmpl->setVariable("PICTURE_URL", $pic_link);
         $tmpl->setVariable("DOCUMENTS_LABEL", "Meine Dokumente");
         $tmpl->setVariable("DOCUMENTS_URL", PATH_URL . "explorer/");
         if ($user->get_id() !== $currentUser->get_id()) {
