@@ -108,16 +108,25 @@ class ContentProvider implements \Widgets\IContentProvider {
         if (!is_int($cell)) {
             throw new \Exception("cell must be an integer!!");
         }
-
+        
+        
+        //case there is an not bookmark in bookmarks
+        if( $contentItem instanceof \steam_link){
+            $contentItemObject = $contentItem->get_source_object();
+        }else{
+            $contentItemObject = $contentItem;
+        }
+        
+        
         if ($cell == $this->rawImage) {
-            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem->get_source_object()) . "\"></img>";
+            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItemObject) . "\"></img>";
         } else if ($cell == $this->rawName) {
-            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_source_object()->get_id(), "view");
-            $desc = $contentItem->get_source_object()->get_attribute("OBJ_DESC");
-            $name = getCleanName($contentItem, 50);
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItemObject->get_id(), "view");
+            $desc = $contentItemObject->get_attribute("OBJ_DESC");
+            $name = getCleanName($contentItemObject, 50);
 
             //check existence of link target
-            $sourceObject = $contentItem->get_link_object();
+            $sourceObject = $contentItemObject;
             if (!(($sourceObject != null) && ($sourceObject instanceof \steam_object))) {
                 return "<div style=\"color:red\">$name (Lesezeichenziel gelöscht)</div>";
             }
@@ -128,7 +137,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return $name;
             }
         } else if ($cell == $this->rawChangeDate) {
-            return getReadableDate($contentItem->get_source_object()->get_attribute("OBJ_LAST_CHANGED"));
+            return getReadableDate($contentItemObject->get_attribute("OBJ_LAST_CHANGED"));
         }
     }
 
