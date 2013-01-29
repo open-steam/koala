@@ -109,37 +109,21 @@ class ContentProvider implements \Widgets\IContentProvider {
             throw new \Exception("cell must be an integer!!");
         }
         
+        
         //case there is an not bookmark in bookmarks
         if( $contentItem instanceof \steam_link){
-            $so = $contentItem->get_source_object();
-            $soid = $so->get_id();
-            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($soid, "view");
-        }else if ($contentItem instanceof \steam_link){
-            $soid = $contentItem;
-            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($soid, "view");
-        } else {
-            $url = "";
+            $contentItemObject = $contentItem->get_source_object();
+        }else{
+            $contentItemObject = $contentItem;
         }
         
         
         if ($cell == $this->rawImage) {
-            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($so) . "\"></img>";
+            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItemObject) . "\"></img>";
         } else if ($cell == $this->rawName) {
-            
-            if( $contentItem instanceof \steam_link){
-                $so = $contentItem->get_source_object();
-                $soid = $so->get_id();
-                $url = \ExtensionMaster::getInstance()->getUrlForObjectId($soid, "view");
-            }else if ($contentItem instanceof \steam_link){
-                $soid = $contentItem;
-                $url = \ExtensionMaster::getInstance()->getUrlForObjectId($soid, "view");
-            } else {
-                $url = "";
-            }
-            
-            
-            $desc = $contentItem->get_source_object()->get_attribute("OBJ_DESC");
-            $name = getCleanName($contentItem, 50);
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItemObject->get_id(), "view");
+            $desc = $contentItemObject->get_attribute("OBJ_DESC");
+            $name = getCleanName($contentItemObject, 50);
 
             //check existence of link target
             $sourceObject = $contentItem->get_link_object();
@@ -153,7 +137,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return $name;
             }
         } else if ($cell == $this->rawChangeDate) {
-            return getReadableDate($contentItem->get_source_object()->get_attribute("OBJ_LAST_CHANGED"));
+            return getReadableDate($contentItemObject->get_attribute("OBJ_LAST_CHANGED"));
         }
     }
 
