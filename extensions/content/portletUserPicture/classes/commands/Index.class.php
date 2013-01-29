@@ -75,11 +75,16 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
 
-        $user = \lms_steam::get_current_user();
+        $user = $portlet->get_creator();
+        $currentUser = \lms_steam::get_current_user();
         $tmpl->setVariable("DESCRIPTION", "Zum Profil");
 	$tmpl->setVariable("URL", PATH_URL . "user/index/" . $user->get_name() . "/");
 	$tmpl->setVariable("PICTURE_URL", \lms_user::get_user_image_url($width-20, round(($width-20)*(185/140))));
-                
+        $tmpl->setVariable("DOCUMENTS_LABEL", "Meine Dokumente");
+        $tmpl->setVariable("DOCUMENTS_URL", PATH_URL . "explorer/");
+        if ($user->get_id() !== $currentUser->get_id()) {
+            $tmpl->setVariable("DISPLAY_DOCUMENTS", "none");
+        }
         $tmpl->parse();
         
         $rawHtml = new \Widgets\RawHtml();
