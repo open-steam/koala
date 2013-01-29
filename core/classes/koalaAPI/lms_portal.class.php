@@ -934,7 +934,7 @@ return $rand_value;
 		
                             
                 // override standard logo with custom logo if available
-                var_dump($GLOBALS["STEAM"]);die;
+                if(isset($GLOBALS["STEAM"])){
                 $customLogo = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/platform_logo");
                 if ($customLogo instanceof \steam_object) {
                     $everyone = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "everyone");
@@ -943,7 +943,8 @@ return $rand_value;
                         $this->template->setVariable("CUSTOM_LOGO_STYLE", "background: url(" . $customLogoURL . ") no-repeat;");
                     }
                 }
-            
+                }
+                
 		if ($this->prototype_enabled) {
 			$this->template->setCurrentBlock('HEAD_JAVASCRIPT_PROTOTYPE');
 			$this->template->setVariable( "PATH_JAVASCRIPT_2", PATH_JAVASCRIPT);
