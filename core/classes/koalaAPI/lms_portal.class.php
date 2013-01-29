@@ -934,6 +934,7 @@ return $rand_value;
 		
                             
                 // override standard logo with custom logo if available
+                var_dump($GLOBALS["STEAM"]);die;
                 $customLogo = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/platform_logo");
                 if ($customLogo instanceof \steam_object) {
                     $everyone = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "everyone");
