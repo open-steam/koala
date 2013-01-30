@@ -93,7 +93,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
            
-            if ($sortOrder === "latest_first"){
+            if (!($sortOrder === "latest_first")){
                 $content = array_reverse($content);
             }
             
