@@ -20,11 +20,11 @@ class PortletUserPicture extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableName() {
-		return "Benutzerbild";
+		return "Eigenes Benutzerbild";
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Benutzerbild";
+		return "Benutzerbild für den persönlichen Schreibtisch.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -43,6 +43,11 @@ class PortletUserPicture extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletUserPicture\Commands\Index();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 43;
 	}
 }
 ?>

@@ -24,7 +24,7 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Termine";
+		return "... für das Anzeigen von Terminen.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -42,6 +42,10 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletAppointment\Commands\Index();
 		}
+	}
+        
+        public function getPriority() {
+		return 56;
 	}
 }
 ?>

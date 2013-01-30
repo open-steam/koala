@@ -87,8 +87,7 @@ $(function() {
         $('#toolbar_export').text(spreadsheetTexts.toolbar['export']);
 
         //attach the user list and show it
-        $('.jQuerySheet').append($("#userDialog"));
-        $("#userDialog").show();
+        $("#userDialog").css("visibility", "visible");
 
         //insert the formula button
         $('<td></td>').append($('#formula_button'))

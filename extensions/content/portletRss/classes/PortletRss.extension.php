@@ -24,7 +24,7 @@ class PortletRss extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente RSS-Feed";
+		return "...zum Abonnieren RSS-Feeds.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -43,6 +43,11 @@ class PortletRss extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletRss\Commands\Index();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 54;
 	}
 }
 ?>

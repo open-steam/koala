@@ -24,7 +24,7 @@ class PortletMedia extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Medienelement";
+		return "... zum Einbinden von Audio und Video.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -43,6 +43,11 @@ class PortletMedia extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletMedia\Commands\Index();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 55;
 	}
 }
 ?>

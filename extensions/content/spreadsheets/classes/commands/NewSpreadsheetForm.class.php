@@ -58,7 +58,7 @@ class NewSpreadsheetForm extends \AbstractCommand implements \IAjaxCommand {
 }
 
 .attributeValue .text, .attributeValue textarea {
-  wwidth: 100px;
+  width: 100px;
 }
 
 .attributeValueColumn {
@@ -73,11 +73,11 @@ class NewSpreadsheetForm extends \AbstractCommand implements \IAjaxCommand {
 	<div><input type="text" class="text" value="" name="title"></div>
 </div>
 <div class="attribute">
-	<div>Zeilen:</div>
+	<div class="attributeName">Zeilen:</div>
 	<div><input type="text" class="text" value="" name="rows"></div>
 </div>
 <div class="attribute">
-	<div>Spalten:</div>
+	<div class="attributeName">Spalten:</div>
 	<div><input type="text" class="text" value="" name="columns"></div>
 </div>
 END

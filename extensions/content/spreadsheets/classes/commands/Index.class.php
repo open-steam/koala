@@ -10,8 +10,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	private $params;
 	private $document;
 	private $write_access;
-	private $NodeServer = SPREADSHEETS_RT_SERVER;
+        private $NodeServer = SPREADSHEETS_RT_SERVER;
 	
+        
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
@@ -39,7 +40,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		$doc_title = "Tabelle " . $this->document->get_name();
+                if(!defined("SPREADSHEETS_RT_SERVER")){
+                    echo("Error<br>");
+                    echo("default.def.php does not exist for spreadsheets extension<br>");
+                    echo("copy default.def.php.example to default.def.php in spreadsheets dir<br>");
+                    echo("and change server ip<br>");
+                    die("");
+                }
+                
+                $doc_title = $this->document->get_name();
 		if (!$this->write_access) {
 			$doc_title .= " (schreibgeschützt)";
 		}
@@ -137,8 +146,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		}
                 
                 $content->setVariable("SESSION_COOKIE_NAME", SESSION_NAME);
-		
-                
+
 		$content->parse("BLOCK_SHEET_NAME_SCRIPT");
 
 		//insert URLs for toolbar buttons

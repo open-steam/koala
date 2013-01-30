@@ -24,7 +24,7 @@ class PortletPoll extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Abstimmung";
+		return "... zur Abstimmung über Stichpunkte.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -43,6 +43,11 @@ class PortletPoll extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletPoll\Commands\Index();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 53;
 	}
 }
 ?>

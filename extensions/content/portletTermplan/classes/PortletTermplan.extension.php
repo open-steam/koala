@@ -24,7 +24,7 @@ class PortletTermplan extends AbstractExtension implements IObjectExtension{
 	}
 	
 	public function getObjectReadableDescription() {
-		return "Komponente Terminplaner";
+		return "... eine Doodle-ähnliche Abstimmung über Termine.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -43,6 +43,11 @@ class PortletTermplan extends AbstractExtension implements IObjectExtension{
 		if ($idRequestObject->getMethod() == "view") {
 			return new \PortletTermplan\Commands\Index();
 		}
+	}
+        
+                
+        public function getPriority() {
+		return 52;
 	}
 }
 ?>
