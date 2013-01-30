@@ -338,6 +338,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         //loads the chronic and returns it
         private function loadChronic(){
             $user = lms_steam::get_current_user();
+            if ($user===NULL) return array(); //test
             $chronic = $user->get_attribute("USER_CHRONIC");
             if(!is_array($chronic)) $chronic=array();
             return $this->validateChronic($chronic);
