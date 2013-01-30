@@ -111,7 +111,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $popupmenu->setData($portlet);
                     $popupmenu->setNamespace("PortletAppointment");
                     $popupmenu->setElementId("portal-overlay");
-                    $popupmenu->setParams(array(array("key" => "termIndex", "value" => $indexCount)));
+                    
+                    //reverse index
+                    $contextMenuIndex = $indexCount;
+                    if ($sortOrder === "latest_first"){
+                        $elementsSum = sizeof($content);
+                        $contextMenuIndex = $elementsSum - $indexCount -1; 
+                    }
+                    
+                    $popupmenu->setParams(array(array("key" => "termIndex", "value" => $contextMenuIndex)));
                     $tmpl->setVariable("POPUPMENU_ENTRY", $popupmenu->getHtml());
                     $tmpl->parse("BLOCK_EDIT_BUTTON_TERM");
                 }
