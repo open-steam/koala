@@ -339,7 +339,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         private function loadChronic(){
             $user = lms_steam::get_current_user();
             
-            var_dump($user);die;
+            var_dump(lms_steam);die;
             
             if (($user instanceof \steam_user)) {
                 return array();} //test
