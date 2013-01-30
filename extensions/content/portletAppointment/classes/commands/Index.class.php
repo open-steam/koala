@@ -120,7 +120,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     
                     //reverse index
                     $contextMenuIndex = $indexCount;
-                    if ($sortOrderBool){
+                    if (!$sortOrderBool){
                         $elementsSum = sizeof($content);
                         $contextMenuIndex = $elementsSum - $indexCount -1; 
                     }
