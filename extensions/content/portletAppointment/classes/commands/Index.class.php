@@ -93,8 +93,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
            
+            $sortOrderBool = true;
             if (!($sortOrder === "latest_first")){
-                $content = array_reverse($content);
+                $sortOrderBool=false;
+            }
+            
+            
+            if($sortOrderBool){
+               $content = array_reverse($content); 
             }
             
             $indexCount = 0; 
@@ -114,7 +120,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     
                     //reverse index
                     $contextMenuIndex = $indexCount;
-                    if (($sortOrder === "latest_first")){
+                    if ($sortOrderBool){
                         $elementsSum = sizeof($content);
                         $contextMenuIndex = $elementsSum - $indexCount -1; 
                     }
