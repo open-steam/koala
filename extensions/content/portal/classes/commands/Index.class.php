@@ -91,15 +91,17 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        
         //Start Testcase
         $testLink = new \Widgets\RawHtml();
         $link = "<a onclick=\"sendRequest('ColorOptions', {'id':'".$this->id."'}, '', 'popup', null, null, 'portal');return false;\">Farben</a>";
         $testLink->setHtml($link);
-       // $frameResponseObject->addWidget($testLink);
+        //$frameResponseObject->addWidget($testLink); //TODO: Einkommentieren zum Testen der Farbkonfig
         //End Testcase
+        
+        
         $frameResponseObject->setTitle(getCleanName($this->portalObject));
         $frameResponseObject->addWidget($this->rawHtmlWidget);
-
         return $frameResponseObject;
     }
 
