@@ -154,12 +154,13 @@ function sortPortletAppointments($appointmentA, $appointmentB){
         if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date A null !!!"); //test
         $md5a = md5(serialize($appointmentA));
         $md5b = md5(serialize($appointmentB));
-        return strcmp($md5a, $md5b);
-        //return 0;
+        $compareResult = strcmp($md5a, $md5b);
+        if ($compareResult < 0 ) return -1;
+        if ($compareResult > 0 ) return 1;
+        return 0;
     }
     if ($log) \logging::write_log( LOG_ERROR, "ap-Datum A richtig erstellt"); //test
     $timestampA = $dateA->getTimestamp();
-    
     
 
     //timestamp b
@@ -188,8 +189,10 @@ function sortPortletAppointments($appointmentA, $appointmentB){
         if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date B null !!!"); //test
         $md5a = md5(serialize($appointmentA));
         $md5b = md5(serialize($appointmentB));
-        return strcmp($md5a, $md5b);
-        //return 0;
+        $compareResult = strcmp($md5a, $md5b);
+        if ($compareResult < 0 ) return -1;
+        if ($compareResult > 0 ) return 1;
+        return 0;
     }
     if ($log) \logging::write_log( LOG_ERROR, "ap-Datum B richtig erstellt"); //test
     $timestampB = $dateB->getTimestamp();
@@ -202,8 +205,10 @@ function sortPortletAppointments($appointmentA, $appointmentB){
         //alternative sort
         $md5a = md5(serialize($appointmentA));
         $md5b = md5(serialize($appointmentB));
-        return strcmp($md5a, $md5b);
-        //return 0;
+        $compareResult = strcmp($md5a, $md5b);
+        if ($compareResult < 0 ) return -1;
+        if ($compareResult > 0 ) return 1;
+        return 0;
     }
     if ($log) \logging::write_log( LOG_ERROR, "ap-sortfunc-1+1-OK"); //test
     
