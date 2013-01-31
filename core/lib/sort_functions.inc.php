@@ -125,6 +125,7 @@ function sortExtensions($extensionA, $extensionB) {
 
 
 function sortPortletAppointments($appointmentA, $appointmentB){
+    \logging::write_log( LOG_ERROR, "-----------ap-sortPortletAppointments--------------"); //test
     //timestamp a
     $startTime = $appointmentA["start_time"];
     $startDate = $appointmentA["start_date"];
@@ -135,17 +136,26 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $aHour = $startTime["hour"];
     $aMinute = $startTime["minutes"];
     
-    if ($aYear==0) $aYear=1990; 
-    if ($aMonth==0) $aMonth=1;
-    if ($aDay==0) $aDay=1;
-    if ($aHour==0) $aHour=0;
-    if ($aMinute==0) $aMinute=0;
+    if ($aYear==0) $bYear="1990"; 
+    if ($aMonth==0) $bMonth="1";
+    if ($aDay==0) $bDay="1";
+    if ($aHour==0) $bHour="0";
+    if ($aMinute==0) $bMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateA = new DateTime();
-    $dateA = DateTime::createFromFormat($format, $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00');
+    $dateAString = $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00';
+    $dateA = DateTime::createFromFormat($format, $dateAString);
     
-    if($dateA===NULL | $dateA===FALSE) return 0;
+    \logging::write_log( LOG_ERROR, "ap-vor break StringA:".$dateAString); //test
+    
+    
+    if(($dateA===NULL) | ($dateA===FALSE)){
+        \logging::write_log( LOG_ERROR, "ap-Fehler date A null !!!"); //test
+        return 0;
+    }
+    \logging::write_log( LOG_ERROR, "ap-Datum A richtig erstellt"); //test
+    
     $timestampA = $dateA->getTimestamp();
     
     //timestamp b
@@ -158,22 +168,37 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $bHour = $startTime["hour"];
     $bMinute = $startTime["minutes"];
     
-    if ($bYear==0) $bYear=1990; 
-    if ($bMonth==0) $bMonth=1;
-    if ($bDay==0) $bDay=1;
-    if ($bHour==0) $bHour=0;
-    if ($bMinute==0) $bMinute=0;
+    if ($bYear==0) $bYear="1990"; 
+    if ($bMonth==0) $bMonth="1";
+    if ($bDay==0) $bDay="1";
+    if ($bHour==0) $bHour="00";
+    if ($bMinute==0) $bMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateB = new DateTime();
-    $dateB = DateTime::createFromFormat($format, $bYear.'-'.$bMonth.'-'.$bDay.' '.$bHour.':'.$bMinute.':00');
+    $dateBString = $bYear.'-'.$bMonth.'-'.$bDay.' '.$bHour.':'.$bMinute.':00';
+    \logging::write_log( LOG_ERROR, "ap-vor break StringB:".$dateBString); //test
+    $dateB = DateTime::createFromFormat($format, $dateBString);
     
-    if($dateB===NULL | $dateB===FALSE) return 0;
+    
+    
+     \logging::write_log( LOG_ERROR, "ap-vor break2"); //test
+    if(($dateB===NULL) | ($dateB===FALSE)){
+        \logging::write_log( LOG_ERROR, "ap-Fehler date B null !!!"); //test
+        return 0;
+    }
+    \logging::write_log( LOG_ERROR, "ap-Datum B richtig erstellt"); //test
+    
+    
+    
     $timestampB = $dateB->getTimestamp();
     
     if ($timestampA == $timestampB) {
+        \logging::write_log( LOG_ERROR, "ap-sortfunc-0-ende OK"); //test
         return 0;
     }
+    \logging::write_log( LOG_ERROR, "ap-sortfunc-1+1-ende OK"); //test
+    
     return ($timestampA < $timestampB) ? -1 : 1;
 }
 
