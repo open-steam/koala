@@ -1074,7 +1074,7 @@ return $rand_value;
 
         public function bid2PathFix($html) {
             // lernstatt
-            $html = str_replace('https://steam.lspb.de', 'http://bid.lspb.de', $html);
+            $html = str_replace('https://steam.lspb.de', 'https://bid.lspb.de', $html);
             $html = str_replace('http://steam.lspb.de', 'http://bid.lspb.de', $html);
 
             // schulen-gt
