@@ -152,7 +152,10 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     
     if(($dateA===NULL) | ($dateA===FALSE)){
         if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date A null !!!"); //test
-        return 0;
+        $md5a = md5(serialize($appointmentA));
+        $md5b = md5(serialize($appointmentB));
+        return strcmp($md5a, $md5b);
+        //return 0;
     }
     if ($log) \logging::write_log( LOG_ERROR, "ap-Datum A richtig erstellt"); //test
     $timestampA = $dateA->getTimestamp();
@@ -183,7 +186,10 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     
     if(($dateB===NULL) | ($dateB===FALSE)){
         if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date B null !!!"); //test
-        return 0;
+        $md5a = md5(serialize($appointmentA));
+        $md5b = md5(serialize($appointmentB));
+        return strcmp($md5a, $md5b);
+        //return 0;
     }
     if ($log) \logging::write_log( LOG_ERROR, "ap-Datum B richtig erstellt"); //test
     $timestampB = $dateB->getTimestamp();
@@ -196,7 +202,6 @@ function sortPortletAppointments($appointmentA, $appointmentB){
         //alternative sort
         $md5a = md5(serialize($appointmentA));
         $md5b = md5(serialize($appointmentB));
-        
         return strcmp($md5a, $md5b);
         //return 0;
     }
