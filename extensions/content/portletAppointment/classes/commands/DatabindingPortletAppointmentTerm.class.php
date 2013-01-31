@@ -66,14 +66,22 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	private function setEntryField($object, $termIndex, $field, $value){
 		$objectId = $object->get_id();
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
-		$content = $object->get_attribute("bid:portlet:content");
 		
+
+
+                //$content = $object->get_attribute("bid:portlet:content");
+		
+                /*
                 usort($content, "sortPortletAppointments");
                 $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
            
                 if ($sortOrder === "latest_first"){
                     $content = array_reverse($content);
                 }
+                */
+                
+                
+                $content = $this->getSortedPortlets($object);
                 
 		//read
 		$term = $content[$termIndex];
@@ -148,14 +156,33 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	private function getEntryField($object, $termIndex, $field){
 		$objectId = $object->get_id();
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
-		$portletContent = $object->get_attribute("bid:portlet:content");
+		
+                
+                
+                
+                /*
+                $portletContent = $object->get_attribute("bid:portlet:content");
+                
+                
+                
+                //nur das databinding ist falsch
+                
+                
+                
                 
                 usort($portletContent, "sortPortletAppointments");
                 $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
            
-                if ($sortOrder === "latest_first"){
+                if (!($sortOrder === "latest_first")){
                     $portletContent = array_reverse($portletContent);
                 }
+                
+                */
+                
+                $portletContent = $this->getSortedPortlets($object);
+                
+                
+                
                 
 		$term = $portletContent[$this->termIndex];
 		
@@ -243,6 +270,22 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 		}
 		return false;
 	}
+        
+        
+        private function getSortedPortlets($portletObject){
+                $object = $portletObject;
+                $portletContent = $object->get_attribute("bid:portlet:content");
+                
+                usort($portletContent, "sortPortletAppointments");
+                $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
+           
+                if (($sortOrder === "latest_first")){
+                    $portletContent = array_reverse($portletContent);
+                }
+                
+                $terms= $portletContent;
+                return $terms; 
+        }
 	
 }
 ?>

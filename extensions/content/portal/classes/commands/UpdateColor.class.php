@@ -24,9 +24,9 @@ class UpdateColor extends \AbstractCommand implements \IAjaxCommand {
         $value = $this->params["value"];
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
                               
-        if($colortype === "cpfont"){
+        if($colortype === "cpfont"){           
             $obj->set_attribute("bid:portal:component_fontcolor", $value);
-        }else if($colortype === "cpbg"){
+        }else if($colortype === "componentbg"){
             $obj->set_attribute("bid:portal:component_bgcolor", $value);
         }else if($colortype === "headfont"){
             $obj->set_attribute("bid:portal:headline_fontcolor", $value);

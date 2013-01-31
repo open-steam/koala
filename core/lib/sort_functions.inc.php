@@ -125,6 +125,10 @@ function sortExtensions($extensionA, $extensionB) {
 
 
 function sortPortletAppointments($appointmentA, $appointmentB){
+    $log=false;
+    if ($log) \logging::write_log( LOG_ERROR, "ap-sortPortletAppointments");
+    
+    
     //timestamp a
     $startTime = $appointmentA["start_time"];
     $startDate = $appointmentA["start_date"];
@@ -135,19 +139,30 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $aHour = $startTime["hour"];
     $aMinute = $startTime["minutes"];
     
-    if ($aYear==0) $aYear=1990; 
-    if ($aMonth==0) $aMonth=1;
-    if ($aDay==0) $aDay=1;
-    if ($aHour==0) $aHour=0;
-    if ($aMinute==0) $aMinute=0;
+    if ($aYear==0) $bYear="1990"; 
+    if ($aMonth==0) $bMonth="1";
+    if ($aDay==0) $bDay="1";
+    if ($aHour==0) $bHour="0";
+    if ($aMinute==0) $bMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateA = new DateTime();
-    $dateA = DateTime::createFromFormat($format, $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00');
+    $dateAString = $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00';
+    $dateA = DateTime::createFromFormat($format, $dateAString);
     
-    if($dateA===NULL | $dateA===FALSE) return 0;
+    if(($dateA===NULL) | ($dateA===FALSE)){
+        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date A null !!!"); //test
+        $md5a = md5(serialize($appointmentA));
+        $md5b = md5(serialize($appointmentB));
+        $compareResult = strcmp($md5a, $md5b);
+        if ($compareResult < 0 ) return -1;
+        if ($compareResult > 0 ) return 1;
+        return 0;
+    }
+    if ($log) \logging::write_log( LOG_ERROR, "ap-Datum A richtig erstellt"); //test
     $timestampA = $dateA->getTimestamp();
     
+
     //timestamp b
     $startTime = $appointmentB["start_time"];
     $startDate = $appointmentB["start_date"];
@@ -158,22 +173,45 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $bHour = $startTime["hour"];
     $bMinute = $startTime["minutes"];
     
-    if ($bYear==0) $bYear=1990; 
-    if ($bMonth==0) $bMonth=1;
-    if ($bDay==0) $bDay=1;
-    if ($bHour==0) $bHour=0;
-    if ($bMinute==0) $bMinute=0;
+    if ($bYear==0) $bYear="1990"; 
+    if ($bMonth==0) $bMonth="1";
+    if ($bDay==0) $bDay="1";
+    if ($bHour==0) $bHour="00";
+    if ($bMinute==0) $bMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateB = new DateTime();
-    $dateB = DateTime::createFromFormat($format, $bYear.'-'.$bMonth.'-'.$bDay.' '.$bHour.':'.$bMinute.':00');
+    $dateBString = $bYear.'-'.$bMonth.'-'.$bDay.' '.$bHour.':'.$bMinute.':00';
+    $dateB = DateTime::createFromFormat($format, $dateBString);
     
-    if($dateB===NULL | $dateB===FALSE) return 0;
-    $timestampB = $dateB->getTimestamp();
     
-    if ($timestampA == $timestampB) {
+    if(($dateB===NULL) | ($dateB===FALSE)){
+        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date B null !!!"); //test
+        $md5a = md5(serialize($appointmentA));
+        $md5b = md5(serialize($appointmentB));
+        $compareResult = strcmp($md5a, $md5b);
+        if ($compareResult < 0 ) return -1;
+        if ($compareResult > 0 ) return 1;
         return 0;
     }
+    if ($log) \logging::write_log( LOG_ERROR, "ap-Datum B richtig erstellt"); //test
+    $timestampB = $dateB->getTimestamp();
+    
+    
+    //comparision
+    if ($timestampA == $timestampB) {
+        if ($log) \logging::write_log( LOG_ERROR, "ap-sortfunc-0-OK"); //test
+        
+        //alternative sort
+        $md5a = md5(serialize($appointmentA));
+        $md5b = md5(serialize($appointmentB));
+        $compareResult = strcmp($md5a, $md5b);
+        if ($compareResult < 0 ) return -1;
+        if ($compareResult > 0 ) return 1;
+        return 0;
+    }
+    if ($log) \logging::write_log( LOG_ERROR, "ap-sortfunc-1+1-OK"); //test
+    
     return ($timestampA < $timestampB) ? -1 : 1;
 }
 

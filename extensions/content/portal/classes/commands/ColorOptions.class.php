@@ -30,7 +30,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
             throw new \Exception("current steam object isn't valid!");
         }
         //h1
-        $component_fontcolor = $obj->get_attribute("bid:portal:component_fontcolor");
+        $component_fontcolor = $obj->get_attribute("bid:portal:component_fontcolor");                                  
         $component_bgcolor = $obj->get_attribute("bid:portal:component_bgcolor");
         //h2
         $headline_bgcolor = $obj->get_attribute("bid:portal:headline_bgcolor");
@@ -53,7 +53,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $cpfont = new \Widgets\ColorPicker();
         $cpfont->setId("cpfont");
         $cpfont->setLabel("Schriftfarbe der Komponentenüberschrift");
-        if ($component_fontcolor != 0) {
+        if ($component_fontcolor !== 0) {
             $cpfont->setValue($component_fontcolor);
         } else {
             $cpfont->setValue("#FFFFFF");
@@ -64,7 +64,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $cpbg->setId("componentbg");
         $cpbg->setLabel("Hintergrundfarbe der Komponentenüberschrift");
         
-        if ($component_bgcolor != 0) {
+        if ($component_bgcolor !== 0) {
             $cpbg->setValue($component_bgcolor);
         } else {
             $cpbg->setValue("#396d9c");
@@ -74,7 +74,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $headfont = new \Widgets\ColorPicker();
         $headfont->setId("headfont");
         $headfont->setLabel("Schriftfarbe der Eintragsüberschrift");
-        if ($headline_fontcolor != 0) {
+        if ($headline_fontcolor !== 0) {
             $headfont->setValue($headline_fontcolor);
         } else {
             $headfont->setValue("#333333");
@@ -85,7 +85,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $headbg = new \Widgets\ColorPicker();
         $headbg->setId("headbg");
         $headbg->setLabel("Hintergrundfarbe der Eintragsüberschrift");
-        if ($headline_bgcolor != 0) {
+        if ($headline_bgcolor !== 0) {
             $headbg->setValue($headline_bgcolor);
         } else {
             $headbg->setValue("#cccccc");
@@ -95,7 +95,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $contentfont = new \Widgets\ColorPicker();
         $contentfont->setId("contentfont");
         $contentfont->setLabel("Schriftfarbe des Inhalts");
-        if ($content_fontcolor != 0) {
+        if ($content_fontcolor !== 0) {
             $contentfont->setValue($content_fontcolor);
         } else {
             $contentfont->setValue("#333333");
@@ -105,7 +105,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $contentbg = new \Widgets\ColorPicker();
         $contentbg->setId("contentbg");
         $contentbg->setLabel("Hintergrundfarbe des Inhalts");
-        if ($content_bgcolor != 0) {
+        if ($content_bgcolor !== 0) {
             $contentbg->setValue($content_bgcolor);
         } else {
             $contentbg->setValue("#fbfbfb");
@@ -115,7 +115,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $portalLinkColor = new \Widgets\ColorPicker();
         $portalLinkColor->setId("portalLinkColor");
         $portalLinkColor->setLabel("Schriftfarbe der Links im Portal");
-        if ($link_fontcolor != 0) {
+        if ($link_fontcolor !== 0) {
             $portalLinkColor->setValue($link_fontcolor);
         } else {
             $portalLinkColor->setValue("#396D9C");
@@ -125,7 +125,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $portalbg = new \Widgets\ColorPicker();
         $portalbg->setId("portalbg");
         $portalbg->setLabel("Hintergrundfarbe des Außenrandes");
-        if ($bgcolor != 0) {
+        if ($bgcolor !== 0) {
             $portalbg->setValue($bgcolor);
         } else {
             $portalbg->setValue($bgcolor);

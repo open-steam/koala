@@ -23,7 +23,7 @@ class AttributeDataProviderPortletAppointmentTerm {
                         usort($portletContent, "sortPortletAppointments");
                         $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
 
-                        if ($sortOrder === "latest_first"){
+                        if (($sortOrder === "latest_first")){
                             $portletContent = array_reverse($portletContent);
                         }
                         

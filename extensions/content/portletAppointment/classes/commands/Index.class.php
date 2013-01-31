@@ -93,8 +93,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
            
-            if ($sortOrder === "latest_first"){
-                $content = array_reverse($content);
+            $sortOrderBool = false;
+            if (($sortOrder === "latest_first")){
+                $sortOrderBool=true;
+            }
+            
+            
+            if($sortOrderBool){
+               $content = array_reverse($content); 
             }
             
             $indexCount = 0; 
@@ -111,7 +117,18 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $popupmenu->setData($portlet);
                     $popupmenu->setNamespace("PortletAppointment");
                     $popupmenu->setElementId("portal-overlay");
-                    $popupmenu->setParams(array(array("key" => "termIndex", "value" => $indexCount)));
+                    
+                    //reverse index
+                    $contextMenuIndex = $indexCount;
+                    /*
+                    if (!$sortOrderBool){
+                        $elementsSum = sizeof($content);
+                        $contextMenuIndex = $elementsSum - $indexCount -1; 
+                    }
+                    */
+                    
+                    
+                    $popupmenu->setParams(array(array("key" => "termIndex", "value" => $contextMenuIndex)));
                     $tmpl->setVariable("POPUPMENU_ENTRY", $popupmenu->getHtml());
                     $tmpl->parse("BLOCK_EDIT_BUTTON_TERM");
                 }
