@@ -192,7 +192,13 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     //comparision
     if ($timestampA == $timestampB) {
         if ($log) \logging::write_log( LOG_ERROR, "ap-sortfunc-0-OK"); //test
-        return 0;
+        
+        //alternative sort
+        $md5a = md5(serialize($appointmentA));
+        $md5b = md5(serialize($appointmentB));
+        
+        return strcmp($md5a, $md5b);
+        //return 0;
     }
     if ($log) \logging::write_log( LOG_ERROR, "ap-sortfunc-1+1-OK"); //test
     
