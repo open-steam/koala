@@ -273,18 +273,8 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
         
         
         private function getSortedPortlets($portletObject){
-            
                 $object = $portletObject;
                 $portletContent = $object->get_attribute("bid:portlet:content");
-                
-                
-                //case: early first geht
-                //case: latest first geht nicht
-                
-                //nur das databinding ist falsch
-                
-                
-                 //\logging::write_log( LOG_ERROR, "ap-sort-databinding"); //test
                 
                 usort($portletContent, "sortPortletAppointments");
                 $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
@@ -295,7 +285,6 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
                 
                 $terms= $portletContent;
                 return $terms; 
-            
         }
 	
 }

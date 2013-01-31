@@ -125,7 +125,10 @@ function sortExtensions($extensionA, $extensionB) {
 
 
 function sortPortletAppointments($appointmentA, $appointmentB){
-    \logging::write_log( LOG_ERROR, "-----------ap-sortPortletAppointments--------------"); //test
+    $log=false;
+    if ($log) \logging::write_log( LOG_ERROR, "ap-sortPortletAppointments");
+    
+    
     //timestamp a
     $startTime = $appointmentA["start_time"];
     $startDate = $appointmentA["start_date"];
@@ -147,17 +150,15 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $dateAString = $aYear.'-'.$aMonth.'-'.$aDay.' '.$aHour.':'.$aMinute.':00';
     $dateA = DateTime::createFromFormat($format, $dateAString);
     
-    \logging::write_log( LOG_ERROR, "ap-vor break StringA:".$dateAString); //test
-    
-    
     if(($dateA===NULL) | ($dateA===FALSE)){
-        \logging::write_log( LOG_ERROR, "ap-Fehler date A null !!!"); //test
+        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date A null !!!"); //test
         return 0;
     }
-    \logging::write_log( LOG_ERROR, "ap-Datum A richtig erstellt"); //test
-    
+    if ($log) \logging::write_log( LOG_ERROR, "ap-Datum A richtig erstellt"); //test
     $timestampA = $dateA->getTimestamp();
     
+    
+
     //timestamp b
     $startTime = $appointmentB["start_time"];
     $startDate = $appointmentB["start_date"];
@@ -177,27 +178,23 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $format = 'Y-m-d H:i:s';
     $dateB = new DateTime();
     $dateBString = $bYear.'-'.$bMonth.'-'.$bDay.' '.$bHour.':'.$bMinute.':00';
-    \logging::write_log( LOG_ERROR, "ap-vor break StringB:".$dateBString); //test
     $dateB = DateTime::createFromFormat($format, $dateBString);
     
     
-    
-     \logging::write_log( LOG_ERROR, "ap-vor break2"); //test
     if(($dateB===NULL) | ($dateB===FALSE)){
-        \logging::write_log( LOG_ERROR, "ap-Fehler date B null !!!"); //test
+        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date B null !!!"); //test
         return 0;
     }
-    \logging::write_log( LOG_ERROR, "ap-Datum B richtig erstellt"); //test
-    
-    
-    
+    if ($log) \logging::write_log( LOG_ERROR, "ap-Datum B richtig erstellt"); //test
     $timestampB = $dateB->getTimestamp();
     
+    
+    //comparision
     if ($timestampA == $timestampB) {
-        \logging::write_log( LOG_ERROR, "ap-sortfunc-0-ende OK"); //test
+        if ($log) \logging::write_log( LOG_ERROR, "ap-sortfunc-0-OK"); //test
         return 0;
     }
-    \logging::write_log( LOG_ERROR, "ap-sortfunc-1+1-ende OK"); //test
+    if ($log) \logging::write_log( LOG_ERROR, "ap-sortfunc-1+1-OK"); //test
     
     return ($timestampA < $timestampB) ? -1 : 1;
 }
