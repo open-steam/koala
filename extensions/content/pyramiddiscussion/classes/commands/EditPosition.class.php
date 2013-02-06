@@ -1,28 +1,17 @@
 <?php
 namespace Pyramiddiscussion\Commands;
-class EditPosition extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
+class EditPosition extends \AbstractCommand implements \IAjaxCommand {
 
 	private $params;
 	private $id;
-	private $pyramiddiscussion;
 
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
 
 	public function processData(\IRequestObject $requestObject) {
-		if ($requestObject instanceof \UrlRequestObject) {
-			$this->params = $requestObject->getParams();
-			isset($this->params[0]) ? $this->pyramiddiscussion = $this->params[0]: "";
-			isset($this->params[1]) ? $this->id = $this->params[1]: "";
-		} else if ($requestObject instanceof \AjaxRequestObject) {
-			$this->params = $requestObject->getParams();
-			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
-		}
-	}
-
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		return $frameResponseObject;
+            $this->params = $requestObject->getParams();
+            isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

@@ -61,6 +61,13 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         $private_group = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "PrivGroups");
         $basegroup_original = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $basegroup);
         
+        if ($basegroup_original->count_members() > 64) {
+            $rawWidget = new \Widgets\RawHtml();
+            $rawWidget->setHtml("Error: Gruppe enthält mehr als 64 Mitglieder.");
+            $ajaxResponseObject->addWidget($rawWidget);
+            return $ajaxResponseObject;
+        }
+        
         $container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $pyramidRoom = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["title"], $container, $this->params["title"]);
         $basegroup = \steam_factory::create_group($GLOBALS["STEAM"]->get_id(), "pyramid_" . $pyramidRoom->get_id(), $private_group);
