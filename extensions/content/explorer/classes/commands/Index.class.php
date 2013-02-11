@@ -79,7 +79,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "referenceFile":
                 $linkObject = $object->get_link_object();
-                if($linkObject===NULL){
+                if(($linkObject===NULL) || !($linkObject instanceof \steam_object)){
                     \ExtensionMaster::getInstance()->send404Error();
                     die;
                 }
