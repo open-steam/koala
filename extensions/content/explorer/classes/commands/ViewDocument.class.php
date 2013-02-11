@@ -20,6 +20,11 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
         if (isset($this->id)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
+            if(!($object instanceof \steam_object)){
+                \ExtensionMaster::getInstance()->send404Error();
+                die; 
+            }
+            
             //chronic
             \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
 
