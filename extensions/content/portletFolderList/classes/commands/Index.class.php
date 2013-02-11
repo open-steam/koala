@@ -8,6 +8,21 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
     private $listViewer;
 
     public function validateData(\IRequestObject $requestObject) {
+
+        //robustness for missing ids and objects
+        try{
+            $objectId=$requestObject->getId();
+            $object = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $objectId );
+        } catch (\Exception $e){
+            \ExtensionMaster::getInstance()->send404Error();
+            die; 
+        }
+
+        if (!$object instanceof \steam_object) {
+            \ExtensionMaster::getInstance()->send404Error();
+            die;
+        }
+
         return true;
     }
 
