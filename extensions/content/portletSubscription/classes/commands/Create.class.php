@@ -1,9 +1,8 @@
 <?php
-namespace PortletFolderList\Commands;
+namespace PortletSubscription\Commands;
 
 class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IFrameCommand {
 
-        private $error = false;
         
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
@@ -17,41 +16,23 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
                 $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["id"]);
             }
             
-            try {
-                $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["folderid"]);
-                if (!$object->check_access_read() || getObjectType($object) !== "room") {
-                    $this->error = true;
-                    $params["folderid"] = 0;
-                }
-            } catch (\steam_exception $ex) {
-                $this->error = true;
-                $params["folderid"] = 0;
-            }
-            
             //create object
-            $folderListPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Ordnerinhalt", $column);
-	    
-            $desc = "Ordnerinhalt";
+            $subscriptionPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Abonnement", $column);
+
+            $desc = "Abonnement";
             if (isset($params["title"]) && $params["title"] != "") {
                 $desc = $params["title"];
             }
-            //if (isset($params["changedate"])) {
-            //    if ($params["changedate"] == "on") {
-                    $changedate = "true";
-            //    } else {
-            //        $changedate = "false";
-            //    }
-            //} else {
-            //    $changedate = "false";
-            //}
-	    $folderListPortlet->set_attributes(array(
+	    $subscriptionPortlet->set_attributes(array(
 	        OBJ_DESC => $desc,
 	        OBJ_TYPE => "container_portlet_bid",
-	        "bid:portlet" => "folderlist",
+	        "bid:portlet" => "subscription",
 	        "bid:portlet:version" => "3.0",
-                "PORTLET_FOLDERLIST_FOLDERID" => $params["folderid"],
-                "PORTLET_FOLDERLIST_ITEMCOUNT" => $params["elements"],
-                "PORTLET_FOLDERLIST_CHANGEDATE" => $changedate
+                "PORTLET_SUBSCRIPTION_OBJECTID" => $params["objectid"],
+                "PORTLET_SUBSCRIPTION_TYPE" => $params["type"],
+                "PORTLET_SUBSCRIPTION_TIMESTAMP" => time(),
+                "PORTLET_SUBSCRIPTION_FILTER" => array(),
+                "PORTLET_SUBSCRIPTION_ORDER" => $params["sort"]
 	    ));
 	}
 	
