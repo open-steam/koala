@@ -6,7 +6,7 @@ class AjaxUploader extends Widget {
 	private $backend = "";
 	private $command = "Upload";
 	private $namespace = "Explorer";
-	private $descId;
+	private $destId;
 	private $sizeLimit = 2000000;
 	private $allowedExtensions = "[]";
 	private $preview;

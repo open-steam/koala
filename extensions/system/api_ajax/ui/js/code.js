@@ -163,7 +163,7 @@ function closeDialog() {
 	if (!(jQuery('#dialog').length === 0)) {
 		//textinput fields
                 var textinput_save_buttons = jQuery('#dialog').find('.widgets_textinput_save_button:visible');
-		if (!(textinput_save_buttons.length === 0)) {
+                if (!(textinput_save_buttons.length === 0)) {
 			if (!confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
 				window.closing = false;
 				return false;

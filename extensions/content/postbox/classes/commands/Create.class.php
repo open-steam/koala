@@ -17,16 +17,26 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 			$this->params = $requestObject->getParams();
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 		}
+               
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
-
-		$envRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+                if($this->id === ""){
+                    $envRoom = $GLOBALS["STEAM"]->get_current_steam_user()->get_workroom();
+                    
+                }else{
+                    $envRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);		
+                }
 		
 		$obj= \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["name"], $envRoom);
 		$obj->set_attribute("OBJ_TYPE","postbox");
-		 
+                if($this->params["checkVal"] === "true"){                    
+                    $obj->set_attribute("bid:postbox:deadline", "");		
+                }else{
+                        $obj->set_attribute("bid:postbox:deadline",  $this->params["deadline"]);		
+                }
+                 
 		$jswrapper = new \Widgets\JSWrapper();
 		$jswrapper->setJs(<<<END
 		closeDialog();

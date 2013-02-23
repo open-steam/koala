@@ -17,22 +17,107 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        //Fallunterscheidung, ob Abgeber, oder Bewerterrolle
-        
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        
+
         $checkAccessWrite = $obj->check_access_write();
         $checkAccesRead = $obj->check_access_read();
-        
-        if($checkAccessWrite){
+
+        $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
+
+        $isDeadlineSet = true;
+
+        if ($deadlineDateTime === "" || $deadlineDateTime === 0) {
+            $isDeadlineSet = false;
+        }
+
+
+        if ($isDeadlineSet) {
+            //determine current date
+            $now = mktime(date("H"), date("i"), 0, date("n"), date("j"), date("Y"));
+            //compute Deadline
+            $deadlineArray = explode(" ", $deadlineDateTime);
+            //0 -> day, 1 -> month, 2 -> year  
+            $deadlineDate = explode(".", $deadlineArray[0]);
+            // 0 -> hour, 1 -> minute
+            $deadlineTime = explode(":", $deadlineArray[1]);
+            $deadline = mktime($deadlineTime[0], $deadlineTime[1], 0, $deadlineDate[1], $deadlineDate[0], $deadlineDate[2]);
+
+            $isDeadlineEnd = false;
+            if ($now > $deadline) {
+                $isDeadlineEnd = true;
+            }
+        }
+        $headlineHtml = new \Widgets\RawHtml();
+        $headlineHtml->setHtml('<h1 class="headline">'.$obj->get_name().'</h1>');
+       
+        $cssStyles = new \Widgets\RawHtml();
+        $cssStyles->setCss('.attribute{width:150px;float:left;padding-left:20px;padding-top:5px;} .value{padding-top:5px;} .value-red{color:red;padding-top:5px;} .value-green{color:green;padding-top:5px;}
+            #button{padding-left:20px;} .headline{padding-left:20px;}');
+
+        $buttonHtml = new \Widgets\RawHtml();
+        $buttonHtml->setHtml(<<<END
+                        <br>
+<div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$this->id}}, '', 'popup', null, null);return false;">
+<button>Abgabe einreichen</button>
+</div>
+END
+        );
+        $buttonHtml->setJs('$(document).ready(function() {
+    $("button").button();
+  });');
+
+        $frameResponseObject->addWidget($cssStyles);
+         $frameResponseObject->addWidget($headlineHtml);
+        $lastReleaseHtml = new \Widgets\RawHtml();
+        $lastReleaseHtml->setHtml('<div class="attribute">Letzte Abgabe:</div><div class="value">-</div>
+                ');
+        if ($isDeadlineEnd) {
+            $deadlineEndHtml = new \Widgets\RawHtml();
+            $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+
+            $frameResponseObject->addWidget($deadlineEndHtml);
+            $frameResponseObject->addWidget($lastReleaseHtml);
+        } else if (!$isDeadlineSet) {
+            $noDeadlineHtml = new \Widgets\RawHtml();
+            $noDeadlineHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">-</div>');
+            $frameResponseObject->addWidget($noDeadlineHtml);
+            $frameResponseObject->addWidget($lastReleaseHtml);
+            $frameResponseObject->addWidget($buttonHtml);
+        } else {
+            $deadlineRunHtml = new \Widgets\RawHtml();
+            $deadlineRunHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+            $frameResponseObject->addWidget($deadlineRunHtml);
+            $frameResponseObject->addWidget($lastReleaseHtml);
+            $frameResponseObject->addWidget($buttonHtml);
+        }
+
+
+
+
+
+        //Falls bereits eine Abgabe abgegeben wurde.
+        /* $inventory = $obj->get_inventory();
+          $elementNames = array();
+          foreach($inventory as $index => $ele){
+          $elementNames[$index] = $ele->get_name();
+          }
+          //compare the names
+
+         */
+
+
+        if ($checkAccessWrite) {
             
-            
-        } else if($checkAccesRead){
+        } else if ($checkAccesRead) {
             //Benutzer darf Dokumente einreichen
-            echo "Ihre Rolle ist Abgeber!";die;
-            
-        }else{
-            echo "Keine Zugriffsrechte!";die;
+            echo "Ihre Rolle ist Abgeber!";
+            die;
+        } else {
+            echo "Keine Zugriffsrechte!";
+            die;
             //Leider kein Zugriff
         }
         return $frameResponseObject;

@@ -1,85 +1,97 @@
 <?php
+
 namespace Postbox\Commands;
+
 class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
-	
-	private $params;
-	private $id;
-	
-	public function validateData(\IRequestObject $requestObject) {
-		return true;
-	}
-	
-	public function processData(\IRequestObject $requestObject) {
-		if ($requestObject instanceof \UrlRequestObject) {
-			$this->params = $requestObject->getParams();
-			isset($this->params[0]) ? $this->id = $this->params[0]: "";
-		} else if ($requestObject instanceof \AjaxRequestObject) {
-			$this->params = $requestObject->getParams();
-			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
-		}
-	}
-	
-	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		
-		$ajaxForm = new \Widgets\AjaxForm();
-		$ajaxForm->setSubmitCommand("Create");
-		$ajaxForm->setSubmitNamespace("Postbox");
-		$ajaxForm->setHtml(<<<END
-<style type="text/css">
-.attribute {
-  clear: left;
-  padding: 5px 2px 5px 2px;
+
+    private $params;
+    private $id;
+
+    public function validateData(\IRequestObject $requestObject) {
+        return true;
+    }
+
+    public function processData(\IRequestObject $requestObject) {
+        if ($requestObject instanceof \UrlRequestObject) {
+            $this->params = $requestObject->getParams();
+            isset($this->params[0]) ? $this->id = $this->params[0] : "";
+        } else if ($requestObject instanceof \AjaxRequestObject) {
+            $this->params = $requestObject->getParams();
+            isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
+        }
+    }
+
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        
+        $currentDay = date("d") . "";
+        $currentMonth = date("m") . "";
+        $currentYear = date("Y") . "";
+        $time = $uhrzeit = date("H:i")."";
+        
+        
+        
+        $currentDateTime = $currentDay.".".$currentMonth.".".$currentYear." ".$time;
+        
+
+        $ajaxForm = new \Widgets\AjaxForm();
+        $ajaxForm->setSubmitCommand("Create");
+        $ajaxForm->setSubmitNamespace("Postbox");
+        $html = '          
+
+
+<input type="hidden" name="id" value="{'.$this->id.'}">
+<input id="cb" type="hidden" name="checkVal" value="false">
+<script>
+            $(".widgets_textinput_save_button").hide();
+
+            $(".widgets_datepicker input").val("'.$currentDateTime.'");
+            
+            $(".widgets_checkbox input").change(function(){
+                if(!this.checked){ 
+                    $("#datepicker_overlay").show();
+                    $("#cb").val("false");
+                 }else{
+                    $("#datepicker_overlay").hide();
+                    $("#cb").val("true");
+                 }
+                }
+            );
+            
+</script>
+        
+<br>		';
+
+        $textInput = new \Widgets\TextInput();
+        $textInput->setName("name");
+        $textInput->setLabel("Name");
+
+        $datePicker = new \Widgets\DatePicker();
+        $datePicker->setName("deadline");
+        $datePicker->setLabel("Abgabefrist");
+        $datePicker->setTimePicker(true);
+
+        $checkbox = new \Widgets\Checkbox();
+        $checkbox->setName("noDeadline");
+        $checkbox->setLabel("Keine Abgabefrist:");
+       
+
+        $ajaxForm->setHtml($textInput->getHtml() .$checkbox->getHtml() .'<div id="datepicker_overlay">'. $datePicker->getHtml()."</div>".$html."");
+
+        $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
+
+        $ajaxResponseObject->setStatus("ok");
+
+        $ajaxResponseObject->addWidget($ajaxForm);
+
+
+        return $ajaxResponseObject;
+    }
+
+    public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        return $frameResponseObject;
+    }
+
 }
 
-.attributeName {
-  float: left;
-  padding-right: 20px;
-  text-align: right;
-  width: 80px;
-}
-
-.attributeValue {
-  float: left;
-  width: 300px;
-}
-
-.attributeValue .text, .attributeValue textarea {
-  width: 300px;
-}
-
-.attributeValueColumn {
-  float: left;
-  position: relative;
-  text-align: center;
-}
-
-</style>
-<input type="hidden" name="id" value="{$this->id}">
-<div class="attribute">
-	<div class="attributeName">Name:</div>
-	<div class="attributeValue"><input type="text" class="text" value="" name="name"></div>
-</div>
-<br>			
-END
-	);
-		
-		$ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
-		
-		$ajaxResponseObject->setStatus("ok");
-		
-		$ajaxResponseObject->addWidget($ajaxForm);
-		
-		
-		return $ajaxResponseObject;
-
-		
-		
-		
-	}
-	
-	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		return $frameResponseObject;
-	}
-}
 ?>
