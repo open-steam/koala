@@ -22,6 +22,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $checkAccessWrite = $obj->check_access_write();
         $checkAccesRead = $obj->check_access_read();
 
+
+
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
 
         $isDeadlineSet = true;
@@ -47,54 +49,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $isDeadlineEnd = true;
             }
         }
-        $headlineHtml = new \Widgets\RawHtml();
-        $headlineHtml->setHtml('<h1 class="headline">'.$obj->get_name().'</h1>');
-       
-        $cssStyles = new \Widgets\RawHtml();
-        $cssStyles->setCss('.attribute{width:150px;float:left;padding-left:20px;padding-top:5px;} .value{padding-top:5px;} .value-red{color:red;padding-top:5px;} .value-green{color:green;padding-top:5px;}
-            #button{padding-left:20px;} .headline{padding-left:20px;}');
-
-        $buttonHtml = new \Widgets\RawHtml();
-        $buttonHtml->setHtml(<<<END
-                        <br>
-<div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$this->id}}, '', 'popup', null, null);return false;">
-<button>Abgabe einreichen</button>
-</div>
-END
-        );
-        $buttonHtml->setJs('$(document).ready(function() {
-    $("button").button();
-  });');
-
-        $frameResponseObject->addWidget($cssStyles);
-         $frameResponseObject->addWidget($headlineHtml);
-        $lastReleaseHtml = new \Widgets\RawHtml();
-        $lastReleaseHtml->setHtml('<div class="attribute">Letzte Abgabe:</div><div class="value">-</div>
-                ');
-        if ($isDeadlineEnd) {
-            $deadlineEndHtml = new \Widgets\RawHtml();
-            $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
-
-            $frameResponseObject->addWidget($deadlineEndHtml);
-            $frameResponseObject->addWidget($lastReleaseHtml);
-        } else if (!$isDeadlineSet) {
-            $noDeadlineHtml = new \Widgets\RawHtml();
-            $noDeadlineHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">-</div>');
-            $frameResponseObject->addWidget($noDeadlineHtml);
-            $frameResponseObject->addWidget($lastReleaseHtml);
-            $frameResponseObject->addWidget($buttonHtml);
-        } else {
-            $deadlineRunHtml = new \Widgets\RawHtml();
-            $deadlineRunHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
-            $frameResponseObject->addWidget($deadlineRunHtml);
-            $frameResponseObject->addWidget($lastReleaseHtml);
-            $frameResponseObject->addWidget($buttonHtml);
-        }
-
-
 
 
 
@@ -107,14 +61,107 @@ END
           //compare the names
 
          */
+        //  $headlineHtml = new \Widgets\RawHtml();
+        //  $headlineHtml->setHtml('<h1 class="headline">' . $obj->get_name() . '</h1>');
+        $this->getExtension()->addJS();
+        $headlineHtml = new \Widgets\Breadcrumb();
+        $headlineHtml->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/reference_folder.png\"></img> " . $obj->get_name() . " ")));
+
+
+        $cssStyles = new \Widgets\RawHtml();
+        $cssStyles->setCss('.attribute{width:150px;float:left;padding-left:50px;padding-top:5px;} .value{padding-top:5px;} .value-red{color:red;padding-top:5px;} .value-green{color:green;padding-top:5px;}
+            #button{padding-left:20px;} .breadcrumb {
+    padding-left: 50px;
+    padding-right: 50px;0
+} #postboxWrapper {
+    padding-left: 50px;
+    padding-right: 50px;
+}');
 
 
         if ($checkAccessWrite) {
-            
+            $actionBar = new \Widgets\ActionBar();
+            $actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
+
+
+            $frameResponseObject->addWidget($actionBar);
+            $frameResponseObject->addWidget($cssStyles);
+            $frameResponseObject->addWidget($headlineHtml);
+
+            if ($isDeadlineEnd) {
+                $deadlineEndHtml = new \Widgets\RawHtml();
+                $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+                $frameResponseObject->addWidget($deadlineEndHtml);
+            } else if (!$isDeadlineSet) {
+                $noDeadlineHtml = new \Widgets\RawHtml();
+                $noDeadlineHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">-</div>');
+                $frameResponseObject->addWidget($noDeadlineHtml);
+            } else {
+                $deadlineRunHtml = new \Widgets\RawHtml();
+                $deadlineRunHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+                $frameResponseObject->addWidget($deadlineRunHtml);
+            }
+            $clearer = new \Widgets\Clearer();
+            $frameResponseObject->addWidget($clearer);
+            $frameResponseObject->addWidget($clearer);
+
+            $loader = new \Widgets\Loader();
+            $loader->setWrapperId("postboxWrapper");
+            $loader->setMessage("Lade Abgaben ...");
+            $loader->setCommand("loadPostbox");
+            $loader->setParams(array("id" => $this->id));
+            $loader->setElementId("postboxWrapper");
+            $loader->setType("updater");
+
+            $environmentData = new \Widgets\RawHtml();
+            $environmentData->setHtml("<input type=\"hidden\" id=\"environment\" value=\"$this->id\">");
+
+            $frameResponseObject->addWidget($environmentData);
+            $frameResponseObject->addWidget($loader);
         } else if ($checkAccesRead) {
-            //Benutzer darf Dokumente einreichen
-            echo "Ihre Rolle ist Abgeber!";
-            die;
+
+            $buttonHtml = new \Widgets\RawHtml();
+            $buttonHtml->setHtml(<<<END
+                        <br>
+<div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$this->id}}, '', 'popup', null, null);return false;">
+<button>Abgabe einreichen</button>
+</div>
+END
+            );
+            $buttonHtml->setJs('$(document).ready(function() {
+    $("button").button();
+  });');
+
+            $frameResponseObject->addWidget($cssStyles);
+            $frameResponseObject->addWidget($headlineHtml);
+            $lastReleaseHtml = new \Widgets\RawHtml();
+            $lastReleaseHtml->setHtml('<div class="attribute">Letzte Abgabe:</div><div class="value">-</div>
+                ');
+            if ($isDeadlineEnd) {
+                $deadlineEndHtml = new \Widgets\RawHtml();
+                $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+
+                $frameResponseObject->addWidget($deadlineEndHtml);
+                $frameResponseObject->addWidget($lastReleaseHtml);
+            } else if (!$isDeadlineSet) {
+                $noDeadlineHtml = new \Widgets\RawHtml();
+                $noDeadlineHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">-</div>');
+                $frameResponseObject->addWidget($noDeadlineHtml);
+                $frameResponseObject->addWidget($lastReleaseHtml);
+                $frameResponseObject->addWidget($buttonHtml);
+            } else {
+                $deadlineRunHtml = new \Widgets\RawHtml();
+                $deadlineRunHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
+                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+                $frameResponseObject->addWidget($deadlineRunHtml);
+                $frameResponseObject->addWidget($lastReleaseHtml);
+                $frameResponseObject->addWidget($buttonHtml);
+            }
         } else {
             echo "Keine Zugriffsrechte!";
             die;
