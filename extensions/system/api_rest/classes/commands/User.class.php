@@ -4,7 +4,7 @@ class User extends \AbstractCommand implements \IFrameCommand {
 
     private $params;
     private $function;
-    private $functionList = array("getMyUser", "getWorkroom", "getUserByName", "getAllUsers", "getMemberships");
+    private $functionList = array("getMyUser", "getWorkroom", "getMyWorkroom", "getUserByName", "getAllUsers", "getMemberships");
 
     public function httpAuth(\IRequestObject $requestObject) {
         return true;
@@ -34,6 +34,15 @@ class User extends \AbstractCommand implements \IFrameCommand {
         $steamUser = $GLOBALS["STEAM"]->get_current_steam_user();
         return $steamUser;
     }
+
+	public function getMyWorkroom() {
+		$steamUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        if ($steamUser instanceof \steam_user) {
+            $workRoom = $steamUser->get_workroom();
+            return $workRoom;
+        }
+        HTTPStatus(400);
+	}
 
     public function getWorkroom($id) {
         $steamUser = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
