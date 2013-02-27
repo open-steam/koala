@@ -160,4 +160,6 @@ defined("DELETE_GROUP_HOME_EXITS") or define("DELETE_GROUP_HOME_EXITS", true);
 
 // enable automatic image scaling on uploads, needs imagick library
 defined("ENABLE_AUTOMATIC_IMAGE_SCALING") or define("ENABLE_AUTOMATIC_IMAGE_SCALING", false);
+
+defined("YOUR_SCHOOL") or define("YOUR_SCHOOL", false);
 ?>

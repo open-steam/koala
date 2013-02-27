@@ -29,9 +29,8 @@ if (!isPhpCli() && !isAjaxRequest() && !isRestRequest() ){
 }
 
 if(isRestRequest()){
-    set_error_handler(array("Rest","errorHandler"));
-    register_shutdown_function(array("Rest","shutdownHandler"));
-    set_exception_handler(array("Rest","exceptionHandler"));	
+	include_once(PATH_LIB . "exception_handler_rest.inc.php");
+	set_exception_handler("send_http_error_rest");
 }
 
 //clean disconnect handling
