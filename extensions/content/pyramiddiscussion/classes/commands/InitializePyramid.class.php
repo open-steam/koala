@@ -40,8 +40,55 @@ class InitializePyramid extends \AbstractCommand implements \IAjaxCommand {
         $pyramidRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $maxcol = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_MAXCOL");
         $start = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_MAX");
+        $basegroup_original = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_BASEGROUP");
+        $admingroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ADMINGROUP");
         $basegroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
-        $editor = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_EDITOR"); //$this->params["editor"]
+        $editor = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_EDITOR");
+        
+        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        foreach ($basegroup_original->get_members() as $member) {
+            if ($member instanceof \steam_user) {
+                $basegroup->add_member($member);
+            }
+        }
+        $admins = array();
+        if ($admingroup instanceof \steam_group) {
+            foreach ($admingroup->get_members() as $member) {
+                if (!$basegroup->is_member($member) && $member instanceof \steam_user) {
+                    $basegroup->add_member($member);
+                } 
+                if ($member instanceof \steam_user) {
+                    $basegroup->set_admin($member);
+                    array_push($admins, $member);
+                }
+            }
+        }
+        if (!$basegroup->is_member($user)) {
+            $basegroup->add_member($user);
+        }
+        if (!$basegroup->is_admin($user)) {
+            $basegroup->set_admin($user);
+            array_push($admins, $user);
+        }
+        
+        $participants = array();
+        $members = $basegroup->get_members();
+        foreach ($members as $member) {
+            if ($member instanceof \steam_user) {
+                $participants[$member->get_id()] = 0;
+            }
+        }
+        $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_PARTICIPANT_MANAGEMENT", $participants);
+
+        $adminconfig = array();
+        foreach ($admins as $admin) {
+            if ($admin instanceof \steam_user) {
+                $options = array();
+                $options["show_adminoptions"] = "true";
+                $adminconfig[$admin->get_id()] = $options;
+            }
+        }
+        $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_ADMINCONFIG", $adminconfig);
         
         $groups = array();
         for ($count = 1; $count <= $maxcol; $count++) {
