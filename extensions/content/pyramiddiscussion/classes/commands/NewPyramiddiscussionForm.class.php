@@ -25,7 +25,7 @@ class NewPyramiddiscussionForm extends \AbstractCommand implements \IAjaxCommand
         $user = $GLOBALS["STEAM"]->get_current_steam_user();
         $groups = $user->get_groups();
         $options_basegroup = "";
-        $options_admingroup = "<option value=\"0\">Keine</option> \n";
+        $options_admingroup = "<option value=\"0\">Nur ich</option> \n";
         $options_course = "";
         $buddies = array();
         if (PLATFORM_ID == "bid") {

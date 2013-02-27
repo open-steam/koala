@@ -45,6 +45,8 @@ class InitializePyramid extends \AbstractCommand implements \IAjaxCommand {
         $basegroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
         $editor = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_EDITOR");
         
+        $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_INITIALIZED", "1");
+        
         $user = $GLOBALS["STEAM"]->get_current_steam_user();
         foreach ($basegroup_original->get_members() as $member) {
             if ($member instanceof \steam_user) {
@@ -117,7 +119,7 @@ class InitializePyramid extends \AbstractCommand implements \IAjaxCommand {
             $basegroup->add_member($group);
         }
         
-        $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_INITIALIZED", 1);
+        $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_INITIALIZED", "2");
     }
 }
 ?>
