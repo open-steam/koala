@@ -39,7 +39,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             $rawWidget = new \Widgets\RawHtml();
             if ($userID === $pyramidRoom->get_creator()->get_id()) {
                 $params = "{ pyramid : " . $pyramidRoom->get_id() . " }";
-                $html = "<center>Bevor Sie die Pyramidendiskussion benutzen können, müssen Sie diese initialisieren.<br><a href=\"javascript:sendRequest('InitializePyramid', " . $params . ", '" . $pyramidRoom->get_id() . "', 'popup', '', '', 'Pyramiddiscussion');\">Klicken sie jetzt hier um die Pyramidendiskussion zu initialisieren.</a><br><br>Die Dauer dieses Vorgangs ist abhängig von der Größe der ausgewählten Gruppen.<br>In den meisten Fällen dauert er weniger als eine Minute, bei Gruppen mit vielen Mitgliedern kann die Initialisierung allerdings auch wenige Minuten dauern.</center>";
+                $html = "<br><center>
+                    Bevor Sie die Pyramidendiskussion benutzen können, müssen Sie diese initialisieren.<br>
+                    Die Dauer dieses Vorgangs ist abhängig von der Größe der ausgewählten Gruppen.<br>
+                    In den meisten Fällen dauert er weniger als eine Minute, bei Gruppen<br>
+                    mit vielen Mitgliedern kann die Initialisierung allerdings auch wenige Minuten dauern.
+                    <br><br><a href=\"javascript:sendRequest('InitializePyramid', " . $params . ", '" . $pyramidRoom->get_id() . "', 'popup', '', '', 'Pyramiddiscussion');\">Klicken Sie jetzt hier um die Pyramidendiskussion zu initialisieren.</a></center>";
             } else {
                 $html = "<center>Bevor die Pyramidendiskussion benutzt werden kann, muss diese zunächst vom Ersteller initialisiert werden.</center>";
             }
