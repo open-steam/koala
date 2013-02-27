@@ -73,7 +73,10 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         $basegroup = \steam_factory::create_group($GLOBALS["STEAM"]->get_id(), "pyramid_" . $pyramidRoom->get_id(), $private_group);
         $basegroup->set_attribute("GROUP_INVISIBLE", true);
         
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        if ($admingroup != 0) {
+            $admingroup = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $admingroup);
+        }
+        /*$user = $GLOBALS["STEAM"]->get_current_steam_user();
         foreach ($basegroup_original->get_members() as $member) {
             if ($member instanceof \steam_user) {
                 $basegroup->add_member($member);
@@ -98,7 +101,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         if (!$basegroup->is_admin($user)) {
             $basegroup->set_admin($user);
             array_push($admins, $user);
-        }
+        }*/
         
         //$pyramidRoom->set_sanction_all($admingroup);
         $pyramidRoom->set_sanction_all($basegroup);
@@ -116,7 +119,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_USEDEADLINES", "no");
         $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_VERSION", "koala_3.0");
 
-        $participants = array();
+        /*$participants = array();
         $members = $basegroup->get_members();
         foreach ($members as $member) {
             if ($member instanceof \steam_user) {
@@ -133,7 +136,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
                 $adminconfig[$admin->get_id()] = $options;
             }
         }
-        $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_ADMINCONFIG", $adminconfig);
+        $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_ADMINCONFIG", $adminconfig);*/
 
         //$pyramidGroup = \steam_factory::create_group($GLOBALS["STEAM"]->get_id(), "pyramid_" . $pyramidRoom->get_id(), $basegroup);
         // create position documents and corresponding groups

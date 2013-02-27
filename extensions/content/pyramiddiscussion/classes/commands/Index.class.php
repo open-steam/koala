@@ -39,10 +39,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             $rawWidget = new \Widgets\RawHtml();
             if ($userID === $pyramidRoom->get_creator()->get_id()) {
                 $params = "{ pyramid : " . $pyramidRoom->get_id() . " }";
-                $rawWidget->setHtml("<center><a href=\"javascript:sendRequest('InitializePyramid', " . $params . ", '" . $pyramidRoom->get_id() . "', 'popup', '', '', 'Pyramiddiscussion');\">Pyramidendiskussion initialisieren</a><br><br>Dieser Vorgang kann einige Minuten dauern.</center>");
+                $html = "<center><a href=\"javascript:sendRequest('InitializePyramid', " . $params . ", '" . $pyramidRoom->get_id() . "', 'popup', '', '', 'Pyramiddiscussion');\">Pyramidendiskussion initialisieren</a><br><br>Dieser Vorgang kann einige Minuten dauern.</center>";
             } else {
-                $rawWidget->setHtml("Pyramidendiskussion muss zunächst vom Ersteller initialisiert werden.");
+                $html = "Pyramidendiskussion muss zunächst vom Ersteller initialisiert werden.";
             }
+            $rawWidget = new \Widgets\RawHtml();
+            $rawWidget->setHtml($html);
             $frameResponseObject->addWidget($rawWidget);
             $frameResponseObject->setHeadline("Pyramidendiskussion: " . $pyramidRoom->get_attribute("OBJ_DESC"));
             return $frameResponseObject;
