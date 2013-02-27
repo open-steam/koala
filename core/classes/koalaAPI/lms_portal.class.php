@@ -553,7 +553,7 @@ return $rand_value;
 			//$koala_html_menu->add_menu_entry( array( "name" => gettext( "Home" ), "link" => PATH_URL ) );
 			
 			// YOU
-
+                        require_once( PATH_LIB . "determine_school.php" );
 			if(YOU_MENU){
 				    $koala_html_menu->add_menu_entry( array( "name" => ((MENU_YOU) ? gettext( "You" ): $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")), "link" => PATH_URL . "desktop/", "menu" => array(
 					//YOU SUBMENU
@@ -567,6 +567,8 @@ return $rand_value;
                                         //not used
                                         (YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
 					
+                                        (defined("YOUR_SCHOOL") && YOUR_SCHOOL && ($mySchool = determineSchoolObject()) instanceof \steam_object) ? array ("name" => "Meine Schule", "link" => PATH_URL . "explorer/index/" . $mySchool->get_id() . "/") : "",
+                                        
                                         (YOUR_CONTACTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your contacts" ) : "Kontakte"), /*"link" => PATH_URL . "contacts/" . $user->get_name() . "/" */) : "",
 					(YOUR_MOKODESK && ($user->get_attribute("LARS_DESKTOP") !== 0)) ? array( "name" => ((MENU_YOU) ? gettext( "Mein MokoDesk" ) : "MokoDesk"), "link" => MOKODESK_URL) : "",
 					

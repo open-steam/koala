@@ -1,5 +1,5 @@
 <?php
-namespace Explorer\Commands;
+namespace Postbox\Commands;
 class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 	
 	private $params;
@@ -180,6 +180,7 @@ class qqFileUploader {
         $filename = $pathinfo['filename'];
         //$filename = md5(uniqid());
         $ext = $pathinfo['extension'];
+      
 
         if($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)){
             $these = implode(', ', $this->allowedExtensions);
@@ -187,7 +188,10 @@ class qqFileUploader {
         }
         
         //create empty steam_document and check write access
-        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $this->file->getName(), "", "" , \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid));
+        $env= \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
+        
+        $username = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $username."_".$env->get_name().".".$ext, "", "" , $env);
         
         if(!$replaceOldFile){
             /// don't overwrite previous files that were uploaded

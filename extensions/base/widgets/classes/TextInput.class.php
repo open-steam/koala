@@ -19,6 +19,7 @@ class TextInput extends Widget {
     private $autosave = true;
     private $customSaveCode = "";
     private $name = "";
+    
 
     public function setName($name) {
         $this->name = $name;

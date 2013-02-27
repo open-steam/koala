@@ -234,4 +234,11 @@ function sortExplorerNewDialog($extensionA, $extensionB){
     }
     return ($posA < $posB) ? -1 : 1;
 }
+
+function sortSubscriptionElements($elementA, $elementB) {
+    if ($elementA[0] == $elementB[0]) {
+        return 0;
+    }
+    return ($elementA[0]< $elementB[0]) ? -1 : 1;
+}
 ?>

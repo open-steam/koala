@@ -40,7 +40,7 @@
 	margin: 3px;
 }
 
-.dialog .widgets_textinput input, .dialog .widgets_datepicker input, .dialog .widgets_combobox select, .dialog .widgets_textfield {
+.dialog .widgets_textinput input, .dialog .widgets_datepicker input, .dialog .widgets_combobox select, .dialog .widgets_textfield, .dialog .widgets_checkbox {
 	width: 200px;
 	margin: 3px;
 }

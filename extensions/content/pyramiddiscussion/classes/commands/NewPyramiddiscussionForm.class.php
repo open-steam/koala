@@ -31,14 +31,14 @@ class NewPyramiddiscussionForm extends \AbstractCommand implements \IAjaxCommand
         if (PLATFORM_ID == "bid") {
             $buddies = $user->get_buddies();
             foreach ($buddies as $buddy) {
-                if ($buddy instanceof \steam_group && !in_array($buddy, $groups) && $buddy->get_attribute("GROUP_INVISIBLE") !== 1) {
+                if ($buddy instanceof \steam_group && !in_array($buddy, $groups) && $buddy->get_attribute("GROUP_INVISIBLE") !== 1 && $buddy->count_members() <= 64) {
                     $options_basegroup = $options_basegroup . "<option value=\"" . $buddy->get_id() . "\">" . $buddy->get_name() . "</option> \n";
                     $options_admingroup = $options_admingroup . "<option value=\"" . $buddy->get_id() . "\">" . $buddy->get_name() . "</option> \n";
                 }
             }
         }
         foreach ($groups as $group) {
-            if ($group->get_attribute("GROUP_INVISIBLE") !== 1 && $group->get_name() !== "sTeam") {
+            if ($group->get_attribute("GROUP_INVISIBLE") !== 1 && $group->get_name() !== "sTeam" && $group->count_members() <= 64) {
                 if (PLATFORM_ID == "bid") {
                     // bid owl    
                     $options_basegroup = $options_basegroup . "<option value=\"" . $group->get_id() . "\">" . $group->get_name() . "</option> \n";

@@ -1,5 +1,5 @@
 <?php
-namespace Explorer\Commands;
+namespace Postbox\Commands;
 
 class NewDocumentForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 	
@@ -26,18 +26,19 @@ class NewDocumentForm extends \AbstractCommand implements \IFrameCommand, \IAjax
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
-		
-		
+		$dialog = new \Widgets\Dialog();
+                $dialog->setTitle("Abgabe einreichen");
+                
+                
 		$ajaxUploader = new \Widgets\AjaxUploader();
 		$ajaxUploader->setSizeLimit(return_bytes(ini_get('post_max_size')));
-		$ajaxUploader->setNamespace("Explorer");
+		$ajaxUploader->setNamespace("Postbox");
 		$ajaxUploader->setDestId($this->id);
+                
+                $ajaxUploader->setMultiUpload(false);
 		
-		$rawHTML = new \Widgets\RawHtml();
-		$rawHTML->setHtml("<div style=\"float:right\"><a class=\"button pill negative\" onclick=\"closeDialog();window.location.reload();return false;\" href=\"#\">Schließen</a></div>");
-		
-		$ajaxResponseObject->addWidget($ajaxUploader);
-		$ajaxResponseObject->addWidget($rawHTML);
+		$dialog->addWidget($ajaxUploader);
+		$ajaxResponseObject->addWidget($dialog);
 		return $ajaxResponseObject;
 	}
 	

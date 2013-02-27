@@ -137,7 +137,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 
         //$pyramidGroup = \steam_factory::create_group($GLOBALS["STEAM"]->get_id(), "pyramid_" . $pyramidRoom->get_id(), $basegroup);
         // create position documents and corresponding groups
-        $groups = array();
+        /*$groups = array();
         for ($count = 1; $count <= $maxcol; $count++) {
             for ($count2 = 1; $count2 <= $start / pow(2, $count - 1); $count2++) {
                 $newGroup = \steam_factory::create_group($GLOBALS["STEAM"]->get_id(), "group_" . $count . "_" . $count2, $basegroup);
@@ -162,7 +162,8 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         }
         foreach ($groups as $group) {
             $basegroup->add_member($group);
-        }
+        }*/
+        $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_INITIALIZED", 0);
 
         $jswrapper = new \Widgets\JSWrapper();
         $jswrapper->setJs(<<<END
