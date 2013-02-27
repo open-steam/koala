@@ -754,6 +754,13 @@ return $rand_value;
 		}
 		else
 		{
+                        if (defined("HELP_URL") && HELP_URL != "") {
+                            $this->template->setCurrentBlock("BLOCK_HELP_GUEST");
+                            $this->template->setVariable( "HELP_TEXT_GUEST", gettext( "Help" ) );
+                            $this->template->setVariable( "HELP_URL_GUEST", HELP_URL);
+                            $this->template->parse("BLOCK_HELP_GUEST");
+                        }
+                        
 			/*$this->template->setCurrentBlock( "STATUS_GUEST_BLOCK" );
 			$this->template->setVariable( "NOT_SIGNED_IN_TEXT", gettext( "You aren't signed in." ) );
 			$this->template->setVariable( "STATUS_PATH_URL", PATH_URL );
