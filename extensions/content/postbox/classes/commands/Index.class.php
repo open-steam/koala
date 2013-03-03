@@ -25,13 +25,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
-
         $isDeadlineSet = true;
 
-        if ($deadlineDateTime === "" || $deadlineDateTime === 0) {
+        if ($deadlineDateTime == "" || $deadlineDateTime == 0) {
             $isDeadlineSet = false;
+            
         }
-
+       
 
         if ($isDeadlineSet) {
             //determine current date
@@ -81,14 +81,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         if ($checkAccessWrite) {
             $actionBar = new \Widgets\ActionBar();
-            $actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
-
+            $actionBar->setActions(array(array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "Explorer")))
+            ));
 
             $frameResponseObject->addWidget($actionBar);
             $frameResponseObject->addWidget($cssStyles);
             $frameResponseObject->addWidget($headlineHtml);
 
-            if ($isDeadlineEnd) {
+            if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
                 $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
                 <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
