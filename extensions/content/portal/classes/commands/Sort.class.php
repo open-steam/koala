@@ -52,7 +52,13 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             $counter++;
             foreach ($inventory as $e) {
                 $eId = $e->get_id();
-                $eName = $e->get_attribute(OBJ_DESC);
+                $portletType = $e->get_attribute("bid:portlet");
+                $eName = $e->get_attribute("OBJ_DESC");
+                if($portletType === "headline" || $portletType === "media"){
+                    $elementContent = $e->get_attribute("bid:portlet:content");
+                    $eName = $elementContent["headline"];                                       
+                }
+                
         //        $portletsMapping[$id][$eId] = $e;
         //        $portletsMappingName[$id][$eId] = $eName;
                 $html .= '<li id="' . $eId . '" class="elementSort">' . $eName . '</li>';
