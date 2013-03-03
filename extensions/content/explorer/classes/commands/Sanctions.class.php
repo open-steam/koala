@@ -399,6 +399,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 if ($name == "" || $name == "0") {
                     $name = $group->get_name();
                 }
+                $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
+                if(!($groupVisibility === 0)){
+                   continue;
+                }
                 $groupname = $group->get_groupname();
                 $readCheck = $object->check_access_read($group);
                 $writeCheck = $object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $group);
@@ -451,6 +455,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $optionValues = self::getOptionsValues($dropDownValueParent);
                 }
                 $ddl->setOptionValues($optionValues);
+                
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
                     $content->setCurrentBlock("GROUPS");
                     $content->setCurrentBlock("GROUP_DDSETTINGS");
@@ -474,6 +479,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER_ACQ", "Sie sind kein Mitglied einer Gruppe");
         } else {
             foreach ($groupMappingAcq as $id => $group) {
+                 $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
+                if(!($groupVisibility === 0)){
+                   continue;
+                }
                 $name = $group->get_attribute("OBJ_DESC");
                 if ($name == "" || $name == "0") {
                     $name = $group->get_name();
