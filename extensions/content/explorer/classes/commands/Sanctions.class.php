@@ -400,7 +400,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $name = $group->get_name();
                 }
                 $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
-                if(!($groupVisibility === 0)){
+                if(!($groupVisibility == 0)){
                    continue;
                 }
                 $groupname = $group->get_groupname();
