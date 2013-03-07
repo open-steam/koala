@@ -18,11 +18,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        
+        $container = $obj->get_attribute("bid:postbox:container");
+      
 
         $checkAccessWrite = $obj->check_access_write();
         $checkAccesRead = $obj->check_access_read();
-
-
+       
 
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
         $isDeadlineSet = true;
@@ -113,7 +115,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $loader->setWrapperId("postboxWrapper");
             $loader->setMessage("Lade Abgaben ...");
             $loader->setCommand("loadPostbox");
-            $loader->setParams(array("id" => $this->id));
+            $loader->setParams(array("id" => $container->get_id()));
             $loader->setElementId("postboxWrapper");
             $loader->setType("updater");
 
@@ -127,7 +129,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $buttonHtml = new \Widgets\RawHtml();
             $buttonHtml->setHtml(<<<END
                         <br>
-<div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$this->id}}, '', 'popup', null, null);return false;">
+<div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$container->get_id()}}, '', 'popup', null, null);return false;">
 <button>Abgabe einreichen</button>
 </div>
 END
@@ -141,7 +143,7 @@ END
             $lastReleaseHtml = new \Widgets\RawHtml();
             $lastReleaseHtml->setHtml('<div class="attribute">Letzte Abgabe:</div><div class="value">-</div>
                 ');
-            if ($isDeadlineEnd) {
+           if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
                 $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
                 <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
