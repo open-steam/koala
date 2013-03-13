@@ -6,6 +6,7 @@ class WikiSubscription extends AbstractSubscription {
     public function getUpdates() {
         $updates = array();
         $articles = $this->object->get_inventory();
+        $count = 0;
         foreach ($articles as $article) {
             if ($article instanceof \steam_document && $article->get_attribute("DOC_MIME_TYPE") === "text/wiki" && !in_array($article->get_id(), $this->filter)) {
                 if ($article->get_attribute("OBJ_CREATION_TIME") > $this->timestamp) {
@@ -14,6 +15,7 @@ class WikiSubscription extends AbstractSubscription {
                                     $article->get_id(),
                                     $this->getElementHtml(
                                         $article->get_id(), 
+                                        $count,
                                         $this->private,
                                         $article->get_attribute("OBJ_CREATION_TIME"),
                                         "Neuer Artikel:",
@@ -27,6 +29,7 @@ class WikiSubscription extends AbstractSubscription {
                                     $article->get_id(), 
                                     $this->getElementHtml(
                                         $article->get_id(), 
+                                        $count,
                                         $this->private,
                                         $article->get_attribute("DOC_LAST_MODIFIED"),
                                         "Geänderter Artikel:",
@@ -36,6 +39,7 @@ class WikiSubscription extends AbstractSubscription {
                                 );
                 }
             }
+            $count++;
         }
         return $updates;
     }

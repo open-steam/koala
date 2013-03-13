@@ -24,12 +24,12 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 		$dialog->addWidget($titelInput);
 		$dialog->addWidget(new \Widgets\Clearer());
                 
-		$folderInput = new \Widgets\TextInput();
+		/*$folderInput = new \Widgets\TextInput();
 		$folderInput->setLabel("Objekt ID");
 		$folderInput->setData($object);
 		$folderInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_SUBSCRIPTION_OBJECTID"));
 		$dialog->addWidget($folderInput);
-		$dialog->addWidget(new \Widgets\Clearer());
+		$dialog->addWidget(new \Widgets\Clearer());*/
                 
                 $dropDownWidget = new \Widgets\ComboBox();
                 $dropDownWidget->setLabel("Typ");

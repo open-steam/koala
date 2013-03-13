@@ -27,5 +27,25 @@ class HomePortal extends AbstractExtension {
 		return 71;
 	}
         
+        public function updateSubscriptions($id) {
+            $user = $GLOBALS["STEAM"]->get_current_steam_user();
+            $subscriptions = array();
+            
+            $portal = $user->get_attribute("HOME_PORTAL");
+            if ($portal instanceof \steam_object && $id == $portal->get_id()) {
+                $columns = $portal->get_inventory();
+                foreach ($columns as $column) {
+                    if ($column instanceof \steam_container) {
+                        $portlets = $column->get_inventory();
+                        foreach ($portlets as $portlet) {
+                            if ($portlet->get_attribute("bid:portlet") === "subscription") {
+                                $subscriptions[] = $portlet->get_attribute("PORTLET_SUBSCRIPTION_OBJECTID");
+                            }
+                        }
+                    }
+                }
+                $user->set_attribute("USER_HOMEPORTAL_SUBSCRIPTIONS", $subscriptions);
+            }
+        } 
 }
 ?>

@@ -34,6 +34,8 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
                 "PORTLET_SUBSCRIPTION_FILTER" => array(),
                 "PORTLET_SUBSCRIPTION_ORDER" => $params["sort"]
 	    ));
+            
+            \ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($column->get_environment()->get_id());
 	}
 	
         public function idResponse(\IdResponseObject $idResponseObject) {

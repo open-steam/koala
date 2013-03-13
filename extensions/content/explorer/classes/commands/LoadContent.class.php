@@ -40,15 +40,15 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 	public function getHeadlines() {
-		return array("", "Name", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+		return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
 	}
 	
 	public function getHeadLineWidths() {
-		return array(25, 415, 100, 150, 80, 40, 20);
+		return array(25, 385, 100, 150, 80, 30, 40, 20);
 	}
 	
 	public function getHeadLineAligns() {
-		return array("left", "left", "right", "right", "right", "right", "right");
+		return array("left", "left", "right", "right", "right", "right", "right", "right");
 	}
 }
 
@@ -59,8 +59,9 @@ class ContentProvider implements \Widgets\IContentProvider {
 	private $rawMarker = 2;
 	private $rawChangeDate = 3;
 	private $rawSize = 4;
-	private $rawMenu = 5;
-	private $rawCheckbox = 6;
+        private $rawSubscribe = 5;
+	private $rawMenu = 6;
+	private $rawCheckbox = 7;
 	
 	public function getId($contentItem) {
 		return $contentItem->get_id();
@@ -176,7 +177,19 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$popupMenu->setData($contentItem);
 			$popupMenu->setElementId("listviewer-overlay");
 			return $popupMenu;
-		}
+		} else if ($cell == $this->rawSubscribe) {
+                    $type = getObjectType($contentItem);
+                    $user = $GLOBALS["STEAM"]->get_current_steam_user();
+                    if ($type === "forum" || $type === "wiki" || $type === "room" || ($type === "document" && strstr($contentItem->get_attribute(DOC_MIME_TYPE), "text"))) {
+                        $subscriptions = $user->get_attribute("USER_HOMEPORTAL_SUBSCRIPTIONS");
+                        if (is_array($subscriptions) && in_array($contentItem->get_id(), $subscriptions)) {
+                            return "<div id=\"subscribe" . $contentItem->get_id() . "\"><img title=\"Abbestellen\" src=\"".PATH_URL."explorer/asset/icons/unsubscribe.png\" onclick=\"sendRequest('Unsubscribe', {'id':'{$contentItem->get_id()}' }, 'subscribe" . $contentItem->get_id() . "', 'updater', '', '', 'Explorer'); jQuery('#1715').removeClass('listviewer-item-selected');\"></div>";
+                        } else {
+                            return "<div id=\"subscribe" . $contentItem->get_id() . "\"><img title=\"Abonnieren\" src=\"".PATH_URL."explorer/asset/icons/subscribe.png\" onclick=\"sendRequest('Subscribe', {'id':'{$contentItem->get_id()}', 'column' : '2' }, 'subscribe" . $contentItem->get_id() . "', 'updater', '', '', 'Explorer');\"></div>";
+                        }
+                    }
+                    return "";
+                }
 	}
 	
 	public function getNoContentText() {
