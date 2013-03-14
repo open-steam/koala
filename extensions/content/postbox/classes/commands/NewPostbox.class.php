@@ -27,10 +27,7 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $currentDay = date("d") . "";
         $currentMonth = date("m") . "";
         $currentYear = date("Y") . "";
-        $time = $uhrzeit = date("H:i")."";
-        
-        
-        
+        $time = date("H:i")."";
         $currentDateTime = $currentDay.".".$currentMonth.".".$currentYear." ".$time;
         
 
@@ -75,8 +72,7 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkbox->setName("noDeadline");
         $checkbox->setLabel("Keine Abgabefrist:");
        
-
-        $ajaxForm->setHtml($textInput->getHtml() .$checkbox->getHtml() .'<div id="datepicker_overlay">'. $datePicker->getHtml()."</div>".$html."");
+        $ajaxForm->setHtml($textInput->getHtml() .'<div style="clear:both;">'.$checkbox->getHtml() ."</div>".'<div id="datepicker_overlay" style="clear:both;">'. $datePicker->getHtml()."</div>".$html."");
 
         $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 

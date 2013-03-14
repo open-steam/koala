@@ -25,6 +25,13 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $ajaxResponseObject->setStatus("ok");
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
+        //compute current datetime
+        $currentDay = date("d") . "";
+        $currentMonth = date("m") . "";
+        $currentYear = date("Y") . "";
+        $time = date("H:i") . "";
+        $currentDateTime = $currentDay . "." . $currentMonth . "." . $currentYear . " " . $time;
+
         $dialog = new \Widgets\Dialog();
         $clearer = new \Widgets\Clearer();
 
@@ -43,33 +50,53 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $checkbox = new \Widgets\Checkbox();
         $checkbox->setName("noDeadline");
         $checkbox->setLabel("Keine Abgabefrist:");
-        $js = '';
-        if ($noDeadline) {
-            $js .= '$("input[name=' . 'noDeadline' . ']").attr("checked", true);';
-            $js .= '$("input[name=' . 'deadline' . ']").attr("disabled", true);';
-            
-        }
         $dialog->addWidget($checkbox);
-
 
         $datepickerStart = new \Widgets\DatePicker();
         $datepickerStart->setName("deadline");
         $datepickerStart->setLabel("Abgabefrist");
+        $datepickerStart->setTimePicker(true);
         $datepickerStart->setData($obj);
-        $datepickerStart->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:postbox:deadline"));
-        $dialog->addWidget($datepickerStart);
-        $dialog->addWidget($clearer);
-        $jsWrapper = new \Widgets\RawHtml();
-        $jsWrapper->setPostJsCode(<<<END
-            $("input[name=noDeadline]").attr("checked", true);
-            $("input[name=deadline]").attr("disabled", true);
-                
+        //$datepickerStart->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:postbox:deadline"));
+        if($noDeadline){
+            $datepickerValue = $currentDateTime;
+        }else{
+            $datepickerValue = trim($attr);
+        }
+        $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->setHtml(<<<END
+                <div id="datepicker-box">{$datepickerStart->getHtml()}</div>
+                <script> $(".widgets_datepicker input").val("{$datepickerValue}");
+                    $("#datepicker-box .widgets_datepicker input").change(function(){
+                        sendRequest('databinding', {'id': {$this->id}, 'attribute': 'bid:postbox:deadline', 'value': this.value}, '', 'data');
+                            $(this).addClass('changed')});
+                    $(".widgets_checkbox input").change(function(){
+                if(!this.checked){ 
+                    $("#datepicker-box").show();                  
+                 }else{
+                    $("#datepicker-box").hide();  
+                    sendRequest('databinding', {'id': {$this->id}, 'attribute': 'bid:postbox:deadline', 'value': ''}, '', 'data');
+                         
+                 }
+                }
+            );   
+                </script>
 END
-                
-                
                 );
-        $dialog->addWidget($jsWrapper);
+        $dialog->addWidget($rawHtml);
+        $dialog->addWidget($clearer);
+        if ($noDeadline) {
+            $jsWrapper = new \Widgets\RawHtml();
+            $jsWrapper->setPostJsCode(<<<END
+            $("input[name=noDeadline]").attr("checked", true);
+            $("#datepicker-box").hide();
+           
+END
+            );
 
+            $dialog->addWidget($jsWrapper);
+        }
+        
         $ajaxResponseObject->addWidget($dialog);
         return $ajaxResponseObject;
     }

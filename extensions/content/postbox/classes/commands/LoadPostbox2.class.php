@@ -1,6 +1,6 @@
 <?php
 namespace Postbox\Commands;
-class LoadPostbox extends \AbstractCommand implements \IAjaxCommand {
+class LoadPostbox2 extends \AbstractCommand implements \IAjaxCommand {
 
 	private $params;
 	private $id;
@@ -125,10 +125,10 @@ class ContentProvider implements \Widgets\IContentProvider {
 				if($linkObj === 0){
 					$url = "";
 				}else{
-					$url = PATH_URL."postbox/view/". $linkObj->get_id();
+					$url = PATH_URL."explorer/index/". $linkObj->get_id();
 				}
 			}else{
-				$url = PATH_URL."postbox/view/". $contentItem->get_id();
+				$url = PATH_URL."explorer/index/". $contentItem->get_id();
 			}
 			if (isset($url) && $url != "") {
 				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";

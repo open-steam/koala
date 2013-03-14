@@ -222,7 +222,7 @@ class qqFileUploader {
         } else {
             $container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $username, $env);
         }
-        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $env->get_environment()->get_name() ."_".$filename. "." . $ext, "", "", $container);
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort ."_".$filename. "." . $ext, "", "", $container);
 
         if (!$replaceOldFile) {
             /// don't overwrite previous files that were uploaded

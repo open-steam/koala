@@ -34,10 +34,10 @@ class NewDocumentForm extends \AbstractCommand implements \IFrameCommand, \IAjax
 		$ajaxUploader->setSizeLimit(return_bytes(ini_get('post_max_size')));
 		$ajaxUploader->setNamespace("Postbox");
 		$ajaxUploader->setDestId($this->id);
-                
-                $ajaxUploader->setMultiUpload(false);
+                $ajaxUploader->setMultiUpload(TRUE);
 		
 		$dialog->addWidget($ajaxUploader);
+                $dialog->setForceReload(true);
 		$ajaxResponseObject->addWidget($dialog);
 		return $ajaxResponseObject;
 	}
