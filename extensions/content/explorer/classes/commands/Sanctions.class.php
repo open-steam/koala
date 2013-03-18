@@ -401,6 +401,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 }
                 $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
                 if(!($groupVisibility == 0)){
+                    unset($groupMapping[$id]); 
                    continue;
                 }
                 $groupname = $group->get_groupname();
