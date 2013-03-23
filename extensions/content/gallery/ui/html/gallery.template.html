@@ -1,7 +1,17 @@
+<script>
+    function sendPicNumber(value, picMax){
+        var val = parseInt(value);
+        if(val != value || (val<1) || (val>(picMax-1))){
+            alert("Das Bild mit Nr. "+value+" gibt es nicht. Es gibt nur Bilder im Bereich von 1 und "+(picMax-1)+"." );
+        }else{          
+            location.href = "{ITEM_PATH_URL}"+ (val-1).toString();
+        }
+    }
+</script>
+<div id="search-div">Direkt zur Seite mit Bild <input id="search-input" type="text" size="3" maxlength="3" onchange="sendPicNumber(value, {PIC_COUNT});">   springen.</div>
 <div id="container_left">
-
-<div class="thumbs">{BACKLINK} <span class="pagingrange">{FROM}&#150;{TO}/{PIC_COUNT}</span>
-{FORWARDLINK} {DOCUMENTS} <!-- BEGIN ITEM -->
+<div class="thumbs">{BACKBEGIN}{BACKFAST}{BACKLINK} <span class="pagingrange">{FROM}&#150;{TO}/{PIC_COUNT}</span>
+{FORWARDEND}{FORWARDFAST}{FORWARDLINK} {DOCUMENTS} <!-- BEGIN ITEM -->
 <div class="thumbnail_div"><a class="gallery"
 	id="{ITEM_THUMBNAIL_ID}"
 	style="background: url({ITEM_PATH_URL}download/image/{ITEM_THUMBNAIL_ID}/120/75) center no-repeat"

@@ -35,19 +35,21 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if (isset($this->params[1])) {
             $from = $this->params[1];
         } else {
+            $this->params[1] = 0;
             $from = 0;
         }
+
 
         $steam = $GLOBALS["STEAM"]->get_id();
         $currentRoom = \steam_factory::get_object($steam, $objectId);
         $objType = getObjectType($currentRoom);
-        if($objType !== "gallery"){
+        if ($objType !== "gallery") {
             $errorHtml = new \Widgets\RawHtml();
             $errorHtml->setHtml("Die angeforderte Seite kann nicht dargestellt werden.");
             $frameResponseObject->addWidget($errorHtml);
             return $frameResponseObject;
         }
-        
+
         $this->object = $currentRoom;
         $currentRoomPath = $currentRoom->get_path(1);
         $currentRoomData = $currentRoom->get_attributes(array(OBJ_NAME, OBJ_DESC), 1);
@@ -81,9 +83,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //forces a stable navigation structure
         $from-=$from % $numberOfThumbs;
 
-
         //navigation commands
         $picCount = sizeof($currentRoom->get_inventory());
+
+        if ((($picCount) < $this->params[1])) {
+            $this->params[1] = $picCount;
+        }
+        if(0>$this->params[1]){
+            $this->params[1]=0;
+        }
 
         $to = $from + ( $numberOfThumbs - 1 );
         if ($from >= $picCount) {
@@ -124,24 +132,42 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $pagemin = $from - $numberOfThumbs;
         $pagemin = max($pagemin, 0);
 
+        $numberOfPagesFast = 5;
+        $pageminFast = $from - ($numberOfPagesFast * $numberOfThumbs);
+        $pageminFast = max($pageminFast, 0);
+
         //Navigation
         $backlink = "<a href=\"" . PATH_URL . "gallery/index/" . $objectId . "/" . $pagemin . "\" class=\"pagingleft\"><img alt=\"Zurück\" title=\"Zurück\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_prev_on.gif\"></a>";
+        $backfast = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . $pageminFast . '" class="pagingleft"> << </a> ';
+        $backbegin = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . '0' . '" class="pagingleft"> |<< </a> ';
         if ($from == 0) {
-
             $backlink = "<a href=\"\" class=\"pagingleft\"><img alt=\"Zurück\" title=\"Zur&uuml;ck\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_prev_off.gif\"></a>";
             $tpl->setVariable("BACKLINK", $backlink);
+            $tpl->setVariable("BACKFAST", $backfast);
+            $tpl->setVariable("BACKBEGIN", $backbegin);
         } else {
             $tpl->setVariable("BACKLINK", $backlink);
+            $tpl->setVariable("BACKFAST", $backfast);
+            $tpl->setVariable("BACKBEGIN", $backbegin);
         }
 
         $pagemax = min($to, $picCount - 1);
-        $forwardlink = "<a href=\"" . PATH_URL . "gallery/index/" . $objectId . "/" . ($pagemax + 1) . "\" class=\"pagingleft\"><img alt=\"Zurück\" title=\"Zurück\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_next_on.gif\"></a>";
+        $pagemaxFast = $from + ($numberOfPagesFast * $numberOfThumbs);
+        $pagemaxFast = min($pagemaxFast, $picCount - 1);
+
+        $forwardlink = "<a href=\"" . PATH_URL . "gallery/index/" . $objectId . "/" . ($pagemax + 1) . "\" class=\"pagingright\"><img alt=\"Zurück\" title=\"Zurück\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_next_on.gif\"></a>";
+        $forwardfast = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . $pagemaxFast . '" class="pagingright"> >> </a> ';
+        $forwardend = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . ($picCount - 1) . '" class="pagingright"> >>| </a> ';
+
         if ($to >= $picCount - 1) {
             $forwardlink = "<a href=\"\" class=\"pagingright\"><img alt=\"Vor\" title=\"Vor\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_next_off.gif\">";
             $tpl->setVariable("FORWARDLINK", $forwardlink);
+            $tpl->setVariable("FORWARDFAST", $forwardfast);
+            $tpl->setVariable("FORWARDEND", $forwardend);
         } else {
-
             $tpl->setVariable("FORWARDLINK", $forwardlink);
+            $tpl->setVariable("FORWARDFAST", $forwardfast);
+            $tpl->setVariable("FORWARDEND", $forwardend);
         }
         //Rights
         foreach ($inventory as $item) {
@@ -226,8 +252,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             if ($item instanceof \steam_document) {
                 $itemMimetype = $item->get_attribute(DOC_MIME_TYPE);
                 //care for documents not to be displayed in the browser
-                if ($itemMimetype === "image/gif" || $itemMimetype === "image/jpg"
-                        || $itemMimetype === "image/jpeg" || $itemMimetype === "image/png") {
+                if ($itemMimetype === "image/gif" || $itemMimetype === "image/jpg" || $itemMimetype === "image/jpeg" || $itemMimetype === "image/png") {
                     $tpl->setCurrentBlock("ITEM");
                     if ($sanctionFlag) {
                         $tpl->setVariable("REMOVE_ICON", \Gallery::getInstance()->getAssetUrl() . "icons/trash.png");
@@ -273,6 +298,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($actionBar);
         }
         $frameResponseObject->addWidget($rawHtml);
+        $jsWrapper = new \Widgets\JSWrapper();
+        $jsWrapper->setPostJsCode('$("#search-input").val("' . ($this->params[1] + 1) . '");');
+        $frameResponseObject->addWidget($jsWrapper);
         return $frameResponseObject;
     }
 
