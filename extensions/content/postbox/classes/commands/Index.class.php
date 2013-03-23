@@ -20,7 +20,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $currentSteamUserName = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
        
-
         $container = $obj->get_attribute("bid:postbox:container");
         $checkAccessWrite = $obj->check_access_write();
         $checkAccesRead = ($currentSteamUserName == "guest") ? false : true;
@@ -46,8 +45,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $isDeadlineEnd = true;
             }
         }
-
-
 
         //Falls bereits eine Abgabe abgegeben wurde.
         $currentUserFullName = $GLOBALS["STEAM"]->get_current_steam_user()->get_full_name();
@@ -115,6 +112,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
                 $frameResponseObject->addWidget($deadlineRunHtml);
             }
+            $advice = new \Widgets\RawHtml();
+            $advice->setHtml('<div class="attribute">Hinweis zu Rechten:</div><div class="value">Wenn man Schreibrechte hat, kann man Abgaben einsehen. Alle anderen angemeldeten Benutzer können Abgaben einreichen.</div>');
+            $frameResponseObject->addWidget($advice);
             $clearer = new \Widgets\Clearer();
             $frameResponseObject->addWidget($clearer);
             $frameResponseObject->addWidget($clearer);
