@@ -18,10 +18,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $currentSteamUserName = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
+       
 
         $container = $obj->get_attribute("bid:postbox:container");
         $checkAccessWrite = $obj->check_access_write();
-        $checkAccesRead = $obj->check_access_read();
+        $checkAccesRead = ($currentSteamUserName == "guest") ? false : true;
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
         $isDeadlineSet = true;
 

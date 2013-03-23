@@ -19,6 +19,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $this->params = $requestObject->getParams();
             isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
         }
+        
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
@@ -27,6 +28,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $objId = $this->id;
         $ajaxResponseObject->setStatus("ok");
         $accessRight = $object->check_access(SANCTION_SANCTION);
+        
+        $isPostboxObj = false;
+        $objType = $object->get_attribute("OBJ_TYPE");
+        if($objType == "postbox"){
+            $isPostboxObj = true;
+        }
         //Prüfe, ob Berechtigung vorhanden
         if (!$accessRight) {
             $labelDenied = new \Widgets\RawHtml();
@@ -699,8 +706,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $dialog->addWidget($rawHtml);
+        
+        
 
         $ajaxResponseObject->addWidget($dialog);
+        if($isPostboxObj){
+            $deactiveAcq = new \Widgets\JSWrapper();
+            $deactiveAcq->setPostJsCode('$("#radio_acquire").attr("disabled",true);');
+            $ajaxResponseObject->addWidget($deactiveAcq);
+        }
 
         return $ajaxResponseObject;
     }
