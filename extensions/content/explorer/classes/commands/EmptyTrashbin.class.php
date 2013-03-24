@@ -20,7 +20,11 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
             $this->id = $this->params["id"];
             if ($this->id !== 0) {
                 $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-                $object->delete();
+                if (getObjectType($object) === "pyramiddiscussion") {
+                    \ExtensionMaster::getInstance()->getExtensionById("Pyramiddiscussion")->deletePyramiddiscussion($object);
+                } else {   
+                    $object->delete();
+                }
             }
         } else {
             $this->elements = $this->trashbin->get_inventory();

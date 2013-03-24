@@ -31,6 +31,7 @@ class ProfileActionBar {
                     array_push($actions, array("name" => "Favoriten suchen und hinzufügen", "link" => PATH_URL . "favorite/search/"));
                 }
             }
+            array_push($actions, array("name" => "Benutzerverwaltung", "link" => PLATFORM_USERMANAGEMENT_URL));
             //if (PROFILE_VISITORS) array_push($actions, array( "link" => PATH_URL . "profile_visitors.php", "name" => gettext( "Visitors of your profile" )));
         } else {
             array_push($actions, array( "link" => PATH_URL . "profile/index/" . $this->user->get_name(), "name" => "Profil"));
