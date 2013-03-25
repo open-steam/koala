@@ -107,6 +107,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
                 $adminoptions_change = $this->params[1];
             }
             if ($group->is_admin($user)) {
+                // if rights on the group are missing insert them
+                if ($group->query_sanction($group) == 0 && $group->check_access(SANCTION_SANCTION, $user)) {
+                    $group->set_sanction_all($group);
+                }
+                
                 // synchronize groups
                 $admingroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_ADMINGROUP");
                 $basegroup = $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_BASEGROUP");

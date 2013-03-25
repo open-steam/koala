@@ -17,7 +17,11 @@ class EmptyClipboard extends \AbstractCommand implements \IAjaxCommand {
 		if (isset($this->params["id"])) {
 			$this->id = $this->params["id"];
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-			$object->delete();
+			if (getObjectType($object) === "pyramiddiscussion") {
+                            \ExtensionMaster::getInstance()->getExtensionById("Pyramiddiscussion")->deletePyramiddiscussion($object);
+                        } else {   
+                            $object->delete();
+                        }
 		} else {
 			$this->elements = $this->clipboard->get_inventory();
 		}

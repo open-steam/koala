@@ -54,5 +54,51 @@ class Pyramiddiscussion extends AbstractExtension implements IObjectExtension{
 	public function getPriority() {
 		return 8;
 	}
+        
+        public function copyPyramiddiscussion($object) {
+            $group = $object->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
+            $user = $GLOBALS["STEAM"]->get_current_steam_user();
+            
+            if ($group->check_access(SANCTION_WRITE, $user)) {
+                $instances = $group->get_attribute("PYRAMIDDISCUSSION_INSTANCES");
+                if (!is_array($instances)) {
+                    $instances = array($object->get_id());
+                }
+
+                $copy = \steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $object);
+                $instances[] = $copy->get_id();
+                $group->set_attribute("PYRAMIDDISCUSSION_INSTANCES", $instances);
+
+                $copy->move($user);
+            }
+        }
+        
+        public function deletePyramiddiscussion($object) {
+            $group = $object->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
+            $user = $GLOBALS["STEAM"]->get_current_steam_user();
+            
+            if ($group->check_access(SANCTION_WRITE, $user)) {
+                $id = $object->get_id();
+                $instances = $group->get_attribute("PYRAMIDDISCUSSION_INSTANCES");
+                if (!is_array($instances)) {
+                    $instances = array($id);
+                }
+
+                foreach ($instances as $key => $value) {
+                    if ($value == $id) {
+                        unset($instances[$key]);
+                    }
+                }
+                $instances = array_values($instances);
+
+                if (!empty($instances)) {
+                    $group->set_attribute("PYRAMIDDISCUSSION_INSTANCES", $instances);
+                } else {
+                    // no other instances of this pyramiddiscussion exist, delete groups
+                    $group->delete();
+                }
+                $object->delete();
+            }
+        }
 }
 ?>

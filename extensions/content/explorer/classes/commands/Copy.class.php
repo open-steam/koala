@@ -21,6 +21,8 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
                     $portalInstance = \PortletTopic::getInstance();
                     $portalObjectId = $object->get_id();
                     \ExtensionMaster::getInstance()->callCommand("PortalCopy", "Portal", array("id" => $portalObjectId));
+                } else if (getObjectType($object) === "pyramiddiscussion") {
+                    \ExtensionMaster::getInstance()->getExtensionById("Pyramiddiscussion")->copyPyramiddiscussion($object);
                 } else {
                     if ($object instanceof \steam_link){ 
                         $copy = \steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $object->get_link_object());

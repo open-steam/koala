@@ -456,8 +456,10 @@ return $rand_value;
 			return FALSE;
 		}
 		$_SESSION[ "LMS_USER" ] = $this->lms_user;
-        language_support::choose_language( lms_steam::get_user_language() );
-		if ( empty ( $request ) )
+                language_support::choose_language( lms_steam::get_user_language());
+                if ($login == $password) {
+                        header( "Location: " . PATH_URL . "terms/"  );
+                } else if ( empty ( $request ) )
 		{
 			header( "Location: " . PATH_URL . "desktop/"  );
 		}
@@ -943,17 +945,22 @@ return $rand_value;
 		
                             
                 // override standard logo with custom logo if available
-                if(isset($GLOBALS["STEAM"])){
-                $customLogo = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/platform_logo");
-                if ($customLogo instanceof \steam_object) {
-                    $everyone = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "everyone");
-                    if ($customLogo->check_access_read($everyone)) {
-                        $customLogoURL = PATH_URL . "download/image/" . $customLogo->get_id();
-                        $this->template->setVariable("CUSTOM_LOGO_STYLE", "background: url(" . $customLogoURL . ") no-repeat;");
+                $customLogoURL = "";
+                if (isset($GLOBALS["STEAM"])){
+                    $customLogo = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/platform_logo");
+                    if ($customLogo instanceof \steam_object) {
+                        $everyone = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "everyone");
+                        if ($customLogo->check_access_read($everyone)) {
+                            $customLogoURL = PATH_URL . "download/image/" . $customLogo->get_id();
+                        }
                     }
                 }
+                if (defined("CUSTOM_LOGO_URL") && CUSTOM_LOGO_URL != "") {
+                    $customLogoURL = CUSTOM_LOGO_URL;
                 }
-                
+                if ($customLogoURL != "") {
+                    $this->template->setVariable("CUSTOM_LOGO_STYLE", "background: url(" . $customLogoURL . ") no-repeat;");
+                }
 		if ($this->prototype_enabled) {
 			$this->template->setCurrentBlock('HEAD_JAVASCRIPT_PROTOTYPE');
 			$this->template->setVariable( "PATH_JAVASCRIPT_2", PATH_JAVASCRIPT);
