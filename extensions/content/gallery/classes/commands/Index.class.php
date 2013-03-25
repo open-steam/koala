@@ -137,11 +137,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $pageminFast = max($pageminFast, 0);
 
         //Navigation
-        $backlink = "<a href=\"" . PATH_URL . "gallery/index/" . $objectId . "/" . $pagemin . "\" class=\"pagingleft\"><img alt=\"Zurück\" title=\"Zurück\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_prev_on.gif\"></a>";
+     //   $backlink = "<a href=\"" . PATH_URL . "gallery/index/" . $objectId . "/" . $pagemin . "\" class=\"pagingleft\"><img alt=\"Zurück\" title=\"Zurück\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_prev_on.gif\"></a>";
+        $backlink = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . $pagemin . '" class="pagingleft"> < </a> ';        
         $backfast = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . $pageminFast . '" class="pagingleft"> << </a> ';
         $backbegin = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . '0' . '" class="pagingleft"> |<< </a> ';
         if ($from == 0) {
-            $backlink = "<a href=\"\" class=\"pagingleft\"><img alt=\"Zurück\" title=\"Zur&uuml;ck\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_prev_off.gif\"></a>";
+           // $backlink = "<a href=\"\" class=\"pagingleft\"><img alt=\"Zurück\" title=\"Zur&uuml;ck\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_prev_off.gif\"></a>";
             $tpl->setVariable("BACKLINK", $backlink);
             $tpl->setVariable("BACKFAST", $backfast);
             $tpl->setVariable("BACKBEGIN", $backbegin);
@@ -155,12 +156,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $pagemaxFast = $from + ($numberOfPagesFast * $numberOfThumbs);
         $pagemaxFast = min($pagemaxFast, $picCount - 1);
 
-        $forwardlink = "<a href=\"" . PATH_URL . "gallery/index/" . $objectId . "/" . ($pagemax + 1) . "\" class=\"pagingright\"><img alt=\"Zurück\" title=\"Zurück\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_next_on.gif\"></a>";
+       // $forwardlink = "<a href=\"" . PATH_URL . "gallery/index/" . $objectId . "/" . ($pagemax + 1) . "\" class=\"pagingright\"><img alt=\"Zurück\" title=\"Zurück\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_next_on.gif\"></a>";
+        $forwardlink = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . $pagemax . '" class="pagingright"> > </a> ';
         $forwardfast = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . $pagemaxFast . '" class="pagingright"> >> </a> ';
         $forwardend = '<a href="' . PATH_URL . 'gallery/index/' . $objectId . '/' . ($picCount - 1) . '" class="pagingright"> >>| </a> ';
 
         if ($to >= $picCount - 1) {
-            $forwardlink = "<a href=\"\" class=\"pagingright\"><img alt=\"Vor\" title=\"Vor\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_next_off.gif\">";
+            //$forwardlink = "<a href=\"\" class=\"pagingright\"><img alt=\"Vor\" title=\"Vor\" src=\"" . \Gallery::getInstance()->getAssetUrl() . "/icons/top_seq_next_off.gif\">";
             $tpl->setVariable("FORWARDLINK", $forwardlink);
             $tpl->setVariable("FORWARDFAST", $forwardfast);
             $tpl->setVariable("FORWARDEND", $forwardend);
