@@ -1,5 +1,8 @@
 <script>
     function sendPicNumber(value, picMax){
+        if(value.trim() == ""){
+            return;
+        }
         var val = parseInt(value);
         if(val != value || (val<1) || (val>(picMax))){
             alert("Das Bild mit Nr. "+value+" gibt es nicht. Es gibt nur Bilder im Bereich von 1 und "+(picMax)+"." );
