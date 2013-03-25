@@ -86,16 +86,35 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 padding-right: 50px;
             }');
 
-
+//TODO:Überprüfe, ob Actionbar zwischen Schreib- und Berechtigungsrechten unterscheidet.
         if ($checkAccessWrite) {
             $actionBar = new \Widgets\ActionBar();
-            $actionBar->setActions(array(array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "Explorer")))
-            ));
+            $actionBar->setActions(array(
+                array("name" => "Ordner Freigeben", "ajax" => array("onclick" => array("command" => "Release", "params" => array("id" => $this->id), "requestType" => "data"))),
+                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "Explorer"))),
+                 ));
             $frameResponseObject->addWidget($actionBar);
             $frameResponseObject->addWidget($cssStyles);
             $frameResponseObject->addWidget($headlineHtml);
-
+            
+            $PATH_URL = PATH_URL;
+            $jsWrapper = new \Widgets\JSWrapper();
+            $jsWrapper->setPostJsCode(<<<END
+                    
+                    function releaseFolder(){
+                        if (confirm('Wenn sie den Ordner freigeben, dann ...')) { 
+                            sendRequest('Release', {'id':'{$this->id}'}, '', 'data', function(){location.href="{$PATH_URL}explorer/index/{$this->id}";}, null);                           
+                        }                     
+                        return false;
+                    
+                    }
+                    $(".left").attr("onclick", "releaseFolder();");
+END
+                    
+                    
+   );
+            $frameResponseObject->addWidget($jsWrapper);
             if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
                 $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
