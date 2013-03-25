@@ -186,7 +186,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                     $textArea->setHeight(100);
                     $desc = $object->get_attribute("OBJ_DESC");
                     $desc = str_replace('"', '\"', $desc);
-                    
+
                     if ($desc !== 0) {
                         $jsWrapperPicture = new \Widgets\JSWrapper();
                         $jsWrapperPicture->setJs('$(".plain").val("' . $desc . '")');
@@ -316,7 +316,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($createdField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
-        $dialog->addWidget($seperator);
+        if ($type != "portal") {
+            $dialog->addWidget($seperator);
+        }
 
 
         if ($type == "container" || $type == "room") {
@@ -363,6 +365,15 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($seperator);
             $dialog->addWidget($checkboxWWW);
             $dialog->setForceReload(true);
+        }
+        if ($type == "portal") {
+            $statusbarCheckbox = new \Widgets\Checkbox();
+            $statusbarCheckbox->setLabel("Statusleiste deaktiviert");
+            $statusbarCheckbox->setCheckedValue("1");
+            $statusbarCheckbox->setUncheckedValue(0);
+            $statusbarCheckbox->setData($object);
+            $statusbarCheckbox->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portal_status_deactivate"));
+            $dialog->addWidget($statusbarCheckbox);
         }
 
 

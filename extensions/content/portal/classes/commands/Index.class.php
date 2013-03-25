@@ -105,42 +105,77 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $frameResponseObject->setTitle(getCleanName($this->portalObject));
         $frameResponseObject->addWidget($this->rawHtmlWidget);
-        $jsWrapper = new \Widgets\JSWrapper();
-        $jsWrapper->setPostJsCode(<<<END
-               $('#menu_wrapper_bg').prepend('<div id="min-layer" class="min-max-layer"><a id="min-href"><img id="min-pic" class="max-min-pic" src="{$minPicUrl}"></a></div>');
-               $('#menu_wrapper_bg').prepend('<div id="max-layer" style="display:none;" class="min-max-layer"><a id="max-href"><img id="max-pic" class="max-min-pic" src="{$maxPicUrl}"></a></div>');
 
-                $('.max-min-pic').css('width', '20px');
-                $('.min-max-layer').css('width', '20px');
-                $('.min-max-layer').css('margin-left', 'auto');
-                $('.min-max-layer').css('margin-right', 'auto');
-                $('.min-max-layer').css('padding-left', '958px');
-                $('.min-max-layer').css('margin-top', '-18px');
-                $('.min-max-layer').css('margin-bottom', '-5px');
-                $('.max-min-pic').css('margin-left', 'auto');
-                $('.max-min-pic').css('margin-right', 'auto');
-               $('.max-min-pic').css('margin-top', 'auto');
-                $('.max-min-pic').css('margin-bottom', 'auto');
-                
-               
-    
-               $("#min-pic").click(function() {
-                $("#min-layer").hide();
-                $('#menu_wrapper').css("visibility", "hidden");
-                $("#max-layer").show();
-                return false;
-});
-                $("#max-pic").click(function() {
-                $("#max-layer").hide();
-                $('#menu_wrapper').css("visibility", "visible");
-                $("#min-layer").show();
-                return false;
-});
-                
-                
+        $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $isStatusbarDeact = $obj->get_attribute("bid:portal_status_deactivate");
+        if ($isStatusbarDeact == "1") {
+            $jsWrapper = new \Widgets\JSWrapper();
+            $jsWrapper->setPostJsCode(<<<END
+                    $('#menu_wrapper').hide();
+                    $('#content_wrapper').prepend('<div id="max-layer" class="min-max-layer"><a id="max-href"><img id="max-pic" class="max-min-pic" src="{$maxPicUrl}"></a></div>');
+                    
+                    $('.max-min-pic').css('width', '20px');
+                    $('.min-max-layer').css('width', '20px');
+                    $('.min-max-layer').css('margin-left', 'auto');
+                    $('.min-max-layer').css('margin-right', 'auto');
+                    $('.min-max-layer').css('padding-left', '943px');
+                    $('.min-max-layer').css('margin-top', '-20px');
+                    $('.max-min-pic').css('margin-left', 'auto');
+                    $('.max-min-pic').css('margin-right', 'auto');
+                    $('.max-min-pic').css('margin-top', 'auto');
+                    $('.max-min-pic').css('margin-bottom', 'auto');
+                    
+                    $("#max-pic").click(function() {
+                        $("#max-layer").hide();
+                        $('#menu_wrapper').show();
+                        return false;
+                    });
+                    
+                    
+                    
+                    
 END
-        );
-        $frameResponseObject->addWidget($jsWrapper);
+            );
+            $frameResponseObject->addWidget($jsWrapper);
+        }
+
+        /*       $jsWrapper = new \Widgets\JSWrapper();
+          $jsWrapper->setPostJsCode(<<<END
+          $('#menu_wrapper_bg').prepend('<div id="min-layer" class="min-max-layer"><a id="min-href"><img id="min-pic" class="max-min-pic" src="{$minPicUrl}"></a></div>');
+          $('#menu_wrapper_bg').prepend('<div id="max-layer" style="display:none;" class="min-max-layer"><a id="max-href"><img id="max-pic" class="max-min-pic" src="{$maxPicUrl}"></a></div>');
+
+          $('.max-min-pic').css('width', '20px');
+          $('.min-max-layer').css('width', '20px');
+          $('.min-max-layer').css('margin-left', 'auto');
+          $('.min-max-layer').css('margin-right', 'auto');
+          $('.min-max-layer').css('padding-left', '958px');
+          $('.min-max-layer').css('margin-top', '-18px');
+          $('.min-max-layer').css('margin-bottom', '-5px');
+          $('.max-min-pic').css('margin-left', 'auto');
+          $('.max-min-pic').css('margin-right', 'auto');
+          $('.max-min-pic').css('margin-top', 'auto');
+          $('.max-min-pic').css('margin-bottom', 'auto');
+
+
+
+          $("#min-pic").click(function() {
+          $("#min-layer").hide();
+          $('#menu_wrapper').css("visibility", "hidden");
+          $("#max-layer").show();
+          return false;
+          });
+          $("#max-pic").click(function() {
+          $("#max-layer").hide();
+          $('#menu_wrapper').css("visibility", "visible");
+          $("#min-layer").show();
+          return false;
+          });
+
+
+          END
+          );
+          $frameResponseObject->addWidget($jsWrapper); */
+
         return $frameResponseObject;
     }
 
