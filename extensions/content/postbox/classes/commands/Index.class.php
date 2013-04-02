@@ -90,7 +90,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if ($checkAccessWrite) {
             $actionBar = new \Widgets\ActionBar();
             $actionBar->setActions(array(
-                array("name" => "Ordner Freigeben", "ajax" => array("onclick" => array("command" => "Release", "params" => array("id" => $this->id), "requestType" => "data"))),
+                array("name" => "Zu Ordner umwandeln", "ajax" => array("onclick" => array("command" => "Release", "params" => array("id" => $this->id), "requestType" => "data"))),
                 array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup"))),
                 array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "Explorer"))),
                  ));
@@ -103,7 +103,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $jsWrapper->setPostJsCode(<<<END
                     
                     function releaseFolder(){
-                        if (confirm('Wenn sie den Ordner freigeben, dann ...')) { 
+                        if (confirm('Der aktuelle Hausaufgabenabgabekasten wird zu einem Ordner umgewandelt. Dieser Vorgang kann nicht rückgängig gemacht werden.')) { 
                             sendRequest('Release', {'id':'{$this->id}'}, '', 'data', function(){location.href="{$PATH_URL}explorer/index/{$this->id}";}, null);                           
                         }                     
                         return false;
