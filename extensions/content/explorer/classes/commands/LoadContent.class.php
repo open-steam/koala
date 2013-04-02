@@ -178,7 +178,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$popupMenu->setElementId("listviewer-overlay");
 			return $popupMenu;
 		} else if ($cell == $this->rawSubscribe) {
-                    $type = getObjectType($contentItem);
+                    /*$type = getObjectType($contentItem);
                     $user = $GLOBALS["STEAM"]->get_current_steam_user();
                     if ($type === "forum" || $type === "wiki" || $type === "room" || ($type === "document" && strstr($contentItem->get_attribute(DOC_MIME_TYPE), "text"))) {
                         $subscriptions = $user->get_attribute("USER_HOMEPORTAL_SUBSCRIPTIONS");
@@ -187,7 +187,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                         } else {
                             return "<div id=\"subscribe" . $contentItem->get_id() . "\"><img title=\"Abonnieren\" src=\"".PATH_URL."explorer/asset/icons/subscribe.png\" onclick=\"sendRequest('Subscribe', {'id':'{$contentItem->get_id()}', 'column' : '2' }, 'subscribe" . $contentItem->get_id() . "', 'updater', '', '', 'Explorer');\"></div>";
                         }
-                    }
+                    }*/
                     return "";
                 }
 	}
