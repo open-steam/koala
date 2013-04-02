@@ -95,6 +95,8 @@ END
             );
 
             $dialog->addWidget($jsWrapper);
+            $dialog->setTitle("Eigenschaften von »" . getCleanName($obj) . "«<br> (Hausaufgabenabgabekasten)");
+
         }
         
         $ajaxResponseObject->addWidget($dialog);
