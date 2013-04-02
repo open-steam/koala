@@ -92,11 +92,21 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
 
+        $cssGenerator = new ColorGeneratorPortal();
+        $cssGenerator->setId($this->id);
+        $cssRaw = $cssGenerator->generateCss();
+        
+        $cssWidget = new \Widgets\RawHtml();
+        $cssWidget->setCss($cssRaw);
+        $cssWidget->setHtml("");
+
+        $frameResponseObject->addWidget($cssWidget);
+
         //Start Testcase
         $testLink = new \Widgets\RawHtml();
         $link = "<a onclick=\"sendRequest('ColorOptions', {'id':'" . $this->id . "'}, '', 'popup', null, null, 'portal');return false;\">Farben</a>";
         $testLink->setHtml($link);
-        //$frameResponseObject->addWidget($testLink); //TODO: Einkommentieren zum Testen der Farbkonfig
+      //  $frameResponseObject->addWidget($testLink); //TODO: Einkommentieren zum Testen der Farbkonfig
         //End Testcase
 
         $assetUrl = \Portal::getInstance()->getAssetUrl();
@@ -136,45 +146,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     
 END
             );
+
             $frameResponseObject->addWidget($jsWrapper);
         }
 
-        /*       $jsWrapper = new \Widgets\JSWrapper();
-          $jsWrapper->setPostJsCode(<<<END
-          $('#menu_wrapper_bg').prepend('<div id="min-layer" class="min-max-layer"><a id="min-href"><img id="min-pic" class="max-min-pic" src="{$minPicUrl}"></a></div>');
-          $('#menu_wrapper_bg').prepend('<div id="max-layer" style="display:none;" class="min-max-layer"><a id="max-href"><img id="max-pic" class="max-min-pic" src="{$maxPicUrl}"></a></div>');
 
-          $('.max-min-pic').css('width', '20px');
-          $('.min-max-layer').css('width', '20px');
-          $('.min-max-layer').css('margin-left', 'auto');
-          $('.min-max-layer').css('margin-right', 'auto');
-          $('.min-max-layer').css('padding-left', '958px');
-          $('.min-max-layer').css('margin-top', '-18px');
-          $('.min-max-layer').css('margin-bottom', '-5px');
-          $('.max-min-pic').css('margin-left', 'auto');
-          $('.max-min-pic').css('margin-right', 'auto');
-          $('.max-min-pic').css('margin-top', 'auto');
-          $('.max-min-pic').css('margin-bottom', 'auto');
-
-
-
-          $("#min-pic").click(function() {
-          $("#min-layer").hide();
-          $('#menu_wrapper').css("visibility", "hidden");
-          $("#max-layer").show();
-          return false;
-          });
-          $("#max-pic").click(function() {
-          $("#max-layer").hide();
-          $('#menu_wrapper').css("visibility", "visible");
-          $("#min-layer").show();
-          return false;
-          });
-
-
-          END
-          );
-          $frameResponseObject->addWidget($jsWrapper); */
 
         return $frameResponseObject;
     }

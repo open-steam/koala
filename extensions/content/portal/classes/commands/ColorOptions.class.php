@@ -47,7 +47,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Optionen zur Farbgestaltung von Portalen");
         
-        $onchange = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': id, 'value' : value } , '', 'data', function(response){ }, function(response){ }, 'portal');";
+        $onchange = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': id, 'value' : value } , '', 'data', function(response){ }, function(response){ }, 'portal');$(this).addClass('changed');return false;";
 
 
         $cpfont = new \Widgets\ColorPicker();
@@ -125,13 +125,52 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $portalbg = new \Widgets\ColorPicker();
         $portalbg->setId("portalbg");
         $portalbg->setLabel("Hintergrundfarbe des Außenrandes");
-        if ($bgcolor !== 0) {
-            $portalbg->setValue($bgcolor);
-        } else {
-            $portalbg->setValue($bgcolor);
+        if($bgcolor == "0"){
+            $portalbg->setValue("#FFFFFF");          
         }
+        else {
+            $portalbg->setValue($bgcolor);
+        } 
         $portalbg->setOnChange($onchange);
+        
+        $jsWrapper = new \Widgets\JSWrapper();
+        $jsWrapper->setPostJsCode(<<<END
+                function resetColorSettings(){                    
+                    $("#cpfont").spectrum({
+    color: "#FFFFFF", showInput: true
+});
+                    $("#componentbg").spectrum({
+    color: "#396d9c",showInput: true
+});
+                    $("#headfont").spectrum({
+    color: "#333333",showInput: true
+});
+                    $("#headbg").spectrum({
+    color: "#CCCCCC",showInput: true
+});
+                    $("#contentfont").spectrum({
+    color: "#333333",showInput: true
+});
+                    $("#contentbg").spectrum({
+    color: "#FBFBFB",
+                showInput: true
+});
+                    $("#portalLinkColor").spectrum({
+    color: "#396D9C",
+                showInput: true
+});
+                    $("#portalbg").spectrum({
+    color: "#FFFFFF",
+                showInput: true
+});
+                    
+                }
                 
+END
+                                
+                );
+        $ajaxResponseObject->addWidget($jsWrapper);
+                      
         $dialog->addWidget($cpfont);
         $dialog->addWidget($cpbg);
         $dialog->addWidget($headfont);
@@ -140,6 +179,14 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $dialog->addWidget($contentbg);
         $dialog->addWidget($portalLinkColor);
         $dialog->addWidget($portalbg);
+        
+        $button = array();
+        $button["label"] = "Standardeinstellungen";
+        //class js
+        $button["class"] = "button pill";
+        $button["js"] = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': 'standard', 'value' : '' } , '', 'data', function(response){ resetColorSettings();$('#content_wrapper').addClass('changed');}, function(){resetColorSettings();$('#content_wrapper').addClass('changed');}, 'portal');return false;";
+        $buttons[0] = $button;
+        $dialog->setButtons($buttons);
 
         $ajaxResponseObject->addWidget($dialog);
         return $ajaxResponseObject;
