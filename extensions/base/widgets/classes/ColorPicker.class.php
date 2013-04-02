@@ -8,9 +8,9 @@ class ColorPicker extends Widget {
     private $value = "#FFFFFE";
     private $label = "";
     private $onChange = "";
-    
-    public function setOnChange($o){
-        $this->onChange=$o;
+
+    public function setOnChange($o) {
+        $this->onChange = $o;
     }
 
     public function setId($i) {
@@ -30,11 +30,13 @@ class ColorPicker extends Widget {
         $this->getContent()->setVariable("VALUE", $this->value);
         $this->getContent()->setVariable("LABEL", $this->label);
         $this->getContent()->setVariable("ONCHANGE", $this->onChange);
-        
+
 
         $id = "#" . $this->id;
         $js = "<script>";
-        $js.= '$("' . $id . '").simpleColor();';
+        $js.= '$("' . $id . '").spectrum({
+             showInput: true
+});';
         $js.= "</script>";
         $clearer = new \Widgets\Clearer();
         return $this->getContent()->get() . $clearer->getHtml() . $js;
