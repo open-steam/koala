@@ -137,9 +137,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $separator = false;
             foreach ($content as $messageId) {
-                $tmpl->setCurrentBlock("BLOCK_MESSAGE");
-
                 $message = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $messageId);
+                if(!($message instanceof \steam_document)){
+                    continue;
+                }
+                $tmpl->setCurrentBlock("BLOCK_MESSAGE");
+                
                 $message->get_attributes(array("OBJ_DESC", "bid:portlet:msg:picture_id", "bid:portlet:msg:picture_alignment", "bid:portlet:msg:link_url", "bid:portlet:msg:link_url_label", "bid:portlet:msg:link_open"));
 
                 //popupmenu
