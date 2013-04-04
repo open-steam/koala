@@ -187,10 +187,11 @@
 	/*currently not used*/
 	/*adjusted in html file*/
 		#betaInfo {
+                        display:none;
 			position: absolute;
 			width: 50px;
 			height: 160px;
-			background: url(../images/page_layout/beta.png) no-repeat;
+			/*background: url(../images/page_layout/beta.png) no-repeat;*/
 			left: -50px;
 		}
 

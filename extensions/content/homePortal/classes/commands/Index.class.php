@@ -39,6 +39,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $user->set_attribute("HOME_PORTAL", $portal);
             }
             
+            //\ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($portal->get_id());
+            
             header("location: " . PATH_URL . "portal/Index/" . $portal->get_id() . "/");
             exit;
 	}

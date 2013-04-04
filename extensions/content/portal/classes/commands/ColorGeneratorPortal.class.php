@@ -72,14 +72,53 @@ class ColorGeneratorPortal {
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
               }'; 
+           
+        }
+        $headline_bgcolor_css = '';
+        if ( $headline_bgcolor !== 0) {
 
-            /* $cp_bg_css = '.portlet h1{
-              background: hsl(' . intval($hsl[0] * 360) . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
-              }'; */
+            $hsl = self::color_hex2hsl($headline_bgcolor);
             
+            $hsl0 = intval($hsl[0] * 360);
+             $headline_bgcolor_css = '.portal h2.subheadline{
+              background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
+              background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
+              to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
+              background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
+              hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
+              }';                        
+        }
+         $content_bgcolor_css = '';
+        if ( $content_bgcolor !== 0) {
+
+            $hsl = self::color_hex2hsl($content_bgcolor);
+            
+            $hsl0 = intval($hsl[0] * 360);
+             $content_bgcolor_css = '.portal .portlet .entry{
+              background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
+              background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
+              to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
+              background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
+              hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
+              }';                        
+        }
+         $bgcolor_css = '';
+        if ( $bgcolor !== 0) {
+
+            $hsl = self::color_hex2hsl($bgcolor);
+            
+            $hsl0 = intval($hsl[0] * 360);
+             $bgcolor_css = '.portal{
+              background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
+              background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
+              to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
+              background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
+              hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
+              }';                        
         }
 
-        return $cp_font_css . $ht_font_css . $ct_font_css . $link_font_css . $cp_bg_css;
+        return $cp_font_css . $ht_font_css . $ct_font_css . $link_font_css . $cp_bg_css. $headline_bgcolor_css . $content_bgcolor_css .$bgcolor_css;
+                
     }
 
     private static function color_hex2hsl($hex) {

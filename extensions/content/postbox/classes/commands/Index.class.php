@@ -18,21 +18,17 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-
+        $currentSteamUserName = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
+       
+        $container = $obj->get_attribute("bid:postbox:container");
         $checkAccessWrite = $obj->check_access_write();
-        $checkAccesRead = $obj->check_access_read();
-
-
-
+        $checkAccesRead = ($currentSteamUserName == "guest") ? false : true;
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
-
         $isDeadlineSet = true;
 
-        if ($deadlineDateTime === "" || $deadlineDateTime === 0) {
+        if ($deadlineDateTime == "" || $deadlineDateTime == 0) {
             $isDeadlineSet = false;
         }
-
-
         if ($isDeadlineSet) {
             //determine current date
             $now = mktime(date("H"), date("i"), 0, date("n"), date("j"), date("Y"));
@@ -50,19 +46,28 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
         }
 
-
-
         //Falls bereits eine Abgabe abgegeben wurde.
-        /* $inventory = $obj->get_inventory();
-          $elementNames = array();
-          foreach($inventory as $index => $ele){
-          $elementNames[$index] = $ele->get_name();
-          }
-          //compare the names
+        $currentUserFullName = $GLOBALS["STEAM"]->get_current_steam_user()->get_full_name();
 
-         */
-        //  $headlineHtml = new \Widgets\RawHtml();
-        //  $headlineHtml->setHtml('<h1 class="headline">' . $obj->get_name() . '</h1>');
+        $inventory = $container->get_inventory();
+        $index = -1;
+        foreach ($inventory as $i => $ele) {
+            $eleName = $ele->get_name();
+            if ($eleName == $currentUserFullName) {
+                $index = $i;
+                break;
+            }
+        }
+        if ($index != -1) {
+            $lastChangeTimeStamp = $inventory[$index]->get_attribute("OBJ_LAST_CHANGED");
+            $date = date("d.m.Y", $lastChangeTimeStamp);
+            $time = date("H:i", $lastChangeTimeStamp);
+            $dateTime = $date . " " . $time . "Uhr";
+        } else {
+            $dateTime = "-";
+        }
+
+
         $this->getExtension()->addJS();
         $headlineHtml = new \Widgets\Breadcrumb();
         $headlineHtml->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/reference_folder.png\"></img> " . $obj->get_name() . " ")));
@@ -70,25 +75,47 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $cssStyles = new \Widgets\RawHtml();
         $cssStyles->setCss('.attribute{width:150px;float:left;padding-left:50px;padding-top:5px;} .value{padding-top:5px;} .value-red{color:red;padding-top:5px;} .value-green{color:green;padding-top:5px;}
-            #button{padding-left:20px;} .breadcrumb {
-    padding-left: 50px;
-    padding-right: 50px;0
-} #postboxWrapper {
-    padding-left: 50px;
-    padding-right: 50px;
-}');
+            #button{padding-left:50px;padding-right: 50px;
+                    }
+            .breadcrumb {
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+            #postboxWrapper {
+                padding-left: 50px;
+                padding-right: 50px;
+            }');
 
-
+//TODO:Überprüfe, ob Actionbar zwischen Schreib- und Berechtigungsrechten unterscheidet.
         if ($checkAccessWrite) {
             $actionBar = new \Widgets\ActionBar();
-            $actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
-
-
+            $actionBar->setActions(array(
+                array("name" => "Zu Ordner umwandeln", "ajax" => array("onclick" => array("command" => "Release", "params" => array("id" => $this->id), "requestType" => "data"))),
+                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "Explorer"))),
+                 ));
             $frameResponseObject->addWidget($actionBar);
             $frameResponseObject->addWidget($cssStyles);
             $frameResponseObject->addWidget($headlineHtml);
-
-            if ($isDeadlineEnd) {
+            
+            $PATH_URL = PATH_URL;
+            $jsWrapper = new \Widgets\JSWrapper();
+            $jsWrapper->setPostJsCode(<<<END
+                    
+                    function releaseFolder(){
+                        if (confirm('Der aktuelle Hausaufgabenabgabekasten wird zu einem Ordner umgewandelt. Dieser Vorgang kann nicht rückgängig gemacht werden.')) { 
+                            sendRequest('Release', {'id':'{$this->id}'}, '', 'data', function(){location.href="{$PATH_URL}explorer/index/{$this->id}";}, null);                           
+                        }                     
+                        return false;
+                    
+                    }
+                    $(".left").attr("onclick", "releaseFolder();");
+END
+                    
+                    
+   );
+            $frameResponseObject->addWidget($jsWrapper);
+            if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
                 $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
                 <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
@@ -104,6 +131,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
                 $frameResponseObject->addWidget($deadlineRunHtml);
             }
+            $advice = new \Widgets\RawHtml();
+            $advice->setHtml('<div class="attribute">Hinweis zu Rechten:</div><div class="value">Wenn man Schreibrechte hat, kann man Abgaben einsehen. Alle anderen angemeldeten Benutzer können Abgaben einreichen.</div>');
+            $frameResponseObject->addWidget($advice);
             $clearer = new \Widgets\Clearer();
             $frameResponseObject->addWidget($clearer);
             $frameResponseObject->addWidget($clearer);
@@ -112,7 +142,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $loader->setWrapperId("postboxWrapper");
             $loader->setMessage("Lade Abgaben ...");
             $loader->setCommand("loadPostbox");
-            $loader->setParams(array("id" => $this->id));
+            $loader->setParams(array("id" => $container->get_id()));
             $loader->setElementId("postboxWrapper");
             $loader->setType("updater");
 
@@ -122,11 +152,29 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($environmentData);
             $frameResponseObject->addWidget($loader);
         } else if ($checkAccesRead) {
+            $currentUserFullName = $GLOBALS["STEAM"]->get_current_steam_user()->get_full_name();
 
+            $inventory = $container->get_inventory();
+            $index = -1;
+            foreach ($inventory as $i => $ele) {
+                $eleName = $ele->get_name();
+                if ($eleName == $currentUserFullName) {
+                    $index = $i;
+                    break;
+                }
+            }
+            if ($index != -1) {
+                $lastChangeTimeStamp = $inventory[$index]->get_attribute("OBJ_LAST_CHANGED");
+                $date = date("d.m.Y", $lastChangeTimeStamp);
+                $time = date("H:i", $lastChangeTimeStamp);
+                $dateTime = $date . " " . $time . " Uhr";
+            } else {
+                $dateTime = "-";
+            }
             $buttonHtml = new \Widgets\RawHtml();
             $buttonHtml->setHtml(<<<END
                         <br>
-<div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$this->id}}, '', 'popup', null, null);return false;">
+<div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$container->get_id()}}, '', 'popup', null, null);return false;">
 <button>Abgabe einreichen</button>
 </div>
 END
@@ -138,9 +186,9 @@ END
             $frameResponseObject->addWidget($cssStyles);
             $frameResponseObject->addWidget($headlineHtml);
             $lastReleaseHtml = new \Widgets\RawHtml();
-            $lastReleaseHtml->setHtml('<div class="attribute">Letzte Abgabe:</div><div class="value">-</div>
+            $lastReleaseHtml->setHtml('<div class="attribute">Letzte Abgabe:</div><div class="value">'.$dateTime.'</div>
                 ');
-            if ($isDeadlineEnd) {
+            if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
                 $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
                 <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
@@ -163,9 +211,7 @@ END
                 $frameResponseObject->addWidget($buttonHtml);
             }
         } else {
-            echo "Keine Zugriffsrechte!";
-            die;
-            //Leider kein Zugriff
+            
         }
         return $frameResponseObject;
     }

@@ -31,6 +31,7 @@ platforms/koala/etc/local.def.php
 
 extensions/content/worksheet/templates_c/%%*
 extensions/base/widgets/asset/temp/*
+extensions/content/spreadsheets/etc/default.def.php
 
 platforms/default/etc/local.def.php
 .buildpath

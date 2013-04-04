@@ -140,12 +140,19 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $filter = array();
         }
         $updates = array();
-        if (getObjectType($subscriptionObject) === "forum") {
+        $type = getObjectType($subscriptionObject);
+        if ($type === "forum") {
             $forumSubscription = new \PortletSubscription\Subscriptions\ForumSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
             $updates = $forumSubscription->getUpdates();
-        } else if (getObjectType($subscriptionObject) === "wiki") {
+        } else if ($type === "wiki") {
             $wikiSubscription = new \PortletSubscription\Subscriptions\WikiSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
             $updates = $wikiSubscription->getUpdates();
+        } else if ($type === "room") {
+            $folderSubscription = new \PortletSubscription\Subscriptions\FolderSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
+            $updates = $folderSubscription->getUpdates();
+        } else if ($type === "document" && strstr($subscriptionObject->get_attribute(DOC_MIME_TYPE), "text")) {
+            $documentSubscription = new \PortletSubscription\Subscriptions\DocumentSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
+            $updates = $documentSubscription->getUpdates();
         }
         
         usort($updates, "sortSubscriptionElements");

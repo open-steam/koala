@@ -3,7 +3,8 @@ include_once( PATH_LIB . 'encryption_handling.inc.php' );
 
 function send_http_error($pException, $pBacktrace = "", $silent = false) {
 	if ($pException->getCode() == E_USER_ACCESS_DENIED ) {
-		logging::write_log( LOG_403, date("d.m.Y H:i", time()) . " USER: " . $_ENV["USER"] . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]);
+                $userNameLog = isset($_ENV["USER"]) ? $_ENV["USER"] : "(NoUserName)";
+                logging::write_log( LOG_403, date("d.m.Y H:i", time()) . " USER: " . $userNameLog . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]);
                 
                 $user = lms_portal::get_instance()->get_user();
                 if ($user instanceof lms_user && $user->is_logged_in()) {
@@ -68,8 +69,9 @@ function send_http_error($pException, $pBacktrace = "", $silent = false) {
 				$user = lms_steam::get_current_user();
 			} catch ( Exception $x) {
 			}
-
-			$ustring = 'user is not a valid object (' . $_ENV["USER"] . ')';
+                        
+                        $userNameLog = isset($_ENV["USER"]) ? $_ENV["USER"] : "(NoUserName)";
+			$ustring = 'user is not a valid object (' . $userNameLog . ')';
 			try {
 				if (is_object($user) && $user instanceof steam_user) $ustring = $user->get_name();
 			}

@@ -19,6 +19,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $this->params = $requestObject->getParams();
             isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
         }
+        
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
@@ -27,6 +28,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $objId = $this->id;
         $ajaxResponseObject->setStatus("ok");
         $accessRight = $object->check_access(SANCTION_SANCTION);
+        
+        $isPostboxObj = false;
+        $objType = $object->get_attribute("OBJ_TYPE");
+        if($objType == "postbox"){
+            $isPostboxObj = true;
+        }
         //Prüfe, ob Berechtigung vorhanden
         if (!$accessRight) {
             $labelDenied = new \Widgets\RawHtml();
@@ -399,6 +406,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 if ($name == "" || $name == "0") {
                     $name = $group->get_name();
                 }
+                $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
+                if(!($groupVisibility == 0)){
+                    unset($groupMapping[$id]); 
+                   continue;
+                }
                 $groupname = $group->get_groupname();
                 $readCheck = $object->check_access_read($group);
                 $writeCheck = $object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $group);
@@ -451,6 +463,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $optionValues = self::getOptionsValues($dropDownValueParent);
                 }
                 $ddl->setOptionValues($optionValues);
+                
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
                     $content->setCurrentBlock("GROUPS");
                     $content->setCurrentBlock("GROUP_DDSETTINGS");
@@ -474,6 +487,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER_ACQ", "Sie sind kein Mitglied einer Gruppe");
         } else {
             foreach ($groupMappingAcq as $id => $group) {
+                 $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
+                if(!($groupVisibility === 0)){
+                   continue;
+                }
                 $name = $group->get_attribute("OBJ_DESC");
                 if ($name == "" || $name == "0") {
                     $name = $group->get_name();
@@ -689,8 +706,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $dialog->addWidget($rawHtml);
+        
+        
 
         $ajaxResponseObject->addWidget($dialog);
+        if($isPostboxObj){
+            $deactiveAcq = new \Widgets\JSWrapper();
+            $deactiveAcq->setPostJsCode('$("#radio_acquire").attr("disabled",true);');
+            $ajaxResponseObject->addWidget($deactiveAcq);
+        }
 
         return $ajaxResponseObject;
     }

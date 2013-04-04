@@ -72,6 +72,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         $pyramidRoom = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["title"], $container, $this->params["title"]);
         $basegroup = \steam_factory::create_group($GLOBALS["STEAM"]->get_id(), "pyramid_" . $pyramidRoom->get_id(), $private_group);
         $basegroup->set_attribute("GROUP_INVISIBLE", true);
+        $basegroup->set_sanction_all($basegroup);
         
         if ($admingroup != 0) {
             $admingroup = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $admingroup);
@@ -167,6 +168,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
             $basegroup->add_member($group);
         }*/
         $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_INITIALIZED", 0);
+        $basegroup->set_attribute("PYRAMIDDISCUSSION_INSTANCES", array($pyramidRoom->get_id()));
 
         $jswrapper = new \Widgets\JSWrapper();
         $jswrapper->setJs(<<<END
