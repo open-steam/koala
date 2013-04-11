@@ -106,11 +106,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $testLink = new \Widgets\RawHtml();
         $link = "<a onclick=\"sendRequest('ColorOptions', {'id':'" . $this->id . "'}, '', 'popup', null, null, 'portal');return false;\">Farben</a>";
         $testLink->setHtml($link);
-      //  $frameResponseObject->addWidget($testLink); //TODO: Einkommentieren zum Testen der Farbkonfig
+        $frameResponseObject->addWidget($testLink); //TODO: Einkommentieren zum Testen der Farbkonfig
         //End Testcase
 
         $assetUrl = \Portal::getInstance()->getAssetUrl();
-        $minPicUrl = $assetUrl . "icons/min.png";
+    //    $minPicUrl = $assetUrl . "icons/min.png";
         $maxPicUrl = $assetUrl . "icons/max.png";
 
         $frameResponseObject->setTitle(getCleanName($this->portalObject));

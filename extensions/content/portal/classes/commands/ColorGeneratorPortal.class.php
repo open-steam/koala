@@ -121,7 +121,7 @@ class ColorGeneratorPortal {
                 
     }
 
-    private static function color_hex2hsl($hex) {
+    private static function color_hex2hsl($hex) {        
         $sign = substr($hex, 0, 1);
         if ($sign == "#") {
             $hex = substr($hex, 1);

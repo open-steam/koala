@@ -23,6 +23,11 @@ class UpdateColor extends \AbstractCommand implements \IAjaxCommand {
         $colortype = $this->params["colortype"];
         if (isset($this->params["value"])) {
             $value = $this->params["value"];
+             if(strlen($value) == 4){
+                 $value = $value[0] . $value[1] . $value[1] . $value[2] . $value[2] . $value[3] . $value[3];
+             }
+        }else{
+            $value = 0;
         }
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
