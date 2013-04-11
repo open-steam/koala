@@ -131,7 +131,9 @@ class ContentProvider implements \Widgets\IContentProvider {
                 } else {
                     $url = PATH_URL . "explorer/index/" . $linkObj->get_id() . "/";
                 }
-            } else if($objTypeName == "room"){
+            } else if ($objTypeName == "portalPortlet" || $objTypeName == "portalColumn" ){
+                $url = "";
+            }else if($objTypeName == "room"){
                 $url = PATH_URL . "bookmarks/index/" . $contentItem->get_id() . "/";
             }else{
                 $url = PATH_URL . "explorer/index/" . $contentItem->get_id() . "/";            
