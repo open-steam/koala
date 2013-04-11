@@ -33,7 +33,6 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         //the order is defined in the platform whitelist constant
         usort($extensions, "sortExplorerNewDialog");
 
-        //var_dump($extensions);
         //skip list
         foreach ($extensions as $key => $extension) {
             if (strstr(strtolower(get_class($extension)), "portlet")) {
