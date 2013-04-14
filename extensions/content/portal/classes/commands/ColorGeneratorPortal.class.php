@@ -71,6 +71,8 @@ class ColorGeneratorPortal {
               to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
+                  border: 0px solid #356FA1;
+    
               }'; 
            
         }
@@ -86,7 +88,14 @@ class ColorGeneratorPortal {
               to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
-              }';                        
+              }';
+             $headline_bgcolor_css .= 'th{
+              background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
+              background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
+              to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
+              background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
+              hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
+              }';   
         }
          $content_bgcolor_css = '';
         if ( $content_bgcolor !== 0) {
@@ -94,14 +103,41 @@ class ColorGeneratorPortal {
             $hsl = self::color_hex2hsl($content_bgcolor);
             
             $hsl0 = intval($hsl[0] * 360);
-             $content_bgcolor_css = '.portal .portlet .entry{
+             $content_bgcolor_css = '.portal .portlet .entry {
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
               background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
               to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
-              }';                        
-        }
+              margin-bottom:0px;
+              }';  
+             $content_bgcolor_css .= '#sortable-topics{
+              background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
+              background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
+              to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
+              background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
+              hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
+              }';  
+             $content_bgcolor_css .= '.message{
+              background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
+              background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
+              to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
+              background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
+              hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
+              }'; 
+              $content_bgcolor_css .= '.portlet.messages .podcast {
+    
+              background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
+              background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
+              to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
+              background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
+              hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
+                  border-top: 0px solid #CDCDCD;
+              }';  
+              $content_bgcolor_css .= '.portlet h3{border-top: 0px solid #CDCDCD;}.bookmark{height:28px;}';
+              
+              
+              }
          $bgcolor_css = '';
         if ( $bgcolor !== 0) {
 
