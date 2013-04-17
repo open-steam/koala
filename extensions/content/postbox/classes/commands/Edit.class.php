@@ -95,7 +95,7 @@ END
             );
 
             $dialog->addWidget($jsWrapper);
-            $dialog->setTitle("Eigenschaften von »" . getCleanName($obj) . "«<br> (Hausaufgabenabgabekasten)");
+            $dialog->setTitle("Eigenschaften von »" . getCleanName($obj) . "«<br> (Abgabefach)");
 
         }
         
