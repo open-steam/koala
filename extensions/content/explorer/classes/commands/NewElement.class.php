@@ -69,7 +69,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         
         foreach ($commands as $command) {
             $namespaces = $command->getExtension()->getUrlNamespaces();            
-            $html .= "<a class=\"explorernewentry\" href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img src=\"{$command->getExtension()->getObjectIconUrl()}\"> {$command->getExtension()->getObjectReadableName()}</a><br>";
+            $html .= "<a class=\"explorernewentry\" href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img src=\"{$command->getExtension()->getObjectIconUrl()}\"> {$command->getExtension()->getObjectReadableName()}</a><br><br>";
         }
         $html .= "<div style=\"float:right\"><a class=\"button pill negative\" onclick=\"closeDialog();return false;\" href=\"#\">Abbrechen</a></div></div><div id=\"wizard_wrapper\"></div>";
 
