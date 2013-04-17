@@ -37,7 +37,7 @@ function initiateDatepicker() {
 function showCreateDialog() {
 	resetCreateDialog();
 	if (document.getElementById('editID').value != '-1') {
-		$('#element'+document.getElementById('editID').value).show();
+		$('#rfelement'+document.getElementById('editID').value).show();
 		document.getElementById('editID').value = '-1';
 	}
 	changeCreateDialog("0");
@@ -51,7 +51,7 @@ function showCreateDialog() {
  */
 function hideCreateDialog() {
 	if (document.getElementById('editID').value != '-1') {
-		$('#element'+document.getElementById('editID').value).show();
+		$('#rfelement'+document.getElementById('editID').value).show();
 		document.getElementById('editID').value = '-1';
 	}
 	$('#textarea_preview').hide();
@@ -71,7 +71,7 @@ function hideCreateDialog() {
 function showLayoutDialog() {
 	resetLayoutDialog();
 	if (document.getElementById('editID').value != '-1') {
-		$('#element'+document.getElementById('editID').value).show();
+		$('#rfelement'+document.getElementById('editID').value).show();
 		document.getElementById('editID').value = '-1';
 	}
 	changeLayoutDialog("7");
@@ -85,7 +85,7 @@ function showLayoutDialog() {
  */
 function hideLayoutDialog() {
 	if (document.getElementById('editID').value != '-1') {
-		$('#element'+document.getElementById('editID').value).show();
+		$('#rfelement'+document.getElementById('editID').value).show();
 		document.getElementById('editID').value = '-1';
 	}
 	$('#newlayout').hide();
@@ -405,11 +405,11 @@ function deleteElement(id) {
 			break;
 	}
 	if (check == true) {
-		$('#element'+id).remove();
-		$('input[name=element'+id+']').remove();
-		$('input[name=element'+id+'_options]').remove();
-		$('input[name=element'+id+'_rows]').remove();
-		$('input[name=element'+id+'_columns]').remove();
+		$('#rfelement'+id).remove();
+		$('input[name=rfelement'+id+']').remove();
+		$('input[name=rfelement'+id+'_options]').remove();
+		$('input[name=rfelement'+id+'_rows]').remove();
+		$('input[name=rfelement'+id+'_columns]').remove();
 	}
 }
 
@@ -425,8 +425,8 @@ function editLayoutElement(id) {
 	document.getElementById('newquestion_button').style.display = '';
 	document.getElementById('editID').value = id;
 	document.getElementById('layoutType').value = data[0];
-	$('#newlayout').insertBefore($('#element'+id));
-	$('#element'+id).hide();
+	$('#newlayout').insertBefore($('#rfelement'+id));
+	$('#rfelement'+id).hide();
 	$('#newquestion').hide();
 	changeLayoutDialog(data[0]);
 	switch (data[0]) {
@@ -451,14 +451,14 @@ function editElement(id) {
 	resetCreateDialog();
 	resetLayoutDialog();
 	if (document.getElementById('editID').value != '-1') {
-		$('#element'+document.getElementById('editID').value).show();
+		$('#rfelement'+document.getElementById('editID').value).show();
 		document.getElementById('editID').value = '-1';
 	}
 	document.getElementById('newquestion_button').style.display = '';
 	document.getElementById('editID').value = id;
 	$('#newlayout').hide();
-	$('#newquestion').insertBefore($('#element'+id));
-	$('#element'+id).hide();
+	$('#newquestion').insertBefore($('#rfelement'+id));
+	$('#rfelement'+id).hide();
 	changeCreateDialog(data[0]);
 	document.getElementById('questionType').value = data[0];
 	document.getElementById('questionText').value = decodeURIComponent(data[1]);
@@ -557,46 +557,46 @@ function copyElement(id) {
 	data = data.split(',');
 	switch(data[0]) {
 		case "0":
-			createTextQuestion(data, '#element'+id);
+			createTextQuestion(data, '#rfelement'+id);
 			break;
 		case "1":
-			createTextareaQuestion(data, '#element'+id);
+			createTextareaQuestion(data, '#rfelement'+id);
 			break;
 		case "2":
 			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
-			createSingleChoiceQuestion(data, options, '#element'+id);
+			createSingleChoiceQuestion(data, options, '#rfelement'+id);
 			break;
 		case "3":
 			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
-			createMultipleChoiceQuestion(data, options, '#element'+id);
+			createMultipleChoiceQuestion(data, options, '#rfelement'+id);
 			break;
 		case "4":
 			var columns = document.getElementsByName('rfelement'+id+'_columns')[0].value;
 			columns = columns.split(',');
 			var rows = document.getElementsByName('rfelement'+id+'_rows')[0].value;
 			rows = rows.split(',');
-			createMatrixQuestion(data, columns, rows, '#element'+id);
+			createMatrixQuestion(data, columns, rows, '#rfelement'+id);
 			break;
 		case "5":
 			var options = document.getElementsByName('rfelement'+id+'_rows')[0].value;
 			options = options.split(',');
-			createGradingQuestion(data, options, '#element'+id);
+			createGradingQuestion(data, options, '#rfelement'+id);
 			break;
 		case "6":
 			var options = document.getElementsByName('rfelement'+id+'_options')[0].value;
 			options = options.split(',');
-			createTendencyQuestion(data, options, '#element'+id);
+			createTendencyQuestion(data, options, '#rfelement'+id);
 			break;
 		case "7":
-			createDescriptionLayoutElement(data[1], '#element'+id);
+			createDescriptionLayoutElement(data[1], '#rfelement'+id);
 			break;
 		case "8":
-			createHeadlineLayoutElement(data[1], '#element'+id);
+			createHeadlineLayoutElement(data[1], '#rfelement'+id);
 			break;
 		case "9":
-			createPageBreakLayoutElement('#element'+id);
+			createPageBreakLayoutElement('#rfelement'+id);
 			break;
 	}
 }
@@ -607,11 +607,11 @@ function copyElement(id) {
 function addLayoutElement() {
 	if (document.getElementById('editID').value != '-1') {
 		var deleteid = document.getElementById('editID').value;
-		$('#element'+deleteid).remove();
-		$('input[name=element'+deleteid+']').remove();
-		$('input[name=element'+deleteid+'_options]').remove();
-		$('input[name=element'+deleteid+'_rows]').remove();
-		$('input[name=element'+deleteid+'_columns]').remove();
+		$('#rfelement'+deleteid).remove();
+		$('input[name=rfelement'+deleteid+']').remove();
+		$('input[name=rfelement'+deleteid+'_options]').remove();
+		$('input[name=rfelement'+deleteid+'_rows]').remove();
+		$('input[name=rfelement'+deleteid+'_columns]').remove();
 		document.getElementById('editID').value = '-1';
 	}
 	var type = document.getElementById('layoutType').value;
@@ -683,11 +683,11 @@ function addElement() {
 	var type = document.getElementById('questionType').value;
 	if (document.getElementById('editID').value != '-1') {
 		var deleteid = document.getElementById('editID').value;
-		$('#element'+deleteid).remove();
-		$('input[name=element'+deleteid+']').remove();
-		$('input[name=element'+deleteid+'_options]').remove();
-		$('input[name=element'+deleteid+'_rows]').remove();
-		$('input[name=element'+deleteid+'_columns]').remove();
+		$('#rfelement'+deleteid).remove();
+		$('input[name=rfelement'+deleteid+']').remove();
+		$('input[name=rfelement'+deleteid+'_options]').remove();
+		$('input[name=rfelement'+deleteid+'_rows]').remove();
+		$('input[name=rfelement'+deleteid+'_columns]').remove();
 		document.getElementById('editID').value = '-1';
 	}
 	var helpText = encodeURIComponent(document.getElementById('helpText').value);

@@ -12,7 +12,7 @@ class DocumentSubscription extends AbstractSubscription {
                             $document->get_id(), 
                             $this->getElementHtml(
                                 $document->get_id(), 
-                                0,
+                                $document->get_id() . "_0",
                                 $this->private,
                                 $document->get_attribute("DOC_LAST_MODIFIED"),
                                 "Dokument wurde geändert:",

@@ -86,7 +86,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         }
         
         if ($subscriptionObject instanceof \steam_object && $subscriptionObject->check_access_read()) {
-            $updates = $this->collectUpdates($subscriptionObject, $portlet);
+            $updates = $portletInstance->calculateUpdates($subscriptionObject, $portlet);
             if (count($updates) === 0) {
                 $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                 $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Keine Neuigkeiten</h3>");
@@ -117,49 +117,6 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $frameResponseObject->addWidget($this->contentHtml);
 	return $frameResponseObject;
-    }
-    
-    private function collectUpdates($subscriptionObject, $portlet) {
-        if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE") == "0") {
-            if ($portlet->check_access_write()) {
-                $private = TRUE;
-                $timestamp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP");
-                $filterHelp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER");
-                $filter = array();
-                foreach ($filterHelp as $filterElement) {
-                    $filter[] = $filterElement[1];
-                }
-            } else {
-                $private = FALSE;
-                $timestamp = "1209600";
-                $filter = array();
-            }
-        } else {
-            $private = FALSE;
-            $timestamp = time() - intval($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE"));
-            $filter = array();
-        }
-        $updates = array();
-        $type = getObjectType($subscriptionObject);
-        if ($type === "forum") {
-            $forumSubscription = new \PortletSubscription\Subscriptions\ForumSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
-            $updates = $forumSubscription->getUpdates();
-        } else if ($type === "wiki") {
-            $wikiSubscription = new \PortletSubscription\Subscriptions\WikiSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
-            $updates = $wikiSubscription->getUpdates();
-        } else if ($type === "room") {
-            $folderSubscription = new \PortletSubscription\Subscriptions\FolderSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
-            $updates = $folderSubscription->getUpdates();
-        } else if ($type === "document" && strstr($subscriptionObject->get_attribute(DOC_MIME_TYPE), "text")) {
-            $documentSubscription = new \PortletSubscription\Subscriptions\DocumentSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
-            $updates = $documentSubscription->getUpdates();
-        }
-        
-        usort($updates, "sortSubscriptionElements");
-        if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_ORDER") == "1") {
-            $updates = array_reverse($updates);
-        }
-        return $updates;
     }
 }
 ?>
