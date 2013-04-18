@@ -8,8 +8,8 @@ class GallerySubscription extends AbstractSubscription {
         $pictures = $this->object->get_inventory();
         $count = 0;
         foreach ($pictures as $picture) {
-            if ($picture instanceof \steam_document && !in_array($picture->get_id(), $this->filter)) {
-                if ($picture->get_attribute("OBJ_CREATION_TIME") > $this->timestamp) {
+            if ($picture instanceof \steam_document) {
+                if ($picture->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$picture->get_id()]) && in_array($picture->get_attribute("OBJ_CREATION_TIME"), $this->filter[$picture->get_id()]))) {
                     $updates[] = array(
                                     $picture->get_attribute("OBJ_CREATION_TIME"), 
                                     $picture->get_id(),

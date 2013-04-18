@@ -13,8 +13,8 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                 $result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
                 $results = $result_container->get_inventory();
                 foreach ($results as $result) {
-                    if ($result instanceof \steam_document && $result->get_attribute("RAPIDFEEDBACK_RELEASED") != 0 && !in_array($result->get_id(), $this->filter)) {
-                        if ($result->get_attribute("OBJ_CREATION_TIME") > $this->timestamp) {
+                    if ($result instanceof \steam_document && $result->get_attribute("RAPIDFEEDBACK_RELEASED") != 0) {
+                        if ($result->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$result->get_id()]) && in_array($result->get_attribute("OBJ_CREATION_TIME"), $this->filter[$result->get_id()]))) {
                             $updates[] = array(
                                 $result->get_attribute("OBJ_CREATION_TIME"),
                                 $result->get_id(),

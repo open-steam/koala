@@ -9,8 +9,8 @@ class FolderSubscription extends AbstractSubscription {
         $objects = $this->object->get_inventory();
         $count = 0;
         foreach ($objects as $object) {
-            if ($object instanceof \steam_object && !in_array($object->get_id(), $this->filter)) {
-                if ($object->get_attribute("OBJ_CREATION_TIME") > $this->timestamp) {
+            if ($object instanceof \steam_object) {
+                if ($object->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("OBJ_CREATION_TIME"), $this->filter[$object->get_id()]))) {
                     $updates[] = array(
                                     $object->get_attribute("OBJ_CREATION_TIME"), 
                                     $object->get_id(),
@@ -24,13 +24,13 @@ class FolderSubscription extends AbstractSubscription {
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
                                 );
-                    if ($this->depth < 1) {
-                        $updates = array_merge($updates, $portletInstance->collectUpdates(array(), $this->portlet, $object, $this->private, $this->timestamp, $this->filter, $this->depth + 1));
-                    }
+                    //if ($this->depth < 1) {
+                    //    $updates = array_merge($updates, $portletInstance->collectUpdates(array(), $this->portlet, $object, $this->private, $this->timestamp, $this->filter, $this->depth + 1));
+                    //}
                 } else if ($this->depth < 1) {
                     $updates = array_merge($updates, $portletInstance->collectUpdates(array(), $this->portlet, $object, $this->private, $this->timestamp, $this->filter, $this->depth + 1));
                 // folder in depth = 1 (only show new or changed message depending on timestamp)
-                } else if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp) {
+                } else if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$object->get_id()]))) {
                     $updates[] = array(
                                     $object->get_attribute("OBJ_LAST_CHANGED"), 
                                     $object->get_id(),

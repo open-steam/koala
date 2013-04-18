@@ -51,6 +51,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
     }
 
     public function calculateUpdates($subscriptionObject, $portlet, $filtering = true) {
+        $updates = array();
         if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE") == "0") {
             if ($portlet->check_access_write()) {
                 $private = TRUE;
@@ -58,7 +59,15 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
                 $filterHelp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER");
                 $filter = array();
                 foreach ($filterHelp as $filterElement) {
-                    $filter[] = $filterElement[1];
+                    if (isset($filter[$filterElement[1]])) {
+                        $timestamps = $filter[$filterElement[1]];
+                        $timestamps[] = $filterElement[0];
+                        sort($timestamps);
+                        $filter[$filterElement[1]] = $timestamps;
+                    } else {
+                        $filter[$filterElement[1]] = array($filterElement[0]);
+                    }
+                    $updates[] = array($filterElement[0], $filterElement[1], "");
                 }
             } else {
                 $private = FALSE;
@@ -73,7 +82,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         if (!$filtering) {
             $filter = array();
         }
-        $updates = $this->collectUpdates(array(), $portlet, $subscriptionObject, $private, $timestamp, $filter);
+        $updates = $this->collectUpdates($updates, $portlet, $subscriptionObject, $private, $timestamp, $filter);
 
         usort($updates, "sortSubscriptionElements");
         if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_ORDER") == "1") {
@@ -100,7 +109,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         } else if ($type === "portal") {
             $portalSubscription = new \PortletSubscription\Subscriptions\PortalSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter, $depth);
             $updates = array_merge($updates, $portalSubscription->getUpdates());
-        } else if ($type === "rapidfeedback") { // TODO only admin
+        } else if ($type === "rapidfeedback") {
             $rapidfeedbackSubscription = new \PortletSubscription\Subscriptions\RapidfeedbackSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter, $depth);
             $updates = array_merge($updates, $rapidfeedbackSubscription->getUpdates());
         } else if ($type === "document" && strstr($subscriptionObject->get_attribute(DOC_MIME_TYPE), "text")) {
