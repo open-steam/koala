@@ -21,7 +21,7 @@ class Postbox extends AbstractExtension implements IObjectExtension {
     }
 
     public function getObjectReadableName() {
-        return "Hausaufgabenabgabekasten";
+        return "Abgabefach";
     }
 
     public function getObjectReadableDescription() {
