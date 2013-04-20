@@ -103,7 +103,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $jsWrapper->setPostJsCode(<<<END
                     
                     function releaseFolder(){
-                        if (confirm('Der aktuelle Hausaufgabenabgabekasten wird zu einem Ordner umgewandelt. Dieser Vorgang kann nicht rückgängig gemacht werden.')) { 
+                        if (confirm('Das aktuelle Abgabefach in einen Ordner umgewandelt. Dieser Vorgang kann nicht rückgängig gemacht werden.')) { 
                             sendRequest('Release', {'id':'{$this->id}'}, '', 'data', function(){location.href="{$PATH_URL}explorer/index/{$this->id}";}, null);                           
                         }                     
                         return false;

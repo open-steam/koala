@@ -9,31 +9,31 @@ class ForumSubscription extends AbstractSubscription {
         $count = 0;
         foreach ($threads as $thread) {
             if ($thread instanceof \steam_document) {
-                if ($thread->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !in_array($thread->get_id(), $this->filter)) {
+                if ($thread->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$thread->get_id()]) && in_array($thread->get_attribute("OBJ_CREATION_TIME"), $this->filter[$thread->get_id()]))) {
                     $updates[] = array(
                                     $thread->get_attribute("OBJ_CREATION_TIME"), 
                                     $thread->get_id(), 
                                     $this->getElementHtml(
                                         $thread->get_id(), 
-                                        $count,
+                                        $thread->get_id() . "_" . $count,
                                         $this->private,
                                         $thread->get_attribute("OBJ_CREATION_TIME"),
-                                        "Neues Thema:",
-                                        $thread->get_attribute("OBJ_DESC"),
+                                        $this->depth == 0 ? "Neues Thema:" : "Neues Thema (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                        getCleanName($thread),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
                                 );
-                } else if ($thread->get_attribute("DOC_LAST_MODIFIED") > $this->timestamp && !in_array($thread->get_id(), $this->filter)) {
+                } else if ($thread->get_attribute("DOC_LAST_MODIFIED") > $this->timestamp && !(isset($this->filter[$thread->get_id()]) && in_array($thread->get_attribute("DOC_LAST_MODIFIED"), $this->filter[$thread->get_id()]))) {
                     $updates[] = array(
                                     $thread->get_attribute("DOC_LAST_MODIFIED"), 
                                     $thread->get_id(),
                                     $this->getElementHtml(
                                         $thread->get_id(), 
-                                        $count,
+                                        $thread->get_id() . "_" . $count,
                                         $this->private,
                                         $thread->get_attribute("DOC_LAST_MODIFIED"),
-                                        "Geändertes Thema:",
-                                        $thread->get_attribute("OBJ_DESC"),
+                                        $this->depth == 0 ? "Geändertes Thema:" : "Geändertes Thema (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                        getCleanName($thread),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
                                 );
@@ -41,32 +41,32 @@ class ForumSubscription extends AbstractSubscription {
                 if ($thread->get_attribute("OBJ_ANNOTATIONS_CHANGED") > $this->timestamp) {
                     $msgs = $thread->get_annotations();
                     foreach ($msgs as $msg) {
-                        if ($msg instanceof \steam_document && !in_array($msg->get_id(), $this->filter)) {
-                            if ($msg->get_attribute("OBJ_CREATION_TIME") > $this->timestamp) {
+                        if ($msg instanceof \steam_document) {
+                            if ($msg->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$msg->get_id()]) && in_array($msg->get_attribute("OBJ_CREATION_TIME"), $this->filter[$msg->get_id()]))) {
                                 $updates[] = array(
                                                 $msg->get_attribute("OBJ_CREATION_TIME"), 
                                                 $msg->get_id(), 
                                                 $this->getElementHtml(
                                                     $msg->get_id(), 
-                                                    $count,
+                                                    $msg->get_id() . "_" . $count,
                                                     $this->private,
                                                     $msg->get_attribute("OBJ_CREATION_TIME"),
-                                                    "Neuer Beitrag:",
-                                                    $msg->get_attribute("OBJ_DESC"),
+                                                    $this->depth == 0 ? "Neuer Beitrag:" : "Neuer Beitrag (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                                    getCleanName($msg),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )
                                             );
-                            } else if ($msg->get_attribute("DOC_LAST_MODIFIED") > $this->timestamp) {
+                            } else if ($msg->get_attribute("DOC_LAST_MODIFIED") > $this->timestamp && !(isset($this->filter[$msg->get_id()]) && in_array($msg->get_attribute("DOC_LAST_MODIFIED"), $this->filter[$msg->get_id()]))) {
                                 $updates[] = array(
                                                 $msg->get_attribute("DOC_LAST_MODIFIED"), 
                                                 $msg->get_id(), 
                                                 $this->getElementHtml(
                                                     $msg->get_id(), 
-                                                    $count,
+                                                    $msg->get_id() . "_" . $count,
                                                     $this->private,
                                                     $msg->get_attribute("DOC_LAST_MODIFIED"),
-                                                    "Geänderter Beitrag:",
-                                                    $msg->get_attribute("OBJ_DESC"),
+                                                    $this->depth == 0 ? "Geänderter Beitrag:" : "Geänderter Beitrag (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                                    getCleanName($msg),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )
                                             );
