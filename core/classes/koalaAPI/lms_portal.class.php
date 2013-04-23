@@ -1094,15 +1094,30 @@ return $rand_value;
             $html = str_replace('http://steam.lspb.de', 'http://bid.lspb.de', $html);
 
             // schulen-gt
+            if (PATH_SERVER == "http://www3.schulen-gt.de"){
             $html = str_replace('http://www.schulen-gt.de', 'http://www3.schulen-gt.de', $html);
-
+            }
+            
+            // schulen-gt
+            if (PATH_SERVER == "http://www.neu.schulen-gt.de"){
+            $html = str_replace('http://www.schulen-gt.de', 'http://www.neu.schulen-gt.de', $html);
+            }
+            
+            
             // abort vm
             if (strpos($html, 'http://www.bid-owl.de.localhost') != FALSE) {
                 return $html;
             }
             
             // bid-owl
+            if (PATH_SERVER == "http://www3.bid-owl.de"){
             $html = str_replace('http://www.bid-owl.de', 'http://www3.bid-owl.de', $html);
+            }
+            
+            // bid-owl
+            if (PATH_SERVER == "http://www.neu.bid-owl.de"){
+            $html = str_replace('http://www.bid-owl.de', 'http://www.neu.bid-owl.de', $html);
+            }
             
             return $html;
         }
