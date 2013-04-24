@@ -103,10 +103,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $frameResponseObject->addWidget($cssWidget);
 
         //Start Testcase
-        $testLink = new \Widgets\RawHtml();
-        $link = "<a onclick=\"sendRequest('ColorOptions', {'id':'" . $this->id . "'}, '', 'popup', null, null, 'portal');return false;\">Farben</a>";
-        $testLink->setHtml($link);
-        $frameResponseObject->addWidget($testLink); //TODO: Einkommentieren zum Testen der Farbkonfig
+        //$testLink = new \Widgets\RawHtml();
+        //$link = "<a onclick=\"sendRequest('ColorOptions', {'id':'" . $this->id . "'}, '', 'popup', null, null, 'portal');return false;\">Farben</a>";
+        //$testLink->setHtml($link);
+        //$frameResponseObject->addWidget($testLink); //TODO: Einkommentieren zum Testen der Farbkonfig
         //End Testcase
 
         $assetUrl = \Portal::getInstance()->getAssetUrl();
