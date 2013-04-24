@@ -27,7 +27,7 @@ class Spreadsheets extends AbstractExtension implements IObjectExtension {
 	}
 	
 	public function getObjectIconUrl() {
-		return $this->getAssetUrl() . "sheet_get_range.png";
+		return $this->getAssetUrl() . "spreadsheet_icon.png";
 	}
 
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {

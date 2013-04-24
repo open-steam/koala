@@ -29,7 +29,7 @@ class Postbox extends AbstractExtension implements IObjectExtension {
     }
 
     public function getObjectIconUrl() {
-        return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/gallery.png";
+        return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/postbox.png";
     }
 
     public function getCreateNewCommand(IdRequestObject $idEnvironment) {
