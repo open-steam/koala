@@ -53,7 +53,7 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
                                 array("name" => "<img title=\"Breite bearbeiten und Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">", "onclick"=>"sendRequest('Sort', {'id':{$object->get_id()}}, '', 'popup', null, null, 'portal');return false;"),
                                 array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "link"=>"", "onclick"=>"portalLockButton({$object->get_id()}); return false;"),
                                 array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;"),
-                                array("name" => "<img title=\"Farben\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('ColorOptions', {'id':'" . $this->id . "'}, '', 'popup', null, null, 'portal');return false;"),
+                                array("name" => "<img title=\"Farben\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('ColorOptions', {'id':'" . $object->get_id() . "'}, '', 'popup', null, null, 'portal');return false;"),
                                 array("name" => "<img title=\"Rechte\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;")
                             );
 		}
