@@ -37,6 +37,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             $obj->set_attribute("bid:postbox:deadline", $this->params["deadline"]);
         }
         $container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "postbox_container", $obj);
+        $container->set_acquire(false);
         $obj->set_attribute("bid:postbox:container", $container);
         $obj->set_acquire(false);
         $steamGroupId = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam")->get_id();

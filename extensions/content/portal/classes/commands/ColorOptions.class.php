@@ -184,7 +184,7 @@ END
         $button["label"] = "Standardeinstellungen";
         //class js
         $button["class"] = "button pill";
-        $button["js"] = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': 'standard', 'value' : '' } , '', 'data', function(response){ resetColorSettings();$('#content_wrapper').addClass('changed');}, function(){resetColorSettings();$('#content_wrapper').addClass('changed');}, 'portal');return false;";
+        $button["js"] = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': 'standard', 'value' : '' } , '', 'data', function(response){ resetColorSettings();$('#portalbg').addClass('changed');}, function(){resetColorSettings();$('#content_wrapper').addClass('changed');}, 'portal');return false;";
         $buttons[0] = $button;
         $dialog->setButtons($buttons);
 

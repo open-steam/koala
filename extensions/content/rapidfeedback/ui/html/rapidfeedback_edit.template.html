@@ -99,7 +99,7 @@
 													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px"><input type="text" name="singlechoice_0" value="" style="width: 95%;"></li>
 												</ol>
 												<div id="singlechoice_newoption" onclick="createSingleChoiceOption();">
-													<a class="button">{ADDOPTION_LABEL}</a>
+                                                                                                        <input type="button" value="{ADDOPTION_LABEL}">
 												</div>
 											</div>
 											<div id="multiplechoice_preview" style="display:none;">
@@ -118,7 +118,7 @@
 													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px"><input type="text" name="multiplechoice_0" value="" style="width: 95%;"></li>
 												</ol>
 												<div id="multiplechoice_newoption" onclick="createMultipleChoiceOption();">
-													<a class="button">{ADDOPTION_LABEL}</a>
+                                                                                                    1<input type="button" value="{ADDOPTION_LABEL}">
 												</div>
 											</div>
 											<div id="matrix_preview" style="display:none;">
@@ -159,7 +159,7 @@
 													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;"><input type="text" name="matrix_0" value="" style="width: 95%;"></li>
 												</ol>
 												<div id="matrix_newoption" onclick="createMatrixOption();">
-													<a class="button">{ADDROWS_LABEL}</a>
+													<input type="button" value="{ADDROWS_LABEL}">
 												</div>
 											</div>
 											<div id="grading_preview" style="display:none;">
@@ -168,7 +168,7 @@
 													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="grading_0"><input type="text" name="grading_0" value="" style="width: 95%;"></li>
 												</ol>
 												<div id="grading_newoption" onclick="createGradingOption();">
-													<a class="button">{ADDROWS_LABEL}</a>
+													<input type="button" value="{ADDROWS_LABEL}">
 												</div>
 											</div>
 											<div id="tendency_preview" style="display:none;">
@@ -191,7 +191,7 @@
 													<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="tendency_0"><input type="text" name="tendency_0_0" value="" style="width: 30%;"> - - - <input type="text" name="tendency_0_1" value="" style="width: 30%;"></li>
 												</ol>
 												<div id="tendency_newoption" onclick="createTendencyOption();">
-													<a class="button">{ADDROWS_LABEL}</a>
+													<input type="button" value="{ADDROWS_LABEL}">
 												</div>
 											</div>
 										</td>
@@ -204,8 +204,8 @@
 									<tr>
 										<td style="padding:3px 5px 0px 0px;"></td>
 										<td style="padding:0px;">
-											<a class="button" onclick="addElement();">{SAVE_LABEL}</a>
-											<a class="button" onclick="hideCreateDialog();">{CANCEL_LABEL}</a>
+                                                                                    <input type="button" onclick="addElement();" value="{SAVE_LABEL}">
+                                                                                    <input type="button" onclick="hideCreateDialog();" value="{CANCEL_LABEL}">
 										</td>
 									</tr>
 								</table>
@@ -237,16 +237,16 @@
 									<tr>
 										<td style="padding:3px 5px 0px 0px;"></td>
 										<td style="padding:0px;">
-											<a class="button" onclick="addLayoutElement();">{SAVE_LABEL}</a>
-											<a class="button" onclick="hideLayoutDialog();">{CANCEL_LABEL}</a>
+                                                                                    <input type="button" onclick="addLayoutElement();" value="{SAVE_LABEL}">
+                                                                                    <input type="button" onclick="hideLayoutDialog();" value="{CANCEL_LABEL}">
 										</td>
 									</tr>
 								</table>
 							</li>
 						</ul>
 						<div id="newquestion_button" align="center">
-							<a class="button" onclick="showCreateDialog();">{ADDQUESTION_LABEL}</a>
-							<a class="button" onclick="showLayoutDialog();">{ADDLAYOUT_LABEL}</a>
+                                                    <input type="button" onclick="showCreateDialog();" value="{ADDQUESTION_LABEL}">
+                                                    <input type="button" onclick="showLayoutDialog();" value="{ADDLAYOUT_LABEL}">
 						</div>
 					</td>
 				</tr>

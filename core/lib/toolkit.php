@@ -324,6 +324,9 @@ function deriveIcon($object) {
     //bidOWL:Document Types
     $objtype = $object->get_attribute("OBJ_TYPE");
     $doctype = $object->get_attribute("bid:doctype");
+    
+    if($objtype === "postbox")
+        return "postbox.png";
 
     if ($doctype === "portal") {
         return "portal_old.png";

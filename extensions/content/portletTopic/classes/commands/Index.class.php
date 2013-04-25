@@ -154,7 +154,16 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
                             $tmpl->parse("BLOCK_EDIT_BUTTON_TOPIC");
                         }
-
+                        if(!isset($topic["title"])){
+                            $topic["title"] = "";
+                        }
+                        if(!isset($topic["link_url"])){
+                            $topic["link_url"] = "";
+                        }
+                        if(!isset($topic["link_target"])){
+                           $topic["link_target"] = ""; 
+                        }
+                        
                         if (trim($topic["link_url"]) != "") {
                             $tmpl->setCurrentBlock("TOPIC_LINK");
                             $tmpl->setVariable("TOPIC_TITLE", $UBB->encode($topic["title"]));

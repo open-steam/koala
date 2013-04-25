@@ -20,6 +20,7 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+            $portletInstance = \PortletSubscription::getInstance();
             $portlet = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
             if ($portlet instanceof \steam_object && $portlet->check_access_write()) {
                 try {
@@ -30,36 +31,7 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
                 }
 
                 if ($subscriptionObject instanceof \steam_object && $subscriptionObject->check_access_read()) {
-                    if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE") == "0") {
-                        if ($portlet->check_access_write()) {
-                            $private = TRUE;
-                            $timestamp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP");
-                            $filter = $portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER");
-                        } else {
-                            $private = FALSE;
-                            $timestamp = "1209600";
-                            $filter = array();
-                        }
-                    } else {
-                        $private = FALSE;
-                        $timestamp = time() - intval($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE"));
-                        $filter = array();
-                    }
-                    $updates = array();
-                    $type = getObjectType($subscriptionObject);
-                    if ($type === "forum") {
-                        $forumSubscription = new \PortletSubscription\Subscriptions\ForumSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
-                        $updates = $forumSubscription->getUpdates();
-                    } else if ($type === "wiki") {
-                        $wikiSubscription = new \PortletSubscription\Subscriptions\WikiSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
-                        $updates = $wikiSubscription->getUpdates();
-                    } else if ($type === "room") {
-                        $folderSubscription = new \PortletSubscription\Subscriptions\FolderSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
-                        $updates = $folderSubscription->getUpdates();
-                    } else if ($type === "document" && strstr($subscriptionObject->get_attribute(DOC_MIME_TYPE), "text")) {
-                        $documentSubscription = new \PortletSubscription\Subscriptions\DocumentSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter);
-                        $updates = $documentSubscription->getUpdates();
-                    }
+                    $updates = $portletInstance->calculateUpdates($subscriptionObject, $portlet, false);
 
                     usort($updates, "sortSubscriptionElements");
                     
@@ -69,13 +41,13 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
                     usort($filter, "sortSubscriptionElements");
                     
                     $count = 0;
-                    while (count($filter) > 0 && count($updates) > 0 && ($filter[$count][1] == $updates[$count][1])) {
+                    while (isset($filter[$count]) && isset($updates[$count]) && ($filter[$count][0] == $updates[$count][0]) && ($filter[$count][1] == $updates[$count][1])) {
                         $timestamp = $filter[$count][0];
                         unset($filter[$count]);
                         $count++;
                     }
                     $filter = array_values($filter);
-                    
+                   
                     $portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", $filter);
                     $portlet->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", $timestamp);
                 }
