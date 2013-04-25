@@ -178,7 +178,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$popupMenu->setElementId("listviewer-overlay");
 			return $popupMenu;
 		} else if ($cell == $this->rawSubscribe) {
-                    $subscriptionEnabled = strpos("PortletSubscription", EXTENSIONS_WHITELIST);
+                    $subscriptionEnabled = strpos(EXTENSIONS_WHITELIST,"PortletSubscription");
                     if($subscriptionEnabled){
                         $type = getObjectType($contentItem);
                         $user = $GLOBALS["STEAM"]->get_current_steam_user();
