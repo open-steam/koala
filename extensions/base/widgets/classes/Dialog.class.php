@@ -10,7 +10,7 @@ class Dialog extends Widget {
 	private $width = "500px";
 	private $closeJs = "location.reload();";
 	private $showCloseIcon = false;
-	private $closeButtonLabel = "Schließen";
+	private $closeButtonLabel = "Speichern & Schließen";
 	private $forceReload = false;
 	private $buttons;
 	
