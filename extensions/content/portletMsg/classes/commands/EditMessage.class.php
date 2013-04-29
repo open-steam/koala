@@ -72,6 +72,7 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
                 
 		$dialog->addWidget($widget);
                 $dialog->setForceReload(true);
+		$dialog->setCloseButtonLabel("Schließen");
 		
 		//create widgets
 		//$button1 = new \Widgets\Button();
