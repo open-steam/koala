@@ -17,9 +17,20 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        
+     
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        $currentSteamUserName = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
-
+        
+        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentSteamUserName = $currentUser->get_name();
+        
+        /* So komme ich an eine Abgabe, falls eine vorhanden ist!
+        $objPath = $obj->get_attribute("OBJ_PATH");
+        $currentUserFullName = $currentUser->get_full_name();      
+        $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
+        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
+        */
+        
         $container = $obj->get_attribute("bid:postbox:container");
         $checkAccessWrite = $obj->check_access_write();
         $checkAccesRead = ($currentSteamUserName == "guest") ? false : true;
@@ -47,30 +58,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         //Falls bereits eine Abgabe abgegeben wurde.
-        $currentUserFullName = $GLOBALS["STEAM"]->get_current_steam_user()->get_full_name();
-        $currentUserId = $GLOBALS["STEAM"]->get_current_steam_user()->get_id();
-
-        /*   $inventory = $container->get_inventory();
-          $index = -1;
-          foreach ($inventory as $i => $ele) {
-          $eleName = $ele->get_name();
-          if ($eleName == $currentUserFullName) {
-          $index = $i;
-          break;
-          }
-          } */
-
-        /*   if ($index != -1) {
-          $lastChangeTimeStamp = $inventory[$index]->get_attribute("OBJ_LAST_CHANGED");
-          $date = date("d.m.Y", $lastChangeTimeStamp);
-          $time = date("H:i", $lastChangeTimeStamp);
-          $dateTime = $date . " " . $time . "Uhr";
-          } else {
-          $dateTime = "-";
-          } */
         
-        $lastRelease = $obj->get_attribute("bid:postbox:lastobj");
-        $lastReleaseCurrentUser = $lastRelease->get_attribute($currentUserId);
+        $objPath = $obj->get_attribute("OBJ_PATH");
+        $currentUserFullName = $currentUser->get_full_name();      
+        $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
+        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
+        
+        if($file instanceof \steam_container){
+            $lastReleaseCurrentUser= $file->get_attribute("OBJ_LAST_CHANGED");
+        }else{
+            $lastReleaseCurrentUser = 0;
+        }
+        
+       
         if ($lastReleaseCurrentUser != 0) {
             $date = date("d.m.Y", $lastReleaseCurrentUser);
             $time = date("H:i", $lastReleaseCurrentUser);

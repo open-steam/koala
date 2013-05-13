@@ -173,7 +173,6 @@ class qqFileUploader {
         if (!is_writable($uploadDirectory)) {
             return array('error' => "Server error. Upload directory isn't writable.");
         }
-
         if (!$this->file) {
             return array('error' => 'No files were uploaded.');
         }
@@ -201,38 +200,48 @@ class qqFileUploader {
 
         //create empty steam_document and check write access
         $env = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
+        
         $obj = $env->get_environment();
-        $lastRelease = $obj->get_attribute("bid:postbox:lastobj");
         
+
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
-        $currentUserId = $currentUser->get_id();
-        
-        $folderId = $lastRelease->get_attribute($currentUserId);
-        if($folderId != 0){
+
+        $objPath = $obj->get_attribute("OBJ_PATH");
+        $currentUserFullName = $currentUser->get_full_name();
+        $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
+        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
+
+        if ($file instanceof \steam_container) {
+            $folderId = $file->get_id();
+        } else {
+            $folderId = 0;
+        }
+       
+        if ($folderId != 0) {
             $isFolderAva = true;
-        }else{
+        } else {
             $isFolderAva = false;
         }
-       // $inventory = $env->get_inventory();
-       // $folderId = 0;
-       // $isFolderAva = false;
-       // foreach ($inventory as $index => $ele) {
-       /*     $authorId = $ele->get_creator()->get_id();
-            if ($authorId == $currentUserId) {
-                $isFolderAva = true;
-                $folderId = $ele->get_id();
-                break;
-            }
-        } */
-        
+        // $inventory = $env->get_inventory();
+        // $folderId = 0;
+        // $isFolderAva = false;
+        // foreach ($inventory as $index => $ele) {
+        /*     $authorId = $ele->get_creator()->get_id();
+          if ($authorId == $currentUserId) {
+          $isFolderAva = true;
+          $folderId = $ele->get_id();
+          break;
+          }
+          } */
+
         $username = $currentUser->get_full_name();
         $usernameShort = $currentUser->get_name();
         if ($isFolderAva) {
-           $container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $folderId); 
+            $container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $folderId);
         } else {
             $container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $username, $env);
         }
-        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort ."_".$filename. "." . $ext, "", "", $container);
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort . "_" . $filename . "." . $ext, "", "", $container);
 //Mache hier weiter und speicher die hashmap als array      
 //  $lastRelease->set_attribute($currentUserId,$steam_document->get_attribute("OBJ_LAST_CHANGED"));
         if (!$replaceOldFile) {
