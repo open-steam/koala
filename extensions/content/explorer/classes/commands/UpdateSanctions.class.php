@@ -31,6 +31,9 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
         $docTypeQuestionary = strcmp($attrib["bid:doctype"], "questionary") == 0;
         $docTypeMessageBoard = $this->object instanceof \steam_messageboard;
 
+        $objType = $this->object->get_attribute("OBJ_TYPE");
+
+
         // in questionaries the write right is limited to insert rights only
         if ($docTypeQuestionary) {
             $SANCTION_WRITE_FOR_CURRENT_OBJECT = SANCTION_INSERT;
@@ -89,6 +92,13 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
         }
         //SET SPECIFIC RIGHTS
         elseif ($type == "sanction") {
+            $postboxHack = false;
+            if ($objType == "postbox") {
+                $inventory = $this->object->get_inventory();
+                $container = $inventory[0];
+                $postboxHack = true;
+            }
+
             $currentSanction = ACCESS_DENIED;
             $additionalSanction = ACCESS_DENIED;
             if ($value >= 1) {
@@ -104,6 +114,14 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
             $this->object->sanction($currentSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
             // set the new meta rights
             $this->object->sanction_meta($additionalSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
+            if ($postboxHack) {
+                if ($value >= 2) {
+                    $container->sanction($currentSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
+                } else {
+                    $container->sanction(SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));                
+                }
+                $container->sanction_meta($additionalSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
+            }
         }
         $ajaxResponseObject->setStatus("ok");
         return $ajaxResponseObject;
