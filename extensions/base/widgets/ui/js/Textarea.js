@@ -69,7 +69,7 @@ function widgets_textarea_save_success(elementId, response) {
 					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(!tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty");}},
 					oninit : function(e) {tinyMCE.activeEditor.setContent(value), tinyMCE.activeEditor.isNotDirty = 1},
 					setup :  function(e) {
-                                                setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {/*element.addClass("dirty");*/$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty");}}, 2000 );
+                                                setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty");}}, 30000 );
 					}
 	    	};
 	    	
