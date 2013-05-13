@@ -1,7 +1,7 @@
 
 function widgets_textarea_save_success(elementId, response) {
 	var widget = jQuery("#" + elementId);
-	deJSON = jQuery.parseJSON(response.responseText);
+       deJSON = jQuery.parseJSON(response.responseText);
 	if (deJSON) {
 		data = deJSON.data;
 		if (widget.length !== 0) {
@@ -37,8 +37,10 @@ function widgets_textarea_save_success(elementId, response) {
 	
 	  var methods = {
 	    init : function(options) {
+                
 	    	var element = this;
-	    	var value = decodeURIComponent(options.value);
+                element.toggleClass("dirty");
+                var value = decodeURIComponent(options.value);
 	    	element.attr("value", value);
 	    	element.attr("oldValue", value);
 	    	sendFunction = options.sendFunction;
@@ -64,10 +66,10 @@ function widgets_textarea_save_success(elementId, response) {
                                         onchange_callback : function(e) {element.addClass("dirty");},
 
 					
-					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(!tinyMCE.activeEditor.isDirty()) {/*element.removeClass("dirty")*/}},
+					handle_event_callback: function(e) {if (e.type === "keyup"  && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(!tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty");}},
 					oninit : function(e) {tinyMCE.activeEditor.setContent(value), tinyMCE.activeEditor.isNotDirty = 1},
 					setup :  function(e) {
-                                                setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {element.addClass("dirty");$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {/*element.removeClass("dirty")*/}}, 2000 );
+                                                setInterval(function() {if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {/*element.addClass("dirty");*/$(window).bind('beforeunload', function() {return 'LeaveMessage';});}; if(tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {element.removeClass("dirty");}}, 2000 );
 					}
 	    	};
 	    	
