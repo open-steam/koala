@@ -14,6 +14,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $TermsExtension = \Terms::getInstance();
             $content = $TermsExtension->loadTemplate("index.template.html");
             $content->setCurrentBlock("BLOCK_TERMS_OF_USE");
+            $content->setVariable("SESSION_COOKIE_NAME", SESSION_NAME);
             $content->setVariable("TERMS_URL_CHANGE", PLATFORM_USERMANAGEMENT_URL);
             $content->setVariable("TERMS_SYSTEM", PLATFORM_TITLE);
             $content->setVariable("TERMS_URL_DOWNLOAD", $TermsExtension->getAssetUrl() . "Nutzungsordnung.pdf");
