@@ -1,6 +1,6 @@
-function setCookie(c_name,value,exdays){
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate() + exdays);
-    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
-    document.cookie=c_name + "=" + c_value;
+function deleteCookie(name) {
+    var exp = new Date();
+    exp.setTime (exp.getTime() - 1);
+    var cval = GetCookie (name);
+    document.cookie = name + "=" + cval + "; expires=" + exp.toGMTString();
 }
