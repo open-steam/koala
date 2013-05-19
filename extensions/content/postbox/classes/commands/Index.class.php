@@ -17,20 +17,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
-     
+
+
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         $currentSteamUserName = $currentUser->get_name();
-        
+
         /* So komme ich an eine Abgabe, falls eine vorhanden ist!
-        $objPath = $obj->get_attribute("OBJ_PATH");
-        $currentUserFullName = $currentUser->get_full_name();      
-        $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
-        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
-        */
-        
+          $objPath = $obj->get_attribute("OBJ_PATH");
+          $currentUserFullName = $currentUser->get_full_name();
+          $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
+          $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
+         */
+
         $container = $obj->get_attribute("bid:postbox:container");
         $checkAccessWrite = $obj->check_access_write();
         $checkAccesRead = ($currentSteamUserName == "guest") ? false : true;
@@ -58,19 +57,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         //Falls bereits eine Abgabe abgegeben wurde.
-        
+
         $objPath = $obj->get_attribute("OBJ_PATH");
-        $currentUserFullName = $currentUser->get_full_name();      
+        $currentUserFullName = $currentUser->get_full_name();
         $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
         $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
-        
-        if($file instanceof \steam_container){
-            $lastReleaseCurrentUser= $file->get_attribute("OBJ_LAST_CHANGED");
-        }else{
+
+        if ($file instanceof \steam_container) {
+            $lastReleaseCurrentUser = $file->get_attribute("OBJ_LAST_CHANGED");
+        } else {
             $lastReleaseCurrentUser = 0;
         }
-        
-       
+
+
         if ($lastReleaseCurrentUser != 0) {
             $date = date("d.m.Y", $lastReleaseCurrentUser);
             $time = date("H:i", $lastReleaseCurrentUser);
@@ -79,7 +78,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $dateTime = "-";
         }
 
-       
+
 
 
         $this->getExtension()->addJS();
@@ -88,7 +87,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
         $cssStyles = new \Widgets\RawHtml();
-        $cssStyles->setCss('.attribute{width:150px;float:left;padding-left:50px;padding-top:5px;} .value{padding-top:5px;} .value-red{color:red;padding-top:5px;} .value-green{color:green;padding-top:5px;}
+        $cssStyles->setCss('.attribute{width:150px;float:left;padding-left:50px;padding-top:5px;} .value{margin-left:200px;padding-top:5px;} .value-red{color:red;padding-top:5px;margin-left:200px;} .value-green{color:green;padding-top:5px;margin-left:200px;}
             #button{padding-left:50px;padding-right: 50px;
                     }
             .breadcrumb {
@@ -164,26 +163,26 @@ END
             $frameResponseObject->addWidget($environmentData);
             $frameResponseObject->addWidget($loader);
         } else if ($checkAccesRead) {
-       
+
             $currentUserFullName = $GLOBALS["STEAM"]->get_current_steam_user()->get_full_name();
 
-          /*  $inventory = $container->get_inventory();
-            $index = -1;
-            foreach ($inventory as $i => $ele) {
-                $eleName = $ele->get_name();
-                if ($eleName == $currentUserFullName) {
-                    $index = $i;
-                    break;
-                }
-            }
-            if ($index != -1) {
-                $lastChangeTimeStamp = $inventory[$index]->get_attribute("OBJ_LAST_CHANGED");
-                $date = date("d.m.Y", $lastChangeTimeStamp);
-                $time = date("H:i", $lastChangeTimeStamp);
-                $dateTime = $date . " " . $time . " Uhr";
-            } else {
-                $dateTime = "-";
-            } */
+            /*  $inventory = $container->get_inventory();
+              $index = -1;
+              foreach ($inventory as $i => $ele) {
+              $eleName = $ele->get_name();
+              if ($eleName == $currentUserFullName) {
+              $index = $i;
+              break;
+              }
+              }
+              if ($index != -1) {
+              $lastChangeTimeStamp = $inventory[$index]->get_attribute("OBJ_LAST_CHANGED");
+              $date = date("d.m.Y", $lastChangeTimeStamp);
+              $time = date("H:i", $lastChangeTimeStamp);
+              $dateTime = $date . " " . $time . " Uhr";
+              } else {
+              $dateTime = "-";
+              } */
             $buttonHtml = new \Widgets\RawHtml();
             $buttonHtml->setHtml(<<<END
                         <br>
@@ -201,6 +200,7 @@ END
             $lastReleaseHtml = new \Widgets\RawHtml();
             $lastReleaseHtml->setHtml('<div class="attribute">Letzte Abgabe:</div><div class="value">' . $dateTime . '</div>
                 ');
+            $isButtonSet = false;
             if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
                 $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
@@ -214,13 +214,27 @@ END
                 <div class="attribute">Abgabefrist:</div><div class="value">-</div>');
                 $frameResponseObject->addWidget($noDeadlineHtml);
                 $frameResponseObject->addWidget($lastReleaseHtml);
-                $frameResponseObject->addWidget($buttonHtml);
+                $isButtonSet = true;
+              //  $frameResponseObject->addWidget($buttonHtml);
             } else {
                 $deadlineRunHtml = new \Widgets\RawHtml();
                 $deadlineRunHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
                 <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
                 $frameResponseObject->addWidget($deadlineRunHtml);
                 $frameResponseObject->addWidget($lastReleaseHtml);
+                $isButtonSet = true;
+            }
+            $advice = $obj->get_attribute("postbox:advice");
+
+            if (!($advice === "" || $advice === 0)) {
+                $adviceWidget = new \Widgets\RawHtml();
+                $adviceWidget->setHtml(<<<END
+                      <div class="attribute">Hinweis:</div><div class="value">{$advice}</div>
+END
+                );
+                $frameResponseObject->addWidget($adviceWidget);
+            }
+            if ($isButtonSet) {
                 $frameResponseObject->addWidget($buttonHtml);
             }
         } else {
