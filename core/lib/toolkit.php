@@ -278,8 +278,10 @@ function getObjectType($object) {
             $type = "groupWorkroom";
         } else if ($objType === "RAPIDFEEDBACK_CONTAINER") {
             $type = "rapidfeedback";
-        } else if ($objType === "container_pyramiddiscussion")  {
+        } else if ($objType === "container_pyramiddiscussion") {
             $type = "pyramiddiscussion";
+        } else if ($objType === "postbox") {
+            $type = "postbox";
         } else if ($object->get_attribute("worksheet_valid") === 1) {
             $type = "worksheet";
         } else if ($object->get_attribute("isWebarena") === 1) {
@@ -309,7 +311,7 @@ function deriveIcon($object) {
         return "worksheet.png";
     //webarena
     if ($object->get_attribute("isWebarena") == 1) {
-    	return "webarena.png";
+        return "webarena.png";
     }
     //bidOWL:Collection Types
     $collectiontype = $object->get_attribute("bid:collectiontype");
@@ -324,8 +326,8 @@ function deriveIcon($object) {
     //bidOWL:Document Types
     $objtype = $object->get_attribute("OBJ_TYPE");
     $doctype = $object->get_attribute("bid:doctype");
-    
-    if($objtype === "postbox")
+
+    if ($objtype === "postbox")
         return "postbox.png";
 
     if ($doctype === "portal") {
@@ -543,6 +545,17 @@ function getObjectReadableSize($object) {
             } else {
                 $html = $counter . " Objekte";
             }
+        } else if ($type == "postbox") {
+            $datetime = $object->get_attribute("bid:postbox:deadline");
+            if($datetime == 0 || $datetime == ""){
+                $html = "-";
+                
+            }  else {
+                $deadlineArray = explode(" ", $datetime);
+                $html = $deadlineArray[0];
+                 
+                
+            }
         } else if ($type == "portal") {
             $counter = count($object->get_inventory());
             $html = $counter;
@@ -658,14 +671,10 @@ function isAjaxRequest() {
     return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 }
 
-
 function isRestRequest() {
     $data = $_SERVER['REQUEST_URI'];
-    return (isset($data) && substr(strtolower($data), 0, 6)=="/rest/");
+    return (isset($data) && substr(strtolower($data), 0, 6) == "/rest/");
 }
-
-
-
 
 function isPhpCli() {
     return php_sapi_name() == "cli";
@@ -741,7 +750,7 @@ function cleanHTML($dirtyHTML) {
 
     $def = $config->getHTMLDefinition(true);
     $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
-                    array('_blank', '_self', '_target', '_top')
+            array('_blank', '_self', '_target', '_top')
     ));
 
 
