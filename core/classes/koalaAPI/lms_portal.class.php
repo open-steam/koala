@@ -162,9 +162,16 @@ class lms_portal
 		// CHOOSE RIGHT LANGUAGE AND SET LOCALES FOR GETTEXT
 		language_support::choose_language();
 		
+                
 		// SET LOGO URL
-		$this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
-
+                if(defined("LOGO_PATH_URL")){
+                    $this->template->setVariable( "LOGO_PATH_URL", LOGO_PATH_URL );
+                }
+                else{
+                    $this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
+                }
+                
+                
 		// SET STYLEPATH AND ADDITIONAL HEADERS
 		$this->template->setVariable( "STYLE_PATH", PATH_STYLE );
 		$this->template->setVariable( "STANDARD_STYLE_PATH", PATH_URL );
