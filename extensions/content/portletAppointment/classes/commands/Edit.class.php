@@ -35,7 +35,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$align->setData($object);
 		$align->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:app:app_order"));
 		$dialog->addWidget($align);
-		$dialog->setForceReload(true);
+		//$dialog->setForceReload(true);
 		
 		$this->dialog = $dialog;
 	}

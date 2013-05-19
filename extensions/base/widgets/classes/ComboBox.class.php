@@ -12,7 +12,7 @@ class ComboBox extends Widget {
 	private $label;
         private $labelWidth;
 	private $size = 1;
-        private $onchange;
+        private $onchange="$(this).addClass('changed');";
 	
 	public function setLabel($label) {
 		$this->label = $label;

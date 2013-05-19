@@ -179,7 +179,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item5Votes->setContentProvider(new AttributeDataProviderPortletPollVotes(5,"votes"));
 		$dialog->addWidget($item5Votes);
 		$dialog->addWidget($clearer);
-                $dialog->setForceReload(true);
+               // $dialog->setForceReload(true);
 		
 		$this->dialog = $dialog;
 	}
