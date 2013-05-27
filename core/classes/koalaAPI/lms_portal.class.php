@@ -973,7 +973,11 @@ return $rand_value;
 			$this->template->setVariable( "PATH_JAVASCRIPT_2", PATH_JAVASCRIPT);
 			$this->template->setVariable( "KOALA_VERSION_2", KOALA_VERSION);
 			$this->template->parse('HEAD_JAVASCRIPT_PROTOTYPE');
-		}		
+		}
+                
+                //fix ie9 header problem
+                header("X-UA-Compatible: IE=Edge");
+                
 		try {
 			while (ob_get_level() > 0) {
 				ob_end_flush();
@@ -990,9 +994,6 @@ return $rand_value;
 			}
 		}
                 
-                //fix ie9 header problem
-                header("X-UA-Compatible: IE=Edge");
-            
 		
 		if (JAVASCRIPT_SECURITY) {
 			define("SHOW_SECURITY_PROBLEMS", FALSE);
