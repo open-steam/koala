@@ -1,4 +1,3 @@
 function deleteCookie(name){
-   var cook=name+"=; expires=Thu, 01-Jan-70 00:00:01 GMT";
-   document.cookie = cook;
+    document.cookie = name+'=del; expires=Thu, 1 Aug 2000 20:00:00 UTC; path=/'
 }
