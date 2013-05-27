@@ -149,4 +149,6 @@ defined("YOUR_SCHOOL") or define("YOUR_SCHOOL", true);
 //url to terms of use
 defined("PLATFORM_USERMANAGEMENT_URL") or define("PLATFORM_USERMANAGEMENT_URL", "http://www.bid-owl.de/benutzerverwaltung/");
 
+//logo link
+defined("LOGO_PATH_URL") or define("LOGO_PATH_URL", "http://www.hni.uni-paderborn.de/koi/");
 ?>
