@@ -146,9 +146,6 @@ defined("ENABLE_AUTOMATIC_IMAGE_SCALING") or define("ENABLE_AUTOMATIC_IMAGE_SCAL
 //your school link in main menu
 defined("YOUR_SCHOOL") or define("YOUR_SCHOOL", true);
 
-//delete unused links to group homes
-defined("DELETE_GROUP_HOME_EXITS") or define("DELETE_GROUP_HOME_EXITS", true);
-
 //url to terms of use
 defined("PLATFORM_USERMANAGEMENT_URL") or define("PLATFORM_USERMANAGEMENT_URL", "http://www.bid-owl.de/benutzerverwaltung/");
 
