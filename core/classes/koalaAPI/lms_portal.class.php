@@ -989,6 +989,10 @@ return $rand_value;
 				$this->template->setVariable( "STATISTICS_PAGETIME", " | " . gettext( "page took" ) . " " . round((microtime(TRUE) - $GLOBALS["page_time_start"]) * 1000 ) . " ms" );
 			}
 		}
+                
+                //fix ie9 header problem
+                header("X-UA-Compatible: IE=Edge");
+            
 		
 		if (JAVASCRIPT_SECURITY) {
 			define("SHOW_SECURITY_PROBLEMS", FALSE);
