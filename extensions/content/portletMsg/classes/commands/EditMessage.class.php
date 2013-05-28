@@ -71,18 +71,8 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$widget->setUncheckedValue("");
                 
 		$dialog->addWidget($widget);
-                $dialog->setForceReload(true);
-		
-		//create widgets
-		//$button1 = new \Widgets\Button();
-		
-		//TODO: add a edit box for the message here
-		
-		
-		//$button1->setLabel("abschicken");
-		
-		//add widgets to dialog
-		//$dialog->addWidget($button1);
+               // $dialog->setForceReload(true);
+		$dialog->setCloseButtonLabel("Schließen");
 		$this->dialog = $dialog;
 	}
 	

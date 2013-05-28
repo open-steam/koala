@@ -2,8 +2,12 @@
 namespace Widgets;
 
 class DataProvider {
-	
-	static function attributeProvider($attribute, $initValue = null) {
+    
+        static function arrayToStringProvider($attribute){
+            return new ArrayToStringProvider($attribute);
+        }
+
+        static function attributeProvider($attribute, $initValue = null) {
 		return new AttributeDataProvider($attribute, $initValue);
 	}
 	

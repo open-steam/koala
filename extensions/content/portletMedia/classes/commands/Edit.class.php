@@ -72,7 +72,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:content([media_type])"));
 		$dialog->addWidget($radioButton);
 		$dialog->addWidget($clearer);
-		$dialog->setForceReload(true);
+		//$dialog->setForceReload(true);
 		
 		$this->dialog = $dialog;
 	}

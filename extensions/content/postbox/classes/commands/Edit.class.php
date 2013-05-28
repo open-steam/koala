@@ -58,9 +58,9 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $datepickerStart->setTimePicker(true);
         $datepickerStart->setData($obj);
         //$datepickerStart->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:postbox:deadline"));
-        if($noDeadline){
+        if ($noDeadline) {
             $datepickerValue = $currentDateTime;
-        }else{
+        } else {
             $datepickerValue = trim($attr);
         }
         $rawHtml = new \Widgets\RawHtml();
@@ -82,9 +82,9 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             );   
                 </script>
 END
-                );
+        );
         $dialog->addWidget($rawHtml);
-        $dialog->addWidget($clearer);
+   //     $dialog->addWidget($clearer);
         if ($noDeadline) {
             $jsWrapper = new \Widgets\RawHtml();
             $jsWrapper->setPostJsCode(<<<END
@@ -96,9 +96,23 @@ END
 
             $dialog->addWidget($jsWrapper);
             $dialog->setTitle("Eigenschaften von »" . getCleanName($obj) . "«<br> (Abgabefach)");
-
         }
-        
+        $adviceText = $obj->get_attribute("postbox:advice");
+        $textarea = new \Widgets\RawHtml();
+        $textarea->setHtml(<<<END
+                 <div style="margin:3px;">Hinweistext:</div>
+            <textarea id="adviceArea" onchange="updateText();return false;" style="margin:3px;width:325px;height:100px;"></textarea>
+                <script>$('#adviceArea').val("{$adviceText}");
+                        function updateText(){
+                            var value = $('#adviceArea').val();
+                 sendRequest('databinding', {'id': {$this->id}, 'attribute': 'postbox:advice', 'value': value}, '', 'data');
+                            
+                }
+   </script>
+END
+        );
+        $dialog->addWidget($textarea);
+
         $ajaxResponseObject->addWidget($dialog);
         return $ajaxResponseObject;
     }

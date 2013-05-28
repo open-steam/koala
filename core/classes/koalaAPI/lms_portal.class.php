@@ -162,9 +162,16 @@ class lms_portal
 		// CHOOSE RIGHT LANGUAGE AND SET LOCALES FOR GETTEXT
 		language_support::choose_language();
 		
+                
 		// SET LOGO URL
-		$this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
-
+                if(defined("LOGO_PATH_URL")){
+                    $this->template->setVariable( "LOGO_PATH_URL", LOGO_PATH_URL );
+                }
+                else{
+                    $this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
+                }
+                
+                
 		// SET STYLEPATH AND ADDITIONAL HEADERS
 		$this->template->setVariable( "STYLE_PATH", PATH_STYLE );
 		$this->template->setVariable( "STANDARD_STYLE_PATH", PATH_URL );
@@ -966,7 +973,11 @@ return $rand_value;
 			$this->template->setVariable( "PATH_JAVASCRIPT_2", PATH_JAVASCRIPT);
 			$this->template->setVariable( "KOALA_VERSION_2", KOALA_VERSION);
 			$this->template->parse('HEAD_JAVASCRIPT_PROTOTYPE');
-		}		
+		}
+                
+                //fix ie9 header problem
+                header("X-UA-Compatible: IE=Edge");
+                
 		try {
 			while (ob_get_level() > 0) {
 				ob_end_flush();
@@ -982,6 +993,7 @@ return $rand_value;
 				$this->template->setVariable( "STATISTICS_PAGETIME", " | " . gettext( "page took" ) . " " . round((microtime(TRUE) - $GLOBALS["page_time_start"]) * 1000 ) . " ms" );
 			}
 		}
+                
 		
 		if (JAVASCRIPT_SECURITY) {
 			define("SHOW_SECURITY_PROBLEMS", FALSE);

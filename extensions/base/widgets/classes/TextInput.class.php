@@ -19,7 +19,6 @@ class TextInput extends Widget {
     private $autosave = true;
     private $customSaveCode = "";
     private $name = "";
-    
 
     public function setName($name) {
         $this->name = $name;
@@ -126,6 +125,9 @@ class TextInput extends Widget {
                 $this->getContent()->setVariable("ADD_CLASS_INPUT", "readonly");
             }
             $valueString = $this->contentProvider->getData($this->data);
+            if (is_array($valueString)) {
+                echo $this->id;die;
+            }
             $valueString = (($valueString === "0") || ($valueString === "")) ? "" : $valueString;
             $valueString = htmlspecialchars($valueString);
             $this->getContent()->setVariable("VALUE", $valueString);

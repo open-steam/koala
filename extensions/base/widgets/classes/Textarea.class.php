@@ -86,6 +86,8 @@ class Textarea extends Widget {
 		$this->getContent()->setVariable("ADDITINAL_LABEL_CLASSES", $this->textareaClass);
 		
 		$this->setPostJsCode(<<<END
+                        
+                        
 								
 			$('#{$this->id}').textarea({  // calls the init method
 				value : '{$currentValue}',
@@ -93,7 +95,10 @@ class Textarea extends Widget {
 			});
 			$('#{$this->id}').find('.button.save').bind('click', function() { $('#{$this->id}').textarea('save'); });
 			$('#{$this->id}').find('.button.undo').bind('click', function() { $('#{$this->id}').textarea('undo'); });
-
+                        $('#{$this->id}').attr("class", "widget textarea");
+                     
+                        
+                        
 END
 				);
                 $pollingDummy = new PollingDummy();

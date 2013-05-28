@@ -31,7 +31,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         
         $isPostboxObj = false;
         $objType = $object->get_attribute("OBJ_TYPE");
-        if($objType == "postbox"){
+        if($objType === "postbox"){          
             $isPostboxObj = true;
         }
         //Prüfe, ob Berechtigung vorhanden
@@ -508,9 +508,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $dropDownValueAcq = 0;
                 if ($sanctionCheckAcq) {
                     $dropDownValueAcq = 3;
-                } elseif ($writeCheckAcq) {
+                } else if ($writeCheckAcq) {
                     $dropDownValueAcq = 2;
-                } elseif ($readCheckAcq) {
+                } else if ($readCheckAcq) {
                     $dropDownValueAcq = 1;
                 }
                 $explodeName = array();
@@ -524,7 +524,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $ddlAcq->setSize("1");
                 $ddlAcq->setDisabled(true);
 
-                $optionValuesAcq = self::getOptionsValues(1);
+                $optionValuesAcq = self::getOptionsValues($dropDownValueAcq);
 
                 $ddlAcq->setOptionValues($optionValuesAcq);
 

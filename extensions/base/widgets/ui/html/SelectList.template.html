@@ -1,6 +1,6 @@
 <div class="widgets_selectlist">
 {LABEL}<br/>
-<select id={ID} name={NAME} name="top5" size="3">
+<select id={ID} name={NAME} name="top5" size="3" onchange="$(this).addClass('changed');">
 <!-- BEGIN BLOCK_LIST_OPTIONS -->
 	<option id="{REFERENCE}">{DESCRIPTION}</option>
 <!-- END BLOCK_LIST_OPTIONS -->

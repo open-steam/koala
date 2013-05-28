@@ -61,7 +61,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$size->setData($object);
 		$size->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:content([size])"));
 		$dialog->addWidget($size);
-		$dialog->setForceReload(true);
+		//$dialog->setForceReload(true);
 		
 		$this->dialog = $dialog;
 	}

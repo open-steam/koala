@@ -64,7 +64,7 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
 						);
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("150px");
+		$popupMenu->setWidth("180px");
 		
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

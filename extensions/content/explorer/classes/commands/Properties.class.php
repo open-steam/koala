@@ -233,7 +233,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $keywordArea = new \Widgets\TextInput();
         $keywordArea->setLabel("Schlüsselwörter");
         $keywordArea->setData($object);
-        $keywordArea->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_KEYWORDS"));
+        $keywordArea->setContentProvider(\Widgets\DataProvider::arrayToStringProvider("OBJ_KEYWORDS"));
         if (!$isWriteable) {
             $keywordArea->setReadOnly(true);
         }
@@ -316,6 +316,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($createdField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
+        $dialog->addWidget($keywordArea);
         if ($type != "portal") {
             $dialog->addWidget($seperator);
         }
