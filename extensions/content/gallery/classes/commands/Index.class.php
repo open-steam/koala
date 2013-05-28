@@ -163,7 +163,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $tpl->setVariable("BACKBEGIN", $backbegin);
         }
 
-        $pagemax = min($to, $picCount - 1);
+        $pagemax = min($to + 1 , $picCount - 1);
         $pagemaxFast = $from + ($numberOfPagesFast * $numberOfThumbs);
         $pagemaxFast = min($pagemaxFast, $picCount - 1);
 
