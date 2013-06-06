@@ -40,15 +40,15 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 	public function getHeadlines() {
-		return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+		return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
 	}
 	
 	public function getHeadLineWidths() {
-		return array(25, 385, 100, 150, 80, 30, 40, 20);
+		return array(25, 300, 185, 150, 80, 30, 40, 20);
 	}
 	
 	public function getHeadLineAligns() {
-		return array("left", "left", "right", "right", "right", "right", "right", "right");
+		return array("left", "left", "left", "right", "right", "right", "right", "right");
 	}
 }
 
@@ -137,7 +137,12 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name . "<script>" . $tipsyHtml . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
-                        return "<div></div>";//speed test //TODO: fix
+                        $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
+                        $keywordList = "";
+                        foreach($keywords as $keyword){
+                            $keywordList.=$keyword.";";
+                        }
+                        return "<div>".$keywordList."</div>";//speed test //TODO: fix
 			$html = "";
 			$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
 			

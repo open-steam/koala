@@ -22,7 +22,8 @@ class ContentDataProvider implements IDataProvider {
 	}
 	
 	public function getUpdateCode($object, $elementId, $successMethod = null) {
-		if (is_int($object)) {
+            
+           	if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
@@ -32,7 +33,7 @@ class ContentDataProvider implements IDataProvider {
 			$function = ", function(response){{$successMethod}({$elementId}, response);}";
 		}
 		return <<< END
-sendRequest('databinding', {'id': {$objectId}, 'value': value}, '', 'data'{$function});
+sendRequest('databinding', {'id': {$objectId}, 'value': value}, '', 'data'{$function}); 
 END;
 	}
 	
