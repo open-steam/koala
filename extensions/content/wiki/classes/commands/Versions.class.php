@@ -158,7 +158,7 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 		
 		$wiki_html_handler->set_main_html( $content->get() );
 		
-		$rootlink = \lms_steam::get_link_to_root( $wiki_container );
+		//$rootlink = \lms_steam::get_link_to_root( $wiki_container );
 		(WIKI_FULL_HEADLINE) ?
 		$headline = array(
 						$rootlink[0],
