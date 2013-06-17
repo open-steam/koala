@@ -40,7 +40,9 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 	public function getHeadlines() {
-		return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+
+		//return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
 	}
 	
 	public function getHeadLineWidths() {
@@ -137,6 +139,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name . "<script>" . $tipsyHtml . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
+                    return "";
                         $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
                         $keywordList = "";
                         foreach($keywords as $keyword){
