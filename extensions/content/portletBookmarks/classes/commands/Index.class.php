@@ -52,8 +52,8 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $rawHtml->addWidget($popupMenu);
         $rawHtml->addWidget($listViewer);
         
-        $rawHtml->setHtml('<div class="portlet bookmark"><h1 class="headline">Meine Lesezeichen <div class="editbutton" style="display:none;float:right;padding-right:5px;">' . $popupMenu->getHtml() . "</div></h1><div class=\"entry\" style=\"padding:5px;\">" . $listViewer->getHtml() . "</div><div class=\"entry\" style=\"padding-left:".($portletWidth/2-80)."px;padding-right:".($portletWidth/2-80)."px;\"><a href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a></div><br>" . '<div id="overlay_menu"></div></div><br>');
-
+        $rawHtml->setHtml('<div id="'. $this->id .'" class="portlet bookmark"><h1 class="headline">Meine Lesezeichen <div class="editbutton" style="display:none;float:right;padding-right:5px;">' . $popupMenu->getHtml() . '</div></h1><div class="entry"><div>' . $listViewer->getHtml() . '</div><br><div style="padding-left:'.($portletWidth/2-100).'px;padding-right:'.($portletWidth/2-100).'px;"><a href="' . PATH_URL . 'bookmarks/">Alle Lesezeichen anzeigen</a></div><div id="overlay_menu"></div></div></div>');
+        //$rawHtml->setHtml('<div class="portlet bookmark"><h1 class="headline">Meine Lesezeichen <div class="editbutton" style="display:none;float:right;padding-right:5px;">' . $popupMenu->getHtml() . "</div></h1><div class=\"entry\"><div class=\"\" style=\"padding:5px;\">" . $listViewer->getHtml() . "</div><div class=\"\" style=\"padding-left:".($portletWidth/2-80)."px;padding-right:".($portletWidth/2-80)."px;\"><a href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a></div><br>" . '<div id="overlay_menu"></div></div></div><br>');
         $this->content = $rawHtml;
     }
 

@@ -135,7 +135,7 @@ HELP;
 		
 		
 		$headline = array();
-		$rootlink = \lms_steam::get_link_to_root($wiki_container);
+		//$rootlink = \lms_steam::get_link_to_root($wiki_container);
 		
 		(WIKI_FULL_HEADLINE) ?
 		$headline = array(

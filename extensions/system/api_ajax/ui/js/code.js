@@ -177,7 +177,7 @@ function closeDialog() {
 		//textareas
                 var dirtyTextareas = jQuery('#dialog').find('.widget.textarea.dirty');
 		if (dirtyTextareas.length > 0) {
-			if (confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
+			if (confirm('Wenn Sie den Dialog schließen, dann gehen nicht gespeicherte Daten verloren.')) {
 				$(dirtyTextareas[0]).textarea('save');
 				$(dirtyTextareas[0]).addClass('saved');
 				$(dirtyTextareas[0]).removeClass('dirty');

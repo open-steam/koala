@@ -259,7 +259,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		} else {
 		    $content->setVariable("NAME_SAVE_BUTTON", "name='values[save]'");
 		}
-		$rootlink = \lms_steam::get_link_to_root($grp);
+		//$rootlink = \lms_steam::get_link_to_root($grp);
 		(WIKI_FULL_HEADLINE) ?
 				$headline = array(
 			    $rootlink[0],

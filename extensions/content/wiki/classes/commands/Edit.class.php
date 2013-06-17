@@ -255,7 +255,7 @@ END
 		    $pagetitle = str_replace("%NAME", h(substr($wiki_doc->get_name(), 0, -5)), gettext("Edit '%NAME'?"));
 		}
 		
-		$rootlink = \lms_steam::get_link_to_root($wiki_container);
+		//$rootlink = \lms_steam::get_link_to_root($wiki_container);
 		(WIKI_FULL_HEADLINE) ?
 				$headline = array(
 			    $rootlink[0],

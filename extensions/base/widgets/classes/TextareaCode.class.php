@@ -67,6 +67,7 @@ var editor = CodeMirror.fromTextArea(document.getElementById('{$this->id}'), {
     },
     onChange: function() {
       widgets_textareacode_changed({$this->id});
+      $('#hiddenChangeField123').addClass('changed');
       clearTimeout(delay);
       delay = setTimeout(updatePreview, 300);
     }

@@ -125,7 +125,7 @@ class ColorGeneratorPortal {
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
               }'; 
-              $content_bgcolor_css .= '.portlet.messages .podcast {
+              $content_bgcolor_css .= ' .podcast {
     
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
               background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
@@ -134,7 +134,8 @@ class ColorGeneratorPortal {
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
                   border-top: 0px solid #CDCDCD;
               }';  
-              $content_bgcolor_css .= '.portlet h3{border-top: 0px solid #CDCDCD;}.bookmark{height:28px;}';
+              $content_bgcolor_css .= '.portlet h3{border-top: 0px solid #CDCDCD;}'; 
+              //$content_bgcolor_css .= '.portlet h3{border-top: 0px solid #CDCDCD;}.bookmark{height:28px;}'; 
               
               
               }

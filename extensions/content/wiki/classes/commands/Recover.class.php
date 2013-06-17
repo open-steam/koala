@@ -66,7 +66,7 @@ class Recover extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable( "LABEL_OK", gettext( "Yes, Recover version" ) );
 		$content->setVariable( "BACKLINK", "<a class='button' href=\"$backlink\">" . gettext( "back" ) . "</a>" );
 		
-		$rootlink = \lms_steam::get_link_to_root( $wiki_container );
+		//$rootlink = \lms_steam::get_link_to_root( $wiki_container );
 		(WIKI_FULL_HEADLINE) ?
 		$headline = array(
 						$rootlink[0],

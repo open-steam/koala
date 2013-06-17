@@ -75,7 +75,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 </div>
 <div class="attribute">
 	<div class="attributeName">Text:</div>
-	<div class="widgets_textarea"><textarea rows="10" style="width:100%" class="mce-small"  value="" name="text" id="text"></textarea><br clear="all">
+	<div class="widgets_textarea"><textarea rows="10" style="height:206px;width:480px;" class="mce-small"  value="" name="text" id="text"></textarea><br clear="all">
 	<script type="text/javascript">
 		    	var mce_defaults = {
 	    			mode : "specific_textareas",
