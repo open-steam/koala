@@ -138,11 +138,11 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $aHour = $startTime["hour"];
     $aMinute = $startTime["minutes"];
     
-    if ($aYear==0 || !is_int($aYear)) $aYear="1990"; 
-    if ($aMonth==0 || !is_int($aMonth)) $aMonth="1";
-    if ($aDay==0 || !is_int($aDay)) $aDay="1";
-    if ($aHour==0 || !is_int($aHour)) $aHour="0";
-    if ($aMinute==0|| !is_int($aMinute)) $aMinute="00";
+    if ($aYear==0 || !is_numeric($aYear)) $aYear="1990"; 
+    if ($aMonth==0 || !is_numeric($aMonth)) $aMonth="1";
+    if ($aDay==0 || !is_numeric($aDay)) $aDay="1";
+    if ($aHour==0 || !is_numeric($aHour)) $aHour="0";
+    if ($aMinute==0|| !is_numeric($aMinute)) $aMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateA = new DateTime();
@@ -172,11 +172,11 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $bHour = $startTime["hour"];
     $bMinute = $startTime["minutes"];
     
-    if ($bYear==0 || !is_int($bYear)) $bYear="1990"; 
-    if ($bMonth==0 || !is_int($bMonth)) $bMonth="1";
-    if ($bDay==0 || !is_int($bDay)) $bDay="1";
-    if ($bHour==0 || !is_int($bHour)) $bHour="00";
-    if ($bMinute==0 || !is_int($bMinute)) $bMinute="00";
+    if ($bYear==0 || !is_numeric($bYear)) $bYear="1990"; 
+    if ($bMonth==0 || !is_numeric($bMonth)) $bMonth="1";
+    if ($bDay==0 || !is_numeric($bDay)) $bDay="1";
+    if ($bHour==0 || !is_numeric($bHour)) $bHour="00";
+    if ($bMinute==0 || !is_numeric($bMinute)) $bMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateB = new DateTime();
