@@ -15,10 +15,17 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		$rawHtml = new \Widgets\RawHtml();
-		$rawHtml->setHtml("<center>Noch nicht fertig.</center>");
-		$frameResponseObject->setTitle("Impressum");
-		$frameResponseObject->addWidget($rawHtml);
-		return $frameResponseObject;
-	}
+		
+            
+                if(defined("IMPRINT_LINK")){
+                    header( 'Location: ' . IMPRINT_LINK);
+                    die;
+                }  else {
+                    $rawHtml = new \Widgets\RawHtml();
+                    $rawHtml->setHtml("<center>Impressum wird in Kürze eingebunden.</center>");
+                    $frameResponseObject->setTitle("Impressum");
+                    $frameResponseObject->addWidget($rawHtml);
+                    return $frameResponseObject;
+                }
+        }
 }
