@@ -139,11 +139,11 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $aHour = $startTime["hour"];
     $aMinute = $startTime["minutes"];
     
-    if ($aYear==0 || !is_int($aYear)) $bYear="1990"; 
-    if ($aMonth==0 || !is_int($aMonth)) $bMonth="1";
-    if ($aDay==0 || !is_int($aDay)) $bDay="1";
-    if ($aHour==0 || !is_int($aHour)) $bHour="0";
-    if ($aMinute==0|| !is_int($aMinute)) $bMinute="00";
+    if ($aYear==0 || !is_int($aYear)) $aYear="1990"; 
+    if ($aMonth==0 || !is_int($aMonth)) $aMonth="1";
+    if ($aDay==0 || !is_int($aDay)) $aDay="1";
+    if ($aHour==0 || !is_int($aHour)) $aHour="0";
+    if ($aMinute==0|| !is_int($aMinute)) $aMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateA = new DateTime();
