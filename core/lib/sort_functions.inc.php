@@ -128,7 +128,6 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $log=false;
     if ($log) \logging::write_log( LOG_ERROR, "ap-sortPortletAppointments");
     
-    
     //timestamp a
     $startTime = $appointmentA["start_time"];
     $startDate = $appointmentA["start_date"];
@@ -139,11 +138,11 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $aHour = $startTime["hour"];
     $aMinute = $startTime["minutes"];
     
-    if ($aYear==0) $bYear="1990"; 
-    if ($aMonth==0) $bMonth="1";
-    if ($aDay==0) $bDay="1";
-    if ($aHour==0) $bHour="0";
-    if ($aMinute==0) $bMinute="00";
+    if ($aYear==0 || !is_int($aYear)) $aYear="1990"; 
+    if ($aMonth==0 || !is_int($aMonth)) $aMonth="1";
+    if ($aDay==0 || !is_int($aDay)) $aDay="1";
+    if ($aHour==0 || !is_int($aHour)) $aHour="0";
+    if ($aMinute==0|| !is_int($aMinute)) $aMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateA = new DateTime();
@@ -151,7 +150,7 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $dateA = DateTime::createFromFormat($format, $dateAString);
     
     if(($dateA===NULL) | ($dateA===FALSE)){
-        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date A null !!!"); //test
+        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date A null: ".$dateAString); //test
         $md5a = md5(serialize($appointmentA));
         $md5b = md5(serialize($appointmentB));
         $compareResult = strcmp($md5a, $md5b);
@@ -173,11 +172,11 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $bHour = $startTime["hour"];
     $bMinute = $startTime["minutes"];
     
-    if ($bYear==0) $bYear="1990"; 
-    if ($bMonth==0) $bMonth="1";
-    if ($bDay==0) $bDay="1";
-    if ($bHour==0) $bHour="00";
-    if ($bMinute==0) $bMinute="00";
+    if ($bYear==0 || !is_int($bYear)) $bYear="1990"; 
+    if ($bMonth==0 || !is_int($bMonth)) $bMonth="1";
+    if ($bDay==0 || !is_int($bDay)) $bDay="1";
+    if ($bHour==0 || !is_int($bHour)) $bHour="00";
+    if ($bMinute==0 || !is_int($bMinute)) $bMinute="00";
     
     $format = 'Y-m-d H:i:s';
     $dateB = new DateTime();
@@ -186,7 +185,7 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     
     
     if(($dateB===NULL) | ($dateB===FALSE)){
-        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date B null !!!"); //test
+        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date B null:".$dateBString); //test
         $md5a = md5(serialize($appointmentA));
         $md5b = md5(serialize($appointmentB));
         $compareResult = strcmp($md5a, $md5b);
