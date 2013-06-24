@@ -128,7 +128,6 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $log=false;
     if ($log) \logging::write_log( LOG_ERROR, "ap-sortPortletAppointments");
     
-    
     //timestamp a
     $startTime = $appointmentA["start_time"];
     $startDate = $appointmentA["start_date"];
@@ -151,7 +150,7 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     $dateA = DateTime::createFromFormat($format, $dateAString);
     
     if(($dateA===NULL) | ($dateA===FALSE)){
-        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date A null !!!"); //test
+        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date A null: ".$dateAString); //test
         $md5a = md5(serialize($appointmentA));
         $md5b = md5(serialize($appointmentB));
         $compareResult = strcmp($md5a, $md5b);
@@ -186,7 +185,7 @@ function sortPortletAppointments($appointmentA, $appointmentB){
     
     
     if(($dateB===NULL) | ($dateB===FALSE)){
-        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date B null !!!"); //test
+        if ($log) \logging::write_log( LOG_ERROR, "ap-Fehler date B null:".$dateBString); //test
         $md5a = md5(serialize($appointmentA));
         $md5b = md5(serialize($appointmentB));
         $compareResult = strcmp($md5a, $md5b);
