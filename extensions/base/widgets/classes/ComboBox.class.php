@@ -71,11 +71,11 @@ class ComboBox extends Widget {
 		$this->getContent()->setVariable("ID3", $this->id);
 		$this->getContent()->setVariable("SIZE", $this->size);
 		$this->getContent()->setVariable("COMBONAME", $this->id);
-		if ($this->data) {
-			$this->getContent()->setVariable("ONCHANGE", $this->contentProvider->getUpdateCode($this->data, $this->id . "_select"));
+                if ($this->data) {
+			$this->getContent()->setVariable("ONCHANGE", $this->contentProvider->getUpdateCode($this->data, $this->id . "_select")."$(this).addClass('changed');");
 		}
                 
-                if ($this->onchange) {
+                else if ($this->onchange) {
                     $this->getContent()->setVariable("ONCHANGE", $this->onchange);
                 }
                

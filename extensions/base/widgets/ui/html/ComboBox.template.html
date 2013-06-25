@@ -2,12 +2,9 @@
 <div class="widgets_label" {LABEL_STYLE}>{LABEL}:</div>
 <!-- END BLOCK_COMBOBOX_LABEL -->
 <div id="{ID}" class="widgets_combobox">
-<select id="{ID2}_select" size="{SIZE}" name="{COMBONAME}" {READONLY}>
+<select id="{ID2}_select" size="{SIZE}" name="{COMBONAME}" {READONLY} onchange="{ONCHANGE}">
 <!-- BEGIN BLOCK_OPTION -->
 	<option id="{ID}_{OPTIONVALUE}" value="{OPTIONVALUE}" {SELECTED}>{OPTIONLABEL}</option>
 <!-- END BLOCK_OPTION -->
 </select>
-<script type="text/javascript">
-	$('#{ID3}_select').change(function() {var value = this.value; {ONCHANGE}});
-</script>
 </div>
