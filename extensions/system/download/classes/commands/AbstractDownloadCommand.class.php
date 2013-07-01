@@ -190,7 +190,10 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       //$tnr_contentsize = $document->get_content_size(TRUE); //Not used
     }
     else {
-      $tnr_imagecontent = $document->get_thumbnail_data($width, $height, 0, TRUE);
+      //TODO: loading times in gallery to long
+      //$tnr_imagecontent = $document->get_thumbnail_data($width, $height, 0, TRUE);
+      //test: removed first scaling parameter
+      $tnr_imagecontent = $document->get_thumbnail_data(-1, $height, 0, TRUE);
     }
     
     
