@@ -33,7 +33,7 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $objType = $this->object->get_attribute("OBJ_TYPE");
 
-
+        
         // in questionaries the write right is limited to insert rights only
         if ($docTypeQuestionary) {
             $SANCTION_WRITE_FOR_CURRENT_OBJECT = SANCTION_INSERT;
@@ -93,19 +93,18 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
         //SET SPECIFIC RIGHTS
         elseif ($type == "sanction") {
             $postboxHack = false;
-            if ($objType == "postbox") {
+            if ($objType === "postbox" && !($this->object instanceof \steam_document)) {
                 $inventory = $this->object->get_inventory();
                 $container = $inventory[0];
                 $postboxHack = true;
             }
-
             $currentSanction = ACCESS_DENIED;
             $additionalSanction = ACCESS_DENIED;
             if ($value >= 1) {
                 $currentSanction|= SANCTION_READ;
             }
             if ($value >= 2) {
-                $currentSanction|= $SANCTION_WRITE_FOR_CURRENT_OBJECT;
+               $currentSanction|= $SANCTION_WRITE_FOR_CURRENT_OBJECT;
             }
             if ($value == 3) {
                 $currentSanction |= SANCTION_SANCTION;
@@ -115,7 +114,7 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
             // set the new meta rights
             $this->object->sanction_meta($additionalSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
             if ($postboxHack) {
-                if ($value >= 2) {
+                 if ($value >= 2) {
                     $container->sanction($currentSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
                 } else {
                     $container->sanction(SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));                
