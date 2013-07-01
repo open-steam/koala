@@ -68,9 +68,12 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             $newIdArray = $portletsIdsNew;
             $parent=$column;
             $oldPosition = 0;
-            while ($oldIdArray[$oldPosition] != $this->cE) {
+            
+            //TODO
+            while( (isset($oldIdArray[$oldPosition])) && ($oldIdArray[$oldPosition] != $this->cE) ){
                 $oldPosition++;
             }
+            
             $newPosition = 0;
             while ($newIdArray[$newPosition] != $this->cE) {
                 $newPosition++;
