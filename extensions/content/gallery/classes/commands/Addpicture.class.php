@@ -29,6 +29,7 @@ class Addpicture extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$ajaxDialog = new \Widgets\Dialog();
 		$ajaxDialog->setTitle("Neue Bilder hinzufügen");
 		$ajaxUploader = new \Widgets\AjaxUploader();
+                $ajaxUploader->setSizeLimit(return_bytes(ini_get('post_max_size')));
 		$ajaxUploader->setNamespace("explorer");
 		$ajaxUploader->setDestId($this->id);
 		$ajaxDialog->addWidget($ajaxUploader);
