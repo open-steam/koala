@@ -102,11 +102,14 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
     }
     else {
       //TODO: loading times in gallery to long
-      //$tnr_imagecontent = $document->get_thumbnail_data($width, $height, 0, TRUE);
       //test: removed first scaling parameter
       //$tnr_imagecontent = $document->get_thumbnail_data(-1, $height, 0, TRUE);
       
-      return $this->getThumbnailDataFix($document,$width, $height, 0, TRUE);
+      $cache =  $this->getThumbnailDataFix($document,$width, $height, 0, TRUE);
+      if ($cache !== 0) return $cache;
+      
+      $tnr_imagecontent = $document->get_thumbnail_data($width, $height, 0, TRUE);
+      
     }
     
     $result = $STEAM->buffer_flush();
@@ -196,6 +199,8 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       
       
       //fallback
+      return 0;
+      /*
       if($log) \logging::write_log( LOG_ERROR, "DL: cache miss - fallback"); //test
       $tnr_imagecontent = $steamObject->get_thumbnail_data($width, $height, $ratio, $bo);
       
@@ -203,6 +208,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       if($log) \logging::write_log( LOG_ERROR, '#'.var_export($tnr_imagecontent,true)); //test
       if($log) \logging::write_log( LOG_ERROR, "DL: end"); //test
       return $tnr_imagecontent;
+      */
   }
 }
 ?>
