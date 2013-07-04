@@ -138,6 +138,8 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
    * contentsize
    */
   private function getThumbnailDataFix($steamObject, $width, $height, $ratio=0, $bo=TRUE){
+      $log=true;
+      if($log) \logging::write_log( LOG_ERROR, "DL: begin"); //test
       
       $data = array();
       
@@ -154,11 +156,13 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       //test presense of thumbnail
       $thumbnailIsPresent = false;
       if(0 != $thumnailsData){
+          if($log) \logging::write_log( LOG_ERROR, "DL: thumb present"); //test
           $thumbnailIsPresent = true;
       }
       
       if($thumbnailIsPresent){
           foreach ($thumnailsData as $resolutionString => $imageSet){
+              if($log) \logging::write_log( LOG_ERROR, "DL: first selected"); //test
               $timestamp = $imageSet["timestamp"];
               $imageCacheObject = $imageSet["image"];
               $xResoluton = $imageSet["x"];
@@ -171,16 +175,17 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
           $data["name"]        = $imageCacheObject->get_name();
           $data["content"]     = $imageCacheObject->get_content_size();
           $data["contentsize"] = $imageCacheObject->get_content();
-          
+          if($log) \logging::write_log( LOG_ERROR, "DL: returned thumb"); //test
+          if($log) \logging::write_log( LOG_ERROR, "DL: data:"); //test
+          if($log) \logging::write_log( LOG_ERROR, var_export($data)); //test
           return $data;
       }
       
       
       //fallback
+      if($log) \logging::write_log( LOG_ERROR, "DL: fallback"); //test
       $tnr_imagecontent = $steamObject->get_thumbnail_data($width, $height, $ratio, $bo);
       return $tnr_imagecontent;
   }
-  
-  
 }
 ?>
