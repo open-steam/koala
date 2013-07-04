@@ -154,7 +154,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       $thumnailsData = $steamObject->get_attribute("DOC_THUMBNAILS");
       
       if($log) \logging::write_log( LOG_ERROR, "DL: thumb-attr:"); //test
-      if($log) \logging::write_log( LOG_ERROR, var_export($thumnailsData)); //test
+      if($log) \logging::write_log( LOG_ERROR, '#'.var_export($thumnailsData)); //test
       
       //test presense of thumbnail
       $thumbnailIsPresent = false;
