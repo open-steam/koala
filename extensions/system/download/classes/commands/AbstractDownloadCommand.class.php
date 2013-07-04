@@ -141,7 +141,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
    * contentsize
    */
   private function getThumbnailDataFix($steamObject, $width, $height, $ratio=0, $bo=TRUE){
-      $log=true;
+      $log=false;
       if($log) \logging::write_log( LOG_ERROR, "DL: begin"); //test
       
       $data = array();
