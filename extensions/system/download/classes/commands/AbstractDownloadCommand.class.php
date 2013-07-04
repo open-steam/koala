@@ -138,7 +138,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
    * contentsize
    */
   private function getThumbnailDataFix($steamObject, $width, $height, $ratio=0, $bo=TRUE){
-      $log=false;
+      $log=true;
       if($log) \logging::write_log( LOG_ERROR, "DL: begin"); //test
       
       $data = array();
@@ -190,13 +190,13 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
           if($log) \logging::write_log( LOG_ERROR, "DL: returned thumb"); //test
           if($log) \logging::write_log( LOG_ERROR, "DL: data:"); //test
           if($log) \logging::write_log( LOG_ERROR, '#'.var_export($data,true)); //test
-          
+          if($log) \logging::write_log( LOG_ERROR, "DL: cache hit!"); //test
           return $data;
       }
       
       
       //fallback
-      if($log) \logging::write_log( LOG_ERROR, "DL: fallback"); //test
+      if($log) \logging::write_log( LOG_ERROR, "DL: cache miss - fallback"); //test
       $tnr_imagecontent = $steamObject->get_thumbnail_data($width, $height, $ratio, $bo);
       return $tnr_imagecontent;
   }
