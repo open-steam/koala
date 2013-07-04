@@ -198,6 +198,10 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       //fallback
       if($log) \logging::write_log( LOG_ERROR, "DL: cache miss - fallback"); //test
       $tnr_imagecontent = $steamObject->get_thumbnail_data($width, $height, $ratio, $bo);
+      
+      if($log) \logging::write_log( LOG_ERROR, "DL: tnr_imagecontent"); //test
+      if($log) \logging::write_log( LOG_ERROR, '#'.var_export($tnr_imagecontent,true)); //test
+      if($log) \logging::write_log( LOG_ERROR, "DL: end"); //test
       return $tnr_imagecontent;
   }
 }
