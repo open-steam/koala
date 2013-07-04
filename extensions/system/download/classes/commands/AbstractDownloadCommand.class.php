@@ -152,16 +152,16 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       */
       
       if($log) \logging::write_log( LOG_ERROR, "DL: steam-obj:"); //test
-      if($log) \logging::write_log( LOG_ERROR, '#'.var_export($steamObject)); //test
+      if($log) \logging::write_log( LOG_ERROR, '#'.var_export($steamObject,true)); //test
       
       $thumnailsData = $steamObject->get_attribute("DOC_THUMBNAILS");
       
       if($log) \logging::write_log( LOG_ERROR, "DL: thumb-attr:"); //test
-      if($log) \logging::write_log( LOG_ERROR, '#'.var_export($thumnailsData)); //test
+      if($log) \logging::write_log( LOG_ERROR, '#'.var_export($thumnailsData,true)); //test
       
       //test presense of thumbnail
       $thumbnailIsPresent = false;
-      if(0 != $thumnailsData){
+      if(0 !== $thumnailsData){
           if($log) \logging::write_log( LOG_ERROR, "DL: thumb present"); //test
           $thumbnailIsPresent = true;
       }
@@ -175,7 +175,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
               $yResoluton = $imageSet["y"];
               
               if($log) \logging::write_log( LOG_ERROR, "DL: imageCacheObject:"); //test
-              if($log) \logging::write_log( LOG_ERROR, '#'.var_export($imageCacheObject)); //test
+              if($log) \logging::write_log( LOG_ERROR, '#'.var_export($imageCacheObject,true)); //test
               break;
           }
           
@@ -186,7 +186,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
           $data["contentsize"] = $imageCacheObject->get_content();
           if($log) \logging::write_log( LOG_ERROR, "DL: returned thumb"); //test
           if($log) \logging::write_log( LOG_ERROR, "DL: data:"); //test
-          if($log) \logging::write_log( LOG_ERROR, '#'.var_export($data)); //test
+          if($log) \logging::write_log( LOG_ERROR, '#'.var_export($data,true)); //test
           return $data;
       }
       
