@@ -138,7 +138,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
    * contentsize
    */
   private function getThumbnailDataFix($steamObject, $width, $height, $ratio=0, $bo=TRUE){
-      $log=true;
+      $log=false;
       if($log) \logging::write_log( LOG_ERROR, "DL: begin"); //test
       
       $data = array();
@@ -176,7 +176,9 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
               
               if($log) \logging::write_log( LOG_ERROR, "DL: imageCacheObject:"); //test
               if($log) \logging::write_log( LOG_ERROR, '#'.var_export($imageCacheObject,true)); //test
-              break;
+              
+              if ($xResoluton == $width) break;
+              if ($yResoluton == $height) break;
           }
           
           $data["mimetype"]    = $imageCacheObject->get_attribute( "DOC_MIME_TYPE" );
@@ -184,9 +186,11 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
           $data["name"]        = $imageCacheObject->get_name();
           $data["content"]     = $imageCacheObject->get_content();
           $data["contentsize"] = $imageCacheObject->get_content_size();
+          
           if($log) \logging::write_log( LOG_ERROR, "DL: returned thumb"); //test
           if($log) \logging::write_log( LOG_ERROR, "DL: data:"); //test
           if($log) \logging::write_log( LOG_ERROR, '#'.var_export($data,true)); //test
+          
           return $data;
       }
       
