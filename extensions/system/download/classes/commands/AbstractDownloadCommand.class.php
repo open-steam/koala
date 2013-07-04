@@ -182,8 +182,8 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
           $data["mimetype"]    = $imageCacheObject->get_attribute( "DOC_MIME_TYPE" );
           $data["lastmodified"]= $imageCacheObject->get_attribute( "DOC_LAST_MODIFIED" );
           $data["name"]        = $imageCacheObject->get_name();
-          $data["content"]     = $imageCacheObject->get_content_size();
-          $data["contentsize"] = $imageCacheObject->get_content();
+          $data["content"]     = $imageCacheObject->get_content();
+          $data["contentsize"] = $imageCacheObject->get_content_size();
           if($log) \logging::write_log( LOG_ERROR, "DL: returned thumb"); //test
           if($log) \logging::write_log( LOG_ERROR, "DL: data:"); //test
           if($log) \logging::write_log( LOG_ERROR, '#'.var_export($data,true)); //test
