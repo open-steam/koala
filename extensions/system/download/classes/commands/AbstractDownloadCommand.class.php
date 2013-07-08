@@ -198,6 +198,47 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
       }
       
       
+      
+      //create thumbnail TODO
+      if(!$thumbnailIsPresent){
+          $newwidth = $width;
+          $newheight = $height;
+          
+          
+          ini_set('memory_limit', '1024M');
+          set_time_limit(60);
+          ini_set('gd.jpeg_ignore_warning', 1);
+          
+          $imageFullSize = imagecreatefromstring($steamObject->get_content());
+          
+          $isa =$imageFullSize->getImageSize();
+          $origwidth = $isa[0];
+          $origheight = $isa[1];
+          
+          
+          
+          $imageMinimized=ImageCreateTrueColor($newwidth,$newheight);
+          ImageCopyResampled($imageMinimized,$imageFullSize,0,0,0,0,$newwidth,$newheight,$origwidth,$origheight);
+          
+          // start buffering
+          ob_start();
+          imagejpeg($imageMinimized, NULL, 85);// output jpeg (or any other chosen) format & quality
+          $imageMinimizedStream = ob_get_contents();// capture output to string
+          ob_end_clean();// end capture
+          imagedestroy($imageMinimized);// be tidy; free up memory
+          
+          
+          
+          return 0;
+          
+          
+          
+      }
+      
+      
+      
+      
+      
       //fallback
       return 0;
       /*
