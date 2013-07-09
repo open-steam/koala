@@ -169,6 +169,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
           $thumbnailIsPresent = true;
       }
       
+      $foundThumbRes = false;
       if($thumbnailIsPresent){
           foreach ($thumnailsData as $resolutionString => $imageSet){
               if($log) \logging::write_log( LOG_ERROR, "DL: first selected"); //test
@@ -180,14 +181,12 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
               if($log) \logging::write_log( LOG_ERROR, "DL: imageCacheObject:"); //test
               if($log) \logging::write_log( LOG_ERROR, '#'.var_export($imageCacheObject,true)); //test
               
-              if($log) \logging::write_log( LOG_ERROR, '#a'.var_export(intval($xResoluton),true)); //test
-              if($log) \logging::write_log( LOG_ERROR, '#b'.var_export(intval($yResoluton),true)); //test
-              if($log) \logging::write_log( LOG_ERROR, '#c'.var_export(intval($width),true)); //test
-              if($log) \logging::write_log( LOG_ERROR, '#d'.var_export(intval($height),true)); //test
-              
-              if (intval($xResoluton) == intval($width)) break;
-              if (intval($yResoluton) == intval($height)) break;
+              if ( (intval($xResoluton) == intval($width)) || (intval($yResoluton) == intval($height)) ) {
+                  $foundThumbRes=true;
+                  break;
+              }
           }
+          if(!$foundThumbRes) return 0; //no thumbnail found, then generate thumb
           
           $data["mimetype"]    = $imageCacheObject->get_attribute( "DOC_MIME_TYPE" );
           $data["lastmodified"]= $imageCacheObject->get_attribute( "DOC_LAST_MODIFIED" );
