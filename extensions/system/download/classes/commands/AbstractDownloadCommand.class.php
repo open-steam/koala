@@ -180,10 +180,10 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
               //if($log) \logging::write_log( LOG_ERROR, "DL: imageCacheObject:"); //test
               //if($log) \logging::write_log( LOG_ERROR, '#'.var_export($imageCacheObject,true)); //test
               
-              if($log) \logging::write_log( LOG_ERROR, '#a'.var_export(intval($xResoluton,true))); //test
-              if($log) \logging::write_log( LOG_ERROR, '#b'.var_export(intval($yResoluton,true))); //test
-              if($log) \logging::write_log( LOG_ERROR, '#c'.var_export(intval($width,true))); //test
-              if($log) \logging::write_log( LOG_ERROR, '#d'.var_export(intval($height,true))); //test
+              if($log) \logging::write_log( LOG_ERROR, '#a'.var_export(intval($xResoluton),true)); //test
+              if($log) \logging::write_log( LOG_ERROR, '#b'.var_export(intval($yResoluton),true)); //test
+              if($log) \logging::write_log( LOG_ERROR, '#c'.var_export(intval($width),true)); //test
+              if($log) \logging::write_log( LOG_ERROR, '#d'.var_export(intval($height),true)); //test
               
               if (intval($xResoluton) == intval($width)) break;
               if (intval($yResoluton) == intval($height)) break;
