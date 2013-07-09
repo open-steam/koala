@@ -177,18 +177,16 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
               $xResoluton = $imageSet["x"];
               $yResoluton = $imageSet["y"];
               
-              if($log) \logging::write_log( LOG_ERROR, "DL: imageCacheObject:"); //test
-              if($log) \logging::write_log( LOG_ERROR, '#'.var_export($imageCacheObject,true)); //test
+              //if($log) \logging::write_log( LOG_ERROR, "DL: imageCacheObject:"); //test
+              //if($log) \logging::write_log( LOG_ERROR, '#'.var_export($imageCacheObject,true)); //test
               
+              if($log) \logging::write_log( LOG_ERROR, '#a'.var_export(intval($xResoluton,true))); //test
+              if($log) \logging::write_log( LOG_ERROR, '#b'.var_export(intval($yResoluton,true))); //test
+              if($log) \logging::write_log( LOG_ERROR, '#c'.var_export(intval($width,true))); //test
+              if($log) \logging::write_log( LOG_ERROR, '#d'.var_export(intval($height,true))); //test
               
-              if($log) \logging::write_log( LOG_ERROR, '#a'.var_export($xResoluton,true)); //test
-              if($log) \logging::write_log( LOG_ERROR, '#b'.var_export($yResoluton,true)); //test
-              if($log) \logging::write_log( LOG_ERROR, '#c'.var_export($width,true)); //test
-              if($log) \logging::write_log( LOG_ERROR, '#d'.var_export($height,true)); //test
-              
-              
-              if ($xResoluton == $width) break;
-              if ($yResoluton == $height) break;
+              if (intval($xResoluton) == intval($width)) break;
+              if (intval($yResoluton) == intval($height)) break;
           }
           
           $data["mimetype"]    = $imageCacheObject->get_attribute( "DOC_MIME_TYPE" );
