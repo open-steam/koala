@@ -180,8 +180,13 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
               if($log) \logging::write_log( LOG_ERROR, "DL: imageCacheObject:"); //test
               if($log) \logging::write_log( LOG_ERROR, '#'.var_export($imageCacheObject,true)); //test
               
-              if ($xResoluton == $width) break;
-              if ($yResoluton == $height) break;
+              if($log) \logging::write_log( LOG_ERROR, '#a'.var_export(intval($xResoluton),true)); //test
+              if($log) \logging::write_log( LOG_ERROR, '#b'.var_export(intval($yResoluton),true)); //test
+              if($log) \logging::write_log( LOG_ERROR, '#c'.var_export(intval($width),true)); //test
+              if($log) \logging::write_log( LOG_ERROR, '#d'.var_export(intval($height),true)); //test
+              
+              if (intval($xResoluton) == intval($width)) break;
+              if (intval($yResoluton) == intval($height)) break;
           }
           
           $data["mimetype"]    = $imageCacheObject->get_attribute( "DOC_MIME_TYPE" );
@@ -196,6 +201,47 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
           if($log) \logging::write_log( LOG_ERROR, "DL: cache hit!"); //test
           return $data;
       }
+      
+      
+      
+      //create thumbnail TODO
+      if(!$thumbnailIsPresent){
+          $newwidth = $width;
+          $newheight = $height;
+          
+          
+          ini_set('memory_limit', '1024M');
+          set_time_limit(60);
+          ini_set('gd.jpeg_ignore_warning', 1);
+          
+          $imageFullSize = imagecreatefromstring($steamObject->get_content());
+          
+          $isa =$imageFullSize->getImageSize();
+          $origwidth = $isa[0];
+          $origheight = $isa[1];
+          
+          
+          
+          $imageMinimized=ImageCreateTrueColor($newwidth,$newheight);
+          ImageCopyResampled($imageMinimized,$imageFullSize,0,0,0,0,$newwidth,$newheight,$origwidth,$origheight);
+          
+          // start buffering
+          ob_start();
+          imagejpeg($imageMinimized, NULL, 85);// output jpeg (or any other chosen) format & quality
+          $imageMinimizedStream = ob_get_contents();// capture output to string
+          ob_end_clean();// end capture
+          imagedestroy($imageMinimized);// be tidy; free up memory
+          
+          
+          
+          return 0;
+          
+          
+          
+      }
+      
+      
+      
       
       
       //fallback
