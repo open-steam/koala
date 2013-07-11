@@ -183,7 +183,6 @@ function widgets_textarea_save_success(elementId, response) {
             }
         },
         save: function() {
-            window.ajaxSaving = true;
             var element = this;
             if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
                 $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
@@ -192,7 +191,7 @@ function widgets_textarea_save_success(elementId, response) {
             } else if (element.find("textarea").hasClass("plain")) {
                 var value = element.find("textarea").val();
             }
-            //this.addClass("saving");
+            this.addClass("saving");
             sendFunction(value);
             this.removeClass("dirty");
             $(window).unbind('beforeunload');

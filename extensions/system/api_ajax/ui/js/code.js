@@ -157,12 +157,13 @@ function isDefined(variable) {
 }
 
 function closeDialog() {
+    console.log(window.ajaxSaving);
     if (window.closing) {
         return false;
     }
 
     //busy waiting, todo counter
-    if (window.ajaxSaving == true) {
+    if (window.ajaxSaving) {
         window.setTimeout("closeDialog();", 250);
         return;
     }
