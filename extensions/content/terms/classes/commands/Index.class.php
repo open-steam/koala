@@ -2,6 +2,9 @@
 namespace Terms\Commands;
 class Index extends \AbstractCommand implements \IFrameCommand {
 	
+       public function isGuestAllowed(\IRequestObject $requestObject) {
+		return true;
+	}
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
