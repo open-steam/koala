@@ -134,7 +134,7 @@ abstract class Widget {
 				}
 			}
 		} else {
-			$content = "Keine Content Widgets!";
+			$content = "Kein Element für die Anzeige vorhanden(Fehler 471701).";
 		}
 		$result["js"] = str_replace("{PATH_URL}", PATH_URL, $jsCode);
 		$result["css"] = str_replace("{PATH_URL}", PATH_URL, $cssStyle);

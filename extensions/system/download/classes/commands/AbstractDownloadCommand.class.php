@@ -201,7 +201,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
           return $data;
       }
       
-      
+      return 0; //workaround while thumbnail generation isn't working
       
       //create thumbnail TODO
       if(!$thumbnailIsPresent){
