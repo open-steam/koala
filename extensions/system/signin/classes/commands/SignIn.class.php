@@ -116,8 +116,8 @@ class SignIn extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable( "REQUEST_URI", (isset($_GET[ "req" ])?$_GET[ "req" ]:"") );
 		
                 $content->setVariable( "LOGIN_INFO",
-                        "Sie haben keine Berechtigung, auf das ausgewählte Objekt zuzugreifen. Möglicherweise haben Sie einen falschen Benutzernamen oder ein falsches Passwort eingegeben." . 
-                        "<br>(" .
+                        "Sie haben keine Berechtigung, auf das ausgewählte Objekt zuzugreifen. Möglicherweise haben Sie einen falschen Benutzernamen oder ein falsches Passwort eingegeben. " . 
+                        "(" .
                         "Hinweis: Bitte beachten Sie, dass Sie in Ihren Browsereinstellungen dieser Seite das Speichern von Cookies erlauben. Das ist für die Anmeldung notwendig." .
                         ")");
 		
