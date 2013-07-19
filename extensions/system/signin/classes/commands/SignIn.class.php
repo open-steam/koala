@@ -114,8 +114,18 @@ class SignIn extends \AbstractCommand implements \IFrameCommand {
 
 		$content = \SignIn::getInstance()->loadTemplate("signin.template.html");
 		$content->setVariable( "REQUEST_URI", (isset($_GET[ "req" ])?$_GET[ "req" ]:"") );
-		$content->setVariable( "LOGIN_INFO", gettext("Use your IMT credentials to log in into koaLA knowledge network. Here, you can get and discuss course materials online, extend your personal and academic network, and cooperate with fellow students and colleagues.") . "<br>(" . gettext("Hinweis: Bitte beachten Sie, dass Sie in Ihren Browsereinstellungen dieser Seite das Speichern von Cookies erlauben. Das ist für die Anmeldung notwendig.") . ")");
-		$content->setVariable( "LOGIN_NAME_TEXT", gettext( "Login" ) );
+		
+                $content->setVariable( "LOGIN_INFO",
+                        "Sie haben keine Berechtigung, auf das ausgewählte Objekt zuzugreifen. Möglicherweise haben Sie einen falschen Benutzernamen oder ein falsches Passwort eingegeben." . 
+                        "<br>(" .
+                        "Hinweis: Bitte beachten Sie, dass Sie in Ihren Browsereinstellungen dieser Seite das Speichern von Cookies erlauben. Das ist für die Anmeldung notwendig." .
+                        ")");
+		
+                //old text
+                //$content->setVariable( "LOGIN_INFO", gettext("Use your IMT credentials to log in into koaLA knowledge network. Here, you can get and discuss course materials online, extend your personal and academic network, and cooperate with fellow students and colleagues.") . "<br>(" . gettext("Hinweis: Bitte beachten Sie, dass Sie in Ihren Browsereinstellungen dieser Seite das Speichern von Cookies erlauben. Das ist für die Anmeldung notwendig.") . ")");
+		
+                
+                $content->setVariable( "LOGIN_NAME_TEXT", gettext( "Login" ) );
 		$content->setVariable( "PASSWORD_NAME_TEXT", gettext( "Password" ) );
 		$content->setVariable( "SIGNIN_BUTTON_TEXT", gettext( "Sign in" ) );
 		$content->setVariable( "RETURN_TEXT", gettext( "return to the home page" ) );
