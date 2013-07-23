@@ -285,8 +285,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $popupMenu->setData($item);
                     $popupMenu->setElementId("gallery-overlay");
                     $tpl->setVariable("POPUP_MENU", $popupMenu->getHtml());
+
                     if($sanctionFlag){
-                        $rawHtml->addWidget($popupMenu);                    
+                        $rawHtml->addWidget($popupMenu);
+
                     }
                     // Skip image if rights are insufficient
 
