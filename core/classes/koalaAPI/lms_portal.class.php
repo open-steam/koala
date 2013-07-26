@@ -1104,32 +1104,47 @@ return $rand_value;
             // lernstatt
             $html = str_replace('https://steam.lspb.de', 'https://bid.lspb.de', $html);
             $html = str_replace('http://steam.lspb.de', 'http://bid.lspb.de', $html);
-
-            // schulen-gt
+            
+            // schulen-gt - not used anymore
             if (PATH_SERVER == "http://www3.schulen-gt.de"){
-            $html = str_replace('http://www.schulen-gt.de', 'http://www3.schulen-gt.de', $html);
+                $html = str_replace('http://www.schulen-gt.de', 'http://www3.schulen-gt.de', $html);
             }
             
             // schulen-gt
             if (PATH_SERVER == "http://www.neu.schulen-gt.de"){
-            $html = str_replace('http://www.schulen-gt.de', 'http://www.neu.schulen-gt.de', $html);
+                $html = str_replace('http://www.schulen-gt.de', 'http://www.neu.schulen-gt.de', $html);
             }
             
             
-            // abort vm
+            // bid3 as default for schulen-gt
+            if (PATH_SERVER == "http://www.schulen-gt.de"){
+                $html = str_replace('http://www.neu.schulen-gt.de', 'http://www.schulen-gt.de', $html);
+                $html = str_replace('http://www.neu.schulen-gt.de', 'http://www.schulen-gt.de', $html);
+            }
+            
+            
+            // abort case for vm
             if (strpos($html, 'http://www.bid-owl.de.localhost') != FALSE) {
                 return $html;
             }
             
-            // bid-owl
+            // bid-owl not used anymore
             if (PATH_SERVER == "http://www3.bid-owl.de"){
-            $html = str_replace('http://www.bid-owl.de', 'http://www3.bid-owl.de', $html);
+                $html = str_replace('http://www.bid-owl.de', 'http://www3.bid-owl.de', $html);
             }
             
             // bid-owl
             if (PATH_SERVER == "http://www.neu.bid-owl.de"){
-            $html = str_replace('http://www.bid-owl.de', 'http://www.neu.bid-owl.de', $html);
+                $html = str_replace('http://www.bid-owl.de', 'http://www.neu.bid-owl.de', $html);
             }
+            
+            
+            //case bid3 as default for bidowl
+            if (PATH_SERVER == "http://www.bid-owl.de"){
+                $html = str_replace('http://www.neu.bid-owl.de', 'http://www.bid-owl.de', $html);
+                $html = str_replace('http://www3.bid-owl.de', 'http://www.bid-owl.de', $html);
+            }
+            
             
             return $html;
         }
