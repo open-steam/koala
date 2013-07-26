@@ -84,9 +84,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //refernce icon
         if ($portletIsReference) {
+            $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
-            $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
+            $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
         }
 
         if (!$portletIsReference) {

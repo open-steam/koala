@@ -131,6 +131,14 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
 	public function getPriority() {
 		return 6;
 	}
+        
+        public function getReferenceTooltip(){
+            $text = "Dieser Pfeil zeigt an das dies eine referenzierte Komponente ist. ";
+            $text.= "Die Daten dieser Komponente kommen also aus einem anderen Portal und die Komponente wird hier als Abblid der Orginalkomponente nochmals angezeigt. ";
+            $text.= "Die Komponente kann nur in ihrem ursprünglichen Portal bearbeitet werden. ";
+            $text.= "Ein Klick auf den Pfeil leitet zum ursprünglichen Portal weiter. ";
+            return $text;
+        }
 
 }
 ?>
