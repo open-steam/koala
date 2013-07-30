@@ -33,12 +33,30 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         //the order is defined in the platform whitelist constant
         usort($extensions, "sortExplorerNewDialog");
 
+        
+        //root test for restricted creation
+        $steamUser = $GLOBALS['STEAM']->get_current_steam_user();
+        if ($steamUser->get_name()=="root") $isRoot=true; else $isRoot=false;       
+        
         //skip list
         foreach ($extensions as $key => $extension) {
+            //case portlet
             if (strstr(strtolower(get_class($extension)), "portlet")) {
                 unset($extensions[$key]);
             }
-
+            
+            
+            //case create restricted to root
+            if (defined("CREATE_RESTRICTED_TO_ROOT")){
+                if (!$isRoot){
+                    $extensionClass = strtolower(get_class($extension));
+                    if (strstr(strtolower(CREATE_RESTRICTED_TO_ROOT), strtolower($extensionClass))){
+                        unset($extensions[$key]);
+                    }
+            }
+            }
+            
+            //case depricated
             if (strstr($extension->getName(), "deprecated") ||
                     strstr($extension->getObjectReadableName(), "deprecated")) {
                 unset($extensions[$key]);
@@ -48,7 +66,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         //create new object dialog
         foreach ($extensions as $extension) {
-            /* if (!strstr(strtolower(get_class($extension)), "portlet") ) */ {
+            {
                 $command = $extension->getCreateNewCommand($idRequestObject);
                 if ($command) {
                     $commands[] = $command;
@@ -68,8 +86,10 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
        
         
         foreach ($commands as $command) {
-            $namespaces = $command->getExtension()->getUrlNamespaces();            
-            $html .= "<a class=\"explorernewentry\" href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img src=\"{$command->getExtension()->getObjectIconUrl()}\"> {$command->getExtension()->getObjectReadableName()}</a><br>";
+            $namespaces = $command->getExtension()->getUrlNamespaces();
+            $html .= "<div class=\"explorernewentry\">";
+            $html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img src=\"{$command->getExtension()->getObjectIconUrl()}\"> {$command->getExtension()->getObjectReadableName()}</a>";
+            $html .= "</div>";
         }
         $html .= "<div style=\"float:right\"><a class=\"button pill negative\" onclick=\"closeDialog();return false;\" href=\"#\">Abbrechen</a></div></div><div id=\"wizard_wrapper\"></div>";
 
