@@ -163,9 +163,10 @@ function widgets_textarea_save_success(elementId, response) {
                         verify_html: false,
                         //test cases
                         //AScgiloc : 'http://www.imathas.com/imathas/filter/graph/svgimg.php', //orginalquelle
-                        AScgiloc: 'http://www.bid-owl.de/tools/asciisvg/svgimg.php', //aus bid2, läuft
+                        //AScgiloc: 'http://www.bid-owl.de/tools/asciisvg/svgimg.php', //aus bid2, läuft
                         //AScgiloc : 'https://steam.lspb.de/tools/asciisvg/svgimg.php', //??
                         //AScgiloc : '/tools/asciisvg/svgimg.php',
+                        AScgiloc : '/asciisvg/svgimg.php',
 
                         ASdloc: pathUrl + '/styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
                         fullscreen_new_window: true,
