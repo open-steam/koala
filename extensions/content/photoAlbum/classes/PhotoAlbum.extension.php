@@ -1,8 +1,8 @@
 <?php
-class Gallery extends AbstractExtension implements IObjectExtension, IObjectModelExtension{
+class PhotoAlbum extends AbstractExtension implements IObjectExtension, IObjectModelExtension{
 
 	public function getName() {
-		return "Gallery";
+		return "PhotoAlbum";
 	}
 
 	public function getDesciption() {
@@ -16,16 +16,15 @@ class Gallery extends AbstractExtension implements IObjectExtension, IObjectMode
 	public function getAuthors() {
 		$result = array();
 		$result[] = new Person("Christoph", "Sens", "csens@mail.uni-paderborn.de");
-		$result[] = new Person("Dominik", "Niehus", "nicke@uni-paderborn.de");
 		return $result;
 	}
 	
 	public function getObjectReadableName() {
-		return "Galerie";
+		return "Fotoalbum";
 	}
 	
 	public function getObjectReadableDescription() {
-		return "In Galerien können Sie Bilder zeigen, seien es Fotos vom letzten Schulfest oder Folien einer Präsentation.";
+		return "In Fotoalben können Sie Bilder zeigen, seien es Fotos vom letzten Schulfest oder Folien einer Präsentation.";
 	}
 	
 	public function getObjectIconUrl() {
@@ -40,14 +39,14 @@ class Gallery extends AbstractExtension implements IObjectExtension, IObjectMode
 		$galleryObject = steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $idRequestObject->getId() );
 		$galleryType = $galleryObject->get_attribute("bid:collectiontype");
 		if ($galleryType==="gallery") {
-			return new \Gallery\Commands\Index();
+			return new \PhotoAlbum\Commands\Index();
 		}
 		return null;
 	}
 	
 	public function getObjectModels() {
 		$objectModels = array();
-		$objectModels[] = "\Gallery\Model\Gallery";
+		$objectModels[] = "\PhotoAlbum\Model\PhotoAlbum";
 		return $objectModels;
 	}
 	

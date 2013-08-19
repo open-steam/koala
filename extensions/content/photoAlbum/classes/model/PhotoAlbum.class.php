@@ -1,6 +1,6 @@
 <?php
-namespace Gallery\Model;
-class Gallery extends \AbstractObjectModel {
+namespace PhotoAlbum\Model;
+class PhotoAlbum extends \AbstractObjectModel {
 	
 	public static function isObject(\steam_object $steamObject) {
 	
