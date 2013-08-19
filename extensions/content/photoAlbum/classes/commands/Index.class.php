@@ -149,7 +149,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         document.webkitCancelFullScreen();
     }  
 } } , 
-            title: function(){var fullscreen='<a id=\"fullscreenCbox\" style=\"position:relative;right:-1615%;top:25%;\" onclick=\"vollbild();\">Vollbild</a>';return $(this).attr('title')+fullscreen;}});</script>";
+            title: function(){var fullscreen='<a id=\"fullscreenCbox\" style=\"\" onclick=\"vollbild();\">Vollbild</a>';return $(this).attr('title')+fullscreen;}});</script>";
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($html);
 
