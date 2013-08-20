@@ -126,8 +126,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 }
  $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
             $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, 
-         
-onCleanup: function(){ var element = document.getElementById('cboxWrapper');
+ onOpen: function(){jQuery('#cboxContent').append('<a id=\"fullscreenbutton\" onclick=\"vollbild()\" style=\"position:absolute;right:88px;top:-20px;\">VOLLBILD</a>');}        
+,onCleanup: function(){ var element = document.getElementById('cboxWrapper');
  if (element.requestFullScreen) {
        
     if (!document.fullScreen) {
