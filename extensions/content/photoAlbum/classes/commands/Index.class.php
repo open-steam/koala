@@ -49,7 +49,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($errorHtml);
             return $frameResponseObject;
         }
-
+        $titleCss = '#gallery-title{margin-top:-31px;margin-left:50px;}';
         if ($gallery->check_access(SANCTION_SANCTION)) {
             $actionBar = new \Widgets\ActionBar();
             $actionBar->setActions(array(array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"), array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "photoAlbum"))), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer"))), array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
@@ -58,11 +58,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $actionBar = new \Widgets\ActionBar();
             $actionBar->setActions(array(array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"), array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
             $frameResponseObject->addWidget($actionBar);
+        } else if($gallery->check_access_read()){
+             $titleCss = '#gallery-title{margin-left:50px;}';
         }
         $titleHtml = new \Widgets\RawHtml();
         $title = getCleanName($gallery);
-        $titleHtml->setCss('#gallery-title{margin-top:-31px;margin-left:50px;}
-            #gallery{margin-top:25px;}
+        $titleHtml->setCss($titleCss.
+            '#gallery{margin-top:25px;}
             .gal-element{background:#E0EEEE;height:204px;width:204px;margin:5px;float:left;}
             .row{clear:both;margin-left:45px;margin-right:45;}
             .pic {width:200px;height:200px;}
@@ -124,7 +126,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 }
  $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
             $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, 
-            onCleanup: function(){ var element = document.getElementById('cboxWrapper');
+         
+onCleanup: function(){ var element = document.getElementById('cboxWrapper');
  if (element.requestFullScreen) {
        
     if (!document.fullScreen) {
@@ -148,8 +151,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     } else {
         document.webkitCancelFullScreen();
     }  
-} } , 
-            title: function(){var fullscreen='<a id=\"fullscreenCbox\" style=\"\" onclick=\"vollbild();\">Vollbild</a>';return $(this).attr('title')+fullscreen;}});</script>";
+} } 
+            });</script>";
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($html);
 
@@ -159,5 +162,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
 }
-
+//title: function(){var fullscreen='<a id=\"fullscreenCbox\" style=\"position:absolute;\" onclick=\"vollbild();\">Vollbild</a>';return $(this).attr('title')+fullscreen;}});</script>";
+//TODO: CSS-Settings für VollbildIcon: ca. position:absolute;right:88px;top:-20px;
 ?>
