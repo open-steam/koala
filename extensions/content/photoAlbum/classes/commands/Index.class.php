@@ -26,6 +26,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
     }
+
 //TODO: CLEAN UP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         if ($this->id === "") {
@@ -58,14 +59,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $actionBar = new \Widgets\ActionBar();
             $actionBar->setActions(array(array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"), array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
             $frameResponseObject->addWidget($actionBar);
-        } else if($gallery->check_access_read()){
-             $titleCss = '#gallery-title{margin-left:50px;}';
+        } else if ($gallery->check_access_read()) {
+            $titleCss = '#gallery-title{margin-left:50px;}';
         }
         $titleHtml = new \Widgets\RawHtml();
         $title = getCleanName($gallery);
-        $titleHtml->setCss($titleCss.
-            '#gallery{margin-top:25px;}
-            .gal-element{background:#E0EEEE;height:204px;width:204px;margin:5px;float:left;}
+        $titleHtml->setCss($titleCss .
+                '#gallery{margin-top:25px;}
+            .gal-element{background:#EEEEEE;height:204px;width:204px;margin:5px;float:left;}
             .row{clear:both;margin-left:45px;margin-right:45;}
             .pic {width:200px;height:200px;}
             img.lazy{padding:10px;}
@@ -77,27 +78,39 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $html = $this->cssStyle;
         $html .= '<div id="gallery">';
+        $invisiblePicCounter = 0;
         foreach ($inventory as $i => $pic) {
-            if ($i % 4 == 0) {
-                $html .= $this->rowHtmlBegin;
-            }
-            $html .= '<div class="gal-element">';
-            $name = $pic->get_name();
-            //$fullscreen = PATH_URL . $pic->get_path();
-            $fullscreen = PATH_URL . "download/document/" . $pic->get_id();
-            $pictureURL = PATH_URL . "download/image/" . $pic->get_id() . "/200/200";
-            $html .= $this->getPictureHtml($name, $pictureURL, $fullscreen, $name);
-            $html .= '</div>';
-            if ($i % 4 == 3) {
-                $html .= $this->rowHtmlEnd;
+            if (!$pic->check_access_read()) {
+                $invisiblePicCounter++;
+            } else {
+                if (($i - $invisiblePicCounter) % 4 == 0) {
+                    $html .= $this->rowHtmlBegin;
+                }
+                $html .= '<div class="gal-element">';
+                $name = $pic->get_name();
+                $desc = $pic->get_attribute("OBJ_DESC");
+                if ($desc !== 0 && $desc !== "") {
+                    $name.= " | " . $desc;
+                }
+                //$fullscreen = PATH_URL . $pic->get_path();
+                $fullscreen = PATH_URL . "download/document/" . $pic->get_id();
+                $pictureURL = PATH_URL . "download/image/" . $pic->get_id() . "/200/200";
+                $html .= $this->getPictureHtml($name, $pictureURL, $fullscreen, $name);
+                $html .= '</div>';
+                if (($i - $invisiblePicCounter) % 4 == 3) {
+                    $html .= $this->rowHtmlEnd;
+                }
             }
         }
         $html .= $this->rowHtmlBegin;
         $html .= $this->rowHtmlEnd;
 
-        $html.= "<script>function vollbild() {
- var element = document.getElementById('cboxWrapper');
- if (element.requestFullScreen) {
+        $html.= "<script>
+
+function vollbild() {
+ var element = document.getElementById('colorbox');
+ 
+if (element.requestFullScreen) {
        
     if (!document.fullScreen) {
         element.requestFullscreen();
@@ -119,15 +132,23 @@ class Index extends \AbstractCommand implements \IFrameCommand {
  
     if (!document.webkitIsFullScreen) {
         element.webkitRequestFullScreen();
+        
+        
     } else {
         document.webkitCancelFullScreen();
     }  
+    setTimeout(function(){ $.colorbox.next();$.colorbox.prev();}, 300);
 }
+
+
 }
  $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
-            $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, 
- onOpen: function(){jQuery('#cboxContent').append('<a id=\"fullscreenbutton\" onclick=\"vollbild()\" style=\"position:absolute;right:88px;top:-20px;\">VOLLBILD</a>');}        
-,onCleanup: function(){ var element = document.getElementById('cboxWrapper');
+            $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, reposition:true,
+ onOpen: function(){jQuery('#cboxContent').append('<a id=\"fullscreenbutton\" onclick=\"vollbild()\" style=\"position:absolute;right:88px;top:-20px;\">VOLLBILD</a>');
+                    jQuery('#gallery').hide();}        
+,onCleanup: function(){
+jQuery('#gallery').show();
+var element = document.getElementById('colorbox');
  if (element.requestFullScreen) {
        
     if (!document.fullScreen) {
@@ -162,6 +183,5 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
 }
-//title: function(){var fullscreen='<a id=\"fullscreenCbox\" style=\"position:absolute;\" onclick=\"vollbild();\">Vollbild</a>';return $(this).attr('title')+fullscreen;}});</script>";
-//TODO: CSS-Settings für VollbildIcon: ca. position:absolute;right:88px;top:-20px;
+
 ?>
