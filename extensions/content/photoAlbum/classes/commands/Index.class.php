@@ -137,9 +137,9 @@ if (element.requestFullScreen) {
     } else {
         document.webkitCancelFullScreen();
     }  
-    setTimeout(function(){ $.colorbox.next();$.colorbox.prev();}, 300);
+   
 }
-
+setTimeout(function(){jQuery.colorbox.reload()},500);
 
 }
  $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
