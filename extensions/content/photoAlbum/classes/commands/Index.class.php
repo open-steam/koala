@@ -68,7 +68,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 '#gallery{margin-top:25px;}
             .gal-element{background:#EEEEEE;height:204px;width:204px;margin:5px;float:left;}
             .row{clear:both;margin-left:45px;margin-right:45;}
-            .pic {width:200px;height:200px;max-height:200px;max-width:200px;display:table-cell;vertical-align: middle;text-align: center;}
+            .pic {width:200px;height:200px;max-height:200px;max-width:200px;display: table-cell;
+    vertical-align: middle; 
+	text-align: center;}
             img.lazy{padding:2px;max-width:200px;}
           ');
         $titleHtml->setHtml('<h2 id="gallery-title">' . $title . '</h2>');
@@ -144,8 +146,12 @@ setTimeout(function(){jQuery.colorbox.reload()},500);
 }
  $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
             $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, reposition:true,
- onOpen: function(){jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"vollbild()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_bw.png"."\">');
-                    jQuery('#gallery').hide();}        
+ onOpen: function(){jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"vollbild()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."\">');
+                    jQuery('#gallery').hide();
+                    
+                    $('#cboxFullscreen').mouseover(function(){this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_black.png"."';});
+                    $('#cboxFullscreen').mouseout(function(){this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."';});}
+                    
 ,onCleanup: function(){
 jQuery('#gallery').show();
 var element = document.getElementById('colorbox');
@@ -183,5 +189,5 @@ var element = document.getElementById('colorbox');
     }
 
 }
-//old command to initialize the function to realize fullscreen view: jQuery('#cboxContent').append('<a id=\"fullscreenbutton\" onclick=\"vollbild()\" style=\"position:absolute;right:88px;top:-20px;\">VOLLBILD</a>');
+
 ?>
