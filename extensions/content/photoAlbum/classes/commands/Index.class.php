@@ -68,7 +68,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 '#gallery{margin-top:25px;}
             .gal-element{background:#EEEEEE;height:204px;width:204px;margin:5px;float:left;}
             .row{clear:both;margin-left:45px;margin-right:45;}
-            .pic {width:200px;height:200px;max-height:200px;max-width:200px;display:table-cell;vertical-align: middle;text-align: center;}
+            .pic {width:200px;height:200px;max-height:200px;max-width:200px;display: table-cell;
+    vertical-align: middle; 
+	text-align: center;}
             img.lazy{padding:2px;max-width:200px;}
           ');
         $titleHtml->setHtml('<h2 id="gallery-title">' . $title . '</h2>');
@@ -183,5 +185,5 @@ var element = document.getElementById('colorbox');
     }
 
 }
-//old command to initialize the function to realize fullscreen view: jQuery('#cboxContent').append('<a id=\"fullscreenbutton\" onclick=\"vollbild()\" style=\"position:absolute;right:88px;top:-20px;\">VOLLBILD</a>');
+
 ?>
