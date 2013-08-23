@@ -408,7 +408,7 @@ function deriveIcon($object) {
         //"application/vnd.sun.xml.writer" => "starwriter.gif",
         "application/vnd.visio" => "visio.gif",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "application_vnd.openxmlformats-officedocument.wordprocessingml.document.png",
-        //"application/vnd.openxmlformats-officedocument.presentationml.presentation" => "mspowerpoint.gif",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation" => "application_ms-powerpoint.png",
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "application_vnd.openxmlformats-officedocument.spreadsheetml.sheet.png",
         "application/x-robolab" => "application_x-robolab.png",
         //"application/x-shockwave-flash" => "shockwave.gif",
