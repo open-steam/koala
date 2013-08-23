@@ -14,7 +14,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     private function getPictureHtml($name, $path, $fullscreenPath, $title) {
         //  $title .= '<a onclick=\"vollbild();return false;\">Vollbildmodus</a>';
         return '<div class="pic">
-<a class="slideshow" title="' . $title . '" href="' . $fullscreenPath . '"><img class="lazy" width="90%" height="90%" src="" data-original="' . $path . '"></a>
+<a class="slideshow" title="' . $title . '" href="' . $fullscreenPath . '"><img class="lazy" src="" data-original="' . $path . '"></a>
 </div>';
     }
 
@@ -68,9 +68,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 '#gallery{margin-top:25px;}
             .gal-element{background:#EEEEEE;height:204px;width:204px;margin:5px;float:left;}
             .row{clear:both;margin-left:45px;margin-right:45;}
-            .pic {width:200px;height:200px;}
-            img.lazy{padding:10px;}
-          }');
+            .pic {width:200px;height:200px;max-height:200px;max-width:200px;display:table-cell;vertical-align: middle;text-align: center;}
+            img.lazy{padding:2px;max-width:200px;}
+          ');
         $titleHtml->setHtml('<h2 id="gallery-title">' . $title . '</h2>');
         $frameResponseObject->addWidget($titleHtml);
 
@@ -144,7 +144,7 @@ setTimeout(function(){jQuery.colorbox.reload()},500);
 }
  $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
             $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, reposition:true,
- onOpen: function(){jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"vollbild()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen.png"."\">');
+ onOpen: function(){jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"vollbild()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_bw.png"."\">');
                     jQuery('#gallery').hide();}        
 ,onCleanup: function(){
 jQuery('#gallery').show();
