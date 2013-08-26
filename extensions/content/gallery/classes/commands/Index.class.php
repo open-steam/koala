@@ -61,9 +61,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         //get inventory and inventorys attributes if allowed to
 
-
-
-
         $allowed = $currentRoom->check_access_read($steamUser, 1);
         $result = $GLOBALS["STEAM"]->buffer_flush();
         $writeAllowed = $result[$writeAllowed];
@@ -288,9 +285,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $popupMenu->setData($item);
                     $popupMenu->setElementId("gallery-overlay");
                     $tpl->setVariable("POPUP_MENU", $popupMenu->getHtml());
-                    
+
                     if($sanctionFlag){
                         $rawHtml->addWidget($popupMenu);
+
                     }
                     // Skip image if rights are insufficient
 
