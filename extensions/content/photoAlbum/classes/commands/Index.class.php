@@ -141,7 +141,7 @@ if (element.requestFullScreen) {
     }  
    
 }
-setTimeout(function(){jQuery.colorbox.reload()},500);
+setTimeout(function(){jQuery.colorbox.reload()},750);
 
 }
  $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
