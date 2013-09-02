@@ -24,6 +24,16 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
         $dialog->setCloseButtonLabel(NULL);
         $dialog->setWidth("600");
         $ajaxForm = new \Widgets\AjaxForm();
+        $insertOption = new \Widgets\DropDownList();
+        $insertOption->setName("insertOptionName");
+        $insertOption->setId("insertOptionId");
+        $optionValues = array();
+        $optionValues[0] = "oben";
+        $optionValues[1] = "unten";
+        $insertOption->setOptionValues($optionValues);
+        $insertOption->setStartValue("oben");
+        $insertOption->setClass("attribute");
+        
         $ajaxForm->setSubmitCommand("CreateMessage");
         $ajaxForm->setSubmitNamespace("PortletMsg");
 
@@ -38,7 +48,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
   float: left;
   padding-right: 20px;
   text-align: right;
-  width: 80px;
+  width: 100px;
 }
 
 .attributeNameRequired {
@@ -69,10 +79,20 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 </style>
 <input type="hidden" name="id" value="{$this->id}">
 
+
+
 <div class="attribute">
 	<div class="attributeName">Titel:</div>
 	<div><input type="text" class="text" value="" name="title"></div>
 </div>
+<div class="attribute">
+    <div class="attributeName">Meldung einfügen:</div>
+    <div><select name="insertOption"
+        id="insertOptionId" size="1">        
+        <option value="0">oben</option>
+        <option value="1">unten</option>
+</select> </div>
+   </div>
 <div class="attribute">
 	<div class="attributeName">Text:</div>
 	<div class="widgets_textarea"><textarea rows="10" style="height:206px;width:480px;" class="mce-small"  value="" name="text" id="text"></textarea><br clear="all">
