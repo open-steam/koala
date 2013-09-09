@@ -101,8 +101,9 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name . "<script>" . $tipsy->getHtml() . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
-			$html = "";
-			$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
+                    return "";	
+                    $html = "";
+			//$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
 			$html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
 			$linkError = false;
 			if ($contentItem instanceof \steam_exit) {
@@ -125,7 +126,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 				$id = $contentItem->get_id();
 			}
 			if (!$linkError && \Bookmarks\Model\Bookmark::isBookmark($id)) {
-				$html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
+				//$html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
 			}
 			$html .= "</div>";
 			return $html;
