@@ -87,18 +87,22 @@ class ContentProvider implements \Widgets\IContentProvider {
 			//adding Tipsy
                     
                         //display full name in tipsy
-                        $cleanName = getCleanName($contentItem, 600);
+                        /*$cleanName = getCleanName($contentItem, 600);
                         $nameArray = str_split($cleanName, 50);
-                        
+                       
+          
                         $first = true;
                         foreach ($nameArray as $key => $value) {
                             if($first){
                                 $cleanName = $value;
                                 $first=false;
                             }else{
+                                  
                                 $cleanName.= "<br>".$value;
                             }
-                        }
+                        }*/
+                    
+                        $cleanName = getCleanName($contentItem,600);
                         if(strlen($cleanName)>50){
                             $longName="<br><div style=\"font-weight:bold; width:100px; float:left;\">Name:</div><br> ".$cleanName."";
                         }else{
@@ -122,8 +126,8 @@ class ContentProvider implements \Widgets\IContentProvider {
                         
                         $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			$desc = $contentItem->get_attribute("OBJ_DESC");
-			//$name = $objectModel->getReadableName();
 			$name = getCleanName($contentItem, 50);
+                        
 			if (isset($url) && $url != "") {
                             if($contentItem instanceof \steam_docextern){
                                 $blank = $contentItem->get_attribute("DOC_BLANK");
