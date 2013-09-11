@@ -301,8 +301,28 @@ function deriveIcon($object) {
     if (!($object instanceof steam_object))
         return "";
 
+    //preload attibutes
+    $worksheet_roleIndex = $object->get_attribute("worksheet_role",1);
+    $objtypeIndex = $object->get_attribute("OBJ_TYPE",1);
+    $doctypeIndex = $object->get_attribute("bid:doctype",1);
+    $collectiontypeIndex = $object->get_attribute("bid:collectiontype",1);
+    $mimetypeIndex = $object->get_attribute("DOC_MIME_TYPE",1);
+    $attributeIsWebarenaIndex = $object->get_attribute("isWebarena",1);
+    $nameIndex = $object->get_name(1);
+    
+    $preLoadResults = $GLOBALS["STEAM"]->buffer_flush();
+    
+    $worksheet_role = $preLoadResults[$worksheet_roleIndex];
+    $objtype = $preLoadResults[$objtypeIndex];
+    $doctype = $preLoadResults[$doctypeIndex];
+    $collectiontype = $preLoadResults[$collectiontypeIndex];
+    $mimetype = $preLoadResults[$mimetypeIndex];
+    $attributeIsWebarena = $preLoadResults[$attributeIsWebarenaIndex];
+    $name = $preLoadResults[$nameIndex];
+    //finished preload attibutes
+    
+    
     //worksheet
-    $worksheet_role = $object->get_attribute("worksheet_role");
     if ($worksheet_role === "build")
         return "worksheet.png";
     if ($worksheet_role === "view")
@@ -310,11 +330,11 @@ function deriveIcon($object) {
     if ($worksheet_role === "edit")
         return "worksheet.png";
     //webarena
-    if ($object->get_attribute("isWebarena") == 1) {
+    if ($attributeIsWebarena == 1) {
         return "webarena.png";
     }
     //bidOWL:Collection Types
-    $collectiontype = $object->get_attribute("bid:collectiontype");
+    
     /* if($collectiontype === "sequence")
       return "sequence.gif";
       else if($collectiontype === "cluster")
@@ -324,8 +344,7 @@ function deriveIcon($object) {
 
 
     //bidOWL:Document Types
-    $objtype = $object->get_attribute("OBJ_TYPE");
-    $doctype = $object->get_attribute("bid:doctype");
+    
 
     if ($objtype === "postbox")
         return "postbox.png";
@@ -390,8 +409,8 @@ function deriveIcon($object) {
 
 
     //mimetypes by object name
-    $name = $object->get_name();
-    $mimetype = $object->get_attribute("DOC_MIME_TYPE");
+    
+    
     $icons = array(
         "generic" => "generic.png",
         //"application/x-coreldraw" => "coreldraw.gif",
