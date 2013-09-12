@@ -109,13 +109,13 @@ class ContentProvider implements \Widgets\IContentProvider {
                             $longName="";
                         }
                         
-                        
+                        $creator = $contentItem->get_creator();
 			$tipsy = new \Widgets\Tipsy();
 			$tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
 			$tipsy->setHtml("<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"".PATH_URL."download/image/"
-			                . $contentItem->get_creator()->get_attribute(OBJ_ICON)->get_id()."/30/30\"> " 
-			                . $contentItem->get_creator()->get_attribute(USER_FIRSTNAME)." "
-			                . $contentItem->get_creator()->get_attribute(USER_FULLNAME) . "<br clear=\"all\">" 
+			                . $creator->get_attribute(OBJ_ICON)->get_id()."/30/30\"> " 
+			                . $creator->get_attribute(USER_FIRSTNAME)." "
+			                . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">" 
 			                . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>"
 			                . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>".$longName);
 			              //  . (($contentItem instanceof \steam_document) ? "<br>" . $contentItem->get_attribute(DOC_MIME_TYPE) : ""));
