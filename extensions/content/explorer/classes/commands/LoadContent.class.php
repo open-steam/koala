@@ -84,25 +84,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                         $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			return "<a href=\"" . $url . "\"><img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem)."\"></img></a>";
 		} else if ($cell == $this->rawName) {
-			//adding Tipsy
-                    
-                        //display full name in tipsy
-                        /*$cleanName = getCleanName($contentItem, 600);
-                        $nameArray = str_split($cleanName, 50);
-                       
-          
-                        $first = true;
-                        foreach ($nameArray as $key => $value) {
-                            if($first){
-                                $cleanName = $value;
-                                $first=false;
-                            }else{
-                                  
-                                $cleanName.= "<br>".$value;
-                            }
-                        }*/
-                    
-                        $cleanName = getCleanName($contentItem,600);
+			$cleanName = getCleanName($contentItem,600);
                         if(strlen($cleanName)>50){
                             $longName="<br><div style=\"font-weight:bold; width:100px; float:left;\">Name:</div><br> ".$cleanName."";
                         }else{
@@ -118,11 +100,9 @@ class ContentProvider implements \Widgets\IContentProvider {
 			                . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">" 
 			                . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>"
 			                . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>".$longName);
-			              //  . (($contentItem instanceof \steam_document) ? "<br>" . $contentItem->get_attribute(DOC_MIME_TYPE) : ""));
 			
                         
                         $tipsyHtml = $tipsy->getHtml();
-                        //$tipsyHtml="";
                         
                         $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			$desc = $contentItem->get_attribute("OBJ_DESC");
@@ -143,7 +123,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name . "<script>" . $tipsyHtml . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
-                    return "";
+                    return ""; //disabled
                         $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
                         $keywordList = "";
                         foreach($keywords as $keyword){
@@ -180,8 +160,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$html .= "</div>";
 			return $html;
 		} else if ($cell == $this->rawChangeDate) {
-                        //return "<div></div>";//speed test
-			return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
+                        return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
 		}  else if ($cell == $this->rawSize) {
 			return getObjectReadableSize($contentItem);
 		} else if ($cell == $this->rawMenu) {
