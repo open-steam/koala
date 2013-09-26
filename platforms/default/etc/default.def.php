@@ -1,7 +1,7 @@
 <?php
 //**** PHP.ini section
 defined("DISPLAY_ERRORS") or define("DISPLAY_ERRORS", 0);
-defined("ERROR_REPORTING") or define("ERROR_REPORTING", E_ALL | E_NOTICE);
+defined("ERROR_REPORTING") or define("ERROR_REPORTING", (E_ERROR | E_WARNING | E_PARSE | E_NOTICE)); //do not use E_STRICT, this causes pear/it-template errors in php 5.4
 defined("LOW_API_CACHE") or define("LOW_API_CACHE", true);
 
 defined("PATH_SERVER") or define("PATH_SERVER", "https://localhost");

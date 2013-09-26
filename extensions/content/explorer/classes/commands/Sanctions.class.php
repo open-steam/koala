@@ -403,6 +403,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             }
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
+                $realname = $group->get_name();
                 if ($name == "" || $name == "0") {
                     $name = $group->get_name();
                 }
@@ -469,7 +470,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $content->setCurrentBlock("GROUP_DDSETTINGS");
                     $content->setVariable("GROUPID", $id);
                     $content->setVariable("GROUP_ID", $id);
-                    $content->setVariable("GROUPNAME", $name);
+                    $content->setVariable("GROUPNAME", $name . " (". $realname . ")" );
                     $content->setVariable("OPTIONVALUE", max($dropDownValue, $dropdownValueSteamGroup));
                     $content->setVariable("INDENTINDEX", $intend);
                     $content->setVariable("DROPDOWNLIST", $ddl->getHtml());
@@ -492,6 +493,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                    continue;
                 }
                 $name = $group->get_attribute("OBJ_DESC");
+                $realname = $group->get_name();
                 if ($name == "" || $name == "0") {
                     $name = $group->get_name();
                 }
@@ -535,7 +537,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
                     $content->setVariable("GROUPID_ACQ", $id);
                     $content->setVariable("GROUP_ID_ACQ", $id);
-                    $content->setVariable("GROUPNAME_ACQ", $name);
+                    $content->setVariable("GROUPNAME_ACQ", $name . " (". $realname . ")" );
                     $content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $dropdownValueAcqSteamGroup));
                     $content->setVariable("INDENTINDEX_ACQ", $intend);
                     $content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());

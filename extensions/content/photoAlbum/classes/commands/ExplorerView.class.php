@@ -58,7 +58,7 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
         }
         
         $breadcrumb = new \Widgets\Breadcrumb();
-        $breadcrumb->setData(array($parentLink, array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . $title . " " . \Explorer\Model\Sanction::getMarkerHtml($object, false))));
+        $breadcrumb->setData(array($parentLink, array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . $title . " ")));
  
    
         $this->getExtension()->addJS();

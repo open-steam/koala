@@ -4,10 +4,7 @@ namespace PortletMsg\Commands;
 
 class CreateMessage extends \AbstractCommand implements \IAjaxCommand {
 
-    private $params;
-    private $id;
-    private $content;
-    private $rawHtmlWidget;
+    private $insertTop = false;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -18,7 +15,13 @@ class CreateMessage extends \AbstractCommand implements \IAjaxCommand {
         $parentObjectId = $params["id"];
         $title = $params["title"];
         $text = $params["text"];
-
+        
+        if($params["insertOption"] === "0"){
+            $this->insertTop = true;
+        }else{
+            $this->insertTop = false;
+        }
+        
         //check diffrent types of parameter
         if (is_string($parentObjectId)) {
 
@@ -74,10 +77,20 @@ END
         }
 
         $id = $messageObject->get_id();
+        if($this->insertTop){
+            $newContent = array();
+            $newContent[0] = $id;
+            foreach($content as $i => $c){
+                $newContent[$i+1] = $c;
+            }
+            $portletObject->set_attribute("bid:portlet:content", $newContent);
 
-        $content[] = $id;
-        $portletObject->set_attribute("bid:portlet:content", $content);
-    }
+        }else{
+            $content[] = $id;
+            $portletObject->set_attribute("bid:portlet:content", $content);
+
+        }
+            }
 
 }
 
