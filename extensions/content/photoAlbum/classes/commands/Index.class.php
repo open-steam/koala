@@ -50,6 +50,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($errorHtml);
             return $frameResponseObject;
         }
+        \lms_portal::get_instance()->add_javascript_src("lazyload", PATH_URL . "styles/standard/javascript/lazy/jquery.lazyload.min.js");
+        \lms_portal::get_instance()->add_javascript_src("colorbox", PATH_URL . "styles/standard/javascript/colorbox/jquery.colorbox.js");
+        
         $titleCss = '#gallery-title{margin-top:-31px;margin-left:50px;}';
         if ($gallery->check_access(SANCTION_SANCTION)) {
             $actionBar = new \Widgets\ActionBar();
