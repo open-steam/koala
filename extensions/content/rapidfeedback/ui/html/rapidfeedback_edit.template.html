@@ -1,5 +1,5 @@
 <!-- BEGIN BLOCK_CREATE_SURVEY -->
-<form action="" method="post" onsubmit="return getSortables();" style="font-size:11px">
+<form action="" method="post" onsubmit="return getSortables();" style="font-size:11px" >
 	<input type="hidden" id="sortable_array" name="sortable_array" value="">
 	<input type="hidden" id="elementcounter" value="{ELEMENT_COUNTER}">
 	<input type="hidden" id="editID" value="-1">
@@ -11,10 +11,13 @@
 				<tr>
 					<th colspan="2">{CREATE_LABEL}</th>
 				</tr>
-				<tr>
+                              
+                                
+                                <tr>
 					<td class="label">{TITLE_LABEL}</td>
 					<td width="90%"><input id="title" type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
-				</tr>
+				</tr> 
+                           
 				<tr>
 					<td class="label">{BEGINTEXT_LABEL}</td>
 					<td><textarea name="begintext" style="width:99%" rows="4">{BEGINTEXT_VALUE}</textarea></td>
@@ -253,7 +256,7 @@
 				<tr>
 					<td colspan="2">
 						<div style="text-align:center" class="buttons">
-							<input type="submit" value="{CREATE_SURVEY}" name="create_survey" onclick="">
+                                                    <input type="button" value="{CREATE_SURVEY}" name="create_survey" onclick="addElement();setTimeout(function(){$('form').submit();},1500);">
 						</div>
 					</td>
 				</tr>

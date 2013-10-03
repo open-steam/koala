@@ -24,6 +24,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $RapidfeedbackExtension->addCSS();
         $RapidfeedbackExtension->addJS();
         $create_label = "Neuen Fragebogen erstellen";
+        
+        $cssWidgetNumbers = new \Widgets\RawHtml();
+        $cssWidgetNumbers->setCss('.number{padding-right:781px;}');
+        $cssWidgetNumbers->setHtml("");
+        $frameResponseObject->addWidget($cssWidgetNumbers);
+                
 
         // access not allowed for non-admins
         $user = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -284,7 +290,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
             $id_counter = 0;
             $asseturl = $RapidfeedbackExtension->getAssetUrl() . "icons/";
             for ($count = 0; $count < count($questions); $count++) {
-                $question_html = $question_html . $questions[$count]->getEditHTML($id_counter);
+                $question_html = $question_html . $questions[$count]->getEditHTML($id_counter, $count+1);
                 $id_counter++;
             }
             $content->setVariable("ELEMENT_COUNTER", $id_counter);
