@@ -1,5 +1,7 @@
 core/persistence/*
 
+depending/vendor/*
+
 platforms/bid/cache/*
 platforms/bid/log/*
 platforms/bid/temp/*
@@ -8,26 +10,12 @@ platforms/bid/public/styles
 platforms/bid/etc/local.def.php
 platforms/bid/etc/platform.def.php
 
-platforms/dawinci/cache/*
-platforms/dawinci/log/*
-platforms/dawinci/temp/*
-platforms/dawinci/public/.htaccess
-platforms/dawinci/public/styles
-platforms/dawinci/etc/local.def.php
-
 platforms/elab/cache/*
 platforms/elab/log/*
 platforms/elab/temp/*
 platforms/elab/public/.htaccess
 platforms/elab/public/styles
 platforms/elab/etc/local.def.php
-
-platforms/koala/cache/*
-platforms/koala/log/*
-platforms/koala/temp/*
-platforms/koala/public/.htaccess
-platforms/koala/public/styles
-platforms/koala/etc/local.def.php
 
 extensions/content/worksheet/templates_c/%%*
 extensions/base/widgets/asset/temp/*
