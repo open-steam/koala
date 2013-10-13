@@ -1,11 +1,14 @@
 <!-- BEGIN BLOCK_CREATE_SURVEY -->
-<form action="" method="post" onsubmit="return getSortables();" style="font-size:11px" >
-	<input type="hidden" id="sortable_array" name="sortable_array" value="">
+<form id="surveyFormOptions" action="" method="post" onsubmit="return getSortables();" style="font-size:11px" >
+ <form id="surveyFormQuestions" action="" method="post" onsubmit="return getSortables();" style="font-size:11px" >
+               
+    <input type="hidden" id="sortable_array" name="sortable_array" value="">
 	<input type="hidden" id="elementcounter" value="{ELEMENT_COUNTER}">
 	<input type="hidden" id="editID" value="-1">
 	<input type="hidden" id="editRF" name="editRF" value="{EDIT_ID}">
 	<input type="hidden" id="asseturl" value="{ASSET_URL}">
 	<div id="options">
+            <h1 style="padding-left:5px">Allgemeine Eigenschaften</h1>
 		<!-- <center> -->
 			<table class="grid" border="0" width="100%">
 				<tr>
@@ -40,8 +43,18 @@
 							{END_LABEL}
 							<input id="datepicker_end" name="end" value="{END_VALUE}" maxlength="16" size="16">	
 						</div>
+                                        </td></tr><tr>
+                                        <td colspan="2">
+						<div style="text-align:center" class="buttons">
+                                                    <input type="submit" value="{CREATE_SURVEY}" name="create_survey">
+						</div>
 					</td>
-				</tr>
+                                </tr></table>
+           
+                </form>
+                <br> <br>
+                <h1 style="padding-left:5px;">Fragen</h1>
+                <table class="grid" border="0" width="100%">
 				<tr style="display:{DISPLAY_QUESTIONS}">
 					<td colspan="2">
 						<ul id="sortable_rf" style="cursor: move; overflow: auto;">
@@ -210,7 +223,7 @@
 									<tr>
 										<td style="padding:3px 5px 0px 0px;"></td>
 										<td style="padding:0px;">
-                                                                                    <input type="button" onclick="addElement();" value="{SAVE_LABEL}">
+                                                                                    <input type="button" onclick="addElement();setTimeout(function(){$('#save-que-button').click();}, 750);" value="{SAVE_LABEL}">
                                                                                     <input type="button" onclick="hideCreateDialog();" value="{CANCEL_LABEL}">
 										</td>
 									</tr>
@@ -259,7 +272,7 @@
 				<tr>
 					<td colspan="2">
 						<div style="text-align:center" class="buttons">
-                                                    <input type="button" value="{CREATE_SURVEY}" name="create_survey" onclick="addElement();setTimeout(function(){$('form').submit();},1500);">
+                                                    <input id="save-que-button"type="submit" value="{CREATE_SURVEY}" name="create_survey">
 						</div>
 					</td>
 				</tr>

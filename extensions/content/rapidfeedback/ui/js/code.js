@@ -605,6 +605,7 @@ function copyElement(id) {
  * function to add a layout element
  */
 function addLayoutElement() {
+    alert(1);
 	if (document.getElementById('editID').value != '-1') {
 		var deleteid = document.getElementById('editID').value;
 		$('#rfelement'+deleteid).remove();
