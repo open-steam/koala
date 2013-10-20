@@ -20,10 +20,13 @@ class HeadlineLayoutElement extends AbstractLayoutElement {
 		return $layoutElement;
 	}
 	
-	public function getEditHTML($id) {
+	public function getEditHTML($id, $number = -1) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("layoutelements/headline.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
+                 if($number != -1){
+                    $content->setVariable("NUMBER", $number);
+                }
 		$content->setVariable("ELEMENT_ID", $id);
 		$content->setVariable("ASSETURL", $RapidfeedbackExtension->getAssetUrl() . "icons/");
 		$content->setVariable("EDIT_LABEL", "Bearbeiten");
