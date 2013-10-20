@@ -36,6 +36,29 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			if ($this->write_access) {
 				$this->document->set_attribute("RT_EDIT", 1);
 			}
+
+			//push session to node server
+			$host = SPREADSHEETS_HOST;
+                        $port = SPREADSHEETS_PORT;
+                        $fp = fsockopen($host, $port);
+                        if ($fp) {
+				$data = http_build_query(Array(
+					"id" => session_id(),
+					"username" => $_SESSION[ "LMS_USER" ]->get_login(),
+					"password" => $_SESSION[ "LMS_USER" ]->get_password()
+				));
+
+				// send the request headers:
+				fputs($fp, "POST /pushSession HTTP/1.1\r\n");
+				fputs($fp, "Host: ".$host."\r\n");
+
+				fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n");
+				fputs($fp, "Content-length: ". strlen($data) ."\r\n");
+				fputs($fp, "Connection: close\r\n\r\n");
+				fputs($fp, $data);
+			} else {
+                                throw new \Exception("unable to connect to spreadsheets server");
+                        }
 		}		
 	}
 	
@@ -145,7 +168,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("SHEET_EDITABLE", "false");
 		}
                 
-                $content->setVariable("SESSION_COOKIE_NAME", SESSION_NAME);
+        $content->setVariable("SESSION_COOKIE_NAME", SESSION_NAME);
 
 		$content->parse("BLOCK_SHEET_NAME_SCRIPT");
 
