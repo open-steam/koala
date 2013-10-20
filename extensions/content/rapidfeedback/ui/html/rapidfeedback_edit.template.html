@@ -256,7 +256,7 @@
 									<tr>
 										<td style="padding:3px 5px 0px 0px;"></td>
 										<td style="padding:0px;">
-                                                                                    <input type="button" onclick="addLayoutElement();" value="{SAVE_LABEL}">
+                                                                                    <input type="button" onclick="addLayoutElement();setTimeout(function(){$('#save-que-button').click();}, 750);" value="{SAVE_LABEL}">
                                                                                     <input type="button" onclick="hideLayoutDialog();" value="{CANCEL_LABEL}">
 										</td>
 									</tr>
