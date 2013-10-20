@@ -26,7 +26,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $create_label = "Neuen Fragebogen erstellen";
 
         $cssWidgetNumbers = new \Widgets\RawHtml();
-        $cssWidgetNumbers->setCss('.number{padding-right:770px;}');
+        $cssWidgetNumbers->setCss('.number{position:absolute;left:30px;}');
         $cssWidgetNumbers->setHtml("");
         $frameResponseObject->addWidget($cssWidgetNumbers);
 
