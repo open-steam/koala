@@ -81,8 +81,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
             } else {
                 $survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
-                if (isset($_POST["title"]) && trim($_POST["title"]) !== "" ) {
-                    
+                if (isset($_POST["title"]) && trim($_POST["title"]) !== "") {
+
                     $survey_object->setName($_POST["title"]);
                 }
                 if (isset($_POST["begintext"])) {
@@ -90,7 +90,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                     $survey_object->setBeginText($_POST["begintext"]);
                 }
                 if (isset($_POST["endtext"])) {
-                   
+
                     $survey_object->setEndText($_POST["endtext"]);
                 }
 
@@ -227,12 +227,15 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         }
         $frameResponseObject->addWidget($actionbar);
 
+
         // display edit form
         $content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_edit.template.html");
         $content->setCurrentBlock("BLOCK_CREATE_SURVEY");
         $content->setVariable("CREATE_LABEL", "Fragebogen erstellen");
         $content->setVariable("TITLE_LABEL", "Titel:");
         $content->setVariable("BEGINTEXT_LABEL", "Willkommenstext:");
+
+
         $content->setVariable("ENDTEXT_LABEL", "Abschlusstext:");
         $content->setVariable("STARTTYPE_LABEL", "Durchführungszeitraum:");
         $content->setVariable("STARTTYPE0_LABEL", "Manuell");
@@ -290,6 +293,10 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
             $survey_object->parseXML($xml);
             $content->setVariable("TITLE_VALUE", $survey_object->getName());
             $content->setVariable("BEGINTEXT_VALUE", $survey_object->getBeginText());
+            $welcomeImageId = $survey->get_attribute("bid:rfb:picture_id");
+            if ($welcomeImageId !== 0) {
+                $content->setVariable("WELCOME_IMG_SRC", PATH_URL . "download/document/$welcomeImageId/");
+            }
             $content->setVariable("ENDTEXT_VALUE", $survey_object->getEndText());
             $starttype = $survey->get_attribute("RAPIDFEEDBACK_STARTTYPE");
             if (is_array($starttype)) {
