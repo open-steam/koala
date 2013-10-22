@@ -40,11 +40,15 @@ class HeadlineLayoutElement extends AbstractLayoutElement {
 		return $content->get();
 	}
 	
-	public function getViewHTML() {
+	public function getViewHTML($number = -1) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("layoutelements/headline.template.html");
 		$content->setCurrentBlock("BLOCK_VIEW");
-		$content->setVariable("HEADLINE_CONTENT", $this->headline);
+                if($number !== -1){
+                    $content->setVariable("HEADLINE_CONTENT", ($number).". " .$this->headline);		
+                }else{
+                    $content->setVariable("HEADLINE_CONTENT", $this->headline);		
+                }
 		$content->parse("BLOCK_VIEW");
 		return $content->get();
 	}

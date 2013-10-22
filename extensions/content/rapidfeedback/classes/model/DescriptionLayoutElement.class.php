@@ -42,11 +42,11 @@ class DescriptionLayoutElement extends AbstractLayoutElement {
         return $content->get();
     }
 
-    public function getViewHTML() {
+    public function getViewHTML($number = -1) {
         $RapidfeedbackExtension = \Rapidfeedback::getInstance();
         $content = $RapidfeedbackExtension->loadTemplate("layoutelements/description.template.html");
         $content->setCurrentBlock("BLOCK_VIEW");
-        $content->setVariable("DESCRIPTION_CONTENT", $this->description);
+        $content->setVariable("DESCRIPTION_CONTENT", ($number).". ".$this->description);
         $content->parse("BLOCK_VIEW");
         return $content->get();
     }
