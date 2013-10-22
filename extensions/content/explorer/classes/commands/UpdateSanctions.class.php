@@ -25,6 +25,8 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $type = $this->params["type"];
         $value = $this->params["value"];
+        //var_dump($this->object);die;
+        //echo $this->object->get_name();die;
         $sanction = $this->object->get_sanction();
         $attrib = $this->object->get_attributes(array(OBJ_NAME, OBJ_DESC, "bid:doctype"));
         $bid_doctype = isset($attrib["bid:doctype"]) ? $attrib["bid:doctype"] : "";
@@ -33,7 +35,7 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $objType = $this->object->get_attribute("OBJ_TYPE");
 
-        
+
         // in questionaries the write right is limited to insert rights only
         if ($docTypeQuestionary) {
             $SANCTION_WRITE_FOR_CURRENT_OBJECT = SANCTION_INSERT;
@@ -57,6 +59,9 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
                     $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
                 }
             } else {
+                $currentUser = \lms_steam::get_current_user();
+                $this->object->sanction(SANCTION_READ | SANCTION_WRITE | SANCTION_SANCTION, $currentUser);
+                $this->object->sanction_meta(ACCESS_DENIED, $currentUser);
                 $this->object->set_acquire(0);
             }
         }
@@ -66,7 +71,7 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
             $everyoneId = $everyone->get_id();
             $steamGroup = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam");
             $steamGroupId = $steamGroup->get_id();
-            $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+            $currentUser = \lms_steam::get_current_user();
             $currentUserId = $currentUser->get_id();
 
             if ($value == "privat") {
@@ -104,7 +109,7 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
                 $currentSanction|= SANCTION_READ;
             }
             if ($value >= 2) {
-               $currentSanction|= $SANCTION_WRITE_FOR_CURRENT_OBJECT;
+                $currentSanction|= $SANCTION_WRITE_FOR_CURRENT_OBJECT;
             }
             if ($value == 3) {
                 $currentSanction |= SANCTION_SANCTION;
@@ -114,10 +119,10 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
             // set the new meta rights
             $this->object->sanction_meta($additionalSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
             if ($postboxHack) {
-                 if ($value >= 2) {
+                if ($value >= 2) {
                     $container->sanction($currentSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
                 } else {
-                    $container->sanction(SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));                
+                    $container->sanction(SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
                 }
                 $container->sanction_meta($additionalSanction, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sanctionId, CLASS_OBJECT));
             }
