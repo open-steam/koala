@@ -272,7 +272,7 @@ $(function() {
 		placeholder: "ui-state-placeholder-rf",
 		axis: "y",
 		forcePlaceholderSize: true,
-                change: function() {setTimeout(function(){$('#save-que-button').click();}, 750);}
+                update: function() {setTimeout(function(){$('#save-que-button').click();}, 750);}
 	});
 });
 
