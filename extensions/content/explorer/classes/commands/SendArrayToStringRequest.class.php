@@ -20,9 +20,8 @@ class SendArrayToStringRequest extends \AbstractCommand implements \IAjaxCommand
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $value = $oldValue = $this->params["value"];
         $attribute = $this->params["attribute"];
-
         $value = html_entity_decode($value);
-
+        
         $array = explode(" ", $value);
         $object->set_attribute($attribute, $array);
 
