@@ -52,16 +52,20 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
         }
         //SET ACQUIRE RIGHTS
         if ($type == "acquire") {
+            $currentUser = \lms_steam::get_current_user();
             if ($value == "acq") {
                 $this->object->set_acquire_from_environment();
                 foreach ($sanction as $id => $sanct) {
-                    $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
-                    $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
+                    if ($id !== $currentUser->get_id()) {
+                        $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id));
+                        $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id));
+                    }
                 }
             } else {
-                $currentUser = \lms_steam::get_current_user();
-                $this->object->sanction(SANCTION_READ | SANCTION_WRITE | SANCTION_SANCTION, $currentUser);
-                $this->object->sanction_meta(ACCESS_DENIED, $currentUser);
+
+
+                $this->object->sanction(SANCTION_ALL, $currentUser);
+                $this->object->sanction_meta(SANCTION_ALL, $currentUser);
                 $this->object->set_acquire(0);
             }
         }
