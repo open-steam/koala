@@ -7,10 +7,10 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	private $params;
 	private $id;
 	private $object;
-	private $categoryIndex;
-	private $entryIndex;
 	private $field;
 	private $value;
+        private $termIndex;
+        
 	
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
@@ -28,7 +28,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		if (isset($this->params["termIndex"]) && isset($this->params["value"])) {
+		/*if (isset($this->params["termIndex"]) && isset($this->params["value"])) {
 			$data = array();
 			$oldValue = $this->getEntryField($this->object,$this->termIndex, $this->field);
 			try {
@@ -58,14 +58,16 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 			 $ajaxResponseObject->setData($data);
 		} else {
 			$ajaxResponseObject->setStatus("error: parameter missing");
-		}
+		}*/
+              //  $contentArray = $this->object->get_attribute("bid:portlet:content");
+                
+                $this->setEntryField($this->object, $this->termIndex, $this->field, $this->value);
+                $ajaxResponseObject->setStatus("ok");
 		return $ajaxResponseObject;
 	}
 	
 	
 	private function setEntryField($object, $termIndex, $field, $value){
-		$objectId = $object->get_id();
-		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		
 
 
@@ -154,8 +156,6 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	}
 	
 	private function getEntryField($object, $termIndex, $field){
-		$objectId = $object->get_id();
-		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		
                 
                 
@@ -275,6 +275,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
         private function getSortedPortlets($portletObject){
                 $object = $portletObject;
                 $portletContent = $object->get_attribute("bid:portlet:content");
+                return $portletContent;
                 
                 usort($portletContent, "sortPortletAppointments");
                 $sortOrder = $object->get_attribute("bid:portlet:app:app_order");
