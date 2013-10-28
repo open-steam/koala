@@ -75,7 +75,7 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             }
             
             $newPosition = 0;
-            while ($newIdArray[$newPosition] != $this->cE) {
+            while ((isset($newIdArray[$newPosition])) && ($newIdArray[$newPosition] != $this->cE)) {
                 $newPosition++;
             }
             if ($oldPosition < $newPosition) {
@@ -84,7 +84,6 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
                 }
             }
             if ($oldPosition > $newPosition) {
-                echo 1 . "          ";
                 for ($i = $oldPosition; $i > $newPosition; $i--) {
                     $parent->swap_inventory($i, $i - 1);
                 }
