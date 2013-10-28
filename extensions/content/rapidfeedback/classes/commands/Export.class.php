@@ -165,7 +165,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 				}
 			}
 					
-			$filename = "fragebogen" . $this->id . ".csv";
+			$filename = "fragebogen" . $this->id . ".xls";
 			header('Content-Type: application/vnd.ms-excel');
 			header('Content-Disposition: attachment;filename="'.$filename.'"');
 			header('Cache-Control: max-age=0');
