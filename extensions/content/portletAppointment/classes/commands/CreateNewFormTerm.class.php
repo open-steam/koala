@@ -31,8 +31,9 @@ class CreateNewFormTerm extends \AbstractCommand implements \IAjaxCommand {
 
         $currentDate = $currentDay . "." . $currentMonth . "." . $currentYear;
 
+        $clearer = '<div style="clear:both;"></div>';
         $rawHtml = new \Widgets\RawHtml();
-
+        
         $html = '                               
 <input type="hidden" name="id" value="' . $this->id . '">
 
@@ -42,18 +43,21 @@ class CreateNewFormTerm extends \AbstractCommand implements \IAjaxCommand {
         $title->setName("title");
         $html .= $title->getHtml();
         
+        $html .= $clearer;
+        
+        
         $desc = new \Widgets\TextInput();
         $desc->setLabel("Beschreibung");
         $desc->setName("desc");
         $html .= $desc->getHtml();
-        
+        $html .= $clearer;
         
         $datepickerStart = new \Widgets\DatePicker();
         $datepickerStart->setLabel("Startdatum");
         $datepickerStart->setDatePicker(true);
         $datepickerStart->setTimePicker(false);
         $datepickerStart->setName("startDate");
-
+        
         $html .= '<div class="attribute">' . $datepickerStart->getHtml() . "</div>";
         $html .='<script>$(".hasDatepicker").val("' . $currentDate . '");</script>';
         $ajaxForm->setHtml($html);
