@@ -50,7 +50,7 @@ class EditTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, 
 		$datepickerStart->setDatePicker(true);
 		$datepickerStart->setTimePicker(false);
                 //TODO: Bad solution
-                $datepickerStart->setWorkaraound(true);
+               // $datepickerStart->setWorkaraound(true);
 		$dialog->addWidget($datepickerStart);
 		$dialog->addWidget(new \Widgets\Clearer());
 		
@@ -61,7 +61,7 @@ class EditTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, 
 		$timepickerStart->setDatePicker(false);
 		$timepickerStart->setTimePicker(true);
                  //TODO: Bad solution
-                $timepickerStart->setWorkaraound(true);
+                //$timepickerStart->setWorkaraound(true);
 		
 		$dialog->addWidget($timepickerStart);
 		$dialog->addWidget(new \Widgets\Clearer());

@@ -28,7 +28,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		/*if (isset($this->params["termIndex"]) && isset($this->params["value"])) {
+		if (isset($this->params["termIndex"]) && isset($this->params["value"])) {
 			$data = array();
 			$oldValue = $this->getEntryField($this->object,$this->termIndex, $this->field);
 			try {
@@ -58,7 +58,7 @@ class DatabindingPortletAppointmentTerm extends \AbstractCommand implements \IAj
 			 $ajaxResponseObject->setData($data);
 		} else {
 			$ajaxResponseObject->setStatus("error: parameter missing");
-		}*/
+		}
               //  $contentArray = $this->object->get_attribute("bid:portlet:content");
                 
                 $this->setEntryField($this->object, $this->termIndex, $this->field, $this->value);
