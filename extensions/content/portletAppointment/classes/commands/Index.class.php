@@ -118,6 +118,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             if($sortOrderBool){
                $content = array_reverse($content); 
             }
+            $portletObject->set_attribute("bid:portlet:content", $content);
             
             $indexCount = 0; 
             

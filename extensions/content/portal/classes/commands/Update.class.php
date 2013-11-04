@@ -67,24 +67,29 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             $oldIdArray = $portletsOldIds;
             $newIdArray = $portletsIdsNew;
             $parent=$column;
+
             $oldPosition = 0;
-            
-            //TODO
-            while( (isset($oldIdArray[$oldPosition])) && ($oldIdArray[$oldPosition] != $this->cE) ){
-                $oldPosition++;
+            foreach ($oldIdArray as $key => $value) {
+                if (inval($value) === inval($this->cE)) {
+                    $oldPosition = $key;
+                    break;
+                }
             }
-            
+
             $newPosition = 0;
-            while ($newIdArray[$newPosition] != $this->cE) {
-                $newPosition++;
+            foreach($newIdArray as $key => $value) {
+                if (inval($value) === inval($this->cE)) {
+                    $newPosition = $key;
+                    break;
+                }
             }
+
             if ($oldPosition < $newPosition) {
                 for ($i = $oldPosition; $i < $newPosition; $i++) {
                     $parent->swap_inventory($i, $i + 1);
                 }
             }
             if ($oldPosition > $newPosition) {
-                echo 1 . "          ";
                 for ($i = $oldPosition; $i > $newPosition; $i--) {
                     $parent->swap_inventory($i, $i - 1);
                 }

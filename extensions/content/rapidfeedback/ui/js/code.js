@@ -271,7 +271,8 @@ $(function() {
 	$( "#sortable_rf" ).sortable({
 		placeholder: "ui-state-placeholder-rf",
 		axis: "y",
-		forcePlaceholderSize: true
+		forcePlaceholderSize: true,
+                update: function() {setTimeout(function(){$('#save-que-button').click();}, 750);}
 	});
 });
 
@@ -605,6 +606,7 @@ function copyElement(id) {
  * function to add a layout element
  */
 function addLayoutElement() {
+   
 	if (document.getElementById('editID').value != '-1') {
 		var deleteid = document.getElementById('editID').value;
 		$('#rfelement'+deleteid).remove();

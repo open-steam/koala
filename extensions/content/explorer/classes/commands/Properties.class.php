@@ -316,7 +316,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($createdField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
-      //  $dialog->addWidget($keywordArea);
+        
+        $dialog->addWidget($keywordArea);
+        
         if ($type != "portal") {
             $dialog->addWidget($seperator);
         }

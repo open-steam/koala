@@ -25,6 +25,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $RapidfeedbackExtension->addJS();
         $create_label = "Neuen Fragebogen erstellen";
 
+        $cssWidgetNumbers = new \Widgets\RawHtml();
+        $cssWidgetNumbers->setCss('.number{position:absolute;left:30px;}');
+        $cssWidgetNumbers->setHtml("");
+        $frameResponseObject->addWidget($cssWidgetNumbers);
+
+
         // access not allowed for non-admins
         $user = $GLOBALS["STEAM"]->get_current_steam_user();
         $staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
@@ -75,92 +81,106 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
             } else {
                 $survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
-                $survey_object->setName($_POST["title"]);
-                $survey_object->setBeginText($_POST["begintext"]);
-                $survey_object->setEndText($_POST["endtext"]);
+                if (isset($_POST["title"]) && trim($_POST["title"]) !== "") {
+
+                    $survey_object->setName($_POST["title"]);
+                }
+                if (isset($_POST["begintext"])) {
+
+                    $survey_object->setBeginText($_POST["begintext"]);
+                }
+                if (isset($_POST["endtext"])) {
+
+                    $survey_object->setEndText($_POST["endtext"]);
+                }
 
                 $questioncounter = 0;
                 $sortedQuestions = $_POST["sortable_array"];
                 $sortedQuestions != '' ? ($sortedQuestions = explode(',', $sortedQuestions)) : '';
                 foreach ($sortedQuestions as $question) {
                     if ($question != "newquestion" && $question != "newlayout" && $question != "") {
-                        $questionValues = $_POST[$question];
-                        $questionValues != '' ? ($questionValues = explode(',', $questionValues)) : '';
-                        switch ($questionValues[0]) {
-                            case 0:
-                                $newquestion = new \Rapidfeedback\Model\TextQuestion();
-                                $newquestion->setInputLength($questionValues[4]);
-                                break;
-                            case 1:
-                                $newquestion = new \Rapidfeedback\Model\TextareaQuestion();
-                                $newquestion->setRows($questionValues[4]);
-                                break;
-                            case 2:
-                                $newquestion = new \Rapidfeedback\Model\SingleChoiceQuestion();
-                                $options = $_POST[$question . "_options"];
-                                $options != '' ? ($options = explode(',', $options)) : '';
-                                foreach ($options as $option) {
-                                    $newquestion->addOption(rawurldecode($option));
+                        if (isset($_POST[$question])) {
+                            $questionValues = $_POST[$question];
+                            $questionValues != '' ? ($questionValues = explode(',', $questionValues)) : '';
+                            if (isset($questionValues[0])) {
+                                switch ($questionValues[0]) {
+                                    case 0:
+                                        $newquestion = new \Rapidfeedback\Model\TextQuestion();
+                                        $newquestion->setInputLength($questionValues[4]);
+                                        break;
+                                    case 1:
+                                        $newquestion = new \Rapidfeedback\Model\TextareaQuestion();
+                                        $newquestion->setRows($questionValues[4]);
+                                        break;
+                                    case 2:
+                                        $newquestion = new \Rapidfeedback\Model\SingleChoiceQuestion();
+                                        $options = $_POST[$question . "_options"];
+                                        $options != '' ? ($options = explode(',', $options)) : '';
+                                        foreach ($options as $option) {
+                                            $newquestion->addOption(rawurldecode($option));
+                                        }
+                                        $newquestion->setArrangement($questionValues[4]);
+                                        break;
+                                    case 3:
+                                        $newquestion = new \Rapidfeedback\Model\MultipleChoiceQuestion();
+                                        $options = $_POST[$question . "_options"];
+                                        $options != '' ? ($options = explode(',', $options)) : '';
+                                        foreach ($options as $option) {
+                                            $newquestion->addOption(rawurldecode($option));
+                                        }
+                                        $newquestion->setArrangement($questionValues[4]);
+                                        break;
+                                    case 4:
+                                        $newquestion = new \Rapidfeedback\Model\MatrixQuestion();
+                                        $columns = $_POST[$question . "_columns"];
+                                        $columns != '' ? ($columns = explode(',', $columns)) : '';
+                                        foreach ($columns as $column) {
+                                            $newquestion->addcolumn(rawurldecode($column));
+                                        }
+                                        $rows = $_POST[$question . "_rows"];
+                                        $rows != '' ? ($rows = explode(',', $rows)) : '';
+                                        foreach ($rows as $row) {
+                                            $newquestion->addRow(rawurldecode($row));
+                                        }
+                                        break;
+                                    case 5:
+                                        $newquestion = new \Rapidfeedback\Model\GradingQuestion();
+                                        $options = $_POST[$question . "_rows"];
+                                        $options != '' ? ($options = explode(',', $options)) : '';
+                                        foreach ($options as $option) {
+                                            $newquestion->addRow(rawurldecode($option));
+                                        }
+                                        break;
+                                    case 6:
+                                        $newquestion = new \Rapidfeedback\Model\TendencyQuestion();
+                                        $options = $_POST[$question . "_options"];
+                                        $options != '' ? ($options = explode(',', $options)) : '';
+                                        $newquestion->setSteps($questionValues[4]);
+                                        for ($count = 0; $count < count($options); $count = $count + 2) {
+                                            $newquestion->addOption(array(rawurldecode($options[$count]), rawurldecode($options[$count + 1])));
+                                        }
+                                        break;
+                                    case 7:
+                                        $newquestion = new \Rapidfeedback\Model\DescriptionLayoutElement();
+                                        $newquestion->setDescription(rawurldecode($questionValues[1]));
+                                        break;
+                                    case 8:
+                                        $newquestion = new \Rapidfeedback\Model\HeadlineLayoutElement();
+                                        $newquestion->setHeadline(rawurldecode($questionValues[1]));
+                                        break;
+                                    case 9:
+                                        $newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
+                                        break;
                                 }
-                                $newquestion->setArrangement($questionValues[4]);
-                                break;
-                            case 3:
-                                $newquestion = new \Rapidfeedback\Model\MultipleChoiceQuestion();
-                                $options = $_POST[$question . "_options"];
-                                $options != '' ? ($options = explode(',', $options)) : '';
-                                foreach ($options as $option) {
-                                    $newquestion->addOption(rawurldecode($option));
+
+                                if ($questionValues[0] < 7) {
+                                    $newquestion->setQuestionText(rawurldecode($questionValues[1]));
+                                    $newquestion->setHelpText(rawurldecode($questionValues[2]));
+                                    $newquestion->setRequired($questionValues[3]);
                                 }
-                                $newquestion->setArrangement($questionValues[4]);
-                                break;
-                            case 4:
-                                $newquestion = new \Rapidfeedback\Model\MatrixQuestion();
-                                $columns = $_POST[$question . "_columns"];
-                                $columns != '' ? ($columns = explode(',', $columns)) : '';
-                                foreach ($columns as $column) {
-                                    $newquestion->addcolumn(rawurldecode($column));
-                                }
-                                $rows = $_POST[$question . "_rows"];
-                                $rows != '' ? ($rows = explode(',', $rows)) : '';
-                                foreach ($rows as $row) {
-                                    $newquestion->addRow(rawurldecode($row));
-                                }
-                                break;
-                            case 5:
-                                $newquestion = new \Rapidfeedback\Model\GradingQuestion();
-                                $options = $_POST[$question . "_rows"];
-                                $options != '' ? ($options = explode(',', $options)) : '';
-                                foreach ($options as $option) {
-                                    $newquestion->addRow(rawurldecode($option));
-                                }
-                                break;
-                            case 6:
-                                $newquestion = new \Rapidfeedback\Model\TendencyQuestion();
-                                $options = $_POST[$question . "_options"];
-                                $options != '' ? ($options = explode(',', $options)) : '';
-                                $newquestion->setSteps($questionValues[4]);
-                                for ($count = 0; $count < count($options); $count = $count + 2) {
-                                    $newquestion->addOption(array(rawurldecode($options[$count]), rawurldecode($options[$count + 1])));
-                                }
-                                break;
-                            case 7:
-                                $newquestion = new \Rapidfeedback\Model\DescriptionLayoutElement();
-                                $newquestion->setDescription(rawurldecode($questionValues[1]));
-                                break;
-                            case 8:
-                                $newquestion = new \Rapidfeedback\Model\HeadlineLayoutElement();
-                                $newquestion->setHeadline(rawurldecode($questionValues[1]));
-                                break;
-                            case 9:
-                                $newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
-                                break;
+                                $survey_object->addQuestion($newquestion);
+                            }
                         }
-                        if ($questionValues[0] < 7) {
-                            $newquestion->setQuestionText(rawurldecode($questionValues[1]));
-                            $newquestion->setHelpText(rawurldecode($questionValues[2]));
-                            $newquestion->setRequired($questionValues[3]);
-                        }
-                        $survey_object->addQuestion($newquestion);
                     }
                 }
                 if ($_POST["starttype"] == 1) {
@@ -207,12 +227,15 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         }
         $frameResponseObject->addWidget($actionbar);
 
+
         // display edit form
         $content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_edit.template.html");
         $content->setCurrentBlock("BLOCK_CREATE_SURVEY");
         $content->setVariable("CREATE_LABEL", "Fragebogen erstellen");
         $content->setVariable("TITLE_LABEL", "Titel:");
         $content->setVariable("BEGINTEXT_LABEL", "Willkommenstext:");
+
+
         $content->setVariable("ENDTEXT_LABEL", "Abschlusstext:");
         $content->setVariable("STARTTYPE_LABEL", "Durchführungszeitraum:");
         $content->setVariable("STARTTYPE0_LABEL", "Manuell");
@@ -248,7 +271,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $content->setvariable("ELEMENTS_LABEL", "Elemente");
         $content->setVariable("ADDROWS_LABEL", "Weitere Zeile hinzufügen");
         $content->setVariable("MANDATORY_LABEL", "Als Pflichtfrage definieren");
-        $content->setVariable("SAVE_LABEL", "Speichern");
+        $content->setVariable("SAVE_LABEL", "Frage hinzufügen");
         $content->setVariable("CANCEL_LABEL", "Abbrechen");
         $content->setVariable("ADDQUESTION_LABEL", "Neue Frage hinzufügen");
         $content->setVariable("LAYOUTELEMENT_LABEL", "Layout-Element");
@@ -270,6 +293,10 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
             $survey_object->parseXML($xml);
             $content->setVariable("TITLE_VALUE", $survey_object->getName());
             $content->setVariable("BEGINTEXT_VALUE", $survey_object->getBeginText());
+            $welcomeImageId = $survey->get_attribute("bid:rfb:picture_id");
+            if ($welcomeImageId !== 0) {
+                $content->setVariable("WELCOME_IMG_SRC", PATH_URL . "download/document/$welcomeImageId/");
+            }
             $content->setVariable("ENDTEXT_VALUE", $survey_object->getEndText());
             $starttype = $survey->get_attribute("RAPIDFEEDBACK_STARTTYPE");
             if (is_array($starttype)) {
@@ -284,7 +311,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
             $id_counter = 0;
             $asseturl = $RapidfeedbackExtension->getAssetUrl() . "icons/";
             for ($count = 0; $count < count($questions); $count++) {
-                $question_html = $question_html . $questions[$count]->getEditHTML($id_counter);
+                $question_html = $question_html . $questions[$count]->getEditHTML($id_counter, $count + 1);
                 $id_counter++;
             }
             $content->setVariable("ELEMENT_COUNTER", $id_counter);

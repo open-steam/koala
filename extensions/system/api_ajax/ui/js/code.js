@@ -271,7 +271,7 @@ jQuery.error = console.error;
 function handleJSError(errorTitle, file, line) {
     if (DEVELOPER) {
         if (!document.body) {
-            alert("JS Error");
+            alert("JS Error" + errorTitle + " " + file + " " + line);
         } else {
             document.body.style.border = "20px solid red";
             document.body.style.width = "97%";

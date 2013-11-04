@@ -33,12 +33,11 @@ class ArrayToStringProvider implements IDataProvider {
 		} else {
 			$objectId = $object->get_id();
 		}
+                
 		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
-		return <<< END
-window.ajaxSaving==true;
-               
-sendRequest('SendArrayToStringRequest', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': value}, '', 'data'{$function});
-END;
+                
+                return " 
+sendRequest('SendArrayToStringRequest', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': value}, '', 'data'{$function}, null, 'Explorer');";
 	}
 	
 	public function isChangeable($object) {
