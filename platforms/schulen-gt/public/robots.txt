@@ -1,0 +1,9 @@
+# robots.txt to prevent 404 for requesting /robots.txt
+User-agent: *
+Disallow: /get_document.php
+Disallow: /cached/get_document.php
+Disallow: /podload/
+Disallow: /feeds/
+Disallow: /stream/
+Disallow: /cgi-bin/awstats.pl
+
