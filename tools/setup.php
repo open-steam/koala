@@ -62,6 +62,8 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/lo
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/public/.htaccess", 0644, "../platforms/koala/public/.htaccess.example");
 
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../extensions/content/worksheet/templates_c", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../tools/bid-tools/asciisvg/imgs", 0777);
+
 $required_paths_okay = TRUE;
 output("Checking files and directories for existance and permissions ...\n");
 foreach ($required_paths as $path) {
