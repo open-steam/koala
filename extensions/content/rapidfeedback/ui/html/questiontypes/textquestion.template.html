@@ -1,62 +1,66 @@
 <!-- BEGIN BLOCK_EDIT -->
 <li class="ui-state-default-rf" id="rfelement{ELEMENT_ID}" >
-	<table width="100%">
-		<tr>
-			<td align="right" style="padding:0px; border:0px;">
-                            <span class="images-rfb">
-				<img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-				&nbsp
-				<img onclick="copyElement({ELEMENT_ID});setTimeout(function(){$('#save-que-button').click();}, 750);" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-				&nbsp
-				<img onclick="deleteElement({ELEMENT_ID});setTimeout(function(){$('#save-que-button').click();}, 750);" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-                                </span>
-			</td>
-		</tr>
-                <tr><td></td></tr>
-		<tr>
-			<td style="padding:0px; border:0px;">
-				<h2 style="margin:0px;">{NUMBER}. {QUESTION_TEXT}</h2>
-				{HELP_TEXT}
-				<br>
-				<input type="text" style="width: 99%;" disabled>
-			</td>
-		</tr>
-	</table>
+    <table width="100%">
+        <tr>
+            <td align="right" style="padding:0px; border:0px;">
+                <span class="images-rfb">
+                    <img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+                    &nbsp
+                    <img onclick="copyElement({ELEMENT_ID}); setTimeout(function() {
+                                            $('#save-que-button').click();
+                                        }, 750);" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+                    &nbsp
+                    <img onclick="deleteElement({ELEMENT_ID}); setTimeout(function() {
+                                            $('#save-que-button').click();
+                                        }, 750);" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+                </span>
+            </td>
+        </tr>
+        <tr><td></td></tr>
+        <tr>
+            <td style="padding:0px; border:0px;">
+                <h2 style="margin:0px;">{NUMBER}. {QUESTION_TEXT}</h2>
+                {HELP_TEXT}
+                <br>
+                <input type="text" style="width: 99%;" disabled>
+            </td>
+        </tr>
+    </table>
 </li>
 <input type="hidden" name="rfelement{ELEMENT_ID}" value="{ELEMENT_DATA}">
 <!-- END BLOCK_EDIT -->
 
 <!-- BEGIN BLOCK_VIEW -->
 <tr>
-	<td style="{ERROR_BORDER}">
-		<b>{QUESTION_TEXT}</b>
-		<br>
-		{HELP_TEXT}
-		<br>
-		<input type="text" style="width: 99%" value="{ELEMENT_INPUT}" name="question{ELEMENT_ID}" maxlength="{ELEMENT_MAXLENGTH}" {QUESTION_DISABLED}>
-	</td>
+    <td style="{ERROR_BORDER}">
+        <b>{QUESTION_TEXT}</b>
+        <br>
+        {HELP_TEXT}
+        <br>
+        <input type="text" style="width: 99%" value="{ELEMENT_INPUT}" name="question{ELEMENT_ID}" maxlength="{ELEMENT_MAXLENGTH}" {QUESTION_DISABLED}>
+    </td>
 </tr>
 <!-- END BLOCK_VIEW -->
 
 <!-- BEGIN BLOCK_NO_RESULTS -->
 <tr>
-	<td>
-		<font size="2"><b>{QUESTION_TEXT}</b></font>
-		<br>
-		{NO_RESULTS}
-	</td>
+    <td>
+        <font size="2"><b>{QUESTION_TEXT}</b></font>
+        <br>
+        {NO_RESULTS}
+    </td>
 </tr>
 <!-- END BLOCK_NO_RESULTS -->
 
 <!-- BEGIN BLOCK_RESULTS -->
 <tr>
-	<td>
-		<font size="2"><b>{QUESTION_TEXT}</b></font>
-		<br>
-		<!-- BEGIN BLOCK_RESULT -->
-		<font style="background-color: #C0C0C0; line-height:14pt;">- {RESULT_TEXT}</font>
-		<br>
-		<!-- END BLOCK_RESULT -->
-	</td>
+    <td>
+        <font size="2"><b>{QUESTION_TEXT}</b></font>
+        <br>
+        <!-- BEGIN BLOCK_RESULT -->
+        <font style="background-color: #C0C0C0; line-height:14pt;">- {RESULT_TEXT}</font>
+        <br>
+        <!-- END BLOCK_RESULT -->
+    </td>
 </tr>
 <!-- END BLOCK_RESULTS -->
