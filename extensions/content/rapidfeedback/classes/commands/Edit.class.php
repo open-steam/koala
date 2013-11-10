@@ -171,6 +171,9 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                                     case 9:
                                         $newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
                                         break;
+                                    /*case 10:
+                                        $newquestion = new \Rapidfeedback\Model\DescriptionLayoutElement();
+                                        break; */
                                 }
 
                                 if ($questionValues[0] < 7) {
