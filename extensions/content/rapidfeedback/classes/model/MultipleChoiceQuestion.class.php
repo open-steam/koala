@@ -61,14 +61,14 @@ class MultipleChoiceQuestion extends AbstractQuestion {
         return $question;
     }
 
-    function getEditHTML($id) {
-      
+    function getEditHTML($id, $number = -1) {
+
         $RapidfeedbackExtension = \Rapidfeedback::getInstance();
         $content = $RapidfeedbackExtension->loadTemplate("questiontypes/multiplechoicequestion.template.html");
         $content->setCurrentBlock("BLOCK_EDIT");
-       // if ($number != -1) {
-       //     $content->setVariable("NUMBER", $number);
-       // }
+        if ($number != -1) {
+            $content->setVariable("NUMBER", $number);
+        }
         $content->setVariable("ELEMENT_ID", $id);
         $content->setVariable("ASSETURL", $RapidfeedbackExtension->getAssetUrl() . "icons/");
         $content->setVariable("EDIT_LABEL", "Bearbeiten");
@@ -79,7 +79,7 @@ class MultipleChoiceQuestion extends AbstractQuestion {
         } else {
             $content->setVariable("QUESTION_TEXT", $this->questionText);
         }
-       
+
         $content->setVariable("HELP_TEXT", $this->helpText);
         $options = "";
         $counter = 0;
