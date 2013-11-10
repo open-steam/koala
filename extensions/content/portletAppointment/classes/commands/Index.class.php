@@ -118,7 +118,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             if($sortOrderBool){
                $content = array_reverse($content); 
             }
-            $portletObject->set_attribute("bid:portlet:content", $content);
+            
+            //write access is required to save the sorting
+            //no problem, because only with write access elements can be added, removed or rearranged
+            if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())){
+                $portletObject->set_attribute("bid:portlet:content", $content);
+            }
             
             $indexCount = 0; 
             
