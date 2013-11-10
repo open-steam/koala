@@ -183,14 +183,22 @@ function changeLayoutDialog(type) {
         case "7":
             $('#description_preview').show();
             $('#headline_preview').hide();
+            $('#jumplabel_preview').hide();
             break;
         case "8":
             $('#description_preview').hide();
             $('#headline_preview').show();
+            $('#jumplabel_preview').hide();
             break;
         case "9":
             $('#description_preview').hide();
             $('#headline_preview').hide();
+            $('#jumplabel_preview').hide();
+            break;
+        case "10":
+            $('#description_preview').hide();
+            $('#headline_preview').hide();
+            $('#jumplabel_preview').show();
             break;
     }
 }
@@ -637,9 +645,29 @@ function addLayoutElement() {
             createPageBreakLayoutElement('#newlayout');
             hideLayoutDialog();
             break;
+        case "10":
+            var from = $('#from-JL').val();
+            var to = $('#to-JL').val();
+            createJumpLabelLayoutElement(from, to, '#newlayout');
+            hideLayoutDialog();
+            break;
+
     }
 }
-
+function createJumpLabelLayoutElement(from, to, insertPoint) {
+    params = {};
+    params.layoutType = "10";
+    params.from = from;
+    params.to = to;
+    params.layoutID = elementCounter;
+    
+    var successFunction = function(response) {
+        responseData = jQuery.parseJSON(response);
+        $(responseData.html).insertBefore($(insertPoint));
+    }
+    var response = sendRequest('AddLayoutElement', params, 0, 'data', '', successFunction);
+    elementCounter++;
+}
 function createDescriptionLayoutElement(description, insertPoint) {
     params = {};
     params.layoutType = "7";
@@ -782,7 +810,7 @@ function addElement() {
             createTendencyQuestion(data, options, '#newquestion');
             hideCreateDialog();
     }
-    
+
 }
 
 /*

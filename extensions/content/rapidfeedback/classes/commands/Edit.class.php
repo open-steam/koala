@@ -171,16 +171,19 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                                     case 9:
                                         $newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
                                         break;
-                                    /*case 10:
-                                        $newquestion = new \Rapidfeedback\Model\DescriptionLayoutElement();
-                                        break; */
+                                    case 10:   
+                                        $newquestion = new \Rapidfeedback\Model\JumpLabel();
+                                        $newquestion->setFrom($questionValues[1]);
+                                        $newquestion->setTo($questionValues[2]);
+                                        break; 
                                 }
-
+                              
                                 if ($questionValues[0] < 7) {
                                     $newquestion->setQuestionText(rawurldecode($questionValues[1]));
                                     $newquestion->setHelpText(rawurldecode($questionValues[2]));
                                     $newquestion->setRequired($questionValues[3]);
                                 }
+                               
                                 $survey_object->addQuestion($newquestion);
                             }
                         }
@@ -257,6 +260,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("MULTIPLECHOICE_LABEL", "Multiple Choice");
         $content->setVariable("MATRIX_LABEL", "Matrix");
         $content->setVariable("GRADING_LABEL", "Benotung");
+        $content->setVariable("JUMP_LABEL", "Sprungmarke");
         $content->setVariable("TENDENCY_LABEL", "Tendenz");
         $content->setVariable("ANSWER_LABEL", "Antwort");
         $content->setVariable("AREA_ROWS", "Zeilen");

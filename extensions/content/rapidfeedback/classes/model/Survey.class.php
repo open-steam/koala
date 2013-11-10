@@ -157,6 +157,8 @@ class Survey extends \AbstractObjectModel {
 				case 9:
 					$new_question = new \Rapidfeedback\Model\PageBreakLayoutElement($question);
 					break;
+                                case 10: 
+                                    $new_question = new \Rapidfeedback\Model\JumpLabel($question);
 			}
 			array_push($questions, $new_question);
 		}
