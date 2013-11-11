@@ -294,6 +294,9 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         }
         if ($editID != 0) {
             $content->setVariable("EDIT_ID", $editID);
+            if($surveyCount > 0 ){
+                $content->setVariable("EDIT_ID_MSG", $editID);
+            }
             $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $editID);
             $survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
             $xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");

@@ -25,11 +25,13 @@
                     <td class="label">{BEGINTEXT_LABEL}</td>
                     <td><textarea name="begintext" style="width:99%" rows="4">{BEGINTEXT_VALUE}</textarea></td>
                 </tr>
+                <!-- BEGIN BLOCK_PICTURE -->
                 <tr>
-                    <td class="label"><a class="button" onclick="sendRequest('EditMessageImage', {'id': '{EDIT_ID}'}, '', 'popup', null, null, 'rapidfeedback');
+                    <td class="label"><a class="button" onclick="sendRequest('EditMessageImage', {'id': '{EDIT_ID_MSG}'}, '', 'popup', null, null, 'rapidfeedback');
         return false;">Bild hinzufügen</a></td>
                     <td><img src="{WELCOME_IMG_SRC}" style="max-width: 790px;max-height: 300px;overflow: hidden;"> </td>
                 </tr>
+                <!-- END BLOCK_PICTURE -->
                 <tr>
                     <td class="label">{ENDTEXT_LABEL}</td>
                     <td><textarea name="endtext" style="width:99%" rows="4">{ENDTEXT_VALUE}</textarea></td>
