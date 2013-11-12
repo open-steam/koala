@@ -118,6 +118,7 @@ class TextInput extends Widget {
             $style = "style=\"{$style}\"";
             $this->getContent()->setVariable("INPUT_STYLE", $style);
         }
+       
         if ($this->contentProvider) {
             if (!$this->contentProvider->isChangeable($this->data)) {
                 $this->getContent()->setVariable("READONLY", "readonly");
@@ -126,7 +127,7 @@ class TextInput extends Widget {
             }
             $valueString = $this->contentProvider->getData($this->data);
             if (is_array($valueString)) {
-                echo $this->id;die;
+                //echo $this->id;die;
             }
             $valueString = (($valueString === "0") || ($valueString === "")) ? "" : $valueString;
             $valueString = htmlspecialchars($valueString);

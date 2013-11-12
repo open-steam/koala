@@ -331,12 +331,13 @@ class View extends \AbstractCommand implements \IFrameCommand {
 
             $html = "";
             $counter = 0;
-            $layoutCounter = 0;
+           $layoutCounter = 0;
             $pageCounter = 1;
             foreach ($questions as $question) {
                 if ($question instanceof \Rapidfeedback\Model\AbstractLayoutElement) {
                     if ($pageCounter == $page) {
-                        $html = $html . $question->getViewHTML($layoutCounter);
+                        $html = $html . $question->getViewHTML($counter +1);
+                         $counter++;
                     }
                     $layoutCounter++;
                     if ($question instanceof \Rapidfeedback\Model\PageBreakLayoutElement) {

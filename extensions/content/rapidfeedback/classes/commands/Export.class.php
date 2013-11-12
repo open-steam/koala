@@ -135,7 +135,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 							if ($questions[$questionCount] instanceof \Rapidfeedback\Model\MultipleChoiceQuestion) {
 								$cellContent = "";
 								foreach ($oneResult as $partResult) {
-									$cellContent = $cellContent . $partResult . " ";
+									$cellContent = $cellContent . $partResult . "|";
 								}
 								$cellContent = substr($cellContent, 0, strlen($cellContent)-1);
 								$objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $cellContent);
@@ -165,7 +165,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 				}
 			}
 					
-			$filename = "fragebogen" . $this->id . ".csv";
+			$filename = "fragebogen" . $this->id . ".xls";
 			header('Content-Type: application/vnd.ms-excel');
 			header('Content-Disposition: attachment;filename="'.$filename.'"');
 			header('Cache-Control: max-age=0');

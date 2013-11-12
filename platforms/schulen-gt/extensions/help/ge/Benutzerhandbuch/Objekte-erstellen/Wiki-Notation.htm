@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link href="../../../../css/static_pages.css" rel="stylesheet" type="text/css" />
+<title>Wiki-Notation</title>
+</head>
+
+<body>
+
+<h1>Wiki-Notation
+<a href="../../index.php"><img alt="zum Inhaltsverzeichnis" src="../../../../css/top.gif" /></a></h1>
+
+<p>Für Texte, die Sie über den Menüpunkt »Neu« &rarr; »Text« erstellen, sowie Dateien mit der Dateiendung ».txt«, die Sie auf den Server übertragen, können Sie eine Wiki-Notation verwenden. Diese Notation entspricht im Wesentlichen derjenigen, die in der Wikipedia verwendet wird, ist jedoch in Teilen eingeschränkt und in anderen erweitert.</p>
+
+<h2>Textgestaltung</h2>
+
+<p>Normaler Text wird ganz gewöhnlich angezeigt. So können Sie ganz einfach einen Text verfassen, ohne irgendwelche Kenntnisse über HTML oder ähnliches zu benötigen. Einfache Zeilenumbrüche werden ignoriert. Einen neuen Absatz beginnen Sie mit einer Leerzeile. Wenn Sie in eine Zeile lediglich vier Minuszeichen schreiben (-), so erhalten Sie an dieser Stelle eine waagerechte Linie. In dieser Zeile dürfen keine Leerzeichen vorkommen!</p>
+
+<p>Sie können Text auch sehr einfach kursiv oder fett hervorheben, indem Sie zwei bzw. drei einfache Hochkommata (') an den Anfang und das Ende des hervorzuhebenden Textstücks setzen. Beachten Sie, dass das Hochkomma nicht mit den Akzenten verwechselt werden darf.</p>
+
+<p>Eine Überschrift kennzeichnen Sie, indem Sie die Zeile mit zwei bis fünf Gleichheitszeichen (=) beginnen und mit der gleichen Anzahl von Gleichheitszeichen abschließen. Die gesamte Überschrift muss in einer einzelnen Zeile stehen, darf also keine Zeilenumbrüche enthalten. Sie können Überschriften in vier Größen verwenden.</p>
+
+<p>Aufzählungen können Sie bisher leider nur in einer einfachen Form verwenden – Zeilenumbrüche in Aufzählungen und geschachtelte Aufzählungen sind derzeit nicht möglich. Jeder Punkt der Aufzählung muss auf einer einzelnen Zeile stehen, die mit einem Sternchen (*) oder einem Nummerierungszeichen (#) beginnt. Mit der ersten dieser Varianten erzeugen Sie eine unnummerierte Liste, deren einzelne Aufzählungspunkte durch einen Spiegelstrich markiert sind. Mit der zweiten Variante erzeugen Sie eine nummerierte Liste; diese Variante eignet sich auch, wenn Sie einen Text mit Zeilennummern versehen möchten.</p>
+
+<table class="pane">
+  <tr><th colspan="2">Notation für die Textgestaltung</th></tr>
+  <tr><td>Einfacher Zeilenumbruch</td><td>keine Wirkung</td></tr>
+  <tr><td>Leerzeile</td><td>erzeugt einen Absatz</td></tr>
+  <tr><td>----</td><td>erzeugt eine waagerechte Linie</td></tr>
+  <tr><td>''kursiver Text''</td><td>hervorgehobener Text, der in kursiver Schrift dargestellt wird</td></tr>
+  <tr><td>'''fetter Text'''</td><td>stark hervorgehobener Text, der in fetter Schrift dargestellt wird</td></tr>
+  <tr><td>==Überschrift 1==</td><td>Überschrift erster Ordnung</td></tr>
+  <tr><td>===Überschrift 2===</td><td>Überschrift zweiter Ordnung</td></tr>
+  <tr><td>====Überschrift 3====</td><td>Überschrift dritter Ordnung</td></tr>
+  <tr><td>=====Überschrift 4=====</td><td>Überschrift vierter Ordnung</td></tr>
+  <tr><td>* (am Zeilenanfang)</td><td>erzeugt ein Aufzählungszeichen</td></tr>
+  <tr><td># (am Zeilenanfang)</td><td>erzeugt eine Zeilennummer</td></tr>
+</table>
+
+<h2>Verweise</h2>
+
+<p>Einen Verweis auf ein anderes Dokument innerhalb desselben Ordners erzeugen Sie einfach, indem Sie den Namen jenes Dokuments in doppelten eckigen Klammern einfügen. Beachten Sie, dass Sie den Namen der Datei verwenden müssen, der eventuell von dem Titel des Dokuments abweichen kann; nähere Informationen zum Dateinamen finden Sie im Kapitel »Inhalte verändern« im Abschnitt <a href="../Inhalte-veraendern/Eigenschaften.htm">»Eigenschaften vergeben«</a>. Außerdem spielen Groß- und Kleinschreibung eine Rolle. Dabei müssen Sie insbesondere darauf achten, dass Leer- und Sonderzeichen (wie Umlaute) in Dateinamen in besonderer Weise kodiert werden. Wenn Sie auf ein Dokument verweisen möchten, ohne dass dessen Name in Ihrem Text auftaucht, können Sie in die doppelten eckigen Klammen einen senkrechten Strich hinter dem Dateinamen einfügen und hinter diesem den Text angeben, der anstelle des Dateinamens angezeigt werden soll.</p>
+
+<p>Verweise auf externe Dokumente, also beliebige Seiten im Web, können Sie erstellen, indem Sie die vollständige Adresse, wie sie in der Adresszeile des Browsers zu sehen ist, in einfache eckige Klammern schreiben. Steht in den eckigen Klammern nur eine Adresse, so wird die entsprechende Adresse im Text angezeigt. Wenn Sie hinter der Adresse, aber noch vor der schließenden eckigen Klammer, ein Leerzeichen gefolgt von einem beliebigen Stück Text setzen, so erscheint der Text anstelle der Adresse und ist als Verweis zu der entsprechenden Adresse anklickbar.</p>
+
+<h2>Bilder</h2>
+
+<p>Bilder werden auf ganz ähnliche Weise eingebunden: Für Bilder, die auf diesem Server liegen, geben Sie einfach in doppelten eckigen Klammern »Bild:« gefolgt von der Objektnummer des Bildes an. Auf die Nummer selber muss allerdings – noch in den eckigen Klammern – ein senkrechter Strich folgen, hinter dem Sie eine Bildbeschreibung angeben sollten. Liegt das Bild auf einem anderen Server, geben Sie hinter »Bild:« die vollständige Web-Adresse des Bildes anstelle der Objektnummer an; auch hier wird der senkrechte Strich benötigt, auf den die Bildbeschreibung folgen sollte. Bevor Sie ein Bild – insbesondere eines von einem fremden Server – einbinden, müssen Sie sicherstellen, dass dies rechtlich zulässig ist.</p>
+
+<h2>Tondateien</h2>
+
+<p>Mit einer Abtastfrequenz von 44,1 kHz erstellte MP3-Dateien – die von uns verwendete Komponente zum Abspielen unterstützt allerdings derzeit keine anderen Audioformate – können Sie in Texte einbinden, indem Sie einfach in doppelten eckigen Klammern »Audio:« gefolgt von der Objektnummer der Tondatei angeben. Eine Beschreibung wie bei Bildern können Sie hier nicht angeben. Liegt die MP3-Datei auf einem anderen Server, geben Sie hinter »Audio:« die vollständige Web-Adresse des Bildes anstelle der Objektnummer an. Bevor Sie eine MP3-Datei – insbesondere eine von einem fremden Server – einbinden, müssen Sie sicherstellen, dass dies rechtlich zulässig ist.</p>
+
+<h2>Videos</h2>
+
+<p>Sie können auch Videodateien in Ihre Texte einbinden. Leider gibt es sehr viele unterschiedliche Videoformate und Unterformate (die so genannten »Codecs«), die Videos zu einem eher heiklen Feld machen. Die von uns verwendete Komponente zum Abspielen von Videos unterstützt nach Angaben des Entwicklers alle Formate, die der Adobe Flash Player unterstützt, darunter das speziell für Internetübertragungen entwickelte FLV-Format mit eher kleinen Dateigrößen und das für qualitativ hochwertige Videos geeignete H264-Format; auch bei YouTube gespeicherte Videos können Sie einbinden. Um die Videos zu betrachten, muss im Browser das Flash-Plugin in einer aktuellen Version installiert sein.</p>
+
+<p>Wie Bilder und Tondateien können Sie auch Videos einfach einbinden, indem Sie in doppelten eckigen Klammern »Video:« gefolgt von der Objektnummer des Videos angeben. Um ein bei YouTube gespeichertes Video einzubinden, geben Sie hinter »Video:« die Adresse der entsprechenden Seite an. Liegt das Video auf einem anderen Server, geben Sie hinter »Video:« die vollständige Web-Adresse des Films an. Wenn Sie Videos einbinden, müssen Sie sicherstellen, dass Sie die entsprechenden Nutzungsrechte besitzen.</p>
+
+<h2>Medienelemente und Tabellen</h2>
+
+<p>Alle Medienelemente, also Bilder, Tondateien und Videos, werden per Voreinstellung rechtsbündig gesetzt; der Text fließt links um sie herum. Wenn ein Medienelement linksbündig oder ohne umlaufenden Text angezeigt werden soll, können Sie es in eine Tabelle einpacken. Dies bietet sich auch an, wenn Sie Ihr Medienelement mit einer Bildunterschrift versehen möchten, um dort beispielsweise eine Erläuterung oder eine Quellenangabe anzubringen. Dazu benötigen Sie nur eine einfache Tabelle aus zwei Zeilen, wobei in der einen das Bild, in der anderen die Unterschrift steht. Nähere Informationen zu Tabellen finden Sie weiter unten.</p>
+
+<table class="pane">
+  <tr><th colspan="2">Notation für Verweise und Medienelemente</th></tr>
+  <tr><td>[[Dokumentname]]</td><td>Verweis auf ein Dokument mit Namen »Dokumentname« im gleichen Ordner</td></tr>
+  <tr><td>[[Dokumentname|anzuzeigender Text]]</td><td>Verweis auf das gleiche Dokument; im Text des verweisenden Dokuments wird jedoch »anzuzeigender Text« angezeigt</td></tr>
+  <tr><td>[http://www.tagesschau.de]</td><td>Verweis auf eine Webseite; die Adresse wird im Text des verweisenden Dokuments angezeigt</td></tr>
+  <tr><td>[http://www.tagesschau.de Die Tagesschau]</td><td>Verweis auf eine Webseite; der Text hinter dem ersten Leerzeichen wird im verweisenden Dokument angezeigt</td></tr>
+  <tr><td>[[Bild:6616|Bildbeschreibung]]</td><td>Bindet das auf diesem Server befindliche Bild mit der Objektnummer 6616 ein; die Bildbeschreibung wird angezeigt, wenn die Maus über dem Bild verweilt</td></tr>
+  <tr><td>[[Bild:http://choose-film.com/wp-profiles/604/windows_bauhaus.jpg|Beschreibung]]</td><td>Bindet das an der angegebenen Web-Adresse befindliche Bild ein; die Beschreibung wird angezeigt, wenn die Maus über dem Bild verweilt</td></tr>
+  <tr><td>[[Audio:151420]]</td><td>Bindet die auf diesem Server befindliche MP3-Datei mit der Objektnummer 151420 ein</td></tr>
+  <tr><td>[[Audio:http://www.eslpodcards.com/new-zealand/jonah-lomu.mp3]]</td><td>Bindet die an der angegebenen Web-Adresse befindliche MP3-Datei ein</td></tr>
+  <tr><td>[[Video:347240]]</td><td>Bindet das auf diesem Server befindliche Video mit der Objektnummer 347240 ein</td></tr>
+  <tr><td>[[Video:http://www.jeroenwijering.com/upload/afraid.flv]]</td><td>Bindet das an der angegebenen Web-Adresse befindliche Video ein</td></tr>
+  <tr><td>[[Video:http://www.youtube.com/watch?v=brAlzKHYFnA]]</td><td>Bindet das angegebene YouTube-Video ein</td></tr>
+</table>
+
+<h2>Tabellen</h2>
+
+<p>Sie können in Ihren Dokumenten auf recht einfache Weise Tabellen verwenden. Der Anfang der Tabelle wird mit einer öffnenden geschweiften Klammer und einem darauf folgenden senkrechten Strich gekennzeichnet ({|), das Ende mit einem senkrechten Strich, auf den eine schließende geschweifte Klammer folgt (|}). Diese Zeichen müssen im eingegebenen Text jeweils am Anfang einer Zeile stehen.</p>
+
+<p>Um die Tabelle weitergehend zu formatieren, können am Tabellenanfang ein vordefinierter Stil oder einzelne Stilangaben eingefügt werden. Dazu geben Sie dort zusätzlich entweder »class="prettytable"« oder »style="..."« an; im letzteren Fall müssen Sie die drei Punkte durch CSS-Stilangaben (s. Tabelle unten; eine vollständige Liste finden Sie bei <a href="http://de.selfhtml.org/navigation/css.htm" target="_blank">SelfHTML</a>) ersetzen, die das Aussehen der Tabelle festlegen. Die Angaben von Klasse und Stil können miteinander kombiniert werden, wobei Sie den Stil stets nach der Klasse angeben sollten.</p>
+
+<p>Jede Tabellenzeile besteht aus einer oder mehreren Tabellenzellen. Eine normale Tabellenzelle kennzeichnen Sie mit einem senkrechten Strich am Zeilenanfang im eingegebenen Text, eine Tabellenzelle, die als Zeilen- oder Spaltenüberschrift fungieren soll mit einem Ausrufezeichen. Jede Tabellenzelle muss in einer eigenen Zeile im eingegebenen Text stehen. Eine neue Tabellenzeile kennzeichnen Sie mit einem senkrechten Strich gefolgt von einem Minuszeichen. Diese Zeichen müssen alleine in einer eigenen Zeile im eingegebenen Text stehen.</p>
+
+<p>Die Tabelle in der Abbildung wird in folgender Weise erzeugt:</p>
+
+<p class="image-right"><img src="Bilder/wiki_tabelle.gif" alt="Beispieltabelle" /></p>
+<pre>
+{|class="prettytable"
+!Linke Spalte
+!Rechte Spalte
+|-
+|Zelle 1
+|Zelle 2
+|-
+|Zelle 3
+|Zelle 4
+|-
+|Zelle 5
+|Zelle 6
+|}
+</pre>
+
+<table class="pane">
+  <tr><th colspan="2">Notation für Tabellen</th></tr>
+  <tr><td>{|</td><td>kennzeichnet den Anfang einer Tabelle</td></tr>
+  <tr><td>{|class="prettytable"</td><td>kennzeichnet den Anfang einer Tabelle, die im Stil »prettytable« formatiert wird; weitere Klassen werden derzeit noch nicht angeboten</td></tr>
+  <tr><td>{|style="..."</td><td>kennzeichnet den Anfang einer Tabelle, die entsprechend der angegebenen <a href="http://de.selfhtml.org/navigation/css.htm" target="_blank">CSS-Stilangaben</a> formatiert wird</td></tr>
+  <tr><td>|}</td><td>kennzeichnet das Ende einer Tabelle</td></tr>
+  <tr><td>|-</td><td>kennzeichnet den Beginn einer Tabellenzeile</td></tr>
+  <tr><td>|</td><td>kennzeichnet den Beginn einer normalen Tabellenzelle</td></tr>
+  <tr><td>!</td><td>kennzeichnet den Beginn einer als Zeilen- oder Spaltenüberschrift verwendeten Tabellenzelle</td></tr>
+</table>
+
+
+<table class="pane">
+  <tr><th colspan="2">Beispiele für Stilangaben</th></tr>
+  <tr><td>background-color: silver;</td><td>legt die per <a href="http://de.selfhtml.org/diverses/anzeige/farbnamen_16.htm" target="_blank">Farbnamen</a> angegebene Farbe als Hintergrundfarbe für die Tabelle fest; alternativ können Sie die Farbe auch über ihren Hexadezimalwert (beispielsweise: #99ccff) angeben</td></tr>
+  <tr><td>color: navy;</td><td>legt legt die per <a href="http://de.selfhtml.org/diverses/anzeige/farbnamen_16.htm" target="_blank">Farbnamen</a> angegebene Farbe als Textfarbe für die Tabelle fest; alternativ können Sie die Farbe auch über ihren Hexadezimalwert (beispielsweise: #99ccff) angeben</td></tr>
+  <tr><td>text-align: center;</td><td>setzt alle Tabellenzellen zentriert; anstelle von center können Sie auch left oder right angeben</td></tr>
+  <tr><td>border: 1px solid #cccccc;</td><td>versieht die Tabelle mit einem Rand der Breite 1 Pixel in einem hellen Grauton; der Wert vor px gibt die Linienstärke des Randes an, solid ist die <a href="http://de.selfhtml.org/css/eigenschaften/anzeige/border_style.htm" target="_blank">Linienart</a>, der letzte Wert gibt die Farbe der Linie an – hier können Sie wiederum Farbnamen oder Hexadezimalwerte verwenden</td></tr>
+  <tr><td>border-spacing: 10px;</td><td>versieht jede Zelle mit einem 10 Pixel breiten Abstand; der Wert vor px gibt die Größe des Abstands an</td></tr>
+  <tr><td>margin: 10px;</td><td>umgibt die Tabelle mit einem 10 Pixel breiten Abstand; der Wert vor px gibt die Breite des Abstands an; Sie können auch vier Werte angeben, die dann die Abstände nach oben, rechts, unten und links (in dieser Reihenfolge, jeweils mit px versehen) festlegen; einzelne Abstände können Sie mit margin-left etc. angeben</td></tr>
+  <tr><td>float: right;</td><td>setzt die Tabelle an den rechten Rand der Seite; der folgende Text umfließt die Tabelle; anstelle von right können Sie auch left oder none verwenden, um die Tabelle linksbündig oder als eigenen Absatz zu setzen</td></tr>
+  <tr><td>width: 300px;</td><td>legt die Breite der Tabelle auf 300 Pixel fest; der Wert vor px gibt die Breite der Tabelle an, auch prozentuale Angaben wie 100%, die sich auf die Breite der Seite beziehen, sind zugelassen</td></tr>
+</table>
+
+</body>
+</html>

@@ -26,7 +26,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $create_label = "Neuen Fragebogen erstellen";
 
         $cssWidgetNumbers = new \Widgets\RawHtml();
-        $cssWidgetNumbers->setCss('.number{padding-right:781px;}');
+        $cssWidgetNumbers->setCss('.number{position:absolute;left:30px;}');
         $cssWidgetNumbers->setHtml("");
         $frameResponseObject->addWidget($cssWidgetNumbers);
 
@@ -81,8 +81,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
             } else {
                 $survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
-                if (isset($_POST["title"]) && trim($_POST["title"]) !== "" ) {
-                    
+                if (isset($_POST["title"]) && trim($_POST["title"]) !== "") {
+
                     $survey_object->setName($_POST["title"]);
                 }
                 if (isset($_POST["begintext"])) {
@@ -90,7 +90,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                     $survey_object->setBeginText($_POST["begintext"]);
                 }
                 if (isset($_POST["endtext"])) {
-                   
+
                     $survey_object->setEndText($_POST["endtext"]);
                 }
 
@@ -171,13 +171,19 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                                     case 9:
                                         $newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
                                         break;
+                                    case 10:   
+                                        $newquestion = new \Rapidfeedback\Model\JumpLabel();
+                                        $newquestion->setFrom($questionValues[1]);
+                                        $newquestion->setTo($questionValues[2]);
+                                        break; 
                                 }
-
+                              
                                 if ($questionValues[0] < 7) {
                                     $newquestion->setQuestionText(rawurldecode($questionValues[1]));
                                     $newquestion->setHelpText(rawurldecode($questionValues[2]));
                                     $newquestion->setRequired($questionValues[3]);
                                 }
+                               
                                 $survey_object->addQuestion($newquestion);
                             }
                         }
@@ -227,12 +233,15 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         }
         $frameResponseObject->addWidget($actionbar);
 
+
         // display edit form
         $content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_edit.template.html");
         $content->setCurrentBlock("BLOCK_CREATE_SURVEY");
         $content->setVariable("CREATE_LABEL", "Fragebogen erstellen");
         $content->setVariable("TITLE_LABEL", "Titel:");
         $content->setVariable("BEGINTEXT_LABEL", "Willkommenstext:");
+
+
         $content->setVariable("ENDTEXT_LABEL", "Abschlusstext:");
         $content->setVariable("STARTTYPE_LABEL", "Durchführungszeitraum:");
         $content->setVariable("STARTTYPE0_LABEL", "Manuell");
@@ -251,6 +260,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("MULTIPLECHOICE_LABEL", "Multiple Choice");
         $content->setVariable("MATRIX_LABEL", "Matrix");
         $content->setVariable("GRADING_LABEL", "Benotung");
+        $content->setVariable("JUMP_LABEL", "Sprungmarke");
         $content->setVariable("TENDENCY_LABEL", "Tendenz");
         $content->setVariable("ANSWER_LABEL", "Antwort");
         $content->setVariable("AREA_ROWS", "Zeilen");
@@ -284,12 +294,19 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         }
         if ($editID != 0) {
             $content->setVariable("EDIT_ID", $editID);
+            if($surveyCount > 0 ){
+                $content->setVariable("EDIT_ID_MSG", $editID);
+            }
             $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $editID);
             $survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
             $xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
             $survey_object->parseXML($xml);
             $content->setVariable("TITLE_VALUE", $survey_object->getName());
             $content->setVariable("BEGINTEXT_VALUE", $survey_object->getBeginText());
+            $welcomeImageId = $survey->get_attribute("bid:rfb:picture_id");
+            if ($welcomeImageId !== 0) {
+                $content->setVariable("WELCOME_IMG_SRC", PATH_URL . "download/document/$welcomeImageId/");
+            }
             $content->setVariable("ENDTEXT_VALUE", $survey_object->getEndText());
             $starttype = $survey->get_attribute("RAPIDFEEDBACK_STARTTYPE");
             if (is_array($starttype)) {

@@ -61,7 +61,8 @@ class MultipleChoiceQuestion extends AbstractQuestion {
         return $question;
     }
 
-    function getEditHTML($id) {
+    function getEditHTML($id, $number = -1) {
+
         $RapidfeedbackExtension = \Rapidfeedback::getInstance();
         $content = $RapidfeedbackExtension->loadTemplate("questiontypes/multiplechoicequestion.template.html");
         $content->setCurrentBlock("BLOCK_EDIT");
@@ -78,6 +79,7 @@ class MultipleChoiceQuestion extends AbstractQuestion {
         } else {
             $content->setVariable("QUESTION_TEXT", $this->questionText);
         }
+
         $content->setVariable("HELP_TEXT", $this->helpText);
         $options = "";
         $counter = 0;

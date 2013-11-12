@@ -11,6 +11,13 @@ class DatePicker extends Widget {
 	private $timePicker = false;
 	private $placeholder = "";
         private $name = "";
+        
+        //TODO: Bad solution 
+        private $workaround = false;
+        
+        public function setWorkaraound($wa){
+            $this->workaround = $wa;
+        }
 	
         public function setName($name){
             $this->name = $name;
@@ -62,7 +69,12 @@ class DatePicker extends Widget {
 			$currentDateValue = $this->contentProvider->getData($this->data);
 			$currentDateValue = ($currentDateValue == 0) ? "" : $currentDateValue;
 			$this->getContent()->setVariable("VALUE", $currentDateValue);
-			$this->getContent()->setVariable("CHANGE_FUNCTION", "onChange=\"$(this).addClass('changed');widgets_datepicker_changed({$this->id}); value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")}\"");
+                        //TODO: Bad solution
+                        if($this->workaround){
+                             $this->getContent()->setVariable("CHANGE_FUNCTION", "onChange=\"$(this).addClass('changed');widgets_datepicker_changed({$this->id}); value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")};setTimeout(function(){closeDialog();location.reload();}, 500);\"");			
+                        }else{
+                            $this->getContent()->setVariable("CHANGE_FUNCTION", "onChange=\"$(this).addClass('changed');widgets_datepicker_changed({$this->id}); value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")}\"");			
+                        }
 			$this->getContent()->setVariable("SAVE_FUNCTION", "onClick=\"value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")}\"");
 			$this->getContent()->setVariable("UNDO_FUNCTION", "onClick=\"value = getElementById({$this->id}).oldValue; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_undo_success")}\"");
 		} else {

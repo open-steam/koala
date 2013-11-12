@@ -17,9 +17,19 @@ platforms/elab/public/.htaccess
 platforms/elab/public/styles
 platforms/elab/etc/local.def.php
 
+platforms/schulen-gt/cache/*
+platforms/schulen-gt/log/*
+platforms/schulen-gt/temp/*
+platforms/schulen-gt/public/.htaccess
+platforms/schulen-gt/public/styles
+platforms/schulen-gt/etc/local.def.php
+platforms/schulen-gt/etc/platform.def.php
+
 extensions/content/worksheet/templates_c/%%*
 extensions/base/widgets/asset/temp/*
 extensions/content/spreadsheets/etc/default.def.php
+
+tools/bid-tools/asciisvg/imgs/*
 
 platforms/default/etc/local.def.php
 .buildpath
