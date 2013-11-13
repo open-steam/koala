@@ -336,8 +336,8 @@ class View extends \AbstractCommand implements \IFrameCommand {
             foreach ($questions as $question) {
                 if ($question instanceof \Rapidfeedback\Model\AbstractLayoutElement) {
                     if ($pageCounter == $page) {
-                        $html = $html . $question->getViewHTML($counter +1);
-                         $counter++;
+                        $html = $html . $question->getViewHTML();
+                         //$counter++;
                     }
                     $layoutCounter++;
                     if ($question instanceof \Rapidfeedback\Model\PageBreakLayoutElement) {
