@@ -38,7 +38,7 @@ class Report extends \AbstractCommand implements \IFrameCommand {
 					$errorLocation = (isset($_COOKIE["location"])) ? $_COOKIE["location"] : "";
 					$errorParams = (isset($_COOKIE["params"])) ? $_COOKIE["params"] : "";
 					$subject = PLATFORM_NAME . " Error AJAX/JS Handling";
-					mail(ERROR_MAIL_RECEIVER, '=?UTF-8?B?'.base64_encode($subject).'?=', $errorTitle . "\n" . $errorDescription, null,'-f' . ERROR_MAIL_SENDER);
+					mail(ERROR_MAIL_RECEIVER, '=?UTF-8?B?'.base64_encode($subject).'?=', $errorTitle . "\n" . $errorDescription . "\n" . $errorLocation . "\n" . $errorParams, null,'-f' . ERROR_MAIL_SENDER);
 					setcookie("title", "", -1);
 					setcookie("description", "", -1);
 					setcookie("location", "", -1);
