@@ -288,6 +288,8 @@ function getObjectType($object) {
             $type = "webarena";
         } else if ($object instanceof \steam_room) {
             $type = "room";
+        } else if ($objType === "RAPIDFEEDBACK_CONTAINER") {
+            $type = "rapidfeedback";
         } else {
             $type = "container";
         }
@@ -302,16 +304,16 @@ function deriveIcon($object) {
         return "";
 
     //preload attibutes
-    $worksheet_roleIndex = $object->get_attribute("worksheet_role",1);
-    $objtypeIndex = $object->get_attribute("OBJ_TYPE",1);
-    $doctypeIndex = $object->get_attribute("bid:doctype",1);
-    $collectiontypeIndex = $object->get_attribute("bid:collectiontype",1);
-    $mimetypeIndex = $object->get_attribute("DOC_MIME_TYPE",1);
-    $attributeIsWebarenaIndex = $object->get_attribute("isWebarena",1);
+    $worksheet_roleIndex = $object->get_attribute("worksheet_role", 1);
+    $objtypeIndex = $object->get_attribute("OBJ_TYPE", 1);
+    $doctypeIndex = $object->get_attribute("bid:doctype", 1);
+    $collectiontypeIndex = $object->get_attribute("bid:collectiontype", 1);
+    $mimetypeIndex = $object->get_attribute("DOC_MIME_TYPE", 1);
+    $attributeIsWebarenaIndex = $object->get_attribute("isWebarena", 1);
     $nameIndex = $object->get_name(1);
-    
+
     $preLoadResults = $GLOBALS["STEAM"]->buffer_flush();
-    
+
     $worksheet_role = $preLoadResults[$worksheet_roleIndex];
     $objtype = $preLoadResults[$objtypeIndex];
     $doctype = $preLoadResults[$doctypeIndex];
@@ -320,8 +322,6 @@ function deriveIcon($object) {
     $attributeIsWebarena = $preLoadResults[$attributeIsWebarenaIndex];
     $name = $preLoadResults[$nameIndex];
     //finished preload attibutes
-    
-    
     //worksheet
     if ($worksheet_role === "build")
         return "worksheet.png";
@@ -334,7 +334,7 @@ function deriveIcon($object) {
         return "webarena.png";
     }
     //bidOWL:Collection Types
-    
+
     /* if($collectiontype === "sequence")
       return "sequence.gif";
       else if($collectiontype === "cluster")
@@ -344,7 +344,7 @@ function deriveIcon($object) {
 
 
     //bidOWL:Document Types
-    
+
 
     if ($objtype === "postbox")
         return "postbox.png";
@@ -409,8 +409,8 @@ function deriveIcon($object) {
 
 
     //mimetypes by object name
-    
-    
+
+
     $icons = array(
         "generic" => "generic.png",
         //"application/x-coreldraw" => "coreldraw.gif",
@@ -566,14 +566,11 @@ function getObjectReadableSize($object) {
             }
         } else if ($type == "postbox") {
             $datetime = $object->get_attribute("bid:postbox:deadline");
-            if($datetime == 0 || $datetime == ""){
+            if ($datetime == 0 || $datetime == "") {
                 $html = "-";
-                
-            }  else {
+            } else {
                 $deadlineArray = explode(" ", $datetime);
                 $html = $deadlineArray[0];
-                 
-                
             }
         } else if ($type == "portal") {
             $counter = count($object->get_inventory());
