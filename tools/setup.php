@@ -41,15 +41,15 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/security.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/public/.htaccess", 0644, "../platforms/elab/public/.htaccess.example");
 
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schule-gt/cache", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schule-gt/log", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schule-gt/temp", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/403.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/404.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/errors.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/messages.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/security.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/public/.htaccess", 0644, "../platforms/schule-gt/public/.htaccess.example");
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/cache", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/log", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/temp", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/403.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/404.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/errors.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/messages.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/security.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/public/.htaccess", 0644, "../platforms/schulen-gt/public/.htaccess.example");
 
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../extensions/content/worksheet/templates_c", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../tools/bid-tools/asciisvg/imgs", 0777);
