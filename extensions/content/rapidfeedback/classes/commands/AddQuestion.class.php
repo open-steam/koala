@@ -33,7 +33,7 @@ class AddQuestion extends \AbstractCommand implements \IAjaxCommand {
 				break;
 			case 3:
 				$newquestion = new \Rapidfeedback\Model\MultipleChoiceQuestion();
-				foreach ($this->params["options"] as $option) {
+                              				foreach ($this->params["options"] as $option) {
 					$newquestion->addOption(rawurldecode($option));
 				}
 				$newquestion->setArrangement($this->params["questionArrangement"]);
@@ -71,11 +71,15 @@ class AddQuestion extends \AbstractCommand implements \IAjaxCommand {
 				break;
 		}
 		$newquestion->setQuestionText(rawurldecode($this->params["questionText"]));
+                 
 		$newquestion->setHelpText(rawurldecode($this->params["questionHelp"]));
+                
 		$newquestion->setRequired(intval($this->params["questionRequired"]));
+               
 		$rawHtml = new \Widgets\RawHtml();
+               
 		$rawHtml->setHtml($newquestion->getEditHTML($this->params["questionID"]));
-			
+			 
 		$ajaxResponseObject->addWidget($rawHtml);
 		$ajaxResponseObject->setStatus("ok");
 		return $ajaxResponseObject;

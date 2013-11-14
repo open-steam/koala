@@ -52,7 +52,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		// display actionbar
 		$actionBar = new \Widgets\ActionBar();
 		$actions = array(
-			array("name" => "Export als CSV-Datei" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "export/" . $this->id . "/"),
+			array("name" => "Export als Excel-Datei" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "export/" . $this->id . "/"),
 			array("name" => "Übersicht" , "link" => $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/")
 			);
 		$actionBar->setActions($actions);

@@ -73,11 +73,14 @@ class MatrixQuestion extends AbstractQuestion {
 		return $question;
 	}
 	
-	function getEditHTML($id) {
+	function getEditHTML($id, $number = -1) {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$content = $RapidfeedbackExtension->loadTemplate("questiontypes/matrixquestion.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
 		$content->setVariable("ELEMENT_ID", $id);
+                 if($number != -1){
+                    $content->setVariable("NUMBER", $number);
+                }
 		$content->setVariable("ASSETURL", $RapidfeedbackExtension->getAssetUrl() . "icons/");
 		$content->setVariable("EDIT_LABEL", "Bearbeiten");
 		$content->setVariable("COPY_LABEL", "Kopieren");

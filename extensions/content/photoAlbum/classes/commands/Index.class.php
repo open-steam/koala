@@ -50,6 +50,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($errorHtml);
             return $frameResponseObject;
         }
+        \lms_portal::get_instance()->add_javascript_src("lazyload", PATH_URL . "styles/standard/javascript/lazy/jquery.lazyload.min.js");
+        \lms_portal::get_instance()->add_javascript_src("colorbox", PATH_URL . "styles/standard/javascript/colorbox/jquery.colorbox.js");
+        
         $titleCss = '#gallery-title{margin-top:-31px;margin-left:50px;}';
         if ($gallery->check_access(SANCTION_SANCTION)) {
             $actionBar = new \Widgets\ActionBar();
@@ -91,10 +94,20 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $html .= '<div class="gal-element">';
                 $name = $pic->get_name();
                 $desc = $pic->get_attribute("OBJ_DESC");
+                $keywords = $pic->get_attribute("OBJ_KEYWORDS");
+                $keywordString = "";
+                if($keywords !== 0 && is_array($keywords)){
+                    foreach ($keywords as $key) {
+                        $keywordString.= $key. " ";
+                    }
+                   $keywordString =  trim($keywordString);
+                }
                 if ($desc !== 0 && $desc !== "") {
                     $name.= " | " . $desc;
                 }
-                //$fullscreen = PATH_URL . $pic->get_path();
+                if($keywordString !== ""){
+                    $name .= " | " . $keywordString;
+                }
                 $fullscreen = PATH_URL . "download/document/" . $pic->get_id();
                 $pictureURL = PATH_URL . "download/image/" . $pic->get_id() . "/200/200";
                 $html .= $this->getPictureHtml($name, $pictureURL, $fullscreen, $name);

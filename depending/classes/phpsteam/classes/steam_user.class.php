@@ -807,7 +807,10 @@ class steam_user extends steam_container
 		//Get ids
 		if(is_array($user_favourites_obj))
 		foreach($user_favourites_obj as $ufo){
-			$user_favourites_ids[] =  $ufo->get_id();
+                     if($ufo instanceof steam_object){
+                         $user_favourites_ids[] =  $ufo->get_id();
+                     }
+			
 		}
 
 		//Get ids

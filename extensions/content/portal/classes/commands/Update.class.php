@@ -39,8 +39,11 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
 
 
         if ($countPortNew < $countPortOld) {
-            return $ajaxResponseObject;
+            return;// $ajaxResponseObject;
         }
+        
+        
+        //case: move object between columns
         if ($countPortOld < $countPortNew) {
             $difference = array();
             $difference = array_diff($portletsIdsNew, $portletsOldIds);
@@ -53,9 +56,9 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             }
             $movedElementObj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $diffElement);
             $movedElementObj->move($column);
-
-            //update current inventory
+            
             $portletsOld = $column->get_inventory();
+            
             $portletsOldIds = array();
 
             foreach ($portletsOld as $p) {
@@ -63,53 +66,45 @@ class Update extends \AbstractCommand implements \IAjaxCommand {
             }
             $countPortOld = count($portletsOldIds);
         }
+        
+        
+        //case: sort
         if ($countPortOld == $countPortNew) {
+            
             $oldIdArray = $portletsOldIds;
             $newIdArray = $portletsIdsNew;
             $parent=$column;
+
+            //find the old position
             $oldPosition = 0;
-            
-            //TODO
-            while( (isset($oldIdArray[$oldPosition])) && ($oldIdArray[$oldPosition] != $this->cE) ){
-                $oldPosition++;
+            foreach($oldIdArray as $key => $value) {
+                if (intval($value) === intval($this->cE)) {
+                    $oldPosition = $key;
+                    break;
+                }
             }
             
+            //find the new position
             $newPosition = 0;
-            while ($newIdArray[$newPosition] != $this->cE) {
-                $newPosition++;
+            foreach($newIdArray as $key => $value) {
+                if (intval($value) === intval($this->cE)) {
+                    $newPosition = $key;
+                    break;
+                }
             }
+            
+            //sort
             if ($oldPosition < $newPosition) {
                 for ($i = $oldPosition; $i < $newPosition; $i++) {
                     $parent->swap_inventory($i, $i + 1);
                 }
             }
             if ($oldPosition > $newPosition) {
-                echo 1 . "          ";
                 for ($i = $oldPosition; $i > $newPosition; $i--) {
                     $parent->swap_inventory($i, $i - 1);
                 }
             }
-            /* $boolHelper = true;
-              $counter = 0;
-              $startValue = 0;
-              for ($i = 0; $i < $countPortOld; $i++) {
-              if ($portletsOldIds[$i] != $portletsIdsNew[$i]) {
-              if ($boolHelper) {
-              $boolHelper = false;
-              $startValue = $i;
-              }
-              $counter++;
-              }
-              }
-              $length = $startValue+$counter-1;
-              if($length > $startValue){
-              $column->swap_inventory($startValue, ($length));
-              }
 
-
-              for ($j=$startValue+1;$j<($length);$j++) {
-              $column->swap_inventory($j, $j + 1);
-              } */
         }
     }
 
