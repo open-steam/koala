@@ -31,16 +31,6 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/security.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/public/.htaccess", 0644, "../platforms/bid/public/.htaccess.example");
 
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/dawinci/cache", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/dawinci/log", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/dawinci/temp", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/log/403.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/log/404.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/log/errors.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/log/messages.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/log/security.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/dawinci/public/.htaccess", 0644, "../platforms/dawinci/public/.htaccess.example");
-
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/cache", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/log", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/temp", 0777);
@@ -51,15 +41,15 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/security.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/public/.htaccess", 0644, "../platforms/elab/public/.htaccess.example");
 
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/koala/cache", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/koala/log", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/koala/temp", 0777);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/log/403.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/log/404.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/log/errors.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/log/messages.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/log/security.log", 0666);
-$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/koala/public/.htaccess", 0644, "../platforms/koala/public/.htaccess.example");
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schule-gt/cache", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schule-gt/log", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schule-gt/temp", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/403.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/404.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/errors.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/messages.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/log/security.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schule-gt/public/.htaccess", 0644, "../platforms/schule-gt/public/.htaccess.example");
 
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../extensions/content/worksheet/templates_c", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../tools/bid-tools/asciisvg/imgs", 0777);
