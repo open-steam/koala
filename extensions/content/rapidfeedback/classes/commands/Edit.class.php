@@ -330,7 +330,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                 }
                 $id_counter++;
             }
-            $content->setVariable("ELEMENT_COUNTER", $i);
+            $content->setVariable("ELEMENT_COUNTER", $id_counter);
             $content->setVariable("QUESTIONS_HTML", $question_html);
             $content->setVariable("BACK_URL", $RapidfeedbackExtension->getExtensionUrl() . "Index/" . $rapidfeedback->get_id() . "/");
             $content->setVariable("CREATE_LABEL", "Fragebogen bearbeiten");
