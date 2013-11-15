@@ -171,19 +171,19 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                                     case 9:
                                         $newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
                                         break;
-                                    case 10:   
+                                    case 10:
                                         $newquestion = new \Rapidfeedback\Model\JumpLabel();
                                         $newquestion->setFrom($questionValues[1]);
                                         $newquestion->setTo($questionValues[2]);
-                                        break; 
+                                        break;
                                 }
-                              
+
                                 if ($questionValues[0] < 7) {
                                     $newquestion->setQuestionText(rawurldecode($questionValues[1]));
                                     $newquestion->setHelpText(rawurldecode($questionValues[2]));
                                     $newquestion->setRequired($questionValues[3]);
                                 }
-                               
+
                                 $survey_object->addQuestion($newquestion);
                             }
                         }
@@ -294,7 +294,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         }
         if ($editID != 0) {
             $content->setVariable("EDIT_ID", $editID);
-            if($surveyCount > 0 ){
+            if ($surveyCount > 0) {
                 $content->setVariable("EDIT_ID_MSG", $editID);
             }
             $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $editID);
@@ -320,8 +320,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
             $question_html = "";
             $id_counter = 0;
             $asseturl = $RapidfeedbackExtension->getAssetUrl() . "icons/";
+            $i = 1;
             for ($count = 0; $count < count($questions); $count++) {
-                $question_html = $question_html . $questions[$count]->getEditHTML($id_counter, $count + 1);
+                if ($questions[$count] instanceof \Rapidfeedback\Model\AbstractLayoutElement) {
+                    $question_html = $question_html . $questions[$count]->getEditHTML($id_counter);
+                } else {
+                    $question_html = $question_html . $questions[$count]->getEditHTML($id_counter, $i);
+                    $i++;
+                }
                 $id_counter++;
             }
             $content->setVariable("ELEMENT_COUNTER", $id_counter);

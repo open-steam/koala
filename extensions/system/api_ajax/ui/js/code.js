@@ -157,7 +157,7 @@ function isDefined(variable) {
 }
 
 function closeDialog() {
-    console.log(window.ajaxSaving);
+//    console.log(window.ajaxSaving);
     if (window.closing) {
         return false;
     }

@@ -1,26 +1,26 @@
 <?php
 namespace Error\Commands;
 class Report extends \AbstractCommand implements \IFrameCommand {
-	
+
 	private $params;
-	
+
 	public function isGuestAllowed(\IRequestObject $iRequestObject) {
 		return true;
 	}
-	
+
 	public function workOffline(\IRequestObject $iRequestObject) {
 		return true;
 	}
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject) {
-		
+
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$rawHtml = new \Widgets\RawHtml();
 		$errorCode = isset($this->params[0]) ? $this->params[0] : 0;
@@ -32,18 +32,33 @@ class Report extends \AbstractCommand implements \IFrameCommand {
 					$frameResponseObject->setTitle("Error");
 					$frameResponseObject->setHeadline("Es ist ein Javascript-Fehler aufgetreten.");
 					$frameResponseObject->setProblemDescription("Es ist ein Javascript-Fehler aufgetreten. Das Problem ist protokolliert.");
-					
+
 					$errorTitle = (isset($_COOKIE["title"])) ? $_COOKIE["title"] : "";
 					$errorDescription = (isset($_COOKIE["description"])) ? $_COOKIE["description"] : "";
 					$errorLocation = (isset($_COOKIE["location"])) ? $_COOKIE["location"] : "";
 					$errorParams = (isset($_COOKIE["params"])) ? $_COOKIE["params"] : "";
 					$subject = PLATFORM_NAME . " Error AJAX/JS Handling";
-					mail(ERROR_MAIL_RECEIVER, '=?UTF-8?B?'.base64_encode($subject).'?=', $errorTitle . "\n" . $errorDescription, null,'-f' . ERROR_MAIL_SENDER);
+
+                    if (isset($_SESSION["LMS_USER"])) {
+                        $ustring = $_SESSION["LMS_USER"]->get_login();
+                    } else {
+                        $ustring = "not logged in";
+                    }
+
+					mail(ERROR_MAIL_RECEIVER,
+                         '=?UTF-8?B?'.base64_encode($subject).'?=',
+                         "errorTitle: " . $errorTitle .
+                         "\nerrorDescription: " . $errorDescription .
+                         "\nRequestLocation: " . $errorLocation .
+                         "\nRequestParams:" . $errorParams .
+                         "\nAgentString: " . (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "") .
+                         "\nUser: " . $ustring, null,'-f' . ERROR_MAIL_SENDER);
+
 					setcookie("title", "", -1);
 					setcookie("description", "", -1);
 					setcookie("location", "", -1);
 					setcookie("params", "", -1);
-                                        die; //return no error message in case of a external (browserplugin) js
+                    die; //return no error message in case of a external (browserplugin) js
 				break;
 				case E_USER_RIGHTS:
 					$frameResponseObject->setTitle(gettext("No Access"));
@@ -96,7 +111,7 @@ class Report extends \AbstractCommand implements \IFrameCommand {
 					    	$referer = "Direct call";
 					    }
 					    $frameResponseObject->setTitle("Error");
-					    $frameResponseObject->setHeadline(gettext("An error occured.")); 
+					    $frameResponseObject->setHeadline(gettext("An error occured."));
 					    $frameResponseObject->setProblemDescription(str_replace("%MAIL", "<a href=\"mailto:".SUPPORT_EMAIL."?subject=".PLATFORM_NAME."%20Error%20" . $errorId . "&body=" . rawurlencode("\n\nReferer: " . $referer . "\n") . "\">" . gettext("Mail an error description") . "</a>", gettext("An unspecified error occured. Please help fixing this issue by sending a detailed error description: %MAIL.")) . "<br /><a href=\"" . PATH_URL . "\">" . gettext("To the start page.") . "</a>");
 					    $error_text = "";
 					    if (defined("DEVELOPMENT_MODE") && DEVELOPMENT_MODE) {

@@ -126,19 +126,24 @@ class ContentProvider implements \Widgets\IContentProvider {
             $objTypeName = getObjectType($contentItem);
             if ($contentItem instanceof \steam_link) {
                 $linkObj = $contentItem->get_link_object();
-                if ($linkObj === 0) {
-                    $url = "";
+                $linkObjectType = getObjectType($linkObj);
+                if ($linkObjectType === "rapidfeedback") {
+                    $url = PATH_URL . "rapidfeedback/Index/" . $linkObj->get_id() . "/";
                 } else {
-                    $url = PATH_URL . "explorer/index/" . $linkObj->get_id() . "/";
+                    if ($linkObj === 0) {
+                        $url = "";
+                    } else {
+                        $url = PATH_URL . "explorer/index/" . $linkObj->get_id() . "/";
+                    }
                 }
-            } else if ($objTypeName == "portalPortlet" || $objTypeName == "portalColumn" ){
+            } else if ($objTypeName == "portalPortlet" || $objTypeName == "portalColumn") {
                 $url = "";
-            }else if($objTypeName == "room"){
+            } else if ($objTypeName == "room") {
                 $url = PATH_URL . "bookmarks/index/" . $contentItem->get_id() . "/";
-            }else{
-                $url = PATH_URL . "explorer/index/" . $contentItem->get_id() . "/";            
+            } else {
+                $url = PATH_URL . "explorer/index/" . $contentItem->get_id() . "/";
             }
-            if (isset($url) && $url != "") {
+            if (isset($url) && $url !== "") {
                 return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
             } else {
                 return $name . "<script>" . $tipsy->getHtml() . "</script>";

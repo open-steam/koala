@@ -104,11 +104,19 @@ class ContentProvider implements \Widgets\IContentProvider {
                         
                         $tipsyHtml = $tipsy->getHtml();
                         
+                        
                         $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			$desc = $contentItem->get_attribute("OBJ_DESC");
 			$name = getCleanName($contentItem, 50);
                         
 			if (isset($url) && $url != "") {
+                            if($contentItem instanceof \steam_link){
+                                $linkObject = $contentItem->get_link_object();
+                                $linkObjectType = getObjectType($linkObject);
+                                if ($linkObjectType === "rapidfeedback") {
+                                    $url = PATH_URL ."rapidfeedback/Index/". $linkObject->get_id() ."/";
+                                }
+                            }
                             if($contentItem instanceof \steam_docextern){
                                 $blank = $contentItem->get_attribute("DOC_BLANK");
                                 if($blank != 0){
