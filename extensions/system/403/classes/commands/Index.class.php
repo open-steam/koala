@@ -16,7 +16,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
                 $back = -1;
-                $request_url = str_ireplace(PATH_URL, "", $_SERVER["HTTP_REFERER"]);
+                if(isset($_SERVER["HTTP_REFERER"])){
+                    $request_url = str_ireplace(PATH_URL, "", $_SERVER["HTTP_REFERER"]);                
+                }else{
+                    $request_url = "";
+                }
+                
                 if (substr($request_url, 0, strlen("signin")) === "signin") {
                     $back = -2;
                 }
