@@ -138,6 +138,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 									$cellContent = $cellContent . $partResult . "|";
 								}
 								$cellContent = substr($cellContent, 0, strlen($cellContent)-1);
+                                                                if(!$cellContent) $cellContent="";
 								$objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $cellContent);
 								$column++;
 							} else {
