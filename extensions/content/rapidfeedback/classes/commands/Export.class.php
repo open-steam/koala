@@ -132,7 +132,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 					$questionCount = 0;
 					foreach ($resultArray as $oneResult) {
 						if (is_array($oneResult)) {
-							if ($questions[$questionCount] instanceof \Rapidfeedback\Model\MultipleChoiceQuestion) {
+							if (true || $questions[$questionCount] instanceof \Rapidfeedback\Model\MultipleChoiceQuestion) {
 								$cellContent = "";
 								foreach ($oneResult as $partResult) {
 									$cellContent = $cellContent . $partResult . "|";
@@ -143,10 +143,11 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 							} else {
 								foreach ($oneResult as $partResult) {
 									$objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $partResult);
-									$column++;
 								}
+                                                                $column++;
 							}
 						} else {
+                                                        if(!$oneResult) $oneResult="";
 							$objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $oneResult);
 							$column++;
 						}
