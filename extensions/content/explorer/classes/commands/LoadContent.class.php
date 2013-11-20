@@ -85,21 +85,24 @@ class ContentProvider implements \Widgets\IContentProvider {
 			return "<a href=\"" . $url . "\"><img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem)."\"></img></a>";
 		} else if ($cell == $this->rawName) {
 			$cleanName = getCleanName($contentItem,600);
+                    
                         if(strlen($cleanName)>50){
-                            $longName="<br><div style=\"font-weight:bold; width:100px; float:left;\">Name:</div><br> ".$cleanName."";
+                            $longName="<br><div style=\"font-weight:bold; width:100px; float:left;\">Name:</div><br> ". $cleanName;
+                             //var_dump($longName);die;
                         }else{
                             $longName="";
                         }
                         
                         $creator = $contentItem->get_creator();
 			$tipsy = new \Widgets\Tipsy();
-			$tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
+			//$tipsy->setElementId($contentItem->get_id() . "_" . $cleanName);
+                        $tipsy->setElementId($contentItem->get_id());
 			$tipsy->setHtml("<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"".PATH_URL."download/image/"
 			                . $creator->get_attribute(OBJ_ICON)->get_id()."/30/30\"> " 
 			                . $creator->get_attribute(USER_FIRSTNAME)." "
 			                . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">" 
-			                . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>"
-			                . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>".$longName);
+			                . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>" //);
+			                .  "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>".  addslashes($longName));
 			
                         
                         $tipsyHtml = $tipsy->getHtml();
