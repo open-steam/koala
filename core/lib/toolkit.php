@@ -747,6 +747,7 @@ END;
 }
 
 function cleanHTML($dirtyHTML) {
+  
     //html purifier
     if (!defined("HTMLPURIFIER_PREFIX"))
         define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
@@ -763,7 +764,7 @@ function cleanHTML($dirtyHTML) {
 
 
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
-
+   
     $def = $config->getHTMLDefinition(true);
     $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
             array('_blank', '_self', '_target', '_top')
