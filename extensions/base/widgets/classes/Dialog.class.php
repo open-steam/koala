@@ -8,7 +8,8 @@ class Dialog extends Widget {
 	private $positionX = 0;
 	private $positionY = 0;
 	private $width = "500px";
-	private $closeJs = "location.reload();";
+	//private $closeJs = "setTimeout('location.reload();',1000)";
+        private $closeJs = "";
 	private $showCloseIcon = false;
 	private $closeButtonLabel = "Speichern & Schließen";
 	private $forceReload = false;

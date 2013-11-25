@@ -88,15 +88,16 @@ class Textarea extends Widget {
 		$this->setPostJsCode(<<<END
                         
                         
-								
-			$('#{$this->id}').textarea({  // calls the init method
+			//if(jQuery('#dialog_wrapper').find('.changed, .saved').length > 0){
+                        
+                        $('#{$this->id}').textarea({  // calls the init method
 				value : '{$currentValue}',
 				sendFunction : function(value) { {$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textarea_save_success")} } 
 			});
 			$('#{$this->id}').find('.button.save').bind('click', function() { $('#{$this->id}').textarea('save'); });
 			$('#{$this->id}').find('.button.undo').bind('click', function() { $('#{$this->id}').textarea('undo'); });
                         $('#{$this->id}').attr("class", "widget textarea");
-                     
+                     //}
                         
                         
 END
