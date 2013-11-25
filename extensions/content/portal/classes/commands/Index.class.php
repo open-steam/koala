@@ -24,6 +24,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //get singleton and portlet path
         $portalInstance = \Portal::getInstance();
         $portalPath = $portalInstance->getExtensionPath();
+        
+        //$popupmenudummy = new \Widgets\PopupMenu();
+        //$popupmenudummy->getCssStyle();
 
         //template
         $templateFileName = $portalPath . "/ui/html/index.html";
