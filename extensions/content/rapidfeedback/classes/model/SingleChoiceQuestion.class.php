@@ -102,9 +102,9 @@ class SingleChoiceQuestion extends AbstractQuestion {
 			$content->setVariable("ERROR_BORDER", "border-right-color:red;");
 		}
 		if ($this->required == 1) {
-			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText . " (Pflichtfrage)");
+			$content->setVariable("QUESTION_TEXT", '<span id="'. ($id+1) .'">'. ($id+1) . '</span>' . ". " . $this->questionText . " (Pflichtfrage)");
 		} else {
-			$content->setVariable("QUESTION_TEXT", ($id+1) . ". " . $this->questionText);
+			$content->setVariable("QUESTION_TEXT", '<span id="'. ($id+1) .'">'. ($id+1) . '</span>' . ". " . $this->questionText);
 		}
 		$content->setVariable("HELP_TEXT", $this->helpText);
 		

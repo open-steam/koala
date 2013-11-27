@@ -173,8 +173,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                                         break;
                                     case 10:
                                         $newquestion = new \Rapidfeedback\Model\JumpLabel();
-                                        $newquestion->setFrom($questionValues[1]);
-                                        $newquestion->setTo($questionValues[2]);
+                                        $newquestion->setText(rawurldecode($questionValues[1]));
+                                        $newquestion->setTo(rawurldecode($questionValues[2]));
                                         break;
                                 }
 

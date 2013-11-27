@@ -334,7 +334,10 @@ class View extends \AbstractCommand implements \IFrameCommand {
            $layoutCounter = 0;
             $pageCounter = 1;
             foreach ($questions as $question) {
-                if ($question instanceof \Rapidfeedback\Model\AbstractLayoutElement) {
+                if($question instanceof \Rapidfeedback\Model\JumpLabel){
+                    $html = $html . $question->getViewHTML(-1, $questions, $this->id);
+                }
+                else if ($question instanceof \Rapidfeedback\Model\AbstractLayoutElement) {
                     if ($pageCounter == $page) {
                         $html = $html . $question->getViewHTML();
                          //$counter++;

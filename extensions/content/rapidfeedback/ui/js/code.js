@@ -646,18 +646,18 @@ function addLayoutElement() {
             hideLayoutDialog();
             break;
         case "10":
-            var from = $('#from-JL').val();
+            var text = $('#text-JL').val();
             var to = $('#to-JL').val();
-            createJumpLabelLayoutElement(from, to, '#newlayout');
+            createJumpLabelLayoutElement(text, to, '#newlayout');
             hideLayoutDialog();
             break;
 
     }
 }
-function createJumpLabelLayoutElement(from, to, insertPoint) {
+function createJumpLabelLayoutElement(text, to, insertPoint) {
     params = {};
     params.layoutType = "10";
-    params.from = from;
+    params.text = text;
     params.to = to;
     params.layoutID = elementCounter;
     

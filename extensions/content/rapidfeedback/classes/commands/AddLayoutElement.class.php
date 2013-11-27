@@ -31,8 +31,8 @@ class AddLayoutElement extends \AbstractCommand implements \IAjaxCommand {
                 break;
             case "10":
                 $newelement = new \Rapidfeedback\Model\JumpLabel();
-                $newelement->setFrom($this->params["from"]);
-                $newelement->setTo($this->params["to"]);
+                $newelement->setText(rawurldecode($this->params["text"]));
+                $newelement->setTo(rawurldecode($this->params["to"]));
                 break;
         }
 
