@@ -312,7 +312,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
             } else {
                 if ($welcomePictureId !== 0) {
                     $picUrl = getDownloadUrlForObjectId($welcomePictureId);
-                    
+
                     $content->setVariable("SURVEY_BEGIN", nl2br($survey_object->getBeginText()) . '<br><br><img src="' . $picUrl . '" width="' . $welcomePictureWidth . '">');
                 } else {
                     $content->setVariable("SURVEY_BEGIN", nl2br($survey_object->getBeginText()));
@@ -331,16 +331,18 @@ class View extends \AbstractCommand implements \IFrameCommand {
 
             $html = "";
             $counter = 0;
-           $layoutCounter = 0;
+            $layoutCounter = 0;
             $pageCounter = 1;
             foreach ($questions as $question) {
-                if($question instanceof \Rapidfeedback\Model\JumpLabel){
-                    $html = $html . $question->getViewHTML(-1, $questions, $this->id);
-                }
-                else if ($question instanceof \Rapidfeedback\Model\AbstractLayoutElement) {
+                if ($question instanceof \Rapidfeedback\Model\AbstractLayoutElement) {
                     if ($pageCounter == $page) {
-                        $html = $html . $question->getViewHTML();
-                         //$counter++;
+                        if ($question instanceof \Rapidfeedback\Model\JumpLabel) {
+                            $html = $html . $question->getViewHTML(-1, $questions, $this->id);
+                        }else{
+                            $html = $html . $question->getViewHTML();
+                        
+                        }
+                        //$counter++;
                     }
                     $layoutCounter++;
                     if ($question instanceof \Rapidfeedback\Model\PageBreakLayoutElement) {

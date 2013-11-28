@@ -8,18 +8,18 @@
                     <img onclick="editLayoutElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
                     &nbsp
                     <img onclick="copyElement({ELEMENT_ID}); setTimeout(function() {
-                                            $('#save-que-button').click();
-                                        }, 750);" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+                                $('#save-que-button').click();
+                            }, 750);" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
                     &nbsp
                     <img onclick="deleteElement({ELEMENT_ID}); setTimeout(function() {
-                                            $('#save-que-button').click();
-                                        }, 750);" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+                                $('#save-que-button').click();
+                            }, 750);" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
                 </span>
             </td>
         </tr>
         <tr>
             <td style="padding:0px; border:0px;">
-                <h2 style="margin:0px;">Sprungmarke zum Überspringen von Fragen</h2>
+                <h2 style="margin:0px;">Hinweis zum Überspringen von Fragen</h2>
                 <div>{QUESTION_TEXT}</div>
                 <br>
                 <div>Direkt zu Frage {QUESTION_TO} <a>springen</a>.</div>                        
@@ -35,6 +35,8 @@
 
 <tr>
     <td>
+        <div><b>Hinweis zum Überspringen von Fragen</b></div>
+
         <div>{QUESTION_TEXT}</div>
         <br>
         <div>Direkt zu Frage {QUESTION_TO} <a href="{JUMP_TO}">springen</a>.</div>

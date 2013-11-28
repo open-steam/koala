@@ -184,21 +184,25 @@ function changeLayoutDialog(type) {
             $('#description_preview').show();
             $('#headline_preview').hide();
             $('#jumplabel_preview').hide();
+            $('#jumplabel_preview2').hide();
             break;
         case "8":
             $('#description_preview').hide();
             $('#headline_preview').show();
             $('#jumplabel_preview').hide();
+            $('#jumplabel_preview2').hide();
             break;
         case "9":
             $('#description_preview').hide();
             $('#headline_preview').hide();
             $('#jumplabel_preview').hide();
+            $('#jumplabel_preview2').hide();
             break;
         case "10":
             $('#description_preview').hide();
             $('#headline_preview').hide();
             $('#jumplabel_preview').show();
+            $('#jumplabel_preview2').show();
             break;
     }
 }

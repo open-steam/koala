@@ -239,8 +239,8 @@
                     <li id="newlayout" class="ui-state-default-rf" style="display:none">
                         <table width="100%">
                             <tr>
-                                <td class="label" style="padding:6px 5px 0px 0px; width:177px;">{LAYOUTELEMENT_LABEL}:</td>
-                                <td style="padding:0px;">
+                                <td width="20%" class="label" style="padding:3px 5px 0px 0px;">{LAYOUTELEMENT_LABEL}:</td>
+                                <td width="80%" style="padding:0px;">
                                     <select name="layoutType" id="layoutType" onchange="changeLayoutDialog(options[selectedIndex].value);">
                                         <option value="7">{DESCRIPTIONLAYOUT_LABEL}</option>
                                         <option value="8">{HEADLINELAYOUT_LABEL}</option>
@@ -261,10 +261,13 @@
                                     <input type="text" name="layout_headline" id="layout_headline" style="width: 100%">
                                 </td>
                             </tr>
-                            <tr id="jumplabel_preview" style="display:none">
-                                <td><textarea id="text-JL" name="text"></textarea> </td>
-                                <td>Die Fragen  bis  <input id="to-JL" type=int name="to" size="3"> </td>
-                                <td>können übersprungen werden, da sie optional sind.</td>
+                            <tr id="jumplabel_preview" style="display:none;">
+                                <td width="20%" class="label" style="padding:3px 5px 0px 0px;" valign="middle"> Text: </td>
+                                <td width="80% valign="middle"><textarea id="text-JL" name="text" style="width:100%;"></textarea> </td>
+                            </tr>
+                            <tr id="jumplabel_preview2">
+                                <td width="20%" class="label" style="padding:3px 5px 0px 0px;" valign="middle">Zu der Frage mit Nr. springen:</td>
+                                <td width="80%" valign="middle" ><input id="to-JL" type=int name="to" size="3" maxLength="3"></td>
                             </tr>
                             <tr>
                                 <td style="padding:3px 5px 0px 0px;"></td>
