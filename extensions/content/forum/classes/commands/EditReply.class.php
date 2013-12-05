@@ -83,6 +83,7 @@ class EditReply extends \AbstractCommand implements \IFrameCommand, \IAjaxComman
 		$dialog->addWidget($contentText);
 		$dialog->addWidget($clearer);
 		$dialog->addWidget($clearer);
+                
 		/*$ajaxForm = new \Widgets\AjaxForm();
 		 $ajaxForm->setSubmitCommand("EditReplyContent");
 		 $ajaxForm->setSubmitNamespace("Forum");

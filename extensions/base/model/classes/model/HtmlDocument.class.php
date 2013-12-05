@@ -55,7 +55,7 @@ class HtmlDocument
         
     //mod1
     //document mod: replace not vaild hrefs
-    preg_match_all('/href="([%a-z0-9.-_\/]*)"/iU', $html, $matches);
+    preg_match_all('/href="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
     $orig_matches = $matches[0];
     $path_matches = $matches[1];
     foreach ($path_matches as $key => $path) {

@@ -10,12 +10,14 @@
 .rapidfeedback_table td {
     background-color: #EEEEEE;
     padding: 5px;
+    text-align: left;
 }
 .rapidfeedback_table td.label {
     color: #003A6F;
     padding-top: 8px;
     vertical-align: top;
     width: 130px;
+    text-align: left;
 }
 .rapidfeedback_style td {
 	border-right: none;
@@ -24,6 +26,8 @@
 
 .grid td.label {
 	font-weight: normal;
+        text-align: left;
+        
 }
 
 #sortable_rf { 
@@ -60,6 +64,7 @@ html>body #sortable_rf li {
 .ui-state-default-rf td { 
 	background-color: transparent; 
 	border: 0px;
+        text-align: left;
 }
 
 .ui-state-placeholder-rf { 
