@@ -23,6 +23,8 @@ $success = TRUE;
 $required_paths = array();
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/bid/cache", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/bid/log", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/bid/persistence", 0755);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/bid/persistence/contentid", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/bid/temp", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/403.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/404.log", 0666);
@@ -33,6 +35,8 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/publ
 
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/cache", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/log", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/persistence", 0755);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/persistence/contentid", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/temp", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/403.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/404.log", 0666);
@@ -43,6 +47,8 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/pub
 
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/cache", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/log", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/persistence", 0755);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/persistence/contentid", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/temp", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/403.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/404.log", 0666);
