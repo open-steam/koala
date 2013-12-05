@@ -747,14 +747,14 @@ END;
 }
 
 function cleanHTML($dirtyHTML) {
-  
+
     //html purifier
     if (!defined("HTMLPURIFIER_PREFIX"))
         define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
 
-    //$config->set('HTML.SafeEmbed', true); //Info: overrides custom tag. Removed for tinymce graphs. 
+    //$config->set('HTML.SafeEmbed', true); //Info: overrides custom tag. Removed for tinymce graphs.
     $config->set('HTML.SafeObject', true);
     $config->set('Output.FlashCompat', true); //not sure
 
@@ -764,7 +764,7 @@ function cleanHTML($dirtyHTML) {
 
 
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
-   
+
     $def = $config->getHTMLDefinition(true);
     $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
             array('_blank', '_self', '_target', '_top')
@@ -883,10 +883,10 @@ function return_bytes($val) {
 
 /*
  * returns a valid path for a relative path
- * 
+ *
  * @savedPath could be a relative or absolute path to an object
  * @currentPath path of the current environment or current portal
- * 
+ *
  * @return a valid path
  */
 
@@ -1084,4 +1084,26 @@ function HTTPStatus($num) {
     );
 }
 
-?>
+function uidv4() {
+    return sprintf(
+        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+
+        // 32 bits for "time_low"
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+
+        // 16 bits for "time_mid"
+        mt_rand(0, 0xffff),
+
+        // 16 bits for "time_hi_and_version",
+        // four most significant bits holds version number 4
+        mt_rand(0, 0x0fff) | 0x4000,
+
+        // 16 bits, 8 bits for "clk_seq_hi_res",
+        // 8 bits for "clk_seq_low",
+        // two most significant bits holds zero and one for variant DCE1.1
+        mt_rand(0, 0x3fff) | 0x8000,
+
+        // 48 bits for "node"
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    );
+}
