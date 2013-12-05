@@ -1,18 +1,18 @@
 <?php
 namespace Explorer\Commands;
 class Copy extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $user;
         private $success = true;
         private $name;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
-	public function processData(\IRequestObject $requestObject) {		
+
+	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 		$this->user = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -24,7 +24,7 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
                 } else if (getObjectType($object) === "pyramiddiscussion") {
                     \ExtensionMaster::getInstance()->getExtensionById("Pyramiddiscussion")->copyPyramiddiscussion($object);
                 } else {
-                    if ($object instanceof \steam_link){ 
+                    if ($object instanceof \steam_link){
                         $copy = \steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $object->get_link_object());
                         $copy->set_name($object->get_name());
                         $copy->move($this->user);
@@ -38,12 +38,12 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
                             $this->name = $object->get_name();
                         }
                     } else {
-                        $copy = \steam_factory::create_copy($GLOBALS["STEAM"]->get_id(), $object);
+                        $copy = $object->copy();
                         $copy->move($this->user);
                     }
 		}
 	}
-	
+
         private function countInventoryRecursive($object, $countObjects = 0, $countSize = 0) {
             $inventory = $object->get_inventory();
             $countObjects = $countObjects + count($inventory);
@@ -59,7 +59,7 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
             }
             return array($countObjects, $countSize);
         }
-        
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
             if ($this->success === true) {
 		$ajaxResponseObject->setStatus("ok");
