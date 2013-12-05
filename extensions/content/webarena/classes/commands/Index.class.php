@@ -22,7 +22,7 @@ class Index extends \AbstractCommand implements \IFrameCommand
 
         $obj = \steam_factory::get_object($GLOBALS[ "STEAM" ]->get_id(), $this->id);
 
-        if ($obj->get_attribute("isWebarena") == 1) {
+        if ($obj->get_attribute("OBJ_TYPE") === "container_webarena") {
 
             $host = WEBARENA_HOST;
             $port = WEBARENA_PORT;
