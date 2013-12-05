@@ -1,5 +1,6 @@
 core/persistence/*
 
+composer.lock
 depending/vendor/*
 
 platforms/bid/cache/*
