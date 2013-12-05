@@ -43,6 +43,5 @@ defined("STEAM_DATABASE_USER") or define("STEAM_DATABASE_USER", "steam");
 defined("STEAM_DATABASE_PASS") or define("STEAM_DATABASE_PASS", "steam");
 
 // config persistence
-defined("ENABLE_FILE_PERSISTENCE") or define("ENABLE_FILE_PERSISTENCE", false);
-defined("FILE_PERSISTENCE_BASE_PATH") or define("FILE_PERSISTENCE_BASE_PATH", false);
+//defined("ENABLE_FILE_PERSISTENCE") or define("ENABLE_FILE_PERSISTENCE", true);
 //defined("DEFAULT_PERSISTENCE_TYPE") or define("DEFAULT_PERSISTENCE_TYPE", PERSISTENCE_FILE_CONTENTID);

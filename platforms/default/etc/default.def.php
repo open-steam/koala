@@ -36,6 +36,7 @@ defined("PATH_LOG") or define("PATH_LOG", PATH_CURRENT_PLATFORM . "log/");
 file_exists(PATH_LOG) or die("Folder for logging is missing (" . PATH_LOG . ").");
 is_writable(PATH_LOG) or die("Not write access to folder " . PATH_LOG);
 defined("PATH_TEMP") or define("PATH_TEMP", PATH_CURRENT_PLATFORM . "temp/");
+defined("PATH_PERSISTENCE") or define("PATH_PERSISTENCE", PATH_CURRENT_PLATFORM . "persistence/");
 file_exists(PATH_TEMP) or die("Folder for temp files is missing (" . PATH_TEMP . ").");
 is_writable(PATH_TEMP) or die("Not write access to folder " . PATH_TEMP);
 defined("PATH_LOCALE") or define("PATH_LOCALE", PATH_PLATFORMS . PLATFORM_FOLDER . "/locale/");
@@ -45,3 +46,4 @@ defined("API_DOUBLE_FILENAME_NOT_ALLOWED") or define("API_DOUBLE_FILENAME_NOT_AL
 defined("API_MAX_INVENTORY_COUNT") or define("API_MAX_INVENTORY_COUNT", 500);
 defined("API_MAX_CONTENT_SIZE") or define("API_MAX_CONTENT_SIZE", 52428800); //50mb
 defined("API_TEMP_DIR") or define("API_TEMP_DIR", PATH_TEMP);
+defined("FILE_PERSISTENCE_BASE_PATH") or define("FILE_PERSISTENCE_BASE_PATH", PATH_PERSISTENCE);
