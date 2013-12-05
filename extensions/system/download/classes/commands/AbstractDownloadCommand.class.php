@@ -60,7 +60,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
             }
         }
 
-        if (!$document instanceof steam_document) {
+        if (!$document instanceof \steam_document) {
             \ExtensionMaster::getInstance()->send404Error();
         }
 
