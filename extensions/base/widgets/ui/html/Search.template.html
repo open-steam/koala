@@ -1,0 +1,50 @@
+<script>
+    var updateTaglist = function() {
+        var value = this.value;
+        var items = $('.listviewer-items').children();
+        items.each(
+                function() {
+                    var tagIndex = "#" + this.id + "_2";
+                    var tags = $(tagIndex).text();
+                    if (tags.indexOf(value) == -1) {
+                        $(('#' + this.id)).removeClass("show");
+                        $(('#' + this.id)).addClass("hide");
+                        $(('#' + this.id)).hide();
+                    } else {
+                        $(('#' + this.id)).removeClass("hide");
+                        $(('#' + this.id)).addClass("show");
+                        $(('#' + this.id)).show();
+                    }
+                }
+        );
+    };
+    $(function() {
+        var availableTags = [
+            {AUTOCOMPLETE_VALUES}
+        ];
+        $("#{ID}").autocomplete({
+            source: availableTags,
+            close: updateTaglist,
+            change: updateTaglist
+        });
+    });
+
+</script>
+<style>
+    .search-widget{
+        float: left;
+        margin-left: 50px;
+        height: 29px;
+        padding-bottom: 6px;
+        padding-top: 6px;
+    }
+    .search-input{
+        height: 15px;
+    }
+</style>
+
+<div id="search-area" class="search-widget"><input class="search-input" id="{ID}"></div>
+
+<script>
+    $("#{ID}").keyup(updateTaglist);
+</script>

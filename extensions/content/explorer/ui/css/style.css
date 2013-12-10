@@ -7,6 +7,12 @@
 .breadcrumb{
     margin-left: 50px;
 }
+.show{
+    display: block;
+}
+.hide{
+    display: none;
+}
 
 .explorernewentry{
 }

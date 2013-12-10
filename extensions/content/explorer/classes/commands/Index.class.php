@@ -20,7 +20,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         if (isset($this->id)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-           // var_dump($object->get_attribute("OBJ_KEYWORDS"));die;
             if ($object instanceof \steam_exit) {
                 $object = $object->get_exit();
                 $this->id = $object->get_id();
@@ -294,11 +293,27 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                                     
     }';
         $rawHtml->setJs($script);
-
-
-
-
+        
+        $inventory = $object->get_inventory();
+        $keywordmatrix = array();
+        foreach ($inventory as $inv){
+            $keywordmatrix[] = $inv->get_attribute("OBJ_KEYWORDS");
+        }
+        $kwList = array();
+        foreach ($keywordmatrix as $kwRow){
+            foreach($kwRow as $element){
+                $kwList[] = $element;
+            }
+        }
+        
+        $searchField = new \Widgets\Search();
+        $searchField->setId("searchfield");
+        $searchField->setAutocomplete($kwList); 
+        
+        
+       
         $frameResponseObject->setTitle($title);
+        $frameResponseObject->addWidget($searchField);
         $frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($rawHtml);
 
