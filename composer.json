@@ -11,6 +11,6 @@
     ],
     "require": {
         "monolog/monolog" : "dev-master",
-        "open-steam/phpsteam" : "dev-master"
+        "open-steam/phpsteam" : "4.1.*"
     }
 }
