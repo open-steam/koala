@@ -6,15 +6,36 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     private $params;
     private $id;
+    private $filter;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
     }
 
     public function processData(\IRequestObject $requestObject) {
+
         $this->params = $requestObject->getParams();
-        isset($this->params[0]) ? $this->id = $this->params[0] : "";
-        
+        if (isset($this->params[0])) {
+            $intVal = intval($this->params[0]);
+            if ($intVal !== 0) {
+                $this->id = $intVal;
+            } else {
+                $this->id = "";
+                if (strpos($this->params[0], "filter=") !== false) {
+                    $this->filter = substr($this->params[0], 7);
+                } else {
+                    $this->filter = "";
+                }
+            }
+        }
+        if (isset($this->params[1])) {
+            if (strpos($this->params[1], "filter=") !== false) {
+                $this->filter = substr($this->params[1], 7);
+            } else {
+                $this->filter = "";
+            }
+        }
+       
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -32,7 +53,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             if (defined("DELETE_GROUP_HOME_EXITS") && DELETE_GROUP_HOME_EXITS && $object->get_attribute("DELETED_GROUP_HOME_EXITS") == "0") {
                 $inventory = $object->get_inventory_filtered(array(
                     array('+', 'class', CLASS_EXIT),
-                        ));
+                ));
                 foreach ($inventory as $element) {
                     $exitElement = $element->get_exit();
                     if ($exitElement instanceof \steam_room && $exitElement->get_creator() instanceof \steam_group) {
@@ -80,7 +101,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "referenceFile":
                 $linkObject = $object->get_link_object();
-                if(($linkObject===NULL) || !($linkObject instanceof \steam_object)){
+                if (($linkObject === NULL) || !($linkObject instanceof \steam_object)) {
                     \ExtensionMaster::getInstance()->send404Error();
                     die;
                 }
@@ -215,8 +236,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     //$preHtml = strip_tags($rawContent,"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
                     //$preHtml = $rawContent;
                     $htmlDocument = new \HtmlDocument();
-       
-                    $preHtml = $htmlDocument->makeViewModifications($rawContent,$object, true);
+
+                    $preHtml = $htmlDocument->makeViewModifications($rawContent, $object, true);
                     $preHtml = cleanHTML($preHtml);
                 } else if (strstr($mimetype, "text")) {
                     $bidDokument = new \BidDocument($first);
@@ -274,7 +295,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl()."images/sort.png";
+        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort.png";
         $script .= '
             $("#sort-icon").attr("name", "true");
             $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");});
@@ -289,29 +310,37 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                     newIds = ""; 
             });
-            $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url('.$assetUrl.');\"></div>"); 
+            $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>"); 
                                     
     }';
         $rawHtml->setJs($script);
-        
+
         $inventory = $object->get_inventory();
         $keywordmatrix = array();
-        foreach ($inventory as $inv){
+        foreach ($inventory as $inv) {
             $keywordmatrix[] = $inv->get_attribute("OBJ_KEYWORDS");
         }
         $kwList = array();
-        foreach ($keywordmatrix as $kwRow){
-            foreach($kwRow as $element){
+        foreach ($keywordmatrix as $kwRow) {
+            foreach ($kwRow as $element) {
                 $kwList[] = $element;
             }
         }
-        
+
+        $popupMenuSearch = new \Widgets\PopupMenu();
+        $popupMenuSearch->setCommand("GetPopupMenuSearch");
+        $popupMenuSearch->setNamespace("Explorer");
+        $popupMenuSearch->setData($object);
+        $popupMenuSearch->setElementId("search-area-popupmenu");
+
         $searchField = new \Widgets\Search();
         $searchField->setId("searchfield");
-        $searchField->setAutocomplete($kwList); 
-        
-        
-       
+        $searchField->setAutocomplete($kwList);
+        $searchField->setPopupMenu($popupMenuSearch);
+        $searchField->setValue($this->filter);
+
+
+
         $frameResponseObject->setTitle($title);
         $frameResponseObject->addWidget($searchField);
         $frameResponseObject->addWidget($actionBar);
