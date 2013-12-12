@@ -1,5 +1,6 @@
 <script>
     var updateTaglist = function() {
+        console.log(this.value);
         var value = this.value;
         var items = $('.listviewer-items').children();
         items.each(
@@ -18,6 +19,7 @@
                 }
         );
     };
+    
     $(function() {
         var availableTags = [
             {AUTOCOMPLETE_VALUES}
@@ -25,7 +27,8 @@
         $("#{ID}").autocomplete({
             source: availableTags,
             close: updateTaglist,
-            change: updateTaglist
+            change: updateTaglist,
+           
         });
     });
 
@@ -43,8 +46,17 @@
     }
 </style>
 
-<div id="search-area" class="search-widget"><input class="search-input" id="{ID}"></div>
+<div id="search-area" class="search-widget"><input class="search-input" id="{ID}">{POPUPMENU_HTML}</div>
+
+<div id="search-area-popupmenu"></div>
 
 <script>
-    $("#{ID}").keyup(updateTaglist);
+    $(document).ready(function(){$("#{ID}").keyup(updateTaglist);
+                $("#{ID}").val(decodeURI("{VALUE}"));
+                $(document).bind("listviewerReady", function(){$("#{ID}").each(updateTaglist);});
+             
+                
+    });
+    
+    
 </script>
