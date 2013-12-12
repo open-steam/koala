@@ -3,21 +3,19 @@
 session_name("koala-3");
 session_start();  // prevent warnings concerning previous output (session_start() is called in koala.conf.php, which is included later in the file)
 
-
 define("TIMEZONE", "Europe/Berlin");
 
-function output($msg) {
+function output($msg)
+{
     fputs(STDOUT, $msg);
 }
 
-
-include_once( "../core/etc/version.php" );
-include_once( "../core/lib/config_handling.inc.php" );
+include_once '../core/etc/version.php';
+include_once '../core/lib/config_handling.inc.php';
 
 output("koaLA " . KOALA_VERSION . " setup\n\n");
 
 $success = TRUE;
-
 
 // check file system permissions
 $required_paths = array();
@@ -31,6 +29,7 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/errors.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/messages.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/security.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/log/phpsteam.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/bid/public/.htaccess", 0644, "../platforms/bid/public/.htaccess.example");
 
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/elab/cache", 0777);
@@ -43,6 +42,7 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/errors.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/messages.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/security.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/log/phpsteam.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/elab/public/.htaccess", 0644, "../platforms/elab/public/.htaccess.example");
 
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/schulen-gt/cache", 0777);
@@ -55,6 +55,7 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/errors.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/messages.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/security.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/phpsteam.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/public/.htaccess", 0644, "../platforms/schulen-gt/public/.htaccess.example");
 
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../extensions/content/worksheet/templates_c", 0777);
@@ -80,14 +81,13 @@ if (!$required_paths_okay) {
             exit(1);
         }
     }
-}
-else
+} else
     output("Files and directory permissions are okay.\n\n");
 
 // utility class for checking required files and directories:
 
-class RequiredPath {
-
+class RequiredPath
+{
     public static $FILE = "File";
     public static $DIR = "Directory";
     public $path;
@@ -95,33 +95,39 @@ class RequiredPath {
     public $mode;
     public $type;
 
-    function RequiredPath($type, $path, $mode, $template_path = FALSE) {
+    public function RequiredPath($type, $path, $mode, $template_path = FALSE)
+    {
         $this->type = $type;
         $this->path = $path;
         $this->mode = $mode;
         $this->template_path = $template_path;
     }
 
-    function check($verbose = FALSE) {
+    public function check($verbose = FALSE)
+    {
         $okay = TRUE;
         if (!$this->check_exists($verbose))
             $okay = FALSE;
         if (!$this->check_mode($verbose))
             $okay = FALSE;
+
         return $okay;
     }
 
-    function check_exists($verbose = FALSE) {
+    public function check_exists($verbose = FALSE)
+    {
         if ($this->type == self::$DIR && is_dir($this->path))
             return TRUE;
         if ($this->type == self::$FILE && file_exists($this->path))
             return TRUE;
         if ($verbose)
             output("  " . $this->type . " " . $this->path . " is missing.\n");
+
         return FALSE;
     }
 
-    function check_mode($verbose = FALSE) {
+    public function check_mode($verbose = FALSE)
+    {
         if (!file_exists($this->path))
             return FALSE;
         $stat = stat($this->path);
@@ -130,38 +136,41 @@ class RequiredPath {
             return TRUE;
         if ($verbose)
             output("  " . $this->type . " " . $this->path . " has wrong permissions: " . sprintf("%o", $mode) . ".\n");
+
         return FALSE;
     }
 
-    function fix($verbose = FALSE) {
+    public function fix($verbose = FALSE)
+    {
         if (!$this->check_exists(FALSE)) {
             if ($this->type == self::$FILE) {
                 if (is_string($this->template_path)) {
                     if (!copy($this->template_path, $this->path)) {
                         if ($verbose)
                             output("Could not copy " . $this->template_path . " to " . $this->path . "\n");
+
                         return FALSE;
                     }
                     if ($verbose)
                         output("Copied " . $this->template_path . " to " . $this->path . "\n");
-                }
-                else {
+                } else {
                     if (!touch($this->path)) {
                         if ($verbose)
                             output("Could not create file " . $this->path . "\n");
+
                         return FALSE;
                     }
                     if ($verbose)
                         output("Created file " . $this->path . "\n");
                 }
-            }
-            else if ($this->type == self::$DIR) {
+            } elseif ($this->type == self::$DIR) {
                 if (is_string($this->template_path)) {
                     RecursiveCopy($this->template_path, $this->path);
                 } else {
                     if (!mkdir($this->path, $this->mode)) {
                         if ($verbose)
                             output("Could not create directory " . $this->path . "\n");
+
                         return FALSE;
                     }
                     if ($verbose)
@@ -173,11 +182,13 @@ class RequiredPath {
             if (!chmod($this->path, $this->mode)) {
                 if ($verbose)
                     output("Could not set permissions of " . $this->path . " to " . sprintf("%o", $this->mode) . "\n");
+
                 return FALSE;
             }
             if ($verbose)
                 output("Changed permissions of " . $this->path . " to " . sprintf("%o", $this->mode) . "\n");
         }
+
         return TRUE;
     }
 
@@ -185,12 +196,14 @@ class RequiredPath {
 
 // utility functions for checking open-sTeam structures:
 
-function check_steam_group($group_name, $parent_group_name = NULL, $description = NULL, $fix = FALSE) {
+function check_steam_group($group_name, $parent_group_name = NULL, $description = NULL, $fix = FALSE)
+{
     $parent_group = NULL;
     if (is_string($parent_group_name)) {
         $parent_group = steam_factory::get_group($GLOBALS["STEAM"]->get_id(), $parent_group_name);
         if (!is_object($parent_group)) {
             output("Error: could not find parent group '" . $parent_group_name . "' for group '" . $group_name . "'.\n");
+
             return FALSE;
         }
     }
@@ -205,28 +218,34 @@ function check_steam_group($group_name, $parent_group_name = NULL, $description 
         output("Created group '" . $group_fullname . "'.\n");
     else
         output("Error: could not create group '" . $group_fullname . "'.\n");
+
     return $group;
 }
 
-function check_steam_container($container_path, $description = "", $fix = FALSE) {
+function check_steam_container($container_path, $description = "", $fix = FALSE)
+{
     $container = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $container_path);
     if (!is_object($container)) {
         if (!$fix)
             return FALSE;
         if (!is_object($container_environment = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), dirname($container_path)))) {
             output("Error: could not get parent directory for container: '" . dirname($container_path) . "'\n");
+
             return FALSE;
         }
         if (!is_object($container = steam_factory::create_container($GLOBALS["STEAM"]->get_id(), basename($container_path), $container_environment, $description))) {
             output("Error: could not create container: '" . $container_path . "'.\n");
+
             return FALSE;
         }
         output("Created container: '" . $container_path . "'.\n");
     }
+
     return $container;
 }
 
-function check_steam_access($steam_object, $permissions, $fix = FALSE) {
+function check_steam_access($steam_object, $permissions, $fix = FALSE)
+{
     if (!is_object($steam_object))
         return NULL;
     $okay = TRUE;
@@ -246,10 +265,12 @@ function check_steam_access($steam_object, $permissions, $fix = FALSE) {
             }
         }
     }
+
     return $okay;
 }
 
-function RecursiveCopy($source, $dest, $diffDir = '') {
+function RecursiveCopy($source, $dest, $diffDir = '')
+{
     $sourceHandle = opendir($source);
     mkdir($dest . '/' . $diffDir);
 
