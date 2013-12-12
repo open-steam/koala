@@ -94,8 +94,8 @@ if (!file_exists($autoloaderIndexFile)) {
 }
 
 // adding phpsteam logger
-$logger = new Logger(API_LOGGER_CHANNEL);
-$logger->pushHandler(new  Monolog\Handler\StreamHandler(LOG_PHPSTEAM, Logger::DEBUG));
+$logger = Monolog\Registry::getInstance(API_LOGGER_CHANNEL);
+$logger->pushHandler(new  Monolog\Handler\StreamHandler(LOG_PHPSTEAM, Monolog\Logger::DEBUG));
 
 // start session
 session_name(SESSION_NAME);
