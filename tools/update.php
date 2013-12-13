@@ -4,7 +4,7 @@
 $pathBase = __DIR__ . "/../";
 
 echo "** updating koala **" . PHP_EOL;
-passthru("cd $pathBase; git reset --hard; git pull");
+passthru("cd $pathBase; git pull");
 echo PHP_EOL;
 
 echo "** installing or updating composer **" . PHP_EOL;

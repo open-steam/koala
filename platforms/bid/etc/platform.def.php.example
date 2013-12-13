@@ -10,7 +10,7 @@ defined("PLATFORM_NAME") or define("PLATFORM_NAME", "bid");
 defined("PLATFORM_FOLDER") or define("PLATFORM_FOLDER", PLATFORM_ID);
 
 //displayed in browser title
-defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "Lernstatt Paderborn"); //lspb.de	
+defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "Lernstatt Paderborn"); //lspb.de
 //defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "bid-owl"); //bid-owl.de
 //defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "schulen-gt"); //schulen-gt
 
@@ -40,13 +40,13 @@ $whitelistDevelopment = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Star
                         . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map,"
                         . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
                         . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Worksheet, Webarena, Spreadsheets, "
-                        . "HomePortal, PortletUserPicture, PortletChronic, PortletBookmarks, Terms";
+                        . "HomePortal, PortletUserPicture, PortletChronic, PortletBookmarks, Terms, Mokodesk";
 
 
 $whitelistLiveSystems = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Startpage, Widgets, "
                         . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, Map,"
                         . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
-                        . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Terms";
+                        . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Terms, Mokodesk";
 
 
 
@@ -55,11 +55,11 @@ $whitelistLiveSystems = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Star
 define("EXTENSIONS_WHITELIST", $whitelistLiveSystems);
 
 
-    
+
 
 // bid.lspb.de / develompent
-$menusLspb = array(  
-array("name" => "Übergreifendes", "link" => "/portal/index/99", 
+$menusLspb = array(
+array("name" => "Übergreifendes", "link" => "/portal/index/99",
       "menu" => array(
                     array( "name" => "Einstiegsseite", "link" => "/explorer/index/99" ),
                     array( "name" => "Schulen", "link" => "/explorer/index/163621" ),
@@ -70,7 +70,7 @@ array("name" => "Übergreifendes", "link" => "/portal/index/99",
 
 // bid-owl.de / schulen-gt
 $menusBidGt = array(
-array("name" => "Übergreifendes", "link" => "/portal/index/99", 
+array("name" => "Übergreifendes", "link" => "/portal/index/99",
       "menu" => array(
                     array( "name" => "Schulen", "link" => "/explorer/index/51331" ),
                     array( "name" => "Partner", "link" => "/explorer/index/51354" ),
@@ -103,7 +103,7 @@ defined("ENABLED_OTHER_INTERESTS") or define("ENABLED_OTHER_INTERESTS", false);
 defined("ENABLED_CONTACTS") or define("ENABLED_CONTACTS", false);
 defined("ENABLED_LANGUAGES") or define("ENABLED_LANGUAGES", false);
 defined("ENABLED_GROUPS") or define("ENABLED_GROUPS", false);
-defined("ENABLED_ADDRESS") or define("ENABLED_ADDRESS", false); 
+defined("ENABLED_ADDRESS") or define("ENABLED_ADDRESS", false);
 defined("ENABLED_TELEPHONE") or define("ENABLED_TELEPHONE", false);
 defined("ENABLED_PHONE_MOBILE") or define("ENABLED_PHONE_MOBILE", false);
 defined("ENABLED_WEBSITE") or define("ENABLED_WEBSITE", false);
@@ -145,7 +145,7 @@ defined("ENABLE_AUTOMATIC_IMAGE_SCALING") or define("ENABLE_AUTOMATIC_IMAGE_SCAL
 
 //your school link in main menu
 defined("YOUR_SCHOOL") or define("YOUR_SCHOOL", true);
-    
+
 //url to terms of use
 defined("PLATFORM_USERMANAGEMENT_URL") or define("PLATFORM_USERMANAGEMENT_URL", "http://www.bid-owl.de/benutzerverwaltung/");
 

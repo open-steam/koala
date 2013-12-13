@@ -1,6 +1,7 @@
 core/persistence/*
 
 composer.lock
+composer.phar
 depending/vendor/*
 
 platforms/bid/cache/*
