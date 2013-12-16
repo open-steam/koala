@@ -358,7 +358,7 @@ function deriveIcon($object)
     }
     //webarena
     if ($objtype === "LARS_DESKTOP") {
-        return "Mokodesk.png";
+        return "mokodesk.png";
     }
     //bidOWL:Collection Types
 
