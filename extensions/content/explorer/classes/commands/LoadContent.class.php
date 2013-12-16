@@ -2,17 +2,19 @@
 
 namespace Explorer\Commands;
 
-class LoadContent extends \AbstractCommand implements \IAjaxCommand {
-
+class LoadContent extends \AbstractCommand implements \IAjaxCommand
+{
     private $params;
     private $id;
     private $objects;
 
-    public function validateData(\IRequestObject $requestObject) {
+    public function validateData(\IRequestObject $requestObject)
+    {
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject) {
+    public function processData(\IRequestObject $requestObject)
+    {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
 
@@ -25,7 +27,8 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
         }
     }
 
-    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject)
+    {
         $listViewer = new \Widgets\ListViewer();
         $listViewer->setHeadlineProvider(new HeadlineProvider());
         $listViewer->setContentProvider(new ContentProvider());
@@ -37,33 +40,35 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
         $tipsy = new \Widgets\Tipsy();
         $ajaxResponseObject->addWidget($tipsy);
 
-
         return $ajaxResponseObject;
     }
 
 }
 
-class HeadlineProvider implements \Widgets\IHeadlineProvider {
+class HeadlineProvider implements \Widgets\IHeadlineProvider
+{
+    public function getHeadlines()
+    {
+        return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
 
-    public function getHeadlines() {
-        // return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+        //return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
 
-        return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
-      
     }
 
-    public function getHeadLineWidths() {
+    public function getHeadLineWidths()
+    {
         return array(25, 300, 185, 150, 80, 30, 40, 20);
     }
 
-    public function getHeadLineAligns() {
+    public function getHeadLineAligns()
+    {
         return array("left", "left", "left", "right", "right", "right", "right", "right");
     }
 
 }
 
-class ContentProvider implements \Widgets\IContentProvider {
-
+class ContentProvider implements \Widgets\IContentProvider
+{
     private $rawImage = 0;
     private $rawName = 1;
     private $rawMarker = 2;
@@ -73,30 +78,33 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawMenu = 6;
     private $rawCheckbox = 7;
 
-    public function getId($contentItem) {
+    public function getId($contentItem)
+    {
         return $contentItem->get_id();
     }
 
-    public function getCellData($cell, $contentItem) {
+    public function getCellData($cell, $contentItem)
+    {
         if (!is_int($cell)) {
             throw new \Exception("cell must be an integer!!");
         }
 
         if ($cell == $this->rawCheckbox) {
             if (!($contentItem instanceof \steam_trashbin)) {
-                return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:-4px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if(this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
+                return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:-4px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if (this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
             } else {
                 return "";
             }
-        } else if ($cell == $this->rawImage) {
+        } elseif ($cell == $this->rawImage) {
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+
             return "<a href=\"" . $url . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img></a>";
-        } else if ($cell == $this->rawName) {
+        } elseif ($cell == $this->rawName) {
             $cleanName = getCleanName($contentItem, 600);
 
             if (strlen($cleanName) > 50) {
                 $longName = "<br><div style=\"font-weight:bold; width:100px; float:left;\">Name:</div><br> " . $cleanName;
-                
+
             } else {
                 $longName = "";
             }
@@ -112,9 +120,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                     . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>" //);
                     . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>" . addslashes($longName));
 
-
             $tipsyHtml = $tipsy->getHtml();
-
 
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
             $desc = $contentItem->get_attribute("OBJ_DESC");
@@ -136,11 +142,12 @@ class ContentProvider implements \Widgets\IContentProvider {
                         return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsyHtml . "</script>";
                     }
                 }
+
                 return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsyHtml . "</script>";
             } else {
                 return $name . "<script>" . $tipsyHtml . "</script>";
             }
-        } else if ($cell == $this->rawMarker) {
+        } elseif ($cell == $this->rawMarker) {
             //  return ""; //disabled
             $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
             $keywordList = "";
@@ -149,6 +156,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                     $keywordList.=$keyword . " ";
                 }
             }
+
             return $keywordList; //speed test //TODO: fix
             $html = "";
             $html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
@@ -163,7 +171,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                     $linkError = true;
                     $html .= "<div style=\"color:red\">Referenz defekt</div>";
                 }
-            } else if ($contentItem instanceof \steam_link) {
+            } elseif ($contentItem instanceof \steam_link) {
                 $linkObject = $contentItem->get_link_object();
                 if ($linkObject instanceof \steam_object) {
                     $id = $linkObject->get_id();
@@ -178,17 +186,19 @@ class ContentProvider implements \Widgets\IContentProvider {
                 $html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
             }
             $html .= "</div>";
+
             return $html;
-        } else if ($cell == $this->rawChangeDate) {
+        } elseif ($cell == $this->rawChangeDate) {
             return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
-        } else if ($cell == $this->rawSize) {
+        } elseif ($cell == $this->rawSize) {
             return getObjectReadableSize($contentItem);
-        } else if ($cell == $this->rawMenu) {
+        } elseif ($cell == $this->rawMenu) {
             $popupMenu = new \Widgets\PopupMenu();
             $popupMenu->setData($contentItem);
             $popupMenu->setElementId("listviewer-overlay");
+
             return $popupMenu;
-        } else if ($cell == $this->rawSubscribe) {
+        } elseif ($cell == $this->rawSubscribe) {
             $subscriptionEnabled = strpos(EXTENSIONS_WHITELIST, "PortletSubscription");
             if ($subscriptionEnabled) {
                 $type = getObjectType($contentItem);
@@ -202,15 +212,18 @@ class ContentProvider implements \Widgets\IContentProvider {
                     }
                 }
             }
+
             return "";
         }
     }
 
-    public function getNoContentText() {
+    public function getNoContentText()
+    {
         return "Dieser Ordner enthält keine Objekte.";
     }
 
-    public function getOnClickHandler($contentItem) {
+    public function getOnClickHandler($contentItem)
+    {
         if (!($contentItem instanceof \steam_trashbin)) {
             return "jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked);";
         } else {
@@ -220,33 +233,36 @@ class ContentProvider implements \Widgets\IContentProvider {
 
 }
 
-class ColorProvider implements \Widgets\IColorProvider {
-
-    public function getColor($contentItem) {
+class ColorProvider implements \Widgets\IColorProvider
+{
+    public function getColor($contentItem)
+    {
         $color = $contentItem->get_attribute("OBJ_COLOR_LABEL");
+
         return ($color === 0) ? "" : $color;
     }
 
 }
 
-class ContentFilter implements \Widgets\IContentFilter {
-
-    public function filterObject($object) {
+class ContentFilter implements \Widgets\IContentFilter
+{
+    public function filterObject($object)
+    {
         if (get_class($object) === "steam_object") {
             return true;
-        } else if ($object instanceof \steam_user) {
+        } elseif ($object instanceof \steam_user) {
             return true;
-        } else if ($object instanceof \steam_trashbin) {
+        } elseif ($object instanceof \steam_trashbin) {
             return true;
-        } else if ($object instanceof \steam_drawing) {
+        } elseif ($object instanceof \steam_drawing) {
             return true;
-        } else if ($object instanceof \steam_calendar) {
+        } elseif ($object instanceof \steam_calendar) {
             return true;
-        } else if ($object instanceof \steam_date) {
+        } elseif ($object instanceof \steam_date) {
             return true;
-        } else if ($object instanceof \steam_group) {
+        } elseif ($object instanceof \steam_group) {
             return true;
-        } else if ($object instanceof \steam_script) {
+        } elseif ($object instanceof \steam_script) {
             return true;
         } else {
             return false;
@@ -254,5 +270,3 @@ class ContentFilter implements \Widgets\IContentFilter {
     }
 
 }
-
-?>
