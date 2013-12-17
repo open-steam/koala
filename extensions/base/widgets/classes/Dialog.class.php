@@ -1,7 +1,7 @@
 <?php
 namespace Widgets;
 
-class Dialog.class extends Widget
+class Dialog extends Widget
 {
     private $title = "";
     private $description ="";
