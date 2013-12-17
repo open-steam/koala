@@ -67,7 +67,12 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
 
         // If user is not logged in, open login dialog. If user is logged in
         // and not guest, then display "Access denied" message.
-        if (!$document->check_access_read($STEAM->get_current_steam_user())) {
+        try {
+            $access_read = $document->check_access_read($STEAM->get_current_steam_user());
+        } catch (\Exception $e) {
+            throw new \Exception("Access denied.", E_USER_RIGHTS);
+        }
+        if (!$access_read)) {
             if ($login == 'guest') throw new \Exception("Access denied. Please login.", E_USER_AUTHORIZATION);
             else {
                 throw new \Exception("Access denied.", E_USER_RIGHTS);
