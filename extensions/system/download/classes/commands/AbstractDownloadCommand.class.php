@@ -46,7 +46,6 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
 
     }
 
-
     private function download_document($login, $password, $identifier, $identifier_type, $width = false, $height = false)
     {
         $STEAM = \steam_connector::connect(STEAM_SERVER, STEAM_PORT, $login, $password);
@@ -54,9 +53,11 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
             $document = $STEAM->predefined_command($STEAM->get_module("icons"), "get_icon_by_name", array((string) $identifier ), 0);
         } elseif ($identifier_type === "id") {
             $document = \steam_factory::get_object($STEAM->get_id(), (int) $identifier);
-            if (!isset($this->filename)) {
-                header("location: " . PATH_URL . "Download/Document/{$identifier}/{$document->get_name()}");
-                exit;
+            if ($document instanceof \steam_document) {
+                if (!isset($this->filename)) {
+                    header("location: " . PATH_URL . "Download/Document/{$identifier}/{$document->get_name()}");
+                    exit;
+                }
             }
         }
 
@@ -72,7 +73,6 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
                 throw new \Exception("Access denied.", E_USER_RIGHTS);
             }
         }
-
 
         if (!$width && !$height) {
             $document->download();
