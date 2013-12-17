@@ -72,7 +72,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
         } catch (\Exception $e) {
             throw new \Exception("Access denied.", E_USER_RIGHTS);
         }
-        if (!$access_read)) {
+        if (!$access_read) {
             if ($login == 'guest') throw new \Exception("Access denied. Please login.", E_USER_AUTHORIZATION);
             else {
                 throw new \Exception("Access denied.", E_USER_RIGHTS);
