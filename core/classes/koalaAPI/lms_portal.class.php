@@ -913,6 +913,11 @@ return $rand_value;
 
     public function show_html()
     {
+
+        if (defined("CONF_CUSTOM_HEAD")) {
+            $this->template->setVariable("CONF_CUSTOM_HEAD", CONF_CUSTOM_HEAD);
+        }
+
         // GENERATE HTML FOR MENU
         if ($this->offline_status) {
             $html_menu = $this->get_menu_html( "guest", FALSE );
