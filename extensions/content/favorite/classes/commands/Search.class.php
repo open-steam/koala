@@ -107,11 +107,19 @@ class Search extends \AbstractCommand implements \IFrameCommand
                     $id = $resultItem->get_id();
 
                     if ($resultItem instanceof \steam_object) {
-                        $helper[$resultItem->get_name()] = $id;
+                        try {
+                            $helper[$resultItem->get_name()] = $id;
+                        } catch (\Exception $e) {
+                            $helper["defektes Objekt ({$id})"] = $id;
+                        }
                     }
 
                     if ($resultItem instanceof \steam_group) {
-                        $helper[$resultItem->get_groupname()] = $id;
+                        try {
+                            $helper[$resultItem->get_groupname()] = $id;
+                        } catch (\Exception $e) {
+                            $helper["defekte Gruppe ({$id})"] = $id;
+                        }
                     }
 
                     $resultItemName[$id] = $result[$resultItemName[$id]];
