@@ -67,23 +67,11 @@ function send_http_error($pException, $pBacktrace = "", $silent = false)
     if ( $pException->getCode() != E_USER_RIGHTS ) {
         $error_id = 'E' . strtoupper(uniqid( '', FALSE ));
         try {
-            $user = 0;
-            try {
-                $user = lms_steam::get_current_user();
-            } catch ( Exception $x) {
-            }
-
-                        $userNameLog = isset($_ENV["USER"]) ? $_ENV["USER"] : "(NoUserName)";
-            $ustring = 'user is not a valid object (' . $userNameLog . ')';
-            try {
-                if (is_object($user) && $user instanceof steam_user) $ustring = $user->get_name();
-            } catch (Exception $e) {
-                $ustring = '(id=' . $user->get_id() . ')';
-            }
-
-            if (lms_portal::is_instance() && is_object(lms_portal::get_instance()->get_user())) {
-                $password = lms_portal::get_instance()->get_user()->get_password();
+            if (isset($_SESSION[ "LMS_USER" ])) {
+                $ustring = $_SESSION[ "LMS_USER" ]->get_login();
+                $password = $_SESSION[ "LMS_USER" ]->get_password();
             } else {
+                $ustring = "NOUSER";
                 $password = "1234567890NICHTGESETZT1234567890";
             }
 
