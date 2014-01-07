@@ -2,9 +2,6 @@
 
 namespace Favorite\Commands;
 
-use OpenSteam\Search\Searching,
-    OpenSteam\Search\SearchDefine;
-
 class Search extends \AbstractCommand implements \IFrameCommand
 {
     private $params;
@@ -62,18 +59,18 @@ class Search extends \AbstractCommand implements \IFrameCommand
                     $modSearchString = $modSearchString . "%";
 
                 $searchModule = $steam->get_module("searching");
-                $searchobject = new Searching($searchModule);
-                $search = new SearchDefine();
+                $searchobject = new \OpenSteam\Search\Searching($searchModule);
+                $search = new \OpenSteam\Search\SearchDefine();
 
                 if ($searchType == "searchUser") {
-                    $search->extendAttr("OBJ_NAME", SearchDefine::like($modSearchString));
+                    $search->extendAttr("OBJ_NAME", \OpenSteam\Search\SearchDefine::like($modSearchString));
                     $resultItems = $searchobject->search($search, CLASS_USER);
                     foreach ($resultItems as $resultItem) {
                         $id = $resultItem->get_id();
                         $resultItemName[$id] = $resultItem->get_name(1);
                     }
                 } elseif ($searchType == "searchGroup") {
-                    $search->extendAttr("GROUP_NAME", SearchDefine::like($modSearchString));
+                    $search->extendAttr("GROUP_NAME", \OpenSteam\Search\SearchDefine::like($modSearchString));
                     $resultItems = $searchobject->search($search, CLASS_GROUP);
                     foreach ($resultItems as $resultItem) {
                         $id = $resultItem->get_id();
