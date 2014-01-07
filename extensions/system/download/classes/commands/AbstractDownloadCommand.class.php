@@ -65,21 +65,20 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
             \ExtensionMaster::getInstance()->send404Error();
         }
 
-        // If user is not logged in, open login dialog. If user is logged in
-        // and not guest, then display "Access denied" message.
-        try {
-            $access_read = $document->check_access_read($STEAM->get_current_steam_user());
-        } catch (\Exception $e) {
-            throw new \Exception("Access denied.", E_USER_RIGHTS);
-        }
-        if (!$access_read) {
-            if ($login == 'guest') throw new \Exception("Access denied. Please login.", E_USER_AUTHORIZATION);
-            else {
+        if (!$width && !$height) {
+            // If user is not logged in, open login dialog. If user is logged in
+            // and not guest, then display "Access denied" message.
+            try {
+                $access_read = $document->check_access_read($STEAM->get_current_steam_user());
+            } catch (\Exception $e) {
                 throw new \Exception("Access denied.", E_USER_RIGHTS);
             }
-        }
-
-        if (!$width && !$height) {
+            if (!$access_read) {
+                if ($login == 'guest') throw new \Exception("Access denied. Please login.", E_USER_AUTHORIZATION);
+                else {
+                    throw new \Exception("Access denied.", E_USER_RIGHTS);
+                }
+            }
             $document->download();
         } else {
             $document->download(DOWNLOAD_IMAGE, array($width, $height));
