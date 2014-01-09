@@ -6,7 +6,8 @@ depending/vendor/*
 
 platforms/bid/cache/*
 platforms/bid/log/*
-platforms/bid/temp/*
+platforms/bid/temp
+platforms/bid/persistence
 platforms/bid/public/.htaccess
 platforms/bid/public/styles
 platforms/bid/etc/local.def.php
@@ -14,14 +15,16 @@ platforms/bid/etc/platform.def.php
 
 platforms/elab/cache/*
 platforms/elab/log/*
-platforms/elab/temp/*
+platforms/elab/temp
+platforms/elab/persistence
 platforms/elab/public/.htaccess
 platforms/elab/public/styles
 platforms/elab/etc/local.def.php
 
 platforms/schulen-gt/cache/*
 platforms/schulen-gt/log/*
-platforms/schulen-gt/temp/*
+platforms/schulen-gt/temp
+platforms/schulen-gt/persistence
 platforms/schulen-gt/public/.htaccess
 platforms/schulen-gt/public/styles
 platforms/schulen-gt/etc/local.def.php
