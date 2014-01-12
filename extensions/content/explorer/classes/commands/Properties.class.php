@@ -237,6 +237,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (!$isWriteable) {
             $keywordArea->setReadOnly(true);
         }
+                
+        
 
         //TODO: bid-attribute
         $descriptionInput = new \Widgets\TextInput();
@@ -319,6 +321,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($checkboxHiddenObject);
         
         $dialog->addWidget($keywordArea);
+        $dialog->addWidget($tag);
         
         if ($type != "portal") {
             $dialog->addWidget($seperator);
