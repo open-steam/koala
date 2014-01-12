@@ -1,13 +1,14 @@
 <script>
     var updateTaglist = function() {
-        console.log(this.value);
         var value = this.value;
         var items = $('.listviewer-items').children();
         items.each(
                 function() {
                     var tagIndex = "#" + this.id + "_2";
+                    var nameIndex = "#" + this.id + "_1";
+                    var name = $(nameIndex).text();
                     var tags = $(tagIndex).text();
-                    if (tags.indexOf(value) == -1) {
+                    if ((tags.indexOf(value) == -1) && (name.indexOf(value) == -1)) {
                         $(('#' + this.id)).removeClass("show");
                         $(('#' + this.id)).addClass("hide");
                         $(('#' + this.id)).hide();

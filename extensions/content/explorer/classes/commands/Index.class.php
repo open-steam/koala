@@ -309,9 +309,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     newIds = "";
             });
             $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>"); 
+                
+                
                                     
     }';
         $rawHtml->setJs($script);
+        $rawHtml->setPostJsCode('$($(".popupmenuanker")[0]).css("margin-top", "3px");');
 
         $inventory = $object->get_inventory();
         $keywordmatrix = array();
@@ -332,14 +335,21 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $popupMenuSearch->setData($object);
         $popupMenuSearch->setElementId("search-area-popupmenu");
 
-        $searchField = new \Widgets\Search();
-        $searchField->setId("searchfield");
-        $searchField->setAutocomplete($kwList);
-        $searchField->setPopupMenu($popupMenuSearch);
-        $searchField->setValue($this->filter);
+        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+            $searchField = new \Widgets\Search();
+            $searchField->setId("searchfield");
+            $searchField->setAutocomplete($kwList);
+            $searchField->setPopupMenu($popupMenuSearch);
+            $searchField->setValue($this->filter);
+        }
+
+
 
         $frameResponseObject->setTitle($title);
-        $frameResponseObject->addWidget($searchField);
+        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+            $frameResponseObject->addWidget($searchField);
+        }
+
         $frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($rawHtml);
 

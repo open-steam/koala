@@ -237,8 +237,62 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (!$isWriteable) {
             $keywordArea->setReadOnly(true);
         }
-                
-        
+
+        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+
+
+            $parent = $object->get_environment();
+            if ($parent !== 0) {
+                $inventory = $parent->get_inventory();
+            } else {
+                $inventory = array();
+            }
+            $keywordmatrix = array();
+            foreach ($inventory as $inv) {
+
+
+                if (!($inv->get_id() == $this->id)) {
+                    $keywordmatrix[] = $inv->get_attribute("OBJ_KEYWORDS");
+                }
+            }
+            $kwList = array();
+            foreach ($keywordmatrix as $kwRow) {
+                foreach ($kwRow as $element) {
+                    if (trim($element) !== "") {
+                        $kwList[] = trim($element);
+                    }
+                }
+            }
+            $kwList = array_unique($kwList);
+            $taglist = array();
+            foreach ($kwList as $kw) {
+                $tagWidget = new \Widgets\Tag();
+                $tagWidget->setKeyword($kw);
+                $taglist[] = $tagWidget;
+            }
+
+            $tagrawHtml = new \Widgets\RawHtml();
+            $html = '<script>function copyToTextInput(name){
+            var valOld = $("input[type=text]")[1].value.trim();
+            var tagfield = $("input[type=text]")[1]; 
+            tagfield.value = valOld + " " + name;
+            $("#dialog_wrapper").addClass("changed");
+            sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
+            $(".tag[name="+name+"]")[0].onclick="";
+}</script><div class="tag-overview-row">';
+
+            $breakCounter = 3;
+            foreach ($taglist as $i => $tagWidget) {
+                if ($i % $breakCounter !== 0) {
+                    $html .= $tagWidget->getHtml();
+                } else {
+                    $html .= "</div>" . '<div class="tag-overview-row">' . $tagWidget->getHtml();
+                }
+            }
+            $html .= "</div>";
+            $tagrawHtml->setHtml($html);
+            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:130px;clear:both;width:200px;}');
+        }
 
         //TODO: bid-attribute
         $descriptionInput = new \Widgets\TextInput();
@@ -319,10 +373,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($createdField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
-        
-        $dialog->addWidget($keywordArea);
-        $dialog->addWidget($tag);
-        
+
+        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+            $dialog->addWidget($keywordArea);
+            $dialog->addWidget($tagrawHtml);
+        }
+
         if ($type != "portal") {
             $dialog->addWidget($seperator);
         }
