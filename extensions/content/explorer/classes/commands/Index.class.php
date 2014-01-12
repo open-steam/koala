@@ -35,7 +35,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $this->filter = "";
             }
         }
-       
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -101,7 +100,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "referenceFile":
                 $linkObject = $object->get_link_object();
+
                 if (($linkObject === NULL) || !($linkObject instanceof \steam_object)) {
+
                     \ExtensionMaster::getInstance()->send404Error();
                     die;
                 }
@@ -130,6 +131,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($rawHtml);
                 $frameResponseObject->setProblemDescription("Dies ist ein \"altes\" Portal und kann nicht mehr angezeigt werden.");
                 $frameResponseObject->setProblemSolution("Bitte umwandeln.");
+
                 return $frameResponseObject;
                 break;
 
@@ -181,7 +183,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
         $title = getCleanName($object, 65);
 
-
         $parent = $object->get_environment();
         if ($parent instanceof \steam_container) {
             //$parentLink = array("name"=>"nach oben", "link"=>PATH_URL . "explorer/Index/" . $parent->get_id() . "/");
@@ -194,7 +195,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
-
 
         //check sanctions
         $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
@@ -211,13 +211,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
                 array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
             ));
-        } else if ($envWriteable) {
+        } elseif ($envWriteable) {
             $actionBar->setActions(array(array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
                 array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
         } else {
             $actionBar->setActions(array());
         }
-
 
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
@@ -231,20 +230,21 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/gif") {
                     // Image
                     $preHtml = "<div style=\"text-align:center\"><img style=\"max-width:100%\" src=\"" . PATH_URL . "Download/Document/" . $first->get_id() . "/\"></div>";
-                } else if ($mimetype == "text/html") {
+                } elseif ($mimetype == "text/html") {
                     $rawContent = $first->get_content();
                     //$preHtml = strip_tags($rawContent,"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img><hr><table><tr><th><td><ul><ol><li>");
                     //$preHtml = $rawContent;
                     $htmlDocument = new \HtmlDocument();
 
+
                     $preHtml = $htmlDocument->makeViewModifications($rawContent, $object, true);
                     $preHtml = cleanHTML($preHtml);
-                } else if (strstr($mimetype, "text")) {
+                } elseif (strstr($mimetype, "text")) {
                     $bidDokument = new \BidDocument($first);
                     $preHtml = $bidDokument->get_content();
                 }
             }
-        } else if ($presentation === "index" && !(isset($_GET["view"]) && ($_GET["view"] === "list"))) {
+        } elseif ($presentation === "index" && !(isset($_GET["view"]) && ($_GET["view"] === "list"))) {
             $objects = $object->get_inventory();
             if (count($objects) > 0) {
                 $first = $objects[0];
@@ -265,7 +265,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $preHtml = "<div style=\"border-bottom: 1px solid #ccc; padding-bottom:10px; margin-bottom:10px\">{$preHtml}</div>";
         }
 
-
         $environment = new \Widgets\RawHtml();
         $environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
 
@@ -277,14 +276,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $loader->setElementId("explorerWrapper");
         $loader->setType("updater");
 
-
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml("<div id=\"explorerContent\">" . $breadcrumb->getHtml() . $environment->getHtml() . $loader->getHtml() . "</div>");
 
         $rawHtml->addWidget($breadcrumb);
         $rawHtml->addWidget($environment);
         $rawHtml->addWidget($loader);
-
 
         $script = "function initSort(){";
         foreach ($objects as $o) {
@@ -298,17 +295,18 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort.png";
         $script .= '
             $("#sort-icon").attr("name", "true");
-            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");});
-            var newIds = "";                
+            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");
+});
+            var newIds = "";
             $( ".listviewer-items" ).sortable({zIndex: 1});
             $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
                 var changedElement = $(ui.item).attr("id");
                 $(".listviewer-items").children();
                 $(".listviewer-items").children().each(function(index, value){
-                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id; 
+                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
                     else newIds+=value.id + ", ";});
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
-                    newIds = ""; 
+                    newIds = "";
             });
             $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>"); 
                                     
@@ -327,6 +325,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
         }
 
+
         $popupMenuSearch = new \Widgets\PopupMenu();
         $popupMenuSearch->setCommand("GetPopupMenuSearch");
         $popupMenuSearch->setNamespace("Explorer");
@@ -339,8 +338,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $searchField->setPopupMenu($popupMenuSearch);
         $searchField->setValue($this->filter);
 
-
-
         $frameResponseObject->setTitle($title);
         $frameResponseObject->addWidget($searchField);
         $frameResponseObject->addWidget($actionBar);
@@ -350,5 +347,3 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
 }
-
-?>
