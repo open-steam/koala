@@ -32,7 +32,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $titelInput = new \Widgets\TextInput();
         $titelInput->setLabel("Überschrift");
         $titelInput->setName("title");
-        
+
         $addressInput = new \Widgets\TextInput();
         $addressInput->setLabel("RSS-Adresse");
         $addressInput->setName("rss");
@@ -42,7 +42,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $checkbox->setCheckedValue("checked");
         $checkbox->setUncheckedValue("");
         $checkbox->setName("html2");
-        
+
         $html .= $titelInput->getHtml() . $addressInput->getHtml() . $checkbox->getHtml();
         $html .= '<script>$("input[name=\"html2\"]").bind("click", function() {
   if( $("input[name=\"html\"]").val()== "true"){
@@ -54,9 +54,24 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 }
     });</script>';
 
+        $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
+	float:left;
+        
+        
+}.widgets_label {
+	clear:both;
+        float: left;
+	margin-right: 2px;
+	white-space: nowrap;
+}.widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
+	float: left;
+}
+.widgets_checkbox {
+	float: left;;
+}
 
-        $ajaxForm->setHtml($html);
-
+</style>";
+        $ajaxForm->setHtml($css . $html);
 
 
 
