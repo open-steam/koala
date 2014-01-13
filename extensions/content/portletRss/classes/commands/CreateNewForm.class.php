@@ -69,6 +69,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 .widgets_checkbox {
 	float: left;;
 }
+input[type='checkbox']{margin-left:-1px;}
 
 </style>";
         $ajaxForm->setHtml($css . $html);
