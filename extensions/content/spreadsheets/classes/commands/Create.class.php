@@ -57,9 +57,8 @@ END
         //create new sTeam document in current container
         $spreadsheetExtension = \Spreadsheets::getInstance();
         $container = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $this->id);
-        $document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $name, "", "application/json", $container);
+        $document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $name, $this->createJsonDocument(1, $row_count, $col_count), "application/json", $container);
         $document->set_attribute("OBJ_TYPE", "document_spreadsheet");
-        $document->set_content($this->createJsonDocument(1, $row_count, $col_count));
     }
 
     private function createJsonDocument($sheet_count, $row_count, $col_count)
