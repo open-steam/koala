@@ -14,7 +14,9 @@ function send_http_error($pException, $pBacktrace = "", $silent = false) {
                     $protocoll = isset($_SERVER["HTTPS"]) ? "https://" : "http://";
                     $url = $protocoll . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
                     $request_url = str_ireplace(PATH_URL, "/", $url);
-                    $_SESSION["error"] = "Um auf das ausgewählte Objekt zugreifen zu können ist eine Authentifizierung notwendig.";
+                    //$_SESSION["error"] = "Um auf das ausgewählte Objekt zugreifen zu können ist eine Authentifizierung notwendig.";
+                    $_SESSION["error"] = "Ungültiger Benutzername oder falsches Passwort. Bitte überprüfen Sie Ihren Benutzernamen und das Passwort.";
+                    
                     header( 'Location: ' . URL_SIGNIN_REQUEST . substr($request_url, 1));
                     exit;
                 }
