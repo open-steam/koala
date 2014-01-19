@@ -19,6 +19,9 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         if (isset($this->id)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            if(intval($object->check_access(SANCTION_WRITE)) === 0){
+                $noActionbar = true;
+            }
 
             if(!($object instanceof \steam_object)){
                 \ExtensionMaster::getInstance()->send404Error();
