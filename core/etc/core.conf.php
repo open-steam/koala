@@ -32,7 +32,7 @@ if (isRestRequest()) {
 }
 
 //clean disconnect handling
-register_shutdown_function(function() {
+register_shutdown_function(function () {
     if (isset($GLOBALS["STEAM"])) {
         $GLOBALS["STEAM"]->disconnect();
     }
@@ -94,8 +94,12 @@ if (!file_exists($autoloaderIndexFile)) {
 }
 
 // adding phpsteam logger
-$logger = Monolog\Registry::getInstance(API_LOGGER_CHANNEL);
-$logger->pushHandler(new  Monolog\Handler\StreamHandler(LOG_PHPSTEAM, Monolog\Logger::DEBUG));
+try {
+    $logger = Monolog\Registry::getInstance(API_LOGGER_CHANNEL);
+    $logger->pushHandler(new  Monolog\Handler\StreamHandler(LOG_PHPSTEAM, Monolog\Logger::DEBUG));
+} catch (Exception $e) {
+    //logger is missing
+}
 
 // start session
 session_name(SESSION_NAME);
