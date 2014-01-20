@@ -153,5 +153,5 @@ defined("PLATFORM_USERMANAGEMENT_URL") or define("PLATFORM_USERMANAGEMENT_URL", 
 defined("LOGO_PATH_URL") or define("LOGO_PATH_URL", "http://www.hni.uni-paderborn.de/koi/");
 
 //option for objects only root can create
-defined("CREATE_RESTRICTED_TO_ROOT") or define("CREATE_RESTRICTED_TO_ROOT", "Webarena, Spreadsheets");
+defined("CREATE_RESTRICTED_TO_ROOT") or define("CREATE_RESTRICTED_TO_ROOT", "Webarena");
 ?>
