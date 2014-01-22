@@ -140,24 +140,25 @@ class Index extends \AbstractCommand implements \IFrameCommand{
          * redirects to the extension/object with a object id
          */
         private function redirectToObjectId($objectId){
-                //logging::write_log( LOG_ERROR, "b2pc-redirectToObjectId"); //test
-                $objectId = (string)intval($objectId);
-                /*try {
+                try {
                     $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
                 } catch (\Exception $e){
                     $url = "/404/";
                     header("Location: ".$url);
                     die;
                 }
-                if ($object instanceof steam_object) {*/
+                if ($object instanceof \steam_object) {
                     $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
+                    if (empty($url)) {
+                        $url = "/404/";
+                    }
                     header("Location: ".$url);
                     die;
-                /*} else {
+                } else {
                     $url = "/404/";
                     header("Location: ".$url);
                     die;
-                }*/
+                }
 
         }
 
