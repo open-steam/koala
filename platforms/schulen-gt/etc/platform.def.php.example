@@ -147,7 +147,10 @@ defined("ENABLE_AUTOMATIC_IMAGE_SCALING") or define("ENABLE_AUTOMATIC_IMAGE_SCAL
 defined("YOUR_SCHOOL") or define("YOUR_SCHOOL", true);
     
 //url to terms of use
-defined("PLATFORM_USERMANAGEMENT_URL") or define("PLATFORM_USERMANAGEMENT_URL", "http://www.bid-owl.de/benutzerverwaltung/");
+//defined("PLATFORM_USERMANAGEMENT_URL") or define("PLATFORM_USERMANAGEMENT_URL", "http://www.bid-owl.de/benutzerverwaltung/");
+defined("PLATFORM_USERMANAGEMENT_URL_PRE") or define("PLATFORM_USERMANAGEMENT_URL_PRE", "http://www.bid-owl.de/benutzerverwaltung/");
+defined("PLATFORM_USERMANAGEMENT_URL") or define("PLATFORM_USERMANAGEMENT_URL", "javascript:document.cookie = '".PLATFORM_ID.KOALA_VERSION."=del; expires=Thu, 1 Aug 2000 20:00:00 UTC; path=/';window.location.href='".PLATFORM_USERMANAGEMENT_URL_PRE."';");
+
 
 //logo link
 defined("LOGO_PATH_URL") or define("LOGO_PATH_URL", "http://www.hni.uni-paderborn.de/koi/");

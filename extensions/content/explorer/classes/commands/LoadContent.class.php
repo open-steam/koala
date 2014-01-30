@@ -2,19 +2,17 @@
 
 namespace Explorer\Commands;
 
-class LoadContent extends \AbstractCommand implements \IAjaxCommand
-{
+class LoadContent extends \AbstractCommand implements \IAjaxCommand {
+
     private $params;
     private $id;
     private $objects;
 
-    public function validateData(\IRequestObject $requestObject)
-    {
+    public function validateData(\IRequestObject $requestObject) {
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject)
-    {
+    public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
 
@@ -27,8 +25,7 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand
         }
     }
 
-    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject)
-    {
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $listViewer = new \Widgets\ListViewer();
         $listViewer->setHeadlineProvider(new HeadlineProvider());
         $listViewer->setContentProvider(new ContentProvider());
@@ -45,30 +42,28 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand
 
 }
 
-class HeadlineProvider implements \Widgets\IHeadlineProvider
-{
-    public function getHeadlines()
-    {
-        return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
-        //return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
-
+    public function getHeadlines() {
+        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+            return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+        } else {
+            return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+        }
     }
 
-    public function getHeadLineWidths()
-    {
+    public function getHeadLineWidths() {
         return array(25, 300, 185, 150, 80, 30, 40, 20);
     }
 
-    public function getHeadLineAligns()
-    {
+    public function getHeadLineAligns() {
         return array("left", "left", "left", "right", "right", "right", "right", "right");
     }
 
 }
 
-class ContentProvider implements \Widgets\IContentProvider
-{
+class ContentProvider implements \Widgets\IContentProvider {
+
     private $rawImage = 0;
     private $rawName = 1;
     private $rawMarker = 2;
@@ -78,13 +73,11 @@ class ContentProvider implements \Widgets\IContentProvider
     private $rawMenu = 6;
     private $rawCheckbox = 7;
 
-    public function getId($contentItem)
-    {
+    public function getId($contentItem) {
         return $contentItem->get_id();
     }
 
-    public function getCellData($cell, $contentItem)
-    {
+    public function getCellData($cell, $contentItem) {
         if (!is_int($cell)) {
             throw new \Exception("cell must be an integer!!");
         }
@@ -104,7 +97,6 @@ class ContentProvider implements \Widgets\IContentProvider
 
             if (strlen($cleanName) > 50) {
                 $longName = "<br><div style=\"font-weight:bold; width:100px; float:left;\">Name:</div><br> " . $cleanName;
-
             } else {
                 $longName = "";
             }
@@ -149,15 +141,22 @@ class ContentProvider implements \Widgets\IContentProvider
             }
         } elseif ($cell == $this->rawMarker) {
             //  return ""; //disabled
-            $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
-            $keywordList = "";
-            foreach ($keywords as $keyword) {
-                if ($keyword !== "") {
-                    $keywordList.=$keyword . " ";
+            if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+                $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
+                $keywordList = "";
+                foreach ($keywords as $keyword) {
+                    if ($keyword !== "") {
+                        $keywordList.=$keyword . " ";
+                    }
                 }
+                 return $keywordList;
+            }else{
+                return "";
             }
 
-            return $keywordList; //speed test //TODO: fix
+           
+
+            //speed test //TODO: fix
             $html = "";
             $html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
 
@@ -217,13 +216,11 @@ class ContentProvider implements \Widgets\IContentProvider
         }
     }
 
-    public function getNoContentText()
-    {
+    public function getNoContentText() {
         return "Dieser Ordner enthält keine Objekte.";
     }
 
-    public function getOnClickHandler($contentItem)
-    {
+    public function getOnClickHandler($contentItem) {
         if (!($contentItem instanceof \steam_trashbin)) {
             return "jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked);";
         } else {
@@ -233,10 +230,9 @@ class ContentProvider implements \Widgets\IContentProvider
 
 }
 
-class ColorProvider implements \Widgets\IColorProvider
-{
-    public function getColor($contentItem)
-    {
+class ColorProvider implements \Widgets\IColorProvider {
+
+    public function getColor($contentItem) {
         $color = $contentItem->get_attribute("OBJ_COLOR_LABEL");
 
         return ($color === 0) ? "" : $color;
@@ -244,10 +240,9 @@ class ColorProvider implements \Widgets\IColorProvider
 
 }
 
-class ContentFilter implements \Widgets\IContentFilter
-{
-    public function filterObject($object)
-    {
+class ContentFilter implements \Widgets\IContentFilter {
+
+    public function filterObject($object) {
         if (get_class($object) === "steam_object") {
             return true;
         } elseif ($object instanceof \steam_user) {

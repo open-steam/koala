@@ -101,6 +101,7 @@ class ListViewer extends Widget {
 					$this->getContent()->parse("LISTVIEWER_ITEM_CELL");
 				}
 				$this->getContent()->parse("LISTVIEWER_ITEM");
+                                
                         }
 		}
 		return $this->getContent()->get();

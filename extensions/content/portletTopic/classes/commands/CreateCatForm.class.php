@@ -29,6 +29,7 @@ class CreateCatForm extends \AbstractCommand implements \IAjaxCommand {
                 
                 $html = $titel->getHtml();                
                 $html.= '<input type="hidden" name="id" value="'.$this->id.'">';
+                $html.='<script>$(document).ready(function(){$("input[name=title]").css("width", "196px")});</script>';
                 
                 $ajaxForm->setHtml($html);
                 

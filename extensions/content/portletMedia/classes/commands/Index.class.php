@@ -167,7 +167,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                                     $youTubeUrlCode = substr($url, $begin, $lenght);
                                 }
                                 
-                                $tmpl->setVariable("YOUTUBE_URL_CODE", $youTubeUrlCode);
+                                $tmpl->setVariable("YOUTUBE_URL_CODE", $youTubeUrlCode . "/?wmode=opaque");
                                 $tmpl->parse("movieYoutube");
 			}
                         

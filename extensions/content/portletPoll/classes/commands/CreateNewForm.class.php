@@ -42,10 +42,10 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         //$ajaxForm->setHtml(<<<END
         $html = ' 
 
-<input type="hidden" name="id" value="'.$this->id.'">
+<input type="hidden" name="id" value="' . $this->id . '">
 
 <div class="attribute">
-	<div><input type="hidden" name="parent" value="'.$this->id.'"></div>
+	<div><input type="hidden" name="parent" value="' . $this->id . '"></div>
 </div>
 
 ';
@@ -53,13 +53,13 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $title->setLabel("Titel");
         $title->setName("title");
         $html .= $title->getHtml();
-        
+
         $desc = new \Widgets\TextInput();
         $desc->setLabel("Beschreibung");
         $desc->setName("desc");
         $html .= $desc->getHtml();
-        
-        
+
+
         $datepickerStart = new \Widgets\DatePicker();
         $datepickerStart->setLabel("Startdatum");
         $datepickerStart->setDatePicker(true);
@@ -78,7 +78,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $html .= '<div class="attribute">' . $datepickerEnd->getHtml() . "</div>";
         $html .='<script>$("input[name=\"endDate\"]").val("' . $futureDate . '");</script>';
 
-    
+
         $item0Description = new \Widgets\TextInput();
         $item0Description->setInputBackgroundColor("rgb(255,120,111)");
         $item0Description->setLabel("Antworten");
@@ -111,14 +111,25 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $item5Description->setInputBackgroundColor("rgb(207,163,224)");
         $item5Description->setName("input5");
         $html .= $item5Description->getHtml();
-        
+
         $clearer = new \Widgets\Clearer();
         $html .= $clearer->getHtml();
-        
-        
 
-        $ajaxForm->setHtml($html);
-     
+        $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
+	float:left;
+        
+        
+}.widgets_label {
+	clear:both;
+        float: left;
+	margin-right: 2px;
+	white-space: nowrap;
+}.widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
+	float: left;
+}
+
+</style>";
+        $ajaxForm->setHtml($css . $html);
 
 
         $ajaxResponseObject->addWidget($ajaxForm);

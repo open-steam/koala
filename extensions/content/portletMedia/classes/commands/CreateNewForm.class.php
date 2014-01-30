@@ -45,10 +45,33 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 		$radioButton->setOptions(array(array("name"=>"Film", "value"=>"movie"), array("name"=>"Bild", "value"=>"image"), array("name"=>"Ton", "value"=>"audio")));
                 $radioButton->setCurrentValue("Film");
 		$html.= $radioButton->getHtml();
+                $clearer = new \Widgets\Clearer();
+                $html .= $clearer->getHtml();
                 
                 $html .= '<input type="hidden" name="id" value="'.$this->id.'">';
                        
-                $ajaxForm->setHtml($html);
+                 $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
+	float:left;
+        
+        
+}.widgets_label {
+	clear:both;
+        float: left;
+	margin-right: 2px;
+	white-space: nowrap;
+}.widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
+	float: left;
+}
+.widgets_checkbox {
+	float: left;
+}
+.widgets_radiobutton {
+	float: left;
+        margin-left:0px;
+}
+
+</style>";
+        $ajaxForm->setHtml($css . $html);
 		$ajaxResponseObject->addWidget($ajaxForm);
 		return $ajaxResponseObject;
 	}

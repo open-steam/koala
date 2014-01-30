@@ -5,8 +5,10 @@
         items.each(
                 function() {
                     var tagIndex = "#" + this.id + "_2";
+                    var nameIndex = "#" + this.id + "_1";
+                    var name = $(nameIndex).text();
                     var tags = $(tagIndex).text();
-                    if (tags.indexOf(value) == -1) {
+                    if ((tags.indexOf(value) == -1) && (name.indexOf(value) == -1)) {
                         $(('#' + this.id)).removeClass("show");
                         $(('#' + this.id)).addClass("hide");
                         $(('#' + this.id)).hide();
@@ -18,6 +20,7 @@
                 }
         );
     };
+    
     $(function() {
         var availableTags = [
             {AUTOCOMPLETE_VALUES}
@@ -25,7 +28,8 @@
         $("#{ID}").autocomplete({
             source: availableTags,
             close: updateTaglist,
-            change: updateTaglist
+            change: updateTaglist,
+           
         });
     });
 
@@ -43,8 +47,17 @@
     }
 </style>
 
-<div id="search-area" class="search-widget"><input class="search-input" id="{ID}"></div>
+<div id="search-area" class="search-widget"><input class="search-input" id="{ID}">{POPUPMENU_HTML}</div>
+
+<div id="search-area-popupmenu"></div>
 
 <script>
-    $("#{ID}").keyup(updateTaglist);
+    $(document).ready(function(){$("#{ID}").keyup(updateTaglist);
+                $("#{ID}").val(decodeURI("{VALUE}"));
+                $(document).bind("listviewerReady", function(){$("#{ID}").each(updateTaglist);});
+             
+                
+    });
+    
+    
 </script>

@@ -1,31 +1,31 @@
 <?php
-namespace PortletHeadline\Commands;
-class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
-	
-	private $params;
-	private $id;
-	private $content;
-	private $dialog;
-	
-	public function validateData(\IRequestObject $requestObject) {
-		return true;
-	}
-	
-	public function processData(\IRequestObject $requestObject){
-		$this->params = $requestObject->getParams();
-		$this->id = $this->params["id"];
-	}
-	
-	
-	
-	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		$ajaxResponseObject->setStatus("ok");
-		
-		$ajaxForm = new \Widgets\AjaxForm();
-		$ajaxForm->setSubmitCommand("Create");
-		$ajaxForm->setSubmitNamespace("PortletHeadline");
 
-		$ajaxForm->setHtml(<<<END
+namespace PortletHeadline\Commands;
+
+class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
+
+    private $params;
+    private $id;
+    private $content;
+    private $dialog;
+
+    public function validateData(\IRequestObject $requestObject) {
+        return true;
+    }
+
+    public function processData(\IRequestObject $requestObject) {
+        $this->params = $requestObject->getParams();
+        $this->id = $this->params["id"];
+    }
+
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        $ajaxResponseObject->setStatus("ok");
+
+        $ajaxForm = new \Widgets\AjaxForm();
+        $ajaxForm->setSubmitCommand("Create");
+        $ajaxForm->setSubmitNamespace("PortletHeadline");
+
+        $ajaxForm->setHtml(<<<END
 <style type="text/css">
 .attribute {
   clear: left;
@@ -53,8 +53,11 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 }
 
 .attributeValue .text, .attributeValue textarea {
-  wwidth: 100px;
+  width: 100px;
 }
+                        .text{
+             width:196px;
+    }
 
 .attributeValueColumn {
   float: left;
@@ -76,9 +79,11 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
 
 END
-);
-		$ajaxResponseObject->addWidget($ajaxForm);
-		return $ajaxResponseObject;
-	}
+        );
+        $ajaxResponseObject->addWidget($ajaxForm);
+        return $ajaxResponseObject;
+    }
+
 }
+
 ?>
