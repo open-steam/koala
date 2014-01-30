@@ -2,25 +2,21 @@
 
 namespace Explorer\Commands;
 
-class Index extends \AbstractCommand implements \IFrameCommand
-{
+class Index extends \AbstractCommand implements \IFrameCommand {
+
     private $params;
     private $id;
 
-    public function validateData(\IRequestObject $requestObject)
-    {
+    public function validateData(\IRequestObject $requestObject) {
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject)
-    {
+    public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
-
     }
 
-    public function frameResponse(\FrameResponseObject $frameResponseObject)
-    {
+    public function frameResponse(\FrameResponseObject $frameResponseObject) {
         if (isset($this->id)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
             if ($object instanceof \steam_exit) {
@@ -83,7 +79,7 @@ class Index extends \AbstractCommand implements \IFrameCommand
 
             case "referenceFile":
                 $linkObject = $object->get_link_object();
-                if (($linkObject===NULL) || !($linkObject instanceof \steam_object)) {
+                if (($linkObject === NULL) || !($linkObject instanceof \steam_object)) {
                     \ExtensionMaster::getInstance()->send404Error();
                     die;
                 }
@@ -217,7 +213,7 @@ class Index extends \AbstractCommand implements \IFrameCommand
                     //$preHtml = $rawContent;
                     $htmlDocument = new \HtmlDocument();
 
-                    $preHtml = $htmlDocument->makeViewModifications($rawContent,$object, true);
+                    $preHtml = $htmlDocument->makeViewModifications($rawContent, $object, true);
                     $preHtml = cleanHTML($preHtml);
                 } elseif (strstr($mimetype, "text")) {
                     $bidDokument = new \BidDocument($first);
@@ -272,7 +268,7 @@ class Index extends \AbstractCommand implements \IFrameCommand
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl()."images/sort.png";
+        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort.png";
         $script .= '
             $("#sort-icon").attr("name", "true");
             $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");});
@@ -287,7 +283,7 @@ class Index extends \AbstractCommand implements \IFrameCommand
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                     newIds = "";
             });
-            $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url('.$assetUrl.');\"></div>");
+            $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>");
 
     }';
         $rawHtml->setJs($script);
@@ -309,7 +305,9 @@ class Index extends \AbstractCommand implements \IFrameCommand
         $searchField->setAutocomplete($kwList);
 
         $frameResponseObject->setTitle($title);
-        //$frameResponseObject->addWidget($searchField);
+        if (defined("EXPLORER_TAGS_VISIBILE") && EXPLORER_TAGS_VISIBILE) {
+            $frameResponseObject->addWidget($searchField);
+        }
         $frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($rawHtml);
 
