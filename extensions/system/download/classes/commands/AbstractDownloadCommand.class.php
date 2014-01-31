@@ -79,7 +79,12 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
                     throw new \Exception("Access denied.", E_USER_RIGHTS);
                 }
             }
-            $document->download();
+
+            if (isset($_SERVER['HTTP_RANGE']) && strstr($document->get_mimetype(), "video")) {
+                $document->download(DOWNLOAD_RANGE);
+            } else {
+                $document->download();
+            }
         } else {
             $document->download(DOWNLOAD_IMAGE, array($width, $height));
         }
