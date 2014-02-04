@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+
+RewriteBase /
+
+RedirectMatch ^/tools/asciisvg(.*) https://bid.lspb.de/tools/asciisvg$1
+RewriteRule ^robots.txt$                - [L]
+RewriteRule ^styles/.*$                    - [L]
+RewriteRule ^(.*)$                        index.php?path=$1 [L,QSA]
+
+</IfModule>
+php_flag magic_quotes_gpc off

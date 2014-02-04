@@ -30,6 +30,15 @@ platforms/schulen-gt/public/styles
 platforms/schulen-gt/etc/local.def.php
 platforms/schulen-gt/etc/platform.def.php
 
+platforms/lernstatt/cache/*
+platforms/lernstatt/log/*
+platforms/lernstatt/temp
+platforms/lernstatt/persistence
+platforms/lernstatt/public/.htaccess
+platforms/lernstatt/public/styles
+platforms/lernstatt/etc/local.def.php
+platforms/lernstatt/etc/platform.def.php
+
 extensions/content/worksheet/templates_c/%%*
 extensions/base/widgets/asset/temp/*
 extensions/content/spreadsheets/etc/default.def.php

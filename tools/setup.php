@@ -58,6 +58,19 @@ $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/log/phpsteam.log", 0666);
 $required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/schulen-gt/public/.htaccess", 0644, "../platforms/schulen-gt/public/.htaccess.example");
 
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/lernstatt/cache", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/lernstatt/log", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/lernstatt/persistence", 0755);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/lernstatt/persistence/contentid", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$DIR, "../platforms/lernstatt/temp", 0777);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/lernstatt/log/403.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/lernstatt/log/404.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/lernstatt/log/errors.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/lernstatt/log/messages.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/lernstatt/log/security.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/lernstatt/log/phpsteam.log", 0666);
+$required_paths[] = new RequiredPath(RequiredPath::$FILE, "../platforms/lernstatt/public/.htaccess", 0644, "../platforms/lernstatt/public/.htaccess.example");
+
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../extensions/content/worksheet/templates_c", 0777);
 $required_paths[] = new RequiredPath(RequiredPath::$DIR, "../tools/bid-tools/asciisvg/imgs", 0777);
 
