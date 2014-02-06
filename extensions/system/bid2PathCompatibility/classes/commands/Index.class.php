@@ -115,6 +115,12 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                         $this->redirectToDownloadObjectId($objectId, $name);
                 }
 
+                if(strstr($requestUrl, "/modules/portal2/portlets/msg/rss.php?object=")){
+                    $id = str_replace("/modules/portal2/portlets/msg/rss.php?object=", "", $requestUrl);
+                    header("location: " . PATH_SERVER . "/portletMsg/rss/{$id}");
+                    die;
+                }
+
                 die("URL-Umleitung fehlgeschlagen");
 
                 $rawWidget = new \Widgets\RawHtml();
