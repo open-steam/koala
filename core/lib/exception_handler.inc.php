@@ -3,14 +3,18 @@ include_once( PATH_LIB . 'encryption_handling.inc.php' );
 
 function send_http_error($pException, $pBacktrace = "", $silent = false)
 {
+    if ($pException->getCode() == E_BACKEND_ERROR) {
+        if (strstr($pException->getMessage(), 'Access denied for user')) {
+            $pException = new Exception($pException->getMessage(), E_USER_ACCESS_DENIED);
+        }
+    }
     if ($pException->getCode() == E_USER_ACCESS_DENIED) {
                 $userNameLog = isset($_ENV["USER"]) ? $_ENV["USER"] : "(NoUserName)";
                 logging::write_log( LOG_403, date("d.m.Y H:i", time()) . " USER: " . $userNameLog . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]);
 
                 $user = lms_portal::get_instance()->get_user();
                 if ($user instanceof lms_user && $user->is_logged_in()) {
-                    header( 'Location: ' . PATH_URL . "403/");
-                    exit;
+                    $pException = new Exception($pException->getMessage(), E_USER_RIGHTS);
                 } else {
                     $protocoll = isset($_SERVER["HTTPS"]) ? "https://" : "http://";
                     $url = $protocoll . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
@@ -19,11 +23,6 @@ function send_http_error($pException, $pBacktrace = "", $silent = false)
                     header( 'Location: ' . URL_SIGNIN_REQUEST . substr($request_url, 1));
                     exit;
                 }
-    }
-    if ($pException->getCode() == E_BACKEND_ERROR) {
-        if (strstr($pException->getMessage(), 'Access denied for user')) {
-            $pException = new Exception($pException->getMessage(), E_USER_RIGHTS);
-        }
     }
     if ( $pException->getCode() == E_USER_AUTHORIZATION ) {
         try {
