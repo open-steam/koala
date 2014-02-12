@@ -1,0 +1,15 @@
+{
+    "config": {
+        "vendor-dir": "../../depending/vendor",
+        "process-timeout": "3000"
+    },
+    "repositories": [
+        {
+            "type" : "vcs",
+            "url" : "git@github.com:open-steam/phpsteam.git"
+        }
+    ],
+    "require": {
+        "open-steam/phpsteam" : "dev-master"
+    }
+}

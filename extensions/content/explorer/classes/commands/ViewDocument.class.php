@@ -25,9 +25,13 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
 
             if(!($object instanceof \steam_object)){
                 \ExtensionMaster::getInstance()->send404Error();
-                die; 
+                die;
             }
-            
+
+            if (!$object->check_access_read()) {
+                throw new \Exception("no access", E_USER_ACCESS_DENIED);
+            }
+
             //chronic
             \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
 
@@ -77,18 +81,18 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     $name = $objDesc . " (" . $objName . ")";
                 }
 
-                
-                
-                
+
+
+
                 //document type: image
                 $html = "";
                 if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/jpg" || $mimetype == "image/gif") {  // Image
                     $dummyContent = $object->get_content(); //to check sanction
                     $html = "<div style=\"text-align:center\"><img style=\"max-width:100%\" title=\"{$name}\" alt=\"Bild: {$name}\" src=\"" . PATH_URL . "Download/Document/" . $this->id . "/\"></div>";
                 }
-                
-                
-                
+
+
+
 
                 //document type: html-text
                 else if ($mimetype == "text/html") {
@@ -123,10 +127,10 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     $mediaplayerHeight = round(200 * 11 / 40) . "";
                     $mediaPlayerUrl = getDownloadUrlForObjectId($this->id);
                     $mediaplayerHtml->setHtml(<<<END
-                        
+
 			<object style="width: {$mediaplayerWidth}px; height:{$mediaplayerHeight}px" type="application/x-shockwave-flash" data="{$mediaplayerPath}"><param name="movie" value="{$mediaplayerPath}" /><param name="FlashVars" value="src={$mediaPlayerUrl}" /><param name="bgcolor" value="#cccccc"></object>
-			
-                            
+
+
 END
                     );
                     $actionBar->setActions(array(

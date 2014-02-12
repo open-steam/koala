@@ -4,8 +4,10 @@ RewriteEngine on
 
 RewriteBase /
 
-RewriteRule ^styles/.*$					- [L]
-RewriteRule ^(.*)$						index.php?path=$1 [L,QSA]
-
+RedirectMatch ^/tools/asciisvg(.*) http://www.bid-owl.de/tools/asciisvg$1
+RewriteRule ^robots.txt$                - [L]
+RewriteRule ^styles/.*$                 - [L]
+RewriteRule ^(.*)$                      index.php?path=$1 [L,QSA]
 
 </IfModule>
+php_flag magic_quotes_gpc off

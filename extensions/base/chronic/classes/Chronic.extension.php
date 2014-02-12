@@ -1,30 +1,37 @@
 <?php
-class Chronic extends AbstractExtension implements IMenuExtension {
-	private $chronicLength = 15;
-        
-	public function getName() {
-		return "Chronic";
-	}
-	
-	public function getDesciption() {
-		return "Extension for chronic handling.";
-	}
-	
-	public function getVersion() {
-		return "v1.0.1";
-	}
-	
-	public function getAuthors() {
-		$result = array();
-		$result[] = new Person("Marcel", "Jakoblew", "mjako@uni-paderborn.de");
-		return $result;
-	}
-	
-	public function getMenuEntries() {
+class Chronic extends AbstractExtension implements IMenuExtension
+{
+    private $chronicLength = 15;
+
+    public function getName()
+    {
+        return "Chronic";
+    }
+
+    public function getDesciption()
+    {
+        return "Extension for chronic handling.";
+    }
+
+    public function getVersion()
+    {
+        return "v1.0.1";
+    }
+
+    public function getAuthors()
+    {
+        $result = array();
+        $result[] = new Person("Marcel", "Jakoblew", "mjako@uni-paderborn.de");
+
+        return $result;
+    }
+
+    public function getMenuEntries()
+    {
                 $chronic = $this->loadChronic();
                 $length = count($chronic);
                 $result = array();
-                
+
                 // upwards menu
                 $result[] = array("name" => "Aufwärts", "menu" => array());
                 $menuArray = $result[0]["menu"];
@@ -33,24 +40,26 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     $menuArray[] = array("name" => "Keine Aufwärts-Navigation möglich.");
                 }
                 $result[0]["menu"] = $menuArray;
-                
+
                 // chronic
                 $result[] = array("name" => "Verlauf", "menu" => array($this->getBackEntry()));
                 if ($length > 1) {
                     $menuArray = $result[1]["menu"];
                     $menuArray[] = array("name" => "SEPARATOR");
                     $count = 0;
-                    foreach ($chronic as $chronicItem){
+                    foreach ($chronic as $chronicItem) {
                         $count++;
                         if($count<2) continue; //skip this and last element
                         $menuArray[] = array("name" => $this->getEntryIconTag($chronicItem)." ".$this->getEntryName($chronicItem), "link" => $this->getEntryPath($chronicItem)); //todo
                     }
                     $result[1]["menu"] = $menuArray;
                 }
+
                 return $result;
-	}
-	
-        public function getChronic() {
+    }
+
+        public function getChronic()
+        {
                 $chronic = $this->loadChronic();
                 $result = array();
                 $count = 0;
@@ -58,11 +67,11 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 foreach ($chronic as $chronicItem) {
                     $count++;
                     if ($count < 2) continue; //skip this and last element
-                    
+
                     $content = explode(":", $chronicItem);
                     $entryType = $content[0];
 
-                    if ($entryType=="oid"){
+                    if ($entryType=="oid") {
                         $objectId = $content[1];
                     } else {
                         $objectId = $minusCount;
@@ -70,132 +79,136 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     }
                     $result[] = array("id" => $objectId, "name" => $this->getEntryName($chronicItem, -1), "image" => $this->getEntryIconTag($chronicItem), "link" => $this->getEntryPath($chronicItem));
                 }
+
                 return $result;
-	}
-        
-	public function setCurrentObject($steamObject) {
-                if ($steamObject instanceof steam_object && $steamObject->check_access_read()){
+    }
+
+    public function setCurrentObject($steamObject)
+    {
+                if ($steamObject instanceof steam_object && $steamObject->check_access_read()) {
                     $this->updateChronic("oid:".$steamObject->get_id());
                 }
         }
-        
-        public function setCurrentCommand($namespace, $command) {
+
+        public function setCurrentCommand($namespace, $command)
+        {
                 $this->updateChronic("cmd:".$namespace.":".$command);
         }
-        
-        public function setCurrentPath($path,$title) {
+
+        public function setCurrentPath($path,$title)
+        {
                 $this->updateChronic("pth:".$path.":".$title);
         }
-        
-        public function setCurrentOther($other) {
+
+        public function setCurrentOther($other)
+        {
                 if($other=="profile") $this->updateChronic("oth:profile");
                 if($other=="desktop") $this->updateChronic("oth:desktop");
                 if($other=="bookmarks") $this->updateChronic("oth:bookmarks");
                 if($other=="trashbin") $this->updateChronic("oth:trashbin");
                 if($other=="clipboard") $this->updateChronic("oth:clipboard");
         }
-        
-        
-	//get entry for back button
-	private function getBackEntry() {
-		return array("name" => "zurück", "onclick" => "history.back();return false;"); //remove for php back method
-                   
+
+    //get entry for back button
+    private function getBackEntry()
+    {
+        return array("name" => "zurück", "onclick" => "history.back();return false;"); //remove for php back method
+
                 $chronic = $this->loadChronic();
                 $startBackIndex = 1;
-                
-                if(isset($chronic[$startBackIndex])){
-                   $steamObject = $this->getEntryObject($chronic[$startBackIndex]); 
-                   if($steamObject===FALSE || ($steamObject->get_attribute("bid:presentation")==="index")){
+
+                if (isset($chronic[$startBackIndex])) {
+                   $steamObject = $this->getEntryObject($chronic[$startBackIndex]);
+                   if ($steamObject===FALSE || ($steamObject->get_attribute("bid:presentation")==="index")) {
                        $startBackIndex++;
                    }
-                       
+
                    $backEntry = $chronic[$startBackIndex];
-                   return array("name" => "zurück", "link" => $this->getEntryPath($backEntry)); 
+
+                   return array("name" => "zurück", "link" => $this->getEntryPath($backEntry));
                 }
+
                 return "";
         }
-	
-        
+
         //get entry for up button
-	private function getParentEntry() {
+    private function getParentEntry()
+    {
             $chronic = $this->loadChronic();
-            
+
             if (!isset($chronic[0])) return "";
-            
+
             $currentLocation = $chronic[0];
             $content = explode(":", $currentLocation);
             $entryType = $content[0];
             $currentObjectId = $content[1];
-            
-            if($entryType==="oid"){
+
+            if ($entryType==="oid") {
                 //find object
-                try{
+                try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectId);
-                }  catch (\steam_exception $e){
+                } catch (\steam_exception $e) {
                     //object not found
                     return "";
                 }
-                
-                
+
                 //find parent
                 $environmentObject = $steamObject;
-                try{
+                try {
                     $environmentObject = $steamObject->get_environment();
                     if("0"==$environmentObject) throw new \steam_exception;
                     if(!($environmentObject instanceof \steam_object)) throw new \steam_exception;
-                
+
                     //is Presentation, autoforward case
-                        if($environmentObject->get_attribute("bid:presentation")==="index"){ 
+                        if ($environmentObject->get_attribute("bid:presentation")==="index") {
                         $environmentObject = $environmentObject->get_environment();
                     }
                     if("0"==$environmentObject) throw new \steam_exception;
                     if(!($environmentObject instanceof \steam_object)) throw new \steam_exception;
-                }catch (\steam_exception $e){
+                } catch (\steam_exception $e) {
                     //no environment
                     return "";
                 }
-                
+
                 return array("name" => "nach oben ( <img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($environmentObject)."\"></img> " . getCleanName($environmentObject, 20) . " )", "link" => $this->getEntryPath("oid:".$environmentObject->get_id()));
             }
-            
+
             return "";
         }
-       
-        
+
         //add a new object to chronic
-        private function updateChronic($entry){
+        private function updateChronic($entry)
+        {
             $chronic = $this->loadChronic();
-            
+
             //remove entry before adding
-            while(array_search($entry, $chronic)!==FALSE){
+            while (array_search($entry, $chronic)!==FALSE) {
                 $key = array_search($entry, $chronic);
                 unset($chronic[$key]);
             }
-            
+
             //add entry
             $chronic = array_reverse($chronic);
             $chronic[] = $entry;
             $chronic = array_reverse($chronic);
-            
-            
+
             //dedupe
             $cleandChronic = array();
             $lastElement = "";
-            foreach ($chronic as $chronicItem){
-                if($chronicItem !== $lastElement){
+            foreach ($chronic as $chronicItem) {
+                if ($chronicItem !== $lastElement) {
                     $lastElement=$chronicItem;
                     $cleandChronic[] = $chronicItem;
-                }else{
-                    
+                } else {
+
                 }
             }
             $chronic = $cleandChronic;
-            
-            
+
             //throw tail away
             $counter=1;
             $cleandChronic = array();
-            foreach ($chronic as $chronicItem){
+            foreach ($chronic as $chronicItem) {
                 $cleandChronic[] = $chronicItem;
                 if ($counter==$this->chronicLength) break;
                 $counter++;
@@ -203,197 +216,207 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             $chronic = $cleandChronic;
             $this->saveChronic($chronic);
         }
- 
-        
-        private function getEntryName($chronicEntry, $length = 30){
+
+        private function getEntryName($chronicEntry, $length = 30)
+        {
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
-            if($entryType=="oid"){
+            if ($entryType=="oid") {
                 $objectId = $content[1];
-                
+
                 try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
                 } catch (\steam_exception $e) {
                     return "(Objekt gelöscht)";
                 }
-                
+
                 return getCleanName($steamObject, $length);
-            }
-            else if($entryType=="cmd"){
+            } elseif ($entryType=="cmd") {
                 //not yet supported
                 return "command";
-            }
-            else if($entryType=="pth"){
+            } elseif ($entryType=="pth") {
                 $name = $content[2];
+
                 return $name;
-            }
-            else if($entryType=="oth"){
+            } elseif ($entryType=="oth") {
                 $type = $content[1];
                 if($type==="profile") return "Profil";
                 if($type==="desktop") return "Schreibtisch";
                 if($type==="bookmarks") return "Lesezeichen";
                 if($type==="trashbin") return "Papierkorb";
                 if($type==="clipboard") return "Zwischenablage";
+
                 return "Ungültiger oth-Eintrag";
             }
+
             return "Ungültiger Eintrag";
         }
-        
-        
-        private function getEntryPath($chronicEntry){
+
+        private function getEntryPath($chronicEntry)
+        {
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
-            
-            if($entryType=="oid"){
+
+            if ($entryType=="oid") {
                 $objectId = $content[1];
-                try{
+                try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
-                    if($steamObject instanceof \steam_object){
+                    if ($steamObject instanceof \steam_object) {
                         return \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
-                    }  else {
+                    } else {
                         return "/";
                     }
-                }  catch (Exception $e){
+                } catch (Exception $e) {
                     return "(Objekt gelöscht)";
                 }
-            }
-            else if($entryType=="cmd"){
-                //not yet supported 
+            } elseif ($entryType=="cmd") {
+                //not yet supported
                 return "command";
-            }
-            else if($entryType=="pth"){
+            } elseif ($entryType=="pth") {
                 $path = $content[1];
+
                 return $path;
-            }
-            else if($entryType=="oth"){
+            } elseif ($entryType=="oth") {
                 $type = $content[1];
                 if($type==="profile") return "/profile/";
                 if($type==="desktop") return "/desktop/";
                 if($type==="bookmarks") return "/bookmarks/";
                 if($type==="trashbin") return "/trashbin/";
                 if($type==="clipboard") return "/clipboard/";
+
                 return "";
             }
+
             return "Debug:$chronicEntry";
         }
-        
-        
-        private function getEntryObject($chronicEntry){
+
+        private function getEntryObject($chronicEntry)
+        {
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
-            
-            if($entryType=="oid"){
+
+            if ($entryType=="oid") {
                 $objectId = $content[1];
-                try{
+                try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
-                    if($steamObject instanceof \steam_object){
+                    if ($steamObject instanceof \steam_object) {
                         return $steamObject;
-                    }  else {
+                    } else {
                         return FALSE;
                     }
-                }  catch (\steam_exception $e){
+                } catch (\steam_exception $e) {
                     return FALSE;
                 }
             }
+
             return FALSE;
         }
-        
-        
-        private function getEntryIconTag($chronicEntry){
+
+        private function getEntryIconTag($chronicEntry)
+        {
             $defaultIcon = "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/folder.png"."\"></img> ";
-            
+
             $content = explode(":", $chronicEntry);
             $entryType = $content[0];
-            
-            if($entryType=="oid"){
+
+            if ($entryType=="oid") {
                 $objectId = $content[1];
-                try{
+                try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
-                    if($steamObject instanceof \steam_object){
+                    if ($steamObject instanceof \steam_object) {
                         return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($steamObject)."\"></img>";
-                    }  else {
+                    } else {
                         return $defaultIcon;
                     }
-                }  catch (\steam_exception $e){
+                } catch (\steam_exception $e) {
                     return $defaultIcon;
                 }
-            } else if($entryType=="pth"){
+            } elseif ($entryType=="pth") {
                 $objectPath = $content[1];
-                try{
-                    if(strpos($objectPath, "/forum/showTopic/") === 0) {
+                try {
+                    if (strpos($objectPath, "/forum/showTopic/") === 0) {
                         return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/forumthread.png\"></img>";
-                    }  else if (strpos($objectPath, "/wiki/entry/") === 0) {
+                    } elseif (strpos($objectPath, "/wiki/entry/") === 0) {
                         return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/wiki.png\"></img>";
                     } else {
                         return $defaultIcon;
                     }
-                }  catch (\steam_exception $e){
+                } catch (\steam_exception $e) {
                     return $defaultIcon;
                 }
             }
+
             return $defaultIcon;
         }
-        
-        
+
         //loads the chronic and returns it
-        private function loadChronic(){
+        private function loadChronic()
+        {
             //fix error connector missing
             try {
                 $user = lms_steam::get_current_user();
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 session_destroy();
                 header("Location : /");
             }
-            
+
             $chronic = $user->get_attribute("USER_CHRONIC");
             if(!is_array($chronic)) $chronic=array();
+
             return $this->validateChronic($chronic);
         }
-        
-        private function saveChronic($chronic){
+
+        private function saveChronic($chronic)
+        {
             $user = lms_steam::get_current_user();
             $chronic = $this->validateChronic($chronic);
             $user->set_attribute("USER_CHRONIC",$chronic);
         }
-        
-        
-        private function validateChronic($chronic){
-            foreach ($chronic as $chronicKey => $chronicEntry){
+
+        private function validateChronic($chronic)
+        {
+            foreach ($chronic as $chronicKey => $chronicEntry) {
                 $content = explode(":", $chronicEntry);
                 $entryType = $content[0];
                 $target = $content[1];
-                
+
                 $valid=false;
                 if($entryType==="oth") $valid = true;
                 if($entryType==="pth") $valid = true;
                 if($entryType==="oid") $valid = true;
-                
+
                 try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $target);
                 } catch (\steam_exception $e) {
                     $valid = false;
                 }
-                
+
                 if (!$valid) unset($chronic[$chronicKey]);
             }
+
             return $chronic;
         }
-        
-        private function getUpwardsMenu($menuArray) {
+
+        private function getUpwardsMenu($menuArray)
+        {
             $moreItems = true;
-            
+
             $chronic = $this->loadChronic();
             if (!isset($chronic[0])) $moreItems = false;
             $currentLocation = $chronic[0];
             $content = explode(":", $currentLocation);
             $entryType = $content[0];
             $currentObjectId = $content[1];
-            
-            if ($entryType==="oid"){
+
+            if ($entryType==="oid") {
                 //find object
-                try{
+                try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectId);
-                }  catch (\steam_exception $e){
+                    if (!$steamObject instanceof \steam_object) {
+                        //object not found
+                        $moreItems = false;
+                    }
+                } catch (\steam_exception $e) {
                     //object not found
                     $moreItems = false;
                 }
@@ -406,14 +429,14 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                         if (!($environmentObject instanceof \steam_object)) throw new \steam_exception;
 
                         //is Presentation, autoforward case
-                        if ($environmentObject->get_attribute("bid:presentation") === "index") { 
+                        if ($environmentObject->get_attribute("bid:presentation") === "index") {
                             $environmentObject = $environmentObject->get_environment();
                         }
                         if ("0" == $environmentObject) throw new \steam_exception;
                         if (!($environmentObject instanceof \steam_object)) throw new \steam_exception;
-                        
+
                         $objectArray = array("name" => "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($environmentObject)."\"></img> " . getCleanName($environmentObject, 20));
-                    
+
                         if ($environmentObject->check_access_read()) {
                             $objectArray["link"] = $this->getEntryPath("oid:".$environmentObject->get_id());
                         } else {
@@ -422,13 +445,13 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                         }
                         $menuArray[] = $objectArray;
                         $steamObject = $environmentObject;
-                    } catch (\steam_exception $e){
+                    } catch (\steam_exception $e) {
                         //no environment
                         $moreItems = false;
                     }
                 }
             }
+
             return $menuArray;
         }
 }
-?>

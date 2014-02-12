@@ -265,8 +265,10 @@ function handleError(errorTitle, errorDescription, requestParams) {
     }
 }
 
-window.onerror = handleJSError;
-jQuery.error = console.error;
+if (DEVELOPER) {
+    window.onerror = handleJSError;
+    jQuery.error = console.error;
+}
 
 function handleJSError(errorTitle, file, line) {
     if (DEVELOPER) {

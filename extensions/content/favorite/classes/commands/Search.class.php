@@ -2,26 +2,31 @@
 
 namespace Favorite\Commands;
 
-class Search extends \AbstractCommand implements \IFrameCommand {
-
+class Search extends \AbstractCommand implements \IFrameCommand
+{
     private $params;
     private $id;
 
-    public function validateData(\IRequestObject $requestObject) {
+    public function validateData(\IRequestObject $requestObject)
+    {
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject) {
+    public function processData(\IRequestObject $requestObject)
+    {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
     }
 
-    public function frameResponse(\FrameResponseObject $frameResponseObject) {
+    public function frameResponse(\FrameResponseObject $frameResponseObject)
+    {
         $frameResponseObject = $this->execute($frameResponseObject);
+
         return $frameResponseObject;
     }
 
-    public function execute(\FrameResponseObject $frameResponseObject) {
+    public function execute(\FrameResponseObject $frameResponseObject)
+    {
         //DEFINITION OF IGNORED USERS AND GROUPS
         $ignoredUserNames = array(0 => "postman", 1 => "root", 2 => "guest");
         $ignoredGroupNames = array(0 => "sTeam", 1 => "admin");
@@ -41,7 +46,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
             if (strlen($searchString) < $min_search_string_count) {
                 //$frameResponseObject->setProblemDescription(gettext("Search string too short"));
                 $frameResponseObject->setProblemDescription("Länge der Suchanfrage zu klein! Eine Suchanfrage muss aus mindestens 3 Zeichen bestehen.");
-            } else if (((strpos($searchString, "*") !== FALSE) || (strpos($searchString, "?") !== FALSE)) && ($searchType == "searchUserFullname")) {
+            } elseif (((strpos($searchString, "*") !== FALSE) || (strpos($searchString, "?") !== FALSE)) && ($searchType == "searchUserFullname")) {
                 $frameResponseObject->setProblemDescription("Eine Suchanfrage nach Namen darf aus Datenschutzgründen keine Wildcards enthalten");
 
                 //IF SEARCH REQUEST IS CLEAN
@@ -54,19 +59,18 @@ class Search extends \AbstractCommand implements \IFrameCommand {
                     $modSearchString = $modSearchString . "%";
 
                 $searchModule = $steam->get_module("searching");
-                $searchobject = new \searching($searchModule);
-                $search = new \search_define();
-
+                $searchobject = new \OpenSteam\Search\Searching($searchModule);
+                $search = new \OpenSteam\Search\SearchDefine();
 
                 if ($searchType == "searchUser") {
-                    $search->extendAttr("OBJ_NAME", \search_define::like($modSearchString));
+                    $search->extendAttr("OBJ_NAME", \OpenSteam\Search\SearchDefine::like($modSearchString));
                     $resultItems = $searchobject->search($search, CLASS_USER);
                     foreach ($resultItems as $resultItem) {
                         $id = $resultItem->get_id();
                         $resultItemName[$id] = $resultItem->get_name(1);
                     }
                 } elseif ($searchType == "searchGroup") {
-                    $search->extendAttr("GROUP_NAME", \search_define::like($modSearchString));
+                    $search->extendAttr("GROUP_NAME", \OpenSteam\Search\SearchDefine::like($modSearchString));
                     $resultItems = $searchobject->search($search, CLASS_GROUP);
                     foreach ($resultItems as $resultItem) {
                         $id = $resultItem->get_id();
@@ -103,11 +107,19 @@ class Search extends \AbstractCommand implements \IFrameCommand {
                     $id = $resultItem->get_id();
 
                     if ($resultItem instanceof \steam_object) {
-                        $helper[$resultItem->get_name()] = $id;
+                        try {
+                            $helper[$resultItem->get_name()] = $id;
+                        } catch (\Exception $e) {
+                            $helper["defektes Objekt ({$id})"] = $id;
+                        }
                     }
 
                     if ($resultItem instanceof \steam_group) {
-                        $helper[$resultItem->get_groupname()] = $id;
+                        try {
+                            $helper[$resultItem->get_groupname()] = $id;
+                        } catch (\Exception $e) {
+                            $helper["defekte Gruppe ({$id})"] = $id;
+                        }
                     }
 
                     $resultItemName[$id] = $result[$resultItemName[$id]];
@@ -116,11 +128,9 @@ class Search extends \AbstractCommand implements \IFrameCommand {
             }
         }
 
-
-
         // sort favourites
         natcasesort($searchResult);
-        
+
         // display actionbar
         $profileUtils = new \ProfileActionBar($steamUser, $steamUser);
         $actions = $profileUtils->getActions();
@@ -129,7 +139,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
             $actionBar->setActions($actions);
             $frameResponseObject->addWidget($actionBar);
         }
-        
+
         $content = \Favorite::getInstance()->loadTemplate("fav_search.html");
         $content->setVariable("TITLE", "Favoritensuche");
 
@@ -161,7 +171,6 @@ class Search extends \AbstractCommand implements \IFrameCommand {
             foreach ($searchResult as $resultEntry) {
                 $content->setVariable("SEARCH_RESULTS", "Suchergebnisse");
                 $ignoredUser = false;
-
 
                 if ($searchType != "searchUserFullname") {
                     $urlId = $helper[$resultEntry];
@@ -207,7 +216,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
                             $content->parse("BLOCK_SEARCH_RESULTS_BUDDY");
                             $loopCount++;
                         }
-                    } else if ($category == "group") {
+                    } elseif ($category == "group") {
                         $resultGroup = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $urlId);
                         if ($resultGroup instanceof \steam_group) {
 
@@ -237,7 +246,7 @@ class Search extends \AbstractCommand implements \IFrameCommand {
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $frameResponseObject->addWidget($rawHtml);
+
         return $frameResponseObject;
     }
 }
-?>

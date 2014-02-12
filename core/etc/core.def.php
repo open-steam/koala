@@ -29,8 +29,10 @@ is_writable(LOG_MESSAGES) or die("Not write access to file " . LOG_MESSAGES);
 define("LOG_SECURITY",	PATH_LOG . "security.log");
 file_exists(LOG_SECURITY) or die("File for security is missing (" . LOG_SECURITY . ").");
 is_writable(LOG_SECURITY) or die("Not write access to file " . LOG_SECURITY);
+define("LOG_PHPSTEAM",    PATH_LOG . "phpsteam.log");
+file_exists(LOG_PHPSTEAM) or die("File for security is missing (" . LOG_PHPSTEAM . ").");
+is_writable(LOG_PHPSTEAM) or die("Not write access to file " . LOG_PHPSTEAM);
 
 defined("BLACKLISTED_EXTENSIONS") or define("BLACKLISTED_EXTENSIONS", "");
 defined("PLATFROM_MENUS") or define("PLATFROM_MENUS", "");
 defined("SESSION_NAME") or define("SESSION_NAME", str_replace(".", "-", PLATFORM_ID . KOALA_VERSION));
-?>

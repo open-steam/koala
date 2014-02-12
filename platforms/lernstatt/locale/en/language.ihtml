@@ -1,0 +1,370 @@
+<!-- *********************************************************** -->
+<!-- ** contentframe.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN contentframe_no_content -->This folder contains no visible objects.<!-- END contentframe_no_content -->
+<!-- BEGIN contentframe_title_1 -->Name<!-- END contentframe_title_1 -->
+<!-- BEGIN contentframe_title_2 -->Last&nbsp;Change<!-- END contentframe_title_2 -->
+<!-- BEGIN contentframe_title_3 -->Size<!-- END contentframe_title_3 -->
+<!-- BEGIN contentframe_title_4 -->Owner<!-- END contentframe_title_4 -->
+<!-- BEGIN contentframe_title_5 -->Tags<!-- END contentframe_title_5 -->
+<!-- BEGIN contentframe_title_6 -->Description<!-- END contentframe_title_6 -->
+<!-- BEGIN contentframe_title_7 -->Combinations<!-- END contentframe_title_7 -->
+<!-- BEGIN contentframe_title_8 -->Show all<!-- END contentframe_title_8 -->
+<!-- BEGIN contentframe_title_9 -->Show selected<!-- END contentframe_title_9 -->
+<!-- BEGIN contentframe_title_10 -->Create perspective<!-- END contentframe_title_10 -->
+<!-- BEGIN contentframe_title_11 -->Create perspective from filter<!-- END contentframe_title_11 -->
+<!-- BEGIN contentframe_footer_1 -->Owner<!-- END contentframe_footer_1 -->
+<!-- BEGIN contentframe_footer_2 -->Last Change at<!-- END contentframe_footer_2 -->
+<!-- BEGIN contentframe_properties -->Properties<!-- END contentframe_properties -->
+<!-- BEGIN contentframe_properties_title -->Show properties<!-- END contentframe_properties_title -->
+<!-- BEGIN contentframe_hidden -->Hidden<!-- END contentframe_hidden -->
+<!-- BEGIN contentframe_head_mounted_descr -->Head mounted<!-- END contentframe_head_mounted_descr -->
+<!-- BEGIN contentframe_head_mounted_document -->Download head mounted document<!-- END contentframe_head_mounted_document -->
+<!-- BEGIN contentframe_broken_link -->Empty link<!-- END contentframe_broken_link -->
+
+<!-- *********************************************************** -->
+<!-- ** taggedFolder.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN taggedFolder_no_content -->This folder contains no visible objects.<!-- END taggedFolder_no_content -->
+<!-- BEGIN taggedFolder_title_1 -->Name<!-- END taggedFolder_title_1 -->
+<!-- BEGIN taggedFolder_title_2 -->Last&nbsp;Change<!-- END taggedFolder_title_2 -->
+<!-- BEGIN taggedFolder_title_3 -->Size<!-- END taggedFolder_title_3 -->
+<!-- BEGIN taggedFolder_title_4 -->Owner<!-- END taggedFolder_title_4 -->
+<!-- BEGIN taggedFolder_title_5 -->Tags<!-- END taggedFolder_title_5 -->
+<!-- BEGIN taggedFolder_title_6 -->Description<!-- END taggedFolder_title_6 -->
+<!-- BEGIN taggedFolder_title_7 -->Combinations<!-- END taggedFolder_title_7 -->
+<!-- BEGIN taggedFolder_title_8 -->Show all<!-- END taggedFolder_title_8 -->
+<!-- BEGIN taggedFolder_title_9 -->Show selected<!-- END taggedFolder_title_9 -->
+<!-- BEGIN taggedFolder_title_10 -->Create perspective<!-- END taggedFolder_title_10 -->
+<!-- BEGIN taggedFolder_title_11 -->Create perspective from filter<!-- END taggedFolder_title_11 -->
+<!-- BEGIN taggedFolder_footer_1 -->Owner<!-- END taggedFolder_footer_1 -->
+<!-- BEGIN taggedFolder_footer_2 -->Last Change at<!-- END taggedFolder_footer_2 -->
+<!-- BEGIN taggedFolder_properties -->Properties<!-- END taggedFolder_properties -->
+<!-- BEGIN taggedFolder_properties_title -->Show properties<!-- END taggedFolder_properties_title -->
+<!-- BEGIN taggedFolder_hidden -->Hidden<!-- END taggedFolder_hidden -->
+<!-- BEGIN taggedFolder_head_mounted_descr -->Head mounted<!-- END taggedFolder_head_mounted_descr -->
+<!-- BEGIN taggedFolder_head_mounted_document -->Download head mounted document<!-- END taggedFolder_head_mounted_document -->
+<!-- BEGIN taggedFolder_broken_link -->Empty link<!-- END taggedFolder_broken_link -->
+
+<!-- *********************************************************** -->
+<!-- ** delicious_import.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN delicious_title -->Login to del.icio.us<!-- END delicious_title -->
+<!-- BEGIN delicious_user -->Usernmae<!-- END delicious_user -->
+<!-- BEGIN delicious_passwd -->Password<!-- END delicious_passwd -->
+<!-- BEGIN delicious_tag -->Tag<!-- END delicious_tag -->
+<!-- BEGIN delicious_loginbutton -->Login<!-- END delicious_loginbutton -->
+<!-- BEGIN delicious_importtitle -->Import del.icio.us links<!-- END delicious_importtitle -->
+<!-- BEGIN delicious_importbutton -->Import as WWW-Referenz<!-- END delicious_importbutton -->
+<!-- BEGIN delicious_tagtitle -->Select a tag<!-- END delicious_tagtitle -->
+<!-- BEGIN delicious_nextbutton -->Next<!-- END delicious_nextbutton -->
+
+<!-- *********************************************************** -->
+<!-- ** dialognew.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN dialognew_folder_title -->Create Folder<!-- END dialognew_folder_title -->
+<!-- BEGIN dialognew_folder_form_title -->Title<!-- END dialognew_folder_form_title -->
+<!-- BEGIN dialognew_folder_form_type -->Type<!-- END dialognew_folder_form_type -->
+<!-- BEGIN dialognew_folder_form_type_1 -->Normal<!-- END dialognew_folder_form_type_1 -->
+<!-- BEGIN dialognew_folder_form_type_2 -->Cluster<!-- END dialognew_folder_form_type_2 -->
+<!-- BEGIN dialognew_folder_form_type_3 -->Sequence<!-- END dialognew_folder_form_type_3 -->
+<!-- BEGIN dialognew_folder_form_type_4 -->Gallery<!-- END dialognew_folder_form_type_4 -->
+<!-- BEGIN dialognew_folder_button -->Create Folder<!-- END dialognew_folder_button -->
+<!-- BEGIN dialognew_file_title -->Insert file<!-- END dialognew_file_title -->
+<!-- BEGIN dialognew_file_form_title -->Title<!-- END dialognew_file_form_title -->
+<!-- BEGIN dialognew_file_form_file -->File<!-- END dialognew_file_form_file -->
+<!-- BEGIN dialognew_file_max_file_size -->Maximum file size<!-- END dialognew_file_max_file_size -->
+<!-- BEGIN dialognew_file_max_file_size_unit -->Bytes<!-- END dialognew_file_max_file_size_unit -->
+<!-- BEGIN dialognew_file_button -->Insert File<!-- END dialognew_file_button -->
+<!-- BEGIN dialognew_text_title -->Create Text<!-- END dialognew_text_title -->
+<!-- BEGIN dialognew_text_form_title -->Title<!-- END dialognew_text_form_title -->
+<!-- BEGIN dialognew_text_form_text -->Text<!-- END dialognew_text_form_text -->
+<!-- BEGIN dialognew_text_button -->Insert Text<!-- END dialognew_text_button -->
+<!-- BEGIN dialognew_link_title -->Create Web Reference<!-- END dialognew_link_title -->
+<!-- BEGIN dialognew_link_form_title -->Title<!-- END dialognew_link_form_title -->
+<!-- BEGIN dialognew_link_form_link -->URL<!-- END dialognew_link_form_link -->
+<!-- BEGIN dialognew_link_button -->Create reference<!-- END dialognew_link_button -->
+<!-- BEGIN dialognew_delete_title -->Delete<!-- END dialognew_delete_title -->
+<!-- BEGIN dialognew_delete_form_objects -->Objects<!-- END dialognew_delete_form_objects -->
+<!-- BEGIN dialognew_delete_button -->Delete objects<!-- END dialognew_delete_button -->
+<!-- BEGIN dialognew_error_title -->Please enter title.<!-- END dialognew_error_title -->
+<!-- BEGIN dialognew_error_file -->Please set file.<!-- END dialognew_error_file -->
+<!-- BEGIN dialognew_error_url -->Please enter URL.<!-- END dialognew_error_url -->
+<!-- BEGIN dialognew_error_not_logged_in -->Session expired!<!-- END dialognew_error_not_logged_in -->
+<!-- BEGIN dialognew_button_cancel -->Cancel<!-- END dialognew_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** edit_file.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN edit_file_title -->Edit document<!-- END edit_file_title -->
+<!-- BEGIN edit_file_close -->Close<!-- END edit_file_close -->
+<!-- BEGIN edit_file_save -->Save<!-- END edit_file_save -->
+<!-- BEGIN edit_file_error_not_logged_in -->Session expired<!-- END edit_file_error_not_logged_in -->
+
+<!-- *********************************************************** -->
+<!-- ** favourites.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN favourites_title -->Favourites<!-- END favourites_title -->
+<!-- BEGIN favourites_title_2 -->My Favourites<!-- END favourites_title_2 -->
+<!-- BEGIN favourites_button_search -->Search<!-- END favourites_button_search -->
+<!-- BEGIN favourites_groups -->Groups<!-- END favourites_groups -->
+<!-- BEGIN favourites_user -->Users<!-- END favourites_user -->
+<!-- BEGIN favourites_search_result -->Search result<!-- END favourites_search_result -->
+<!-- BEGIN favourites_myfavourites -->My Favourites<!-- END favourites_myfavourites -->
+<!-- BEGIN favourites_no_match -->No match<!-- END favourites_no_match -->
+<!-- BEGIN favourites_myuser_no -->none<!-- END favourites_myuser_no -->
+<!-- BEGIN favourites_js_error -->Entry already exists!<!-- END favourites_js_error -->
+<!-- BEGIN favourites_button_save -->Save<!-- END favourites_button_save -->
+<!-- BEGIN favourites_button_cancel -->Close<!-- END favourites_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** favourites_search.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN favourites_search_title -->Favourites<!-- END favourites_search_title -->
+<!-- BEGIN favourites_search_title2 -->Search<!-- END favourites_search_title2 -->
+<!-- BEGIN favourites_search_button_search -->Search<!-- END favourites_search_button_search -->
+<!-- BEGIN favourites_search_radio_group -->Groups<!-- END favourites_search_radio_group -->
+<!-- BEGIN favourites_search_radio_user -->Users<!-- END favourites_search_radio_user -->
+<!-- BEGIN favourites_search_result_title -->Search result<!-- END favourites_search_result_title -->
+<!-- BEGIN favourites_search_no_result -->No results<!-- END favourites_search_no_result -->
+<!-- BEGIN favourites_search_error_search_string_too_short -->Search string too short. Please specify at least {MIN_SEARCH_STRING_COUNT} characters.<!-- END favourites_search_error_search_string_too_short -->
+
+<!-- *********************************************************** -->
+<!-- ** favourites_show.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN favourites_show_title -->My favourites<!-- END favourites_show_title -->
+<!-- BEGIN favourites_show_user -->Users<!-- END favourites_show_user -->
+<!-- BEGIN favourites_show_group -->Groups<!-- END favourites_show_group -->
+<!-- BEGIN favourites_show_button_remove_favourites -->Remove favourites<!-- END favourites_show_button_remove_favourites -->
+<!-- BEGIN favourites_show_no_favourites -->No favourites<!-- END favourites_show_no_favourites -->
+
+<!-- *********************************************************** -->
+<!-- ** idcard.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN idcard_title -->Business Card<!-- END idcard_title -->
+<!-- BEGIN idcard_username -->User Name<!-- END idcard_username -->
+<!-- BEGIN idcard_name -->Name<!-- END idcard_name -->
+<!-- BEGIN idcard_description -->Description<!-- END idcard_description -->
+<!-- BEGIN idcard_email -->Email<!-- END idcard_email -->
+<!-- BEGIN idcard_adress -->Address<!-- END idcard_adress -->
+<!-- BEGIN idcard_callto -->Phone<!-- END idcard_callto -->
+<!-- BEGIN idcard_im -->IM Address<!-- END idcard_im -->
+<!-- BEGIN idcard_groupname -->Group Name<!-- END idcard_groupname -->
+<!-- BEGIN idcard_group_description -->Description<!-- END idcard_group_description -->
+<!-- BEGIN idcard_group_admins -->Group Administrator<!-- END idcard_group_admins -->
+<!-- BEGIN idcard_add_favourite -->Add to Favourites<!-- END idcard_add_favourite -->
+<!-- BEGIN idcard_close -->Close<!-- END idcard_close -->
+
+<!-- *********************************************************** -->
+<!-- ** menu.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN menu_new -->New<!-- END menu_new -->
+<!-- BEGIN menu_edit -->Edit<!-- END menu_edit -->
+<!-- BEGIN menu_new_folder -->Folder ...<!-- END menu_new_folder -->
+<!-- BEGIN menu_new_file -->File ...<!-- END menu_new_file -->
+<!-- BEGIN menu_new_html -->HTML text ...<!-- END menu_new_html -->
+<!-- BEGIN menu_new_text -->Text ...<!-- END menu_new_text -->
+<!-- BEGIN menu_new_url -->Web Reference ...<!-- END menu_new_url -->
+<!-- BEGIN menu_new_forum -->Forum ...<!-- END menu_new_forum -->
+<!-- BEGIN menu_new_portal -->Portal ...<!-- END menu_new_portal -->
+<!-- BEGIN menu_new_questionary -->Questionary ...<!-- END menu_new_questionary -->
+<!-- BEGIN menu_new_ftp -->FTP Connection ...<!-- END menu_new_ftp -->
+<!-- BEGIN menu_new_delicious -->del.icio.us ...<!-- END menu_new_delicious -->
+<!-- BEGIN menu_edit_bookmark -->Bookmark<!-- END menu_edit_bookmark -->
+<!-- BEGIN menu_edit_copy -->Copy<!-- END menu_edit_copy -->
+<!-- BEGIN menu_edit_cut -->Cut<!-- END menu_edit_cut -->
+<!-- BEGIN menu_edit_reference -->Reference<!-- END menu_edit_reference -->
+<!-- BEGIN menu_edit_delete -->Delete<!-- END menu_edit_delete -->
+<!-- BEGIN menu_edit_destroy -->Really delete<!-- END menu_edit_destroy -->
+<!-- BEGIN menu_edit_paste -->Paste<!-- END menu_edit_paste -->
+<!-- BEGIN menu_edit_properties -->Properties ...<!-- END menu_edit_properties -->
+<!-- BEGIN menu_calendar_1_1 -->Appointment ...<!-- END menu_calendar_1_1 -->
+<!-- BEGIN menu_calendar_2_1 -->Preferences ...<!-- END menu_calendar_2_1 -->
+<!-- BEGIN menu_forum_1_1 -->Category ...<!-- END menu_forum_1_1 -->
+<!-- BEGIN menu_forum_2_1 -->Forum ...<!-- END menu_forum_2_1 -->
+<!-- BEGIN menu_forum_category_1_1 -->Message ...<!-- END menu_forum_category_1_1 -->
+<!-- BEGIN menu_portal -->Portal<!-- END menu_portal -->
+<!-- BEGIN menu_portlet -->Component<!-- END menu_portlet -->
+<!-- BEGIN menu_portal_new_area -->Area ...<!-- END menu_portal_new_area -->
+<!-- BEGIN menu_portal_new_component -->Component ...<!-- END menu_portal_new_component -->
+<!-- BEGIN menu_portal_new_entry -->Entry ...<!-- END menu_portal_new_entry -->
+<!-- BEGIN menu_portal_edit_areas -->Areas<!-- END menu_portal_edit_areas -->
+<!-- BEGIN menu_portal_area_edit -->Edit ...<!-- END menu_portal_area_edit -->
+<!-- BEGIN menu_portal_area_move -->Move ...<!-- END menu_portal_area_move-->
+<!-- BEGIN menu_portal_area_delete -->Delete ...<!-- END menu_portal_area_delete -->
+<!-- BEGIN menu_portal_edit_portlets -->Components<!-- END menu_portal_edit_portlets -->
+<!-- BEGIN menu_portal_portlet_edit -->Edit ...<!-- END menu_portal_portlet_edit -->
+<!-- BEGIN menu_portal_portlet_copy -->Copy ...<!-- END menu_portal_portlet_copy -->
+<!-- BEGIN menu_portal_portlet_link -->Link ...<!-- END menu_portal_portlet_link -->
+<!-- BEGIN menu_portal_portlet_paste -->Insert ...<!-- END menu_portal_portlet_paste -->
+<!-- BEGIN menu_portal_portlet_delete -->Delete ...<!-- END menu_portal_portlet_delete -->
+<!-- BEGIN menu_portal_portlet_properties -->Properties ...<!-- END menu_portal_portlet_properties -->
+<!-- BEGIN menu_portal_edit_display -->Display ...<!-- END menu_portal_edit_display -->
+<!-- BEGIN menu_questionary_1_1 -->Fill in ...<!-- END menu_questionary_1_1 -->
+<!-- BEGIN menu_questionary_2_1 -->Questionary ...<!-- END menu_questionary_2_1 -->
+<!-- BEGIN menu_questionary_2_2 -->Results ...<!-- END menu_questionary_2_2 -->
+
+<!-- *********************************************************** -->
+<!-- ** password.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN password_title -->Change password<!-- END password_title -->
+<!-- BEGIN password_old_pwd -->Old password<!-- END password_old_pwd -->
+<!-- BEGIN password_new_pwd -->New password<!-- END password_new_pwd -->
+<!-- BEGIN password_new_pwd_confirm -->Confirm new password<!-- END password_new_pwd_confirm -->
+<!-- BEGIN password_feedback_old_pwd -->The old password is incorrect.<!-- END password_feedback_old_pwd -->
+<!-- BEGIN password_feedback_new_pwd -->The new password does not fit its confirm.<!-- END password_feedback_new_pwd -->
+<!-- BEGIN password_submit -->Change password<!-- END password_submit -->
+
+<!-- *********************************************************** -->
+<!-- ** preferences.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN preferences_title -->Preferences<!-- END preferences_title -->
+<!-- BEGIN preferences_username -->User Name<!-- END preferences_username -->
+<!-- BEGIN preferences_name -->Name<!-- END preferences_name -->
+<!-- BEGIN preferences_description -->Description<!-- END preferences_description -->
+<!-- BEGIN preferences_adress -->Address<!-- END preferences_adress -->
+<!-- BEGIN preferences_email -->Email<!-- END preferences_email -->
+<!-- BEGIN preferences_callto -->Phone<!-- END preferences_callto -->
+<!-- BEGIN preferences_favourites_show -->Show Favourites<!-- END preferences_favourites_show -->
+<!-- BEGIN preferences_favourites_search -->Search Favourites<!-- END preferences_favourites_search -->
+<!-- BEGIN preferences_language -->Language<!-- END preferences_language -->
+<!-- BEGIN preferences_language1 -->Deutsch<!-- END preferences_language1 -->
+<!-- BEGIN preferences_language2 -->English<!-- END preferences_language2 -->
+<!-- BEGIN preferences_language3 -->Français<!-- END preferences_language3 -->
+<!-- BEGIN preferences_hidden -->Hidden Objects<!-- END preferences_hidden -->
+<!-- BEGIN preferences_hidden_show -->Show<!-- END preferences_hidden_show -->
+<!-- BEGIN preferences_hidden_hide -->Hide<!-- END preferences_hidden_hide -->
+<!-- BEGIN preferences_treeview -->Navigation Tree<!-- END preferences_treeview -->
+<!-- BEGIN preferences_treeview_mini -->Reduced<!-- END preferences_treeview_mini -->
+<!-- BEGIN preferences_treeview_maxi -->Complete<!-- END preferences_treeview_maxi -->
+<!-- BEGIN preferences_treeview_off -->Hide<!-- END preferences_treeview_off -->
+<!-- BEGIN preferences_modules -->Modules<!-- END preferences_modules -->
+<!-- BEGIN preferences_portal -->Portal<!-- END preferences_portal -->
+<!-- BEGIN preferences_calendar -->Calendar<!-- END preferences_calendar -->
+<!-- BEGIN preferences_forum -->Forum<!-- END preferences_forum -->
+<!-- BEGIN preferences_questionary -->Questionary<!-- END preferences_questionary -->
+<!-- BEGIN preferences_submit -->Save<!-- END preferences_submit -->
+<!-- BEGIN preferences_cancel -->Close<!-- END preferences_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** properties.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN properties_page_title -->Properties<!-- END properties_page_title -->
+<!-- BEGIN properties_tab1 -->General<!-- END properties_tab1 -->
+<!-- BEGIN properties_tab2 -->Metadata<!-- END properties_tab2 -->
+<!-- BEGIN properties_tab3 -->Presentation<!-- END properties_tab3 -->
+<!-- BEGIN properties_tab1_1 -->Title<!-- END properties_tab1_1 -->
+<!-- BEGIN properties_tab1_2 -->File Name<!-- END properties_tab1_2 -->
+<!-- BEGIN properties_tab1_3 -->Owner<!-- END properties_tab1_3 -->
+<!-- BEGIN properties_tab1_5 -->Access Rights<!-- END properties_tab1_5 -->
+<!-- BEGIN properties_tab1_6 -->Hidden<!-- END properties_tab1_6 -->
+<!-- BEGIN properties_tab1_8 -->Full Screen<!-- END properties_tab1_8 -->
+<!-- BEGIN properties_tab1_9 -->URL<!-- END properties_tab1_9 -->
+<!-- BEGIN properties_tab1_button -->Start Assistant<!-- END properties_tab1_button -->
+<!-- BEGIN properties_tab2_1 -->Keywords<!-- END properties_tab2_1 -->
+<!-- BEGIN properties_tab2_2 -->Description<!-- END properties_tab2_2 -->
+<!-- BEGIN properties_tab2_3 -->Remark<!-- END properties_tab2_3 -->
+<!-- BEGIN properties_tab2_4 -->Tags<!-- END properties_tab2_4 -->
+<!-- BEGIN properties_tab3_title -->Sort order<!-- END properties_tab3_title -->
+<!-- BEGIN properties_tab3_presentation -->First document<!-- END properties_tab3_presentation -->
+<!-- BEGIN properties_tab3_collectiontype -->Type<!-- END properties_tab3_collectiontype -->
+<!-- BEGIN properties_tab3_presentation_normal -->Normal<!-- END properties_tab3_presentation_normal -->
+<!-- BEGIN properties_tab3_presentation_index -->As index<!-- END properties_tab3_presentation_index -->
+<!-- BEGIN properties_tab3_presentation_head -->As head<!-- END properties_tab3_presentation_head -->
+<!-- BEGIN properties_tab3_collectiontype_normal -->Normal<!-- END properties_tab3_collectiontype_normal -->
+<!-- BEGIN properties_tab3_collectiontype_cluster -->Cluster<!-- END properties_tab3_collectiontype_cluster -->
+<!-- BEGIN properties_tab3_collectiontype_sequence -->Sequence<!-- END properties_tab3_collectiontype_sequence -->
+<!-- BEGIN properties_tab3_collectiontype_gallery -->Gallery<!-- END properties_tab3_collectiontype_gallery -->
+<!-- BEGIN properties_tab3_collectiontype_taggedFolder -->Filter View<!-- END properties_tab3_collectiontype_taggedFolder -->
+<!-- BEGIN properties_tab3_alt_1 -->Move up<!-- END properties_tab3_alt_1 -->
+<!-- BEGIN properties_tab3_alt_2 -->Move down<!-- END properties_tab3_alt_2 -->
+<!-- BEGIN properties_submit -->Save<!-- END properties_submit -->
+<!-- BEGIN properties_button_cancel -->Cancel<!-- END properties_button_cancel -->
+
+<!-- *********************************************************** -->
+<!-- ** rights.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN rights_title -->Access Rights<!-- END rights_title -->
+<!-- BEGIN rights_publish_1 -->Inherit rights from:<!-- END rights_publish_1 -->
+<!-- BEGIN rights_publish_2 -->Private<!-- END rights_publish_2 -->
+<!-- BEGIN rights_publish_3 -->Public<!-- END rights_publish_3 -->
+<!-- BEGIN rights_publish_4 -->User defined<!-- END rights_publish_4 -->
+<!-- BEGIN rights_groups_none -->You are not a member of any group<!-- END rights_groups_none -->
+<!-- BEGIN rights_favourites_none -->You have not set any favourites<!-- END rights_favourites_none -->
+<!-- BEGIN rights_favourites_double -->See above<!-- END rights_favourites_double -->
+<!-- BEGIN rights_additional_none -->There are no other users with access rights<!-- END rights_additional_none -->
+<!-- BEGIN rights_additional_double -->Like in your groups<!-- END rights_additional_double -->
+<!-- BEGIN rights_read -->Read<!-- END rights_read -->
+<!-- BEGIN rights_write -->Write<!-- END rights_write -->
+<!-- BEGIN rights_sanction -->Sanction<!-- END rights_sanction -->
+<!-- BEGIN rights_owner -->Owner<!-- END rights_owner -->
+<!-- BEGIN rights_alt_businesscard -->Show business card<!-- END rights_alt_businesscard -->
+<!-- BEGIN rights_groups -->Your groups<!-- END rights_groups -->
+<!-- BEGIN rights_favourites -->Your favourites<!-- END rights_favourites -->
+<!-- BEGIN rights_additional -->Other users with access rights<!-- END rights_additional -->
+<!-- BEGIN rights_button_ok -->Save<!-- END rights_button_ok -->
+
+<!-- *********************************************************** -->
+<!-- ** topframe.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN topframe_serverhome -->Server home<!-- END topframe_serverhome -->
+<!-- BEGIN topframe_menu_new -->New<!-- END topframe_menu_new -->
+<!-- BEGIN topframe_menu_edit -->Edit<!-- END topframe_menu_edit -->
+<!-- BEGIN topframe_home -->Home<!-- END topframe_home -->
+<!-- BEGIN topframe_up -->Up<!-- END topframe_up -->
+<!-- BEGIN topframe_user_administration -->User administration<!-- END topframe_user_administration -->
+<!-- BEGIN topframe_preferences -->Preferences<!-- END topframe_preferences -->
+<!-- BEGIN topframe_document_edit -->Edit document<!-- END topframe_document_edit -->
+<!-- BEGIN topframe_upload_image -->Upload image<!-- END topframe_upload_image -->
+<!-- BEGIN topframe_properties -->Properties<!-- END topframe_properties -->
+<!-- BEGIN topframe_login -->Login<!-- END topframe_login -->
+<!-- BEGIN topframe_logout -->Logout<!-- END topframe_logout-->
+<!-- BEGIN topframe_search -->Search<!-- END topframe_search -->
+<!-- BEGIN topframe_desktop -->Desktop<!-- END topframe_desktop -->
+<!-- BEGIN topframe_printview -->Print View<!-- END topframe_printview -->
+<!-- BEGIN topframe_info -->Info<!-- END topframe_info -->
+<!-- BEGIN topframe_help -->Help<!-- END topframe_help -->
+<!-- BEGIN topframe_sequence_start -->Start sequence<!-- END topframe_sequence_start -->
+<!-- BEGIN topframe_sequence_first -->First document<!-- END topframe_sequence_first -->
+<!-- BEGIN topframe_sequence_previous -->Previous document<!-- END topframe_sequence_previous -->
+<!-- BEGIN topframe_sequence_next -->Next document<!-- END topframe_sequence_next -->
+<!-- BEGIN topframe_sequence_last -->Last document<!-- END topframe_sequence_last -->
+
+<!-- *********************************************************** -->
+<!-- ** trashbin.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN trashbin_name -->Trashbin<!-- END trashbin_name -->
+<!-- BEGIN trashbin_no_content -->The trashbin is empty.<!-- END trashbin_no_content -->
+<!-- BEGIN trashbin_title_1 -->Name<!-- END trashbin_title_1 -->
+<!-- BEGIN trashbin_title_2 -->Last&nbsp;Change<!-- END trashbin_title_2 -->
+<!-- BEGIN trashbin_title_3 -->Size<!-- END trashbin_title_3 -->
+<!-- BEGIN trashbin_title_4 -->Owner<!-- END trashbin_title_4 -->
+
+
+<!-- *********************************************************** -->
+<!-- ** treeframe.ihtml -->
+<!-- *********************************************************** -->
+
+<!-- BEGIN treeframe_alt_1 -->View whole tree<!-- END treeframe_alt_1 -->
+<!-- BEGIN treeframe_alt_2 -->Personal calendar<!-- END treeframe_alt_2 -->
+<!-- BEGIN treeframe_alt_3 -->Calendar<!-- END treeframe_alt_3 -->
+<!-- BEGIN treeframe_alt_4 -->Home<!-- END treeframe_alt_4 -->
+<!-- BEGIN treeframe_alt_5 -->Parent<!-- END treeframe_alt_5 -->
+<!-- BEGIN treeframe_separator -->Groups<!-- END treeframe_separator -->
+<!-- BEGIN treeframe_hidden -->Hidden<!-- END treeframe_hidden -->

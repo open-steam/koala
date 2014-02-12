@@ -2,22 +2,22 @@
 
 namespace PortletTopic\Commands;
 
-class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
-
+class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand
+{
     private $params;
     private $id;
     private $content;
     private $rawHtmlWidget;
 
-    public function validateData(\IRequestObject $requestObject) {
-                        
+    public function validateData(\IRequestObject $requestObject)
+    {
         //robustness for missing ids and objects
-        try{
+        try {
             $objectId=$requestObject->getId();
             $object = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $objectId );
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             \ExtensionMaster::getInstance()->send404Error();
-            die; 
+            die;
         }
 
         if (!$object instanceof \steam_object) {
@@ -28,7 +28,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject) {
+    public function processData(\IRequestObject $requestObject)
+    {
         $htmlBody = "";
         $objectId = $requestObject->getId();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
@@ -45,12 +46,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $portletIsReference = false;
         }
 
-
         $portletName = $portlet->get_attribute(OBJ_DESC);
 
        // $this->getExtension()->addCSS();
         $this->getExtension()->addJS();
-
 
         //hack
         //include_once("/Users/mjako/koala-development-workspace-next/koala-core/lib/bid/slashes.php");
@@ -132,8 +131,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->parse("BLOCK_EDIT_BUTTON_CATEGORY");
                 }
 
-
-                $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode($category["title"]));
+                $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode(@$category["title"]));
                 $tmpl->setVariable("TOPIC_ENTRY", "");
 
                 if (isset($category["topics"])) {
@@ -155,16 +153,16 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
                             $tmpl->parse("BLOCK_EDIT_BUTTON_TOPIC");
                         }
-                        if(!isset($topic["title"])){
+                        if (!isset($topic["title"])) {
                             $topic["title"] = "";
                         }
-                        if(!isset($topic["link_url"])){
+                        if (!isset($topic["link_url"])) {
                             $topic["link_url"] = "";
                         }
-                        if(!isset($topic["link_target"])){
-                           $topic["link_target"] = ""; 
+                        if (!isset($topic["link_target"])) {
+                           $topic["link_target"] = "";
                         }
-                        
+
                         if (trim($topic["link_url"]) != "") {
                             $tmpl->setCurrentBlock("TOPIC_LINK");
                             $tmpl->setVariable("TOPIC_TITLE", $UBB->encode($topic["title"]));
@@ -177,7 +175,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $tmpl->parse("TOPIC_NOLINK");
                         }
 
-                        $tmpl->setVariable("TOPIC_DESCRIPTION", $UBB->encode($topic["description"]));
+                        $tmpl->setVariable("TOPIC_DESCRIPTION", $UBB->encode(@$topic["description"]));  //TODO: fix notice
 
                         //if there is a url parse headline as link
                         if (trim($topic["link_url"]) == "") {
@@ -188,7 +186,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
                         //if there is a description parse out
                         $tmpl->setCurrentBlock("topic_display_description");
-                        if (trim($topic["description"]) == "") {
+                        if (trim(@$topic["description"]) == "") { //TODO: fix notice
                             $tmpl->setVariable("TOPIC_DISPLAY_DESCRIPTION", "");
                         } else {
                             //$tmpl->parse("TOPIC_DISPLAY_DESCRIPTION", "topic_display_description");
@@ -209,7 +207,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("CATEGORY", "");
         }
 
-
         $htmlBody = $tmpl->get();
         $this->content = $htmlBody;
 
@@ -223,17 +220,19 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $this->rawHtmlWidget = $outputWidget;
     }
 
-    public function idResponse(\IdResponseObject $idResponseObject) {
+    public function idResponse(\IdResponseObject $idResponseObject)
+    {
         $idResponseObject->addWidget($this->rawHtmlWidget);
+
         return $idResponseObject;
     }
 
-    public function frameResponse(\FrameResponseObject $frameResponseObject) {
+    public function frameResponse(\FrameResponseObject $frameResponseObject)
+    {
         $frameResponseObject->setTitle("Portal");
         $frameResponseObject->addWidget($this->rawHtmlWidget);
+
         return $frameResponseObject;
     }
 
 }
-
-?>

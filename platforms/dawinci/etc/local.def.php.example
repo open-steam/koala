@@ -1,9 +1,0 @@
-<?php
-//*** 
-//define("PATH_SERVER", "http://localhost");
-
-//*** useful developer setting
-//define("DISPLAY_ERRORS", 1);
-//define("STATISTICS_LEVEL", 2);
-//define("DEVELOPMENT_MODE", true);
-?>
