@@ -15,7 +15,7 @@ defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "Lernstatt Paderborn"); //
 //defined("PLATFORM_TITLE") or define("PLATFORM_TITLE", "schulen-gt"); //schulen-gt
 
 //copyright information
-defined("COPYRIGHT_NAME") or define("COPYRIGHT_NAME", "Bezirksregierung Detmold");
+defined("COPYRIGHT_NAME") or define("COPYRIGHT_NAME", "Fachgruppe Kontextuelle Informatik");
 
 define("STARTPAGE_IMAGE_TEXT_LONG", "\"zusammenwirken\", \"kommunizieren\", \"communicate\", \"communiquer\"");
 define("STARTPAGE_IMAGE_TEXT_MEDIUM", "\"verbinden\",\"cooperate\",\"comunicar\",\"compartir\",\"colaborar\",\"apprendre\",\"partager\",\"aprender\",\"coopérer\",\"joindre\"");
