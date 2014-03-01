@@ -185,11 +185,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                     $textArea->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
                     $textArea->setHeight(100);
                     $desc = $object->get_attribute("OBJ_DESC");
-                    $desc = str_replace('"', '\"', $desc);
-
+                 
+                    
                     if ($desc !== 0) {
                         $jsWrapperPicture = new \Widgets\JSWrapper();
-                        $jsWrapperPicture->setJs('$(".plain").val("' . $desc . '")');
+                        $desc = trim($desc);
+                      
+                       $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
                     }
                 }
             }

@@ -199,6 +199,8 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         $addIcon = \Forum::getInstance()->getAssetUrl() . "icons/new.gif";
         $editIcon = \Forum::getInstance()->getAssetUrl() . "icons/message_edit.gif";
         $deleteIcon = \Forum::getInstance()->getAssetUrl() . "icons/message_delete.gif";
+        $backToTopic = '<h2>Zurück zur <a href="'.PATH_URL.'forum/index/'.$forumId.'">Übersicht</a></h2>';
+        $content->setVariable("BACK_TO_TOPICLIST",$backToTopic);
         if ($category_allowed_read) {
             $content->setVariable("FORUM_NAME", $forumAttributes["OBJ_DESC"]);
             $content->setVariable("CATEGORIE_NAME", $categoryAttributes[OBJ_DESC]);
