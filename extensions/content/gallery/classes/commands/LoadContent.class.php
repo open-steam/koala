@@ -96,7 +96,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			//$name = $objectModel->getReadableName();
 			$name = getCleanName($contentItem, 50);
 			if (isset($url) && $url != "") {
-				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+				return "<a href=\"".$url."\" title=\"$desc\"> " . $name . ' ' . $desc . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
 			} else {
 				return $name . "<script>" . $tipsy->getHtml() . "</script>";
 			}

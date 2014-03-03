@@ -174,6 +174,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $dataNameInput->setData($object);
             $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
+            
             if ($type == "document") {
                 if ($documentIsPicture) {
                     $textArea = new \Widgets\Textarea();
@@ -191,7 +192,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                         $jsWrapperPicture = new \Widgets\JSWrapper();
                         $desc = trim($desc);
                       
-                       $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
+                     //  $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
                     }
                 }
             }
@@ -404,7 +405,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         } else if ($type == "document") {
             if ($documentIsPicture) {
                 $dialog->addWidget($textArea);
-                $dialog->addWidget($jsWrapperPicture);
+                //$dialog->addWidget($jsWrapperPicture);
             }
         } else if ($type == "forum") {
             $creatorId = $creator->get_id();
@@ -472,7 +473,7 @@ class NameAttributeDataProvider extends \Widgets\AttributeDataProvider {
         }
         $function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
         return <<< END
-	sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');
+	/*sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');*/
 	sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': value}, '', 'data'{$function});
 END;
     }

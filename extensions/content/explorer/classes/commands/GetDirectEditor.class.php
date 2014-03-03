@@ -20,10 +20,10 @@ class GetDirectEditor extends \AbstractCommand implements \IAjaxCommand {
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 
 
-		$objDesc = trim($this->object->get_attribute(OBJ_DESC));
+		/*$objDesc = trim($this->object->get_attribute(OBJ_DESC));
 		if (($objDesc === 0) || ($objDesc === "")) {
 			$this->object->set_attribute(OBJ_DESC, $this->object->get_name());
-		}
+		}*/
 
 		$titelInput = new \Widgets\TextInput();
 
@@ -54,7 +54,7 @@ class NameAttributeDataProvider extends \Widgets\AttributeDataProvider {
 		}
 		$function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
 		return <<< END
-	sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');
+	/*sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');*/
 	sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': value}, '', 'data'{$function});
 END;
 	}
