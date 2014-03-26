@@ -32,7 +32,7 @@ class PhotoAlbum extends AbstractExtension implements IObjectExtension, IObjectM
 	}
 	
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
-		return new \Gallery\Commands\NewGallery();
+		return new \PhotoAlbum\Commands\NewGallery();
 	}
 	
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
