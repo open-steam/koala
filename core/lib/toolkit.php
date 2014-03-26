@@ -176,10 +176,10 @@ function isPicture($docType) {
 }
 
 function getCleanName($object, $length = 30) {
-    $docType = $object->get_attribute("DOC_MIME_TYPE");
     if (!($object instanceof steam_object)) {
         return "";
     }
+    $docType = $object->get_attribute("DOC_MIME_TYPE");
     if ($object instanceof steam_user) {
         $title = $object->get_attribute(USER_FIRSTNAME) . " " . $object->get_attribute(USER_FULLNAME);
     } else if ($object instanceof steam_document && isPicture($docType)) {
