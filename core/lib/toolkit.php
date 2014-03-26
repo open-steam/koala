@@ -1,7 +1,6 @@
 <?php
 
-function check_setup()
-{
+function check_setup() {
     echo "<center><small><pre>";
     echo check_msg("PHP Version >= 5.3", true, "5.3.6");
     echo check_msg("Write access to folder PATH_CACHE (" . PATH_CACHE . ")", true, "777");
@@ -34,8 +33,7 @@ function check_setup()
     echo "</pre></small></center>";
 }
 
-function check_msg($msg, $status = false, $value = "", $hint = null)
-{
+function check_msg($msg, $status = false, $value = "", $hint = null) {
     $length = 150;
     $html = "[ " . $msg . " ";
     for ($i = 0; $i < ($length - strlen($msg)); $i++) {
@@ -56,8 +54,7 @@ function check_msg($msg, $status = false, $value = "", $hint = null)
     return $html;
 }
 
-function strStartsWith($haystack, $needle, $case = true)
-{
+function strStartsWith($haystack, $needle, $case = true) {
     if ($case) {
         return (strcmp(substr($haystack, 0, strlen($needle)), $needle) === 0);
     }
@@ -65,8 +62,7 @@ function strStartsWith($haystack, $needle, $case = true)
     return (strcasecmp(substr($haystack, 0, strlen($needle)), $needle) === 0);
 }
 
-function strEndsWith($haystack, $needle, $case = true)
-{
+function strEndsWith($haystack, $needle, $case = true) {
     if ($case) {
         return (strcmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
     }
@@ -74,15 +70,13 @@ function strEndsWith($haystack, $needle, $case = true)
     return (strcasecmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
 }
 
-function array_trim($array)
-{
+function array_trim($array) {
     array_walk($array, create_function('&$temp', '$temp = trim($temp);'));
 
     return $array;
 }
 
-function browserNoCache()
-{
+function browserNoCache() {
     if (isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache') {
         return true;
     } else {
@@ -90,8 +84,7 @@ function browserNoCache()
     }
 }
 
-function dropCache()
-{
+function dropCache() {
     if (DEVELOPMENT_MODE && browserNoCache()) {
         return true;
     } else {
@@ -99,8 +92,7 @@ function dropCache()
     }
 }
 
-function emptyCacheFolder()
-{
+function emptyCacheFolder() {
     $strDir = PATH_CACHE;
     $oDir = dir($strDir);
     while (false !== ($strFile = $oDir->read())) {
@@ -115,8 +107,7 @@ function emptyCacheFolder()
     $oDir->close();
 }
 
-function getReadableDate($timestamp)
-{
+function getReadableDate($timestamp) {
     $is_today = false;
     $is_yesterday = false;
 
@@ -160,8 +151,7 @@ function getReadableDate($timestamp)
     }
 }
 
-function getReadableSize($size)
-{
+function getReadableSize($size) {
     if ($size < 1024) {
         return $size . " Byte";
     } elseif ($size < (1024 * 1024)) {
@@ -173,18 +163,27 @@ function getReadableSize($size)
     }
 }
 
-function getFormatedDate($timestamp)
-{
+function getFormatedDate($timestamp) {
     return date("d.m.Y, H:i ", $timestamp);
 }
 
-function getCleanName($object, $length = 30)
-{
+function isPicture($docType) {
+    $isJpg = strpos($docType, "jpg") !== false;
+    $isJpeg = strpos($docType, "jpeg") !== false;
+    $isGif = strpos($docType, "gif") !== false;
+    $isPng = strpos($docType, "png") !== false;
+    return $isGif || $isJpeg || $isJpg || $isPng;
+}
+
+function getCleanName($object, $length = 30) {
+    $docType = $object->get_attribute("DOC_MIME_TYPE");
     if (!($object instanceof steam_object)) {
         return "";
     }
     if ($object instanceof steam_user) {
         $title = $object->get_attribute(USER_FIRSTNAME) . " " . $object->get_attribute(USER_FULLNAME);
+    } else if ($object instanceof steam_document && isPicture($docType)) {
+        $title = $object->get_name();
     } else {
         $user = isUserHome($object);
         if ($user) {
@@ -212,8 +211,7 @@ function getCleanName($object, $length = 30)
     return $title;
 }
 
-function isUserHome($container)
-{
+function isUserHome($container) {
     if ($container instanceof steam_room) {
         $pathArray = explode("/", $container->get_path());
         if (count($pathArray) == 3) {
@@ -229,8 +227,7 @@ function isUserHome($container)
     return null;
 }
 
-function isGroupWorkroom($container)
-{
+function isGroupWorkroom($container) {
     if ($container instanceof steam_room) {
         $pathArray = explode("/", $container->get_path());
         if (count($pathArray) == 3) {
@@ -246,8 +243,7 @@ function isGroupWorkroom($container)
     return null;
 }
 
-function getObjectType($object)
-{
+function getObjectType($object) {
     if ($object instanceof \steam_document) {
         $objName = $object->get_name();
         if ((strpos($objName, ".kml") !== false) || (strpos($objName, ".kmz") !== false)) {
@@ -323,8 +319,7 @@ function getObjectType($object)
     return $type;
 }
 
-function deriveIcon($object)
-{
+function deriveIcon($object) {
     if (!($object instanceof steam_object))
         return "";
 
@@ -579,8 +574,7 @@ function deriveIcon($object)
     return $icons["generic"];
 }
 
-function getObjectReadableSize($object)
-{
+function getObjectReadableSize($object) {
     $type = getObjectType($object);
     try {
         if ($type == "document") {
@@ -629,8 +623,7 @@ function getObjectReadableSize($object)
 }
 
 //old bid-owl function lib
-function check_width_string($column_width, $pc_min, $pc_max, $px_min, $px_max, $default_value)
-{
+function check_width_string($column_width, $pc_min, $pc_max, $px_min, $px_max, $default_value) {
     if (preg_match('/([0-9]+)(px|%){0,1}$/', trim($column_width), $substring)) {
         if ($substring[2] == "") {
             $substring[2] = "px";
@@ -655,8 +648,7 @@ function check_width_string($column_width, $pc_min, $pc_max, $px_min, $px_max, $
  */
 if (!function_exists("extract_percentual_length")) {
 
-    function extract_percentual_length($value)
-    {
+    function extract_percentual_length($value) {
         if (preg_match('/([0-9]+)(%)$/', trim($value), $substring)) {
             return $substring[1];
         }
@@ -670,8 +662,7 @@ if (!function_exists("extract_percentual_length")) {
  * Remove any trailing % or pt signs from the given length value.
  * Return the empty string if the given value is not a length.
  */
-function extract_length($value)
-{
+function extract_length($value) {
     if (preg_match('/([0-9]+)(px|%){0,1}$/', trim($value), $substring)) {
         return $substring[1];
     }
@@ -683,8 +674,7 @@ function extract_length($value)
  * Check if the given length is a relative length and convert
  * it to an absolute length using the given base value.
  */
-function calculate_absolute_length($length, $base_value)
-{
+function calculate_absolute_length($length, $base_value) {
     if (($relative_length = extract_percentual_length($length)) != "") {
         return floor($base_value * $relative_length / 100);
     } else {
@@ -692,8 +682,7 @@ function calculate_absolute_length($length, $base_value)
     }
 }
 
-function derive_url($url, $path = "")
-{
+function derive_url($url, $path = "") {
     global $config_webserver_ip;
 
     $url = trim($url);
@@ -715,35 +704,29 @@ function derive_url($url, $path = "")
 
 //old bid-owl function lib - end
 
-function getDownloadUrlForObjectId($id)
-{
+function getDownloadUrlForObjectId($id) {
     return PATH_URL . "download/document/" . $id;
 }
 
-function isAjaxRequest()
-{
+function isAjaxRequest() {
     return (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
 }
 
-function isRestRequest()
-{
+function isRestRequest() {
     $data = $_SERVER['REQUEST_URI'];
 
     return (isset($data) && substr(strtolower($data), 0, 6) == "/rest/");
 }
 
-function isPhpCli()
-{
+function isPhpCli() {
     return php_sapi_name() == "cli";
 }
 
-function isErrorPage()
-{
+function isErrorPage() {
     return stristr($_SERVER['REQUEST_URI'], "/error/report/");
 }
 
-function buffer_flush()
-{
+function buffer_flush() {
     echo str_pad('', 1024);
     echo '<!-- -->';
 
@@ -757,8 +740,7 @@ function buffer_flush()
     @ob_start();
 }
 
-function displayStartupUserInfo()
-{
+function displayStartupUserInfo() {
     if (!isPhpCli() && !isAjaxRequest()) {
         @ob_start();
         $version = KOALA_VERSION;
@@ -789,8 +771,7 @@ END;
     }
 }
 
-function cleanHTML($dirtyHTML)
-{
+function cleanHTML($dirtyHTML) {
     //html purifier
     if (!defined("HTMLPURIFIER_PREFIX"))
         define("HTMLPURIFIER_PREFIX", PATH_DEPENDING . "classes/htmlpurifier/library");
@@ -901,8 +882,7 @@ function cleanHTML($dirtyHTML)
     return $dirtyHTML;
 }
 
-function return_bytes($val)
-{
+function return_bytes($val) {
     $val = trim($val);
     $last = strtolower($val[strlen($val) - 1]);
     switch ($last) {
@@ -927,8 +907,7 @@ function return_bytes($val)
  * @return a valid path
  */
 
-function revealPath($savedPath, $currentPath = "")
-{
+function revealPath($savedPath, $currentPath = "") {
     //path is an absolute path
     if (strtolower(substr($savedPath, 0, 4)) == "http") {
         return $savedPath;
@@ -993,8 +972,7 @@ function revealPath($savedPath, $currentPath = "")
     return $savedPath; //return not modified
 }
 
-function detectMimeType($pathString)
-{
+function detectMimeType($pathString) {
     $path = pathinfo($pathString);
     $extension = $path['extension'];
     $mimeArray = array();
@@ -1022,8 +1000,7 @@ function detectMimeType($pathString)
     return $mimeArray[$extension];
 }
 
-function getMimeTypeExtension($mimeType)
-{
+function getMimeTypeExtension($mimeType) {
     $mimeArray = array();
 
     if (file_exists(PATH_TEMP . "mime.types")) {
@@ -1049,8 +1026,7 @@ function getMimeTypeExtension($mimeType)
     return $mimeArray[$mimeType];
 }
 
-function getSerializedObject($object)
-{
+function getSerializedObject($object) {
     if ($object instanceof steam_object) {
         $clientSupport = steam_connection::get_instance($GLOBALS["STEAM"]->get_id())->get_module("package:clientsupport");
         $objectData = $GLOBALS['STEAM']->predefined_command($clientSupport, "query_object_data", array($object, false, false), false);
@@ -1061,8 +1037,7 @@ function getSerializedObject($object)
     }
 }
 
-function replaceSteamObject($object)
-{
+function replaceSteamObject($object) {
     if ($object instanceof steam_object) {
         return "\u2323" . $object->get_id() . "\u2323";
     } elseif (is_array($object)) {
@@ -1076,8 +1051,7 @@ function replaceSteamObject($object)
     }
 }
 
-function HTTPStatus($num)
-{
+function HTTPStatus($num) {
     $http = array(
         100 => 'HTTP/1.1 100 Continue',
         101 => 'HTTP/1.1 101 Switching Protocols',
@@ -1130,27 +1104,21 @@ function HTTPStatus($num)
     );
 }
 
-function uidv4()
-{
+function uidv4() {
     return sprintf(
-        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-
-        // 32 bits for "time_low"
-        mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-
-        // 16 bits for "time_mid"
-        mt_rand(0, 0xffff),
-
-        // 16 bits for "time_hi_and_version",
-        // four most significant bits holds version number 4
-        mt_rand(0, 0x0fff) | 0x4000,
-
-        // 16 bits, 8 bits for "clk_seq_hi_res",
-        // 8 bits for "clk_seq_low",
-        // two most significant bits holds zero and one for variant DCE1.1
-        mt_rand(0, 0x3fff) | 0x8000,
-
-        // 48 bits for "node"
-        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            // 32 bits for "time_low"
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            // 16 bits for "time_mid"
+            mt_rand(0, 0xffff),
+            // 16 bits for "time_hi_and_version",
+            // four most significant bits holds version number 4
+            mt_rand(0, 0x0fff) | 0x4000,
+            // 16 bits, 8 bits for "clk_seq_hi_res",
+            // 8 bits for "clk_seq_low",
+            // two most significant bits holds zero and one for variant DCE1.1
+            mt_rand(0, 0x3fff) | 0x8000,
+            // 48 bits for "node"
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
     );
 }
