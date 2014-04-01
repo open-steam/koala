@@ -41,8 +41,8 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $obj->set_attribute("bid:postbox:container", $container);
         $obj->set_acquire(false);
         $steamGroupId = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam")->get_id();
-        $container->sanction(SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
-        $container->sanction_meta(SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
+        $container->sanction(SANCTION_READ | SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
+        $container->sanction_meta(SANCTION_READ | SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
         
        
         $jswrapper = new \Widgets\JSWrapper();
