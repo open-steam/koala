@@ -21,7 +21,8 @@ class FrontController {
 							$ajaxResponseObject = $command->ajaxResponse($ajaxResponseObject);
 						} catch (Exception $e) {
 							$response->setStatus("400 Bad Request");
-							$response->write("Command processing error: \"{$e->getMessage()}\"");
+							$response->write("Command processing error\n");
+                            $response->write($e->getMessage() . "\n" . $e->getTraceAsString());
 							$response->flush();
 							if (DEVELOPMENT_MODE) {
 								throw $e;
@@ -75,9 +76,9 @@ class FrontController {
 			$response->setStatus("400 Bad Request");
 			$response->write("Not extension found for url");
 			$response->flush();
-			exit;	
+			exit;
 		}
 	}
-	
+
 }
 ?>
