@@ -228,7 +228,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $containerViewRadio->setDefaultChecked("normal");
         $containerViewRadio->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:presentation"));
         if (!$isWriteable) {
-            //WIDGET-Eigenschaft fehlt noch
+            $containerViewRadio->setReadOnly(true);
         }
 
 
@@ -312,6 +312,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkboxInput->setUncheckedValue(0);
         $checkboxInput->setData($object);
         $checkboxInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:forum_is_editable"));
+        if (!$isWriteable) {
+            $checkboxInput->setReadOnly(true);
+        }
 
         $checkboxWWW = new \Widgets\Checkbox();
         $checkboxWWW->setLabel("Neues Fenster öffnen:");
@@ -319,7 +322,10 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkboxWWW->setUncheckedValue(0);
         $checkboxWWW->setData($object);
         $checkboxWWW->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_BLANK"));
-
+        if (!$isWriteable) {
+            $checkboxWWW->setReadOnly(true);
+        }
+        
         $checkboxHiddenObject = new \Widgets\Checkbox();
         $checkboxHiddenObject->setLabel("Verstecktes Objekt");
         $checkboxHiddenObject->setCheckedValue("1");
@@ -328,7 +334,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkboxHiddenObject->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:hidden"));
 
         if (!$isWriteable) {
-            //WIDGET-Eigenschaft fehlt noch
+            $checkboxHiddenObject->setReadOnly(true);
         }
 
         $seperator = new \Widgets\RawHtml();
@@ -427,6 +433,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $urlInput->setLabel("URL");
             $urlInput->setData($object);
             $urlInput->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_EXTERN_URL"));
+            if(!$isWriteable){
+                $urlInput->setReadOnly(true);
+            }
             $dialog->addWidget($urlInput);
             $dialog->addWidget($seperator);
             $dialog->addWidget($checkboxWWW);
@@ -439,6 +448,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $statusbarCheckbox->setUncheckedValue(0);
             $statusbarCheckbox->setData($object);
             $statusbarCheckbox->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portal_status_deactivate"));
+            if(!$isWriteable){
+                $statusbarCheckbox->setReadOnly(true);
+            }
             $dialog->addWidget($statusbarCheckbox);
         }
 
