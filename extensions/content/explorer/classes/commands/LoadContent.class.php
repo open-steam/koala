@@ -134,7 +134,11 @@ class ContentProvider implements \Widgets\IContentProvider {
                         return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsyHtml . "</script>";
                     }
                 }
-                return "<a href=\"".$url."\" title=\"$desc\"> " . $name . ' ('. $desc .')'. "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                if (trim($desc) === "") {
+                    return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                } else {
+                    return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . ' (' . $desc . ')' . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                }
             } else {
                 return $name . "<script>" . $tipsyHtml . "</script>";
             }
@@ -148,12 +152,12 @@ class ContentProvider implements \Widgets\IContentProvider {
                         $keywordList.=$keyword . " ";
                     }
                 }
-                 return $keywordList;
-            }else{
+                return $keywordList;
+            } else {
                 return "";
             }
 
-           
+
 
             //speed test //TODO: fix
             $html = "";
