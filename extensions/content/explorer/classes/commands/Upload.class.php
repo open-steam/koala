@@ -1,28 +1,27 @@
 <?php
+
 namespace Explorer\Commands;
-class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand
-{
+
+class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
+
     private $params;
     private $id;
 
-    public function validateData(\IRequestObject $requestObject)
-    {
+    public function validateData(\IRequestObject $requestObject) {
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject)
-    {
+    public function processData(\IRequestObject $requestObject) {
         if ($requestObject instanceof \UrlRequestObject) {
             $this->params = $requestObject->getParams();
-            isset($this->params[0]) ? $this->id = $this->params[0]: "";
+            isset($this->params[0]) ? $this->id = $this->params[0] : "";
         } elseif ($requestObject instanceof \AjaxRequestObject) {
             $this->params = $requestObject->getParams();
-            isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
+            isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
         }
     }
 
-    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject)
-    {
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         // list of valid extensions, ex. array("jpeg", "xml", "bmp")
         $allowedExtensions = array();
         // max file size in bytes
@@ -38,8 +37,7 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand
         //return $ajaxResponseObject;
     }
 
-    public function frameResponse(\FrameResponseObject $frameResponseObject)
-    {
+    public function frameResponse(\FrameResponseObject $frameResponseObject) {
         // list of valid extensions, ex. array("jpeg", "xml", "bmp")
         $allowedExtensions = array();
         // max file size in bytes
@@ -52,19 +50,19 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         die;
     }
+
 }
 
 /**
  * Handle file uploads via XMLHttpRequest
  */
-class qqUploadedFileXhr
-{
+class qqUploadedFileXhr {
+
     /**
      * Save the file to the specified path
      * @return boolean TRUE on success
      */
-    public function save($path)
-    {
+    public function save($path) {
         $input = fopen("php://input", "r");
         $temp = tmpfile();
         $realSize = stream_copy_to_stream($input, $temp);
@@ -81,56 +79,56 @@ class qqUploadedFileXhr
 
         return true;
     }
-    public function getName()
-    {
+
+    public function getName() {
         return $_GET['qqfile'];
     }
-    public function getSize()
-    {
+
+    public function getSize() {
         if (isset($_SERVER["CONTENT_LENGTH"])) {
             return (int) $_SERVER["CONTENT_LENGTH"];
         } else {
             throw new \Exception('Getting content length is not supported.');
         }
     }
+
 }
 
 /**
  * Handle file uploads via regular form post (uses the $_FILES array)
  */
-class qqUploadedFileForm
-{
+class qqUploadedFileForm {
+
     /**
      * Save the file to the specified path
      * @return boolean TRUE on success
      */
-    public function save($path)
-    {
+    public function save($path) {
         if (!move_uploaded_file($_FILES['qqfile']['tmp_name'], $path)) {
             return false;
         }
 
         return true;
     }
-    public function getName()
-    {
+
+    public function getName() {
         return $_FILES['qqfile']['name'];
     }
-    public function getSize()
-    {
+
+    public function getSize() {
         return $_FILES['qqfile']['size'];
     }
+
 }
 
-class qqFileUploader
-{
+class qqFileUploader {
+
     private $allowedExtensions = array();
     private $sizeLimit = 10485760;
     private $file;
     private $envid;
 
-    public function __construct(array $allowedExtensions = array(), $sizeLimit = 10485760, $envid)
-    {
+    public function __construct(array $allowedExtensions = array(), $sizeLimit = 10485760, $envid) {
         $this->envid = $envid;
         $allowedExtensions = array_map("strtolower", $allowedExtensions);
 
@@ -148,8 +146,7 @@ class qqFileUploader
         }
     }
 
-    private function checkServerSettings()
-    {
+    private function checkServerSettings() {
         $postSize = $this->toBytes(ini_get('post_max_size'));
         $uploadSize = $this->toBytes(ini_get('upload_max_filesize'));
 
@@ -159,10 +156,9 @@ class qqFileUploader
         }
     }
 
-    private function toBytes($str)
-    {
+    private function toBytes($str) {
         $val = trim($str);
-        $last = strtolower($str[strlen($str)-1]);
+        $last = strtolower($str[strlen($str) - 1]);
         switch ($last) {
             case 'g': $val *= 1024;
             case 'm': $val *= 1024;
@@ -175,8 +171,7 @@ class qqFileUploader
     /**
      * Returns array('success'=>true) or array('error'=>'error message')
      */
-    public function handleUpload($uploadDirectory, $replaceOldFile = FALSE)
-    {
+    public function handleUpload($uploadDirectory, $replaceOldFile = FALSE) {
         if (!is_writable($uploadDirectory)) {
             return array('error' => "Server error. Upload directory isn't writable.");
         }
@@ -203,7 +198,7 @@ class qqFileUploader
         if ($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)) {
             $these = implode(', ', $this->allowedExtensions);
 
-            return array('error' => 'File has an invalid extension, it should be one of '. $these . '.');
+            return array('error' => 'File has an invalid extension, it should be one of ' . $these . '.');
         }
 
         if (!$replaceOldFile) {
@@ -216,13 +211,16 @@ class qqFileUploader
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)) {
             if (defined("ENABLE_AUTOMATIC_IMAGE_SCALING") && ENABLE_AUTOMATIC_IMAGE_SCALING) {
                 try {
-                    $imagick = new \Imagick();
-                    $imagick->readimage($uploadDirectory . $filename . '.' . $ext);
-                    if ($imagick->valid()) {
-                        $imageProperties = $imagick->getimagegeometry();
-                        if ($imageProperties["width"] > 1920 || $imageProperties["height"] > 1080) {
-                            $imagick->resizeimage(1920, 1080, \Imagick::FILTER_UNDEFINED, 0, true);
-                            $imagick->writeimage($uploadDirectory . $filename . '.' . $ext);
+                    $ext2 = strtolower($ext);
+                    if ($ext2 === "jpg" || $ext2 === "jpeg" || $ext2 === "png") {
+                        $imagick = new \Imagick();
+                        $imagick->readimage($uploadDirectory . $filename . '.' . $ext);
+                        if ($imagick->valid()) {
+                            $imageProperties = $imagick->getimagegeometry();
+                            if ($imageProperties["width"] > 1920 || $imageProperties["height"] > 1080) {
+                                $imagick->resizeimage(1920, 1080, \Imagick::FILTER_UNDEFINED, 0, true);
+                                $imagick->writeimage($uploadDirectory . $filename . '.' . $ext);
+                            }
                         }
                     }
                 } catch (\IMagickException $e) {
@@ -231,14 +229,14 @@ class qqFileUploader
             }
 
             //create empty steam_document and check write access
-            $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $this->file->getName(), file_get_contents($uploadDirectory . $filename . '.' . $ext), "" , \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid));
+            $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $this->file->getName(), file_get_contents($uploadDirectory . $filename . '.' . $ext), "", \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid));
             unlink($uploadDirectory . $filename . '.' . $ext);
 
-            return array('success'=>true);
+            return array('success' => true);
         } else {
-            return array('error'=> 'Could not save uploaded file.' .
+            return array('error' => 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
         }
-
     }
+
 }
