@@ -68,9 +68,9 @@ class Checkbox extends Widget {
 
         //write sanction
         if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
-            $this->getContent()->setVariable("READONLY", "readonly");
+            $this->getContent()->setVariable("READONLY", "disabled");
         }else if(isset($this->readOnly) && $this->readOnly){
-            $this->getContent()->setVariable("READONLY", "readonly");
+            $this->getContent()->setVariable("READONLY", "disabled");
         }
 
         $this->getContent()->setVariable("CHECKEDVALUE", $this->checkedValue);
