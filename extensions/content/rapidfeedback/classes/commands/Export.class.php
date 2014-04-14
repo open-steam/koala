@@ -52,7 +52,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                     'bold' => true
                 )
             );
-            
+
             $objPHPExcel->setActiveSheetIndex(0)->setTitle(gettext('overview'));
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', "Fragebogen");
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A2', "Allgemeine Beschreibung");
@@ -63,9 +63,9 @@ class Export extends \AbstractCommand implements \IFrameCommand {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "Ausfüllen");
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A10', "Frage")->getStyle('A10')->applyFromArray($styleArray);
 
-            
-            
-            
+
+
+
 
 
 
@@ -99,7 +99,6 @@ class Export extends \AbstractCommand implements \IFrameCommand {
             foreach ($questions as $question) {
                 if ($question instanceof \Rapidfeedback\Model\AbstractQuestion) {
                     if ($question instanceof \Rapidfeedback\Model\TextQuestion) {
-                        //$objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $questionCount . ". kurzer Text");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $questionCount . " " . $question->getQuestionText());
                         $objPHPExcel->setActiveSheetIndex(0)->getStyleByColumnAndRow($column, $row)->applyFromArray($styleArray);
                         $column++;
@@ -123,10 +122,15 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                         }
                     } else if ($question instanceof \Rapidfeedback\Model\MatrixQuestion) {
                         $rowCount = 1;
+                        $columnArray = $question->getColumns();
                         foreach ($question->getRows() as $questionRow) {
                             $objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $questionCount . "." . $rowCount . " " . $questionRow);
                             $objPHPExcel->setActiveSheetIndex(0)->getStyleByColumnAndRow($column, $row)->applyFromArray($styleArray);
-                            $column++;
+                            foreach ($columnArray as $c) {
+                                $objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row + 1, $c);
+                                $column++;
+                            }
+
                             $rowCount++;
                         }
                     } else if ($question instanceof \Rapidfeedback\Model\TendencyQuestion) {
@@ -184,6 +188,21 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                                   foreach ($oneResult as $partResult) {
                                   $objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $partResult);
                                   } */
+                            } else if ($questions[$questionCount] instanceof \Rapidfeedback\Model\MatrixQuestion) {
+
+                                //0 -> array , 1 --> array
+                                $cArray = json_decode(json_encode($questions[$questionCount]->getColumns()), TRUE);
+                                foreach ($oneResult as $res) {
+                                    $array = json_decode(json_encode($res), TRUE);
+                                    foreach ($array as $r) {
+                                        for ($j = 0; $j < count($cArray); $j++) {
+                                            if ($r === $cArray[$j][0]) {
+                                                $objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column + $j, $row, "x");
+                                            }
+                                        }
+                                        $column+=count($cArray);
+                                    }
+                                }
                             } else {
                                 $cellContent = "";
                                 foreach ($oneResult as $partResult) {
