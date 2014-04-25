@@ -33,18 +33,24 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $portlet_name = $portlet->get_attribute(OBJ_DESC);
         $params = $requestObject->getParams();
-
+        
+       
+       
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
-        //reference handling
+       //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
+            if (!$portlet->check_access_read()) {
+                $this->rawHtmlWidget = new \Widgets\RawHtml();
+                $this->rawHtmlWidget->setHtml("");
+                return null;
+            }
         } else {
             $portletIsReference = false;
         }
-
         //hack
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
 
@@ -66,6 +72,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
         $tmpl->setVariable("APPOINTMENT_NAME", $portlet_name);
         $tmpl->setVariable("linkurl", "");
+        
+        
 
         //refernce icon
         if ($portletIsReference) {

@@ -2,19 +2,18 @@
 
 namespace PortletTopic\Commands;
 
-class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand
-{
+class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
+
     private $params;
     private $id;
     private $content;
     private $rawHtmlWidget;
 
-    public function validateData(\IRequestObject $requestObject)
-    {
+    public function validateData(\IRequestObject $requestObject) {
         //robustness for missing ids and objects
         try {
-            $objectId=$requestObject->getId();
-            $object = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $objectId );
+            $objectId = $requestObject->getId();
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         } catch (\Exception $e) {
             \ExtensionMaster::getInstance()->send404Error();
             die;
@@ -28,8 +27,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject)
-    {
+    public function processData(\IRequestObject $requestObject) {
         $htmlBody = "";
         $objectId = $requestObject->getId();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
@@ -39,16 +37,22 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand
 
         //reference handling
         $params = $requestObject->getParams();
+        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
+            if (!$portlet->check_access_read()) {
+                $this->rawHtmlWidget = new \Widgets\RawHtml();
+                $this->rawHtmlWidget->setHtml("");
+                return null;
+            }
         } else {
             $portletIsReference = false;
         }
 
         $portletName = $portlet->get_attribute(OBJ_DESC);
 
-       // $this->getExtension()->addCSS();
+        // $this->getExtension()->addCSS();
         $this->getExtension()->addJS();
 
         //hack
@@ -78,7 +82,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand
 
         //refernce icon
         if ($portletIsReference) {
-            $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
+            $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
             $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
@@ -160,7 +164,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand
                             $topic["link_url"] = "";
                         }
                         if (!isset($topic["link_target"])) {
-                           $topic["link_target"] = "";
+                            $topic["link_target"] = "";
                         }
 
                         if (trim($topic["link_url"]) != "") {
@@ -176,7 +180,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand
                         }
 
                         $tmpl->setVariable("TOPIC_DESCRIPTION", $UBB->encode(@$topic["description"]));  //TODO: fix notice
-
                         //if there is a url parse headline as link
                         if (trim($topic["link_url"]) == "") {
                             //$tmpl->parse("TOPIC_DISPLAY_TITLE", "topic_display_title");
@@ -220,15 +223,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand
         $this->rawHtmlWidget = $outputWidget;
     }
 
-    public function idResponse(\IdResponseObject $idResponseObject)
-    {
+    public function idResponse(\IdResponseObject $idResponseObject) {
         $idResponseObject->addWidget($this->rawHtmlWidget);
 
         return $idResponseObject;
     }
 
-    public function frameResponse(\FrameResponseObject $frameResponseObject)
-    {
+    public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $frameResponseObject->setTitle("Portal");
         $frameResponseObject->addWidget($this->rawHtmlWidget);
 
