@@ -388,7 +388,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($tagrawHtml);
         }
 
-        if ($type != "portal") {
+        if ($type != "portal" && $type != "docextern") {
             $dialog->addWidget($seperator);
         }
 
@@ -437,8 +437,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $urlInput->setReadOnly(true);
             }
             $dialog->addWidget($urlInput);
-            $dialog->addWidget($seperator);
-            $dialog->addWidget($checkboxWWW);
+           // $dialog->addWidget($seperator);
+           // $dialog->addWidget($checkboxWWW);
             $dialog->setForceReload(true);
         }
         if ($type == "portal") {
