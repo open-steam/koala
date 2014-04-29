@@ -20,6 +20,7 @@ platforms/elab/persistence
 platforms/elab/public/.htaccess
 platforms/elab/public/styles
 platforms/elab/etc/local.def.php
+platforms/elab/etc/platform.def.php
 
 platforms/schulen-gt/cache/*
 platforms/schulen-gt/log/*
