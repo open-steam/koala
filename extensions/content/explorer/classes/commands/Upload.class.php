@@ -26,6 +26,8 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $checked = FALSE;
         if (isset($this->params["checked"])) {
             $checked = $this->params["checked"] === "false" ? false : true;
+        }else{
+            $checked = false;
         }
         $allowedExtensions = array();
         // max file size in bytes

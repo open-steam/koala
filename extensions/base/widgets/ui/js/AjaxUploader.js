@@ -1220,7 +1220,9 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         params['envid'] = this._options.envid;
         params['command'] = this._options.command;
         params['destid'] = this._options.destid;
-        params['checked'] = document.getElementById('override-cb').checked;
+        if(document.getElementById('override-cb')){
+            params['checked'] = document.getElementById('override-cb').checked;        
+        }
         var queryString = qq.obj2url(params, this._options.action);
         
         xhr.open("POST", queryString, true);
