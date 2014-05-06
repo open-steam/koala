@@ -263,6 +263,7 @@ class qqFileUploader {
                         $eleName = $ele->get_name();
                         if ($eleName === $filename . "." . $ext) {
                             if ($checked === false) {
+                                unlink($uploadDirectory . $filename . '.' . $ext);
                                 return array("error" => "Es gibt bereits eine Datei mit demselben Namen. Um diese zu überschreiben, wählen Sie das Feld gleichnamige Dateien ersetzen aus.");
                             }
                             if ($ele instanceof \steam_document) {
