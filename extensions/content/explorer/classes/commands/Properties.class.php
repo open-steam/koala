@@ -418,9 +418,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
             $currentUserId = $currentUser->get_id();
             if ($currentUserId == $creatorId) {
-                //$checkValue= $object->get_attribute("bid:forum_is_editable");
-                //$checked = $checkValue ? 1 : 0;
-                //$checkboxInput;
                 $dialog->addWidget($checkboxInput);
                 $dialog->addWidget($seperator);
             }
@@ -438,8 +435,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $dialog->addWidget($seperator);
             $dialog->addWidget($urlInput);
-           // $dialog->addWidget($seperator);
-           // $dialog->addWidget($checkboxWWW);
             $dialog->setForceReload(true);
         }
         
@@ -458,8 +453,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($statusbarCheckbox);
             
         }
-
-
 
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);
