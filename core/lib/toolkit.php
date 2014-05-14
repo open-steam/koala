@@ -191,12 +191,17 @@ function getCleanName($object, $length = 30) {
         } elseif ($object instanceof steam_trashbin) {
             $title = "Papierkorb";
         } else {
+            
+            /*
             $desc = $object->get_attribute(OBJ_DESC);
             if ($desc !== 0 && trim($desc) !== "") {
                 $title = $desc;
             } else {
                 $title = $object->get_name();
             }
+            */
+            $title = $object->get_name();
+            
             $title = str_replace("'s workarea", "", stripslashes($title));
             $title = str_replace(" workarea", "", stripslashes($title));
             $title = str_replace("s workroom.", "", $title);
