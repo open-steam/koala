@@ -48,6 +48,7 @@ abstract class AbstractObjectModel implements IObjectModel {
 		return $this->getCleanName($object);
 	}
 	
+        /* not used anymore
 	private function getCleanName() {
 		if ($this->object instanceof steam_user) {
 			$title = $this->object->get_attribute(USER_FIRSTNAME) . " " . $this->object->get_attribute(USER_FULLNAME);
@@ -73,6 +74,6 @@ abstract class AbstractObjectModel implements IObjectModel {
 		}
 		return $title;
 	}
-	
+	*/
 }
 ?>
