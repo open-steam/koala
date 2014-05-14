@@ -176,9 +176,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
             
             if ($type == "document") {
-                if ($documentIsPicture) {
+                if (true) {
                     $textArea = new \Widgets\Textarea();
-                    $textArea->setLabel("Beschreibung");
+                    $textArea->setLabel("Beschreibung (OBJ_DESC)");
                     $textArea->setData($object);
                     if (!$isWriteable) {
                         //Fehlt Methode
@@ -409,7 +409,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $dialog->addWidget($seperator);
         } else if ($type == "document") {
-            if ($documentIsPicture) {
+            if (true) {
                 $dialog->addWidget($textArea);
                 //$dialog->addWidget($jsWrapperPicture);
             }
