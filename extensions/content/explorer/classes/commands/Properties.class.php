@@ -178,7 +178,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             if ($type == "document") {
                 if (true) {
                     $textArea = new \Widgets\Textarea();
-                    $textArea->setLabel("Beschreibung (OBJ_DESC)");
+                    $textArea->setLabel("Beschreibung");
                     $textArea->setData($object);
                     if (!$isWriteable) {
                         //Fehlt Methode
