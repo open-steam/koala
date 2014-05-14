@@ -19,6 +19,10 @@ class TextInput extends Widget {
     private $autosave = true;
     private $customSaveCode = "";
     private $name = "";
+    
+    public function setId($id){
+        $this->id = $id;
+    }
 
     public function setName($name) {
         $this->name = $name;
@@ -87,7 +91,11 @@ class TextInput extends Widget {
                 "value.replace(/&lt;/g,'<');" .
                 "value.replace(/&gt;/g,'>');}");
 
-        $this->id = rand();
+        
+            
+        if(!isset($this->id)){
+            $this->id = rand();
+        }
         $this->addWidget($reverseSpecialHtmlWidget);
         if (isset($this->label) && trim($this->label) !== "") {
             $this->getContent()->setVariable("LABEL", $this->label . ":");
@@ -118,7 +126,7 @@ class TextInput extends Widget {
             $style = "style=\"{$style}\"";
             $this->getContent()->setVariable("INPUT_STYLE", $style);
         }
-       
+
         if ($this->contentProvider) {
             if (!$this->contentProvider->isChangeable($this->data)) {
                 $this->getContent()->setVariable("READONLY", "readonly");

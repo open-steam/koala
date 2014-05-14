@@ -13,7 +13,12 @@ class RadioButton extends Widget {
     private $defaultChecked;
     private $type = "vertical";
     private $currentValue;
+    private $readOnly;
 
+    public function setReadOnly($ro) {
+        $this->readOnly = $ro;
+    }
+    
     public function setCurrentValue($cv) {
         $this->currentValue = $cv;
     }
@@ -82,7 +87,12 @@ class RadioButton extends Widget {
                 //write sanction
                 if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
                     $this->getContent()->setVariable("READONLY", "disabled");
+                }  else if(isset($this->readOnly) && $this->readOnly){
+                    $this->getContent()->setVariable("READONLY", "disabled");
                 }
+                    
+                
+                
 
                 $this->getContent()->setVariable("ID", $this->id);
                 $this->getContent()->setVariable("RADIONAME", $this->id);
@@ -128,6 +138,8 @@ class RadioButton extends Widget {
 
                 //write sanction
                 if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
+                    $this->getContent()->setVariable("READONLY_HORIZONTAL", "disabled");
+                }else if(isset($this->readOnly) && $this->readOnly){
                     $this->getContent()->setVariable("READONLY_HORIZONTAL", "disabled");
                 }
 

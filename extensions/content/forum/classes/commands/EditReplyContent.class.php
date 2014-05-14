@@ -20,7 +20,7 @@ class EditReplyContent extends \AbstractCommand implements \IFrameCommand, \IAja
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		$forumId=$this->params["forum"];
+            	$forumId=$this->params["forum"];
 		$object= \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$objectId = $object->get_id();
 		$steamUser= \lms_steam::get_current_user();

@@ -174,10 +174,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $dataNameInput->setData($object);
             $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
+            
             if ($type == "document") {
-                if ($documentIsPicture) {
+                if (true) {
                     $textArea = new \Widgets\Textarea();
-                    $textArea->setLabel("Beschreibung");
+                    $textArea->setLabel("Beschreibung (OBJ_DESC)");
                     $textArea->setData($object);
                     if (!$isWriteable) {
                         //Fehlt Methode
@@ -185,11 +186,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                     $textArea->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
                     $textArea->setHeight(100);
                     $desc = $object->get_attribute("OBJ_DESC");
-                    $desc = str_replace('"', '\"', $desc);
-
+                 
+                    
                     if ($desc !== 0) {
                         $jsWrapperPicture = new \Widgets\JSWrapper();
-                        $jsWrapperPicture->setJs('$(".plain").val("' . $desc . '")');
+                        $desc = trim($desc);
+                      
+                     //  $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
                     }
                 }
             }
@@ -225,7 +228,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $containerViewRadio->setDefaultChecked("normal");
         $containerViewRadio->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:presentation"));
         if (!$isWriteable) {
-            //WIDGET-Eigenschaft fehlt noch
+            $containerViewRadio->setReadOnly(true);
         }
 
 
@@ -236,6 +239,62 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $keywordArea->setContentProvider(\Widgets\DataProvider::arrayToStringProvider("OBJ_KEYWORDS"));
         if (!$isWriteable) {
             $keywordArea->setReadOnly(true);
+        }
+
+        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+
+
+            $parent = $object->get_environment();
+            if ($parent !== 0) {
+                $inventory = $parent->get_inventory();
+            } else {
+                $inventory = array();
+            }
+            $keywordmatrix = array();
+            foreach ($inventory as $inv) {
+
+
+                if (!($inv->get_id() == $this->id)) {
+                    $keywordmatrix[] = $inv->get_attribute("OBJ_KEYWORDS");
+                }
+            }
+            $kwList = array();
+            foreach ($keywordmatrix as $kwRow) {
+                foreach ($kwRow as $element) {
+                    if (trim($element) !== "") {
+                        $kwList[] = trim($element);
+                    }
+                }
+            }
+            $kwList = array_unique($kwList);
+            $taglist = array();
+            foreach ($kwList as $kw) {
+                $tagWidget = new \Widgets\Tag();
+                $tagWidget->setKeyword($kw);
+                $taglist[] = $tagWidget;
+            }
+
+            $tagrawHtml = new \Widgets\RawHtml();
+            $html = '<script>function copyToTextInput(name){
+            var valOld = $("input[type=text]")[1].value.trim();
+            var tagfield = $("input[type=text]")[1]; 
+            tagfield.value = valOld + " " + name;
+            $("#dialog_wrapper").addClass("changed");
+            sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
+            $(".tag[name="+name+"]")[0].onclick="";
+}</script><div class="tag-overview-row">';
+
+            $breakCounter = 3;
+            foreach ($taglist as $i => $tagWidget) {
+                if ($i % $breakCounter !== 0) {
+                    $html .= $tagWidget->getHtml();
+                } else {
+                    $html .= "</div>" . '<div class="tag-overview-row">' . $tagWidget->getHtml();
+                }
+            }
+            $html .= "</div>";
+            $tagrawHtml->setHtml($html);
+            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:130px;clear:both;width:200px;}');
         }
 
         //TODO: bid-attribute
@@ -253,6 +312,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkboxInput->setUncheckedValue(0);
         $checkboxInput->setData($object);
         $checkboxInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:forum_is_editable"));
+        if (!$isWriteable) {
+            $checkboxInput->setReadOnly(true);
+        }
 
         $checkboxWWW = new \Widgets\Checkbox();
         $checkboxWWW->setLabel("Neues Fenster öffnen:");
@@ -260,7 +322,10 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkboxWWW->setUncheckedValue(0);
         $checkboxWWW->setData($object);
         $checkboxWWW->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_BLANK"));
-
+        if (!$isWriteable) {
+            $checkboxWWW->setReadOnly(true);
+        }
+        
         $checkboxHiddenObject = new \Widgets\Checkbox();
         $checkboxHiddenObject->setLabel("Verstecktes Objekt");
         $checkboxHiddenObject->setCheckedValue("1");
@@ -269,7 +334,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkboxHiddenObject->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:hidden"));
 
         if (!$isWriteable) {
-            //WIDGET-Eigenschaft fehlt noch
+            $checkboxHiddenObject->setReadOnly(true);
         }
 
         $seperator = new \Widgets\RawHtml();
@@ -317,10 +382,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($createdField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
-        
-        $dialog->addWidget($keywordArea);
-        
-        if ($type != "portal") {
+
+        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+            $dialog->addWidget($keywordArea);
+            $dialog->addWidget($tagrawHtml);
+        }
+
+        if ($type != "portal" && $type != "docextern") {
             $dialog->addWidget($seperator);
         }
 
@@ -341,18 +409,15 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $dialog->addWidget($seperator);
         } else if ($type == "document") {
-            if ($documentIsPicture) {
+            if (true) {
                 $dialog->addWidget($textArea);
-                $dialog->addWidget($jsWrapperPicture);
+                //$dialog->addWidget($jsWrapperPicture);
             }
         } else if ($type == "forum") {
             $creatorId = $creator->get_id();
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
             $currentUserId = $currentUser->get_id();
             if ($currentUserId == $creatorId) {
-                //$checkValue= $object->get_attribute("bid:forum_is_editable");
-                //$checked = $checkValue ? 1 : 0;
-                //$checkboxInput;
                 $dialog->addWidget($checkboxInput);
                 $dialog->addWidget($seperator);
             }
@@ -365,11 +430,15 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $urlInput->setLabel("URL");
             $urlInput->setData($object);
             $urlInput->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_EXTERN_URL"));
-            $dialog->addWidget($urlInput);
+            if(!$isWriteable){
+                $urlInput->setReadOnly(true);
+            }
             $dialog->addWidget($seperator);
-            $dialog->addWidget($checkboxWWW);
+            $dialog->addWidget($urlInput);
             $dialog->setForceReload(true);
         }
+        
+        
         if ($type == "portal") {
             $statusbarCheckbox = new \Widgets\Checkbox();
             $statusbarCheckbox->setLabel("Statusleiste deaktiviert");
@@ -377,10 +446,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $statusbarCheckbox->setUncheckedValue(0);
             $statusbarCheckbox->setData($object);
             $statusbarCheckbox->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portal_status_deactivate"));
+            if(!$isWriteable){
+                $statusbarCheckbox->setReadOnly(true);
+            }
+            $dialog->addWidget($seperator);
             $dialog->addWidget($statusbarCheckbox);
+            
         }
-
-
 
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);
@@ -411,7 +483,7 @@ class NameAttributeDataProvider extends \Widgets\AttributeDataProvider {
         }
         $function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
         return <<< END
-	sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');
+	/*sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');*/
 	sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': value}, '', 'data'{$function});
 END;
     }

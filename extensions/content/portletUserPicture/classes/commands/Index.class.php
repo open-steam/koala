@@ -27,6 +27,11 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
+            if (!$portlet->check_access_read()) {
+                $this->rawHtmlWidget = new \Widgets\RawHtml();
+                $this->rawHtmlWidget->setHtml("");
+                return null;
+            }
         } else {
             $portletIsReference = false;
         }

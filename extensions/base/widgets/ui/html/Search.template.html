@@ -1,0 +1,65 @@
+<script>
+    var updateTaglist = function() {
+        var value = this.value;
+        var items = $('.listviewer-items').children();
+        items.each(
+                function() {
+                    var tagIndex = "#" + this.id + "_2";
+                    var nameIndex = "#" + this.id + "_1";
+                    var name = $(nameIndex).text();
+                    var tags = $(tagIndex).text();
+                    if ((tags.indexOf(value) == -1) && (name.indexOf(value) == -1)) {
+                        $(('#' + this.id)).removeClass("show");
+                        $(('#' + this.id)).addClass("hide");
+                        $(('#' + this.id)).hide();
+                    } else {
+                        $(('#' + this.id)).removeClass("hide");
+                        $(('#' + this.id)).addClass("show");
+                        $(('#' + this.id)).show();
+                    }
+                }
+        );
+    };
+    
+    $(function() {
+        var availableTags = [
+            {AUTOCOMPLETE_VALUES}
+        ];
+        $("#{ID}").autocomplete({
+            source: availableTags,
+            close: updateTaglist,
+            change: updateTaglist,
+           
+        });
+    });
+
+</script>
+<style>
+    .search-widget{
+        float: left;
+        margin-left: 50px;
+        height: 29px;
+        padding-bottom: 6px;
+        padding-top: 6px;
+        width: 180px;
+    }
+    .search-input{
+        height: 15px;
+        width: 150px;
+    }
+</style>
+
+<div id="search-area" class="search-widget">{POPUPMENU_HTML}<input class="search-input" id="{ID}"></div>
+
+<div id="search-area-popupmenu"></div>
+
+<script>
+    $(document).ready(function(){$("#{ID}").keyup(updateTaglist);
+                $("#{ID}").val(decodeURI("{VALUE}"));
+                $(document).bind("listviewerReady", function(){$("#{ID}").each(updateTaglist);});
+             
+                
+    });
+    
+    
+</script>

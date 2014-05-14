@@ -81,11 +81,24 @@ function widgets_textarea_save_success(elementId, response) {
                 },
                 setup: function(e) {
                     setInterval(function() {
+                        
+                        value = "";
+                        if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
+                           $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
+                            var value = tinyMCE.activeEditor.getContent();
+                        } else if (element.find("textarea").hasClass("plain")) {
+                            var value = element.find("textarea").val();
+                        }
+                        var oldValue = element.attr("oldValue");
                         if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {
-                            element.addClass("dirty");
-                            $(window).bind('beforeunload', function() {
-                                return 'LeaveMessage';
-                            });
+                            if (oldValue !== value) {
+                                element.addClass("dirty");
+
+                              //  $(window).bind('beforeunload', function() {
+                                  //  return 'LeaveMessage';
+                               // });
+                            }
+
                         }
                         ;
                         if (tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {
@@ -96,7 +109,7 @@ function widgets_textarea_save_success(elementId, response) {
             };
 
             if (element.find("textarea").hasClass("mce-small")) {
-                
+
                 load("mce", function() {
                     tinyMCE.init($.extend({
                         editor_selector: "mce-small",
@@ -106,44 +119,45 @@ function widgets_textarea_save_success(elementId, response) {
                         theme_advanced_buttons2: ""
                     }, mce_defaults));
                 });
-                
+
             } else if (element.find("textarea").hasClass("mce-full")) {
-               
+
 
                 //protect unsaved text
 
                 $(window).unload(function() {
                     var dirtyTextareas = jQuery('#content').find('.widget.textarea.dirty');
-                    if (dirtyTextareas.length > 0) {
-                        
+                    if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
+                        $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
+                        var value = tinyMCE.activeEditor.getContent();
+                    } else if (element.find("textarea").hasClass("plain")) {
+                        var value = element.find("textarea").val();
+                    }
+                    var oldValue = this.attr("oldValue");
+                    if (oldValue.trim() !== value.trim()) {
                         //$(window).unbind( “unload” );
                         //window.onbeforeunload = state ? function() { return "text1"; } : null;
                         //return false;
 
-                        if (confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
+                        //if (confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
 
-                            $(dirtyTextareas[0]).textarea('save');
-                            $(dirtyTextareas[0]).addClass('saved');
-                            $(dirtyTextareas[0]).removeClass('dirty');
+                        $(dirtyTextareas[0]).textarea('save');
+                        $(dirtyTextareas[0]).addClass('saved');
+                        $(dirtyTextareas[0]).removeClass('dirty');
 
-                            //saveing
-                            if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
-                                $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
-                                var value = tinyMCE.activeEditor.getContent();
-                            } else if (element.find("textarea").hasClass("plain")) {
-                                var value = element.find("textarea").val();
-                            }
-                            //this.addClass("saving"); 
+                        //saveing
 
-                            sendFunction(value);
+                        //this.addClass("saving"); 
 
-                        }
-                        else {
-                            //nicht speichern
-                        }
+                        sendFunction(value);
+
+                    }
+                    else {
+                        //nicht speichern
                     }
 
-                
+
+
                 });
 
 
@@ -166,8 +180,7 @@ function widgets_textarea_save_success(elementId, response) {
                         //AScgiloc: 'http://www.bid-owl.de/tools/asciisvg/svgimg.php', //aus bid2, läuft
                         //AScgiloc : 'https://steam.lspb.de/tools/asciisvg/svgimg.php', //??
                         //AScgiloc : '/tools/asciisvg/svgimg.php',
-                        AScgiloc : '/asciisvg/svgimg.php',
-
+                        AScgiloc: '/asciisvg/svgimg.php',
                         ASdloc: pathUrl + '/styles/standard/javascript/tinymce-jquery/jscripts/tiny_mce/plugins/asciisvg/js/d.svg',
                         fullscreen_new_window: true,
                         extended_valid_elements: "img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name|style]",
@@ -192,12 +205,13 @@ function widgets_textarea_save_success(elementId, response) {
             } else if (element.find("textarea").hasClass("plain")) {
                 var value = element.find("textarea").val();
             }
+            var oldValue = this.attr("oldValue");
             this.addClass("saving");
             sendFunction(value);
             this.removeClass("dirty");
             $(window).unbind('beforeunload');
-            
-            
+
+
         },
         undo: function() {
             var element = this;

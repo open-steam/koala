@@ -10,14 +10,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     private $rawHtmlWidget;
 
     public function validateData(\IRequestObject $requestObject) {
-                        
         //robustness for missing ids and objects
-        try{
-            $objectId=$requestObject->getId();
-            $object = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $objectId );
-        } catch (\Exception $e){
+        try {
+            $objectId = $requestObject->getId();
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+        } catch (\Exception $e) {
             \ExtensionMaster::getInstance()->send404Error();
-            die; 
+            die;
         }
 
         if (!$object instanceof \steam_object) {
@@ -38,19 +37,23 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference handling
         $params = $requestObject->getParams();
+        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
+            if (!$portlet->check_access_read()) {
+                $this->rawHtmlWidget = new \Widgets\RawHtml();
+                $this->rawHtmlWidget->setHtml("");
+                return null;
+            }
         } else {
             $portletIsReference = false;
         }
 
-
         $portletName = $portlet->get_attribute(OBJ_DESC);
 
-       // $this->getExtension()->addCSS();
+        // $this->getExtension()->addCSS();
         $this->getExtension()->addJS();
-
 
         //hack
         //include_once("/Users/mjako/koala-development-workspace-next/koala-core/lib/bid/slashes.php");
@@ -79,7 +82,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //refernce icon
         if ($portletIsReference) {
-            $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
+            $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
             $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
@@ -132,8 +135,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->parse("BLOCK_EDIT_BUTTON_CATEGORY");
                 }
 
-
-                $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode($category["title"]));
+                $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode(@$category["title"]));
                 $tmpl->setVariable("TOPIC_ENTRY", "");
 
                 if (isset($category["topics"])) {
@@ -155,16 +157,16 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
                             $tmpl->parse("BLOCK_EDIT_BUTTON_TOPIC");
                         }
-                        if(!isset($topic["title"])){
+                        if (!isset($topic["title"])) {
                             $topic["title"] = "";
                         }
-                        if(!isset($topic["link_url"])){
+                        if (!isset($topic["link_url"])) {
                             $topic["link_url"] = "";
                         }
-                        if(!isset($topic["link_target"])){
-                           $topic["link_target"] = ""; 
+                        if (!isset($topic["link_target"])) {
+                            $topic["link_target"] = "";
                         }
-                        
+
                         if (trim($topic["link_url"]) != "") {
                             $tmpl->setCurrentBlock("TOPIC_LINK");
                             $tmpl->setVariable("TOPIC_TITLE", $UBB->encode($topic["title"]));
@@ -177,8 +179,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $tmpl->parse("TOPIC_NOLINK");
                         }
 
-                        $tmpl->setVariable("TOPIC_DESCRIPTION", $UBB->encode($topic["description"]));
-
+                        $tmpl->setVariable("TOPIC_DESCRIPTION", $UBB->encode(@$topic["description"]));  //TODO: fix notice
                         //if there is a url parse headline as link
                         if (trim($topic["link_url"]) == "") {
                             //$tmpl->parse("TOPIC_DISPLAY_TITLE", "topic_display_title");
@@ -188,7 +189,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
                         //if there is a description parse out
                         $tmpl->setCurrentBlock("topic_display_description");
-                        if (trim($topic["description"]) == "") {
+                        if (trim(@$topic["description"]) == "") { //TODO: fix notice
                             $tmpl->setVariable("TOPIC_DISPLAY_DESCRIPTION", "");
                         } else {
                             //$tmpl->parse("TOPIC_DISPLAY_DESCRIPTION", "topic_display_description");
@@ -209,7 +210,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("CATEGORY", "");
         }
 
-
         $htmlBody = $tmpl->get();
         $this->content = $htmlBody;
 
@@ -225,15 +225,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
     public function idResponse(\IdResponseObject $idResponseObject) {
         $idResponseObject->addWidget($this->rawHtmlWidget);
+
         return $idResponseObject;
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $frameResponseObject->setTitle("Portal");
         $frameResponseObject->addWidget($this->rawHtmlWidget);
+
         return $frameResponseObject;
     }
 
 }
-
-?>

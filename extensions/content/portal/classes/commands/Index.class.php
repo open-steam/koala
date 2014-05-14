@@ -25,6 +25,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $portalInstance = \Portal::getInstance();
         $portalPath = $portalInstance->getExtensionPath();
 
+        //$popupmenudummy = new \Widgets\PopupMenu();
+        //$popupmenudummy->getCssStyle();
         //template
         $templateFileName = $portalPath . "/ui/html/index.html";
         $tmpl = new \HTML_TEMPLATE_IT();
@@ -95,7 +97,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $cssGenerator = new ColorGeneratorPortal();
         $cssGenerator->setId($this->id);
         $cssRaw = $cssGenerator->generateCss();
-        
+
         $cssWidget = new \Widgets\RawHtml();
         $cssWidget->setCss($cssRaw);
         $cssWidget->setHtml("");
@@ -110,7 +112,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //End Testcase
 
         $assetUrl = \Portal::getInstance()->getAssetUrl();
-    //    $minPicUrl = $assetUrl . "icons/min.png";
+        //    $minPicUrl = $assetUrl . "icons/min.png";
         $maxPicUrl = $assetUrl . "icons/max.png";
 
         $frameResponseObject->setTitle(getCleanName($this->portalObject));
@@ -156,5 +158,4 @@ END
     }
 
 }
-
 ?>

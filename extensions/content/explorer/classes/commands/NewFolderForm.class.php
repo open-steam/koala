@@ -65,9 +65,10 @@ class NewFolderForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCo
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
 	<div class="attributeName">Ordnername:</div>
-	<div class="attributeValue"><input type="text" class="text" value="" name="name"></div>
+	<div class="attributeValue"><input id="nameId" type="text" class="text" value="" name="name"></div>
 </div>
 <br>
+
 END
 );
                 $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');

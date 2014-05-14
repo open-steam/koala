@@ -20,11 +20,23 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
         if (isset($this->id)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
-            if(!($object instanceof \steam_object)){
+
+            if (!($object instanceof \steam_object)) {
                 \ExtensionMaster::getInstance()->send404Error();
-                die; 
+                die;
             }
-            
+            $noSanctionDialog = false;
+            if (intval($object->check_access(SANCTION_SANCTION)) === 0) {
+                $noSanctionDialog = true;
+            }
+            if (intval($object->check_access(SANCTION_WRITE)) === 0) {
+                $noActionbar = true;
+            }
+
+            if (!$object->check_access_read()) {
+                throw new \Exception("no access", E_USER_ACCESS_DENIED);
+            }
+
             //chronic
             \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
 
@@ -61,11 +73,18 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                 $mimetype = $object->get_attribute(DOC_MIME_TYPE);
                 $objDesc = trim($object->get_attribute(OBJ_DESC));
                 $actionBar = new \Widgets\ActionBar();
-                $actionBar->setActions(array(
-                    array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
-                    array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                    array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
-                ));
+                if ($noSanctionDialog) {
+                    $actionBar->setActions(array(
+                        array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
+                        array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))
+                    ));
+                } else {
+                    $actionBar->setActions(array(
+                        array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
+                        array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                        array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
+                    ));
+                }
 
 
                 if (($objDesc === 0) || ($objDesc === "")) {
@@ -74,27 +93,36 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     $name = $objDesc . " (" . $objName . ")";
                 }
 
-                
-                
-                
+
+
+
                 //document type: image
                 $html = "";
                 if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/jpg" || $mimetype == "image/gif") {  // Image
                     $dummyContent = $object->get_content(); //to check sanction
                     $html = "<div style=\"text-align:center\"><img style=\"max-width:100%\" title=\"{$name}\" alt=\"Bild: {$name}\" src=\"" . PATH_URL . "Download/Document/" . $this->id . "/\"></div>";
                 }
-                
-                
-                
+
+
+
 
                 //document type: html-text
                 else if ($mimetype == "text/html") {
-                    $actionBar->setActions(array(
-                        array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
-                        array("name" => "Quelltext", "link" => PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
-                        array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                        array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
-                    ));
+                    if ($noSanctionDialog) {
+                        $actionBar->setActions(array(
+                            array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
+                            array("name" => "Quelltext", "link" => PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
+                            array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        ));
+                    } else {
+                        $actionBar->setActions(array(
+                            array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
+                            array("name" => "Quelltext", "link" => PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
+                            array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                            array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        ));
+                    }
+
 
                     $htmlDocument = new \HtmlDocument($object);
                     $html = $htmlDocument->getHtmlContent(); //this return cleand html, do not clean again
@@ -103,7 +131,20 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                 //document type: simple text
                 else if (strstr($mimetype, "text")) {
                     $bidDokument = new \BidDocument($object);
-                    $actionBar->setActions(array(array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"), array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/"), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))), array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))));
+                    if ($noSanctionDialog) {
+                        $actionBar->setActions(array(
+                            array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
+                            array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/"),
+                            array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        ));
+                    } else {
+                        $actionBar->setActions(array(
+                            array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
+                            array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/"),
+                            array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                            array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        ));
+                    }
                     $html = $bidDokument->get_content();
 
                     //make html modifications
@@ -120,36 +161,45 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     $mediaplayerHeight = round(200 * 11 / 40) . "";
                     $mediaPlayerUrl = getDownloadUrlForObjectId($this->id);
                     $mediaplayerHtml->setHtml(<<<END
-                        
+
 			<object style="width: {$mediaplayerWidth}px; height:{$mediaplayerHeight}px" type="application/x-shockwave-flash" data="{$mediaplayerPath}"><param name="movie" value="{$mediaplayerPath}" /><param name="FlashVars" value="src={$mediaPlayerUrl}" /><param name="bgcolor" value="#cccccc"></object>
-			
-                            
+
+
 END
                     );
-                    $actionBar->setActions(array(
-                        array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
-                        array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                        array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
-                    ));
+                    if ($noSanctionDialog) {
+                        $actionBar->setActions(array(
+                            array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
+                            array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        ));
+                    } else {
+                        $actionBar->setActions(array(
+                            array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
+                            array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                            array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        ));
+                    }
                 }
 
                 //document type: video
-                else if ((strpos($mimetype, "video/x-flv") !== false)
-                        || (strpos($mimetype, "video/x-m4v") !== false)
-                        || (strpos($mimetype, "video/mpeg") !== false)
-                        || (strpos($mimetype, "video/mp4") !== false)
-                        || (strpos($mimetype, "video/3gpp") !== false)
-                        || (strpos($mimetype, "video/quicktime") !== false)
+                else if ((strpos($mimetype, "video/x-flv") !== false) || (strpos($mimetype, "video/x-m4v") !== false) || (strpos($mimetype, "video/mpeg") !== false) || (strpos($mimetype, "video/mp4") !== false) || (strpos($mimetype, "video/3gpp") !== false) || (strpos($mimetype, "video/quicktime") !== false)
                 ) {
                     $mediaplayerHtml = new \Widgets\Videoplayer();
                     $mediaplayerHtml->setTarget(getDownloadUrlForObjectId($this->id));
 
                     //$noActionbar = true;
-                    $actionBar->setActions(array(
-                        array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
-                        array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                        array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
-                    ));
+                    if ($noSanctionDialog) {
+                        $actionBar->setActions(array(
+                            array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
+                            array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        ));
+                    } else {
+                        $actionBar->setActions(array(
+                            array("name" => "Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $objName),
+                            array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                            array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        ));
+                    }
                 }
 
                 //document type: download

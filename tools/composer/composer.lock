@@ -1,0 +1,50 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "57cd7a70555aadb43e3b8801b39b66f4",
+    "packages": [
+        {
+            "name": "open-steam/phpsteam",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/open-steam/phpsteam.git",
+                "reference": "4.1.6-3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/open-steam/phpsteam/zipball/4.1.6-3",
+                "reference": "4.1.6-3",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "classes/"
+                ]
+            },
+            "support": {
+                "source": "https://github.com/open-steam/phpsteam/tree/4.1.6-3"
+            },
+            "time": "2013-09-26 09:33:03"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "open-steam/phpsteam": 20
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
+}

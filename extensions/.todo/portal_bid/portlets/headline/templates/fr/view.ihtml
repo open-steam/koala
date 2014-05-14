@@ -1,5 +1,0 @@
-<!-- BEGIN edit_button --><span class="editButton"><a href="{PORTLET_ROOT}/edit.php?portlet={PORTLET_ID}" onclick="window.open('{PORTLET_ROOT}/edit.php?portlet={PORTLET_ID}', 'editPortlet', 'resizable,scrollbars,width=500,height=500'); return false;"><img src="{PORTLET_ROOT}/icons/edit.gif" /></a></span><!-- END edit_button -->
-
-<!-- BEGIN Headline -->
-<h1 class="headline" style="text-align:{ALIGNMENT}; font-size:{SIZE}pt;">{EDIT_BUTTON}{HEADLINE}</h1>
-<!-- END Headline -->

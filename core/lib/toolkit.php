@@ -50,6 +50,7 @@ function check_msg($msg, $status = false, $value = "", $hint = null) {
         $html .= " | <span style=\"color:red\">fail</span> ";
     }
     $html .= " ]\n";
+
     return $html;
 }
 
@@ -57,6 +58,7 @@ function strStartsWith($haystack, $needle, $case = true) {
     if ($case) {
         return (strcmp(substr($haystack, 0, strlen($needle)), $needle) === 0);
     }
+
     return (strcasecmp(substr($haystack, 0, strlen($needle)), $needle) === 0);
 }
 
@@ -64,11 +66,13 @@ function strEndsWith($haystack, $needle, $case = true) {
     if ($case) {
         return (strcmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
     }
+
     return (strcasecmp(substr($haystack, strlen($haystack) - strlen($needle)), $needle) === 0);
 }
 
 function array_trim($array) {
     array_walk($array, create_function('&$temp', '$temp = trim($temp);'));
+
     return $array;
 }
 
@@ -134,13 +138,13 @@ function getReadableDate($timestamp) {
     $date_year = date("Y", $timestamp);
     if ($today_day == $date_day && $today_month == $date_month && $today_year == $date_year) {
         $is_today = true;
-    } else if ((int) $today_day == (int) $date_day + 1 && $today_month == $date_month && $today_year == $date_year) {
+    } elseif ((int) $today_day == (int) $date_day + 1 && $today_month == $date_month && $today_year == $date_year) {
         $is_yesterday = true;
     }
 
     if ($is_today) {
         return "heute um " . date("H:i", $timestamp);
-    } else if ($is_yesterday) {
+    } elseif ($is_yesterday) {
         return "gestern um " . date("H:i", $timestamp);
     } else {
         return date("d.m.Y, H:i ", $timestamp);
@@ -150,9 +154,9 @@ function getReadableDate($timestamp) {
 function getReadableSize($size) {
     if ($size < 1024) {
         return $size . " Byte";
-    } else if ($size < (1024 * 1024)) {
+    } elseif ($size < (1024 * 1024)) {
         return round($size / 1024) . " kByte";
-    } else if ($size < (1024 * 1024 * 1024)) {
+    } elseif ($size < (1024 * 1024 * 1024)) {
         return round($size / (1024 * 1024)) . " MByte";
     } else {
         return round($size / (1024 * 1024 * 1024)) . " GByte";
@@ -163,25 +167,41 @@ function getFormatedDate($timestamp) {
     return date("d.m.Y, H:i ", $timestamp);
 }
 
+function isPicture($docType) {
+    $isJpg = strpos($docType, "jpg") !== false;
+    $isJpeg = strpos($docType, "jpeg") !== false;
+    $isGif = strpos($docType, "gif") !== false;
+    $isPng = strpos($docType, "png") !== false;
+    return $isGif || $isJpeg || $isJpg || $isPng;
+}
+
 function getCleanName($object, $length = 30) {
     if (!($object instanceof steam_object)) {
         return "";
     }
+    $docType = $object->get_attribute("DOC_MIME_TYPE");
     if ($object instanceof steam_user) {
         $title = $object->get_attribute(USER_FIRSTNAME) . " " . $object->get_attribute(USER_FULLNAME);
+    } else if ($object instanceof steam_document && isPicture($docType)) {
+        $title = $object->get_name();
     } else {
         $user = isUserHome($object);
         if ($user) {
             $title = getCleanName($user);
-        } else if ($object instanceof steam_trashbin) {
+        } elseif ($object instanceof steam_trashbin) {
             $title = "Papierkorb";
         } else {
+            
+            /*
             $desc = $object->get_attribute(OBJ_DESC);
             if ($desc !== 0 && trim($desc) !== "") {
                 $title = $desc;
             } else {
                 $title = $object->get_name();
             }
+            */
+            $title = $object->get_name();
+            
             $title = str_replace("'s workarea", "", stripslashes($title));
             $title = str_replace(" workarea", "", stripslashes($title));
             $title = str_replace("s workroom.", "", $title);
@@ -192,6 +212,7 @@ function getCleanName($object, $length = 30) {
     if ($length != -1 && $length < strlen($title)) {
         $title = mb_substr($title, 0, $length, "UTF-8") . "...";
     }
+
     return $title;
 }
 
@@ -207,6 +228,7 @@ function isUserHome($container) {
             }
         }
     }
+
     return null;
 }
 
@@ -222,6 +244,7 @@ function isGroupWorkroom($container) {
             }
         }
     }
+
     return null;
 }
 
@@ -233,19 +256,19 @@ function getObjectType($object) {
         } else {
             $type = "document";
         }
-    } else if ($object instanceof \steam_messageboard) {
+    } elseif ($object instanceof \steam_messageboard) {
         $type = "forum";
-    } else if ($object instanceof \steam_exit) {
+    } elseif ($object instanceof \steam_exit) {
         $type = "referenceFolder";
-    } else if ($object instanceof \steam_link) {
+    } elseif ($object instanceof \steam_link) {
         $type = "referenceFile";
-    } else if ($object instanceof \steam_user) {
+    } elseif ($object instanceof \steam_user) {
         $type = "user";
-    } else if ($object instanceof \steam_group) {
+    } elseif ($object instanceof \steam_group) {
         $type = "group";
-    } else if ($object instanceof \steam_trashbin) {
+    } elseif ($object instanceof \steam_trashbin) {
         $type = "trashbin";
-    } else if ($object instanceof \steam_docextern) {
+    } elseif ($object instanceof \steam_docextern) {
         $type = "docextern";
     }
     //bid object types
@@ -259,36 +282,37 @@ function getObjectType($object) {
         $isOldPortlet = false;
         $isOldPortlet = ("0" != $bidPortletType);
 
-
         if ($bidDocType === "portal") {
             $type = "portal_old";
-        } else if ($bidType === "gallery") {
+        } elseif ($bidType === "gallery") {
             $type = "gallery";
-        } else if ($objType === "container_wiki_koala") {
+        } elseif ($objType === "container_wiki_koala") {
             $type = "wiki";
-        } else if ($objType === "container_portal_bid") {
+        } elseif ($objType === "container_portal_bid") {
             $type = "portal";
-        } else if ($objType === "container_portalColumn_bid") {
+        } elseif ($objType === "container_portalColumn_bid") {
             $type = "portalColumn";
-        } else if (($objType === "container_portlet_bid")) {
+        } elseif (($objType === "container_portlet_bid")) {
             $type = "portalPortlet";
-        } else if (isUserHome($object)) {
+        } elseif (isUserHome($object)) {
             $type = "userHome";
-        } else if (isGroupWorkroom($object)) {
+        } elseif (isGroupWorkroom($object)) {
             $type = "groupWorkroom";
-        } else if ($objType === "RAPIDFEEDBACK_CONTAINER") {
+        } elseif ($objType === "RAPIDFEEDBACK_CONTAINER") {
             $type = "rapidfeedback";
-        } else if ($objType === "container_pyramiddiscussion") {
+        } elseif ($objType === "container_pyramiddiscussion") {
             $type = "pyramiddiscussion";
-        } else if ($objType === "postbox") {
+        } elseif ($objType === "postbox") {
             $type = "postbox";
-        } else if ($object->get_attribute("worksheet_valid") === 1) {
+        } elseif ($object->get_attribute("worksheet_valid") === 1) {
             $type = "worksheet";
-        } else if ($object->get_attribute("isWebarena") === 1) {
+        } elseif ($objType === "container_webarena") {
             $type = "webarena";
-        } else if ($object instanceof \steam_room) {
+        } elseif ($objType === "LARS_DESKTOP") {
+            $type = "mokodesk";
+        } elseif ($object instanceof \steam_room) {
             $type = "room";
-        } else if ($objType === "RAPIDFEEDBACK_CONTAINER") {
+        } elseif ($objType === "RAPIDFEEDBACK_CONTAINER") {
             $type = "rapidfeedback";
         } else {
             $type = "container";
@@ -296,6 +320,7 @@ function getObjectType($object) {
     } else {
         $type = "unknown";
     }
+
     return $type;
 }
 
@@ -309,7 +334,6 @@ function deriveIcon($object) {
     $doctypeIndex = $object->get_attribute("bid:doctype", 1);
     $collectiontypeIndex = $object->get_attribute("bid:collectiontype", 1);
     $mimetypeIndex = $object->get_attribute("DOC_MIME_TYPE", 1);
-    $attributeIsWebarenaIndex = $object->get_attribute("isWebarena", 1);
     $nameIndex = $object->get_name(1);
 
     $preLoadResults = $GLOBALS["STEAM"]->buffer_flush();
@@ -319,7 +343,6 @@ function deriveIcon($object) {
     $doctype = $preLoadResults[$doctypeIndex];
     $collectiontype = $preLoadResults[$collectiontypeIndex];
     $mimetype = $preLoadResults[$mimetypeIndex];
-    $attributeIsWebarena = $preLoadResults[$attributeIsWebarenaIndex];
     $name = $preLoadResults[$nameIndex];
     //finished preload attibutes
     //worksheet
@@ -330,21 +353,24 @@ function deriveIcon($object) {
     if ($worksheet_role === "edit")
         return "worksheet.png";
     //webarena
-    if ($attributeIsWebarena == 1) {
+    if ($objtype === "container_webarena") {
         return "webarena.png";
+    }
+    //webarena
+    if ($objtype === "LARS_DESKTOP") {
+        return "mokodesk.png";
     }
     //bidOWL:Collection Types
 
     /* if($collectiontype === "sequence")
+
       return "sequence.gif";
       else if($collectiontype === "cluster")
       return "cluster.gif";
       else */ if ($collectiontype === "gallery")
         return "gallery.png";
 
-
     //bidOWL:Document Types
-
 
     if ($objtype === "postbox")
         return "postbox.png";
@@ -358,16 +384,15 @@ function deriveIcon($object) {
     else if ($objtype === "container_portlet_bid")
         return "portlet.png";
     /* else if($objtype === "LARS_DESKTOP")
+
       return "lars_desktop.gif";
       else if($doctype === "questionary")
       return "questionary.gif";
       else */
 
-
     if ($objtype === "text_forumthread_bid") {
         return "forumthread.png";
     }
-
 
     //bid3 modules
     //rapidfeedback
@@ -389,27 +414,29 @@ function deriveIcon($object) {
     if ($object instanceof steam_docextern)
         return "www.png";
     /* else if($object instanceof steam_trashbin)
+
       return "trashbin.gif"; */
     else if ($object instanceof steam_exit)
         return "reference_folder.png";
     /* else if($object instanceof steam_room && $object->get_attribute("bid:presentation") === "index")
+
       return "folder_closed_index.gif"; */
     else if ($object instanceof steam_room)
         return "folder.png";
     else if ($object instanceof steam_container)
         return "folder.png";
     /* else if($object instanceof steam_date)
+
       return "date.gif"; */
     /* else if($object instanceof steam_calendar)
+
       return "calendar.gif"; */
     else if ($object instanceof steam_messageboard)
         return "forum.png";
     else if ($object instanceof steam_link)
         return "reference_file.png";
 
-
     //mimetypes by object name
-
 
     $icons = array(
         "generic" => "generic.png",
@@ -557,14 +584,14 @@ function getObjectReadableSize($object) {
     try {
         if ($type == "document") {
             $html = getReadableSize($object->get_content_size());
-        } else if ($type == "container" || $type == "room" || $type == "groupWorkroom" || $type == "userHome") {
+        } elseif ($type == "container" || $type == "room" || $type == "groupWorkroom" || $type == "userHome") {
             $counter = count($object->get_inventory());
             if ($counter == 1) {
                 $html = $counter . " Objekt";
             } else {
                 $html = $counter . " Objekte";
             }
-        } else if ($type == "postbox") {
+        } elseif ($type == "postbox") {
             $datetime = $object->get_attribute("bid:postbox:deadline");
             if ($datetime == 0 || $datetime == "") {
                 $html = "-";
@@ -572,22 +599,22 @@ function getObjectReadableSize($object) {
                 $deadlineArray = explode(" ", $datetime);
                 $html = $deadlineArray[0];
             }
-        } else if ($type == "portal") {
+        } elseif ($type == "portal") {
             $counter = count($object->get_inventory());
             $html = $counter;
             $html .= $counter == 1 ? " Spalte" : " Spalten";
-        } else if ($type == "gallery") {
+        } elseif ($type == "gallery") {
             $counter = count($object->get_inventory());
             $html = $counter;
             $html .= $counter == 1 ? " Bild" : " Bilder";
-        } else if ($type == "forum") {
+        } elseif ($type == "forum") {
             $counter = count($object->get_annotations());
             $html = $counter;
             $html .= $counter == 1 ? " Thema" : " Themen";
-        } else if ($type == "referenceFile") {
+        } elseif ($type == "referenceFile") {
             $linkObject = $object->get_link_object();
             $html = getObjectReadableSize($linkObject);
-        } else if ($type == "referenceFolder") {
+        } elseif ($type == "referenceFolder") {
             $exitObject = $object->get_exit();
             $html = getObjectReadableSize($exitObject);
         } else {
@@ -596,6 +623,7 @@ function getObjectReadableSize($object) {
     } catch (steam_exception $e) {
         $html = "keine Berechtigung";
     }
+
     return $html;
 }
 
@@ -609,12 +637,13 @@ function check_width_string($column_width, $pc_min, $pc_max, $px_min, $px_max, $
             if ($substring[1] <= $pc_max && $substring[1] >= $pc_min) {
                 return $substring[1] . $substring[2];
             }
-        } else if ($substring[2] == "px") {
+        } elseif ($substring[2] == "px") {
             if ($substring[1] <= $px_max && $substring[1] >= $px_min) {
                 return $substring[1] . $substring[2];
             }
         }
     }
+
     return $default_value;
 }
 
@@ -628,6 +657,7 @@ if (!function_exists("extract_percentual_length")) {
         if (preg_match('/([0-9]+)(%)$/', trim($value), $substring)) {
             return $substring[1];
         }
+
         return "";
     }
 
@@ -641,6 +671,7 @@ function extract_length($value) {
     if (preg_match('/([0-9]+)(px|%){0,1}$/', trim($value), $substring)) {
         return $substring[1];
     }
+
     return "";
 }
 
@@ -678,7 +709,6 @@ function derive_url($url, $path = "") {
 
 //old bid-owl function lib - end
 
-
 function getDownloadUrlForObjectId($id) {
     return PATH_URL . "download/document/" . $id;
 }
@@ -689,6 +719,7 @@ function isAjaxRequest() {
 
 function isRestRequest() {
     $data = $_SERVER['REQUEST_URI'];
+
     return (isset($data) && substr(strtolower($data), 0, 6) == "/rest/");
 }
 
@@ -701,7 +732,6 @@ function isErrorPage() {
 }
 
 function buffer_flush() {
-
     echo str_pad('', 1024);
     echo '<!-- -->';
 
@@ -723,16 +753,16 @@ function displayStartupUserInfo() {
 <style type="text/css">
 body
 {
-	text-align: center;
-	font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
-	font-size: 17px;
-	font-weight: bold;
+    text-align: center;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 div#container
 {
-	position:relative;
-	top:30%;
+    position:relative;
+    top:30%;
 }
 </style>
 <div id="container">
@@ -741,7 +771,7 @@ div#container
 </div>
 END;
         buffer_flush();
-    } else if (isPhpCli()) {
+    } elseif (isPhpCli()) {
         echo "Initializing System. Please wait ...\n";
     }
 }
@@ -753,7 +783,7 @@ function cleanHTML($dirtyHTML) {
     $config = HTMLPurifier_Config::createDefault();
     $config->set('Cache.DefinitionImpl', null);
 
-    //$config->set('HTML.SafeEmbed', true); //Info: overrides custom tag. Removed for tinymce graphs. 
+    //$config->set('HTML.SafeEmbed', true); //Info: overrides custom tag. Removed for tinymce graphs.
     $config->set('HTML.SafeObject', true);
     $config->set('Output.FlashCompat', true); //not sure
 
@@ -761,14 +791,12 @@ function cleanHTML($dirtyHTML) {
 
     //$config->set('Core.EscapeNonASCIICharacters', true); //html encoding test
 
-
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
 
     $def = $config->getHTMLDefinition(true);
     $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
             array('_blank', '_self', '_target', '_top')
     ));
-
 
     //videotag ok
     $videotag = $def->addElement(
@@ -784,7 +812,6 @@ function cleanHTML($dirtyHTML) {
             )
     );
 
-
     $audiotag = $def->addElement(
             'audio', // name
             'Block', // content set
@@ -797,7 +824,6 @@ function cleanHTML($dirtyHTML) {
         'preload' => 'CDATA'
             )
     );
-
 
     //tine mce advanced video objects
     //TODO: self closing tags
@@ -827,7 +853,6 @@ function cleanHTML($dirtyHTML) {
             )
     );
 
-
     $videoFlowATag = $def->addElement(
             'a', // name
             'Block', // content set
@@ -837,7 +862,6 @@ function cleanHTML($dirtyHTML) {
         'id' => 'CDATA'
             )
     );
-
 
     $asciiSvgTag = $def->addElement(
             'embed', // name
@@ -851,7 +875,6 @@ function cleanHTML($dirtyHTML) {
         'sscr' => 'CDATA'
             )
     );
-
 
     //$videotag->excludes = array('form' => true); //test
 
@@ -882,10 +905,10 @@ function return_bytes($val) {
 
 /*
  * returns a valid path for a relative path
- * 
+ *
  * @savedPath could be a relative or absolute path to an object
  * @currentPath path of the current environment or current portal
- * 
+ *
  * @return a valid path
  */
 
@@ -901,16 +924,15 @@ function revealPath($savedPath, $currentPath = "") {
         return $savedPath;
     }
 
-
     //case relative path in portal-portlet
     $constructedPath1 = $currentPath . "/../../../" . $savedPath;  //redirect from a portlet
     $steamObject = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), trim($constructedPath1));
     if (gettype($steamObject) == "object") {
         $objectId = $steamObject->get_id();
         $newUrl = PATH_URL . "explorer/Index/" . $objectId . "/";
+
         return $newUrl;
     }
-
 
     //case relative path 5
     $constructedPath2 = $currentPath . "/../../../../" . $savedPath;  //redirect from a portlet
@@ -918,9 +940,9 @@ function revealPath($savedPath, $currentPath = "") {
     if (gettype($steamObject) == "object") {
         $objectId = $steamObject->get_id();
         $newUrl = PATH_URL . "explorer/Index/" . $objectId . "/";
+
         return $newUrl;
     }
-
 
     //case relative path 2
     $constructedPath2 = $currentPath . "/../../" . $savedPath;  //redirect from a portlet
@@ -928,9 +950,9 @@ function revealPath($savedPath, $currentPath = "") {
     if (gettype($steamObject) == "object") {
         $objectId = $steamObject->get_id();
         $newUrl = PATH_URL . "explorer/Index/" . $objectId . "/";
+
         return $newUrl;
     }
-
 
     //case relative path 3
     $constructedPath2 = $currentPath . "/../" . $savedPath;  //redirect from a portlet
@@ -938,6 +960,7 @@ function revealPath($savedPath, $currentPath = "") {
     if (gettype($steamObject) == "object") {
         $objectId = $steamObject->get_id();
         $newUrl = PATH_URL . "explorer/Index/" . $objectId . "/";
+
         return $newUrl;
     }
 
@@ -947,10 +970,9 @@ function revealPath($savedPath, $currentPath = "") {
     if (gettype($steamObject) == "object") {
         $objectId = $steamObject->get_id();
         $newUrl = PATH_URL . "explorer/Index/" . $objectId . "/";
+
         return $newUrl;
     }
-
-
 
     return $savedPath; //return not modified
 }
@@ -979,6 +1001,7 @@ function detectMimeType($pathString) {
         if (!$existing)
             fwrite($handleWrite, $line . "\n");
     }
+
     return $mimeArray[$extension];
 }
 
@@ -1004,6 +1027,7 @@ function getMimeTypeExtension($mimeType) {
             fwrite($handleWrite, $line);
     }
     $mimeArray["application/x-unknown-content-type"] = "";
+
     return $mimeArray[$mimeType];
 }
 
@@ -1011,6 +1035,7 @@ function getSerializedObject($object) {
     if ($object instanceof steam_object) {
         $clientSupport = steam_connection::get_instance($GLOBALS["STEAM"]->get_id())->get_module("package:clientsupport");
         $objectData = $GLOBALS['STEAM']->predefined_command($clientSupport, "query_object_data", array($object, false, false), false);
+
         return replaceSteamObject($objectData);
     } else {
         return replaceSteamObject($object);
@@ -1020,10 +1045,11 @@ function getSerializedObject($object) {
 function replaceSteamObject($object) {
     if ($object instanceof steam_object) {
         return "\u2323" . $object->get_id() . "\u2323";
-    } else if (is_array($object)) {
+    } elseif (is_array($object)) {
         foreach ($object as $key => $value) {
             $object[$key] = replaceSteamObject($value);
         }
+
         return $object;
     } else {
         return $object;
@@ -1083,4 +1109,21 @@ function HTTPStatus($num) {
     );
 }
 
-?>
+function uidv4() {
+    return sprintf(
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            // 32 bits for "time_low"
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            // 16 bits for "time_mid"
+            mt_rand(0, 0xffff),
+            // 16 bits for "time_hi_and_version",
+            // four most significant bits holds version number 4
+            mt_rand(0, 0x0fff) | 0x4000,
+            // 16 bits, 8 bits for "clk_seq_hi_res",
+            // 8 bits for "clk_seq_low",
+            // two most significant bits holds zero and one for variant DCE1.1
+            mt_rand(0, 0x3fff) | 0x8000,
+            // 48 bits for "node"
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    );
+}

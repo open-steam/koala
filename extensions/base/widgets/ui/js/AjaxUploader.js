@@ -598,6 +598,7 @@ qq.extend(qq.FileUploader.prototype, {
         });                
     },
     _onSubmit: function(id, fileName){
+      
         qq.FileUploaderBasic.prototype._onSubmit.apply(this, arguments);
         this._addToList(id, fileName);  
     },
@@ -618,6 +619,7 @@ qq.extend(qq.FileUploader.prototype, {
         qq.setText(size, text);         
     },
     _onComplete: function(id, fileName, result){
+        
         qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
 
         // mark completed
@@ -627,9 +629,12 @@ qq.extend(qq.FileUploader.prototype, {
         this._find(item, 'ok').style.display = 'inline'; 
         
         if (result.success){
-            qq.addClass(item, this._classes.success);    
+            qq.addClass(item, this._classes.success); 
         } else {
             qq.addClass(item, this._classes.fail);
+            $(item).find("img").each(function(){var string = this.src; string = string.substring(0, string.length-6); 
+                string +="error.png";this.src=string;});
+            
         }         
     },
     _addToList: function(id, fileName){
@@ -1215,6 +1220,9 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         params['envid'] = this._options.envid;
         params['command'] = this._options.command;
         params['destid'] = this._options.destid;
+        if(document.getElementById('override-cb')){
+            params['checked'] = document.getElementById('override-cb').checked;        
+        }
         var queryString = qq.obj2url(params, this._options.action);
         
         xhr.open("POST", queryString, true);

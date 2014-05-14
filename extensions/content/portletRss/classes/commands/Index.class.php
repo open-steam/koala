@@ -10,14 +10,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     private $rawHtmlWidget;
 
     public function validateData(\IRequestObject $requestObject) {
-                        
+
         //robustness for missing ids and objects
-        try{
-            $objectId=$requestObject->getId();
-            $object = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $objectId );
-        } catch (\Exception $e){
+        try {
+            $objectId = $requestObject->getId();
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+        } catch (\Exception $e) {
             \ExtensionMaster::getInstance()->send404Error();
-            die; 
+            die;
         }
 
         if (!$object instanceof \steam_object) {
@@ -38,9 +38,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //reference handling
         $params = $requestObject->getParams();
 
+        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
+            if (!$portlet->check_access_read()) {
+                $this->rawHtmlWidget = new \Widgets\RawHtml();
+                $this->rawHtmlWidget->setHtml("");
+                return null;
+            }
         } else {
             $portletIsReference = false;
         }
@@ -103,7 +109,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //refernce icon
         if ($portletIsReference) {
-            $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
+            $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
             $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");

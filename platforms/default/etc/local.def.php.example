@@ -27,8 +27,8 @@ defined("STEAM_COURSES_GROUP") or define("STEAM_COURSES_GROUP",  	"");
 // String: Current/default koaLA semester
 defined("STEAM_CURRENT_SEMESTER") or define("STEAM_CURRENT_SEMESTER", "WS1011");
 
-// If TRUE, get_document includes get_document_database to load data using direct database access
-defined("USE_DATABASE_DOWNLOAD") or define("USE_DATABASE_DOWNLOAD", FALSE);
+// If CONTENT_PROVIDER_DATABASE, get_content to load data using direct database access
+defined("DEFAULT_CONTENT_PROVIDER") or define("DEFAULT_CONTENT_PROVIDER", CONTENT_PROVIDER_COAL);
 
 // String: The hostname of the server of your open-sTeam database
 defined("STEAM_DATABASE_HOST") or define("STEAM_DATABASE_HOST", STEAM_SERVER);
@@ -41,4 +41,7 @@ defined("STEAM_DATABASE_USER") or define("STEAM_DATABASE_USER", "steam");
 
 // String: The database user password with which to access your open-sTeam database
 defined("STEAM_DATABASE_PASS") or define("STEAM_DATABASE_PASS", "steam");
-?>
+
+// config persistence
+//defined("ENABLE_FILE_PERSISTENCE") or define("ENABLE_FILE_PERSISTENCE", true);
+//defined("DEFAULT_PERSISTENCE_TYPE") or define("DEFAULT_PERSISTENCE_TYPE", PERSISTENCE_FILE_CONTENTID);

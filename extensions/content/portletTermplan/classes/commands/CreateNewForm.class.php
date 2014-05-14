@@ -62,9 +62,6 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $html .= $datepickerEnd->getHtml();
         $html .='<script>$("input[name=\"endDate\"]").val("' . $futureDate . '");</script>';
 
-
-
-
         $term0 = new \Widgets\TextInput();
         $term0->setLabel("Eintrag 1");
         $term0->setName("term0");
@@ -76,7 +73,6 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $term1->setName("term1");
         $html .= $term1->getHtml();
         $html .='<script>$("input[name=\"term1\"]").val("Termin B");</script>';
-
 
         $term2 = new \Widgets\TextInput();
         $term2->setLabel("Eintrag 3");
@@ -97,13 +93,27 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $term5->setLabel("Eintrag 6");
         $term5->setName("term5");
         $html .= $term5->getHtml();
-        
+
         $clearer = new \Widgets\Clearer();
         $html .= $clearer->getHtml();
 
         $html .= '<input type="hidden" name="id" value="' . $this->id . '">';
 
-        $ajaxForm->setHtml($html);
+        $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
+	float:left;
+        
+        
+}.widgets_label {
+	clear:both;
+        float: left;
+	margin-right: 2px;
+	white-space: nowrap;
+}.widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
+	float: left;
+}
+
+</style>";
+        $ajaxForm->setHtml($css . $html);
         $ajaxResponseObject->addWidget($ajaxForm);
         return $ajaxResponseObject;
     }

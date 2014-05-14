@@ -5,6 +5,18 @@ var matrixCounter = 1;
 var gradingCounter = 1;
 var tendencyCounter = 1;
 
+var enterFunction = (function(event) {
+    if (navigator.appName == "Microsoft Internet Explorer") {
+        if (event.keyCode == 13) {
+            return false;
+        }
+    } else {
+        if (event.which == 13) {
+            return false;
+        }
+    }
+});
+
 /*
  * function to initiate the datepicker
  */
@@ -44,6 +56,11 @@ function showCreateDialog() {
     $('#newquestion').show();
     $('#newlayout').hide();
     $('#newquestion_button').hide();
+    $("form").each(function() {
+        $(this).keypress(enterFunction)
+    }); 
+
+
 }
 
 /*
@@ -184,21 +201,25 @@ function changeLayoutDialog(type) {
             $('#description_preview').show();
             $('#headline_preview').hide();
             $('#jumplabel_preview').hide();
+            $('#jumplabel_preview2').hide();
             break;
         case "8":
             $('#description_preview').hide();
             $('#headline_preview').show();
             $('#jumplabel_preview').hide();
+            $('#jumplabel_preview2').hide();
             break;
         case "9":
             $('#description_preview').hide();
             $('#headline_preview').hide();
             $('#jumplabel_preview').hide();
+            $('#jumplabel_preview2').hide();
             break;
         case "10":
             $('#description_preview').hide();
             $('#headline_preview').hide();
             $('#jumplabel_preview').show();
+            $('#jumplabel_preview2').show();
             break;
     }
 }
@@ -646,21 +667,21 @@ function addLayoutElement() {
             hideLayoutDialog();
             break;
         case "10":
-            var from = $('#from-JL').val();
+            var text = $('#text-JL').val();
             var to = $('#to-JL').val();
-            createJumpLabelLayoutElement(from, to, '#newlayout');
+            createJumpLabelLayoutElement(text, to, '#newlayout');
             hideLayoutDialog();
             break;
 
     }
 }
-function createJumpLabelLayoutElement(from, to, insertPoint) {
+function createJumpLabelLayoutElement(text, to, insertPoint) {
     params = {};
     params.layoutType = "10";
-    params.from = from;
+    params.text = text;
     params.to = to;
     params.layoutID = elementCounter;
-    
+
     var successFunction = function(response) {
         responseData = jQuery.parseJSON(response);
         $(responseData.html).insertBefore($(insertPoint));

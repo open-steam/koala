@@ -41,10 +41,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
-        //reference handling
+         //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
+            if (!$portlet->check_access_read()) {
+                $this->rawHtmlWidget = new \Widgets\RawHtml();
+                $this->rawHtmlWidget->setHtml("");
+                return null;
+            }
         } else {
             $portletIsReference = false;
         }

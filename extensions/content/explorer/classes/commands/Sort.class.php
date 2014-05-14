@@ -23,95 +23,68 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $parent = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $presentation = $parent->get_attribute("bid:presentation");
+        $head = false;
+        if ($presentation == "head") {
+            $head = true;
+        }
         $this->inv = $parent->get_inventory();
         $numberOfInvalidObjs = $this->countInvalidObjs();
-        
+        if($head){
+            $numberOfInvalidObjs += 1;
+        }
+
         $newIdArray = array();
         $newIdArray = explode(",", $this->newIds);
-        foreach($newIdArray as $index=>$ele){
+        foreach ($newIdArray as $index => $ele) {
             $newIdArray[$index] = intval($ele);
         }
-       
-        
+
+
         $oldIdArray = array();
-        
+
         for ($i = $numberOfInvalidObjs; $i < count($this->inv); $i++) {
             $oldIdArray[$i - $numberOfInvalidObjs] = $this->inv[$i]->get_id();
         }
-        
-        
+
+
         $hiddenElements = array();
         $hiddenElements = array_diff($oldIdArray, $newIdArray);
-        
+
         $exchangeArray = array();
-        
-        for($i = 0; $i < $numberOfInvalidObjs; $i++){
+
+        for ($i = 0; $i < $numberOfInvalidObjs; $i++) {
             $exchangeArray[$i] = $this->inv[$i]->get_id();
         }
-         
-        for($i=$numberOfInvalidObjs;$i<(count($newIdArray)+$numberOfInvalidObjs);$i++){
-            $exchangeArray[$i] = $newIdArray[$i-$numberOfInvalidObjs];
+
+        for ($i = $numberOfInvalidObjs; $i < (count($newIdArray) + $numberOfInvalidObjs); $i++) {
+            $exchangeArray[$i] = $newIdArray[$i - $numberOfInvalidObjs];
         }
-        
-        $i=count($newIdArray)+$numberOfInvalidObjs;
-        foreach($hiddenElements as $he){
+
+        $i = count($newIdArray) + $numberOfInvalidObjs;
+        foreach ($hiddenElements as $he) {
             $exchangeArray[$i] = $he;
             $i++;
         }
-        
+
         $parent->order_inventory_objects($exchangeArray);
 
-        $ajaxResponseObject->setStatus("ok"); 
+        $ajaxResponseObject->setStatus("ok");
         return $ajaxResponseObject;
-        
-        /* $parent = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-          $this->inv = $parent->get_inventory();
-
-          $numberOfInvalidObjs = $this->countInvalidObjs();
-
-          $newIdArray = array();
-          $newIdArray = explode(",", $this->newIds);
-
-          $oldIdArray = array();
-          for ($i = $numberOfInvalidObjs; $i < count($this->inv); $i++) {
-          $oldIdArray[$i - $numberOfInvalidObjs] = $this->inv[$i]->get_id();
-          }
-          $oldPosition = 0;
-          while ($oldIdArray[$oldPosition] != $this->cE) {
-          $oldPosition++;
-          }
-          $newPosition = 0;
-          while ($newIdArray[$newPosition] != $this->cE) {
-          $newPosition++;
-          }
-          $oldPosition +=$numberOfInvalidObjs;
-          $newPosition +=$numberOfInvalidObjs;
-          if ($oldPosition < $newPosition) {
-          for ($i = $oldPosition; $i < $newPosition; $i++) {
-          $parent->swap_inventory($i, $i + 1);
-          }
-          }
-          if ($oldPosition > $newPosition) {
-          for ($i = $oldPosition; $i > $newPosition; $i--) {
-          $parent->swap_inventory($i, $i - 1);
-          }
-          }
-          $ajaxResponseObject->setStatus("ok"); 
-        return $ajaxResponseObject; */
     }
 
-    private function repairOrder($obj) {
-        $counter = 0;
-        foreach ($this->inv as $i => $item) {
-            if ($item instanceof \steam_trashbin || $item instanceof \steam_user) {
-                $helper = $this->inv[$i];
-                $this->inv[$i] = $this->inv[$counter];
-                $this->inv[$counter] = $helper;
-                $obj->swap_inventory($counter, $i);
-                $counter++;
-            }
-        }
-    }
+    /* private function repairOrder($obj) {
+      $counter = 0;
+      foreach ($this->inv as $i => $item) {
+      if ($item instanceof \steam_trashbin || $item instanceof \steam_user) {
+      $helper = $this->inv[$i];
+      $this->inv[$i] = $this->inv[$counter];
+      $this->inv[$counter] = $helper;
+      $obj->swap_inventory($counter, $i);
+      $counter++;
+      }
+      }
+      } */
 
     private function countInvalidObjs() {
         $counter = 0;
