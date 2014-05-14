@@ -135,9 +135,9 @@ class ContentProvider implements \Widgets\IContentProvider {
                     //}
                 }
                 if (trim($desc) === "") {
-                    return "<a href=\"" . $url . "\" title=\"$name\"> <em>" . $name . "</em></a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                    return "<a href=\"" . $url . "\" title=\"$name\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
                 } else {
-                    return "<a href=\"" . $url . "\" title=\"$desc\"> " . $desc . ' - <em>' . $name . '</em>' . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                    return "<a href=\"" . $url . "\" title=\"$desc\"> " . $desc . " (" . $name . ")" . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
                 }
             } else {
                 return $name . "<script>" . $tipsyHtml . "</script>";
