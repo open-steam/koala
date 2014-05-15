@@ -174,27 +174,27 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dataNameInput->setData($object);
             $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
             
-            if (true) {
-                if (true) {
-                    $textAreaDescription = new \Widgets\Textarea();
-                    $textAreaDescription->setLabel("Beschreibung");
-                    $textAreaDescription->setData($object);
-                    if (!$isWriteable) {
-                        //Fehlt Methode
-                    }
-                    $textAreaDescription->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
-                    $textAreaDescription->setHeight(100);
-                    $desc = $object->get_attribute("OBJ_DESC");
-                 
-                    
-                    if ($desc !== 0) {
-                        $jsWrapperPicture = new \Widgets\JSWrapper();
-                        $desc = trim($desc);
-                      
-                     //  $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
-                    }
-                }
+            
+            //create description text area
+            $textAreaDescription = new \Widgets\Textarea();
+            $textAreaDescription->setLabel("Beschreibung");
+            $textAreaDescription->setData($object);
+            if (!$isWriteable) {
+                //Fehlt Methode
             }
+            $textAreaDescription->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+            $textAreaDescription->setHeight(100);
+            $desc = $object->get_attribute("OBJ_DESC");
+
+
+            if ($desc !== 0) {
+                $jsWrapperPicture = new \Widgets\JSWrapper();
+                $desc = trim($desc);
+
+             //  $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
+            }
+            
+            
         }
 
         $ownerField = new \Widgets\TextField();
@@ -460,8 +460,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $dialog->addWidget($seperator);
             $dialog->addWidget($statusbarCheckbox);
-            $dialog->addWidget($textAreaDescription);
             $dialog->addWidget($seperator);
+            $dialog->addWidget($textAreaDescription);
         }
         
         //wiki
