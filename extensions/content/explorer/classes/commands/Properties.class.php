@@ -433,8 +433,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         //www-link
         if ($type == "docextern") {
-            $dialog->addWidget($textArea);
             $dialog->addWidget($seperator);
+            $dialog->addWidget($textArea);
             $urlInput = new \Widgets\TextInput();
             $urlInput->setLabel("URL");
             $urlInput->setData($object);
@@ -467,14 +467,20 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         
         //wiki
         if ($type == "wiki"){
-            $dialog->addWidget($textArea);
             $dialog->addWidget($seperator);
+            $dialog->addWidget($textArea);
+        }
+        
+        //gallery
+        if ($type == "gallery"){
+            $dialog->addWidget($seperator);
+            $dialog->addWidget($textArea);
         }
         
         //all other objects
         if ($typeName == "unbekannt"){
-            $dialog->addWidget($textArea);
             $dialog->addWidget($seperator);
+            $dialog->addWidget($textArea);
         }
 
         $ajaxResponseObject->setStatus("ok");
