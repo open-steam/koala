@@ -354,7 +354,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $fileName->setReadOnly(true);
             }
             $fileName->setData($object);
-            $fileName->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
+            $fileName->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
             //$fileName->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
             $dialog->addWidget($fileName);
         }
