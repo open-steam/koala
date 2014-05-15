@@ -205,7 +205,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         $embedField = new \Widgets\TextField();
         $embedField->setLabel("Einbettungs-Link");
-        //$embedLink1 = PATH_SERVER."/download/document/".$object->get_id()."/".getCleanName($object);
         $embedLink2 = PATH_SERVER . "/download/document/" . $object->get_id();
         $embedField->setValue(trim($embedLink2));
 
@@ -434,6 +433,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         //www-link
         if ($type == "docextern") {
+            $dialog->addWidget($textArea);
+            $dialog->addWidget($seperator);
             $urlInput = new \Widgets\TextInput();
             $urlInput->setLabel("URL");
             $urlInput->setData($object);
@@ -462,6 +463,18 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($seperator);
             $dialog->addWidget($statusbarCheckbox);
             
+        }
+        
+        //wiki
+        if ($type == "wiki"){
+            $dialog->addWidget($textArea);
+            $dialog->addWidget($seperator);
+        }
+        
+        //all other objects
+        if ($typeName == "unbekannt"){
+            $dialog->addWidget($textArea);
+            $dialog->addWidget($seperator);
         }
 
         $ajaxResponseObject->setStatus("ok");
