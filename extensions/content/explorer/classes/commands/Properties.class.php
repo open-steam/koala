@@ -176,14 +176,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             
             if (true) {
                 if (true) {
-                    $textArea = new \Widgets\Textarea();
-                    $textArea->setLabel("Beschreibung");
-                    $textArea->setData($object);
+                    $textAreaDescription = new \Widgets\Textarea();
+                    $textAreaDescription->setLabel("Beschreibung");
+                    $textAreaDescription->setData($object);
                     if (!$isWriteable) {
                         //Fehlt Methode
                     }
-                    $textArea->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
-                    $textArea->setHeight(100);
+                    $textAreaDescription->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+                    $textAreaDescription->setHeight(100);
                     $desc = $object->get_attribute("OBJ_DESC");
                  
                     
@@ -392,7 +392,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
 
         if ($type == "container" || $type == "room") {
-            $dialog->addWidget($textArea);
+            $dialog->addWidget($textAreaDescription);
             $dialog->addWidget($seperator);
             
             //case head document possible
@@ -415,7 +415,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($seperator);
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
-                $dialog->addWidget($textArea);
+                $dialog->addWidget($textAreaDescription);
                 //$dialog->addWidget($jsWrapperPicture);
             }
         } else if ($type == "forum") {
@@ -426,7 +426,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $dialog->addWidget($checkboxInput);
                 $dialog->addWidget($seperator);
             }
-            $dialog->addWidget($textArea);
+            $dialog->addWidget($textAreaDescription);
             $dialog->addWidget($seperator);
         }
 
@@ -443,14 +443,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($seperator);
             $dialog->addWidget($urlInput);
             $dialog->addWidget($seperator);
-            $dialog->addWidget($textArea);
+            $dialog->addWidget($textAreaDescription);
             $dialog->setForceReload(true);
         }
         
         
         if ($type == "portal") {
-            $dialog->addWidget($textArea);
-            $dialog->addWidget($seperator);
             $statusbarCheckbox = new \Widgets\Checkbox();
             $statusbarCheckbox->setLabel("Statusleiste deaktiviert");
             $statusbarCheckbox->setCheckedValue("1");
@@ -462,25 +460,26 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $dialog->addWidget($seperator);
             $dialog->addWidget($statusbarCheckbox);
-            
+            $dialog->addWidget($textAreaDescription);
+            $dialog->addWidget($seperator);
         }
         
         //wiki
         if ($type == "wiki"){
             $dialog->addWidget($seperator);
-            $dialog->addWidget($textArea);
+            $dialog->addWidget($textAreaDescription);
         }
         
         //gallery
         if ($type == "gallery"){
             $dialog->addWidget($seperator);
-            $dialog->addWidget($textArea);
+            $dialog->addWidget($textAreaDescription);
         }
         
         //all other objects
         if ($typeName == "unbekannt"){
             $dialog->addWidget($seperator);
-            $dialog->addWidget($textArea);
+            $dialog->addWidget($textAreaDescription);
         }
 
         $ajaxResponseObject->setStatus("ok");
