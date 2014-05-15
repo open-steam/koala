@@ -395,19 +395,24 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if ($type == "container" || $type == "room") {
             $dialog->addWidget($textArea);
             $dialog->addWidget($seperator);
-            $dialog->addWidget($headlineView);
+            
+            //case head document possible
             $inventory = array();
             $inventory = $object->get_inventory();
             if (isset($inventory[0]) && $inventory[0] instanceof \steam_object) {
-                $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
+                $dialog->addWidget($headlineView);
+            
                 if (strpos($mime, "html") !== false) {
+                    $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
                     $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
                     $dialog->addWidget($containerViewRadio);
                 } else if (getObjectType($inventory[0]) === "portal") {
+                    $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
                     $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
                     $dialog->addWidget($containerViewRadio);
                 }
             }
+            
             $dialog->addWidget($seperator);
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
