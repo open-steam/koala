@@ -393,6 +393,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
 
         if ($type == "container" || $type == "room") {
+            $dialog->addWidget($textArea);
+            $dialog->addWidget($seperator);
             $dialog->addWidget($headlineView);
             $inventory = array();
             $inventory = $object->get_inventory();
@@ -407,8 +409,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 }
             }
             $dialog->addWidget($seperator);
-            $dialog->addWidget($textArea);
-            $dialog->addWidget($seperator);
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
                 $dialog->addWidget($textArea);
@@ -422,6 +422,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $dialog->addWidget($checkboxInput);
                 $dialog->addWidget($seperator);
             }
+            $dialog->addWidget($textArea);
+            $dialog->addWidget($seperator);
         }
 
 
