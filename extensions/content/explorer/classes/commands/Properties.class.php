@@ -433,8 +433,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         //www-link
         if ($type == "docextern") {
-            $dialog->addWidget($seperator);
-            $dialog->addWidget($textArea);
             $urlInput = new \Widgets\TextInput();
             $urlInput->setLabel("URL");
             $urlInput->setData($object);
@@ -444,6 +442,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $dialog->addWidget($seperator);
             $dialog->addWidget($urlInput);
+            $dialog->addWidget($seperator);
+            $dialog->addWidget($textArea);
             $dialog->setForceReload(true);
         }
         
