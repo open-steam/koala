@@ -153,7 +153,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         }
 
 
-        //--- create dialog section ---
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>({$typeName})");
 
@@ -173,7 +172,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $dataNameInput->setReadOnly(true);
             }
             $dataNameInput->setData($object);
-            $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
+            $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
             
             if ($type == "document") {
                 if (true) {
