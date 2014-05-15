@@ -408,8 +408,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 }
             }
             $dialog->addWidget($seperator);
-            $dialog->addWidget($textArea);
-            $dialog->addWidget($seperator);
+            //$dialog->addWidget($textArea);
+            //$dialog->addWidget($seperator);
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
                 $dialog->addWidget($textArea);
