@@ -448,6 +448,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         
         
         if ($type == "portal") {
+            $dialog->addWidget($textArea);
+            $dialog->addWidget($seperator);
             $statusbarCheckbox = new \Widgets\Checkbox();
             $statusbarCheckbox->setLabel("Statusleiste deaktiviert");
             $statusbarCheckbox->setCheckedValue("1");
