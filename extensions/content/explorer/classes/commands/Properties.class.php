@@ -400,14 +400,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $inventory = array();
             $inventory = $object->get_inventory();
             if (isset($inventory[0]) && $inventory[0] instanceof \steam_object) {
-                $dialog->addWidget($headlineView);
-            
+                $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
+                
                 if (strpos($mime, "html") !== false) {
-                    $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
+                    $dialog->addWidget($headlineView);
                     $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
                     $dialog->addWidget($containerViewRadio);
                 } else if (getObjectType($inventory[0]) === "portal") {
-                    $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
+                    $dialog->addWidget($headlineView);
                     $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
                     $dialog->addWidget($containerViewRadio);
                 }
