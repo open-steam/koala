@@ -74,7 +74,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             if ($count > 500) {
                 die("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
+            try{
             $objects = $object->get_inventory();
+            }catch(NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
         } else {
             $objects = array();
         }

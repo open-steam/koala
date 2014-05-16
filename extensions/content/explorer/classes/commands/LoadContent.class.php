@@ -134,11 +134,17 @@ class ContentProvider implements \Widgets\IContentProvider {
                     //    return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsyHtml . "</script>";
                     //}
                 }
+                
+                /*
                 if (trim($desc) === "") {
                     return "<a href=\"" . $url . "\" title=\"$name\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
                 } else {
                     return "<a href=\"" . $url . "\" title=\"$desc\"> " . $desc . " (" . $name . ")" . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
                 }
+                */
+                return "<a href=\"" . $url . "\" title=\"$name\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                
+                
             } else {
                 return $name . "<script>" . $tipsyHtml . "</script>";
             }
