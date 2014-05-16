@@ -153,7 +153,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         }
 
         $typeNameReadable = "";
-        if ($typeName!="") $typeNameReadable = "(".$typeName.")";
+        if ($typeName!="unbekannt") $typeNameReadable = "(".$typeName.")";
         
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>{$typeNameReadable}");
