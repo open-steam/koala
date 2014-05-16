@@ -152,9 +152,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $documentIsMedia = true;
         }
 
-
+        $typeNameReadable = "";
+        if ($typeName!="") $typeNameReadable = "(".$typeName.")";
+        
         $dialog = new \Widgets\Dialog();
-        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>({$typeName})");
+        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>{$typeNameReadable}");
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
@@ -465,7 +467,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         }
         
         //wiki
-        if ($type == "wiki"){
+        if (($type == "wiki") && ($typeName != "unbekannt")){
             $dialog->addWidget($seperator);
             $dialog->addWidget($textAreaDescription);
         }
