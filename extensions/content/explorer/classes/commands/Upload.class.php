@@ -253,6 +253,7 @@ class qqFileUploader {
                     }
                 } catch (\IMagickException $e) {
                     // file is no picture
+                    unlink($uploadDirectory . $filename . '.' . $ext);
                 }
             }
             $environment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
@@ -296,6 +297,7 @@ class qqFileUploader {
 
             return array('success' => true);
         } else {
+            unlink($uploadDirectory . $filename . '.' . $ext);
             return array('error' => 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
         }
