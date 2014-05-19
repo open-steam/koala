@@ -274,14 +274,17 @@ class qqFileUploader {
                                 unlink($uploadDirectory . $filename . '.' . $ext);
                                 return array("success" => true);
                             } else {
+                                unlink($uploadDirectory . $filename . '.' . $ext);
                                 return array("error" => "You try to overwrite an object which isn't a document!");
                             }
                         }
                     }
                 } else {
+                    unlink($uploadDirectory . $filename . '.' . $ext);
                     throw new Exception("inventory of upload destiantion is broken");
                 }
             } else {
+                unlink($uploadDirectory . $filename . '.' . $ext);
                 throw new Exception("Upload destination isn't a container");
             }
 
