@@ -253,6 +253,7 @@ class qqFileUploader {
                     }
                 } catch (\IMagickException $e) {
                     // file is no picture
+                    unlink($uploadDirectory . $filename . '.' . $ext);
                 }
             }
             $environment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
@@ -263,6 +264,7 @@ class qqFileUploader {
                         $eleName = $ele->get_name();
                         if ($eleName === $filename . "." . $ext) {
                             if ($checked === false) {
+                                unlink($uploadDirectory . $filename . '.' . $ext);
                                 return array("error" => "Es gibt bereits eine Datei mit demselben Namen. Um diese zu überschreiben, wählen Sie das Feld gleichnamige Dateien ersetzen aus.");
                             }
                             if ($ele instanceof \steam_document) {
@@ -273,14 +275,17 @@ class qqFileUploader {
                                 unlink($uploadDirectory . $filename . '.' . $ext);
                                 return array("success" => true);
                             } else {
+                                unlink($uploadDirectory . $filename . '.' . $ext);
                                 return array("error" => "You try to overwrite an object which isn't a document!");
                             }
                         }
                     }
                 } else {
+                    unlink($uploadDirectory . $filename . '.' . $ext);
                     throw new Exception("inventory of upload destiantion is broken");
                 }
             } else {
+                unlink($uploadDirectory . $filename . '.' . $ext);
                 throw new Exception("Upload destination isn't a container");
             }
 
@@ -292,6 +297,7 @@ class qqFileUploader {
 
             return array('success' => true);
         } else {
+            unlink($uploadDirectory . $filename . '.' . $ext);
             return array('error' => 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
         }

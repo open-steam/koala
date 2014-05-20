@@ -74,7 +74,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             if ($count > 500) {
                 die("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
+            try{
             $objects = $object->get_inventory();
+            }catch(NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
         } else {
             $objects = array();
         }
@@ -214,7 +216,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $actionBar->setActions(array(array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
                 array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
         } else {
-            $actionBar->setActions(array());
+            $actionBar->setActions(array(
+                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
         }
 
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));

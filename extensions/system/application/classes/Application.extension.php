@@ -97,8 +97,11 @@ class Application extends AbstractExtension implements IApplicationExtension, II
 					
 					ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($namespaceExtension->getCurrentObject($urlRequestObject));
 					$command->processData($urlRequestObject);
-					$frameResponeObject = $command->frameResponse(new FrameResponseObject());
 					
+                                        try{ //handling for object not found
+                                        $frameResponeObject = $command->frameResponse(new FrameResponseObject());
+					}catch(NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
+                                        
 					if ($command->embedContent($urlRequestObject)) {
 						$data = \Widgets\Widget::getData($frameResponeObject->getWidgets());
 						$frame->add_css_style($data["css"]);

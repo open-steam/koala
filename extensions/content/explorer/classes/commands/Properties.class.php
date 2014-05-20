@@ -152,10 +152,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $documentIsMedia = true;
         }
 
-
-        //--- create dialog section ---
+        $typeNameReadable = "";
+        if ($typeName!="unbekannt") $typeNameReadable = "(".$typeName.")";
+        
         $dialog = new \Widgets\Dialog();
-        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>({$typeName})");
+        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>{$typeNameReadable}");
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
@@ -173,29 +174,29 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $dataNameInput->setReadOnly(true);
             }
             $dataNameInput->setData($object);
-            $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
+            $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
             
-            if ($type == "document") {
-                if ($documentIsPicture) {
-                    $textArea = new \Widgets\Textarea();
-                    $textArea->setLabel("Beschreibung");
-                    $textArea->setData($object);
-                    if (!$isWriteable) {
-                        //Fehlt Methode
-                    }
-                    $textArea->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
-                    $textArea->setHeight(100);
-                    $desc = $object->get_attribute("OBJ_DESC");
-                 
-                    
-                    if ($desc !== 0) {
-                        $jsWrapperPicture = new \Widgets\JSWrapper();
-                        $desc = trim($desc);
-                      
-                     //  $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
-                    }
-                }
+            
+            //create description text area
+            $textAreaDescription = new \Widgets\Textarea();
+            $textAreaDescription->setLabel("Beschreibung");
+            $textAreaDescription->setData($object);
+            if (!$isWriteable) {
+                //Fehlt Methode
             }
+            $textAreaDescription->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+            $textAreaDescription->setHeight(100);
+            $desc = $object->get_attribute("OBJ_DESC");
+
+
+            if ($desc !== 0) {
+                $jsWrapperPicture = new \Widgets\JSWrapper();
+                $desc = trim($desc);
+
+             //  $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
+            }
+            
+            
         }
 
         $ownerField = new \Widgets\TextField();
@@ -206,7 +207,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         $embedField = new \Widgets\TextField();
         $embedField->setLabel("Einbettungs-Link");
-        //$embedLink1 = PATH_SERVER."/download/document/".$object->get_id()."/".getCleanName($object);
         $embedLink2 = PATH_SERVER . "/download/document/" . $object->get_id();
         $embedField->setValue(trim($embedLink2));
 
@@ -355,7 +355,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $fileName->setReadOnly(true);
             }
             $fileName->setData($object);
-            $fileName->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
+            $fileName->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
             //$fileName->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
             $dialog->addWidget($fileName);
         }
@@ -394,23 +394,30 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
 
         if ($type == "container" || $type == "room") {
-            $dialog->addWidget($headlineView);
+            $dialog->addWidget($textAreaDescription);
+            $dialog->addWidget($seperator);
+            
+            //case head document possible
             $inventory = array();
             $inventory = $object->get_inventory();
             if (isset($inventory[0]) && $inventory[0] instanceof \steam_object) {
                 $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
+                
                 if (strpos($mime, "html") !== false) {
+                    $dialog->addWidget($headlineView);
                     $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
                     $dialog->addWidget($containerViewRadio);
                 } else if (getObjectType($inventory[0]) === "portal") {
+                    $dialog->addWidget($headlineView);
                     $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
                     $dialog->addWidget($containerViewRadio);
                 }
             }
+            
             $dialog->addWidget($seperator);
         } else if ($type == "document") {
-            if ($documentIsPicture) {
-                $dialog->addWidget($textArea);
+            if (true) { //former documentIsPicture
+                $dialog->addWidget($textAreaDescription);
                 //$dialog->addWidget($jsWrapperPicture);
             }
         } else if ($type == "forum") {
@@ -418,12 +425,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
             $currentUserId = $currentUser->get_id();
             if ($currentUserId == $creatorId) {
-                //$checkValue= $object->get_attribute("bid:forum_is_editable");
-                //$checked = $checkValue ? 1 : 0;
-                //$checkboxInput;
                 $dialog->addWidget($checkboxInput);
                 $dialog->addWidget($seperator);
             }
+            $dialog->addWidget($textAreaDescription);
+            $dialog->addWidget($seperator);
         }
 
 
@@ -436,11 +442,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             if(!$isWriteable){
                 $urlInput->setReadOnly(true);
             }
+            $dialog->addWidget($seperator);
             $dialog->addWidget($urlInput);
-           // $dialog->addWidget($seperator);
-           // $dialog->addWidget($checkboxWWW);
+            $dialog->addWidget($seperator);
+            $dialog->addWidget($textAreaDescription);
             $dialog->setForceReload(true);
         }
+        
+        
         if ($type == "portal") {
             $statusbarCheckbox = new \Widgets\Checkbox();
             $statusbarCheckbox->setLabel("Statusleiste deaktiviert");
@@ -451,10 +460,29 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             if(!$isWriteable){
                 $statusbarCheckbox->setReadOnly(true);
             }
+            $dialog->addWidget($seperator);
             $dialog->addWidget($statusbarCheckbox);
+            $dialog->addWidget($seperator);
+            $dialog->addWidget($textAreaDescription);
         }
-
-
+        
+        //wiki
+        if (($type == "wiki") && ($typeName != "unbekannt")){
+            $dialog->addWidget($seperator);
+            $dialog->addWidget($textAreaDescription);
+        }
+        
+        //gallery
+        if ($type == "gallery"){
+            $dialog->addWidget($seperator);
+            $dialog->addWidget($textAreaDescription);
+        }
+        
+        //all other objects
+        if ($typeName == "unbekannt"){
+            $dialog->addWidget($seperator);
+            $dialog->addWidget($textAreaDescription);
+        }
 
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);

@@ -19,6 +19,8 @@ class CreateEntryForm extends \AbstractCommand implements \IAjaxCommand {
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		
+                $seperatorHtml = "<br style=\"clear:both\"/>";
+                
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("CreateEntry");
 		$ajaxForm->setSubmitNamespace("PortletTopic");
@@ -31,15 +33,9 @@ class CreateEntryForm extends \AbstractCommand implements \IAjaxCommand {
 		$desc->setLabel("Beschreibung");
                 $desc->setName("desc");
                 
-                $html = $titel->getHtml();                
-                $html.= '<input type="hidden" name="id" value="'.$this->id.'">';
-                $html .= $desc->getHtml();
-                
                 $link = new \Widgets\TextInput();
 		$link->setLabel("Link-Adresse");
                 $link->setName("link");
-                
-                $html .= $link->getHtml();
                 
                 $window = new \Widgets\Checkbox();
                 $window->setLabel("Neues Fenster");
@@ -47,6 +43,14 @@ class CreateEntryForm extends \AbstractCommand implements \IAjaxCommand {
                 $window->setUncheckedValue("");
                 $window->setName("window2");
                 
+                //build html
+                $html = $titel->getHtml();
+                $html.= $seperatorHtml;
+                $html.= '<input type="hidden" name="id" value="'.$this->id.'">';
+                $html .= $desc->getHtml();
+                $html.= $seperatorHtml;
+                $html .= $link->getHtml();
+                $html.= $seperatorHtml;
                 $html .= $window->getHtml();
                 $html .= '<input type="hidden" name="categoryIndex" value="'.$this->params["categoryIndex"].'">';
                 $html .= '<input type="hidden" name="window" value="false">';

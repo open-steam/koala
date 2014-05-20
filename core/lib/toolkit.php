@@ -182,8 +182,6 @@ function getCleanName($object, $length = 30) {
     $docType = $object->get_attribute("DOC_MIME_TYPE");
     if ($object instanceof steam_user) {
         $title = $object->get_attribute(USER_FIRSTNAME) . " " . $object->get_attribute(USER_FULLNAME);
-    } else if ($object instanceof steam_document && isPicture($docType)) {
-        $title = $object->get_name();
     } else {
         $user = isUserHome($object);
         if ($user) {
@@ -191,12 +189,28 @@ function getCleanName($object, $length = 30) {
         } elseif ($object instanceof steam_trashbin) {
             $title = "Papierkorb";
         } else {
+            
+            /*
             $desc = $object->get_attribute(OBJ_DESC);
             if ($desc !== 0 && trim($desc) !== "") {
                 $title = $desc;
             } else {
                 $title = $object->get_name();
             }
+            */
+            
+            $objectName = $object->get_name();
+            $objectDescription = $object->get_attribute(OBJ_DESC);
+            
+            if (($objectDescription !== 0 && trim($objectDescription) !== "")){
+                //description exists
+                $title = $objectDescription . " (" . $objectName.")";
+            }else{
+                //no description available
+                $title = $objectName;
+            }
+            
+            
             $title = str_replace("'s workarea", "", stripslashes($title));
             $title = str_replace(" workarea", "", stripslashes($title));
             $title = str_replace("s workroom.", "", $title);
