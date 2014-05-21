@@ -51,7 +51,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //get the content of the portal object
         try{
         $portalColumns = $this->portalObject->get_inventory();
-        }catch(NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
+        }catch(\NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
         
         
         $htmlBody = "";

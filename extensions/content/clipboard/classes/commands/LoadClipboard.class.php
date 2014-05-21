@@ -101,7 +101,8 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name . "<script>" . $tipsy->getHtml() . "</script>";
 			}
 		} else if ($cell == $this->rawMarker) {
-			$html = "";
+                    return "";
+			/*$html = "";
 			$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
 			$html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
 			$linkError = false;
@@ -128,7 +129,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 				$html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
 			}
 			$html .= "</div>";
-			return $html;
+			return $html;*/
 		} else if ($cell == $this->rawChangeDate) {
 			return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
 		}  else if ($cell == $this->rawSize) {
