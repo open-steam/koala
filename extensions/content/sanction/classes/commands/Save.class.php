@@ -91,8 +91,6 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                         //if the sanction is set to true, 
                         //add the specific sanction constant-value to the int value that is to be set now
                         $addedSanctionsPerUser[$holderOfRightsId] |= $this::getSanctionConstant($sanctionString);
-                    } else {
-                        $addedSanctionsPerUser[$holderOfRightsId] |= 0;
                     }
                 }
                 
