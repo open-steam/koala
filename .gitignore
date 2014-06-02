@@ -239,6 +239,7 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+._.DS_Store
 
 #################
 ## JetBrains
