@@ -392,7 +392,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $content->setVariable("GROUPID", $groupId);
                 $content->setVariable("GROUP_ID", $groupId);
                 
-                $content->setVariable("OPTIONVALUE", max($dropDownValue, $dropdownValueSteamGroup));
     
                 $content->parse("GROUPS");
 
