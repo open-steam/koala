@@ -225,7 +225,7 @@ function getCleanName($object, $length = 30) {
     //remove extra spaces
     $count = 1;
     $limit = 100;
-    while ($count < $limit){
+    while ($count < $limit){ //prevent too long loops
         $titleNew = str_replace("  ", " ", $title);
         if (strlen($titleNew) == strlen($title)) break;
         $count++;
