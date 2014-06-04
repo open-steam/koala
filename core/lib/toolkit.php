@@ -222,9 +222,11 @@ function getCleanName($object, $length = 30) {
     //remove spaces and line breaks
     $title = str_replace(array("\r", "\n"), "", $title);
     
+    $limit = 1;
     while (true){
         $titleNew = str_replace("  ", " ", $title);
         if ($titleNew == $title) break;
+        if ($limit==100) break; $limit++;
     }
     
     $title = $titleNew;
