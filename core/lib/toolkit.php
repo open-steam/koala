@@ -219,27 +219,24 @@ function getCleanName($object, $length = 30) {
         }
     }
     
-    //remove spaces and line breaks
+    //remove line breaks
     $title = str_replace(array("\r", "\n"), "", $title);
     
-    $limit = 1;
-    while (true){
+    //remove extra spaces
+    $count = 1;
+    $limit = 100;
+    while ($count < $limit){
         $titleNew = str_replace("  ", " ", $title);
-        if ($titleNew == $title) break;
-        if ($limit==100) break; $limit++;
+        if (strlen($titleNew) == strlen($title)) break;
+        $count++;
     }
-    
     $title = $titleNew;
     
+    //limit return length
     if ($length != -1 && $length < strlen($title)) {
         $title = mb_substr($title, 0, $length, "UTF-8") . "...";
     }
 
-    
-    
-    
-    
-    
     return $title;
 }
 
