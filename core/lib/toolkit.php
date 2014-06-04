@@ -218,10 +218,26 @@ function getCleanName($object, $length = 30) {
             $title = preg_replace("/.*'s bookmarks/", "Lesezeichen", $title);
         }
     }
+    
+    //remove spaces and line breaks
+    $title = str_replace(array("\r", "\n"), "", $title);
+    
+    while (true){
+        $titleNew = str_replace("  ", " ", $title);
+        if ($titleNew == $title) break;
+    }
+    
+    $title = $titleNew;
+    
     if ($length != -1 && $length < strlen($title)) {
         $title = mb_substr($title, 0, $length, "UTF-8") . "...";
     }
 
+    
+    
+    
+    
+    
     return $title;
 }
 
