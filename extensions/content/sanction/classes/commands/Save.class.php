@@ -99,7 +99,7 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                 foreach ($addedSanctionsPerUser as $holderOfRightsId => $sanction){
                     $holderOfRightsObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $holderOfRightsId);
                     $this->object->sanction($sanction, $holderOfRightsObject);
-                    
+                    $this->object->sanction_meta($sanction, $holderOfRightsObject); //test
                 }
             break;
             
@@ -192,7 +192,7 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                         }
                     }
                     $this->object->sanction(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
-                    
+                    $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT)); //test
                 }
                 
                 
