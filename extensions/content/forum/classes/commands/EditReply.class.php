@@ -83,62 +83,6 @@ class EditReply extends \AbstractCommand implements \IFrameCommand, \IAjaxComman
 		$dialog->addWidget($contentText);
 		$dialog->addWidget($clearer);
 		$dialog->addWidget($clearer);
-                
-		/*$ajaxForm = new \Widgets\AjaxForm();
-		 $ajaxForm->setSubmitCommand("EditReplyContent");
-		 $ajaxForm->setSubmitNamespace("Forum");
-
-		 $ajaxForm->setHtml(<<<END
-		 <input type="hidden" name="id" value="{$this->id}">
-		 <input type="hidden" name="forum" value="{$this->params["forum"]}">
-		 <div class="widgets_lable">Überschrift:</div>
-		 <div class="widgets_textinput"><input type="text" value="{$title}" name="title"></div><br clear="all">
-		 <div class="widgets_lable">Inhalt:</div>
-		 <div class="widgets_textarea"><textarea rows="10" style="width:100%" class="tinymce"  value="{$content}" name="content1" id="content1"></textarea><br clear="all">
-		 <input id="content_id" type="hidden" name="content" value="">
-		 <script type="text/javascript">
-		 tinyMCE.init({
-		 mode : "textareas",
-
-		 // General options
-		 theme : "advanced",
-		 skin: "o2k7",
-		 id: "content1",
-		 name:"content1",
-		 force_br_newlines : true,
-		 force_p_newlines : false,
-		 forced_root_block : '',
-
-		 language: "de",
-		 plugins : "emotions,paste",
-
-			//Specific options
-			setup : function(ed) {
-			ed.onKeyUp.add(function(ed, o) {
-			var content = "<p>"+ed.getContent()+"</p>";
-			$("#content_id").val(content);
-			});
-			ed.onInit.add(function(ed) {
-			ed.setContent('{$content}');
-			});
-
-			},
-
-			// Theme options
-			theme_advanced_buttons1 : "bold,italic,underline,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo,pasteword,|,code",
-			theme_advanced_buttons2 : "",
-			theme_advanced_buttons3 : "",
-			theme_advanced_buttons4 : "",
-			theme_advanced_toolbar_location : "top",
-			theme_advanced_toolbar_align : "left",
-			theme_advanced_statusbar_location : "none",
-			theme_advanced_resizing : false
-			});
-
-			</script>
-			END
-			);
-			$dialog->addWidget($ajaxForm);*/
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($dialog);

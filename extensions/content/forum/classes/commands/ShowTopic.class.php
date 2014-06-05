@@ -121,11 +121,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
 
         $result = $steam->buffer_flush();
         $forumCreatorAttributes = $result[$forumCreatorAttributes];
-
         $forumCreatorId = $forumCreator->get_id();
-
-
-        //\Forum::getInstance()->addCSS();
 
         if ($category_allowed_read) {
             $messages = $category->get_annotations(false, 1);
@@ -160,12 +156,6 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
             }
         }
         //START CHECK RIGHTS OF THE CURRENT USER
-        //$isReplyEditable= $category->get_attribute("bid:forum:is_editable");
-        //if(trim($isReplyEditable) == "checked"){
-        //	$isReplyEditable=true;
-        //} else{
-        //	$isReplyEditable=false;
-        //}
         $isForumCreator = false;
         $isTopicCreator = false;
         $canAnnotate = $category_allowed_write || $category_allowed_annotate;
@@ -320,13 +310,6 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         if ($canAnnotate) {
             $actions[] = array("name" => "Antworten", "ajax" => array("onclick" => array("command" => "newReply", "params" => array("id" => $this->id, "forum" => $forumId), "requestType" => "popup")));
         }
-        if ($isForumCreator) {
-            //$actions[] = array("name" => "Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"EditTopic", "params"=>array("id"=>$this->id ,"forum" => $forumId), "requestType"=>"popup")));
-        }
-        //if($category->check_access(SANCTION_SANCTION,$steamUser)){
-        //if($isForumCreator || $hasSanctionRights){
-        //	$actions[] = array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id) , "requestType"=>"popup", "namespace"=>"explorer")));
-        //}
         
         $frameResponseObject->setTitle( $forum->get_name()  . " - " . $categoryAttributes["OBJ_DESC"]);
         $parent = $forum->get_environment();
@@ -336,19 +319,14 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
             $parentLink = "";
         }
         $title = $categoryAttributes[OBJ_DESC];
-        //	$breadcrumb = new \Widgets\Breadcrumb();
-        //	$breadcrumb->setData(array($parentLink, array("name" => "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon(\Explorer::getInstance())."\"></img> " . $title . " " . \Explorer\Model\Sanction::getMarkerHtml(\Explorer::getInstance(), false))));
-
+        
         $actionbar = new \Widgets\ActionBar();
         $actionbar->setActions($actions);
-        //	$explorerId=$forum->get_environment()->get_id();
-        //$frameResponseObject->setHeadline(array(array("name" =>"Zurück zu ". $forumAttributes["OBJ_DESC"], "link" => PATH_URL ."forum/index/". $forumId)));
         $widget = new \Widgets\RawHtml();
         $html = '<div id="backToForum">Zurück zu ';
         $html1 = '<a href="' . PATH_URL . "forum/index/" . $forumId . '">';
         $html2 = $forum->get_name() . '</a></div>';
         $widget->setHtml($html . $html1 . $html2);
-        //$frameResponseObject->addWidget($widget);
         $frameResponseObject->addWidget($actionbar);
         $frameResponseObject->addWidget($rawHtml);
         return $frameResponseObject;
