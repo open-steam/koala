@@ -688,23 +688,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->parse("FAVORITES_ACQ");
         }
 
-
-        /*  $content->setCurrentBlock("FAVORITES_ACQ");
-          $content->setCurrentBlock("FAV_DDSETINGS_ACQ");
-          $content->setVariable("FAVID_ACQ", $id);
-          $content->setVariable("FAV_ID_ACQ", $id);
-          $content->setVariable("FAVNAME_ACQ", $name);
-          $content->setVariable("FAV_OPTION_VALUE_ACQ", $dropDownValueAcq);
-          if (isset($favorites[$id])) {
-          $content->setVariable("IMG_PATH_ACQ", $favPicUrl);
-          } else {
-          $content->setVariable("IMG_PATH_ACQ", $userPicUrl);
-          }
-          $content->parse("FAV_DDSETTING_ACQS");
-          $content->parse("FAVORITES_ACQ");
-          } */
-
-
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $dialog->addWidget($rawHtml);

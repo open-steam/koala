@@ -73,19 +73,6 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
         return $ajaxResponseObject;
     }
 
-    /* private function repairOrder($obj) {
-      $counter = 0;
-      foreach ($this->inv as $i => $item) {
-      if ($item instanceof \steam_trashbin || $item instanceof \steam_user) {
-      $helper = $this->inv[$i];
-      $this->inv[$i] = $this->inv[$counter];
-      $this->inv[$counter] = $helper;
-      $obj->swap_inventory($counter, $i);
-      $counter++;
-      }
-      }
-      } */
-
     private function countInvalidObjs() {
         $counter = 0;
         while ($this->inv[$counter] instanceof \steam_trashbin || $this->inv[$counter] instanceof \steam_user) {
