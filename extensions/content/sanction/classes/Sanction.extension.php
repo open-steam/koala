@@ -1,5 +1,5 @@
 <?php
-class Sanction extends AbstractExtension implements IObjectExtension, IObjectModelExtension{
+class Sanction extends AbstractExtension{
 
 	public function getName() {
 		return "Sanction";

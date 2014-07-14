@@ -18,21 +18,10 @@ class GetDirectEditor extends \AbstractCommand implements \IAjaxCommand {
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-
-
-		/*$objDesc = trim($this->object->get_attribute(OBJ_DESC));
-		if (($objDesc === 0) || ($objDesc === "")) {
-			$this->object->set_attribute(OBJ_DESC, $this->object->get_name());
-		}*/
-
 		$titelInput = new \Widgets\TextInput();
-
 		$titelInput->setData($this->object);
-
 		$titelInput->setFocus(true);
-
 		$titelInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($this->object, -1)));
-
 
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setJs("jQuery(document).click(function() {removeAllDirectEditors();})");

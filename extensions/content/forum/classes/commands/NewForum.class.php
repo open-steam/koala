@@ -65,21 +65,11 @@ END
 );
 		
 		$ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
-		
 		$ajaxResponseObject->setStatus("ok");
-		
 		$ajaxResponseObject->addWidget($ajaxForm);
-                
                 $pollingDummy = new \Widgets\PollingDummy();
-                
                 $ajaxResponseObject->addWidget($pollingDummy);
-                
-                
-		
-		//$idRequestObject = new \IdRequestObject();
-		//$idRequestObject->setId($this->id);
-		
-		return $ajaxResponseObject;
+                return $ajaxResponseObject;
 	}
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {

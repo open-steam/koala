@@ -21,9 +21,6 @@ class DeleteTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComm
 	}
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		//TODO: CORRECT REDIRECTION
-		//$path=array();
-		//$path=explode("/", $this->params["path"]);
-		//$forumId=$path[count($path)-2];
 		$forumId=$this->params["forum"];
 		$object_id=$this->id;
 		/** log-in user */

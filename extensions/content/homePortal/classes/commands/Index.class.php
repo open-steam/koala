@@ -12,6 +12,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
             $user = $GLOBALS["STEAM"]->get_current_steam_user();
+            
+            //fallback, steam user not available or loggt out
+            if(!($user instanceof \steam_user)){
+                header("location: " . PATH_URL . "explorer/");
+                exit;
+            }
+            
             $portal = $user->get_attribute("HOME_PORTAL");
             
             if (!($portal instanceof \steam_object)) {
@@ -32,7 +39,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
                 // populate columns with default portlets
                 \ExtensionMaster::getInstance()->callCommand("Create", "PortletUserPicture", array("parent" => $columns[1], "version"=>"3.0"));
-                //\ExtensionMaster::getInstance()->callCommand("Create", "PortletHeadline", array("parent" => $columns[2], "title" => $user->get_full_name(), "version"=>"3.0"));
                 \ExtensionMaster::getInstance()->callCommand("Create", "PortletBookmarks", array("parent" => $columns[2], "number" => "5", "version"=>"3.0"));
                 \ExtensionMaster::getInstance()->callCommand("Create", "PortletChronic", array("parent" => $columns[2], "elements" => "15", "version"=>"3.0"));
                 

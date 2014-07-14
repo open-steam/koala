@@ -163,11 +163,21 @@ class lms_portal
         language_support::choose_language();
 
         // SET LOGO URL
-                if (defined("LOGO_PATH_URL")) {
-                    $this->template->setVariable( "LOGO_PATH_URL", LOGO_PATH_URL );
-                } else {
-                    $this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
-                }
+        if (defined("LOGO_PATH_URL")) {
+            $this->template->setVariable( "LOGO_PATH_URL", LOGO_PATH_URL );
+        } else {
+            $this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
+        }
+        
+        
+        // REPORT_ERROR_BUTTON
+        if (defined("REPORT_ERROR_BUTTON")) {
+            $this->template->setVariable( "REPORT_ERROR_BUTTON", REPORT_ERROR_BUTTON );
+        } else {
+            $fallback = '<a href="mailto:DSchubert@hnf.de?subject=Problem%20mit%20dem%20bid-Server">Ein Problem melden</a>';
+            $this->template->setVariable( "REPORT_ERROR_BUTTON", $fallback);
+        }
+        
 
         // SET STYLEPATH AND ADDITIONAL HEADERS
         $this->template->setVariable( "STYLE_PATH", PATH_STYLE );

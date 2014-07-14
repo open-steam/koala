@@ -1,5 +1,0 @@
-Mediathek: Javascript probleme beim Anzeigen von Bildern
-Mediathek: Bilderupload über allgemeinen Upload umsetzen
-Mediathek: Doc-Extension fehlt, Funktionen: Bilder löschen, 
-		   Bilder-Eigenschaften ändern und Bilder-Eigenschaften anzeigen.
-		   

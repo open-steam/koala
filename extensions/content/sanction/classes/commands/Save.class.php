@@ -97,6 +97,7 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                 //traverse the $addedSanctionsPerUser Array 
                 //and set the sanction-value for each user listed
                 foreach ($addedSanctionsPerUser as $holderOfRightsId => $sanction){
+<<<<<<< HEAD
                     $holderOfRightsObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $holderOfRightsId, CLASS_OBJECT);
                     $ret1 = $this->object->sanction($sanction, $holderOfRightsObject);
                     
@@ -109,6 +110,11 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                     //die("hier ". $ret. "    ".SANCTION_ALL);
                     }
                     
+=======
+                    $holderOfRightsObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $holderOfRightsId);
+                    $this->object->sanction($sanction, $holderOfRightsObject);
+                    $this->object->sanction_meta($sanction, $holderOfRightsObject); //test
+>>>>>>> 98a9ea574fcc16371b9bba39427d7faa705639eb
                 }
                 die("ende");
             break;
@@ -199,8 +205,12 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                         }
                     }
                     $this->object->sanction(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
+<<<<<<< HEAD
                    // $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
                     
+=======
+                    $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT)); //test
+>>>>>>> 98a9ea574fcc16371b9bba39427d7faa705639eb
                 }
                 
                 

@@ -38,7 +38,7 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $result = $uploader->handleUpload(PATH_TEMP, $checked);
         // to pass data through iframe you will need to encode all html tags
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-        die;
+        die; //TODO
         //$ajaxResponseObject->setStatus("ok");
         //return $ajaxResponseObject;
     }

@@ -37,7 +37,6 @@ class UploadImage extends \AbstractCommand implements \IFrameCommand, \IAjaxComm
 		}
 		
 		// upload image
-		//$envid = $destObject->get_environment()->get_id();
 		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit, $this->id);
 		$result = $uploader->handleUpload(PATH_TEMP);
 		
@@ -45,7 +44,7 @@ class UploadImage extends \AbstractCommand implements \IFrameCommand, \IAjaxComm
 		$destObject->set_attribute("bid:forum:category:picture_id", $result["oid"]);
 		// to pass data through iframe you will need to encode all html tags
 		echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-		die;
+		die; //TODO
 		//$ajaxResponseObject->setStatus("ok");
 		//return $ajaxResponseObject;
 	}

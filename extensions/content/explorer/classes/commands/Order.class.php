@@ -28,12 +28,10 @@ class Order extends \AbstractCommand implements \IAjaxCommand {
 		} else if ($this->direction == "down") {
 			$environment->swap_inventory($index, $index+1);
 		} else if ($this->direction == "top") {
-			//$environment->swap_inventory($index, 0);
 			for($i=0;$i<$index+1;$i++){
 				$environment->swap_inventory(0,$i); 
 			}
 		} else if ($this->direction == "bottom") {
-			//$environment->swap_inventory($index, count($inventory)-1);
 			for($i=count($inventory)-1;$i>=$index;$i--){
 				$environment->swap_inventory($index,$i);
 			}		

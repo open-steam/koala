@@ -96,12 +96,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
         $result = $steam->buffer_flush();
 
-
-
         $myExtension->addCSS();
 
         $content = $myExtension->loadTemplate("forumIndex.template.html");
-
 
         $content->setCurrentBlock('BLOCK_FORUM_HEAD');
         $content->setVariable("FORUM_HEADING", urldecode($forumAttributes["OBJ_NAME"]));
@@ -150,25 +147,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $content->setVariable("REPLY_COUNT", $count);
                 if ($count > 0) {
                     $lastUser = $annotationsArray[0]->get_attribute("DOC_USER_MODIFIED");
-                    //  var_dump($categoryLastMessageAttributes[$annotation->get_id()]);
-                    //    die;
                     $content->setVariable("LAST_REPLY_TOPIC", $categoryLastMessageAttributes[$annotation->get_id()][OBJ_DESC]);
                     $content->setVariable("LAST_REPLY_DATE", date("d.m.Y G:i", $categoryLastMessageAttributes[$annotation->get_id()]["OBJ_CREATION_TIME"]));
                     $content->setVariable("LAST_REPLY_USER", getCleanName($lastUser));
                     $lastPostTime = $annotation->get_attribute("OBJ_CREATION_TIME");
-                    if ($lastSessionTime < $lastPostTime) {
-                        //$imageUrl=\Forum::getInstance()->getAssetUrl()."icons/new_message_info.gif";
-                        //$content->setVariable("NEW_IMAGE", '<img src="'.$imageUrl.'" title="Neue Antworten.">');
-                    }
                 }
 
-
-                //	$popupMenu= new \Widgets\PopupMenu();
-                //	$popupMenu->setData($annotation);
-                //	$popupMenu->setElementId("overlay_menu");
-                //	$popupMenu->setParams(array(array("key" => "forum", "value" => $objectId)));
-                //	$content->setVariable("POPUP_MENU", $popupMenu->getHtml());
-                //	$rawHtml->addWidget($popupMenu);
                 $content->parse('BLOCK_FORUM_CONTENT');
             }
         }
@@ -183,9 +167,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $actions[] = array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")));
         }
         $actionBar->setActions($actions);
-
-        //$breadcrumb = new \Widgets\Breadcrumb();
-        //$breadcrumb->setData(array($currentRoom));
 
         $frameResponseObject->setTitle($forumObject->get_name());
         $rawHtml->setHtml($content->get());

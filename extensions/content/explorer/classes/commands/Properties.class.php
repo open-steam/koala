@@ -192,8 +192,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             if ($desc !== 0) {
                 $jsWrapperPicture = new \Widgets\JSWrapper();
                 $desc = trim($desc);
-
-             //  $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
             }
             
             
@@ -356,7 +354,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $fileName->setData($object);
             $fileName->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
-            //$fileName->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
             $dialog->addWidget($fileName);
         }
 
@@ -418,7 +415,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
                 $dialog->addWidget($textAreaDescription);
-                //$dialog->addWidget($jsWrapperPicture);
             }
         } else if ($type == "forum") {
             $creatorId = $creator->get_id();
