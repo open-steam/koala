@@ -74,8 +74,8 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                 $addedSanctionsPerUser = $this->object->get_sanction();
                 
                 //set every value in this array to 0
-                $setNull = function($value) { return 0; };
-                $addedSanctionsPerUser = array_map($setNull, $addedSanctionsPerUser);
+                //$setNull = ;
+                $addedSanctionsPerUser = array_map(function($value) { return 0; }, $addedSanctionsPerUser);
                 
                 //then sum up the rights the user has
                 foreach($this->sanctionsDecoded as $sanction=>$value){
@@ -89,7 +89,7 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
 
                     if($value){
                         //if the sanction is set to true, 
-                        //add the specific sanction constant-value to the int value that is to be set now
+                        //add the specific sanction constant-value to the int value that is to be set in the next step
                         $addedSanctionsPerUser[$holderOfRightsId] |= $this::getSanctionConstant($sanctionString);
                     }
                 }
@@ -97,10 +97,20 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                 //traverse the $addedSanctionsPerUser Array 
                 //and set the sanction-value for each user listed
                 foreach ($addedSanctionsPerUser as $holderOfRightsId => $sanction){
-                    $holderOfRightsObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $holderOfRightsId);
-                    $this->object->sanction($sanction, $holderOfRightsObject);
+                    $holderOfRightsObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $holderOfRightsId, CLASS_OBJECT);
+                    $ret1 = $this->object->sanction($sanction, $holderOfRightsObject);
+                    
+                    var_dump($ret1 . " ". $sanction);
+                    var_dump($this->object->get_sanction());
+                    //sanction_meta auf SANCTION_ALL setzen, wenn SANCTION_SANCTION gesetzt ist
+                    if($this->object->check_access(SANCTION_SANCTION, $holderOfRightsObject)){
+                        
+                    $ret = $this->object->sanction_meta(SANCTION_ALL, $holderOfRightsObject);
+                    //die("hier ". $ret. "    ".SANCTION_ALL);
+                    }
                     
                 }
+                die("ende");
             break;
             
             //sets or unsets the acquiering of sanctions
@@ -115,15 +125,15 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                     $sanction = $this->object->get_sanction();
                     foreach ($sanction as $id => $sanct) {
                         if ($id !== $currentUser->get_id()) {
-                            $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id));
-                            $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id));
+                            $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
+                           // $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
                         }
                     }
                 } else {
 
-                    //give the current user all rights ans set the acquiring to false
+                    //give the current user all rights and set the acquiring to false
                     $this->object->sanction(SANCTION_ALL, $currentUser);
-                    $this->object->sanction_meta(SANCTION_ALL, $currentUser);
+                   // $this->object->sanction_meta(SANCTION_ALL, $currentUser);
                     $this->object->set_acquire(0);
                 }
                
@@ -144,21 +154,18 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                         if ($currentUserId != $userOrGroupId) {
                             
                             $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId, CLASS_OBJECT));
-                            $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId, CLASS_OBJECT));
+                         //   $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId, CLASS_OBJECT));
                         }
                     }
                 } elseif ($this->value == "user_public") {
-                    //DENY GLOBAL ACCESS
+                    
+                    $this->object->sanction(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
                     $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $everyoneId, CLASS_OBJECT));
-                    $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $everyoneId, CLASS_OBJECT));
-                    //SET LOCAL SERVER ACCESS
-                    if (!isset($sanction[$steamGroupId])) {
-                        $this->object->sanction(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
-                        $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
-                    }
+                   // $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
+                    
                 } elseif ($this->value == "server_public") {
                     $this->object->sanction(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $everyoneId, CLASS_OBJECT));
-                    $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $everyoneId, CLASS_OBJECT));
+                   // $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $everyoneId, CLASS_OBJECT));
                 }
                 
                 
@@ -179,7 +186,7 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                         if($user instanceof \Steam_user){
                             $id = $user->get_Id();
                         } else {
-                            throw new Exception("Konnte keinen Nutzer zu dem Namen".$this->value." finden");
+                            throw new Exception("Konnte keinen Nutzer zu dem Namen ".$this->value." finden");
                         }
                     } else if($this->className == "group"){
                        
@@ -188,10 +195,11 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                         if($group instanceof \Steam_group){
                             $id = $group->get_Id();
                         } else {
-                            throw new Exception("Konnte keine Gruppe zu dem Namen".$this->value." finden");
+                            throw new Exception("Konnte keine Gruppe zu dem Namen ".$this->value." finden");
                         }
                     }
                     $this->object->sanction(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
+                   // $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id, CLASS_OBJECT));
                     
                 }
                 
