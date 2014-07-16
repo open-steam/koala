@@ -34,23 +34,17 @@ define("SERVERMENU", false);
 define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome, SchoolHome");
 
 
-$whitelistDevelopment = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Startpage, Widgets, "
-                        . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Pyramiddiscussion, Rapidfeedback, Map, Questionary,"
-                        . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, Worksheet,"
-                        . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Worksheet, Webarena, Spreadsheets, "
-                        . "HomePortal, PortletUserPicture, PortletChronic, PortletBookmarks, Terms, Mokodesk";
-
-
-$whitelistLiveSystems = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Startpage, Widgets, "
-                        . "FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, Gallery, DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, Map, Questionary,"
-                        . "Mplme, Wave, Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile,"
-                        . "NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Terms, Mokodesk";
-
-
+$whitelistExtensions = "Chronic,Clipboard,FileTree,Help,Home,Imprint,Startpage,Widgets,Bookmarks,BookmarksHome,Explorer,DocumentsHome,Profile," //base extensions 1
+                        ."Favorite,NotAccess,NotFound,Ajax,Rest,Webdav,Application,Download,Error,Frame,MainMenu,SignIn,Upload,Trashbin,AsciiSvgGenerator," //base extensions 2
+                        ."FolderObject,DocumentObject,DocumentHTMLObject,Forum,DocumentPlainObject,ExitObject,LinkObject,WebLinkObject," //base objects
+                        ."PhotoAlbum,Wiki,Rapidfeedback,Map,Questionary,Mokodesk,Pyramiddiscussion,Postbox," //object type extensions
+                        ."Portal,PortalColumn,PortalOld,PortletHeadline,PortletMedia,PortletMsg,PortletPoll,PortletRss,PortletTermplan,PortletTopic,PortletAppointment," //portal and portlets
+                        ."HomePortal,PortletUserPicture,PortletChronic,PortletBookmarks" //homeportal
+                        ."bid2PathCompatibility,Terms"; //all other extensions
 
 
 //choose the extensions set
-define("EXTENSIONS_WHITELIST", $whitelistLiveSystems);
+define("EXTENSIONS_WHITELIST", $whitelistExtensions);
 
 
 // bid.lspb.de / develompent
