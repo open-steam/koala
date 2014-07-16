@@ -40,7 +40,7 @@ define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome,
 $whitelistExtensions = "Chronic,Clipboard,FileTree,Help,Home,Imprint,Startpage,Widgets,Bookmarks,BookmarksHome,Explorer,DocumentsHome,Profile," //base extensions 1
                         ."Favorite,NotAccess,NotFound,Ajax,Rest,Webdav,Application,Download,Error,Frame,MainMenu,SignIn,Upload,Trashbin,AsciiSvgGenerator," //base extensions 2
                         ."FolderObject,DocumentObject,DocumentHTMLObject,Forum,DocumentPlainObject,ExitObject,LinkObject,WebLinkObject," //base objects
-                        ."Rapidfeedback,Map,Questionary,Mokodesk,Postbox,PhotoAlbum,Pyramiddiscussion,Wiki," //object type extensions
+                        ."PhotoAlbum,Wiki,Rapidfeedback,Map,Questionary,Mokodesk,Pyramiddiscussion,Postbox," //object type extensions
                         ."Portal,PortalColumn,PortalOld,PortletHeadline,PortletMedia,PortletMsg,PortletPoll,PortletRss,PortletTermplan,PortletTopic,PortletAppointment," //portal and portlets
                         ."HomePortal,PortletUserPicture,PortletChronic,PortletBookmarks" //homeportal
                         ."bid2PathCompatibility,Terms"; //all other extensions
