@@ -37,13 +37,13 @@ define("BLACKLISTED_EXTENSIONS", "PortfolioHome, ChangeLogHome, LastVisitedHome,
 
 
 
-$whitelistExtensions = "Chronic, Clipboard, FileTree, Help, Home, Imprint, Startpage, Widgets, "
-                        ."FolderObject, DocumentObject, DocumentHTMLObject, Portal, Forum, "
-                        ."DocumentPlainObject, ExitObject, LinkObject, WebLinkObject, Rapidfeedback, Map, Questionary, "
-                        ."Bookmarks, BookmarksHome, Explorer, DocumentsHome, Favorite, PortalColumn, PortletAppointment, "
-                        ."PortletHeadline, PortletMedia, PortletMsg, PortletPoll, PortletRss, PortletTermplan, PortletTopic, Profile, "
-                        ."NotAccess, NotFound, Ajax, Rest, Webdav, Application, Download, Error, Pyramiddiscussion, "
-                        ."Frame, MainMenu, SignIn, Upload, Trashbin, AsciiSvgGenerator, Wiki, PortalOld, bid2PathCompatibility, Terms, Mokodesk";
+$whitelistExtensions = "Chronic,Clipboard,FileTree,Help,Home,Imprint,Startpage,Widgets,Bookmarks,BookmarksHome,Explorer,DocumentsHome,Profile," //base extensions 1
+                        ."Favorite,NotAccess,NotFound,Ajax,Rest,Webdav,Application,Download,Error,Frame,MainMenu,SignIn,Upload,Trashbin,AsciiSvgGenerator," //base extensions 2
+                        ."FolderObject,DocumentObject,DocumentHTMLObject,Forum,DocumentPlainObject,ExitObject,LinkObject,WebLinkObject," //base objects
+                        ."Rapidfeedback,Map,Questionary,Mokodesk,Postbox,Photoalbum,Pyramiddiscussion,Wiki," //object type extensions
+                        ."Portal,PortalColumn,PortalOld,PortletHeadline,PortletMedia,PortletMsg,PortletPoll,PortletRss,PortletTermplan,PortletTopic,PortletAppointment," //portal and portlets
+                        ."HomePortal,PortletUserPicture,PortletChronic,PortletBookmarks" //homeportal
+                        ."bid2PathCompatibility,Terms"; //all other extensions
 
 
 
