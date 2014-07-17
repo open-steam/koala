@@ -153,7 +153,7 @@ defined("LOGO_PATH_URL") or define("LOGO_PATH_URL", "http://www.hni.uni-paderbor
 defined("CREATE_RESTRICTED_TO_ROOT") or define("CREATE_RESTRICTED_TO_ROOT", "Webarena");
 
 //show tags an tag search field at explorer
-defined("EXPLORER_TAGS_VISIBLE") or define("EXPLORER_TAGS_VISIBLE", false);
+defined("EXPLORER_TAGS_VISIBLE") or define("EXPLORER_TAGS_VISIBLE", true);
 
 //imprint
 //defined("IMPRINT_LINK") or define("IMPRINT_LINK", PATH_SERVER . "/explorer/ViewDocument/926116/");

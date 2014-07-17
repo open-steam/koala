@@ -157,4 +157,7 @@ defined("LOGO_PATH_URL") or define("LOGO_PATH_URL", "http://www.hni.uni-paderbor
 
 //option for objects only root can create
 defined("CREATE_RESTRICTED_TO_ROOT") or define("CREATE_RESTRICTED_TO_ROOT", "Webarena");
+
+//show tags an tag search field at explorer
+defined("EXPLORER_TAGS_VISIBLE") or define("EXPLORER_TAGS_VISIBLE", true);
 ?>
