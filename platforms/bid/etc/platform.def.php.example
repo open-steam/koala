@@ -42,7 +42,7 @@ $whitelistExtensions = "Chronic,Clipboard,FileTree,Help,Home,Imprint,Startpage,W
                         ."FolderObject,DocumentObject,DocumentHTMLObject,Forum,DocumentPlainObject,ExitObject,LinkObject,WebLinkObject," //base objects
                         ."PhotoAlbum,Wiki,Rapidfeedback,Map,Questionary,Mokodesk,Pyramiddiscussion,Postbox," //object type extensions
                         ."Portal,PortalColumn,PortalOld,PortletHeadline,PortletMedia,PortletMsg,PortletPoll,PortletRss,PortletTermplan,PortletTopic,PortletAppointment," //portal and portlets
-                        ."HomePortal,PortletUserPicture,PortletChronic,PortletBookmarks" //homeportal
+                        ."HomePortal,PortletUserPicture,PortletChronic,PortletBookmarks," //homeportal
                         ."bid2PathCompatibility,Terms"; //all other extensions
 
 
