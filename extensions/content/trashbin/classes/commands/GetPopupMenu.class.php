@@ -14,32 +14,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
-
-		// 		if(get_magic_quotes_gpc()){
-		// 			$d = stripslashes($this->params["selection"]);
-		// 			var_dump($d);
-		// 		}else{
-		// 			$d = $this->params["selection"];
-		// 		}
-		// 		$d = json_decode($d,true);
-
-		// 		var_dump($d);
-		// 		switch(json_last_error())
-		// 		{
-		// 			case JSON_ERROR_DEPTH:
-		// 				echo ' - Maximale Stacktiefe überschritten';
-		// 				break;
-		// 			case JSON_ERROR_CTRL_CHAR:
-		// 				echo ' - Unerwartetes Steuerzeichen gefunden';
-		// 				break;
-		// 			case JSON_ERROR_SYNTAX:
-		// 				echo ' - Syntaxfehler, ungültiges JSON';
-		// 				break;
-		// 			case JSON_ERROR_NONE:
-		// 				echo ' - Keine Fehler';
-		// 				break;
-		// 		}
-		$this->selection = json_decode($this->params["selection"]);
+                $this->selection = json_decode($this->params["selection"]);
 		$this->x = $this->params["x"];
 		$this->y = $this->params["y"];
 		$this->height = $this->params["height"];
@@ -68,11 +43,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                                 $items = array(array("name" => "Endgültig löschen", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
                                             array("name" => "Ausschneiden", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}")
                                         );
-				//$items = array(
-				//array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('EmptyTrashbin', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">Endgültig löschen<img src=\"\"></a>"),
-				//array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">Ausschneiden<img src=\"\"></a>")
-				//);
-                            
 			} else {
 				$copyIcon = $explorerAssetUrl . "icons/menu/copy.png";
 				$cutIcon = $explorerAssetUrl . "icons/menu/cut.png";
@@ -80,7 +50,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				$trashIcon = $explorerAssetUrl . "icons/menu/trash.png";
 				$hideIcon = $explorerAssetUrl . "icons/menu/hide.png";
 				$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-				$schoolBookmarkIcon = \School::getInstance()->getAssetUrl() . "icons/schoolbookmark.png";
 				$upIcon = $explorerAssetUrl . "icons/menu/up.png";
 				$downIcon = $explorerAssetUrl . "icons/menu/down.png";
 				$topIcon = $explorerAssetUrl . "icons/menu/top.png";
@@ -96,7 +65,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				array("name" => "Referenzieren<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
 				array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
 				array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
-				//array("name" => "<img src=\"{$hideIcon}\">Verstecken", "command" => "Hide", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
 				array("raw" => " <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'transparent'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/transparent.png\"></a>
 																														 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'red'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/red.png\"></a>
 																														 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'orange'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/orange.png\"></a>
@@ -106,10 +74,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 																														 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'purple'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/purple.png\"></a>
 																														 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'grey'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/grey.png\"></a>"),
 				)),
-				//array("name" => "Lesezeichen<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
-				//(!\Bookmarks\Model\Bookmark::isBookmark($this->id)) ? array("name" => "Lesezeichen anlegen<img src=\"{$bookmarkIcon}\">", "command" => "AddBookmark", "namespace" => "bookmarks", "elementId" => "{$this->id}_BookmarkMarkerWrapper", "params" => "{'id':'{$this->id}'}") : "",
-				//(!\Bookmarks\Model\Bookmark::isBookmark($this->id)) ? array("name" => "Schul-Lesezeichen anlegen<img src=\"{$schoolBookmarkIcon}\">", "command" => "AddBookmark", "namespace" => "school", "elementId" => "{$this->id}_SchoolBookmarkMarkerWrapper", "params" => "{'id':'{$this->id}'}") : ""
-				//)),
 				array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
 				($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
 				($index < count($inventory)-1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}") : "",

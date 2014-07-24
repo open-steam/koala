@@ -57,7 +57,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				$trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
 				$hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
 				$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-				$schoolBookmarkIcon = \School::getInstance()->getAssetUrl() . "icons/schoolbookmark.png";
 				$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
 				$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
 				$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";

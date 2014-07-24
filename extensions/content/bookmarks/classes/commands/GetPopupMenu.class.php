@@ -73,7 +73,6 @@ public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 			$trashIcon = $explorerAssetUrl . "icons/menu/trash.png";
 			$hideIcon = $explorerAssetUrl . "icons/menu/hide.png";
 			$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-			$schoolBookmarkIcon = \School::getInstance()->getAssetUrl() . "icons/schoolbookmark.png";
 			$upIcon = $explorerAssetUrl . "icons/menu/up.png";
 			$downIcon = $explorerAssetUrl . "icons/menu/down.png";
 			$topIcon = $explorerAssetUrl . "icons/menu/top.png";
@@ -99,10 +98,6 @@ public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 																														 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'purple'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/purple.png\"></a>
 																														 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'grey'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/grey.png\"></a>"),
 			)),
-			//array("name" => "Lesezeichen<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
-			//(!\Bookmarks\Model\Bookmark::isBookmark($this->id)) ? array("name" => "Lesezeichen anlegen<img src=\"{$bookmarkIcon}\">", "command" => "AddBookmark", "namespace" => "bookmarks", "elementId" => "{$this->id}_BookmarkMarkerWrapper", "params" => "{'id':'{$this->id}'}") : "",
-			//(!\Bookmarks\Model\Bookmark::isBookmark($this->id)) ? array("name" => "Schul-Lesezeichen anlegen<img src=\"{$schoolBookmarkIcon}\">", "command" => "AddBookmark", "namespace" => "school", "elementId" => "{$this->id}_SchoolBookmarkMarkerWrapper", "params" => "{'id':'{$this->id}'}") : ""
-			//)),
 			(count($inventory) >=2 ) ? array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
 			($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
 			($index < count($inventory)-1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}") : "",

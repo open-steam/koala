@@ -32,7 +32,6 @@ class GetPopupMenuTerm extends \AbstractCommand implements \IAjaxCommand {
 		$deleteIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/delete.png";
 		$hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
 		$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-		$schoolBookmarkIcon = \School::getInstance()->getAssetUrl() . "icons/schoolbookmark.png";
 		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
 		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
 		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
@@ -42,7 +41,6 @@ class GetPopupMenuTerm extends \AbstractCommand implements \IAjaxCommand {
 		$propertiesIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties.png";
 		$rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
 		$blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
-		
 		
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"),
