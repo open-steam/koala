@@ -131,30 +131,6 @@ class HtmlDocument
     }
     
     
-    
-    /* works not
-    //document mod: replace not vaild srcs
-    preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
-    $orig_matches = $matches[0];
-    $path_matches = $matches[1];
-    foreach ($path_matches as $key => $path) {
-        $path = urldecode($path);
-        if (parse_url($path, PHP_URL_SCHEME) != null) {
-            continue;
-        }
-        var_dump($dirname . $path);
-        $ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-        if ($ref_object instanceof \steam_object) {
-            $new_path = PATH_URL . "Download/Document/" . $ref_object->get_id();
-        } else {
-            $new_path = PATH_URL . "styles/standard/images/404.jpg";
-        }
-        $html = str_replace($orig_matches[$key], "src=\"" . $new_path . "\"", $html);
-    }
-    */
-    
-    
-    
     //new
     //video mod: replace not vaild src
     preg_match_all('/<video .* src="([%a-z0-9:.\-_\/]*)".*<\/video>/iU', $html, $matches); //get the video tag, works
@@ -179,10 +155,7 @@ class HtmlDocument
             }
         }catch(\steam_exception $e){
             //object not found
-            //var_dump("not found");
         }
-        //$ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-        //replace
     }
     
     

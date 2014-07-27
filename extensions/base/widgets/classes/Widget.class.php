@@ -34,9 +34,7 @@ abstract class Widget {
 	
 	public function addWidget($widget) {
 		if (!$widget || !($widget instanceof \Widgets\Widget)) {
-			//var_dump($widget);die;
-			//TODO
-			throw new \Exception("ist nich!");
+			throw new \Exception("Fehler in Widget.class.php");
 		}
 		if ($this === $widget) {
 			//TODO
@@ -92,12 +90,8 @@ abstract class Widget {
 		if ($this->widgets) {
 			foreach ($this->widgets as $widget) {
 				$result = array_merge($result, $widget->getCssStyle());
-				//echo "loop " . get_class($widget) . "<br>";
-				//var_dump($result);
 			}
 		}
-		//echo "getCssStyle " . get_class($this) . "<br>";
-		//var_dump($result);
 		return $result;
 	}
 	
@@ -119,8 +113,6 @@ abstract class Widget {
 				$content .= $widget->getHtml();
 				
 				$stylesArray = $widget->getCssStyle();
-				//echo "1 " . "<br>";
-				//var_dump($stylesArray);
 				foreach ($stylesArray as $widgetClass => $style) {
 					$cssStyle .= $style . "\n";
 				}
@@ -140,8 +132,6 @@ abstract class Widget {
 		$result["css"] = str_replace("{PATH_URL}", PATH_URL, $cssStyle);
 		$result["html"] = $content;
 		$result["postjs"] = $postJsCode;
-		//echo "2 " . "<br>";
-		//var_dump($result);die;
 		return $result;					
 	}
 	

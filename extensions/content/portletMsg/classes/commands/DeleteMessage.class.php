@@ -66,7 +66,6 @@ END
 		if($content==0){
 			return true;
 		}
-		//var_dump("weiter");die;
 		$newContent = array();
 		foreach($content as $messageId){
 			if(!($messageId==$messageObject->get_id())) $newContent[] = $messageId;
