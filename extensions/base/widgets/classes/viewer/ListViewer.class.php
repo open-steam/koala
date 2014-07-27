@@ -120,7 +120,6 @@ class ListViewer extends Widget {
             
             //head document
             if(1===$itemCount){
-                //var_dump("test",$itemCount."test");
                 $env = $steamObject->get_environment();
                 $presentation = $env->get_attribute("bid:presentation");
                 if($presentation==="head") return true;
@@ -132,16 +131,6 @@ class ListViewer extends Widget {
             if ($userHiddenAttribute==="TRUE") $userShowHiddenObjects = true;
             if ($userHiddenAttribute==="FALSE") $userShowHiddenObjects = false;
             if($userShowHiddenObjects) return false;
-            
-            
-            //head document todo
-            /*
-            $steamObjectHiddenAttribute = $steamObject->get_attribute("bid:hidden");
-            if($steamObjectHiddenAttribute==="1"){
-                return true;
-            }
-            */
-            
             
             //hidden item
             $steamObjectHiddenAttribute = $steamObject->get_attribute("bid:hidden");

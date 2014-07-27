@@ -25,8 +25,6 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $type = $this->params["type"];
         $value = $this->params["value"];
-        //var_dump($this->object);die;
-        //echo $this->object->get_name();die;
         $sanction = $this->object->get_sanction();
         $attrib = $this->object->get_attributes(array(OBJ_NAME, OBJ_DESC, "bid:doctype"));
         $bid_doctype = isset($attrib["bid:doctype"]) ? $attrib["bid:doctype"] : "";
