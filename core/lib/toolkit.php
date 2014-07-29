@@ -328,6 +328,8 @@ function getObjectType($object) {
             $type = "pyramiddiscussion";
         } elseif ($objType === "postbox") {
             $type = "postbox";
+		} elseif ($objType === "ellenberg") {
+            $type = "ellenberg";
         } elseif ($object->get_attribute("worksheet_valid") === 1) {
             $type = "worksheet";
         } elseif ($objType === "container_webarena") {
@@ -398,6 +400,10 @@ function deriveIcon($object) {
 
     if ($objtype === "postbox")
         return "postbox.png";
+    if ($objtype === "ellenberg")
+        return "old/annotation.gif";
+
+
 
     if ($doctype === "portal") {
         return "portal_old.png";
