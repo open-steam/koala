@@ -50,7 +50,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $frameResponseObject->addWidget($hint);
         
         
-        $ellenbergUrl = 'http://'.$object->get_Attribute("ELLENBERG_URL").'/#';
+        $ellenbergUrl = 'http://amole.cs.upb.de/webapp/#';
         
         $generatorPlatform = new \Widgets\RawHtml();
         $generatorPlatform->setHtml('<div class="attribute">Generator Plattform:</div><div class="value"><a target="_blank" href="'.$ellenbergUrl.'scenario/'.$object->get_Attribute("ELLENBERG_ID").'" > '.$ellenbergUrl.'scenario/'.$object->get_Attribute("ELLENBERG_ID").'</a></div>');
@@ -59,7 +59,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $auswertungsPlatform = new \Widgets\RawHtml();
         $auswertungsPlatform->setHtml('<div class="attribute">Auswertungs Plattform:</div><div class="value"><a target="_blank" href="'.$ellenbergUrl.'summary/'.$object->get_Attribute("ELLENBERG_ID").'" > '.$ellenbergUrl.'summary/'.$object->get_Attribute("ELLENBERG_ID").'</a></div>');
         $frameResponseObject->addWidget($auswertungsPlatform);
-        
+       
         
         $environmentData = new \Widgets\RawHtml();
         $environmentData->setHtml("<input type=\"hidden\" id=\"environment\" value=\"$this->id\">");

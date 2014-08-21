@@ -1,5 +1,8 @@
 <?php
 
+//Ansprechpartner für diese Extension auf der anderen Seite ist Jonas Holtorf
+//jonas.holtorf@gmail.com
+
 class Ellenberg extends AbstractExtension implements IObjectExtension {
 
     public function getName() {

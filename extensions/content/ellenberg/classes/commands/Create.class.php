@@ -20,18 +20,18 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             throw new Exception("no values given...");
         }
         
-        //maybe we have to encode our values
+        //we have to encode our values
         $valuesJsonEncoded = json_encode($values);
         
         //Initialize a cURL session
         $curlSession = curl_init();
        
         //set the path where we want to send our message
-        curl_setopt($curlSession, CURLOPT_URL, 'http://haferfeld.de/user.php');
+        curl_setopt($curlSession, CURLOPT_URL, 'http://amole.cs.upb.de/webapp/api/createScenario ');
         //via POST (not GET)
         curl_setopt($curlSession, CURLOPT_POST, 1);
         
-        curl_setopt($curlSession, CURLOPT_POSTFIELDS, $values);
+        curl_setopt($curlSession, CURLOPT_POSTFIELDS, $valuesJsonEncoded);
         
         // Timeout in 10 seconds
         curl_setopt($curlSession, CURLOPT_TIMEOUT, 10);
@@ -40,6 +40,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
         
         $answer = curl_exec($curlSession);
+        
         curl_close ($curlSession);
         
         return json_decode($answer, true);
@@ -76,28 +77,30 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         //set up the array with the values
         $values = array(
             "user_name" => $this->userName,
-            "webdav_url" => "http://www.bid-owl.de/webdav/id/".$this->userId
+            "webdav_url" => "http://www.bid-owl.de/webdav/id/".$ellenbergObject->get_id()
         );
         
         
+        
+        $decodedAnswer = $this->communicateWithEllenbergServer($values);
         //the decodedAnswer should be of the form
         //{
         //  "ellenberg_id" => {"8-stellige id" | "error"},
-        //  "ellenberg_url" => "www.beispiel.de"
         //}
-        $decodedAnswer = $this->communicateWithEllenbergServer($values);
         
         if($decodedAnswer['ellenberg_id'] == "error") {
             //TODO: eventually delete the created object... $ellenbergObject
-            throw new Exception ("There went something wrong with the creation of the Elelnberg-Object on the remote server.");
+            throw new \Exception ("There went something wrong with the creation of the Elelnberg-Object on the remote server.");
             
+        }
+        if($decodedAnswer['ellenberg_id'] == "" || $decodedAnswer['ellenberg_id'] == "0")
+        {
+            throw new \Exception ("The value is incorrect");
         }
         
 
         //get the generated unique id from the ellenberg-server-response and set it
         $ellenbergObject->set_attribute("ELLENBERG_ID", $decodedAnswer['ellenberg_id']);
-        //and the same with the url where the ellenberg-tool can be found
-        $ellenbergObject->set_attribute("ELLENBERG_URL", $decodedAnswer['ellenberg_url']);
         //set the OBJ_TYPE to 'ellenberg' to recognize objects of this type
         $ellenbergObject->set_attribute("OBJ_TYPE", "ellenberg");
 
