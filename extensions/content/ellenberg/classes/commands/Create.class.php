@@ -1,7 +1,7 @@
 <?php
 
 namespace Ellenberg\Commands;
- //this class is used if the user wants to create a new ellenberg object
+//this class is used if the user wants to create a new ellenberg object
 //it manages the setup with the remote Ellenberg-server
 class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     
@@ -10,6 +10,12 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     private $id;
     private $userName;
     private $userId;
+    //the url where the ellenbergtool cann access the data
+    private $webdavURL = "http://www.bid-owl.de/webdav/id/";
+    //the API URL from the ellenbergtool
+    private $ellenbergURL = "http://amole.cs.upb.de/webapp/api/createScenario";
+    //the room where we want to create the object in
+    private $envRoom;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -27,10 +33,10 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $curlSession = curl_init();
        
         //set the path where we want to send our message
-        curl_setopt($curlSession, CURLOPT_URL, 'http://amole.cs.upb.de/webapp/api/createScenario ');
+        curl_setopt($curlSession, CURLOPT_URL, $this->ellenbergURL);
         //via POST (not GET)
         curl_setopt($curlSession, CURLOPT_POST, 1);
-        
+        //add the values as post parameters
         curl_setopt($curlSession, CURLOPT_POSTFIELDS, $valuesJsonEncoded);
         
         // Timeout in 10 seconds
@@ -65,37 +71,39 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         //get the room, the user wants to create the new object in
         //if no id is set, use the Documentroot of the user
         if ($this->id === "") {
-            $envRoom = $GLOBALS["STEAM"]->get_current_steam_user()->get_workroom();
-            $this->id = $envRoom->get_id();
+            $this->envRoom = $GLOBALS["STEAM"]->get_current_steam_user()->get_workroom();
+            $this->id = $this->envRoom->get_id();
         } else {
-            $envRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            $this->envRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         }
         //create a new room without any properties
-        $ellenbergObject = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(),$this->name, $envRoom);
+        $ellenbergObject = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(),$this->name, $this->envRoom);
 
         
         //set up the array with the values
         $values = array(
             "user_name" => $this->userName,
-            "webdav_url" => "http://www.bid-owl.de/webdav/id/".$ellenbergObject->get_id()
+            "webdav_url" => $this->webdavURL.$ellenbergObject->get_id()
         );
         
         
         
         $decodedAnswer = $this->communicateWithEllenbergServer($values);
-        //the decodedAnswer should be of the form
+        //the decodedAnswer should be an array of the form
         //{
         //  "ellenberg_id" => {"8-stellige id" | "error"},
         //}
         
         if($decodedAnswer['ellenberg_id'] == "error") {
-            //TODO: eventually delete the created object... $ellenbergObject
+            //we delete the recently created object
+            $ellenbergObject->delete();
             throw new \Exception ("There went something wrong with the creation of the Elelnberg-Object on the remote server.");
             
         }
-        if($decodedAnswer['ellenberg_id'] == "" || $decodedAnswer['ellenberg_id'] == "0")
-        {
-            throw new \Exception ("The value is incorrect");
+        
+        //if the returned id is empty, 0 or shorter or longer then 8 throw an exception
+        if($decodedAnswer['ellenberg_id'] == "" || $decodedAnswer['ellenberg_id'] == "0" || strlen($decodedAnswer['ellenberg_id']) != 8 ) {
+            throw new \Exception ("The returned id is incorrect");
         }
         
 
@@ -106,7 +114,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
 
 
-        //use to reload the folder with the new object
+        //use this to reload the folder with the new object
         $jswrapper = new \Widgets\JSWrapper();
         $jswrapper->setJs(<<<END
                 closeDialog();

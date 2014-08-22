@@ -1,11 +1,13 @@
 <?php
 
 namespace Ellenberg\Commands;
-
+//this class provides the popup that shows up if you want to create a new ellenberg-object in the explorer
 class NewEllenberg extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
     private $params;
     private $id;
+    private $ajaxNamespace = "Ellenberg";
+    private $ajaxCommand ="Create";
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -18,19 +20,17 @@ class NewEllenberg extends \AbstractCommand implements \IFrameCommand, \IAjaxCom
         } else if ($requestObject instanceof \AjaxRequestObject) {
             $this->params = $requestObject->getParams();
             isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
-            
-            
         }
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $ajaxForm = new \Widgets\AjaxForm();
         //who we are and where we want to go
-        $ajaxForm->setSubmitNamespace("Ellenberg");
-        $ajaxForm->setSubmitCommand("Create");
+        $ajaxForm->setSubmitNamespace($this->ajaxNamespace);
+        $ajaxForm->setSubmitCommand($this->ajaxCommand);
         
-        //add the id of the folder where we are
-        $html = '<input type="hidden" name="id" value="{'.$this->id.'}">';
+        //add the id of the folder where we are at the moment
+        $html = '<input type="hidden" name="id" value="'.$this->id.'">';
 
         //generate the input field for the name
         $textInput = new \Widgets\TextInput();
@@ -43,9 +43,7 @@ class NewEllenberg extends \AbstractCommand implements \IFrameCommand, \IAjaxCom
         $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
         
         $ajaxResponseObject->setStatus("ok");
-
         $ajaxResponseObject->addWidget($ajaxForm);
-
 
         return $ajaxResponseObject;
     }
