@@ -160,6 +160,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
+        //force the closeoperation of the dialog to reload the page to display the changed settings (tags enabled / disabled)
+        $dialog->setForceReload(true);
 
         if ($type == "userHome" || $type == "groupWorkroom") {
             $dataNameInput = new \Widgets\TextInput();
@@ -324,8 +326,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $checkboxWWW->setReadOnly(true);
         }
         
+        
         $checkboxHiddenObject = new \Widgets\Checkbox();
-        $checkboxHiddenObject->setLabel("Verstecktes Objekt");
+        $checkboxHiddenObject->setLabel("Verstecktes Objekt:");
         $checkboxHiddenObject->setCheckedValue("1");
         $checkboxHiddenObject->setUncheckedValue(0);
         $checkboxHiddenObject->setData($object);
@@ -334,6 +337,16 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (!$isWriteable) {
             $checkboxHiddenObject->setReadOnly(true);
         }
+        
+        //checkbox for the option to enable or disable the tag-column
+        $checkboxShowTags = new \Widgets\Checkbox();
+
+        $checkboxShowTags->setLabel("Tags anzeigen:");
+        $checkboxShowTags->setCheckedValue("1");
+        $checkboxShowTags->setUncheckedValue(0);
+        $checkboxShowTags->setData($object);
+        $checkboxShowTags->setContentProvider(\Widgets\DataProvider::attributeProvider("SHOW_TAGS"));
+
 
         $seperator = new \Widgets\RawHtml();
         $seperator->setHtml("<br style=\"clear:both\"/>");
@@ -379,8 +392,19 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($createdField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
+        
+        
+        
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+            //check if the attribute exists, if not: set it to false
+            if($object->get_attribute("SHOW_TAGS") == 0){
+                $object->set_attribute("SHOW_TAGS", 'false');
+            }
+            
+            //only show the option to disable the tagcolumn if tags are enabled on the system
+            $dialog->addWidget($checkboxShowTags);
+            
             $dialog->addWidget($keywordArea);
             $dialog->addWidget($tagrawHtml);
         }
