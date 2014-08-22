@@ -121,7 +121,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                     die;
                 }
 
-                die("URL-Umleitung fehlgeschlagen");
+                throw new \Exception("URL-Umleitung fehlgeschlagen");
 
                 $rawWidget = new \Widgets\RawHtml();
                 $rawWidget->setHtml("Test bid2PathCompatibility ".$requestUrl);

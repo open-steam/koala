@@ -107,8 +107,7 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                     //sanction_meta auf SANCTION_ALL setzen, wenn SANCTION_SANCTION gesetzt ist
                     if($this->object->check_access(SANCTION_SANCTION, $holderOfRightsObject)){
                         
-                    $ret = $this->object->sanction_meta(SANCTION_ALL, $holderOfRightsObject);
-                    //die("hier ". $ret. "    ".SANCTION_ALL);
+                    $this->object->sanction_meta(SANCTION_ALL, $holderOfRightsObject);
                     }
                     
 
@@ -117,7 +116,6 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                     $this->object->sanction_meta($sanction, $holderOfRightsObject); //test
 
                 }
-                die("ende");
             break;
             
             //sets or unsets the acquiering of sanctions

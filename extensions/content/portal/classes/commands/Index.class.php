@@ -43,7 +43,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $type = getObjectType($this->portalObject);
         if (!($type === "portal")) {
             \ExtensionMaster::getInstance()->send404Error();
-            die;
         }
 
         \Portal::getInstance()->setPortalObject($this->portalObject);

@@ -64,7 +64,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         if (!$object instanceof \steam_object) {
             \ExtensionMaster::getInstance()->send404Error();
-            die;
         }
 
         $objectModel = \AbstractObjectModel::getObjectModel($object);
@@ -72,7 +71,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if ($object && $object instanceof \steam_container) {
             $count = $object->count_inventory();
             if ($count > 500) {
-                die("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
+                throw new \Exception("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
             try{
             $objects = $object->get_inventory();
@@ -105,7 +104,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 if (($linkObject === NULL) || !($linkObject instanceof \steam_object)) {
 
                     \ExtensionMaster::getInstance()->send404Error();
-                    die;
                 }
                 header("location: " . PATH_URL . "explorer/Index/" . $linkObject->get_id() . "/");
                 die;
@@ -118,12 +116,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "group":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
 
             case "trashbin":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
 
             case "portal_old":
@@ -148,12 +144,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "portalColumn":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
 
             case "portalPortlet":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
 
             case "userHome":
@@ -179,7 +173,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "unknown":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
         }
         $title = getCleanName($object, 65);

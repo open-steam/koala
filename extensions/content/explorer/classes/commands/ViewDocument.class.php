@@ -23,7 +23,6 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
 
             if (!($object instanceof \steam_object)) {
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
             }
             $noSanctionDialog = false;
             if (intval($object->check_access(SANCTION_SANCTION)) === 0) {

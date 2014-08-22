@@ -17,12 +17,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         } catch (\Exception $e) {
             \ExtensionMaster::getInstance()->send404Error();
-            die;
         }
 
         if (!$object instanceof \steam_object) {
             \ExtensionMaster::getInstance()->send404Error();
-            die;
         }
 
         return true;

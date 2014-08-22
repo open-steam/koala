@@ -48,7 +48,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		}
 		if ($admin == 1 && $surveyCount == 0) {
 			header('Location: ' . $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id . "/");
-    		die('Redirect');
+    		die();
 		}
     	
 		// display actionbar for admin

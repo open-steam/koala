@@ -43,7 +43,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             $inventory = $column->get_inventory();
             $width = $column->get_attribute("bid:portal:column:width");
             if(strpos($width,"px")!==false) $width = substr($width, 0, -2);
-            //echo $width;die;
+
             $widthArray[]=$width;
             $widthSum += $width;
             $ele = "";
