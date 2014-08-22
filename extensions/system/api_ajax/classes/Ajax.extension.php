@@ -151,7 +151,7 @@ END
 			$ajaxResponseObject = new AjaxResponseObject();
 			// Handle request by calling command with frontcontroller
 			$result = $frontController->handleRequest($ajaxRequestObject, $ajaxResponseObject);
-			exit;
+			die;
 		}
 		//**************************************
 	}

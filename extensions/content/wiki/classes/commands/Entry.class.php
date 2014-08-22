@@ -39,11 +39,11 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 			if ( !($wiki_doc = $wiki_container->get_object_by_name( $this->params[1] ) )) {
 				if ($wiki_container->check_access_write($user)){
 					header("Location: " . PATH_URL . "wiki/edit/" . $wiki_container->get_id() . "?title=" . str_replace( ".wiki", "", $this->params[1]));
-					exit;
+					die;
 				} else {
 					$_SESSION[ "error" ] = "Der gewählte Wiki Eintrag existiert nicht.";
 					header("Location: " . PATH_URL . "wiki/glossary/" . $wiki_container->get_id());
-					exit;
+					die;
 				}
 			}
 		// end check for .wiki

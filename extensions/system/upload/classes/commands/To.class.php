@@ -79,7 +79,7 @@ class To extends \AbstractCommand implements \IFrameCommand {
                 );
 
                 header("Location: " . $backlink);
-                exit;
+                die;
             }
             else {
                 $frameResponseObject->setTitle(gettext("Upload document"));

@@ -27,7 +27,7 @@ class FrontController {
 							if (DEVELOPMENT_MODE) {
 								throw $e;
 							}
-							exit;
+							die;
 						}
 						if ($ajaxResponseObject instanceof AjaxResponseObject) {
 							$data = \Widgets\Widget::getData($ajaxResponseObject->getWidgets());
@@ -47,36 +47,36 @@ class FrontController {
 							header("Content-type: text/plain");
 							$response->write(json_encode(array("status" => $ajaxResponseObject->getStatus(), "html" =>  $data["html"], "data" => $ajaxResponseObject->getData(), "css" => $data["css"], "js" => $data["js"] . $stat, "postjs" => $data["postjs"])));
 							$response->flush();
-							exit;
+							die;
 						} else {
 							$response->setStatus("400 Bad Request");
 							$response->write("Wrong response type for \"{$ajaxRequestObject->getCommand()}\"");
 							$response->flush();
-							exit;
+							die;
 						}
 					} else {
 						$response->setStatus("400 Bad Request");
 						$response->write("Command \"{$ajaxRequestObject->getCommand()}\" not valid.");
 						$response->flush();
-						exit;
+						die;
 					}
 				} else {
 					$response->setStatus("400 Bad Request");
 					$response->write("Command parameter missing.");
 					$response->flush();
-				exit;
+				die;
 				}
 			} else {
 				$response->setStatus("400 Bad Request");
 				$response->write("Extension doesn't support commands.");
 				$response->flush();
-				exit;
+				die;
 			}
 		} else {
 			$response->setStatus("400 Bad Request");
 			$response->write("Not extension found for url");
 			$response->flush();
-			exit;
+			die;
 		}
 	}
 

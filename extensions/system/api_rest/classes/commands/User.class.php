@@ -27,7 +27,7 @@ class User extends \AbstractCommand implements \IFrameCommand {
         $result = call_user_func_array(array(__CLASS__, $this->function), $this->params?:array());
         $resultArray = getSerializedObject($result);
         echo json_encode($resultArray);
-        exit;
+        die;
     }
 
     public function getMyUser() {

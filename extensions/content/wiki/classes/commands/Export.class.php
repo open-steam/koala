@@ -51,7 +51,7 @@ class Export extends \AbstractCommand implements \IFrameCommand
                 $object_to_move = $wiki_copy;
                 $msg = "Wiki erfolgreich kopiert!";
             } else {
-                exit;
+                die;
             }
 
             $target_group_id = substr($group, 1);
@@ -69,7 +69,7 @@ class Export extends \AbstractCommand implements \IFrameCommand
 
             $_SESSION["confirmation"] = $msg;
             header("Location: " . $backlink);
-            exit;
+            die;
         }
 
         //Load courses and groups

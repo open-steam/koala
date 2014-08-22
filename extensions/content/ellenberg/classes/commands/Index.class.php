@@ -43,9 +43,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         ');
         $frameResponseObject->addWidget($cssStyles);
 
-        $hint = new \Widgets\RawHtml();
-        $hint->setHtml('<p class ="breadcrumb">Mit den folgenden Links werden Sie zu einer externen Plattform weitergeleitet.</p>');
-        $frameResponseObject->addWidget($hint);
+        $hintRemote = new \Widgets\RawHtml();
+        $hintRemote->setHtml('<p class ="breadcrumb">Mit den folgenden Links werden Sie zu einer externen Plattform weitergeleitet.</p>');
+        $frameResponseObject->addWidget($hintRemote);
         
         $generatorPlatform = new \Widgets\RawHtml();
         $generatorPlatform->setHtml('<div class="attribute">Generator Plattform:</div><div class="value"><a target="_blank" href="'.$this->ellenbergUrl.'scenario/'.$object->get_Attribute("ELLENBERG_ID").'" > '.$this->ellenbergUrl.'scenario/'.$object->get_Attribute("ELLENBERG_ID").'</a></div>');
@@ -54,6 +54,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $auswertungsPlatform = new \Widgets\RawHtml();
         $auswertungsPlatform->setHtml('<div class="attribute">Auswertungs Plattform:</div><div class="value"><a target="_blank" href="'.$this->ellenbergUrl.'summary/'.$object->get_Attribute("ELLENBERG_ID").'" > '.$this->ellenbergUrl.'summary/'.$object->get_Attribute("ELLENBERG_ID").'</a></div>');
         $frameResponseObject->addWidget($auswertungsPlatform);
+        
+        $hintLocal = new \Widgets\RawHtml();
+        $hintLocal->setHtml('<br /><br /><p class ="breadcrumb">Mit dem folgenden Link werden Sie zum Speicherort der Dateien in diesem System weitergeleitet.</p>');
+        $frameResponseObject->addWidget($hintLocal);
+        
+        $explorer = new \Widgets\RawHtml();
+        $explorer->setHtml('<div class="attribute">Gespeicherte Dateien:</div><div class="value"><a href="/explorer/index/'.$this->id.'" > /explorer/index/'.$this->id.'</a></div>');
+        $frameResponseObject->addWidget($explorer);
        
         return $frameResponseObject;
     }

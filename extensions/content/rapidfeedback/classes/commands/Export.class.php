@@ -173,9 +173,9 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 			header('Cache-Control: max-age=0');
 			$objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 			$objWriter->save('php://output'); 
-			exit();
+			die();
 		} else {
-			exit();
+			die();
 		}
 	}
 }

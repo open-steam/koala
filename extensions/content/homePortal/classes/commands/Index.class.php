@@ -16,7 +16,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             //fallback, steam user not available or loggt out
             if(!($user instanceof \steam_user)){
                 header("location: " . PATH_URL . "explorer/");
-                exit;
+                die;
             }
             
             $portal = $user->get_attribute("HOME_PORTAL");
@@ -48,7 +48,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             //\ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($portal->get_id());
             
             header("location: " . PATH_URL . "portal/Index/" . $portal->get_id() . "/");
-            exit;
+            die;
 	}
 }
 ?>

@@ -65,7 +65,7 @@ class RSS extends \AbstractCommand implements \IFrameCommand {
 			$podcast->generate_http_header();
 			$podcast->generate_xml_header( TRUE );
 		}
-		exit;
+		die;
 	}
 }
 ?>

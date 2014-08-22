@@ -13,7 +13,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
                 if (HOME_REDIRECT) {
                     header("location: " . HOME_REDIRECT_URL);
-                    exit;
+                    die;
                 }
                 
                 //chronic

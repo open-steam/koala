@@ -43,7 +43,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
                     if ($current_user->get_name() !== $author->get_attribute("OBJ_NAME")) {
                         //TODO: Error Message
                         header("Location: " . PATH_URL . "wiki/versions/" . $parent_wiki->get_id());
-                        exit;
+                        die;
                     }
 
                     $keys = array_keys($all_versions);
@@ -192,7 +192,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
                     }
 
                     header("Location: " . PATH_URL . "explorer/");
-                    exit;
+                    die;
                 }
             }
 

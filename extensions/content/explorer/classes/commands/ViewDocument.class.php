@@ -224,7 +224,7 @@ END
                 return $frameResponseObject;
             }
         } else {
-            header("location: " . PATH_URL . "404/");
+            ExtensionMaster::getInstance()->send404Error();
         }
     }
 

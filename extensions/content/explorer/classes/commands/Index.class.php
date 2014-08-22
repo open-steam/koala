@@ -244,7 +244,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $first = $objects[0];
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($first->get_id(), "view");
                 header("location: {$url}");
-                exit;
+                die;
             }
         }
 

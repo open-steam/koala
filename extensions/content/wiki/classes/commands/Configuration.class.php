@@ -127,7 +127,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 					} else {
 						header("Location: " . $backlink);
 					}
-				    exit;
+				    die;
 				}*/
                         
                                 $wiki_container->set_attribute(OBJ_NAME, $values["name"]);

@@ -19,7 +19,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
         echo "hallo Welt";
-        exit;
+        die;
 	}
 }
 ?>
