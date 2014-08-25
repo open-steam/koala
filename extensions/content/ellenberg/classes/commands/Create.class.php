@@ -11,7 +11,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     private $userName;
     private $userId;
     //the url where the ellenbergtool cann access the data
-    private $webdavURL = "http://www.bid-owl.de/webdav/id/";
+    private $webdavURL = "http://webdav.bid-owl.de/id/";
     //the API URL from the ellenbergtool
     private $ellenbergURL = "http://amole.cs.upb.de/webapp/api/createScenario";
     //the room where we want to create the object in
