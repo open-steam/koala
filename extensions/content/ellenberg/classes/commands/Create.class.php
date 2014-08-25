@@ -18,6 +18,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     private $envRoom;
 
     public function validateData(\IRequestObject $requestObject) {
+        //nothing to validate here
         return true;
     }
     
@@ -83,8 +84,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         //set up the array with the values
         $values = array(
             "user_name" => $this->userName,
-            "webdav_url" => $this->webdavURL."1043435"
-            //"webdav_url" => $this->webdavURL.$ellenbergObject->get_id()
+            "webdav_url" => $this->webdavURL.$ellenbergObject->get_id()
         );
         
         
@@ -104,6 +104,8 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         
         //if the returned id is empty, 0 or shorter or longer then 8 throw an exception
         if($decodedAnswer['ellenberg_id'] == "" || $decodedAnswer['ellenberg_id'] == "0" || strlen($decodedAnswer['ellenberg_id']) != 8 ) {
+            //we delete the recently created object
+            $ellenbergObject->delete();
             throw new \Exception ("The returned id is incorrect");
         }
         

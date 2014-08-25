@@ -29,7 +29,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //generate the output
         //this is the header
         $headlineHtml = new \Widgets\Breadcrumb();
-        $headlineHtml->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/old/annotation.gif\" /> " . $object->get_name() . " - ein Ellenbergtool ")));
+        $headlineHtml->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/old/annotation.gif\" /> " . $object->get_name() . " - Ellenbergauswertung ")));
         $frameResponseObject->addWidget($headlineHtml);
 
         //set some css code
@@ -46,23 +46,29 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $frameResponseObject->addWidget($cssStyles);
 
         $hintRemotePlatform = new \Widgets\RawHtml();
-        $hintRemotePlatform->setHtml('<p class ="breadcrumb">Mit den folgenden Links werden Sie zu einer externen Plattform weitergeleitet.</p>');
+        $hintRemotePlatform->setHtml('<p class ="breadcrumb">Mit den folgenden Links können Sie die Ellenberg-Auswertungsplattform aufrufen.'
+                .'<br />Diese ist kein direkter Bestandteil von bid, sondern auf einem externen Server untergebracht.'
+                .'<br />Für die Benutzung dieser Ellenberganwendung ist eine erneute Anmeldung mit den bid-Zugangsdaten erforderlich.</p>');
+                
         $frameResponseObject->addWidget($hintRemotePlatform);
         
         $generatorPlatform = new \Widgets\RawHtml();
-        $generatorPlatform->setHtml('<div class="attribute">Generator Plattform:</div><div class="value"><a target="_blank" href="'.$this->ellenbergUrl.'scenario/'.$object->get_Attribute("ELLENBERG_ID").'/'.$userLoginName.'" > '.$this->ellenbergUrl.'scenario/'.$object->get_Attribute("ELLENBERG_ID").'/'.$userLoginName.'</a></div>');
+        $generatorPlatform->setHtml('Unter folgendem Link können Sie Ellenbergerhebungsbögen erstellen:'
+                . '<div class="attribute">Auswertungsbogen erstellen:</div><div class="value"><a target="_blank" href="'.$this->ellenbergUrl.'scenario/'.$object->get_Attribute("ELLENBERG_ID").'/'.$userLoginName.'" > '.$this->ellenbergUrl.'scenario/'.$object->get_Attribute("ELLENBERG_ID").'/'.$userLoginName.'</a></div>');
         $frameResponseObject->addWidget($generatorPlatform);
         
         $summaryPlatform = new \Widgets\RawHtml();
-        $summaryPlatform->setHtml('<div class="attribute">Auswertungs Plattform:</div><div class="value"><a target="_blank" href="'.$this->ellenbergUrl.'summary/'.$object->get_Attribute("ELLENBERG_ID").'/'.$userLoginName.'" > '.$this->ellenbergUrl.'summary/'.$object->get_Attribute("ELLENBERG_ID").'/'.$userLoginName.'</a></div>');
+        $summaryPlatform->setHtml('<br />Unter folgendem Link können Sie Ellenbergerhebungsbögen auswerten:'
+                . '<div class="attribute">Erhebung auswerten:</div><div class="value"><a target="_blank" href="'.$this->ellenbergUrl.'summary/'.$object->get_Attribute("ELLENBERG_ID").'/'.$userLoginName.'" > '.$this->ellenbergUrl.'summary/'.$object->get_Attribute("ELLENBERG_ID").'/'.$userLoginName.'</a></div>');
         $frameResponseObject->addWidget($summaryPlatform);
         
         $hintLocal = new \Widgets\RawHtml();
-        $hintLocal->setHtml('<br /><br /><p class ="breadcrumb">Mit dem folgenden Link werden Sie zum Speicherort der Dateien in diesem System weitergeleitet.</p>');
+        $hintLocal->setHtml('<p class ="breadcrumb">Wenn Sie die Daten aus der Ellenbergauswertungsplattform exportieren,</br>'
+                . 'werden sie unter folgendem Link gespeichert:</p>');
         $frameResponseObject->addWidget($hintLocal);
         
         $explorer = new \Widgets\RawHtml();
-        $explorer->setHtml('<div class="attribute">Gespeicherte Dateien:</div><div class="value"><a href="/explorer/index/'.$this->id.'" > /explorer/index/'.$this->id.'</a></div>');
+        $explorer->setHtml('<div class="attribute">Exportierte Dateien:</div><div class="value"><a href="'.PATH_SERVER.'/explorer/index/'.$this->id.'" > '.PATH_SERVER.'/explorer/index/'.$this->id.'</a></div>');
         $frameResponseObject->addWidget($explorer);
        
         return $frameResponseObject;
