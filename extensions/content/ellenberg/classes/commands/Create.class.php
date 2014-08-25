@@ -83,7 +83,8 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         //set up the array with the values
         $values = array(
             "user_name" => $this->userName,
-            "webdav_url" => $this->webdavURL.$ellenbergObject->get_id()
+            "webdav_url" => $this->webdavURL."1043435"
+            //"webdav_url" => $this->webdavURL.$ellenbergObject->get_id()
         );
         
         
