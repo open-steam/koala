@@ -44,6 +44,7 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        
         // list of valid extensions, ex. array("jpeg", "xml", "bmp")
         $allowedExtensions = array();
         // max file size in bytes
@@ -55,6 +56,8 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         // to pass data through iframe you will need to encode all html tags
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         die;
+          
+         
     }
 
 }

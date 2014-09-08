@@ -33,8 +33,13 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $postboxObject->set_attribute("OBJ_TYPE", "postbox");
         if ($this->params["checkVal"] === "true") {
             $postboxObject->set_attribute("bid:postbox:deadline", "");
-        } else {
-            $postboxObject->set_attribute("bid:postbox:deadline", $this->params["deadline"]);
+        } else { 
+            //check if the given date is of the corect form e.g. '25.08.2014 00:10'
+            if(preg_match("/^\d{1,2}\.\d{1,2}\.\d{4} \d{2}:\d{2}/isU", $this->params["deadline"])){
+                $postboxObject->set_attribute("bid:postbox:deadline", $this->params["deadline"]);
+            } else {
+                $postboxObject->set_attribute("bid:postbox:deadline", "");
+            }
         }
         
         $innerContainer = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "postbox_container", $postboxObject);

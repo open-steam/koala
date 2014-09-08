@@ -37,11 +37,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        
         if (isset($this->id)) {
+            
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
             if ($object instanceof \steam_exit) {
+            
                 $object = $object->get_exit();
                 $this->id = $object->get_id();
+                
             }
         } else {
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -63,18 +67,23 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         if (!$object instanceof \steam_object) {
+            
             \ExtensionMaster::getInstance()->send404Error();
         }
 
         $objectModel = \AbstractObjectModel::getObjectModel($object);
 
         if ($object && $object instanceof \steam_container) {
+            
             $count = $object->count_inventory();
             if ($count > 500) {
+            
                 throw new \Exception("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
             try{
+                
             $objects = $object->get_inventory();
+            
             }catch(NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
         } else {
             $objects = array();

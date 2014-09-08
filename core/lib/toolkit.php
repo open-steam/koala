@@ -622,13 +622,9 @@ function getObjectReadableSize($object) {
                 $html = $counter . " Objekte";
             }
         } elseif ($type == "postbox") {
-            $datetime = $object->get_attribute("bid:postbox:deadline");
-            if ($datetime == 0 || $datetime == "") {
-                $html = "-";
-            } else {
-                $deadlineArray = explode(" ", $datetime);
-                $html = $deadlineArray[0];
-            }
+            $counter = count($object->get_inventory()[0]->get_inventory());
+            $html = $counter;
+            $html .= ($counter == 1)? " Abgabe" : " Abgaben";            
         } elseif ($type == "portal") {
             $counter = count($object->get_inventory());
             $html = $counter;

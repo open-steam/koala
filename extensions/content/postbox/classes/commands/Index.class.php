@@ -17,7 +17,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-
+        
 
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -31,21 +31,30 @@ class Index extends \AbstractCommand implements \IFrameCommand {
          */
 
         $container = $obj->get_attribute("bid:postbox:container");
+        $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
         $checkAccessWrite = $obj->check_access_write();
         $checkAccesRead = ($currentSteamUserName == "guest") ? false : true;
-        $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
         $isDeadlineSet = true;
 
-        if ($deadlineDateTime == "" || $deadlineDateTime == 0) {
+        if (!preg_match("/^\d{1,2}\.\d{1,2}\.\d{4} \d{2}:\d{2}/isU", $deadlineDateTime)) {
+            
             $isDeadlineSet = false;
+            if($checkAccessWrite){
+                $obj->set_attribute("bid:postbox:deadline", "");
+            }
+            
         }
+        
+        
         if ($isDeadlineSet) {
             //determine current date
             $now = mktime(date("H"), date("i"), 0, date("n"), date("j"), date("Y"));
             //compute Deadline
             $deadlineArray = explode(" ", $deadlineDateTime);
+            
             //0 -> day, 1 -> month, 2 -> year  
             $deadlineDate = explode(".", $deadlineArray[0]);
+            
             // 0 -> hour, 1 -> minute
             $deadlineTime = explode(":", $deadlineArray[1]);
             $deadline = mktime($deadlineTime[0], $deadlineTime[1], 0, $deadlineDate[1], $deadlineDate[0], $deadlineDate[2]);
@@ -104,8 +113,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $actionBar = new \Widgets\ActionBar();
             $actionBar->setActions(array(
                 array("name" => "Zu Ordner umwandeln", "ajax" => array("onclick" => array("command" => "Release", "params" => array("id" => $this->id), "requestType" => "data"))),
-                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "Explorer"))),
+                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup")))
+                //the rights dialog is here not neccessary
+                //array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "Explorer"))),
+
+                
             ));
             $frameResponseObject->addWidget($actionBar);
             $frameResponseObject->addWidget($cssStyles);
@@ -125,7 +137,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $(".left").attr("onclick", "releaseFolder();");
 END
             );
+                            
+                            
             $frameResponseObject->addWidget($jsWrapper);
+            
+          
+                
             if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
                 $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
@@ -148,6 +165,8 @@ END
             $clearer = new \Widgets\Clearer();
             $frameResponseObject->addWidget($clearer);
             $frameResponseObject->addWidget($clearer);
+            
+            
 
             $loader = new \Widgets\Loader();
             $loader->setWrapperId("postboxWrapper");
@@ -162,6 +181,8 @@ END
 
             $frameResponseObject->addWidget($environmentData);
             $frameResponseObject->addWidget($loader);
+            
+            
         } else if ($checkAccesRead) {
 
             $currentUserFullName = $GLOBALS["STEAM"]->get_current_steam_user()->get_full_name();
@@ -237,9 +258,7 @@ END
             if ($isButtonSet) {
                 $frameResponseObject->addWidget($buttonHtml);
             }
-        } else {
-            
-        }
+        } 
         return $frameResponseObject;
     }
 
