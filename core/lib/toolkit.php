@@ -622,7 +622,10 @@ function getObjectReadableSize($object) {
                 $html = $counter . " Objekte";
             }
         } elseif ($type == "postbox") {
-            $counter = count($object->get_inventory()[0]->get_inventory());
+            $outerInventory = $object->get_inventory();
+            $outerInventoryFirstElement = $outerInventory[0];
+            $innerInventory = $outerInventoryFirstElement->get_inventory();
+            $counter = count($innerInventory);
             $html = $counter;
             $html .= ($counter == 1)? " Abgabe" : " Abgaben";            
         } elseif ($type == "portal") {
