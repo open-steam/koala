@@ -80,11 +80,14 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         //create a new room without any properties
         $ellenbergObject = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(),$this->name, $this->envRoom);
 
+        //TODO
+        //$webdavExportUrl = $this->webdavURL.$ellenbergObject->get_id(); //correct path
+        $webdavExportUrl = $this->webdavURL."1043435"; //test
         
         //set up the array with the values
         $values = array(
             "user_name" => $this->userName,
-            "webdav_url" => $this->webdavURL.$ellenbergObject->get_id()
+            "webdav_url" => $webdavExportUrl
         );
         
         
