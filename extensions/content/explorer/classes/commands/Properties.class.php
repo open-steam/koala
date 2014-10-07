@@ -267,6 +267,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 }
             }
             $kwList = array_unique($kwList);
+            //sort the keywordarray in an ascending order
+            sort($kwList);
             $taglist = array();
             foreach ($kwList as $kw) {
                 $tagWidget = new \Widgets\Tag();
