@@ -70,6 +70,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             
             \ExtensionMaster::getInstance()->send404Error();
         }
+        
+        //if the object is not a steam_container it cannot have any inventory.
+        if (!$object instanceof \steam_container) {
+            
+            throw new \Exception("This object cannot contain any objects.");
+        }
+        
 
         $objectModel = \AbstractObjectModel::getObjectModel($object);
 
@@ -330,7 +337,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $kwList[] = $element;
             }
         }
-
+        
 
         $popupMenuSearch = new \Widgets\PopupMenu();
         $popupMenuSearch->setCommand("GetPopupMenuSearch");
