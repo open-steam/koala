@@ -26,6 +26,10 @@ class DataProvider {
         static function nameURLEncodeDataProvider() {
                 return new NameURLEncodeDataProvider();
         }
+        
+        static function nameAttributeDataProvider() {
+                return new NameAttributeDataProvider();
+        }
 	
 }
 ?>

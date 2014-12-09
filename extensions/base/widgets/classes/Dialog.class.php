@@ -5,14 +5,20 @@ class Dialog extends Widget
 {
     private $title = "";
     private $description ="";
-    private $positionX = 0;
-    private $positionY = 0;
+   // private $positionX = 0;
+   // private $positionY = 0;
     private $width = "500px";
-    private $closeJs = "location.reload();";
-    private $showCloseIcon = false;
-    private $closeButtonLabel = "Speichern & Schließen";
-    private $forceReload = false;
-    private $buttons;
+    
+    //private $showCloseIcon = false; obsolet
+    
+    private $saveAndCloseButtonLabel = "Speichern & Schließen";
+    private $saveAndCloseButtonJs = "";
+    private $saveAndCloseButtonForceReload = true;
+    
+    private $cancelButtonLabel = "Schließen ohne zu speichern";
+    private $cancelButtonJs = "";
+    
+    private $customButtons;
 
     public function setTitle($title)
     {
@@ -23,84 +29,151 @@ class Dialog extends Widget
     {
         $this->description = $description;
     }
-
+    
+    //TODO: den aufruf dieser methode aus dem projekt durch setSaveAndCloseButtonLabel ersetzen
     public function setCloseButtonLabel($closeButtonLabel)
-    {
-        $this->closeButtonLabel = $closeButtonLabel;
-    }
+    {   //if someone calls the old function write a log entry
+        $last=next(debug_backtrace());
+        \logging::write_log( LOG_MESSAGES, "The function setCloseButtonLabel is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
+        
 
+        //forward the medthodcall to the new method
+        $this->setSaveAndCloseButtonLabel($closeButtonLabel);
+    }
+    
+
+    
+    public function setCancleButtonLabel($cancleButtonLabel)
+    {
+        $this->cancleButtonLabel = $cancleButtonLabel;
+    }
+    //TODO: den aufruf dieser methode aus dem projekt entfernen
     public function setPositionX($positionX)
     {
         $this->positionX = $positionX;
     }
-
+    //TODO: den aufruf dieser methode aus dem projekt entfernen
     public function setPositionY($positionY)
     {
         $this->positionY = $positionY;
     }
 
+    
+    /**
+     * 
+     * @param int $width dialodwidth in pixels without 'px' at the end
+     */
     public function setWidth($width)
     {
         $this->width = $width . "px";
     }
 
-    public function setCloseJs($code)
+    public function setSaveAndCloseButtonLabel($saveAndCloseButtonLabel)
     {
-        $this->closeJs = $code;
+        $this->saveAndCloseButtonLabel = $saveAndCloseButtonLabel;
+    }
+    
+    public function setSaveAndCloseButtonJs($saveAndCloseButtonJs)
+    {
+        $this->saveAndCloseButtonJs = $saveAndCloseButtonJs;
+    }
+    
+    /**
+     * former method name: setForceReload($forceReload)
+     * @param boolean $saveAndCloseButtonForceReload set to true to enable the autoreload 
+     */
+    public function setSaveAndCloseButtonForceReload($saveAndCloseButtonForceReload)
+    {
+        $this->saveAndCloseButtonForceReload = $saveAndCloseButtonForceReload;
+    }
+    
+    public function setForceReload($forceReload){
+        //if someone calls the old function write a log entry
+        $last=next(debug_backtrace());
+        \logging::write_log( LOG_MESSAGES, "The function setForceReload is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
+        
+        //forward the medthodcall to the new method
+        $this->setSaveAndCloseButtonForceReload($forceReload);
     }
 
-    public function setButtons($buttons)
-    {
-        $this->buttons = $buttons;
+    
+    /**
+     * this method is deprecated!
+     * use setCustomButtons instead
+     * @param type $customButtons custom buttons
+     */
+    
+    public function setButtons($customButtons){
+        //if someone calls the old function write a log entry
+        $last=next(debug_backtrace());
+        \logging::write_log( LOG_MESSAGES, "The function setButtons is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
+        
+        $this->setCustomButtons($customButtons);
     }
 
-    public function setForceReload($forceReload)
+            
+    /**
+     * former method name: setButtons
+     * @param Array $customButtons custom buttons the user wants to use
+     */
+    public function setCustomButtons($customButtons)
     {
-        $this->forceReload = $forceReload;
+        $this->customButtons = $customButtons;
     }
+    
 
-    public function getHtml()
-    {
-        $html = "";
-        foreach ($this->getWidgets() as $widget) {
-            $html .= $widget->getHtml();
-        }
-        $this->getContent()->setVariable("DIALOG_TITLE", $this->title);
-        if ($this->description !== "") {
-            $this->getContent()->setVariable("DIALOG_DESCRIPTION", $this->description);
-        }
-        $this->getContent()->setVariable("DIALOG_CONTENT", $html);
-        $this->getContent()->setVariable("DIALOG_POSITION_X", $this->positionX);
-        $this->getContent()->setVariable("DIALOG_POSITION_Y", $this->positionY);
+    public function getHtml() {
+        
         $this->getContent()->setVariable("DIALOG_WIDTH", $this->width);
-        if ($this->buttons && is_array($this->buttons)) {
-            $this->buttons = array_reverse($this->buttons);
-            foreach ($this->buttons as $button) {
-                $this->getContent()->setCurrentBlock("BLOCK_BUTTON_CANCEL");
+        $this->getContent()->setVariable("DIALOG_TITLE", $this->title);
+        $this->getContent()->setVariable("DIALOG_DESCRIPTION", $this->description);
+
+        
+        $content = "";
+        foreach ($this->getWidgets() as $widget) {
+            $content .= $widget->getHtml();
+        }
+
+        $this->getContent()->setVariable("DIALOG_CONTENT", $content);
+        //$this->getContent()->setVariable("DIALOG_POSITION_X", $this->positionX);
+        //$this->getContent()->setVariable("DIALOG_POSITION_Y", $this->positionY);
+
+
+        
+        if ($this->customButtons && is_array($this->customButtons)) {
+            $this->customButtons = array_reverse($this->customButtons);
+            foreach ($this->customButtons as $button) {
+                $this->getContent()->setCurrentBlock("BLOCK_CUSTOM_BUTTONS");
                 $this->getContent()->setVariable("BUTTON_CLASS", $button["class"]);
                 $this->getContent()->setVariable("BUTTON_JS", $button["js"]);
                 $this->getContent()->setVariable("BUTTON_LABEL", $button["label"]);
-                $this->getContent()->parse("BLOCK_BUTTON_CANCEL");
+                $this->getContent()->parse("BLOCK_CUSTOM_BUTTONS");
             }
         }
+        
+        if (isset($this->cancelButtonLabel)) {
+            $this->getContent()->setCurrentBlock("CANCEL_BUTTON");
+            $this->getContent()->setVariable("CANCEL_BUTTON_LABEL", $this->cancelButtonLabel);
+            
+            $this->getContent()->setVariable("CANCEL_BUTTON_JS", $this->cancelButtonJs);
+            
+            $this->getContent()->parse("CANCEL_BUTTON");
+        }
 
-                //close button
-                if (isset($this->closeButtonLabel)) {
-                    $this->getContent()->setCurrentBlock("BLOCK_BUTTON_CLOSE");
-
-                    $this->getContent()->setVariable("CLOSE_BUTTON_LABEL", $this->closeButtonLabel);
-
-                    if ($this->closeJs) {
-                        $this->getContent()->setVariable("DIALOG_CLOSE_JS", $this->closeJs);
-                    }
-
-                    if ($this->forceReload) {
-                        $this->getContent()->setVariable("RELOAD_CODE", "true");
-                    } else {
-            $this->getContent()->setVariable("RELOAD_CODE", "jQuery('#dialog_wrapper').find('.changed, .saved').length > 0");
-                    }
-                    $this->getContent()->parse("BLOCK_BUTTON_CLOSE");
-                }
+        //button to save the changes and close the dialog
+        if (isset($this->saveAndCloseButtonLabel)) {
+            $this->getContent()->setCurrentBlock("SAVE_AND_CLOSE_BUTTON");
+            $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_LABEL", $this->saveAndCloseButtonLabel);
+            
+            $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_JS", $this->saveAndCloseButtonJs);
+            
+            if ($this->saveAndCloseButtonForceReload) {
+                $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_RELOAD", "location.reload();");
+            } else {
+                $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_RELOAD", "");
+            }
+            $this->getContent()->parse("SAVE_AND_CLOSE_BUTTON");
+        }
 
         return $this->getContent()->get();
     }

@@ -32,10 +32,9 @@ class AttributeDataProvider implements IDataProvider {
 			$objectId = $object->get_id();
 		}
 		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
-		return <<< END
-window.ajaxSaving==true;
-sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': value}, '', 'data'{$function});
-END;
+                $variableName = ($elementId)? $elementId:'value';
+		return "sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': {$variableName}}, '', 'data'{$function});";
+
 	}
 	
 	public function isChangeable($object) {

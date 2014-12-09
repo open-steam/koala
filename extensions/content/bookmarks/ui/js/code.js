@@ -22,7 +22,12 @@ jQuery(document).ready(function(){
 	});
 });
 
-function removeAllDirectEditors() {
+function removeAllDirectEditors(save) {
+        if(save){
+        $('.changed').each(function(number, obj) {
+                        eval($(obj).attr('data-saveFunction'));
+                    }); 
+        }
 	var elements = jQuery(".directEditor");
 	if (elements) {
 		for(i=0; i<elements.length; i++) {
@@ -36,6 +41,7 @@ function removeAllDirectEditors() {
 function removeDirectEditor(objectId, elementId) {
 	jQuery("#" + elementId).removeClass("directEditor").html("");
 	
+        //get the new name
 	var obj = new Object;
 	obj.id = objectId;
 	sendRequest("GetLabel", obj, elementId, "updater",null,null,"explorer");

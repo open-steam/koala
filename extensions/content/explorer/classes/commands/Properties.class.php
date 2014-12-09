@@ -172,11 +172,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         } else {
             $dataNameInput = new \Widgets\TextInput();
             $dataNameInput->setLabel("{$labelName}");
+            $dataNameInput->setData($object);
             if (!$isWriteable) {
                 $dataNameInput->setReadOnly(true);
             }
-            $dataNameInput->setData($object);
-            $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
+            $dataNameInput->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
             
             
             //create description text area
@@ -368,7 +368,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $fileName->setReadOnly(true);
             }
             $fileName->setData($object);
-            $fileName->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
+            $fileName->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
             $dialog->addWidget($fileName);
         }
 
@@ -524,22 +524,4 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     }
 
 }
-
-class NameAttributeDataProvider extends \Widgets\AttributeDataProvider {
-
-    public function getUpdateCode($object, $elementId, $successMethode = "") {
-        if (is_int($object)) {
-            $objectId = $object;
-        } else {
-            $objectId = $object->get_id();
-        }
-        $function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
-        return <<< END
-	/*sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');*/
-	sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': value}, '', 'data'{$function});
-END;
-    }
-
-}
-
 ?>

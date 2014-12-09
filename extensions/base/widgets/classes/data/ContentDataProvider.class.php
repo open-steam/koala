@@ -29,13 +29,10 @@ class ContentDataProvider implements IDataProvider {
 			$objectId = $object->get_id();
 		}
 		$function = "";
-		if (isset($successMethod)) {
-			$function = ", function(response){{$successMethod}({$elementId}, response);}";
-		}
-		return <<< END
-sendRequest('databinding', {'id': {$objectId}, 'value': value}, '', 'data'{$function}); 
-END;
-	}
+		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
+                $variableName = ($elementId)? $elementId:'value';
+		return "sendRequest('databinding', {'id': {$objectId}, 'value': {$variableName}}, '', 'data'{$function});"; 
+        }
 	
 	public function isChangeable($object) {
 		return $object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user());

@@ -1,4 +1,4 @@
-function widgets_textareacode_changed(elementId) {
+/*function widgets_textareacode_changed(elementId) {
 	var widgets_textinput = jQuery("#" + elementId).parent();
 	widgets_textinput.find(".widgets_textareacode_save_button").show();
 	widgets_textinput.find(".widgets_textareacode_loader").hide();
@@ -74,4 +74,4 @@ function widgets_textareacode_undo_success(elementId, response) {
 	jQuery("#" + elementId).attr("undo", false);
 	jQuery("#" + elementId).attr("oldValue", "");
 	widgets_textinput.find(".widgets_textareacode_undo_button").hide();
-}
+}*/

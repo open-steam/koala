@@ -35,9 +35,8 @@ class ArrayToStringProvider implements IDataProvider {
 		}
                 
 		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
-                
-                return " 
-sendRequest('SendArrayToStringRequest', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': value}, '', 'data'{$function}, null, 'Explorer');";
+                $variableName = ($elementId)? $elementId:'value';
+                return "sendRequest('SendArrayToStringRequest', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': {$variableName}}, '', 'data'{$function}, null, 'Explorer');";
 	}
 	
 	public function isChangeable($object) {

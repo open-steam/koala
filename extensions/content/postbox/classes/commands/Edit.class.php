@@ -38,7 +38,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $dataNameInput = new \Widgets\TextInput();
         $dataNameInput->setLabel("Name der Abgabe");
         $dataNameInput->setData($obj);
-        $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", getCleanName($obj, -1)));
+        $dataNameInput->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", getCleanName($obj, -1)));
         $dialog->addWidget($dataNameInput);
         $dialog->addWidget($clearer);
 
@@ -119,23 +119,6 @@ END
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         
-    }
-
-}
-
-class NameAttributeDataProvider extends \Widgets\AttributeDataProvider {
-
-    public function getUpdateCode($object, $elementId, $successMethode = "") {
-        if (is_int($object)) {
-            $objectId = $object;
-        } else {
-            $objectId = $object->get_id();
-        }
-        $function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
-        return <<< END
-	sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');
-	sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': value}, '', 'data'{$function});
-END;
     }
 
 }

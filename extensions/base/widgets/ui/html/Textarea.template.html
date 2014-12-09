@@ -4,12 +4,18 @@
     {READONLY_JS}
 </script>
 
-<div id="{ID}" class="widget textarea {ADDITINAL_WIDGET_CLASSES}" value="{WIDGET_VALUE}" oldvalue="{WIDGET_OLD_VALUE}">
-	<div class="widgets_label {ADDITINAL_LABEL_CLASSES}"><span>{LABEL}</span></div>{LINEBREAKS}
-	<textarea {READONLY} style="{CUSTOM_TEXTAREA_STYLE}" class="{ADDITINAL_LABEL_CLASSES}">{VALUE}</textarea>
-	<div class="button save"></div>
-	<div class="icon loader"></div>
-	<div class="icon ok"></div>
-	<div class="button undo"></div>
-	<div class="icon error"></div>
+<div class="widget textarea">
+	<div class="widgets_label {ADDITIONAL_LABEL_CLASSES}"><span>{LABEL}</span></div>
+	<textarea id="{ID}" {READONLY} style="{CUSTOM_TEXTAREA_STYLE}" class="{ADDITIONAL_TEXTAREA_CLASSES}" data-oldValue="{VALUE}" value="" data-saveFunction="{SAVE_FUNCTION}"></textarea>
 </div>
+<script type="text/javascript">
+    $('#{ID}').bind('input propertychange',
+        function() {
+            if($(this).attr('data-oldValue') != $(this).val()){ $(this).addClass('changed')}
+            //update the value in the variable
+            {ID} = $(this).val();
+        }
+    );
+    //set the value initially
+    $('#{ID}').val(decodeURIComponent('{VALUE}'));
+</script>

@@ -28,7 +28,7 @@ class CopyFilterSettings extends \AbstractCommand implements \IAjaxCommand {
         }
         
         $dialog = new \Widgets\Dialog();
-        $dialog->setButtons(null);
+        //$dialog->setCustomButtons(null); not neccessary
         $dialog->setTitle("Filtereinstellungen kopieren...");
         $dialog->setCloseButtonLabel("Schließen");
         

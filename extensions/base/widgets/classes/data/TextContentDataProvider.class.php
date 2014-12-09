@@ -27,14 +27,11 @@ class TextContentDataProvider implements IDataProvider {
 		} else {
 			$objectId = $object->get_id();
 		}
-		$function = "";
-		if (isset($successMethode)) {
-			$function = ", function(response){{$successMethode}({$elementId}, response);}";
-		}
-		return <<< END
-sendRequest('databinding', {'id': {$objectId}, 'attribute': 'DOC_MIME_TYPE', 'value': 'text/html'}, '', 'data');
-sendRequest('databinding', {'id': {$objectId}, 'value': value}, '', 'data'{$function});
-END;
+		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
+                $variableName = ($elementId)? $elementId:'value';
+		return "sendRequest('databinding', {'id': {$objectId}, 'attribute': 'DOC_MIME_TYPE', 'value': 'text/html'}, '', 'data');"
+                     . "sendRequest('databinding', {'id': {$objectId}, 'value': {$variableName}}, '', 'data'{$function});";    
+
 	}
 	
 	public function isChangeable($object) {

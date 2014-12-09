@@ -17,10 +17,8 @@ class NameURLEncodeDataProvider implements IDataProvider {
 			$objectId = $object->get_id();
 		}
 		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
-		return <<< END
-window.ajaxSaving==true;
-sendRequest('DatabindingURLEncodeName', {'id': {$objectId}, 'value': value}, '', 'data'{$function});
-END;
+                $variableName = ($elementId)? $elementId:'value';
+		return "sendRequest('DatabindingURLEncodeName', {'id': {$objectId}, 'value': {$variableName}}, '', 'data'{$function});";
 	}
 	
 	public function isChangeable($object) {
