@@ -25,6 +25,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $current_room = $user->get_workroom();
 
                 $portal = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Home Portal", $current_room);
+                //hide the hopemortal by default
+                $portal->set_attribute("bid:hidden", "1");
                 $portal->set_attribute( "OBJ_TYPE", "container_portal_bid" );
 
                 $columnWidth = array("170px", "530px", "200px");
