@@ -4,29 +4,25 @@ namespace Widgets;
 
 class RadioButton extends Widget {
 
-    private $contentProvider;
+    
     private $id;
-    private $objectId;
-    private $options;
     private $data;
+    private $contentProvider;
+    private $readOnly;
     private $label;
+    
+    private $options;
     private $defaultChecked;
     private $type = "vertical";
     private $currentValue;
-    private $readOnly;
-
-    public function setReadOnly($ro) {
-        $this->readOnly = $ro;
+    private $objectId;
+    
+    
+    public function setId($id){
+        $this->id = "id_".$id."_radioButton";
     }
     
-    public function setCurrentValue($cv) {
-        $this->currentValue = $cv;
-    }
-
-    public function setLabel($label) {
-        $this->label = $label;
-    }
-
+    
     public function setData($data) {
         $this->data = $data;
         if (is_int($data)) {
@@ -36,12 +32,20 @@ class RadioButton extends Widget {
         }
     }
 
-    public function setOptions($options) {
-        $this->options = $options;
-    }
-
     public function setContentProvider($contentProvider) {
         $this->contentProvider = $contentProvider;
+    }
+
+    public function setReadOnly($ro) {
+        $this->readOnly = $ro;
+    }
+
+    public function setLabel($label) {
+        $this->label = $label;
+    }
+
+    public function setOptions($options) {
+        $this->options = $options;
     }
 
     public function setDefaultChecked($defaultChecked) {
@@ -51,9 +55,23 @@ class RadioButton extends Widget {
     public function setType($type) {
         $this->type = $type;
     }
-
+    
+    public function setCurrentValue($cv) {
+        $this->currentValue = $cv;
+    }
+    
+    public function setObjectId($objectId) {
+        $this->objectId = $objectId;
+    }
+    
+    
+    
     public function getHtml() {
-        $this->id = rand();
+        if(!isset($this->id)){
+            $this->setId(rand());
+        }
+        
+        $this->getContent()->setVariable("ID2", $this->id);
         if ($this->type == "vertical") {
             $this->getContent()->setCurrentBlock("BLOCK_RADIOBUTTON_VERTICAL");
 
@@ -90,16 +108,13 @@ class RadioButton extends Widget {
                 }  else if(isset($this->readOnly) && $this->readOnly){
                     $this->getContent()->setVariable("READONLY", "disabled");
                 }
-                    
-                
-                
 
                 $this->getContent()->setVariable("ID", $this->id);
                 $this->getContent()->setVariable("RADIONAME", $this->id);
                 $this->getContent()->setVariable("RADIOVALUE", $option["value"]);
                 $this->getContent()->setVariable("RADIOLABEL", $option["name"]);
                 if (isset($this->contentProvider)) {
-                    $this->getContent()->setVariable("ONCHANGE", "$(this).addClass('changed');".$this->contentProvider->getUpdateCode($this->data, $this->id . "_" . $option["value"]));
+                    $this->getContent()->setVariable("ONCHANGE", "$(this).addClass('changed');".$this->contentProvider->getUpdateCode($this->data, $this->id));
                 }
                 if ($currentValue === $option["value"]) {
                     $this->getContent()->setVariable("CHECKED", "checked");
@@ -148,7 +163,7 @@ class RadioButton extends Widget {
                 $this->getContent()->setVariable("RADIOVALUE_HORIZONTAL", $option["value"]);
                 $this->getContent()->setVariable("RADIOLABEL_HORIZONTAL", $option["name"]);
                 if (isset($this->contentProvider)) {
-                    $this->getContent()->setVariable("ONCHANGE_HORIZONTAL", $this->contentProvider->getUpdateCode($this->data, $this->id . "_" . $option["value"]));
+                    $this->getContent()->setVariable("ONCHANGE", $this->contentProvider->getUpdateCode($this->data, $this->id));
                 }
                 if ($currentValue == $option["value"]) {
                     $this->getContent()->setVariable("CHECKED_HORIZONTAL", "checked");

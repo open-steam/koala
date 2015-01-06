@@ -11,7 +11,7 @@ class Textarea extends Widget {
     
     private $width = "250px";
     private $height = "200px";
-    private $textareaClass = "mce-small"; // plain or code html or mce-small or mce-full
+    private $textareaClass = ""; // plain or code html or mce-small or mce-full
     private $linebreaks = "<br><br>";
     
     public function setId($id){
@@ -63,7 +63,8 @@ class Textarea extends Widget {
             $this->setId(rand());
         }
         $this->getContent()->setVariable("ID", $this->id);
-        
+        $id2 = $this->id;
+        $this->getContent()->setVariable("ID2", $id2);
         $this->getContent()->setVariable("PATH_URL", PATH_URL);
 
         //write sanction
@@ -103,9 +104,10 @@ class Textarea extends Widget {
         $this->getContent()->setVariable("ADDITIONAL_TEXTAREA_CLASSES", $this->textareaClass);
 
         $this->setPostJsCode("$('#{$this->id}').textarea({  " // calls the init method
+                                ."id : '{$this->id}',"
                                 . "value : '{$currentValue}',"
                                 . "sendFunction : function(value) { {$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textarea_save_success")} } "
-                           . "});");
+                           . "});");    
                  
         //create a PollingDummy to send some requests from time to time to avoid session expiring while typing long texts
         $pollingDummy = new PollingDummy();

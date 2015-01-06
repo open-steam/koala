@@ -11,8 +11,7 @@ class Tag extends Widget {
     }
     
         public function getHtml() {
-        $html = '
-<div class="tag" name="'.$this->keyword.'" onclick="copyToTextInput(&quot;'.$this->keyword.'&quot;);">'.$this->keyword.'</div>';
+        $html = '<div class="tag" name="'.$this->keyword.'" onclick=\'copyToTextInput(("'.$this->keyword.'"));\'>'.$this->keyword.'</div>';
         $css = '.tag{float:right;max-width:150;cursor:pointer;}';
         
         $rawHtml = new \Widgets\RawHtml();

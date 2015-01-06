@@ -281,10 +281,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             var valOld = $("input[type=text]")[1].value.trim();
             var tagfield = $("input[type=text]")[1]; 
             tagfield.value = valOld + " " + name;
-            $("#dialog_wrapper").addClass("changed");
-            sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
-            $(".tag[name="+name+"]")[0].onclick="";
-}</script><div class="tag-overview-row">';
+            
+            $(\'#'.$keywordArea->getId().'\').addClass(\'changed\');
+                
+            
+            '.$keywordArea->getId().' = tagfield.value;
+            //sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
+            
+            }</script><div class="tag-overview-row">';
 
             $breakCounter = 3;
             foreach ($taglist as $i => $tagWidget) {

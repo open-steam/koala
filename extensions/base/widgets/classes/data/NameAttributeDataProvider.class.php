@@ -11,8 +11,7 @@ class NameAttributeDataProvider extends \Widgets\AttributeDataProvider {
         }
         $function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
         $variableName = ($elementId)? $elementId:'value';
-        return "sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');"
-        . "sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': {$variableName}}, '', 'data'{$function});";
+        return "sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': {$variableName}}, '', 'data'{$function});";
     }
 }
 ?>

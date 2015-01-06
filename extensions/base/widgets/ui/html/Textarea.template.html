@@ -9,6 +9,7 @@
 	<textarea id="{ID}" {READONLY} style="{CUSTOM_TEXTAREA_STYLE}" class="{ADDITIONAL_TEXTAREA_CLASSES}" data-oldValue="{VALUE}" value="" data-saveFunction="{SAVE_FUNCTION}"></textarea>
 </div>
 <script type="text/javascript">
+    var {ID};
     $('#{ID}').bind('input propertychange',
         function() {
             if($(this).attr('data-oldValue') != $(this).val()){ $(this).addClass('changed')}

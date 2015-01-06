@@ -41,6 +41,7 @@ function widgets_textarea_save_success(elementId, response) {
             //we also could use 'this' but then we would have to make it a jQuery object [$(this)] each time
             
             var textarea = this;
+            var identifier = options.id;
             textarea.toggleClass("dirty");
             var value = decodeURIComponent(options.value);
             textarea.attr("value", value);
@@ -64,21 +65,20 @@ function widgets_textarea_save_success(elementId, response) {
                 theme_advanced_statusbar_location: "none",
                 theme_advanced_resizing: false,
                 onchange_callback: function(e) {
-                    textarea.addClass("dirty");
+                    //executed each time the contend is modified
+                    eval(identifier + " = " + 'tinyMCE.activeEditor.getContent()');
                 },
                 handle_event_callback: function(e) {
                     if (e.type === "keyup" && tinyMCE.activeEditor.isDirty()) {
-                        textarea.addClass("dirty");
-                        $(window).bind('beforeunload', function() {
-                            return 'LeaveMessage';
-                        });
+                        textarea.addClass("changed");
                     }
                     ;
                     if (!tinyMCE.activeEditor.isDirty()) {
-                        textarea.removeClass("dirty");
+                        textarea.removeClass("changed");
                     }
                 },
                 oninit: function(e) {
+                    //if the editor is loaded set the value and set it to notDirty
                     tinyMCE.activeEditor.setContent(value), tinyMCE.activeEditor.isNotDirty = 1
                 },
                 setup: function(e) {
@@ -200,16 +200,16 @@ function widgets_textarea_save_success(elementId, response) {
             }
         },
         save: function() {
-            alert('hier');
+            //alert('hier');
             var textarea = this;
             var value;
             //alert(value);
             if (textarea.hasClass("mce-full") || textarea.hasClass("mce-small")) {
-                alert('hier');
+                //alert('hier');
                 $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
                 //tinyMCE.activeEditor.getBody().click(); 
-                value = tinyMCE.activeEditor.getContent()
-                alert(value);
+                value = tinyMCE.activeEditor.getContent();
+                
             } else if (textarea.hasClass("plain")) {
                 value = textarea.val();
             }
@@ -238,7 +238,7 @@ function widgets_textarea_save_success(elementId, response) {
         },*/
     };
 
-    //define a new function 'textarea' that can be called with parameters and forwards the call to the method above
+    //define a new function 'textarea' that can be called with parameters and forwards the call to the methods above
     $.fn.textarea = function(method) {
         // Method calling logic
         if (methods[method]) {

@@ -170,6 +170,9 @@ END
         $dialog->setTitle(" Breite bearbeiten und Sortieren des Portals »" . getCleanName($portalObj) . "«");       
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
+        //this button does not have anny effect on the autosavingprocess. It is only there to close the dialog and make the user happy
+        $dialog->setSaveAndCloseButtonLabel("Speichern & Schließen");
+        $dialog->setCancelButtonLabel();
         $dialog->addWidget($rawHtml);
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);

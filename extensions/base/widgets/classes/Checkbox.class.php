@@ -15,9 +15,6 @@ class Checkbox extends Widget {
     private $uncheckedValue = false;
     
 
-    
-    
-    
     public function setId($id){
         $this->id = "id_".$id."_checkbox";
     }

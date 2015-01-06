@@ -1,4 +1,6 @@
 <?php
+// für alle Seiten, bei denen die Widgets nicht in einem Dialog eingebunden sind, könnte man einen Speichern Button-Widget machen, das alle sichtbaren widgets speichert.
+//Der auszuführende Code steht bereits in data-SaveFunction bereit
 namespace Widgets;
 
 class Dialog extends Widget
@@ -43,9 +45,9 @@ class Dialog extends Widget
     
 
     
-    public function setCancleButtonLabel($cancleButtonLabel)
+    public function setCancelButtonLabel($cancelButtonLabel)
     {
-        $this->cancleButtonLabel = $cancleButtonLabel;
+        $this->cancelButtonLabel = $cancelButtonLabel;
     }
     //TODO: den aufruf dieser methode aus dem projekt entfernen
     public function setPositionX($positionX)

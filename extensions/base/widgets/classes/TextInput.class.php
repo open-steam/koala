@@ -22,6 +22,13 @@ class TextInput extends Widget {
     public function setId($id){
         $this->id = "id_".$id."_textinput";
     }
+    
+    public function getId(){
+        if(!isset($this->id)){
+            $this->setId(rand());
+        }
+        return $this->id;
+    }
 
     public function setName($name) {
         $this->name = $name;
