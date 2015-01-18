@@ -1,6 +1,8 @@
 <?php
-// für alle Seiten, bei denen die Widgets nicht in einem Dialog eingebunden sind, könnte man einen Speichern Button-Widget machen, das alle sichtbaren widgets speichert.
-//Der auszuführende Code steht bereits in data-SaveFunction bereit
+//textareas müssten noch genau überprüft werden, ob da das speichern überall geht
+//bei tinymce muss ein klick auf einen der buttons ebenfalls ein changed bewirken... sonst kann man nicht nur ein wort fett machen und dann speichern
+//die privacs sachen im profil haben noch einen komischen seiteneffekt
+
 namespace Widgets;
 
 class Dialog extends Widget

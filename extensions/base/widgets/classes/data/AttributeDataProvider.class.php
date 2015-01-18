@@ -25,15 +25,22 @@ class AttributeDataProvider implements IDataProvider {
 		return $this->attribute;
 	}
 	
-	public function getUpdateCode($object, $elementId, $successMethod = "") {
+	public function getUpdateCode($object, $ownVariableName, $successMethod = "") {
 		if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
-		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
-                $variableName = ($elementId)? $elementId:'value';
-		return "sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': {$variableName}}, '', 'data'{$function});";
+
+                //if the user has an own successMethod, then call both methods, else just call the data-saveFunctionCallback method to wait until everything is saved
+		$function = ($successMethod != "") ? ", function(response){dataSaveFunctionCallback(response); {$successMethod}({$ownVariableName}, response);}" : ", function(response){dataSaveFunctionCallback(response);}";
+                
+                //offer the possibility to use own variablenames
+                //standard is 'value'
+                $jsVariableName = ($ownVariableName)? $ownVariableName:'value';
+                
+                //build the functioncall
+		return "sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': {$jsVariableName}}, '', 'data'{$function});";
 
 	}
 	

@@ -337,10 +337,15 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($radioButton);
         }
         
+       
+         //save button at the end of the form
+            $saveButton = new \Widgets\SaveButton();
+            $frameResponseObject->addWidget($saveButton); 
         // close privacy div table
         $tableSecondPart = new \Widgets\RawHtml();
         $tableSecondPart->setHtml("</div>");
         $frameResponseObject->addWidget($tableSecondPart);
+       
         
         return $frameResponseObject;
     }

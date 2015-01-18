@@ -73,11 +73,14 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
                                 
 				$contentText->setContentProvider( new \Widgets\TextContentDataProvider($html));
 				$clearer = new \Widgets\Clearer();
+                                
+                                $saveButton = new \Widgets\SaveButton();
 				
 
 				$frameResponseObject->setTitle($name);
 				$frameResponseObject->addWidget($actionBar);
 				$frameResponseObject->addWidget($contentText);
+                                $frameResponseObject->addWidget($saveButton);
 				$frameResponseObject->addWidget($clearer);
 				return $frameResponseObject;
 			}

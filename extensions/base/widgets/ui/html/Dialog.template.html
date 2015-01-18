@@ -17,19 +17,24 @@
 		<div style="float:right; margin-bottom:20px;"><a class="button pill" onclick="
                     //count the changes and if there is at least one reload the site
                     var i = 0;
+                    var elementsToSave = $('.changed')
+                    var j = elementsToSave.size();
                                          
                     {SAVE_AND_CLOSE_BUTTON_JS}
-                    $('.changed').each(function(number, obj) {
+                    elementsToSave.each(function(number, obj) {
                         eval($(obj).attr('data-saveFunction'));
                         i++;
                     });
-                    //irgendwie führen zeichen wie < oder & bei den nachrichten zu fehlern....!!!!
-                    setTimeout(function() {}, 1000);
                     
-                    //$('textarea .mce-full').textarea('save');
-                   // $('textarea .mce-small').textarea('save');
-                    closeDialog();
-                    if(i > 0) {SAVE_AND_CLOSE_BUTTON_RELOAD}
+                    function dataSaveFunctionCallback(response){
+
+                        if(j == i) {
+                            closeDialog();
+                            {SAVE_AND_CLOSE_BUTTON_RELOAD}
+                        }
+                            
+                    }
+                    
                     " href="#">{SAVE_AND_CLOSE_BUTTON_LABEL}</a></div>
 		<!-- END SAVE_AND_CLOSE_BUTTON -->
 		
