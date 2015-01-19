@@ -8,13 +8,14 @@
                     {BEFORE_SAVE_JS}
                     elementsToSave.each(function(number, obj) {
                         eval($(obj).attr('data-savefunction'));
-                        i++;
+                        
                     });
                     
                     function dataSaveFunctionCallback(response){
-
+                        i++;
                         if(j == i) {
                             {SAVE_RELOAD}
+                            i = 0;
                         }
                             
                     }

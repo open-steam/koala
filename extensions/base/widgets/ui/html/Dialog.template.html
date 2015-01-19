@@ -23,14 +23,15 @@
                     {SAVE_AND_CLOSE_BUTTON_JS}
                     elementsToSave.each(function(number, obj) {
                         eval($(obj).attr('data-saveFunction'));
-                        i++;
+                        
                     });
                     
                     function dataSaveFunctionCallback(response){
-
+                        i++;
                         if(j == i) {
                             closeDialog();
                             {SAVE_AND_CLOSE_BUTTON_RELOAD}
+                            i = 0;
                         }
                             
                     }
