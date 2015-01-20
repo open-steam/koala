@@ -19,6 +19,10 @@
                     var i = 0;
                     var elementsToSave = $('.changed')
                     var j = elementsToSave.size();
+                    
+                    if(j == 0){
+                        closeDialog();
+                    }
                                          
                     {SAVE_AND_CLOSE_BUTTON_JS}
                     elementsToSave.each(function(number, obj) {

@@ -51,11 +51,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 
         $dialog = new \Widgets\Dialog();
+        $dialog->setAutoSaveDialog(true);
         $dialog->setWidth(600);
         $dialog->setTitle("Rechte von »" . getCleanName($object) . "«");
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
+        
+        
+        
 
         //GET CREATOR TODO: USEFULL FOR ROOT FOLDER
         //SET ICON URL

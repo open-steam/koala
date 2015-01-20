@@ -7,8 +7,7 @@
                                          
                     {BEFORE_SAVE_JS}
                     elementsToSave.each(function(number, obj) {
-                        eval($(obj).attr('data-savefunction'));
-                        
+                        eval($(obj).attr('data-savefunction')); 
                     });
                     
                     function dataSaveFunctionCallback(response){

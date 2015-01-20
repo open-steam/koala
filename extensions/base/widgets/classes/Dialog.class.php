@@ -15,11 +15,14 @@ class Dialog extends Widget
     
     //private $showCloseIcon = false; obsolet
     
+    private $autoSaveDialog = false;
+    private $autoSaveDialogCloseButtonLabel = "Schließen (Änderungen wurden automatisch gespeichert)";
+    
     private $saveAndCloseButtonLabel = "Speichern & Schließen";
     private $saveAndCloseButtonJs = "";
     private $saveAndCloseButtonForceReload = true;
     
-    private $cancelButtonLabel = "Schließen ohne zu speichern";
+    private $cancelButtonLabel = "Abbrechen";
     private $cancelButtonJs = "";
     
     private $customButtons;
@@ -70,6 +73,24 @@ class Dialog extends Widget
     public function setWidth($width)
     {
         $this->width = $width . "px";
+    }
+    
+    /**
+     * 
+     * @param boolean $autoSaveDialog 
+     * Some dialogs still save their data on every change. E.g. the sancions dialog
+     * If Autosave is on, the abort button is not displayed and the savebutton just closes the dialog.
+     * The autosavemechanism is not implemented in this class.
+     * saveAndCloseButtonJs is still executed
+     */
+    public function setAutoSaveDialog($autoSaveDialog) 
+    {
+        $this->autoSaveDialog = $autoSaveDialog;
+    }
+    
+    public function setAutoSaveDialogCloseButtonLabel($autoSaveDialogCloseButtonLabel)
+    {
+        $this->autoSaveDialogCloseButtonLabel = $autoSaveDialogCloseButtonLabel;
     }
 
     public function setSaveAndCloseButtonLabel($saveAndCloseButtonLabel)
@@ -155,7 +176,7 @@ class Dialog extends Widget
             }
         }
         
-        if (isset($this->cancelButtonLabel)) {
+        if (isset($this->cancelButtonLabel) && $this->cancelButtonLabel != "" && !$this->autoSaveDialog) {
             $this->getContent()->setCurrentBlock("CANCEL_BUTTON");
             $this->getContent()->setVariable("CANCEL_BUTTON_LABEL", $this->cancelButtonLabel);
             
@@ -167,7 +188,13 @@ class Dialog extends Widget
         //button to save the changes and close the dialog
         if (isset($this->saveAndCloseButtonLabel)) {
             $this->getContent()->setCurrentBlock("SAVE_AND_CLOSE_BUTTON");
-            $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_LABEL", $this->saveAndCloseButtonLabel);
+            
+            if($this->autoSaveDialog){
+                $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_LABEL", $this->autoSaveDialogCloseButtonLabel);
+            } else {
+                $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_LABEL", $this->saveAndCloseButtonLabel);
+            }
+            
             
             $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_JS", $this->saveAndCloseButtonJs);
             
