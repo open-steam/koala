@@ -2,7 +2,7 @@ function htmlEncodeHelper(value){
   return $('<div/>').text(value).html().replace('&amp;','&');
 }
 
-function widgets_textinput_save_success(elementId, response) {
+function widgets_textinput_save_success_delete_me(elementId, response) {
 	deJSON = jQuery.parseJSON(response.responseText);
 	if (deJSON) {
 		data = deJSON.data;

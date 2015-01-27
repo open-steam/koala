@@ -1,5 +1,5 @@
 
-function widgets_textarea_save_success(elementId, response) {
+function widgets_textarea_save_success_delete_me(elementId, response) {
     var widget = jQuery("#" + elementId);
     deJSON = jQuery.parseJSON(response.responseText);
     if (deJSON) {

@@ -1,4 +1,4 @@
-function widgets_datepicker_changed(elementId) {
+function widgets_datepicker_changed_delete_me(elementId) {
 	jQuery("#" + elementId).parent().children("div")[0].style.display = "block";
 	jQuery("#" + elementId).parent().children("div")[1].style.display = "none";
 	jQuery("#" + elementId).parent().children("div")[2].style.display = "none";
@@ -6,7 +6,7 @@ function widgets_datepicker_changed(elementId) {
 	jQuery("#" + elementId).parent().children("div")[4].style.display = "none";
 }
 
-function widgets_datepicker_save(elementId) {
+function widgets_datepicker_save_delete_me(elementId) {
 	jQuery("#" + elementId).parent().children("div")[0].style.display = "none";
 	jQuery("#" + elementId).parent().children("div")[1].style.display = "block";
 	jQuery("#" + elementId).parent().children("div")[2].style.display = "none";
@@ -14,7 +14,7 @@ function widgets_datepicker_save(elementId) {
 	jQuery("#" + elementId).parent().children("div")[4].style.display = "none";
 }
 
-function widgets_datepicker_save_success(elementId, response) {
+function widgets_datepicker_save_success_delete_me(elementId, response) {
 	data = jQuery.parseJSON(response.responseText).data;
 	jQuery("#" + elementId).parent().children("div")[0].style.display = "none";
 	jQuery("#" + elementId).parent().children("div")[1].style.display = "none";
@@ -38,7 +38,7 @@ function widgets_datepicker_save_success(elementId, response) {
 	}
 }
 
-function widgets_datepicker_undo_success(elementId, response) {
+function widgets_datepicker_undo_success_delete_me(elementId, response) {
 	data = jQuery.parseJSON(response.responseText).data;
 	jQuery("#" + elementId).parent().children("div")[0].style.display = "none";
 	jQuery("#" + elementId).parent().children("div")[1].style.display = "none";

@@ -1,4 +1,4 @@
-/*function widgets_textareacode_changed(elementId) {
+/*function widgets_textareacode_changed_delete_me(elementId) {
 	var widgets_textinput = jQuery("#" + elementId).parent();
 	widgets_textinput.find(".widgets_textareacode_save_button").show();
 	widgets_textinput.find(".widgets_textareacode_loader").hide();
@@ -7,7 +7,7 @@
 	widgets_textinput.find(".widgets_textareacode_error").hide();
 }
 
-function widgets_textareacode_hide_buttons(elementId) {
+function widgets_textareacode_hide_buttons_delete_me(elementId) {
 	var widgets_textinput = jQuery("#" + elementId).parent();
 	widgets_textinput.find(".widgets_textareacode_save_button").hide();
 	widgets_textinput.find(".widgets_textareacode_loader").hide();
@@ -16,7 +16,7 @@ function widgets_textareacode_hide_buttons(elementId) {
 	widgets_textinput.find(".widgets_textareacode_error").hide();
 }
 
-function widgets_textareacode_save(elementId) {
+function widgets_textareacode_save_delete_me(elementId) {
 	var widgets_textinput = jQuery("#" + elementId).parent();
 	widgets_textinput.find(".widgets_textareacode_save_button").hide();
 	widgets_textinput.find(".widgets_textareacode_loader").show();
@@ -25,7 +25,7 @@ function widgets_textareacode_save(elementId) {
 	widgets_textinput.find(".widgets_textareacode_error").hide();
 }
 
-function widgets_textareacode_save_success(elementId, response) {
+function widgets_textareacode_save_success_delete_me(elementId, response) {
 	data = jQuery.parseJSON(response.responseText).data;
 	var widgets_textinput = jQuery("#" + elementId).parent();
 	widgets_textinput.find(".widgets_textareacode_save_button").hide();
@@ -54,7 +54,7 @@ function widgets_textareacode_save_success(elementId, response) {
 	}
 }
 
-function widgets_textareacode_undo_success(elementId, response) {
+function widgets_textareacode_undo_success_delete_me(elementId, response) {
 	data = jQuery.parseJSON(response.responseText).data;
 	var widgets_textinput = jQuery("#" + elementId).parent();
 	widgets_textinput.find(".widgets_textareacode_save_button").hide();

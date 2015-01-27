@@ -21,37 +21,37 @@
 	background: #f0fcff !important;
 }
 
-.widgets_textareacode .widgets_textareacode_button, .widgets_textareacode .widgets_textareacode_loader, .widgets_textareacode .widgets_textareacode_ok, .widgets_textareacode .widgets_textareacode_error {
+.widgets_textareacode .widgets_textareacode_button_delete_me, .widgets_textareacode .widgets_textareacode_loader, .widgets_textareacode .widgets_textareacode_ok_delete_me, .widgets_textareacode .widgets_textareacode_error_delete_me {
 	float: left;
 }
 
-.widgets_textareacode_button {
+.widgets_textareacode_button_delete_me {
 	cursor: pointer;
 	height: 20px;
 	float: left;
 }
 
-.widgets_textareacode_save_button {
+.widgets_textareacode_save_button_delete_me {
 	display: none;
 	width: 68px;
 	background-image: url("{PATH_URL}widgets/asset/save.gif");
 }
 
-.widgets_textareacode_save_button:hover {
+.widgets_textareacode_save_button_delete_me:hover {
 	background-image: url("{PATH_URL}widgets/asset/save-hover.gif");
 }
 
-.widgets_textareacode_undo_button {
+.widgets_textareacode_undo_button_delete_me {
 	display: none;
 	width: 68px;
 	background-image: url("{PATH_URL}widgets/asset/undo.gif");
 }
 
-.widgets_textareacode_undo_button:hover {
+.widgets_textareacode_undo_button_delete_me:hover {
 	background-image: url("{PATH_URL}widgets/asset/undo-hover.gif");
 }
 
-.widgets_textareacode_loader {
+.widgets_textareacode_loader_delete_me {
 	display: none;
 	cursor: default;
 	height: 16px;
@@ -60,7 +60,7 @@
 	background-image: url("{PATH_URL}widgets/asset/ajax-loader.gif");	
 }
 
-.widgets_textareacode_ok {
+.widgets_textareacode_ok_delete_me {
 	display: none;
 	cursor: default;
 	height: 16px;
@@ -69,7 +69,7 @@
 	background-image: url("{PATH_URL}widgets/asset/icon_ok.png");	
 }
 
-.widgets_textareacode_error {
+.widgets_textareacode_error_delete_me {
 	display: none;
 	cursor: default;
 	height: 16px;
