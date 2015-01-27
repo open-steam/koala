@@ -22,6 +22,10 @@ class Textarea extends Widget {
         $this->label = $label;
     }
 
+    /**
+     * unused at the moment
+     * @param type $data
+     */
     public function setData($data) {
         $this->data = $data;
     }

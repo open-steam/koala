@@ -33,7 +33,7 @@ class Addpicture extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$ajaxUploader->setNamespace("explorer");
 		$ajaxUploader->setDestId($this->id);
 		$ajaxDialog->addWidget($ajaxUploader);
-		$ajaxDialog->setForceReload(true);
+		$ajaxDialog->setSaveAndCloseButtonForceReload(true);
 		$ajaxResponseObject->addWidget($ajaxDialog);
 		return $ajaxResponseObject;
 	}

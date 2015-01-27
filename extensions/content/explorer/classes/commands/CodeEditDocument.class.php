@@ -52,10 +52,12 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
                 $contentText->setData($object);
                 $contentText->setContentProvider(\Widgets\DataProvider::contentProvider());
                 $clearer = new \Widgets\Clearer();
+                $saveButton = new \Widgets\SaveButton();
 
                 $frameResponseObject->setTitle($name);
                 $frameResponseObject->addWidget($actionBar);
                 $frameResponseObject->addWidget($contentText);
+                $frameResponseObject->addWidget($saveButton);
                 $frameResponseObject->addWidget($clearer);
 
                 return $frameResponseObject;
@@ -68,3 +70,8 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
 }
 
 ?>
+
+
+
+
+                                

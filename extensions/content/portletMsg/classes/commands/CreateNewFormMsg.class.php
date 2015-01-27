@@ -21,7 +21,8 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
         $ajaxResponseObject->setStatus("ok");
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Einfügen einer Meldung");
-        $dialog->setCloseButtonLabel(NULL);
+        $dialog->setCancelButtonLabel(NULL);
+        $dialog->setSaveAndCloseButtonLabel(NULL);
         $dialog->setWidth("600");
         $ajaxForm = new \Widgets\AjaxForm();
         $insertOption = new \Widgets\DropDownList();

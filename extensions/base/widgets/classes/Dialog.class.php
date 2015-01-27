@@ -1,7 +1,6 @@
 <?php
 //textareas müssten noch genau überprüft werden, ob da das speichern überall geht
 //bei tinymce muss ein klick auf einen der buttons ebenfalls ein changed bewirken... sonst kann man nicht nur ein wort fett machen und dann speichern
-//die privacs sachen im profil haben noch einen komischen seiteneffekt
 
 namespace Widgets;
 
@@ -16,11 +15,11 @@ class Dialog extends Widget
     //private $showCloseIcon = false; obsolet
     
     private $autoSaveDialog = false;
-    private $autoSaveDialogCloseButtonLabel = "Schließen (Änderungen wurden automatisch gespeichert)";
+    private $autoSaveDialogCloseButtonLabel = "Schließen (Änderungen automatisch gespeichert)";
     
     private $saveAndCloseButtonLabel = "Speichern & Schließen";
     private $saveAndCloseButtonJs = "";
-    private $saveAndCloseButtonForceReload = true;
+    private $saveAndCloseButtonForceReload = false;
     
     private $cancelButtonLabel = "Abbrechen";
     private $cancelButtonJs = "";
@@ -105,7 +104,8 @@ class Dialog extends Widget
     
     /**
      * former method name: setForceReload($forceReload)
-     * @param boolean $saveAndCloseButtonForceReload set to true to enable the autoreload 
+     * set to true to enable the autoreload e.g. with fileuploaders
+     * @param boolean $saveAndCloseButtonForceReload
      */
     public function setSaveAndCloseButtonForceReload($saveAndCloseButtonForceReload)
     {
@@ -198,7 +198,7 @@ class Dialog extends Widget
             
             $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_JS", $this->saveAndCloseButtonJs);
             
-            if ($this->saveAndCloseButtonForceReload) {
+            if ($this->saveAndCloseButtonForceReload || $this->autoSaveDialog) {
                 $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_RELOAD", "location.reload();");
             } else {
                 $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_RELOAD", "");

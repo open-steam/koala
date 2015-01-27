@@ -21,7 +21,7 @@ class Upload extends \AbstractCommand implements \IAjaxCommand {
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Bilder hinzufügen");
 		$dialog->setWidth("410");
-		$dialog->setForceReload(true);
+		$dialog->setSaveAndCloseButtonForceReload(true);
 			
 		$upload = new \Widgets\AjaxUploader();
 		$upload->setNamespace("explorer");

@@ -76,8 +76,9 @@ class NewTopic extends \AbstractCommand implements \IAjaxCommand {
 END
         );
         $dialog->addWidget($ajaxForm);
-        $dialog->setCancelButtonlabel(null);
-        $dialog->setCloseButtonLabel(null);
+        
+        $dialog->setCancelButtonLabel(null);
+        $dialog->setSaveAndCloseButtonLabel(null);
         
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);

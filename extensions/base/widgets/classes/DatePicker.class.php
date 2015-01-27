@@ -2,97 +2,168 @@
 namespace Widgets;
 
 class DatePicker extends Widget {
-	private $label;
-	private $data;
-	private $contentProvider;
-	private $id;
-	private $objectId;
-	private $datePicker = true;
-	private $timePicker = false;
-	private $placeholder = "";
-        private $name = "";
-        
-        //TODO: Bad solution 
-        private $workaround = false;
-        
-        public function setWorkaraound($wa){
-            $this->workaround = $wa;
+	
+    private $id;
+    private $name = "";
+    private $label;
+    private $placeholder = "";
+    private $data;
+
+    private $contentProvider;
+    private $readOnly = false; 
+    private $labelWidth;
+    private $inputWidth;
+    private $inputBackgroundColor;
+    private $customSaveCode = "";
+    
+
+    private $datePicker = true;
+    private $timePicker = false;
+
+    
+    public function setId($id){
+        $this->id = "id_".$id."_datepicker";
+    }
+    
+    public function getId(){
+        if(!isset($this->id)){
+            $this->setId(rand());
         }
-	
-        public function setName($name){
-            $this->name = $name;
+        return $this->id;
+    }
+
+    public function setName($name){
+        $this->name = $name;
+    }
+    
+    public function setLabel($label) {
+	$this->label = $label;
+    }
+
+    public function setPlaceholder($placeholder) {
+	$this->placeholder = $placeholder;
+    }
+    
+    public function setData($data) {
+	$this->data = $data;
+    }
+    
+    public function setContentProvider($contentProvider) {
+	$this->contentProvider = $contentProvider;
+    }
+
+    public function setReadOnly($readOnly) {
+        $this->readOnly = $readOnly;
+    }
+    
+    /**
+     * @param type $width width in pixels (without px at the end)
+     */
+    public function setLabelWidth($labelWidth) {
+        $this->labelWidth = $labelWidth."px";
+    }
+
+    /**
+     * @param type $width width in pixels (without px at the end)
+     */
+    public function setInputWidth($inputWidth) {
+        $this->inputWidth = $inputWidth;
+    }
+
+    /**
+     * @param type $color a value for the css attribute background-color
+     */
+    public function setInputBackgroundColor($color) {
+        $this->inputBackgroundColor = $color;
+    }
+    
+    public function setCustomSaveCode($customSaveCode) {
+        $this->customSaveCode = $customSaveCode;
+    }
+
+
+    public function setDatePicker($datePicker) {
+	$this->datePicker = $datePicker;
+    }
+
+    public function setTimePicker($timePicker) {
+	$this->timePicker = $timePicker;
+    }
+
+
+
+
+    public function getHtml() {
+	if(!isset($this->id)){
+            $this->setId(rand());
         }
-	public function setLabel($label) {
-		$this->label = $label;
+        $this->getContent()->setVariable("ID", $this->id);
+        if (isset($this->label) && trim($this->label) !== "") {
+            $this->getContent()->setVariable("LABEL", $this->label);
+        } else {
+            $this->getContent()->setVariable("LABEL", "");
+        }
+	$this->getContent()->setVariable("PLACEHOLDER", $this->placeholder);
+	
+        if($this->name !== ""){
+            $this->getContent()->setVariable("INPUT_FIELD_NAME", $this->name);
+        }
+        
+        if (isset($this->labelWidth)) {
+            $this->getContent()->setVariable("LABEL_STYLE", "style=\"width:{$this->labelWidth}\"");
+        }
+        
+        if (isset($this->inputWidth) || isset($this->inputBackgroundColor)) {
+            $style = "";
+            if (isset($this->inputWidth)) {
+                $style .= "width:{$this->inputWidth};";
+            }
+            if (isset($this->inputBackgroundColor)) {
+                $style .= "background-color:{$this->inputBackgroundColor}";
+            }
+            $style = "style=\"{$style}\"";
+            $this->getContent()->setVariable("INPUT_STYLE", $style);
+        }
+        
+        $this->getContent()->setVariable("PLACEHOLDER", $this->placeholder);
+        
+        
+	
+        //write sanction
+        if ($this->readonly) {
+            $this->getContent()->setVariable("READONLY", "readonly");
+        }
+            
+            
+        if ($this->contentProvider) {
+            
+            if (!$this->contentProvider->isChangeable($this->data)) {
+                $this->getContent()->setVariable("READONLY", "readonly");
+            }
+            
+            
+            $currentDateValue = $this->contentProvider->getData($this->data);
+            $currentDateValue = ($currentDateValue == 0) ? "" : $currentDateValue;
+            $this->getContent()->setVariable("VALUE", $currentDateValue);
+            
+            $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id));
+            
+            
+	} else {
+            $this->getContent()->setVariable("VALUE", "");
 	}
 	
-	public function setData($data) {
-		$this->data = $data;
-		if (is_int($data)) {
-			$this->objectId = $data;
-		} else {
-			$this->objectId = $data->get_id();
-		}
+	if ($this->datePicker && $this->timePicker) {
+            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datetimepicker({dateFormat: \"dd.mm.yy\", hourGrid: 4, minuteGrid: 10});");
+	} else if ($this->datePicker) {
+            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datepicker({dateFormat: \"dd.mm.yy\", showButtonPanel: true});");
+	} else if ($this->timePicker) {
+            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").timepicker({hourGrid: 4, minuteGrid: 10});");
 	}
+        
+        
 	
-	public function setDatePicker($datePicker) {
-		$this->datePicker = $datePicker;
-	}
-	
-	public function setTimePicker($timePicker) {
-		$this->timePicker = $timePicker;
-	}
-	
-	public function setContentProvider($contentProvider) {
-		$this->contentProvider = $contentProvider;
-	}
-	
-	public function setPlaceholder($placeholder) {
-		$this->placeholder = $placeholder;
-	}
-	
-	public function getHtml() {
-		$this->id = rand();
-		if (isset($this->label)) {
-			$this->getContent()->setVariable("LABEL", $this->label);
-		}
-		$this->getContent()->setVariable("PLACEHOLDER", $this->placeholder);
-		$this->getContent()->setVariable("ID", $this->id);
-		
-                //write sanction
-                if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
-                        $this->getContent()->setVariable("READONLY", "readonly");
-                }
-                
-                
-                if ($this->contentProvider) {
-			$currentDateValue = $this->contentProvider->getData($this->data);
-			$currentDateValue = ($currentDateValue == 0) ? "" : $currentDateValue;
-			$this->getContent()->setVariable("VALUE", $currentDateValue);
-                        //TODO: Bad solution
-                        if($this->workaround){
-                             $this->getContent()->setVariable("CHANGE_FUNCTION", "onChange=\"$(this).addClass('changed');widgets_datepicker_changed({$this->id}); value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")};setTimeout(function(){closeDialog();location.reload();}, 500);\"");			
-                        }else{
-                            $this->getContent()->setVariable("CHANGE_FUNCTION", "onChange=\"$(this).addClass('changed');widgets_datepicker_changed({$this->id}); value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")}\"");			
-                        }
-			$this->getContent()->setVariable("SAVE_FUNCTION", "onClick=\"value = getElementById({$this->id}).value; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_save_success")}\"");
-			$this->getContent()->setVariable("UNDO_FUNCTION", "onClick=\"value = getElementById({$this->id}).oldValue; widgets_datepicker_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_datepicker_undo_success")}\"");
-		} else {
-			$this->getContent()->setVariable("VALUE", "");
-		}
-		
-		if ($this->datePicker && $this->timePicker) {
-			$this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datetimepicker({dateFormat: \"dd.mm.yy\", hourGrid: 4, minuteGrid: 10});");
-		} else if ($this->datePicker) {
-			$this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datepicker({dateFormat: \"dd.mm.yy\", showButtonPanel: true});");
-		} else if ($this->timePicker) {
-			$this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").timepicker({hourGrid: 4, minuteGrid: 10});");
-		}
-                if($this->name !== ""){
-                    $this->getContent()->setVariable("NAME", $this->name);
-                }
-		
-		return $this->getContent()->get();
-	}
+	return $this->getContent()->get();
+}
 }
 ?>

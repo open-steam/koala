@@ -161,7 +161,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
         //force the closeoperation of the dialog to reload the page to display the changed settings (tags enabled / disabled)
-        $dialog->setForceReload(true);
+        //$dialog->setForceReload(true);
 
         if ($type == "userHome" || $type == "groupWorkroom") {
             $dataNameInput = new \Widgets\TextInput();
@@ -472,7 +472,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($urlInput);
             $dialog->addWidget($seperator);
             $dialog->addWidget($textAreaDescription);
-            $dialog->setForceReload(true);
+            $dialog->setSaveAndCloseButtonForceReload(true);
         }
         
         

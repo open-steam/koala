@@ -95,7 +95,7 @@ class EditTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, 
 		$dialog->addWidget($linkurlInputOpenExtern);
 		$dialog->addWidget(new \Widgets\Clearer());
 		
-                //$dialog->setForceReload(true);
+                
 		
 		$this->dialog = $dialog;
 	}

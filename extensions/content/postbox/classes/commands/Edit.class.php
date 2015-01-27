@@ -23,7 +23,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $ajaxResponseObject->setStatus("ok");
-        $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
         //compute current datetime
         $currentDay = date("d") . "";
@@ -34,15 +34,17 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
         $dialog = new \Widgets\Dialog();
         $clearer = new \Widgets\Clearer();
+        
+        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br> (Abgabefach)");
 
         $dataNameInput = new \Widgets\TextInput();
         $dataNameInput->setLabel("Name der Abgabe");
-        $dataNameInput->setData($obj);
-        $dataNameInput->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", getCleanName($obj, -1)));
+        $dataNameInput->setData($object);
+        $dataNameInput->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", getCleanName($object, -1)));
         $dialog->addWidget($dataNameInput);
         $dialog->addWidget($clearer);
 
-        $attr = $obj->get_attribute("bid:postbox:deadline");
+        $attr = $object->get_attribute("bid:postbox:deadline");
         $noDeadline = false;
         if ($attr == "" || $attr == 0) {
             $noDeadline = true;
@@ -56,62 +58,60 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $datepickerStart->setName("deadline");
         $datepickerStart->setLabel("Abgabefrist");
         $datepickerStart->setTimePicker(true);
-        $datepickerStart->setData($obj);
-        //$datepickerStart->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:postbox:deadline"));
-        if ($noDeadline) {
-            $datepickerValue = $currentDateTime;
-        } else {
-            $datepickerValue = trim($attr);
-        }
+        $datepickerStart->setData($object);
+        $datepickerStart->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:postbox:deadline"));
+        $dialog->addWidget($datepickerStart);
+        $dialog->addWidget($clearer);
+        
+
         $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml(<<<END
-                <div id="datepicker-box">{$datepickerStart->getHtml()}</div>
-                <script> $(".widgets_datepicker input").val("{$datepickerValue}");
-                    $("#datepicker-box .widgets_datepicker input").change(function(){
-                        sendRequest('databinding', {'id': {$this->id}, 'attribute': 'bid:postbox:deadline', 'value': this.value}, '', 'data');
-                            $(this).addClass('changed')});
-                    $(".widgets_checkbox input").change(function(){
-                if(!this.checked){ 
-                    $("#datepicker-box").show();                  
-                 }else{
-                    $("#datepicker-box").hide();  
-                    sendRequest('databinding', {'id': {$this->id}, 'attribute': 'bid:postbox:deadline', 'value': ''}, '', 'data');
-                         
-                 }
-                }
+        $datepickerStart->setPostJsCode("$('#{$checkbox->getId()}').change(function(){".
+                              "if(!this.checked){ ".
+                                  "$('#{$datepickerStart->getId()}').show(); ".
+                                  
+                                  "$('#{$datepickerStart->getId()}_label').show(); ".
+                                  "$('#{$datepickerStart->getId()}').prop('value', $('#{$datepickerStart->getId()}').attr('data-oldValue'));".
+                                  "$('#{$datepickerStart->getId()}').change();".        
+                                  "$('#{$checkbox->getId()}').removeClass('changed');".
+                                          
+                              "}else{".
+                                  "$('#{$datepickerStart->getId()}_label').hide(); ".
+                                  "$('#{$datepickerStart->getId()}').hide();".
+                                  "$('#{$datepickerStart->getId()}').prop('value', '0');".
+                                  "$('#{$datepickerStart->getId()}').change();".
+                                  "$('#{$checkbox->getId()}').removeClass('changed');".
+                                          
+                                          
+                              "}".
+                          "}".
+                          ");"
+                                          
             );   
-                </script>
-END
-        );
+
+
         $dialog->addWidget($rawHtml);
-   //     $dialog->addWidget($clearer);
+        
         if ($noDeadline) {
             $jsWrapper = new \Widgets\RawHtml();
-            $jsWrapper->setPostJsCode(<<<END
-            $("input[name=noDeadline]").attr("checked", true);
-            $("#datepicker-box").hide();
-           
-END
+            $jsWrapper->setPostJsCode("$('#{$datepickerStart->getId()}_label').hide(); ".
+                                  "$('#{$datepickerStart->getId()}').hide();".
+                                 "$('#{$checkbox->getId()}').prop('checked', true);"
             );
 
             $dialog->addWidget($jsWrapper);
-            $dialog->setTitle("Eigenschaften von »" . getCleanName($obj) . "«<br> (Abgabefach)");
         }
-        $adviceText = $obj->get_attribute("postbox:advice");
-        $textarea = new \Widgets\RawHtml();
-        $textarea->setHtml(<<<END
-                 <div style="margin:3px;">Hinweistext:</div>
-            <textarea id="adviceArea" onchange="updateText();return false;" style="margin:3px;width:325px;height:100px;"></textarea>
-                <script>$('#adviceArea').val("{$adviceText}");
-                        function updateText(){
-                            var value = $('#adviceArea').val();
-                 sendRequest('databinding', {'id': {$this->id}, 'attribute': 'postbox:advice', 'value': value}, '', 'data');
-                            
-                }
-   </script>
-END
-        );
-        $dialog->addWidget($textarea);
+
+        
+        
+        
+        $textAreaAdvice = new \Widgets\Textarea();
+        $textAreaAdvice->setLabel("Hinweistext");
+        $textAreaAdvice->setData($object);
+        $textAreaAdvice->setContentProvider(\Widgets\DataProvider::attributeProvider("postbox:advice"));
+        $textAreaAdvice->setHeight(100);
+        $textAreaAdvice->setWidth(325);
+      
+        $dialog->addWidget($textAreaAdvice);
 
         $ajaxResponseObject->addWidget($dialog);
         return $ajaxResponseObject;

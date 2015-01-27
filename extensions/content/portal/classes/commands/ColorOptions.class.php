@@ -46,8 +46,9 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $ajaxResponseObject->setStatus("ok");
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Optionen zur Farbgestaltung von Portalen");
+        $dialog->setAutoSaveDialog(true);
         
-        $onchange = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': id, 'value' : value } , '', 'data', function(response){ }, function(response){ }, 'portal');$(this).addClass('changed');return false;";
+        $onchange = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': id, 'value' : value } , '', 'data', function(response){ }, function(response){ }, 'portal');return false;";
 
 
         $cpfont = new \Widgets\ColorPicker();
@@ -184,7 +185,7 @@ END
         $button["label"] = "Standardeinstellungen";
         //class js
         $button["class"] = "button pill";
-        $button["js"] = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': 'standard', 'value' : '' } , '', 'data', function(response){ resetColorSettings();$('#portalbg').addClass('changed');}, function(){resetColorSettings();$('#content_wrapper').addClass('changed');}, 'portal');return false;";
+        $button["js"] = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': 'standard', 'value' : '' } , '', 'data', function(response){ resetColorSettings();}, function(){resetColorSettings();}, 'portal');return false;";
         $buttons[0] = $button;
         $dialog->setButtons($buttons);
 
