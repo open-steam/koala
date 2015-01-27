@@ -6,9 +6,9 @@
                 function() {
                     var tagIndex = "#" + this.id + "_2";
                     var nameIndex = "#" + this.id + "_1";
-                    var name = $(nameIndex).text();
-                    var tags = $(tagIndex).text();
-                    if ((tags.indexOf(value) == -1) && (name.indexOf(value) == -1)) {
+                    var name = $(nameIndex).text().toLowerCase();
+                    var tags = $(tagIndex).text().toLowerCase();
+                    if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
                         $(('#' + this.id)).removeClass("show");
                         $(('#' + this.id)).addClass("hide");
                         $(('#' + this.id)).hide();
