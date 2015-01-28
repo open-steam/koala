@@ -130,7 +130,7 @@ class DatePicker extends Widget {
         
 	
         //write sanction
-        if ($this->readonly) {
+        if ($this->readOnly) {
             $this->getContent()->setVariable("READONLY", "readonly");
         }
             

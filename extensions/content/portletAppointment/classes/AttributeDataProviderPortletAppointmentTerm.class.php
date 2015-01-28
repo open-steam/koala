@@ -80,7 +80,7 @@ class AttributeDataProviderPortletAppointmentTerm {
                 //offer the possibility to use own variablenames
                 //standard is 'value'
                 $variableName = ($ownVariableName)? $ownVariableName:'value';
-        
+                
                 return "sendRequest('DatabindingPortletAppointmentTerm', {'id': {$objectId}, 'termIndex': '{$this->termIndex}', 'field': '{$this->field}', 'value': {$variableName}}, '', 'data'{$function}, '', 'PortletAppointment');";
 	}
 	
