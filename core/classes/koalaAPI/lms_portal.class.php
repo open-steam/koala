@@ -89,8 +89,7 @@ class lms_portal
             }
             $this->lms_user = new lms_user( STEAM_GUEST_LOGIN, STEAM_GUEST_PW );
 
-                        $protocoll = isset($_SERVER["HTTPS"]) ? "https://" : "http://";
-                        $url = $protocoll . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+                        $url = PATH_SERVER . $_SERVER["REQUEST_URI"];
                         $request_url = str_ireplace(PATH_URL, "/", $url);
                         $request_url = str_replace("/signin/request", "", $request_url);
                         $request_url = str_replace("/signin", "", $request_url);
