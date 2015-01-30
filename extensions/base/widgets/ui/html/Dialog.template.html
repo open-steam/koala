@@ -50,7 +50,8 @@
                 <!-- BEGIN CANCEL_BUTTON -->
 		<div style="float:right; margin-bottom:20px;"><a class="button pill negative" onclick="
                     {CANCEL_BUTTON_JS}
-                    
+                    //unset possibly set event
+                    $(window).unbind('beforeunload');
                     closeDialog();
                     {CANCEL_BUTTON_RELOAD}
                     
@@ -74,7 +75,10 @@
 	jQuery('#dialog').slideDown("slow");
         //close the dialog on escape
         jQuery(document).keyup(function(e) {
-            if (e.keyCode == 27) {closeDialog();}
+            if (e.keyCode == 27) {
+                //unset possibly set event
+                $(window).unbind('beforeunload');
+                closeDialog();}
         });
         
         

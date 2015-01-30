@@ -8,6 +8,7 @@ class Textarea extends Widget {
     private $labelClass = ""; // texthidden or hidden
     private $data;
     private $contentProvider;
+    private $leaveMessage = "Beim Verlassen der Seite gehen alle nicht gespeicherten Änderungen verloren.";
     
     private $width = "250px";
     private $height = "200px";
@@ -32,6 +33,10 @@ class Textarea extends Widget {
 
     public function setContentProvider($contentProvider) {
         $this->contentProvider = $contentProvider;
+    }
+    
+    public function setLeaveMessage($leaveMessage) {
+        $this->leaveMessage = $leaveMessage;
     }
 
     /**
@@ -101,6 +106,7 @@ class Textarea extends Widget {
 
         $this->getContent()->setVariable("LINEBREAKS", $this->linebreaks);
         $this->getContent()->setVariable("VALUE", $currentValue);
+        $this->getContent()->setVariable("LEAVE_MESSAGE", $this->leaveMessage);
 
 
         $this->getContent()->setVariable("ADDITIONAL_LABEL_CLASSES", $this->labelClass);

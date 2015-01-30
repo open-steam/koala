@@ -72,7 +72,7 @@ function widgets_textarea_save_success_delete_me(elementId, response) {
                     if (e.type === "keyup" && tinyMCE.activeEditor.isDirty()) {
                         textarea.addClass("changed");
                         $(window).bind('beforeunload', function() {
-                            return 'LeaveMessage';
+                            return textarea.attr("data-leaveMessage");
                         });
                     }
                     ;
