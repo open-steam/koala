@@ -71,11 +71,15 @@ function widgets_textarea_save_success_delete_me(elementId, response) {
                 handle_event_callback: function(e) {
                     if (e.type === "keyup" && tinyMCE.activeEditor.isDirty()) {
                         textarea.addClass("changed");
+                        $(window).bind('beforeunload', function() {
+                            return 'LeaveMessage';
+                        });
                     }
                     ;
                     if (!tinyMCE.activeEditor.isDirty()) {
                         textarea.removeClass("changed");
                     }
+
                 },
                 oninit: function(e) {
                     //if the editor is loaded set the value and set it to notDirty
@@ -203,11 +207,11 @@ function widgets_textarea_save_success_delete_me(elementId, response) {
             //alert('hier');
             var textarea = this;
             var value;
-            //alert(value);
+            
             if (textarea.hasClass("mce-full") || textarea.hasClass("mce-small")) {
-                //alert('hier');
+            
                 $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
-                //tinyMCE.activeEditor.getBody().click(); 
+            
                 value = tinyMCE.activeEditor.getContent();
                 
             } else if (textarea.hasClass("plain")) {
@@ -216,26 +220,14 @@ function widgets_textarea_save_success_delete_me(elementId, response) {
             
             var oldValue = textarea.attr("data-oldValue");
             textarea.addClass("saving");
+            
             sendFunction(value);
-            //alert(value);
+            
             textarea.removeClass("dirty");
-            $(window).unbind('beforeunload');
+            
 
 
-        }/*,
-        undo: function() {
-            var textarea = this;
-            if (textarea.find("textarea").hasClass("mce-full") || textarea.find("textarea").hasClass("mce-small")) {
-                $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
-                //tinyMCE.activeEditor.getBody().click(); 
-                var value = textarea.attr("data-oldValue");
-            } else if (textarea.find("textarea").hasClass("plain")) {
-                var value = textarea.attr("data-oldValue");
-            }
-            textarea.addClass("saving");
-            $(window).unbind('beforeunload');
-            sendFunction(value)
-        },*/
+        }
     };
 
     //define a new function 'textarea' that can be called with parameters and forwards the call to the methods above

@@ -13,6 +13,9 @@
                     function dataSaveFunctionCallback(response){
                         i++;
                         if(j == i) {
+                            //tinymce textareas set this to prevent data loss
+                            $(window).unbind('beforeunload');
+                            
                             {SAVE_RELOAD}
                             i = 0;
                         }
