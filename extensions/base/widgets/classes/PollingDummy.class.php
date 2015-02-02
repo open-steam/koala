@@ -8,8 +8,8 @@ class PollingDummy extends Widget {
 	public function setCommand($commandName) {
 		$this->command = $commandName;
 	}
-        public function setNamespace($ns){
-            $this->namespace = $ns;
+        public function setNamespace($nameSpace){
+            $this->namespace = $nameSpace;
         }
 	
 	public function getHtml() {

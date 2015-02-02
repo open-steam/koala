@@ -1,38 +1,42 @@
 <!-- BEGIN BLOCK_TEXTINPUT_LABEL -->
-<div class="widgets_label">{LABEL}:</div>
+<div class="widgets_label" id="{ID}_label" {LABEL_STYLE}>{LABEL}</div>
 <!-- END BLOCK_TEXTINPUT_LABEL -->
 <div class="widgets_datepicker">
-	<input {READONLY} id="{ID}" type="text" value="{VALUE}" name="{NAME}" placeholder="{PLACEHOLDER}" {CHANGE_FUNCTION}></input>
-	<div class="widgets_datepicker_button widgets_datepicker_save_button" id="widgets_datepicker_control_save_{ID}" {SAVE_FUNCTION} ></div>
-	<div class="widgets_datepicker_loader"></div>
-	<div class="widgets_datepicker_ok"></div>
-	<div class="widgets_datepicker_button widgets_textinput_undo_button" id="widgets_datepicker_control_undo_{ID}" {UNDO_FUNCTION}></div>
-	<div class="widgets_datepicker_error"></div>
+	<input id="{ID}" name="{INPUT_FIELD_NAME}" type="text" data-oldValue="{VALUE}" data-saveFunction="{SAVE_FUNCTION}" value="{VALUE}" placeholder="{PLACEHOLDER}"  {INPUT_STYLE} {READONLY} />
 </div>
 <!-- BEGIN PICKER -->
 <script type="text/javascript">	
-jQuery(function($){
-    $.datepicker.regional['de'] = {clearText: 'löschen', clearStatus: 'aktuelles Datum löschen',
-            closeText: 'schließen', closeStatus: 'ohne Änderungen schließen',
-            prevText: '<zurück', prevStatus: 'letzten Monat zeigen',
-            nextText: 'Vor>', nextStatus: 'nächsten Monat zeigen',
-            currentText: 'heute', currentStatus: '',
-            monthNames: ['Januar','Februar','März','April','Mai','Juni',
-            'Juli','August','September','Oktober','November','Dezember'],
-            monthNamesShort: ['Jan','Feb','Mär','Apr','Mai','Jun',
-            'Jul','Aug','Sep','Okt','Nov','Dez'],
-            monthStatus: 'anderen Monat anzeigen', yearStatus: 'anderes Jahr anzeigen',
-            weekHeader: 'Wo', weekStatus: 'Woche des Monats',
-            dayNames: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
-            dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'],
-            dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'],
-            dayStatus: 'Setze DD als ersten Wochentag', dateStatus: 'Wähle D, M d',
-            dateFormat: 'dd.mm.yy', firstDay: 1,
-            initStatus: 'Wähle ein Datum', isRTL: false};
-    $.datepicker.setDefaults($.datepicker.regional['de']);
+    jQuery(function($){
+        $.datepicker.regional['de'] = {clearText: 'löschen', clearStatus: 'aktuelles Datum löschen',
+                closeText: 'schließen', closeStatus: 'ohne Änderungen schließen',
+                prevText: '<zurück', prevStatus: 'letzten Monat zeigen',
+                nextText: 'Vor>', nextStatus: 'nächsten Monat zeigen',
+                currentText: 'heute', currentStatus: '',
+                monthNames: ['Januar','Februar','März','April','Mai','Juni',
+                'Juli','August','September','Oktober','November','Dezember'],
+                monthNamesShort: ['Jan','Feb','Mär','Apr','Mai','Jun',
+                'Jul','Aug','Sep','Okt','Nov','Dez'],
+                monthStatus: 'anderen Monat anzeigen', yearStatus: 'anderes Jahr anzeigen',
+                weekHeader: 'Wo', weekStatus: 'Woche des Monats',
+                dayNames: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
+                dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+                dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+                dayStatus: 'Setze DD als ersten Wochentag', dateStatus: 'Wähle D, M d',
+                dateFormat: 'dd.mm.yy', firstDay: 1,
+                initStatus: 'Wähle ein Datum', isRTL: false};
+        $.datepicker.setDefaults($.datepicker.regional['de']); 
+    });
     
-});
+    $('#{ID}').change(
+        function() {
+            //add the changed class to this object
+            if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
+            //update the value in the variable
+            {ID} = $('#{ID}').val();
+        }
+    );
 
-	{PICKER}
+    {PICKER}
+
 </script>
 <!-- END PICKER -->

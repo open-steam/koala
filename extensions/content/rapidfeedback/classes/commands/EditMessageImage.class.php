@@ -65,7 +65,7 @@ END
 		$sizeInput->setData($object);
 		$sizeInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:rfb:picture_width"));
 		$dialog->addWidget($sizeInput);
-		$dialog->setForceReload(false);
+		$dialog->setSaveAndCloseButtonForceReload(false);
                 $dialog->setCloseJs( "setTimeout(function(){jQuery('#save-que-button').click(); }, 750);" );
 		
 		$this->dialog = $dialog;

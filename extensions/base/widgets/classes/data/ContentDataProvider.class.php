@@ -21,21 +21,23 @@ class ContentDataProvider implements IDataProvider {
 		}
 	}
 	
-	public function getUpdateCode($object, $elementId, $successMethod = null) {
+	public function getUpdateCode($object, $ownVariableName, $successMethod = null) {
             
            	if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
-		$function = "";
-		if (isset($successMethod)) {
-			$function = ", function(response){{$successMethod}({$elementId}, response);}";
-		}
-		return <<< END
-sendRequest('databinding', {'id': {$objectId}, 'value': value}, '', 'data'{$function}); 
-END;
-	}
+		//if the user has an own successMethod, then call both methods, else just call the data-saveFunctionCallback method to wait until everything is saved
+		$function = ($successMethod != "") ? ", function(response){dataSaveFunctionCallback(response); {$successMethod}({$ownVariableName}, response);}" : ", function(response){dataSaveFunctionCallback(response);}";
+		
+		//offer the possibility to use own variablenames
+                //standard is 'value'
+                $variableName = ($ownVariableName)? $ownVariableName:'value';
+                
+                //build the functioncall
+                return "sendRequest('databinding', {'id': {$objectId}, 'value': {$variableName}}, '', 'data'{$function});"; 
+        }
 	
 	public function isChangeable($object) {
 		return $object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user());

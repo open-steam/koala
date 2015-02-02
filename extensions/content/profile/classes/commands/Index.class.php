@@ -591,12 +591,20 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $checkboxWidget->setData($user);
             $checkboxWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_SHOW_HIDDEN_DOCUMENTS"));
             $frameResponseObject->addWidget($clearer);
+            
             $frameResponseObject->addWidget($checkboxWidget);
-
+            //save button at the end of the form
+            $saveButton = new \Widgets\SaveButton();
+            $frameResponseObject->addWidget($saveButton);
+            
             // close table
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml("</td></tr></table>");
             $frameResponseObject->addWidget($rawHtml);
+            
+            //$frameResponseObject->addWidget($clearer);
+            
+            
         } else {
             //\Profile::getInstance()->addCSS();
             $GLOBALS["content"]->setCurrentBlock("BLOCK_RIGHT_SIDE");

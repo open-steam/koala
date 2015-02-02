@@ -1,5 +1,3 @@
-/* default section */
-
 .widget.textarea div, .widget.textarea textarea{
 	float: left;
 	margin-right: 2px;
@@ -7,50 +5,7 @@
 
 .widget.textarea textarea{
 	width: 150px;
-	margin-top: -2px;
-}
-
-.widget .button {
-	display: block;
-	cursor: pointer;
-	height: 20px;
-	width: 68px;
-}
-
-.widget .button.save {
-	background-image: url("{PATH_URL}widgets/asset/save.gif");
-}
-
-.widget .button.save:hover {
-	background-image: url("{PATH_URL}widgets/asset/save-hover.gif");
-}
-
-/*.widget .button.undo {
-	background-image: url("{PATH_URL}widgets/asset/undo.gif");
-}
-
-.widget .button.undo:hover {
-	background-image: url("{PATH_URL}widgets/asset/undo-hover.gif");
-}*/ 
-
-.widget .icon {
-	display: none;
-	cursor: default;
-	height: 16px;
-	width: 16px;
-	margin-left: 10px;
-}
-
-.widget .icon.loader {
-	background-image: url("{PATH_URL}widgets/asset/ajax-loader.gif");	
-}
-
-.widget .icon.ok {
-	background-image: url("{PATH_URL}widgets/asset/icon_ok.png");	
-}
-
-.widget .icon.error {
-	background-image: url("{PATH_URL}widgets/asset/icon_error.png");	
+	margin-top: 3px;
 }
 
 /* label states */
@@ -69,69 +24,4 @@
 
 .widget textarea[readonly] {
 	color: #ccc;
-}
-
-.widget.dirty textarea {
-	border: 1px dotted black;
-}
-
-.widget.error textarea {
-	border: 1px dotted red;
-}
-
-/* button states */
-.widget.undo .button.undo{
-	display: none;
-}
-
-.widget.dirty .button.undo{
-	display: none;
-}
-
-.widget.saving .button.undo{
-	display: none;
-}
-
-.widget.dirty .button.save {
-	display: block;
-}
-
-.widget.saving .button.save {
-	display: block;
-}
-
-.widget.autosave .button.save {
-	display: none;
-}
-
-.widget.saving .icon.loader {
-	display: block;
-}
-
-.widget.saved .icon.ok{
-	display: block;
-}
-
-.widget.dirty .icon.ok{
-	display: none;
-}
-
-.widget.error .icon.ok{
-	display: none;
-}
-
-.widget.saving .icon.ok{
-	display: none;
-}
-
-.widget.error .icon.error{
-	display: block;
-}
-
-.widget.dirty .icon.error{
-	display: none;
-}
-
-.widget.saving .icon.error{
-	display: none;
 }

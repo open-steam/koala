@@ -25,6 +25,8 @@ class NewTopic extends \AbstractCommand implements \IAjaxCommand {
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Erstelle neues Thema in »" . getCleanName($object) . "«");
+        
+        
         $ajaxForm = new \Widgets\AjaxForm();
         $ajaxForm->setSubmitCommand("CreateTopic");
         $ajaxForm->setSubmitNamespace("Forum");
@@ -74,9 +76,13 @@ class NewTopic extends \AbstractCommand implements \IAjaxCommand {
 END
         );
         $dialog->addWidget($ajaxForm);
-        $dialog->setCloseButtonLabel(null);
+        
+        $dialog->setCancelButtonLabel(null);
+        $dialog->setSaveAndCloseButtonLabel(null);
+        
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);
+        
         $pollingDummy = new \Widgets\PollingDummy();
 
         $ajaxResponseObject->addWidget($pollingDummy);

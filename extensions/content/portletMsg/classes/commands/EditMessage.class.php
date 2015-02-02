@@ -71,8 +71,6 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$widget->setUncheckedValue("");
                 
 		$dialog->addWidget($widget);
-               // $dialog->setForceReload(true);
-		//$dialog->setCloseButtonLabel("Schließen");
 		$this->dialog = $dialog;
 	}
 	

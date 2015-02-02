@@ -33,7 +33,9 @@ class NewReply extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand
         $object = \steam_factory::get_object($steamId, $objectId);
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Füge Antwort hinzu »" . getCleanName($object) . "«");
-        $dialog->setCloseButtonLabel(null);
+        
+        $dialog->setCancelButtonLabel(NULL);
+        $dialog->setSaveAndCloseButtonLabel(null);
 
         $ajaxForm = new \Widgets\AjaxForm();
         $ajaxForm->setSubmitCommand("ReplyTopic");

@@ -32,7 +32,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($titelInput);
 		$dialog->addWidget(new \Widgets\Clearer());
 			
-		//$dialog->setForceReload(true);
+		
 		
 		$this->dialog = $dialog;
 	}

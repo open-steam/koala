@@ -1,10 +1,24 @@
-
 <!-- BEGIN BLOCK_CHECKBOX_LABEL -->
 <div class="widgets_label">{LABEL}</div>
 <!-- END BLOCK_CHECKBOX_LABEL -->
 <div class="widgets_checkbox">
-   <input {READONLY} id="{ID2}_checkbox" name="{NAME}" type="checkbox" {CHECKED} />
+   <input {READONLY} id="{ID}" name="{NAME}" type="checkbox" data-saveFunction="{SAVE_FUNCTION}" {CHECKED} />
 </div>
 <script type="text/javascript">
-    $('#{ID3}_checkbox').change(function() {if (this.checked) { var value="{CHECKEDVALUE}"; } else {var value="{UNCHECKEDVALUE}"; } {ONCHANGE}});
+    $('#{ID}').change(
+        function() {
+            //add the changed class to this object
+            $('#{ID}').addClass('changed');
+            var value;
+            if (this.checked) {
+                value = "{CHECKEDVALUE}";
+            } else {
+                value = "{UNCHECKEDVALUE}";
+            }
+
+            //update the value in the variable
+            {ID} = value;
+            
+        }
+    );
 </script>

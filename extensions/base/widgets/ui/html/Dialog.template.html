@@ -1,8 +1,8 @@
 <div class="dialog_wrapper" id="dialog_wrapper">
 	<div class="dialog" id="dialog" style="width:{DIALOG_WIDTH}">
-		<!-- BEGIN BLOCK_CLOSE_BUTTON -->
-		<div title="schließen" class="close-button" onclick="javascript:closeDialog()"></div>
-		<!-- END BLOCK_CLOSE_BUTTON -->
+		
+		<div title="schließen ohne zu speichern" class="close-button" onclick="closeDialog()"></div>
+		
 		<div class="infoBar"><h2>{DIALOG_TITLE}</h2>
 		<!-- BEGIN BLOCK_DIALOG_DESCRIPTION -->
 		{DIALOG_DESCRIPTION}
@@ -10,23 +10,77 @@
 		</div>
 		{DIALOG_CONTENT}
 		<br style="clear:both">
+                
+                
 		
-                <!-- BEGIN BLOCK_BUTTON_CLOSE -->
-		<div style="float:right; margin-bottom:20px;"><a class="button pill" onclick="if (closeDialog() && {RELOAD_CODE}) { {DIALOG_CLOSE_JS} }; return false;" href="#">{CLOSE_BUTTON_LABEL}</a></div>
-		<!-- END BLOCK_BUTTON_CLOSE -->
+                <!-- BEGIN SAVE_AND_CLOSE_BUTTON -->
+		<div style="float:right; margin-bottom:20px;"><a class="button pill" onclick="
+                    //count the changes and if there is at least one reload the site
+                    var i = 0;
+                    var elementsToSave = $('.changed')
+                    var j = elementsToSave.size();
+                    
+                    if(j == 0){
+                        closeDialog();
+                        {SAVE_AND_CLOSE_BUTTON_RELOAD}
+                    }
+                                         
+                    {SAVE_AND_CLOSE_BUTTON_JS}
+                    elementsToSave.each(function(number, obj) {
+                        eval($(obj).attr('data-saveFunction'));
+                        
+                    });
+                    
+                    function dataSaveFunctionCallback(response){
+                        i++;
+                        if(j == i) {
+                            //tinymce textareas set this to prevent data loss
+                            $(window).unbind('beforeunload');
+                            
+                            closeDialog();
+                            location.reload();
+                            i = 0;
+                        }
+                            
+                    }
+                    
+                    " href="#">{SAVE_AND_CLOSE_BUTTON_LABEL}</a></div>
+		<!-- END SAVE_AND_CLOSE_BUTTON -->
 		
-                <!-- BEGIN BLOCK_BUTTON_CANCEL -->
+                <!-- BEGIN CANCEL_BUTTON -->
+		<div style="float:right; margin-bottom:20px;"><a class="button pill negative" onclick="
+                    {CANCEL_BUTTON_JS}
+                    //unset possibly set event
+                    $(window).unbind('beforeunload');
+                    closeDialog();
+                    {CANCEL_BUTTON_RELOAD}
+                    
+                    " href="#">{CANCEL_BUTTON_LABEL}</a>&nbsp;</div>
+		<!-- END CANCEL_BUTTON -->
+                
+                
+                <!-- BEGIN BLOCK_CUSTOM_BUTTONS -->
 		<div style="float:right"><a class="button pill {BUTTON_CLASS}" onclick="{BUTTON_JS}" href="#">{BUTTON_LABEL}</a>&nbsp;</div>
-		<!-- END BLOCK_BUTTON_CANCEL -->
+		<!-- END BLOCK_CUSTOM_BUTTONS -->
 	</div>
 </div>
 
 <script type="text/javascript">
-	jQuery('#dialog_wrapper').css({"right": $(window).width() / 2 - jQuery('#dialog').width() / 2 + "px"});
+    	jQuery('#dialog_wrapper').css({"right": $(window).width() / 2 - jQuery('#dialog').width() / 2 + "px"});
 	var resizeTimer = null;
 	jQuery(window).bind('resize', function() {
 		if (resizeTimer) clearTimeout(resizeTimer);
 		resizeTimer = setTimeout(function() {jQuery('#dialog_wrapper').css({"right": $(window).width() / 2 - jQuery('#dialog').width() / 2 + "px"});}, 100);
 	});
 	jQuery('#dialog').slideDown("slow");
+        //close the dialog on escape
+        jQuery(document).keyup(function(e) {
+            if (e.keyCode == 27) {
+                //unset possibly set event
+                $(window).unbind('beforeunload');
+                closeDialog();}
+        });
+        
+        
+        
 </script>

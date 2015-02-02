@@ -32,7 +32,7 @@ class EditMessageCode extends \AbstractCommand implements \IFrameCommand, \IIdCo
                 $dialog->addWidget($contentText);
 		$dialog->addWidget($clearer);
                 
-             //   $dialog->setForceReload(true);
+
 		$this->dialog = $dialog;
 	}
 	

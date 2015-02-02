@@ -161,7 +161,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
         //force the closeoperation of the dialog to reload the page to display the changed settings (tags enabled / disabled)
-        $dialog->setForceReload(true);
+        //$dialog->setForceReload(true);
 
         if ($type == "userHome" || $type == "groupWorkroom") {
             $dataNameInput = new \Widgets\TextInput();
@@ -172,11 +172,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         } else {
             $dataNameInput = new \Widgets\TextInput();
             $dataNameInput->setLabel("{$labelName}");
+            $dataNameInput->setData($object);
             if (!$isWriteable) {
                 $dataNameInput->setReadOnly(true);
             }
-            $dataNameInput->setData($object);
-            $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
+            $dataNameInput->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
             
             
             //create description text area
@@ -281,10 +281,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             var valOld = $("input[type=text]")[1].value.trim();
             var tagfield = $("input[type=text]")[1]; 
             tagfield.value = valOld + " " + name;
-            $("#dialog_wrapper").addClass("changed");
-            sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
-            $(".tag[name="+name+"]")[0].onclick="";
-}</script><div class="tag-overview-row">';
+            
+            $(\'#'.$keywordArea->getId().'\').addClass(\'changed\');
+                
+            
+            '.$keywordArea->getId().' = tagfield.value;
+            //sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
+            
+            }</script><div class="tag-overview-row">';
 
             $breakCounter = 3;
             foreach ($taglist as $i => $tagWidget) {
@@ -368,7 +372,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $fileName->setReadOnly(true);
             }
             $fileName->setData($object);
-            $fileName->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
+            $fileName->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
             $dialog->addWidget($fileName);
         }
 
@@ -468,7 +472,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($urlInput);
             $dialog->addWidget($seperator);
             $dialog->addWidget($textAreaDescription);
-            $dialog->setForceReload(true);
+            $dialog->setSaveAndCloseButtonForceReload(true);
         }
         
         
@@ -524,22 +528,4 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     }
 
 }
-
-class NameAttributeDataProvider extends \Widgets\AttributeDataProvider {
-
-    public function getUpdateCode($object, $elementId, $successMethode = "") {
-        if (is_int($object)) {
-            $objectId = $object;
-        } else {
-            $objectId = $object->get_id();
-        }
-        $function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
-        return <<< END
-	/*sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');*/
-	sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': value}, '', 'data'{$function});
-END;
-    }
-
-}
-
 ?>

@@ -50,8 +50,8 @@
 	width: 12px;
 	background-image: url("{PATH_URL}widgets/asset/close.gif");
 	position: absolute;
-	top: 2px;
-	right: 5px;
+	top: 0px;
+	left: 0px;
 }
 
 .close-button:hover {

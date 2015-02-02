@@ -28,33 +28,33 @@ input.error {
 	display: block;
 }
 
-.widgets_textinput_button {
+.widgets_textinput_button_delete_me {
 	cursor: pointer;
 	height: 20px;
 	float: left;
 }
 
-.widgets_textinput_save_button {
+.widgets_textinput_save_button_delete_me {
 	display: none;
 	width: 68px;
 	background-image: url("{PATH_URL}widgets/asset/save.gif");
 }
 
-.widgets_textinput_save_button:hover {
+.widgets_textinput_save_button_delete_me:hover {
 	background-image: url("{PATH_URL}widgets/asset/save-hover.gif");
 }
 
-.widgets_textinput_undo_button {
+.widgets_textinput_undo_button_delete_me {
 	display: none;
 	width: 68px;
 	background-image: url("{PATH_URL}widgets/asset/undo.gif");
 }
 
-.widgets_textinput_undo_button:hover {
+.widgets_textinput_undo_button_delete_me:hover {
 	background-image: url("{PATH_URL}widgets/asset/undo-hover.gif");
 }
 
-.widgets_textinput_loader {
+.widgets_textinput_loader_delete_me {
 	display: none;
 	cursor: default;
 	height: 16px;
@@ -63,7 +63,7 @@ input.error {
 	background-image: url("{PATH_URL}widgets/asset/ajax-loader.gif");	
 }
 
-.widgets_textinput_ok {
+.widgets_textinput_ok_delete_me {
 	display: none;
 	cursor: default;
 	height: 16px;
@@ -72,7 +72,7 @@ input.error {
 	background-image: url("{PATH_URL}widgets/asset/icon_ok.png");	
 }
 
-.widgets_textinput_error {
+.widgets_textinput_error_delete_me {
 	display: none;
 	cursor: default;
 	height: 16px;

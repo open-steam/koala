@@ -47,7 +47,7 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 		$dialog->addWidget($dateInput);
 		$dialog->addWidget(new \Widgets\Clearer());
 			
-		//$dialog->setForceReload(true);
+
 		$this->dialog = $dialog;
 	}
 	

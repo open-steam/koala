@@ -67,7 +67,8 @@ class CreateEntryForm extends \AbstractCommand implements \IAjaxCommand {
                 $ajaxForm->setHtml($html);
                 
                 $dialog = new \Widgets\Dialog();
-                $dialog->setCloseButtonLabel(NULL);
+                $dialog->setCancelButtonLabel(NULL);
+                $dialog->setSaveAndCloseButtonLabel(null);
                 $dialog->addWidget($ajaxForm);
                 $dialog->setTitle("Eintrag hinzufügen");
                 
