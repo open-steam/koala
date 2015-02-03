@@ -69,7 +69,7 @@ function widgets_textarea_save_success_delete_me(elementId, response) {
                     eval(identifier + " = " + 'tinyMCE.activeEditor.getContent()');
                 },
                 handle_event_callback: function(e) {
-                    if (e.type === "keyup" && tinyMCE.activeEditor.isDirty()) {
+                    if (tinyMCE.activeEditor.isDirty()) {
                         textarea.addClass("changed");
                         $(window).bind('beforeunload', function() {
                             return textarea.attr("data-leaveMessage");
