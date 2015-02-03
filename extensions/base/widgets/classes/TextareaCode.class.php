@@ -72,7 +72,7 @@ class TextareaCode extends Widget {
 
         if ($this->contentProvider) {   
             $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id));
-            $this->getContent()->setVariable("VALUE", $this->contentProvider->getData($this->data));
+            $this->getContent()->setVariable("VALUE", htmlentities($this->contentProvider->getData($this->data)));
         } else {
             $this->getContent()->setVariable("VALUE", " ");
         }
