@@ -42,8 +42,6 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
                 $actionBar->setActions(array(
                     array("name" => "Anzeigen", "link" => PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
                     array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
-                    //array("name"=>"Quelltext", "link"=> PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
-                    //array("name"=>"Herunterladen", "link"=> PATH_URL . "Download/Document/" . $this->id . "/"),
                     array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
                     array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
                 ));
@@ -54,26 +52,12 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
                 $contentText->setData($object);
                 $contentText->setContentProvider(\Widgets\DataProvider::contentProvider());
                 $clearer = new \Widgets\Clearer();
-// 				$html = "";
-// 				if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/gif") {  // Image
-// 					$html = "<div style=\"text-align:center\"><img style=\"max-width:100%\" title=\"{$name}\" alt=\"Bild: {$name}\" src=\"" . PATH_URL . "Download/Document/" . $this->id . "/\"></div>";
-// 				} else if ($mimetype == "text/html") {
-// 					$html = strip_tags($object->get_content(),"<h1><h2><h3><h4><h5><p><a><div><style><b><i><strong><img>");
-// 				} else if (strstr($mimetype, "text")) {
-// 					$html = "<pre>{$object->get_content()}</pre>";
-// 				} else {
-// 					header("location: " . PATH_URL . "Download/Document/" . $this->id . "/");
-// 				}
-// 				$rawHtml = new \Widgets\RawHtml();
-// 				$rawHtml->setHtml($html);
-                //$rawHtml->addWidget($breadcrumb);
-                //$rawHtml->addWidget($environment);
-                //$rawHtml->addWidget($loader);
+                $saveButton = new \Widgets\SaveButton();
 
                 $frameResponseObject->setTitle($name);
                 $frameResponseObject->addWidget($actionBar);
-                //$frameResponseObject->addWidget($rawHtml);
                 $frameResponseObject->addWidget($contentText);
+                $frameResponseObject->addWidget($saveButton);
                 $frameResponseObject->addWidget($clearer);
 
                 return $frameResponseObject;
@@ -86,3 +70,8 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
 }
 
 ?>
+
+
+
+
+                                

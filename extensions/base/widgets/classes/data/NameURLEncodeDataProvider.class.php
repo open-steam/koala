@@ -10,17 +10,22 @@ class NameURLEncodeDataProvider implements IDataProvider {
 		return rawurldecode($object->get_attribute("OBJ_NAME"));
 	}
 	
-	public function getUpdateCode($object, $elementId, $successMethod = "") {
+	public function getUpdateCode($object, $ownVariableName, $successMethod = "") {
 		if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
-		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
-		return <<< END
-window.ajaxSaving==true;
-sendRequest('DatabindingURLEncodeName', {'id': {$objectId}, 'value': value}, '', 'data'{$function});
-END;
+                
+                //if the user has an own successMethod, then call both methods, else just call the data-saveFunctionCallback method to wait until everything is saved
+		$function = ($successMethod != "") ? ", function(response){dataSaveFunctionCallback(response); {$successMethod}({$ownVariableName}, response);}" : ", function(response){dataSaveFunctionCallback(response);}";
+		
+		//offer the possibility to use own variablenames
+                //standard is 'value'
+                $variableName = ($ownVariableName)? $ownVariableName:'value';
+                
+                //build the functioncall
+                return "sendRequest('DatabindingURLEncodeName', {'id': {$objectId}, 'value': {$variableName}}, '', 'data'{$function});";
 	}
 	
 	public function isChangeable($object) {

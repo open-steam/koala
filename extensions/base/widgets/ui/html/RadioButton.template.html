@@ -2,11 +2,14 @@
 <!-- BEGIN BLOCK_RADIOBUTTON_LABEL -->
 <div class="widgets_label">{LABEL}:</div>
 <!-- END BLOCK_RADIOBUTTON_LABEL -->
-<div id="{ID}" class="widgets_radiobutton">
+<div id="{ID2}" class="widgets_radiobutton" data-saveFunction="{ONCHANGE}">
 <!-- BEGIN BLOCK_RADIOFIELD -->
 	<input {READONLY} id="{ID}_{RADIOVALUE}" name="{RADIONAME}" value="{RADIOVALUE}" type="radio" {CHECKED}>{RADIOLABEL}<br>
 	<script type="text/javascript">
-		$('#{ID}_{RADIOVALUE}').change(function() {var value=this.value;   {ONCHANGE}});
+		$('#{ID}_{RADIOVALUE}').change(function() {//add the changed class to this object
+            $('#{ID}').addClass('changed');
+            //update the value in the variable
+            {ID} = this.value});
 	</script>
 <!-- END BLOCK_RADIOFIELD -->
 </div>
@@ -22,7 +25,10 @@
     <center>
 	<input {READONLY_HORIZONTAL} id="{ID_HORIZONTAL}_{RADIOVALUE_HORIZONTAL}" name="{RADIONAME_HORIZONTAL}" value="{RADIOVALUE_HORIZONTAL}" type="radio" {CHECKED_HORIZONTAL}>{RADIOLABEL_HORIZONTAL}
         <script type="text/javascript">
-		$('#{ID_HORIZONTAL}_{RADIOVALUE_HORIZONTAL}').change(function() {var value=this.value;   {ONCHANGE_HORIZONTAL}});
+		$('#{ID_HORIZONTAL}_{RADIOVALUE_HORIZONTAL}').change(function() {//add the changed class to this object
+            $('#{ID_HORIZONTAL}').addClass('changed');
+            //update the value in the variable
+            {ID_HORIZONTAL} = this.value});
 	</script>
     </center>
 </div>

@@ -38,12 +38,13 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $result = $uploader->handleUpload(PATH_TEMP, $checked);
         // to pass data through iframe you will need to encode all html tags
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-        die;
+        die; //TODO
         //$ajaxResponseObject->setStatus("ok");
         //return $ajaxResponseObject;
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        
         // list of valid extensions, ex. array("jpeg", "xml", "bmp")
         $allowedExtensions = array();
         // max file size in bytes
@@ -55,6 +56,8 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         // to pass data through iframe you will need to encode all html tags
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         die;
+          
+         
     }
 
 }
@@ -158,7 +161,7 @@ class qqFileUploader {
 
         if ($postSize < $this->sizeLimit || $uploadSize < $this->sizeLimit) {
             $size = max(1, $this->sizeLimit / 1024 / 1024) . 'M';
-            die("{'error':'increase post_max_size and upload_max_filesize to $size'}");
+            throw new \Exception("{'error':'increase post_max_size and upload_max_filesize to $size'}");
         }
     }
 

@@ -80,7 +80,7 @@ class SignIn extends \AbstractCommand implements \IFrameCommand {
                             ob_end_clean();
 
                             header("Location: " . PATH_URL . "disclaimer.php");
-                            exit;
+                            die;
                         }
                     }
                 }

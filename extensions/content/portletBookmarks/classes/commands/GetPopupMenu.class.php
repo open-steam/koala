@@ -28,14 +28,12 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         //icons
-
         $copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
         $cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
         $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
         $trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
         $hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
         $bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-        $schoolBookmarkIcon = \School::getInstance()->getAssetUrl() . "icons/schoolbookmark.png";
         $upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
         $downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
         $topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
@@ -46,8 +44,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
         $rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
         $blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
 
-        //    <img src=\"{$editIcon}\">
-       
         $popupMenu = new \Widgets\PopupMenu();
         $items = array(
             array("name" => "Bearbeiten <img src=\"{$editIcon}\">", "command" => "Edit", "namespace" => "PortletBookmarks", "params" => "{'portletId':'{$this->id}'}", "type" => "popup"),
@@ -58,9 +54,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     array("name" => "Ganz nach unten <img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'last'}", "type" => "popup")
             )),
             array("name" => "SEPARATOR"),
-           // array("name" => "Kopieren <img src=\"{$copyIcon}\">", "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type" => "popup"),
-           // array("name" => "Ausschneiden <img src=\"{$cutIcon}\">", "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type" => "popup"),
-           // array("name" => "Referenzieren <img src=\"{$referIcon}\">", "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type" => "popup"),
             array("name" => "Löschen <img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "PortletBookmarks", "params" => "{'portletId':'{$this->id}'}", "type" => "popup"),
             array("name" => "SEPARATOR")
         );

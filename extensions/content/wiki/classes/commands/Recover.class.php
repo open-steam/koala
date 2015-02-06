@@ -49,7 +49,7 @@ class Recover extends \AbstractCommand implements \IFrameCommand {
 			{
 				$_SESSION[ "confirmation" ] = str_replace( "%VERSION", $version_doc->get_version(), gettext( "Version %VERSION recovered." ) );
 					header( "Location: " . PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/" );
-			   		exit;
+			   		die;
 				
 			}
 			else

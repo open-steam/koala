@@ -160,6 +160,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
+        //force the closeoperation of the dialog to reload the page to display the changed settings (tags enabled / disabled)
+        //$dialog->setForceReload(true);
 
         if ($type == "userHome" || $type == "groupWorkroom") {
             $dataNameInput = new \Widgets\TextInput();
@@ -170,11 +172,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         } else {
             $dataNameInput = new \Widgets\TextInput();
             $dataNameInput->setLabel("{$labelName}");
+            $dataNameInput->setData($object);
             if (!$isWriteable) {
                 $dataNameInput->setReadOnly(true);
             }
-            $dataNameInput->setData($object);
-            $dataNameInput->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
+            $dataNameInput->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
             
             
             //create description text area
@@ -192,8 +194,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             if ($desc !== 0) {
                 $jsWrapperPicture = new \Widgets\JSWrapper();
                 $desc = trim($desc);
-
-             //  $jsWrapperPicture->setJs('$(".plain").val("'.$desc.'");');
             }
             
             
@@ -267,6 +267,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 }
             }
             $kwList = array_unique($kwList);
+            //sort the keywordarray in an ascending order
+            sort($kwList);
             $taglist = array();
             foreach ($kwList as $kw) {
                 $tagWidget = new \Widgets\Tag();
@@ -279,10 +281,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             var valOld = $("input[type=text]")[1].value.trim();
             var tagfield = $("input[type=text]")[1]; 
             tagfield.value = valOld + " " + name;
-            $("#dialog_wrapper").addClass("changed");
-            sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
-            $(".tag[name="+name+"]")[0].onclick="";
-}</script><div class="tag-overview-row">';
+            
+            $(\'#'.$keywordArea->getId().'\').addClass(\'changed\');
+                
+            
+            '.$keywordArea->getId().' = tagfield.value;
+            //sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
+            
+            }</script><div class="tag-overview-row">';
 
             $breakCounter = 3;
             foreach ($taglist as $i => $tagWidget) {
@@ -326,8 +332,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $checkboxWWW->setReadOnly(true);
         }
         
+        
         $checkboxHiddenObject = new \Widgets\Checkbox();
-        $checkboxHiddenObject->setLabel("Verstecktes Objekt");
+        $checkboxHiddenObject->setLabel("Verstecktes Objekt:");
         $checkboxHiddenObject->setCheckedValue("1");
         $checkboxHiddenObject->setUncheckedValue(0);
         $checkboxHiddenObject->setData($object);
@@ -336,6 +343,16 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (!$isWriteable) {
             $checkboxHiddenObject->setReadOnly(true);
         }
+        
+        //checkbox for the option to enable or disable the tag-column
+        $checkboxShowTags = new \Widgets\Checkbox();
+
+        $checkboxShowTags->setLabel("Tags anzeigen:");
+        $checkboxShowTags->setCheckedValue("1");
+        $checkboxShowTags->setUncheckedValue(0);
+        $checkboxShowTags->setData($object);
+        $checkboxShowTags->setContentProvider(\Widgets\DataProvider::attributeProvider("SHOW_TAGS"));
+
 
         $seperator = new \Widgets\RawHtml();
         $seperator->setHtml("<br style=\"clear:both\"/>");
@@ -355,8 +372,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $fileName->setReadOnly(true);
             }
             $fileName->setData($object);
-            $fileName->setContentProvider(new NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
-            //$fileName->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
+            $fileName->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", $object->get_name() ));
             $dialog->addWidget($fileName);
         }
 
@@ -382,8 +398,19 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($createdField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
+        
+        
+        
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+            //check if the attribute exists, if not: set it to false
+            if($object->get_attribute("SHOW_TAGS") == 0){
+                $object->set_attribute("SHOW_TAGS", 'false');
+            }
+            
+            //only show the option to disable the tagcolumn if tags are enabled on the system
+            $dialog->addWidget($checkboxShowTags);
+            
             $dialog->addWidget($keywordArea);
             $dialog->addWidget($tagrawHtml);
         }
@@ -418,7 +445,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
                 $dialog->addWidget($textAreaDescription);
-                //$dialog->addWidget($jsWrapperPicture);
             }
         } else if ($type == "forum") {
             $creatorId = $creator->get_id();
@@ -446,7 +472,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($urlInput);
             $dialog->addWidget($seperator);
             $dialog->addWidget($textAreaDescription);
-            $dialog->setForceReload(true);
+            $dialog->setSaveAndCloseButtonForceReload(true);
         }
         
         
@@ -502,22 +528,4 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     }
 
 }
-
-class NameAttributeDataProvider extends \Widgets\AttributeDataProvider {
-
-    public function getUpdateCode($object, $elementId, $successMethode = "") {
-        if (is_int($object)) {
-            $objectId = $object;
-        } else {
-            $objectId = $object->get_id();
-        }
-        $function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
-        return <<< END
-	/*sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': ''}, '', 'data');*/
-	sendRequest('databinding', {'id': {$objectId}, 'attribute': '{$this->getAttribute()}', 'value': value}, '', 'data'{$function});
-END;
-    }
-
-}
-
 ?>

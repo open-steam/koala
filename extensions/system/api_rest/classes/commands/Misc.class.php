@@ -35,7 +35,7 @@ class Misc extends \AbstractCommand implements \IResourcesCommand {
 		}
 
 
-		exit;
+		die;
 	}
 
 	public function getMimeTypeIcon($id) {

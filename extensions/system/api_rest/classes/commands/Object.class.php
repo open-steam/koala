@@ -38,7 +38,7 @@ class Object extends \AbstractCommand implements \IFrameCommand
             echo json_encode($resultArray);
         }
 
-        exit;
+        die;
     }
 
     public function getAttributes($id)

@@ -1,18 +1,9 @@
 <!-- BEGIN BLOCK_TEXTAREA_LABEL -->
 <div class="widgets_label">{LABEL}</div>
 <!-- END BLOCK_TEXTAREA_LABEL -->
-<style type=text/css>
 
-</style>
 <div class="widgets_textareacode">
-	<textarea id={ID} name=code rows="{ROWS}" style="width:{WIDTH}">{VALUE}</textarea>
+	<textarea id="{ID}" name="code" rows="{ROWS}" style="width:{WIDTH}" data-oldValue="{VALUE}" data-saveFunction="{SAVE_FUNCTION}">{VALUE}</textarea>
 	<iframe name="preview" class="widgets_textareacode_preview"></iframe>
-	<div class="widgets_textareacode_button widgets_textareacode_save_button" id="widgets_textareacode_control_save_{ID}" {SAVE_FUNCTION}></div>
-	<div class="widgets_textareacode_loader"></div>
-	<div class="widgets_textareacode_ok"></div>
-	<div class="widgets_textareacode_button widgets_textareacode_undo_button" id="widgets_textareacode_control_undo_{ID}" {UNDO_FUNCTION}></div>
-	<div class="widgets_textareacode_error"></div>
+	
 </div>
-
-<div id="hiddenChangeField123" class="" style="display:none"></div>
-

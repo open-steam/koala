@@ -27,13 +27,13 @@ class Document extends \AbstractCommand implements \IFrameCommand {
         $result = call_user_func_array(array(__CLASS__, $this->function), $this->params?:array());
         $resultArray = getSerializedObject($result);
         echo json_encode($resultArray);
-        exit;
+        die;
     }
 
     public function getContent($id) {
         $steamDocument = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
         if ($steamDocument instanceof \steam_document) {
-        	die($steamDocument->get_content());
+        	throw new \Exception($steamDocument->get_content());
         }
         HTTPStatus(400);
     }

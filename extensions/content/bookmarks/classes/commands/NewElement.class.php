@@ -70,8 +70,9 @@ END
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Erstelle neuen Ordner in »" ."Lesezeichen". "«");
 		$dialog->addWidget($ajaxForm);
-		$dialog->setCloseButtonLabel(null);
-		$ajaxResponseObject->addWidget($dialog);
+                $dialog->setCancelButtonLabel(NULL);
+                $dialog->setSaveAndCloseButtonLabel(null);
+                $ajaxResponseObject->addWidget($dialog);
 		
 		//$idRequestObject = new \IdRequestObject();
 		//$idRequestObject->setId($this->id);

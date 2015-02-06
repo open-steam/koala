@@ -13,7 +13,7 @@ class StaticDataProvider implements IDataProvider {
 		return $this->data;
 	}
 	
-	public function getUpdateCode($object, $elementId, $successMethode = "") {
+	public function getUpdateCode($object, $elementId, $successMethod = "") {
 		return "";
 	}
 	

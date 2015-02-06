@@ -62,7 +62,9 @@ class CreateNewFormTerm extends \AbstractCommand implements \IAjaxCommand {
         $html .='<script>$(".hasDatepicker").val("' . $currentDate . '");</script>';
         $ajaxForm->setHtml($html);
         $dialog = new \Widgets\Dialog();
-        $dialog->setCloseButtonLabel(NULL);
+        
+        $dialog->setCancelButtonLabel(NULL);
+        $dialog->setSaveAndCloseButtonLabel(null);
         $dialog->setTitle("Termin anlegen");
 
         $dialog->addWidget($ajaxForm);

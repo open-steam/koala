@@ -12,19 +12,22 @@ class AnnotationDataProvider implements IDataProvider {
 		return "";
 	}
 	
-	public function getUpdateCode($object, $elementId, $successMethode = null) {
+        //not tested with the cancelbutton in the dialog because this class was unsued at that time 
+	public function getUpdateCode($object, $ownVariableName, $successMethod = null) {
 		if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
-		$function = "";
-		if (isset($successMethode)) {
-			$function = ", function(response){{$successMethode}({$elementId}, response);}";
-		}
-		return <<< END
-sendRequest('databinding', {'id': {$objectId}, 'annotate': value}, '', 'data'{$function});
-END;
+		//if the user has an own successMethod, then call both methods, else just call the data-saveFunctionCallback method to wait until everything is saved
+		$function = ($successMethod != "") ? ", function(response){dataSaveFunctionCallback(response); {$successMethod}({$ownVariableName}, response);}" : ", function(response){dataSaveFunctionCallback(response);}";
+                
+                //offer the possibility to use own variablenames
+                //standard is 'value'
+                $jsVariableName = ($ownVariableName)? $ownVariableName:'value';
+                
+                //build the functioncall
+		return "sendRequest('databinding', {'id': {$objectId}, 'annotate': {$jsVariableName}}, '', 'data'{$function});";
 	}
 	
 	public function isChangeable($object) {

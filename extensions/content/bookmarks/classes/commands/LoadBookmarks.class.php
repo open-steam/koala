@@ -138,6 +138,9 @@ class ContentProvider implements \Widgets\IContentProvider {
                 }
             } else if ($objTypeName == "portalPortlet" || $objTypeName == "portalColumn") {
                 $url = "";
+            } elseif ($objTypeName == "docextern") {
+                //if the object is an external link: redirect to the explorer class to avoid redudand code (and forward the user there)
+                $url = PATH_URL . "explorer/ViewDocument/" . $contentItem->get_id() . "/new/";
             } else if ($objTypeName == "room") {
                 $url = PATH_URL . "bookmarks/index/" . $contentItem->get_id() . "/";
             } else {

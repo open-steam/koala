@@ -20,21 +20,25 @@ class TextContentDataProvider implements IDataProvider {
 			return $object->get_content();
 		}
 	}
-	
-	public function getUpdateCode($object, $elementId, $successMethode = null) {
+
+	public function getUpdateCode($object, $ownVariableName, $successMethod = null) {
 		if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
-		$function = "";
-		if (isset($successMethode)) {
-			$function = ", function(response){{$successMethode}({$elementId}, response);}";
-		}
-		return <<< END
-sendRequest('databinding', {'id': {$objectId}, 'attribute': 'DOC_MIME_TYPE', 'value': 'text/html'}, '', 'data');
-sendRequest('databinding', {'id': {$objectId}, 'value': value}, '', 'data'{$function});
-END;
+                
+                //if the user has an own successMethod, then call both methods, else just call the data-saveFunctionCallback method to wait until everything is saved
+		$function = ($successMethod != "") ? ", function(response){dataSaveFunctionCallback(response); {$successMethod}({$ownVariableName}, response);}" : ", function(response){dataSaveFunctionCallback(response);}";
+		
+                //offer the possibility to use own variablenames
+                //standard is 'value'
+                $variableName = ($ownVariableName)? $ownVariableName:'value';
+                
+                //build the functioncall
+		return "sendRequest('databinding', {'id': {$objectId}, 'attribute': 'DOC_MIME_TYPE', 'value': 'text/html'}, '', 'data');"
+                     . "sendRequest('databinding', {'id': {$objectId}, 'value': {$variableName}}, '', 'data'{$function});";    
+
 	}
 	
 	public function isChangeable($object) {

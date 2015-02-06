@@ -47,33 +47,5 @@ abstract class AbstractObjectModel implements IObjectModel {
 	public function getReadableName() {
 		return $this->getCleanName($object);
 	}
-	
-        /* not used anymore
-	private function getCleanName() {
-		if ($this->object instanceof steam_user) {
-			$title = $this->object->get_attribute(USER_FIRSTNAME) . " " . $this->object->get_attribute(USER_FULLNAME);
-		} else {
-			$user = isUserHome($this->object);
-			if ($user) {
-				$title = getCleanName($user);
-			} else if ($this->object instanceof steam_trashbin) {
-				$title = "Papierkorb";
-			} else {
-				$desc = $this->object->get_attribute(OBJ_DESC);
-				if ($desc !== 0 && trim($desc) !== "") {
-					$title = $desc;
-				} else {
-					$title = $this->object->get_name();
-				}
-				$title = str_replace("'s workarea", "", stripslashes($title));
-				$title = str_replace(" workarea", "", stripslashes($title));
-				$title= str_replace("s workroom.", "", $title);
-				$title = str_replace("s workroom", "", $title);
-				$title = preg_replace("/.*'s bookmarks/", "Lesezeichen", $title);
-			}
-		}
-		return $title;
-	}
-	*/
 }
 ?>

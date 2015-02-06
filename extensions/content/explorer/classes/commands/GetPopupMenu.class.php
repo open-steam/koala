@@ -57,7 +57,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				$trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
 				$hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
 				$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-				$schoolBookmarkIcon = \School::getInstance()->getAssetUrl() . "icons/schoolbookmark.png";
 				$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
 				$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
 				$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
@@ -93,7 +92,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                                             (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index") && ($object->check_access(SANCTION_READ))) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "", 
                                             (($object instanceof \steam_document) && (strstr($object->get_attribute(DOC_MIME_TYPE), "text")) && ($object->check_access(SANCTION_WRITE))) ? array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/") : "",
                                             array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"), 
-                                            ($object->check_access(SANCTION_SANCTION)) ? array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup") : "");
+                                            ($object->check_access(SANCTION_SANCTION) && (stristr($object->get_attribute(OBJ_TYPE), 'postbox') === FALSE)) ? array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup") : "");
 			}
 			$popupMenu->setItems($items);
 			$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");

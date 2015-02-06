@@ -89,8 +89,7 @@ class lms_portal
             }
             $this->lms_user = new lms_user( STEAM_GUEST_LOGIN, STEAM_GUEST_PW );
 
-                        $protocoll = isset($_SERVER["HTTPS"]) ? "https://" : "http://";
-                        $url = $protocoll . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+                        $url = PATH_SERVER . $_SERVER["REQUEST_URI"];
                         $request_url = str_ireplace(PATH_URL, "/", $url);
                         $request_url = str_replace("/signin/request", "", $request_url);
                         $request_url = str_replace("/signin", "", $request_url);
@@ -163,11 +162,21 @@ class lms_portal
         language_support::choose_language();
 
         // SET LOGO URL
-                if (defined("LOGO_PATH_URL")) {
-                    $this->template->setVariable( "LOGO_PATH_URL", LOGO_PATH_URL );
-                } else {
-                    $this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
-                }
+        if (defined("LOGO_PATH_URL")) {
+            $this->template->setVariable( "LOGO_PATH_URL", LOGO_PATH_URL );
+        } else {
+            $this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
+        }
+        
+        
+        // REPORT_ERROR_BUTTON
+        if (defined("REPORT_ERROR_BUTTON")) {
+            $this->template->setVariable( "REPORT_ERROR_BUTTON", REPORT_ERROR_BUTTON );
+        } else {
+            $fallback = '<a href="mailto:DSchubert@hnf.de?subject=Problem%20mit%20dem%20bid-Server">Ein Problem melden</a>';
+            $this->template->setVariable( "REPORT_ERROR_BUTTON", $fallback);
+        }
+        
 
         // SET STYLEPATH AND ADDITIONAL HEADERS
         $this->template->setVariable( "STYLE_PATH", PATH_STYLE );

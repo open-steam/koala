@@ -1,16 +1,18 @@
-<!-- BEGIN BLOCK_TEXTINPUT_LABEL -->
-<div class="widgets_label {ADD_CLASS_LABEL}" {LABEL_STYLE}>{LABEL}</div>
-<!-- END BLOCK_TEXTINPUT_LABEL -->
-<div class="widgets_textinput {ADD_CLASS_INPUT}">
-    <input id={ID} name="{NAME}" type="text" post="" pre="" oldvalue="{VALUE}" value="{VALUE}" placeholder="{PLACEHOLDER}" {INPUT_STYLE} {READONLY} {CHANGE_FUNCTION}></input>
-	<div class="widgets_textinput_button widgets_textinput_save_button" id="widgets_textinput_control_save_{ID}" {SAVE_FUNCTION}></div>
-	<div class="widgets_textinput_loader"></div>
-	<div class="widgets_textinput_ok"></div>
-	<div class="widgets_textinput_button widgets_textinput_undo_button" id="widgets_textinput_control_undo_{ID}" {UNDO_FUNCTION}></div>
-	<div class="widgets_textinput_error"></div>
+<div class="widgets_label" {LABEL_STYLE}>{LABEL}</div>
+<div class="widgets_textinput">
+    <input id="{ID}" name="{INPUT_FIELD_NAME}" type="text" data-oldValue="{VALUE}" data-saveFunction="{SAVE_FUNCTION}" value="{VALUE}" placeholder="{PLACEHOLDER}" {INPUT_STYLE} {READONLY} />
 </div>
-<!-- BEGIN BLOCK_TEXTINPUT_FOCUS_SCRIPT -->
+
 <script type="text/javascript">
-document.getElementById("{FOCUS_ID}").focus();
+    <!-- BEGIN BLOCK_FOCUS -->
+    document.getElementById("{FOCUS_ID}").focus();
+    <!-- END BLOCK_FOCUS -->
+    $('#{ID}').change(
+        function() {
+            //add the changed class to this object
+            if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
+            //update the value in the variable
+            {ID} = $('#{ID}').val();
+        }
+    );
 </script>
-<!-- END BLOCK_TEXTINPUT_FOCUS_SCRIPT -->

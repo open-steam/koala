@@ -12,12 +12,21 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
             $user = $GLOBALS["STEAM"]->get_current_steam_user();
+            
+            //fallback, steam user not available or loggt out
+            if(!($user instanceof \steam_user)){
+                header("location: " . PATH_URL . "explorer/");
+                die;
+            }
+            
             $portal = $user->get_attribute("HOME_PORTAL");
             
             if (!($portal instanceof \steam_object)) {
                 $current_room = $user->get_workroom();
 
                 $portal = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Home Portal", $current_room);
+                //hide the hopemortal by default
+                $portal->set_attribute("bid:hidden", "1");
                 $portal->set_attribute( "OBJ_TYPE", "container_portal_bid" );
 
                 $columnWidth = array("170px", "530px", "200px");
@@ -32,7 +41,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
                 // populate columns with default portlets
                 \ExtensionMaster::getInstance()->callCommand("Create", "PortletUserPicture", array("parent" => $columns[1], "version"=>"3.0"));
-                //\ExtensionMaster::getInstance()->callCommand("Create", "PortletHeadline", array("parent" => $columns[2], "title" => $user->get_full_name(), "version"=>"3.0"));
                 \ExtensionMaster::getInstance()->callCommand("Create", "PortletBookmarks", array("parent" => $columns[2], "number" => "5", "version"=>"3.0"));
                 \ExtensionMaster::getInstance()->callCommand("Create", "PortletChronic", array("parent" => $columns[2], "elements" => "15", "version"=>"3.0"));
                 
@@ -42,7 +50,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             //\ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($portal->get_id());
             
             header("location: " . PATH_URL . "portal/Index/" . $portal->get_id() . "/");
-            exit;
+            die;
 	}
 }
 ?>

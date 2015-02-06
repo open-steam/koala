@@ -37,11 +37,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
+        
         if (isset($this->id)) {
+            
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
             if ($object instanceof \steam_exit) {
+            
                 $object = $object->get_exit();
                 $this->id = $object->get_id();
+                
             }
         } else {
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -63,19 +67,30 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         if (!$object instanceof \steam_object) {
+            
             \ExtensionMaster::getInstance()->send404Error();
-            die;
         }
+        
+        //if the object is not a steam_container it cannot have any inventory.
+        if (!$object instanceof \steam_container) {
+            
+            throw new \Exception("This object cannot contain any objects.");
+        }
+        
 
         $objectModel = \AbstractObjectModel::getObjectModel($object);
 
         if ($object && $object instanceof \steam_container) {
+            
             $count = $object->count_inventory();
             if ($count > 500) {
-                die("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
+            
+                throw new \Exception("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
             try{
+                
             $objects = $object->get_inventory();
+            
             }catch(NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
         } else {
             $objects = array();
@@ -105,7 +120,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 if (($linkObject === NULL) || !($linkObject instanceof \steam_object)) {
 
                     \ExtensionMaster::getInstance()->send404Error();
-                    die;
                 }
                 header("location: " . PATH_URL . "explorer/Index/" . $linkObject->get_id() . "/");
                 die;
@@ -118,12 +132,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "group":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
 
             case "trashbin":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
 
             case "portal_old":
@@ -148,12 +160,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "portalColumn":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
 
             case "portalPortlet":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
 
             case "userHome":
@@ -179,7 +189,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "unknown":
                 \ExtensionMaster::getInstance()->send404Error();
-                die;
                 break;
         }
         $title = getCleanName($object, 65);
@@ -251,7 +260,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $first = $objects[0];
                 $url = \ExtensionMaster::getInstance()->getUrlForObjectId($first->get_id(), "view");
                 header("location: {$url}");
-                exit;
+                die;
             }
         }
 
@@ -328,7 +337,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $kwList[] = $element;
             }
         }
-
+        
 
         $popupMenuSearch = new \Widgets\PopupMenu();
         $popupMenuSearch->setCommand("GetPopupMenuSearch");

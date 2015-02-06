@@ -24,7 +24,7 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 		$dialog->addWidget($titelInput);
 		$dialog->addWidget(new \Widgets\Clearer());
 			
-		//$dialog->setForceReload(true);
+
 		$this->dialog = $dialog;
 	}
 	

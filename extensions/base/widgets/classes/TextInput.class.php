@@ -4,24 +4,30 @@ namespace Widgets;
 
 class TextInput extends Widget {
 
+    private $id;
+    private $name = "";
     private $label;
+    private $placeholder = "";
     private $data;
     private $contentProvider;
-    private $id;
-    private $objectId;
-    private $focus = false;
-    private $readOnly = false;
     private $value = "";
-    private $placeholder = "";
+    private $focus = false;
+    private $readOnly = false; 
     private $labelWidth;
     private $inputWidth;
     private $inputBackgroundColor;
-    private $autosave = true;
     private $customSaveCode = "";
-    private $name = "";
+    
     
     public function setId($id){
-        $this->id = $id;
+        $this->id = "id_".$id."_textinput";
+    }
+    
+    public function getId(){
+        if(!isset($this->id)){
+            $this->setId(rand());
+        }
+        return $this->id;
     }
 
     public function setName($name) {
@@ -29,20 +35,19 @@ class TextInput extends Widget {
     }
 
     public function setLabel($label) {
-        $this->label = $label;
+        $this->label = $label . ":";
     }
 
     public function setPlaceholder($placeholder) {
         $this->placeholder = $placeholder;
     }
 
+    /**
+     * 
+     * @param type $data a reference to an object or the id of an object
+     */
     public function setData($data) {
         $this->data = $data;
-        if (is_int($data)) {
-            $this->objectId = $data;
-        } else {
-            $this->objectId = $data->get_id();
-        }
     }
 
     public function setContentProvider($contentProvider) {
@@ -53,6 +58,10 @@ class TextInput extends Widget {
         $this->value = $value;
     }
 
+    /**
+     * 
+     * @param type $focus set to true to focus this TextInput field
+     */
     public function setFocus($focus) {
         $this->focus = $focus;
     }
@@ -61,27 +70,46 @@ class TextInput extends Widget {
         $this->readOnly = $readOnly;
     }
 
-    public function setLabelWidth($width) {
-        $this->labelWidth = $width;
+    /**
+     * @param type $width width in pixels (without px at the end)
+     */
+    public function setLabelWidth($labelWidth) {
+        $this->labelWidth = $labelWidth."px";
     }
 
-    public function setInputWidth($width) {
-        $this->inputWidth = $width;
+    /**
+     * @param type $width width in pixels (without px at the end)
+     */
+    public function setInputWidth($inputWidth) {
+        $this->inputWidth = $inputWidth;
     }
 
+    /**
+     * @param type $color a value for the css attribute background-color
+     */
     public function setInputBackgroundColor($color) {
         $this->inputBackgroundColor = $color;
     }
 
+    /**
+     * This method is deprecated
+     */
     public function setAutoSave($autosave) {
-        $this->autosave = $autosave;
+        $last=next(debug_backtrace());
+        \logging::write_log( LOG_MESSAGES, "The function setAutoSave is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
     }
 
-    public function setCustomSaveCode($js) {
-        $this->customSaveCode = $js;
+    public function setCustomSaveCode($customSaveCode) {
+        $this->customSaveCode = $customSaveCode;
     }
 
     public function getHtml() {
+        if(!isset($this->id)){
+            $this->setId(rand());
+        }
+        $this->getContent()->setVariable("ID", $this->id);
+        
+        
         $reverseSpecialHtmlWidget = new \Widgets\JSWrapper();
         $reverseSpecialHtmlWidget->setJs("function rSHW(value){" .
                 "value.replace(/&amp;/g,'&');" .
@@ -90,35 +118,43 @@ class TextInput extends Widget {
                 "value.replace(/&#039;/g,'\'');" .
                 "value.replace(/&lt;/g,'<');" .
                 "value.replace(/&gt;/g,'>');}");
-
-        
-            
-        if(!isset($this->id)){
-            $this->id = rand();
-        }
         $this->addWidget($reverseSpecialHtmlWidget);
+        
+        
         if (isset($this->label) && trim($this->label) !== "") {
-            $this->getContent()->setVariable("LABEL", $this->label . ":");
+            $this->getContent()->setVariable("LABEL", $this->label);
         } else {
             $this->getContent()->setVariable("LABEL", "");
         }
-        $this->getContent()->setVariable("PLACEHOLDER", $this->placeholder);
+        
+        $this->getContent()->setVariable("INPUT_FIELD_NAME", $this->name);
+        
         if (isset($this->labelWidth)) {
-            $this->getContent()->setVariable("LABEL_STYLE", "style=\"width:{$this->labelWidth}px\"");
+            $this->getContent()->setVariable("LABEL_STYLE", "style=\"width:{$this->labelWidth}\"");
         }
-        $this->getContent()->setVariable("ID", $this->id);
+        
+        $this->getContent()->setVariable("PLACEHOLDER", $this->placeholder);
+        
+        
+        
+                
         if ($this->focus) {
+            $this->getContent()->setCurrentBlock("BLOCK_FOCUS");
+            //unfortunately this double assignment of $this->id to the template
+            //is necessacy, because the templatengine can't work with a
+            //variable within and outside a block
             $this->getContent()->setVariable("FOCUS_ID", $this->id);
+            $this->getContent()->parse("BLOCK_FOCUS");
         }
+
         if ($this->readOnly) {
             $this->getContent()->setVariable("READONLY", "readonly");
-            $this->getContent()->setVariable("ADD_CLASS_LABEL", "readonly");
-            $this->getContent()->setVariable("ADD_CLASS_INPUT", "readonly");
         }
+
         if (isset($this->inputWidth) || isset($this->inputBackgroundColor)) {
             $style = "";
             if (isset($this->inputWidth)) {
-                $style .= "width:{$this->inputWidth}px;";
+                $style .= "width:{$this->inputWidth};";
             }
             if (isset($this->inputBackgroundColor)) {
                 $style .= "background-color:{$this->inputBackgroundColor}";
@@ -128,53 +164,22 @@ class TextInput extends Widget {
         }
 
         if ($this->contentProvider) {
+            
             if (!$this->contentProvider->isChangeable($this->data)) {
                 $this->getContent()->setVariable("READONLY", "readonly");
-                $this->getContent()->setVariable("ADD_CLASS_LABEL", "readonly");
-                $this->getContent()->setVariable("ADD_CLASS_INPUT", "readonly");
             }
+            
             $valueString = $this->contentProvider->getData($this->data);
-            if (is_array($valueString)) {
-                //echo $this->id;die;
-            }
-            $valueString = (($valueString === "0") || ($valueString === "")) ? "" : $valueString;
-            $valueString = htmlspecialchars($valueString);
+            $valueString = ($valueString === "0") ? "" : htmlspecialchars($valueString);
             $this->getContent()->setVariable("VALUE", $valueString);
-            if (!$this->autosave) {
-                $this->getContent()->setVariable("CHANGE_FUNCTION", "onClick=\"event.stopPropagation();" .
-                        "\"onKeyup=\"if (event.keyCode==13)" .
-                        "{value = getElementById({$this->id}).value;rSHW(value);" .
-                        "widgets_textinput_save({$this->id});" .
-                        "{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")};" .
-                        "{$this->customSaveCode} } " .
-                        "else { widgets_textinput_changed({$this->id});}\"");
-
-                $this->getContent()->setVariable("SAVE_FUNCTION", "onClick=\"event.stopPropagation();" .
-                        "value = jQuery('#{$this->id}').val();" .
-                        "rSHW(value);" .
-                        "widgets_textinput_save({$this->id});" .
-                        "{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")}\"");
-            } else {
-                $this->getContent()->setVariable("CHANGE_FUNCTION", "onBlur=\"if (jQuery('#{$this->id}').hasClass('changed'))" .
-                        "{value = getElementById({$this->id}).value;" .
-                        "widgets_textinput_save({$this->id});" .
-                        "{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")}} " .
-                        "\"onClick=\"event.stopPropagation();" .
-                        "\"onKeyup=\"if (event.keyCode==13)" .
-                        "{value = jQuery(getElementById({$this->id})).attr('pre') + getElementById({$this->id}).value + jQuery(getElementById({$this->id})).attr('post');" .
-                        "widgets_textinput_save({$this->id});{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_save_success")};" .
-                        "{$this->customSaveCode} }" .
-                        "else { widgets_textinput_changed_autosave({$this->id});}\"");
-            }
-            $this->getContent()->setVariable("UNDO_FUNCTION", "onClick=\"event.stopPropagation();" .
-                    "value = jQuery('#{$this->id}').attr('oldValue');" .
-                    "widgets_textinput_save({$this->id});" .
-                    "{$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textinput_undo_success")}\"");
+            
+            $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id));
+            
         } else {
             $valueString = htmlspecialchars($this->value);
             $this->getContent()->setVariable("VALUE", $valueString);
         }
-        $this->getContent()->setVariable("NAME", $this->name);
+        
         return $this->getContent()->get();
     }
 

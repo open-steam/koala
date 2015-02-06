@@ -1,5 +1,5 @@
 
-function widgets_textarea_save_success(elementId, response) {
+function widgets_textarea_save_success_delete_me(elementId, response) {
     var widget = jQuery("#" + elementId);
     deJSON = jQuery.parseJSON(response.responseText);
     if (deJSON) {
@@ -20,7 +20,7 @@ function widgets_textarea_save_success(elementId, response) {
                 widget.removeClass("dirty");
                 //	widget.addClass("undo");
                 widget.addClass("saved");
-                widget.attr("oldValue", widget.attr("value"));
+                widget.attr("data-oldValue", widget.attr("value"));
                 widget.attr("value", data.newValue);
                 $(window).unbind('beforeunload');
             } else {
@@ -38,11 +38,14 @@ function widgets_textarea_save_success(elementId, response) {
     var methods = {
         init: function(options) {
 
-            var element = this;
-            element.toggleClass("dirty");
+            //we also could use 'this' but then we would have to make it a jQuery object [$(this)] each time
+            
+            var textarea = this;
+            var identifier = options.id;
+            textarea.toggleClass("dirty");
             var value = decodeURIComponent(options.value);
-            element.attr("value", value);
-            element.attr("oldValue", value);
+            textarea.attr("value", value);
+            textarea.attr("data-oldValue", value);
             sendFunction = options.sendFunction;
             var mce_defaults = {
                 mode: "specific_textareas",
@@ -62,37 +65,43 @@ function widgets_textarea_save_success(elementId, response) {
                 theme_advanced_statusbar_location: "none",
                 theme_advanced_resizing: false,
                 onchange_callback: function(e) {
-                    element.addClass("dirty");
+                    textarea.addClass("changed");
+                    //executed each time the contend is modified
+                    eval(identifier + " = " + 'tinyMCE.activeEditor.getContent()');
                 },
                 handle_event_callback: function(e) {
-                    if (e.type === "keyup" && tinyMCE.activeEditor.isDirty()) {
-                        element.addClass("dirty");
+                    textarea.addClass("changed");
+                    //executed each time the contend is modified
+                    eval(identifier + " = " + 'tinyMCE.activeEditor.getContent()');
+                    if (tinyMCE.activeEditor.isDirty()) {    
                         $(window).bind('beforeunload', function() {
-                            return 'LeaveMessage';
+                            return textarea.attr("data-leaveMessage");
                         });
                     }
                     ;
                     if (!tinyMCE.activeEditor.isDirty()) {
-                        element.removeClass("dirty");
+                        textarea.removeClass("changed");
                     }
+
                 },
                 oninit: function(e) {
+                    //if the editor is loaded set the value and set it to notDirty
                     tinyMCE.activeEditor.setContent(value), tinyMCE.activeEditor.isNotDirty = 1
                 },
                 setup: function(e) {
                     setInterval(function() {
                         
                         value = "";
-                        if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
+                        if (textarea.find("textarea").hasClass("mce-full") || textarea.find("textarea").hasClass("mce-small")) {
                            $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
                             var value = tinyMCE.activeEditor.getContent();
-                        } else if (element.find("textarea").hasClass("plain")) {
-                            var value = element.find("textarea").val();
+                        } else if (textarea.find("textarea").hasClass("plain")) {
+                            var value = textarea.find("textarea").val();
                         }
-                        var oldValue = element.attr("oldValue");
+                        var oldValue = textarea.attr("data-oldValue");
                         if (tinyMCE.activeEditor && tinyMCE.activeEditor.isDirty()) {
                             if (oldValue !== value) {
-                                element.addClass("dirty");
+                                textarea.addClass("dirty");
 
                               //  $(window).bind('beforeunload', function() {
                                   //  return 'LeaveMessage';
@@ -102,13 +111,13 @@ function widgets_textarea_save_success(elementId, response) {
                         }
                         ;
                         if (tinyMCE.activeEditor && !tinyMCE.activeEditor.isDirty()) {
-                            element.removeClass("dirty");
+                            textarea.removeClass("dirty");
                         }
                     }, 1000);
                 }
             };
 
-            if (element.find("textarea").hasClass("mce-small")) {
+            if (textarea.hasClass("mce-small")) {
 
                 load("mce", function() {
                     tinyMCE.init($.extend({
@@ -116,24 +125,25 @@ function widgets_textarea_save_success(elementId, response) {
                         plugins: "emotions,paste,noneditable",
                         // Theme options
                         theme_advanced_buttons1: "bold,italic,underline,|,bullist,numlist,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo,pasteword",
-                        theme_advanced_buttons2: ""
+                        theme_advanced_buttons2: "",
+                        readonly: tinymceReadOnly
                     }, mce_defaults));
                 });
 
-            } else if (element.find("textarea").hasClass("mce-full")) {
+            } else if (textarea.hasClass("mce-full")) {
 
-
+                //probably not needed
                 //protect unsaved text
-
+                /*
                 $(window).unload(function() {
                     var dirtyTextareas = jQuery('#content').find('.widget.textarea.dirty');
-                    if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
+                    if (textarea.hasClass("mce-full") || textarea.hasClass("mce-small")) {
                         $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
                         var value = tinyMCE.activeEditor.getContent();
-                    } else if (element.find("textarea").hasClass("plain")) {
-                        var value = element.find("textarea").val();
+                    } else if (textarea.hasClass("plain")) {
+                        var value = textarea.find("textarea").val();
                     }
-                    var oldValue = this.attr("oldValue");
+                    var oldValue = textarea.attr("data-oldValue");
                     if (oldValue.trim() !== value.trim()) {
                         //$(window).unbind( “unload” );
                         //window.onbeforeunload = state ? function() { return "text1"; } : null;
@@ -158,7 +168,7 @@ function widgets_textarea_save_success(elementId, response) {
 
 
 
-                });
+                });*/
 
 
                 //load tinymce
@@ -189,45 +199,41 @@ function widgets_textarea_save_success(elementId, response) {
                         }
                     }, mce_defaults));
                 });
-            } else if (element.find("textarea").hasClass("plain")) {
-                element.find("textarea").val(value);
-                element.find("textarea").bind('keyup', function() {
-                    element.addClass("dirty");
+            } else if (textarea.find("textarea").hasClass("plain")) {
+                textarea.find("textarea").val(value);
+                textarea.find("textarea").bind('keyup', function() {
+                    textarea.addClass("dirty");
                 });
             }
         },
         save: function() {
-            var element = this;
-            if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
+            //alert('hier');
+            var textarea = this;
+            var value;
+            
+            if (textarea.hasClass("mce-full") || textarea.hasClass("mce-small")) {
+            
                 $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
-                //tinyMCE.activeEditor.getBody().click(); 
-                var value = tinyMCE.activeEditor.getContent();
-            } else if (element.find("textarea").hasClass("plain")) {
-                var value = element.find("textarea").val();
+            
+                value = tinyMCE.activeEditor.getContent();
+                
+            } else if (textarea.hasClass("plain")) {
+                value = textarea.val();
             }
-            var oldValue = this.attr("oldValue");
-            this.addClass("saving");
+            
+            var oldValue = textarea.attr("data-oldValue");
+            textarea.addClass("saving");
+            
             sendFunction(value);
-            this.removeClass("dirty");
-            $(window).unbind('beforeunload');
+            
+            textarea.removeClass("dirty");
+            
 
 
-        },
-        undo: function() {
-            var element = this;
-            if (element.find("textarea").hasClass("mce-full") || element.find("textarea").hasClass("mce-small")) {
-                $(tinyMCE.activeEditor.getBody()).addClass("mceNonEditable");
-                //tinyMCE.activeEditor.getBody().click(); 
-                var value = this.attr("oldValue");
-            } else if (element.find("textarea").hasClass("plain")) {
-                var value = this.attr("oldValue");
-            }
-            this.addClass("saving");
-            $(window).unbind('beforeunload');
-            sendFunction(value)
-        },
+        }
     };
 
+    //define a new function 'textarea' that can be called with parameters and forwards the call to the methods above
     $.fn.textarea = function(method) {
         // Method calling logic
         if (methods[method]) {

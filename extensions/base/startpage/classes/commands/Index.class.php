@@ -17,7 +17,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
                 if (STARTPAGE_REDIRECT) {
                     header("location: " . STARTPAGE_REDIRECT_URL);
-                    exit;
+                    die;
                 }
 		$portal = \lms_portal::get_instance();
 		$lms_user = $portal->get_user();
@@ -40,7 +40,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 		if ( $lms_user->is_logged_in() ) {
 			header( "Location: " . PATH_URL . "desktop/"  );
-			exit;
+			die;
 		} else {
 			//$content->setCurrentBlock( "BLOCK_SIGN_IN" );
 			//$content->setVariable( "LOGIN_FORM_ACTION", URL_SIGNIN );

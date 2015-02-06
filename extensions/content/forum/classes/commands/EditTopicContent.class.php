@@ -28,13 +28,10 @@ class EditTopicContent extends \AbstractCommand implements \IFrameCommand, \IAja
 		$steamId=$steam->get_id();
 		$allowed_write=$object->check_access_write($steamUser);
 
-
 		$title=$this->params["title"];
 
 		$content=$this->params["content"];
 	
-
-
 		if($allowed_write && $title !="" && $content != "") {
 			$attributes = array(
 			/* object name cannot be change leave the comment intentionally

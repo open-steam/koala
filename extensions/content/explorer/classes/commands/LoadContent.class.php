@@ -7,6 +7,7 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
     private $params;
     private $id;
     private $objects;
+    private $object;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -16,10 +17,10 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
 
-        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
-        if ($object && $object instanceof \steam_container) {
-            $this->objects = $object->get_inventory();
+        if ($this->object && $this->object instanceof \steam_container) {
+            $this->objects = $this->object->get_inventory();
         } else {
             $this->objects = array();
         }
@@ -27,8 +28,8 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $listViewer = new \Widgets\ListViewer();
-        $listViewer->setHeadlineProvider(new HeadlineProvider());
-        $listViewer->setContentProvider(new ContentProvider());
+        $listViewer->setHeadlineProvider(new HeadlineProvider($this->object));
+        $listViewer->setContentProvider(new ContentProvider($this->object));
         $listViewer->setColorProvider(new ColorProvider());
         $listViewer->setContentFilter(new ContentFilter());
         $listViewer->setContent($this->objects);
@@ -44,8 +45,14 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
+    private $object;
+    //save the current object to check the attribute SHOW_TAGS lateron
+    function __construct($object){
+        $this->object = $object;
+    }
+
     public function getHeadlines() {
-        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+        if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
             return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         } else {
             return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
@@ -72,6 +79,13 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawSubscribe = 5;
     private $rawMenu = 6;
     private $rawCheckbox = 7;
+    private $object;
+    
+    //save the current object to check the attribute SHOW_TAGS lateron
+    function __construct($object){
+        $this->object = $object;
+    }
+
 
     public function getId($contentItem) {
         return $contentItem->get_id();
@@ -150,7 +164,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             }
         } elseif ($cell == $this->rawMarker) {
             //  return ""; //disabled
-            if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
+            if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
                 $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
                 $keywordList = "";
                 foreach ($keywords as $keyword) {

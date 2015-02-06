@@ -37,7 +37,7 @@ class NewDocumentForm extends \AbstractCommand implements \IFrameCommand, \IAjax
                 $ajaxUploader->setMultiUpload(TRUE);
 		
 		$dialog->addWidget($ajaxUploader);
-                $dialog->setForceReload(true);
+                $dialog->setSaveAndCloseButtonForceReload(true);
 		$ajaxResponseObject->addWidget($dialog);
 		return $ajaxResponseObject;
 	}

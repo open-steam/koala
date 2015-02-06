@@ -43,7 +43,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
             $inventory = $column->get_inventory();
             $width = $column->get_attribute("bid:portal:column:width");
             if(strpos($width,"px")!==false) $width = substr($width, 0, -2);
-            //echo $width;die;
+
             $widthArray[]=$width;
             $widthSum += $width;
             $ele = "";
@@ -120,7 +120,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                             }); 
                            var changedElement = $(ui.item).attr("id");
                            sendRequest("Update", {"changedElement": changedElement, "id": column, "elements" : elements }, "", "data", function(response){ }, function(response){ }, "portal");
-                           $('#hiddenBox').addClass("changed"); 
+                           //$('#hiddenBox').addClass("changed"); 
                             
                         }
                         
@@ -138,7 +138,7 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
                 var objId = array[1];
                 var col = array[2];
                 sendRequest("UpdateWidth", {"id": objId, "value": value}, "", "data", function(response){ }, function(response){ }, "portal");
-                $('#hiddenBox').addClass("changed"); 
+                //$('#hiddenBox').addClass("changed"); 
                 var old = parseInt($('#sum_'+col).text());
                 $('#sum_'+col).text(value);
                 var sum = $('#sum').text();
@@ -170,6 +170,10 @@ END
         $dialog->setTitle(" Breite bearbeiten und Sortieren des Portals »" . getCleanName($portalObj) . "«");       
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
+        //this button does not have anny effect on the autosavingprocess. It is only there to close the dialog and make the user happy
+        $dialog->setAutoSaveDialog(true);
+        $dialog->setSaveAndCloseButtonLabel("Speichern & Schließen");
+        //$dialog->setCancelButtonLabel();
         $dialog->addWidget($rawHtml);
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($dialog);

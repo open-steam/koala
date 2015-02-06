@@ -218,6 +218,21 @@ function getCleanName($object, $length = 30) {
             $title = preg_replace("/.*'s bookmarks/", "Lesezeichen", $title);
         }
     }
+    
+    //remove line breaks
+    $title = str_replace(array("\r", "\n"), "", $title);
+    
+    //remove extra spaces
+    $count = 1;
+    $limit = 100;
+    while ($count < $limit){ //prevent too long loops
+        $titleNew = str_replace("  ", " ", $title);
+        if (strlen($titleNew) == strlen($title)) break;
+        $count++;
+    }
+    $title = $titleNew;
+    
+    //limit return length
     if ($length != -1 && $length < strlen($title)) {
         $title = mb_substr($title, 0, $length, "UTF-8") . "...";
     }
@@ -313,6 +328,8 @@ function getObjectType($object) {
             $type = "pyramiddiscussion";
         } elseif ($objType === "postbox") {
             $type = "postbox";
+		} elseif ($objType === "ellenberg") {
+            $type = "ellenberg";
         } elseif ($object->get_attribute("worksheet_valid") === 1) {
             $type = "worksheet";
         } elseif ($objType === "container_webarena") {
@@ -383,6 +400,10 @@ function deriveIcon($object) {
 
     if ($objtype === "postbox")
         return "postbox.png";
+    if ($objtype === "ellenberg")
+        return "old/annotation.gif";
+
+
 
     if ($doctype === "portal") {
         return "portal_old.png";
@@ -601,13 +622,12 @@ function getObjectReadableSize($object) {
                 $html = $counter . " Objekte";
             }
         } elseif ($type == "postbox") {
-            $datetime = $object->get_attribute("bid:postbox:deadline");
-            if ($datetime == 0 || $datetime == "") {
-                $html = "-";
-            } else {
-                $deadlineArray = explode(" ", $datetime);
-                $html = $deadlineArray[0];
-            }
+            $outerInventory = $object->get_inventory();
+            $outerInventoryFirstElement = $outerInventory[0];
+            $innerInventory = $outerInventoryFirstElement->get_inventory();
+            $counter = count($innerInventory);
+            $html = $counter;
+            $html .= ($counter == 1)? " Abgabe" : " Abgaben";            
         } elseif ($type == "portal") {
             $counter = count($object->get_inventory());
             $html = $counter;

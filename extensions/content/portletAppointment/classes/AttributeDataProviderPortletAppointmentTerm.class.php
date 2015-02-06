@@ -68,16 +68,20 @@ class AttributeDataProviderPortletAppointmentTerm {
 	
 	
 
-	public function getUpdateCode($object, $elementId, $successMethode = "") {
+	public function getUpdateCode($object, $ownVariableName, $successMethod = "") {
 		if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
-		$function = ($successMethode != "") ? ", function(response){{$successMethode}({$elementId}, response);}" : ",''";
-		return <<< END
-sendRequest('DatabindingPortletAppointmentTerm', {'id': {$objectId}, 'termIndex': '{$this->termIndex}', 'field': '{$this->field}', 'value': value}, '', 'data'{$function}, '', 'PortletAppointment');
-END;
+		//if the user has an own successMethod, then call both methods, else just call the data-saveFunctionCallback method to wait until everything is saved
+                $function = ($successMethod != "") ? ", function(response){dataSaveFunctionCallback(response); {$successMethod}({$ownVariableName}, response);}" : ", function(response){dataSaveFunctionCallback(response);}";
+		
+                //offer the possibility to use own variablenames
+                //standard is 'value'
+                $variableName = ($ownVariableName)? $ownVariableName:'value';
+                
+                return "sendRequest('DatabindingPortletAppointmentTerm', {'id': {$objectId}, 'termIndex': '{$this->termIndex}', 'field': '{$this->field}', 'value': {$variableName}}, '', 'data'{$function}, '', 'PortletAppointment');";
 	}
 	
 	public function isChangeable($steamObject){

@@ -38,7 +38,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
     public function processData(\IRequestObject $requestObject)
     {
         $this->download_document($this->login, $this->password, $this->id, "id", isset($this->width) ? $this->width : null, isset($this->height) ? $this->height : null);
-        exit;
+        die;
     }
 
     public function resourcesResponse()
@@ -56,7 +56,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
             if ($document instanceof \steam_document) {
                 if (!isset($this->filename)) {
                     header("location: " . PATH_URL . "Download/Document/{$identifier}/{$document->get_name()}");
-                    exit;
+                    die;
                 }
             }
         }

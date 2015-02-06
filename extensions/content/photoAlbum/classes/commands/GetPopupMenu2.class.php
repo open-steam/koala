@@ -16,30 +16,6 @@ class GetPopupMenu2 extends \AbstractCommand implements \IAjaxCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
-// 		var_dump($this->params["selection"]);
-// 		if(get_magic_quotes_gpc()){
-// 			$d = stripslashes($this->params["selection"]);
-// 			var_dump($d);
-// 		}else{
-// 			$d = $this->params["selection"];
-// 		}
-// 		$d = json_decode($d,true);
-// 		var_dump($d);
-// 		switch(json_last_error())
-// 		{
-// 			case JSON_ERROR_DEPTH:
-// 				echo ' - Maximale Stacktiefe überschritten';
-// 				break;
-// 			case JSON_ERROR_CTRL_CHAR:
-// 				echo ' - Unerwartetes Steuerzeichen gefunden';
-// 				break;
-// 			case JSON_ERROR_SYNTAX:
-// 				echo ' - Syntaxfehler, ungültiges JSON';
-// 				break;
-// 			case JSON_ERROR_NONE:
-// 				echo ' - Keine Fehler';
-// 				break;
-// 		}
         $this->selection = json_decode($this->params["selection"]);
         $this->x = $this->params["x"];
         $this->y = $this->params["y"];
@@ -73,7 +49,6 @@ class GetPopupMenu2 extends \AbstractCommand implements \IAjaxCommand {
                 $trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
                 $hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
                 $bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-                $schoolBookmarkIcon = \School::getInstance()->getAssetUrl() . "icons/schoolbookmark.png";
                 $upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
                 $downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
                 $topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";

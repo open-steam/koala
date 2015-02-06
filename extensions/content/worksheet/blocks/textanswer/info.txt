@@ -1,2 +1,0 @@
-Frage mit Freitextantwort
-Zu einer Frage kann die Antwort als Text eingegeben werden.

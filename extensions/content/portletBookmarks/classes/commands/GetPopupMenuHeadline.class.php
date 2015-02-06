@@ -33,7 +33,6 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 		$trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
 		$hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
 		$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-		$schoolBookmarkIcon = \School::getInstance()->getAssetUrl() . "icons/schoolbookmark.png";
 		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
 		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
 		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
@@ -44,7 +43,6 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 		$rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
 		$blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
 		
-		//    <img src=\"{$editIcon}\">
 		
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "Edit", "namespace" => "PortletMsg", "params" => "{'portletId':'{$this->portletObjectId}','user':'{$this->user}'}", "type"=>"popup"), 

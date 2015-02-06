@@ -27,17 +27,21 @@ class ArrayToStringProvider implements IDataProvider {
 		return $this->attribute;
 	}
 	
-	public function getUpdateCode($object, $elementId, $successMethod = "") {
+	public function getUpdateCode($object, $ownVariableName, $successMethod = "") {
 		if (is_int($object)) {
 			$objectId = $object;
 		} else {
 			$objectId = $object->get_id();
 		}
+                //if the user has an own successMethod, then call both methods, else just call the data-saveFunctionCallback method to wait until everything is saved
+		$function = ($successMethod != "") ? ", function(response){dataSaveFunctionCallback(response); {$successMethod}({$ownVariableName}, response);}" : ", function(response){dataSaveFunctionCallback(response);}";
+		
+		//offer the possibility to use own variablenames
+                //standard is 'value'
+                $variableName = ($ownVariableName)? $ownVariableName:'value';
                 
-		$function = ($successMethod != "") ? ", function(response){{$successMethod}({$elementId}, response);}" : ",''";
-                
-                return " 
-sendRequest('SendArrayToStringRequest', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': value}, '', 'data'{$function}, null, 'Explorer');";
+                //build the functioncall
+                return "sendRequest('SendArrayToStringRequest', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': {$variableName}}, '', 'data'{$function}, null, 'Explorer');";
 	}
 	
 	public function isChangeable($object) {

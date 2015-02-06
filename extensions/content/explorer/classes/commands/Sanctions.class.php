@@ -51,11 +51,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 
         $dialog = new \Widgets\Dialog();
+        $dialog->setAutoSaveDialog(true);
         $dialog->setWidth(600);
         $dialog->setTitle("Rechte von »" . getCleanName($object) . "«");
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
+        
+        
+        
 
         //GET CREATOR TODO: USEFULL FOR ROOT FOLDER
         //SET ICON URL
@@ -687,23 +691,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->parse("FAV_DDSETTING_ACQS");
             $content->parse("FAVORITES_ACQ");
         }
-
-
-        /*  $content->setCurrentBlock("FAVORITES_ACQ");
-          $content->setCurrentBlock("FAV_DDSETINGS_ACQ");
-          $content->setVariable("FAVID_ACQ", $id);
-          $content->setVariable("FAV_ID_ACQ", $id);
-          $content->setVariable("FAVNAME_ACQ", $name);
-          $content->setVariable("FAV_OPTION_VALUE_ACQ", $dropDownValueAcq);
-          if (isset($favorites[$id])) {
-          $content->setVariable("IMG_PATH_ACQ", $favPicUrl);
-          } else {
-          $content->setVariable("IMG_PATH_ACQ", $userPicUrl);
-          }
-          $content->parse("FAV_DDSETTING_ACQS");
-          $content->parse("FAVORITES_ACQ");
-          } */
-
 
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());

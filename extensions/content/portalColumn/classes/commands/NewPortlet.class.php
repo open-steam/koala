@@ -34,7 +34,8 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Erstelle ein neues Objekt in Spalte " . $object->get_name());
-		$dialog->setCloseButtonLabel(null);
+	        $dialog->setCancelButtonLabel(NULL);
+                $dialog->setSaveAndCloseButtonLabel(NULL);
 		
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);

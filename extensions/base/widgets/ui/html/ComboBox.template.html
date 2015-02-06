@@ -1,10 +1,21 @@
 <!-- BEGIN BLOCK_COMBOBOX_LABEL -->
-<div class="widgets_label" {LABEL_STYLE}>{LABEL}:</div>
+<div class="widgets_label" {LABEL_STYLE}>{LABEL}</div>
 <!-- END BLOCK_COMBOBOX_LABEL -->
 <div id="{ID}" class="widgets_combobox">
-<select id="{ID2}_select" size="{SIZE}" name="{COMBONAME}" {READONLY} onchange="{ONCHANGE}">
-<!-- BEGIN BLOCK_OPTION -->
-	<option id="{ID}_{OPTIONVALUE}" value="{OPTIONVALUE}" {SELECTED}>{OPTIONLABEL}</option>
-<!-- END BLOCK_OPTION -->
-</select>
+    <select id="{ID2}_select" size="{SIZE}" name="{COMBONAME}" data-oldValue="{VALUE}" data-saveFunction="{SAVE_FUNCTION}" {READONLY}>
+    <!-- BEGIN BLOCK_OPTION -->
+        <option id="{ID}_{OPTIONVALUE}" value="{OPTIONVALUE}" {SELECTED}>{OPTIONLABEL}</option>
+    <!-- END BLOCK_OPTION -->
+    </select>
 </div>
+
+<script type="text/javascript">
+    $('#{ID2}_select').change(
+        function() {
+            //add the changed class to this object
+            if($('#{ID2}_select').attr('data-oldValue') != $('#{ID2}_select').val()){ $('#{ID2}_select').addClass('changed');}
+            //update the value in the variable
+            {ID2} = $('#{ID2}_select').val();
+        }
+    );
+</script>

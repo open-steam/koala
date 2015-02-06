@@ -29,22 +29,34 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             $envRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         }
 
-        $obj = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["name"], $envRoom);
-        $obj->set_attribute("OBJ_TYPE", "postbox");
+        $postboxObject = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["name"], $envRoom);
+        $postboxObject->set_attribute("OBJ_TYPE", "postbox");
         if ($this->params["checkVal"] === "true") {
-            $obj->set_attribute("bid:postbox:deadline", "");
-        } else {
-            $obj->set_attribute("bid:postbox:deadline", $this->params["deadline"]);
+            $postboxObject->set_attribute("bid:postbox:deadline", "");
+        } else { 
+            //check if the given date is of the corect form e.g. '25.08.2014 00:10'
+            if(preg_match("/^\d{1,2}\.\d{1,2}\.\d{4} \d{2}:\d{2}/isU", $this->params["deadline"])){
+                $postboxObject->set_attribute("bid:postbox:deadline", $this->params["deadline"]);
+            } else {
+                $postboxObject->set_attribute("bid:postbox:deadline", "");
+            }
         }
-        $container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "postbox_container", $obj);
-        $container->set_acquire(false);
-        $obj->set_attribute("bid:postbox:container", $container);
-        $obj->set_acquire(false);
-        $steamGroupId = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam")->get_id();
-        $container->sanction(SANCTION_READ | SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
-        $container->sanction_meta(SANCTION_READ | SANCTION_INSERT, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
         
-       
+        $innerContainer = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "postbox_container", $postboxObject);
+        $innerContainer->set_acquire(false);
+        $postboxObject->set_attribute("bid:postbox:container", $innerContainer);
+        $postboxObject->set_acquire(false);
+        $steamGroupId = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam")->get_id();
+        
+        //configure sanctions for inner container
+        $requiredSanctionsForInnerContainer = SANCTION_READ | SANCTION_INSERT;
+        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && (!(API_DOUBLE_FILENAME_NOT_ALLOWED))){
+            $requiredSanctionsForInnerContainer = SANCTION_INSERT;
+        }
+        
+        $innerContainer->sanction($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
+        $innerContainer->sanction_meta($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
+        
         $jswrapper = new \Widgets\JSWrapper();
         $jswrapper->setJs(<<<END
 		closeDialog();

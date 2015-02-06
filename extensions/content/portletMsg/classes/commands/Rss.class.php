@@ -17,8 +17,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params[0]);
 
             if (!$portletObject instanceof \steam_object) {
-                header('location: ' . PATH_SERVER . '/404/');
-                die;
+                ExtensionMaster::getInstance()->send404Error();
             }
 
             $user = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -82,7 +81,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
                 if( !$steam || !$steam->get_login_status() ) {
                     echo("*** Login fehlgeschlagen! ***<br>");
-                    exit();
+                    die;
                 }
 
 
@@ -160,7 +159,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
                     echo "</channel>\n";
                     echo "</rss>\n";
-                    exit;
+                    die;
                 }
                 else {
                     //$login = $steamUser->get_name();
@@ -168,7 +167,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     //else throw new \Exception( "Access denied.", E_USER_RIGHTS );
 
                     echo "The access rights of the requested object do not allow you to read it.";
-                    exit;
+                    die;
                 }
 
         }

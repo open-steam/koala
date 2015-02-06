@@ -114,7 +114,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				    $rcache->drop("lms_rss::get_items", $feedlink);
 			
 				    header("Location: " . PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/");
-				    exit;
+				    die;
 				} else {
 				    // PREVIEW
 				    $content->setCurrentBlock("BLOCK_PREVIEW");

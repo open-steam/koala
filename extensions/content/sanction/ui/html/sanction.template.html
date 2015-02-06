@@ -1,0 +1,269 @@
+<style>
+ 
+    td{
+        font-family: arial;
+    }
+    p{
+        font-family: arial;
+    }
+    
+    #no_acquiring{
+     {IS_ACQUIRED_DISABLE_FORM}   
+        
+    }
+</style>
+<h2>Rechteverwaltung von {TITLE}</h2>
+
+<div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist <b>{OWNER_FULL_NAME}</b>
+        und hat volle Zugriffsrechte.</p></div>
+
+<div id="owner_div" {DISPLAY_INHERIT_FROM}>
+    <p> <input id="radio_acquire" onChange="updateAcq()" type="checkbox" {NO_ENVIRONMENT} {IS_ACQUIRED}/>
+        Übernehme Rechte von dem Elternelement <b> {INHERIT_FROM} </b></p></div>
+<div id="no_acquiring">
+
+<div id="buttons-label">{NO_ENVIRONMENT_ADAPT_TEXT}etzen Sie vordefinierte Zugriffsrechte:</div>
+
+ <div id="buttons">
+ 
+        <input type="button"  value="Privat" onclick="setCrude('privat');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
+        <input type="button"  value="Benutzer-Öffentlich" onclick="setCrude('user_public');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
+        <input type="button"  value="Welt-Öffentlich" onclick="setCrude('server_public');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
+ <br/><br/>
+</div>
+
+
+<form id="sanctions" name="sanctions">
+<div id="specific_div" class="visible">
+Oder setzen Sie die Zugriffsrechte individuell:
+    <table id="global" width="100%">
+        <tr class="infoBar">
+            <td width="40%"><b>Globale Benutzergruppen</b></td>
+            <td><b>read</b></td>
+            <td><b>write</b></td>
+            <td><b>execute</b></td>
+            <td><b>move</b></td>
+            <td><b>insert</b></td>
+            <td><b>annotate</b></td>
+            <td><b>sanction</b></td>                
+        </tr>
+
+        <tr valign="middle">
+            <td  style="text-indent: 2.5em;">Jeder</td>
+            <td>{EVERYONE_read}</td>
+            <td>{EVERYONE_write}</td>
+            <td>{EVERYONE_execute}</td>
+            <td>{EVERYONE_move}</td>
+            <td>{EVERYONE_insert}</td>
+            <td>{EVERYONE_annotate}</td>
+            <td>{EVERYONE_sanction}</td>
+        </tr>
+
+        <tr>
+            <td  style="text-indent: 2.5em;">Angemeldete Benutzer</td>
+            <td>{STEAM_USER_read}</td>
+            <td>{STEAM_USER_write}</td>
+            <td>{STEAM_USER_execute}</td>
+            <td>{STEAM_USER_move}</td>
+            <td>{STEAM_USER_insert}</td>
+            <td>{STEAM_USER_annotate}</td>
+            <td>{STEAM_USER_sanction}</td>
+        </tr>
+
+        <tr class="infoBar">
+            <td width="40%"><b>Gruppen</b></td>
+            <td><b>read</b></td>
+            <td><b>write</b></td>
+            <td><b>execute</b></td>
+            <td><b>move</b></td>
+            <td><b>insert</b></td>
+            <td><b>annotate</b></td>
+            <td><b>sanction</b></td>
+        </tr>
+        
+        
+        <!-- BEGIN GROUPS -->
+        <tr valign="middle">
+            <td><img style="float:left" src="{IMG_PATH}"> <div style="text-indent:{INDENTINDEX}em;">{GROUPNAME}</div></td>
+            <td>{read}</td>
+            <td>{write}</td>
+            <td>{execute}</td>
+            <td>{move}</td>
+            <td>{insert}</td>
+            <td>{annotate}</td>
+            <td>{sanction}</td>
+        </tr>
+        <tr>
+            <td colspan ="8" >{NO_GROUP_MEMBER}</td>
+        </tr>
+        <!-- END GROUPS -->
+
+        
+        <tr class="infoBar">
+            <td width="40%"><b>Benutzer</b></td>
+            <td><b>read</b></td>
+            <td><b>write</b></td>
+            <td><b>execute</b></td>
+            <td><b>move</b></td>
+            <td><b>insert</b></td>
+            <td><b>annotate</b></td>
+            <td><b>sanction</b></td>
+        </tr>
+
+        <!-- BEGIN FAVORITES -->
+        <tr valign="middle">
+            <td><img style="float:left" src="{IMG_PATH}"> <div style="text-indent:{INDENTINDEX}em;">{GROUPNAME}</div></td>
+            <td>{read}</td>
+            <td>{write}</td>
+            <td>{execute}</td>
+            <td>{move}</td>
+            <td>{insert}</td>
+            <td>{annotate}</td>
+            <td>{sanction}</td>
+        </tr>
+        <!-- END FAVORITES -->
+        <tr>
+            <td colspan ="8" >{NO_FAV_MEMBER}</td>
+        </tr>
+    </table>
+<br/>
+<input type="submit"  value="Speichern" {IS_ACQUIRED_DISABLE_BUTTONS}/>
+</div>
+</form>
+<br/><br/>
+<p>Fügen Sie weitere Nutzer oder Gruppen zu der Rechteverwaltung hinzu:<br/></p>
+<input type="text"  value="" id="userToAdd" {IS_ACQUIRED_DISABLE_BUTTONS}/>
+<input type="button"  value="Benutzer hinzufügen" {IS_ACQUIRED_DISABLE_BUTTONS} onClick="addUserOrGroup('user')"/>
+<br />
+<input type="text"  value="" id="groupToAdd" {IS_ACQUIRED_DISABLE_BUTTONS}/>
+<input type="button"  value="Gruppe hinzufügen" {IS_ACQUIRED_DISABLE_BUTTONS} onClick="addUserOrGroup('group')"/>
+
+
+</div>
+<script language="JavaScript">
+
+    
+    function sanctionCancelWarning(id, value){
+        if(value == false ){
+            if(!confirm ("Vorsicht! Sie könnten sich selbst das Recht entziehen, die Rechte ändern zu dürfen!")){
+                $("#"+id).prop('checked', true);
+                
+            }
+        }
+        
+    }
+    
+    
+    //adding a user or a group directly to the right-owners
+    function addUserOrGroup(className){
+        
+        if(className =="user"){
+            value = document.getElementById("userToAdd").value;
+        } else {
+            value = document.getElementById("groupToAdd").value;
+        }
+       
+        sendRequest("Save", 
+                   {
+                       'order': 'addUserOrGroup',
+                       'id': {OBJECT_ID},
+                       'className': className,
+                       'value': value
+                   }, 
+                   '',
+                   'data', 
+                   function(response)
+                        {
+                            location.reload();
+                            return true;
+                        },
+                    null, 
+                   "sanction"
+                   );
+    }
+    
+    
+    
+    
+    
+    $(document).ready(function(){
+        $("#sanctions").submit(
+            function(e){
+                e.preventDefault();
+                var ret={};
+                //iteratr over every checkbox and serialize them
+                $('#sanctions input[type=checkbox]').map(
+                    function(){
+                        
+                        if(!this.disabled){
+                            
+                            ret[this.name]=this.checked;
+                        }
+                    }
+                ).get();
+
+                
+
+                sendRequest(
+                    "Save", 
+                    { 
+                        'order':"detailed", 
+                        'id':{OBJECT_ID},
+                        'value': JSON.stringify(ret) 
+                    }, 
+                    "", 
+                    "data", 
+                    function(response)
+                        {
+                            location.reload();
+                            return true;
+                        }, 
+                    null, 
+                    "sanction"
+                );
+            }
+        );
+    });
+    
+    
+    
+    
+    function updateAcq(){
+        sendRequest("Save", 
+                   {
+                       'order': 'acquire',
+                       'id': {OBJECT_ID},
+                       'value': document.getElementById("radio_acquire").checked 
+                   }, 
+                   '',
+                   'data', 
+                   function(response)
+                        {
+                            location.reload();
+                            return true;
+                        },
+                    null, 
+                   "sanction"
+                   );
+    }
+    
+    
+    function setCrude(value){
+        sendRequest("Save", 
+                    { 
+                        'order': 'crude',
+                        'id':{OBJECT_ID}, 
+                        "value": value 
+                    }, 
+                    "", 
+                    "data", 
+                    function(response)
+                        {
+                            location.reload();
+                            return true;
+                        }, 
+                    null, 
+                    "sanction");
+    }
+
+</script>

@@ -131,30 +131,6 @@ class HtmlDocument
     }
     
     
-    
-    /* works not
-    //document mod: replace not vaild srcs
-    preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
-    $orig_matches = $matches[0];
-    $path_matches = $matches[1];
-    foreach ($path_matches as $key => $path) {
-        $path = urldecode($path);
-        if (parse_url($path, PHP_URL_SCHEME) != null) {
-            continue;
-        }
-        var_dump($dirname . $path);
-        $ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-        if ($ref_object instanceof \steam_object) {
-            $new_path = PATH_URL . "Download/Document/" . $ref_object->get_id();
-        } else {
-            $new_path = PATH_URL . "styles/standard/images/404.jpg";
-        }
-        $html = str_replace($orig_matches[$key], "src=\"" . $new_path . "\"", $html);
-    }
-    */
-    
-    
-    
     //new
     //video mod: replace not vaild src
     preg_match_all('/<video .* src="([%a-z0-9:.\-_\/]*)".*<\/video>/iU', $html, $matches); //get the video tag, works
@@ -179,10 +155,7 @@ class HtmlDocument
             }
         }catch(\steam_exception $e){
             //object not found
-            //var_dump("not found");
         }
-        //$ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-        //replace
     }
     
     
@@ -235,10 +208,6 @@ class HtmlDocument
         $jsPlayer='<script language="JavaScript"> flowplayer("'.$playerTagId.'","/styles/standard/javascript/Flowplayer/flowplayer-3.2.10.swf",{clip:{autoPlay: false,autoBuffering: true, url:"'.$bracketMatches[$key].'"}});</script>';
         $replacement = '<div style="display:block;width:'.$videoWidth.'px;height:'.$videoHeight.'px;"><a href="'.$bracketMatches[$key].'" id="'.$playerTagId.'" style="display:block;width:'.$videoWidth.'px;height:'.$videoHeight.'px;"></a></div>'.$jsPlayer;
         
-        //version 1
-        //$html = str_replace($value, $replacement, $html);
-        
-        //alternative 2
         $searchString=$value;
         $start = strpos($html, $searchString);
         $length = strlen($searchString);
@@ -269,10 +238,6 @@ class HtmlDocument
         
         $replacement = $audioPlayer;
         
-        //version 1
-        //$html = str_replace($value, $replacement, $html);
-        
-        //alternative 2
         $searchString=$value;
         $start = strpos($html, $searchString);
         $length = strlen($searchString);
@@ -298,50 +263,7 @@ class HtmlDocument
     if($steamObject!==NULL){
         $dirname = dirname($steamObject->get_path()) . "/";
     }
-        
-    
-    /*/*dont do this in editor mode
-    //mod1
-    //document mod: replace not vaild hrefs
-    preg_match_all('/href="([%a-z0-9.-_\/]*)"/iU', $html, $matches);
-    $orig_matches = $matches[0];
-    $path_matches = $matches[1];
-    foreach ($path_matches as $key => $path) {
-        $path = urldecode($path);
-        if (parse_url($path, PHP_URL_SCHEME) != null) {
-            continue;
-        }
-        $ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-        if ($ref_object instanceof \steam_object) {
-            $new_path = PATH_URL . "explorer/index/" . $ref_object->get_id();
-        } else {
-            $new_path = PATH_URL . "404/";
-        }
-        $html = str_replace($orig_matches[$key], "href=\"" . $new_path . "\"", $html);
-    }
-    
-    
 
-    //document mod: replace not vaild srcs
-    preg_match_all('/src="([%a-z0-9.\-_\/]*)"/iU', $html, $matches);
-    $orig_matches = $matches[0];
-    $path_matches = $matches[1];
-    foreach ($path_matches as $key => $path) {
-        $path = urldecode($path);
-        if (parse_url($path, PHP_URL_SCHEME) != null) {
-            continue;
-        }
-        $ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-        if ($ref_object instanceof \steam_object) {
-            $new_path = PATH_URL . "Download/Document/" . $ref_object->get_id();
-        } else {
-            $new_path = PATH_URL . "styles/standard/images/404.jpg";
-        }
-        $html = str_replace($orig_matches[$key], "src=\"" . $new_path . "\"", $html);
-    }
-    */
-    
-    
     
     //works for relative steam paths
     preg_match_all('/<img.*src="(.*)".*>/iU', $html, $matches);
@@ -381,12 +303,9 @@ class HtmlDocument
     $origMatches = $matches[0];
     $pathMatches = $matches[1];
 
-    //var_dump($pathMatches);
-
     //case: objectid
     //case: steam path
     //case: ext path
-
 
     foreach ($pathMatches as $key => $src) {
 
@@ -405,17 +324,7 @@ class HtmlDocument
 
         }catch(\steam_exception $e){
             //object not found
-            //var_dump("not found");
         }
-
-
-        //$ref_object = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $dirname . $path);
-
-
-
-
-        //replace
-
     }
     
     return $html;

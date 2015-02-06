@@ -8,6 +8,24 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
     private $openFolders = array();
     private $highlight = 0;
     private $openRoot = 3;
+    
+    /* openroot explanation
+     * 
+     * openroot is global variable
+     * it is set in ajaxRespone
+     * and used in getOneRootHTML
+     * 
+     * openroot=1 if $room is "/" (or the server root/root portal) 
+     * openroot=2 if $room is the personal workroom of the user
+     * openroot=3 initial value, a room is given by parameter, no path up to server root or user workroom
+     * 
+     * filetree shows up to three roots in the tree view
+     * the first root is the server root "/"
+     * the second root is the user workroom/user home
+     * the third root is shown, if there is no path up to the 1.(server) or 2.(user) root 
+     * 
+     */
+    
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -24,7 +42,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         if (strpos($this->params["dir"], "root") === 0) {
             $room = $currentUser->get_workroom();
-            $bid = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
+            $bidServerRoot = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
             if (strlen($this->params["dir"]) > 4) {
                 $currentContainer = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), substr($this->params["dir"], 4));
                 $this->highlight = $currentContainer->get_id();
@@ -32,7 +50,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
 
                 $root = $currentContainer;
                 while (true) {
-                    if ($currentContainer->get_id() === $bid->get_id()) {
+                    if ($currentContainer->get_id() === $bidServerRoot->get_id()) {
                         $this->openRoot = 1;
                     }
                     if ($currentContainer->get_id() === $room->get_id()) {
@@ -61,9 +79,12 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $room = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["dir"]);
         }
-
-        if ($room->get_id() === $currentUser->get_workroom()->get_id()) {
-            $this->openRoot = 2;
+        
+        //here is the problem line 65
+        if(($room instanceof \steam_object) && ($currentUser instanceof \steam_user)){
+            if ($room->get_id() === $currentUser->get_workroom()->get_id()) { //here is the problem
+                $this->openRoot = 2;
+            }
         }
 
         if ($room->get_id() != $this->params["dir"]) {
@@ -78,6 +99,10 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         return $ajaxResponseObject;
     }
 
+    
+    /*
+     * getOneRootHTML
+     */
     private function getOneRootHTML($currentUser, $containerObject, $room, $root) {
         $html = "";
         if ($this->highlight == $room->get_id()) {
@@ -114,12 +139,24 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         return $html;
     }
     
+    
+    /*
+     * getThreeRootHTML
+     * returns data for three root nodes in the file tree
+     * getOneRootHtml is called three times
+     */
     private function getThreeRootHTML($currentUser, $containerObject) {
-        $bid = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
+        $bidServerRoot = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
         $html = "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
-
-        $html .= $this->getOneRootHTML($currentUser, $containerObject, $bid, 1);
-        $html .= $this->getOneRootHTML($currentUser, $containerObject, $currentUser->get_workroom(), 2);
+        
+        //show server root
+        $html .= $this->getOneRootHTML($currentUser, $containerObject, $bidServerRoot, 1);
+        
+        //show user root only if user is loggt in
+        if ($currentUser instanceof \steam_user){
+            $html .= $this->getOneRootHTML($currentUser, $containerObject, $currentUser->get_workroom(), 2);
+        }
+        
         if ($this->openRoot === 3) {
             $html .= $this->getOneRootHTML($currentUser, $containerObject, $containerObject, 3);
         }
@@ -128,6 +165,10 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         return $html;
     }
 
+    
+    /*
+     * getFolderHTML
+     */
     private function getFolderHTML($currentUser, $containerObject) {
         $bid = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
         $html = "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
@@ -172,6 +213,10 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         return $html;
     }
 
+    
+    /*
+     * isHiddenItem returns true if an object is marked hidden
+     */
     private function isHiddenItem($steamObject, $userObject) {
         //other
         $userHiddenAttribute = $userObject->get_attribute("EXPLORER_SHOW_HIDDEN_DOCUMENTS");

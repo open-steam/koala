@@ -22,7 +22,7 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        //$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         
         $currentDay = date("d") . "";
         $currentMonth = date("m") . "";

@@ -77,33 +77,6 @@ class EditTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComman
 		$dialog->addWidget($contentText);
 		$dialog->addWidget($clearer);
 		$dialog->addWidget($clearer);
-	
-		/*$widget = new \Widgets\Checkbox();
-		$widget->setLabel("Benutzer dürfen ihre Antworten bearbeiten");
-		$widget->setData($object);
-		$widget->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:forum:is_editable"));
-		$widget->setCheckedValue("checked");
-		$widget->setUncheckedValue("");
-		$dialog->addWidget($widget);*/
-		
-		
-	/*	$ajaxForm = new \Widgets\AjaxForm();
-		$ajaxForm->setSubmitCommand("EditTopicContent");
-		$ajaxForm->setSubmitNamespace("Forum");
-
-		$ajaxForm->setHtml(<<<END
-	<input type="hidden" name="id" value="{$this->id}">
-	
-	
-	<div class="widgets_lable">Überschrift:</div>
-	<div class="widgets_textinput"><input type="text" value="{$title}" name="title"></div><br clear="all">
-	<div class="widgets_lable">Inhalt:</div>
-	<div class="widgets_textarea"><textarea rows="10" style="width:100%" class="tinymce"  value="{$content}" name="content1" id="content1"></textarea><br clear="all">
-	
-END
-		);
-			
-		$dialog->addWidget($ajaxForm);*/
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($dialog);

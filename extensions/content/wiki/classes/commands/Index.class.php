@@ -26,6 +26,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		{
 			header("Location: " . PATH_URL . "wiki/entry/" . $wiki_container->get_id() . "/" . $startpage . ".wiki");
 		}
-		exit;
+		die;
 	}
 }

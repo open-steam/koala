@@ -76,12 +76,12 @@
         <script src="{PATH_JAVASCRIPT_2}timepicker/localization/jquery-ui-timepicker-de.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
         <link  href="{PATH_JAVASCRIPT_2}timepicker/jquery-ui-timepicker-addon.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
 
-  <!--      <script src="{PATH_JAVASCRIPT_2}CodeMirror/lib/codemirror.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}CodeMirror/lib/codemirror.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
         <script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/xml/xml.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
         <script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/javascript/javascript.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
         <script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/css/css.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
         <script src="{PATH_JAVASCRIPT_2}CodeMirror/mode/htmlmixed/htmlmixed.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
-       -->
+       
         <link  href="{PATH_JAVASCRIPT_2}CodeMirror/lib/codemirror.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
         <link  href="{PATH_JAVASCRIPT_2}CodeMirror/theme/default.css?version={KOALA_VERSION_2}" type="text/css" media="screen, print" rel="stylesheet" />
 
@@ -211,7 +211,7 @@
                             $('#noJs').hide();
                         </script>
 
-                        <a href="mailto:DSchubert@hnf.de?subject=Problem%20mit%20dem%20bid-Server">Ein Problem melden</a>
+                        {REPORT_ERROR_BUTTON}
 
                         <!-- BEGIN STATUS_SIGNED_IN_BLOCK -->
                          | {SIGNED_IN_TEXT} <a href="{SIGNED_IN_LOGIN_HOME}">{SIGNED_IN_LOGIN_NAME}</a> |
