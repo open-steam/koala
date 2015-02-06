@@ -89,19 +89,18 @@ class lms_portal
             }
             $this->lms_user = new lms_user( STEAM_GUEST_LOGIN, STEAM_GUEST_PW );
 
-                        $url = PATH_SERVER . $_SERVER["REQUEST_URI"];
-                        $request_url = str_ireplace(PATH_URL, "/", $url);
-                        $request_url = str_replace("/signin/request", "", $request_url);
-                        $request_url = str_replace("/signin", "", $request_url);
+            $request_url = $_SERVER["REQUEST_URI"];
+            $request_url = str_replace("/signin/request", "", $request_url);
+            $request_url = str_replace("/signin", "", $request_url);
 
-                        // if user login was not successful get request url from post
-                        if ($_SERVER[ "REQUEST_METHOD" ] == "POST") {
-                            if (isset($_POST["values"]["req"])) {
-                                $request_url = $_POST["values"]["req"];
-                            }
-                        }
+            // if user login was not successful get request url from post
+            if ($_SERVER[ "REQUEST_METHOD" ] == "POST") {
+                if (isset($_POST["values"]["req"])) {
+                    $request_url = $_POST["values"]["req"];
+                }
+            }
 
-                        $this->template->setCurrentBlock( "BLOCK_SIGN_IN" );
+            $this->template->setCurrentBlock( "BLOCK_SIGN_IN" );
             $this->template->setVariable( "LOGIN_FORM_ACTION", URL_SIGNIN );
             $this->template->setVariable( "LABEL_LOGIN", "Benutzername" );
             $this->template->setVariable( "LABEL_PASSWORD", "Passwort" );
