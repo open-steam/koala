@@ -49,8 +49,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //get the content of the portal object
         try{
-        $portalColumns = $this->portalObject->get_inventory();
-        }catch(\NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
+            $portalColumns = $this->portalObject->get_inventory();
+        }catch(\NotFoundException $e) {
+            \ExtensionMaster::getInstance()->send404Error($e); 
+        }
+        catch(\AccessDeniedException $e){ 
+            throw new \Exception("Access denied.", E_USER_RIGHTS);
+        }
+        
         
         
         $htmlBody = "";
