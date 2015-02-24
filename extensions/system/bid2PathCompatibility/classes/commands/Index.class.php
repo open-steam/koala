@@ -149,17 +149,17 @@ class Index extends \AbstractCommand implements \IFrameCommand{
                 try {
                     $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
                 } catch (\Exception $e){
-                    ExtensionMaster::getInstance()->send404Error();
+                    \ExtensionMaster::getInstance()->send404Error();
                 }
                 if ($object instanceof \steam_object) {
                     $url = \ExtensionMaster::getInstance()->getUrlForObjectId($objectId, "view");
                     if (empty($url)) {
-                        ExtensionMaster::getInstance()->send404Error();
+                        \ExtensionMaster::getInstance()->send404Error();
                     }
                     header("Location: ".$url);
                     die;
                 } else {
-                    ExtensionMaster::getInstance()->send404Error();
+                    \ExtensionMaster::getInstance()->send404Error();
                 }
 
         }
@@ -204,7 +204,7 @@ class Index extends \AbstractCommand implements \IFrameCommand{
 
                 return $object->get_id();
             }  catch (\Exception $e){
-                ExtensionMaster::getInstance()->send404Error();
+                \ExtensionMaster::getInstance()->send404Error();
             }
         }
 

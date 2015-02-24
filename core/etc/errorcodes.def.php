@@ -27,7 +27,8 @@ define( "E_JS_ERROR", 4500);
 
 // NOTIFICATION: PROGRAM NOTIFICATIONS
 define( "E_USER_NO_NETWORKINGPROFILE", 5000);  // Networking Profile not initialized
-define( "E_USER_NO_PRIVACYPROFILE", 5005);  // Could not create Privacy Profile if not initialized
+define( "E_USER_NO_PRIVACYPROFILE", 5005);     // Could not create Privacy Profile if not initialized
+define("E_OBJECT_NO_INVENTORY", 5010);         // Could not load the inventory of an object without an inventory
 
 ///// PAUL ERROR CODES \\\\\
 define( "E_SOAP_SERVICE_ERROR", 6000);

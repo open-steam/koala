@@ -74,7 +74,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //if the object is not a steam_container it cannot have any inventory.
         if (!$object instanceof \steam_container) {
             
-            throw new \Exception("This object cannot contain any objects.");
+            throw new \Exception("This object cannot contain any objects.", E_OBJECT_NO_INVENTORY);
+
         }
         
 
