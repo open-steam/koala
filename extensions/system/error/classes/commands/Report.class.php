@@ -75,6 +75,10 @@ class Report extends \AbstractCommand implements \IFrameCommand
                     $rawHtml->setHtml(gettext("User Profile not initialized"));
                     $frameResponseObject->setProblemDescription(gettext( "This user never logged in using the koaLA frontend. Therefore the profile is not initilized yet.<br />The profile will be displayed if the user has used the koaLA frontend at least once.") . "<br /><a href=\"" . (isset($_SERVER[ "HTTP_REFERER" ]) ? $_SERVER[ "HTTP_REFERER" ] : PATH_SERVER) . "\">" . gettext( "back" ) . "</a>");
                 break;
+                case E_OBJECT_NO_INVENTORY:
+                    $frameResponseObject->setTitle("Error");
+                    $frameResponseObject->setProblemDescription("Das aufgerufene Objekt hat kein Inventar und kann nicht mit dem Explorer betrachtet werden.");
+                break;
                 case E_CONNECTION:
                 switch (TRUE) {
                   case defined("MAINTAINANCE") && MAINTAINANCE && defined("MAINTAINANCE_MESSAGE") && MAINTAINANCE_MESSAGE && MAINTAINANCE_MESSAGE != "" :
