@@ -17,7 +17,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params[0]);
 
             if (!$portletObject instanceof \steam_object) {
-                ExtensionMaster::getInstance()->send404Error();
+                \ExtensionMaster::getInstance()->send404Error();
             }
 
             $user = $GLOBALS["STEAM"]->get_current_steam_user();
