@@ -71,13 +71,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             \ExtensionMaster::getInstance()->send404Error();
         }
         
+        //TODO: this is the wrong position for this exception
+        //it should be placed after the big switch, but i'm not sure where
+        //we have to think about it
+        //
         //if the object is not a steam_container it cannot have any inventory.
+        /*
         if (!$object instanceof \steam_container) {
-            
             throw new \Exception("This object cannot contain any objects.", E_OBJECT_NO_INVENTORY);
-
         }
-        
+        */
 
         $objectModel = \AbstractObjectModel::getObjectModel($object);
 
