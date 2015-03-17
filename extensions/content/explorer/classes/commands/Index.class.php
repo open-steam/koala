@@ -96,6 +96,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $objects = $object->get_inventory();
             
             }catch(NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
+            catch (\AccessDeniedException $e) {throw new \Exception("", E_USER_ACCESS_DENIED);}
+            
         } else {
             $objects = array();
         }
