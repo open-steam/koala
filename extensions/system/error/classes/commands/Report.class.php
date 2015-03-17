@@ -66,6 +66,7 @@ class Report extends \AbstractCommand implements \IFrameCommand
                     die; //return no error message in case of a external (browserplugin) js
                 break;
                 case E_USER_RIGHTS:
+                case E_USER_ACCESS_DENIED:
                     $frameResponseObject->setTitle(gettext("No Access"));
                     $rawHtml->setHtml(gettext("No sufficient rights for this object" ));
                     $frameResponseObject->setProblemDescription(gettext("You have not the required rights to execute this action. Please consult the owner of the object for further information.") . "<br /><a href=\"" . (isset($_SERVER[ "HTTP_REFERER" ]) ? $_SERVER[ "HTTP_REFERER" ] : PATH_SERVER) . "\">" . gettext( "back" ) . "</a>");
