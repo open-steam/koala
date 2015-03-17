@@ -818,6 +818,7 @@ function initializeBidSchools() {
             "stw-gwe" => "schulen/mi/stw/gwe",
             "stw-rst" => "schulen/mi/stw/rst",
             "stw-shs" => "schulen/mi/stw/shs",
+            "verl-gev" => "schulen/gt/verl/gev",
             "verl-gsab" => "schulen/gt/verl/gsab",
             "verl-gsbb" => "schulen/gt/verl/gsbb",
             "verl-gsk" => "schulen/gt/verl/gsk",
