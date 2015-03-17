@@ -16,8 +16,8 @@ function send_http_error($pException, $pBacktrace = "", $silent = false)
                 if ($user instanceof lms_user && $user->is_logged_in()) {
                     $pException = new Exception($pException->getMessage(), E_USER_RIGHTS);
                 } else {
-                    $_SESSION["error"] = "Ungültiger Benutzername oder falsches Passwort. Bitte überprüfen Sie Ihren Benutzernamen und das Passwort.";
-                    
+                    //$_SESSION["error"] = "Ungültiger Benutzername oder falsches Passwort. Bitte überprüfen Sie Ihren Benutzernamen und das Passwort. ";
+                    $_SESSION["error"] = "Bitte melden Sie sich am Server an, um das Objekt anzuzeigen.";
                     header( 'Location: ' . URL_SIGNIN_REQUEST . substr($_SERVER["REQUEST_URI"], 1));
                     exit;
                 }
