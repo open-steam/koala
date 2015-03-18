@@ -70,7 +70,9 @@ class Application extends AbstractExtension implements IApplicationExtension, II
 			if ($command->httpAuth($urlRequestObject)) {
 				include_once PATH_LIB . "http_auth_handling.inc.php";
 				if (!http_auth()) {
-					throw new \Exception("Bitte anmelden.");
+                                        //not logged in case
+					//throw new \Exception("Bitte anmelden.");
+                                        throw new Exception("", E_USER_ACCESS_DENIED);
 				}
 			}
 			
