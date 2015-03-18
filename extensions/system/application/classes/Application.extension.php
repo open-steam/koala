@@ -110,8 +110,12 @@ class Application extends AbstractExtension implements IApplicationExtension, II
 						$frame->set_page_title($frameResponeObject->getTitle());
 						$frame->set_confirmation($frameResponeObject->getConfirmText());
 						$frame->set_problem_description($frameResponeObject->getProblemDescription(), $frameResponeObject->getProblemSolution());
-						$frame->show_html();
-						die;
+						
+                                                try{
+                                                $frame->show_html();
+                                                }catch(Exception $e) {throw new Exception("", E_USER_ACCESS_DENIED);} //not logged in case
+
+                                                die;
 					} else {
 						$data = \Widgets\Widget::getData($frameResponeObject->getWidgets());
 						echo $data["html"];
