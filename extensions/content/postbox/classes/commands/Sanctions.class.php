@@ -116,8 +116,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 }
             }
         }*/
-       //SORT_NATURAL | SORT_FLAG_CASE prevents the ASCII orgering (ABC...abc)
-        asort($groupMappingA, SORT_NATURAL | SORT_FLAG_CASE);
+        //SORT_NATURAL | SORT_FLAG_CASE prevents the ASCII orgering (ABC...abc)
+        //asort($groupMappingA, SORT_NATURAL | SORT_FLAG_CASE);
+        asort($groupMappingA);
         
 
         //order the groups alphabetically
@@ -133,8 +134,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $this->userMapping[$id] = $user->get_full_name();
             }
         }
-        asort($this->userMapping, SORT_NATURAL | SORT_FLAG_CASE);
-
+        //asort($this->userMapping, SORT_NATURAL | SORT_FLAG_CASE);
+		asort($this->userMapping);
+		
         //Creator
         $this->content->setVariable("CREATOR_FULL_NAME", $this->creatorFullName);
 
