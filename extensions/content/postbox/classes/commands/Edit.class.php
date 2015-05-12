@@ -35,7 +35,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $dialog = new \Widgets\Dialog();
         $clearer = new \Widgets\Clearer();
         
-        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br> (Abgabefach)");
+        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br> (Briefkasten)");
 
         $dataNameInput = new \Widgets\TextInput();
         $dataNameInput->setLabel("Name der Abgabe");

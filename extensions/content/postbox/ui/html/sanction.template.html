@@ -1,4 +1,8 @@
-<div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist <b>{CREATOR_FULL_NAME}</b> und hat volle Zugriffsrechte.</p></div>
+<div id="owner_div">
+   <p>Der Besitzer des aktuellen Objektes ist <b>{CREATOR_FULL_NAME}</b> und hat volle Zugriffsrechte.<br />
+   Es kann eine weitere Person oder Gruppe berechtigt werden, ebenfalls den Briefkasten zu verwalten.<br />
+   Es kann eine spezielle Gruppe berechtigt werden, Abgaben einzureichen.</p>
+</div>
 <div id="specific_div" class="visible">
     <table width="100%">
         <tr class="infoBar">
@@ -21,7 +25,6 @@
             <td width="40%" align="right" >
                 <select name="insert_postbox" id="insert_postbox" size="1" data-saveFunction="{SEND_REQUEST_INSERT_POSTBOX}">
                         <option value="0">niemand</option>
-                        <!--<option value="-1">Alle angemeldeten Nutzer (sTeam)</option>-->
                         <!-- BEGIN INSERT_POSTBOX -->
                             <option {SELECTED} value="{OBJECT_ID}">{OBJECT_NAME}</option>
                         <!-- END INSERT_POSTBOX -->

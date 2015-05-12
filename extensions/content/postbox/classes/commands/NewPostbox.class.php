@@ -37,7 +37,7 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $html = '          
 
 
-<input type="hidden" name="id" value="{'.$this->id.'}">
+<input type="hidden" name="id" value="'.$this->id.'">
 <input id="cb" type="hidden" name="checkVal" value="false">
 <script>
             $(".widgets_textinput_save_button").hide();

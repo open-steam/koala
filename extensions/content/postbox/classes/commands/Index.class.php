@@ -1,5 +1,5 @@
 <?php
-
+// #3 des Tickets: welcher Hinweistext?
 namespace Postbox\Commands;
 
 class Index extends \AbstractCommand implements \IFrameCommand {
@@ -112,7 +112,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if ($checkAccessWrite) {
             $actionBar = new \Widgets\ActionBar();
             $actionBar->setActions(array(
-                array("name" => "Zu Ordner umwandeln", "ajax" => array("onclick" => array("command" => "Release", "params" => array("id" => $this->id), "requestType" => "data"))),
+                array("name" => "Den aktuellen Briefkasten in einen Ordner umwandeln", "ajax" => array("onclick" => array("command" => "Release", "params" => array("id" => $this->id), "requestType" => "data"))),
                 array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup"))),
                 array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup"))),
 
@@ -127,7 +127,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $jsWrapper->setPostJsCode(<<<END
                     
                     function releaseFolder(){
-                        if (confirm('Das aktuelle Abgabefach in einen Ordner umgewandelt. Dieser Vorgang kann nicht rückgängig gemacht werden.')) { 
+                        if (confirm('Der aktuelle Briefkasten wird in einen Ordner umgewandelt. Dieser Vorgang kann nicht rückgängig gemacht werden.')) { 
                             sendRequest('Release', {'id':'{$this->id}'}, '', 'data', function(){location.href="{$PATH_URL}explorer/index/{$this->id}";}, null);                           
                         }                     
                         return false;
@@ -159,8 +159,8 @@ END
                 $frameResponseObject->addWidget($deadlineRunHtml);
             }
             $advice = new \Widgets\RawHtml();
-            $advice->setHtml('<div class="attribute">Hinweis zu Rechten:</div><div class="value">Wenn man Schreibrechte hat, kann man Abgaben einsehen. Alle anderen angemeldeten Benutzer können Abgaben einreichen.</div>');
-            $frameResponseObject->addWidget($advice);
+            //$advice->setHtml('<div class="attribute">Hinweis zu Rechten:</div><div class="value">Wenn man Schreibrechte hat, kann man Abgaben einsehen. Alle anderen angemeldeten Benutzer können Abgaben einreichen.</div>');
+            //$frameResponseObject->addWidget($advice);
             $clearer = new \Widgets\Clearer();
             $frameResponseObject->addWidget($clearer);
             $frameResponseObject->addWidget($clearer);
