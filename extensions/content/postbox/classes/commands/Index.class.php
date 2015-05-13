@@ -82,7 +82,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if ($lastReleaseCurrentUser != 0) {
             $date = date("d.m.Y", $lastReleaseCurrentUser);
             $time = date("H:i", $lastReleaseCurrentUser);
-            $dateTime = $date . " " . $time . "Uhr";
+            $dateTime = $date . " " . $time . " Uhr";
         } else {
             $dateTime = "-";
         }

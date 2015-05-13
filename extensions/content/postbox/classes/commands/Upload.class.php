@@ -31,10 +31,10 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit, $envid);
         $result = $uploader->handleUpload(PATH_TEMP);
         // to pass data through iframe you will need to encode all html tags
-        echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-        die;
-        //$ajaxResponseObject->setStatus("ok");
-        //return $ajaxResponseObject;
+        //echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+        //die;
+        $ajaxResponseObject->setStatus("ok");
+        return $ajaxResponseObject;
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {

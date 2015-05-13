@@ -31,6 +31,8 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
         $postboxObject = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["name"], $envRoom);
         $postboxObject->set_attribute("OBJ_TYPE", "postbox");
+        //set this parameter to '' to avoid displaying a '0'
+        $postboxObject->set_attribute("postbox:advice", "");
         if ($this->params["checkVal"] === "true") {
             $postboxObject->set_attribute("bid:postbox:deadline", "");
         } else { 
@@ -53,7 +55,16 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && (!(API_DOUBLE_FILENAME_NOT_ALLOWED))){
             $requiredSanctionsForInnerContainer = SANCTION_INSERT;
         }
-        
+
+        //flush the rights
+        $sanction = $innerContainer->get_sanction();
+        $currentUserId = \lms_steam::get_current_user()->get_id();
+        foreach ($sanction as $userOrGroupId => $sanct) {
+            if ($currentUserId != $userOrGroupId) {
+                $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId, CLASS_OBJECT));
+            }
+        }
+        //the explixitly set the new insert rights
         $innerContainer->sanction($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
         $innerContainer->sanction_meta($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
         
