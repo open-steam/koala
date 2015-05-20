@@ -222,6 +222,8 @@ END
                 $cssStyle->setCss('#content {overflow-x:auto;}');
                 $frameResponseObject->addWidget($cssStyle);
                 return $frameResponseObject;
+            } else {
+                throw new \InvalidArgumentException("Unsupported Objecttype");
             }
         } else {
             ExtensionMaster::getInstance()->send404Error();
