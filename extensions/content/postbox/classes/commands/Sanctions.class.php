@@ -201,13 +201,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             
             //give the new group the insert right (and if neccessary the SANCTION_READ right), then remove the old (all other) users with only the insert right
             //if the $newUserOrGroupId is zero (no other group as an submitter) then just remove every other group with only insert rights
-            if($newUserOrGroupId != 0) { 
+            if($newUserOrGroupId !== 0) { 
                 $this->innerContainer->sanction($this->requiredSanctionsForInnerContainer, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
             }
             
             foreach ($innerContainerSanction as $id => $sanction) {
                 //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her 
-                if ($id != $newUserOrGroupId && $sanction != $adminRights) {
+                if ($id !== $newUserOrGroupId && $sanction !== $adminRights) {
                     $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }  
             }
@@ -226,7 +226,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $this->innerContainer = $this->postboxObject->get_attribute("bid:postbox:container");
         
         $this->requiredSanctionsForInnerContainer = SANCTION_READ | SANCTION_INSERT;
-        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && (!(API_DOUBLE_FILENAME_NOT_ALLOWED))){
+        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && !(API_DOUBLE_FILENAME_NOT_ALLOWED)){
             $this->requiredSanctionsForInnerContainer = SANCTION_INSERT;
         }
     }
@@ -370,7 +370,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 {
                     $this->content->setVariable("SELECTED", "selected");
                 }
-                $this->content->setVariable("OBJECT_NAME", (($id == $this->steamgroup->get_id())? "Alle angemeldeten Benutzer": $group->get_attribute("OBJ_DESC")." (".$group->get_groupname()."-".$group->get_id().")"));
+                $this->content->setVariable("OBJECT_NAME", (($id == $this->steamgroup->get_id())? "Alle angemeldeten Benutzer": $group->get_attribute("OBJ_DESC")." (".$group->get_groupname().")"));
                 $this->content->setVariable("OBJECT_ID", $id);
                 $this->content->parse($templateBlock);
             }
