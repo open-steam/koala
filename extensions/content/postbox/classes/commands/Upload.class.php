@@ -31,10 +31,11 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit, $envid);
         $result = $uploader->handleUpload(PATH_TEMP);
         // to pass data through iframe you will need to encode all html tags
-        //echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-        //die;
-        $ajaxResponseObject->setStatus("ok");
-        return $ajaxResponseObject;
+        //echo the result and terminate the script
+        echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+        die;
+        //$ajaxResponseObject->setStatus("ok");
+        //return $ajaxResponseObject;
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -206,6 +207,7 @@ class qqFileUploader {
 
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 
+        //check if the user folder already exists
         $objPath = $obj->get_attribute("OBJ_PATH");
         $currentUserFullName = $currentUser->get_full_name();
         $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
