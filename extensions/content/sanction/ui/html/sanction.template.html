@@ -138,7 +138,43 @@ Oder setzen Sie die Zugriffsrechte individuell:
 <input type="text"  value="" id="groupToAdd" {IS_ACQUIRED_DISABLE_BUTTONS}/>
 <input type="button"  value="Gruppe hinzufügen" {IS_ACQUIRED_DISABLE_BUTTONS} onClick="addUserOrGroup('group')"/>
 
+<p style="color:black;">Alle Attribute von diesem Objekt:</p>
+<table style="color:black; ">
+    <tr valign="middle">
+           
+            <td style="border-bottom:1px solid black;">Key</td>
+            <td style="border-bottom:1px solid black;">Value</td>
+            <td style="border-bottom:1px solid black;">Locked</td>
+        </tr>
+<!-- BEGIN ATTRIBUTES -->
+        <tr valign="middle">
+           
+            <td style="border-bottom:1px solid black;">{KEY}</td>
+            <td style="border-bottom:1px solid black;">{VALUE}</td>
+            <td style="border-bottom:1px solid black;">{LOCKED}</td>
+        </tr>
+        <!-- END ATTRIBUTES -->
+</table>
 
+<p style="color:black;">Alle Annotationen von diesem Objekt:</p>
+<table style="color:black; ">
+    <tr valign="middle">
+           
+            <td style="border-bottom:1px solid black;">Key</td>
+            <td style="border-bottom:1px solid black;">Value</td>
+            
+        </tr>
+<!-- BEGIN ANNOTATIONS -->
+        <tr valign="middle">
+           
+            <td style="border-bottom:1px solid black;">{KEY}</td>
+            <td style="border-bottom:1px solid black;">{VALUE}</td>
+            
+        </tr>
+        <!-- END ANNOTATIONS -->
+</table>
+
+{SERIALIZE}
 </div>
 <script language="JavaScript">
 
