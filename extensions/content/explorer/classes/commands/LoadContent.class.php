@@ -225,7 +225,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             if ($subscriptionEnabled) {
                 $type = getObjectType($contentItem);
                 $user = $GLOBALS["STEAM"]->get_current_steam_user();
-                if ($type === "forum" || $type === "wiki" || $type === "room" || $type === "gallery" || $type === "portal" || ($type === "rapidfeedback" && $contentItem->get_creator()->get_id() == $user->get_id()) || ($type === "document" && strstr($contentItem->get_attribute(DOC_MIME_TYPE), "text"))) {
+                if ($type === "forum" || $type === "wiki" || $type === "room" || $type === "gallery" || $type === "portal" || ($type === "rapidfeedback" && $contentItem->get_creator()->get_id() == $user->get_id()) || ($type === "document" && strstr($contentItem->get_attribute(DOC_MIME_TYPE), "text")) || $type === "postbox") {
                     $subscriptions = $user->get_attribute("USER_HOMEPORTAL_SUBSCRIPTIONS");
                     if (is_array($subscriptions) && in_array($contentItem->get_id(), $subscriptions)) {
                         return "<div id=\"subscribe" . $contentItem->get_id() . "\"><img title=\"Abbestellen\" src=\"" . PATH_URL . "explorer/asset/icons/unsubscribe.png\" onclick=\"sendRequest('Unsubscribe', {'id':'{$contentItem->get_id()}' }, 'subscribe" . $contentItem->get_id() . "', 'updater', '', '', 'Explorer'); jQuery('#1715').removeClass('listviewer-item-selected');\"></div>";

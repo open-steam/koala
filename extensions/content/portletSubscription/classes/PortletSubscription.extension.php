@@ -52,11 +52,14 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
 
     public function calculateUpdates($subscriptionObject, $portlet, $filtering = true) {
         $updates = array();
+        
         if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE") == "0") {
             if ($portlet->check_access_write()) {
+                // 'private' indicates whether the user can change the attributes of the object (to filter out an update)
                 $private = TRUE;
                 $timestamp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP");
                 $filterHelp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER");
+                
                 $filter = array();
                 foreach ($filterHelp as $filterElement) {
                     if (isset($filter[$filterElement[1]])) {
@@ -115,6 +118,9 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         } else if ($type === "document" && strstr($subscriptionObject->get_attribute(DOC_MIME_TYPE), "text")) {
             $documentSubscription = new \PortletSubscription\Subscriptions\DocumentSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter, $depth);
             $updates = array_merge($updates, $documentSubscription->getUpdates());
+        } else if ($type === "postbox") {
+            $postboxSubscription = new \PortletSubscription\Subscriptions\PostboxSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter, $depth);
+            $updates = array_merge($updates, $postboxSubscription->getUpdates());
         }
         return $updates;
     }
