@@ -55,7 +55,7 @@ class FolderSubscription extends AbstractSubscription {
                 }
                 
                 
-                
+                /*
                 else if ($object->get_attribute("CONT_LAST_MODIFIED") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("CONT_LAST_MODIFIED"), $this->filter[$object->get_id()]))) {
                     $updates[] = array(
                                     $object->get_attribute("CONT_LAST_MODIFIED"), 
@@ -71,7 +71,7 @@ class FolderSubscription extends AbstractSubscription {
                                     )
                                 );
                 }
-                
+                */
                 
                 /*
                 if ($this->depth < 1) {
