@@ -22,7 +22,7 @@ class FolderSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
-                                        "Neues Objekt:",
+                                        "Neues ObjektOBJ_CREATION_TIME:",
                                         getCleanName($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
@@ -47,7 +47,7 @@ class FolderSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("OBJ_LAST_CHANGED"),
-                                        "Geänderter Ordner:",
+                                        "Geänderter OrdnerOBJ_LAST_CHANGED:",
                                         getCleanName($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
@@ -55,11 +55,30 @@ class FolderSubscription extends AbstractSubscription {
                 }
                 
                 
-                 if ($this->depth < 1) {
+                
+                else if ($object->get_attribute("CONT_LAST_MODIFIED") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("CONT_LAST_MODIFIED"), $this->filter[$object->get_id()]))) {
+                    $updates[] = array(
+                                    $object->get_attribute("CONT_LAST_MODIFIED"), 
+                                    $object->get_id(),
+                                    $this->getElementHtml(
+                                        $object->get_id(), 
+                                        $object->get_id() . "_" . $count,
+                                        $this->private,
+                                        $object->get_attribute("CONT_LAST_MODIFIED"),
+                                        "Geänderter OrdnerCONT_LAST_MODIFIED:",
+                                        getCleanName($object),
+                                        \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
+                                    )
+                                );
+                }
+                
+                
+                /*
+                if ($this->depth < 1) {
                     $updates = array_merge($updates, $portletInstance->collectUpdates(array(), $this->portlet, $object, $this->private, $this->timestamp, $this->filter, $this->depth + 1));
                 // folder in depth = 1 (only show new or changed message depending on timestamp)
                 }
-                
+                */
                 
                 
                 
