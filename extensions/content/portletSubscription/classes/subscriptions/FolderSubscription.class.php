@@ -47,7 +47,7 @@ class FolderSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("OBJ_LAST_CHANGED"),
-                                        "Geänderter OrdnerOBJ_LAST_CHANGED:",
+                                        "Geänderter Ordner:",
                                         getCleanName($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
