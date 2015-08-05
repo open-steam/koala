@@ -18,7 +18,7 @@ class ForumSubscription extends AbstractSubscription {
                                         $thread->get_id() . "_" . $count,
                                         $this->private,
                                         $thread->get_attribute("OBJ_CREATION_TIME"),
-                                        $this->depth == 0 ? "Neues Thema:" : "Neues Thema (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object,30,false) . "</a>):",
+                                        "Neues Thema:",
                                         getCleanName($thread, 60, false),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
