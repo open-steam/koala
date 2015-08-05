@@ -75,7 +75,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 	<div class="attributeName">Typ:</div>
 	<div>
             <select name="type">
-                <option value="0">Privat</option>
+                <option value="0">Unbegrenzt</option>
                 <option value="604800">Zeitraum: 1 Woche</option>
                 <option value="1209600">Zeitraum: 2 Wochen</option>
                 <option value="1814400">Zeitraum: 3 Wochen</option>
