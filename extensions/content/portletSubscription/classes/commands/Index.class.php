@@ -37,7 +37,9 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $portletIsReference = false;
         }
 
-        $portletName = getCleanName($portlet);
+        //$portletName = getCleanName($portlet);
+        $portletName = $portlet->get_name();
+        
         $portletInstance = \PortletSubscription::getInstance();
         $portletPath = $portletInstance->getExtensionPath();
 
