@@ -124,5 +124,54 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         }
         return $updates;
     }
+    
+    
+    /**
+     * Method to get a standardised name for the subscription. Return the description if it exisits, if the description doesn't exisit, retuen at least the object name.
+     * 
+     * @param steam_object $object the object to get tne name of
+     * @param type $length the returned string length. Default is 30, -1 means: no cropping
+     * @param type $nameAndDescription set to true, to get a name like OBJ_DESC (OBJ_NAME)
+     * @return string returns the generated title
+     */
+    public static function getNameForSubscription($object, $length = 30, $nameAndDescription = false){
+        if (!($object instanceof steam_object)) {
+            return "";
+        }
+        
+        
+        /*
+        $desc = $object->get_attribute(OBJ_DESC);
+        if ($desc !== 0 && trim($desc) !== "") {
+            $title = $desc;
+        } else {
+            $title = $object->get_name();
+        }
+        */
+        
+        $objectName = $object->get_name();
+        $objectDescription = $object->get_attribute(OBJ_DESC);
+        
+        if (($objectDescription !== 0 && trim($objectDescription) !== "")){
+            //description exists
+            $title = $objectDescription;
+        }else{
+            //no description available
+            $title = $objectName;
+        }
+        
+        if($nameAndDescription){
+            $title = $objectDescription . " (" . $objectName.")";
+        }
+        //remove line breaks
+        $title = str_replace(array("\r", "\n"), "", $title);
+        
+        //limit return length
+        if ($length != -1 && $length < strlen($title)) {
+            $title = mb_substr($title, 0, $length, "UTF-8") . "...";
+        }
+
+        return $title;
+    }
 }
 ?>

@@ -19,7 +19,7 @@ class ForumSubscription extends AbstractSubscription {
                                         $this->private,
                                         $thread->get_attribute("OBJ_CREATION_TIME"),
                                         "Neues Thema:",
-                                        $thread->get_name(),
+                                        \PortletSubscription::getNameForSubscription($thread),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
                                 );
@@ -33,7 +33,7 @@ class ForumSubscription extends AbstractSubscription {
                                         $this->private,
                                         $thread->get_attribute("DOC_LAST_MODIFIED"),
                                         "Geändertes Thema:",
-                                        $thread->get_name(),
+                                        \PortletSubscription::getNameForSubscription($thread),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
                                 );
@@ -52,7 +52,7 @@ class ForumSubscription extends AbstractSubscription {
                                                     $this->private,
                                                     $msg->get_attribute("OBJ_CREATION_TIME"),
                                                     "Neuer Beitrag:",
-                                                    $msg->get_name(),
+                                                    \PortletSubscription::getNameForSubscription($msg),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )
                                             );
@@ -66,7 +66,7 @@ class ForumSubscription extends AbstractSubscription {
                                                     $this->private,
                                                     $msg->get_attribute("DOC_LAST_MODIFIED"),
                                                     "Geänderter Beitrag:",
-                                                    $msg->get_name(),
+                                                    \PortletSubscription::getNameForSubscription($msg),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )
                                             );
