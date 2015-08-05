@@ -108,7 +108,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             }
         } else {
             $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
-            $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Error Objekt ID");
+            $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Das abonnierte Objekt wurde gelöscht.");
             $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
         }
         
