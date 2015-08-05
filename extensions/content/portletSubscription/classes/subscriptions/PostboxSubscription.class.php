@@ -19,7 +19,7 @@ class PostboxSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
-                                        "Neue Abgabe:".$object->get_attribute("OBJ_CREATION_TIME")." >". $this->timestamp,
+                                        "Neue Abgabe:",
                                         \PortletSubscription::getNameForSubscription($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
