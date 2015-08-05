@@ -65,7 +65,7 @@ class ForumSubscription extends AbstractSubscription {
                                                     $msg->get_id() . "_" . $count,
                                                     $this->private,
                                                     $msg->get_attribute("DOC_LAST_MODIFIED"),
-                                                    $this->depth == 0 ? "Geänderter Beitrag:" : "Geänderter Beitrag (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                                    $this->depth == 0 ? "Geänderter Beitrag:" : "Geänderter Beitrag (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object, 30, false) . "</a>):",
                                                     getCleanName($msg, 60, false),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )
