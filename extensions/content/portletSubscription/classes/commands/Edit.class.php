@@ -35,7 +35,7 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
                 $dropDownWidget->setLabel("Typ");
                 $dropDownWidget->setData($object);
                 $dropDownWidget->setOptions(array(
-                    array("name" => "Privat", "value" => "0"),
+                    array("name" => "Unbegrenzt", "value" => "0"),
                     array("name" => "Zeitraum: 1 Woche", "value" => "604800"),
                     array("name" => "Zeitraum: 2 Wochen", "value" => "1209600"),
                     array("name" => "Zeitraum: 3 Wochen", "value" => "1814400"),
