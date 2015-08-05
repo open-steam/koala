@@ -19,7 +19,7 @@ class GallerySubscription extends AbstractSubscription {
                                         $this->private,
                                         $picture->get_attribute("OBJ_CREATION_TIME"),
                                         $this->depth == 0 ? "Neues Bild:" : "Neues Bild (in Galerie <a href=\"" . PATH_URL . "gallery/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
-                                        getCleanName($picture),
+                                        getCleanName($picture, 60, false),
                                         PATH_URL . "gallery/Index/" . $this->object->get_id() . "/"
                                     )
                                 );

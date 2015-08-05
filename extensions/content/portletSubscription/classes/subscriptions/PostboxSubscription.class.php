@@ -20,7 +20,7 @@ class PostboxSubscription extends AbstractSubscription {
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
                                         "Neue Abgabe:".$object->get_attribute("OBJ_CREATION_TIME")." >". $this->timestamp,
-                                        getCleanName($object),
+                                        getCleanName($object, 60, false),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
                                 );
@@ -40,7 +40,7 @@ class PostboxSubscription extends AbstractSubscription {
                                         $this->private,
                                         $object->get_attribute("OBJ_LAST_CHANGED"),
                                         "Geänderter Ordner:",
-                                        getCleanName($object),
+                                        getCleanName($object, 60, false),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
                                 );

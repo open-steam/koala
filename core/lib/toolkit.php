@@ -175,7 +175,8 @@ function isPicture($docType) {
     return $isGif || $isJpeg || $isJpg || $isPng;
 }
 
-function getCleanName($object, $length = 30) {
+//parameter $showName added to decide, wether we want the name returned or not. (initial used in the subscriptions to avoid Names like 'Test (rapidfeedback_1438187882)')
+function getCleanName($object, $length = 30, $showName = true) {
     if (!($object instanceof steam_object)) {
         return "";
     }
@@ -205,6 +206,8 @@ function getCleanName($object, $length = 30) {
             if (($objectDescription !== 0 && trim($objectDescription) !== "")){
                 //description exists
                 $title = $objectDescription . " (" . $objectName.")";
+            } else if ($showName){
+                $title = $objectDescription;
             }else{
                 //no description available
                 $title = $objectName;

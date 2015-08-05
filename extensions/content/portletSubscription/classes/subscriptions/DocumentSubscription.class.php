@@ -16,7 +16,7 @@ class DocumentSubscription extends AbstractSubscription {
                                 $this->private,
                                 $document->get_attribute("DOC_LAST_MODIFIED"),
                                 "Dokument wurde geändert:",
-                                getCleanName($document),
+                                getCleanName($document, 60, false),
                                 \ExtensionMaster::getInstance()->getUrlForObjectId($document->get_id(), "view")
                             )
             );

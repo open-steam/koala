@@ -19,7 +19,7 @@ class ForumSubscription extends AbstractSubscription {
                                         $this->private,
                                         $thread->get_attribute("OBJ_CREATION_TIME"),
                                         $this->depth == 0 ? "Neues Thema:" : "Neues Thema (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
-                                        getCleanName($thread),
+                                        getCleanName($thread, 60, false),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
                                 );
@@ -33,7 +33,7 @@ class ForumSubscription extends AbstractSubscription {
                                         $this->private,
                                         $thread->get_attribute("DOC_LAST_MODIFIED"),
                                         $this->depth == 0 ? "Geändertes Thema:" : "Geändertes Thema (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
-                                        getCleanName($thread),
+                                        getCleanName($thread, 60, false),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
                                 );
@@ -52,7 +52,7 @@ class ForumSubscription extends AbstractSubscription {
                                                     $this->private,
                                                     $msg->get_attribute("OBJ_CREATION_TIME"),
                                                     $this->depth == 0 ? "Neuer Beitrag:" : "Neuer Beitrag (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
-                                                    getCleanName($msg),
+                                                    getCleanName($msg, 60, false),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )
                                             );
@@ -66,7 +66,7 @@ class ForumSubscription extends AbstractSubscription {
                                                     $this->private,
                                                     $msg->get_attribute("DOC_LAST_MODIFIED"),
                                                     $this->depth == 0 ? "Geänderter Beitrag:" : "Geänderter Beitrag (in Forum <a href=\"" . PATH_URL . "forum/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
-                                                    getCleanName($msg),
+                                                    getCleanName($msg, 60, false),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )
                                             );
