@@ -3,22 +3,22 @@ acronym {
 	cursor: default !important;
 }
 
-.bid_tooltip_color_yellow {
+acronym.bid_tooltip_color_yellow {
 	background-color: #FFF8B8 !important;
 }
-.bid_tooltip_color_green {
+acronym.bid_tooltip_color_green {
 	background-color: #B8FFBA !important;
 }
-.bid_tooltip_color_red {
+acronym.bid_tooltip_color_red {
 	background-color: #FFB8B8 !important;
 }
-.bid_tooltip_color_blue {
+acronym.bid_tooltip_color_blue {
 	background-color: #B8D4FF !important;
 }
-.bid_tooltip_color_orange {
+acronym.bid_tooltip_color_orange {
 	background-color: #FFDCB8 !important;
 }
-.bid_tooltip_color_pink {
+acronym.bid_tooltip_color_pink {
 	background-color: #FFB8F9 !important;
 }
 
