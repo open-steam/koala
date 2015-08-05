@@ -24,7 +24,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                                         $this->private, 
                                         $result->get_attribute("OBJ_CREATION_TIME"), 
                                         $this->depth == 0 ? "Neue Abgabe:" : "Neue Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
-                                        getCleanName($survey, 60, false), 
+                                        \PortletSubscription::getNameForSubscription($suevey),
                                         PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
                                 )
                             );

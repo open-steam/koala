@@ -21,7 +21,7 @@ class FolderSubscription extends AbstractSubscription {
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
                                         "Neues Objekt:",
-                                        getCleanName($object),
+                                        \PortletSubscription::getNameForSubscription($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
                                 );
@@ -46,7 +46,7 @@ class FolderSubscription extends AbstractSubscription {
                                         $this->private,
                                         $object->get_attribute("OBJ_LAST_CHANGED"),
                                         "Geänderter Ordner:",
-                                        getCleanName($object),
+                                        \PortletSubscription::getNameForSubscription($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
                                 );
@@ -63,8 +63,8 @@ class FolderSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("CONT_LAST_MODIFIED"),
-                                        "Geänderter OrdnerCONT_LAST_MODIFIED:",
-                                        getCleanName($object),
+                                        "Geänderter Ordner:",
+                                        \PortletSubscription::getNameForSubscription($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
                                 );
