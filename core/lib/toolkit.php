@@ -206,7 +206,7 @@ function getCleanName($object, $length = 30, $showName = true) {
             if (($objectDescription !== 0 && trim($objectDescription) !== "")){
                 //description exists
                 $title = $objectDescription . " (" . $objectName.")";
-            } else if ($showName){
+            } else if (!$showName){
                 $title = $objectDescription;
             }else{
                 //no description available
