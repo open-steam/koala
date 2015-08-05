@@ -11,8 +11,6 @@ class FolderSubscription extends AbstractSubscription {
         foreach ($objects as $object) {
             if ($object instanceof \steam_object) {
                 
-                
-                
                 if ($object->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("OBJ_CREATION_TIME"), $this->filter[$object->get_id()]))) {
                     $updates[] = array(
                                     $object->get_attribute("OBJ_CREATION_TIME"), 
@@ -22,7 +20,7 @@ class FolderSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
-                                        "Neues ObjektOBJ_CREATION_TIME:",
+                                        "Neues Objekt:",
                                         getCleanName($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
@@ -55,7 +53,7 @@ class FolderSubscription extends AbstractSubscription {
                 }
                 
                 
-                /*
+                
                 else if ($object->get_attribute("CONT_LAST_MODIFIED") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("CONT_LAST_MODIFIED"), $this->filter[$object->get_id()]))) {
                     $updates[] = array(
                                     $object->get_attribute("CONT_LAST_MODIFIED"), 
@@ -71,7 +69,7 @@ class FolderSubscription extends AbstractSubscription {
                                     )
                                 );
                 }
-                */
+                
                 
                 /*
                 if ($this->depth < 1) {
