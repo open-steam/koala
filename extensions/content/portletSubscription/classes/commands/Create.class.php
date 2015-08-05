@@ -22,7 +22,6 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
 
             
             $desc = "Abonnement";
-            $desc = "";
             
             /*
             if (isset($params["title"]) && $params["title"] != "") {
