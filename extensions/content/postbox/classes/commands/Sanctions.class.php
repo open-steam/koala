@@ -201,13 +201,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             
             //give the new group the insert right (and if neccessary the SANCTION_READ right), then remove the old (all other) users with only the insert right
             //if the $newUserOrGroupId is zero (no other group as an submitter) then just remove every other group with only insert rights
-            if($newUserOrGroupId !== 0) { 
+            if($newUserOrGroupId != 0) { 
                 $this->innerContainer->sanction($this->requiredSanctionsForInnerContainer, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
             }
             
             foreach ($innerContainerSanction as $id => $sanction) {
                 //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her 
-                if ($id !== $newUserOrGroupId && $sanction !== $adminRights) {
+                if ($id != $newUserOrGroupId && $sanction != $adminRights) {
                     $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }  
             }
@@ -225,8 +225,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $this->postboxObject = \steam_factory::get_object($this->steam->get_id(), $this->postboxObjectId);
         $this->innerContainer = $this->postboxObject->get_attribute("bid:postbox:container");
         
-        $this->requiredSanctionsForInnerContainer = SANCTION_READ | SANCTION_INSERT;
-        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && !(API_DOUBLE_FILENAME_NOT_ALLOWED)){
+        //configure sanctions for inner container
+        $this->requiredSanctionsForInnerContainer =  SANCTION_INSERT | SANCTION_READ;
+        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && (!(API_DOUBLE_FILENAME_NOT_ALLOWED))){
+            //if API_DOUBLE_FILENAME_NOT_ALLOWED is false, we only need INSERT rights (and don't need to check whether there already exists a file with the same name)
             $this->requiredSanctionsForInnerContainer = SANCTION_INSERT;
         }
     }
