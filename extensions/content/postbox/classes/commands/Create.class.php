@@ -33,6 +33,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $postboxObject->set_attribute("OBJ_TYPE", "postbox");
         //set this parameter to '' to avoid displaying a '0'
         $postboxObject->set_attribute("postbox:advice", "");
+        //if the checkbox (no deadline) is checked
         if ($this->params["checkVal"] === "true") {
             $postboxObject->set_attribute("bid:postbox:deadline", "");
         } else { 
@@ -53,15 +54,17 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         //configure sanctions for inner container
         $requiredSanctionsForInnerContainer = SANCTION_READ | SANCTION_INSERT;
         if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && (!(API_DOUBLE_FILENAME_NOT_ALLOWED))){
+            //if API_DOUBLE_FILENAME_NOT_ALLOWED is false, we only need INSERT rights (and don't need to check whether there already exists a file with the same name)
             $requiredSanctionsForInnerContainer = SANCTION_INSERT;
         }
 
-        //flush the rights
+        //unset the rights for every oher user then the creator
         $sanction = $innerContainer->get_sanction();
         $currentUserId = \lms_steam::get_current_user()->get_id();
         foreach ($sanction as $userOrGroupId => $sanct) {
             if ($currentUserId != $userOrGroupId) {
                 $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId, CLASS_OBJECT));
+                $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId, CLASS_OBJECT));
             }
         }
         //the explixitly set the new insert rights
@@ -69,12 +72,10 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $innerContainer->sanction_meta($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId, CLASS_OBJECT));
         
         $jswrapper = new \Widgets\JSWrapper();
-        $jswrapper->setJs(<<<END
-		closeDialog();
-		location.reload();
-		
-END
-        );
+        $jswrapper->setJs("closeDialog();
+                           location.reload();"
+                        );
+        
         $ajaxResponseObject->addWidget($jswrapper);
         return $ajaxResponseObject;
     }
