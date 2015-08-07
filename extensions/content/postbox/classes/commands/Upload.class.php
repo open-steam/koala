@@ -224,18 +224,7 @@ class qqFileUploader {
         } else {
             $isFolderAva = false;
         }
-        // $inventory = $env->get_inventory();
-        // $folderId = 0;
-        // $isFolderAva = false;
-        // foreach ($inventory as $index => $ele) {
-        /*     $authorId = $ele->get_creator()->get_id();
-          if ($authorId == $currentUserId) {
-          $isFolderAva = true;
-          $folderId = $ele->get_id();
-          break;
-          }
-          } */
-
+        
         $username = $currentUser->get_full_name();
         $usernameShort = $currentUser->get_name();
         if ($isFolderAva) {
@@ -243,15 +232,20 @@ class qqFileUploader {
         } else {
             $container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $username, $env);
         }
-        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort . "_" . $filename . "." . $ext, "", "", $container);
-//Mache hier weiter und speicher die hashmap als array      
-//  $lastRelease->set_attribute($currentUserId,$steam_document->get_attribute("OBJ_LAST_CHANGED"));
+        
         if (!$replaceOldFile) {
             /// don't overwrite previous files that were uploaded
             while (file_exists($uploadDirectory . $filename . '.' . $ext)) {
                 $filename .= rand(10, 99);
             }
         }
+        
+        //if we cannot have two files with the same name, generally rename each uploaded file with a date string at the end
+        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && API_DOUBLE_FILENAME_NOT_ALLOWED){
+            $filename.= date(" Y-m-d H-i", time());
+        }
+        
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort . "_" . $filename . "." . $ext, "", "", $container);
 
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)) {
             if (defined("ENABLE_AUTOMATIC_IMAGE_SCALING") && ENABLE_AUTOMATIC_IMAGE_SCALING) {
