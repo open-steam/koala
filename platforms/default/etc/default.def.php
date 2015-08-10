@@ -4,7 +4,7 @@ defined("DISPLAY_ERRORS") or define("DISPLAY_ERRORS", 0);
 defined("ERROR_REPORTING") or define("ERROR_REPORTING", (E_ERROR | E_WARNING | E_PARSE | E_NOTICE)); //do not use E_STRICT, this causes pear/it-template errors in php 5.4
 defined("LOW_API_CACHE") or define("LOW_API_CACHE", true);
 
-defined("PATH_SERVER") or define("PATH_SERVER", "https://localhost");
+defined("PATH_SERVER") or define("PATH_SERVER", "http://localhost");
 defined("PATH_URL") or define("PATH_URL", PATH_SERVER . "/");
 defined("PATH_URL_ERROR") or define("PATH_URL_ERROR",	PATH_URL . "error/");
 // the adress where cgi-bin scripts are located

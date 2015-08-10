@@ -31,6 +31,7 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit, $envid);
         $result = $uploader->handleUpload(PATH_TEMP);
         // to pass data through iframe you will need to encode all html tags
+        //echo the result and terminate the script
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         die;
         //$ajaxResponseObject->setStatus("ok");
@@ -206,6 +207,7 @@ class qqFileUploader {
 
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 
+        //check if the user folder already exists
         $objPath = $obj->get_attribute("OBJ_PATH");
         $currentUserFullName = $currentUser->get_full_name();
         $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
@@ -222,18 +224,7 @@ class qqFileUploader {
         } else {
             $isFolderAva = false;
         }
-        // $inventory = $env->get_inventory();
-        // $folderId = 0;
-        // $isFolderAva = false;
-        // foreach ($inventory as $index => $ele) {
-        /*     $authorId = $ele->get_creator()->get_id();
-          if ($authorId == $currentUserId) {
-          $isFolderAva = true;
-          $folderId = $ele->get_id();
-          break;
-          }
-          } */
-
+        
         $username = $currentUser->get_full_name();
         $usernameShort = $currentUser->get_name();
         if ($isFolderAva) {
@@ -241,15 +232,20 @@ class qqFileUploader {
         } else {
             $container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $username, $env);
         }
-        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort . "_" . $filename . "." . $ext, "", "", $container);
-//Mache hier weiter und speicher die hashmap als array      
-//  $lastRelease->set_attribute($currentUserId,$steam_document->get_attribute("OBJ_LAST_CHANGED"));
+        
         if (!$replaceOldFile) {
             /// don't overwrite previous files that were uploaded
             while (file_exists($uploadDirectory . $filename . '.' . $ext)) {
                 $filename .= rand(10, 99);
             }
         }
+        
+        //if we cannot have two files with the same name, generally rename each uploaded file with a date string at the end
+        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && API_DOUBLE_FILENAME_NOT_ALLOWED){
+            $filename.= date(" Y-m-d H-i", time());
+        }
+        
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort . "_" . $filename . "." . $ext, "", "", $container);
 
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)) {
             if (defined("ENABLE_AUTOMATIC_IMAGE_SCALING") && ENABLE_AUTOMATIC_IMAGE_SCALING) {

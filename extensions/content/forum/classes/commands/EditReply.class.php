@@ -77,7 +77,7 @@ class EditReply extends \AbstractCommand implements \IFrameCommand, \IAjaxComman
 		$contentText = new \Widgets\Textarea();
 		$contentText->setLabel("Inhalt");
 		$contentText->setTextareaClass("mce-small");
-		$contentText->setWidth(480);
+		$contentText->setWidth(374);
 		$contentText->setData($object);
 		$contentText->setContentProvider(\Widgets\DataProvider::contentProvider());
 		$dialog->addWidget($contentText);

@@ -42,7 +42,12 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
             if ($count > 500) {
                 throw new \Exception("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
-            $objects = $object->get_inventory();
+            try{
+                $objects = $object->get_inventory();
+            }
+            catch(\NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
+            catch(\AccessDeniedException $e) {throw new \Exception("", E_USER_ACCESS_DENIED);}
+            
         } else {
             $objects = array();
         }

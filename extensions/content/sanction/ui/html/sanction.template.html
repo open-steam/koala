@@ -39,13 +39,13 @@ Oder setzen Sie die Zugriffsrechte individuell:
     <table id="global" width="100%">
         <tr class="infoBar">
             <td width="40%"><b>Globale Benutzergruppen</b></td>
-            <td><b>read</b></td>
-            <td><b>write</b></td>
-            <td><b>execute</b></td>
-            <td><b>move</b></td>
-            <td><b>insert</b></td>
-            <td><b>annotate</b></td>
-            <td><b>sanction</b></td>                
+            <td><b>Lesen</b></td>
+            <td><b>Schreiben</b></td>
+            <td><b>Ausführen</b></td>
+            <td><b>Bewegen</b></td>
+            <td><b>Einfügen</b></td>
+            <td><b>Kommentieren</b></td>
+            <td><b>Rechteweitergabe</b></td>                
         </tr>
 
         <tr valign="middle">
@@ -72,13 +72,13 @@ Oder setzen Sie die Zugriffsrechte individuell:
 
         <tr class="infoBar">
             <td width="40%"><b>Gruppen</b></td>
-            <td><b>read</b></td>
-            <td><b>write</b></td>
-            <td><b>execute</b></td>
-            <td><b>move</b></td>
-            <td><b>insert</b></td>
-            <td><b>annotate</b></td>
-            <td><b>sanction</b></td>
+            <td><b>Lesen</b></td>
+            <td><b>Schreiben</b></td>
+            <td><b>Ausführen</b></td>
+            <td><b>Bewegen</b></td>
+            <td><b>Einfügen</b></td>
+            <td><b>Kommentieren</b></td>
+            <td><b>Rechteweitergabe</b></td>
         </tr>
         
         
@@ -101,13 +101,13 @@ Oder setzen Sie die Zugriffsrechte individuell:
         
         <tr class="infoBar">
             <td width="40%"><b>Benutzer</b></td>
-            <td><b>read</b></td>
-            <td><b>write</b></td>
-            <td><b>execute</b></td>
-            <td><b>move</b></td>
-            <td><b>insert</b></td>
-            <td><b>annotate</b></td>
-            <td><b>sanction</b></td>
+            <td><b>Lesen</b></td>
+            <td><b>Schreiben</b></td>
+            <td><b>Ausführen</b></td>
+            <td><b>Bewegen</b></td>
+            <td><b>Einfügen</b></td>
+            <td><b>Kommentieren</b></td>
+            <td><b>Rechteweitergabe</b></td>
         </tr>
 
         <!-- BEGIN FAVORITES -->
@@ -137,6 +137,42 @@ Oder setzen Sie die Zugriffsrechte individuell:
 <br />
 <input type="text"  value="" id="groupToAdd" {IS_ACQUIRED_DISABLE_BUTTONS}/>
 <input type="button"  value="Gruppe hinzufügen" {IS_ACQUIRED_DISABLE_BUTTONS} onClick="addUserOrGroup('group')"/>
+
+<p style="color:black;">Alle Attribute von diesem Objekt:</p>
+<table style="color:black; ">
+    <tr valign="middle">
+           
+            <td style="border-bottom:1px solid black;">Key</td>
+            <td style="border-bottom:1px solid black;">Value</td>
+            <td style="border-bottom:1px solid black;">Locked</td>
+        </tr>
+<!-- BEGIN ATTRIBUTES -->
+        <tr valign="middle">
+           
+            <td style="border-bottom:1px solid black;">{KEY}</td>
+            <td style="border-bottom:1px solid black;">{VALUE}</td>
+            <td style="border-bottom:1px solid black;">{LOCKED}</td>
+        </tr>
+        <!-- END ATTRIBUTES -->
+</table>
+
+<p style="color:black;">Alle Annotationen von diesem Objekt:</p>
+<table style="color:black; ">
+    <tr valign="middle">
+           
+            <td style="border-bottom:1px solid black;">Key</td>
+            <td style="border-bottom:1px solid black;">Value</td>
+            
+        </tr>
+<!-- BEGIN ANNOTATIONS -->
+        <tr valign="middle">
+           
+            <td style="border-bottom:1px solid black;">{KEY}</td>
+            <td style="border-bottom:1px solid black;">{VALUE}</td>
+            
+        </tr>
+        <!-- END ANNOTATIONS -->
+</table>
 
 
 </div>

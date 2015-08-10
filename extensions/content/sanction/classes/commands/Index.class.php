@@ -431,6 +431,50 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 }
             }
         }
+        
+        //template attributes
+        $attributes = $this->object->get_all_attributes();
+        
+        foreach($attributes as $key => $value){
+            $content->setCurrentBlock("ATTRIBUTES");
+            $content->setVariable("KEY", $key);
+            if(is_array($value)){
+                $content->setVariable("VALUE", "<pre>".var_export($value, true)."</pre>");
+            }
+            else if(is_object($value)){
+                $content->setVariable("VALUE", "Objekt mit der Id ".$value. " und dem Namen \"". $value->get_name()."\"");
+            }
+            else if(in_array($key, array("CONT_LAST_MODIFIED", "OBJ_CREATION_TIME", "OBJ_LAST_CHANGED", "PORTLET_SUBSCRIPTION_TIMESTAMP"))){
+                $content->setVariable("VALUE", $value ." (".date("d.m.Y H:i", $value).")");
+            }
+            else {
+                $content->setVariable("VALUE", $value);
+            }
+            if($this->object->is_locked($key)) $content->setVariable("LOCKED", "x");
+            $content->parse("ATTRIBUTES");
+    
+        }
+        
+        $annotations = $this->object->get_annotations();
+        
+        foreach($annotations as $key => $value){
+            $content->setCurrentBlock("ANNOTATIONS");
+            $content->setVariable("KEY", $key);
+            if(is_array($value)){
+                $content->setVariable("VALUE", "<pre>".var_export($value, true)."</pre>");
+            }
+            else if(is_object($value)){
+                $content->setVariable("VALUE", "Objekt mit der Id ".$value);
+            }
+            else {
+                $content->setVariable("VALUE", $value);
+            }
+            
+            $content->parse("ANNOTATIONS");
+    
+        }
+        
+        $content->setVariable("SERIALIZE", $this->object->get_references());
 
         //start generating the output
         $output = new \Widgets\RawHtml();

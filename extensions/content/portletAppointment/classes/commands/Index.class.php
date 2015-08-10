@@ -111,6 +111,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         if (sizeof($content) > 0) {
             //sort appointments
+            $unsortedContent = $content;
             usort($content, "sortPortletAppointments");
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
@@ -128,7 +129,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             //write access is required to save the sorting
             //no problem, because only with write access elements can be added, removed or rearranged
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())){
-                $portletObject->set_attribute("bid:portlet:content", $content);
+                if ($unsortedContent != $content){
+                    $portletObject->set_attribute("bid:portlet:content", $content);
+                }
             }
             
             $indexCount = 0; 

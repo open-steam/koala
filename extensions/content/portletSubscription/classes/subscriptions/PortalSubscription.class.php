@@ -22,7 +22,7 @@ class PortalSubscription extends AbstractSubscription {
                                                 $this->private,
                                                 $portlet->get_attribute("OBJ_CREATION_TIME"),
                                                 $this->depth == 0 ? "Neues Portlet:" : "Neues Portlet (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
-                                                getCleanName($portlet),
+                                                \PortletSubscription::getNameForSubscription($portlet),
                                                 PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
                                                 " (Spalte " . $column->get_name() . ")"
                                             )
@@ -37,7 +37,7 @@ class PortalSubscription extends AbstractSubscription {
                                                 $this->private,
                                                 $portlet->get_attribute("OBJ_LAST_CHANGED"),
                                                 $this->depth == 0 ? "Geändertes Portlet:" : "Geändertes Portlet (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
-                                                getCleanName($portlet),
+                                                \PortletSubscription::getNameForSubscription($portlet),
                                                 PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
                                                 " (Spalte " . $column->get_name() . ")"
                                             )

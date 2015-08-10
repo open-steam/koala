@@ -131,7 +131,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
             }
         }
         $url = \ExtensionMaster::getInstance()->getUrlForObjectId($room->get_id(), "view");
-        $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $room->get_id() . "/\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($room) . "\"></img> " . getCleanName($room, -1) . "</a>";
+        $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $room->get_id() . "\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($room) . "\"></img> " . getCleanName($room, -1) . "</a>";
         if ($this->openRoot === $root) {
             $html .= $this->getFolderHtml($currentUser, $containerObject);
         }
@@ -201,7 +201,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
                     }
 
                     $url = \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view");
-                    $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $object->get_id() . "/\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . getCleanName($object, -1) . "</a>";
+                    $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $object->get_id() . "\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . getCleanName($object, -1) . "</a>";
                     if (in_array($object->get_id(), $this->openFolders)) {
                         $html .= $this->getFolderHTML($currentUser, $object);
                     }
