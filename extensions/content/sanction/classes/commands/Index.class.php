@@ -474,6 +474,33 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     
         }
         
+        $constants = get_defined_constants();
+        
+        //replace important constants with stars
+        $forbiddenConstants = array("STEAM_ROOT_PW", "STEAM_ROOT_LOGIN");
+        foreach ($forbiddenConstants as $forbiddenConstant){
+            $constants[$forbiddenConstant] = "***";
+        }
+        foreach($constants as $key => $value){
+            $content->setCurrentBlock("CONSTANTS");
+            $content->setVariable("KEY", $key);
+            
+            
+            if(is_bool($value)){
+                $content->setVariable("VALUE", ($value)?"true":"false");
+            } else if (is_object($value)){
+                $content->setVariable("VALUE", $value->get_id());
+            } else {
+                $content->setVariable("VALUE", $value);
+            }
+            $content->parse("CONSTANTS");
+    
+        }
+        
+        
+        
+        
+        
         $content->setVariable("SERIALIZE", $this->object->get_references());
 
         //start generating the output
