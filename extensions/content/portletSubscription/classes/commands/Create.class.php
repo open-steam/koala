@@ -20,8 +20,8 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
             $followedObjectTitel = $params["title"];
             $subscriptionPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Änderungen in $followedObjectTitel", $column);
 
-            
-            $desc = "Abonnement";
+           
+            $desc = "Abonnement $followedObjectTitel";
             
             /*
             if (isset($params["title"]) && $params["title"] != "") {
