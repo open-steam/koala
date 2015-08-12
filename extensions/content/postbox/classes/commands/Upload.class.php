@@ -234,11 +234,11 @@ class qqFileUploader {
             $container->set_acquire(false);
             $postboxOwner = $env->get_environment()->get_creator();
             $steamGroupId = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam")->get_id();
-            //$container->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
-            //$container->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+            $container->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+            $container->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
             
-            $container->sanction(SANCTION_ALL, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $postboxOwner));
-            $container->sanction_meta(SANCTION_ALL, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $postboxOwner));
+            $container->sanction(SANCTION_ALL, $postboxOwner);
+            $container->sanction_meta(SANCTION_ALL, $postboxOwner);
         
         }
         
