@@ -118,7 +118,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $actionBar->setActions(array(
                 array("name" => "Den aktuellen Briefkasten in einen Ordner umwandeln", "ajax" => array("onclick" => array("command" => "Release", "params" => array("id" => $this->id), "requestType" => "data"))),
                 array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "edit", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                array("name" => "Abgabe freischalten und Rechte verwalten", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup"))),
 
                 
             ));
