@@ -42,7 +42,7 @@ is_writable(PATH_TEMP) or die("Not write access to folder " . PATH_TEMP);
 defined("PATH_LOCALE") or define("PATH_LOCALE", PATH_PLATFORMS . PLATFORM_FOLDER . "/locale/");
 
 //phpsteam api
-defined("API_DOUBLE_FILENAME_NOT_ALLOWED") or define("API_DOUBLE_FILENAME_NOT_ALLOWED", false);
+defined("API_DOUBLE_FILENAME_NOT_ALLOWED") or define("API_DOUBLE_FILENAME_NOT_ALLOWED", true);
 defined("API_MAX_INVENTORY_COUNT") or define("API_MAX_INVENTORY_COUNT", 500);
 defined("API_MAX_CONTENT_SIZE") or define("API_MAX_CONTENT_SIZE", 52428800); //50mb
 defined("API_TEMP_DIR") or define("API_TEMP_DIR", PATH_TEMP);
