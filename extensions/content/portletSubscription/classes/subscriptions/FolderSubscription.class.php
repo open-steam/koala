@@ -31,9 +31,6 @@ class FolderSubscription extends AbstractSubscription {
                 }
                 
                 
-                
-               
-                
                 //$containerLastModified = $object->get_attribute("CONT_LAST_MODIFIED");
                 
                 else if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$object->get_id()]))) {
@@ -71,12 +68,12 @@ class FolderSubscription extends AbstractSubscription {
                 }
                 
                 
-                /*
+                //recursion
                 if ($this->depth < 1) {
                     $updates = array_merge($updates, $portletInstance->collectUpdates(array(), $this->portlet, $object, $this->private, $this->timestamp, $this->filter, $this->depth + 1));
                 // folder in depth = 1 (only show new or changed message depending on timestamp)
                 }
-                */
+                
                 
                 
                 
