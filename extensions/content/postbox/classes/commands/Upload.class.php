@@ -224,7 +224,7 @@ class qqFileUploader {
         } else {
             $isFolderAva = false;
         }
-        //hier noch den lehrer als lesenden setzen, dafür aber für alle angemeldeten Benutzer hier das Lesen verbieten
+        //hier noch den lehrer + evtl dem aushilfslehrer als lesenden setzen, dafür aber für alle angemeldeten Benutzer hier das Lesen verbieten
         $username = $currentUser->get_full_name();
         $usernameShort = $currentUser->get_name();
         if ($isFolderAva) {
@@ -234,8 +234,8 @@ class qqFileUploader {
             $container->set_acquire(false);
             $postboxOwner = $env->get_environment()->get_creator();
             $steamGroupId = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam")->get_id();
-            $container->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
-            $container->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+            //$container->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+            //$container->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
             
             $container->sanction(SANCTION_ALL, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $postboxOwner));
             $container->sanction_meta(SANCTION_ALL, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $postboxOwner));
