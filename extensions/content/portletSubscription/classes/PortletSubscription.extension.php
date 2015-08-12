@@ -138,17 +138,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         if (!($object instanceof steam_object)) {
             return "";
         }
-        
-        
-        /*
-        $desc = $object->get_attribute(OBJ_DESC);
-        if ($desc !== 0 && trim($desc) !== "") {
-            $title = $desc;
-        } else {
-            $title = $object->get_name();
-        }
-        */
-        
+                
         $objectName = $object->get_name();
         $objectDescription = $object->get_attribute(OBJ_DESC);
         
@@ -172,6 +162,103 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         }
 
         return $title;
+    }
+    
+    
+    public static function getObjectTypeForSubscription($object){
+        if (!($object instanceof steam_object)) {
+            return "s Objekt";
+        }
+        
+        $rawObjectName = getObjectType($object);
+        
+        switch ($rawObjectName) {
+            case "map":
+                return " kml Datei:";
+            break;
+            case "document":
+                return "s Dokument:";
+            break;
+            case "forum":
+                return "s Forum:";
+            break;
+            case "referenceFolder":
+                return " Referenz:";
+            break;
+            case "referenceFile":
+                return " Referenz:";
+            break;
+            case "user":
+                return "r Benutzer:";
+            break;
+            case "group":
+                return " Gruppe:";
+            break;
+            case "trashbin":
+                return "r Papierkorb:";
+            break;
+            case "docextern":
+                return " Internet-Referenz:";
+            break;
+            case "portal_old":
+                return "s altes Portal:";
+            break;
+            case "gallery":
+                return "s Fotoalbum";
+            break;
+            case "wiki":
+                return "s Wiki:";
+            break;
+            case "portal":
+                return "s Portal:";
+            break;
+            case "portalColumn":
+                return " Portal-Spalte:";
+            break;
+            case "portalPortlet":
+                return "s Portal-Portlet:";
+            break;
+            case "userHome":
+                return "r Benutzerordner:";
+            break;
+            case "groupWorkroom":
+                return "r Gruppen-Arbeitsraum:";
+            break;
+            case "rapidfeedback":
+                return "r Fragebogen:";
+            break;
+            case "pyramiddiscussion":
+                return " Pyramidendiskussion:";
+            break;
+            case "postbox":
+                return "r Briefkasten:";
+            break;
+            case "ellenberg":
+                return "s Ellenbergobjekt:";
+            break;
+            case "worksheet":
+                return "s Arbeitsblatt:";
+            break;
+            case "webarena":
+                return " Webarena:";
+            break;
+            case "mokodesk":
+                return "r Mokodesk:";
+            break;
+            case "room":
+                return "r Ordner:";
+            break;
+            case "container":
+                return "r Ordner:";
+            break;
+
+            default:
+                return "s Objekt";
+            break;
+        }
+        
+        
+        
     }
 }
 ?>
