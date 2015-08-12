@@ -242,7 +242,7 @@ class qqFileUploader {
         
         //if we cannot have two files with the same name, generally rename each uploaded file with a date string at the end
         if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && API_DOUBLE_FILENAME_NOT_ALLOWED){
-            $filename.= date(" Y-m-d H-i", time());
+            $filename.= date(" Y-m-d H-i-s", time());
         }
         
         $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort . "_" . $filename . "." . $ext, "", "", $container);
