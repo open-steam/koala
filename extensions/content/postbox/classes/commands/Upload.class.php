@@ -237,8 +237,20 @@ class qqFileUploader {
             $container->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
             $container->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
             
+            //give the creator of the postbox the full rights
             $container->sanction(SANCTION_ALL, $postboxOwner);
             $container->sanction_meta(SANCTION_ALL, $postboxOwner);
+            
+            
+            //if there is a second person with full rights, give him/her also full rights
+            $postboxObjectSanction = $env->get_environment()->get_sanction();
+            foreach ($postboxObjectSanction as $id => $sanction) {
+                //if the current user isn't the creator, but has full rights, get the id, create this object and assign it full rights
+                if ($id != $postboxOwner->get_id() && $sanction == SANCTION_ALL) {
+                    $container->sanction(SANCTION_ALL, \steam_factory::get_object($this->steam->get_id(), $id));
+                    $container->sanction_meta(SANCTION_ALL, \steam_factory::get_object($this->steam->get_id(), $id));
+                }
+            }
         
         }
         
