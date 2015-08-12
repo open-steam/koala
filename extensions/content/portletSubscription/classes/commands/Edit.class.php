@@ -32,7 +32,7 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 		$dialog->addWidget(new \Widgets\Clearer());*/
                 
                 $dropDownWidget = new \Widgets\ComboBox();
-                $dropDownWidget->setLabel("Typ");
+                $dropDownWidget->setLabel("Dauer");
                 $dropDownWidget->setData($object);
                 $dropDownWidget->setOptions(array(
                     array("name" => "Unbegrenzt", "value" => "0"),
@@ -48,8 +48,8 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
                 $dropDownWidget->setLabel("Sortierung");
                 $dropDownWidget->setData($object);
                 $dropDownWidget->setOptions(array(
-                    array("name" => "Frühe Neuigkeiten zuerst anzeigen", "value" => "0"),
-                    array("name" => "Späte Neuigkeiten zuerst anzeigen", "value" => "1")));
+                    array("name" => "Aktuellste Änderung unten anzeigen", "value" => "0"),
+                    array("name" => "Aktuellste Änderung oben anzeigen", "value" => "1")));
                 $dropDownWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_SUBSCRIPTION_ORDER"));
                 $dialog->addWidget($dropDownWidget);
                 $dialog->addWidget(new \Widgets\Clearer());
