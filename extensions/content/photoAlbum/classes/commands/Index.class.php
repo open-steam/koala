@@ -46,7 +46,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
         if (!($gallery->check_access_read())) {
             $errorHtml = new \Widgets\RawHtml();
-            $errorHtml->setHtml("Sie verfügen nicht über die erforderliche Zugriffsberechtigung! Die Galerie kann nicht angezeigt werden. Sie benötigen mindestens Leserechte!");
+            $errorHtml->setHtml("Sie verfügen nicht über die erforderliche Zugriffsberechtigung! Das Fotoalbum kann nicht angezeigt werden. Sie benötigen mindestens Leserechte!");
             $frameResponseObject->addWidget($errorHtml);
             return $frameResponseObject;
         }

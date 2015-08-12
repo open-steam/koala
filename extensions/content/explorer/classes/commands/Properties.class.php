@@ -67,8 +67,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 break;
 
             case "gallery":
-                $labelName = "Galeriename";
-                $typeName = "Galerie";
+                $labelName = "Name";
+                $typeName = "Fotoalbum";
                 break;
 
             case "portal":
