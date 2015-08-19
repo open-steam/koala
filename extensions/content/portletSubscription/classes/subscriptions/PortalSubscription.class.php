@@ -12,7 +12,8 @@ class PortalSubscription extends AbstractSubscription {
                 $portlets = $column->get_inventory();
                 foreach ($portlets as $portlet) {
                     if ($portlet instanceof \steam_container) {
-                        if ($portlet->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$portlet->get_id()]) && in_array($portlet->get_attribute("OBJ_CREATION_TIME"), $this->filter[$portlet->get_id()]))) {
+                        //check, if the portlet is new and if it was created after the portal (to skip the initially created portlets)
+                        if ($portlet->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && $this->object->get_attribute("OBJ_CREATION_TIME")+1 < $portlet->get_attribute("OBJ_CREATION_TIME") && !(isset($this->filter[$portlet->get_id()]) && in_array($portlet->get_attribute("OBJ_CREATION_TIME"), $this->filter[$portlet->get_id()]))) {
                             $updates[] = array(
                                             $portlet->get_attribute("OBJ_CREATION_TIME"), 
                                             $portlet->get_id(),
@@ -27,7 +28,7 @@ class PortalSubscription extends AbstractSubscription {
                                                 " (Spalte " . $column->get_name() . ")"
                                             )
                                         );
-                        } else if ($portlet->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$portlet->get_id()]) && in_array($portlet->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$portlet->get_id()]))) {
+                        } else if ($portlet->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("OBJ_CREATION_TIME")+1 < $portlet->get_attribute("OBJ_CREATION_TIME") && !(isset($this->filter[$portlet->get_id()]) && in_array($portlet->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$portlet->get_id()]))) {
                             $updates[] = array(
                                             $portlet->get_attribute("OBJ_LAST_CHANGED"), 
                                             $portlet->get_id(),
