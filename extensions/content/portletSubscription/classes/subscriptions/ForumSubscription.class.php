@@ -18,7 +18,7 @@ class ForumSubscription extends AbstractSubscription {
                                         $thread->get_id() . "_" . $count,
                                         $this->private,
                                         $thread->get_attribute("OBJ_CREATION_TIME"),
-                                        "Neues Thema:",
+                                        "Neues Thema (im Forum <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
                                         \PortletSubscription::getNameForSubscription($thread),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
@@ -32,7 +32,7 @@ class ForumSubscription extends AbstractSubscription {
                                         $thread->get_id() . "_" . $count,
                                         $this->private,
                                         $thread->get_attribute("DOC_LAST_MODIFIED"),
-                                        "Geändertes Thema:",
+                                        "Geändertes Thema (im Forum <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
                                         \PortletSubscription::getNameForSubscription($thread),
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
@@ -51,7 +51,7 @@ class ForumSubscription extends AbstractSubscription {
                                                     $msg->get_id() . "_" . $count,
                                                     $this->private,
                                                     $msg->get_attribute("OBJ_CREATION_TIME"),
-                                                    "Neuer Beitrag:",
+                                                    "Neuer Beitrag (im Thema <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id()."/".$thread->get_id(). "/" . "\">" . \PortletSubscription::getNameForSubscription($thread) . "</a> im Forum <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
                                                     \PortletSubscription::getNameForSubscription($msg),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )
@@ -65,7 +65,7 @@ class ForumSubscription extends AbstractSubscription {
                                                     $msg->get_id() . "_" . $count,
                                                     $this->private,
                                                     $msg->get_attribute("DOC_LAST_MODIFIED"),
-                                                    "Geänderter Beitrag:",
+                                                    "Geänderter Beitrag (im Thema <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id()."/".$thread->get_id(). "/" . "\">" . \PortletSubscription::getNameForSubscription($thread) . "</a> im Forum <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
                                                     \PortletSubscription::getNameForSubscription($msg),
                                                     PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                                 )

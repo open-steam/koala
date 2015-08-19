@@ -19,7 +19,7 @@ class PostboxSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
-                                        "Neue Abgabe:",
+                                        "Neues Abgabe (im Briefkasten <a href=\"" . PATH_URL . "postbox/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
                                         \PortletSubscription::getNameForSubscription($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
@@ -44,7 +44,7 @@ class PostboxSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("CONT_LAST_MODIFIED"),
-                                        "Geänderter Ordner:",
+                                        "Geänderte Abgabe (im Briefkasten <a href=\"" . PATH_URL . "postbox/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
                                         \PortletSubscription::getNameForSubscription($object),
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
