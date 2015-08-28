@@ -67,13 +67,13 @@ class FolderSubscription extends AbstractSubscription {
                                 );
                 }
                 
-                
+                /*
                 //recursion
                 if ($this->depth < 1) {
                     $updates = array_merge($updates, $portletInstance->collectUpdates(array(), $this->portlet, $object, $this->private, $this->timestamp, $this->filter, $this->depth + 1));
                 // folder in depth = 1 (only show new or changed message depending on timestamp)
                 }
-                
+                */
                 
                 
                 
