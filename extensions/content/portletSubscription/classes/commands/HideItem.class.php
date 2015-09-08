@@ -63,7 +63,19 @@ public function processData(\IRequestObject $requestObject){
                     //save back the variables to the object
                     $portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", $filter);
                     $portlet->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", $timestamp);
+                    
+                    
+                    //now we try to remove a notification for a deleted object, if the user wants to hide it
+                    $formerContent = $portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
+                    //if the objectID is in the folderlist and the timestamp of the notofication is -1 (not possible for changes, but only for deletions)
+                    if(array_key_exists($this->objectID, $formerContent) && $this->timestamp == -1){
+                        unset($formerContent[$this->objectID]);
+                    }
+                    //save back the modified folderlist
+                    $portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
                 }
+                    
+                
             }
         
             //hide the html-item 
