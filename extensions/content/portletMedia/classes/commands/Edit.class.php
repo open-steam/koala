@@ -39,6 +39,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$headlineInput->setLabel("Überschrift");
 		$headlineInput->setData($object);
 		$headlineInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:content([headline])"));
+                $headlineInput->setSuccessMethodForDataProvider("sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': {$headlineInput->getId()}}, '', 'data');");
 		$dialog->addWidget($headlineInput);
 		$dialog->addWidget($clearer);
 		
