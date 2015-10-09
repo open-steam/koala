@@ -50,7 +50,7 @@ public function processData(\IRequestObject $requestObject){
                         $filter[] = array($this->timestamp, $this->objectID);
                         usort($filter, "sortSubscriptionElements");
                     
-                        //clean up the filter list (if the timestamp and the object id is equal in the filter and in the calculated updates, increase the timestamp for the object and remove the filder)
+                        //clean up the filter list (if the timestamp and the object id is equal in the filter and in the calculated updates, increase the timestamp for the object and remove the filterelement)
                     
                         $count = 0;
                         while (isset($filter[$count]) && isset($updates[$count]) && ($filter[$count][0] == $updates[$count][0]) && ($filter[$count][1] == $updates[$count][1])) {

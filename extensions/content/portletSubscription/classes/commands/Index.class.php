@@ -101,7 +101,9 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                 $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Keine Neuigkeiten</h3>");
                 $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
             } else {
+                //var_dump($updates);
                 foreach ($updates as $update) {
+                    //echo "hier".$update[2][1];
                     $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                     $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", $update[2]);
                     $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
