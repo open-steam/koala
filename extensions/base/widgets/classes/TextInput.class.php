@@ -16,7 +16,7 @@ class TextInput extends Widget {
     private $labelWidth;
     private $inputWidth;
     private $inputBackgroundColor;
-    private $customSaveCode = "";
+    private $customSuccessCode = "";
     
     
     public function setId($id){
@@ -99,8 +99,12 @@ class TextInput extends Widget {
         \logging::write_log( LOG_MESSAGES, "The function setAutoSave is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
     }
 
-    public function setCustomSaveCode($customSaveCode) {
-        $this->customSaveCode = $customSaveCode;
+    /**
+     * 
+     * @param type $customSuccessCode code forwarded to the successMethod of the DataProvider
+     */
+    public function setSuccessMethodForDataProvider($customSuccessCode) {
+        $this->customSuccessCode = $customSuccessCode;
     }
 
     public function getHtml() {
@@ -173,7 +177,7 @@ class TextInput extends Widget {
             $valueString = ($valueString === "0") ? "" : htmlspecialchars($valueString);
             $this->getContent()->setVariable("VALUE", $valueString);
             
-            $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id));
+            $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id, $this->customSuccessCode));
             
         } else {
             $valueString = htmlspecialchars($this->value);
