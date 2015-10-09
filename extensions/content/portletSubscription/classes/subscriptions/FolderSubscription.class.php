@@ -17,10 +17,10 @@ class FolderSubscription extends AbstractSubscription {
         //save the current content in an separat array into the portlet to recognize deleted objects
         
         $formerContent = $this->portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
-        if(!is_array($formerContent)) $formerContent = array();
+        if(!is_array($formerContent)) {$formerContent = array();}
         
         $count = 0;
-        foreach($formerContent as $id => $objectArray){
+        foreach($formerContent as $id => $notUsed){
             if(!array_key_exists($id,$objectIds)){ //the object existed in this folder but isn't there anymore, display an info that it is deleted / moved
                 $updates[] = array(
                                     0, 
