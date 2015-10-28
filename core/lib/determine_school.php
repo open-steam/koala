@@ -396,6 +396,7 @@ function initializeBidSchools() {
             "hbm-gsh" => "schulen/lip/hbm/gsh",
             "hbm-hhbm" => "schulen/lip/hbm/hhbm",
             "hbm-rs" => "schulen/lip/hbm/rs",
+	     "hbm-sho" => "schulen/lip/hbm/sho",
             "hbm-stw" => "schulen/lip/hbm/stw",
             "hbm-tsh" => "schulen/lip/hbm/tsh",
             "hc-bs" => "schulen/gt/hc/bs",
