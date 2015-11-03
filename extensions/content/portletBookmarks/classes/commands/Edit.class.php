@@ -14,7 +14,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 	public function processData(\IRequestObject $requestObject){
 		$params = $requestObject->getParams();
 		$objectId = $params["portletId"];
-                //3294
+                
+                $clearer = new \Widgets\Clearer();
 		
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		$dialog = new \Widgets\Dialog();
@@ -23,15 +24,19 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
 		
-		
-		$titelInput = new \Widgets\TextInput();
-		$titelInput->setLabel("Anzahl an Lesezeichen");
+                $titelInput = new \Widgets\TextInput();
+		$titelInput->setLabel("Überschrift");
 		$titelInput->setData($object);
-		//$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
-		$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_BOOKMARK_COUNT"));
+		$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+                
+		$numberInput = new \Widgets\TextInput();
+		$numberInput->setLabel("Anzahl an Lesezeichen");
+		$numberInput->setData($object);
+		$numberInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_BOOKMARK_COUNT"));
 		$dialog->addWidget($titelInput);
-		$dialog->addWidget(new \Widgets\Clearer());
-			
+		$dialog->addWidget($clearer);
+		$dialog->addWidget($numberInput);
+		$dialog->addWidget($clearer);	
 		
 		
 		$this->dialog = $dialog;

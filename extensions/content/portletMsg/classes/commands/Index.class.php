@@ -114,7 +114,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         }
 
 
-        //show empty headline in edit mode
+        //if the title is empty the headline will not be displayed (only in edit mode)
         if (trim($portletName) == "") {
             $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
         } else {
