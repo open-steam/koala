@@ -105,6 +105,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
         $tmpl->setVariable("RSS_NAME", $portletName);
 
+        //if the title is empty the headline will not be displayed (only in edit mode)
+        if (empty($portletName)) {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
+        } else {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline");
+        }
+        
         //refernce icon
         if ($portletIsReference) {
             $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";

@@ -36,7 +36,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $portletIsReference = false;
         }
 
-        $portletName = "Verlauf";
+        $portletName = $portlet->get_attribute(OBJ_DESC);
         $portletInstance = \PortletChronic::getInstance();
         $portletPath = $portletInstance->getExtensionPath();
 
@@ -48,6 +48,13 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $tmpl->setCurrentBlock("BLOCK_CHRONIC_HEADLINE");
         $tmpl->setVariable("HEADLINE", $portletName);
 
+        //if the title is empty the headline will not be displayed (only in edit mode)
+        if (empty($portletName)) {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
+        } else {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline");
+        }
+        
         //refernce icon
         if ($portletIsReference) {
             $envId = $portlet->get_environment()->get_environment()->get_id();
@@ -73,12 +80,6 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             ));
             $popupmenu->setCommand("PortletGetPopupMenuReference");
             $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
-        }
-
-        if (trim($portletName) == "") {
-            $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
-        } else {
-            $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
 
         $tmpl->parse("BLOCK_CHRONIC_HEADLINE");
