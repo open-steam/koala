@@ -72,6 +72,12 @@ public function processData(\IRequestObject $requestObject){
                     if(array_key_exists($this->objectID, $formerContent) && $this->timestamp == -1){
                         unset($formerContent[$this->objectID]);
                     }
+                    
+                    //if the object is not in the folderlist but it is in the inventory of the container, it is a new object
+                    if(!array_key_exists($this->objectID, $formerContent) && $this->timestamp == -1){
+                        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->objectID);
+                        $formerContent[$this->objectID] = array("name"=>$object->get_name());
+                    }
                     //save back the modified folderlist
                     $portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
                 }

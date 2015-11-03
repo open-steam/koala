@@ -29,7 +29,7 @@ abstract class AbstractSubscription {
             $dateString = date("d.m.Y H:i", $timestamp) . " Uhr";
         } else { 
             //if it fails return a general phrase
-            $dateString = "in letzter Zeit";
+            $dateString = "In letzter Zeit";
             $timestamp = -1;
         }
         

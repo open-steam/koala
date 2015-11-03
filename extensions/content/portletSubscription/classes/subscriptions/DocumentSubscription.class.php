@@ -11,7 +11,8 @@ class DocumentSubscription extends AbstractSubscription {
             
             //scan the existing updates for an eintry with this object id and if it exists, don't show another notifyevent
             $alreadyContained=false;
-            foreach($updates as $key1 => $value1) { 
+            
+            foreach($updates as $key1 => $value) { 
 		if($value[1] == $document->get_id()){ 
                     $alreadyContained=true;
                     break;
