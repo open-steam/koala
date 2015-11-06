@@ -214,9 +214,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //check sanctions
         $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
         $envSanction = $object->check_access(SANCTION_SANCTION);
-        /*
-        $actionBar = new \Widgets\ActionBar();
         
+        //$actionBar = new \Widgets\ActionBar();
+        /*
         $actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
           array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
           array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
@@ -328,7 +328,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                     newIds = "";
             });
-            $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>"); 
+            $("#content").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>"); 
                 
                 
                                     
