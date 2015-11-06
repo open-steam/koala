@@ -45,7 +45,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             
                 $object = $object->get_exit();
                 $this->id = $object->get_id();
-                
             }
         } else {
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -215,28 +214,33 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //check sanctions
         $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
         $envSanction = $object->check_access(SANCTION_SANCTION);
-
+        /*
         $actionBar = new \Widgets\ActionBar();
-
-        /* $actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
+        
+        $actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
           array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
           array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
-          )); */
+          )); 
         if ($envSanction) {
-            $actionBar->setActions(array(array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
-            ));
+            $actionBar->setActions(
+                array(
+                    array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                    array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                    array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))));
         } elseif ($envWriteable) {
-            $actionBar->setActions(array(array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
+            $actionBar->setActions(
+                array(
+                    array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                    array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
         } else {
-            $actionBar->setActions(array(
-                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
+            $actionBar->setActions(
+                    array(
+                        array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
         }
+        
 
-        //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
-
+        $actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
+        */
         $presentation = $object->get_attribute("bid:presentation");
         $preHtml = "";
         if ($presentation === "head") {
@@ -366,7 +370,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($searchField);
         }
 
-        $frameResponseObject->addWidget($actionBar);
+        //$frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($rawHtml);
 
         return $frameResponseObject;

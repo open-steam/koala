@@ -19,8 +19,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        //chronic
-        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("bookmarks");
 
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         if (isset($this->id)) {
@@ -34,6 +32,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $this->id = $object->get_id();
         }
 
+        //chronic
+        //\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
 
         if ($object && $object instanceof \steam_container) {
             $objects = $object->get_inventory();
@@ -55,8 +55,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //$breadcrumb = new \Widgets\Breadcrumb();
         //$breadcrumb->setData(array(array("name"=>"<img src=\"{$bookmarkIcon}\"> Lesezeichenordner")));
 
-        $actionBar = new \Widgets\ActionBar();
-        $actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
+        //$actionBar = new \Widgets\ActionBar();
+        //$actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
         $loader = new \Widgets\Loader();
@@ -101,7 +101,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $environmentData->setJs($script);
 
         $frameResponseObject->setTitle("Lesezeichen");
-        $frameResponseObject->addWidget($actionBar);
+        //$frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($environmentData);
         $frameResponseObject->addWidget($breadcrumb);
 
