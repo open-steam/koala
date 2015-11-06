@@ -29,7 +29,7 @@ class FolderSubscription extends AbstractSubscription {
                                         $id, 
                                         $id . "_" . $count,
                                         $this->private,
-                                        "in letzter Zeit",
+                                        "In letzter Zeit",
                                         "Nicht mehr vorhandenes Objekt: ".$formerContent[$id]["name"],
                                         "",
                                         ""
@@ -38,15 +38,35 @@ class FolderSubscription extends AbstractSubscription {
             }
             $count++;
         }
+        
+        foreach($objects as $id => $object){ //there is a new object in this folder, show an info if it is not created recently
+            if(!array_key_exists($object->get_id(),$formerContent) && $object->get_attribute("OBJ_CREATION_TIME") < $this->timestamp){ 
+                $updates[] = array(
+                                    0, 
+                                    $object->get_id(),
+                                    $this->getElementHtml(
+                                        $object->get_id(),
+                                        $object->get_id() . "_" . $count,
+                                        $this->private,
+                                        "In letzter Zeit",
+                                        "Neu vorhandenes Objekt: ".\PortletSubscription::getNameForSubscription($object),
+                                        "",
+                                        ""
+                                    )
+                                );
+            }
+            $count++;
+        }
+        /*
         foreach($objects as $object){
             //if the object is in the folder but not yet in the saved list, add it to the list to monitor it
             if(!array_key_exists($object->get_id(), $formerContent)){
                 $formerContent[$object->get_id()] = array("name"=>$object->get_name ());
             }
         }
+        */
         
         
-        $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
         
         
         foreach ($objects as $object) {
@@ -66,9 +86,11 @@ class FolderSubscription extends AbstractSubscription {
                                         \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                                     )
                                 );
-                    //if ($this->depth < 1) {
-                    //    $updates = array_merge($updates, $portletInstance->collectUpdates(array(), $this->portlet, $object, $this->private, $this->timestamp, $this->filter, $this->depth + 1));
-                    //}
+                    
+                    //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
+                    if(!array_key_exists($object->get_id(), $formerContent)){
+                        $formerContent[$object->get_id()] = array("name"=>$object->get_name());
+                    }
                 }
                 
                 
@@ -109,11 +131,12 @@ class FolderSubscription extends AbstractSubscription {
                 }
                 
                 
-                //recursion
+                /*recursion
                 if ($this->depth < 1) {
                     $updates = array_merge($updates, $portletInstance->collectUpdates(array(), $this->portlet, $object, $this->private, $this->timestamp, $this->filter, $this->depth + 1));
-                // folder in depth = 1 (only show new or changed message depending on timestamp)
+                 folder in depth = 1 (only show new or changed message depending on timestamp)
                 }
+                */
                 
                 
                 
@@ -121,6 +144,10 @@ class FolderSubscription extends AbstractSubscription {
             }
             $count++;
         }
+        
+        //save back all changes to the objects in this container
+        $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
+        
         return $updates;
     }
 }

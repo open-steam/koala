@@ -20,7 +20,8 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
                 $titelInput = new \Widgets\TextInput();
 		$titelInput->setLabel("Titel");
 		$titelInput->setData($object);
-		$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+                $titelInput->setReadOnly(true);
+		$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
 		$dialog->addWidget($titelInput);
 		$dialog->addWidget(new \Widgets\Clearer());
                 
