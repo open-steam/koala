@@ -65,6 +65,8 @@ class EditTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComman
 		$titelInput->setLabel("Überschrift");
 		$titelInput->setData($object);
 		$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+                $titelInput->setIsNotEmpty(true);
+                //$titelInput->setSuccessMethodForDataProvider("if($('#".$titelInput->getId()."').val()=='') sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': 'Neues Thema'}, '', 'data');");
 		$dialog->addWidget($titelInput);
 		$dialog->addWidget($clearer);
 		

@@ -27,13 +27,10 @@ class CreateTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComm
         $title = $this->params["title"];
         $content = $this->params["content"];
 
+        if($title == "") {$title = "Neues Thema";}
 
-        if ($title != "") {
-            $newTopic = $object->add_thread(rawurlencode($title), stripslashes($content));
-        } else {
-            $newTopic = $object->add_thread(rawurlencode("Neues Thema"), stripslashes($content));
-        }
-
+        $newTopic = $object->add_thread(rawurlencode($title), stripslashes($content));
+        
         // TODO: Add other information
         if (!empty($newTopic)) {
             $newTopic->set_attributes(array(
