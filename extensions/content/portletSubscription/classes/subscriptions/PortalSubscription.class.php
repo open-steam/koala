@@ -64,8 +64,11 @@ class PortalSubscription extends AbstractSubscription {
                                         ""
                                     )
                                 );
+                $this->count++;
+            } else {
+                $this->formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_DESC));   
             }
-            $this->count++;
+            
         }
         
         
@@ -157,7 +160,7 @@ class PortalSubscription extends AbstractSubscription {
                                 
                                 //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
                                 if(!array_key_exists($portlet->get_id(), $this->formerContent)){
-                                    $this->formerContent[$portlet->get_id()] = array("name"=>$portlet->get_name());
+                                    $this->formerContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_DESC));
                                 }
                                 
                             } else if ($portlet->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("OBJ_LAST_CHANGED") < $portlet->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$portlet->get_id()]) && in_array($portlet->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$portlet->get_id()]))) {

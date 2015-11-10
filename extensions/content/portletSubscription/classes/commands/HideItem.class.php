@@ -78,7 +78,7 @@ public function processData(\IRequestObject $requestObject){
                         
                         //if the object is not in the folderlist but it is in the inventory of the container, it is a new object
                         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->objectID);
-                        $formerContent[$this->objectID] = array("name"=>$object->get_name());
+                        $formerContent[$this->objectID] = array("name"=>$object->get_attribute(OBJ_DESC));
                         
                     }
                     
