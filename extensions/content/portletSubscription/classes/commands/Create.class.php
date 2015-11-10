@@ -41,6 +41,26 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
                 "PORTLET_SUBSCRIPTION_ORDER" => $params["sort"]
 	    ));
             
+            //if the object is a folder or a portal, we initially add all existing content to the PORTLET_SUBSCRIPTION_CONTENT variable to track the content
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["objectid"]);
+            switch (getObjectType($object)){
+                case "room":
+                    foreach($object->get_inventory() as $element){
+                        $currentContent[$element->get_id()] = array("name"=>$element->get_name());
+                    }
+                break;
+                
+                case "portal":
+                    foreach($object->get_inventory() as $column){
+                        foreach ($column->get_inventory() as $portlet){
+                            $currentContent[$portlet->get_id()] = array("name"=>$portlet->get_name());
+                        }
+                    }
+            }
+            
+            $subscriptionPortlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $currentContent);
+            
+            
             \ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($column->get_environment()->get_id());
 	}
 	
