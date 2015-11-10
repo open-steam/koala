@@ -12,7 +12,8 @@ class TextInput extends Widget {
     private $contentProvider;
     private $value = "";
     private $focus = false;
-    private $readOnly = false; 
+    private $readOnly = false;
+    private $isNotEmpty = false;
     private $labelWidth;
     private $inputWidth;
     private $inputBackgroundColor;
@@ -68,6 +69,14 @@ class TextInput extends Widget {
 
     public function setReadOnly($readOnly) {
         $this->readOnly = $readOnly;
+    }
+    
+    /**
+     * 
+     * @param type $isNotEmpty boolean
+     */
+    public function setIsNotEmpty($isNotEmpty) {
+        $this->isNotEmpty = $isNotEmpty;
     }
 
     /**
@@ -176,7 +185,7 @@ class TextInput extends Widget {
             $valueString = $this->contentProvider->getData($this->data);
             $valueString = ($valueString === "0") ? "" : htmlspecialchars($valueString);
             $this->getContent()->setVariable("VALUE", $valueString);
-            
+            $this->getContent()->setVariable("IS_NOT_EMPTY", $this->isNotEmpty);
             $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id, $this->customSuccessCode));
             
         } else {
