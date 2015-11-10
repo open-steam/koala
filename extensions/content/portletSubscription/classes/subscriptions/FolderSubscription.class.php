@@ -14,7 +14,7 @@ class FolderSubscription extends AbstractSubscription {
         {
             $objectIds[$object->get_id()] = true;
         }
-        //save the current content in an separat array into the portlet to recognize deleted objects
+        
         
         $formerContent = $this->portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
         if(!is_array($formerContent)) {$formerContent = array();}
