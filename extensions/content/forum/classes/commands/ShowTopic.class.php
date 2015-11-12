@@ -59,7 +59,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         }
         /** additional required attributes */
         $categoryAttributes = $category->get_attributes(array(OBJ_NAME, OBJ_DESC,
-            OBJ_CREATION_TIME, "bid:description", "DOC_LAST_MODIFIED", "DOC_USER_MODIFIED"), 1);
+            OBJ_CREATION_TIME, "bid:description", "DOC_LAST_MODIFIED", OBJ_LAST_CHANGED, "DOC_USER_MODIFIED"), 1);
 
         /** the content of the current category */
         $categoryContent = $category->get_content(1);
@@ -133,7 +133,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                 foreach ($messages as $message) {
                     if (!empty($message)) {
                         $id = $message->get_id();
-                        $messageAttributes[$id] = $message->get_attributes(array(OBJ_NAME, OBJ_DESC, OBJ_CREATION_TIME, "DOC_LAST_MODIFIED", "DOC_USER_MODIFIED"), 1);
+                        $messageAttributes[$id] = $message->get_attributes(array(OBJ_NAME, OBJ_DESC, OBJ_CREATION_TIME, OBJ_LAST_CHANGED, "DOC_LAST_MODIFIED", "DOC_USER_MODIFIED"), 1);
                         $messageAccessWrite[$id] = $message->check_access_write($steamUser, 1);
                         $messageContent[$id] = $message->get_content(1);
                         $messageCreator[$id] = $message->get_creator(1);
@@ -213,10 +213,10 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
             if ($categoryAttributes[OBJ_CREATION_TIME] != $categoryAttributes["DOC_LAST_MODIFIED"]) {
                 if (strlen(trim($categoryContent)) > 0) {
                     $content->setVariable("AUTHOR_EDIT", $categoryAttributes["DOC_USER_MODIFIED"]->get_full_name());
-                    $content->setVariable("TIMESTAMP_EDIT", date("d.m.Y G:i", $categoryAttributes["DOC_LAST_MODIFIED"]));
+                    $content->setVariable("TIMESTAMP_EDIT", date("d.m.Y G:i", $categoryAttributes["OBJ_LAST_CHANGED"]));
                 } else {
                     $content->setVariable("AUTHOR_DELETE", $categoryAttributes["DOC_USER_MODIFIED"]->get_full_name());
-                    $content->setVariable("TIMESTAMP_DELETE", date("d.m.Y G:i", $categoryAttributes["DOC_LAST_MODIFIED"]));
+                    $content->setVariable("TIMESTAMP_DELETE", date("d.m.Y G:i", $categoryAttributes["OBJ_LAST_CHANGED"]));
                 }
             }
             $column_width = 763;
@@ -260,10 +260,10 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                     if ($messageAttributes[$id][OBJ_CREATION_TIME] != $messageAttributes[$id]["DOC_LAST_MODIFIED"]) {
                         if (strlen(trim($messageContent[$id])) > 0) {
                             $content->setVariable("AUTHOR_MES_EDIT", $messageAttributes[$id]["DOC_USER_MODIFIED"]->get_full_name());
-                            $content->setVariable("TIMESTAMP_MES_EDIT", date("d.m.Y G:i", $messageAttributes[$id]["DOC_LAST_MODIFIED"]));
+                            $content->setVariable("TIMESTAMP_MES_EDIT", date("d.m.Y G:i", $messageAttributes[$id]["OBJ_LAST_CHANGED"]));
                         } else {
                             $content->setVariable("AUTHOR_MES_DELETE", $messageAttributes[$id]["DOC_USER_MODIFIED"]->get_full_name());
-                            $content->setVariable("TIMESTAMP_MES_DELETE", date("d.m.Y G:i", $messageAttributes[$id]["DOC_LAST_MODIFIED"]));
+                            $content->setVariable("TIMESTAMP_MES_DELETE", date("d.m.Y G:i", $messageAttributes[$id]["OBJ_LAST_CHANGED"]));
                         }
                     }
                     if ($canAnnotate) {

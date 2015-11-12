@@ -14,7 +14,7 @@ class FolderSubscription extends AbstractSubscription {
         {
             $objectIds[$object->get_id()] = true;
         }
-        //save the current content in an separat array into the portlet to recognize deleted objects
+        
         
         $formerContent = $this->portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
         if(!is_array($formerContent)) {$formerContent = array();}
@@ -57,14 +57,6 @@ class FolderSubscription extends AbstractSubscription {
             }
             $count++;
         }
-        /*
-        foreach($objects as $object){
-            //if the object is in the folder but not yet in the saved list, add it to the list to monitor it
-            if(!array_key_exists($object->get_id(), $formerContent)){
-                $formerContent[$object->get_id()] = array("name"=>$object->get_name ());
-            }
-        }
-        */
         
         
         
@@ -89,7 +81,7 @@ class FolderSubscription extends AbstractSubscription {
                     
                     //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
                     if(!array_key_exists($object->get_id(), $formerContent)){
-                        $formerContent[$object->get_id()] = array("name"=>$object->get_name());
+                        $formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_DESC));
                     }
                 }
                 

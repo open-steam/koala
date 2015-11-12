@@ -68,16 +68,20 @@ public function processData(\IRequestObject $requestObject){
                     
                     //now we try to remove a notification for a deleted object, if the user wants to hide it
                     $formerContent = $portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
+                    
                     //if the objectID is in the folderlist and the timestamp of the notofication is -1 (not possible for changes, but only for deletions)
                     if(array_key_exists($this->objectID, $formerContent) && $this->timestamp == -1){
+                        
                         unset($formerContent[$this->objectID]);
+                        
+                    }else if(!array_key_exists($this->objectID, $formerContent) && $this->timestamp == -1){
+                        
+                        //if the object is not in the folderlist but it is in the inventory of the container, it is a new object
+                        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->objectID);
+                        $formerContent[$this->objectID] = array("name"=>$object->get_attribute(OBJ_DESC));
+                        
                     }
                     
-                    //if the object is not in the folderlist but it is in the inventory of the container, it is a new object
-                    if(!array_key_exists($this->objectID, $formerContent) && $this->timestamp == -1){
-                        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->objectID);
-                        $formerContent[$this->objectID] = array("name"=>$object->get_name());
-                    }
                     //save back the modified folderlist
                     $portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
                 }
