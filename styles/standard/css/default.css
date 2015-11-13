@@ -50,6 +50,7 @@
 	
 	b, strong {
 		font-weight: bold;
+                padding-left: 5px;
 	}
 	
 	img {
@@ -71,15 +72,15 @@
 	h1 {
 		margin: 0;
 		padding: 0 0 10px 0;
-		font-size: 140%;
-	}
-	
-	h2 {
 		font-size: 130%;
 	}
 	
-	h3 {
+	h2 {
 		font-size: 120%;
+	}
+	
+	h3 {
+		font-size: 110%;
 	}
 	
 	a.textformat_button:link, a.textformat_button:visited {
@@ -687,8 +688,6 @@
 	**          units_pointlist_sheets_edit.template.html, units_pointlist.template.html, units_pyramiddiscussion_new.template.html, units_routeplaner_new.template.html
 	*/
 	.infoBar {
-		border: 3px solid #efefef;
-		padding: 10px;
 		margin-bottom: 15px;
 		background: url(../images/page_layout/info_bar_bg.png) repeat-x bottom;
 		background-color: #efefef;
