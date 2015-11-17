@@ -156,8 +156,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if ($typeName!="unbekannt") $typeNameReadable = "(".$typeName.")";
         
         $dialog = new \Widgets\Dialog();
-        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>{$typeNameReadable}");
-
+        //$dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>{$typeNameReadable}");
+        $dialog->setTitle("Eigenschaften");
+        
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
         //force the closeoperation of the dialog to reload the page to display the changed settings (tags enabled / disabled)
@@ -300,7 +301,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $html .= "</div>";
             $tagrawHtml->setHtml($html);
-            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:130px;clear:both;width:200px;}');
+            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:137px;clear:both;width:200px;}');
         }
 
         //TODO: bid-attribute
@@ -478,7 +479,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         
         if ($type == "portal") {
             $statusbarCheckbox = new \Widgets\Checkbox();
-            $statusbarCheckbox->setLabel("Statusleiste deaktiviert");
+            $statusbarCheckbox->setLabel("Statusleiste deaktiviert:");
             $statusbarCheckbox->setCheckedValue("1");
             $statusbarCheckbox->setUncheckedValue(0);
             $statusbarCheckbox->setData($object);
@@ -521,7 +522,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $object = $currentUser->get_workroom();
 
         $dialog = new \Widgets\Dialog();
-        $dialog->setTitle("Eigenschaften von " . $object->get_name());
+        //$dialog->setTitle("Eigenschaften von " . $object->get_name());
+        $dialog->setTitle("Eigenschaften");
 
         $dialog->setButtons(array(array("name" => "speichern", "href" => "save")));
         return $dialog->getHtml();

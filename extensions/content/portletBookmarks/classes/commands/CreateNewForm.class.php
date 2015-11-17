@@ -37,7 +37,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
   float: left;
   padding-right: 20px;
   text-align: right;
-  width: 80px;
+  width: 100px;
 }
 
 .attributeNameRequired {

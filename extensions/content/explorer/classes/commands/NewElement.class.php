@@ -92,7 +92,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         foreach ($commands as $command) {
             $namespaces = $command->getExtension()->getUrlNamespaces();
             $html .= "<div style=\"clear:both;\" class=\"explorernewentry\">";
-            $html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img style=\"float:left;\" src=\"{$command->getExtension()->getObjectIconUrl()}\"><p style=\"float:left; margin-top: -1px; margin-left: 5px; font-size:12px;\">{$command->getExtension()->getObjectReadableName()}</p></a>";
+            $html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img style=\"float:left;\" src=\"{$command->getExtension()->getObjectIconUrl()}\"><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">{$command->getExtension()->getObjectReadableName()}</p></a>";
             $html .= "</div>";
         }
         

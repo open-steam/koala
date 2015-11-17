@@ -117,7 +117,8 @@ END
 		$object = $currentUser->get_workroom();
 
 		$dialog = new \Widgets\Dialog();
-		$dialog->setTitle("Eigenschaften von " . $object->get_name());
+		//$dialog->setTitle("Eigenschaften von " . $object->get_name());
+                $dialog->setTitle("Eigenschaften");
 
 		$dialog->setContent("Nulla dui purus, eleifend vel, consequat non, <br>
 	dictum porta, nulla. Duis ante mi, laoreet ut,  <br>

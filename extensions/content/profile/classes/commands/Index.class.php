@@ -149,6 +149,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $GLOBALS["content"]->setVariable("LABEL_LAST_LOGIN", gettext("last login") . ":");
             $GLOBALS["content"]->setVariable("LAST_LOGIN", how_long_ago($user_profile["USER_LAST_LOGIN"]));
         }
+        if (CHANGE_PROFILE_PICTURE && PROFILE_PICTURE){
+            $GLOBALS["content"]->setVariable("EDIT_BUTTON", '<a href="http://localhost/profile/image/"><img id="imageEditButton" title="Bearbeiten" src="http://localhost/styles/bid/images/icons/portlet/edit.gif"></a>');
+        }
         $GLOBALS["content"]->parse("BLOCK_LEFT_SIDE");
 
         // get buddys of the user and put them into the $globals-array for authorization-query

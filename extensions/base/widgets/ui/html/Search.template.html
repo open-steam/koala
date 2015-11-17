@@ -1,27 +1,34 @@
 <script>
     var updateTaglist = function() {
         var value = this.value;
+        var filterButtonID = $(this).prev().attr('id');
         if(value == ""){
-            $('#popupmenu82').hide();
+            $("#"+filterButtonID).hide();
         }
         else{
-            $('#popupmenu82').show();
+            $("#"+filterButtonID).show();
         }
         var items = $('.listviewer-items').children();
         items.each(
                 function() {
-                    var tagIndex = "#" + this.id + "_2";
-                    var nameIndex = "#" + this.id + "_1";
-                    var name = $(nameIndex).text().toLowerCase();
-                    var tags = $(tagIndex).text().toLowerCase();
-                    if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
-                        $(('#' + this.id)).removeClass("show");
-                        $(('#' + this.id)).addClass("hide");
-                        $(('#' + this.id)).hide();
-                    } else {
-                        $(('#' + this.id)).removeClass("hide");
-                        $(('#' + this.id)).addClass("show");
-                        $(('#' + this.id)).show();
+                    if(this.className.indexOf("noitem") > -1){
+                        $("#search-area").hide();
+                    }
+                    else{
+                        $("#search-area").show();
+                        var tagIndex = "#" + this.id + "_2";
+                        var nameIndex = "#" + this.id + "_1";
+                        var name = $(nameIndex).text().toLowerCase();
+                        var tags = $(tagIndex).text().toLowerCase();
+                        if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
+                            $(('#' + this.id)).removeClass("show");
+                            $(('#' + this.id)).addClass("hide");
+                            $(('#' + this.id)).hide();
+                        } else {
+                            $(('#' + this.id)).removeClass("hide");
+                            $(('#' + this.id)).addClass("show");
+                            $(('#' + this.id)).show();
+                        }
                     }
                 }
         );

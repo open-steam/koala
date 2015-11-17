@@ -42,7 +42,7 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$contentText = new \Widgets\Textarea();
 		$contentText->setLabel("Inhalt");
 		$contentText->setTextareaClass("mce-small");
-		$contentText->setWidth(480);
+		$contentText->setWidth(365);
 		$contentText->setData($object);
 		$contentText->setContentProvider(\Widgets\DataProvider::contentProvider());
                 $dialog->addWidget($contentText);
