@@ -185,7 +185,11 @@ class TextInput extends Widget {
             $valueString = $this->contentProvider->getData($this->data);
             $valueString = ($valueString === "0") ? "" : htmlspecialchars($valueString);
             $this->getContent()->setVariable("VALUE", $valueString);
-            $this->getContent()->setVariable("IS_NOT_EMPTY", $this->isNotEmpty);
+            if($this->isNotEmpty){
+                $this->getContent()->setVariable("IS_NOT_EMPTY", "true");
+            } else {
+                $this->getContent()->setVariable("IS_NOT_EMPTY", "false");
+            }
             $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id, $this->customSuccessCode));
             
         } else {
