@@ -166,8 +166,8 @@ class lms_portal
         } else {
             $this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
         }
-        
-        
+
+
         // REPORT_ERROR_BUTTON
         if (defined("REPORT_ERROR_BUTTON")) {
             $this->template->setVariable( "REPORT_ERROR_BUTTON", REPORT_ERROR_BUTTON );
@@ -175,7 +175,7 @@ class lms_portal
             $fallback = '<a href="mailto:DSchubert@hnf.de?subject=Problem%20mit%20dem%20bid-Server">Ein Problem melden</a>';
             $this->template->setVariable( "REPORT_ERROR_BUTTON", $fallback);
         }
-        
+
 
         // SET STYLEPATH AND ADDITIONAL HEADERS
         $this->template->setVariable( "STYLE_PATH", PATH_STYLE );
@@ -578,6 +578,7 @@ return $rand_value;
                     //(YOUR_CALENDER) ? array( "name" => gettext( "Your calendar" ), "link" => PATH_URL . "desktop/calendar/" ) : "",
                     (YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your documents" ) : "Dokumente"), "link" => PATH_URL . "explorer/" ) : "",
                     (YOUR_BOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Lesezeichen" ) : "Lesezeichen"), "link" => PATH_URL . "bookmarks/") : "",
+                    //(YOUR_FAVORITES) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Favoriten" ) : "Meine Favoriten"), "link" => PATH_URL . "favorite/index/") : "",
 
                                         //not used
                                         (YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
