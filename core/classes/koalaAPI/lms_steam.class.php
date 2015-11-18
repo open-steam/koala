@@ -526,7 +526,14 @@ class lms_steam
                 break;
             }
         }
-        $attributes= array( "USER_FIRSTNAME", "USER_FULLNAME", "OBJ_ICON", "OBJ_DESC", "USER_ACADEMIC_TITLE", "USER_PROFILE_FOCUS", "USER_PROFILE_FACULTY" );
+        $attributes= array( 
+            "USER_FIRSTNAME", 
+            "USER_FULLNAME", 
+            "OBJ_ICON", 
+            "OBJ_DESC", 
+            "USER_ACADEMIC_TITLE", 
+            "USER_PROFILE_FOCUS", 
+            "USER_PROFILE_FACULTY" );
 
         // pre-load needed attribute values with one server request
         steam_factory::load_attributes($GLOBALS["STEAM"]->get_id(), $results, $attributes);
@@ -565,7 +572,37 @@ class lms_steam
     public function user_get_profile( $username )
     {
         $steam_user = steam_factory::username_to_object( $GLOBALS[ "STEAM" ]->get_id(), $username );
-        $query = array( "USER_FULLNAME", "USER_LAST_LOGIN", "USER_FIRSTNAME", "USER_EMAIL", "OBJ_ICON", "OBJ_DESC", "USER_ACADEMIC_TITLE", "USER_ACADEMIC_DEGREE", "USER_PROFILE_GENDER", "USER_PROFILE_DSC", "USER_PROFILE_FOCUS", "USER_PROFILE_HOMETOWN", "USER_PROFILE_WANTS", "USER_PROFILE_HAVES", "USER_PROFILE_ORGANIZATIONS", "USER_PROFILE_OTHER_INTERESTS", "USER_PROFILE_FACULTY", "USER_PROFILE_ADDRESS", "USER_PROFILE_TELEPHONE", "USER_PROFILE_PHONE_MOBILE", "USER_PROFILE_WEBSITE_URI", "USER_PROFILE_WEBSITE_NAME", "USER_PROFILE_IM_ICQ", "USER_PROFILE_IM_MSN", "USER_PROFILE_IM_AIM", "USER_PROFILE_IM_YAHOO", "USER_PROFILE_IM_SKYPE", "USER_LANGUAGE", "USER_ADRESS", "bid:user_callto");
+        $query = array( 
+            "USER_FULLNAME", 
+            "USER_LAST_LOGIN", 
+            "USER_FIRSTNAME", 
+            "USER_EMAIL", 
+            "OBJ_ICON", 
+            "OBJ_DESC", 
+            "USER_ACADEMIC_TITLE", 
+            "USER_ACADEMIC_DEGREE", 
+            "USER_PROFILE_GENDER", 
+            "USER_PROFILE_DSC", 
+            "USER_PROFILE_FOCUS", 
+            "USER_PROFILE_HOMETOWN", 
+            "USER_PROFILE_WANTS", 
+            "USER_PROFILE_HAVES", 
+            "USER_PROFILE_ORGANIZATIONS", 
+            "USER_PROFILE_OTHER_INTERESTS", 
+            "USER_PROFILE_FACULTY", 
+            "USER_PROFILE_ADDRESS", 
+            "USER_PROFILE_TELEPHONE", 
+            "USER_PROFILE_PHONE_MOBILE", 
+            "USER_PROFILE_WEBSITE_URI", 
+            "USER_PROFILE_WEBSITE_NAME", 
+            "USER_PROFILE_IM_ICQ", 
+            "USER_PROFILE_IM_MSN", 
+            "USER_PROFILE_IM_AIM", 
+            "USER_PROFILE_IM_YAHOO", 
+            "USER_PROFILE_IM_SKYPE", 
+            "USER_LANGUAGE", 
+            "USER_ADRESS", 
+            "bid:user_callto");
         $tmp = $steam_user->get_attributes( $query );
         if ($tmp[ "OBJ_ICON" ] instanceof steam_object) {
             $tmp[ "OBJ_ICON" ] = $tmp[ "OBJ_ICON" ]->get_id();
@@ -587,13 +624,57 @@ class lms_steam
         $isAdmin = ( is_object( $admin_group ) && $admin_group->is_member( $user ) );
 
         if ( $privacy_object instanceof steam_object && ( $is_privacy_page || ( !$my_profile && !$isAdmin ) ) ) {
-            $query = array( "PRIVACY_STATUS", "PRIVACY_GENDER", "PRIVACY_FACULTY", "PRIVACY_MAIN_FOCUS", "PRIVACY_WANTS", "PRIVACY_HAVES", "PRIVACY_ORGANIZATIONS", "PRIVACY_HOMETOWN", "PRIVACY_OTHER_INTERESTS", "PRIVACY_LANGUAGES", "PRIVACY_CONTACTS", "PRIVACY_GROUPS", "PRIVACY_EMAIL", "PRIVACY_ADDRESS", "PRIVACY_TELEPHONE", "PRIVACY_PHONE_MOBILE", "PRIVACY_WEBSITE", "PRIVACY_ICQ_NUMBER", "PRIVACY_MSN_IDENTIFICATION", "PRIVACY_AIM_ALIAS", "PRIVACY_YAHOO_ID", "PRIVACY_SKYPE_NAME" );
+            $query = array( 
+                "PRIVACY_STATUS", 
+                "PRIVACY_GENDER", 
+                "PRIVACY_FACULTY", 
+                "PRIVACY_MAIN_FOCUS", 
+                "PRIVACY_WANTS", 
+                "PRIVACY_HAVES", 
+                "PRIVACY_ORGANIZATIONS", 
+                "PRIVACY_HOMETOWN", 
+                "PRIVACY_OTHER_INTERESTS", 
+                "PRIVACY_LANGUAGES", 
+                "PRIVACY_CONTACTS", 
+                "PRIVACY_GROUPS", 
+                "PRIVACY_EMAIL", 
+                "PRIVACY_ADDRESS", 
+                "PRIVACY_TELEPHONE", 
+                "PRIVACY_PHONE_MOBILE", 
+                "PRIVACY_WEBSITE", 
+                "PRIVACY_ICQ_NUMBER", 
+                "PRIVACY_MSN_IDENTIFICATION", 
+                "PRIVACY_AIM_ALIAS", 
+                "PRIVACY_YAHOO_ID", 
+                "PRIVACY_SKYPE_NAME" );
 
             return $privacy_object->get_attributes( $query );
         } else {
                         $deny_all = PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS;
 
-            return array( "PRIVACY_STATUS" => $deny_all, "PRIVACY_GENDER" => $deny_all, "PRIVACY_FACULTY" => $deny_all,  "PRIVACY_MAIN_FOCUS" => $deny_all, "PRIVACY_WANTS" => $deny_all, "PRIVACY_HAVES" => $deny_all, "PRIVACY_ORGANIZATIONS" => $deny_all, "PRIVACY_HOMETOWN" => $deny_all, "PRIVACY_OTHER_INTERESTS" => $deny_all, "PRIVACY_LANGUAGES" => $deny_all, "PRIVACY_CONTACTS" => $deny_all, "PRIVACY_GROUPS" => $deny_all, "PRIVACY_EMAIL" => $deny_all, "PRIVACY_ADDRESS" => $deny_all, "PRIVACY_TELEPHONE" => $deny_all, "PRIVACY_PHONE_MOBILE" => $deny_all, "PRIVACY_WEBSITE" => $deny_all, "PRIVACY_ICQ_NUMBER" => $deny_all, "PRIVACY_MSN_IDENTIFICATION" => $deny_all, "PRIVACY_AIM_ALIAS" => $deny_all, "PRIVACY_YAHOO_ID" => $deny_all, "PRIVACY_SKYPE_NAME" => $deny_all );
+            return array( 
+                "PRIVACY_STATUS" => $deny_all, 
+                "PRIVACY_GENDER" => $deny_all, 
+                "PRIVACY_FACULTY" => $deny_all,  
+                "PRIVACY_MAIN_FOCUS" => $deny_all, 
+                "PRIVACY_WANTS" => $deny_all, 
+                "PRIVACY_HAVES" => $deny_all, 
+                "PRIVACY_ORGANIZATIONS" => $deny_all, 
+                "PRIVACY_HOMETOWN" => $deny_all, 
+                "PRIVACY_OTHER_INTERESTS" => $deny_all, 
+                "PRIVACY_LANGUAGES" => $deny_all, 
+                "PRIVACY_CONTACTS" => $deny_all, 
+                "PRIVACY_GROUPS" => $deny_all, 
+                "PRIVACY_EMAIL" => $deny_all, 
+                "PRIVACY_ADDRESS" => $deny_all, 
+                "PRIVACY_TELEPHONE" => $deny_all, 
+                "PRIVACY_PHONE_MOBILE" => $deny_all, 
+                "PRIVACY_WEBSITE" => $deny_all, 
+                "PRIVACY_ICQ_NUMBER" => $deny_all, 
+                "PRIVACY_MSN_IDENTIFICATION" => $deny_all, 
+                "PRIVACY_AIM_ALIAS" => $deny_all, 
+                "PRIVACY_YAHOO_ID" => $deny_all, 
+                "PRIVACY_SKYPE_NAME" => $deny_all );
         }
     }
 
@@ -609,7 +690,14 @@ class lms_steam
             if ( ! array_key_exists( $login, $result )  && ( ! empty( $login ) ) ) {
                 $user = steam_factory::username_to_object( $GLOBALS[ "STEAM" ]->get_id(), $login );
                 if ( !is_object( $user ) ) continue;
-                $result[ $login ] = $user->get_attributes( array( "USER_FIRSTNAME", "USER_FULLNAME", "OBJ_ICON", "USER_PROFILE_FACULTY", "USER_PROFILE_FOCUS", "USER_LAST_LOGIN", "USER_ACADEMIC_TITLE" ) );
+                $result[ $login ] = $user->get_attributes( array(
+                    "USER_FIRSTNAME",
+                    "USER_FULLNAME",
+                    "OBJ_ICON",
+                    "USER_PROFILE_FACULTY",
+                    "USER_PROFILE_FOCUS",
+                    "USER_LAST_LOGIN",
+                    "USER_ACADEMIC_TITLE" ) );
                 if ($result[ $login ][ "OBJ_ICON" ] instanceof steam_object) {
                     $result[ $login ][ "OBJ_ICON" ] = $result[ $login ][ "OBJ_ICON" ]->get_id();
                     $result[ $login ][ "OBJ_NAME" ] = $login;
@@ -926,7 +1014,14 @@ class lms_steam
         $contacts_toconfirm = $steam_user->get_attribute("USER_CONTACTS_TOCONFIRM");
     // if there are no contacts to confirm return immediately
     if (!is_array($contacts_toconfirm) || count($contacts_toconfirm) == 0) return array();
-        $attributes = array( USER_FIRSTNAME, USER_FULLNAME, "USER_PROFILE_FACULTY", "USER_PROFILE_FOCUS", OBJ_DESC, OBJ_ICON, "USER_ACADEMIC_TITLE" );
+        $attributes = array(
+            USER_FIRSTNAME,
+            USER_FULLNAME,
+            "USER_PROFILE_FACULTY",
+            "USER_PROFILE_FOCUS",
+            OBJ_DESC,
+            OBJ_ICON,
+            "USER_ACADEMIC_TITLE" );
         $no_tc = count( $contacts_toconfirm );
     $vusers = array();
     foreach ($contacts_toconfirm as $user) {
@@ -962,7 +1057,14 @@ class lms_steam
         $steam_user = steam_factory::username_to_object( $GLOBALS[ "STEAM" ]->get_id(), $username );
         $unconfirmed_contacts = $steam_user->get_unconfirmed_contacts();
         $result = array();
-        $attributes = array( "USER_FIRSTNAME", "USER_FULLNAME", "USER_PROFILE_FACULTY", "USER_PROFILE_FOCUS", "OBJ_DESC", "OBJ_ICON", "USER_ACADEMIC_TITLE" );
+        $attributes = array( 
+            "USER_FIRSTNAME",
+            "USER_FULLNAME",
+            "USER_PROFILE_FACULTY",
+            "USER_PROFILE_FOCUS",
+            "OBJ_DESC",
+            "OBJ_ICON",
+            "USER_ACADEMIC_TITLE" );
     steam_factory::load_attributes($GLOBALS["STEAM"]->get_id(), $unconfirmed_contacts, $attributes);
         $no_uc = count( $unconfirmed_contacts );
         for ($i = 0; $i < $no_uc; $i++) {
@@ -1000,7 +1102,15 @@ class lms_steam
                 if ( is_object( $buddy ) ) $buddies[] = $buddy;
             }
         }
-        $query = array( "OBJ_NAME", "OBJ_DESC", "USER_FIRSTNAME", "USER_FULLNAME", "OBJ_ICON", "USER_PROFILE_FOCUS", "USER_PROFILE_FACULTY", "USER_ACADEMIC_TITLE" );
+        $query = array(
+            "OBJ_NAME",
+            "OBJ_DESC",
+            "USER_FIRSTNAME",
+            "USER_FULLNAME",
+            "OBJ_ICON",
+            "USER_PROFILE_FOCUS",
+            "USER_PROFILE_FACULTY",
+            "USER_ACADEMIC_TITLE" );
         $query = array_merge($query, $additional_attributes);
         $no_buddies = count( $buddies );
         $i = 0;
@@ -1040,7 +1150,19 @@ class lms_steam
             throw new Exception( "Object is not a group ($group_id).", E_PAREMETER );
         }
         $members = $group->get_members();
-        $attributes= array( "USER_FIRSTNAME", "USER_FULLNAME", "OBJ_ICON", "OBJ_DESC", "USER_ACADEMIC_TITLE", "USER_SUBJECT_AREA", "USER_PROFILE_FACULTY", "USER_PROFILE_FOCUS", "USER_EMAIL", "OBJ_NAME", "USER_CONTACTS_CONFIRMED", "USER_TRASHED" );
+        $attributes= array( 
+            "USER_FIRSTNAME",
+            "USER_FULLNAME",
+            "OBJ_ICON",
+            "OBJ_DESC",
+            "USER_ACADEMIC_TITLE",
+            "USER_SUBJECT_AREA",
+            "USER_PROFILE_FACULTY",
+            "USER_PROFILE_FOCUS",
+            "USER_EMAIL",
+            "OBJ_NAME",
+            "USER_CONTACTS_CONFIRMED",
+            "USER_TRASHED" );
         if ($matriculation_numbers) {
             $attributes[] = "ldap:USER_MATRICULATION_NUMBER";
         }
@@ -1155,7 +1277,11 @@ class lms_steam
                 $result[ "CONTENT" ] = $annotation->get_content();
             $result[ "OBJ_ID" ] = $annotation->get_id();
             $creator = $annotation->get_creator();
-            $creator_data = $creator->get_attributes( array( "OBJ_NAME", "USER_FIRSTNAME", "USER_FULLNAME", "OBJ_ICON" ) );
+            $creator_data = $creator->get_attributes( array(
+                "OBJ_NAME",
+                "USER_FIRSTNAME",
+                "USER_FULLNAME",
+                "OBJ_ICON" ));
             $result[ "OBJ_CREATOR" ] = $creator_data[ "USER_FIRSTNAME" ] . " " . $creator_data[ "USER_FULLNAME" ];
             $result[ "OBJ_CREATOR_LOGIN" ] = $creator_data[ "OBJ_NAME" ];
             $icon = $creator_data[ "OBJ_ICON" ];
@@ -1191,7 +1317,11 @@ class lms_steam
       $more_tnr[$i] = array();
             if (strstr($data_result[$data_tnr[$i]["ATTRIBUTES"]][DOC_MIME_TYPE], "text")) $more_tnr[$i][ "CONTENT" ] = $annotation->get_content(TRUE);
             $result[ "OBJ_ID" ] = $annotation->get_id();
-            $more_tnr[$i]["CREATOR_DATA"] = $data_result[$data_tnr[$i]["CREATOR"]]->get_attributes( array( "OBJ_NAME", "USER_FIRSTNAME", "USER_FULLNAME", "OBJ_ICON" ), TRUE );
+            $more_tnr[$i]["CREATOR_DATA"] = $data_result[$data_tnr[$i]["CREATOR"]]->get_attributes( array( 
+                "OBJ_NAME",
+                "USER_FIRSTNAME",
+                "USER_FULLNAME",
+                "OBJ_ICON" ), TRUE );
             $i++;
         }
     $more_result = $GLOBALS["STEAM"]->buffer_flush();
@@ -1444,7 +1574,10 @@ class lms_steam
      if ( is_object( $pSender ) ) {
        // Construct valid Sender-String as it is used within the koaLA System
        // Firstname, Lastname and USER_EMAIL
-       $pSender->get_attributes(array("USER_FULLNAME", "USER_FIRSTNAME", "USER_EMAIL"));
+       $pSender->get_attributes(array(
+           "USER_FULLNAME",
+           "USER_FIRSTNAME",
+           "USER_EMAIL"));
        $name = $pSender->get_attribute("USER_FIRSTNAME") . " " . $pSender->get_attribute("USER_FULLNAME");
        // Provide the correct encoding (quoted printable)
        // Hint: your PHP installation must have ctype_alpha

@@ -34,3 +34,15 @@
 #userImage:hover #imageEditButton {
     display: block;
 }
+
+.widgets_radiobutton {
+     display: block !important;
+}
+
+.widgets_radiobutton > div {
+     padding-left: 100px;
+}
+
+.widgets_combobox > select {
+     width: 134px;
+}

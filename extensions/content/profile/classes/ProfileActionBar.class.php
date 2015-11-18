@@ -20,7 +20,7 @@ class ProfileActionBar {
         if ($this->current_user->get_id() == $this->user->get_id()) {
             //array_push($actions, array( "link" => PATH_URL . "profile/index/", "name" => "Profil"));
             //if (CHANGE_PROFILE_PICTURE && PROFILE_PICTURE) array_push($actions, array( "link" => PATH_URL . "profile/image/", "name" => "Benutzerbild"));
-            if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY) array_push($actions, array( "link" => PATH_URL . "profile/privacy/", "name" => gettext( "Profile Privacy" )));
+            //if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY) array_push($actions, array( "link" => PATH_URL . "profile/privacy/", "name" => gettext( "Profile Privacy" )));
             if (USERMANAGEMENT && CHANGE_PASSWORD) array_push($actions, array( "link" => PATH_URL . "usermanagement", "name" => "Passwort ändern"));
             if (YOUR_GROUPS) array_push($actions, array("name" => gettext( "Groups" ), "link" => PATH_URL . "profile/" . "groups/". $this->user->get_name()."/"));
             if (YOUR_CONTACTS) array_push($actions, array("name" => gettext( "Contacts" ), "link" => PATH_URL . "profile/" . "contacts/". $this->user->get_name() ."/" ));
