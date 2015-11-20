@@ -1,4 +1,4 @@
-.detail .widgets_textinput { 
+.detail .widgets_textinput {
     margin-top: 7px;
 }
 
@@ -40,9 +40,57 @@
 }
 
 .widgets_radiobutton > div {
-     padding-left: 100px;
+     padding-left: 90px;
 }
 
 .widgets_combobox > select {
      width: 134px;
+     margin-top: 7px;
+}
+
+#slb {
+  position: relative;
+  top: 50%;
+  left: 2%;
+  height: 40px;
+  line-height: 20px;
+  width: 130px;
+  color: #ffffff;
+  text-align: center;
+  background: #3A6E9F;
+}
+
+.openPrivacyButton:after,
+.openPrivacyButton::after {
+  position: absolute;
+  left: 130px;
+  top: 0px;
+  content: '';
+  border-left: solid 20px #3A6E9F;
+  border-bottom: solid 20px transparent;
+  border-top: solid 20px transparent;
+}
+
+.closePrivacyButton:after,
+.closePrivacyButton::after {
+  position: absolute;
+  left: -20px;
+  top: 0px;
+  content: '';
+  border-right: solid 20px #3A6E9F;
+  border-bottom: solid 20px transparent;
+  border-top: solid 20px transparent;
+}
+
+.sl-content {
+   margin-left: 460px;
+   width: 100%;
+   background-color:#ffffff;
+   height: 440px;
+   position:absolute;
+}
+
+#content {
+  overflow: hidden;
+  position: relative;
 }

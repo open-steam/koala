@@ -193,10 +193,32 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             $clearer = new \Widgets\Clearer();
 
+            if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
+              $script = '$("#slb").click(function() {'
+                        . 'if ($("#slb").attr("class") == "openPrivacyButton") {'
+                          . '$(".sl-content").animate({"margin-left":"800px", "width": $("#sl-row").width - 180 + "px"},1000, function () {'
+                            . '$("#slb").html("Sichtbarkeitsoptionen ausblenden");'
+                            . '$("#slb").attr("class", "closePrivacyButton");'
+                          . '});'
+                        . '} else {'
+                          . '$(".sl-content").animate({"width":"100%", "margin-left":"460px"},1000, function () {'
+                            . '$("#slb").html("Sichtbarkeitsoptionen einblenden");'
+                            . '$("#slb").attr("class", "openPrivacyButton");'
+                          . '});'
+                        . '}'
+                      . '});';
+            }
+            else{
+              $script = '$("#slb").hide()';
+            }
+
             // table cell html
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml($GLOBALS["content"]->get() . '<td class="detail" valign="top" style="line-height: 13px;">'
-                    . '<style type="text/css"> .widget.textarea textarea { margin-top: 5px; margin-bottom: 5px; }</style>');
+                    . '<style type="text/css"> .widget.textarea textarea { margin-top: 5px; margin-bottom: 5px; }</style>'
+    								. '<script>'
+    								. $script
+    								. '</script>');
             $frameResponseObject->addWidget($rawHtml);
 
             $contact_label = gettext("All Users");
@@ -206,22 +228,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             // general information label
             $generalLabel = new \Widgets\RawHtml();
-            if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                $generalLabel->setHtml("<div class='grid' style='display:table; width:70%; margin-left:5px;'>
+            $generalLabel->setHtml("<div class='grid' style='display:table; width:70%; margin-left:5px;'>
                     <div style='width:770px'>
-                        <div style='display:table-cell; width:290px; font-size: 15px;'><b>Allgemeine Informationen</b></div>
-                        <div style='display:table-cell; width:81px;'><b>sichtbar für:</b></div>
-                        <div style='display:table-cell; width:45px;'><center><b>Alle</b></center></div>
-                        <div style='display:table-cell; width:180px;'><center><b> $contact_label </b></center></div>
+                        <div style='display:table-cell; width:365px; font-size: 15px;'><b>Allgemeine Informationen</b></div>
+                        <div style='display:table-cell; width:35px;'><center><b>Alle</b></center></div>
+                        <div style='display:table-cell; width:170px;'><center><b> $contact_label </b></center></div>
                         <div style='display:table-cell; width:50px;'><center><b>Niemand</b></center></div>
                     </div>");
-            }
-            else{
-                $generalLabel->setHtml("<div class='grid' style='display:table; width:70%; margin-left:5px;'>
-                    <div style='width:770px'>
-                        <div style='display:table-cell; width:290px; font-size: 15px;'><b>Allgemeine Informationen</b></div>
-                    </div>");
-            }
             $frameResponseObject->addWidget($generalLabel);
 
             // get privacy object (create it if it does not exist)
@@ -279,13 +292,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setReadOnly(true);
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setReadOnly(true);
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // last name
@@ -299,13 +310,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setReadOnly(true);
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setReadOnly(true);
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // bid owl name
@@ -319,13 +328,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setReadOnly(true);
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setReadOnly(true);
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // academic degree and title
@@ -343,13 +350,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($dropDownWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setReadOnly(true);
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setReadOnly(true);
+                $frameResponseObject->addWidget($radioButton);
 
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Academic degree"));
@@ -359,13 +364,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton2 = new \Widgets\RadioButton();
-                    $radioButton2->setType("horizontal");
-                    $radioButton2->setOptions($options);
-                    $radioButton2->setReadOnly(true);
-                    $frameResponseObject->addWidget($radioButton2);
-                }
+                $radioButton2 = new \Widgets\RadioButton();
+                $radioButton2->setType("horizontal");
+                $radioButton2->setOptions($options);
+                $radioButton2->setReadOnly(true);
+                $frameResponseObject->addWidget($radioButton2);
             }
 
             // bid description
@@ -378,14 +381,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_STATUS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_STATUS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // status
@@ -402,14 +403,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($comboBoxWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_STATUS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_STATUS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // user description
@@ -426,14 +425,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_STATUS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_STATUS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // gender
@@ -449,14 +446,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($comboBoxWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_GENDER"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_GENDER"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // faculty
@@ -475,14 +470,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($dropDownWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_FACULTY"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_FACULTY"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
 
@@ -496,14 +489,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_WANTS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_WANTS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // haves
@@ -516,14 +507,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_HAVES"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_HAVES"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // hometown
@@ -536,14 +525,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_HOMETOWN"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_HOMETOWN"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // main focus
@@ -561,14 +548,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_MAIN_FOCUS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_MAIN_FOCUS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // other interests
@@ -581,14 +566,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_OTHER_INTERESTS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_OTHER_INTERESTS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // organizations
@@ -601,14 +584,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_ORGANIZATIONS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_ORGANIZATIONS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // contacts title
@@ -631,14 +612,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($textWidget);
                 // Email Settings?
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_EMAIL"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_EMAIL"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // bid email
@@ -651,14 +630,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_EMAIL"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_EMAIL"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // address
@@ -671,14 +648,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_ADDRESS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_ADDRESS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // bid address
@@ -693,14 +668,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_ADDRESS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_ADDRESS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // telephone number
@@ -713,14 +686,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_TELEPHONE"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_TELEPHONE"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // bid telephone number
@@ -733,14 +704,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_TELEPHONE"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_TELEPHONE"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // mobile phone number
@@ -753,14 +722,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_PHONE_MOBILE"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_PHONE_MOBILE"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // website
@@ -773,14 +740,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_WEBSITE"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_WEBSITE"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // icq number
@@ -793,14 +758,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_ICQ_NUMBER"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_ICQ_NUMBER"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // msn identification
@@ -813,14 +776,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_MSN_IDENTIFICATION"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_MSN_IDENTIFICATION"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // aim alias
@@ -833,14 +794,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_AIM_ALIAS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_AIM_ALIAS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // yahoo id
@@ -853,14 +812,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_YAHOO_ID"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_YAHOO_ID"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // skype name
@@ -873,14 +830,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_SKYPE_NAME"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_SKYPE_NAME"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             if (ENABLED_CONTACTS_GROUPS_TITLE) {
@@ -895,14 +850,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $raw->setHtml('<div class="widgets_label">' . $contact_label . ':</div><div style="width:134px; height:19px; float: left;"></div>');
                 $frameResponseObject->addWidget($raw);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_CONTACTS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_CONTACTS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             if (ENABLED_GROUPS) {
@@ -911,14 +864,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($raw);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_GROUPS"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_GROUPS"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // settings label
@@ -940,14 +891,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($dropDownWidget);
 
-                if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-                    $radioButton = new \Widgets\RadioButton();
-                    $radioButton->setType("horizontal");
-                    $radioButton->setOptions($options);
-                    $radioButton->setData($privacy_object);
-                    $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_LANGUAGES"));
-                    $frameResponseObject->addWidget($radioButton);
-                }
+                $radioButton = new \Widgets\RadioButton();
+                $radioButton->setType("horizontal");
+                $radioButton->setOptions($options);
+                $radioButton->setData($privacy_object);
+                $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_LANGUAGES"));
+                $frameResponseObject->addWidget($radioButton);
             }
 
             // hidden documents in explorer
