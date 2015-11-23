@@ -130,7 +130,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("LABEL_YOUR_BUDDY_ICON", gettext("This is your buddy icon at the moment."));
         $content->setVariable("LABEL_REPLACE", gettext("Replace with an image"));
         if (PLATFORM_ID == "bid") {
-            $content->setVariable("LABEL_UPLOAD_INFO", gettext("At this place it is possible to upload a user picture. The image will be displayed together with your name, for example nearby your documents or forum entries.") . " " . gettext("The uploaded file has to be an image file (JPG, GIF or PNG), should have the dimensions of 140 x 185 pixels and <b>may not be larger than 2500 KByte</b>. "));
+            $content->setVariable("LABEL_UPLOAD_INFO", gettext("At this place it is possible to upload a user picture. The image will be displayed together with your name, for example nearby your documents or forum entries.") . " " . gettext("The uploaded file has to be an image file (JPG, GIF or PNG), should have the dimensions of 140 x 185 pixels and <b>may not be larger than 250 KByte</b>. "));
         } else {
             $content->setVariable("LABEL_UPLOAD_INFO", gettext("The user picture will represent you inside the platform.") . " " . gettext("The uploaded file has to be an image file (JPG, GIF or PNG), should have the dimensions of 140 x 185 pixels and <b>may not be larger than 250 KByte</b>. "));
         }
