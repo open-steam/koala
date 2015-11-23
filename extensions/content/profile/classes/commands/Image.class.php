@@ -89,7 +89,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
                 }
             }
         }
-        
+
         // display actionbar
         $profileUtils = new \ProfileActionBar($user, $user);
         $actions = $profileUtils->getActions();
@@ -98,7 +98,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
             $actionBar->setActions($actions);
             $frameResponseObject->addWidget($actionBar);
         }
-
+        /*
         // display infobar
         $infoBar = new \Widgets\InfoBar();
         if (PLATFORM_ID == "bid") {
@@ -107,6 +107,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
             $infoBar->addParagraph("Das Benutzerbild wird Sie in " . PLATFORM_NAME . " repräsentieren");
         }
         $frameResponseObject->addWidget($infoBar);
+        */
 
         $content = \Profile::getInstance()->loadTemplate("image.template.html");
         $content->setVariable("WINDOW_CONFIRM_TEXT", gettext("Are you sure you want to delete your current buddy icon?"));
@@ -128,13 +129,23 @@ class Image extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("USER_IMAGE", $icon_link);
         $content->setVariable("LABEL_YOUR_BUDDY_ICON", gettext("This is your buddy icon at the moment."));
         $content->setVariable("LABEL_REPLACE", gettext("Replace with an image"));
-        $content->setVariable("LABEL_UPLOAD_INFO", gettext("The uploaded file has to be an image file (JPG, GIF or PNG), should have the dimensions of 140 x 185 pixels and <b>may not be larger than 250 KByte</b>. "));
+        if (PLATFORM_ID == "bid") {
+            $content->setVariable("LABEL_UPLOAD_INFO", gettext("At this place it is possible to upload a user picture. The image will be displayed together with your name, for example nearby your documents or forum entries.") . " " . gettext("The uploaded file has to be an image file (JPG, GIF or PNG), should have the dimensions of 140 x 185 pixels and <b>may not be larger than 2500 KByte</b>. "));
+        } else {
+            $content->setVariable("LABEL_UPLOAD_INFO", gettext("The user picture will represent you inside the platform.") . " " . gettext("The uploaded file has to be an image file (JPG, GIF or PNG), should have the dimensions of 140 x 185 pixels and <b>may not be larger than 250 KByte</b>. "));
+        }
         $content->setVariable("LABEL_UPLOAD", gettext("Upload"));
+        $content->setVariable("LABEL_BACK_TO_PROFILE", gettext("Back to Profile"));
 
         $frameResponseObject->setConfirmText($confirmText);
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $frameResponseObject->addWidget($rawHtml);
+
+        $BackToProfileButton = new \Widgets\RawHtml();
+        $BackToProfileButton->setHtml('<a href="http://localhost/profile/index/" class="pill button" style="margin-top: 110px; margin-left: 810px;">Zurück zum Profil</a>');
+        $frameResponseObject->addWidget($BackToProfileButton);
+
         return $frameResponseObject;
     }
 
