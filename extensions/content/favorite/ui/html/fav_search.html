@@ -1,24 +1,25 @@
 <h1>{TITLE}</h1>
 <form action="" method="post">
-<table width="80%" cellpadding="5" cellspacing="0">
+<table width="50%" cellpadding="5" cellspacing="0">
 	<tr>
-		<td class="label">{SEARCH}:</td>
-		<td class="value"><input type="text" name="searchString" /></td>
-		<td class="value">
-                                <input type="radio" {PRE_SELECT_USER} style="width: 20px;" value="searchUser" name="searchType">
-		{USER_LOGIN}    <input type="radio" {PRE_SELECT_FULLNAME} style="width: 20px;" value="searchUserFullname" name="searchType">
-		{USER_FULLNAME} <input type="radio" {PRE_SELECT_GROUP} style="width: 20px;" value="searchGroup" name="searchType"> {GROUPS}
-                &nbsp;&nbsp;&nbsp;<input type="submit" name="action" value="{BUTTON_LABEL}" /></td>
+		<!--<td class="label">{SEARCH}:</td> -->
+		<td class="value"><input type="text" name="searchString" placeholder={SEARCH} /></td>
+		<td class="value"><input type="submit" name="action" value="{BUTTON_LABEL}" /></td>
+	</tr>
+	<tr>
+		<td class="value"><input type="radio" {PRE_SELECT_USER} style="width: 20px;" value="searchUser" name="searchType">{USER_LOGIN}
+		<td class="value"><input type="radio" {PRE_SELECT_FULLNAME} style="width: 20px;" value="searchUserFullname" name="searchType">{USER_FULLNAME} 
+		<td class="value"><input type="radio" {PRE_SELECT_GROUP} style="width: 20px;" value="searchGroup" name="searchType"> {GROUPS}
 	</tr>
 </table>
 </form>
-<table width="60%" cellpadding="5" cellspacing="0">
+<table width="50%" cellpadding="5" cellspacing="0">
 	<!-- BEGIN BLOCK_NO_RESULT -->
 	<tr>
 		<th style="text-align:left;">{NO_RESULT}</th>
 	</tr>
 	<!--  END BLOCK_NO_RESULT -->
-	
+
 	<!-- BEGIN BLOCK_SEARCH_TITLE -->
 	<tr>
 		<th colspan="2" class="group" style="text-align:left; font-size:18px;">{SEARCH_RESULTS}</th>
@@ -42,26 +43,24 @@
 		<!-- END BLOCK_ALREADY_FAV -->
 	</tr>
 	<!-- END BLOCK_SEARCH_RESULTS_BUDDY -->
-	
+
 	<!-- BEGIN BLOCK_GROUP_LIST -->
 	<tr>
 		<td class="label" style="vertical-align:middle;">{GROUP_NAME}</td>
 		<td class="value" style="vertical-align:middle;">{GROUP_DESC}</td>
-		
+
 		<!-- BEGIN BLOCK_GROUP_LIST2 -->
-		
+
 		<td class="value">
 		<div class="actionBar" style="margin: 0px"><a class="button"
 			href="{FAVORITE_GROUP_LINK}">{ADD_FAVORITE_GROUP}</a></div>
 		</td>
 		<!-- END BLOCK_GROUP_LIST2 -->
-		
+
 		<!-- BEGIN BLOCK_ALREADY_FAV_GROUP -->
 		<td class="value">{ALREADY_GROUP}</td>
 		<!-- END BLOCK_ALREADY_FAV_GROUP -->
-		
+
 	</tr>
 	<!-- END BLOCK_GROUP_LIST -->
 </table>
-
-
