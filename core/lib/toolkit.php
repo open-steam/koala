@@ -649,6 +649,9 @@ function getObjectReadableSize($object) {
         } elseif ($type == "referenceFolder") {
             $exitObject = $object->get_exit();
             $html = getObjectReadableSize($exitObject);
+        } elseif ($type == "wiki") {
+            $counter = count($object->get_inventory());
+            $html = $counter." ".(($counter == 1)? "Eintrag" : "Einträge");
         } else {
             $html = "";
         }

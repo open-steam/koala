@@ -130,7 +130,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                 if ($linkObjectType === "rapidfeedback") {
                     $url = PATH_URL . "rapidfeedback/Index/" . $linkObj->get_id() . "/";
                 } else {
-                    if ($linkObj === 0) {
+                    if ($linkObj === 0 || $linkObj === null) {
                         $url = "";
                     } else {
                         $url = PATH_URL . "explorer/index/" . $linkObj->get_id() . "/";

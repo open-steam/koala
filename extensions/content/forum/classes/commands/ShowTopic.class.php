@@ -45,8 +45,8 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         /** id of the log-in user */
         $steamUserId = $steamUser->get_id();
         /** the login user name */
-        $steamUserLoginName = $steamUser->get_name();
-        $steamUserName = $steamUser->get_full_name();
+        //$steamUserLoginName = $steamUser->get_name();
+        //$steamUserName = $steamUser->get_full_name();
 
         /** the current category */
         $category = \steam_factory::get_object($steam->get_id(), $category_id);
@@ -221,24 +221,28 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
             }
             $column_width = 763;
             if ($category->get_attribute("bid:forum:category:picture_id") !== 0) {
-
-                $picture_width = (($category->get_attribute("bid:forum:category:picture_width") != 0) ? $category->get_attribute("bid:forum:category:picture_width") : "");
-                if (extract_percentual_length($picture_width) == "") {
+ 
+                
+                $picture_width = (($category->get_attribute("bid:forum:category:picture_width") != "0") ? trim($category->get_attribute("bid:forum:category:picture_width")) : "");
+                
+                if (extract_percentual_length($picture_width) == "") {    
                     $bare_picture_width = extract_length($picture_width);
                     if ($bare_picture_width == "") {
-                        $picture_width = "";
+                        $picture_width = "100%";
                     } else if ($bare_picture_width > $column_width - 25) {
                         $picture_width = $column_width - 25;
                     }
                 }
+                
                 $align = $category->get_attribute("bid:forum:category:picture_alignment");
+                
                 if ($align !== "none" && $align != "0") {
                     $content->setVariable("MESSAGE_PICTURE_URL1", getDownloadUrlForObjectId($category->get_attribute("bid:forum:category:picture_id")));
-                    $content->setVariable("MESSAGE_PICTURE_ALIGNMENT1", $category->get_attribute("bid:forum:category:picture_alignment"));
+                    $content->setVariable("MESSAGE_PICTURE_ALIGNMENT1", $align);
                     $content->setVariable("MESSAGE_PICTURE_WIDTH1", $picture_width);
                 }else{
-                    $content->setVariable("MESSAGE_PICTURE_URL_NONE", getDownloadUrlForObjectId($category->get_attribute("bid:forum:category:picture_id")));
-                    $content->setVariable("MESSAGE_PICTURE_WIDTH_NONE", $picture_width);
+                    $content->setVariable("MESSAGE_PICTURE_URL_NONE1", getDownloadUrlForObjectId($category->get_attribute("bid:forum:category:picture_id")));
+                    $content->setVariable("MESSAGE_PICTURE_WIDTH_NONE1", $picture_width);
                
                 }
             }
@@ -280,7 +284,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                         if (extract_percentual_length($picture_width) == "") {
                             $bare_picture_width = extract_length($picture_width);
                             if ($bare_picture_width == "") {
-                                $picture_width = "";
+                                $picture_width = "100%";
                             } else if ($bare_picture_width > $column_width - 25) {
                                 $picture_width = $column_width - 25;
                             }

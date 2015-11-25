@@ -116,6 +116,9 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                 }
             }
         } else {
+            $tmpl = new \HTML_TEMPLATE_IT();
+            $tmpl->loadTemplateFile($portletPath . "/ui/html/index.template.html");
+        
             $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
             $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Das abonnierte Objekt wurde gelöscht.");
             $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");

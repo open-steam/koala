@@ -52,34 +52,29 @@
   position: relative;
   top: 50%;
   left: 2%;
-  height: 40px;
-  line-height: 20px;
-  width: 130px;
-  color: #ffffff;
+  color: #FFFFFF;
+  position: absolute;
+  background: #417BB2;
+  cursor: pointer;
+  overflow: hidden;
   text-align: center;
-  background: #3A6E9F;
+  box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.3);
+  text-shadow: none;
+  transition: all .3s ease-out;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 10px;
+  font-size: 12px;
 }
 
-.openPrivacyButton:after,
-.openPrivacyButton::after {
-  position: absolute;
-  left: 130px;
-  top: 0px;
-  content: '';
-  border-left: solid 20px #3A6E9F;
-  border-bottom: solid 20px transparent;
-  border-top: solid 20px transparent;
+#slb:hover {
+  background: #6094C5;
 }
 
-.closePrivacyButton:after,
-.closePrivacyButton::after {
-  position: absolute;
-  left: -20px;
-  top: 0px;
-  content: '';
-  border-right: solid 20px #3A6E9F;
-  border-bottom: solid 20px transparent;
-  border-top: solid 20px transparent;
+#slb:active{
+  background: #33618C;
+  transform: scale(0.97) !important;
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
 }
 
 .sl-content {

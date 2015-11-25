@@ -194,15 +194,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $clearer = new \Widgets\Clearer();
 
             if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-              $script = '$("#slb").click(function() {'
+              $script =   '$("#slb").show();'
+                        . '$("#slb").click(function() {'
                         . 'if ($("#slb").attr("class") == "openPrivacyButton") {'
                           . '$(".sl-content").animate({"margin-left":"800px", "width": $("#sl-row").width - 180 + "px"},1000, function () {'
-                            . '$("#slb").html("Sichtbarkeitsoptionen ausblenden");'
+                            . '$("#slb").html("◄ Sichtbarkeit");'
                             . '$("#slb").attr("class", "closePrivacyButton");'
                           . '});'
                         . '} else {'
                           . '$(".sl-content").animate({"width":"100%", "margin-left":"460px"},1000, function () {'
-                            . '$("#slb").html("Sichtbarkeitsoptionen einblenden");'
+                            . '$("#slb").html("Sichtbarkeit ►");'
                             . '$("#slb").attr("class", "openPrivacyButton");'
                           . '});'
                         . '}'

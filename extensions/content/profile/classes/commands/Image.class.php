@@ -143,7 +143,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
         $frameResponseObject->addWidget($rawHtml);
 
         $BackToProfileButton = new \Widgets\RawHtml();
-        $BackToProfileButton->setHtml('<a href="http://localhost/profile/index/" class="pill button" style="margin-top: 110px; margin-left: 810px;">Zurück zum Profil</a>');
+        $BackToProfileButton->setHtml('<a href="http://localhost/profile/index/" class="pill button" style="margin-top: 150px; margin-left: 810px;">Zurück zum Profil</a>');
         $frameResponseObject->addWidget($BackToProfileButton);
 
         return $frameResponseObject;
