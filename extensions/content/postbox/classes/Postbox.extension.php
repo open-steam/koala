@@ -60,8 +60,6 @@ class Postbox extends AbstractExtension implements IObjectExtension, IIconBarExt
     public function getIconBarEntries() {
       $path = strtolower($_SERVER["REQUEST_URI"]);
       if (strpos($path, "postbox") !== false) {
-        $newPath = str_replace("postbox", "explorer", $path);
-        var_dump($newPath);
         $arr = explode('/', $path);
         $id = $arr[count($arr)-2];
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
