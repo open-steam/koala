@@ -1,6 +1,6 @@
 <?php
 
-class Postbox extends AbstractExtension implements IObjectExtension {
+class Postbox extends AbstractExtension implements IObjectExtension, IIconBarExtension {
 
     public function getName() {
         return "Postbox";
@@ -50,11 +50,30 @@ class Postbox extends AbstractExtension implements IObjectExtension {
         $id = $params[0];
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
         return $object;
-        
+
     }
 
     public function getPriority() {
         return 8;
+    }
+
+    public function getIconBarEntries() {
+      $path = strtolower($_SERVER["REQUEST_URI"]);
+      if (strpos($path, "postbox") !== false) {
+        $newPath = str_replace("postbox", "explorer", $path);
+        var_dump($newPath);
+        $arr = explode('/', $path);
+        $id = $arr[count($arr)-2];
+        $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+        $checkAccessAdmin = $obj->check_access(SANCTION_ALL);
+        $array = array();
+        if ($checkAccessAdmin) {
+            $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('edit', {'id':{$id}}, '', 'popup', null, null, 'postbox');return false;");
+            $array[] = array("name" => "<img title=\"In Ordner umwandeln\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/folder_white.png\">", "onclick"=>"if(confirm('Das aktuelle Abgabefach wird in einen Ordner umgewandelt. Dieser Vorgang kann nicht rückgängig gemacht werden!')){sendRequest('Release', {'id':{$id}}, '', 'data', null, null, 'postbox');history.back();return false;}");
+            $array[] = array("name" => "<img title=\"Rechte\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$id}}, '', 'popup', null, null, 'postbox');return false;");
+          }
+          return $array;
+        }
     }
 
 }
