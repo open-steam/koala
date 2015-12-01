@@ -204,7 +204,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
                 return "s altes Portal:";
             break;
             case "gallery":
-                return "s Fotoalbum";
+                return "s Fotoalbum:";
             break;
             case "wiki":
                 return "s Wiki:";

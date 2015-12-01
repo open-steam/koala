@@ -126,6 +126,19 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($tmpl->get());
+        $rawHtml->setCss(".close-button {
+            height: 16px;
+            width: 16px;
+            background-image: url(\"".PATH_URL."widgets/asset/close.gif\");
+            position: relative;
+            top: 0px;
+            left: 0px;
+        }
+
+        .close-button:hover {
+            cursor: pointer;
+        }"
+        );
         $this->contentHtml = $rawHtml;
     }
 
