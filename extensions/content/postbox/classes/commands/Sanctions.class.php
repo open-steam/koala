@@ -22,14 +22,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     private $groups;
     private $groupMapping;
     private $userMapping;
-    
+
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
     }
 
     public function processData(\IRequestObject $requestObject) {
-        
+
         if ($requestObject instanceof \UrlRequestObject) {
             $this->params = $requestObject->getParams();
             isset($this->params[0]) ? $this->postboxObjectId = $this->params[0] : "";
@@ -41,7 +41,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        
+
         if(isset($this->params['type']) && ($this->params['type'] == 'admin_postbox' || $this->params['type'] == 'insert_postbox')){
             return $this->updateSanctions($ajaxResponseObject);
         } else {
@@ -55,22 +55,22 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
      * @return type returns the $ajaxResponseObject up to the caller
      */
     private function displayRightsDialog($ajaxResponseObject) {
-        
+
         $this->initialiseVariables();
-        
+
         $ajaxResponseObject->setStatus("ok");
-        
+
         //check if the object is a postbox and if the user has appropriate rights
         $checkResult = $this->checkObjectTypeAndSanction($ajaxResponseObject);
         if($checkResult !== null) { return $checkResult;}
-           
+
 
         $this->dialog = new \Widgets\Dialog();
         $this->dialog->setTitle("Rechte von »" . $this->postboxObjectName . "«");
 
         $this->loadGroupsAndUsers();
         $this->loadAdditionalRights();
-        
+
         $groupMappingA = array();
         //$groupMappingName = array();
         foreach ($this->groups as $g) {
@@ -113,7 +113,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         //asort($groupMappingA, SORT_NATURAL | SORT_FLAG_CASE);
         //this flags are not supportet in the current PHP version on the server
         asort($groupMappingA);
-        
+
 
         //order the groups alphabetically
         foreach ($groupMappingA as $id => $name) {
@@ -130,20 +130,20 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         }
         //asort($this->userMapping, SORT_NATURAL | SORT_FLAG_CASE);
         asort($this->userMapping);
-		
+
         //Creator
         $this->content->setVariable("CREATOR_FULL_NAME", $this->creatorFullName);
-        
+
         //build the template for the second teacher
         if (count($this->userMapping) > 0 || count($this->groupMapping) > 0) {
             $this->content->setVariable("NO_USERS", "nur ich");
             $this->addUsersToList("ADMIN_POSTBOX", SANCTION_ALL);
             $this->addGroupsToList("ADMIN_POSTBOX", true);
-            
+
         } else {
             $this->content->setVariable("NO_USERS", "Sie haben keine Favoriten.");
         }
-        
+
         //build the dropdown list for the pupils
         if (count($this->groupMapping) > 0) {
             $this->addGroupsToList("INSERT_POSTBOX", false);
@@ -151,13 +151,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $this->content->setVariable("SEND_REQUEST_ADMIN_POSTBOX",  "sendRequest('Sanctions', { 'id': " . $this->postboxObjectId . ",'type': 'admin_postbox',  'value': admin_postbox} , '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'postbox');");
         $this->content->setVariable("SEND_REQUEST_INSERT_POSTBOX", "sendRequest('Sanctions', { 'id': " . $this->postboxObjectId . ",'type': 'insert_postbox', 'value': insert_postbox}, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'postbox');");
-        
+
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($this->content->get());
         $this->dialog->addWidget($rawHtml);
 
         $ajaxResponseObject->addWidget($this->dialog);
-        
+
         return $ajaxResponseObject;
     }
 
@@ -167,56 +167,56 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
      * @return type returns the $ajaxResponseObject up to the caller
      */
     private function updateSanctions($ajaxResponseObject) {
-        
+
         $this->initialiseMinimumVariables();
         $newUserOrGroupId = $this->params['value'];
         $innerContainerSanction = $this->innerContainer->get_sanction();
         $postboxObjectSanction = $this->postboxObject->get_sanction();
         $adminRights = SANCTION_ALL;
-        
+
         if($this->params['type'] == 'admin_postbox'){
             //at first give the new user all rights, then remove the old (every other) user with all rights
             //if the $newUserOrGroupId is zero (no other user as an admin) then just remove every other user with all rights
-            if($newUserOrGroupId != 0) { 
+            if($newUserOrGroupId != 0) {
                 $this->postboxObject->sanction($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
                 $this->innerContainer->sanction($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
-                
+
             }
-            
+
             foreach ($innerContainerSanction as $id => $sanction) {
-                //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her 
+                //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction == $adminRights) {
-                    $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));  
+                    $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
-            
+
             foreach ($postboxObjectSanction as $id => $sanction) {
-                //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her 
+                //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction == $adminRights) {
                     $this->postboxObject->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
-            
+
         } else if($this->params['type'] == 'insert_postbox'){
-            
+
             //give the new group the insert right (and if neccessary the SANCTION_READ right), then remove the old (all other) users with only the insert right
             //if the $newUserOrGroupId is zero (no other group as an submitter) then just remove every other group with only insert rights
-            if($newUserOrGroupId != 0) { 
+            if($newUserOrGroupId != 0) {
                 $this->innerContainer->sanction($this->requiredSanctionsForInnerContainer, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
             }
-            
+
             foreach ($innerContainerSanction as $id => $sanction) {
-                //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her 
+                //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction != $adminRights) {
                     $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
-                }  
+                }
             }
         }
 
         $ajaxResponseObject->setStatus("ok");
         return $ajaxResponseObject;
     }
-    
+
     /**
      * this variables are needed in both usecases (display and update)
      */
@@ -224,7 +224,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $this->steam = $GLOBALS["STEAM"];
         $this->postboxObject = \steam_factory::get_object($this->steam->get_id(), $this->postboxObjectId);
         $this->innerContainer = $this->postboxObject->get_attribute("bid:postbox:container");
-        
+
         //configure sanctions for inner container
         $this->requiredSanctionsForInnerContainer =  SANCTION_INSERT | SANCTION_READ;
         if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && (!(API_DOUBLE_FILENAME_NOT_ALLOWED))){
@@ -238,39 +238,39 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
      * outsource the initialisation of all variables needed for the displaying
      */
     private function initialiseVariables(){
-        
+
         $this->initialiseMinimumVariables();
-        
+
         $this->postboxObjectName = getCleanName($this->postboxObject);
         $this->postboxObjectType = $this->postboxObject->get_attribute("OBJ_TYPE");
-        
+
         $this->currentUser = \lms_steam::get_current_user();
-     
+
         $this->creator = $this->postboxObject->get_creator();
         $this->creatorId = $this->creator->get_id();
-        
+
         if ($this->creator instanceof \steam_user) {
             $this->creatorFullName = $this->creator->get_full_name();
         } else {
             $this->creatorFullName = getCleanName($this->creator);
         }
-        
+
         $this->groups = array();
         $this->favorites = array();
         $this->users = array();
         $this->groupMapping = array();
-        
+
         $this->content = \Postbox::getInstance()->loadTemplate("sanction.template.html");
         $this->steamgroup = \steam_factory::groupname_to_object($this->steam->get_id(), "sTeam");
     }
-    
+
     /**
      * Checks if the object is a postbox and if the current user has the rights to view this postbox
      * @param type $ajaxResponseObject
      * @return type returns null if everything is fine
      */
     private function checkObjectTypeAndSanction($ajaxResponseObject){
-        
+
          if ($this->postboxObjectType !== "postbox") {
             $labelDenied = new \Widgets\RawHtml();
             $labelDenied->setHtml("Dieser Dialog ist nur für Abgabefächer geeignet!");
@@ -297,13 +297,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
      * @throws \Exception if the favorites contain an object of another type then steam_user or steam_group
      */
     private function loadGroupsAndUsers(){
-        
+
         //get favorites as an array of user/group objects
         $rawFavorites = $this->currentUser->get_buddies();
-        
+
         //build an associative array
         foreach ($rawFavorites as $rawFavorite) {
-            
+
             //and sort the favorites in the right array
             if ($rawFavorite instanceof \steam_user) {
                 $this->users[$rawFavorite->get_id()] = $rawFavorite;
@@ -314,7 +314,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             }
         }
         $rawGroups = $this->currentUser->get_groups();
-        
+
         //build an associative array
         foreach ($rawGroups as $group) {
             $this->groups[$group->get_id()] = $group;
@@ -327,13 +327,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
      */
     private function loadAdditionalRights(){
         $innerContainerSanction = $this->innerContainer->get_sanction();
-        
+
         foreach ($innerContainerSanction as $id => $sanction) {
             //check if there are objects that have rights for the inner container too
             if (!array_key_exists($id, $this->groups) &&
                 !array_key_exists($id, $this->users) &&
                 $id != $this->creatorId &&
-                $id != 0 ) { 
+                $id != 0 ) {
                 //get the additional object and put it in the right array
                 $additionalObject = \steam_factory::get_object($this->steam->get_id(), $id);
                 if ($additionalObject instanceof \steam_group) {
@@ -344,9 +344,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt.");
                 }
             }
-        } 
+        }
     }
-    
+
     /**
      * Inserts the $this->groups array into the template
      * @param type $templateBlock the templateblock in which the groups are inserted
@@ -364,12 +364,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $sanctionCheckInnerContainer = $this->innerContainer->check_access(SANCTION_ALL, $group);
                     $sanctionCheckOuterContainer = $this->postboxObject->check_access(SANCTION_ALL, $group);
                 } else {
-                    $sanctionCheckInnerContainer = (!$this->innerContainer->check_access(SANCTION_ALL, $group) && $this->innerContainer->check_access($this->requiredSanctionsForInnerContainer, $group));
+                    $sanctionCheckInnerContainer = $this->innerContainer->check_access($this->requiredSanctionsForInnerContainer, $group);
                     $sanctionCheckOuterContainer = true;
                 }
                 //mark the current user with the view rights
-                if($sanctionCheckInnerContainer && $sanctionCheckOuterContainer)
-                {
+                if($sanctionCheckInnerContainer && $sanctionCheckOuterContainer){
                     $this->content->setVariable("SELECTED", "selected");
                 }
                 $this->content->setVariable("OBJECT_NAME", (($id == $this->steamgroup->get_id())? "Alle angemeldeten Benutzer": $group->get_attribute("OBJ_DESC")." (".$group->get_groupname().")"));
@@ -378,31 +377,30 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             }
         }
     }
-    
+
     /**
      * Inserts the $this->users array into the template
      * @param type $templateBlock the templateblock in which the groups are inserted
      * @param type $sanctionToCheck the sanction constant to check the access for
      */
     private function addUsersToList($templateBlock, $sanctionToCheck){
-        
+
         foreach ($this->userMapping as $id => $name) {
             $user = $this->users[$id];
-            
+
             if ($user instanceof \steam_user) {
                 $this->content->setCurrentBlock($templateBlock);
-                
+
                 //check if the user has the given rights, then mark this user as active
                 $sanctionCheckInnerContainer = $this->innerContainer->check_access($sanctionToCheck, $user);
                 $sanctionCheckOuterContainer = $this->postboxObject->check_access($sanctionToCheck, $user);
 
                 //mark the current user with the view rights
-                if($sanctionCheckInnerContainer && $sanctionCheckOuterContainer)
-                {
+                if($sanctionCheckInnerContainer && $sanctionCheckOuterContainer){
                     $this->content->setVariable("SELECTED", "selected");
                 }
                 $this->content->setVariable("OBJECT_NAME", $name);
-                
+
                 $this->content->setVariable("OBJECT_ID", $id);
                 $this->content->parse($templateBlock);
             }
