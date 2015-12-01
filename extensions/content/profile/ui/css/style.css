@@ -61,6 +61,7 @@
   box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.3);
   text-shadow: none;
   transition: all .3s ease-out;
+  border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   padding: 10px;

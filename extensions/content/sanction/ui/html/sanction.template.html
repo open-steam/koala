@@ -1,20 +1,20 @@
 <style>
- 
+
     td{
         font-family: arial;
     }
     p{
         font-family: arial;
     }
-    
+
     #no_acquiring{
-     {IS_ACQUIRED_DISABLE_FORM}   
-        
+     {IS_ACQUIRED_DISABLE_FORM}
+
     }
 </style>
 <h2>Rechteverwaltung von {TITLE}</h2>
 
-<div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist <b>{OWNER_FULL_NAME}</b>
+<div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist<b>{OWNER_FULL_NAME}</b>
         und hat volle Zugriffsrechte.</p></div>
 
 <div id="owner_div" {DISPLAY_INHERIT_FROM}>
@@ -25,7 +25,7 @@
 <div id="buttons-label">{NO_ENVIRONMENT_ADAPT_TEXT}etzen Sie vordefinierte Zugriffsrechte:</div>
 
  <div id="buttons">
- 
+
         <input type="button"  value="Privat" onclick="setCrude('privat');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
         <input type="button"  value="Benutzer-Öffentlich" onclick="setCrude('user_public');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
         <input type="button"  value="Welt-Öffentlich" onclick="setCrude('server_public');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
@@ -45,7 +45,7 @@ Oder setzen Sie die Zugriffsrechte individuell:
             <td><b>Bewegen</b></td>
             <td><b>Einfügen</b></td>
             <td><b>Kommentieren</b></td>
-            <td><b>Rechteweitergabe</b></td>                
+            <td><b>Rechteweitergabe</b></td>
         </tr>
 
         <tr valign="middle">
@@ -80,8 +80,8 @@ Oder setzen Sie die Zugriffsrechte individuell:
             <td><b>Kommentieren</b></td>
             <td><b>Rechteweitergabe</b></td>
         </tr>
-        
-        
+
+
         <!-- BEGIN GROUPS -->
         <tr valign="middle">
             <td><img style="float:left" src="{IMG_PATH}"> <div style="text-indent:{INDENTINDEX}em;">{GROUPNAME}</div></td>
@@ -98,7 +98,7 @@ Oder setzen Sie die Zugriffsrechte individuell:
         </tr>
         <!-- END GROUPS -->
 
-        
+
         <tr class="infoBar">
             <td width="40%"><b>Benutzer</b></td>
             <td><b>Lesen</b></td>
@@ -141,14 +141,14 @@ Oder setzen Sie die Zugriffsrechte individuell:
 <p style="color:black;">Alle Attribute von diesem Objekt:</p>
 <table style="color:black; ">
     <tr valign="middle">
-           
+
             <td style="border-bottom:1px solid black;">Key</td>
             <td style="border-bottom:1px solid black;">Value</td>
             <td style="border-bottom:1px solid black;">Locked</td>
         </tr>
 <!-- BEGIN ATTRIBUTES -->
         <tr valign="middle">
-           
+
             <td style="border-bottom:1px solid black;">{KEY}</td>
             <td style="border-bottom:1px solid black;">{VALUE}</td>
             <td style="border-bottom:1px solid black;">{LOCKED}</td>
@@ -159,17 +159,17 @@ Oder setzen Sie die Zugriffsrechte individuell:
 <p style="color:black;">Alle Annotationen von diesem Objekt:</p>
 <table style="color:black; ">
     <tr valign="middle">
-           
+
             <td style="border-bottom:1px solid black;">Key</td>
             <td style="border-bottom:1px solid black;">Value</td>
-            
+
         </tr>
 <!-- BEGIN ANNOTATIONS -->
         <tr valign="middle">
-           
+
             <td style="border-bottom:1px solid black;">{KEY}</td>
             <td style="border-bottom:1px solid black;">{VALUE}</td>
-            
+
         </tr>
         <!-- END ANNOTATIONS -->
 </table>
@@ -177,17 +177,17 @@ Oder setzen Sie die Zugriffsrechte individuell:
 <p style="color:black;">Alle Konstanten:</p>
 <table style="color:black; ">
     <tr valign="middle">
-           
+
             <td style="border-bottom:1px solid black;">Key</td>
             <td style="border-bottom:1px solid black;">Value</td>
-            
+
         </tr>
 <!-- BEGIN CONSTANTS -->
         <tr valign="middle">
-           
+
             <td style="border-bottom:1px solid black;">{KEY}</td>
             <td style="border-bottom:1px solid black;">{VALUE}</td>
-            
+
         </tr>
         <!-- END CONSTANTS -->
 </table>
@@ -196,50 +196,50 @@ Oder setzen Sie die Zugriffsrechte individuell:
 </div>
 <script language="JavaScript">
 
-    
+
     function sanctionCancelWarning(id, value){
         if(value == false ){
             if(!confirm ("Vorsicht! Sie könnten sich selbst das Recht entziehen, die Rechte ändern zu dürfen!")){
                 $("#"+id).prop('checked', true);
-                
+
             }
         }
-        
+
     }
-    
-    
+
+
     //adding a user or a group directly to the right-owners
     function addUserOrGroup(className){
-        
+
         if(className =="user"){
             value = document.getElementById("userToAdd").value;
         } else {
             value = document.getElementById("groupToAdd").value;
         }
-       
-        sendRequest("Save", 
+
+        sendRequest("Save",
                    {
                        'order': 'addUserOrGroup',
                        'id': {OBJECT_ID},
                        'className': className,
                        'value': value
-                   }, 
+                   },
                    '',
-                   'data', 
+                   'data',
                    function(response)
                         {
                             location.reload();
                             return true;
                         },
-                    null, 
+                    null,
                    "sanction"
                    );
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     $(document).ready(function(){
         $("#sanctions").submit(
             function(e){
@@ -248,75 +248,75 @@ Oder setzen Sie die Zugriffsrechte individuell:
                 //iteratr over every checkbox and serialize them
                 $('#sanctions input[type=checkbox]').map(
                     function(){
-                        
+
                         if(!this.disabled){
-                            
+
                             ret[this.name]=this.checked;
                         }
                     }
                 ).get();
 
-                
+
 
                 sendRequest(
-                    "Save", 
-                    { 
-                        'order':"detailed", 
+                    "Save",
+                    {
+                        'order':"detailed",
                         'id':{OBJECT_ID},
-                        'value': JSON.stringify(ret) 
-                    }, 
-                    "", 
-                    "data", 
+                        'value': JSON.stringify(ret)
+                    },
+                    "",
+                    "data",
                     function(response)
                         {
                             location.reload();
                             return true;
-                        }, 
-                    null, 
+                        },
+                    null,
                     "sanction"
                 );
             }
         );
     });
-    
-    
-    
-    
+
+
+
+
     function updateAcq(){
-        sendRequest("Save", 
+        sendRequest("Save",
                    {
                        'order': 'acquire',
                        'id': {OBJECT_ID},
-                       'value': document.getElementById("radio_acquire").checked 
-                   }, 
+                       'value': document.getElementById("radio_acquire").checked
+                   },
                    '',
-                   'data', 
+                   'data',
                    function(response)
                         {
                             location.reload();
                             return true;
                         },
-                    null, 
+                    null,
                    "sanction"
                    );
     }
-    
-    
+
+
     function setCrude(value){
-        sendRequest("Save", 
-                    { 
+        sendRequest("Save",
+                    {
                         'order': 'crude',
-                        'id':{OBJECT_ID}, 
-                        "value": value 
-                    }, 
-                    "", 
-                    "data", 
+                        'id':{OBJECT_ID},
+                        "value": value
+                    },
+                    "",
+                    "data",
                     function(response)
                         {
                             location.reload();
                             return true;
-                        }, 
-                    null, 
+                        },
+                    null,
                     "sanction");
     }
 
