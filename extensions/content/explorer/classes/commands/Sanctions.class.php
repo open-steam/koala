@@ -19,7 +19,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $this->params = $requestObject->getParams();
             isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
         }
-        
+
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
@@ -28,10 +28,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $objId = $this->id;
         $ajaxResponseObject->setStatus("ok");
         $accessRight = $object->check_access(SANCTION_SANCTION);
-        
+
         $isPostboxObj = false;
         $objType = $object->get_attribute("OBJ_TYPE");
-        if($objType === "postbox"){          
+        if($objType === "postbox"){
             $isPostboxObj = true;
         }
         //Prüfe, ob Berechtigung vorhanden
@@ -57,9 +57,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
-        
-        
-        
+
+
+
 
         //GET CREATOR TODO: USEFULL FOR ROOT FOLDER
         //SET ICON URL
@@ -79,7 +79,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $ownerFullName = getCleanName($owner);
         }
-        
+
         //GET ACQUIRE SETTINGS
         $acquire = $object->get_acquire();
         $acqChecked = $acquire instanceof \steam_room ? true : false;
@@ -308,13 +308,18 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
         //ACQUIRE
         if ($envName == "") {
-            $content->setVariable("NO_ENVIRONMENT", "disabled");
+            //$content->setVariable("NO_ENVIRONMENT", "disabled");
+            $content->setVariable("NO_ENVIRONMENT", "style='display:none;'");
+            $content->setVariable("INHERIT_FROM", "");
         }
+        else{
+            $content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($env) . "</b>");
+        }
+        
         if ($acqChecked) {
             $content->setVariable("ACQUIRE_START", "activateAcq();");
         }
 
-        $content->setVariable("INHERIT_FROM", getCleanName($env));
         //PICTURES
         $content->setVariable("PRIVATE_PIC", $privatePicUrl);
         $content->setVariable("USER_DEF_PIC", $userdefPicUrl);
@@ -413,7 +418,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 }
                 $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
                 if(!($groupVisibility == 0)){
-                    unset($groupMapping[$id]); 
+                    unset($groupMapping[$id]);
                    continue;
                 }
                 $groupname = $group->get_groupname();
@@ -468,7 +473,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $optionValues = self::getOptionsValues($dropDownValueParent);
                 }
                 $ddl->setOptionValues($optionValues);
-                
+
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
                     $content->setCurrentBlock("GROUPS");
                     $content->setCurrentBlock("GROUP_DDSETTINGS");
@@ -640,7 +645,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $writeCheckAcq = 0;
                 $sanctionCheckAcq = 0;
             }
-           
+
             $dropDownValueAcq = 0;
             if ($sanctionCheckAcq) {
                 $dropDownValueAcq = 3;
@@ -660,7 +665,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     }
                 }
             }
-            
+
 
             if ($dropDownValueAcq > $maxSanct) {
                 $selectedValue = $dropDownValueAcq;
@@ -695,8 +700,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $dialog->addWidget($rawHtml);
-        
-        
+
+
 
         $ajaxResponseObject->addWidget($dialog);
         if($isPostboxObj){
