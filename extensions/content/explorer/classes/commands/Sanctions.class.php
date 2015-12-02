@@ -315,7 +315,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         else{
             $content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($env) . "</b>");
         }
-        
+
         if ($acqChecked) {
             $content->setVariable("ACQUIRE_START", "activateAcq();");
         }
@@ -405,11 +405,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
             $groupsRights = array();
-            if (count($groupMapping) > 5) {
-                $content->setVariable("CSS_GROUPS", "height: 125px;");
-            } else {
-                $content->setVariable("CSS_GROUPS", "");
-            }
+            //if (count($groupMapping) > 5) {
+            //$content->setVariable("CSS_GROUPS", "height: 125px;");
+            //} else {
+            $content->setVariable("CSS_GROUPS", "");
+            //}
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
                 $realname = $group->get_name();
@@ -697,11 +697,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->parse("FAVORITES_ACQ");
         }
 
+        $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $objId . "/";
+        $dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $dialog->addWidget($rawHtml);
-
-
 
         $ajaxResponseObject->addWidget($dialog);
         if($isPostboxObj){
