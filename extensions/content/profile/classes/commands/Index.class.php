@@ -150,7 +150,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $GLOBALS["content"]->setVariable("LAST_LOGIN", how_long_ago($user_profile["USER_LAST_LOGIN"]));
         }
         if (CHANGE_PROFILE_PICTURE && PROFILE_PICTURE && $current_user->get_id() == $user->get_id()){
-            $GLOBALS["content"]->setVariable("EDIT_BUTTON", '<a href="http://localhost/profile/image/"><img id="imageEditButton" title="Bearbeiten" src="http://localhost/styles/bid/images/icons/portlet/edit.gif"></a>');
+            $editImageURL = "http://$_SERVER[HTTP_HOST]" . "/profile/image/";
+            $editImageButtonURL = "http://$_SERVER[HTTP_HOST]" . "/styles/bid/images/icons/portlet/edit.gif";
+            $GLOBALS["content"]->setVariable("EDIT_BUTTON", '<a href=' . $editImageURL . '><img id="imageEditButton" title="Bearbeiten" src=' . $editImageButtonURL . '></a>');
         }
         $GLOBALS["content"]->parse("BLOCK_LEFT_SIDE");
 
