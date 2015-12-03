@@ -2,19 +2,19 @@
 namespace Widgets;
 
 class Textarea extends Widget {
-    
+
     private $id;
     private $label;
     private $labelClass = ""; // texthidden or hidden
     private $data;
     private $contentProvider;
     private $leaveMessage = "Beim Verlassen der Seite gehen alle nicht gespeicherten Änderungen verloren.";
-    
-    private $width = "250px";
+
+    private $width = "200px";
     private $height = "200px";
     private $textareaClass = ""; // plain or code html or mce-small or mce-full
     private $linebreaks = "<br><br>";
-    
+
     public function setId($id){
         $this->id = "id_".$id."_textarea";
     }
@@ -34,7 +34,7 @@ class Textarea extends Widget {
     public function setContentProvider($contentProvider) {
         $this->contentProvider = $contentProvider;
     }
-    
+
     public function setLeaveMessage($leaveMessage) {
         $this->leaveMessage = $leaveMessage;
     }
@@ -60,9 +60,9 @@ class Textarea extends Widget {
     public function setAutosave($autosave) {
         $last=next(debug_backtrace());
         \logging::write_log( LOG_MESSAGES, "The function setAutoSave is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
-        
+
     }
-    
+
     public function setLinebreaks($linebreaks) {
         $this->linebreaks = $linebreaks;
     }
@@ -85,12 +85,12 @@ class Textarea extends Widget {
             $this->getContent()->setVariable("READONLY_JS", "var tinymceReadOnly=false");
         }
 
-        
+
 
         if ($this->contentProvider) {
             $currentValue = rawurlencode($this->contentProvider->getData($this->data));
-            
-            
+
+
             $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id));
         } else {
             $currentValue = "";
@@ -117,8 +117,8 @@ class Textarea extends Widget {
                                 ."id : '{$this->id}',"
                                 . "value : '{$currentValue}',"
                                 . "sendFunction : function(value) { {$this->contentProvider->getUpdateCode($this->data, $this->id, "widgets_textarea_save_success")} } "
-                           . "});");    
-                 
+                           . "});");
+
         //create a PollingDummy to send some requests from time to time to avoid session expiring while typing long texts
         $pollingDummy = new PollingDummy();
 
