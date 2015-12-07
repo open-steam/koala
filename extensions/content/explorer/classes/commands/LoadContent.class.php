@@ -53,18 +53,18 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadlines() {
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
-            return array("", "Name", "Tags", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Beschreibung", "", "Tags", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         } else {
-            return array("", "Name", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Beschreibung", "", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         }
     }
 
     public function getHeadLineWidths() {
-        return array(25, 300, 185, 150, 80, 30, 40, 20);
+        return array(25, 240, 10, 240, 10, 150, 145, 75, 30, 20);
     }
 
     public function getHeadLineAligns() {
-        return array("left", "left", "left", "right", "right", "right", "right", "right");
+        return array("left", "left", "left", "left", "left", "left", "right", "right", "right", "right");
     }
 
 }
@@ -73,14 +73,15 @@ class ContentProvider implements \Widgets\IContentProvider {
 
     private $rawImage = 0;
     private $rawName = 1;
-    private $rawMarker = 2;
-    private $rawChangeDate = 3;
-    private $rawSize = 4;
-    private $rawSubscribe = 5;
-    private $rawMenu = 6;
-    private $rawCheckbox = 7;
+    private $rawDesc = 3;
+    private $rawMarker = 5;
+    private $rawChangeDate = 6;
+    private $rawSize = 7;
+    //private $rawSubscribe = 6;
+    private $rawMenu = 8;
+    private $rawCheckbox = 9;
     private $object;
-    
+
     //save the current object to check the attribute SHOW_TAGS lateron
     function __construct($object){
         $this->object = $object;
@@ -108,7 +109,6 @@ class ContentProvider implements \Widgets\IContentProvider {
             return "<a href=\"" . $url . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img></a>";
         } elseif ($cell == $this->rawName) {
             $cleanName = getCleanName($contentItem, 600);
-
             if (strlen($cleanName) > 50) {
                 $longName = "<br><div style=\"font-weight:bold; width:100px; float:left;\">Name:</div><br> " . $cleanName;
             } else {
@@ -142,26 +142,16 @@ class ContentProvider implements \Widgets\IContentProvider {
                 }
                 if ($contentItem instanceof \steam_docextern) {
                     $blank = $contentItem->get_attribute("DOC_BLANK");
-                   // if ($blank != 0) {
                         return "<a href=\"" . $url . "new/" . "\" target=\"_blank\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsyHtml . "</script>";
-                    //} else {
-                    //    return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsyHtml . "</script>";
-                    //}
                 }
-                
-                /*
-                if (trim($desc) === "") {
-                    return "<a href=\"" . $url . "\" title=\"$name\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
-                } else {
-                    return "<a href=\"" . $url . "\" title=\"$desc\"> " . $desc . " (" . $name . ")" . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
-                }
-                */
+
                 return "<a href=\"" . $url . "\" title=\"$name\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
-                
-                
+
             } else {
                 return $name . "<script>" . $tipsyHtml . "</script>";
             }
+        } elseif ($cell == $this->rawDesc) {
+          return $contentItem->get_attribute("OBJ_DESC");
         } elseif ($cell == $this->rawMarker) {
             //  return ""; //disabled
             if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {

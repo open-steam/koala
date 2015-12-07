@@ -1,11 +1,11 @@
 #explorerContent {
-    	padding-right: 50px;
+    	/*padding-right: 50px;*/
 }
 .listviewer{
-    margin-left: 50px;
+    /*margin-left: 50px;*/
 }
 .breadcrumb{
-    margin-left: 50px;
+    /*margin-left: 50px;*/
 }
 .show{
     display: block;
@@ -14,5 +14,6 @@
     display: none;
 }
 
-.explorernewentry{
+div[id$="_3"].listviewer-item-cell {
+    color: #AAAAAA;
 }

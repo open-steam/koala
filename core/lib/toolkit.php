@@ -113,6 +113,7 @@ function getReadableDate($timestamp) {
 
     $now = time();
 
+    /*
     $diff = $now - $timestamp;
     if ($diff < 60) {
         return "gerade";
@@ -129,6 +130,7 @@ function getReadableDate($timestamp) {
     if ($diff < 3600) {
         return "in der letzten Stunde";
     }
+    */
 
     $today_day = date("d", $now);
     $date_day = date("d", $timestamp);
@@ -143,11 +145,11 @@ function getReadableDate($timestamp) {
     }
 
     if ($is_today) {
-        return "heute um " . date("H:i", $timestamp);
-    } elseif ($is_yesterday) {
-        return "gestern um " . date("H:i", $timestamp);
+        return "heute um " . date("H:i", $timestamp) . " Uhr";
+    //} elseif ($is_yesterday) {
+      //  return "gestern um " . date("H:i", $timestamp);
     } else {
-        return date("d.m.Y, H:i ", $timestamp);
+        return date("d.m.Y, H:i ", $timestamp) . " Uhr";
     }
 }
 
@@ -190,30 +192,20 @@ function getCleanName($object, $length = 30, $showName = true) {
         } elseif ($object instanceof steam_trashbin) {
             $title = "Papierkorb";
         } else {
-            
-            /*
-            $desc = $object->get_attribute(OBJ_DESC);
-            if ($desc !== 0 && trim($desc) !== "") {
-                $title = $desc;
-            } else {
-                $title = $object->get_name();
-            }
-            */
-            
+
             $objectName = $object->get_name();
-            $objectDescription = $object->get_attribute(OBJ_DESC);
-            
+            /*$objectDescription = $object->get_attribute(OBJ_DESC);
+
             if (($objectDescription !== 0 && trim($objectDescription) !== "")){
                 //description exists
                 $title = $objectDescription . " (" . $objectName.")";
             } else if (!$showName){
                 $title = $objectDescription;
             }else{
-                //no description available
-                $title = $objectName;
-            }
-            
-            
+                //no description available*/
+            $title = $objectName;
+            //}
+
             $title = str_replace("'s workarea", "", stripslashes($title));
             $title = str_replace(" workarea", "", stripslashes($title));
             $title = str_replace("s workroom.", "", $title);
@@ -221,10 +213,10 @@ function getCleanName($object, $length = 30, $showName = true) {
             $title = preg_replace("/.*'s bookmarks/", "Lesezeichen", $title);
         }
     }
-    
+
     //remove line breaks
     $title = str_replace(array("\r", "\n"), "", $title);
-    
+
     //remove extra spaces
     $count = 1;
     $limit = 100;
@@ -234,7 +226,7 @@ function getCleanName($object, $length = 30, $showName = true) {
         $count++;
     }
     $title = $titleNew;
-    
+
     //limit return length
     if ($length != -1 && $length < strlen($title)) {
         $title = mb_substr($title, 0, $length, "UTF-8") . "...";
@@ -630,7 +622,7 @@ function getObjectReadableSize($object) {
             $innerInventory = $outerInventoryFirstElement->get_inventory();
             $counter = count($innerInventory);
             $html = $counter;
-            $html .= ($counter == 1)? " Abgabe" : " Abgaben";            
+            $html .= ($counter == 1)? " Abgabe" : " Abgaben";
         } elseif ($type == "portal") {
             $counter = count($object->get_inventory());
             $html = $counter;

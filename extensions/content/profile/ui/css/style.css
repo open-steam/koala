@@ -70,11 +70,11 @@
 
 #slb:hover {
   background: #6094C5;
+  transform: scale(1.03) !important;
 }
 
 #slb:active{
   background: #33618C;
-  transform: scale(0.97) !important;
   box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
 }
 
