@@ -24,10 +24,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $this->params = $requestObject->getParams();
             isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
         }
-        
+
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+
         
         $this->steam = $GLOBALS["STEAM"];
         $this->object = \steam_factory::get_object($this->steam->get_id(), $this->id);
@@ -55,7 +56,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $dialog->setWidth(600);
         $dialog->setTitle("Rechte von »" . getCleanName($this->object) . "«");
 
-        
+
         //GET CREATOR TODO: USEFULL FOR ROOT FOLDER
         //SET ICON URL
         $userPicUrl = PATH_URL . "explorer/asset/icons/user.png";
@@ -63,6 +64,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $favPicUrl = PATH_URL . "explorer/asset/icons/red.png";
 
         //GET OWNER OF THE CURRENT OBJECT
+
         $this->creator = $this->object->get_creator();
         
         
@@ -286,8 +288,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
         //ACQUIRE
         if ($envName == "") {
-            $content->setVariable("NO_ENVIRONMENT", "disabled");
+            //$content->setVariable("NO_ENVIRONMENT", "disabled");
+            $content->setVariable("NO_ENVIRONMENT", "style='display:none;'");
+            $content->setVariable("INHERIT_FROM", "");
+        } else{
+            $content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($env) . "</b>");
         }
+
         if ($this->object->get_acquire() instanceof \steam_room) {
             $content->setVariable("ACQUIRE_START", "activateAcq();");
         }
@@ -383,11 +390,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
             $groupsRights = array();
-            if (count($groupMapping) > 5) {
-                $content->setVariable("CSS_GROUPS", "height: 125px;");
-            } else {
-                $content->setVariable("CSS_GROUPS", "");
-            }
+            //if (count($groupMapping) > 5) {
+            //$content->setVariable("CSS_GROUPS", "height: 125px;");
+            //} else {
+            $content->setVariable("CSS_GROUPS", "");
+            //}
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
                 $realname = $group->get_name();
@@ -396,7 +403,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 }
                 $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
                 if(!($groupVisibility == 0)){
-                    unset($groupMapping[$id]); 
+                    unset($groupMapping[$id]);
                    continue;
                 }
                 $groupname = $group->get_groupname();
@@ -451,7 +458,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $optionValues = self::getOptionsValues($dropDownValueParent);
                 }
                 $ddl->setOptionValues($optionValues);
-                
+
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
                     $content->setCurrentBlock("GROUPS");
                     $content->setCurrentBlock("GROUP_DDSETTINGS");
@@ -623,7 +630,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $writeCheckAcq = 0;
                 $sanctionCheckAcq = 0;
             }
-           
+
             $dropDownValueAcq = 0;
             if ($sanctionCheckAcq) {
                 $dropDownValueAcq = 3;
@@ -643,7 +650,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     }
                 }
             }
-            
+
 
             if ($dropDownValueAcq > $maxSanct) {
                 $selectedValue = $dropDownValueAcq;
@@ -675,11 +682,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->parse("FAVORITES_ACQ");
         }
 
+        $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $objId . "/";
+        $dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $dialog->addWidget($rawHtml);
-        
-        
 
         $ajaxResponseObject->addWidget($dialog);
         

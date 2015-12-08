@@ -18,7 +18,7 @@
 	border: 1px solid #ccc;
 	max-height:620px;
 	overflow-y:auto;
-		
+
 	-moz-box-shadow:2px 2px 5px #888;
 	-webkit-box-shadow:2px 2px 5px #888;
 	box-shadow:2px 2px 5px #888;
@@ -37,7 +37,7 @@
 }
 
 .dialog .widgets_label {
-	width: 130px;
+	width: 140px;
 	margin: 3px;
 }
 
