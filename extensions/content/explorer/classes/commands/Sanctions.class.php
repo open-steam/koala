@@ -682,7 +682,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->parse("FAVORITES_ACQ");
         }
 
-        $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $objId . "/";
+        $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
         $dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
 
         $rawHtml = new \Widgets\RawHtml();
