@@ -97,7 +97,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $sanction = $this->object->get_sanction();
 
         $this->environment = $this->object->get_environment();
-        $envName = $this->environment instanceof \steam_room ? $this->environment->get_name() : "";
+        
 
         if ($this->environment instanceof \steam_room) {
             $environmentSanction = $this->environment->get_sanction();
@@ -287,19 +287,18 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
         //ACQUIRE
-        if ($envName == "") {
+        if ($this->environment instanceof \steam_room) {
+            $content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($this->environment) . "</b>");
+        } else{
             //$content->setVariable("NO_ENVIRONMENT", "disabled");
             $content->setVariable("NO_ENVIRONMENT", "style='display:none;'");
             $content->setVariable("INHERIT_FROM", "");
-        } else{
-            $content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($env) . "</b>");
         }
 
         if ($this->object->get_acquire() instanceof \steam_room) {
             $content->setVariable("ACQUIRE_START", "activateAcq();");
         }
-
-        $content->setVariable("INHERIT_FROM", getCleanName($this->environment));
+        
         //PICTURES        
         $content->setVariable("PRIVATE_PIC", PATH_URL . "explorer/asset/icons/private.png");
         $content->setVariable("USER_DEF_PIC", PATH_URL . "explorer/asset/icons/user_defined.png");
