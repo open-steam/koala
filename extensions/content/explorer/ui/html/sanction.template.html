@@ -1,21 +1,5 @@
 <style>
-    #buttons input{
-        width:120px;
-    }
-    .scrollable-groups{
-        {CSS_GROUPS}
-        overflow:auto;
-    }
-    .scrollable-user{
-        {CSS_USER}
-        overflow:auto;
-    }
-    table{
-        width: 100%;
-    }
-    select {
-        width: 100%;
-    }
+    {CSS}
 </style>
 
 <div id="crude_div" class="visible">
@@ -55,8 +39,7 @@
 </div>
 
 
-<div id="creator_div"><p>Der Besitzer des aktuellen Objektes ist<b>{CREATOR_FULL_NAME}</b>
-        und hat volle Zugriffsrechte.</p></div>
+<div id="creator_div"><p>Der Besitzer des aktuellen Objektes ist<b>{CREATOR_FULL_NAME}</b>und hat volle Zugriffsrechte.</p></div>
 
 <div id="specific_div" class="visible">
 
@@ -67,26 +50,26 @@
         </tr>
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Jeder</td>
-            <td width="40%" align="right" ><select name="ddlist"
-                                                   id="everyone_dd" size="1"
-                                                   onChange="specificChecked('group_{EVERYONEID}_dd', value);" class="ddlist"">
-                                                   <option value="0"></option>
+            <td width="40%" align="right" >
+                <select name="ddlist" id="everyone_dd" size="1" onChange="specificChecked('group_{EVERYONEID}_dd', value);" class="ddlist">
+                    <option value="0">Kein Zugriff</option>
                     <option value="1">Nur Lesen</option>
                     <option value="2">Lesen und Schreiben</option>
                     <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select></td>
+                </select>
+            </td>
         </tr>
 
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
-            <td width="40%" align="right" ><select name="ddlist"
-                                                   id="steam_dd" size="1"
-                                                   onChange="specificChecked('group_{STEAMID}_dd', value);" class="ddlist"">
-                                                   <option value="0"></option>
+            <td width="40%" align="right" >
+                    <select name="ddlist" id="steam_dd" size="1" onChange="specificChecked('group_{STEAMID}_dd', value);" class="ddlist">
+                    <option value="0">Kein Zugriff</option>
                     <option value="1">Nur Lesen</option>
                     <option value="2">Lesen und Schreiben</option>
                     <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select></td>
+                </select>
+            </td>
         </tr>
         <tr class="infoBar" style="height:23px;">
             <td width="60%"><b>Meine Favoriten (Gruppen)</b></td>
@@ -96,10 +79,6 @@
 
     <div class="scrollable-groups">
         <table >
-
-
-
-
             <!-- BEGIN GROUPS -->
 
             <tr valign="middle">
@@ -107,15 +86,6 @@
                 <td width="40%" align="right" >
                     {DROPDOWNLIST}
                 </td>
-                <!--    <select name="ddlist"
-                         id="group_{GROUPID}_dd" size="1"
-                         onChange="specificChecked(id, value);" class="ddlist"">
-                         <option value="0"></option>
-                         <option value="1">Nur Lesen</option>
-                         <option value="2">Lesen und Schreiben</option>
-                         <option value="3">Lesen, Schreiben und Berechtigen</option>
-                 </select> -->
-
             </tr>
 
             <!-- END GROUPS -->
@@ -124,30 +94,18 @@
 
     <div class="scrollable-user">
         <table>
-            <!-- BEGIN NO_FAVS -->
+            
             <tr class="infoBar" style="height:23px;">
-                <td><b>Meine Favoriten (Benutzer) {DUMMY_FAV}</b></td>
+                <td><b>Meine Favoriten (Benutzer)</b></td>
                 <td><b>Rechte</b></td>
             </tr>
-            <!-- END NO_FAVS -->
-
 
             <!-- BEGIN FAVORITES -->
             <tr valign="middle">
                 <td width="60%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
                 <td width="40%" align="right">
                     {DROPDOWNLIST_USER}
-
-
-                    <!-- <select name="ddlist" id="fav_{FAVID}_dd"
-                                                      size="1" onChange="specificChecked(id, value);" class="ddlist">
-                        <option value="0"></option>
-                        <option value="1">Nur Lesen</option>
-                        <option value="2">Lesen und Schreiben</option>
-                        <option value="3">Lesen, Schreiben und Berechtigen</option>
-                    </select> -->
-
-                    </td>
+                </td>
             </tr>
             <!-- END FAVORITES -->
         </table>
@@ -161,24 +119,25 @@
         </tr>
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Jeder</td>
-            <td width="40%" align="right" ><select name="ddlist"
-                                                   id="everyone_dd_acq" size="1"
-                                                   disabled="disabled">
-                    <option value="0"></option>
+            <td width="40%" align="right" >
+                <select name="ddlist" id="everyone_dd_acq" size="1" disabled="disabled">
+                    <option value="0">Kein Zugriff</option>
                     <option value="1">Nur Lesen</option>
                     <option value="2">Lesen und Schreiben</option>
                     <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select></td>
+                </select>
+            </td>
         </tr>
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
-            <td width="40%" align="right" ><select name="ddlist"
-                                                   id="steam_dd_acq" size="1" disabled="disabled">
-                    <option value="0"></option>
+            <td width="40%" align="right" >
+                <select name="ddlist" id="steam_dd_acq" size="1" disabled="disabled">
+                    <option value="0">Kein Zugriff</option>
                     <option value="1">Nur Lesen</option>
                     <option value="2">Lesen und Schreiben</option>
                     <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select></td>
+                </select>
+            </td>
         </tr>
         <tr class="infoBar" style="height:23px;">
             <td width="60%"><b>Meine Favoriten (Gruppen)</b></td>
@@ -194,78 +153,33 @@
                     {DROPDOWNLIST_ACQ}
                 </td>
             </tr>
-            <!-- <tr valign="middle">
-                 <td style="text-indent: 1em;">{GROUPNAME_ACQ}</td>
-                 <td><select class="ddlist" id="group_{GROUPID_ACQ}_dd_acq" size="1" disabled>
-                         <option value="0"></option>
-                         <option value="1">Nur Lesen</option>
-                         <option value="2">Lesen und Schreiben</option>
-                         <option value="3">Lesen, Schreiben und Berechtigen</option>
-                     </select></td>
-             </tr> -->
 
             <!-- END GROUPS_ACQ -->
         </table>
     </div>
 
     <div class="scrollable-user">
-        <table>
-            <!-- BEGIN NO_FAVS_ACQ -->
+        <table>            
             <tr class="infoBar" style="height:23px;">
                 <td><b>Meine Favoriten (Benutzer) {DUMMY_FAV_ACQ}</b></td>
                 <td><b>Rechte</b></td>
 
             </tr>
 
-
-            <!-- END NO_FAVS_ACQ -->
-
             <!-- BEGIN FAVORITES_ACQ -->
             <tr>
                 <td width="60%"><img style="float:left" src="{IMG_PATH_ACQ}"><div style="text-indent: 1em;">{FAVNAME_ACQ}</div></td>
-                <td> {DROPDOWNLIST_USER_ACQ}
-                    <!--<select class="ddlist" id="fav_{FAVID_ACQ}_dd_acq" size="1" disabled>
-                        <option value="0">Kein Zugriff</option>
-                        <option value="1">Nur Lesen</option>
-                        <option value="2">Lesen und Schreiben</option>
-                        <option value="3">Lesen, Schreiben und Berechtigen</option>
-                    </select> -->
-                    </td>
+                <td> 
+                    {DROPDOWNLIST_USER_ACQ}
+                </td>
             </tr>
             <!-- END FAVORITES_ACQ -->
-
-
-
-
-
-        </table></div>
+        </table>
+    </div>
 </div>
 
-
-<style type="text/css">
-    .invisible {
-        display: none;
-
-    }
-
-    .visible {
-        display: block;
-
-    }
-
-    .ddlist {
-        width: 100%;
-
-    }
-    td{
-        font-family: arial;
-    }
-    p{
-        font-family: arial;
-    }
-</style>
 <script language="JavaScript">
-    function checkDDListStatus(){
+    /*function checkDDListStatus(){
         var ddZero = 0;
         var ddAll = 0;
         $('select[name="ddlist"]').each(function(){
@@ -277,7 +191,7 @@
         return (ddZero == ddAll);
 
 
-    }
+    }*/
     function activateAcq(){
         document.getElementById("crude_div").className ="invisible";
         document.getElementById("crude_acq_div").className ="visible";
@@ -297,19 +211,24 @@
     function setCrude(value){
         if(value == "privat"){
             $("select").val(0);
+            $('select').addClass('changed');
         }else if(value == "server_public"){
-            if($("#group_{EVERYONE_ID}_dd").val() == 0 ){
-                $("#group_{EVERYONE_ID}_dd").val(1);
+            if($("#everyone_dd").val() == 0 ){
+                $("#everyone_dd").val(1);
+                $("#everyone_dd").addClass('changed');
+                $("#steam_dd").val(1);
+                $("#steam_dd").addClass('changed');
             }
 
         }else if(value == "user_public"){
-            $("#group_{EVERYONE_ID}_dd").val(0);
-            if($("#group_{STEAM_ID}_dd").val() == 0){
-                $("#group_{STEAM_ID}_dd").val(1);
+            $("#everyone_dd").val(0);
+            if($("#steam_dd").val() == 0){
+                $("#steam_dd").val(1);
+                $("#steam_dd").addClass('changed');
             }
 
         }
-        {SEND_REQUEST_CRUDE}
+        //{SEND_REQUEST_CRUDE}
     }
     function specificChecked(id, value){
         objId=id.split("_");
@@ -317,43 +236,32 @@
         {SEND_REQUEST_SANCTION}
     }
     $('#everyone_dd').val('{EVERYONE_VALUE}');
-    //document.getElementById("everyone_dd").options[{EVERYONE_VALUE}].selected=true;
-    //document.getElementById("steam_dd").options[{STEAM_VALUE}].selected=true;
+    
     $('#steam_dd').val('{STEAM_VALUE}');
     // <!-- BEGIN GROUP_DDSETTINGS -->
-    //document.getElementById("group_67_dd").options[2].selected=true;
-    //document.getElementById("group_{GROUP_ID}_dd").options[{OPTIONVALUE}].selected=true;
     $('#group_{GROUP_ID}_dd').val('{OPTIONVALUE}');
 
     // <!-- END GROUP_DDSETTINGS -->
 
     // <!-- BEGIN FAV_DDSETTINGS -->
-    //document.getElementById("fav_{FAV_ID}_dd").options[{FAV_OPTION_VALUE}].selected=true;
     $('#fav_{FAV_ID}_dd').val('{FAV_OPTION_VALUE}');
     //<!-- END FAV_DDSETTINGS  -->
 
     // <!-- BEGIN AU_DDSETTINGS -->
-    //document.getElementById("au_{AU_ID}_dd").options[{AU_OPTION_VALUE}].selected=true;
     $('#au_{AU_ID}_dd').val('{AU_OPTION_VALUE}');
     //<!-- END AU_DDSETTINGS  -->
-    //document.getElementById("everyone_dd_acq").options[{EVERYONE_VALUE_ACQ}].selected=true;
-    //document.getElementById("steam_dd_acq").options[{STEAM_VALUE_ACQ}].selected=true;
     $('#everyone_dd_acq').val('{EVERYONE_VALUE_ACQ}');
     $('#steam_dd_acq').val('{STEAM_VALUE_ACQ}');
     // <!-- BEGIN GROUP_DDSETTINGS_ACQ -->
-    //document.getElementById("group_67_dd").options[2].selected=true;
-    //document.getElementById("group_{GROUP_ID_ACQ}_dd_acq").options[{OPTIONVALUE_ACQ}].selected=true;
     $('#group_{GROUP_ID_ACQ}_dd_acq').val('{OPTIONVALUE_ACQ}');
     // <!-- END GROUP_DDSETTINGS_ACQ -->
 
     // <!-- BEGIN FAV_DDSETTINGS_ACQ -->
-    //document.getElementById("fav_{FAV_ID_ACQ}_dd_acq").options[{FAV_OPTION_VALUE_ACQ}].selected=true;
     $('#fav_{FAV_ID_ACQ}_dd_acq').val('{FAV_OPTION_VALUE_ACQ}');
 
     //<!-- END FAV_DDSETTINGS_ACQ -->
 
     // <!-- BEGIN AU_DDSETTINGS_ACQ -->
-    //document.getElementById("au_{AU_ID_ACQ}_dd_acq").options[{AU_OPTION_VALUE_ACQ}].selected=true;
     $('#au_{AU_ID_ACQ}_dd_acq').val('{AU_OPTION_VALUE_ACQ}');
     // <!-- END AU_DDSETTINGS_ACQ -->
     {ACQUIRE_START}

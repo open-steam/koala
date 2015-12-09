@@ -10,3 +10,37 @@
     margin-top: 5px;
 }
 
+.invisible {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
+
+.ddlist {
+    width: 100%;
+}
+td{
+    font-family: arial;
+}
+
+p{
+    font-family: arial;
+}
+
+#buttons input{
+    width:120px;
+}
+.scrollable-groups{
+    overflow:auto;
+}
+.scrollable-user{
+    overflow:auto;
+}
+table{
+    width: 100%;
+}
+select {
+    width: 100%;
+}

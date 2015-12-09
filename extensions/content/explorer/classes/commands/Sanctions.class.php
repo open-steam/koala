@@ -52,7 +52,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 
         $dialog = new \Widgets\Dialog();
-        $dialog->setAutoSaveDialog(true);
+        $dialog->setAutoSaveDialog(false);
         $dialog->setWidth(600);
         $dialog->setTitle("Rechte von »" . getCleanName($this->object) . "«");
 
@@ -286,6 +286,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 
         $content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
+        $css = \Explorer::getInstance()->readCSS("sanctions.css");
+        $content->setVariable("CSS", $css);
+        
         //ACQUIRE
         if ($this->environment instanceof \steam_room) {
             $content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($this->environment) . "</b>");
@@ -389,11 +392,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
             $groupsRights = array();
-            //if (count($groupMapping) > 5) {
-            //$content->setVariable("CSS_GROUPS", "height: 125px;");
-            //} else {
-            $content->setVariable("CSS_GROUPS", "");
-            //}
+            
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
                 $realname = $group->get_name();
@@ -551,11 +550,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $content->setVariable("DUMMY_FAV", "");
             $content->setVariable("DUMMY_FAV_ACQ", "");
-            if (count($userMapping) > 5) {
-                $content->setVariable("CSS_USER", "height: 100px;");
-            } else {
-                $content->setVariable("CSS_USER", "");
-            }
+
             foreach ($userMapping as $id => $name) {
                 $favo = \steam_factory::get_object($this->steam->get_id(), $id);
                 if ($favo instanceof \steam_user) {
