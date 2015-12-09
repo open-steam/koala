@@ -34,6 +34,9 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
             $columnObject = $column;
         }
 
+        if($name == ""){
+    			$name = " ";
+    		}
 
         $media = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $name, $columnObject);
         $mediaContent = array(

@@ -12,3 +12,18 @@
 	height: 16px;
 	padding-right: 4px;
 }
+
+.portlet.poll .message {
+  	clear: both;
+  	font-size: 12px;
+  	line-height: 1.4em;
+  	padding: 4px;
+}
+
+.portlet.poll {
+  border: 1px solid #CDCDCD;
+}
+
+.portlet.poll .hidden {
+  display: none;
+}

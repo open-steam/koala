@@ -40,7 +40,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $ajaxForm->setSubmitNamespace("PortletPoll");
 
         //$ajaxForm->setHtml(<<<END
-        $html = ' 
+        $html = '
 
 <input type="hidden" name="id" value="' . $this->id . '">
 
@@ -84,13 +84,13 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $item0Description->setLabel("Antworten");
         $item0Description->setName("input0");
         $html .= $item0Description->getHtml();
-        $html .='<script>$("input[name=\"input0\"]").val("Eintrag A")</script>';
+        //$html .='<script>$("input[name=\"input0\"]").val("Eintrag A")</script>';
 
         $item1Description = new \Widgets\TextInput();
         $item1Description->setInputBackgroundColor("rgb(250,186,97)");
         $item1Description->setName("input1");
         $html .= $item1Description->getHtml();
-        $html .='<script>$("input[name=\"input1\"]").val("Eintrag B")</script>';
+        //$html .='<script>$("input[name=\"input1\"]").val("Eintrag B")</script>';
 
         $item2Description = new \Widgets\TextInput();
         $item2Description->setInputBackgroundColor("rgb(244,229,123)");
@@ -117,8 +117,8 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
         $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
 	float:left;
-        
-        
+
+
 }.widgets_label {
 	clear:both;
         float: left;

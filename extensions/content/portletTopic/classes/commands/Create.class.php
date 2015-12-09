@@ -1,35 +1,37 @@
 <?php
 namespace PortletTopic\Commands;
 class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $content;
 	private $rawHtmlWidget;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject){
 		$params = $requestObject->getParams();
-		
-		$title = $params["title"];
+
+		$name = $params["title"];
 		$parent = $params["parent"];
 		$version = "3.0";
-		
+
 		$steam=$GLOBALS["STEAM"]->get_id();
 		$column = $parent;
-		$name = $title;
-		
-		
+
+		if($name == ""){
+			$name = " ";
+		}
+
 		//check diffrent types of parameter
 		if(is_string($column)){
 			$columnObject =  \steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$column);
 		}else{
 			$columnObject = $column;
 		}
-		
+
 		//create
 	    $topic = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $name, $columnObject);
 	    $topic->set_attributes(array(
@@ -38,17 +40,17 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 	            "bid:portlet:version" => $version,
 	            "bid:portlet" => "topic",
 		));
-	
+
 	}
-	
+
 	public function idResponse(\IdResponseObject $idResponseObject) {
 
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		$jswrapper = new \Widgets\JSWrapper();
@@ -59,6 +61,6 @@ END
 		$ajaxResponseObject->addWidget($jswrapper);
 		return $ajaxResponseObject;
 	}
-	
+
 }
 ?>

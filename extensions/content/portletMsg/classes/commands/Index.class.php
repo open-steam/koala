@@ -10,7 +10,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     private $rawHtmlWidget;
 
     public function validateData(\IRequestObject $requestObject) {
-                        
+
         //robustness for missing ids and objects
         try{
             $objectId=$requestObject->getId();
@@ -27,15 +27,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
     public function processData(\IRequestObject $requestObject) {
-        
-        
+
+
         $objectId = $requestObject->getId();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $params = $requestObject->getParams();
 
-        
+
         try{
-        
+
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
@@ -127,11 +127,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         if (sizeof($content) > 0) {
             /*
              * Convert old messages which save its content as UBB code to new messages
-             * using a html representation 
+             * using a html representation
              */
             $convertUBB = false;
             $version = $portlet->get_attribute("bid:portlet:version");
-            /* 			
+            /*
               if(!$version){
               $convertUBB = true;
               require_once("name.php");
@@ -146,7 +146,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     continue;
                 }
                 $tmpl->setCurrentBlock("BLOCK_MESSAGE");
-                
+
                 $message->get_attributes(array("OBJ_DESC", "bid:portlet:msg:picture_id", "bid:portlet:msg:picture_alignment", "bid:portlet:msg:link_url", "bid:portlet:msg:link_url_label", "bid:portlet:msg:link_open"));
 
                 //popupmenu
@@ -176,14 +176,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 if ($UBB->encode($message->get_attribute("OBJ_DESC")) != "") {
                     $tmpl->setVariable("MESSAGE_SUBHEADLINE", $UBB->encode($message->get_attribute("OBJ_DESC")));
                 }
-                
+
                 //edit message content
                 $messageContent = $message->get_content();
                 $messageContent = cleanHTML($messageContent);
-                
+
                 $tmpl->setVariable("MESSAGE_CONTENT", $messageContent);
 
-                
+
                 //get column width
                 $columnObject = $portletObject->get_environment();
                 $column_width = $columnObject->get_attribute("bid:portal:column:width");
@@ -237,37 +237,37 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         } else {
             //NO MESSAGE
             $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
-            $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Nachrichten vorhanden.");
+            $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Meldungen vorhanden.");
             $tmpl->parse("BLOCK_NO_MESSAGE");
         }
         $tmpl->setVariable("PATH_URL", PATH_URL);
         $tmpl->parse("BLOCK_PORTLET_MESSAGE");
         $htmlBody = $tmpl->get();
         $this->content = $htmlBody;
-        
+
         }catch (\steam_exception $e){
             $htmlBody = '<div style="background-color:red;color:white;text-align:center;">';
             $htmlBody.= "Die Meldungen im Portal wurden durch das Kopieren mit der alten Oberfläche zerstört. ";
             $htmlBody.= "Kopieren Sie Portale nur mit der neuen Oberfläche.<br>";
             //$htmlBody.= "Eine Wiederherstellung ist nur durch den Support möglich.<br>";
             $htmlBody.= "<br>";
-            
+
             $htmlBody.= "Bei einer Reparatur können die in den Meldungen enthaltenen Bilder nicht den ursprünglichen Meldungen zugeordnet werden. ";
             $htmlBody.= "Die Bilder werden daher in die Zwischenablage verschoben. ";
             $htmlBody.= "Ferner geht die ursprüngliche Reihenfolge der Meldungen verloren. ";
             $htmlBody.= "Eine Reparatur ist nur mit Schreibrechten möglich.<br>";
-            
+
             $htmlBody.= "<br>";
-            
+
             $htmlBody.= '<a style="color:white" href="/portletmsg/repair/'.$objectId.'/">Reparaturversuch durchführen</a><br>';
             $htmlBody.= "</div>";
         }
-        
+
 
         //widgets
         $outputWidget = new \Widgets\RawHtml();
         $outputWidget->addWidget(new \Widgets\PopupMenu());
-        
+
         $outputWidget->setHtml($htmlBody);
         $this->rawHtmlWidget = $outputWidget;
     }

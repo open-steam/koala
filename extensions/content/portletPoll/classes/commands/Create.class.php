@@ -15,8 +15,6 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 
     public function processData(\IRequestObject $requestObject) {
         $params = $requestObject->getParams();
-        
-        
 
         $name = $params["title"];
         $column = $params["parent"];
@@ -27,18 +25,18 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         $input3 = $params["input3"];
         $input4 = $params["input4"];
         $input5 = $params["input5"];
-        
+
         $desc = $params["desc"];
-        
+
         $startD = $params["startDate"];
         $endD = $params["endDate"];
-        
+
         $startDateArray = array();
         $startDateArray = explode(".", $startD);
-        
+
         $endDateArray = array();
         $endDateArray = explode(".", $endD);
-        
+
         //check diffrent types of parameter
         if (is_string($column)) {
             $columnObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $column);
@@ -49,6 +47,10 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         //get date
         $currentYear = date("Y") . "";
         $nextYear = (date("Y") + 1) . "";
+
+        if($name == ""){
+    			$name = " ";
+    		}
 
         //create
         $pollObject = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $name, $columnObject);

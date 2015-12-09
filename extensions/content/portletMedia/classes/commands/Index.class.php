@@ -32,6 +32,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $portletPath = $portletInstance->getExtensionPath();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 
+        $this->getExtension()->addCSS();
+        //$this->getExtension()->addJS();
+
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
@@ -61,7 +64,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         } else {
             $content = array();
         }
-        
+
         if (sizeof($content) > 0) {
             $portletFileName = $portletPath . "/ui/html/index.html";
             $tmpl = new \HTML_TEMPLATE_IT();
@@ -91,14 +94,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("EDIT_BUTTON", "");
             $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
             $tmpl->setVariable("HEADLINE", $content["headline"]);
-  
+
             //if the title is empty the headline will not be displayed (only in edit mode)
-            if (empty($content["headline"])) {
+            if ($content["headline"] == "" || $content["headline"] == " ") {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
             } else {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline");
             }
-            
+
             //refernce icon
             if ($portletIsReference) {
                 $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
