@@ -50,7 +50,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $portletName = $portlet->get_attribute(OBJ_DESC);
 
-        // $this->getExtension()->addCSS();
+        $this->getExtension()->addCSS();
         $this->getExtension()->addJS();
 
         //hack
@@ -77,9 +77,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
         $tmpl->setVariable("PORTLET_NAME", $portletName);
-        
+
         //if the title is empty the headline will not be displayed (only in edit mode)
-        if (empty($portletName)) {
+        if ($portletName == "" || $portletName == " ") {
             $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
         } else {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
@@ -212,7 +212,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $categoryCount++;
             }
         } else {
-            $tmpl->setVariable("CATEGORY", "");
+            //NO MESSAGE
+            $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
+            $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Kategorien vorhanden.");
+            $tmpl->parse("BLOCK_NO_MESSAGE");
         }
 
         $htmlBody = $tmpl->get();

@@ -19,7 +19,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         if (strpos($width, "px") == TRUE) {
             $width = substr($width, 0, count($width)-3);
         }
-        
+
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
@@ -49,12 +49,12 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $tmpl->setVariable("HEADLINE", $headline);
 
         //if the title is empty the headline will not be displayed (only in edit mode)
-        if (empty($headline)) {
+        if ($headline == "" || $headline == " ") {
             $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
         } else {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
-        
+
         //refernce icon
         if ($portletIsReference) {
             $envId = $portlet->get_environment()->get_environment()->get_id();
@@ -95,7 +95,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("DISPLAY_DOCUMENTS", "none");
         }
         $tmpl->parse();
-        
+
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($tmpl->get());
         $this->contentHtml = $rawHtml;
@@ -105,7 +105,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $idResponseObject->addWidget($this->contentHtml);
         return $idResponseObject;
     }
-    
+
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $frameResponseObject->addWidget($this->contentHtml);
 	return $frameResponseObject;

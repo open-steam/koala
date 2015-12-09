@@ -17,3 +17,18 @@
 .datedeclined{
     background-color:#EE9999;
 }
+
+.portlet.termplan .message {
+  	clear: both;
+  	font-size: 12px;
+  	line-height: 1.4em;
+  	padding: 4px;
+}
+
+.portlet.termplan {
+  border: 1px solid #CDCDCD;
+}
+
+.portlet.termplan .hidden {
+  display: none;
+}

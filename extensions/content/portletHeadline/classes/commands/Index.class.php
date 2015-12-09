@@ -63,7 +63,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //get singleton and portlet path
         $portletInstance = \PortletHeadline::getInstance();
         $portletPath = $portletInstance->getExtensionPath();
-        
+
         if (sizeof($content) > 0) {
             $portletFileName = $portletPath . "/ui/html/index.html";
             $tmpl = new \HTML_TEMPLATE_IT();
@@ -101,14 +101,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("ALIGNMENT", trim($content["alignment"]));
             $title = $UBB->encode($content["headline"]);
             $tmpl->setVariable("HEADLINE", $title);
-            
+
             //if the title is empty the headline will not be displayed (only in edit mode)
-            if (empty($title)) {
+            if ($title == "" || $title == " ") {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
             } else {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline");
             }
-            
+
             //refernce icon
             if ($portletIsReference) {
                 $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";

@@ -1,28 +1,29 @@
 <?php
 namespace PortletAppointment\Commands;
 class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $content;
 	private $rawHtmlWidget;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject){
-		$params = $requestObject->getParams();               
+		$params = $requestObject->getParams();
 		$name = $params["title"];
 		$column = $params["parent"];
-                
-                if(isset($params["undefined"])){
-                    $order = $params["undefined"];               
-		}else{
-                    $order = "";
-                }
-                
-                $version = "3.0";	
+
+    if(isset($params["undefined"])){
+    	$order = $params["undefined"];
+		}
+		else{
+    	$order = "";
+    }
+
+    $version = "3.0";
 
 		//check diffrent types of parameter
 		if(is_string($column)){
@@ -30,7 +31,11 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 		}else{
 			$columnObject = $column;
 		}
-		
+
+		if($name == ""){
+			$name = " ";
+		}
+
 		//create
 		$appointment = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $name, $columnObject);
     	$appointment->set_attributes(array(
@@ -40,16 +45,16 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
             "bid:portlet" => "appointment",
             "bid:portlet:app:app_order" => $order
     	));
-		
-		
+
+
 	}
-	
+
 	public function idResponse(\IdResponseObject $idResponseObject) {
-		
+
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
+
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

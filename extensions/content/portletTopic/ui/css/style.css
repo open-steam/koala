@@ -1,0 +1,10 @@
+.portlet.topic .message {
+  	clear: both;
+  	font-size: 12px;
+  	line-height: 1.4em;
+  	padding: 4px;
+}
+
+.portlet.topic {
+  border: 1px solid #CDCDCD;
+}
