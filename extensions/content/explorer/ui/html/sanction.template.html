@@ -21,8 +21,7 @@
 <div id="crude_div" class="visible">
     <table>
         <tr valign="middle">
-            <td><input id="radio_acquire" onClick="activateAcq()" type="checkbox" {NO_ENVIRONMENT} />
-                       {INHERIT_FROM}</td>
+            <td><input id="radio_acquire" onClick="activateAcq()" type="checkbox" {NO_ENVIRONMENT} />{INHERIT_FROM}</td>
         </tr>
     </table>
 
@@ -42,8 +41,7 @@
 
 <div id="crude_acq_div" class="invisible">
     <table> <tr valign="middle">
-            <td><input id="radio_acquire_acq" type="checkbox" onClick="deactivateAcq()" />
-                {INHERIT_FROM}</td>
+            <td><input id="radio_acquire_acq" type="checkbox" onClick="deactivateAcq()" {NO_ENVIRONMENT} />{INHERIT_FROM}</td>
         </tr>
     </table>
     <br />
@@ -57,7 +55,7 @@
 </div>
 
 
-<div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist<b>{OWNER_FULL_NAME}</b>
+<div id="creator_div"><p>Der Besitzer des aktuellen Objektes ist<b>{CREATOR_FULL_NAME}</b>
         und hat volle Zugriffsrechte.</p></div>
 
 <div id="specific_div" class="visible">

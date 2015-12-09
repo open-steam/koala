@@ -219,7 +219,8 @@ class ContentProvider implements \Widgets\IContentProvider {
 
     public function getOnClickHandler($contentItem) {
         if (!($contentItem instanceof \steam_trashbin)) {
-            return "jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked);";
+            //check the checkbox at the end of the row. If the order or number of the headlines changes, adjust the selector for the proper field
+            return "jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked);";
         } else {
             return "";
         }
