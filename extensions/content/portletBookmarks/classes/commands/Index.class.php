@@ -21,17 +21,20 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $parent = $obj->get_environment();
         $portletWidth = $parent->get_attribute("bid:portal:column:width");
         $portletWidth = substr($portletWidth, 0, count($portletWidth)-3);
-       
-        $numberOfBookmarks = $obj->get_attribute("PORTLET_BOOKMARK_COUNT");
 
         $bookmarks = $bookmarkRoom->get_inventory();
-
-        $n = $numberOfBookmarks;
-        if (count($bookmarks) <= $numberOfBookmarks) {
-            $n = count($bookmarks);
+        $showAllBookmarksLink = "";
+        $number = $obj->get_attribute("PORTLET_BOOKMARK_COUNT");
+        if($number > count($bookmarks)){
+          $number = count($bookmarks);
         }
+        else{
+          $showAllBookmarksLink = '<br><div style="padding-top: 10px;"><a href="' . PATH_URL . 'bookmarks/">Alle Lesezeichen anzeigen</a></div>';
+        }
+
         $viewBookmarks = array();
-        for ($i = 0; $i < $n; $i++) {
+
+        for ($i = 0; $i < $number; $i++) {
             $viewBookmarks[$i] = $bookmarks[$i];
         }
         $popupMenu = new \Widgets\PopupMenu();
@@ -51,7 +54,7 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->addWidget($popupMenu);
         $rawHtml->addWidget($listViewer);
-        
+
         $portletName = $obj->get_attribute(OBJ_DESC);
         //if the title is empty the headline will not be displayed (only in edit mode)
         if (empty($portletName)) {
@@ -59,8 +62,8 @@ class Index extends \AbstractCommand implements \IIdCommand {
         } else {
             $head = "headline";
         }
-        
-        $rawHtml->setHtml('<div id="'. $this->id .'" class="portlet bookmark"><h1 class="'. $head .'">'. $portletName .'<div class="editbutton" style="display:none;float:right;">' . $popupMenu->getHtml() . '</div></h1><div class="entry"><div>' . $listViewer->getHtml() . '</div><br><div style="padding-top: 10px;"><a href="' . PATH_URL . 'bookmarks/">Alle Lesezeichen anzeigen</a></div><div id="overlay_menu"></div></div></div>');
+
+        $rawHtml->setHtml('<div id="'. $this->id .'" class="portlet bookmark"><h1 class="'. $head .'">'. $portletName .'<div class="editbutton" style="display:none;float:right;">' . $popupMenu->getHtml() . '</div></h1><div class="entry"><div>' . $listViewer->getHtml() . '</div>' . $showAllBookmarksLink . '<div id="overlay_menu"></div></div></div>');
         //$rawHtml->setHtml('<div class="portlet bookmark"><h1 class="headline">Meine Lesezeichen <div class="editbutton" style="display:none;float:right;padding-right:5px;">' . $popupMenu->getHtml() . "</div></h1><div class=\"entry\"><div class=\"\" style=\"padding:5px;\">" . $listViewer->getHtml() . "</div><div class=\"\" style=\"padding-left:".($portletWidth/2-80)."px;padding-right:".($portletWidth/2-80)."px;\"><a href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a></div><br>" . '<div id="overlay_menu"></div></div></div><br>');
         $this->content = $rawHtml;
     }
@@ -81,7 +84,7 @@ class Index extends \AbstractCommand implements \IIdCommand {
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
     private $width = 352;
-    
+
     public function setWidth($w){
         $this->width = $w;
     }
@@ -92,7 +95,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadLineWidths() {
         //return array(22, 580, 150);
-        
+
         return array(22, $this->width-172, 130);
     }
 
@@ -116,16 +119,16 @@ class ContentProvider implements \Widgets\IContentProvider {
         if (!is_int($cell)) {
             throw new \Exception("cell must be an integer!!");
         }
-        
-        
+
+
         //case there is an not bookmark in bookmarks
         if( $contentItem instanceof \steam_link){
             $contentItemObject = $contentItem->get_source_object();
         }else{
             $contentItemObject = $contentItem;
         }
-        
-        
+
+
         if ($cell == $this->rawImage) {
             return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItemObject) . "\"></img>";
         } else if ($cell == $this->rawName) {
@@ -145,7 +148,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return $name;
             }
         } else if ($cell == $this->rawChangeDate) {
-            return getReadableDate($contentItemObject->get_attribute("OBJ_LAST_CHANGED"));
+            //return getReadableDate($contentItemObject->get_attribute("OBJ_LAST_CHANGED"));
         }
     }
 
