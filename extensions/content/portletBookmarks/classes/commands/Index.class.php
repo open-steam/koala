@@ -96,7 +96,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
     public function getHeadLineWidths() {
         //return array(22, 580, 150);
 
-        return array(22, $this->width-172, 130);
+        return array(22, $this->width-172, 0);
     }
 
     public function getHeadLineAligns() {
@@ -109,7 +109,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 
     private $rawImage = 0;
     private $rawName = 1;
-    private $rawChangeDate = 2;
+    //private $rawChangeDate = 2;
 
     public function getId($contentItem) {
         return $contentItem->get_id();
@@ -119,7 +119,6 @@ class ContentProvider implements \Widgets\IContentProvider {
         if (!is_int($cell)) {
             throw new \Exception("cell must be an integer!!");
         }
-
 
         //case there is an not bookmark in bookmarks
         if( $contentItem instanceof \steam_link){
@@ -147,9 +146,9 @@ class ContentProvider implements \Widgets\IContentProvider {
             } else {
                 return $name;
             }
-        } else if ($cell == $this->rawChangeDate) {
+        } //else if ($cell == $this->rawChangeDate) {
             //return getReadableDate($contentItemObject->get_attribute("OBJ_LAST_CHANGED"));
-        }
+        //}
     }
 
     public function getNoContentText() {

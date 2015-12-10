@@ -14,11 +14,13 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
         //create headline
         $params = $requestObject->getParams();
 
-        if (isset($params["number"])) {
-            $number = $params["number"];
-        } else {
-            $number = 10;
+        if(intval($params["number"]) == 0){
+          $number = 10;
         }
+        else{
+          $number = intval($params["number"]);
+        }
+
         if (isset($params["id"])) {
             $id = $params["id"];
         } else {
@@ -52,11 +54,11 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
     }
 
     public function idResponse(\IdResponseObject $idResponseObject) {
-        
+
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
+
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
