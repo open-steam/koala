@@ -863,8 +863,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             if (ENABLED_GROUPS) {
                 $raw = new \Widgets\RawHtml();
-                $raw->setHtml('<div class="widgets_label">' . gettext("Groups") . ':</div><div style="width:134px; height:19px; float: left;"></div>');
-                $frameResponseObject->addWidget($clearer);
+
+                $groupString = "";
+                $groups = $current_user->get_groups();
+                foreach ($groups as $group){
+                  $name = $group->get_groupname();
+                  $groupString =  $groupString . $name . '</br>';
+                }
+
+                $raw->setHtml('<div class="widgets_label">Meine Gruppen:</div><div style="width:134px; padding-top:11px; float: left; overflow-y:hidden;">' . $groupString . '</div>');
                 $frameResponseObject->addWidget($raw);
 
                 $radioButton = new \Widgets\RadioButton();
@@ -923,6 +930,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
         } else {
+            //show profile of another user
+
             //\Profile::getInstance()->addCSS();
             $GLOBALS["content"]->setCurrentBlock("BLOCK_RIGHT_SIDE");
             // display profile
@@ -1063,6 +1072,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             if (ENABLED_GROUPS) {
                 // GROUPS
+                /*
                 $public = ( $user->get_id() != $current_user->get_id() ) ? TRUE : FALSE;
                 $groups = $cache->call("lms_steam::user_get_groups", $login, $public);
                 $html_code_groups = "";
@@ -1084,6 +1094,18 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 } else {
                     $html_code_groups = gettext("No memberships yet.");
                 }
+                */
+
+
+                $groupString = "";
+                $groups = $user->get_groups();
+                foreach ($groups as $group){
+                  $name = $group->get_groupname();
+                  $groupString =  $groupString . $name . '</br>';
+                }
+
+                $html_code_groups = '<div style="width:134px; padding-top:11px; float: left;">' . $groupString . '</div>';
+
                 $this->display("CONTACTS_AND_GROUPS", "Groups", $html_code_groups);
             }
 
