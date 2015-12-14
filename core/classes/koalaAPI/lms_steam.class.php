@@ -526,13 +526,13 @@ class lms_steam
                 break;
             }
         }
-        $attributes= array( 
-            "USER_FIRSTNAME", 
-            "USER_FULLNAME", 
-            "OBJ_ICON", 
-            "OBJ_DESC", 
-            "USER_ACADEMIC_TITLE", 
-            "USER_PROFILE_FOCUS", 
+        $attributes= array(
+            "USER_FIRSTNAME",
+            "USER_FULLNAME",
+            "OBJ_ICON",
+            "OBJ_DESC",
+            "USER_ACADEMIC_TITLE",
+            "USER_PROFILE_FOCUS",
             "USER_PROFILE_FACULTY" );
 
         // pre-load needed attribute values with one server request
@@ -572,36 +572,36 @@ class lms_steam
     public function user_get_profile( $username )
     {
         $steam_user = steam_factory::username_to_object( $GLOBALS[ "STEAM" ]->get_id(), $username );
-        $query = array( 
-            "USER_FULLNAME", 
-            "USER_LAST_LOGIN", 
-            "USER_FIRSTNAME", 
-            "USER_EMAIL", 
-            "OBJ_ICON", 
-            "OBJ_DESC", 
-            "USER_ACADEMIC_TITLE", 
-            "USER_ACADEMIC_DEGREE", 
-            "USER_PROFILE_GENDER", 
-            "USER_PROFILE_DSC", 
-            "USER_PROFILE_FOCUS", 
-            "USER_PROFILE_HOMETOWN", 
-            "USER_PROFILE_WANTS", 
-            "USER_PROFILE_HAVES", 
-            "USER_PROFILE_ORGANIZATIONS", 
-            "USER_PROFILE_OTHER_INTERESTS", 
-            "USER_PROFILE_FACULTY", 
-            "USER_PROFILE_ADDRESS", 
-            "USER_PROFILE_TELEPHONE", 
-            "USER_PROFILE_PHONE_MOBILE", 
-            "USER_PROFILE_WEBSITE_URI", 
-            "USER_PROFILE_WEBSITE_NAME", 
-            "USER_PROFILE_IM_ICQ", 
-            "USER_PROFILE_IM_MSN", 
-            "USER_PROFILE_IM_AIM", 
-            "USER_PROFILE_IM_YAHOO", 
-            "USER_PROFILE_IM_SKYPE", 
-            "USER_LANGUAGE", 
-            "USER_ADRESS", 
+        $query = array(
+            "USER_FULLNAME",
+            "USER_LAST_LOGIN",
+            "USER_FIRSTNAME",
+            "USER_EMAIL",
+            "OBJ_ICON",
+            "OBJ_DESC",
+            "USER_ACADEMIC_TITLE",
+            "USER_ACADEMIC_DEGREE",
+            "USER_PROFILE_GENDER",
+            "USER_PROFILE_DSC",
+            "USER_PROFILE_FOCUS",
+            "USER_PROFILE_HOMETOWN",
+            "USER_PROFILE_WANTS",
+            "USER_PROFILE_HAVES",
+            "USER_PROFILE_ORGANIZATIONS",
+            "USER_PROFILE_OTHER_INTERESTS",
+            "USER_PROFILE_FACULTY",
+            "USER_PROFILE_ADDRESS",
+            "USER_PROFILE_TELEPHONE",
+            "USER_PROFILE_PHONE_MOBILE",
+            "USER_PROFILE_WEBSITE_URI",
+            "USER_PROFILE_WEBSITE_NAME",
+            "USER_PROFILE_IM_ICQ",
+            "USER_PROFILE_IM_MSN",
+            "USER_PROFILE_IM_AIM",
+            "USER_PROFILE_IM_YAHOO",
+            "USER_PROFILE_IM_SKYPE",
+            "USER_LANGUAGE",
+            "USER_ADRESS",
             "bid:user_callto");
         $tmp = $steam_user->get_attributes( $query );
         if ($tmp[ "OBJ_ICON" ] instanceof steam_object) {
@@ -623,57 +623,85 @@ class lms_steam
         $admin_group = steam_factory::get_group( $GLOBALS["STEAM"]->get_id(), "admin" );
         $isAdmin = ( is_object( $admin_group ) && $admin_group->is_member( $user ) );
 
-        if ( $privacy_object instanceof steam_object && ( $is_privacy_page || ( !$my_profile && !$isAdmin ) ) ) {
-            $query = array( 
-                "PRIVACY_STATUS", 
-                "PRIVACY_GENDER", 
-                "PRIVACY_FACULTY", 
-                "PRIVACY_MAIN_FOCUS", 
-                "PRIVACY_WANTS", 
-                "PRIVACY_HAVES", 
-                "PRIVACY_ORGANIZATIONS", 
-                "PRIVACY_HOMETOWN", 
-                "PRIVACY_OTHER_INTERESTS", 
-                "PRIVACY_LANGUAGES", 
-                "PRIVACY_CONTACTS", 
-                "PRIVACY_GROUPS", 
-                "PRIVACY_EMAIL", 
-                "PRIVACY_ADDRESS", 
-                "PRIVACY_TELEPHONE", 
-                "PRIVACY_PHONE_MOBILE", 
-                "PRIVACY_WEBSITE", 
-                "PRIVACY_ICQ_NUMBER", 
-                "PRIVACY_MSN_IDENTIFICATION", 
-                "PRIVACY_AIM_ALIAS", 
-                "PRIVACY_YAHOO_ID", 
+        if ( $privacy_object instanceof steam_object && ( $is_privacy_page || !$my_profile ) ) {
+          if(!$isAdmin){
+            $query = array(
+                "PRIVACY_STATUS",
+                "PRIVACY_GENDER",
+                "PRIVACY_FACULTY",
+                "PRIVACY_MAIN_FOCUS",
+                "PRIVACY_WANTS",
+                "PRIVACY_HAVES",
+                "PRIVACY_ORGANIZATIONS",
+                "PRIVACY_HOMETOWN",
+                "PRIVACY_OTHER_INTERESTS",
+                "PRIVACY_LANGUAGES",
+                "PRIVACY_CONTACTS",
+                "PRIVACY_GROUPS",
+                "PRIVACY_EMAIL",
+                "PRIVACY_ADDRESS",
+                "PRIVACY_TELEPHONE",
+                "PRIVACY_PHONE_MOBILE",
+                "PRIVACY_WEBSITE",
+                "PRIVACY_ICQ_NUMBER",
+                "PRIVACY_MSN_IDENTIFICATION",
+                "PRIVACY_AIM_ALIAS",
+                "PRIVACY_YAHOO_ID",
                 "PRIVACY_SKYPE_NAME" );
 
             return $privacy_object->get_attributes( $query );
-        } else {
-                        $deny_all = PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS;
-
-            return array( 
-                "PRIVACY_STATUS" => $deny_all, 
-                "PRIVACY_GENDER" => $deny_all, 
-                "PRIVACY_FACULTY" => $deny_all,  
-                "PRIVACY_MAIN_FOCUS" => $deny_all, 
-                "PRIVACY_WANTS" => $deny_all, 
-                "PRIVACY_HAVES" => $deny_all, 
-                "PRIVACY_ORGANIZATIONS" => $deny_all, 
-                "PRIVACY_HOMETOWN" => $deny_all, 
-                "PRIVACY_OTHER_INTERESTS" => $deny_all, 
-                "PRIVACY_LANGUAGES" => $deny_all, 
-                "PRIVACY_CONTACTS" => $deny_all, 
-                "PRIVACY_GROUPS" => $deny_all, 
-                "PRIVACY_EMAIL" => $deny_all, 
-                "PRIVACY_ADDRESS" => $deny_all, 
-                "PRIVACY_TELEPHONE" => $deny_all, 
-                "PRIVACY_PHONE_MOBILE" => $deny_all, 
-                "PRIVACY_WEBSITE" => $deny_all, 
-                "PRIVACY_ICQ_NUMBER" => $deny_all, 
-                "PRIVACY_MSN_IDENTIFICATION" => $deny_all, 
-                "PRIVACY_AIM_ALIAS" => $deny_all, 
-                "PRIVACY_YAHOO_ID" => $deny_all, 
+          }
+          else{
+            //admins can see everything
+            return array(
+                "PRIVACY_STATUS" => 0,
+                "PRIVACY_GENDER" => 0,
+                "PRIVACY_FACULTY" => 0,
+                "PRIVACY_MAIN_FOCUS" => 0,
+                "PRIVACY_WANTS" => 0,
+                "PRIVACY_HAVES" => 0,
+                "PRIVACY_ORGANIZATIONS" => 0,
+                "PRIVACY_HOMETOWN" => 0,
+                "PRIVACY_OTHER_INTERESTS" => 0,
+                "PRIVACY_LANGUAGES" => 0,
+                "PRIVACY_CONTACTS" => 0,
+                "PRIVACY_GROUPS" => 0,
+                "PRIVACY_EMAIL" => 0,
+                "PRIVACY_ADDRESS" => 0,
+                "PRIVACY_TELEPHONE" => 0,
+                "PRIVACY_PHONE_MOBILE" => 0,
+                "PRIVACY_WEBSITE" => 0,
+                "PRIVACY_ICQ_NUMBER" => 0,
+                "PRIVACY_MSN_IDENTIFICATION" => 0,
+                "PRIVACY_AIM_ALIAS" => 0,
+                "PRIVACY_YAHOO_ID" => 0,
+                "PRIVACY_SKYPE_NAME" => 0 );
+          }
+        }
+        else {
+            $deny_all = PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS;
+            return array(
+                "PRIVACY_STATUS" => $deny_all,
+                "PRIVACY_GENDER" => $deny_all,
+                "PRIVACY_FACULTY" => $deny_all,
+                "PRIVACY_MAIN_FOCUS" => $deny_all,
+                "PRIVACY_WANTS" => $deny_all,
+                "PRIVACY_HAVES" => $deny_all,
+                "PRIVACY_ORGANIZATIONS" => $deny_all,
+                "PRIVACY_HOMETOWN" => $deny_all,
+                "PRIVACY_OTHER_INTERESTS" => $deny_all,
+                "PRIVACY_LANGUAGES" => $deny_all,
+                "PRIVACY_CONTACTS" => $deny_all,
+                "PRIVACY_GROUPS" => $deny_all,
+                "PRIVACY_EMAIL" => $deny_all,
+                "PRIVACY_ADDRESS" => $deny_all,
+                "PRIVACY_TELEPHONE" => $deny_all,
+                "PRIVACY_PHONE_MOBILE" => $deny_all,
+                "PRIVACY_WEBSITE" => $deny_all,
+                "PRIVACY_ICQ_NUMBER" => $deny_all,
+                "PRIVACY_MSN_IDENTIFICATION" => $deny_all,
+                "PRIVACY_AIM_ALIAS" => $deny_all,
+                "PRIVACY_YAHOO_ID" => $deny_all,
                 "PRIVACY_SKYPE_NAME" => $deny_all );
         }
     }
@@ -1057,7 +1085,7 @@ class lms_steam
         $steam_user = steam_factory::username_to_object( $GLOBALS[ "STEAM" ]->get_id(), $username );
         $unconfirmed_contacts = $steam_user->get_unconfirmed_contacts();
         $result = array();
-        $attributes = array( 
+        $attributes = array(
             "USER_FIRSTNAME",
             "USER_FULLNAME",
             "USER_PROFILE_FACULTY",
@@ -1150,7 +1178,7 @@ class lms_steam
             throw new Exception( "Object is not a group ($group_id).", E_PAREMETER );
         }
         $members = $group->get_members();
-        $attributes= array( 
+        $attributes= array(
             "USER_FIRSTNAME",
             "USER_FULLNAME",
             "OBJ_ICON",
@@ -1317,7 +1345,7 @@ class lms_steam
       $more_tnr[$i] = array();
             if (strstr($data_result[$data_tnr[$i]["ATTRIBUTES"]][DOC_MIME_TYPE], "text")) $more_tnr[$i][ "CONTENT" ] = $annotation->get_content(TRUE);
             $result[ "OBJ_ID" ] = $annotation->get_id();
-            $more_tnr[$i]["CREATOR_DATA"] = $data_result[$data_tnr[$i]["CREATOR"]]->get_attributes( array( 
+            $more_tnr[$i]["CREATOR_DATA"] = $data_result[$data_tnr[$i]["CREATOR"]]->get_attributes( array(
                 "OBJ_NAME",
                 "USER_FIRSTNAME",
                 "USER_FULLNAME",
