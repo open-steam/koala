@@ -29,12 +29,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 
-        
+
         $this->steam = $GLOBALS["STEAM"];
         $this->object = \steam_factory::get_object($this->steam->get_id(), $this->id);
         //$objId = $this->id;
         $ajaxResponseObject->setStatus("ok");
-                
+
         //check if the user can modify the sanctions
         if (!$this->object->check_access(SANCTION_SANCTION)) {
             $labelDenied = new \Widgets\RawHtml();
@@ -47,9 +47,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             return $ajaxResponseObject;
         }
 
-        
         $this->steamUser = \lms_steam::get_current_user();
-
 
         $dialog = new \Widgets\Dialog();
         $dialog->setAutoSaveDialog(false);
@@ -66,11 +64,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         //GET OWNER OF THE CURRENT OBJECT
 
         $this->creator = $this->object->get_creator();
-        
-        
+
+
 
         //GET FAVORITES
-        
+
         $favorites = array();
         $favoritesAcq = array();
 
@@ -85,19 +83,19 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         foreach ($this->steamUser->get_groups() as $group) {
             $groups[$group->get_id()] = $group;
             $groupsAcq[$group->get_id()] = $group;
-        } 
+        }
        //GET GROUPS EVERYONE
         $everyone = \steam_factory::groupname_to_object($this->steam->get_id(), "everyone");
         $everyoneId = $everyone->get_id();
         //GET GROUP STEAM
         $steamgroup = \steam_factory::groupname_to_object($this->steam->get_id(), "sTeam");
         $steamgroupId = $steamgroup->get_id();
-        
+
         //GET SANCTION
         $sanction = $this->object->get_sanction();
 
         $this->environment = $this->object->get_environment();
-        
+
 
         if ($this->environment instanceof \steam_room) {
             $environmentSanction = $this->environment->get_sanction();
@@ -288,7 +286,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
         $css = \Explorer::getInstance()->readCSS("sanctions.css");
         $content->setVariable("CSS", $css);
-        
+
         //ACQUIRE
         if ($this->environment instanceof \steam_room) {
             $content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($this->environment) . "</b>");
@@ -301,13 +299,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         if ($this->object->get_acquire() instanceof \steam_room) {
             $content->setVariable("ACQUIRE_START", "activateAcq();");
         }
-        
-        //PICTURES        
+
+        //PICTURES
         $content->setVariable("PRIVATE_PIC", PATH_URL . "explorer/asset/icons/private.png");
         $content->setVariable("USER_DEF_PIC", PATH_URL . "explorer/asset/icons/user_defined.png");
         $content->setVariable("USER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/server_public.png");
         $content->setVariable("SERVER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/world_public.png");
-        
+
         if($this->creator instanceof \steam_user){
             $content->setVariable("CREATOR_FULL_NAME", $this->creator->get_full_name());
         } else {
@@ -392,7 +390,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
             $groupsRights = array();
-            
+
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
                 $realname = $group->get_name();
@@ -677,15 +675,19 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         }
 
         $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
-        $dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+
+        $isAdmin = \lms_steam::is_steam_admin($this->steamUser);
+        if($isAdmin){
+          $dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+        }
 
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $dialog->addWidget($rawHtml);
 
         $ajaxResponseObject->addWidget($dialog);
-        
-        
+
+
         if($this->object->get_attribute("OBJ_TYPE") === "postbox"){
             $deactiveAcq = new \Widgets\JSWrapper();
             $deactiveAcq->setPostJsCode('$("#radio_acquire").attr("disabled",true);');
