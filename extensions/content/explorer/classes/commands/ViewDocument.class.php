@@ -125,6 +125,9 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
 
                     $htmlDocument = new \HtmlDocument($object);
                     $html = $htmlDocument->getHtmlContent(); //this return cleand html, do not clean again
+                    if($html == ""){
+                      $html = "Es ist noch kein Text vorhanden. <a href=" . PATH_URL . "Explorer/EditDocument/" . $this->id . "/" . ">Jetzt einen Text erstellen</a>";
+                    }
                 }
 
                 //document type: simple text
