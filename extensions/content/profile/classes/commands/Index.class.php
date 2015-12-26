@@ -752,7 +752,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
 
             // icq number
-            if (ENABLED_ICQ_NUMBER || ENABLED_BID_IM) {
+            if (ENABLED_ICQ_NUMBER) {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("ICQ number"));
                 $textWidget->setData($user);
@@ -770,7 +770,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
 
             // msn identification
-            if (ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM) {
+            if (ENABLED_MSN_IDENTIFICATION) {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("MSN identification"));
                 $textWidget->setData($user);
@@ -788,7 +788,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
 
             // aim alias
-            if (ENABLED_AIM_ALIAS || ENABLED_BID_IM) {
+            if (ENABLED_AIM_ALIAS) {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("AIM-alias"));
                 $textWidget->setData($user);
@@ -806,7 +806,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
 
             // yahoo id
-            if (ENABLED_YAHOO_ID || ENABLED_BID_IM) {
+            if (ENABLED_YAHOO_ID) {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Yahoo-ID"));
                 $textWidget->setData($user);
@@ -840,17 +840,18 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $radioButton->setContentProvider(\Widgets\DataProvider::attributeProvider("PRIVACY_SKYPE_NAME"));
                 $frameResponseObject->addWidget($radioButton);
             }
-
+            /*
             if (ENABLED_CONTACTS_GROUPS_TITLE) {
                 $contacts_title = new \Widgets\RawHtml();
                 $contacts_title->setHtml("<br><b style='font-size:15px;'>" . gettext("Contacts and Groups") . "</b><br><br>");
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($contacts_title);
             }
-
+            */
             if (ENABLED_CONTACTS) {
                 $raw = new \Widgets\RawHtml();
                 $raw->setHtml('<div class="widgets_label">' . $contact_label . ':</div><div style="width:134px; height:19px; float: left;"></div>');
+                $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($raw);
 
                 $radioButton = new \Widgets\RadioButton();
@@ -868,10 +869,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $groups = $current_user->get_groups();
                 foreach ($groups as $group){
                   $name = $group->get_groupname();
-                  $groupString =  $groupString . $name . '</br>';
+                  $groupString =  $groupString . $name;
+                  $groupDescription = $group->get_attribute("OBJ_DESC");
+                  if($groupDescription != ""){
+                    $groupString = $groupString . " (" . $groupDescription . ")";
+                  }
+                  $groupString = $groupString . '</br>';
                 }
 
-                $raw->setHtml('<div class="widgets_label">Meine Gruppen:</div><div style="width:134px; padding-top:11px; float: left; overflow-y:hidden;">' . $groupString . '</div>');
+                $raw->setHtml('<div class="widgets_label">Meine Gruppen:</div><div style="width:134px; padding-top:11px; float: left; overflow-y:hidden; white-space: nowrap;">' . $groupString . '</div>');
+                $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($raw);
 
                 $radioButton = new \Widgets\RadioButton();
@@ -1000,21 +1007,27 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $faculty = \lms_steam::get_faculty_name($user_profile["USER_PROFILE_FACULTY"]);
                 $this->display("GENERAL", "Origin", $faculty);
             }
+
             if (ENABLED_WANTS) {
                 $this->display("GENERAL", "Wants", h($user_profile["USER_PROFILE_WANTS"]));
             }
+
             if (ENABLED_HAVES) {
                 $this->display("GENERAL", "Haves", h($user_profile["USER_PROFILE_HAVES"]));
             }
+
             if (ENABLED_ORGANIZATIONS) {
                 $this->display("GENERAL", "Organizations", h($user_profile["USER_PROFILE_ORGANIZATIONS"]));
             }
+
             if (ENABLED_HOMETOWN) {
                 $this->display("GENERAL", "Hometown", h($user_profile["USER_PROFILE_HOMETOWN"]));
             }
+
             if (ENABLED_MAIN_FOCUS) {
                 $this->display("GENERAL", "Main focus", h($user_profile["USER_PROFILE_FOCUS"]));
             }
+
             if (ENABLED_OTHER_INTERESTS) {
                 $this->display("GENERAL", "Other interests", h($user_profile["USER_PROFILE_OTHER_INTERESTS"]));
             }
@@ -1023,6 +1036,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             if (ENABLED_BID_LANGUAGE) {
                 $this->display("GENERAL", "Language", $user_profile["USER_LANGUAGE"]);
             }
+
             if (ENABLED_LANGUAGES) {
                 $languages = array(
                     "english" => array("name" => gettext("English"), "icon" => "flag_gb.gif", "lang_key" => "en_US"),
@@ -1044,6 +1058,97 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 }
 
                 $this->display("GENERAL", "Language", $language_string);
+            }
+
+            ///////////////  CONTACT INFORMATION  ///////////////
+            //$is_buddy = ( $user->is_buddy($current_user) || $user->get_id() == $current_user->get_id() ) ? TRUE : FALSE;
+            if (ENABLED_EMAIL) {
+                $mail = h($user_profile["USER_EMAIL"]);
+                $mail1 = '<a href="mailto:"' . $mail . '">' . $mail . '</a>';
+                $this->display("CONTACT_DATA", "E-Mail", $mail1);
+            }
+
+            if (ENABLED_ADDRESS) {
+                $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
+                $this->display("CONTACT_DATA", "Address", $adress);
+            }
+
+            if (ENABLED_BID_ADRESS) {
+                $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
+                if (isset($adress) && !is_integer($adress) && trim($adress) != "") {
+                    $this->display("GENERAL", "Address", h($user_profile["USER_ADRESS"]));
+                }
+            }
+
+            if (ENABLED_TELEPHONE) {
+                $this->display("CONTACT_DATA", "Telephone", h($user_profile["USER_PROFILE_TELEPHONE"]));
+            }
+
+            if (ENABLED_BID_PHONE) {
+                $phone = h($user_profile["bid:user_callto"]);
+                if (isset($phone) && $phone != 0 && $phone != "") {
+                    $phone1 = '<a href="callto:' . $phone . '">' . $phone . '</a>';
+                    $this->display("GENERAL", "Telefon", $phone1);
+                }
+            }
+
+            if (ENABLED_PHONE_MOBILE) {
+                $this->display("CONTACT_DATA", "Phone, mobile", h($user_profile["USER_PROFILE_PHONE_MOBILE"]));
+            }
+
+            // Website
+            $website_name = $user_profile["USER_PROFILE_WEBSITE_NAME"];
+            $website_uri = $user_profile["USER_PROFILE_WEBSITE_URI"];
+            if (empty($website_name))
+                $website_name = $website_uri;
+            $website_link = ( empty($website_name) ) ? '' : '<a target="_blank" href="' . h($website_uri) . '">' . h($website_name) . '</a>';
+            if (ENABLED_WEBSITE) {
+                $this->display("CONTACT_DATA", gettext("Website"), $website_link);
+            }
+
+            if (ENABLED_ICQ_NUMBER) {
+                $icq = h($user_profile["USER_PROFILE_IM_ICQ"]);
+                if (isset($icq) && $icq != 0 && $icq != "") {
+                    $this->display("CONTACT_DATA", "ICQ number", $icq);
+                }
+            }
+
+            if (ENABLED_MSN_IDENTIFICATION) {
+                $msn = h($user_profile["USER_PROFILE_IM_MSN"]);
+                if (isset($msn) && $msn !== 0 && $msn != "") {
+                    $msn1 = '<a href="http://members.msn.com/' . $msn . '">' . $msn . '</a>';
+                    $this->display("CONTACT_DATA", "MSN identification", $msn1);
+                }
+            }
+
+            // AIM
+            if (ENABLED_AIM_ALIAS) {
+                if (!empty($user_profile["USER_PROFILE_IM_AIM"])) {
+                    $aim_alias = h($user_profile["USER_PROFILE_IM_AIM"]);
+                    if (isset($aim_alias) && $aim_alias !== 0 && $aim_alias != "") {
+                        $aim = "<a href=\"aim:" . $aim_alias . "\">" . $aim_alias . "</a>";
+                        $this->display("CONTACT_DATA", "AIM-alias", $aim);
+                    }
+                }
+            }
+
+            if (ENABLED_YAHOO_ID) {
+                $yahoo = (h($user_profile["USER_PROFILE_IM_YAHOO"]) !== 0) ? h($user_profile["USER_PROFILE_IM_YAHOO"]) : "";
+                if (isset($yahoo) && $yahoo !== 0 && $yahoo != "") {
+                    $yahooUrl = "<a href=\"ymsgr:sendIM?" . $yahoo . "\">" . $yahoo . "</a>";
+                    $this->display("CONTACT_DATA", "Yahoo-ID", $yahooUrl);
+                }
+            }
+
+            // Skype
+            if (ENABLED_SKYPE_NAME || ENABLED_BID_IM) {
+                if (!empty($user_profile["USER_PROFILE_IM_SKYPE"])) {
+                    $skype_alias = h($user_profile["USER_PROFILE_IM_SKYPE"]);
+                    if (isset($skype_alias) && $skype_alias !== 0 && $skype_alias != "") {
+                        $skype = "<a href=\"skype:" . $skype_alias . "\">" . $skype_alias . "</a>";
+                    }
+                    $this->display("CONTACT_DATA", "Skype name", $skype);
+                }
             }
 
             ///////////////  CONTACTS & GROUPS  ///////////////
@@ -1072,141 +1177,34 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             if (ENABLED_GROUPS) {
                 // GROUPS
-                /*
-                $public = ( $user->get_id() != $current_user->get_id() ) ? TRUE : FALSE;
-                $groups = $cache->call("lms_steam::user_get_groups", $login, $public);
-                $html_code_groups = "";
-                $max_groups = $counter = 25;
-
-                if (count($groups) > 0) {
-                    usort($groups, "sort_objects");
-
-                    foreach ($groups as $id => $group) {
-                        if ($counter > 0) {
-                            $html_code_groups .= "<a href=\"" . PATH_URL . "groups/" . $group["OBJ_ID"] . "/\">" . h($group["OBJ_NAME"]) . "</a>";
-                            $html_code_groups .= ($id == count($groups) - 1 || $counter == 1) ? "" : ", ";
-                            $counter--;
-                        } else {
-                            $html_code_groups .= " <a href=\"" . PATH_URL . "profile/$login/groups/\">(" . gettext("more") . "...)</a>";
-                            break;
-                        }
-                    }
-                } else {
-                    $html_code_groups = gettext("No memberships yet.");
-                }
-                */
-
-
                 $groupString = "";
                 $groups = $user->get_groups();
                 foreach ($groups as $group){
                   $name = $group->get_groupname();
-                  $groupString =  $groupString . $name . '</br>';
+                  $groupString =  $groupString . $name;
+                  $groupDescription = $group->get_attribute("OBJ_DESC");
+                  if($groupDescription != ""){
+                    $groupString = $groupString . " (" . $groupDescription . ")";
+                  }
+                  $groupString = $groupString . '</br>';
                 }
 
-                $html_code_groups = '<div style="width:134px; padding-top:11px; float: left;">' . $groupString . '</div>';
+                $html_code_groups = '<div style="float: left;">' . $groupString . '</div>';
 
                 $this->display("CONTACTS_AND_GROUPS", "Groups", $html_code_groups);
-            }
-
-            ///////////////  CONTACT INFORMATION  ///////////////
-            //$is_buddy = ( $user->is_buddy($current_user) || $user->get_id() == $current_user->get_id() ) ? TRUE : FALSE;
-            if (ENABLED_EMAIL) {
-                $mail = h($user_profile["USER_EMAIL"]);
-                $mail1 = '<a href="mailto:"' . $mail . '">' . $mail . '</a>';
-                $this->display("CONTACT_DATA", "E-Mail", $mail1);
-            }
-            if (ENABLED_ADDRESS) {
-                $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
-
-                $this->display("CONTACT_DATA", "Address", $adress);
-            }
-            if (ENABLED_BID_ADRESS) {
-                $adress = h($user_profile["USER_PROFILE_ADDRESS"]);
-                if (isset($adress) && !is_integer($adress) && trim($adress) != "") {
-                    $this->display("GENERAL", "Address", h($user_profile["USER_ADRESS"]));
-                }
-            }
-            if (ENABLED_TELEPHONE) {
-                $this->display("CONTACT_DATA", "Telephone", h($user_profile["USER_PROFILE_TELEPHONE"]));
-            }
-            if (ENABLED_BID_PHONE) {
-                $phone = h($user_profile["bid:user_callto"]);
-                if (isset($phone) && $phone != 0 && $phone != "") {
-                    $phone1 = '<a href="callto:' . $phone . '">' . $phone . '</a>';
-                    $this->display("GENERAL", "Telefon", $phone1);
-                }
-            }
-            if (ENABLED_PHONE_MOBILE) {
-                $this->display("CONTACT_DATA", "Phone, mobile", h($user_profile["USER_PROFILE_PHONE_MOBILE"]));
-            }
-
-            // Website
-            $website_name = $user_profile["USER_PROFILE_WEBSITE_NAME"];
-            $website_uri = $user_profile["USER_PROFILE_WEBSITE_URI"];
-            if (empty($website_name))
-                $website_name = $website_uri;
-            $website_link = ( empty($website_name) ) ? '' : '<a target="_blank" href="' . h($website_uri) . '">' . h($website_name) . '</a>';
-            if (ENABLED_WEBSITE) {
-                $this->display("CONTACT_DATA", gettext("Website"), $website_link);
-            }
-
-            if (ENABLED_ICQ_NUMBER || ENABLED_BID_IM) {
-                $icq = h($user_profile["USER_PROFILE_IM_ICQ"]);
-                if (isset($icq) && $icq != 0 && $icq != "") {
-                    $this->display("CONTACT_DATA", "ICQ number", $icq);
-                }
-            }
-            if (ENABLED_MSN_IDENTIFICATION || ENABLED_BID_IM) {
-                $msn = h($user_profile["USER_PROFILE_IM_MSN"]);
-                if (isset($msn) && $msn !== 0 && $msn != "") {
-                    $msn1 = '<a href="http://members.msn.com/' . $msn . '">' . $msn . '</a>';
-                    $this->display("CONTACT_DATA", "MSN identification", $msn1);
-                }
-            }
-
-            // AIM
-            if (ENABLED_AIM_ALIAS || ENABLED_BID_IM) {
-                if (!empty($user_profile["USER_PROFILE_IM_AIM"])) {
-                    $aim_alias = h($user_profile["USER_PROFILE_IM_AIM"]);
-                    if (isset($aim_alias) && $aim_alias !== 0 && $aim_alias != "") {
-                        $aim = "<a href=\"aim:" . $aim_alias . "\">" . $aim_alias . "</a>";
-                        $this->display("CONTACT_DATA", "AIM-alias", $aim);
-                    }
-
-                    //$aim = "<span id=\"USER_PROFILE_IM_AIM\"><a href=\"{VALUE_AIM_LINK}\">{VALUE_AIM_ALIAS}</a></span>";
-                }
-            }
-
-            if (ENABLED_YAHOO_ID || ENABLED_BID_IM) {
-                $yahoo = (h($user_profile["USER_PROFILE_IM_YAHOO"]) !== 0) ? h($user_profile["USER_PROFILE_IM_YAHOO"]) : "";
-                if (isset($yahoo) && $yahoo !== 0 && $yahoo != "") {
-                    $yahooUrl = "<a href=\"ymsgr:sendIM?" . $yahoo . "\">" . $yahoo . "</a>";
-                    $this->display("CONTACT_DATA", "Yahoo-ID", $yahooUrl);
-                }
-            }
-
-            // Skype
-            if (ENABLED_SKYPE_NAME || ENABLED_BID_IM) {
-                if (!empty($user_profile["USER_PROFILE_IM_SKYPE"])) {
-                    $skype_alias = h($user_profile["USER_PROFILE_IM_SKYPE"]);
-                    if (isset($skype_alias) && $skype_alias !== 0 && $skype_alias != "") {
-                        $skype = "<a href=\"skype:" . $skype_alias . "\">" . $skype_alias . "</a>";
-                    }
-                    $this->display("CONTACT_DATA", "Skype name", $skype);
-                }
             }
 
             if ($this->GENERAL_displayed) {
                 $GLOBALS["content"]->setVariable("HEADER_GENERAL_INFORMATION", gettext("General Information"));
             }
+            /*
             if ($this->CONTACT_DATA_displayed) {
                 $GLOBALS["content"]->setVariable("HEADER_CONTACT_DATA", gettext("Contact Data"));
             }
             if ($this->CONTACTS_AND_GROUPS_displayed) {
                 $GLOBALS["content"]->setVariable("HEADER_CONTACTS_AND_GROUPS", gettext("Contacts and Groups"));
             }
-
+            */
             $GLOBALS["content"]->setVariable("DISPLAY_RIGHT_SIDE", "");
 
             // this needed?
