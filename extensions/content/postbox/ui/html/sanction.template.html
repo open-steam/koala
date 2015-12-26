@@ -1,17 +1,17 @@
 <div id="owner_div">
-   <p>Der Besitzer des aktuellen Objektes ist<b>{CREATOR_FULL_NAME}</b> und hat volle Zugriffsrechte.<br />
-   Es kann eine weitere Person oder Gruppe berechtigt werden, ebenfalls den Briefkasten zu verwalten.<br />
-   Es kann eine spezielle Gruppe berechtigt werden, Abgaben einzureichen.</p>
+  {DESCRIPTION}
 </div>
 <div id="specific_div" class="visible">
     <table width="100%">
+      <!--
         <tr class="infoBar" style="height:23px;">
             <td width="60%"><b>Einstellungen</b></td>
             <td width="40%"><b>Rechte</b></td>
         </tr>
+      -->
         <tr valign="middle">
-            <td width="60%">Abgaben verwalten</td>
-            <td width="40%" align="right" >
+            <td width="60%" {MANAGE}>Abgaben verwalten:</td>
+            <td width="40%" align="right" {MANAGE}>
                 <select name="admin_postbox" id="admin_postbox" size="1" data-saveFunction="{SEND_REQUEST_ADMIN_POSTBOX}">
                     <option value="0">{NO_USERS}</option>
                     <!-- BEGIN ADMIN_POSTBOX -->
@@ -21,7 +21,7 @@
             </td>
         </tr>
         <tr valign="middle">
-            <td width="60%">Abgaben einreichen</td>
+            <td width="60%">Abgaben einreichen:</td>
             <td width="40%" align="right" >
                 <select name="insert_postbox" id="insert_postbox" size="1" data-saveFunction="{SEND_REQUEST_INSERT_POSTBOX}">
                         <option value="0">niemand</option>

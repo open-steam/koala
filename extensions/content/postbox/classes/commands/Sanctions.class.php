@@ -131,9 +131,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         //asort($this->userMapping, SORT_NATURAL | SORT_FLAG_CASE);
         asort($this->userMapping);
 
-        //Creator
-        $this->content->setVariable("CREATOR_FULL_NAME", $this->creatorFullName);
-
         //build the template for the second teacher
         if (count($this->userMapping) > 0 || count($this->groupMapping) > 0) {
             $this->content->setVariable("NO_USERS", "nur ich");
@@ -151,6 +148,16 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $this->content->setVariable("SEND_REQUEST_ADMIN_POSTBOX",  "sendRequest('Sanctions', { 'id': " . $this->postboxObjectId . ",'type': 'admin_postbox',  'value': admin_postbox} , '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'postbox');");
         $this->content->setVariable("SEND_REQUEST_INSERT_POSTBOX", "sendRequest('Sanctions', { 'id': " . $this->postboxObjectId . ",'type': 'insert_postbox', 'value': insert_postbox}, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'postbox');");
+
+        if(ltrim($this->currentUser, '#') == $this->creatorId){
+          //current user is creator
+          $this->content->setVariable("DESCRIPTION", "<p>Sie sind der Besitzer dieses Briefkastens und besitzen volle Zugriffsrechte. An dieser Stelle können Sie festlegen, welche Gruppen Abgaben einreichen dürfen. Zudem können Sie einer weiteren Person oder einer Gruppe das Recht einräumen, diesen Briefkasten ebenfalls verwalten zu können (diese erhält die vollen Zugriffsrechte abgesehen von dem Recht, die Verwaltung zu ändern).</p>");
+          $this->content->setVariable("MANAGE", "");
+        }
+        else{
+          $this->content->setVariable("DESCRIPTION", "<p>Der Besitzer dieses Briefkastens ist " . $this->creatorFullName . ". Er hat Ihnen das Recht eingeräumt, den Briefkasten ebenfalls verwalten zu können. An dieser Stelle können Sie daher festlegen, welche Gruppen Abgaben einreichen dürfen.</p>");
+          $this->content->setVariable("MANAGE", 'style="display:none;"');
+        }
 
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($this->content->get());
@@ -371,7 +378,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 if($sanctionCheckInnerContainer && $sanctionCheckOuterContainer){
                     $this->content->setVariable("SELECTED", "selected");
                 }
-                $this->content->setVariable("OBJECT_NAME", (($id == $this->steamgroup->get_id())? "Alle angemeldeten Benutzer": $group->get_attribute("OBJ_DESC")." (".$group->get_groupname().")"));
+                $gDESC = "";
+                $groupDESC = $group->get_attribute("OBJ_DESC");
+                if($groupDESC != ""){
+                  $gDESC = " (" . $groupDESC . ")";
+                }
+                $this->content->setVariable("OBJECT_NAME", (($id == $this->steamgroup->get_id())? "Alle angemeldeten Benutzer": $group->get_groupname() . $gDESC));
                 $this->content->setVariable("OBJECT_ID", $id);
                 $this->content->parse($templateBlock);
             }
@@ -388,7 +400,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         foreach ($this->userMapping as $id => $name) {
             $user = $this->users[$id];
 
-            if ($user instanceof \steam_user) {
+            $isAdmin = \lms_steam::is_steam_admin($user);
+
+            if ($user instanceof \steam_user && !$isAdmin) {
                 $this->content->setCurrentBlock($templateBlock);
 
                 //check if the user has the given rights, then mark this user as active
