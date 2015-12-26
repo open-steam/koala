@@ -321,7 +321,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort.png";
+        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_horizontal.png";
         $script .= '
             $("#sort-icon").attr("name", "true");
             $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");
@@ -337,7 +337,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                     newIds = "";
             });
-            $("#content").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>");
+            $("#content").prepend("<div style=\"margin-left:380px;position:absolute;height:35px;width:180px;background-image:url(' . $assetUrl . ');\"></div>");
 
 
 

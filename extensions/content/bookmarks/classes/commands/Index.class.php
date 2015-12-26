@@ -15,7 +15,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
 
-           
+
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -80,23 +80,23 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort.png";
+        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_horizontal.png";
         $script .= '
             $("#sort-icon").attr("name", "true");
             $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");});
-            var newIds = "";                
+            var newIds = "";
             $( ".listviewer-items" ).sortable({zIndex: 1});
             $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
                 var changedElement = $(ui.item).attr("id");
                 $(".listviewer-items").children();
                 $(".listviewer-items").children().each(function(index, value){
-                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id; 
+                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
                     else newIds+=value.id + ", ";});
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
-                    newIds = ""; 
+                    newIds = "";
             });
-            $("#content").prepend("<div style=\"margin-top:30px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>"); 
-                                    
+            $("#content").prepend("<div style=\"margin-left:380px;position:absolute;height:35px;width:180px;background-image:url(' . $assetUrl . ');\"></div>");
+
     }';
         $environmentData->setJs($script);
 
