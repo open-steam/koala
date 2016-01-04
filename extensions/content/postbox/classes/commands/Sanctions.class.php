@@ -66,7 +66,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 
         $this->dialog = new \Widgets\Dialog();
-        $this->dialog->setTitle("Rechte von »" . $this->postboxObjectName . "«");
+        $this->dialog->setTitle("Rechte");
 
         $this->loadGroupsAndUsers();
         $this->loadAdditionalRights();
