@@ -676,7 +676,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
 
-        $isAdmin = \lms_steam::is_steam_admin($this->steamUser);
+        $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
+        $isAdmin = $admins->is_member($this->steamUser);
         if($isAdmin){
           $dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
         }
