@@ -131,7 +131,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         //asort($this->userMapping, SORT_NATURAL | SORT_FLAG_CASE);
         asort($this->userMapping);
 
-        //build the template for the second teacher
+        //build the dropdown list for the second admin
         if (count($this->userMapping) > 0 || count($this->groupMapping) > 0) {
             $this->content->setVariable("NO_USERS", "nur ich");
             $this->addUsersToList("ADMIN_POSTBOX", SANCTION_ALL);
@@ -141,7 +141,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("NO_USERS", "Sie haben keine Favoriten.");
         }
 
-        //build the dropdown list for the pupils
+        //build the dropdown list for the insert groups
         if (count($this->groupMapping) > 0) {
             $this->addGroupsToList("INSERT_POSTBOX", false);
         }
@@ -215,7 +215,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             foreach ($innerContainerSanction as $id => $sanction) {
                 //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction != $adminRights) {
-                    $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
+                  $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
         }

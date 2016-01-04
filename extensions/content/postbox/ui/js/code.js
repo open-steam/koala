@@ -4,15 +4,15 @@ jQuery(document).ready(function(){
 			var element = jQuery(".listviewer-item-hover");
 			if (element.length > 0) {
 				item = jQuery("#" + element.attr('id') + "_1");
-				
+
 				if (!item.hasClass("directEditor")) {
 					removeAllDirectEditors();
-					
+
 					item.addClass("directEditor").html("");
-				
+
 					var obj = new Object;
 					obj.id = element.attr('id');
-					
+
 					sendRequest("GetDirectEditor", obj, item.attr('id'), "updater", null, null, "explorer");
 				} else {
 					removeAllDirectEditors();
@@ -20,7 +20,19 @@ jQuery(document).ready(function(){
 			}
 		}
 	});
+
+	jQuery(document).bind('DOMNodeInserted', function (node) {
+		if(node.relatedNode.id == "dynamic_wrapper"){
+			controlAdminInsert(jQuery("#admin_postbox").val());
+			jQuery("#admin_postbox").change(function(){
+				controlAdminInsert(jQuery("#admin_postbox").val());
+			});
+		}
+	});
+
 });
+
+var oldVal;
 
 function removeAllDirectEditors() {
 	var elements = jQuery(".directEditor");
@@ -35,7 +47,7 @@ function removeAllDirectEditors() {
 
 function removeDirectEditor(objectId, elementId) {
 	jQuery("#" + elementId).removeClass("directEditor").html("");
-	
+
 	var obj = new Object;
 	obj.id = objectId;
 	sendRequest("GetLabel", obj, elementId, "updater",null,null,"explorer");
@@ -55,22 +67,22 @@ function getParamsArray(paramsObject) {
 	if (!paramsObject) {
 		paramsObject = {};
 	}
-	var ids = getSelectionAsArray(); 
+	var ids = getSelectionAsArray();
 	var paramsArray = new Array();
-	for (i = 0; i < ids.length; i++) { 
+	for (i = 0; i < ids.length; i++) {
 		var po = clone(paramsObject);
 		po.id = ids[i];
 		paramsArray.push(po);
 	}
-	console.log(paramsArray);
+	//console.log(paramsArray);
 	return paramsArray;
 }
 
 function getElementIdArray(elementId) {
-	var elementIdArray = new Array(); 
+	var elementIdArray = new Array();
 	var ids = getSelectionAsArray();
-	for (i = 0; i < ids.length; i++) { 
-		elementIdArray.push(elementId); 
+	for (i = 0; i < ids.length; i++) {
+		elementIdArray.push(elementId);
 	}
 	return elementIdArray;
 }
@@ -107,3 +119,19 @@ function clone(obj) {
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
+//the postbox admin group has all rights but should not insert something, so remove it from the insert dropdown menu
+function controlAdminInsert(val){
+
+	if(oldVal){
+		var element = jQuery("#insert_postbox").children("option[value=" + oldVal + "]");
+		element.text(element.attr("title"));
+		element.show();
+	}
+
+	if(val != 0){
+		jQuery("#insert_postbox").children("option[value=" + val + "]").empty();
+		jQuery("#insert_postbox").children("option[value=" + val + "]").hide();
+		oldVal = val;
+	}
+
+}

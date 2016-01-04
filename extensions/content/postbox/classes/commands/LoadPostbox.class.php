@@ -128,7 +128,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 					$url = PATH_URL."postbox/view/". $linkObj->get_id();
 				}
 			}else{
-				$url = PATH_URL."postbox/view/". $contentItem->get_id();
+				$url = PATH_URL."explorer/ViewDocument/". $contentItem->get_id();
 			}
 			if (isset($url) && $url != "") {
 				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
