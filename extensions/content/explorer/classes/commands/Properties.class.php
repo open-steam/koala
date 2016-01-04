@@ -233,10 +233,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $containerViewRadio->setReadOnly(true);
         }
 
-
         //TODO: value is array
         $keywordArea = new \Widgets\TextInput();
-        $keywordArea->setLabel("Schlüsselwörter");
+        $keywordArea->setLabel("Tags");
         $keywordArea->setData($object);
         $keywordArea->setContentProvider(\Widgets\DataProvider::arrayToStringProvider("OBJ_KEYWORDS"));
         if (!$isWriteable) {
