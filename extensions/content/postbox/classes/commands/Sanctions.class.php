@@ -195,13 +195,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             if($newUserOrGroupId != 0) {
                 $this->postboxObject->sanction($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
                 $this->innerContainer->sanction($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
-
+                $this->postboxObject->sanction_meta($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
+                $this->innerContainer->sanction_meta($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
             }
 
             foreach ($innerContainerSanction as $id => $sanction) {
                 //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction == $adminRights) {
                     $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
+                    $this->innerContainer->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
 
@@ -209,6 +211,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction == $adminRights) {
                     $this->postboxObject->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
+                    $this->postboxObject->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
 
