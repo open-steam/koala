@@ -48,37 +48,39 @@
      margin-top: 7px;
 }
 
-#slb {
-  position: relative;
+#PrivacyButton {
   top: 30%;
   left: 2%;
-  color: #FFFFFF;
   position: absolute;
-  background: #417BB2;
+}
+
+.bidButton {
+  color: #FFFFFF;
+  background: #3A6E9F;
   cursor: pointer;
   overflow: hidden;
   text-align: center;
   box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.3);
   text-shadow: none;
   transition: all .3s ease-out;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   padding: 10px;
   font-size: 12px;
 }
 
-#slb:hover {
+.bidButton:hover {
   background: #6094C5;
   transform: scale(1.03) !important;
 }
 
-#slb:active{
-  background: #33618C;
+.bidButton:active{
+  background: #264767;
   box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
 }
 
-.sl-content {
+#privacyShield {
    margin-left: 460px;
    width: 100%;
    background-color:#ffffff;
