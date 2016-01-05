@@ -325,10 +325,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         self::buildUserFavorites();
         self::buildUserFavoritesAcq();
 
-        $isAdmin = \lms_steam::is_steam_admin($this->steamUser);
-        if($isAdmin){
-            $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
-            $this->dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+        $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
+        $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
+        $isAdmin = false;
+        if($admins instanceof \steam_group){
+            $isAdmin = $admins->is_member($this->steamUser);
+        }
+        $isAdmin2 = \lms_steam::is_steam_admin($this->steamUser);
+        if($isAdmin || $isAdmin2){
+          $this->dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
         }
 
         $rawHtml = new \Widgets\RawHtml();
@@ -687,7 +692,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                             }
                         }
                     }
-
 
                     //display the hights rights
                     if ($dropDownValueAcq > $maxSanctFromGroupMembership) {

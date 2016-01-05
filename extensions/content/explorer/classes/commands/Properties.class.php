@@ -233,10 +233,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $containerViewRadio->setReadOnly(true);
         }
 
-
         //TODO: value is array
         $keywordArea = new \Widgets\TextInput();
-        $keywordArea->setLabel("Schlüsselwörter");
+        $keywordArea->setLabel("Tags");
         $keywordArea->setData($object);
         $keywordArea->setContentProvider(\Widgets\DataProvider::arrayToStringProvider("OBJ_KEYWORDS"));
         if (!$isWriteable) {
@@ -245,9 +244,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
 
-
             $parent = $object->get_environment();
-            if ($parent !== 0) {
+            if ($parent !== 0 && $isWriteable){
                 $inventory = $parent->get_inventory();
             } else {
                 $inventory = array();
@@ -302,7 +300,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $html .= "</div>";
             $tagrawHtml->setHtml($html);
-            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:137px;clear:both;width:200px;}');
+            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:147px;clear:both;width:200px;}');
         }
 
         //TODO: bid-attribute
@@ -406,7 +404,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
             //check if the attribute exists, if not: set it to false
-            if($object->get_attribute("SHOW_TAGS") == 0){
+            if($object->get_attribute("SHOW_TAGS") == 0 && $isWriteable){
                 $object->set_attribute("SHOW_TAGS", 'false');
             }
 
@@ -428,19 +426,21 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
             //case head document possible
             $inventory = array();
-            $inventory = $object->get_inventory();
-            if (isset($inventory[0]) && $inventory[0] instanceof \steam_object) {
-                $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
+            if($isWriteable){
+              $inventory = $object->get_inventory();
+              if (isset($inventory[0]) && $inventory[0] instanceof \steam_object) {
+                  $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
 
-                if (strpos($mime, "html") !== false) {
-                    $dialog->addWidget($headlineView);
-                    $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
-                    $dialog->addWidget($containerViewRadio);
-                } else if (getObjectType($inventory[0]) === "portal") {
-                    $dialog->addWidget($headlineView);
-                    $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
-                    $dialog->addWidget($containerViewRadio);
-                }
+                  if (strpos($mime, "html") !== false) {
+                      $dialog->addWidget($headlineView);
+                      $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
+                      $dialog->addWidget($containerViewRadio);
+                  } else if (getObjectType($inventory[0]) === "portal") {
+                      $dialog->addWidget($headlineView);
+                      $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
+                      $dialog->addWidget($containerViewRadio);
+                  }
+              }
             }
 
             $dialog->addWidget($seperator);

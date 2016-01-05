@@ -66,7 +66,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 
         $this->dialog = new \Widgets\Dialog();
-        $this->dialog->setTitle("Rechte von »" . $this->postboxObjectName . "«");
+        $this->dialog->setTitle("Rechte");
 
         $this->loadGroupsAndUsers();
         $this->loadAdditionalRights();
@@ -131,17 +131,16 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         //asort($this->userMapping, SORT_NATURAL | SORT_FLAG_CASE);
         asort($this->userMapping);
 
-        //build the template for the second teacher
+        //build the dropdown list for the second admin
         if (count($this->userMapping) > 0 || count($this->groupMapping) > 0) {
             $this->content->setVariable("NO_USERS", "nur ich");
             $this->addUsersToList("ADMIN_POSTBOX", SANCTION_ALL);
             $this->addGroupsToList("ADMIN_POSTBOX", true);
-
         } else {
             $this->content->setVariable("NO_USERS", "Sie haben keine Favoriten.");
         }
 
-        //build the dropdown list for the pupils
+        //build the dropdown list for the insert groups
         if (count($this->groupMapping) > 0) {
             $this->addGroupsToList("INSERT_POSTBOX", false);
         }
@@ -157,6 +156,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         else{
           $this->content->setVariable("DESCRIPTION", "<p>Der Besitzer dieses Briefkastens ist " . $this->creatorFullName . ". Er hat Ihnen das Recht eingeräumt, den Briefkasten ebenfalls verwalten zu können. An dieser Stelle können Sie daher festlegen, welche Gruppen Abgaben einreichen dürfen.</p>");
           $this->content->setVariable("MANAGE", 'style="display:none;"');
+        }
+
+        $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->params['id'] . "/";
+
+        $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
+        $isAdmin = $admins->is_member($this->currentUser);
+        if($isAdmin){
+          $this->dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
         }
 
         $rawHtml = new \Widgets\RawHtml();
@@ -187,13 +194,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             if($newUserOrGroupId != 0) {
                 $this->postboxObject->sanction($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
                 $this->innerContainer->sanction($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
-
+                $this->postboxObject->sanction_meta($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
+                $this->innerContainer->sanction_meta($adminRights, \steam_factory::get_object($this->steam->get_id(), $newUserOrGroupId));
             }
 
             foreach ($innerContainerSanction as $id => $sanction) {
                 //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction == $adminRights) {
                     $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
+                    $this->innerContainer->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
 
@@ -201,6 +210,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction == $adminRights) {
                     $this->postboxObject->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
+                    $this->postboxObject->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
 
@@ -215,7 +225,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             foreach ($innerContainerSanction as $id => $sanction) {
                 //if the current user isn't the new one and if the user doesn't have all rights, then unset him/her
                 if ($id != $newUserOrGroupId && $sanction != $adminRights) {
-                    $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
+                  $this->innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
         }
@@ -368,6 +378,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
                 //check if the user has the given rights, then mark this user as active
                 if($postboxAdmin){
+                    if($id == 68){
+                      continue;
+                    }
                     $sanctionCheckInnerContainer = $this->innerContainer->check_access(SANCTION_ALL, $group);
                     $sanctionCheckOuterContainer = $this->postboxObject->check_access(SANCTION_ALL, $group);
                 } else {
