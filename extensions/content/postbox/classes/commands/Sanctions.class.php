@@ -136,7 +136,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("NO_USERS", "nur ich");
             $this->addUsersToList("ADMIN_POSTBOX", SANCTION_ALL);
             $this->addGroupsToList("ADMIN_POSTBOX", true);
-
         } else {
             $this->content->setVariable("NO_USERS", "Sie haben keine Favoriten.");
         }
@@ -379,6 +378,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
                 //check if the user has the given rights, then mark this user as active
                 if($postboxAdmin){
+                    if($id == 68){
+                      continue;
+                    }
                     $sanctionCheckInnerContainer = $this->innerContainer->check_access(SANCTION_ALL, $group);
                     $sanctionCheckOuterContainer = $this->postboxObject->check_access(SANCTION_ALL, $group);
                 } else {
