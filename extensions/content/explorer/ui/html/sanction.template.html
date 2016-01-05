@@ -28,14 +28,6 @@
             <td><input id="radio_acquire_acq" type="checkbox" onClick="deactivateAcq()" {NO_ENVIRONMENT} />{INHERIT_FROM}</td>
         </tr>
     </table>
-    <br />
-    <div id="buttons-label">Hier können vordefinierte Rechte verwendet werden:
-    </div>
-    <div id="buttons">
-        <input type="button"  value="Privat" disabled />
-        <input type="button"  value="Benutzer-Öffentlich" disabled />
-        <input type="button"  value="Welt-Öffentlich" disabled />
-    </div>
 </div>
 
 
@@ -51,24 +43,18 @@
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Jeder</td>
             <td width="40%" align="right" >
-                <select name="ddlist" id="everyone_dd" size="1" onChange="specificChecked('group_{EVERYONEID}_dd', value);" class="ddlist">
-                    <option value="0">Kein Zugriff</option>
-                    <option value="1">Nur Lesen</option>
-                    <option value="2">Lesen und Schreiben</option>
-                    <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select>
+                <!-- BEGIN GROUP_EVERYONE -->
+                {DROPDOWNLIST}
+                <!-- END GROUP_EVERYONE -->
             </td>
         </tr>
 
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
             <td width="40%" align="right" >
-                    <select name="ddlist" id="steam_dd" size="1" onChange="specificChecked('group_{STEAMID}_dd', value);" class="ddlist">
-                    <option value="0">Kein Zugriff</option>
-                    <option value="1">Nur Lesen</option>
-                    <option value="2">Lesen und Schreiben</option>
-                    <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select>
+                <!-- BEGIN GROUP_STEAM -->
+                {DROPDOWNLIST}
+                <!-- END GROUP_STEAM -->
             </td>
         </tr>
         <tr class="infoBar" style="height:23px;">
@@ -87,7 +73,6 @@
                     {DROPDOWNLIST}
                 </td>
             </tr>
-
             <!-- END GROUPS -->
         </table>
     </div>
@@ -104,7 +89,7 @@
             <tr valign="middle">
                 <td width="60%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
                 <td width="40%" align="right">
-                    {DROPDOWNLIST_USER}
+                    {DROPDOWNLIST_FAVORITES}
                 </td>
             </tr>
             <!-- END FAVORITES -->
@@ -120,23 +105,17 @@
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Jeder</td>
             <td width="40%" align="right" >
-                <select name="ddlist" id="everyone_dd_acq" size="1" disabled="disabled">
-                    <option value="0">Kein Zugriff</option>
-                    <option value="1">Nur Lesen</option>
-                    <option value="2">Lesen und Schreiben</option>
-                    <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select>
+                <!-- BEGIN GROUP_EVERYONE_ACQ -->
+                {DROPDOWNLIST}
+                <!-- END GROUP_EVERYONE_ACQ -->
             </td>
         </tr>
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
             <td width="40%" align="right" >
-                <select name="ddlist" id="steam_dd_acq" size="1" disabled="disabled">
-                    <option value="0">Kein Zugriff</option>
-                    <option value="1">Nur Lesen</option>
-                    <option value="2">Lesen und Schreiben</option>
-                    <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select>
+                <!-- BEGIN GROUP_STEAM_ACQ -->
+                {DROPDOWNLIST}
+                <!-- END GROUP_STEAM_ACQ -->
             </td>
         </tr>
         <tr class="infoBar" style="height:23px;">
@@ -192,6 +171,18 @@
 
 
     }*/
+    
+    $('select').change(
+        function(e) {
+            var id = e.currentTarget.id;
+            //add the changed class to this object
+            if($(id).attr('data-oldValue') != $(id).val()){ $(id).addClass('changed');}
+            //update the value in the variable
+            x = $("#"+id).val();
+        }
+    );
+    
+    
     function activateAcq(){
         document.getElementById("crude_div").className ="invisible";
         document.getElementById("crude_acq_div").className ="visible";
@@ -233,23 +224,20 @@
     function specificChecked(id, value){
         objId=id.split("_");
         id=objId[1];
-        {SEND_REQUEST_SANCTION}
+        //{SEND_REQUEST_SANCTION}
     }
     $('#everyone_dd').val('{EVERYONE_VALUE}');
 
     $('#steam_dd').val('{STEAM_VALUE}');
+    
     // <!-- BEGIN GROUP_DDSETTINGS -->
     $('#group_{GROUP_ID}_dd').val('{OPTIONVALUE}');
-
     // <!-- END GROUP_DDSETTINGS -->
 
     // <!-- BEGIN FAV_DDSETTINGS -->
     $('#fav_{FAV_ID}_dd').val('{FAV_OPTION_VALUE}');
     //<!-- END FAV_DDSETTINGS  -->
 
-    // <!-- BEGIN AU_DDSETTINGS -->
-    $('#au_{AU_ID}_dd').val('{AU_OPTION_VALUE}');
-    //<!-- END AU_DDSETTINGS  -->
     $('#everyone_dd_acq').val('{EVERYONE_VALUE_ACQ}');
     $('#steam_dd_acq').val('{STEAM_VALUE_ACQ}');
     // <!-- BEGIN GROUP_DDSETTINGS_ACQ -->
@@ -258,12 +246,8 @@
 
     // <!-- BEGIN FAV_DDSETTINGS_ACQ -->
     $('#fav_{FAV_ID_ACQ}_dd_acq').val('{FAV_OPTION_VALUE_ACQ}');
-
     //<!-- END FAV_DDSETTINGS_ACQ -->
 
-    // <!-- BEGIN AU_DDSETTINGS_ACQ -->
-    $('#au_{AU_ID_ACQ}_dd_acq').val('{AU_OPTION_VALUE_ACQ}');
-    // <!-- END AU_DDSETTINGS_ACQ -->
     {ACQUIRE_START}
 
 </script>
