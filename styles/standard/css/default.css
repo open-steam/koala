@@ -1403,3 +1403,13 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	  background: #264767;
 	  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
 	}
+
+	/*
+	** Styles for the standard svg loader
+	*/
+	#bidLoader{
+		width: 100px;
+  	height: 100px;
+  	margin: 20px;
+  	display:inline-block;
+	}
