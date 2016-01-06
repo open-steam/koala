@@ -5,16 +5,16 @@
         <table>
             <tr>
                 <td>
-                    <input type="text" class="input" name="values[login]" size="15" id="first_field" placeholder="{LABEL_LOGIN}" style="font-size:20px"/>
+                    <input type="text" class="input" name="values[login]" size="12" id="first_field" placeholder="{LABEL_LOGIN}" style="font-size:21px"/>
                 </td>
                 <td>
-                    <input type="password" class="input" name="values[password]" size="15" placeholder="{LABEL_PASSWORD}" style="font-size:20px"/>
+                    <input type="password" class="input" name="values[password]" size="12" placeholder="{LABEL_PASSWORD}" style="font-size:21px"/>
                 </td>
                 <td>
-                    <input type="submit" class="pill button" type="submit" value="{SIGN_IN_BUTTON_TEXT}" />
+                    <input type="submit" class="bidButton" type="submit" value="{SIGN_IN_BUTTON_TEXT}" />
                 </td>
             </tr>
-        </table>	
+        </table>
     </form>
 </div>
 
@@ -27,13 +27,13 @@
 <script>
     $("#noJs").hide();
     if($.browser.msie){
-        if( 9 > parseInt($.browser.version)){ 
+        if( 9 > parseInt($.browser.version)){
             $("#loginPanelWarning").show();
         }else{
             $("#loginDiv").show();
         }
     }else{
-        $("#loginDiv").show();        
+        $("#loginDiv").show();
     }
 </script>
 
@@ -50,24 +50,24 @@
             jQuery("#loginPanelWarning").css("display", "block");
         }
     }
-    
+
     //if(jQuery.browser.mozilla) loginVisible(false);
     //if(jQuery.browser.webkit) loginVisible(true);
     //if(jQuery.browser.safari) loginVisible(true);
     //if(jQuery.browser.opera) loginVisible(true);
     if(jQuery.browser.msie) loginVisible(true);
-</script>    
+</script>
 
 
 <!-- END BLOCK_SIGN_IN -->
 
 <!-- BEGIN BLOCK_STARTPAGE_CONTENT -->
-<div id="topImage">                    
+<div id="topImage">
     <div id="short1"></div>
     <div id="short2"></div>
     <div id="short3"></div>
     <div id="medium"></div>
-    <div id="long"></div>              
+    <div id="long"></div>
 </div>
 
 <table id="startpage">

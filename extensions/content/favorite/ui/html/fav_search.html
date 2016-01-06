@@ -3,12 +3,12 @@
 <table width="50%" cellpadding="5" cellspacing="0">
 	<tr>
 		<!--<td class="label">{SEARCH}:</td> -->
-		<td class="value"><input type="text" name="searchString" placeholder={SEARCH} /></td>
-		<td class="value"><input type="submit" name="action" value="{BUTTON_LABEL}" /></td>
+		<td class="value"><input type="text" name="searchString" size="10" placeholder={SEARCH} style="font-size:21px;"/></td>
+		<td class="value"><input class="bidButton" type="submit" name="action" value="{BUTTON_LABEL}" /></td>
 	</tr>
 	<tr>
 		<td class="value"><input type="radio" {PRE_SELECT_USER} style="width: 20px;" value="searchUser" name="searchType">{USER_LOGIN}
-		<td class="value"><input type="radio" {PRE_SELECT_FULLNAME} style="width: 20px;" value="searchUserFullname" name="searchType">{USER_FULLNAME} 
+		<td class="value"><input type="radio" {PRE_SELECT_FULLNAME} style="width: 20px;" value="searchUserFullname" name="searchType">{USER_FULLNAME}
 		<td class="value"><input type="radio" {PRE_SELECT_GROUP} style="width: 20px;" value="searchGroup" name="searchType"> {GROUPS}
 	</tr>
 </table>
