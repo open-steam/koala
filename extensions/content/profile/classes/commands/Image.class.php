@@ -23,6 +23,8 @@ class Image extends \AbstractCommand implements \IFrameCommand {
     public function execute(\FrameResponseObject $frameResponseObject) {
         $user = \lms_steam::get_current_user();
 
+        \Profile::getInstance()->addCSS();
+
         $confirmText = "";
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $problem = "";
@@ -136,6 +138,9 @@ class Image extends \AbstractCommand implements \IFrameCommand {
         }
         $content->setVariable("LABEL_UPLOAD", gettext("Upload"));
         $content->setVariable("LABEL_BACK_TO_PROFILE", gettext("Back to Profile"));
+
+        $deleteImageButtonURL = "http://$_SERVER[HTTP_HOST]" . "/widgets/asset/delete.png";
+        $content->setVariable("DELETE_BUTTON", $deleteImageButtonURL);
 
         $frameResponseObject->setConfirmText($confirmText);
         $rawHtml = new \Widgets\RawHtml();
