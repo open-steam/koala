@@ -1,24 +1,10 @@
-<div class="widgets_label" {LABEL_STYLE}>{LABEL}</div>
-<div class="widgets_dropdownlist">
-    <select name="{DROPDOWN_LIST_NAME}" id="{ID}" size="{SIZE}" data-oldValue="{DATA_OLD_VALUE}123" data-saveFunction="{SAVE_FUNCTION}" onChange="{ONCHANGE}" class="{CUSTOM_CLASS}" {READ_ONLY}>
+<select name="{NAME}"
+        id="{ID}" size="{SIZE}"
+        onChange="{ONCHANGE}" class="{CLASS}" {DISABLED}>
         <!-- BEGIN OPTION_VALUES -->
-        <option value="{VALUE}">{LABEL}</option>
+        <option value="{INDEX}">{VALUE}</option>
         <!-- END OPTION_VALUES -->
-    </select>
-</div>
-
-<!-- BEGIN STARTVALUE -->
+</select>
+<!-- BEGIN STARVALUE -->
 <script language="JavaScript">{STARTVALUE}</script>
-<!-- END STARTVALUE -->
-
-
-<script type="text/javascript">
-    $('#{ID}').change(
-        function() {
-            //add the changed class to this object
-            if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
-            //update the value in the variable
-            {ID} = $('#{ID}').val();
-        }
-    );
-</script>
+<!-- END STARVALUE -->
