@@ -207,7 +207,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                           if ($steamUser->get_id() == $resultUser->get_id()) {
                               $content->setVariable("ALREADY_BUDDY", "Das bist Du!");
                           } elseif (!($steamUser->is_buddy($resultUser))) {
-                              $content->setVariable("ADD_FAVORITE_BUDDY", "Favorit hinzufügen");
+                              $content->setVariable("ADD_FAVORITE_BUDDY", "Als Favorit hinzufügen");
 
                               $content->setVariable("FAVORITE_BUDDY_LINK", PATH_URL . "favorite/add/" . $urlId . "/" . $category . "/");
                           } else {
@@ -226,7 +226,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                           $groupDesc = $resultGroup->get_attribute("OBJ_DESC");
                           $content->setVariable("GROUP_DESC", $groupDesc);
                           if (!($steamUser->is_buddy($resultGroup))) {
-                              $content->setVariable("ADD_FAVORITE_GROUP", "Favorit hinzufügen");
+                              $content->setVariable("ADD_FAVORITE_GROUP", "Als Favorit hinzufügen");
                               $content->setVariable("FAVORITE_GROUP_LINK", PATH_URL . "favorite/add/" . $urlId . "/" . $category . "/");
                           } else {
                               $content->setVariable("ALREADY_GROUP", "Bereits Teil der Favoritenliste");
@@ -300,7 +300,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("BUDDY_NAME1", $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME"));
             $content->setVariable("BUDDY_NAME", PATH_URL . "profile/index/" . $buddy . "/");
             //$content->setVariable("DELETE_BUDDY", gettext("Delete Favorite"));
-            $content->setVariable("DELETE_BUDDY", "Favorit löschen");
+            $content->setVariable("DELETE_BUDDY", "Favorit Löschen");
 
             $content->setVariable("DELETE_BUDDY_LINK", PATH_URL . "favorite/delete/" . $id . "/");
             $content->parse("BLOCK_BUDDY_LIST");
@@ -322,7 +322,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("GROUP_NAME", $buddy);
             $content->setVariable("GROUP_DESC", $groupDesc);
             //$content->setVariable("DELETE_GROUP", gettext("Delete Favorite"));
-            $content->setVariable("DELETE_GROUP", "Favorit löschen");
+            $content->setVariable("DELETE_GROUP", "Favorit Löschen");
 
             $content->setVariable("DELETE_GROUP_LINK", PATH_URL . "favorite/delete/" . $id . "/");
 

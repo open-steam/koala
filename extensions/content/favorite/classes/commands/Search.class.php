@@ -202,7 +202,7 @@ class Search extends \AbstractCommand implements \IFrameCommand{
                             if ($steamUser->get_id() == $resultUser->get_id()) {
                                 $content->setVariable("ALREADY_BUDDY", "Das bist Du!");
                             } elseif (!($steamUser->is_buddy($resultUser))) {
-                                $content->setVariable("ADD_FAVORITE_BUDDY", "Favorit hinzufügen");
+                                $content->setVariable("ADD_FAVORITE_BUDDY", "Als Favorit hinzufügen");
 
                                 $content->setVariable("FAVORITE_BUDDY_LINK", PATH_URL . "favorite/add/" . $urlId . "/" . $category . "/");
                             } else {
@@ -221,7 +221,7 @@ class Search extends \AbstractCommand implements \IFrameCommand{
                             $groupDesc = $resultGroup->get_attribute("OBJ_DESC");
                             $content->setVariable("GROUP_DESC", $groupDesc);
                             if (!($steamUser->is_buddy($resultGroup))) {
-                                $content->setVariable("ADD_FAVORITE_GROUP", "Favorit hinzufügen");
+                                $content->setVariable("ADD_FAVORITE_GROUP", "Als Favorit hinzufügen");
                                 $content->setVariable("FAVORITE_GROUP_LINK", PATH_URL . "favorite/add/" . $urlId . "/" . $category . "/");
                             } else {
                                 $content->setVariable("ALREADY_GROUP", "Bereits Teil der Favoritenliste");
