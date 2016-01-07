@@ -392,9 +392,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
             $groupsRights = array();
-
             if(count($groupMapping) > 5){
-              $content->setVariable("CSS_GROUPS", "height: 110px;");
+              $content->setVariable("CSS_GROUPS", "height:110px;");
             } else {
               $content->setVariable("CSS_GROUPS", "");
             }
@@ -558,7 +557,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("DUMMY_FAV_ACQ", "");
 
             if (count($userMapping) > 5) {
-                $content->setVariable("CSS_USER", "height: 110px;");
+                $content->setVariable("CSS_USER", "height:110px;");
             } else {
                 $content->setVariable("CSS_USER", "");
             }

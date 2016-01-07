@@ -34,11 +34,9 @@ p{
 }
 
 .scrollable-groups{
-    {CSS_GROUPS}
     overflow:auto;
 }
 .scrollable-user{
-    {CSS_USER}
     overflow:auto;
 }
 
