@@ -393,6 +393,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $groupsRights = array();
 
+            if(count($groupMapping) > 5){
+              $content->setVariable("CSS_GROUPS", "height: 110px;");
+            } else {
+              $content->setVariable("CSS_GROUPS", "");
+            }
+
             foreach ($groupMapping as $id => $group) {
                 $name = $group->get_attribute("OBJ_DESC");
                 $realname = $group->get_name();
@@ -551,6 +557,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->setVariable("DUMMY_FAV", "");
             $content->setVariable("DUMMY_FAV_ACQ", "");
 
+            if (count($userMapping) > 5) {
+                $content->setVariable("CSS_USER", "height: 110px;");
+            } else {
+                $content->setVariable("CSS_USER", "");
+            }
+
             foreach ($userMapping as $id => $name) {
                 $favo = \steam_factory::get_object($this->steam->get_id(), $id);
                 if ($favo instanceof \steam_user) {
@@ -678,13 +690,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->parse("FAVORITES_ACQ");
         }
 
-        
-        
-        
-        
 
-        
-        
+
+
+
+
+
+
         $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
 
         $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");

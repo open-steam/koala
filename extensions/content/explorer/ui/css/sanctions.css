@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : sanctions.css
     Created on : 19.05.2012, 13:26:28
     Author     : christophsens
@@ -32,12 +32,16 @@ p{
 #buttons input{
     width:120px;
 }
+
 .scrollable-groups{
+    {CSS_GROUPS}
     overflow:auto;
 }
 .scrollable-user{
+    {CSS_USER}
     overflow:auto;
 }
+
 table{
     width: 100%;
 }

@@ -92,22 +92,24 @@
         </table>
     </div>
 
-    <div class="scrollable-user">
+    <div>
         <table>
-
+          <tbody style="display:block;">
             <tr class="infoBar" style="height:23px;">
-                <td><b>Meine Favoriten (Benutzer)</b></td>
-                <td><b>Rechte</b></td>
+                <td style="width:27%;" ><b>Meine Favoriten (Benutzer)</b></td>
+                <td style="width:18%;" ><b>Rechte</b></td>
             </tr>
-
-            <!-- BEGIN FAVORITES -->
-            <tr valign="middle">
-                <td width="60%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
-                <td width="40%" align="right">
+          <tbody>
+          <tbody class="scrollable-user" style="display:block;">
+          <!-- BEGIN FAVORITES -->
+          <tr valign="middle">
+              <td width="66%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
+              <td width="34%" align="right">
                     {DROPDOWNLIST_USER}
-                </td>
-            </tr>
-            <!-- END FAVORITES -->
+              </td>
+          </tr>
+          <!-- END FAVORITES -->
+          </tbody>
         </table>
     </div>
 </div>
@@ -165,7 +167,6 @@
                 <td><b>Rechte</b></td>
 
             </tr>
-
             <!-- BEGIN FAVORITES_ACQ -->
             <tr>
                 <td width="60%"><img style="float:left" src="{IMG_PATH_ACQ}"><div style="text-indent: 1em;">{FAVNAME_ACQ}</div></td>
