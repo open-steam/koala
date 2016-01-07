@@ -690,15 +690,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $content->parse("FAVORITES_ACQ");
         }
 
-
-
-
-
-
-
-
         $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
-
         $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
         $isAdmin = false;
         if($admins instanceof \steam_group){
