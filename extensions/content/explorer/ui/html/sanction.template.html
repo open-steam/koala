@@ -80,14 +80,12 @@
     <div class="scrollable-groups" style={CSS_GROUPS}>
         <table >
             <!-- BEGIN GROUPS -->
-
             <tr valign="middle">
                 <td width="60%"><img style="float:left" src="{IMG_PATH}"> <div style="text-indent: {INDENTINDEX}em;">{GROUPNAME}</div></td>
                 <td width="40%" align="right" >
                     {DROPDOWNLIST}
                 </td>
             </tr>
-
             <!-- END GROUPS -->
         </table>
     </div>
@@ -96,8 +94,8 @@
         <table>
           <tbody style="display:block;">
             <tr class="infoBar" style="height:23px;">
-                <td style="width:27%;" ><b>Meine Favoriten (Benutzer)</b></td>
-                <td style="width:18%;" ><b>Rechte</b></td>
+                <td width=27%><b>Meine Favoriten (Benutzer)</b></td>
+                <td width=18%><b>Rechte</b></td>
             </tr>
           <tbody>
           <tbody class="scrollable-user" style="display:block;{CSS_USER}">
@@ -146,7 +144,7 @@
             <td width="40%"><b>Rechte</b></td>
         </tr>
     </table>
-    <div class="scrollable-groups">
+    <div class="scrollable-groups" style={CSS_GROUPS}>
         <table>
             <!-- BEGIN GROUPS_ACQ -->
             <tr valign="middle">
@@ -155,26 +153,28 @@
                     {DROPDOWNLIST_ACQ}
                 </td>
             </tr>
-
             <!-- END GROUPS_ACQ -->
         </table>
     </div>
 
-    <div class="scrollable-user">
+    <div>
         <table>
+          <tbody style="display:block;">
             <tr class="infoBar" style="height:23px;">
-                <td><b>Meine Favoriten (Benutzer) {DUMMY_FAV_ACQ}</b></td>
-                <td><b>Rechte</b></td>
-
+                <td width=27%><b>Meine Favoriten (Benutzer) {DUMMY_FAV_ACQ}</b></td>
+                <td width=18%><b>Rechte</b></td>
             </tr>
+            <tbody>
+            <tbody class="scrollable-user" style="display:block;{CSS_USER}">
             <!-- BEGIN FAVORITES_ACQ -->
             <tr>
-                <td width="60%"><img style="float:left" src="{IMG_PATH_ACQ}"><div style="text-indent: 1em;">{FAVNAME_ACQ}</div></td>
-                <td>
-                    {DROPDOWNLIST_USER_ACQ}
+                <td width="66%"><img style="float:left" src="{IMG_PATH_ACQ}">
+                  <div style="text-indent: 1em;">{FAVNAME_ACQ}</div>
                 </td>
+                <td width=34%>{DROPDOWNLIST_USER_ACQ}</td>
             </tr>
             <!-- END FAVORITES_ACQ -->
+            </tbody>
         </table>
     </div>
 </div>
