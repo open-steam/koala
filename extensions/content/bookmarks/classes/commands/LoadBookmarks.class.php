@@ -86,7 +86,7 @@ class ContentProvider implements \Widgets\IContentProvider {
         }
         $objType = getObjectType($contentItem);
         if ($cell == $this->rawCheckbox) {
-            return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:-4px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if(this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
+            return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if(this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
         } else if ($cell == $this->rawImage) {
             if ($contentItem instanceof \steam_exit) {
                 $exitObj = $contentItem->get_exit();
@@ -130,7 +130,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                 if ($linkObjectType === "rapidfeedback") {
                     $url = PATH_URL . "rapidfeedback/Index/" . $linkObj->get_id() . "/";
                 } else {
-                    if ($linkObj === 0) {
+                    if ($linkObj === 0 || $linkObj === null) {
                         $url = "";
                     } else {
                         $url = PATH_URL . "explorer/index/" . $linkObj->get_id() . "/";

@@ -30,6 +30,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$titelInput->setData($object);
 		//$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
 		$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:content([headline])"));
+                $titelInput->setSuccessMethodForDataProvider("sendRequest('databinding', {'id': {$objectId}, 'attribute': 'OBJ_DESC', 'value': {$titelInput->getId()}}, '', 'data');");
 		$dialog->addWidget($titelInput);
 		$dialog->addWidget(new \Widgets\Clearer());
 		

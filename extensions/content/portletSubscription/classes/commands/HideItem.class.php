@@ -45,25 +45,48 @@ public function processData(\IRequestObject $requestObject){
                     $filter = $portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER");
                     $timestamp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP");
                     
-                    //add the new filtering to the filters
-                    $filter[] = array($this->timestamp, $this->objectID);
-                    usort($filter, "sortSubscriptionElements");
+                    //add the new filtering to the filters if it is an normal notification, no deletion
+                    if($this->timestamp > 1){
+                        $filter[] = array($this->timestamp, $this->objectID);
+                        usort($filter, "sortSubscriptionElements");
                     
-                    //clean up the filter list (if the timestamp and the object id is equal in the filter and in the calculated updates, increase the timestamp for the object and remove the filder)
+                        //clean up the filter list (if the timestamp and the object id is equal in the filter and in the calculated updates, increase the timestamp for the object and remove the filterelement)
                     
-                    $count = 0;
-                    while (isset($filter[$count]) && isset($updates[$count]) && ($filter[$count][0] == $updates[$count][0]) && ($filter[$count][1] == $updates[$count][1])) {
-                        $timestamp = $filter[$count][0];
-                        unset($filter[$count]);
-                        $count++;
-                    }
-                    //if a newer notification should be hidden while older notifications should still exist, filter the newer out
-                    $filter = array_values($filter);
+                        $count = 0;
+                        while (isset($filter[$count]) && isset($updates[$count]) && ($filter[$count][0] == $updates[$count][0]) && ($filter[$count][1] == $updates[$count][1])) {
+                            $timestamp = $filter[$count][0];
+                            unset($filter[$count]);
+                            $count++;
+                        }
+                        //if a newer notification should be hidden while older notifications should still exist, filter the newer out
+                        $filter = array_values($filter);
                    
-                    //save back the variables to the object
-                    $portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", $filter);
-                    $portlet->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", $timestamp);
+                        //save back the variables to the object
+                        $portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", $filter);
+                        $portlet->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", $timestamp);
+                    }
+                    
+                    //now we try to remove a notification for a deleted object, if the user wants to hide it
+                    $formerContent = $portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
+                    
+                    //if the objectID is in the folderlist and the timestamp of the notofication is -1 (not possible for changes, but only for deletions)
+                    if(array_key_exists($this->objectID, $formerContent) && $this->timestamp == -1){
+                        
+                        unset($formerContent[$this->objectID]);
+                        
+                    }else if(!array_key_exists($this->objectID, $formerContent) && $this->timestamp == -1){
+                        
+                        //if the object is not in the folderlist but it is in the inventory of the container, it is a new object
+                        $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->objectID);
+                        $formerContent[$this->objectID] = array("name"=>$object->get_attribute(OBJ_DESC));
+                        
+                    }
+                    
+                    //save back the modified folderlist
+                    $portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
                 }
+                    
+                
             }
         
             //hide the html-item 

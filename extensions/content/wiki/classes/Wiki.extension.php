@@ -18,23 +18,23 @@ class Wiki extends AbstractExtension implements IObjectExtension{
 		$result[] = new Person("Petertonkoker", "Jan", "janp@mail.uni-paderborn.de");
 		return $result;
 	}
-	
+
 	public function getObjectReadableName() {
-		return "Wiki";
+		return "Wiki/Glossar/A-Z Liste";
 	}
-	
+
 	public function getObjectReadableDescription() {
 		return "In Wikis können Benutzer gemeinsam an einem Projekt arbeiten. Die Versionsverwaltung ermöglicht es, den Entstehungsprozess jedes Eintrags nachvollziehen zu können.";
 	}
-	
+
 	public function getObjectIconUrl() {
 		return $this->getAssetUrl() . "icons/wiki.png";
 	}
-	
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \Wiki\Commands\NewWikiForm();
 	}
-	
+
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
 		$wikiObject = steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $idRequestObject->getId() );
 		$objectType = $wikiObject->get_attribute("OBJ_TYPE");
@@ -43,7 +43,7 @@ class Wiki extends AbstractExtension implements IObjectExtension{
 		}
 		return null;
 	}
-	
+
 	public function getPriority() {
 		return 8;
 	}

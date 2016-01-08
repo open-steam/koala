@@ -73,7 +73,7 @@ class Chronic extends AbstractExtension implements IMenuExtension
 
                     if ($entryType=="oid") {
                         $objectId = $content[1];
-                    } else {
+                    }else {
                         $objectId = $minusCount;
                         $minusCount--;
                     }
@@ -408,10 +408,26 @@ class Chronic extends AbstractExtension implements IMenuExtension
             $entryType = $content[0];
             $currentObjectId = $content[1];
 
-            if ($entryType==="oid") {
+            // extensions that set a path in the chronic need to be treated separately
+            if($entryType=="pth"){
+                //at the moment forums and wikis use the pth: chronic link to log the access of certain documents/posts
+                if(preg_match("/\/forum\/showTopic\/([0-9]+)\/([0-9]+)/i", $content[1], $output)){ // forum
+                    $parentObjectId = $output[1];
+                    $currentObjectId = $output[2];
+                    $firstCycle = true; // to prevent a infinity loop in the recursion
+                }
+                
+                if(preg_match("/\/wiki\/entry\/([0-9]+)\//i", $content[1], $output)){ // forum
+                    $currentObjectId = $output[1];                    
+                }
+                        
+            }
+            
+            if ($entryType==="oid" || $entryType === "pth") {
                 //find object
                 try {
                     $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectId);
+                    
                     if (!$steamObject instanceof \steam_object) {
                         //object not found
                         $moreItems = false;
@@ -420,21 +436,30 @@ class Chronic extends AbstractExtension implements IMenuExtension
                     //object not found
                     $moreItems = false;
                 }
-
+                
                 //find parent
                 while ($moreItems) {
+                    
                     try {
                         $environmentObject = $steamObject->get_environment();
-                        if ("0" == $environmentObject) throw new \steam_exception;
-                        if (!($environmentObject instanceof \steam_object)) throw new \steam_exception;
-
+                        
+                        //set the envitonment manually for a forum thread once
+                        if($steamObject->get_attribute("OBJ_TYPE") === "text_forumthread_bid" && $firstCycle === true){            
+                            //$environmentObject = $steamObject->get_environment()->get_environment();
+                            $environmentObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $parentObjectId);
+                            $firstCycle = false;
+                            
+                        }
+                        
+                        //if the object creation was not successful
+                        if ("0" == $environmentObject || !($environmentObject instanceof \steam_object)) throw new \steam_exception;
+                        
                         //is Presentation, autoforward case
                         if ($environmentObject->get_attribute("bid:presentation") === "index") {
                             $environmentObject = $environmentObject->get_environment();
                         }
-                        if ("0" == $environmentObject) throw new \steam_exception;
-                        if (!($environmentObject instanceof \steam_object)) throw new \steam_exception;
-
+                        
+                        //add the current environment to the upwards navigation list
                         $objectArray = array("name" => "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($environmentObject)."\"></img> " . getCleanName($environmentObject, 20));
 
                         if ($environmentObject->check_access_read()) {
@@ -444,6 +469,7 @@ class Chronic extends AbstractExtension implements IMenuExtension
                             break;
                         }
                         $menuArray[] = $objectArray;
+                        //build the recursion with a while loop
                         $steamObject = $environmentObject;
                     } catch (\steam_exception $e) {
                         //no environment

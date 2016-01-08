@@ -57,7 +57,7 @@ class NewGallery extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 </style>
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
-	<div class="attributeName">Galeriename:</div>
+	<div class="attributeName">Albumname:</div>
 	<div class="attributeValue"><input type="text" class="text" value="" name="name"></div>
 </div>
 <br>			
@@ -117,7 +117,8 @@ END
 		$object = $currentUser->get_workroom();
 
 		$dialog = new \Widgets\Dialog();
-		$dialog->setTitle("Eigenschaften von " . $object->get_name());
+		//$dialog->setTitle("Eigenschaften von " . $object->get_name());
+                $dialog->setTitle("Eigenschaften");
 
 		$dialog->setContent("Nulla dui purus, eleifend vel, consequat non, <br>
 	dictum porta, nulla. Duis ante mi, laoreet ut,  <br>

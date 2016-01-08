@@ -15,12 +15,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
 
-           
+
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        //chronic
-        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("bookmarks");
 
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         if (isset($this->id)) {
@@ -34,6 +32,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $this->id = $object->get_id();
         }
 
+        //chronic
+        //\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
 
         if ($object && $object instanceof \steam_container) {
             $objects = $object->get_inventory();
@@ -55,8 +55,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //$breadcrumb = new \Widgets\Breadcrumb();
         //$breadcrumb->setData(array(array("name"=>"<img src=\"{$bookmarkIcon}\"> Lesezeichenordner")));
 
-        $actionBar = new \Widgets\ActionBar();
-        $actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
+        //$actionBar = new \Widgets\ActionBar();
+        //$actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
         $loader = new \Widgets\Loader();
@@ -80,28 +80,28 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort.png";
+        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_horizontal.png";
         $script .= '
             $("#sort-icon").attr("name", "true");
             $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");});
-            var newIds = "";                
+            var newIds = "";
             $( ".listviewer-items" ).sortable({zIndex: 1});
             $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
                 var changedElement = $(ui.item).attr("id");
                 $(".listviewer-items").children();
                 $(".listviewer-items").children().each(function(index, value){
-                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id; 
+                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
                     else newIds+=value.id + ", ";});
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
-                    newIds = ""; 
+                    newIds = "";
             });
-            $(".actionBar").prepend("<div style=\"margin-top:30px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>"); 
-                                    
+            $("#content").prepend("<div style=\"margin-left:380px;position:absolute;height:35px;width:180px;background-image:url(' . $assetUrl . ');\"></div>");
+
     }';
         $environmentData->setJs($script);
 
         $frameResponseObject->setTitle("Lesezeichen");
-        $frameResponseObject->addWidget($actionBar);
+        //$frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($environmentData);
         $frameResponseObject->addWidget($breadcrumb);
 

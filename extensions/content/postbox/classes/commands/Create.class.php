@@ -53,24 +53,27 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         
         //configure sanctions for inner container
         $requiredSanctionsForInnerContainer =  SANCTION_INSERT | SANCTION_READ;
-        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && (!(API_DOUBLE_FILENAME_NOT_ALLOWED))){
+        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && !API_DOUBLE_FILENAME_NOT_ALLOWED){
             //if API_DOUBLE_FILENAME_NOT_ALLOWED is false, we only need INSERT rights (and don't need to check whether there already exists a file with the same name)
             $requiredSanctionsForInnerContainer = SANCTION_INSERT;
         }
         
 
         //unset the rights for every oher user then the creator
-        $sanction = $innerContainer->get_sanction();
-        $currentUserId = \lms_steam::get_current_user()->get_id();
-        foreach ($sanction as $userOrGroupId => $sanct) {
-            if ($currentUserId != $userOrGroupId) {
-                $this->object->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId));
-                $this->object->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId));
-            }
-        }
+        //$sanction = $innerContainer->get_sanction();
+        //$currentUserId = \lms_steam::get_current_user()->get_id();
+        /*foreach ($sanction as $userOrGroupId => $sanct) {
+            echo $userOrGroupId;
+                $innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId));
+                $innerContainer->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $userOrGroupId));
+        }*/
+        
+        //$innerContainer->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+        //$innerContainer->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+        
         //the explixitly set the new insert rights
-        $innerContainer->sanction($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
-        $innerContainer->sanction_meta($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+        //$innerContainer->sanction($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+        //$innerContainer->sanction_meta($requiredSanctionsForInnerContainer, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
         
         $jswrapper = new \Widgets\JSWrapper();
         $jswrapper->setJs("closeDialog();

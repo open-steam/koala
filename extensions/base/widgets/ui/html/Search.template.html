@@ -1,26 +1,39 @@
 <script>
     var updateTaglist = function() {
         var value = this.value;
+        var filterButtonID = $(this).prev().attr('id');
+        if(value == ""){
+            $("#"+filterButtonID).hide();
+        }
+        else{
+            $("#"+filterButtonID).show();
+        }
         var items = $('.listviewer-items').children();
         items.each(
                 function() {
-                    var tagIndex = "#" + this.id + "_2";
-                    var nameIndex = "#" + this.id + "_1";
-                    var name = $(nameIndex).text().toLowerCase();
-                    var tags = $(tagIndex).text().toLowerCase();
-                    if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
-                        $(('#' + this.id)).removeClass("show");
-                        $(('#' + this.id)).addClass("hide");
-                        $(('#' + this.id)).hide();
-                    } else {
-                        $(('#' + this.id)).removeClass("hide");
-                        $(('#' + this.id)).addClass("show");
-                        $(('#' + this.id)).show();
+                    if(this.className.indexOf("noitem") > -1){
+                        $("#search-area").hide();
+                    }
+                    else{
+                        $("#search-area").show();
+                        var tagIndex = "#" + this.id + "_2";
+                        var nameIndex = "#" + this.id + "_1";
+                        var name = $(nameIndex).text().toLowerCase();
+                        var tags = $(tagIndex).text().toLowerCase();
+                        if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
+                            $(('#' + this.id)).removeClass("show");
+                            $(('#' + this.id)).addClass("hide");
+                            $(('#' + this.id)).hide();
+                        } else {
+                            $(('#' + this.id)).removeClass("hide");
+                            $(('#' + this.id)).addClass("show");
+                            $(('#' + this.id)).show();
+                        }
                     }
                 }
         );
     };
-    
+
     $(function() {
         var availableTags = [
             {AUTOCOMPLETE_VALUES}
@@ -29,18 +42,17 @@
             source: availableTags,
             close: updateTaglist,
             change: updateTaglist,
-           
+
         });
     });
 
 </script>
 <style>
     .search-widget{
-        float: left;
-        margin-left: 50px;
-        height: 29px;
+        float: right;
+        margin-right: 50px;
+        height: 23px;
         padding-bottom: 6px;
-        padding-top: 6px;
         width: 180px;
     }
     .search-input{
@@ -49,7 +61,7 @@
     }
 </style>
 
-<div id="search-area" class="search-widget">{POPUPMENU_HTML}<input class="search-input" id="{ID}"></div>
+<div id="search-area" class="search-widget">{POPUPMENU_HTML}<input class="search-input" id="{ID}" placeholder="Suche"></div>
 
 <div id="search-area-popupmenu"></div>
 
@@ -57,9 +69,9 @@
     $(document).ready(function(){$("#{ID}").keyup(updateTaglist);
                 $("#{ID}").val(decodeURI("{VALUE}"));
                 $(document).bind("listviewerReady", function(){$("#{ID}").each(updateTaglist);});
-             
-                
+
+
     });
-    
-    
+
+
 </script>

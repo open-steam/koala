@@ -85,7 +85,7 @@ class Privacy extends \AbstractCommand implements \IFrameCommand {
         $tableFirstPart = new \Widgets\RawHtml();
         $contact_label = gettext("All Users");
         if (PLATFORM_ID == "bid") {
-            $contact_label = "Favoriten";
+            $contact_label = "Meine Favoriten";
         }
         $tableFirstPart->setHtml(
                 "<div class='grid' style='display:table; width:70%; margin-left:5px;'>

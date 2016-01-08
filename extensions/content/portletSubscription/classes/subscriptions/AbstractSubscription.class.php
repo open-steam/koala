@@ -22,11 +22,22 @@ abstract class AbstractSubscription {
     abstract public function getUpdates();
     
     protected function getElementHtml($id, $divid, $private, $timestamp, $text, $linktext, $link, $additionalHTML = "") {
+        
+        //for deleted item it is not possible to give a exact date.
+        if(date("Y", $timestamp)){ 
+            //try to build a date out of the timestamp, then build the correct formatted date
+            $dateString = date("d.m.Y H:i", $timestamp) . " Uhr";
+        } else { 
+            //if it fails return a general phrase
+            $dateString = "In letzter Zeit";
+            $timestamp = -1;
+        }
+
         $html = "<div id=\"subscription" . $this->portlet->get_id() . "_" . $divid . "\">
-            <h2 class=\"subheadline\">" .  date("d.m.Y H:i", $timestamp) . " Uhr";
+            <h2 class=\"subheadline\">" . $dateString;
         if ($private === TRUE) {
             $params = "{ id : " . $this->portlet->get_id() . ", objectID : " . $id . ", timestamp : " . $timestamp . ", hide : 'subscription" . $this->portlet->get_id() . "_" . $divid . "' }";
-            $html .= "<a href=\"javascript:sendRequest('HideItem', " . $params . ", 'subscription" . $this->portlet->get_id() . "_" . $divid . "', 'updater', '', '', 'PortletSubscription');\" style=\"float:right;\">Ausblenden</a>";
+            $html .= "<div class=\"close-button\" title=\"ausblenden\" onclick=\"sendRequest('HideItem', " . $params . ", 'subscription" . $this->portlet->get_id() . "_" . $divid . "', 'updater', '', '', 'PortletSubscription');\" style=\"float:right;\"></div>";
         }
         
         $html .= "</h2>

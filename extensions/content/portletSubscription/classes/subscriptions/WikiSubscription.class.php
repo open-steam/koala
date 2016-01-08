@@ -18,7 +18,7 @@ class WikiSubscription extends AbstractSubscription {
                                         $article->get_id() . "_" . $count,
                                         $this->private,
                                         $article->get_attribute("OBJ_CREATION_TIME"),
-                                        $this->depth == 0 ? "Neuer Artikel:" : "Neuer Artikel (in Wiki <a href=\"" . PATH_URL . "wiki/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                        "Neuer Artikel (in Wiki <a href=\"" . PATH_URL . "wiki/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
                                         substr($article->get_name(), 0, strpos($article->get_name(), ".wiki")),
                                         PATH_URL . "wiki/entry/" . $article->get_id() . "/"
                                     )
@@ -32,7 +32,7 @@ class WikiSubscription extends AbstractSubscription {
                                         $article->get_id() . "_" . $count,
                                         $this->private,
                                         $article->get_attribute("DOC_LAST_MODIFIED"),
-                                        $this->depth == 0 ? "Geänderter Artikel:" : "Geänderter Artikel (in Wiki <a href=\"" . PATH_URL . "wiki/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                        "Geänderter Artikel (in Wiki <a href=\"" . PATH_URL . "wiki/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
                                         substr($article->get_name(), 0, strpos($article->get_name(), ".wiki")),
                                         PATH_URL . "wiki/entry/" . $article->get_id() . "/"
                                     )

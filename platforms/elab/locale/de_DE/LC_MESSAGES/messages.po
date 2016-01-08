@@ -8033,6 +8033,10 @@ msgstr "Dies ist im Augenblick Ihr Benutzerbild."
 msgid "Replace with an image"
 msgstr "Bild ersetzen"
 
+#: ../public/profile_icon.php:155
+msgid "At this place it is possible to upload a user picture. The image will be displayed together with your name, for example nearby your documents or forum entries."
+msgstr "An dieser Stelle können Sie ein Benutzerbild hinterlegen. Dieses wird beispielsweise an Ihren Dokumenten und Forenbeiträgen zusammen mit Ihrem Namen angezeigt."
+
 #: ../public/profile_icon.php:156
 msgid ""
 "The uploaded file has to be an image file (JPG, GIF or PNG), should have the "
@@ -8041,6 +8045,10 @@ msgstr ""
 "Das Benutzerbild muss eine Bilddatei (JPG, GIF oder PNG) sein, sollte eine "
 "Größe von 140 x 185 Pixeln haben und darf <b>nicht größer als 250 kByte "
 "sein</b>."
+
+#: ../public/profile_icon.php:158
+msgid "The user picture will represent you inside the platform."
+msgstr "Das Benutzerbild wird Sie innerhalb der Plattform repräsentieren."
 
 #: ../public/profile_privacy.php:112 ../public/user_profile.php:234
 msgid "Contacts and Groups"

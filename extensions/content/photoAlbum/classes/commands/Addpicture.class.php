@@ -2,18 +2,14 @@
 namespace PhotoAlbum\Commands;
 
 class Addpicture extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
-	
-	//public function getExtension() {
-	//	return \DocumentObject::getInstance();
-	//}
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject) {
 		if ($requestObject instanceof \UrlRequestObject) {
 			$this->params = $requestObject->getParams();
@@ -23,9 +19,9 @@ class Addpicture extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		$ajaxResponseObject->setStatus("ok");	
+		$ajaxResponseObject->setStatus("ok");
 		$ajaxDialog = new \Widgets\Dialog();
 		$ajaxDialog->setTitle("Neue Bilder hinzufügen");
 		$ajaxUploader = new \Widgets\AjaxUploader();
@@ -37,9 +33,9 @@ class Addpicture extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$ajaxResponseObject->addWidget($ajaxDialog);
 		return $ajaxResponseObject;
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
+
 	}
 }
 ?>

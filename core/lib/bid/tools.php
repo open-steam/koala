@@ -28,9 +28,8 @@
  * and is within its ranges. If the column width is
  * not valid, the given default value will be returned.
  */
-function check_width_string($column_width, 
-  $pc_min, $pc_max, $px_min, $px_max, $default_value) {
- if (ereg('([0-9]+)(px|%){0,1}$', trim($column_width), $substring)) {
+function check_width_string($column_width, $pc_min, $pc_max, $px_min, $px_max, $default_value) {
+ if (preg_match('/([0-9]+)(px|%){0,1}$/', trim($column_width), $substring)) {
     if ($substring[2] == "") {
         $substring[2] = "px";
     }
@@ -51,9 +50,9 @@ function check_width_string($column_width,
 /**
  * If the given value ends with a percent sign then this sign is removed
  * from the output. Otherwise an empty string is returned.
- */ 
+ */
 function extract_percentual_length($value) {
-  if (ereg('([0-9]+)(%)$', trim($value), $substring)) {
+  if (preg_match('/([0-9]+)(%)$/', trim($value), $substring)) {
     return $substring[1];
   }
 
@@ -63,9 +62,9 @@ function extract_percentual_length($value) {
 /**
  * Remove any trailing % or pt signs from the given length value.
  * Return the empty string if the given value is not a length.
- */ 
+ */
 function extract_length($value) {
-  if (ereg('([0-9]+)(px|%){0,1}$', trim($value), $substring)) {
+  if (preg_match('/([0-9]+)(px|%){0,1}$/', trim($value), $substring)) {
     return $substring[1];
   }
 

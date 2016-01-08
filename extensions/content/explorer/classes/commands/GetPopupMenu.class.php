@@ -1,18 +1,18 @@
 <?php
 namespace Explorer\Commands;
 class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $selection;
 	private $x, $y, $height, $width;
         private $logged_in;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
-	public function processData(\IRequestObject $requestObject) {		
+
+	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 		$this->selection = json_decode($this->params["selection"]);
@@ -20,27 +20,27 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 		$this->y = $this->params["y"];
 		$this->height = $this->params["height"];
 		$this->width = $this->params["width"];
-                
+
                 $portal = \lms_portal::get_instance();
 		$lms_user = $portal->get_user();
                 $this->logged_in = $lms_user->is_logged_in();
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$count = count($this->selection);
 		if (!in_array($this->id, $this->selection) ||(in_array($this->id, $this->selection) && $count == 1)) {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 			$env = $object->get_environment();
-			
+
 			$inventory = $env->get_inventory();
 			foreach ($inventory as $key => $element) {
 				if ($element->get_id() == $this->id) {
 					$index = $key;
 				}
 			}
-			
+
 			$popupMenu =  new \Widgets\PopupMenu();
-			
+
 			if ($object instanceof \steam_trashbin) {
 				$items = array(array("name" => "Papierkorb leeren", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"));
 			} else if ($env instanceof \steam_trashbin) {
@@ -68,8 +68,8 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                             $blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
                             $subscribeIcon = \Explorer::getInstance()->getAssetUrl() . "icons/subscribe.png";
                             $unsubscribeIcon = \Explorer::getInstance()->getAssetUrl() . "icons/unsubscribe.png";
-                            
-                            
+
+
                             $subscription = "";
                             //prepare subscription element it it is an enabled extension
                             if (strpos(EXTENSIONS_WHITELIST, "PortletSubscription")) {
@@ -84,8 +84,8 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                                     }
                                 }
                             }
-                            
-                            
+
+
                             $items = array(
                                 ($this->logged_in && $object->check_access(SANCTION_READ)) ? array("name" => "Kopieren<img src=\"{$copyIcon}\">", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}") : "",
                                 ($object->check_access(SANCTION_WRITE)) ? array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}") : "",
@@ -102,22 +102,22 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                                         <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'grey'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/grey.png\"></a>"),
                                 )) : "",
                                 ($this->logged_in /*&& !\Bookmarks\Model\Bookmark::isBookmark($this->id)*/) ? array("name" => "Lesezeichen anlegen<img src=\"{$bookmarkIcon}\">", "command" => "AddBookmark", "namespace" => "bookmarks", "elementId" => "{$this->id}_BookmarkMarkerWrapper", "params" => "{'id':'{$this->id}'}") : "",
-                                
-                                $subscription,        
-          
+
+                                $subscription,
+
                                 ($object->check_access(SANCTION_WRITE)) ? array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
                                     ($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
                                     ($index < count($inventory)-1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}") : "",
                                     ($index != 0) ? array("name" => "Ganz nach oben<img src=\"{$topIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}") : "",
                                     ($index < count($inventory)-1) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}") : ""
                                 )) : "",
-                                   
+
                                 ($this->logged_in) ? array("name" => "SEPARATOR") : "",
-                                
-                                (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index") && ($object->check_access(SANCTION_READ))) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "", 
+                                array("raw" => "<a href=\"#\" style=\"width:500px;\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'updater'); } jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open'); return false;\">Umbenennen<img src=\"{$renameIcon}\"></a>"),
+                                (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index") && ($object->check_access(SANCTION_READ))) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
                                 (($object instanceof \steam_document) && (strstr($object->get_attribute(DOC_MIME_TYPE), "text")) && ($object->check_access(SANCTION_WRITE))) ? array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/") : "",
-                                array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"), 
-                                
+                                array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
+
                                 //display rights dialog for a postbox or for a non postbox object
                                 ($object->check_access(SANCTION_SANCTION) && ($object->get_attribute(OBJ_TYPE) === 'postbox')) ? array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "postbox", "params" => "{'id':'{$this->id}'}", "type" => "popup") : "",
                                 ($object->check_access(SANCTION_SANCTION) && (stristr($object->get_attribute(OBJ_TYPE), 'postbox') === FALSE)) ? array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup") : ""
@@ -138,7 +138,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                             $readAccess = FALSE;
                         }
                     }
-                    
+
                     $copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
                     $cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
                     $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
@@ -170,7 +170,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
 		$popupMenu->setWidth("180px");
             }
-		
+
             $ajaxResponseObject->setStatus("ok");
             $ajaxResponseObject->addWidget($popupMenu);
             return $ajaxResponseObject;

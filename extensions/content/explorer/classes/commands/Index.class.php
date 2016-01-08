@@ -37,15 +37,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
+
         if (isset($this->id)) {
-            
+
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
             if ($object instanceof \steam_exit) {
-            
+
                 $object = $object->get_exit();
                 $this->id = $object->get_id();
-                
             }
         } else {
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -67,10 +66,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         if (!$object instanceof \steam_object) {
-            
+
             \ExtensionMaster::getInstance()->send404Error();
         }
-        
+
         //TODO: this is the wrong position for this exception
         //it should be placed after the big switch, but i'm not sure where
         //we have to think about it
@@ -85,19 +84,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $objectModel = \AbstractObjectModel::getObjectModel($object);
 
         if ($object && $object instanceof \steam_container) {
-            
+
             $count = $object->count_inventory();
             if ($count > 500) {
-            
+
                 throw new \Exception("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
             try{
-                
+
             $objects = $object->get_inventory();
-            
+
             }catch(\NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
             catch (\AccessDeniedException $e) {throw new \Exception("", E_USER_ACCESS_DENIED);}
-            
+
         } else {
             $objects = array();
         }
@@ -216,27 +215,32 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
         $envSanction = $object->check_access(SANCTION_SANCTION);
 
-        $actionBar = new \Widgets\ActionBar();
-
-        /* $actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
+        //$actionBar = new \Widgets\ActionBar();
+        /*
+        $actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
           array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
           array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
-          )); */
+          ));
         if ($envSanction) {
-            $actionBar->setActions(array(array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
-            ));
+            $actionBar->setActions(
+                array(
+                    array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                    array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                    array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))));
         } elseif ($envWriteable) {
-            $actionBar->setActions(array(array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
+            $actionBar->setActions(
+                array(
+                    array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                    array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
         } else {
-            $actionBar->setActions(array(
-                array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
+            $actionBar->setActions(
+                    array(
+                        array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
         }
 
-        //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
+        $actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
+        */
         $presentation = $object->get_attribute("bid:presentation");
         $preHtml = "";
         if ($presentation === "head") {
@@ -281,6 +285,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $preHtml = "<div style=\"border-bottom: 1px solid #ccc; padding-bottom:10px; margin-bottom:10px\">{$preHtml}</div>";
         }
 
+        $description = new \Widgets\RawHtml();
+        if(isUserHome($object)){
+          $desc = "";
+        }
+        else{
+          $desc = $object->get_attribute("OBJ_DESC");
+        }
+        $description->setHtml("<p style='margin-left: 22px; margin-top: 0px; color: #AAAAAA;'>" . $desc . "</p>");
+
         $environment = new \Widgets\RawHtml();
         $environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
 
@@ -293,7 +306,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $loader->setType("updater");
 
         $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml("<div id=\"explorerContent\">" . $breadcrumb->getHtml() . $environment->getHtml() . $loader->getHtml() . "</div>");
+        $rawHtml->setHtml("<div id=\"explorerContent\">" . $breadcrumb->getHtml() . $description->getHtml() . $environment->getHtml() . $loader->getHtml() . "</div>");
 
         $rawHtml->addWidget($breadcrumb);
         $rawHtml->addWidget($environment);
@@ -308,7 +321,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort.png";
+        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_horizontal.png";
         $script .= '
             $("#sort-icon").attr("name", "true");
             $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");
@@ -324,10 +337,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                     newIds = "";
             });
-            $(".actionBar").prepend("<div style=\"margin-top:38px;position:absolute;height:177px;width:30px;float:left;background-image:url(' . $assetUrl . ');\"></div>"); 
-                
-                
-                                    
+            $("#content").prepend("<div style=\"margin-left:380px;position:absolute;height:35px;width:180px;background-image:url(' . $assetUrl . ');\"></div>");
+
+
+
     }';
         $rawHtml->setJs($script);
         $rawHtml->setPostJsCode('$($(".popupmenuanker")[0]).css("margin-top", "3px");');
@@ -343,7 +356,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $kwList[] = $element;
             }
         }
-        
+
 
         $popupMenuSearch = new \Widgets\PopupMenu();
         $popupMenuSearch->setCommand("GetPopupMenuSearch");
@@ -366,7 +379,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($searchField);
         }
 
-        $frameResponseObject->addWidget($actionBar);
+        //$frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($rawHtml);
 
         return $frameResponseObject;

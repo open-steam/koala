@@ -37,7 +37,22 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $portletIsReference = false;
         }
 
-        //$portletName = getCleanName($portlet);
+        
+        
+        try {
+            $subscriptionObjectID = $portlet->get_attribute("PORTLET_SUBSCRIPTION_OBJECTID");
+            $subscriptionObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $subscriptionObjectID);
+        } catch (\steam_exception $ex) {
+            $subscriptionObject = "";
+        }
+        
+        //the object could be created, we can read the object and it is not moved to the trashbin (deleted for the user)
+        if ($subscriptionObject instanceof \steam_object && $subscriptionObject->check_access_read() && !strpos($subscriptionObject->get_attribute("OBJ_PATH"), "trashbin")) {
+            if($portlet->get_name() !== "Änderungen in ".$subscriptionObject->get_name()){
+                $portlet->set_attribute("OBJ_NAME", "Änderungen in ".$subscriptionObject->get_name());
+            } 
+            
+            //$portletName = getCleanName($portlet);
         $portletName = $portlet->get_name();
         
         $portletInstance = \PortletSubscription::getInstance();
@@ -85,28 +100,25 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
         $tmpl->parse("BLOCK_FOLDER_HEADLINE");
-        
-        try {
-            $subscriptionObjectID = $portlet->get_attribute("PORTLET_SUBSCRIPTION_OBJECTID");
-            $subscriptionObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $subscriptionObjectID);
-        } catch (\steam_exception $ex) {
-            $subscriptionObject = "";
-        }
-        
-        if ($subscriptionObject instanceof \steam_object && $subscriptionObject->check_access_read()) {
+            
             $updates = $portletInstance->calculateUpdates($subscriptionObject, $portlet);
             if (count($updates) === 0) {
                 $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                 $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Keine Neuigkeiten</h3>");
                 $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
             } else {
+                //var_dump($updates);
                 foreach ($updates as $update) {
+                    //echo "hier".$update[2][1];
                     $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                     $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", $update[2]);
                     $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
                 }
             }
         } else {
+            $tmpl = new \HTML_TEMPLATE_IT();
+            $tmpl->loadTemplateFile($portletPath . "/ui/html/index.template.html");
+        
             $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
             $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Das abonnierte Objekt wurde gelöscht.");
             $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
@@ -114,6 +126,19 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($tmpl->get());
+        $rawHtml->setCss(".close-button {
+            height: 16px;
+            width: 16px;
+            background-image: url(\"".PATH_URL."widgets/asset/close.gif\");
+            position: relative;
+            top: 0px;
+            left: 0px;
+        }
+
+        .close-button:hover {
+            cursor: pointer;
+        }"
+        );
         $this->contentHtml = $rawHtml;
     }
 

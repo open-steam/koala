@@ -1,2 +1,2 @@
 <?php
-define("KOALA_VERSION", "3.7");
+define("KOALA_VERSION", "3.8");

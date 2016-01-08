@@ -34,8 +34,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
         $dialog = new \Widgets\Dialog();
         $clearer = new \Widgets\Clearer();
-        
-        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br> (Briefkasten)");
+
+        $dialog->setTitle("Eigenschaften");
 
         $dataNameInput = new \Widgets\TextInput();
         $dataNameInput->setLabel("Name der Abgabe");
@@ -62,35 +62,35 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $datepickerStart->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:postbox:deadline"));
         $dialog->addWidget($datepickerStart);
         $dialog->addWidget($clearer);
-        
+
 
         $rawHtml = new \Widgets\RawHtml();
         $datepickerStart->setPostJsCode("$('#{$checkbox->getId()}').change(function(){".
                               "if(!this.checked){ ".
                                   "$('#{$datepickerStart->getId()}').show(); ".
-                                  
+
                                   "$('#{$datepickerStart->getId()}_label').show(); ".
                                   "$('#{$datepickerStart->getId()}').prop('value', $('#{$datepickerStart->getId()}').attr('data-oldValue'));".
-                                  "$('#{$datepickerStart->getId()}').change();".        
+                                  "$('#{$datepickerStart->getId()}').change();".
                                   "$('#{$checkbox->getId()}').removeClass('changed');".
-                                          
+
                               "}else{".
                                   "$('#{$datepickerStart->getId()}_label').hide(); ".
                                   "$('#{$datepickerStart->getId()}').hide();".
                                   "$('#{$datepickerStart->getId()}').prop('value', '0');".
                                   "$('#{$datepickerStart->getId()}').change();".
                                   "$('#{$checkbox->getId()}').removeClass('changed');".
-                                          
-                                          
+
+
                               "}".
                           "}".
                           ");"
-                                          
-            );   
+
+            );
 
 
         $dialog->addWidget($rawHtml);
-        
+
         if ($noDeadline) {
             $jsWrapper = new \Widgets\RawHtml();
             $jsWrapper->setPostJsCode("$('#{$datepickerStart->getId()}_label').hide(); ".
@@ -101,16 +101,16 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             $dialog->addWidget($jsWrapper);
         }
 
-        
-        
-        
+
+
+
         $textAreaAdvice = new \Widgets\Textarea();
         $textAreaAdvice->setLabel("Hinweistext");
         $textAreaAdvice->setData($object);
         $textAreaAdvice->setContentProvider(\Widgets\DataProvider::attributeProvider("postbox:advice"));
         $textAreaAdvice->setHeight(100);
         $textAreaAdvice->setWidth(325);
-      
+
         $dialog->addWidget($textAreaAdvice);
 
         $ajaxResponseObject->addWidget($dialog);
@@ -118,7 +118,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
+
     }
 
 }

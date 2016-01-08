@@ -12,3 +12,7 @@
 .portlet.media .entry .description {
   margin: 2px;
 }
+
+.portlet.media {
+  border: 1px solid #CDCDCD;
+}

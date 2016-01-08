@@ -442,9 +442,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $content->setVariable("VALUE", "<pre>".var_export($value, true)."</pre>");
             }
             else if(is_object($value)){
-                $content->setVariable("VALUE", "Objekt mit der Id ".$value. " und dem Namen \"". $value->get_name()."\"");
+                $content->setVariable("VALUE", "<a href=\"/sanction/Index/".substr($value, 1)."/\">Objekt</a> mit der Id ".$value. " und dem Namen \"". $value->get_name()."\"");
             }
-            else if(in_array($key, array("CONT_LAST_MODIFIED", "OBJ_CREATION_TIME", "OBJ_LAST_CHANGED", "PORTLET_SUBSCRIPTION_TIMESTAMP"))){
+            else if(in_array($key, array("CONT_LAST_MODIFIED", "OBJ_CREATION_TIME", "OBJ_LAST_CHANGED", "PORTLET_SUBSCRIPTION_TIMESTAMP", "DOC_LAST_MODIFIED", "DOC_LAST_ACCESSED", "OBJ_ANNOTATIONS_CHANGED"))){
                 $content->setVariable("VALUE", $value ." (".date("d.m.Y H:i", $value).")");
             }
             else {
@@ -464,7 +464,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $content->setVariable("VALUE", "<pre>".var_export($value, true)."</pre>");
             }
             else if(is_object($value)){
-                $content->setVariable("VALUE", "Objekt mit der Id ".$value);
+                $content->setVariable("VALUE", "<a href=\"/sanction/Index/".substr($value, 1)."/\">Objekt</a> mit der Id ".$value);
             }
             else {
                 $content->setVariable("VALUE", $value);
@@ -473,6 +473,33 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $content->parse("ANNOTATIONS");
     
         }
+        
+        $constants = get_defined_constants();
+        
+        //replace important constants with stars
+        $forbiddenConstants = array("STEAM_ROOT_PW", "STEAM_ROOT_LOGIN");
+        foreach ($forbiddenConstants as $forbiddenConstant){
+            $constants[$forbiddenConstant] = "***";
+        }
+        foreach($constants as $key => $value){
+            $content->setCurrentBlock("CONSTANTS");
+            $content->setVariable("KEY", $key);
+            
+            
+            if(is_bool($value)){
+                $content->setVariable("VALUE", ($value)?"true":"false");
+            } else if (is_object($value)){
+                $content->setVariable("VALUE", $value->get_id());
+            } else {
+                $content->setVariable("VALUE", $value);
+            }
+            $content->parse("CONSTANTS");
+    
+        }
+        
+        
+        
+        
         
         $content->setVariable("SERIALIZE", $this->object->get_references());
 

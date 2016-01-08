@@ -19,7 +19,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         if (strpos($width, "px") == TRUE) {
             $width = substr($width, 0, count($width)-3);
         }
-        
+
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
@@ -45,7 +45,15 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
 
         //headline
-        $tmpl->setVariable("HEADLINE", $portlet->get_attribute("OBJ_DESC"));
+        $headline = $portlet->get_attribute("OBJ_DESC");
+        $tmpl->setVariable("HEADLINE", $headline);
+
+        //if the title is empty the headline will not be displayed (only in edit mode)
+        if ($headline == "" || $headline == " ") {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
+        } else {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline");
+        }
 
         //refernce icon
         if ($portletIsReference) {
@@ -74,12 +82,6 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
         }
 
-        if (trim($portletName) == "") {
-            $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
-        } else {
-            $tmpl->setVariable("HEADLINE_CLASS", "headline");
-        }
-
         $user = $portlet->get_creator();
         $currentUser = \lms_steam::get_current_user();
         $tmpl->setVariable("DESCRIPTION", "Zum Profil");
@@ -93,7 +95,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("DISPLAY_DOCUMENTS", "none");
         }
         $tmpl->parse();
-        
+
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($tmpl->get());
         $this->contentHtml = $rawHtml;
@@ -103,7 +105,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $idResponseObject->addWidget($this->contentHtml);
         return $idResponseObject;
     }
-    
+
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $frameResponseObject->addWidget($this->contentHtml);
 	return $frameResponseObject;
