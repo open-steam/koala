@@ -4,15 +4,15 @@ jQuery(document).ready(function(){
 			var element = jQuery(".listviewer-item-hover");
 			if (element.length > 0) {
 				item = jQuery("#" + element.attr('id') + "_1");
-				
+
 				if (!item.hasClass("directEditor")) {
 					removeAllDirectEditors();
-					
+
 					item.addClass("directEditor").html("");
-				
+
 					var obj = new Object;
 					obj.id = element.attr('id');
-					
+
 					sendRequest("GetDirectEditor", obj, item.attr('id'), "updater");
 				} else {
 					removeAllDirectEditors();
@@ -22,7 +22,12 @@ jQuery(document).ready(function(){
 	});
 });
 
-function removeAllDirectEditors() {
+function removeAllDirectEditors(save) {
+	if(save){
+		$('.changed').each(function(number, obj) {
+			eval($(obj).attr('data-saveFunction'));
+		});
+	}
 	var elements = jQuery(".directEditor");
 	if (elements) {
 		for(i=0; i<elements.length; i++) {
@@ -35,7 +40,8 @@ function removeAllDirectEditors() {
 
 function removeDirectEditor(objectId, elementId) {
 	jQuery("#" + elementId).removeClass("directEditor").html("");
-	
+
+  //get the new name
 	var obj = new Object;
 	obj.id = objectId;
 	sendRequest("GetLabel", obj, elementId, "updater");
@@ -55,9 +61,9 @@ function getParamsArray(paramsObject) {
 	if (!paramsObject) {
 		paramsObject = {};
 	}
-	var ids = getSelectionAsArray(); 
+	var ids = getSelectionAsArray();
 	var paramsArray = new Array();
-	for (i = 0; i < ids.length; i++) { 
+	for (i = 0; i < ids.length; i++) {
 		var po = clone(paramsObject);
 		po.id = ids[i];
 		paramsArray.push(po);
@@ -67,10 +73,10 @@ function getParamsArray(paramsObject) {
 }
 
 function getElementIdArray(elementId) {
-	var elementIdArray = new Array(); 
+	var elementIdArray = new Array();
 	var ids = getSelectionAsArray();
-	for (i = 0; i < ids.length; i++) { 
-		elementIdArray.push(elementId); 
+	for (i = 0; i < ids.length; i++) {
+		elementIdArray.push(elementId);
 	}
 	return elementIdArray;
 }
@@ -106,4 +112,3 @@ function clone(obj) {
 
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
-
