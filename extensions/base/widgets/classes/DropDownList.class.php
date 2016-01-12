@@ -19,12 +19,12 @@ class DropDownList extends Widget {
     private $customClass;
     
     public function setId($id){
-        $this->id = "id_".$id."_dropdown";
+        $this->id = $id;
     }
     
     public function getId(){
         if(!isset($this->id)){
-            $this->setId(rand());
+            $this->setId("id_".rand()."_dropdown");
         }
         return $this->id;
     }
@@ -123,7 +123,7 @@ class DropDownList extends Widget {
         
         $this->getContent()->setVariable("READ_ONLY", ($this->readOnly)?"disabled=\"disabled\"":"");
         $this->getContent()->setVariable("CUSTOM_CLASS", $this->customClass);
-        
+        $this->getContent()->setVariable("SAVE_FUNCTION", $this->saveFunction);
 
         foreach ($this->data as $element) {
             $this->getContent()->setCurrentBlock("OPTION_VALUES");
@@ -131,9 +131,8 @@ class DropDownList extends Widget {
             $this->getContent()->setVariable("LABEL", $element[1]);
             $this->getContent()->parse("OPTION_VALUES");
         }
-        if($this->startValue != ""){
-            $js = "$('#{$this->id}').val('{$this->startValue}');";
-            $this->getContent()->setVariable("STARTVALUE", $js);
+        if($this->startValue !== ""){
+            $this->getContent()->setVariable("STARTVALUE", "$('#{$this->id}').val('{$this->startValue}');");
         }
         return $this->getContent()->get();
     }
