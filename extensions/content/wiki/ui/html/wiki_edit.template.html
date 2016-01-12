@@ -1,5 +1,5 @@
 <table class="wiki" width="100%" cellpadding="0">
-<tr valign="top"> 
+<tr valign="top">
 <td class="main">
 <form action="{FORM_ACTION}" method="post" name="formular">
 <input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}">
@@ -96,10 +96,10 @@
 		<td>
 			<span unselectable="on" onclick="helpChangeState()" title="Hilfe" class = "toolbar_icon toolbar_icon_help"> </span>
 		</td>
-		
+
 	</tr>
 	</table>
-	
+
 	<div id="wikiHelp" style="display:none;">
 		<div class="index">
 			<div onClick="switchHelpText(this.id);" id="Sformat" class="current">Format</div>
@@ -261,7 +261,7 @@
                                                 </td>
                                                 <td><div class="annotated">Text</div><div class="annotation"><img title="Kommentar" src="{ANNOTATION_IMAGE_URL}"></div></td>
 					</tr>
-					
+
 				</table>
 			</div>
                     <div id="Plinks" class="helpTable disabled">
@@ -304,12 +304,12 @@
 					</tr>
 				</table>
 			</div>
-		</div>	
+		</div>
 	</div>
-	
+
 	<div class="overlay" id="popup_dialog_overlay"></div>
 	<div class="popup_dialog" id="popup_dialog_wiki_table">
-		<div class="close-button" onclick="closeDialog('table');"></div>
+		<div class="wiki-close-button" onclick="closeDialog('table');"></div>
 		<h2>Tabelle erstellen</h2>
 		<div>
 			<fieldset>
@@ -317,22 +317,22 @@
 				<input type="checkbox" id="popup_dialog_wiki_table_headerbox">
 				<label for="popup_dialog_wiki_table_headerbox"> mit Kopfzeile</label>
                             </div>
-			
-				
+
+
                                 <div style="float:left; padding-right: 5px;">
 				<label for="popup_dialog_wiki_table_columnsBox"> Spalten</label>
                                 <br/>
 				<input type="text" id="popup_dialog_wiki_table_columnsBox" size="4">
                                 </div>
-				
-				
-				
+
+
+
                                 <div style="float: left;">
 				<label for="popup_dialog_wiki_table_rowsBox"> Zeilen</label>
                                 <br/>
 				<input type="text" id ="popup_dialog_wiki_table_rowsBox" size="4">
                                 </div>
-				
+
 			</fieldset>
 			<div id = table_preview></div>
 		</div>
@@ -340,7 +340,7 @@
 		<br>
 	</div>
  	<div class="popup_dialog" id="popup_dialog_wiki_image">
-		<div class="close-button" onclick="closeDialog('image');"></div>
+		<div class="wiki-close-button" onclick="closeDialog('image');"></div>
 		<h2>Bild einbinden</h2>
 		<table>
 			<tr>
@@ -380,7 +380,7 @@
 		<div class="button" onclick="insertImage()">einfügen</div>
 	</div>
 	<div class="popup_dialog" id="popup_dialog_wiki_link">
-		<div class="close-button" onclick="closeDialog('link');"></div>
+		<div class="wiki-close-button" onclick="closeDialog('link');"></div>
 		<h2>Verknüpfung mit anderem Artikel erstellen</h2>
 		<table>
 			<tr>
@@ -434,7 +434,7 @@
 		<div class="button" onclick="insertLink()">einfügen</div>
 	</div>
 	<div class="popup_dialog" id="popup_dialog_wiki_coment">
-		<div class="close-button" onclick="closeDialog('coment');"></div>
+		<div class="wiki-close-button" onclick="closeDialog('coment');"></div>
 		<h2>Text kommentieren</h2>
 		<table>
 			<tr>
@@ -457,7 +457,7 @@
 		<br>
 		<div class="button" onclick="insertComent()">einfügen</div>
 	</div>
-	
+
     <textarea name="values[body]" id="Content" style="width: 99%;" rows="30">{TEXT_DSC}</textarea><br />
     </td>
     </tr>
@@ -473,5 +473,5 @@
 <!-- {WIDGET_HTML_CODE} -->
 <!-- END BLOCK_WIDGET -->
 <!-- </td> -->
-</tr> 
+</tr>
 </table>
