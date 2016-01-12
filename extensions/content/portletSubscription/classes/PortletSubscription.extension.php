@@ -52,11 +52,14 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
 
     public function calculateUpdates($subscriptionObject, $portlet, $filtering = true) {
         $updates = array();
+        
         if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE") == "0") {
             if ($portlet->check_access_write()) {
+                // 'private' indicates whether the user can change the attributes of the object (to filter out an update)
                 $private = TRUE;
                 $timestamp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP");
                 $filterHelp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER");
+                
                 $filter = array();
                 foreach ($filterHelp as $filterElement) {
                     if (isset($filter[$filterElement[1]])) {
@@ -115,8 +118,147 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         } else if ($type === "document" && strstr($subscriptionObject->get_attribute(DOC_MIME_TYPE), "text")) {
             $documentSubscription = new \PortletSubscription\Subscriptions\DocumentSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter, $depth);
             $updates = array_merge($updates, $documentSubscription->getUpdates());
+        } else if ($type === "postbox") {
+            $postboxSubscription = new \PortletSubscription\Subscriptions\PostboxSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter, $depth);
+            $updates = array_merge($updates, $postboxSubscription->getUpdates());
         }
         return $updates;
+    }
+    
+    
+    /**
+     * Method to get a standardised name for the subscription. Return the description if it exisits, if the description doesn't exisit, retuen at least the object name.
+     * 
+     * @param steam_object $object the object to get tne name of
+     * @param type $length the returned string length. Default is 30, -1 means: no cropping
+     * @param type $nameAndDescription set to true, to get a name like OBJ_DESC (OBJ_NAME)
+     * @return string returns the generated title
+     */
+    public static function getNameForSubscription($object, $length = 30, $nameAndDescription = false){
+        if (!($object instanceof steam_object)) {
+            return "";
+        }
+                
+        $objectName = $object->get_name();
+        $objectDescription = $object->get_attribute(OBJ_DESC);
+        
+        if (($objectDescription !== 0 && trim($objectDescription) !== "")){
+            //description exists
+            $title = $objectDescription;
+        }else{
+            //no description available
+            $title = $objectName;
+        }
+        
+        if($nameAndDescription){
+            $title = $objectDescription . " (" . $objectName.")";
+        }
+        //remove line breaks
+        $title = str_replace(array("\r", "\n"), "", $title);
+        
+        //limit return length
+        if ($length != -1 && $length < strlen($title)) {
+            $title = mb_substr($title, 0, $length, "UTF-8") . "...";
+        }
+
+        return $title;
+    }
+    
+    
+    public static function getObjectTypeForSubscription($object){
+        if (!($object instanceof steam_object)) {
+            return "s Objekt";
+        }
+        
+        $rawObjectName = getObjectType($object);
+        
+        switch ($rawObjectName) {
+            case "map":
+                return " kml Datei:";
+            break;
+            case "document":
+                return "s Dokument:";
+            break;
+            case "forum":
+                return "s Forum:";
+            break;
+            case "referenceFolder":
+                return " Referenz:";
+            break;
+            case "referenceFile":
+                return " Referenz:";
+            break;
+            case "user":
+                return "r Benutzer:";
+            break;
+            case "group":
+                return " Gruppe:";
+            break;
+            case "trashbin":
+                return "r Papierkorb:";
+            break;
+            case "docextern":
+                return " Internet-Referenz:";
+            break;
+            case "portal_old":
+                return "s altes Portal:";
+            break;
+            case "gallery":
+                return "s Fotoalbum:";
+            break;
+            case "wiki":
+                return "s Wiki:";
+            break;
+            case "portal":
+                return "s Portal:";
+            break;
+            case "portalColumn":
+                return " Portal-Spalte:";
+            break;
+            case "portalPortlet":
+                return "s Portal-Portlet:";
+            break;
+            case "userHome":
+                return "r Benutzerordner:";
+            break;
+            case "groupWorkroom":
+                return "r Gruppen-Arbeitsraum:";
+            break;
+            case "rapidfeedback":
+                return "r Fragebogen:";
+            break;
+            case "pyramiddiscussion":
+                return " Pyramidendiskussion:";
+            break;
+            case "postbox":
+                return "r Briefkasten:";
+            break;
+            case "ellenberg":
+                return "s Ellenbergobjekt:";
+            break;
+            case "worksheet":
+                return "s Arbeitsblatt:";
+            break;
+            case "webarena":
+                return " Webarena:";
+            break;
+            case "mokodesk":
+                return "r Mokodesk:";
+            break;
+            case "room":
+                return "r Ordner:";
+            break;
+            case "container":
+                return "r Ordner:";
+            break;
+
+            default:
+                return "s Objekt";
+            break;
+        }
+        
+        
+        
     }
 }
 ?>

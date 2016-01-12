@@ -14,7 +14,7 @@
                 
 		
                 <!-- BEGIN SAVE_AND_CLOSE_BUTTON -->
-		<div style="float:right; margin-bottom:20px;"><a class="button pill" onclick="
+		<div style="float:right; margin-top:10px;"><a class="button pill" onclick="
                     //count the changes and if there is at least one reload the site
                     var i = 0;
                     var elementsToSave = $('.changed')
@@ -48,7 +48,7 @@
 		<!-- END SAVE_AND_CLOSE_BUTTON -->
 		
                 <!-- BEGIN CANCEL_BUTTON -->
-		<div style="float:right; margin-bottom:20px;"><a class="button pill negative" onclick="
+		<div style="float:right; margin-top:10px;"><a class="button pill negative" onclick="
                     {CANCEL_BUTTON_JS}
                     //unset possibly set event
                     $(window).unbind('beforeunload');
@@ -60,7 +60,7 @@
                 
                 
                 <!-- BEGIN BLOCK_CUSTOM_BUTTONS -->
-		<div style="float:right"><a class="button pill {BUTTON_CLASS}" onclick="{BUTTON_JS}" href="#">{BUTTON_LABEL}</a>&nbsp;</div>
+		<div style="float:right; margin-top:10px;"><a class="button pill {BUTTON_CLASS}" onclick="{BUTTON_JS}" href="#">{BUTTON_LABEL}</a>&nbsp;</div>
 		<!-- END BLOCK_CUSTOM_BUTTONS -->
 	</div>
 </div>

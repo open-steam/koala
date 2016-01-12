@@ -6,14 +6,14 @@
 	** (c) 2006 - 2009 University of Paderborn
 	**
 	*/
-	
+
 	/*
 	** print style
 	*/
 	.printonly {
 		display:none
 	}
-	
+
 	/*
 	** Basic styles
 	*/
@@ -23,65 +23,66 @@
 		overflow-x: hidden;
 		width:100%;
 	}
-	
+
 	input, textarea {
 		font-size:11px;
 		font-family: 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
 	}
-	
+
 	input[type=text], input[type=password], textarea {
 		padding:2px 0 2px 2px;
 		background:white;
 		border:1px solid #ccc
 	}
-	
+
 	body {
-		margin: 0; 
-		padding: 0; 
-		background-color: #fff; 
+		margin: 0;
+		padding: 0;
+		background-color: #fff;
 		background: url(../images/page_layout/body_bg.png) repeat-x;
 		color: #111;
 		width:100%;
 	}
-	
+
 	table, td {
 		font-size: 100%;
 	}
-	
+
 	b, strong {
 		font-weight: bold;
+                padding-left: 5px;
 	}
-	
+
 	img {
 		border: none;
 	}
-	
+
 	img.border {
 		border: 3px solid #eee;
 	}
-	
+
 	p {
-	
+
 	}
-	
+
 	code {
-	
+
 	}
-	
+
 	h1 {
 		margin: 0;
 		padding: 0 0 10px 0;
-		font-size: 140%;
-	}
-	
-	h2 {
 		font-size: 130%;
 	}
-	
-	h3 {
+
+	h2 {
 		font-size: 120%;
 	}
-	
+
+	h3 {
+		font-size: 110%;
+	}
+
 	a.textformat_button:link, a.textformat_button:visited {
 		/*background-color: #ccc;*/
 		color: black;
@@ -89,7 +90,7 @@
 		border: 1px solid #aaa;
 		text-decoration: none;
 	}
-	
+
 	a.textformat_button:hover {
 		background-color: #c6d3ef;
 		color: black;
@@ -97,7 +98,7 @@
 		border: 1px solid #aaa;
 		text-decoration: none;
 	}
-	
+
 	a.textformat_button:active {
 		background-color: #dfe6f7;
 		color: black;
@@ -105,8 +106,8 @@
 		border: 1px solid #aaa;
 		text-decoration: none;
 	}
-	
-	
+
+
 	/*
 	** Global Link Settings
 	*/
@@ -114,11 +115,11 @@
 		text-decoration: none;
 		color: #003a6f;
 	}
-	
+
 	a:hover {
 		text-decoration: underline;
 	}
-	
+
 	/*
 	** Page Layout
 	** only used in portal.template.html
@@ -126,36 +127,36 @@
 	.content_width {
 		width: 970px;
 	}
-	
+
 	#header_wrapper {
 		position: relative;
 		margin-right: auto;
-		margin-left: auto;	
+		margin-left: auto;
 		height: 60px;
 	}
-	
+
 	#menu_wrapper_bg {
 		border-top: 0px;
 		border-bottom: solid 1px #ffffff;
 	}
-	
+
 	/*adjusted in html file*/
 	#menu_wrapper {
 		margin-right: auto;
 		margin-left: auto;
 	}
-	
+
 	#site_wrapper {
 		background: url(../images/page_layout/site_bg.gif) repeat-x;
 	}
-	
+
 	/*adjusted in html file*/
 	#page_wrapper_bg {
 		margin-right: auto;
 		margin-left: auto;
 		min-height: 400px;
 	}
-	
+
 	#page_wrapper {
 		position: relative;
 		margin-right: auto;
@@ -163,7 +164,7 @@
 		min-height: 400px;
 		background: #fff;
 	}
-	
+
 	#content_wrapper {
 		padding: 15px 10px 20px 10px;
 		margin: 0;
@@ -171,19 +172,19 @@
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
-                
+
 	}
-	
+
 	#footer_wrapper {
 		margin-top: 3px;
 		margin-right: auto;
 		margin-left: auto;
 	}
-	
+
 	/*adjusted in html file*/
 	#footer_shadow {
 	}
-	
+
 	/*currently not used*/
 	/*adjusted in html file*/
 		#betaInfo {
@@ -195,7 +196,7 @@
 			left: -50px;
 		}
 
-	
+
 	/*
 	** Header
 	** only used in portal.template.html
@@ -204,7 +205,7 @@
 		text-align: right;
 		padding-top: 3px;
 	}
-	
+
 	#header #logo {
 		position: absolute;
 		background: url(../images/page_layout/logo.png) no-repeat;
@@ -213,21 +214,21 @@
 		top: 5px;
 		left: 0px;
 	}
-	
-	
+
+
 	/*
 	** Menu
 	*/
 	#icon_bar {
 		float: right;
 	}
-	
+
 	#icon_bar li ul {
 		margin-left: -100px;
 		margin-top: -5px;
 		width: 160px;
 	}
-        
+
         #trashbinIconbarWrapper img{
             margin-right: 2px;
             float: left;
@@ -237,12 +238,12 @@
             margin-right: 2px;
             float: left;
         }
-        
-	
+
+
 	#menu #icon_bar li .menu_text {
 		padding: 7px 10px 7px 10px;
 	}
-	
+
 	.popupmenuwapper, #menu {
 		background: #a7a7a7;
 		background: -webkit-gradient(linear, left top, left bottom, from(#bebebe),to(#a1a1a1));
@@ -253,43 +254,43 @@
 		-webkit-border-top-right-radius: 3px;
 		border-radius-topleft: 3px;
 		border-radius-topright: 3px;
-		
+
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
 	}
-	
+
 	#menu {
 		margin-right: auto;
 		margin-left: auto;
 		height:28px;
 	}
-	
+
 	/*used in menu.template.html, */
 	#menu ul {
 		list-style:none;
 		margin: 0;
 		padding: 0;
 	}
-	
+
 	#menu .menu_icon {
 	}
-	
+
 	#menu li{
 		float:left;
 		cursor:pointer;
 	}
-	
+
 	#menu li .menu_text a {
 		color:#003A6F;
 	}
-	
+
 	#menu li .menu_text{
 		padding: 7px 25px 5px 10px;
 		color:#003A6F;
 		display:block;
 		text-align:center;
-		text-decoration:none;	
+		text-decoration:none;
 		-moz-border-radius-topleft: 3px;
 		-moz-border-radius-topright: 3px;
 		-webkit-border-top-left-radius: 3px;
@@ -297,12 +298,12 @@
 		border-radius-topleft: 3px;
 		border-radius-topright: 3px;
 	}
-       
+
 	#menu li .menu_text:hover, #menu .activemenu{
 		color:#000000;
 		background-color:#ccc;
 		text-decoration:none;
-			
+
 		-moz-border-radius-topleft: 3px;
 		-moz-border-radius-topright: 3px;
 		-webkit-border-top-left-radius: 3px;
@@ -310,11 +311,11 @@
 		border-radius-topleft: 3px;
 		border-radius-topright: 3px;
 	}
-			
+
 	#menu li.activemenu span a{
 		color:#000000;
 	}
-	
+
 	#menu li.activemenu span {
 		color:#000000;
 	}
@@ -322,7 +323,7 @@
 	#menu li .menu_text:hover a{
 		color:#000000;
 	}
-		
+
 	#menu a:hover{
 		text-decoration:none;
 	}
@@ -339,9 +340,9 @@
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
-		
+
 		border: 1px solid #ccc;
-		
+
 		-moz-border-radius-bottomleft: 3px;
 		-moz-border-radius-bottomright: 3px;
 		-webkit-border-bottom-left-radius: 3px;
@@ -362,7 +363,7 @@
 	#menu li ul .menu_text a {
 		color:#003A6F;
 	}
-	
+
 	#menu li ul .menu_text{
                 color:black;
 		display:block;
@@ -370,7 +371,7 @@
 		text-align:left;
 		border: 1px solid transparent;
 	}
-        
+
         #menu li ul .menu_text img{
             position: relative;
             top: 2px;
@@ -385,22 +386,22 @@
 		-webkit-border-radius: 3px;
 		border-radius: 3px;
 	}
-	
+
 	#menu p{
 		clear:left;
-	}	
+	}
 
 	#menu #current{
 		color:#ffffff;
 	}
-		 
+
 	#menu .seperator {
 	    cursor:default;
     	border-bottom: 1px solid #ccc;
     }
-    
+
     /*
-     * 
+     *
      */
    	#clipboard {
    		padding: 0px;
@@ -408,62 +409,62 @@
     	width: 70px;
     	margin-left: 710px;
 		background: url(../images/page_layout/main_menu_bg.png) repeat-x bottom;
-		
+
 		-moz-border-radius-topleft: 3px;
 		-moz-border-radius-topright: 3px;
 		-webkit-border-top-left-radius: 3px;
 		-webkit-border-top-right-radius: 3px;
 		border-radius-topleft: 3px;
 		border-radius-topright: 3px;
-		
+
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
 	}
-	
+
 	#clipboard ul li .menu_text {
 		text-align:center;
 		margin: 0px;
 		padding: 5px;
 		display:block;
 	}
-	
+
 	#clipboard ul li .menu_icon {
 		margin: 0px;
 		padding: 0px;
 		display: none;
 	}
-	
+
 	#clipboard ul li ul li .menu_text {
 		display:inline;
 	}
-	
+
 	#clipboard ul li ul li .menu_icon {
 		margin: 0px;
 		padding: 0px;
 		display: inline;
 	}
-	
+
 	#clipboard ul {
 		list-style:none;
 		margin: 0px;
 		padding: 0px;
 	}
-	
+
 	#clipboard li {
 		margin: 0px;
 		padding: 0px;
 	}
-	
+
 	#clipboard li ul {
-		position:absolute;	
+		position:absolute;
 	}
-	
+
 	#clipboard ul li ul {
 		margin-left: -180px;
 		background:#eee;
 		display:none;
-		
+
 		width: 250px;
 		filter:alpha(opacity=95);
 		opacity:0.95;
@@ -472,9 +473,9 @@
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
-		
+
 		border: 1px solid #ccc;
-		
+
 		-moz-border-radius-bottomleft: 3px;
 		-moz-border-radius-bottomright: 3px;
 		-webkit-border-bottom-left-radius: 3px;
@@ -482,19 +483,19 @@
 		border-radius-bottomleft: 3px;
 		border-radius-bottomright: 3px;
 	}
-	
+
 	#clipboard ul li ul li {
 		padding: 5px;
 		border: 1px solid #eee;
 	}
-	
+
 	#clipboard:hover ul{
 		display:inline;
 	}
-	
+
 	#clipboard li ul li .menu_text{
 		color:#003A6F;
-		text-decoration:none;	
+		text-decoration:none;
 		-moz-border-radius-topleft: 3px;
 		-moz-border-radius-topright: 3px;
 		-webkit-border-top-left-radius: 3px;
@@ -502,15 +503,15 @@
 		border-radius-topleft: 3px;
 		border-radius-topright: 3px;
 	}
-	
+
 	#clipboard .menu_icon img{
 		float:left;
 	}
-    
+
 	#clipboard ul li ul li ul li .menu_text{
 		display: none;
 	}
-	
+
 	#clipboard ul li ul li ul{
 		display: inline;
 		margin: 0px;
@@ -521,20 +522,20 @@
 		box-shadow:0px 0px 0px #fff;
 		border: 0px solid #ccc;
 	}
-	
+
 	#clipboard ul li ul li ul li{
 		display: inline;
 	    border: 0px;
 	}
-	
+
 	#clipboard ul li ul li ul li .menu_icon img{
-		margin-left: 5px;	
+		margin-left: 5px;
 	}
-	
+
 	#clipboard a:hover{
 		text-decoration:none;
 	}
-	
+
 	#clipboard ul li ul li:hover{
 		background:#ccc;
 		opacity:1.0;
@@ -544,36 +545,36 @@
 		-webkit-border-radius: 3px;
 		border-radius: 3px;
 	}
-	
+
 	#clipboard ul li ul li:hover ul li{
 		background-color: transpatent;
 		border: 0px;
 	}
-	
+
 	/*
 	** Headline
 	** only used in portal.template.html
 	** used but without style...
 	*/
 	#headline {
-		
-	} 
-	
+
+	}
+
 	/*
 	** Content
 	** only used in portal.template.html
 	** used but without style...
 	*/
 	#content {
-		
+
 	}
-	
+
 	#content img{
 		max-width: 100%
 	}
-	
+
 	/*
-	** Footer 
+	** Footer
 	** only used in portal.template.html
 	*/
 	#footer {
@@ -582,7 +583,7 @@
 		color: #666;
                 height: 300px;
 	}
-	
+
 	/*
 	** Error
 	** only used in portal.template.html
@@ -595,13 +596,13 @@
 		text-align: center;
 		font-size: 110%;
 	}
-	
+
 	/*not used? in js?*/
 	#error a {
 		text-decoration: underline;
 		color: #eee;
 	}
-	
+
 	/*
 	** Confirmation
 	** only used in portal.template.html
@@ -614,13 +615,13 @@
 		text-align: center;
 		font-size: 110%;
 	}
-	
+
 	/*not used? in js?*/
 	#confirmation a {
 		text-decoration: underline;
 		color: #000;
 	}
-	
+
 	/*
 	** Feeds (at the bottom of the page)
 	** only used in portal.template.html
@@ -628,7 +629,7 @@
 	#feeds {
 		margin-top: 15px;
 	}
-	
+
 	/*
 	** Login Panel
 	** used in index.template.html
@@ -638,7 +639,7 @@
 		right:0px;
 		top:-75px;
 	}
-	
+
 	#loginPanel td {
 		vertical-align:bottom;
 	}
@@ -648,13 +649,13 @@
 		right:0px;
 		top:-80px;
 	}
-	
-        
-        
+
+
+
 	/*
 	** Paginator
-	* used in tutorial.template.html, tutorials.template.html, units.template.html, units_homework_list_inventory.template.html, units_homework.template.html, 
-	** forum_all_topics.template.html, list_groups.template.html, list_inventory.template.html, list_reserve_list.template.html, list_staff.template.html, 
+	* used in tutorial.template.html, tutorials.template.html, units.template.html, units_homework_list_inventory.template.html, units_homework.template.html,
+	** forum_all_topics.template.html, list_groups.template.html, list_inventory.template.html, list_reserve_list.template.html, list_staff.template.html,
 	** list_users_selection.template.html, list_users.template.html, messages_mailbox.template.html, rss_feeds.template.html, wiki_versions.template.html
 	*/
 	.paginator {
@@ -663,41 +664,39 @@
 		border-bottom: 1px solid #ddd;
 		padding: 5px;
 	}
-	
+
 	/*never used*/
 	.paginator .first {
-		
+
 	}
-	
+
 	/*never used*/
 	.paginator .current {
 		font-weight: bold;
 	}
-	
+
 	/*never used*/
 	.paginator .last {
-		
+
 	}
-	
-	
+
+
 	/*
 	** Info Bar
 	** used in: tutorial_new.template.html, tutorials_prefs.template.html, units.template.html, units_docpool_new.template.html, units_extern_new.template.html,
-	**          units_homework_list_inventory.template.html, units_homework_new.template.html, units_homework.template.html, units_pointlist_new.template.html, 
+	**          units_homework_list_inventory.template.html, units_homework_new.template.html, units_homework.template.html, units_pointlist_new.template.html,
 	**          units_pointlist_sheets_edit.template.html, units_pointlist.template.html, units_pyramiddiscussion_new.template.html, units_routeplaner_new.template.html
 	*/
 	.infoBar {
-		border: 3px solid #efefef;
-		padding: 10px;
 		margin-bottom: 15px;
 		background: url(../images/page_layout/info_bar_bg.png) repeat-x bottom;
 		background-color: #efefef;
 	}
-	
-	
+
+
 	/*
 	** Action Bar
-	** used in: calendar.template.html, courses_overview.template.html, document_read.template.html, forum_all_topics.template.html, forum_discussion.template.html, 
+	** used in: calendar.template.html, courses_overview.template.html, document_read.template.html, forum_all_topics.template.html, forum_discussion.template.html,
 	**          group_profile.template.html, groups_public.template.html, messages_mailbox.template.html, profile_edit.template.html, rss_feeds.template.html, user_profile.template.html,
 	**          user.template.html, weblog_index.template.html, wiki_index.template.html
 	*/
@@ -727,7 +726,7 @@ input[type="submit"].button.right:active, a.button.right:active { top: 0px }
 input[type="submit"].button.big, a.button.big { font-size: 16px; padding-left: 17px; padding-right: 17px; }
 input[type="submit"].button span.icon, a.button span.icon { display: inline-block; width: 14px; height: 12px; margin: auto 7px auto auto; position: relative; top: 2px; background-image: url('../images/css3buttons_icons.png'); background-repeat: no-repeat; }
 input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
-	
+
 /* 	.actionBar a.button, input[type=submit], div.buttons a{ */
 /* 		background: #ccc url(../images/page_layout/button_bg.png); */
 /* 		padding:3px; */
@@ -737,11 +736,11 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 /* 		color: #003A6F; */
 /* 		cursor:pointer; */
 /* 	} */
-	
+
 /* 	.actionBar a.button:hover, input[type=submit]:hover, div.buttons a:hover{ */
 /* 		background: #bbb; */
 /* 	} */
-	
+
 	never used
 /* 	.actionBar div.button { */
 /* 		background-color: #5b85ab; */
@@ -752,21 +751,21 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 /* 		line-height: 2em; */
 /* 		white-space: nowrap; */
 /* 	} */
-	
-	/* used in: units_extern_new.template.html, courses_create_paul.template.html, courses_create.template.html, groups_edit.template.html, list_staff.template.html, messages_mailbox.template.html, 
+
+	/* used in: units_extern_new.template.html, courses_create_paul.template.html, courses_create.template.html, groups_edit.template.html, list_staff.template.html, messages_mailbox.template.html,
 	**          messages_read.template.html, messages_write.template.html, profile_edit.template.html
 	*/
 	div.buttons {
 		text-align:right;
 		margin-right:2px
 	}
-	
+
 	div.buttonsCollection {
 		text-align:right;
 		margin-right:2px
 	}
-	
-	
+
+
 	/*
 	** Tab Bar
 	** used in: calendar.template.html, courses_overview.template.html, group_profile.template.html, messages_mailbox.template.html, user_profile.template.html,
@@ -777,36 +776,36 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		padding: 0;
 		list-style: none;
 	}
-	
+
 	li.tabOut, li.tabIn {
 		float: left;
 		margin-right: 1px;
 	}
-	
+
 	li.tabOut {
 		background-color: #eee;
 		background: url(../images/page_layout/tab_out.png) repeat-x bottom;
 		padding: 6px 10px 2px 10px;
 	}
-	
+
 	li.tabIn {
 		background-color: #eee;
 		background: url(../images/page_layout/tab_in.png) repeat-x bottom;
 		padding: 2px 10px 2px 10px;
 		margin-top:4px;
 	}
-	
+
 	li.tabOut, li.tabOut a, li.tabOut a:hover, li.tabOut a:visited {
 		text-decoration: none;
 		color: #111;
 	}
-	
+
 	li.tabIn, li.tabIn a, li.tabIn a:hover, li.tabIn a:visited {
 		text-decoration: none;
 		color: #111;
 	}
-	
-	
+
+
 	/*
 	** Clipboard
 	** used in: units.template.html, units_homework_list_inventory.template.html, units_homework.template.html, list_inventory.template.html
@@ -816,7 +815,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		background-color: #eee;
 		padding: 0;
 	}
-	
+
 	/*
 	** Grid
 	** used in more than 30 files
@@ -824,7 +823,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	.grid {
 		border-collapse: collapse;
 	}
-	
+
 	.grid th {
 		font-weight: bolder;
 		padding: 5px;
@@ -832,14 +831,14 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		text-align: left;
 		border-right: 3px solid #fff;
 	}
-	
+
 	/* used in: profile_display.template.html, profile_edit.template.html, profile_icon.template.html, profile_privacy.template.html*/
 	.grid th.group {
 		font-size: 130%;
 		padding: 15px 0 3px 0;
 		text-align: left;
 	}
-	
+
 	.grid td {
 		border-style: none;
 		padding: 5px;
@@ -847,7 +846,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		border-bottom: 2px solid #fff;
 		background-color: #eee;
 	}
-	
+
 	.grid td.label {
 		width: 130px;
 		color: #003a6f;
@@ -856,13 +855,13 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		vertical-align: top;
 		padding-top:8px;
 	}
-	
+
 	/*used but without style*/
 	.grid td.value {
-		
+
 	}
-	
-	
+
+
 	/*
 	** Preview
 	** used in: comments.template.html, forum_discussion.template.html, forum_post.template.html, weblog_post.template.html
@@ -872,7 +871,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	    padding: 10px;
 	    border: 1px solid #ddd;
 	}
-	
+
 	/*
 	** Messages / Mailbox
 	** never used!
@@ -880,37 +879,37 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	.messageGrid {
 		padding: 8px;
 	}
-	
+
 	.messageGrid .messageBox {
 		padding: 0;
 		margin: 0;
 	}
-	
+
 	.messageBox .header th {
 		padding: 5px;
 	}
-	
+
 	.messageBox .header a {
 		color: #000;
 	}
-	
+
 	.messageBox .message {
-	
+
 	}
-	
+
 	.messageBox .message td {
 		padding: 3px;
 	}
-	
+
 	.paginator.messages a {
 		color: #fff;
 	}
-	
+
 	/*
 	** Startpage
 	** used in: index.template.html
 	*/
-	
+
 	#topImage{
 		color:#b0b0b0;
 		font-size:40px;
@@ -918,10 +917,10 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		background-image:url(../images/page_layout/startpage.jpg);
 		background-repeat:no-repeat;
 		background-position:top right;
-		border-bottom: 1px solid rgb(221, 221, 221); 
+		border-bottom: 1px solid rgb(221, 221, 221);
 		margin: -15px -10px 10px;
 	}
-	
+
 	#short1{
 		position:absolute;
 		top: 5%;
@@ -929,14 +928,14 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		font-size:50px;
 		text-shadow: #ddd 2px 2px 2px;
 	}
-	
+
 	#short2{
 		position:absolute;
 		top: 4%;
 		right: 50%;
 		text-shadow: #ddd 2px 2px 2px;
 	}
-	
+
 	#short3{
 		position:absolute;
 		top: 9%;
@@ -944,7 +943,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		font-size:60px;
 		text-shadow: #ddd 2px 2px 2px;
 	}
-	
+
 	#long{
 		position:absolute;
 		top: 28%;
@@ -952,7 +951,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		font-size:30px;
 		text-shadow: #ddd 2px 2px 2px;
 	}
-	
+
 	#medium{
 		position:absolute;
 		top: 20%;
@@ -960,32 +959,32 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		font-size:40px;
 		text-shadow: #ddd 2px 2px 2px;
 	}
-	
+
 	#startpage {
-		width: 100%;	
+		width: 100%;
 	}
-	
+
 	#startpage td {
 		padding: 5px;
 	}
-	
+
 	#startpage #left {
 	     vertical-align: top;
 	     width: 33%;
 	}
-	
+
 	#startpage #center {
 		border-left:  1px solid #ddd;
 		border-right:  1px solid #ddd;
 	    vertical-align: top;
 	    width: 33%;
 	}
-	
+
 	#startpage #right {
 	     vertical-align: top;
 	     width: 33%;
 	}
-	
+
 	/*Logo unten links*/
 
 	#startpage #logo2 {
@@ -1001,37 +1000,37 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	** Forum (Discussion, Reply)
 	** used in forum_discussion.template.html
 	*/
-	
+
 	.forum {
-		
+
 	}
-	
+
 	.forum .topic {
 		margin-bottom: 15px;
 	}
-	
+
 	.forum .replies {
 		margin-left: 30px;
 	}
-	
+
 	.forum .replies td {
 		padding-bottom: 15px;
 	}
-	
+
 	.forum .reply {
 		margin-left: 30px;
 	}
-	
+
 	.forum .current {
 		background-color: #fff;
 		padding: 10px;
 	}
-	
+
 	.forum .preview {
 		background-color: #fff;
 		padding: 10px;
 	}
-	
+
 	/* all below used in forum_all_topics.template.html*/
 	.forumsidebar {
 		float: right;
@@ -1039,22 +1038,22 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		background-color: #fff;
 		padding: 9px;
 	}
-	
+
 	.forumsidebar h3 {
 		margin: 0;
 		color: #888;
 		border-bottom: 1px solid #ddd;
 	}
-	
+
 	.forumsidebar ul {
 		margin: 5px 0 15px 15px;
 		padding: 0;
 	}
-	
+
 	.forumsidebar li {
 		list-style: none;
 	}
-	
+
 	.forumSearch {
 	    float: left;
 		text-align: left;
@@ -1064,7 +1063,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		background-color: #fff;
 		padding: 5px;
 	}
-	
+
 	/*never used*/
 	.forumSearch h3 {
 		margin: 0;
@@ -1072,7 +1071,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		color: #888;
 		border-bottom: 1px solid #ddd;
 	}
-	
+
 	/*
 	** Calendar
 	** never used as class but in widget_calendar.template.html as id (#calender)
@@ -1080,17 +1079,17 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	.calendar {
 		width: 100%;
 	}
-	
+
 	.calendar td {
 		margin: 0;
 		padding: 0;
 	}
-	
+
 	/* all below used in calendar.template.html*/
 	.calendar.week {
-		
+
 	}
-	
+
 	.calendar.week .weekday h3 {
 		margin: 10px 0 0 0;
 		padding: 5px;
@@ -1101,7 +1100,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		font-weight: normal;
 		//font-size;
 	}
-	
+
 	.calendar.week .time {
 		width: 100px;
 		text-align: center;
@@ -1111,41 +1110,41 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		padding:5px;
 		font-size:11px;
 	}
-	
+
 	.calendar.week .event {
 		background-color: #fff;
 		border-bottom: 1px solid #fff;
 		padding: 5px;
 		vertical-align:top;
 	}
-	
+
 	.calendar.week .event h3 {
 		margin: 0;
 		padding: 0;
 		font-weight:bold;
 		font-size:12px;
 	}
-	
+
 	/*
 	** Weblog
 	** only used in weblog_index.template.html
 	*/
-	
+
 	.weblog {
-		
+
 	}
-	
+
 	.weblog .main {
 		padding: 0 15px 0 5px;
 	}
-	
-	
+
+
 	.weblog .main img {
 		float: none;
 		border: 5px solid #ddd;
 	}
-	
-	
+
+
 	.weblog .main .date {
 		text-align: right;
 		margin: 0;
@@ -1153,89 +1152,89 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		margin-bottom: 8px;
 		color: #888;
 	}
-	
+
 	.weblog .main .entry {
-		
+
 	}
-	
+
 	.weblog .main .entry .title {
 		margin: 0;
 		margin-top: 20px;
 		padding: 0;
 	}
-	
+
 	.weblog .main .entry .text {
 		padding: 5px 0 5px 0;
 	}
-	
+
 	.weblog .main .entry .info {
 		font-size: 90%;
 		padding: 5px;
 		background-color: #ddd;
 		margin-bottom: 15px;
 	}
-	
+
 	.weblog .sidebar {
 		background-color: #eee;
 		padding: 5px;
 	}
-	
+
 	.weblog .sidebar h3 {
 		margin: 0;
 		color: #888;
 		border-bottom: 1px solid #ddd;
 	}
-	
+
 	.weblog .sidebar ul {
 		margin: 5px 0 15px 15px;
 		padding: 0;
 	}
-	
+
 	.weblog .sidebar li {
 		list-style: none;
 	}
-	
+
 	/*
 	** Wiki
 	** used in wiki_edit.template.html, wiki_index.template.html
 	*/
-	
+
 	.wiki {
-		
+
 	}
-	
+
 	.wiki .main #wikiIndex {
-		
+
 	}
-	
+
 	.wiki .main .sectionIndex {
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
 		padding: 7px;
 	}
-	
+
 	.wiki .main .section h3 {
 		margin: 0;
 		padding: 0;
 		padding-top: 7px;
 		border-bottom: 1px solid #ddd;
 	}
-	
+
 	.wiki .main .sectionLinks {
-		
+
 	}
-	
+
 	.wiki .main {
 		padding: 0 15px 0 5px;
 	}
-	
-	
+
+
 	.wiki .main img {
 		float: none;
 		border: 5px solid #ddd;
 	}
-	
-	
+
+
 	.wiki .main .date {
 		text-align: right;
 		margin: 0;
@@ -1243,49 +1242,49 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		margin-bottom: 8px;
 		color: #888;
 	}
-	
+
 	.wiki .main .entry {
-		
+
 	}
-	
+
 	.wiki .main .entry .title {
 		margin: 0;
 		margin-top: 20px;
 		padding: 0;
 	}
-	
+
 	.wiki .main .entry .text {
 		padding: 5px 0 5px 0;
 	}
-	
+
 	.wiki .main .entry .info {
 		font-size: 90%;
 		padding: 5px;
 		background-color: #ddd;
 		margin-bottom: 15px;
 	}
-	
+
 	.wiki .sidebar {
 		background-color: #eee;
 		padding: 5px;
 	}
-	
+
 	.wiki .sidebar h3 {
 		margin: 0;
 		color: #888;
 		border-bottom: 1px solid #ddd;
 	}
-	
+
 	.wiki .sidebar ul {
 		margin: 5px 0 15px 15px;
 		padding: 0;
 	}
-	
+
 	.wiki .sidebar li {
 		list-style: none;
 	}
-	
-	
+
+
 	/*
 	** Icons
 	** never used
@@ -1294,25 +1293,25 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		float: left;
 		margin-right: 5px;
 	}
-	
-	
+
+
 	/*
 	** Units
 	** never used ;)
 	*/
-	
-	
+
+
 	/*
 	** New (to mark something new)
 	** used in: forum_all_topics.template.html, forum_discussion.template.html, groups_all.template.html, home.template.html, rss_feeds.template.html
 	*/
-	.new { 
-		color: #000000; 
-		background: #f0ff00; 
+	.new {
+		color: #000000;
+		background: #f0ff00;
 		padding: 1px;
 		font-weight: lighter;
 	}
-	
+
 	/*
 	** Reserve List
 	** used in: list_reserve_list.template.html, list_reserve_list_article.template.html, list_reserve_list_book.template.html, list_reserve_list_chapter.template.html, list_reserve_list_file.template.html
@@ -1321,43 +1320,43 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	** #reserveList .reserveListEntry.book used in list_reserve_list_article.template.html but no style given
 	*/
 	#reserveList {
-		
+
 	}
-	
+
 	#reserveList .reserveListEntry {
 		margin-bottom: 15px;
 	}
-	
+
 	/*used in list_reserve_list_book.template.html*/
 	#reserveList .reserveListEntry.book {
-		
+
 	}
-	
+
 	/*used in list_reserve_list_headline.template.html*/
 	#reserveList .reserveListEntry.headline h3 {
 		border-bottom: 1px solid #ddd;
 	}
-	
+
 	/*used in list_reserve_list_html.template.html*/
 	#reserveList .reserveListEntry.html {
-		
+
 	}
-	
+
 	/*used in list_reserve_list_weblink.template.html*/
 	#reserveList .reserveListEntry.weblink {
-		
+
 	}
-	
+
 	/*used in list_reserve_list_file.template.html*/
 	#reserveList .reserveListEntry.file {
-		
+
 	}
-	
+
 	/*used in list_reserve_list_text.template.html*/
 	#reserveList .reserveListEntry.text {
-		
+
 	}
-	
+
 	/*
 	** Error Style for Input-Text
 	** used in: exam_organization_setup_exam_date_time.template.html
@@ -1368,9 +1367,55 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		background: #d11e01;
 		color: #ffffff;
 	}
-	
+
 	input.InputNormal
 	{
 		background: #ffffff;
 		color: #000000;
+	}
+
+	/*
+	** Styles for the standard button design
+	*/
+	.bidButton {
+	  color: #FFFFFF !important;
+	  background: #3A6E9F;
+	  cursor: pointer;
+	  overflow: hidden;
+	  text-align: center;
+	  /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);*/
+	  text-shadow: none;
+	  /*transition: all .3s ease-out;*/
+	  border-radius: 3px;
+	  -moz-border-radius: 3px;
+	  -webkit-border-radius: 3px;
+	  padding: 8px;
+	  font-size: 12px;
+		border: none;
+		display: inline-block;
+	}
+
+	.bidButton:hover {
+	  background: #6094C5;
+		/*box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);*/
+	  /*transform: scale(1.02) !important;*/
+	}
+
+	.bidButton:active{
+	  background: #264767;
+	  /*box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);*/
+	}
+
+	.bidButton:focus{
+		outline-width: 0;
+	}
+
+	/*
+	** Styles for the standard svg loader
+	*/
+	#bidLoader{
+		width: 100px;
+  	height: 100px;
+  	margin: 20px;
+  	display:inline-block;
 	}

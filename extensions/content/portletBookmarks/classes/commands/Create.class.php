@@ -14,11 +14,13 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
         //create headline
         $params = $requestObject->getParams();
 
-        if (isset($params["number"])) {
-            $number = $params["number"];
-        } else {
-            $number = 10;
+        if(intval($params["number"]) == 0){
+          $number = 10;
         }
+        else{
+          $number = intval($params["number"]);
+        }
+
         if (isset($params["id"])) {
             $id = $params["id"];
         } else {
@@ -39,11 +41,11 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
         }
 
         //create object
-        $bookmarkPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Übersicht der Lesezeichen", $column);
+        $bookmarkPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Lesezeichen", $column);
 
 
         $bookmarkPortlet->set_attributes(array(
-            OBJ_DESC => "Übersicht der Lesezeichen",
+            OBJ_DESC => "Lesezeichen",
             OBJ_TYPE => "container_portlet_bid",
             "bid:portlet" => "bookmarks",
             "bid:portlet:version" => $version,
@@ -52,11 +54,11 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
     }
 
     public function idResponse(\IdResponseObject $idResponseObject) {
-        
+
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
+
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

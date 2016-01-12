@@ -74,7 +74,7 @@ if(jQuery) (function($){
                                                                             $(this).parent().find('li.directory').removeClass('expanded').addClass('collapsed');
                                                                     }
                                                                     $(this).find('ul').remove(); // cleanup
-                                                                    showTree( $(this), escape($(this).find('a').attr('rel').match( /.*\// )) );
+                                                                    showTree( $(this), escape($(this).find('a').attr('rel').match( /.*/ )) );
                                                                     $(this).removeClass('collapsed').addClass('expanded');
                                                             } else if ( $(this).hasClass('expanded') ) {
                                                                     // Collapse

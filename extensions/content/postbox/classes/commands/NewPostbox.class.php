@@ -24,40 +24,32 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         //$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         
-        $currentDay = date("d") . "";
-        $currentMonth = date("m") . "";
-        $currentYear = date("Y") . "";
-        $time = date("H:i")."";
-        $currentDateTime = $currentDay.".".$currentMonth.".".$currentYear." ".$time;
         
+        //current time + one week
+        $deadline = time() + 604800;
+        $currentDateTime = date("d.m.Y H:i", $deadline) . "";
 
         $ajaxForm = new \Widgets\AjaxForm();
         $ajaxForm->setSubmitCommand("Create");
         $ajaxForm->setSubmitNamespace("Postbox");
-        $html = '          
+        $html = '<input type="hidden" name="id" value="'.$this->id.'">
+                 <input id="cb" type="hidden" name="checkVal" value="false">
+                 <script>
+                    $(".widgets_textinput_save_button").hide();
 
-
-<input type="hidden" name="id" value="{'.$this->id.'}">
-<input id="cb" type="hidden" name="checkVal" value="false">
-<script>
-            $(".widgets_textinput_save_button").hide();
-
-            $(".widgets_datepicker input").val("'.$currentDateTime.'");
+                    $(".widgets_datepicker input").val("'.$currentDateTime.'");
             
-            $(".widgets_checkbox input").change(function(){
-                if(!this.checked){ 
-                    $("#datepicker_overlay").show();
-                    $("#cb").val("false");
-                 }else{
-                    $("#datepicker_overlay").hide();
-                    $("#cb").val("true");
-                 }
-                }
-            );
+                    $(".widgets_checkbox input").change(function(){
+                        if(!this.checked){ 
+                            $("#datepicker_overlay").show();
+                            $("#cb").val("false");
+                        }else{
+                            $("#datepicker_overlay").hide();
+                            $("#cb").val("true");
+                        }
+                    });
             
-</script>
-        
-<br>		';
+                </script>';
 
         $textInput = new \Widgets\TextInput();
         $textInput->setName("name");

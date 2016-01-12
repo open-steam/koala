@@ -21,6 +21,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 
 		$user = \lms_steam::get_current_user();
 		$koala_wiki = new \koala_wiki($Wiki);
+                $koala_wiki->set_attribute("OBJ_DESC", "");
 		$koala_wiki->set_access(PERMISSION_PRIVATE_READONLY, 0, 0, $user);
 		
 		$ajaxResponseObject->setStatus("ok");

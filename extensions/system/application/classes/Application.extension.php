@@ -70,7 +70,9 @@ class Application extends AbstractExtension implements IApplicationExtension, II
 			if ($command->httpAuth($urlRequestObject)) {
 				include_once PATH_LIB . "http_auth_handling.inc.php";
 				if (!http_auth()) {
-					throw new \Exception("Bitte anmelden.");
+                                        //not logged in case
+					//throw new \Exception("Bitte anmelden.");
+                                        throw new Exception("", E_USER_ACCESS_DENIED);
 				}
 			}
 			
@@ -110,8 +112,12 @@ class Application extends AbstractExtension implements IApplicationExtension, II
 						$frame->set_page_title($frameResponeObject->getTitle());
 						$frame->set_confirmation($frameResponeObject->getConfirmText());
 						$frame->set_problem_description($frameResponeObject->getProblemDescription(), $frameResponeObject->getProblemSolution());
-						$frame->show_html();
-						die;
+						
+                                                try{
+                                                $frame->show_html();
+                                                }catch(Exception $e) {throw new Exception("", E_USER_ACCESS_DENIED);} //not logged in case
+
+                                                die;
 					} else {
 						$data = \Widgets\Widget::getData($frameResponeObject->getWidgets());
 						echo $data["html"];

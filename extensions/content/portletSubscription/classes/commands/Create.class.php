@@ -17,12 +17,18 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
             }
             
             //create object
-            $subscriptionPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Abonnement", $column);
+            $followedObjectTitel = $params["title"];
+            $subscriptionPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Änderungen in $followedObjectTitel", $column);
 
-            $desc = "Abonnement";
+           
+            $desc = "Abonnement $followedObjectTitel";
+            
+            /*
             if (isset($params["title"]) && $params["title"] != "") {
                 $desc = $params["title"];
             }
+            */
+            
 	    $subscriptionPortlet->set_attributes(array(
 	        OBJ_DESC => $desc,
 	        OBJ_TYPE => "container_portlet_bid",
@@ -34,6 +40,26 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
                 "PORTLET_SUBSCRIPTION_FILTER" => array(),
                 "PORTLET_SUBSCRIPTION_ORDER" => $params["sort"]
 	    ));
+            
+            //if the object is a folder or a portal, we initially add all existing content to the PORTLET_SUBSCRIPTION_CONTENT variable to track the content
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["objectid"]);
+            switch (getObjectType($object)){
+                case "room":
+                    foreach($object->get_inventory() as $element){
+                        $currentContent[$element->get_id()] = array("name"=>$element->get_attribute(OBJ_DESC));
+                    }
+                break;
+                
+                case "portal":
+                    foreach($object->get_inventory() as $column){
+                        foreach ($column->get_inventory() as $portlet){
+                            $currentContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_DESC));
+                        }
+                    }
+            }
+            
+            $subscriptionPortlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $currentContent);
+            
             
             \ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($column->get_environment()->get_id());
 	}

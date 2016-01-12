@@ -66,13 +66,13 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $term0->setLabel("Eintrag 1");
         $term0->setName("term0");
         $html .= $term0->getHtml();
-        $html .='<script>$("input[name=\"term0\"]").val("Termin A");</script>';
+        //$html .='<script>$("input[name=\"term0\"]").val("Termin A");</script>';
 
         $term1 = new \Widgets\TextInput();
         $term1->setLabel("Eintrag 2");
         $term1->setName("term1");
         $html .= $term1->getHtml();
-        $html .='<script>$("input[name=\"term1\"]").val("Termin B");</script>';
+        //$html .='<script>$("input[name=\"term1\"]").val("Termin B");</script>';
 
         $term2 = new \Widgets\TextInput();
         $term2->setLabel("Eintrag 3");
@@ -101,8 +101,8 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
         $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
 	float:left;
-        
-        
+
+
 }.widgets_label {
 	clear:both;
         float: left;

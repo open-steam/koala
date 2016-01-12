@@ -102,8 +102,8 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                     $holderOfRightsObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $holderOfRightsId, CLASS_OBJECT);
                     $ret1 = $this->object->sanction($sanction, $holderOfRightsObject);
                     
-                    var_dump($ret1 . " ". $sanction);
-                    var_dump($this->object->get_sanction());
+                    //var_dump($ret1 . " ". $sanction);
+                    //var_dump($this->object->get_sanction());
                     //sanction_meta auf SANCTION_ALL setzen, wenn SANCTION_SANCTION gesetzt ist
                     if($this->object->check_access(SANCTION_SANCTION, $holderOfRightsObject)){
                         

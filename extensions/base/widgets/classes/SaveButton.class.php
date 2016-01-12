@@ -21,10 +21,6 @@ class SaveButton extends Button {
 		$this->saveReload = saveReload;
 	}
 		
-	
-	
-	
-	
 	public function getHtml() {
 		$this->id = rand();
 		$this->getContent()->setVariable("BUTTON_ID", $this->id);

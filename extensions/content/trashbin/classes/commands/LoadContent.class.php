@@ -81,7 +81,7 @@ class ContentProvider implements \Widgets\IContentProvider {
         $objType = getObjectType($contentItem);
         if ($cell == $this->rawCheckbox) {
             if (!($contentItem instanceof \steam_trashbin)) {
-                return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:-4px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if(this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
+                return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if(this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
             } else {
                 return "";
             }

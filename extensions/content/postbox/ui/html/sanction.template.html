@@ -1,0 +1,54 @@
+<div id="owner_div">
+  {DESCRIPTION}
+</div>
+<div id="specific_div" class="visible">
+    <table width="100%">
+      <!--
+        <tr class="infoBar" style="height:23px;">
+            <td width="60%"><b>Einstellungen</b></td>
+            <td width="40%"><b>Rechte</b></td>
+        </tr>
+      -->
+        <tr valign="middle">
+            <td width="60%" {MANAGE}>Abgaben verwalten:</td>
+            <td width="40%" align="right" {MANAGE}>
+                <select name="admin_postbox" id="admin_postbox" size="1" data-saveFunction="{SEND_REQUEST_ADMIN_POSTBOX}">
+                    <option value="0">{NO_USERS}</option>
+                    <!-- BEGIN ADMIN_POSTBOX -->
+                        <option {SELECTED} value="{OBJECT_ID}">{OBJECT_NAME}</option>
+                    <!-- END ADMIN_POSTBOX -->
+                </select>
+            </td>
+        </tr>
+        <tr valign="middle">
+            <td width="60%">Abgaben einreichen:</td>
+            <td width="40%" align="right" >
+                <select name="insert_postbox" id="insert_postbox" size="1" data-saveFunction="{SEND_REQUEST_INSERT_POSTBOX}">
+                        <option value="0">niemand</option>
+                        <!-- BEGIN INSERT_POSTBOX -->
+                          <option {SELECTED} value="{OBJECT_ID}" title="{OBJECT_NAME}">{OBJECT_NAME}</option>
+                        <!-- END INSERT_POSTBOX -->
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    $('#admin_postbox').change(
+        function() {
+            //add the changed class to this object
+            $('#admin_postbox').addClass('changed');
+            //update the value in the variable
+            admin_postbox = $('#admin_postbox').val();
+        }
+    );
+
+    $('#insert_postbox').change(
+        function() {
+            //add the changed class to this object
+            $('#insert_postbox').addClass('changed');
+            //update the value in the variable
+            insert_postbox = $('#insert_postbox').val();
+        }
+    );
+</script>

@@ -16,13 +16,9 @@ function send_http_error($pException, $pBacktrace = "", $silent = false)
                 if ($user instanceof lms_user && $user->is_logged_in()) {
                     $pException = new Exception($pException->getMessage(), E_USER_RIGHTS);
                 } else {
-                    $protocoll = isset($_SERVER["HTTPS"]) ? "https://" : "http://";
-                    $url = $protocoll . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-                    $request_url = str_ireplace(PATH_URL, "/", $url);
-                    //$_SESSION["error"] = "Um auf das ausgewählte Objekt zugreifen zu können ist eine Authentifizierung notwendig.";
-                    $_SESSION["error"] = "Ungültiger Benutzername oder falsches Passwort. Bitte überprüfen Sie Ihren Benutzernamen und das Passwort.";
-                    
-                    header( 'Location: ' . URL_SIGNIN_REQUEST . substr($request_url, 1));
+                    //$_SESSION["error"] = "Ungültiger Benutzername oder falsches Passwort. Bitte überprüfen Sie Ihren Benutzernamen und das Passwort. ";
+                    $_SESSION["error"] = "Bitte melden Sie sich am Server an, um das Objekt anzuzeigen.";
+                    header( 'Location: ' . URL_SIGNIN_REQUEST . substr($_SERVER["REQUEST_URI"], 1));
                     exit;
                 }
     }
@@ -34,10 +30,7 @@ function send_http_error($pException, $pBacktrace = "", $silent = false)
         } catch (Exception $e) {
 
         }
-        $protocoll = isset($_SERVER["HTTPS"]) ? "https://" : "http://";
-        $url = $protocoll.$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
-        $request_url = str_ireplace(PATH_URL, "/", $url);
-        ($silent) or header( 'Location: ' . URL_SIGNIN_REQUEST . substr($request_url, 1));
+        ($silent) or header( 'Location: ' . URL_SIGNIN_REQUEST . substr($_SERVER["REQUEST_URI"], 1));
         exit;
     }
     if ( $pException->getCode() == E_USER_DISCLAIMER ) {

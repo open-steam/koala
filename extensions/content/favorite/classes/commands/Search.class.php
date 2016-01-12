@@ -2,31 +2,26 @@
 
 namespace Favorite\Commands;
 
-class Search extends \AbstractCommand implements \IFrameCommand
-{
+class Search extends \AbstractCommand implements \IFrameCommand{
+
     private $params;
     private $id;
 
-    public function validateData(\IRequestObject $requestObject)
-    {
+    public function validateData(\IRequestObject $requestObject){
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject)
-    {
+    public function processData(\IRequestObject $requestObject){
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
     }
 
-    public function frameResponse(\FrameResponseObject $frameResponseObject)
-    {
+    public function frameResponse(\FrameResponseObject $frameResponseObject){
         $frameResponseObject = $this->execute($frameResponseObject);
-
         return $frameResponseObject;
     }
 
-    public function execute(\FrameResponseObject $frameResponseObject)
-    {
+    public function execute(\FrameResponseObject $frameResponseObject){
         //DEFINITION OF IGNORED USERS AND GROUPS
         $ignoredUserNames = array(0 => "postman", 1 => "root", 2 => "guest");
         $ignoredGroupNames = array(0 => "sTeam", 1 => "admin");
@@ -143,7 +138,7 @@ class Search extends \AbstractCommand implements \IFrameCommand
         $content = \Favorite::getInstance()->loadTemplate("fav_search.html");
         $content->setVariable("TITLE", "Favoritensuche");
 
-        $content->setVariable("SEARCH", "Suche");
+        $content->setVariable("SEARCH", "Suchbegriff");
         $content->setVariable("BUTTON_LABEL", "Suchen");
 
         $content->setVariable("GROUPS", "Gruppen");
@@ -207,7 +202,7 @@ class Search extends \AbstractCommand implements \IFrameCommand
                             if ($steamUser->get_id() == $resultUser->get_id()) {
                                 $content->setVariable("ALREADY_BUDDY", "Das bist Du!");
                             } elseif (!($steamUser->is_buddy($resultUser))) {
-                                $content->setVariable("ADD_FAVORITE_BUDDY", "Favorit hinzufügen");
+                                $content->setVariable("ADD_FAVORITE_BUDDY", "Als Favorit hinzufügen");
 
                                 $content->setVariable("FAVORITE_BUDDY_LINK", PATH_URL . "favorite/add/" . $urlId . "/" . $category . "/");
                             } else {
@@ -226,7 +221,7 @@ class Search extends \AbstractCommand implements \IFrameCommand
                             $groupDesc = $resultGroup->get_attribute("OBJ_DESC");
                             $content->setVariable("GROUP_DESC", $groupDesc);
                             if (!($steamUser->is_buddy($resultGroup))) {
-                                $content->setVariable("ADD_FAVORITE_GROUP", "Favorit hinzufügen");
+                                $content->setVariable("ADD_FAVORITE_GROUP", "Als Favorit hinzufügen");
                                 $content->setVariable("FAVORITE_GROUP_LINK", PATH_URL . "favorite/add/" . $urlId . "/" . $category . "/");
                             } else {
                                 $content->setVariable("ALREADY_GROUP", "Bereits Teil der Favoritenliste");

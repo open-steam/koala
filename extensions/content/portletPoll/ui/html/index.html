@@ -1,16 +1,21 @@
 <div class="portlet poll" id="{PORTLET_ID}">
-	<h1 class="headline">
+	<h1 class="{HEADLINE_CLASS}">
 		<!-- BEGIN BLOCK_EDIT_BUTTON -->
 		<div class="editbutton">{POPUPMENU}</div>
 		<div style='float:right' class='editbutton'>{REFERENCE_ICON}</div>
 		<!-- END BLOCK_EDIT_BUTTON -->
 		{POLL_NAME}
 	</h1>
-	<h2 class="subheadline">
+	<!-- BEGIN BLOCK_NO_MESSAGE -->
+	<div class="message">
+		{NO_MESSAGE_INFO}
+	</div>
+	<!-- END BLOCK_NO_MESSAGE -->
+	<h2 class="subheadline {HIDDEN}">
 		{POLL_TOPIC}
 	</h2>
-	<div class="entry">
-		<form name="vote_{PORTLET_ID}"> 
+	<div class="entry {HIDDEN}">
+		<form name="vote_{PORTLET_ID}">
 			<!-- BEGIN choice -->
 				<div class="choice">
 					<input style="float:right" onclick="sendRequest('VoteItem',	{'portletObjectId': '{portletObjectId}', 'voteItemId': '{voteItemId}'}, '', 'popup', '','', 'PortletPoll');return false;" type="button" name="poll{OPTION_NUMBER}" value="Abstimmen"></input>
@@ -28,5 +33,3 @@
 		</form>
 	</div>
 </div>
-
-

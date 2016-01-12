@@ -5,6 +5,9 @@
 //beim wechsel von acqire zu nicht-acquire noch überlegen, wie das am besten geht (vorige Werte vergessen oder zurücksetzen?)
 //DropDown List auf neuen Dialog umstellen (fertigstellen)
 //    Eine Checkbox zum Rechte vererben mit JS onChange Methode
+
+//Hinweis, dass ein Nutzer Rechte aus der Gruppenmitgliedschaft hat links neben der DDListe anzeigen
+//Anzeige nur der Rechte-Optionen, die gleich viel oder noch mehr Rechte geben
     
 
 
@@ -20,6 +23,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     private $steamUser;
     private $creator;
     private $environment;
+
     private $content;
     private $ajaxResponseObject;
     
@@ -99,14 +103,17 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         //check if the user can modify the sanctions
         if (!$this->object->check_access(SANCTION_SANCTION)) {
             $labelDenied = new \Widgets\RawHtml();
-            $labelDenied->setHtml("Sie haben keine Berechtigung die Rechte einzusehen und zu verändern!");
+            $labelDenied->setHtml("Sie haben keine Berechtigung die Rechte einzusehen oder zu verändern!");
             $dialogDenied = new \Widgets\Dialog();
             $dialogDenied->setTitle("Rechte von »" . getCleanName($this->object) . "«");
+            $dialogDenied->setCancelButtonLabel("");
+            $dialogDenied->setSaveAndCloseButtonLabel("Schließen");
             $dialogDenied->addWidget($labelDenied);
 
             $this->ajaxResponseObject->addWidget($dialogDenied);
             return $this->ajaxResponseObject;
         }
+
 
         self::setupVariables();
         
@@ -284,7 +291,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         }
         asort($this->userMappingAcq);
 
-
+        
         //start with the composition of the dialog
         if ($this->environment instanceof \steam_room) {
             $this->content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($this->environment) . "</b>");
@@ -489,6 +496,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         if (count($this->groupMapping) == 0) {
             $this->content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
+            if(count($this->groupMapping) > 5){
+              $this->content->setVariable("CSS_GROUPS", "height:110px;");
+            } else {
+              $this->content->setVariable("CSS_GROUPS", "");
+            }
             foreach ($this->groupMapping as $id => $group) {
                 
                 if($group->get_attribute("GROUP_INVISIBLE") != 0){
@@ -500,6 +512,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 if ($name == "" || $name == "0") {
                     $name = $group->get_name();
                 }
+
                 $groupname = $group->get_groupname();
 
                 $dropDownValue = 0;
@@ -567,7 +580,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $name = $realname;
                 }
                 $groupname = $group->get_groupname();
-                
+
                 $dropDownValueAcq = 0;
                 if ($this->environment instanceof \steam_room) {
                     if ($this->environment->check_access(SANCTION_SANCTION, $group)) {$dropDownValueAcq = 3;}
@@ -613,6 +626,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $this->content->setVariable("DUMMY_FAV", "");
             $this->content->setVariable("DUMMY_FAV_ACQ", "");
+        
+            if (count($this->userMapping) > 5) {
+                $this->content->setVariable("CSS_USER", "height:110px;");
+            } else {
+                $this->content->setVariable("CSS_USER", "");
+            }
 
             foreach ($this->userMapping as $id => $name) {
                 
@@ -663,7 +682,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 }
             }
         }
-        
+
     }
     
     function buildUserFavoritesAcq(){

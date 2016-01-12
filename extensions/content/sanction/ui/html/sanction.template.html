@@ -1,31 +1,31 @@
 <style>
- 
+
     td{
         font-family: arial;
     }
     p{
         font-family: arial;
     }
-    
+
     #no_acquiring{
-     {IS_ACQUIRED_DISABLE_FORM}   
-        
+     {IS_ACQUIRED_DISABLE_FORM}
+
     }
 </style>
-<h2>Rechteverwaltung von {TITLE}</h2>
+<h2>Erweiterte Rechteverwaltung von {TITLE}</h2>
 
-<div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist <b>{OWNER_FULL_NAME}</b>
+<div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist<b>{OWNER_FULL_NAME}</b>
         und hat volle Zugriffsrechte.</p></div>
 
 <div id="owner_div" {DISPLAY_INHERIT_FROM}>
     <p> <input id="radio_acquire" onChange="updateAcq()" type="checkbox" {NO_ENVIRONMENT} {IS_ACQUIRED}/>
-        Übernehme Rechte von dem Elternelement <b> {INHERIT_FROM} </b></p></div>
-<div id="no_acquiring">
+        Übernehme Rechte von dem Elternelement<b>{INHERIT_FROM}</b></p></div>
+<div id="no_acquiring" style="overflow-x:scroll;">
 
-<div id="buttons-label">{NO_ENVIRONMENT_ADAPT_TEXT}etzen Sie vordefinierte Zugriffsrechte:</div>
+<div id="buttons-label" style="float:left;">{NO_ENVIRONMENT_ADAPT_TEXT}etzen Sie vordefinierte Zugriffsrechte:</div>
 
  <div id="buttons">
- 
+
         <input type="button"  value="Privat" onclick="setCrude('privat');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
         <input type="button"  value="Benutzer-Öffentlich" onclick="setCrude('user_public');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
         <input type="button"  value="Welt-Öffentlich" onclick="setCrude('server_public');" {IS_ACQUIRED_DISABLE_BUTTONS}/>
@@ -39,13 +39,13 @@ Oder setzen Sie die Zugriffsrechte individuell:
     <table id="global" width="100%">
         <tr class="infoBar">
             <td width="40%"><b>Globale Benutzergruppen</b></td>
-            <td><b>read</b></td>
-            <td><b>write</b></td>
-            <td><b>execute</b></td>
-            <td><b>move</b></td>
-            <td><b>insert</b></td>
-            <td><b>annotate</b></td>
-            <td><b>sanction</b></td>                
+            <td><b>Lesen</b></td>
+            <td><b>Schreiben</b></td>
+            <td><b>Ausführen</b></td>
+            <td><b>Bewegen</b></td>
+            <td><b>Einfügen</b></td>
+            <td><b>Kommentieren</b></td>
+            <td><b>Rechteweitergabe</b></td>
         </tr>
 
         <tr valign="middle">
@@ -72,16 +72,16 @@ Oder setzen Sie die Zugriffsrechte individuell:
 
         <tr class="infoBar">
             <td width="40%"><b>Gruppen</b></td>
-            <td><b>read</b></td>
-            <td><b>write</b></td>
-            <td><b>execute</b></td>
-            <td><b>move</b></td>
-            <td><b>insert</b></td>
-            <td><b>annotate</b></td>
-            <td><b>sanction</b></td>
+            <td><b>Lesen</b></td>
+            <td><b>Schreiben</b></td>
+            <td><b>Ausführen</b></td>
+            <td><b>Bewegen</b></td>
+            <td><b>Einfügen</b></td>
+            <td><b>Kommentieren</b></td>
+            <td><b>Rechteweitergabe</b></td>
         </tr>
-        
-        
+
+
         <!-- BEGIN GROUPS -->
         <tr valign="middle">
             <td><img style="float:left" src="{IMG_PATH}"> <div style="text-indent:{INDENTINDEX}em;">{GROUPNAME}</div></td>
@@ -98,16 +98,16 @@ Oder setzen Sie die Zugriffsrechte individuell:
         </tr>
         <!-- END GROUPS -->
 
-        
+
         <tr class="infoBar">
             <td width="40%"><b>Benutzer</b></td>
-            <td><b>read</b></td>
-            <td><b>write</b></td>
-            <td><b>execute</b></td>
-            <td><b>move</b></td>
-            <td><b>insert</b></td>
-            <td><b>annotate</b></td>
-            <td><b>sanction</b></td>
+            <td><b>Lesen</b></td>
+            <td><b>Schreiben</b></td>
+            <td><b>Ausführen</b></td>
+            <td><b>Bewegen</b></td>
+            <td><b>Einfügen</b></td>
+            <td><b>Kommentieren</b></td>
+            <td><b>Rechteweitergabe</b></td>
         </tr>
 
         <!-- BEGIN FAVORITES -->
@@ -127,65 +127,135 @@ Oder setzen Sie die Zugriffsrechte individuell:
         </tr>
     </table>
 <br/>
+<input type="button"  value="Zurück" onClick="history.back();"/>
 <input type="submit"  value="Speichern" {IS_ACQUIRED_DISABLE_BUTTONS}/>
 </div>
 </form>
-<br/><br/>
+<br/>
 <p>Fügen Sie weitere Nutzer oder Gruppen zu der Rechteverwaltung hinzu:<br/></p>
 <input type="text"  value="" id="userToAdd" {IS_ACQUIRED_DISABLE_BUTTONS}/>
 <input type="button"  value="Benutzer hinzufügen" {IS_ACQUIRED_DISABLE_BUTTONS} onClick="addUserOrGroup('user')"/>
 <br />
 <input type="text"  value="" id="groupToAdd" {IS_ACQUIRED_DISABLE_BUTTONS}/>
 <input type="button"  value="Gruppe hinzufügen" {IS_ACQUIRED_DISABLE_BUTTONS} onClick="addUserOrGroup('group')"/>
+<br/><br/>
+<h2>Eigenschaften von {TITLE}</h2>
+<input type="button"  class="propertyButtons" value="Attribute" onClick="showTable(this, 1);"/>
+<input type="button"  class="propertyButtons" value="Annotationen" onClick="showTable(this, 2)"/>
+<input type="button"  class="propertyButtons" value="Konstanten" onClick="showTable(this, 3)"/>
+<table style="color:black; display:none;">
+    <tr valign="middle">
 
+            <td style="border-bottom:1px solid black;">Key</td>
+            <td style="border-bottom:1px solid black;">Value</td>
+            <td style="border-bottom:1px solid black;">Locked</td>
+        </tr>
+<!-- BEGIN ATTRIBUTES -->
+        <tr valign="middle">
 
+            <td style="border-bottom:1px solid black;">{KEY}</td>
+            <td style="border-bottom:1px solid black;">{VALUE}</td>
+            <td style="border-bottom:1px solid black;">{LOCKED}</td>
+        </tr>
+        <!-- END ATTRIBUTES -->
+</table>
+<table style="color:black; display:none;">
+    <tr valign="middle">
+
+            <td style="border-bottom:1px solid black;">Key</td>
+            <td style="border-bottom:1px solid black;">Value</td>
+
+        </tr>
+<!-- BEGIN ANNOTATIONS -->
+        <tr valign="middle">
+
+            <td style="border-bottom:1px solid black;">{KEY}</td>
+            <td style="border-bottom:1px solid black;">{VALUE}</td>
+
+        </tr>
+        <!-- END ANNOTATIONS -->
+</table>
+<table style="color:black; display:none;">
+    <tr valign="middle">
+
+            <td style="border-bottom:1px solid black;">Key</td>
+            <td style="border-bottom:1px solid black;">Value</td>
+
+        </tr>
+<!-- BEGIN CONSTANTS -->
+        <tr valign="middle">
+
+            <td style="border-bottom:1px solid black;">{KEY}</td>
+            <td style="border-bottom:1px solid black;">{VALUE}</td>
+
+        </tr>
+        <!-- END CONSTANTS -->
+</table>
+<br/><br/>
 </div>
 <script language="JavaScript">
 
-    
+    function showTable(element, number){
+      var table = $("table").eq(number);
+      var displayed = table.css("display");
+
+      $(".propertyButtons").css("color", "");
+      $(".propertyButtons").css("font-weight", "");
+      $("table").eq(1).hide();
+      $("table").eq(2).hide();
+      $("table").eq(3).hide();
+
+      if(displayed == "none"){
+        $(element).css("color", "blue");
+        $(element).css("font-weight", "bold");
+        table.show();
+      }
+
+    }
+
     function sanctionCancelWarning(id, value){
         if(value == false ){
             if(!confirm ("Vorsicht! Sie könnten sich selbst das Recht entziehen, die Rechte ändern zu dürfen!")){
                 $("#"+id).prop('checked', true);
-                
+
             }
         }
-        
+
     }
-    
-    
+
+
     //adding a user or a group directly to the right-owners
     function addUserOrGroup(className){
-        
+
         if(className =="user"){
             value = document.getElementById("userToAdd").value;
         } else {
             value = document.getElementById("groupToAdd").value;
         }
-       
-        sendRequest("Save", 
+
+        sendRequest("Save",
                    {
                        'order': 'addUserOrGroup',
                        'id': {OBJECT_ID},
                        'className': className,
                        'value': value
-                   }, 
+                   },
                    '',
-                   'data', 
+                   'data',
                    function(response)
                         {
                             location.reload();
                             return true;
                         },
-                    null, 
+                    null,
                    "sanction"
                    );
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     $(document).ready(function(){
         $("#sanctions").submit(
             function(e){
@@ -194,75 +264,75 @@ Oder setzen Sie die Zugriffsrechte individuell:
                 //iteratr over every checkbox and serialize them
                 $('#sanctions input[type=checkbox]').map(
                     function(){
-                        
+
                         if(!this.disabled){
-                            
+
                             ret[this.name]=this.checked;
                         }
                     }
                 ).get();
 
-                
+
 
                 sendRequest(
-                    "Save", 
-                    { 
-                        'order':"detailed", 
+                    "Save",
+                    {
+                        'order':"detailed",
                         'id':{OBJECT_ID},
-                        'value': JSON.stringify(ret) 
-                    }, 
-                    "", 
-                    "data", 
+                        'value': JSON.stringify(ret)
+                    },
+                    "",
+                    "data",
                     function(response)
                         {
                             location.reload();
                             return true;
-                        }, 
-                    null, 
+                        },
+                    null,
                     "sanction"
                 );
             }
         );
     });
-    
-    
-    
-    
+
+
+
+
     function updateAcq(){
-        sendRequest("Save", 
+        sendRequest("Save",
                    {
                        'order': 'acquire',
                        'id': {OBJECT_ID},
-                       'value': document.getElementById("radio_acquire").checked 
-                   }, 
+                       'value': document.getElementById("radio_acquire").checked
+                   },
                    '',
-                   'data', 
+                   'data',
                    function(response)
                         {
                             location.reload();
                             return true;
                         },
-                    null, 
+                    null,
                    "sanction"
                    );
     }
-    
-    
+
+
     function setCrude(value){
-        sendRequest("Save", 
-                    { 
+        sendRequest("Save",
+                    {
                         'order': 'crude',
-                        'id':{OBJECT_ID}, 
-                        "value": value 
-                    }, 
-                    "", 
-                    "data", 
+                        'id':{OBJECT_ID},
+                        "value": value
+                    },
+                    "",
+                    "data",
                     function(response)
                         {
                             location.reload();
                             return true;
-                        }, 
-                    null, 
+                        },
+                    null,
                     "sanction");
     }
 

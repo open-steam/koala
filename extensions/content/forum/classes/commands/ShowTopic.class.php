@@ -45,8 +45,8 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         /** id of the log-in user */
         $steamUserId = $steamUser->get_id();
         /** the login user name */
-        $steamUserLoginName = $steamUser->get_name();
-        $steamUserName = $steamUser->get_full_name();
+        //$steamUserLoginName = $steamUser->get_name();
+        //$steamUserName = $steamUser->get_full_name();
 
         /** the current category */
         $category = \steam_factory::get_object($steam->get_id(), $category_id);
@@ -59,7 +59,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         }
         /** additional required attributes */
         $categoryAttributes = $category->get_attributes(array(OBJ_NAME, OBJ_DESC,
-            OBJ_CREATION_TIME, "bid:description", "DOC_LAST_MODIFIED", "DOC_USER_MODIFIED"), 1);
+            OBJ_CREATION_TIME, "bid:description", "DOC_LAST_MODIFIED", OBJ_LAST_CHANGED, "DOC_USER_MODIFIED"), 1);
 
         /** the content of the current category */
         $categoryContent = $category->get_content(1);
@@ -133,7 +133,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                 foreach ($messages as $message) {
                     if (!empty($message)) {
                         $id = $message->get_id();
-                        $messageAttributes[$id] = $message->get_attributes(array(OBJ_NAME, OBJ_DESC, OBJ_CREATION_TIME, "DOC_LAST_MODIFIED", "DOC_USER_MODIFIED"), 1);
+                        $messageAttributes[$id] = $message->get_attributes(array(OBJ_NAME, OBJ_DESC, OBJ_CREATION_TIME, OBJ_LAST_CHANGED, "DOC_LAST_MODIFIED", "DOC_USER_MODIFIED"), 1);
                         $messageAccessWrite[$id] = $message->check_access_write($steamUser, 1);
                         $messageContent[$id] = $message->get_content(1);
                         $messageCreator[$id] = $message->get_creator(1);
@@ -213,32 +213,36 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
             if ($categoryAttributes[OBJ_CREATION_TIME] != $categoryAttributes["DOC_LAST_MODIFIED"]) {
                 if (strlen(trim($categoryContent)) > 0) {
                     $content->setVariable("AUTHOR_EDIT", $categoryAttributes["DOC_USER_MODIFIED"]->get_full_name());
-                    $content->setVariable("TIMESTAMP_EDIT", date("d.m.Y G:i", $categoryAttributes["DOC_LAST_MODIFIED"]));
+                    $content->setVariable("TIMESTAMP_EDIT", date("d.m.Y G:i", $categoryAttributes["OBJ_LAST_CHANGED"]));
                 } else {
                     $content->setVariable("AUTHOR_DELETE", $categoryAttributes["DOC_USER_MODIFIED"]->get_full_name());
-                    $content->setVariable("TIMESTAMP_DELETE", date("d.m.Y G:i", $categoryAttributes["DOC_LAST_MODIFIED"]));
+                    $content->setVariable("TIMESTAMP_DELETE", date("d.m.Y G:i", $categoryAttributes["OBJ_LAST_CHANGED"]));
                 }
             }
             $column_width = 763;
             if ($category->get_attribute("bid:forum:category:picture_id") !== 0) {
-
-                $picture_width = (($category->get_attribute("bid:forum:category:picture_width") != 0) ? $category->get_attribute("bid:forum:category:picture_width") : "");
-                if (extract_percentual_length($picture_width) == "") {
+ 
+                
+                $picture_width = (($category->get_attribute("bid:forum:category:picture_width") != "0") ? trim($category->get_attribute("bid:forum:category:picture_width")) : "");
+                
+                if (extract_percentual_length($picture_width) == "") {    
                     $bare_picture_width = extract_length($picture_width);
                     if ($bare_picture_width == "") {
-                        $picture_width = "";
+                        $picture_width = "100%";
                     } else if ($bare_picture_width > $column_width - 25) {
                         $picture_width = $column_width - 25;
                     }
                 }
+                
                 $align = $category->get_attribute("bid:forum:category:picture_alignment");
+                
                 if ($align !== "none" && $align != "0") {
                     $content->setVariable("MESSAGE_PICTURE_URL1", getDownloadUrlForObjectId($category->get_attribute("bid:forum:category:picture_id")));
-                    $content->setVariable("MESSAGE_PICTURE_ALIGNMENT1", $category->get_attribute("bid:forum:category:picture_alignment"));
+                    $content->setVariable("MESSAGE_PICTURE_ALIGNMENT1", $align);
                     $content->setVariable("MESSAGE_PICTURE_WIDTH1", $picture_width);
                 }else{
-                    $content->setVariable("MESSAGE_PICTURE_URL_NONE", getDownloadUrlForObjectId($category->get_attribute("bid:forum:category:picture_id")));
-                    $content->setVariable("MESSAGE_PICTURE_WIDTH_NONE", $picture_width);
+                    $content->setVariable("MESSAGE_PICTURE_URL_NONE1", getDownloadUrlForObjectId($category->get_attribute("bid:forum:category:picture_id")));
+                    $content->setVariable("MESSAGE_PICTURE_WIDTH_NONE1", $picture_width);
                
                 }
             }
@@ -260,10 +264,10 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                     if ($messageAttributes[$id][OBJ_CREATION_TIME] != $messageAttributes[$id]["DOC_LAST_MODIFIED"]) {
                         if (strlen(trim($messageContent[$id])) > 0) {
                             $content->setVariable("AUTHOR_MES_EDIT", $messageAttributes[$id]["DOC_USER_MODIFIED"]->get_full_name());
-                            $content->setVariable("TIMESTAMP_MES_EDIT", date("d.m.Y G:i", $messageAttributes[$id]["DOC_LAST_MODIFIED"]));
+                            $content->setVariable("TIMESTAMP_MES_EDIT", date("d.m.Y G:i", $messageAttributes[$id]["OBJ_LAST_CHANGED"]));
                         } else {
                             $content->setVariable("AUTHOR_MES_DELETE", $messageAttributes[$id]["DOC_USER_MODIFIED"]->get_full_name());
-                            $content->setVariable("TIMESTAMP_MES_DELETE", date("d.m.Y G:i", $messageAttributes[$id]["DOC_LAST_MODIFIED"]));
+                            $content->setVariable("TIMESTAMP_MES_DELETE", date("d.m.Y G:i", $messageAttributes[$id]["OBJ_LAST_CHANGED"]));
                         }
                     }
                     if ($canAnnotate) {
@@ -280,7 +284,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                         if (extract_percentual_length($picture_width) == "") {
                             $bare_picture_width = extract_length($picture_width);
                             if ($bare_picture_width == "") {
-                                $picture_width = "";
+                                $picture_width = "100%";
                             } else if ($bare_picture_width > $column_width - 25) {
                                 $picture_width = $column_width - 25;
                             }

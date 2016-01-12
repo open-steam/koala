@@ -67,8 +67,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 break;
 
             case "gallery":
-                $labelName = "Galeriename";
-                $typeName = "Galerie";
+                $labelName = "Name";
+                $typeName = "Fotoalbum";
                 break;
 
             case "portal":
@@ -154,9 +154,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         $typeNameReadable = "";
         if ($typeName!="unbekannt") $typeNameReadable = "(".$typeName.")";
-        
+
         $dialog = new \Widgets\Dialog();
-        $dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>{$typeNameReadable}");
+        //$dialog->setTitle("Eigenschaften von »" . getCleanName($object) . "«<br>{$typeNameReadable}");
+        $dialog->setTitle("Eigenschaften");
+        $dialog->setWidth(400);
 
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
@@ -177,8 +179,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $dataNameInput->setReadOnly(true);
             }
             $dataNameInput->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", $object->get_name()));
-            
-            
+
+
             //create description text area
             $textAreaDescription = new \Widgets\Textarea();
             $textAreaDescription->setLabel("Beschreibung");
@@ -195,8 +197,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 $jsWrapperPicture = new \Widgets\JSWrapper();
                 $desc = trim($desc);
             }
-            
-            
+
+
         }
 
         $ownerField = new \Widgets\TextField();
@@ -214,13 +216,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $changedField->setLabel("zuletzt geändert");
         $changedDate = $object->get_attribute(OBJ_LAST_CHANGED);
         $changedDate = getFormatedDate($changedDate);
-        $changedField->setValue($changedDate);
+        $changedField->setValue($changedDate . " Uhr");
 
         $createdField = new \Widgets\TextField();
         $createdField->setLabel("erstellt");
         $createDate = $object->get_attribute(OBJ_CREATION_TIME);
         $createDate = getFormatedDate($createDate);
-        $createdField->setValue($createDate);
+        $createdField->setValue($createDate . " Uhr");
 
         $containerViewRadio = new \Widgets\RadioButton();
         $containerViewRadio->setLabel("Erstes Dokument");
@@ -231,10 +233,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $containerViewRadio->setReadOnly(true);
         }
 
-
         //TODO: value is array
         $keywordArea = new \Widgets\TextInput();
-        $keywordArea->setLabel("Schlüsselwörter");
+        $keywordArea->setLabel("Tags");
         $keywordArea->setData($object);
         $keywordArea->setContentProvider(\Widgets\DataProvider::arrayToStringProvider("OBJ_KEYWORDS"));
         if (!$isWriteable) {
@@ -243,9 +244,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
 
-
             $parent = $object->get_environment();
-            if ($parent !== 0) {
+            if ($parent !== 0 && $isWriteable){
                 $inventory = $parent->get_inventory();
             } else {
                 $inventory = array();
@@ -279,15 +279,15 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $tagrawHtml = new \Widgets\RawHtml();
             $html = '<script>function copyToTextInput(name){
             var valOld = $("input[type=text]")[1].value.trim();
-            var tagfield = $("input[type=text]")[1]; 
+            var tagfield = $("input[type=text]")[1];
             tagfield.value = valOld + " " + name;
-            
+
             $(\'#'.$keywordArea->getId().'\').addClass(\'changed\');
-                
-            
+
+
             '.$keywordArea->getId().' = tagfield.value;
             //sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
-            
+
             }</script><div class="tag-overview-row">';
 
             $breakCounter = 3;
@@ -300,7 +300,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $html .= "</div>";
             $tagrawHtml->setHtml($html);
-            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:130px;clear:both;width:200px;}');
+            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:147px;clear:both;width:200px;}');
         }
 
         //TODO: bid-attribute
@@ -331,8 +331,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (!$isWriteable) {
             $checkboxWWW->setReadOnly(true);
         }
-        
-        
+
+
         $checkboxHiddenObject = new \Widgets\Checkbox();
         $checkboxHiddenObject->setLabel("Verstecktes Objekt:");
         $checkboxHiddenObject->setCheckedValue("1");
@@ -343,7 +343,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (!$isWriteable) {
             $checkboxHiddenObject->setReadOnly(true);
         }
-        
+
         //checkbox for the option to enable or disable the tag-column
         $checkboxShowTags = new \Widgets\Checkbox();
 
@@ -398,19 +398,19 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($createdField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
-        
-        
-        
+
+
+
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
             //check if the attribute exists, if not: set it to false
-            if($object->get_attribute("SHOW_TAGS") == 0){
+            if($object->get_attribute("SHOW_TAGS") == 0 && $isWriteable){
                 $object->set_attribute("SHOW_TAGS", 'false');
             }
-            
+
             //only show the option to disable the tagcolumn if tags are enabled on the system
             $dialog->addWidget($checkboxShowTags);
-            
+
             $dialog->addWidget($keywordArea);
             $dialog->addWidget($tagrawHtml);
         }
@@ -423,24 +423,26 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if ($type == "container" || $type == "room") {
             $dialog->addWidget($textAreaDescription);
             $dialog->addWidget($seperator);
-            
+
             //case head document possible
             $inventory = array();
-            $inventory = $object->get_inventory();
-            if (isset($inventory[0]) && $inventory[0] instanceof \steam_object) {
-                $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
-                
-                if (strpos($mime, "html") !== false) {
-                    $dialog->addWidget($headlineView);
-                    $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
-                    $dialog->addWidget($containerViewRadio);
-                } else if (getObjectType($inventory[0]) === "portal") {
-                    $dialog->addWidget($headlineView);
-                    $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
-                    $dialog->addWidget($containerViewRadio);
-                }
+            if($isWriteable){
+              $inventory = $object->get_inventory();
+              if (isset($inventory[0]) && $inventory[0] instanceof \steam_object) {
+                  $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
+
+                  if (strpos($mime, "html") !== false) {
+                      $dialog->addWidget($headlineView);
+                      $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
+                      $dialog->addWidget($containerViewRadio);
+                  } else if (getObjectType($inventory[0]) === "portal") {
+                      $dialog->addWidget($headlineView);
+                      $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
+                      $dialog->addWidget($containerViewRadio);
+                  }
+              }
             }
-            
+
             $dialog->addWidget($seperator);
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
@@ -474,11 +476,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($textAreaDescription);
             $dialog->setSaveAndCloseButtonForceReload(true);
         }
-        
-        
+
+
         if ($type == "portal") {
             $statusbarCheckbox = new \Widgets\Checkbox();
-            $statusbarCheckbox->setLabel("Statusleiste deaktiviert");
+            $statusbarCheckbox->setLabel("Statusleiste deaktiviert:");
             $statusbarCheckbox->setCheckedValue("1");
             $statusbarCheckbox->setUncheckedValue(0);
             $statusbarCheckbox->setData($object);
@@ -491,19 +493,19 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($seperator);
             $dialog->addWidget($textAreaDescription);
         }
-        
+
         //wiki
         if (($type == "wiki") && ($typeName != "unbekannt")){
             $dialog->addWidget($seperator);
             $dialog->addWidget($textAreaDescription);
         }
-        
+
         //gallery
         if ($type == "gallery"){
             $dialog->addWidget($seperator);
             $dialog->addWidget($textAreaDescription);
         }
-        
+
         //all other objects
         if ($typeName == "unbekannt"){
             $dialog->addWidget($seperator);
@@ -521,7 +523,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $object = $currentUser->get_workroom();
 
         $dialog = new \Widgets\Dialog();
-        $dialog->setTitle("Eigenschaften von " . $object->get_name());
+        //$dialog->setTitle("Eigenschaften von " . $object->get_name());
+        $dialog->setTitle("Eigenschaften");
 
         $dialog->setButtons(array(array("name" => "speichern", "href" => "save")));
         return $dialog->getHtml();

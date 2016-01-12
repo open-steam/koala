@@ -20,7 +20,8 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
                 $titelInput = new \Widgets\TextInput();
 		$titelInput->setLabel("Titel");
 		$titelInput->setData($object);
-		$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
+                $titelInput->setReadOnly(true);
+		$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
 		$dialog->addWidget($titelInput);
 		$dialog->addWidget(new \Widgets\Clearer());
                 
@@ -32,10 +33,10 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 		$dialog->addWidget(new \Widgets\Clearer());*/
                 
                 $dropDownWidget = new \Widgets\ComboBox();
-                $dropDownWidget->setLabel("Typ");
+                $dropDownWidget->setLabel("Dauer");
                 $dropDownWidget->setData($object);
                 $dropDownWidget->setOptions(array(
-                    array("name" => "Privat", "value" => "0"),
+                    array("name" => "Unbegrenzt", "value" => "0"),
                     array("name" => "Zeitraum: 1 Woche", "value" => "604800"),
                     array("name" => "Zeitraum: 2 Wochen", "value" => "1209600"),
                     array("name" => "Zeitraum: 3 Wochen", "value" => "1814400"),
@@ -48,8 +49,8 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
                 $dropDownWidget->setLabel("Sortierung");
                 $dropDownWidget->setData($object);
                 $dropDownWidget->setOptions(array(
-                    array("name" => "Frühe Neuigkeiten zuerst anzeigen", "value" => "0"),
-                    array("name" => "Späte Neuigkeiten zuerst anzeigen", "value" => "1")));
+                    array("name" => "Aktuellste Änderung unten anzeigen", "value" => "0"),
+                    array("name" => "Aktuellste Änderung oben anzeigen", "value" => "1")));
                 $dropDownWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_SUBSCRIPTION_ORDER"));
                 $dialog->addWidget($dropDownWidget);
                 $dialog->addWidget(new \Widgets\Clearer());

@@ -1,4 +1,4 @@
-.detail .widgets_textinput { 
+.detail .widgets_textinput {
     margin-top: 7px;
 }
 
@@ -16,4 +16,53 @@
 
 .detail .widgets_checkbox {
     margin-top: 7px;
+}
+
+#imageEditButton {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+#userImage {
+    display:inline-block;
+    position:relative;
+}
+
+#userImage:hover #imageEditButton {
+    display: block;
+}
+
+.widgets_radiobutton {
+     display: block !important;
+}
+
+.widgets_radiobutton > div {
+     padding-left: 90px;
+}
+
+.widgets_combobox > select {
+     width: 134px;
+     margin-top: 7px;
+}
+
+#PrivacyButton {
+  top: 30%;
+  left: 2%;
+  position: absolute;
+}
+
+#privacyShield {
+   margin-left: 460px;
+   width: 100%;
+   background-color:#ffffff;
+   height: 525px;
+   position:absolute;
+}
+
+#content {
+  overflow: hidden;
+  position: relative;
 }

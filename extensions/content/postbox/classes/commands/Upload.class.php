@@ -31,6 +31,7 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $uploader = new qqFileUploader($allowedExtensions, $sizeLimit, $envid);
         $result = $uploader->handleUpload(PATH_TEMP);
         // to pass data through iframe you will need to encode all html tags
+        //echo the result and terminate the script
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         die;
         //$ajaxResponseObject->setStatus("ok");
@@ -169,6 +170,134 @@ class qqFileUploader {
     /**
      * Returns array('success'=>true) or array('error'=>'error message')
      */
+    function handleUploadWithFolders($uploadDirectory, $replaceOldFile = FALSE) {
+        if (!is_writable($uploadDirectory)) {
+            return array('error' => "Server error. Upload directory isn't writable.");
+        }
+        if (!$this->file) {
+            return array('error' => 'No files were uploaded.');
+        }
+
+        $size = $this->file->getSize();
+
+        if ($size == 0) {
+            return array('error' => 'File is empty');
+        }
+
+        if ($size > $this->sizeLimit) {
+            return array('error' => 'File is too large');
+        }
+
+        $pathinfo = pathinfo($this->file->getName());
+        $filename = $pathinfo['filename'];
+        //$filename = md5(uniqid());
+        $ext = $pathinfo['extension'];
+
+
+        if ($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)) {
+            $these = implode(', ', $this->allowedExtensions);
+            return array('error' => 'File has an invalid extension, it should be one of ' . $these . '.');
+        }
+
+        //create empty steam_document and check write access
+        $env = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
+
+        $obj = $env->get_environment();
+
+
+        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+
+        //check if the user folder already exists
+        $objPath = $obj->get_attribute("OBJ_PATH");
+        $currentUserFullName = $currentUser->get_full_name();
+        $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
+        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
+
+        if ($file instanceof \steam_container) {
+            $folderId = $file->get_id();
+        } else {
+            $folderId = 0;
+        }
+
+        if ($folderId != 0) {
+            $isFolderAva = true;
+        } else {
+            $isFolderAva = false;
+        }
+        //hier noch den lehrer + evtl dem aushilfslehrer als lesenden setzen, dafür aber für alle angemeldeten Benutzer hier das Lesen verbieten
+        $username = $currentUser->get_full_name();
+        $usernameShort = $currentUser->get_name();
+        if ($isFolderAva) {
+            $container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $folderId);
+        } else {
+            $container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $username, $env);
+            $container->set_acquire(false);
+            $postboxOwner = $env->get_environment()->get_creator();
+            $steamGroupId = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam")->get_id();
+            $container->sanction(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+            $container->sanction_meta(ACCESS_DENIED, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $steamGroupId));
+
+            //give the creator of the postbox the full rights
+            $container->sanction(SANCTION_ALL, $postboxOwner);
+            $container->sanction_meta(SANCTION_ALL, $postboxOwner);
+
+
+            //if there is a second person with full rights, give him/her also full rights
+            $postboxObjectSanction = $env->get_environment()->get_sanction();
+            foreach ($postboxObjectSanction as $id => $sanction) {
+                //if the current user isn't the creator, but has full rights, get the id, create this object and assign it full rights
+                if ($id != $postboxOwner->get_id() && $sanction == SANCTION_ALL) {
+                    $container->sanction(SANCTION_ALL, \steam_factory::get_object($this->steam->get_id(), $id));
+                    $container->sanction_meta(SANCTION_ALL, \steam_factory::get_object($this->steam->get_id(), $id));
+                }
+            }
+
+        }
+
+        if (!$replaceOldFile) {
+            /// don't overwrite previous files that were uploaded
+            while (file_exists($uploadDirectory . $filename . '.' . $ext)) {
+                $filename .= rand(10, 99);
+            }
+        }
+
+        //if we cannot have two files with the same name, generally rename each uploaded file with a date string at the end
+        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && API_DOUBLE_FILENAME_NOT_ALLOWED){
+            $filename.= date(" Y-m-d H-i-s", time());
+        }
+
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort . "_" . $filename . "." . $ext, "", "", $container);
+
+        if ($this->file->save($uploadDirectory . $filename . '.' . $ext)) {
+            if (defined("ENABLE_AUTOMATIC_IMAGE_SCALING") && ENABLE_AUTOMATIC_IMAGE_SCALING) {
+                try {
+                    $imagick = new \Imagick();
+                    $imagick->readimage($uploadDirectory . $filename . '.' . $ext);
+                    if ($imagick->valid()) {
+                        $imageProperties = $imagick->getimagegeometry();
+                        if ($imageProperties["width"] > 1920 || $imageProperties["height"] > 1080) {
+                            $imagick->resizeimage(1920, 1080, \Imagick::FILTER_UNDEFINED, 0, true);
+                            $imagick->writeimage($uploadDirectory . $filename . '.' . $ext);
+                        }
+                    }
+                } catch (\IMagickException $e) {
+                    // file is no picture
+                }
+            }
+
+            $steam_document->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
+            unlink($uploadDirectory . $filename . '.' . $ext);
+            return array('success' => true);
+        } else {
+            return array('error' => 'Could not save uploaded file.' .
+                'The upload was cancelled, or server error encountered');
+        }
+    }
+
+
+    /**
+     * Returns array('success'=>true) or array('error'=>'error message')
+     */
     function handleUpload($uploadDirectory, $replaceOldFile = FALSE) {
         if (!is_writable($uploadDirectory)) {
             return array('error' => "Server error. Upload directory isn't writable.");
@@ -200,57 +329,21 @@ class qqFileUploader {
 
         //create empty steam_document and check write access
         $env = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
-        
+
         $obj = $env->get_environment();
-        
 
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 
+        //check if the user folder already exists
         $objPath = $obj->get_attribute("OBJ_PATH");
-        $currentUserFullName = $currentUser->get_full_name();
-        $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
-        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
-
-        if ($file instanceof \steam_container) {
-            $folderId = $file->get_id();
-        } else {
-            $folderId = 0;
-        }
-       
-        if ($folderId != 0) {
-            $isFolderAva = true;
-        } else {
-            $isFolderAva = false;
-        }
-        // $inventory = $env->get_inventory();
-        // $folderId = 0;
-        // $isFolderAva = false;
-        // foreach ($inventory as $index => $ele) {
-        /*     $authorId = $ele->get_creator()->get_id();
-          if ($authorId == $currentUserId) {
-          $isFolderAva = true;
-          $folderId = $ele->get_id();
-          break;
-          }
-          } */
-
         $username = $currentUser->get_full_name();
         $usernameShort = $currentUser->get_name();
-        if ($isFolderAva) {
-            $container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $folderId);
-        } else {
-            $container = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $username, $env);
-        }
-        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $usernameShort . "_" . $filename . "." . $ext, "", "", $container);
-//Mache hier weiter und speicher die hashmap als array      
-//  $lastRelease->set_attribute($currentUserId,$steam_document->get_attribute("OBJ_LAST_CHANGED"));
-        if (!$replaceOldFile) {
-            /// don't overwrite previous files that were uploaded
-            while (file_exists($uploadDirectory . $filename . '.' . $ext)) {
-                $filename .= rand(10, 99);
-            }
-        }
 
+        $filePath = $objPath . "/postbox_container";
+        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
+
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $username . "_" . $filename . "." . $ext, "", "", $env);
+  
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)) {
             if (defined("ENABLE_AUTOMATIC_IMAGE_SCALING") && ENABLE_AUTOMATIC_IMAGE_SCALING) {
                 try {
@@ -275,8 +368,7 @@ class qqFileUploader {
             return array('error' => 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
         }
-    }
-
+      }
 }
 
 ?>

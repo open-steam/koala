@@ -8,14 +8,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     private $id;
     private $rowHtmlBegin = '<div class="row">';
     private $rowHtmlEnd = '</div>';
-    private $cssStyle = '<style>
-</style>';
+    private $cssStyle = '<style></style>';
 
     private function getPictureHtml($name, $path, $fullscreenPath, $title) {
-        //  $title .= '<a onclick=\"vollbild();return false;\">Vollbildmodus</a>';
-        return '<div class="pic">
-<a class="slideshow" title="' . $title . '" href="' . $fullscreenPath . '"><img class="lazy" src="" data-original="' . $path . '"></a>
-</div>';
+        return '<div class="pic"><a class="slideshow" title="' . $title . '" href="' . $fullscreenPath . '"><img class="lazy" src="' . $path . '"></a></div>';
     }
 
     public function validateData(\IRequestObject $requestObject) {
@@ -46,13 +42,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
         if (!($gallery->check_access_read())) {
             $errorHtml = new \Widgets\RawHtml();
-            $errorHtml->setHtml("Sie verfügen nicht über die erforderliche Zugriffsberechtigung! Die Galerie kann nicht angezeigt werden. Sie benötigen mindestens Leserechte!");
+            $errorHtml->setHtml("Sie verfügen nicht über die erforderliche Zugriffsberechtigung! Das Fotoalbum kann nicht angezeigt werden. Sie benötigen mindestens Leserechte!");
             $frameResponseObject->addWidget($errorHtml);
             return $frameResponseObject;
         }
         \lms_portal::get_instance()->add_javascript_src("lazyload", PATH_URL . "styles/standard/javascript/lazy/jquery.lazyload.min.js");
         \lms_portal::get_instance()->add_javascript_src("colorbox", PATH_URL . "styles/standard/javascript/colorbox/jquery.colorbox.js");
-        
+
         $titleCss = '#gallery-title{margin-top:-31px;margin-left:50px;}';
         if ($gallery->check_access(SANCTION_SANCTION)) {
             $actionBar = new \Widgets\ActionBar();
@@ -72,7 +68,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             .gal-element{background:#EEEEEE;height:204px;width:204px;margin:5px;float:left;}
             .row{clear:both;margin-left:45px;margin-right:45;}
             .pic {width:200px;height:200px;max-height:200px;max-width:200px;display: table-cell;
-    vertical-align: middle; 
+    vertical-align: middle;
 	text-align: center;}
             img.lazy{padding:2px;max-width:200px;}
           ');
@@ -124,35 +120,35 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 function vollbild() {
  var element = document.getElementById('colorbox');
- 
+
 if (element.requestFullScreen) {
-       
+
     if (!document.fullScreen) {
         element.requestFullscreen();
-        
+
     } else {
         document.exitFullScreen();
     }
- 
+
  } else if (element.mozRequestFullScreen) {
- 
+
     if (!document.mozFullScreen) {
         element.mozRequestFullScreen();
-      
+
     } else {
        document.mozCancelFullScreen();
     }
- 
+
 } else if (element.webkitRequestFullScreen) {
- 
+
     if (!document.webkitIsFullScreen) {
         element.webkitRequestFullScreen();
-        
-        
+
+
     } else {
         document.webkitCancelFullScreen();
-    }  
-   
+    }
+
 }
 setTimeout(function(){jQuery.colorbox.reload()},1000);
 
@@ -161,37 +157,37 @@ setTimeout(function(){jQuery.colorbox.reload()},1000);
             $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, reposition:true,
  onOpen: function(){jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"vollbild()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."\">');
                     jQuery('#gallery').hide();
-                    
+
                     $('#cboxFullscreen').mouseover(function(){this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_black.png"."';});
                     $('#cboxFullscreen').mouseout(function(){this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."';});}
-                    
+
 ,onCleanup: function(){
 jQuery('#gallery').show();
 var element = document.getElementById('colorbox');
  if (element.requestFullScreen) {
-       
+
     if (!document.fullScreen) {
-        
+
     } else {
         document.exitFullScreen();
     }
- 
+
  } else if (element.mozRequestFullScreen) {
- 
+
     if (!document.mozFullScreen) {
-        
+
     } else {
        document.mozCancelFullScreen();
     }
- 
+
 } else if (element.webkitRequestFullScreen) {
- 
+
     if (!document.webkitIsFullScreen) {
-       
+
     } else {
         document.webkitCancelFullScreen();
-    }  
-} } 
+    }
+} }
             });</script>";
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($html);

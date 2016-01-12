@@ -42,20 +42,21 @@ html {
 #topImage{
 	color:#b0b0b0;
 	background-image:url(../images/page_layout/startpage.jpg);
-	border-bottom: 1px solid rgb(221, 221, 221); 
+	border-bottom: 1px solid rgb(221, 221, 221);
 }
 
 .infoBar {
 	 background: #e7e7e7;
-	 background: -webkit-gradient(linear, left top, left bottom, from(#eeeeee),to(#e0e0e0));
-	 background: -moz-linear-gradient(top,#eeeeee,#e0e0e0);
-	 border: 3px solid #e0e0e0;
-	 color: #333333;
+	 background: -webkit-gradient(linear, left top, left bottom, from(#7599bb),to(#356fa1));
+	 background: transparent -moz-linear-gradient(center top , #7599BB, #356FA1) repeat scroll 0% 0%;
+	 color: #FFFFFF;
+	 height: 28px;
+	 margin-top: -17px;
+	 margin-left: -14px;
+	 margin-right: -14px;
 }
 
 a,a:link, a:visited {
 	text-decoration: none;
 	color: #396d9c;
 }
-
-

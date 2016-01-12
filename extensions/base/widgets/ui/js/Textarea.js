@@ -65,12 +65,15 @@ function widgets_textarea_save_success_delete_me(elementId, response) {
                 theme_advanced_statusbar_location: "none",
                 theme_advanced_resizing: false,
                 onchange_callback: function(e) {
+                    textarea.addClass("changed");
                     //executed each time the contend is modified
                     eval(identifier + " = " + 'tinyMCE.activeEditor.getContent()');
                 },
                 handle_event_callback: function(e) {
-                    if (e.type === "keyup" && tinyMCE.activeEditor.isDirty()) {
-                        textarea.addClass("changed");
+                    textarea.addClass("changed");
+                    //executed each time the contend is modified
+                    eval(identifier + " = " + 'tinyMCE.activeEditor.getContent()');
+                    if (tinyMCE.activeEditor.isDirty()) {    
                         $(window).bind('beforeunload', function() {
                             return textarea.attr("data-leaveMessage");
                         });

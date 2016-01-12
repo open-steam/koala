@@ -89,20 +89,18 @@ class lms_portal
             }
             $this->lms_user = new lms_user( STEAM_GUEST_LOGIN, STEAM_GUEST_PW );
 
-                        $protocoll = isset($_SERVER["HTTPS"]) ? "https://" : "http://";
-                        $url = $protocoll . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-                        $request_url = str_ireplace(PATH_URL, "/", $url);
-                        $request_url = str_replace("/signin/request", "", $request_url);
-                        $request_url = str_replace("/signin", "", $request_url);
+            $request_url = $_SERVER["REQUEST_URI"];
+            $request_url = str_replace("/signin/request", "", $request_url);
+            $request_url = str_replace("/signin", "", $request_url);
 
-                        // if user login was not successful get request url from post
-                        if ($_SERVER[ "REQUEST_METHOD" ] == "POST") {
-                            if (isset($_POST["values"]["req"])) {
-                                $request_url = $_POST["values"]["req"];
-                            }
-                        }
+            // if user login was not successful get request url from post
+            if ($_SERVER[ "REQUEST_METHOD" ] == "POST") {
+                if (isset($_POST["values"]["req"])) {
+                    $request_url = $_POST["values"]["req"];
+                }
+            }
 
-                        $this->template->setCurrentBlock( "BLOCK_SIGN_IN" );
+            $this->template->setCurrentBlock( "BLOCK_SIGN_IN" );
             $this->template->setVariable( "LOGIN_FORM_ACTION", URL_SIGNIN );
             $this->template->setVariable( "LABEL_LOGIN", "Benutzername" );
             $this->template->setVariable( "LABEL_PASSWORD", "Passwort" );
@@ -168,8 +166,8 @@ class lms_portal
         } else {
             $this->template->setVariable( "LOGO_PATH_URL", PATH_URL );
         }
-        
-        
+
+
         // REPORT_ERROR_BUTTON
         if (defined("REPORT_ERROR_BUTTON")) {
             $this->template->setVariable( "REPORT_ERROR_BUTTON", REPORT_ERROR_BUTTON );
@@ -177,7 +175,7 @@ class lms_portal
             $fallback = '<a href="mailto:DSchubert@hnf.de?subject=Problem%20mit%20dem%20bid-Server">Ein Problem melden</a>';
             $this->template->setVariable( "REPORT_ERROR_BUTTON", $fallback);
         }
-        
+
 
         // SET STYLEPATH AND ADDITIONAL HEADERS
         $this->template->setVariable( "STYLE_PATH", PATH_STYLE );
@@ -572,7 +570,8 @@ return $rand_value;
             // YOU
                         require_once( PATH_LIB . "determine_school.php" );
             if (YOU_MENU) {
-                    $koala_html_menu->add_menu_entry( array( "name" => ((MENU_YOU) ? gettext( "You" ): $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")), "link" => PATH_URL . "desktop/", "menu" => array(
+                    $koala_html_menu->add_menu_entry(
+                      array( "name" => ((MENU_YOU) ? gettext( "You" ): $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")), "link" => PATH_URL . "desktop/", "menu" => array(
                     //YOU SUBMENU
                     (YOUR_DESKTOP) ? array( "name" => ((MENU_YOU) ? gettext( "Your desktop" ) : "Schreibtisch"), "link" => PATH_URL . "desktop/" ) : "",
                     (YOUR_PORTFOLIO) ? array( "name" => ((MENU_YOU) ? "Mein Portfolio" : "Portfolio"), "link" => PATH_URL . "portfolio/") : "",
@@ -581,20 +580,24 @@ return $rand_value;
                     (YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your documents" ) : "Dokumente"), "link" => PATH_URL . "explorer/" ) : "",
                     (YOUR_BOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Lesezeichen" ) : "Lesezeichen"), "link" => PATH_URL . "bookmarks/") : "",
 
-                                        //not used
-                                        (YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
+                    //not used
+                    (YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
 
-                                        (defined("YOUR_SCHOOL") && YOUR_SCHOOL && ($mySchool = determineSchoolObject()) instanceof \steam_object) ? array ("name" => "Meine Schule", "link" => PATH_URL . "explorer/index/" . $mySchool->get_id() . "/") : "",
+                    (defined("YOUR_SCHOOL") && YOUR_SCHOOL && ($mySchool = determineSchoolObject()) instanceof \steam_object) ? array ("name" => "Meine Schule", "link" => PATH_URL . "explorer/index/" . $mySchool->get_id() . "/") : "",
 
-                                        (YOUR_CONTACTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your contacts" ) : "Kontakte"), /*"link" => PATH_URL . "contacts/" . $user->get_name() . "/" */) : "",
+                    (YOUR_CONTACTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your contacts" ) : "Kontakte"), /*"link" => PATH_URL . "contacts/" . $user->get_name() . "/" */) : "",
                     (YOUR_MOKODESK && ($user->get_attribute("LARS_DESKTOP") !== 0)) ? array( "name" => ((MENU_YOU) ? gettext( "Mein MokoDesk" ) : "MokoDesk"), "link" => MOKODESK_URL) : "",
 
-                                        /*(YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Einstellungen2" ) : "Favoriten"), "link" => PATH_URL . "favorite/" ) : "",*/
+                    /*(YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Einstellungen2" ) : "Favoriten"), "link" => PATH_URL . "favorite/" ) : "",*/
 
-                                        (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "profile/") : ""
+                    (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "profile/") : "",
 
-                                        /*(YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Configuration" ) : "Einstellungen"), "link" => PATH_URL . "profile/SystemConfig/" ) : ""*/
-                ) ) );
+                    (YOUR_FAVORITES) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Favoriten" ) : "Favoriten"), "link" => PATH_URL . "favorite/index/") : "",
+
+                    (defined("PLATFORM_USERMANAGEMENT_URL")) ? array( "name" => ((MENU_YOU) ? gettext( "Benutzerverwaltung" ) : "Benutzerverwaltung"), "link" => PLATFORM_USERMANAGEMENT_URL) : ""
+
+                    /*(YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Configuration" ) : "Einstellungen"), "link" => PATH_URL . "profile/SystemConfig/" ) : ""*/
+                )));
             }
 
             // COURSES

@@ -10,7 +10,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     private $rawHtmlWidget;
 
     public function validateData(\IRequestObject $requestObject) {
-                        
+
         //robustness for missing ids and objects
         try{
             $objectId=$requestObject->getId();
@@ -31,9 +31,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $portlet_name = $portlet->get_attribute(OBJ_DESC);
         $params = $requestObject->getParams();
-        
-       
-       
+
+        $this->getExtension()->addCSS();
+        //$this->getExtension()->addJS();
+
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
@@ -70,8 +71,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
         $tmpl->setVariable("APPOINTMENT_NAME", $portlet_name);
         $tmpl->setVariable("linkurl", "");
-        
-        
+
+        //if the title is empty the headline will not be displayed (only in edit mode)
+        if ($portlet_name == "" || $portlet_name == " ") {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
+        } else {
+            $tmpl->setVariable("HEADLINE_CLASS", "headline");
+        }
 
         //refernce icon
         if ($portletIsReference) {
@@ -111,28 +117,31 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         if (sizeof($content) > 0) {
             //sort appointments
+            $unsortedContent = $content;
             usort($content, "sortPortletAppointments");
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
-           
+
             $sortOrderBool = false;
             if (($sortOrder === "latest_first")){
                 $sortOrderBool=true;
             }
-            
-            
+
+
             if($sortOrderBool){
-               $content = array_reverse($content); 
+               $content = array_reverse($content);
             }
-            
+
             //write access is required to save the sorting
             //no problem, because only with write access elements can be added, removed or rearranged
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())){
-                $portletObject->set_attribute("bid:portlet:content", $content);
+                if ($unsortedContent != $content){
+                    $portletObject->set_attribute("bid:portlet:content", $content);
+                }
             }
-            
-            $indexCount = 0; 
-            
+
+            $indexCount = 0;
+
             foreach ($content as $appointment) {
                 $tmpl->setCurrentBlock("BLOCK_TERM");
 
@@ -145,24 +154,24 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $popupmenu->setData($portlet);
                     $popupmenu->setNamespace("PortletAppointment");
                     $popupmenu->setElementId("portal-overlay");
-                    
+
                     //reverse index
                     $contextMenuIndex = $indexCount;
                     /*
                     if (!$sortOrderBool){
                         $elementsSum = sizeof($content);
-                        $contextMenuIndex = $elementsSum - $indexCount -1; 
+                        $contextMenuIndex = $elementsSum - $indexCount -1;
                     }
                     */
-                    
-                    
+
+
                     $popupmenu->setParams(array(array("key" => "termIndex", "value" => $contextMenuIndex)));
                     $tmpl->setVariable("POPUPMENU_ENTRY", $popupmenu->getHtml());
                     $tmpl->parse("BLOCK_EDIT_BUTTON_TERM");
                 }
-                
+
                 $indexCount++;
-                
+
                 $tmpl->setVariable("STARTDATE", $appointment["start_date"]["day"] . "." . $appointment["start_date"]["month"] . "." . $appointment["start_date"]["year"]);
 
                 if (trim($appointment["location"]) != "" && trim($appointment["location"]) != "0") {
@@ -213,8 +222,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 }
                 $tmpl->parse("BLOCK_TERM");
             }
+        }else {
+          //NO MESSAGE
+          $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
+          $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Termine vorhanden.");
+          $tmpl->parse("BLOCK_NO_MESSAGE");
         }
-
 
         $htmlBody = $tmpl->get();
         $this->content = $htmlBody;

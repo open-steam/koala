@@ -1,0 +1,124 @@
+<table width="100%">
+	<tr>
+		<td width="50%" style="vertical-align:top;">
+
+			<!-- BEGIN Search_Part -->
+
+			<form action="" method="post">
+			<table width="100%" cellpadding="5" cellspacing="0">
+				<tr>
+					<th colspan="2" class="group" style="text-align:left; font-size:18px;">{TITLE}</th>
+				</tr>
+				<tr>
+					<!--<td class="label">{SEARCH}:</td> -->
+					<td class="value"><input type="text" name="searchString" size="10" placeholder={SEARCH} style="font-size:21px;"/></td>
+					<td class="value"><input class="bidButton" type="submit" name="action" value="{BUTTON_LABEL}" /></td>
+				</tr>
+				<tr>
+					<td class="value" width="29%"><input type="radio" {PRE_SELECT_USER} style="width: 20px;" value="searchUser" name="searchType">{USER_LOGIN}
+					<td class="value" width="31%"><input type="radio" {PRE_SELECT_FULLNAME} style="width: 20px;" value="searchUserFullname" name="searchType">{USER_FULLNAME}
+					<td class="value"><input type="radio" {PRE_SELECT_GROUP} style="width: 20px;" value="searchGroup" name="searchType"> {GROUPS}
+				</tr>
+			</table>
+			</form>
+			<table width="90%" cellpadding="5" cellspacing="0">
+				<!-- BEGIN BLOCK_NO_RESULT -->
+				<tr>
+					<th style="text-align:left;">{NO_RESULT}</th>
+				</tr>
+				<!--  END BLOCK_NO_RESULT -->
+
+				<!-- BEGIN BLOCK_SEARCH_TITLE -->
+				<tr>
+					<th colspan="2" class="group" style="text-align:left; font-size:18px;">{SEARCH_RESULTS}</th>
+				</tr>
+
+				<!-- END BLOCK_SEARCH_TITLE -->
+				<!-- BEGIN BLOCK_SEARCH_RESULTS_BUDDY -->
+				<tr>
+					<td style="align:left;" width="40"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
+					<td class="value"><div style=""><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></div></td>
+
+					<!--  <td class="label" style="width:300px;vertical-align:middle">{BUDDY_NAME}</td> -->
+					<!-- BEGIN BLOCK_SEARCH_RESULTS2_BUDDY -->
+					<td class="value">
+					<div class="actionBar" style="margin: 0px"><a class="bidButton"
+						href="{FAVORITE_BUDDY_LINK}">{ADD_FAVORITE_BUDDY}</a></div>
+					</td>
+					<!-- END BLOCK_SEARCH_RESULTS2_BUDDY -->
+					<!-- BEGIN BLOCK_ALREADY_FAV -->
+					<td class="value">{ALREADY_BUDDY}</td>
+					<!-- END BLOCK_ALREADY_FAV -->
+				</tr>
+				<!-- END BLOCK_SEARCH_RESULTS_BUDDY -->
+
+				<!-- BEGIN BLOCK_SEARCH_RESULTS_GROUP -->
+				<tr>
+					<td class="label" style="vertical-align:middle;">{GROUP_NAME}</td>
+					<td class="value" style="vertical-align:middle;">{GROUP_DESC}</td>
+
+					<!-- BEGIN BLOCK_SEARCH_RESULTS2_GROUP -->
+
+					<td class="value">
+					<div class="actionBar" style="margin: 0px"><a class="bidButton"
+						href="{FAVORITE_GROUP_LINK}">{ADD_FAVORITE_GROUP}</a></div>
+					</td>
+					<!-- END BLOCK_SEARCH_RESULTS2_GROUP -->
+
+					<!-- BEGIN BLOCK_ALREADY_FAV_GROUP -->
+					<td class="value">{ALREADY_GROUP}</td>
+					<!-- END BLOCK_ALREADY_FAV_GROUP -->
+
+				</tr>
+				<!-- END BLOCK_SEARCH_RESULTS_GROUP -->
+			</table>
+
+			<!-- END Search_Part -->
+
+			<!-- BEGIN List_Part -->
+
+		</td>
+		<td width="50%" style="vertical-align:top;">
+<table width="95%" cellpadding="5" cellspacing="0">
+	<tr>
+		<th colspan="2" class="group" style="text-align:left; font-size:18px;">{FAVORITE_BUDDYS}</th>
+	</tr>
+	<!-- BEGIN BLOCK_BUDDY_LIST -->
+	<tr>
+
+		<td  width="100"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
+		<td class="value"><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></td>
+		<td class="value"><div class="actionBar" style="margin:0px"><a class="bidButton" href="{DELETE_BUDDY_LINK}">{DELETE_BUDDY}</a></div></td>
+
+	</tr>
+	<!-- END BLOCK_BUDDY_LIST -->
+	<!-- BEGIN BLOCK_BUDDY_LIST2 -->
+	<tr>
+	 	<th style="text-align:left;">{NO_BUDDYS}</th>
+	</tr>
+	<!-- END BLOCK_BUDDY_LIST2 -->
+	<tr>
+		<th colspan="2" class="group" style="text-align:left; font-size:18px;">{FAVORITE_GROUPS}</th>
+	</tr>
+</table>
+<table width="95%" cellpadding="5" cellspacing="0">
+	<!-- BEGIN BLOCK_GROUP_LIST -->
+
+	<tr>
+		<td class="label" style="vertical-align:middle;">{GROUP_NAME}</td>
+		<td class="value" style="vertical-align:middle;" >{GROUP_DESC}</td>
+		<!-- BEGIN BLOCK_GROUP_LIST2 -->
+		<td class="value"><div class="actionBar" style="margin:0px"><a class="bidButton" href="{DELETE_GROUP_LINK}">{DELETE_GROUP}</a></div></td>
+		<!-- END BLOCK_GROUP_LIST2 -->
+	</tr>
+	<!-- END BLOCK_GROUP_LIST -->
+	<tr>
+		<th style="text-align:left;">{NO_GROUPS}</th>
+	</tr>
+
+<!-- END List_Part -->
+
+</table>
+</td>
+</tr>
+</table>

@@ -27,6 +27,7 @@ class NewDocumentForm extends \AbstractCommand implements \IFrameCommand, \IAjax
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		$dialog = new \Widgets\Dialog();
+                $dialog->setAutoSaveDialog(true);
                 $dialog->setTitle("Abgabe einreichen");
                 
                 

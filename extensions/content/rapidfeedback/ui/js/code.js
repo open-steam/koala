@@ -58,7 +58,7 @@ function showCreateDialog() {
     $('#newquestion_button').hide();
     $("form").each(function() {
         $(this).keypress(enterFunction)
-    }); 
+    });
 
 
 }
@@ -182,8 +182,8 @@ function resetCreateDialog() {
             $('#tendency_' + i).remove();
         }
     }
-    document.getElementsByName('tendency_0_0')[0].value = '';
-    document.getElementsByName('tendency_0_1')[0].value = '';
+    document.getElementsByName('tendency_input_0_0')[0].value = '';
+    document.getElementsByName('tendency_input_0_1')[0].value = '';
     document.getElementById('tendency_steps').value = 2;
     tendencyCounter = 1;
 
@@ -391,7 +391,7 @@ function deleteGradingOption(id) {
  */
 function createTendencyOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="tendency_' + tendencyCounter + '"><input type="text" name="tendency_' + tendencyCounter + '_0" value="" style="width: 30%;"> - - - <input type="text" name="tendency_' + tendencyCounter + '_1" value="" style="width: 30%;">&nbsp<input type="image" onclick="deleteTendencyOption(' + tendencyCounter + ')" src="' + asseturl + '/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#tendency_options'));
+    $('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="tendency_' + tendencyCounter + '"><input type="text" name="tendency_input_' + tendencyCounter + '_0" value="" style="width: 30%;"> - - - <input type="text" name="tendency_input_' + tendencyCounter + '_1" value="" style="width: 30%;">&nbsp<input type="image" onclick="deleteTendencyOption(' + tendencyCounter + ')" src="' + asseturl + '/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#tendency_options'));
     tendencyCounter++;
 }
 
@@ -572,8 +572,8 @@ function editElement(id) {
                 if (i != 0) {
                     createTendencyOption();
                 }
-                document.getElementsByName('tendency_' + (i / 2) + '_0')[0].value = decodeURIComponent(options[i]);
-                document.getElementsByName('tendency_' + (i / 2) + '_1')[0].value = decodeURIComponent(options[i + 1]);
+                document.getElementsByName('tendency_input_' + (i / 2) + '_0')[0].value = decodeURIComponent(options[i]);
+                document.getElementsByName('tendency_input_' + (i / 2) + '_1')[0].value = decodeURIComponent(options[i + 1]);
             }
             document.getElementById('tendency_steps').value = data[4];
             $('#newquestion').show();
@@ -823,8 +823,8 @@ function addElement() {
             var steps = document.getElementById('tendency_steps').value;
             for (var i = 0; i <= tendencyCounter; i++) {
                 if (document.getElementById('tendency_' + i) != undefined) {
-                    options.push(encodeURIComponent(document.getElementsByName('tendency_' + i + '_0')[0].value));
-                    options.push(encodeURIComponent(document.getElementsByName('tendency_' + i + '_1')[0].value));
+                    options.push(encodeURIComponent(document.getElementsByName('tendency_input_' + i + '_0')[0].value));
+                    options.push(encodeURIComponent(document.getElementsByName('tendency_input_' + i + '_1')[0].value));
                 }
             }
             var data = new Array(type, question, helpText, required, steps);

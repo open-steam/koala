@@ -63,10 +63,9 @@
         </tr>
     </table>
 
-    <div class="scrollable-groups">
+    <div class="scrollable-groups" style={CSS_GROUPS}>
         <table >
             <!-- BEGIN GROUPS -->
-
             <tr valign="middle">
                 <td width="60%"><img style="float:left" src="{IMG_PATH}"> <div style="text-indent: {INDENTINDEX}em;">{GROUPNAME}</div></td>
                 <td width="40%" align="right" >
@@ -77,22 +76,24 @@
         </table>
     </div>
 
-    <div class="scrollable-user">
+    <div>
         <table>
-
+          <tbody style="display:block;">
             <tr class="infoBar" style="height:23px;">
-                <td><b>Meine Favoriten (Benutzer)</b></td>
-                <td><b>Rechte</b></td>
+                <td width=27%><b>Meine Favoriten (Benutzer)</b></td>
+                <td width=18%><b>Rechte</b></td>
             </tr>
-
-            <!-- BEGIN FAVORITES -->
-            <tr valign="middle">
-                <td width="60%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
-                <td width="40%" align="right">
+          <tbody>
+          <tbody class="scrollable-user" style="display:block;{CSS_USER}">
+          <!-- BEGIN FAVORITES -->
+          <tr valign="middle">
+              <td width="66%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
+              <td width="34%" align="right">
                     {DROPDOWNLIST_FAVORITES}
-                </td>
-            </tr>
-            <!-- END FAVORITES -->
+              </td>
+          </tr>
+          <!-- END FAVORITES -->
+          </tbody>
         </table>
     </div>
 </div>
@@ -123,7 +124,7 @@
             <td width="40%"><b>Rechte</b></td>
         </tr>
     </table>
-    <div class="scrollable-groups">
+    <div class="scrollable-groups" style={CSS_GROUPS}>
         <table>
             <!-- BEGIN GROUPS_ACQ -->
             <tr valign="middle">
@@ -132,27 +133,27 @@
                     {DROPDOWNLIST_ACQ}
                 </td>
             </tr>
-
             <!-- END GROUPS_ACQ -->
         </table>
     </div>
 
-    <div class="scrollable-user">
+    <div>
         <table>
+          <tbody style="display:block;">
             <tr class="infoBar" style="height:23px;">
-                <td><b>Meine Favoriten (Benutzer) {DUMMY_FAV_ACQ}</b></td>
-                <td><b>Rechte</b></td>
-
+                <td width=27%><b>Meine Favoriten (Benutzer) {DUMMY_FAV_ACQ}</b></td>
+                <td width=18%><b>Rechte</b></td>
             </tr>
-
+            <tbody>
+            <tbody class="scrollable-user" style="display:block;{CSS_USER}">
             <!-- BEGIN FAVORITES_ACQ -->
             <tr>
-                <td width="60%"><img style="float:left" src="{IMG_PATH_ACQ}"><div style="text-indent: 1em;">{FAVNAME_ACQ}</div></td>
-                <td>
-                    {DROPDOWNLIST_USER_ACQ}
+                <td width="66%"><img style="float:left" src="{IMG_PATH_ACQ}"><div style="text-indent: 1em;">{FAVNAME_ACQ}</div>
                 </td>
+                <td width=34%>{DROPDOWNLIST_USER_ACQ}</td>
             </tr>
             <!-- END FAVORITES_ACQ -->
+            </tbody>
         </table>
     </div>
 </div>
@@ -181,7 +182,6 @@
             x = $("#"+id).val();
         }
     );
-    
     
     function activateAcq(){
         document.getElementById("crude_div").className ="invisible";
