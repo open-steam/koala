@@ -46,11 +46,11 @@
 }
 
 .close-button {
-	height: 24px;
-	width: 24px;
+	height: 20px;
+	width: 20px;
 	background-image: url("{PATH_URL}widgets/asset/close.png");
 	position: absolute;
-	top: 2px;
+	top: 4px;
 	right: 10px;
 	background-size: cover;
 }
