@@ -11,19 +11,19 @@ class Dialog extends Widget
    // private $positionX = 0;
    // private $positionY = 0;
     private $width = "500px";
-    
+
     //private $showCloseIcon = false; obsolet
-    
+
     private $autoSaveDialog = false;
-    private $autoSaveDialogCloseButtonLabel = "Schließen (Änderungen automatisch gespeichert)";
-    
+    private $autoSaveDialogCloseButtonLabel = "Speichern & Schließen";
+
     private $saveAndCloseButtonLabel = "Speichern & Schließen";
     private $saveAndCloseButtonJs = "";
     private $saveAndCloseButtonForceReload = false;
-    
+
     private $cancelButtonLabel = "Abbrechen";
     private $cancelButtonJs = "";
-    
+
     private $customButtons;
 
     public function setTitle($title)
@@ -35,20 +35,20 @@ class Dialog extends Widget
     {
         $this->description = $description;
     }
-    
+
     //TODO: den aufruf dieser methode aus dem projekt durch setSaveAndCloseButtonLabel ersetzen
     public function setCloseButtonLabel($closeButtonLabel)
     {   //if someone calls the old function write a log entry
         $last=next(debug_backtrace());
         \logging::write_log( LOG_MESSAGES, "The function setCloseButtonLabel is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
-        
+
 
         //forward the medthodcall to the new method
         $this->setSaveAndCloseButtonLabel($closeButtonLabel);
     }
-    
 
-    
+
+
     public function setCancelButtonLabel($cancelButtonLabel)
     {
         $this->cancelButtonLabel = $cancelButtonLabel;
@@ -64,29 +64,29 @@ class Dialog extends Widget
         $this->positionY = $positionY;
     }
 
-    
+
     /**
-     * 
+     *
      * @param int $width dialodwidth in pixels without 'px' at the end
      */
     public function setWidth($width)
     {
         $this->width = $width . "px";
     }
-    
+
     /**
-     * 
-     * @param boolean $autoSaveDialog 
+     *
+     * @param boolean $autoSaveDialog
      * Some dialogs still save their data on every change. E.g. the sancions dialog
      * If Autosave is on, the abort button is not displayed and the savebutton just closes the dialog.
      * The autosavemechanism is not implemented in this class.
      * saveAndCloseButtonJs is still executed
      */
-    public function setAutoSaveDialog($autoSaveDialog) 
+    public function setAutoSaveDialog($autoSaveDialog)
     {
         $this->autoSaveDialog = $autoSaveDialog;
     }
-    
+
     public function setAutoSaveDialogCloseButtonLabel($autoSaveDialogCloseButtonLabel)
     {
         $this->autoSaveDialogCloseButtonLabel = $autoSaveDialogCloseButtonLabel;
@@ -96,12 +96,12 @@ class Dialog extends Widget
     {
         $this->saveAndCloseButtonLabel = $saveAndCloseButtonLabel;
     }
-    
+
     public function setSaveAndCloseButtonJs($saveAndCloseButtonJs)
     {
         $this->saveAndCloseButtonJs = $saveAndCloseButtonJs;
     }
-    
+
     /**
      * former method name: setForceReload($forceReload)
      * set to true to enable the autoreload e.g. with fileuploaders
@@ -111,32 +111,32 @@ class Dialog extends Widget
     {
         $this->saveAndCloseButtonForceReload = $saveAndCloseButtonForceReload;
     }
-    
+
     public function setForceReload($forceReload){
         //if someone calls the old function write a log entry
         $last=next(debug_backtrace());
         \logging::write_log( LOG_MESSAGES, "The function setForceReload is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
-        
+
         //forward the medthodcall to the new method
         $this->setSaveAndCloseButtonForceReload($forceReload);
     }
 
-    
+
     /**
      * this method is deprecated!
      * use setCustomButtons instead
      * @param type $customButtons custom buttons
      */
-    
+
     public function setButtons($customButtons){
         //if someone calls the old function write a log entry
         $last=next(debug_backtrace());
         \logging::write_log( LOG_MESSAGES, "The function setButtons is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
-        
+
         $this->setCustomButtons($customButtons);
     }
 
-            
+
     /**
      * former method name: setButtons
      * @param Array $customButtons custom buttons the user wants to use
@@ -145,15 +145,15 @@ class Dialog extends Widget
     {
         $this->customButtons = $customButtons;
     }
-    
+
 
     public function getHtml() {
-        
+
         $this->getContent()->setVariable("DIALOG_WIDTH", $this->width);
         $this->getContent()->setVariable("DIALOG_TITLE", $this->title);
         $this->getContent()->setVariable("DIALOG_DESCRIPTION", $this->description);
 
-        
+
         $content = "";
         foreach ($this->getWidgets() as $widget) {
             $content .= $widget->getHtml();
@@ -164,7 +164,7 @@ class Dialog extends Widget
         //$this->getContent()->setVariable("DIALOG_POSITION_Y", $this->positionY);
 
 
-        
+
         if ($this->customButtons && is_array($this->customButtons)) {
             $this->customButtons = array_reverse($this->customButtons);
             foreach ($this->customButtons as $button) {
@@ -175,29 +175,29 @@ class Dialog extends Widget
                 $this->getContent()->parse("BLOCK_CUSTOM_BUTTONS");
             }
         }
-        
+
         if (isset($this->cancelButtonLabel) && $this->cancelButtonLabel != "" && !$this->autoSaveDialog) {
             $this->getContent()->setCurrentBlock("CANCEL_BUTTON");
             $this->getContent()->setVariable("CANCEL_BUTTON_LABEL", $this->cancelButtonLabel);
-            
+
             $this->getContent()->setVariable("CANCEL_BUTTON_JS", $this->cancelButtonJs);
-            
+
             $this->getContent()->parse("CANCEL_BUTTON");
         }
 
         //button to save the changes and close the dialog
         if (isset($this->saveAndCloseButtonLabel)) {
             $this->getContent()->setCurrentBlock("SAVE_AND_CLOSE_BUTTON");
-            
+
             if($this->autoSaveDialog){
                 $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_LABEL", $this->autoSaveDialogCloseButtonLabel);
             } else {
                 $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_LABEL", $this->saveAndCloseButtonLabel);
             }
-            
-            
+
+
             $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_JS", $this->saveAndCloseButtonJs);
-            
+
             if ($this->saveAndCloseButtonForceReload || $this->autoSaveDialog) {
                 $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_RELOAD", "location.reload();");
             } else {

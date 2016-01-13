@@ -1,8 +1,8 @@
 <div class="dialog_wrapper" id="dialog_wrapper">
 	<div class="dialog" id="dialog" style="width:{DIALOG_WIDTH}">
-		
+
 		<div title="schließen ohne zu speichern" class="close-button" onclick="closeDialog()"></div>
-		
+
 		<div class="infoBar"><h2>{DIALOG_TITLE}</h2>
 		<!-- BEGIN BLOCK_DIALOG_DESCRIPTION -->
 		{DIALOG_DESCRIPTION}
@@ -10,57 +10,57 @@
 		</div>
 		{DIALOG_CONTENT}
 		<br style="clear:both">
-                
-                
-		
+
+
+
                 <!-- BEGIN SAVE_AND_CLOSE_BUTTON -->
-		<div style="float:right; margin-top:10px;"><a class="button pill" onclick="
+		<div style="float:right; margin-top:10px;"><a class="bidButton" onclick="
                     //count the changes and if there is at least one reload the site
                     var i = 0;
                     var elementsToSave = $('.changed')
                     var j = elementsToSave.size();
-                    
+
                     if(j == 0){
                         closeDialog();
                         {SAVE_AND_CLOSE_BUTTON_RELOAD}
                     }
-                                         
+
                     {SAVE_AND_CLOSE_BUTTON_JS}
                     elementsToSave.each(function(number, obj) {
                         eval($(obj).attr('data-saveFunction'));
-                        
+
                     });
-                    
+
                     function dataSaveFunctionCallback(response){
                         i++;
                         if(j == i) {
                             //tinymce textareas set this to prevent data loss
                             $(window).unbind('beforeunload');
-                            
+
                             closeDialog();
                             location.reload();
                             i = 0;
                         }
-                            
+
                     }
-                    
+
                     " href="#">{SAVE_AND_CLOSE_BUTTON_LABEL}</a></div>
 		<!-- END SAVE_AND_CLOSE_BUTTON -->
-		
+
                 <!-- BEGIN CANCEL_BUTTON -->
-		<div style="float:right; margin-top:10px;"><a class="button pill negative" onclick="
+		<div style="float:right; margin-top:10px;"><a class="bidButton negative" onclick="
                     {CANCEL_BUTTON_JS}
                     //unset possibly set event
                     $(window).unbind('beforeunload');
                     closeDialog();
                     {CANCEL_BUTTON_RELOAD}
-                    
+
                     " href="#">{CANCEL_BUTTON_LABEL}</a>&nbsp;</div>
 		<!-- END CANCEL_BUTTON -->
-                
-                
+
+
                 <!-- BEGIN BLOCK_CUSTOM_BUTTONS -->
-		<div style="float:right; margin-top:10px;"><a class="button pill {BUTTON_CLASS}" onclick="{BUTTON_JS}" href="#">{BUTTON_LABEL}</a>&nbsp;</div>
+		<div style="float:right; margin-top:10px;"><a class="bidButton {BUTTON_CLASS}" onclick="{BUTTON_JS}" href="#">{BUTTON_LABEL}</a>&nbsp;</div>
 		<!-- END BLOCK_CUSTOM_BUTTONS -->
 	</div>
 </div>
@@ -80,7 +80,7 @@
                 $(window).unbind('beforeunload');
                 closeDialog();}
         });
-        
-        
-        
+
+
+
 </script>

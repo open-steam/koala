@@ -1401,12 +1401,27 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	  /*transform: scale(1.02) !important;*/
 	}
 
+	.bidButton.negative:hover {
+		background: #D84743;
+		/*box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);*/
+		/*transform: scale(1.02) !important;*/
+	}
+
 	.bidButton:active{
 	  background: #264767;
 	  /*box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);*/
 	}
 
+	.bidButton.negative:active{
+		background: #AB2723;
+		/*box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);*/
+	}
+
 	.bidButton:focus{
+		outline-width: 0;
+	}
+
+	.bidButton.negative:focus{
 		outline-width: 0;
 	}
 
