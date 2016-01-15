@@ -88,6 +88,50 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
                     $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
             }
 
+        } else if (strpos($path, "/explorer/viewdocument/") !== false) {
+            $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">","onclick" => "openFileTree()");
+
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+            $mimetype = $object->get_attribute(DOC_MIME_TYPE);
+            $objName = $object->get_name();
+            $envSanction = $object->check_access(SANCTION_SANCTION);
+            if ($mimetype != "text/html") {
+              $array[] = array("name" => "<img title=\"Herunterladen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/download_white.png\">","onclick" => "window.open('" . PATH_URL . "Download/Document/" . $id . "/" . $objName . "')");
+            }
+            if ($mimetype == "text/html") {
+              $array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/edit_white.gif\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/EditDocument/" . $id . "/'");
+              $array[] = array("name" => "<img title=\"Quelltext bearbeiten\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/edit_html_white.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/CodeEditDocument/" . $id . "/'");
+            }
+            else if (strstr($mimetype, "text")) {
+              $array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/edit_white.gif\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/EditDocument/" . $id . "/'");
+            }
+            if ($envSanction) {
+                    $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                    $array[] = array("name" => "<img title=\"Rechte\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+            } else {
+                    $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+            }
+
+        } else if (strpos($path, "/explorer/editdocument/") !== false) {
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+            $envSanction = $object->check_access(SANCTION_SANCTION);
+
+            if ($envSanction) {
+                    $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                    $array[] = array("name" => "<img title=\"Rechte\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+            } else {
+                    $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+            }
+        } else if (strpos($path, "/explorer/codeeditdocument/") !== false) {
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+            $envSanction = $object->check_access(SANCTION_SANCTION);
+
+            if ($envSanction) {
+                    $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                    $array[] = array("name" => "<img title=\"Rechte\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+            } else {
+                    $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+            }
         } else if ($path == "/bookmarks/") {
             $object = $currentUser->get_attribute("USER_BOOKMARKROOM");
             $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">");

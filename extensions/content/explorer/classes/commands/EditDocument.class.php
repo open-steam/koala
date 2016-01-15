@@ -25,28 +25,26 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 				if (($objDesc === 0) || ($objDesc === "")) {
 					$name = $objName;
 				} else {
-					$name = $objDesc . " (" . $objName . ")";
+					$name = $objName . " (" . $objDesc . ")";
 				}
 
 				$actionBar = new \Widgets\ActionBar();
-				
-                                //document type: html text
-                                if($mimetype == "text/html"){
-                                	$actionBar->setActions(array(
-					array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
-					array("name"=>"Quelltext", "link"=> PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
-					array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
-					array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
-					));
 
+				//document type: html text
+				if($mimetype == "text/html"){
+					$actionBar->setActions(array(
+						//array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
+						//array("name"=>"Quelltext", "link"=> PATH_URL . "Explorer/CodeEditDocument/" . $this->id . "/"),
+						//array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
+						//array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
+					));
 				}
-                                
-                                //document type: simple text    
-                                else{
-                                	$actionBar->setActions(array(
-					array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
-					array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
-					array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
+				//document type: simple text
+				else{
+					$actionBar->setActions(array(
+						//array("name"=>"Anzeigen", "link"=> PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
+						//array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
+						//array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
 					));
 				}
 
@@ -54,33 +52,36 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 				$contentText->setWidth(945);
 				$contentText->setheight(400);
 				$contentText->setData($object);
-				
-                                
-                                $contentText->setTextareaClass("mce-full");
-				
-                                
-                                //convert
-                                if (strstr($mimetype, "text/plain")) {
-                                    $bidDokument = new \BidDocument($object);
-                                    $html = $bidDokument->get_content();
-                                }else{
-                                    $html = cleanHTML($object->get_content());
-                                    
-                                    //make html modifications
-                                    $htmlDocument = new \HtmlDocument();
-                                    $html = $htmlDocument->makeEditorModifications($html, $object);
-                                }
-                                
+        $contentText->setTextareaClass("mce-full");
+
+        //convert
+        if (strstr($mimetype, "text/plain")) {
+            $bidDokument = new \BidDocument($object);
+            $html = $bidDokument->get_content();
+        }else{
+            $html = cleanHTML($object->get_content());
+
+            //make html modifications
+            $htmlDocument = new \HtmlDocument();
+            $html = $htmlDocument->makeEditorModifications($html, $object);
+        }
+
 				$contentText->setContentProvider( new \Widgets\TextContentDataProvider($html));
 				$clearer = new \Widgets\Clearer();
-                                
-                                $saveButton = new \Widgets\SaveButton();
-				
+
+        $saveButton = new \Widgets\SaveButton();
+				$saveButton->setLabel("Speichern & Anzeigen");
+				$saveButton->setBeforeSaveJS("if(j == 0){window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';}");
+				$saveButton->setSaveReload("window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';");
+
+				$cancelButton = new \Widgets\RawHtml();
+				$cancelButton->setHtml('<div style="float:right; margin-top:5px;"><a class="bidButton negative" href="' . PATH_URL . 'explorer/ViewDocument/' . $this->id . '/">Abbrechen</a>&nbsp;</div>');
 
 				$frameResponseObject->setTitle($name);
 				$frameResponseObject->addWidget($actionBar);
 				$frameResponseObject->addWidget($contentText);
-                                $frameResponseObject->addWidget($saveButton);
+				$frameResponseObject->addWidget($saveButton);
+				$frameResponseObject->addWidget($cancelButton);
 				$frameResponseObject->addWidget($clearer);
 				return $frameResponseObject;
 			}
