@@ -49,18 +49,24 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         \lms_portal::get_instance()->add_javascript_src("lazyload", PATH_URL . "styles/standard/javascript/lazy/jquery.lazyload.min.js");
         \lms_portal::get_instance()->add_javascript_src("colorbox", PATH_URL . "styles/standard/javascript/colorbox/jquery.colorbox.js");
 
-        $titleCss = '#gallery-title{margin-top:-31px;margin-left:50px;}';
+        $titleCss = '#gallery-title{margin-left:50px;}';
         if ($gallery->check_access(SANCTION_SANCTION)) {
             $actionBar = new \Widgets\ActionBar();
-            $actionBar->setActions(array(array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"), array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "photoAlbum"))), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer"))), array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
+            //$actionBar->setActions(array(
+              //array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"),
+              //array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "photoAlbum"))),
+              //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer"))),
+              //array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
             $frameResponseObject->addWidget($actionBar);
         } else if ($gallery->check_access_write()) {
             $actionBar = new \Widgets\ActionBar();
-            $actionBar->setActions(array(array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"), array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
+            //$actionBar->setActions(array(
+              //array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"),
+              //array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))),
+              //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
             $frameResponseObject->addWidget($actionBar);
-        } else if ($gallery->check_access_read()) {
-            $titleCss = '#gallery-title{margin-left:50px;}';
         }
+        
         $titleHtml = new \Widgets\RawHtml();
         $title = getCleanName($gallery);
         $titleHtml->setCss($titleCss .
@@ -72,7 +78,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 	text-align: center;}
             img.lazy{padding:2px;max-width:200px;}
           ');
-        $titleHtml->setHtml('<h2 id="gallery-title">' . $title . '</h2>');
+        $titleHtml->setHtml('<h1 id="gallery-title">' . $title . '</h1>');
         $frameResponseObject->addWidget($titleHtml);
 
         $inventory = $gallery->get_inventory();

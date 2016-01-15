@@ -34,7 +34,12 @@ jQuery(document).ready(function(){
 
 var oldVal;
 
-function removeAllDirectEditors() {
+function removeAllDirectEditors(save) {
+	if(save){
+		$('.changed').each(function(number, obj) {
+			eval($(obj).attr('data-saveFunction'));
+		});
+	}
 	var elements = jQuery(".directEditor");
 	if (elements) {
 		for(i=0; i<elements.length; i++) {
