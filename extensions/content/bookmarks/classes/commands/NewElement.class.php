@@ -1,14 +1,14 @@
 <?php
 namespace Bookmarks\Commands;
 class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject) {
 		if ($requestObject instanceof \UrlRequestObject) {
 			$this->params = $requestObject->getParams();
@@ -18,10 +18,10 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		
+
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("CreateFolder");
 		$ajaxForm->setSubmitNamespace("Bookmarks");
@@ -63,23 +63,23 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 <br>
 END
 );
-		
-		
-		
+
+
+
 		$ajaxResponseObject->setStatus("ok");
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Erstelle neuen Ordner in »" ."Lesezeichen". "«");
 		$dialog->addWidget($ajaxForm);
-                $dialog->setCancelButtonLabel(NULL);
-                $dialog->setSaveAndCloseButtonLabel(null);
-                $ajaxResponseObject->addWidget($dialog);
-		
+		$dialog->setCancelButtonLabel(NULL);
+		$dialog->setSaveAndCloseButtonLabel(null);
+		$ajaxResponseObject->addWidget($dialog);
+
 		//$idRequestObject = new \IdRequestObject();
 		//$idRequestObject->setId($this->id);
-		
+
 		return $ajaxResponseObject;
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 	}
 }

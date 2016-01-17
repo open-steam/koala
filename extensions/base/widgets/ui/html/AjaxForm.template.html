@@ -2,7 +2,7 @@
 <form id="{AJAX_FORM_NAME}" onsubmit="sendAjaxFrom(); return false;">
 	{AJAX_FORM_CONTENT}
 </form>
-<div style="float:right; margin-top:10px"><a href="#" class="button pill left" onclick="sendAjaxFrom(); return false;"><b>Erstellen</b></a><a class="button pill right negative" onclick="closeDialog();return false;" href="#">Abbrechen</a></div>
+<div style="float:right; margin-top:10px"><a class="bidButton negative" onclick="closeDialog();return false;" href="#" style="margin-right: 4px;">Abbrechen</a><a href="#" class="bidButton" onclick="sendAjaxFrom(); return false;"><b>Erstellen</b></a></div>
 <script>
 function sendAjaxFrom() {
 	{AJAX_SENDCODE}

@@ -1,33 +1,32 @@
 .dialog_wrapper {
-	top: 0%;
-  	right: 50%;
-  	position: fixed;
-        z-index: 300;
+	top: 6%;
+	right: 50%;
+	position: fixed;
+	z-index: 300;
 }
 
 .dialog {
 	display: none;
 	font-family: 'Lucida Grande',Verdana,Arial,Helvetica,sans-serif;
-        font-size: 12px;
-  	position: relative;
+	font-size: 12px;
+	position: relative;
 	z-index: 301;
 	padding: 5px;
 	background-color: white;
 	color: black;
 	padding: 14px;
-	border: 1px solid #ccc;
 	max-height:620px;
 	overflow-y:auto;
-
 	-moz-box-shadow:2px 2px 5px #888;
 	-webkit-box-shadow:2px 2px 5px #888;
 	box-shadow:2px 2px 5px #888;
+	border-radius: 3px;
 }
 
 .dialog h2 {
 	margin-top: 3px;
-        padding-top: 5px;
-        padding-left: 5px;
+	padding-top: 5px;
+	padding-left: 14px;
 }
 
 .dialog h3 {
@@ -47,14 +46,16 @@
 }
 
 .close-button {
-	height: 12px;
-	width: 12px;
-	background-image: url("{PATH_URL}widgets/asset/close.gif");
+	height: 20px;
+	width: 20px;
+	background-image: url("{PATH_URL}widgets/asset/close.png");
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: 4px;
+	right: 10px;
+	background-size: cover;
 }
 
 .close-button:hover {
 	cursor: pointer;
+	background-image: url("{PATH_URL}widgets/asset/close_red.png");
 }

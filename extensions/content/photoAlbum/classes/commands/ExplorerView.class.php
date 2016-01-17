@@ -17,7 +17,7 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
+
         if (isset($this->id)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
             if ($object instanceof \steam_exit) {
@@ -25,18 +25,18 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
                 $this->id = $object->get_id();
             }
         } else {
-            
+
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
             $object = $currentUser->get_workroom();
             $this->id = $object->get_id();
         }
-         
+
         if (!$object instanceof \steam_object) {
            \ExtensionMaster::getInstance()->send404Error();
         }
 
         $objectModel = \AbstractObjectModel::getObjectModel($object);
-         
+
         if ($object && $object instanceof \steam_container) {
             $count = $object->count_inventory();
             if ($count > 500) {
@@ -47,7 +47,7 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
             }
             catch(\NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
             catch(\AccessDeniedException $e) {throw new \Exception("", E_USER_ACCESS_DENIED);}
-            
+
         } else {
             $objects = array();
         }
@@ -60,24 +60,28 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
         } else {
             $parentLink = "";
         }
-        
+
         $breadcrumb = new \Widgets\Breadcrumb();
         $breadcrumb->setData(array($parentLink, array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . $title . " ")));
- 
-   
+
+
         $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
-        
-        if ($object->check_access(SANCTION_SANCTION)) {          
+
+        if ($object->check_access(SANCTION_SANCTION)) {
             $actionBar = new \Widgets\ActionBar();
-            $actionBar->setActions(array(array("name" => "Galerie-Ansicht", "link" => PATH_URL . "photoAlbum/index/" . $this->id . "/"), array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer"))), array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
+            //$actionBar->setActions(array(
+              //array("name" => "Galerie-Ansicht", "link" => PATH_URL . "photoAlbum/index/" . $this->id . "/"),
+              //array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))),
+              //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer"))),
+              //array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
         } else {
             $actionBar = new \Widgets\ActionBar();
-            $actionBar->setActions(array(array("name" => "Galerie-Ansicht", "link" => PATH_URL . "photoAlbum/index/" . $this->id . "/"), array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))), array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
+            //$actionBar->setActions(array(
+              //array("name" => "Galerie-Ansicht", "link" => PATH_URL . "photoAlbum/index/" . $this->id . "/"),
+              //array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))),
+              //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
         }
-        //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
-
-
 
         $environment = new \Widgets\RawHtml();
         $environment->setHtml("<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
