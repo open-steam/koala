@@ -20,7 +20,7 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $parent = $obj->get_environment();
         $portletWidth = $parent->get_attribute("bid:portal:column:width");
-        $portletWidth = substr($portletWidth, 0, count($portletWidth)-3);
+        //$portletWidth = substr($portletWidth, 0, count($portletWidth)-3);
 
         $bookmarks = $bookmarkRoom->get_inventory();
         $showAllBookmarksLink = "";
