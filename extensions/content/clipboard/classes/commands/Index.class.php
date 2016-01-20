@@ -19,10 +19,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         //chronic
         \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("clipboard");
-                
+
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         $this->id = $currentUser->get_id();
-      
+
         $objects = $currentUser->get_inventory();
         if($objects === 0){
             $objects = array();
@@ -34,11 +34,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $title = "Zwischenablage";
 
         $breadcrumb = new \Widgets\Breadcrumb();
-        $breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($currentUser) . "\"></img> " . $title . " " . \Explorer\Model\Sanction::getMarkerHtml($currentUser, false))));
-
-        //$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-        //$breadcrumb = new \Widgets\Breadcrumb();
-        //$breadcrumb->setData(array(array("name"=>"<img src=\"{$bookmarkIcon}\"> Lesezeichenordner")));
+        $breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/clipboard_16.png\"></img> " . $title)));
 
         $actionBar = new \Widgets\ActionBar();
         $actionBar->setActions(array(array("name" => "Zwischenablage leeren", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
@@ -54,6 +50,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
         $frameResponseObject->setTitle("Zwischenablage");
+        $frameResponseObject->addWidget($breadcrumb);
         $frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($loader);
         return $frameResponseObject;
