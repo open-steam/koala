@@ -54,7 +54,7 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
         } elseif ($identifier_type === "id") {
             $document = \steam_factory::get_object($STEAM->get_id(), (int) $identifier);
             if ($document instanceof \steam_document) {
-                if (!isset($this->filename)) {
+                if (!isset($this->filename) && !strstr($document->get_mimetype(), "pdf")){
                     header("location: " . PATH_URL . "Download/Document/{$identifier}/{$document->get_name()}");
                     die;
                 }
@@ -82,6 +82,8 @@ abstract class AbstractDownloadCommand extends \AbstractCommand implements \IRes
 
             if (isset($_SERVER['HTTP_RANGE']) && strstr($document->get_mimetype(), "video")) {
                 $document->download(DOWNLOAD_RANGE);
+            } else if(strstr($document->get_mimetype(), "pdf") && !isset($this->filename)){
+              $document->download(DOWNLOAD_INLINE);
             } else {
                 $document->download();
             }
