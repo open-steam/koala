@@ -1,17 +1,17 @@
 <?php
 namespace Explorer\Commands;
 class EmptyClipboard extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $elements;
 	private $clipboard;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
-	public function processData(\IRequestObject $requestObject) {		
+
+	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->clipboard = $GLOBALS["STEAM"]->get_current_steam_user();
 		if (isset($this->params["id"])) {
@@ -19,14 +19,14 @@ class EmptyClipboard extends \AbstractCommand implements \IAjaxCommand {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 			if (getObjectType($object) === "pyramiddiscussion") {
                             \ExtensionMaster::getInstance()->getExtensionById("Pyramiddiscussion")->deletePyramiddiscussion($object);
-                        } else {   
+                        } else {
                             $object->delete();
                         }
 		} else {
 			$this->elements = $this->clipboard->get_inventory();
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		if (!isset($this->id)) {
 			$ajaxResponseObject->setStatus("ok");
@@ -48,14 +48,20 @@ class EmptyClipboard extends \AbstractCommand implements \IAjaxCommand {
 			return $ajaxResponseObject;
 		} else {
 			$ajaxResponseObject->setStatus("ok");
+
 			$clipboardModel = new \Explorer\Model\Clipboard($this->clipboard);
 			$jswrapper = new \Widgets\JSWrapper();
-			$js = "document.getElementById('clipboardIconbarWrapper').innerHTML = '" . $clipboardModel->getIconbarHtml() . "';";
-			$url = $this->params["path"];
-                        if(strpos($url,"clipboard")!==false){
-                            $js .='location.href="'.PATH_URL.'clipboard/"';
-                        }
-                        $jswrapper->setJs($js);
+			$path = strtolower($_SERVER["REQUEST_URI"]);
+			if($path != "/clipboard/"){
+				$js = "document.getElementById('clipboardIconbarWrapper').innerHTML = '" . $clipboardModel->getIconbarHtml() . "';";
+			}
+			else{
+				$js = "$('#" . $this->id . "').hide();";
+				$js .="$('img[title=\"Zwischenablage leeren\"]').parent().parent().parent().hide();";
+				$js .= "$('#ClipboardIconbarWrapper').html('" . $clipboardModel->getIconbarHtml() . "');";
+				$js .= "if ($('div.listviewer-items div:visible').length == 0) $('div.listviewer-items').append('<div class=\"listviewer-noitem\">Die Zwischenablage ist leer.</div>');";
+			}
+			$jswrapper->setJs($js);
 			$ajaxResponseObject->addWidget($jswrapper);
 			return $ajaxResponseObject;
 		}

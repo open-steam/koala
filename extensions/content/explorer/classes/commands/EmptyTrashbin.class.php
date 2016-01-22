@@ -22,7 +22,7 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
                 $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
                 if (getObjectType($object) === "pyramiddiscussion") {
                     \ExtensionMaster::getInstance()->getExtensionById("Pyramiddiscussion")->deletePyramiddiscussion($object);
-                } else {   
+                } else {
                     $object->delete();
                 }
             }
@@ -55,15 +55,15 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
             }
             $js = "sendMultiRequest('EmptyTrashbin', jQuery.parseJSON('[$ids]'), jQuery.parseJSON('[$elements]'), 'updater', null, null, 'explorer', 'Leere Papierkorb ...', 0, " . count($this->elements) . ");";
             $jswrapper->setJs($js);
-            
             $ajaxResponseObject->addWidget($jswrapper);
         } else if ($this->params["path"] == "trashbin/") {
             $trashbinModel = new \Explorer\Model\Trashbin($this->trashbin);
             $hideCurrentItem = new \Widgets\JSWrapper();
             $js="$('#" . $this->id . "').hide();";
+            $js .="$('img[title=\"Papierkorb leeren\"]').parent().parent().parent().hide();";
             $js .= "$('#trashbinIconbarWrapper').html('" . $trashbinModel->getIconbarHtml() . "');";
             $js .= "if ($('div.listviewer-items div:visible').length == 0) $('div.listviewer-items').append('<div class=\"listviewer-noitem\">Der Papierkorb ist leer.</div>');";
-            
+
             $hideCurrentItem->setJs($js);
             $ajaxResponseObject->addWidget($hideCurrentItem);
         } else {

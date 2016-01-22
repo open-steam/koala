@@ -44,8 +44,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		$breadcrumb = new \Widgets\Breadcrumb();
 		$breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/trashbin_16.png\"></img> " . $title)));
 
-		$actionBar = new \Widgets\ActionBar();
-		$actionBar->setActions(array(array("name"=>"Papierkorb leeren", "ajax"=>array("onclick"=>array("command"=>"EmptyTrashbin", "params"=>array(), "requestType"=>"popup", "namespace"=>"explorer")))));
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array("name"=>"Papierkorb leeren", "ajax"=>array("onclick"=>array("command"=>"EmptyTrashbin", "params"=>array(), "requestType"=>"popup", "namespace"=>"explorer")))));
 
 		$loader = new \Widgets\Loader();
 		$loader->setWrapperId("trashbinWrapper");
@@ -58,7 +58,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
 		$frameResponseObject->setTitle($title);
 		$frameResponseObject->addWidget($breadcrumb);
-		$frameResponseObject->addWidget($actionBar);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($loader);
 
 		return $frameResponseObject;

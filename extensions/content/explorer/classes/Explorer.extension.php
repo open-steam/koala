@@ -26,14 +26,16 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
 
     public function getIconBarEntries() {
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+
         $trashbin = $currentUser->get_attribute(USER_TRASHBIN);
         $trashbinModel = new \Explorer\Model\Trashbin($trashbin);
         $trashbinCount = count($trashbin->get_inventory());
+        $TrashbinNotEmpty = $trashbinCount == 0 ? FALSE : TRUE;
 
-        $showTrashbin = $trashbinCount == 0 ? FALSE : TRUE;
         $clipboardModel = new \Explorer\Model\Clipboard($currentUser);
         $clipboardCount = count($currentUser->get_inventory());
-        $showClipboard = $clipboardCount == 0 ? FALSE : TRUE;
+        $ClipboardNotEmpty = $clipboardCount == 0 ? FALSE : TRUE;
+
         $array = array();
         $path = strtolower($_SERVER["REQUEST_URI"]);
         $pathArray = explode("/", $path);
@@ -145,27 +147,41 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
               $array[] = array("name" => "<img title=\"Ordner anlegen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newFolder_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$currentObjectID}}, '', 'popup', null, null, 'Bookmarks');return false;");
             }
         }
-        if ($showClipboard) {
+        if ($ClipboardNotEmpty) {
+          if($path != "/clipboard/"){
             $array[] = array("name" => "<div id=\"clipboardIconbarWrapper\">" . $clipboardModel->getIconbarHtml() . "</div>",
                 "menu" => array(
                     array("name" => "Zwischenablage öffnen", "link" => "/clipboard/"),
                     array("name" => "Objekte hier einfügen", "onclick" => "event.stopPropagation();sendRequest('Paste', {'env':jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer');"),
                     array("name" => "Zwischenablage leeren", "onclick" => "event.stopPropagation();sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');")));
+          }
+          else{
+            $array[] = array("name" => "<img title=\"Zwischenablage leeren\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/clipboard_white_empty_16.png\">", "onclick"=>"sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');return false;");
+          }
         } else {
+          if($path != "/clipboard/"){
             $array[] = array("name" => "<div id=\"clipboardIconbarWrapper\">" . $clipboardModel->getIconbarHtml() . "</div>",
                 "menu" => array(
                     array("name" => "Zwischenablage öffnen", "link" => "/clipboard/")));
+          }
         }
 
-        if ($showTrashbin) {
+        if ($TrashbinNotEmpty) {
+          if($path != "/trashbin/"){
             $array[] = array("name" => "<div id=\"trashbinIconbarWrapper\">" . $trashbinModel->getIconbarHtml() . "</div>",
                 "menu" => array(
                     array("name" => "Papierkorb öffnen", "link" => "/trashbin/"),
                     array("name" => "Papierkorb leeren", "onclick" => "event.stopPropagation();sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');")));
+          }
+          else{
+            $array[] = array("name" => "<img title=\"Papierkorb leeren\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/trashbin_white_empty_16.png\">", "onclick"=>"sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');return false;");
+          }
         } else {
+          if($path != "/trashbin/"){
             $array[] = array("name" => "<div id=\"trashbinIconbarWrapper\">" . $trashbinModel->getIconbarHtml() . "</div>",
                 "menu" => array(
                     array("name" => "Papierkorb öffnen", "link" => "/trashbin/")));
+          }
         }
         return $array;
     }

@@ -36,8 +36,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $breadcrumb = new \Widgets\Breadcrumb();
         $breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/clipboard_16.png\"></img> " . $title)));
 
-        $actionBar = new \Widgets\ActionBar();
-        $actionBar->setActions(array(array("name" => "Zwischenablage leeren", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
+        //$actionBar = new \Widgets\ActionBar();
+        //$actionBar->setActions(array(array("name" => "Zwischenablage leeren", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
         $loader = new \Widgets\Loader();
@@ -51,7 +51,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $frameResponseObject->setTitle("Zwischenablage");
         $frameResponseObject->addWidget($breadcrumb);
-        $frameResponseObject->addWidget($actionBar);
+        //$frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($loader);
         return $frameResponseObject;
     }
