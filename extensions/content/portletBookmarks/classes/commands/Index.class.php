@@ -20,7 +20,9 @@ class Index extends \AbstractCommand implements \IIdCommand {
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $parent = $obj->get_environment();
         $portletWidth = $parent->get_attribute("bid:portal:column:width");
-        $portletWidth = substr($portletWidth, 0, count($portletWidth)-3);
+        if (strpos($portletWidth, "px") === TRUE) {
+            $portletWidth = substr($portletWidth, 0, count($portletWidth)-3);
+        }
 
         $bookmarks = $bookmarkRoom->get_inventory();
         $showAllBookmarksLink = "";
@@ -83,11 +85,16 @@ class Index extends \AbstractCommand implements \IIdCommand {
 }
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
-    private $width = 352;
+    private $width;
 
-    public function setWidth($w){
-        $this->width = $w;
+    public function setWidth($width) {
+        if (($width - 40) < 0) {
+            $this->width = 40;
+        } else {
+            $this->width = $width;
+        }
     }
+
     public function getHeadlines() {
         //return array("", "Name", "Marker","Änderungsdatum", "Größe");
         return array("", "", "");
@@ -96,7 +103,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
     public function getHeadLineWidths() {
         //return array(22, 580, 150);
 
-        return array(22, $this->width-34, 0);
+        return array(22, $this->width-40, 0);
     }
 
     public function getHeadLineAligns() {

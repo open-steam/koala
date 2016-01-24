@@ -19,10 +19,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         //chronic
         \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("clipboard");
-                
+
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         $this->id = $currentUser->get_id();
-      
+
         $objects = $currentUser->get_inventory();
         if($objects === 0){
             $objects = array();
@@ -34,14 +34,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $title = "Zwischenablage";
 
         $breadcrumb = new \Widgets\Breadcrumb();
-        $breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($currentUser) . "\"></img> " . $title . " " . \Explorer\Model\Sanction::getMarkerHtml($currentUser, false))));
+        $breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/clipboard_16.png\"></img> " . $title)));
 
-        //$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-        //$breadcrumb = new \Widgets\Breadcrumb();
-        //$breadcrumb->setData(array(array("name"=>"<img src=\"{$bookmarkIcon}\"> Lesezeichenordner")));
-
-        $actionBar = new \Widgets\ActionBar();
-        $actionBar->setActions(array(array("name" => "Zwischenablage leeren", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
+        //$actionBar = new \Widgets\ActionBar();
+        //$actionBar->setActions(array(array("name" => "Zwischenablage leeren", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
         $loader = new \Widgets\Loader();
@@ -54,7 +50,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
         $frameResponseObject->setTitle("Zwischenablage");
-        $frameResponseObject->addWidget($actionBar);
+        $frameResponseObject->addWidget($breadcrumb);
+        //$frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($loader);
         return $frameResponseObject;
     }

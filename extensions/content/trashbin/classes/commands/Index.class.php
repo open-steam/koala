@@ -16,9 +16,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 	}
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-                //chronic
-                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("trashbin");
-                
+		//chronic
+		\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("trashbin");
+
 		$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 		if (isset($this->id)) {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
@@ -41,9 +41,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		$this->getExtension()->addCSS();
 
 		$title = "Papierkorb";
+		$breadcrumb = new \Widgets\Breadcrumb();
+		$breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/trashbin_16.png\"></img> " . $title)));
 
-		$actionBar = new \Widgets\ActionBar();
-		$actionBar->setActions(array(array("name"=>"Papierkorb leeren", "ajax"=>array("onclick"=>array("command"=>"EmptyTrashbin", "params"=>array(), "requestType"=>"popup", "namespace"=>"explorer")))));
+		//$actionBar = new \Widgets\ActionBar();
+		//$actionBar->setActions(array(array("name"=>"Papierkorb leeren", "ajax"=>array("onclick"=>array("command"=>"EmptyTrashbin", "params"=>array(), "requestType"=>"popup", "namespace"=>"explorer")))));
 
 		$loader = new \Widgets\Loader();
 		$loader->setWrapperId("trashbinWrapper");
@@ -55,11 +57,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
 
 		$frameResponseObject->setTitle($title);
-
-		$frameResponseObject->addWidget($actionBar);
-			
+		$frameResponseObject->addWidget($breadcrumb);
+		//$frameResponseObject->addWidget($actionBar);
 		$frameResponseObject->addWidget($loader);
-		
+
 		return $frameResponseObject;
 	}
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

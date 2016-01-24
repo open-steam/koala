@@ -74,35 +74,47 @@ class PhotoAlbum extends AbstractExtension implements IObjectExtension, IObjectM
 	}
 
 	public function getIconBarEntries() {
+		//$pathShort = rtrim($path, "/");
+		//$arr = explode('/', $pathShort);
+		//$id = $arr[count($arr)-1];
+		$currentObjectID = "";
 		$path = strtolower($_SERVER["REQUEST_URI"]);
-		$pathShort = rtrim($path, "/");
-		$arr = explode('/', $pathShort);
-		$id = $arr[count($arr)-1];
-
-		if (strpos($path, "/photoalbum/explorerview/") !== false) {
-			$array[] = array("name" => "<img title=\"Galerie-Ansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "photoAlbum/index/" . $id . "/'");
+		$pathArray = explode("/", $_SERVER['REQUEST_URI']);
+		for ($count = 0; $count < count($pathArray); $count++) {
+				if (intval($pathArray[$count]) !== 0) {
+						$currentObjectID = $pathArray[$count];
+						break;
+				}
 		}
-		else if (strpos($path, "/photoalbum/index/") !== false) {
-			$array[] = array("name" => "<img title=\"Explorer-Ansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "photoAlbum/explorerView/" . $id . "/'");
+		if ($currentObjectID === "403" || $currentObjectID === "404") {
+				$currentObjectID = "";
 		}
-		else{
-			return;
+		if($currentObjectID != ""){
+			if (strpos($path, "/photoalbum/explorerview/") !== false) {
+				$array[] = array("name" => "<img title=\"Galerie-Ansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "photoAlbum/index/" . $currentObjectID . "/'");
+			}
+			else if (strpos($path, "/photoalbum/index/") !== false) {
+				$array[] = array("name" => "<img title=\"Explorer-Ansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "photoAlbum/explorerView/" . $currentObjectID . "/'");
+			}
+			else{
+				return;
+			}
+
+			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+			$envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
+			$envSanction = $object->check_access(SANCTION_SANCTION);
+
+			if ($envSanction) {
+				$array[] = array("name" => "<img title=\"Neues Bild\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('Addpicture', {'id':{$currentObjectID}}, '', 'popup', null, null, 'PhotoAlbum');return false;");
+				$array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$currentObjectID}}, '', 'popup', null, null, 'explorer');return false;");
+				$array[] = array("name" => "<img title=\"Rechte\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$currentObjectID}}, '', 'popup', null, null, 'explorer');return false;");
+			} elseif ($envWriteable) {
+				$array[] = array("name" => "<img title=\"Neues Bild\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('Addpicture', {'id':{$currentObjectID}}, '', 'popup', null, null, 'PhotoAlbum');return false;");
+				$array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$currentObjectID}}, '', 'popup', null, null, 'explorer');return false;");
+			}
+
+			return $array;
 		}
-
-		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
-		$envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
-		$envSanction = $object->check_access(SANCTION_SANCTION);
-
-		if ($envSanction) {
-			$array[] = array("name" => "<img title=\"Neues Bild\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('Addpicture', {'id':{$id}}, '', 'popup', null, null, 'PhotoAlbum');return false;");
-			$array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$id}}, '', 'popup', null, null, 'explorer');return false;");
-			$array[] = array("name" => "<img title=\"Rechte\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$id}}, '', 'popup', null, null, 'explorer');return false;");
-		} elseif ($envWriteable) {
-			$array[] = array("name" => "<img title=\"Neues Bild\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('Addpicture', {'id':{$id}}, '', 'popup', null, null, 'PhotoAlbum');return false;");
-			$array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$id}}, '', 'popup', null, null, 'explorer');return false;");
-		}
-
-		return $array;
 	}
 }
 ?>

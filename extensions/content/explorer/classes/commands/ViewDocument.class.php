@@ -96,6 +96,14 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                     $html = "<h2>" . $name . "</h2><div style=\"text-align:center\"><img style=\"max-width:100%\" title=\"{$name}\" alt=\"Bild: {$name}\" src=\"" . PATH_URL . "Download/Document/" . $this->id . "/\"></div>";
                 }
 
+
+                else if ($mimetype === "application/pdf"){
+                  $PDFUrlDownload = PATH_URL . 'Download/Document/' . $this->id . '/' . $objName;
+                  $PDFUrlEmbed = PATH_URL . 'Download/Document/' . $this->id . '/';
+                  $html = '<h2>' . $name . '</h2><object data=' . $PDFUrlEmbed . ' type="application/pdf" width="100%"><p>Ihr Browser verfügt nicht über die Fähigkeit, PDF-Dateien direkt anzeigen zu können. Sie können die Datei allerdings <a href="' . $PDFUrlDownload . '">herunterladen</a>, um sie mit einer entsprechenden Software zu betrachten.</p></object>';
+                  $html = $html . '<script type="text/javascript">$("object").height($(window).height()-200);</script>';
+                }
+
                 //document type: html-text
                 else if ($mimetype == "text/html") {
                     if ($noSanctionDialog) {
