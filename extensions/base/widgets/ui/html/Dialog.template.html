@@ -14,37 +14,7 @@
                 
 		
                 <!-- BEGIN SAVE_AND_CLOSE_BUTTON -->
-		<div style="float:right; margin-top:10px;"><a class="button pill" onclick="
-                    //count the changes and if there is at least one reload the site
-                    var i = 0;
-                    var elementsToSave = $('.changed')
-                    var j = elementsToSave.size();
-                    
-                    if(j == 0){
-                        closeDialog();
-                        {SAVE_AND_CLOSE_BUTTON_RELOAD}
-                    }
-                                         
-                    {SAVE_AND_CLOSE_BUTTON_JS}
-                    elementsToSave.each(function(number, obj) {
-                        eval($(obj).attr('data-saveFunction'));
-                        
-                    });
-                    
-                    function dataSaveFunctionCallback(response){
-                        i++;
-                        if(j == i) {
-                            //tinymce textareas set this to prevent data loss
-                            $(window).unbind('beforeunload');
-                            
-                            closeDialog();
-                            location.reload();
-                            i = 0;
-                        }
-                            
-                    }
-                    
-                    " href="#">{SAVE_AND_CLOSE_BUTTON_LABEL}</a></div>
+		<div style="float:right; margin-top:10px;"><a class="button pill" onclick="saveElements()" href="#">{SAVE_AND_CLOSE_BUTTON_LABEL}</a></div>
 		<!-- END SAVE_AND_CLOSE_BUTTON -->
 		
                 <!-- BEGIN CANCEL_BUTTON -->
@@ -81,6 +51,53 @@
                 closeDialog();}
         });
         
+        var elementsToSaveCounter = 0;
+        var elementsToSave = $('.changed');
+        var elementsToSaveSize = elementsToSave.size();
+        
+        function saveElements(){
+            $('.button').attr('onClick', '');
+            //count the changes and if there is at least one reload the site
+            elementsToSaveCounter = 0;
+            elementsToSave = $('.changed');
+            elementsToSaveSize = elementsToSave.size();
+                    
+            if(elementsToSaveSize == 0){
+                closeDialog();
+                {SAVE_AND_CLOSE_BUTTON_RELOAD}
+            }
+                                         
+            {SAVE_AND_CLOSE_BUTTON_JS}
+                    
+            if (($("#progressbarwrapper").length == 0)) {
+                createOverlay("white", null, "show");
+                createDynamicWrapper("<div id=\"progressbarwrapper\" style=\"z-index: 350; position: fixed; top: 50%; left:50%; margin-left: -150px\"><div id=\"progressbar\" style=\"width:300px; height:10px\"></div><div id=\"message\">Speichere Daten..." + " (" + (elementsToSaveCounter) + " von " + elementsToSaveSize + ")</div></div>");
+                $("#progressbar").progressbar({
+                    value: 0
+                });
+            }
+            
+            elementsToSave.each(function(number, obj) {
+                eval($(obj).attr('data-saveFunction'));
+            });              
+        }
+                    
+        function dataSaveFunctionCallback(response){
+            $("#progressbar").progressbar({
+                value: Math.round((elementsToSaveCounter + 1) / elementsToSaveSize * 100)
+            });
+            $("#message").html("Speichere Daten..." + " (" + (elementsToSaveCounter + 1) + " von " + elementsToSaveSize + ")");
+            elementsToSaveCounter++;
+            if(elementsToSaveSize == elementsToSaveCounter) {
+                //tinymce textareas set this to prevent data loss
+                $(window).unbind('beforeunload');
+                            
+                closeDialog();
+                location.reload();
+                elementsToSaveCounter = 0;
+            }
+        }
+                      
         
         
 </script>
