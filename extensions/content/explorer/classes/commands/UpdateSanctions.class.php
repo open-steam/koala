@@ -60,15 +60,14 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
                     }
                 }
             } else {
-
-
                 $this->object->sanction(SANCTION_ALL, $currentUser);
                 $this->object->sanction_meta(SANCTION_ALL, $currentUser);
                 $this->object->set_acquire(0);
             }
         }
+        //probalby unused because the rights are not saved anylonger automatically upon a button press
         //SET CRUDE RIGHTS
-        elseif ($type == "crude") {
+        /*elseif ($type == "crude") {
             $everyone = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "everyone");
             $everyoneId = $everyone->get_id();
             $steamGroup = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "sTeam");
@@ -96,7 +95,7 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
                 $this->object->sanction(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $everyoneId, CLASS_OBJECT));
                 $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $everyoneId, CLASS_OBJECT));
             }
-        }
+        }*/
         //SET SPECIFIC RIGHTS
         elseif ($type == "sanction") {
             $postboxHack = false;

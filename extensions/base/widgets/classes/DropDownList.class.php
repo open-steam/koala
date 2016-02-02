@@ -129,6 +129,7 @@ class DropDownList extends Widget {
             $this->getContent()->setCurrentBlock("OPTION_VALUES");
             $this->getContent()->setVariable("VALUE", $element[0]);
             $this->getContent()->setVariable("LABEL", $element[1]);
+            if($element[0] == $this->startValue) {$this->getContent()->setVariable("SELECTED", "selected=\"selected\"");} else {$this->getContent()->setVariable("SELECTED", "");}
             $this->getContent()->parse("OPTION_VALUES");
         }
         if($this->startValue !== ""){

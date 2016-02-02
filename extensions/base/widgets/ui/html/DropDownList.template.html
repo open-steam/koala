@@ -2,17 +2,18 @@
 <div class="widgets_dropdownlist">
     <select name="{DROPDOWN_LIST_NAME}" id="{ID}" size="{SIZE}" data-oldValue="{DATA_OLD_VALUE}" data-saveFunction="{SAVE_FUNCTION}" onChange="{ONCHANGE}" class="{CUSTOM_CLASS}" {READ_ONLY}>
         <!-- BEGIN OPTION_VALUES -->
-        <option value="{VALUE}">{LABEL}</option>
+        <option value="{VALUE}" {SELECTED}>{LABEL}</option>
         <!-- END OPTION_VALUES -->
     </select>
 </div>
 
-<!-- BEGIN STARTVALUE -->
-<script language="text/javascript">{STARTVALUE}</script>
-<!-- END STARTVALUE -->
+
+<script language="text/javascript"></script>
+
 
 
 <script type="text/javascript">
+    
     $('#{ID}').change(
         function() {
             //add the changed class to this object

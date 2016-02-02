@@ -1,13 +1,14 @@
 <?php
-//Die DDL sind alle umgebaut und werden von dem Widget erstellt
-//es fehlt noch das Hinzufügen der data-saveFunction und die Behandlung derer
-//was passiert, wenn der Nutzer zwei konkurrierende Rechte gesetzt hat?
-//beim wechsel von acqire zu nicht-acquire noch überlegen, wie das am besten geht (vorige Werte vergessen oder zurücksetzen?)
-//DropDown List auf neuen Dialog umstellen (fertigstellen)
-//    Eine Checkbox zum Rechte vererben mit JS onChange Methode
+//progressbar beim Speichern von Dialogen hinzugefügt
+//
+//Die DDL sind alle umgebaut und werden von dem Widget erstellt + mit data-saveFunction versorgt
+
+//was passiert, wenn der Nutzer zwei konkurrierende Rechte gesetzt hat? (soll unterbunden werden)
 
 //Hinweis, dass ein Nutzer Rechte aus der Gruppenmitgliedschaft hat links neben der DDListe anzeigen
 //Anzeige nur der Rechte-Optionen, die gleich viel oder noch mehr Rechte geben
+
+
     
 
 
@@ -126,17 +127,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             $this->groups[$group->get_id()] = $group;
             $this->groupsAcq[$group->get_id()] = $group;
         }
-        
-        
-       
-        $this->everyone = \steam_factory::groupname_to_object($this->steam->get_id(), "everyone");
-        $this->everyoneId = $this->everyone->get_id();
-       
-        $this->steamgroup = \steam_factory::groupname_to_object($this->steam->get_id(), "sTeam");
-        $this->steamgroupId = $this->steamgroup->get_id();
-
-        $this->sanction = $this->object->get_sanction();
-
         
         foreach ($this->sanction as $id => $sanct) {
             if (!array_key_exists($id, $this->groups) &&
@@ -290,39 +280,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             }
         }
         asort($this->userMappingAcq);
-
         
-        //start with the composition of the dialog
-        if ($this->environment instanceof \steam_room) {
-            $this->content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($this->environment) . "</b>");
-        } else{
-            $this->content->setVariable("NO_ENVIRONMENT", "style='display:none;'");
-            $this->content->setVariable("INHERIT_FROM", "");
-        }
-
-        if ($this->object->get_acquire() instanceof \steam_room) {
-            $this->content->setVariable("ACQUIRE_START", "activateAcq();");
-        }
-
-        
-        $this->content->setVariable("PRIVATE_PIC", PATH_URL . "explorer/asset/icons/private.png");
-        $this->content->setVariable("USER_DEF_PIC", PATH_URL . "explorer/asset/icons/user_defined.png");
-        $this->content->setVariable("USER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/server_public.png");
-        $this->content->setVariable("SERVER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/world_public.png");
-
-        if($this->creator instanceof \steam_user){
-            $this->content->setVariable("CREATOR_FULL_NAME", $this->creator->get_full_name());
-        } else {
-            $this->content->setVariable("CREATOR_FULL_NAME", getCleanName($this->creator));
-        }
-
-        $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
-        $this->content->setVariable("STEAMID", $this->steamgroupId);
-        $this->content->setVariable("SEND_REQUEST_SANCTION", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "sanctionId": id, "type": "sanction", "value": value }, "", "data", function(response){jQuery(\'#dynamic_wrapper\').remove(); jQuery(\'#overlay\').remove(); sendRequest(\'Sanctions\', {\'id\':\'' . $this->id . '\'}, \'\', \'popup\', null, null, \'explorer\');}, null, "explorer");');
-        $this->content->setVariable("SEND_REQUEST_CRUDE", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "crude", "value": value }, "", "data", function(response){jQuery(\'#dynamic_wrapper\').remove(); jQuery(\'#overlay\').remove(); sendRequest(\'Sanctions\', {\'id\':\'' . $this->id . '\'}, \'\', \'popup\', null, null, \'explorer\');}, null, "explorer");');
-        $this->content->setVariable("SEND_REQUEST_ACQ_ACT", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": "acq" }, "", "data", null, null, "explorer");');
-        $this->content->setVariable("SEND_REQUEST_ACQ_DEACT", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": "non_acq" }, "", "data", null, null, "explorer");');
-
+        self::setUpTemplate();
 
         self::buildGlobalGroups();
         
@@ -331,21 +290,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
         self::buildUserFavorites();
         self::buildUserFavoritesAcq();
-
-        $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
-        $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
-        $isAdmin = false;
-        if($admins instanceof \steam_group){
-            $isAdmin = $admins->is_member($this->steamUser);
-        }
-        $isAdmin2 = \lms_steam::is_steam_admin($this->steamUser);
-        if($isAdmin || $isAdmin2){
-          $this->dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
-        }
-
-        $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml($this->content->get());
-        $this->dialog->addWidget($rawHtml);
+        
+        self::buildDialog();
 
         $this->ajaxResponseObject->addWidget($this->dialog);
 
@@ -380,6 +326,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     
     function setupVariables(){
         $this->steamUser = \lms_steam::get_current_user();
+        
+        $this->everyone = \steam_factory::groupname_to_object($this->steam->get_id(), "everyone");
+        $this->everyoneId = $this->everyone->get_id();
+       
+        $this->steamgroup = \steam_factory::groupname_to_object($this->steam->get_id(), "sTeam");
+        $this->steamgroupId = $this->steamgroup->get_id();
+
+        $this->sanction = $this->object->get_sanction();
 
         $this->dialog = new \Widgets\Dialog();
         $this->dialog->setAutoSaveDialog(false);
@@ -394,9 +348,56 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         
         $this->environment = $this->object->get_environment();
         
+        
+    }
+    
+    function setUpTemplate(){
+        
         $this->content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
         $css = \Explorer::getInstance()->readCSS("sanctions.css");
         $this->content->setVariable("CSS", $css);
+        
+        //start with the composition of the dialog
+        if ($this->environment instanceof \steam_room) {
+            $this->content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($this->environment) . "</b>");
+        } else{
+            $this->content->setVariable("NO_ENVIRONMENT", "style='display:none;'");
+            $this->content->setVariable("INHERIT_FROM", "");
+        }
+
+        if ($this->object->get_acquire() instanceof \steam_room) {
+            $this->content->setVariable("ACQUIRE_START", "acq");
+            $this->content->setVariable("DISPLAY_NORMAL_CLASS", "invisible");
+            $this->content->setVariable("DISPLAY_ACQ_CLASS", "visible");
+            
+            $this->content->setVariable("CHECKBOX_CHECKED", "checked=\"checked\"");
+            
+        } else {
+            $this->content->setVariable("ACQUIRE_START", "");
+            $this->content->setVariable("DISPLAY_NORMAL_CLASS", "visible");
+            $this->content->setVariable("DISPLAY_ACQ_CLASS", "invisible");
+            $this->content->setVariable("CHECKBOX_CHECKED", "");
+        }
+        
+        $this->content->setVariable("PRIVATE_PIC", PATH_URL . "explorer/asset/icons/private.png");
+        $this->content->setVariable("USER_DEF_PIC", PATH_URL . "explorer/asset/icons/user_defined.png");
+        $this->content->setVariable("USER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/server_public.png");
+        $this->content->setVariable("SERVER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/world_public.png");
+
+        if($this->creator instanceof \steam_user){
+            $this->content->setVariable("CREATOR_FULL_NAME", $this->creator->get_full_name());
+        } else {
+            $this->content->setVariable("CREATOR_FULL_NAME", getCleanName($this->creator));
+        }
+
+        $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
+        $this->content->setVariable("STEAMID", $this->steamgroupId);
+        $this->content->setVariable("SEND_REQUEST_ACQ", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": acquire_checkbox }, "", "data", function(response){dataSaveFunctionCallback(response);}, null, "explorer");');
+        
+        //$this->content->setVariable("SEND_REQUEST_SANCTION", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "sanctionId": id, "type": "sanction", "value": value }, "", "data", function(response){jQuery(\'#dynamic_wrapper\').remove(); jQuery(\'#overlay\').remove(); sendRequest(\'Sanctions\', {\'id\':\'' . $this->id . '\'}, \'\', \'popup\', null, null, \'explorer\');}, null, "explorer");');
+        //$this->content->setVariable("SEND_REQUEST_CRUDE", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "crude", "value": value }, "", "data", function(response){jQuery(\'#dynamic_wrapper\').remove(); jQuery(\'#overlay\').remove(); sendRequest(\'Sanctions\', {\'id\':\'' . $this->id . '\'}, \'\', \'popup\', null, null, \'explorer\');}, null, "explorer");');
+        //$this->content->setVariable("SEND_REQUEST_ACQ_DEACT", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": "non_acq" }, "", "data", null, null, "explorer");');
+        
     }
     
 
@@ -419,7 +420,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     
     function buildGlobalGroups(){
         $dropDownValue = 0;
-        if ($this->object->check_access(SANCTION_SANCTION, $this->everyone)) { $dropDownValue = 3;}
+        if ($this->object->check_access(SANCTION_SANCTION, $this->everyone)) {$dropDownValue = 3;}
         else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) {$dropDownValue = 2;}
         else if ($this->object->check_access_read($this->everyone)) {$dropDownValue = 1;}
         
@@ -429,6 +430,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlEveryone->setSize("1");
         $ddlEveryone->setReadOnly(false);
         $ddlEveryone->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->everyoneId, 'type': 'sanction', 'value': everyone_dd }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
+        $ddlEveryone->setCustomClass("non-acq");
         $ddlEveryone->addDataEntries(self::getOptionsValues(0));
         $ddlEveryone->setStartValue($dropDownValue);
         
@@ -450,7 +452,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlEveryoneAcq->setName("ddlist");
         $ddlEveryoneAcq->setSize("1");
         $ddlEveryoneAcq->setReadOnly(true);
-        $ddlEveryoneAcq->addDataEntries(self::getOptionsValues($dropdownValueAcq));
+        $ddlEveryoneAcq->addDataEntries(self::getOptionsValues(0));//
         
         $this->content->setCurrentBlock("GROUP_EVERYONE_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlEveryoneAcq->getHtml());    
@@ -464,11 +466,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {$this->dropdownValueSteamGroup = 2;}
         else if ($this->object->check_access_read($this->steamgroup)) {$this->dropdownValueSteamGroup = 1;}
         $ddlSteam = new \Widgets\DropDownList();
-        $ddlSteam->setId("steam");
+        $steamId = "steam_dd";
+        $ddlSteam->setId($steamId);
         $ddlSteam->setName("ddlist");
         $ddlSteam->setSize("1");
         $ddlSteam->setReadOnly(false);
-        $ddlSteam->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->steamgroupId, 'type': 'sanction', 'value': steam }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
+        $ddlSteam->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->steamgroupId, 'type': 'sanction', 'value': $steamId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
+        $ddlSteam->setCustomClass("non-acq");
         $ddlSteam->addDataEntries(self::getOptionsValues(0));
 
         $ddlSteam->setStartValue($this->dropdownValueSteamGroup);
@@ -485,11 +489,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             else if ($this->environment->check_access_read($this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 1;}
         }
         $ddlSteamAcq = new \Widgets\DropDownList();
-        $ddlSteamAcq->setId("steam_acq");
+        $ddlSteamAcq->setId("steam_dd_acq");
         $ddlSteamAcq->setName("ddlist");
         $ddlSteamAcq->setSize("1");
         $ddlSteamAcq->setReadOnly(true);
-        $ddlSteamAcq->addDataEntries(self::getOptionsValues($this->dropdownValueAcqSteamGroup));
+        $ddlSteamAcq->addDataEntries(self::getOptionsValues(0));//$this->dropdownValueAcqSteamGroup
         
         $this->content->setCurrentBlock("GROUP_STEAM_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlSteamAcq->getHtml());    
@@ -534,14 +538,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $ddl->setSize("1");
                 $ddl->setReadOnly(false);
                 $ddl->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $id, 'type': 'sanction', 'value':group_$id }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
-                
-                
-                $ddl->setStartValue($this->dropdownValueSteamGroup);
-        
-
+                $ddl->setCustomClass("non-acq");
                 $indent = count(explode(".", $groupname));
                 if ($indent == 1) {
                     $optionValues = self::getOptionsValues(0);
+                    
                 } else {
                     $parent = $group->get_parent_group();
 
@@ -552,9 +553,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     
                     $optionValues = self::getOptionsValues(0);
                 }
-                $ddl->addDataEntries($optionValues);
-
-                $ddl->setStartValue(1);
+                $ddl->addDataEntries($optionValues); //
+                $ddl->setStartValue($dropDownValue);
+                //$ddl->setStartValue($dropDownValueParent);
 
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
                     $this->content->setCurrentBlock("GROUPS");
@@ -607,7 +608,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $ddlAcq->setSize("1");
                 $ddlAcq->setReadOnly(true);
                 $ddlAcq->setStartValue($dropDownValueAcq);
-                $ddlAcq->addDataEntries(self::getOptionsValues($dropDownValueAcq));
+                $ddlAcq->addDataEntries(self::getOptionsValues(0));//$dropDownValueAcq
 
                 $indent = count(explode(".", $groupname));
              
@@ -671,14 +672,16 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $selectedValue = max($maxSanctFromGroupMembership, $dropDownValue);
 
                     $ddl = new \Widgets\DropDownList();
-                    $ddl->setId("fav_" . $id . "_dd");
+                    $ddlId = "fav_" . $id . "_dd";
+                    $ddl->setId($ddlId);
                     $ddl->setName("ddlist");
                     //$ddl->setOnChange("specificChecked(id, value);");
                     $ddl->setSize("1");
                     $ddl->setReadOnly(false);
                     $ddl->setStartValue($selectedValue);
-                    $ddl->addDataEntries(self::getOptionsValues($selectedValue));
-                    
+                    $ddl->addDataEntries(self::getOptionsValues(0));//$selectedValue
+                    $ddl->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $id, 'type': 'sanction', 'value': $ddlId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
+                    $ddl->setCustomClass("non-acq");
 
                     $this->content->setCurrentBlock("FAVORITES");
                     $this->content->setCurrentBlock("FAV_DDSETINGS");
@@ -738,7 +741,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $ddl->setSize("1");
                     $ddl->setReadOnly(true);
                     $ddl->setStartValue($selectedValue);
-                    $ddl->addDataEntries(self::getOptionsValues($selectedValue));
+                    $ddl->addDataEntries(self::getOptionsValues(0));//$selectedValue
                     
 
                     $this->content->setCurrentBlock("FAVORITES_ACQ");
@@ -755,6 +758,24 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 }
             }
         }
+    }
+    
+    function buildDialog(){
+        $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
+        $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
+        $isAdmin = false;
+        if($admins instanceof \steam_group){
+            $isAdmin = $admins->is_member($this->steamUser);
+        }
+        $isAdmin2 = \lms_steam::is_steam_admin($this->steamUser);
+        if($isAdmin || $isAdmin2){
+          $this->dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+        }
+
+        $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->setHtml($this->content->get());
+        $this->dialog->addWidget($rawHtml);
+
     }
     
 
