@@ -360,10 +360,15 @@ class Chronic extends AbstractExtension implements IMenuExtension
                 header("Location : /");
             }
 
-            $chronic = $user->get_attribute("USER_CHRONIC");
-            if(!is_array($chronic)) $chronic=array();
-
-            return $this->validateChronic($chronic);
+            if($user){
+              $chronic = $user->get_attribute("USER_CHRONIC");
+              if(!is_array($chronic)) $chronic=array();
+              return $this->validateChronic($chronic);
+            }
+            else{
+              session_destroy();
+              header("Location : /");
+            }
         }
 
         private function saveChronic($chronic)
