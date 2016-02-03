@@ -21,7 +21,7 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
             if ($this->id !== 0) {
                 $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
                 if (getObjectType($object) === "pyramiddiscussion") {
-                    \ExtensionMaster::getInstance()->getExtensionById("Pyramiddiscussion")->deletePyramiddiscussion($object);
+                    \ExtensionMaster::getInstance()->getExtensionById("Trashbin")->deletePyramiddiscussion($object);
                 } else {
                     $object->delete();
                 }
