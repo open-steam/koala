@@ -203,9 +203,11 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             }
         } else {
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
-            if(!$currentUser instanceof \steam_user) throw new Exception ("The current user cannot be determined. The variable is of the type ".gettype($currentUser).". The class is ".get_class($currentUser));
-            $object = $currentUser->get_workroom();
-            return $object;
+            //if(!$currentUser instanceof \steam_user) throw new Exception ("The current user cannot be determined. The variable is of the type ".gettype($currentUser).". The class is ".get_class($currentUser));
+            if($currentUser){
+              $object = $currentUser->get_workroom();
+              return $object;
+            }
         }
         return null;
     }
