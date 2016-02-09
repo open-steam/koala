@@ -1,0 +1,104 @@
+<div class="widgets_label" {LABEL_STYLE}>{LABEL}</div>
+<div class="widgets_dropdownlist">
+    <select name="{DROPDOWN_LIST_NAME}" id="{ID}" data-type="{TYPE}" data-steamId="{STEAM_ID}" data-members="{MEMBERS}" data-subGroups="{SUB_GROUPS}" size="{SIZE}" data-oldValue="{DATA_OLD_VALUE}" data-saveFunction="{SAVE_FUNCTION}" onChange="{ONCHANGE}" class="{CUSTOM_CLASS}" {READ_ONLY}>
+        <!-- BEGIN OPTION_VALUES -->
+        <option value="{VALUE}" {SELECTED}>{LABEL}</option>
+        <!-- END OPTION_VALUES -->
+    </select>
+</div>
+
+
+<script language="text/javascript"></script>
+
+
+
+<script type="text/javascript">
+    if($('#{ID}').attr('data-type') == "group"){
+        //Update die Rechte bei allen Benutzern die In der Gruppe oder einer der UNtergruppen sind (.child().each())
+        //update alle untergruppen, dass sie nicht weniger rechte haben können als die obergruppe
+        $('#{ID}').change(
+            function() {
+                //add the changed class to this object
+                if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
+                //update the value in the variable
+                {ID} = $('#{ID}').val();
+                
+                //update subgroups
+                var subGroups = $('#{ID}').attr('data-subGroups');
+                subGroups = subGroups.split(",");
+                $.each(subGroups, function(index,value){
+                    if(value != ""){
+                        console.log(value);
+                        //recursively traverse all subgroups and set the rights
+                        $(value).val( {ID} ).trigger('change');
+                    }
+                });
+                
+                //if the right of this group is the same as the parent's right, make every lesser right unselectable
+                if($("select[data-subGroups*='#{ID}']").val() >= $('#{ID}').val()){
+                    for (i = 0; i < $('#{ID}').val(); i++) {
+                        $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
+                    }
+                }
+                
+                //start from the parents right and make every greater right selectable again
+                for (i = $("select[data-subGroups*='#{ID}']").val(); i < 4; i++) {
+                    $("#{ID} option[value='"+i+"']").removeAttr("disabled");
+                }
+               
+
+                //update the direct members of the group
+                var members = $('#{ID}').attr('data-members').split(",");
+
+                $.each(members, function(index,value){
+                    if(value != ""){
+                        $(value).val( {ID} ).trigger('change');
+                    }
+                });
+            }
+        );
+    } else if($('#{ID}').attr('data-type') == "user"){
+    /*
+     * 
+Fallunterscheidung in User und Gruppen
+Wenn user: gucke, ob in welchen Gruppen seine ID auftaucht und beim ändern wird immer das Maximum aller möglichen geerbten Recgte gesetzt
+Alle anderen Rechte dürfen nicht auswählbr sein
+     */    
+        $('#{ID}').change(
+            function() {
+                //add the changed class to this object
+                if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
+                //update the value in the variable
+                {ID} = $('#{ID}').val();
+                
+                //update selectable options
+                var memberOf = $('#{ID}').attr('data-members').split(",");
+                
+                //calculate the minimum rights that can't be lower
+                var minimumValue = 0;
+                $.each(memberOf, function(index,value){
+                    if(value != ""){
+                        if($(value).val() > minimumValue){
+                            
+                            minimumValue = $(value).val();
+                        }
+                    }
+                });
+                //make every lesser right unselectable
+                for (i = 0; i < minimumValue; i++) {
+                   $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
+                }
+                
+                //enable each greater right to be selectable
+                for (i = minimumValue; i < 4; i++) {
+                   $("#{ID} option[value='"+i+"']").removeAttr("disabled");
+                }
+                
+            }
+        );
+    } else {
+        console.log("illegal object type");
+    }
+    
+    
+</script>

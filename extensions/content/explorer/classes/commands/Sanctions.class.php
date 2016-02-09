@@ -8,6 +8,7 @@
 //Hinweis, dass ein Nutzer Rechte aus der Gruppenmitgliedschaft hat links neben der DDListe anzeigen
 //Anzeige nur der Rechte-Optionen, die gleich viel oder noch mehr Rechte geben
 
+//beim bauen der Gruppen DDListen einfach das array userMapping durchgehen und gucken, ob der Benutzer mitglied (is_member) der aktuellen Gruppe ist.
 
     
 
@@ -45,6 +46,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     private $groupsRights = array();
     
     private $groups = array();
+    private $rootGroups = array();
     private $groupMapping = array();
     private $groupMappingA = array();
     private $groupMappingName = array();
@@ -201,10 +203,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
                 $string = "";
                 for ($i = 0; $i < $length; $i++) {
-                    if ($i == 0) {
+                    if ($i == 0) { 
                         $string .= $array[$i];
                         if (!isset($this->groupMappingName[$string])) {
                             $group = \steam_factory::get_group($this->steam->get_id(), $string);
+                            $this->rootGroups[] = $group;
                             $groupId = $group->get_id();
                             $this->groupMappingName[$string] = $groupId;
                             $this->groupMappingA[$groupId] = $string;
@@ -223,6 +226,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 }
             }
         }
+        
         foreach ($this->groupMappingAAcq as $name) {
             $array = explode(".", $name);
             $length = count($array);
@@ -256,6 +260,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         asort($this->groupMappingAAcq);
         
         foreach ($this->groupMappingA as $id => $name) {
+            //the id will be inserted later on
             $this->groupMapping[$id] = $this->groups[$id];
         }
 
@@ -268,8 +273,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         foreach ($this->user as $id => $u) {
             if ($u instanceof \steam_user) {
                 $this->userMapping[$id] = $u->get_full_name();
+                $groups = $u->get_groups();
             }
         }
+        
         asort($this->userMapping);
 
         
@@ -305,22 +312,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         return $this->ajaxResponseObject;
     }
 
-    function getOptionsValues($dropDownValue) {
-        
-        $optionValues = array();
-        for ($i = $dropDownValue; $i <= 3; $i++) {
-            if ($i == 1) {
-                $optionValues[1] = "Nur Lesen";
-            } else if ($i == 2) {
-                $optionValues[2] = "Lesen und Schreiben";
-            } else if ($i == 3) {
-                $optionValues[3] = "Lesen, Schreiben und Berechtigen";
-            } else if ($i == 0) {
-                $optionValues[0] = "Kein Zugriff";
-            }
-        }
-        
-        return $optionValues;
+    function getOptionsValues() {
+        return array(0 => "Kein Zugriff", 1 => "Nur Lesen", 2 => "Lesen und Schreiben", 3 => "Lesen, Schreiben und Berechtigen");
     }
     
     
@@ -424,14 +417,37 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) {$dropDownValue = 2;}
         else if ($this->object->check_access_read($this->everyone)) {$dropDownValue = 1;}
         
-        $ddlEveryone = new \Widgets\DropDownList();
+        
+        $allUserIds = array();
+        foreach($this->user as $user){
+            $allUserIds[] = "#fav_".$user->get_id()."_dd";
+        }
+        $allUserIds = implode(",",$allUserIds);
+        
+        $allGroupIds = array();
+        
+        foreach($this->rootGroups as $group){
+            $allGroupIds[] = "#group_".$group->get_id();
+        }
+        $allGroupIds = implode(",",$allGroupIds);
+        
+        
+        $ddlEveryone = new \Widgets\DropDownListSanction();
         $ddlEveryone->setId("everyone_dd");
         $ddlEveryone->setName("ddlist");
         $ddlEveryone->setSize("1");
+        $ddlEveryone->setType("group");
         $ddlEveryone->setReadOnly(false);
         $ddlEveryone->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->everyoneId, 'type': 'sanction', 'value': everyone_dd }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
         $ddlEveryone->setCustomClass("non-acq");
-        $ddlEveryone->addDataEntries(self::getOptionsValues(0));
+        
+        $ddlEveryone->setMembers($allUserIds);
+        $ddlEveryone->setSubGroups($allGroupIds.",#steam_dd");
+        
+                
+        
+        $ddlEveryone->setSteamId($this->everyoneId);
+        $ddlEveryone->addDataEntries(self::getOptionsValues());
         $ddlEveryone->setStartValue($dropDownValue);
         
         $this->content->setCurrentBlock("GROUP_EVERYONE");
@@ -447,12 +463,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             else if ($this->environment->check_access_read($this->everyone)) { $dropdownValueAcq = 1; }
         }
         
-        $ddlEveryoneAcq = new \Widgets\DropDownList();
+        $ddlEveryoneAcq = new \Widgets\DropDownListSanction();
         $ddlEveryoneAcq->setId("everyone_acq");
         $ddlEveryoneAcq->setName("ddlist");
         $ddlEveryoneAcq->setSize("1");
+        $ddlEveryoneAcq->setType("group");
         $ddlEveryoneAcq->setReadOnly(true);
-        $ddlEveryoneAcq->addDataEntries(self::getOptionsValues(0));//
+        $ddlEveryoneAcq->addDataEntries(self::getOptionsValues());//
         
         $this->content->setCurrentBlock("GROUP_EVERYONE_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlEveryoneAcq->getHtml());    
@@ -465,15 +482,19 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         if ($this->object->check_access(SANCTION_SANCTION, $this->steamgroup)) {$this->dropdownValueSteamGroup = 3;}
         else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {$this->dropdownValueSteamGroup = 2;}
         else if ($this->object->check_access_read($this->steamgroup)) {$this->dropdownValueSteamGroup = 1;}
-        $ddlSteam = new \Widgets\DropDownList();
+        $ddlSteam = new \Widgets\DropDownListSanction();
         $steamId = "steam_dd";
         $ddlSteam->setId($steamId);
         $ddlSteam->setName("ddlist");
         $ddlSteam->setSize("1");
+        $ddlSteam->setType("group");
         $ddlSteam->setReadOnly(false);
         $ddlSteam->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->steamgroupId, 'type': 'sanction', 'value': $steamId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
         $ddlSteam->setCustomClass("non-acq");
-        $ddlSteam->addDataEntries(self::getOptionsValues(0));
+        $ddlSteam->setMembers($allUserIds);
+        $ddlSteam->setSteamId($this->steamgroupId);
+        $ddlSteam->addDataEntries(self::getOptionsValues());
+        
 
         $ddlSteam->setStartValue($this->dropdownValueSteamGroup);
         
@@ -488,12 +509,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 2;}
             else if ($this->environment->check_access_read($this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 1;}
         }
-        $ddlSteamAcq = new \Widgets\DropDownList();
+        $ddlSteamAcq = new \Widgets\DropDownListSanction();
         $ddlSteamAcq->setId("steam_dd_acq");
         $ddlSteamAcq->setName("ddlist");
         $ddlSteamAcq->setSize("1");
+        $ddlSteamAcq->setType("group");
         $ddlSteamAcq->setReadOnly(true);
-        $ddlSteamAcq->addDataEntries(self::getOptionsValues(0));//$this->dropdownValueAcqSteamGroup
+        $ddlSteamAcq->addDataEntries(self::getOptionsValues());//$this->dropdownValueAcqSteamGroup
         
         $this->content->setCurrentBlock("GROUP_STEAM_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlSteamAcq->getHtml());    
@@ -515,14 +537,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 if($group->get_attribute("GROUP_INVISIBLE") != 0){
                     continue;
                 }
+                $groupname = $group->get_groupname();
+                if ($groupname != "Everyone" && $groupname != "sTeam") {
                 
                 $name = $group->get_attribute("OBJ_DESC");
                 $realname = $group->get_name();
                 if ($name == "" || $name == "0") {
                     $name = $group->get_name();
                 }
-
-                $groupname = $group->get_groupname();
 
                 $dropDownValue = 0;
                 if ($this->object->check_access(SANCTION_SANCTION, $group)) {$dropDownValue = 3;}
@@ -532,16 +554,37 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
                 $this->groupsRights[$id] = $dropDownValue;
 
-                $ddl = new \Widgets\DropDownList();
+                $ddl = new \Widgets\DropDownListSanction();
                 $ddl->setId("group_" . $id);
                 $ddl->setName("ddlist");
+                $ddl->setType("group");
                 $ddl->setSize("1");
                 $ddl->setReadOnly(false);
                 $ddl->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $id, 'type': 'sanction', 'value':group_$id }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
                 $ddl->setCustomClass("non-acq");
+                $ddl->setSteamId($id);
+                $members = array();
+                foreach($this->user as $user){
+                    //var_dump($user);
+                    if($group->is_member($user)){
+                        $members[] = '#fav_'.$user->get_id()."_dd";
+                    }
+                }
+                $ddl->setMembers(implode(',',$members));
+                
+                
+                $subGroups = array();
+                foreach($group->get_subgroups() as $subGroup){
+                    if(array_key_exists($subGroup->get_id(), $this->groupMapping)){
+                        $subGroups[] = "#group_".$subGroup->get_id();
+                    }
+                }
+                //var_dump($subGroups);
+                $ddl->setSubGroups(implode(',', $subGroups));
+                
                 $indent = count(explode(".", $groupname));
                 if ($indent == 1) {
-                    $optionValues = self::getOptionsValues(0);
+                    $optionValues = self::getOptionsValues();
                     
                 } else {
                     $parent = $group->get_parent_group();
@@ -551,13 +594,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     else if ($this->object->check_access_read($parent)) {$dropDownValueParent = 1;}
                     else {$dropDownValueParent = 0;}
                     
-                    $optionValues = self::getOptionsValues(0);
+                    $optionValues = self::getOptionsValues();
                 }
                 $ddl->addDataEntries($optionValues); //
                 $ddl->setStartValue($dropDownValue);
                 //$ddl->setStartValue($dropDownValueParent);
 
-                if ($groupname != "Everyone" && $groupname != "sTeam") {
+                
                     $this->content->setCurrentBlock("GROUPS");
                     $this->content->setCurrentBlock("GROUP_DDSETTINGS");
                     $this->content->setVariable("GROUPID", $id);
@@ -602,13 +645,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 }
                 
                 
-                $ddlAcq = new \Widgets\DropDownList();
-                $ddlAcq->setId("group_" . $id);
+                $ddlAcq = new \Widgets\DropDownListSanction();
+                $ddlAcq->setId("group_" . $id."_acq");
                 $ddlAcq->setName("ddlist_acq");
+                $ddlAcq->setType("group");
                 $ddlAcq->setSize("1");
                 $ddlAcq->setReadOnly(true);
                 $ddlAcq->setStartValue($dropDownValueAcq);
-                $ddlAcq->addDataEntries(self::getOptionsValues(0));//$dropDownValueAcq
+                $ddlAcq->addDataEntries(self::getOptionsValues());//$dropDownValueAcq
 
                 $indent = count(explode(".", $groupname));
              
@@ -659,6 +703,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
                     //check if the user is in one group with more rights
                     $maxSanct = 0;
+                    $maxSanctFromGroupMembership = 0;
                     foreach ($user->get_groups() as $group) {
                         if (isset($this->groupMapping[$group->get_id()])) {
                             $currentValue = $this->groupsRights[$group->get_id()];
@@ -671,21 +716,32 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     //display the hights rights
                     $selectedValue = max($maxSanctFromGroupMembership, $dropDownValue);
 
-                    $ddl = new \Widgets\DropDownList();
+                    $ddl = new \Widgets\DropDownListSanction();
                     $ddlId = "fav_" . $id . "_dd";
                     $ddl->setId($ddlId);
                     $ddl->setName("ddlist");
+                    $ddl->setType("user");
                     //$ddl->setOnChange("specificChecked(id, value);");
                     $ddl->setSize("1");
                     $ddl->setReadOnly(false);
                     $ddl->setStartValue($selectedValue);
-                    $ddl->addDataEntries(self::getOptionsValues(0));//$selectedValue
+                    $ddl->addDataEntries(self::getOptionsValues());//$selectedValue
                     $ddl->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $id, 'type': 'sanction', 'value': $ddlId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
                     $ddl->setCustomClass("non-acq");
+                    $ddl->setSteamId($id);
+                    
+                    //get all groups, this user is a member of
+                    $memberOf = array();
+                    foreach($this->groupMapping as $group){
+                        if($group->is_member($user)){
+                            $memberOf[] = "#group_".$group->get_id();
+                        }
+                    }
+                    $ddl->setMembers(implode(',',$memberOf)."#everyone_dd,#steam_dd");
 
                     $this->content->setCurrentBlock("FAVORITES");
                     $this->content->setCurrentBlock("FAV_DDSETINGS");
-                    $this->content->setVariable("FAVNAME", $name);
+                    $this->content->setVariable("FAVNAME", $name.$selectedValue);
                     $this->content->setVariable("DROPDOWNLIST_FAVORITES", $ddl->getHtml());
                     if (isset($this->favorites[$id])) {
                         $this->content->setVariable("IMG_PATH", $this->favPicUrl);
@@ -734,14 +790,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                         $selectedValue = $maxSanctFromGroupMembership;
                     }
 
-                    $ddl = new \Widgets\DropDownList();
+                    $ddl = new \Widgets\DropDownListSanction();
                     $ddl->setId("fav_" . $id . "_dd_acq");
                     $ddl->setName("ddlist");
-                    //$ddl->setOnChange("specificChecked(id, value);");
                     $ddl->setSize("1");
+                    $ddl->setType("user");
                     $ddl->setReadOnly(true);
                     $ddl->setStartValue($selectedValue);
-                    $ddl->addDataEntries(self::getOptionsValues(0));//$selectedValue
+                    $ddl->addDataEntries(self::getOptionsValues());//$selectedValue
                     
 
                     $this->content->setCurrentBlock("FAVORITES_ACQ");

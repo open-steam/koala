@@ -181,7 +181,6 @@
             //update the value in the variable
             if($('#acquire_checkbox').is(':checked')) {acquire_checkbox = "acq";}
             else {acquire_checkbox = "not-acq";}
-            console.log(acquire_checkbox);
             
             $("#crude_div").toggle();
             $("#crude_acq_div").toggle();
@@ -194,7 +193,7 @@
 
     function setCrude(value){
         if(value == "privat"){
-            $("select.non-acq").each(function(){$(this).val(0); $(this).trigger('change'); console.log($(this).attr('id'));});
+            $("select.non-acq").each(function(){$(this).val(0); $(this).trigger('change');});
             //$("select").trigger('change');
             
 
@@ -221,6 +220,11 @@
         id=objId[1];
         //{SEND_REQUEST_SANCTION}
     }
+    
+    //trigger the change for each select object to disable not selectable options
+    $( document ).ready(function() {
+        $("select.non-acq").trigger('change');
+    });
     
     //{ACQUIRE_START}
 
