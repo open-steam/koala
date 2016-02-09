@@ -1,19 +1,5 @@
 <?php
-//progressbar beim Speichern von Dialogen hinzugefügt
-//
-//Die DDL sind alle umgebaut und werden von dem Widget erstellt + mit data-saveFunction versorgt
-
-//was passiert, wenn der Nutzer zwei konkurrierende Rechte gesetzt hat? (soll unterbunden werden)
-
-//Hinweis, dass ein Nutzer Rechte aus der Gruppenmitgliedschaft hat links neben der DDListe anzeigen
-//Anzeige nur der Rechte-Optionen, die gleich viel oder noch mehr Rechte geben
-
-//beim bauen der Gruppen DDListen einfach das array userMapping durchgehen und gucken, ob der Benutzer mitglied (is_member) der aktuellen Gruppe ist.
-
-    
-
-
-
+//Hinweis fehlt noch, dass ein Nutzer Rechte aus der Gruppenmitgliedschaft hat links neben der DDListe anzeigen
 namespace Explorer\Commands;
 
 class Sanctions extends \AbstractCommand implements \IAjaxCommand {
@@ -386,11 +372,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
         $this->content->setVariable("STEAMID", $this->steamgroupId);
         $this->content->setVariable("SEND_REQUEST_ACQ", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": acquire_checkbox }, "", "data", function(response){dataSaveFunctionCallback(response);}, null, "explorer");');
-        
-        //$this->content->setVariable("SEND_REQUEST_SANCTION", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "sanctionId": id, "type": "sanction", "value": value }, "", "data", function(response){jQuery(\'#dynamic_wrapper\').remove(); jQuery(\'#overlay\').remove(); sendRequest(\'Sanctions\', {\'id\':\'' . $this->id . '\'}, \'\', \'popup\', null, null, \'explorer\');}, null, "explorer");');
-        //$this->content->setVariable("SEND_REQUEST_CRUDE", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "crude", "value": value }, "", "data", function(response){jQuery(\'#dynamic_wrapper\').remove(); jQuery(\'#overlay\').remove(); sendRequest(\'Sanctions\', {\'id\':\'' . $this->id . '\'}, \'\', \'popup\', null, null, \'explorer\');}, null, "explorer");');
-        //$this->content->setVariable("SEND_REQUEST_ACQ_DEACT", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": "non_acq" }, "", "data", null, null, "explorer");');
-        
     }
     
 
@@ -469,7 +450,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlEveryoneAcq->setSize("1");
         $ddlEveryoneAcq->setType("group");
         $ddlEveryoneAcq->setReadOnly(true);
-        $ddlEveryoneAcq->addDataEntries(self::getOptionsValues());//
+        $ddlEveryoneAcq->addDataEntries(self::getOptionsValues());
         
         $this->content->setCurrentBlock("GROUP_EVERYONE_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlEveryoneAcq->getHtml());    
@@ -515,7 +496,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlSteamAcq->setSize("1");
         $ddlSteamAcq->setType("group");
         $ddlSteamAcq->setReadOnly(true);
-        $ddlSteamAcq->addDataEntries(self::getOptionsValues());//$this->dropdownValueAcqSteamGroup
+        $ddlSteamAcq->addDataEntries(self::getOptionsValues());
         
         $this->content->setCurrentBlock("GROUP_STEAM_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlSteamAcq->getHtml());    
@@ -565,7 +546,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $ddl->setSteamId($id);
                 $members = array();
                 foreach($this->user as $user){
-                    //var_dump($user);
                     if($group->is_member($user)){
                         $members[] = '#fav_'.$user->get_id()."_dd";
                     }
@@ -579,7 +559,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                         $subGroups[] = "#group_".$subGroup->get_id();
                     }
                 }
-                //var_dump($subGroups);
+                
                 $ddl->setSubGroups(implode(',', $subGroups));
                 
                 $indent = count(explode(".", $groupname));
@@ -596,9 +576,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     
                     $optionValues = self::getOptionsValues();
                 }
-                $ddl->addDataEntries($optionValues); //
+                $ddl->addDataEntries($optionValues);
                 $ddl->setStartValue($dropDownValue);
-                //$ddl->setStartValue($dropDownValueParent);
 
                 
                     $this->content->setCurrentBlock("GROUPS");
@@ -652,7 +631,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                 $ddlAcq->setSize("1");
                 $ddlAcq->setReadOnly(true);
                 $ddlAcq->setStartValue($dropDownValueAcq);
-                $ddlAcq->addDataEntries(self::getOptionsValues());//$dropDownValueAcq
+                $ddlAcq->addDataEntries(self::getOptionsValues());
 
                 $indent = count(explode(".", $groupname));
              
@@ -721,11 +700,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $ddl->setId($ddlId);
                     $ddl->setName("ddlist");
                     $ddl->setType("user");
-                    //$ddl->setOnChange("specificChecked(id, value);");
                     $ddl->setSize("1");
                     $ddl->setReadOnly(false);
                     $ddl->setStartValue($selectedValue);
-                    $ddl->addDataEntries(self::getOptionsValues());//$selectedValue
+                    $ddl->addDataEntries(self::getOptionsValues());
                     $ddl->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $id, 'type': 'sanction', 'value': $ddlId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
                     $ddl->setCustomClass("non-acq");
                     $ddl->setSteamId($id);
@@ -797,7 +775,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $ddl->setType("user");
                     $ddl->setReadOnly(true);
                     $ddl->setStartValue($selectedValue);
-                    $ddl->addDataEntries(self::getOptionsValues());//$selectedValue
+                    $ddl->addDataEntries(self::getOptionsValues());
                     
 
                     $this->content->setCurrentBlock("FAVORITES_ACQ");

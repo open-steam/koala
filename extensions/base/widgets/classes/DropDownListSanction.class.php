@@ -147,8 +147,6 @@ class DropDownListSanction extends Widget {
         $this->getContent()->setVariable("MEMBERS", $this->members);
         $this->getContent()->setVariable("TYPE", $this->type);
         $this->getContent()->setVariable("SUB_GROUPS", $this->subGroups);
-        //var_dump($this->members);
-        //var_dump(implode(',',$this->members));
         $this->getContent()->setVariable("SAVE_FUNCTION", $this->saveFunction);
 
         foreach ($this->data as $element) {

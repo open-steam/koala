@@ -14,8 +14,6 @@
 
 <script type="text/javascript">
     if($('#{ID}').attr('data-type') == "group"){
-        //Update die Rechte bei allen Benutzern die In der Gruppe oder einer der UNtergruppen sind (.child().each())
-        //update alle untergruppen, dass sie nicht weniger rechte haben können als die obergruppe
         $('#{ID}').change(
             function() {
                 //add the changed class to this object
@@ -24,9 +22,7 @@
                 {ID} = $('#{ID}').val();
                 
                 //update subgroups
-                var subGroups = $('#{ID}').attr('data-subGroups');
-                subGroups = subGroups.split(",");
-                $.each(subGroups, function(index,value){
+                $.each($('#{ID}').attr('data-subGroups').split(","), function(index,value){
                     if(value != ""){
                         console.log(value);
                         //recursively traverse all subgroups and set the rights
@@ -48,9 +44,7 @@
                
 
                 //update the direct members of the group
-                var members = $('#{ID}').attr('data-members').split(",");
-
-                $.each(members, function(index,value){
+                $.each($('#{ID}').attr('data-members').split(","), function(index,value){
                     if(value != ""){
                         $(value).val( {ID} ).trigger('change');
                     }
@@ -58,12 +52,6 @@
             }
         );
     } else if($('#{ID}').attr('data-type') == "user"){
-    /*
-     * 
-Fallunterscheidung in User und Gruppen
-Wenn user: gucke, ob in welchen Gruppen seine ID auftaucht und beim ändern wird immer das Maximum aller möglichen geerbten Recgte gesetzt
-Alle anderen Rechte dürfen nicht auswählbr sein
-     */    
         $('#{ID}').change(
             function() {
                 //add the changed class to this object
@@ -72,11 +60,9 @@ Alle anderen Rechte dürfen nicht auswählbr sein
                 {ID} = $('#{ID}').val();
                 
                 //update selectable options
-                var memberOf = $('#{ID}').attr('data-members').split(",");
-                
                 //calculate the minimum rights that can't be lower
                 var minimumValue = 0;
-                $.each(memberOf, function(index,value){
+                $.each($('#{ID}').attr('data-members').split(","), function(index,value){
                     if(value != ""){
                         if($(value).val() > minimumValue){
                             
