@@ -175,8 +175,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         if (trim($topic["link_url"]) != "") {
                             $tmpl->setCurrentBlock("TOPIC_LINK");
                             $tmpl->setVariable("TOPIC_TITLE", $UBB->encode($topic["title"]));
-                            $tmpl->setVariable("TOPIC_LINK_URL", revealPath($topic["link_url"], $portlet->get_path()));
-                            $tmpl->setVariable("TOPIC_LINK_TARGET", ($topic["link_target"] == "checked" ? "_blank" : "_top"));
+                            //$tmpl->setVariable("TOPIC_LINK_URL", revealPath($topic["link_url"], $portlet->get_path()));
+                            //$tmpl->setVariable("TOPIC_LINK_TARGET", ($topic["link_target"] == "checked" ? "_blank" : "_top"));
                             $tmpl->parse("TOPIC_LINK");
 
                             $tmpl->setCurrentBlock("topic_entry");
