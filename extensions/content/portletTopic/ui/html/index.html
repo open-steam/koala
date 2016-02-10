@@ -14,13 +14,14 @@
     <div id="sortable-topics">
         <!-- BEGIN category -->
         <div class="entry-cat">
-            <h2 class="subheadline">
+            <!-- <h2 class="subheadline"> -->
                 <!-- BEGIN BLOCK_EDIT_BUTTON_CATEGORY -->
-                <div class="editbutton">{POPUPMENU}</div>
+                <!-- <div class="editbutton">{POPUPMENU}</div> -->
                 <!-- END BLOCK_EDIT_BUTTON_CATEGORY -->
-                {CATEGORY_TITLE}
-            </h2>
+                <!-- {CATEGORY_TITLE} -->
+            <!-- </h2> -->
             <!-- BEGIN topic_entry -->
+            <div class="topicEntry" onclick="window.open('{TOPIC_LINK_URL}','{TOPIC_LINK_TARGET}')">
             <h3>
                 <!-- BEGIN BLOCK_EDIT_BUTTON_TOPIC -->
                 <div class="editbutton">{POPUPMENU}</div>
@@ -38,6 +39,7 @@
                 {TOPIC_DESCRIPTION}
             </div>
             <!-- END topic_display_description -->
+          </div>
             <!-- END topic_entry -->
         </div>
         <!-- END category -->

@@ -53,8 +53,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $this->getExtension()->addCSS();
         $this->getExtension()->addJS();
 
-        //hack
-        //include_once("/Users/mjako/koala-development-workspace-next/koala-core/lib/bid/slashes.php");
         include_once(PATH_BASE . "/core/lib/bid/slashes.php");
 
         //get content of portlet
@@ -85,7 +83,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
 
-        //refernce icon
+        //reference icon
         if ($portletIsReference) {
             $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
@@ -124,6 +122,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         if (sizeof($content) > 0) {
             $categoryCount = 0;
             foreach ($content as $category) {
+                /*
                 $tmpl->setCurrentBlock("category");
                 //popupmenu category
                 if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
@@ -141,6 +140,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 }
 
                 $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode(@$category["title"]));
+                */
                 $tmpl->setVariable("TOPIC_ENTRY", "");
 
                 if (isset($category["topics"])) {
@@ -178,6 +178,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $tmpl->setVariable("TOPIC_LINK_URL", revealPath($topic["link_url"], $portlet->get_path()));
                             $tmpl->setVariable("TOPIC_LINK_TARGET", ($topic["link_target"] == "checked" ? "_blank" : "_top"));
                             $tmpl->parse("TOPIC_LINK");
+
+                            $tmpl->setCurrentBlock("topic_entry");
+                            $tmpl->setVariable("TOPIC_LINK_URL", revealPath($topic["link_url"], $portlet->get_path()));
+                            $tmpl->setVariable("TOPIC_LINK_TARGET", ($topic["link_target"] == "checked" ? "_blank" : "_top"));
                         } else {
                             $tmpl->setCurrentBlock("TOPIC_NOLINK");
                             $tmpl->setVariable("TOPIC_TITLE", $UBB->encode($topic["title"]));
@@ -208,13 +212,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 }
 
                 //parse out category
-                $tmpl->parse("category");
+                //$tmpl->parse("category");
                 $categoryCount++;
             }
         } else {
             //NO MESSAGE
             $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
-            $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Kategorien vorhanden.");
+            $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Links vorhanden.");
             $tmpl->parse("BLOCK_NO_MESSAGE");
         }
 
