@@ -1,27 +1,27 @@
 <?php
 namespace PortletBookmarks\Commands;
 class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $content;
 	private $dialog;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject){
-		$this->params = $requestObject->getParams();                
+		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
-                
+
 	}
-	
-	
-	
+
+
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
-		
+
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("Create");
 		$ajaxForm->setSubmitNamespace("PortletBookmarks");
@@ -37,7 +37,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
   float: left;
   padding-right: 20px;
   text-align: right;
-  width: 100px;
+  width: 140px;
 }
 
 .attributeNameRequired {
@@ -66,8 +66,8 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 <input type="hidden" name="id" value="{$this->id}">
 
 <div class="attribute">
-	<div class="attributeName">Lesezeichenanzahl:</div>
-	<div><input type="text" class="text" value="" name="number"></div>
+	<div class="attributeName">Sichtbare Lesezeichen:</div>
+	<div><input type="text" class="text" value="" name="number" placeholder="10"></div>
 </div>
 
 

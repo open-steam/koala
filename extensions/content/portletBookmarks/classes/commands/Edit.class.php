@@ -30,7 +30,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		//$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
 
 		$numberInput = new \Widgets\TextInput();
-		$numberInput->setLabel("Anzahl an Lesezeichen");
+		$numberInput->setLabel("Sichtbare Lesezeichen");
+		$numberInput->setPlaceholder("10");
 		$numberInput->setData($object);
 		$numberInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_BOOKMARK_COUNT"));
 

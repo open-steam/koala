@@ -1,24 +1,24 @@
 <?php
 namespace PortletMsg\Commands;
 class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $content;
 	private $dialog;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject){
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 	}
-		
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
-		
+
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("Create");
 		$ajaxForm->setSubmitNamespace("PortletMsg");
@@ -34,7 +34,7 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
   float: left;
   padding-right: 20px;
   text-align: right;
-  width: 80px;
+  width: 130px;
 }
 
 .attributeNameRequired {
@@ -53,9 +53,10 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 .attributeValue .text, .attributeValue textarea {
   width: 100px;
 }
-                        .text{
-             width:196px;
-    }
+
+.text{
+	width:196px;
+}
 
 .attributeValueColumn {
   float: left;
@@ -71,10 +72,13 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 </div>
 
 <div class="attribute">
-	<div><input type="hidden" name="parent" value="{$this->id}"></div>
+	<div class="attributeName">Sichtbare Meldungen:</div>
+	<div><input type="text" class="text" value="" name="number" placeholder="10"></div>
 </div>
 
-
+<div class="attribute">
+	<div><input type="hidden" name="parent" value="{$this->id}"></div>
+</div>
 
 END
 );

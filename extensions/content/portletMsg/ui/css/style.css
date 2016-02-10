@@ -16,6 +16,10 @@
   	padding: 4px;
 }
 
+.portlet.messages .message.hidden {
+  	display: none;
+}
+
 .portlet.messages .message h2 {
 	font-size: 12px;
   	margin: -4px -4px 4px -4px;
@@ -33,7 +37,7 @@
 .portlet.messages .message p {
   	margin-top: 0px;
 }
-	
+
 .portlet.messages .message .footer {
   	padding: 5px;
 }
