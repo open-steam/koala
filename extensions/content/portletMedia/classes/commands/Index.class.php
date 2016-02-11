@@ -125,6 +125,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $isYoutubeVideo = true;
             }
 
+
+
             if ($media_type == "image") {
                 $tmpl->setCurrentBlock("image");
                 $tmpl->setVariable("URL", $content["url"]);
@@ -183,6 +185,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("MEDIA_PLAYER", $media_player);
                 $tmpl->setVariable("MEDIA_PLAYER_WIDTH", $width);
                 $tmpl->setVariable("MEDIA_PLAYER_HEIGHT", round($width * 11 / 40));
+                $tmpl->setVariable("URL", $content["url"]);
                 $tmpl->parse("audio");
             }
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
