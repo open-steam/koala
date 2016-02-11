@@ -1,12 +1,12 @@
 <?php
 namespace PortalColumn\Commands;
 class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
-	
+
 	private $params;
 	private $id;
 	private $content;
 	private $rawHtmlWidget;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
@@ -16,14 +16,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$steam = $GLOBALS["STEAM"];
 		$extensionMaster=\ExtensionMaster::getInstance();
 		$portalColumnExtension = $extensionMaster->getExtensionById("PortalColumn");
-		
+
 		$this->getExtension()->addCSS();
-		
+
 		$htmlBody="";
 		$portalColumnObject = \steam_factory::get_object( $GLOBALS[ "STEAM" ]->get_id(), $objectId );
-		
+
 		$portlets = $portalColumnObject->get_inventory();
-		
+
 		//handle column size
 		$columnWidthPx = trim($portalColumnObject->get_attribute("bid:portal:column:width"));
 		if (strEndsWith($columnWidthPx, "px")) {
@@ -36,27 +36,23 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 			$columnWidth = $columnWidthPx;
 			$columnWidthExt = "px";
 		}
-                
-                $columnWidthMin = 100;
-                $columnWidthMax = 930;
-                $columnWidthCommon = 200;
-                
-                $columnWidth = (int) $columnWidth;
-                $columnWidthPx = $columnWidth . $columnWidthExt;
-                
-                
-                if(($columnWidth > $columnWidthMax)  || ($columnWidth < $columnWidthMin)){
-                    if($columnWidth > $columnWidthMax){ //bigger than max
-                        $columnWidthPx = $columnWidthMax . $columnWidthExt;
-                    }else{ //smaller than min
-                        $columnWidthPx = $columnWidthMin . $columnWidthExt;
-                    }
-                }
-            	
-		
+
+		$columnWidthMin = 100;
+		$columnWidthMax = 930;
+		$columnWidthCommon = 200;
+		$columnWidth = (int) $columnWidth;
+		$columnWidthPx = $columnWidth . $columnWidthExt;
+
+		if($columnWidth > $columnWidthMax){ //bigger than max
+			$columnWidthPx = $columnWidthMax . $columnWidthExt;
+		}
+		if($columnWidth < $columnWidthMin){ //smaller than min
+			$columnWidthPx = $columnWidthMin . $columnWidthExt;
+		}
+
 		$this->rawHtmlWidget = new \Widgets\RawHtml();
 		$htmlBody.='<div class="column" style="width:'.$columnWidthPx.';">';
-		
+
 		//popupmenu
 		$popupmenu = new \Widgets\PopupMenu();
 		$popupmenu->setCommand("GetPopupMenu");
@@ -64,7 +60,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$popupmenu->setNamespace("PortalColumn");
 		$popupmenu->setElementId("portal-overlay");
 		$htmlBody.= '<h2 class="editbutton columnheadline"><div class="editbutton">'.$popupmenu->getHtml().'</div><div style="margin-left:3px;">Spalte</div></h2>';
-		
+
 		foreach ($portlets as $portlet) {
 			//handle link objects as portlets
 			$params = array();
@@ -79,24 +75,22 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 			$data = \Widgets\Widget::getData($widgets);
 			$htmlBody.= $data["html"];
 		}
-		
+
 		$htmlBody.="</div>";
 		$this->rawHtmlWidget->setHtml($htmlBody);
-                
+
 	}
-	
+
 	public function idResponse(\IdResponseObject $idResponseObject) {
 		$idResponseObject->addWidget($this->rawHtmlWidget);
 		return $idResponseObject;
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$frameResponseObject->setTitle("Portal");
 		$frameResponseObject->addWidget($this->rawHtmlWidget);
 		return $frameResponseObject;
 	}
-	
-	
 
 }
 ?>
