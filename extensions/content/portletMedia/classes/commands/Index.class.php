@@ -56,7 +56,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //hack
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
 
-
         //get content of portlet
         $content = $portlet->get_attribute("bid:portlet:content");
         if (is_array($content) && count($content) > 0) {
@@ -102,14 +101,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline");
             }
 
-            //refernce icon
+            //reference icon
             if ($portletIsReference) {
                 $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
                 $envId = $portlet->get_environment()->get_environment()->get_id();
                 $envUrl = PATH_URL . "portal/index/" . $envId;
                 $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
             }
-
 
             //description
             if ($content["description"] === 0) {
@@ -118,9 +116,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("DESCRIPTION", $content["description"]);
             }
 
-
             $media_type = $content["media_type"];
-
 
             //determine youtube video
             $isYoutubeVideo = false;
@@ -150,7 +146,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             } else if ($media_type == "movie" && $isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movieYoutube");
                 $mediaArray = $portlet->get_attribute("bid:portlet:content");
-                //$tmpl->setVariable("YOUTUBE_URL", $mediaArray["url"]);
 
                 $url = $mediaArray["url"];
                 $youTubeUrlCode = "";
@@ -230,5 +225,4 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
 }
-
 ?>

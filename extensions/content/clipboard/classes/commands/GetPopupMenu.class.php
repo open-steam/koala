@@ -1,17 +1,17 @@
 <?php
 namespace Clipboard\Commands;
 class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $selection;
 	private $x, $y, $height, $width;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
-	public function processData(\IRequestObject $requestObject) {		
+
+	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 		$this->selection = json_decode($this->params["selection"]);
@@ -20,23 +20,23 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 		$this->height = $this->params["height"];
 		$this->width = $this->params["width"];
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$count = count($this->selection);
-                $explorerUrl = \Explorer::getInstance()->getAssetUrl();
+		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		if (!in_array($this->id, $this->selection) ||(in_array($this->id, $this->selection) && $count == 1)) {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 			$env = $object->get_environment();
-			
+
 			$inventory = $env->get_inventory();
 			foreach ($inventory as $key => $element) {
 				if ($element->get_id() == $this->id) {
 					$index = $key;
 				}
 			}
-			
+
 			$popupMenu =  new \Widgets\PopupMenu();
-			
+
 			if ($object instanceof \steam_trashbin) {
 				$items = array(array("name" => "Papierkorb leeren", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"));
 			} else if ($env instanceof \steam_trashbin) {
@@ -71,7 +71,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 							   																		 )),
 							   array("name" => "Lesezeichen<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
 																										(!\Bookmarks\Model\Bookmark::isBookmark($this->id)) ? array("name" => "Lesezeichen anlegen<img src=\"{$bookmarkIcon}\">", "command" => "AddBookmark", "namespace" => "bookmarks", "elementId" => "{$this->id}_BookmarkMarkerWrapper", "params" => "{'id':'{$this->id}'}") : "",
-																										
+
 																									)),
 							   array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
 							   																			($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
@@ -81,9 +81,9 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 							   																		  )),
 				               array("name" => "SEPARATOR"),
 							   array("raw" => "<a href=\"#\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'updater'); } jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open'); return false;\">Umbenennen<img src=\"{$renameIcon}\"></a>"),
-							   (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index")) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "", 
+							   (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index")) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
 							   (($object instanceof \steam_document) && (strstr($object->get_attribute(DOC_MIME_TYPE), "text"))) ? array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/") : "",
-							   array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"), 
+							   array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
 							   array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"));
 			}
 			$popupMenu->setItems($items);
@@ -109,14 +109,14 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 																									   					<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'blue'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerUrl}icons/blue.png\"></a>
 																									   					<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'purple'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerUrl}icons/purple.png\"></a>
 																									   					<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'grey'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerUrl}icons/grey.png\"></a>"),
-								 
+
 																								)),
 						   );
 			$popupMenu->setItems($items);
 			$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
 			$popupMenu->setWidth("180px");
 		}
-		
+
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);
 		return $ajaxResponseObject;
