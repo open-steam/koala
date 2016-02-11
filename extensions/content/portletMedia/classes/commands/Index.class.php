@@ -117,19 +117,22 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             }
 
             $media_type = $content["media_type"];
+            $url = $content["url"];
+
+            //if internal object & page encrypted via https & url only contains http ---> replace with https
+            if(strpos(strtolower($url), "download/document") && strpos(PATH_URL, "https") && strpos(strtolower($url), "http:")){
+              $url = str_replace("http","https",strtolower($url));
+            }
 
             //determine youtube video
             $isYoutubeVideo = false;
-            $mediaArray = $portlet->get_attribute("bid:portlet:content");
-            if (strpos($mediaArray["url"], "youtube")) {
+            if (strpos($url, "youtube")) {
                 $isYoutubeVideo = true;
             }
 
-
-
             if ($media_type == "image") {
                 $tmpl->setCurrentBlock("image");
-                $tmpl->setVariable("URL", $content["url"]);
+                $tmpl->setVariable("URL", $url);
                 $tmpl->parse("image");
             } else if ($media_type == "movie" && !$isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movie");
@@ -141,15 +144,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $mediaplayerHtml->setHeight(intval(($columnWidth - 10) / 4 * 3));
                 $mediaplayerHtml->setWidth($columnWidth - 10);
 
-                $mediaArray = $portlet->get_attribute("bid:portlet:content");
-                $mediaplayerHtml->setTarget($mediaArray["url"]);
+                $mediaplayerHtml->setTarget($url);
                 $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
                 $tmpl->parse("movie");
             } else if ($media_type == "movie" && $isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movieYoutube");
-                $mediaArray = $portlet->get_attribute("bid:portlet:content");
 
-                $url = $mediaArray["url"];
                 $youTubeUrlCode = "";
 
                 $column = $portlet->get_environment();
@@ -185,7 +185,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("MEDIA_PLAYER", $media_player);
                 $tmpl->setVariable("MEDIA_PLAYER_WIDTH", $width);
                 $tmpl->setVariable("MEDIA_PLAYER_HEIGHT", round($width * 11 / 40));
-                $tmpl->setVariable("URL", $content["url"]);
+                $tmpl->setVariable("URL", $url);
                 $tmpl->parse("audio");
             }
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
