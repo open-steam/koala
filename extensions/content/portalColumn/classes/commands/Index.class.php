@@ -38,7 +38,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		}
 
 		$columnWidthMin = 100;
-		$columnWidthMax = 930;
+		$columnWidthMax = 900;
 		$columnWidthCommon = 200;
 		$columnWidth = (int) $columnWidth;
 		$columnWidthPx = $columnWidth . $columnWidthExt;
