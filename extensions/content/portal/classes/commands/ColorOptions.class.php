@@ -47,9 +47,9 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Optionen zur Farbgestaltung von Portalen");
         $dialog->setAutoSaveDialog(true);
+        $dialog->setWidth(400);
 
         $onchange = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': id, 'value' : value } , '', 'data', function(response){ }, function(response){ }, 'portal');return false;";
-
 
         $cpfont = new \Widgets\ColorPicker();
         $cpfont->setId("cpfont");
@@ -81,7 +81,6 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
             $headfont->setValue("#333333");
         }
         $headfont->setOnChange($onchange);
-
 
         $headbg = new \Widgets\ColorPicker();
         $headbg->setId("headbg");
@@ -183,8 +182,6 @@ END
 
         $button = array();
         $button["label"] = "Standardeinstellungen";
-        //class js
-        //$button["class"] = "button pill";
         $button["js"] = "sendRequest( 'UpdateColor', { 'id': ".$this->id.", 'colortype': 'standard', 'value' : '' } , '', 'data', function(response){ resetColorSettings();}, function(){resetColorSettings();}, 'portal');return false;";
         $buttons[0] = $button;
         $dialog->setButtons($buttons);
