@@ -9,6 +9,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     private $content;
     private $rawHtmlWidget;
 
+
     public function validateData(\IRequestObject $requestObject) {
 
         //robustness for missing ids and objects
@@ -50,7 +51,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         } else {
             $portletIsReference = false;
         }
-        //hack
+
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
 
         //get content of portlet
@@ -79,7 +80,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
 
-        //refernce icon
+        //reference icon
         if ($portletIsReference) {
             $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
@@ -122,11 +123,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
 
-            $sortOrderBool = false;
+            $sortOrderBool = false; //oldest first --> show more link above content
             if (($sortOrder === "latest_first")){
-                $sortOrderBool=true;
+                $sortOrderBool=true; //latest first --> show more link below content
             }
-
 
             if($sortOrderBool){
                $content = array_reverse($content);
@@ -157,13 +157,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
                     //reverse index
                     $contextMenuIndex = $indexCount;
-                    /*
-                    if (!$sortOrderBool){
-                        $elementsSum = sizeof($content);
-                        $contextMenuIndex = $elementsSum - $indexCount -1;
-                    }
-                    */
-
 
                     $popupmenu->setParams(array(array("key" => "termIndex", "value" => $contextMenuIndex)));
                     $tmpl->setVariable("POPUPMENU_ENTRY", $popupmenu->getHtml());
@@ -171,8 +164,14 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 }
 
                 $indexCount++;
+                $dash = false;
 
-                $tmpl->setVariable("STARTDATE", $appointment["start_date"]["day"] . "." . $appointment["start_date"]["month"] . "." . $appointment["start_date"]["year"]);
+                if ($appointment["start_date"]["day"] != "") {
+                    $tmpl->setCurrentBlock("BLOCK_TERM_STARTDATE");
+                    $tmpl->setVariable("STARTDATE", $appointment["start_date"]["day"] . "." . $appointment["start_date"]["month"] . "." . $appointment["start_date"]["year"]);
+                    $tmpl->setVariable("ENDDATE_ROW", "");
+                    $tmpl->parse("BLOCK_TERM_STARTDATE");
+                }
 
                 if (trim($appointment["location"]) != "" && trim($appointment["location"]) != "0") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_LOCATION");
@@ -186,13 +185,29 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->setVariable("ENDDATE", $appointment["end_date"]["day"] . "." . $appointment["end_date"]["month"] . "." . $appointment["end_date"]["year"]);
                     $tmpl->setVariable("ENDDATE_ROW", "");
                     $tmpl->parse("BLOCK_TERM_ENDDATE");
+                    $tmpl->setCurrentBlock("BLOCK_TERM_DASH");
+                    $tmpl->setVariable("DASH", "&nbsp;-&nbsp;");
+                    $tmpl->parse("BLOCK_TERM_DASH");
+                    $dash = true;
                 }
 
                 if ($appointment["start_time"]["hour"] != "") {
-                    $tmpl->setCurrentBlock("BLOCK_TERM_TIME");
-                    $tmpl->setVariable("TIME", $appointment["start_time"]["hour"] . "." . $appointment["start_time"]["minutes"] . " Uhr");
+                    $tmpl->setCurrentBlock("BLOCK_TERM_STARTTIME");
+                    $tmpl->setVariable("STARTTIME", $appointment["start_time"]["hour"] . "." . $appointment["start_time"]["minutes"] . " Uhr");
                     $tmpl->setVariable("TIME_ROW", "");
-                    $tmpl->parse("BLOCK_TERM_TIME");
+                    $tmpl->parse("BLOCK_TERM_STARTTIME");
+                }
+
+                if ($appointment["end_time"]["hour"] != "") {
+                    $tmpl->setCurrentBlock("BLOCK_TERM_ENDTIME");
+                    $tmpl->setVariable("ENDTIME", $appointment["end_time"]["hour"] . "." . $appointment["end_time"]["minutes"] . " Uhr");
+                    $tmpl->setVariable("TIME_ROW", "");
+                    $tmpl->parse("BLOCK_TERM_ENDTIME");
+                    if(!$dash){
+                      $tmpl->setCurrentBlock("BLOCK_TERM_DASH");
+                      $tmpl->setVariable("DASH", "&nbsp;-&nbsp;");
+                      $tmpl->parse("BLOCK_TERM_DASH");
+                    }
                 }
 
                 if (trim($appointment["description"]) != "" && trim($appointment["description"]) != "0") {
@@ -210,7 +225,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     } else {
                         $tmpl->setVariable("LINKURL_OPEN_EXTERN", "");
                     }
-
 
                     $tmpl->setVariable("LINKURL", derive_url($appointment["linkurl"]));
                     $tmpl->setVariable("TOPIC", $UBB->encode($appointment["topic"]));
@@ -250,6 +264,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $frameResponseObject->addWidget($this->rawHtmlWidget);
         return $frameResponseObject;
+    }
+
+    public function checkIfPast($startDate, $Enddate) {
+
     }
 
 }
