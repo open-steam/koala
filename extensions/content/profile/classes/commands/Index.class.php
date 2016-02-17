@@ -876,7 +876,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                   $groupString = $groupString . '</br>';
                 }
 
-                $raw->setHtml('<div class="widgets_label">Meine Gruppen:</div><div style="width:134px; padding-top:11px; float: left; overflow-y:hidden; white-space: nowrap;">' . $groupString . '</div>');
+                $raw->setHtml('<div class="widgets_label">Meine Gruppen:</div><div style="width:143px; padding-top:11px; float: left; overflow-y:hidden; white-space: nowrap;">' . $groupString . '</div>');
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($raw);
 
