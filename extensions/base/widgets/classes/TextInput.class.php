@@ -43,7 +43,7 @@ class TextInput extends Widget {
     }
 
     public function setPlaceholder($placeholder) {
-        $this->placeholder = $placeholder;
+        $this->placeholder = "placeholder='" . $placeholder . "'";
     }
 
     /**
@@ -62,14 +62,14 @@ class TextInput extends Widget {
      * Only for type number
      */
     public function setMin($min) {
-        $this->min = $min;
+        $this->min = "min='" . $min . "'";
     }
 
     /**
      * Only for type number
      */
     public function setMax($max) {
-        $this->max = $max;
+        $this->max = "max='" . $max . "'";
     }
 
     public function setContentProvider($contentProvider) {
