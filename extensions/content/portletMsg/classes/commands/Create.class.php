@@ -28,7 +28,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 			$name = " ";
 		}
 
-		if(intval($params["number"]) == 0){
+		if($params["number"] == ""){
 			$number = 10;
 		}
 		else{
@@ -37,7 +37,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 
 		///old method
 		$msg = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $name, $columnObject);
-		
+
     $msg->set_attributes(array(
             OBJ_DESC => $name,
             OBJ_TYPE => "container_portlet_bid",

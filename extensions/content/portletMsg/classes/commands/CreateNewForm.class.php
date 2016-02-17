@@ -33,7 +33,6 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 .attributeName {
   float: left;
   padding-right: 20px;
-  text-align: right;
   width: 130px;
 }
 
@@ -55,7 +54,7 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 }
 
 .text{
-	width:196px;
+	width:142px;
 }
 
 .attributeValueColumn {
@@ -73,7 +72,9 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 
 <div class="attribute">
 	<div class="attributeName">Sichtbare Meldungen:</div>
-	<div><input type="text" class="text" value="" name="number" placeholder="10"></div>
+	<div><input type="number" value="10" name="numberOfMessages" min="1"></div>
+  <input type="hidden" name="number">
+  <script>$("input[name=\"numberOfMessages\"]").bind("keyup", function() { $("input[name=\"number\"]").val($("input[name=\"numberOfMessages\"]").val())});</script>
 </div>
 
 <div class="attribute">

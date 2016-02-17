@@ -31,9 +31,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 
 		$numberInput = new \Widgets\TextInput();
 		$numberInput->setLabel("Sichtbare Meldungen");
+		$numberInput->setType("number");
+		$numberInput->setMin(1);
 		$numberInput->setData($object);
-		$numberInput->setPlaceholder("10");
 		$numberInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_MSG_COUNT"));
+
+		$jsWrapper = new \Widgets\RawHtml();
+		$jsWrapper->setPostJsCode("$('.widgets_textinput > [type=\"text\"]').css('width', '203px');");
+		$dialog->addWidget($jsWrapper);
 
 		$dialog->addWidget($titel);
 		$dialog->addWidget($clearer);

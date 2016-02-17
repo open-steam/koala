@@ -53,7 +53,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
           $portletName = $portlet->get_attribute(OBJ_DESC);
 
-          //hack
           include_once(PATH_BASE . "core/lib/bid/slashes.php");
 
           //get content of portlet
@@ -119,6 +118,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
           $showAllMessagesLink = "";
           $number = $portlet->get_attribute("PORTLET_MSG_COUNT");
+          if($number == 0){ //attribute not existing
+            $number = 10;
+          }
           if($number >= count($content)){
             $number = count($content);
           }
