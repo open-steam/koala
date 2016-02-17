@@ -8,3 +8,7 @@
 .portlet.appointment {
   border: 1px solid #CDCDCD;
 }
+
+.portlet.appointment .hidden{
+  display: none;
+}

@@ -123,9 +123,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
 
-            $sortOrderBool = false; //oldest first --> show more link above content
+            $sortOrderBool = false; 
             if (($sortOrder === "latest_first")){
-                $sortOrderBool=true; //latest first --> show more link below content
+                $sortOrderBool = true;
             }
 
             if($sortOrderBool){
@@ -141,9 +141,15 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             }
 
             $indexCount = 0;
+            $showPastTerms = false;
 
             foreach ($content as $appointment) {
                 $tmpl->setCurrentBlock("BLOCK_TERM");
+
+                if($this->checkIfPast($appointment)){ //appointment lies in the past
+                  $tmpl->setVariable("HIDDEN", "hidden");
+                  $showPastTerms = true;
+                }
 
                 //term popupmenu
                 if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
@@ -235,7 +241,22 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->parse("BLOCK_TERM_NOLINK");
                 }
                 $tmpl->parse("BLOCK_TERM");
-            }
+              }
+
+              if($showPastTerms){
+                $showAllTermsLink = '<div id="showAllTerms" style="padding-top: 10px; padding-bottom: 10px; text-align: center;"><a style="cursor:pointer;" onclick="$(\'#' . $objectId . ' > .hidden\').removeClass(\'hidden\');$(this).parent().remove();">Vergangene Termine anzeigen</a></div>';
+                if($sortOrderBool){
+                  $tmpl->setCurrentBlock("BLOCK_OLD_TERMS_BOTTOM");
+                  $tmpl->setVariable("OLD_TERMS", $showAllTermsLink);
+                  $tmpl->parse("BLOCK_OLD_TERMS_BOTTOM");
+                }
+                else{
+                  $tmpl->setCurrentBlock("BLOCK_OLD_TERMS_UP");
+                  $tmpl->setVariable("OLD_TERMS", $showAllTermsLink);
+                  $tmpl->parse("BLOCK_OLD_TERMS_UP");
+                }
+              }
+
         }else {
           //NO MESSAGE
           $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
@@ -266,8 +287,45 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         return $frameResponseObject;
     }
 
-    public function checkIfPast($startDate, $Enddate) {
+    public function checkIfPast($appointment) {
+      $startDate = strlen($appointment["start_date"]["day"]) == 2 && strlen($appointment["start_date"]["month"]) == 2 && strlen($appointment["start_date"]["year"]) == 4;
+      $startTime = strlen($appointment["start_time"]["hour"]) == 2 && strlen($appointment["start_time"]["minutes"]) == 2;
+      $endDate = strlen($appointment["end_date"]["day"]) == 2 && strlen($appointment["end_date"]["month"]) == 2 && strlen($appointment["end_date"]["year"]) == 4;
+      $endTime = strlen($appointment["end_time"]["hour"]) == 2 && strlen($appointment["end_time"]["minutes"]) == 2;
 
+      if($endDate){
+        $endDateFormat = $appointment["end_date"]["year"] . "-" . $appointment["end_date"]["month"] . "-" . $appointment["end_date"]["day"];
+        if($endTime){
+          $endTimeFormat = $appointment["end_time"]["hour"] . ":" .  $appointment["end_time"]["minutes"] . ":00";
+          $date = date_create($endDateFormat . " " . $endTimeFormat);
+        }
+        else{
+          $date = date_create($endDateFormat . " " . "24:00:00");
+        }
+      }
+      else if($startDate){
+        $startDateFormat = $appointment["start_date"]["year"] . "-" . $appointment["start_date"]["month"] . "-" . $appointment["start_date"]["day"];
+        if($endTime){
+          $endTimeFormat = $appointment["end_time"]["hour"] . ":" .  $appointment["end_time"]["minutes"] . ":00";
+          $date = date_create($startDateFormat . " " . $endTimeFormat);
+        }
+        else if($startTime){
+          $startTimeFormat = $appointment["start_time"]["hour"] . ":" .  $appointment["start_time"]["minutes"] . ":00";
+          $date = date_create($startDateFormat . " " . $startTimeFormat);
+        }
+        else{
+          $date = date_create($startDateFormat . " " . "24:00:00");
+        }
+      }
+      else{
+        return false; //no dates, show appointment
+      }
+
+      $now = date_create(date('Y-m-d H:i:s'));
+      if($date < $now) {
+        return true; //date in the past
+      }
+      return false; //date in the future
     }
 
 }

@@ -25,16 +25,19 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($titelInput);
 		$dialog->addWidget(new \Widgets\Clearer());
 
-		$align =  new \Widgets\ComboBox();
-		$align->setLabel("Sortierung");
-
+		$align = new \Widgets\ComboBox();
+		$align->setLabel("Sortierung (Nach Startdatum)");
 		$align->setOptions(array(
-							array("name"=>"Frühe Termine zuerst anzeigen", "value"=>"earliest_first"),
-							array("name"=>"Späte Termine zuerst anzeigen", "value"=>"latest_first")
+							array("name"=>"chronologisch aufsteigend: älteste Termine zuerst", "value"=>"earliest_first"),
+							array("name"=>"chronologisch absteigend: jüngste Termine zuerst", "value"=>"latest_first")
 								));
 		$align->setData($object);
 		$align->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:app:app_order"));
 		$dialog->addWidget($align);
+
+		$jsWrapper = new \Widgets\RawHtml();
+		$jsWrapper->setPostJsCode("$('.widgets_label').css('width', '180px');$('.widgets_combobox > select').css('width', '300px');$('.widgets_textinput > input').css('width', '296px');");
+		$dialog->addWidget($jsWrapper);
 
 		$this->dialog = $dialog;
 	}
