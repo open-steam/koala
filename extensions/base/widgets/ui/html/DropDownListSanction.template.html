@@ -8,6 +8,7 @@
 </div>
 
 <script type="text/javascript">
+    
     if($('#{ID}').attr('data-type') == "group"){
         $('#{ID}').change(
             function() {
@@ -21,29 +22,39 @@
                 $.each($('#{ID}').attr('data-subGroups').split(","), function(index,value){
                     if(value != ""){
                         //recursively traverse all subgroups and set the rights
-                        $(value).val( {ID} ).trigger('change');
+                        if(!firstTime){
+                            $(value).val( {ID} );
+                        }
+                        $(value).trigger('change');
                     }
                 });
                 
-                //if the right of this group is the same as the parent's right, make every lesser right unselectable
-                if($("select[data-subGroups*='#{ID}']").val() >= $('#{ID}').val()){
-                    for (i = 0; i < $('#{ID}').val(); i++) {
-                        $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
-                    }
+                //mark every right as disabled
+                //if($("select[data-subGroups*='#{ID}']").val() >= $('#{ID}').val()){
+                for (i = 0; i < $('#{ID}').val(); i++) {
+                    $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
                 }
+                //}
                 
                 //start from the parents right and make every greater right selectable again
                 for (i = $("select[data-subGroups*='#{ID}']").val(); i < 4; i++) {
                     $("#{ID} option[value='"+i+"']").removeAttr("disabled");
                 }
                
-
+               
                 //update the direct members of the group
+                console.log("adjusting rights");
                 $.each($('#{ID}').attr('data-members').split(","), function(index,value){
                     if(value != "" && $(value).attr("data-type") !='admin'){
-                        $(value).val( {ID} ).trigger('change');
+                        if(!firstTime){
+                            $(value).val( {ID} );
+                        }
+                        $(value).trigger('change');
                     }
                 });
+                
+                
+                
             }
         );
     } else if($('#{ID}').attr('data-type') == "user"){

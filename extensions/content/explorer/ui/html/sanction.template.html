@@ -223,7 +223,9 @@
     
     //trigger the change for each select object to disable not selectable options
     $( document ).ready(function() {
-       // $("select.non-acq").trigger('change');
+        firstTime = true;
+        $("select.non-acq").trigger('change');
+        firstTime = false;
     });
     
     //{ACQUIRE_START}
