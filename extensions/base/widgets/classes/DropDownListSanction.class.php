@@ -2,104 +2,27 @@
 
 namespace Widgets;
 
-class DropDownListSanction extends Widget {
+class DropDownListSanction extends DropDownList {
     
-    private $id;
-    private $name = "";
-    private $label;
-    private $data = array();
-    private $focus = false;
-    private $readOnly = false;
-    private $labelWidth;
-    private $inputWidth;
-    private $startValue = "";
-    private $size = 1;
-    private $onChange = "";
-    private $saveFunction = "";
-    private $customClass;
-    private $steamId;
-    private $members = "";
-    private $subGroups;
-    private $type;
+    protected $id;
+    protected $name = "";
+    protected $label;
+    protected $data = array();
+    protected $focus = false;
+    protected $readOnly = false;
+    protected $labelWidth;
+    protected $inputWidth;
+    protected $startValue = "";
+    protected $size = 1;
+    protected $onChange = "";
+    protected $saveFunction = "";
+    protected $customClass;
+    protected $steamId;
+    protected $members = "";
+    protected $subGroups;
+    protected $type;
     
-    public function setId($id){
-        $this->id = $id;
-    }
     
-    public function getId(){
-        if(!isset($this->id)){
-            $this->setId("id_".rand()."_dropdown");
-        }
-        return $this->id;
-    }
-    
-    public function setName($name) {
-        $this->name = $name;
-    }
-    
-    public function setLabel($label) {
-        $this->label = $label . ":";
-    }
-
-    public function addDataEntry($label, $value="") {
-        $this->data[] = array($label, $value);
-    }
-    
-    /**
-     * processes arrays for the dropdown list elemtnts
-     * @param type $dataEntries array with key=>value pairs for the dropfown list
-     */
-    public function addDataEntries($dataEntries) {
-        foreach($dataEntries as $key => $value){
-            $this->addDataEntry($key, $value);
-        }
-    }
-    
-    /**
-     * 
-     * @param type $focus set to true to focus this DropDownListSanction field
-     */
-    public function setFocus($focus) {
-        $this->focus = $focus;
-    }
-
-    public function setReadOnly($readOnly) {
-        $this->readOnly = $readOnly;
-    }
-
-    /**
-     * @param type $width width in pixels (without px at the end)
-     */
-    public function setLabelWidth($labelWidth) {
-        $this->labelWidth = $labelWidth."px";
-    }
-
-    /**
-     * @param type $width width in pixels (without px at the end)
-     */
-    public function setInputWidth($inputWidth) {
-        $this->inputWidth = $inputWidth;
-    }
-    
-    public function setStartValue($startValue){
-        $this->startValue = $startValue;
-    }
-
-    public function setSize($size) {
-        $this->size = $size;
-    }
-
-    public function setOnChange($onChange) {
-        $this->onChange = $onChange;
-    }
-    
-    public function setSaveFunction($saveFunction) {
-        $this->saveFunction = $saveFunction;
-    }
-    
-    public function setCustomClass($customClass) {
-        $this->customClass = $customClass;
-    }
     
     public function setSteamId($steamId){
         $this->steamId = $steamId;

@@ -193,25 +193,25 @@
 
     function setCrude(value){
         if(value == "privat"){
-            $("select.non-acq").each(function(){$(this).val(0); $(this).trigger('change');});
+            $("select.non-acq:not([data-type='admin'])").each(function(){$(this).val(0); $(this).trigger('change');});
             //$("select").trigger('change');
             
 
         }else if(value == "server_public"){
-            if($("#everyone_dd").val() == 0 ){
+            //if($("#everyone_dd").val() == 0 ){
                 $("#everyone_dd").val(1);
                 $("#everyone_dd").trigger('change');
                 $("#steam_dd").val(1);
                 $("#steam_dd").trigger('change');
-            }
+            //}
 
         }else if(value == "user_public"){
             $("#everyone_dd").val(0);
             $("#everyone_dd").trigger('change');
-            if($("#steam_dd").val() == 0){
+            //if($("#steam_dd").val() == 0){
                 $("#steam_dd").val(1);
                 $("#steam_dd").trigger('change');
-            }
+            //}
         }
         //{SEND_REQUEST_CRUDE}
     }
@@ -223,7 +223,7 @@
     
     //trigger the change for each select object to disable not selectable options
     $( document ).ready(function() {
-        $("select.non-acq").trigger('change');
+       // $("select.non-acq").trigger('change');
     });
     
     //{ACQUIRE_START}

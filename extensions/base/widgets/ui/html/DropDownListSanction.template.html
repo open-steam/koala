@@ -7,24 +7,19 @@
     </select>
 </div>
 
-
-<script language="text/javascript"></script>
-
-
-
 <script type="text/javascript">
     if($('#{ID}').attr('data-type') == "group"){
         $('#{ID}').change(
             function() {
                 //add the changed class to this object
                 if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
+                if($('#{ID}').attr('data-oldValue') == $('#{ID}').val()){ $('#{ID}').removeClass('changed');}
                 //update the value in the variable
                 {ID} = $('#{ID}').val();
                 
                 //update subgroups
                 $.each($('#{ID}').attr('data-subGroups').split(","), function(index,value){
                     if(value != ""){
-                        console.log(value);
                         //recursively traverse all subgroups and set the rights
                         $(value).val( {ID} ).trigger('change');
                     }
@@ -45,7 +40,7 @@
 
                 //update the direct members of the group
                 $.each($('#{ID}').attr('data-members').split(","), function(index,value){
-                    if(value != ""){
+                    if(value != "" && $(value).attr("data-type") !='admin'){
                         $(value).val( {ID} ).trigger('change');
                     }
                 });
@@ -56,6 +51,7 @@
             function() {
                 //add the changed class to this object
                 if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
+                if($('#{ID}').attr('data-oldValue') == $('#{ID}').val()){ $('#{ID}').removeClass('changed');}
                 //update the value in the variable
                 {ID} = $('#{ID}').val();
                 
@@ -80,6 +76,12 @@
                    $("#{ID} option[value='"+i+"']").removeAttr("disabled");
                 }
                 
+            }
+        );
+    } else if($('#{ID}').attr('data-type') == "admin"){
+        $('#{ID}').change(
+            function() {
+               //nothing to change for an admin who already has all rights and can't be detracted
             }
         );
     } else {

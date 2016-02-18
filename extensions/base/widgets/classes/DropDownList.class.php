@@ -4,19 +4,19 @@ namespace Widgets;
 
 class DropDownList extends Widget {
     
-    private $id;
-    private $name = "";
-    private $label;
-    private $data = array();
-    private $focus = false;
-    private $readOnly = false;
-    private $labelWidth;
-    private $inputWidth;
-    private $startValue = "";
-    private $size = 1;
-    private $onChange = "";
-    private $saveFunction = "";
-    private $customClass;
+    protected $id;
+    protected $name = "";
+    protected $label;
+    protected $data = array();
+    protected $focus = false;
+    protected $readOnly = false;
+    protected $labelWidth;
+    protected $inputWidth;
+    protected $startValue = "";
+    protected $size = 1;
+    protected $onChange = "";
+    protected $saveFunction = "";
+    protected $customClass;
     
     public function setId($id){
         $this->id = $id;

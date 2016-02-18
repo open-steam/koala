@@ -1,5 +1,6 @@
 <?php
 //Hinweis fehlt noch, dass ein Nutzer Rechte aus der Gruppenmitgliedschaft hat links neben der DDListe anzeigen
+
 namespace Explorer\Commands;
 
 class Sanctions extends \AbstractCommand implements \IAjaxCommand {
@@ -193,7 +194,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                         $string .= $array[$i];
                         if (!isset($this->groupMappingName[$string])) {
                             $group = \steam_factory::get_group($this->steam->get_id(), $string);
-                            $this->rootGroups[] = $group;
                             $groupId = $group->get_id();
                             $this->groupMappingName[$string] = $groupId;
                             $this->groupMappingA[$groupId] = $string;
@@ -244,13 +244,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         }
         asort($this->groupMappingA);
         asort($this->groupMappingAAcq);
-        
+           
         foreach ($this->groupMappingA as $id => $name) {
-            //the id will be inserted later on
             $this->groupMapping[$id] = $this->groups[$id];
         }
-
         
+
         foreach ($this->groupMappingAAcq as $id => $name) {
             $this->groupMappingAcq[$id] = $this->groupsAcq[$id];
         }
@@ -259,7 +258,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         foreach ($this->user as $id => $u) {
             if ($u instanceof \steam_user) {
                 $this->userMapping[$id] = $u->get_full_name();
-                $groups = $u->get_groups();
             }
         }
         
@@ -407,6 +405,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         
         $allGroupIds = array();
         
+        //select distinct all groups that are on the highest level to be statet as "subgroups" of sTeam for the recursion
+        foreach ($this->groups as $group){
+            if($group !== $this->steamgroup && $group != $this->everyone){
+                $this->rootGroups[explode(".", $group->get_groupname())[0]] = $group;
+            }
+        }
+        
         foreach($this->rootGroups as $group){
             $allGroupIds[] = "#group_".$group->get_id();
         }
@@ -473,6 +478,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlSteam->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->steamgroupId, 'type': 'sanction', 'value': $steamId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
         $ddlSteam->setCustomClass("non-acq");
         $ddlSteam->setMembers($allUserIds);
+        $ddlSteam->setSubGroups($allGroupIds);
         $ddlSteam->setSteamId($this->steamgroupId);
         $ddlSteam->addDataEntries(self::getOptionsValues());
         
@@ -703,10 +709,18 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $ddl->setSize("1");
                     $ddl->setReadOnly(false);
                     $ddl->setStartValue($selectedValue);
+                    
                     $ddl->addDataEntries(self::getOptionsValues());
                     $ddl->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $id, 'type': 'sanction', 'value': $ddlId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
                     $ddl->setCustomClass("non-acq");
                     $ddl->setSteamId($id);
+                    
+                    if(self::isAdmin($user)){
+                        $ddl->setType("admin");
+                        $ddl->setStartValue(3);
+                        $ddl->setSaveFunction("");
+                        $ddl->setReadOnly(true);
+                    }
                     
                     //get all groups, this user is a member of
                     $memberOf = array();
@@ -719,7 +733,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
                     $this->content->setCurrentBlock("FAVORITES");
                     $this->content->setCurrentBlock("FAV_DDSETINGS");
-                    $this->content->setVariable("FAVNAME", $name.$selectedValue);
+                    $this->content->setVariable("FAVNAME", $name);
                     $this->content->setVariable("DROPDOWNLIST_FAVORITES", $ddl->getHtml());
                     if (isset($this->favorites[$id])) {
                         $this->content->setVariable("IMG_PATH", $this->favPicUrl);
@@ -796,13 +810,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     
     function buildDialog(){
         $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
-        $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
-        $isAdmin = false;
-        if($admins instanceof \steam_group){
-            $isAdmin = $admins->is_member($this->steamUser);
-        }
-        $isAdmin2 = \lms_steam::is_steam_admin($this->steamUser);
-        if($isAdmin || $isAdmin2){
+        
+        if(self::isAdmin($this->steamUser)){
           $this->dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
         }
 
@@ -812,7 +821,18 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
     }
     
-
+    function isAdmin(\steam_user $candidate){
+        
+        $isSchoolAdmin = false;
+        
+        $schoolAdminGroup = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
+        
+        if($schoolAdminGroup instanceof \steam_group){
+            $isSchoolAdmin = $schoolAdminGroup->is_member($candidate);
+        }
+        $isSteamAdmin = \lms_steam::is_steam_admin($candidate);
+        
+        if($isSchoolAdmin || $isSteamAdmin) {return true;}
+         else {return false;}
+    }
 }
-
-?>
