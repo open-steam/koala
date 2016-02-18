@@ -16,25 +16,19 @@ class CreateCategory extends \AbstractCommand implements \IAjaxCommand {
     public function processData(\IRequestObject $requestObject) {
         $params = $requestObject->getParams();
         $objectId = $params["id"];
-        //$desc = $params["desc"];
-        //$link = $params["link"];
-        //$window = $params["window"];
-
-        /*
-        if (isset($params["title"])) {
-            $categoryTitle = $params["title"];
-        } else {
-            $categoryTitle = "Link";
-        }
-        */
 
         $topicObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $content = $topicObject->get_attribute("bid:portlet:content");
 
+        $checkbox = "";
+        if($params["window"] == "true"){
+          $checkbox = "checked";
+        }
+
         //prepare the category
         $Topic = array(
             "description" => $params["desc"],
-            "link_target" => $params["window"],
+            "link_target" => $checkbox,
             "link_url" => $params["link"],
             "title" => $params["title"]);
 
@@ -52,35 +46,6 @@ class CreateCategory extends \AbstractCommand implements \IAjaxCommand {
 
         //persistate the new category
         $topicObject->set_attribute("bid:portlet:content", $content);
-
-
-
-
-
-/*
-Entry:
-
-    		$topics = $content[$categoryIndex]["topics"];
-    		$categoryTitle = $content[$categoryIndex]["title"];
-
-    		//prepare the category
-    		$newTopic = array(	"description" => $desc,
-    							"link_target" => $window == "true" ? "checked" : "",
-    							"link_url" => $link,
-    							"title" => $categoryTitle1);
-
-    		$topics[] = $newTopic;
-
-    		$content[$categoryIndex] = array("title" => $categoryTitle, "topics" => $topics);
-
-*/
-
-
-
-
-
-
-
 
     }
 
