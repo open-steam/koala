@@ -12,6 +12,7 @@
 .topicEntry {
   margin-top: 1px;
   margin-bottom: -4px;
+  word-wrap: break-word;
 }
 
 .topicEntry:hover {
