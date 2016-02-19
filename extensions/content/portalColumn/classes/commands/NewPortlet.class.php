@@ -44,17 +44,27 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 
 		$user = \lms_steam::get_current_user();
 		$homeId = $user->get_attribute("HOME_PORTAL")->get_id();
-		$portalId = intval($this->params["portalEditMode"]);
+
+		$array = array();
+		$pathArray = explode("/", $this->params["path"]);
+		$portalID = "";
+		for ($count = 0; $count < count($pathArray); $count++) {
+			$currentID = intval($pathArray[$count]);
+				if ($currentID !== 0) {
+						$portalID = $currentID;
+						break;
+				}
+		}
 
 		foreach ($commands as $command) {
 			$namespaces = $command->getExtension()->getUrlNamespaces();
 
 			//forbid creation of the portlets userPicture, Chronic and Bookmarks outside of the home portal
-			if($portalId != $homeId && ($namespaces[0] == "portletuserpicture" || $namespaces[0] == "portletchronic" || $namespaces[0] == "portletbookmarks")) continue;
+			if($portalID != $homeId && ($namespaces[0] == "portletuserpicture" || $namespaces[0] == "portletchronic" || $namespaces[0] == "portletbookmarks")) continue;
 
 			$html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img src=\"{$command->getExtension()->getObjectIconUrl()}\"> {$command->getExtension()->getObjectReadableName()}</a><br>";
 		}
-		$html .= "<div style=\"float:right\"><a class=\"button pill negative\" onclick=\"closeDialog();return false;\" href=\"#\">Abbrechen</a></div></div><div id=\"wizard_wrapper\"></div>";
+		$html .= "<div style=\"float:right\"><a class=\"bidButton negative\" onclick=\"closeDialog();return false;\" href=\"#\">Abbrechen</a></div></div><div id=\"wizard_wrapper\"></div>";
 
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($html);
