@@ -7,12 +7,12 @@
 
 .portlet.topic {
   border: 1px solid #CDCDCD;
+  word-wrap: break-word;
 }
 
 .topicEntry {
   margin-top: 1px;
   margin-bottom: -4px;
-  word-wrap: break-word;
 }
 
 .topicEntry:hover {
