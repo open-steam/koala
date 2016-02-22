@@ -37,10 +37,9 @@ class Map extends AbstractExtension implements IObjectExtension, IObjectModelExt
 	}
 
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
-                return false; //quick fix TODO: test object for trashbin
+		return false; //quick fix TODO: test object for trashbin
 		return new \Map\Commands\Index();
 	}
-	
 
 	public function getObjectModels() {
 		$objectModels = array();
@@ -49,7 +48,7 @@ class Map extends AbstractExtension implements IObjectExtension, IObjectModelExt
 	}
 
 	public function getCurrentObject(UrlRequestObject $urlRequestObject) {
-                $params = $urlRequestObject->getParams();
+		$params = $urlRequestObject->getParams();
 		$id = $params[0];
 		if (isset($id)) {
 			if (!isset($GLOBALS["STEAM"])) {
@@ -59,13 +58,11 @@ class Map extends AbstractExtension implements IObjectExtension, IObjectModelExt
 			if (!($object instanceof steam_object)) {
 				return null;
 			}
-			//$type = getObjectType($object);
-			//if (array_search($type, array("calendar")) !== false) {
 			return $object;
-			//}
 		}
 		return null;
 	}
+	
 	public function getPriority() {
 		return 100;
 	}

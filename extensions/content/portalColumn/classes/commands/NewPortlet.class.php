@@ -30,7 +30,6 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 			}
 		}
 
-
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Erstelle ein neues Objekt in Spalte " . $object->get_name());
@@ -50,10 +49,16 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 		$portalID = "";
 		for ($count = 0; $count < count($pathArray); $count++) {
 			$currentID = intval($pathArray[$count]);
-				if ($currentID !== 0) {
-						$portalID = $currentID;
-						break;
-				}
+			if($currentID !== 0){
+				$portalID = $currentID;
+				break;
+			}
+		}
+
+		if ($user->get_name() == "root"){
+			$isRoot = true;
+		} else {
+			$isRoot = false;
 		}
 
 		foreach ($commands as $command) {
@@ -61,6 +66,9 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 
 			//forbid creation of the portlets userPicture, Chronic and Bookmarks outside of the home portal
 			if($portalID != $homeId && ($namespaces[0] == "portletuserpicture" || $namespaces[0] == "portletchronic" || $namespaces[0] == "portletbookmarks")) continue;
+
+			//forbid creation of portlets which can only be created by the root user
+			if (defined("CREATE_RESTRICTED_TO_ROOT") && !$isRoot && strstr(strtolower(CREATE_RESTRICTED_TO_ROOT), strtolower($namespaces[0]))) continue;
 
 			$html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img src=\"{$command->getExtension()->getObjectIconUrl()}\"> {$command->getExtension()->getObjectReadableName()}</a><br>";
 		}

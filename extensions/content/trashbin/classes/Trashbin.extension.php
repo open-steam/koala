@@ -37,7 +37,7 @@ class Trashbin extends AbstractExtension implements IObjectExtension, IObjectMod
 	}
 
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
-                return false; //quick fix TODO: test object for trashbin
+		return false; //quick fix TODO: test object for trashbin
 		return new \Trashbin\Commands\Index();
 	}
 
@@ -66,35 +66,9 @@ class Trashbin extends AbstractExtension implements IObjectExtension, IObjectMod
 		}
 		return null;
 	}
+
 	public function getPriority() {
 		return 6;
-	}
-	public function deletePyramiddiscussion($object){
-			$group = $object->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
-			$user = $GLOBALS["STEAM"]->get_current_steam_user();
-
-			if ($group->check_access(SANCTION_WRITE, $user)) {
-					$id = $object->get_id();
-					$instances = $group->get_attribute("PYRAMIDDISCUSSION_INSTANCES");
-					if (!is_array($instances)) {
-							$instances = array($id);
-					}
-
-					foreach ($instances as $key => $value) {
-							if ($value == $id) {
-									unset($instances[$key]);
-							}
-					}
-					$instances = array_values($instances);
-
-					if (!empty($instances)) {
-							$group->set_attribute("PYRAMIDDISCUSSION_INSTANCES", $instances);
-					} else {
-							// no other instances of this pyramiddiscussion exist, delete groups
-							$group->delete();
-					}
-					$object->delete();
-			}
 	}
 }
 ?>
