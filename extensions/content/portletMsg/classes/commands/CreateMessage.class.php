@@ -15,35 +15,41 @@ class CreateMessage extends \AbstractCommand implements \IAjaxCommand {
         $parentObjectId = $params["id"];
         $title = $params["title"];
         $text = $params["text"];
-        
+        $subtitle = $params["subtitle"];
+
         if($params["insertOption"] === "0"){
             $this->insertTop = true;
         }else{
             $this->insertTop = false;
         }
-        
+
         //check diffrent types of parameter
         if (is_string($parentObjectId)) {
-
             $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $parentObjectId);
         } else {
-
             $portletObject = $parentObjectId;
         }
 
         if (strlen($title) == 0) {
-            $pName = "Neue Meldung";
+            $pName = " ";
         } else {
             $pName = $title;
         }
+
+        if (strlen($subtitle) == 0) {
+            $pDescription = "";
+        } else {
+            $pDescription = $subtitle;
+        }
+
         if (strlen($text) == 0) {
-            $pContent = "Bitte geben Sie hier den Meldungstext ein.";
+            $pContent = "";
         } else {
             $pContent = $text;
         }
+
         $pMimeType = "text/plain";
         $pEnvironment = $portletObject; //default is FALSE
-        $pDescription = "";
 
         $messageObject = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), strip_tags($pName), $pContent, $pMimeType, $pEnvironment, $pDescription);
 
@@ -88,10 +94,8 @@ END
         }else{
             $content[] = $id;
             $portletObject->set_attribute("bid:portlet:content", $content);
-
         }
-            }
-
+    }
 }
 
 ?>

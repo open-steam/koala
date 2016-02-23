@@ -9,7 +9,6 @@ class Textarea extends Widget {
     private $data;
     private $contentProvider;
     private $leaveMessage = "Beim Verlassen der Seite gehen alle nicht gespeicherten Änderungen verloren.";
-
     private $width = "200px";
     private $height = "200px";
     private $textareaClass = ""; // plain or code html or mce-small or mce-full
@@ -60,7 +59,6 @@ class Textarea extends Widget {
     public function setAutosave($autosave) {
         $last=next(debug_backtrace());
         \logging::write_log( LOG_MESSAGES, "The function setAutoSave is deprecated. Called in Class: ". $last['class']. " function: ". $last['function']);
-
     }
 
     public function setLinebreaks($linebreaks) {
@@ -85,12 +83,8 @@ class Textarea extends Widget {
             $this->getContent()->setVariable("READONLY_JS", "var tinymceReadOnly=false");
         }
 
-
-
         if ($this->contentProvider) {
             $currentValue = rawurlencode($this->contentProvider->getData($this->data));
-
-
             $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id));
         } else {
             $currentValue = "";
@@ -107,8 +101,6 @@ class Textarea extends Widget {
         $this->getContent()->setVariable("LINEBREAKS", $this->linebreaks);
         $this->getContent()->setVariable("VALUE", $currentValue);
         $this->getContent()->setVariable("LEAVE_MESSAGE", $this->leaveMessage);
-
-
         $this->getContent()->setVariable("ADDITIONAL_LABEL_CLASSES", $this->labelClass);
         $this->getContent()->setVariable("CUSTOM_TEXTAREA_STYLE", "width: {$this->width}; height: {$this->height}");
         $this->getContent()->setVariable("ADDITIONAL_TEXTAREA_CLASSES", $this->textareaClass);
