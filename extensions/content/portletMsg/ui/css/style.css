@@ -59,6 +59,16 @@
   	margin-bottom: 4px;
 }
 
+.portlet.messages .message img.top {
+	display: block;
+	margin: 0 auto;
+}
+
+.portlet.messages .message img.bottom {
+	display: block;
+	margin: 0 auto;
+}
+
 .portlet.messages .podcast {
   	text-align: center;
   	border-top: 1px solid #cdcdcd;
