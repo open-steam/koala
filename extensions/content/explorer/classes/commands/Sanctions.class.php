@@ -23,22 +23,23 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     
     private $favorites = array();
     private $favoritesAcq = array();
-        
-    private $user = array();
-    private $userAcq = array();
     
+    private $user = array();
     private $userMapping = array();
+    
+    private $userAcq = array();
     private $userMappingAcq = array();
     
-    private $groupsRights = array();
+    private $rootGroups = array();
     
     private $groups = array();
-    private $rootGroups = array();
+    private $groupsRights = array();
     private $groupMapping = array();
     private $groupMappingA = array();
     private $groupMappingName = array();
     
     private $groupsAcq = array();
+    private $groupsRightsAcq = array();
     private $groupMappingAcq = array();
     private $groupMappingAAcq = array();
     private $groupMappingNameAcq = array();
@@ -426,12 +427,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlEveryone->setReadOnly(false);
         $ddlEveryone->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->everyoneId, 'type': 'sanction', 'value': everyone_dd }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
         $ddlEveryone->setCustomClass("non-acq");
-        
         $ddlEveryone->setMembers($allUserIds);
         $ddlEveryone->setSubGroups("#steam_dd");
-        
-                
-        
         $ddlEveryone->setSteamId($this->everyoneId);
         $ddlEveryone->addDataEntries(self::getOptionsValues());
         $ddlEveryone->setStartValue($dropDownValue);
@@ -462,8 +459,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $this->content->parse("GROUP_EVERYONE_ACQ");
         
 
-
-        
         $this->dropdownValueSteamGroup = 0;
         if ($this->object->check_access(SANCTION_SANCTION, $this->steamgroup)) {$this->dropdownValueSteamGroup = 3;}
         else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {$this->dropdownValueSteamGroup = 2;}
@@ -629,6 +624,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     else if ($this->environment->check_access_read($group)) {$dropDownValueAcq = 1;}
                 }
                 
+                $this->groupsRightsAcq[$id] = $dropDownValueAcq;
+                
                 
                 $ddlAcq = new \Widgets\DropDownListSanction();
                 $ddlAcq->setId("group_" . $id."_acq");
@@ -765,10 +762,13 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     }
                     
                     
+                    
+                    
                     $maxSanct = 0;
+                    $maxSanctFromGroupMembership = 0;
                     foreach ($user->get_groups() as $group) {
                         if (isset($this->groupMapping[$group->get_id()])) {
-                            $currentValue = $this->groupsRights[$group->get_id()];
+                            $currentValue = $this->groupsRightsAcq[$group->get_id()];
                             if ($currentValue > $maxSanct) {
                                 $maxSanctFromGroupMembership = $currentValue;
                             }

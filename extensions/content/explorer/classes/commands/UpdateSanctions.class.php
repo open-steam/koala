@@ -98,6 +98,7 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
         }*/
         //SET SPECIFIC RIGHTS
         elseif ($type == "sanction") {
+            //the postboxhack should not be necessary anymore as the postbox has its own rights dialog
             $postboxHack = false;
             if ($objType === "postbox" && !($this->object instanceof \steam_document)) {
                 $inventory = $this->object->get_inventory();
