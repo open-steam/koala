@@ -16,6 +16,9 @@ class CreateMessage extends \AbstractCommand implements \IAjaxCommand {
         $title = $params["title"];
         $text = $params["text"];
         $subtitle = $params["subtitle"];
+        $linkText = $params["linkText"];
+        $linkAdress = $params["linkAdress"];
+        $newTab = $params["newTabHidden"];
 
         if($params["insertOption"] === "0"){
             $this->insertTop = true;
@@ -48,15 +51,34 @@ class CreateMessage extends \AbstractCommand implements \IAjaxCommand {
             $pContent = $text;
         }
 
+        if (strlen($linkText) == 0) {
+            $pLinkText = "";
+        } else {
+            $pLinkText = $linkText;
+        }
+
+        if (strlen($linkAdress) == 0) {
+            $pLinkAdress = "";
+        } else {
+            $pLinkAdress = $linkAdress;
+        }
+
+        if($newTab == "true"){
+          $checkbox = "checked";
+        }
+        else{
+          $checkbox = "";
+        }
+
         $pMimeType = "text/plain";
         $pEnvironment = $portletObject; //default is FALSE
 
         $messageObject = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), strip_tags($pName), $pContent, $pMimeType, $pEnvironment, $pDescription);
 
         $messageObject->set_attribute("bid:doctype", "portlet:msg");
-        $messageObject->set_attribute("bid:portlet:msg:link_open", "checked");
-        $messageObject->set_attribute("bid:portlet:msg:link_url", "");
-        $messageObject->set_attribute("bid:portlet:msg:link_url_label", "");
+        $messageObject->set_attribute("bid:portlet:msg:link_open", $checkbox);
+        $messageObject->set_attribute("bid:portlet:msg:link_url", $pLinkAdress);
+        $messageObject->set_attribute("bid:portlet:msg:link_url_label", $pLinkText);
         $messageObject->set_attribute("bid:portlet:msg:picture_alignment", "left");
         $messageObject->set_attribute("bid:portlet:msg:picture_width", "");
 

@@ -21,7 +21,7 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
-		//$dialog->setWidth(450);
+		$dialog->setWidth(480);
 		$clearer = new \Widgets\Clearer();
 
 		$title = new \Widgets\TextInput();
@@ -29,6 +29,7 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$title->setData($object);
 		$title->setContentProvider(\Widgets\DataProvider::nameURLEncodeDataProvider());
 		$dialog->addWidget($title);
+		$dialog->addWidget($clearer);
 		$dialog->addWidget($clearer);
 
 		$subTitle = new \Widgets\TextInput();
@@ -54,12 +55,14 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$linkText->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:msg:link_url_label"));
 		$dialog->addWidget($linkText);
 		$dialog->addWidget($clearer);
+		$dialog->addWidget($clearer);
 
 		$linkAdress = new \Widgets\TextInput();
 		$linkAdress->setLabel("Link-Adresse");
 		$linkAdress->setData($object);
 		$linkAdress->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:portlet:msg:link_url"));
 		$dialog->addWidget($linkAdress);
+		$dialog->addWidget($clearer);
 		$dialog->addWidget($clearer);
 
 		$newTab = new \Widgets\Checkbox();
@@ -69,7 +72,7 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$newTab->setCheckedValue("checked");
 		$newTab->setUncheckedValue("");
 		$dialog->addWidget($newTab);
-		
+
 		$this->dialog = $dialog;
 	}
 

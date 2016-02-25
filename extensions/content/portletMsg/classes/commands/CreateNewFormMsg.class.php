@@ -47,9 +47,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 
 .attributeName {
   float: left;
-  padding-right: 20px;
-  text-align: right;
-  width: 100px;
+  width: 126px;
 }
 
 .attributeNameRequired {
@@ -71,6 +69,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 .widgets_textarea {
     width:250px;
     float:left;
+    height:210px;
 }
 .attributeValueColumn {
   float: left;
@@ -139,8 +138,22 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 <div class="attribute">
 	<div><input type="hidden" name="parent" value="{$this->id}"></div>
 </div>
-
-
+<div class="attribute">
+	<div class="attributeName">Link-Text:</div>
+	<div><input type="text" class="text" value="" name="linkText"></div>
+</div>
+<div class="attribute">
+	<div class="attributeName">Link-Adresse:</div>
+	<div><input type="text" class="text" value="" name="linkAdress"></div>
+</div>
+<div class="attribute">
+	<div class="attributeName">In neuem Tab öffnen:</div>
+	<div><input type="checkbox" class="text" value="" name="newTab"></div>
+  <div><input type="hidden" class="text" value="false" name="newTabHidden"></div>
+</div>
+<script type="text/javascript">
+$("input[name=\"newTab\"]").bind("click", function() { if( $("input[name=\"newTabHidden\"]").val() == "true"){ $("input[name=\"newTabHidden\"]").val("false"); }else{ $("input[name=\"newTabHidden\"]").val("true"); }});
+</script>
 
 END
         );
