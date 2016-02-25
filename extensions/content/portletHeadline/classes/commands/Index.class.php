@@ -46,7 +46,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         } else {
             $portletIsReference = false;
         }
-        
+
         $this->getExtension()->addCSS();
 
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
@@ -114,7 +114,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
             }
 
-            $tmpl->setVariable("SIZE", trim($content["size"]));
+            if($content["size"] == ""){
+              $size = "15";
+            } else{
+              $size = $content["size"];
+            }
+
+            $tmpl->setVariable("SIZE", $size);
 
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
                 $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");
