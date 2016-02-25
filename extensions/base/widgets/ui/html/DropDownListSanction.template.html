@@ -29,17 +29,22 @@
                     }
                 });
                 
-                //mark every right as disabled
-                //if($("select[data-subGroups*='#{ID}']").val() >= $('#{ID}').val()){
-                for (i = 0; i < $('#{ID}').val(); i++) {
-                    $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
-                }
-                //}
+                //prevent the everyone rights from beeing disabled to have the possibility to reset the rights to 'private'
+                if($('#{ID}').attr('id') != "everyone_dd"){
+                    //mark every right as disabled
+                    //if($("select[data-subGroups*='#{ID}']").val() >= $('#{ID}').val()){
+                    for (i = 0; i < $('#{ID}').val(); i++) {
+                        $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
+                    }
+                    //}
                 
-                //start from the parents right and make every greater right selectable again
-                for (i = $("select[data-subGroups*='#{ID}']").val(); i < 4; i++) {
-                    $("#{ID} option[value='"+i+"']").removeAttr("disabled");
+                    //start from the parents right and make every greater right selectable again
+                    for (i = $("select[data-subGroups*='#{ID}']").val(); i < 4; i++) {
+                        $("#{ID} option[value='"+i+"']").removeAttr("disabled");
+                    }
                 }
+                
+                
                
                
                 //update the direct members of the group

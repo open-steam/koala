@@ -428,7 +428,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlEveryone->setCustomClass("non-acq");
         
         $ddlEveryone->setMembers($allUserIds);
-        $ddlEveryone->setSubGroups($allGroupIds.",#steam_dd");
+        $ddlEveryone->setSubGroups("#steam_dd");
         
                 
         
