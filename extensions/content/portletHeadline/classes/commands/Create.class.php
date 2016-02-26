@@ -17,10 +17,12 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 
 		$name = $params["title"];
 		$column = $params["parent"];
+		$size = $params["size"];
+		$alignment = $params["alignment"];
 
 		$version = "3.0";
 
-		//check diffrent types of parameter
+		//check different types of parameter
 		if(is_string($column)){
 			$columnObject =  \steam_factory::get_object($GLOBALS["STEAM"]->get_id(),$column);
 		}else{
@@ -31,12 +33,16 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 			$name = " ";
 		}
 
+		if($size == ""){
+			$size = 15;
+		}
+
 		//create object
 		$headline = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $name, $columnObject);
 	    $headline_content = array(
 	        "headline" => $name,
-	        "alignment" => "center",
-	        "size" => 15,
+	        "alignment" => $alignment,
+	        "size" => $size,
 	    );
 
 	    $headline->set_attributes(array(
