@@ -26,17 +26,14 @@ class CreateCatForm extends \AbstractCommand implements \IAjaxCommand {
 		$titel = new \Widgets\TextInput();
 		$titel->setLabel("Link-Text");
 		$titel->setName("title");
-		$titel->setPlaceholder("Beispiel-Link");
 
 		$link = new \Widgets\TextInput();
 		$link->setLabel("Link-Adresse");
 		$link->setName("link");
-		$link->setPlaceholder("http://www.beispiel.de");
 
 		$desc = new \Widgets\TextInput();
 		$desc->setLabel("Beschreibung");
 		$desc->setName("desc");
-		$desc->setPlaceholder("Dies ist ein Beispiel-Link");
 
 		$window = new \Widgets\Checkbox();
 		$window->setLabel("In neuem Tab öffnen");

@@ -46,10 +46,6 @@ class EditTopicEntry extends \AbstractCommand implements \IFrameCommand, \IIdCom
 		$link->setData($object);
 		$link->setContentProvider(new AttributeDataProviderPortletTopicEntry($categoryIndex, $entryIndex, "link_url"));
 
-		$titel->setPlaceholder("Beispiel-Link");
-		$link->setPlaceholder("http://www.beispiel.de");
-		$description->setPlaceholder("Dies ist ein Beispiel-Link");
-
 		//checkbox
 		$newBrowser->setData($object);
 		$newBrowser->setCheckedValue("checked");
