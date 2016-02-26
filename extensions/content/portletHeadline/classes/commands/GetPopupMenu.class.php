@@ -54,10 +54,10 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 		$items = 	array(
 					array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "Edit", "namespace" => "PortletHeadline", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
 					(count($inventory) > 1) ? array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
-						($index != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'first'}") : "",
-						($index != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'up'}") : "",
-						($index < count($inventory)-1) ? array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'down'}") : "",
-						($index < count($inventory)-1) ? array("name" => "Ganz nach unten <img src=\"{$bottomIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'last'}") : ""
+						($index != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'first'}") : "",
+						($index != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'up'}") : "",
+						($index < count($inventory)-1) ? array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'down'}") : "",
+						($index < count($inventory)-1) ? array("name" => "Ganz nach unten <img src=\"{$bottomIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'last'}") : ""
 					)) : "",
 					array("name" => "SEPARATOR"),
 					array("name" => "Kopieren <img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
