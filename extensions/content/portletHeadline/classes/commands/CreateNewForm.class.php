@@ -69,8 +69,8 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 <input type="hidden" name="id" value="{$this->id}">
 
 <div class="attribute">
-	<div class="attributeName">Überschrift:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
+	<div class="attributeName">Titel:</div>
+	<div><input type="text" class="text" value="Überschrift" name="title"></div>
 </div>
 
 <div class="attribute">

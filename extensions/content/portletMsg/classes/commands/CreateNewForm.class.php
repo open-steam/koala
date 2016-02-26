@@ -67,7 +67,7 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 
 <div class="attribute">
 	<div class="attributeName">Überschrift:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
+	<div><input type="text" class="text" value="Meldungen" name="title"></div>
 </div>
 
 <div class="attribute">

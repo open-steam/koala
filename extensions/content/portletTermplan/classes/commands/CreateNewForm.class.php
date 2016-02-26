@@ -43,6 +43,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $titelInput = new \Widgets\TextInput();
         $titelInput->setLabel("Überschrift");
         $titelInput->setName("title");
+        $titelInput->setValue("Terminplaner");
         $html = $titelInput->getHtml();
 
         $descriptionInput = new \Widgets\TextInput();
@@ -103,20 +104,20 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
         $html .= '<input type="hidden" name="id" value="' . $this->id . '">';
 
-        $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
-	float:left;
-
-
-}.widgets_label {
-	clear:both;
-        float: left;
-	margin-right: 2px;
-	white-space: nowrap;
-}.widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
-	float: left;
-}
-
-</style>";
+        $css = "<style>
+          .widgets_textinput, .widgets_textinput input, .widgets_textinput div {
+            float:left;
+          }
+          .widgets_label {
+            clear:both;
+            float: left;
+            margin-right: 2px;
+            white-space: nowrap;
+          }
+          .widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
+            float: left;
+          }
+        </style>";
         $ajaxForm->setHtml($css . $html);
         $ajaxResponseObject->addWidget($ajaxForm);
         return $ajaxResponseObject;
