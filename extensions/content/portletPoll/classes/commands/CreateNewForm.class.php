@@ -7,7 +7,6 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
     private $params;
     private $id;
     private $content;
-    private $dialog;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -39,26 +38,17 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $ajaxForm->setSubmitCommand("Create");
         $ajaxForm->setSubmitNamespace("PortletPoll");
 
-        //$ajaxForm->setHtml(<<<END
-        $html = '
-
-<input type="hidden" name="id" value="' . $this->id . '">
-
-<div class="attribute">
-	<div><input type="hidden" name="parent" value="' . $this->id . '"></div>
-</div>
-
-';
+        $html = '<input type="hidden" name="id" value="' . $this->id . '"><div class="attribute"><div><input type="hidden" name="parent" value="' . $this->id . '"></div></div>';
         $title = new \Widgets\TextInput();
         $title->setLabel("Titel");
         $title->setName("title");
+        $title->setValue("Abstimmung");
         $html .= $title->getHtml();
 
         $desc = new \Widgets\TextInput();
         $desc->setLabel("Beschreibung");
         $desc->setName("desc");
         $html .= $desc->getHtml();
-
 
         $datepickerStart = new \Widgets\DatePicker();
         $datepickerStart->setLabel("Startdatum");
@@ -84,13 +74,11 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $item0Description->setLabel("Antworten");
         $item0Description->setName("input0");
         $html .= $item0Description->getHtml();
-        //$html .='<script>$("input[name=\"input0\"]").val("Eintrag A")</script>';
 
         $item1Description = new \Widgets\TextInput();
         $item1Description->setInputBackgroundColor("rgb(250,186,97)");
         $item1Description->setName("input1");
         $html .= $item1Description->getHtml();
-        //$html .='<script>$("input[name=\"input1\"]").val("Eintrag B")</script>';
 
         $item2Description = new \Widgets\TextInput();
         $item2Description->setInputBackgroundColor("rgb(244,229,123)");
@@ -115,22 +103,22 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $clearer = new \Widgets\Clearer();
         $html .= $clearer->getHtml();
 
-        $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
-	float:left;
+        $css = "<style>
+        .widgets_textinput, .widgets_textinput input, .widgets_textinput div {
+          float:left;
+         }
+        .widgets_label {
+          clear:both;
+          float: left;
+          margin-right: 2px;
+          white-space: nowrap;
+        }
+        .widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
+          float: left;
+        }
+        </style>";
 
-
-}.widgets_label {
-	clear:both;
-        float: left;
-	margin-right: 2px;
-	white-space: nowrap;
-}.widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
-	float: left;
-}
-
-</style>";
         $ajaxForm->setHtml($css . $html);
-
 
         $ajaxResponseObject->addWidget($ajaxForm);
         return $ajaxResponseObject;

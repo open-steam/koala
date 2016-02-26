@@ -17,6 +17,7 @@ class TextInput extends Widget {
     private $focus = false;
     private $readOnly = false;
     private $isNotEmpty = false;
+    private $CheckIfEmpty = false;
     private $labelWidth;
     private $inputWidth;
     private $inputBackgroundColor;
@@ -90,6 +91,14 @@ class TextInput extends Widget {
 
     public function setReadOnly($readOnly) {
         $this->readOnly = $readOnly;
+    }
+
+    /**
+     *
+     * @param type $checkIfEmpty boolean
+     */
+    public function checkIfEmpty($checkIfEmpty) {
+        $this->checkIfEmpty = $checkIfEmpty;
     }
 
     /**
@@ -195,7 +204,7 @@ class TextInput extends Widget {
         if (isset($this->inputWidth) || isset($this->inputBackgroundColor)) {
             $style = "";
             if (isset($this->inputWidth)) {
-                $style .= "width:{$this->inputWidth};";
+                $style .= "width:{$this->inputWidth}px;";
             }
             if (isset($this->inputBackgroundColor)) {
                 $style .= "background-color:{$this->inputBackgroundColor}";
@@ -204,11 +213,17 @@ class TextInput extends Widget {
             $this->getContent()->setVariable("INPUT_STYLE", $style);
         }
 
+        if($this->checkIfEmpty){
+          $this->getContent()->setVariable("CHECK_IF_EMPTY", "onkeyup='checkIfEmpty(this.id)'");
+        } else {
+          $this->getContent()->setVariable("CHECK_IF_EMPTY", "");
+        }
+
         if($this->isNotEmpty){
-                $this->getContent()->setVariable("IS_NOT_EMPTY", "var isNotEmpty = true;");
-            } else {
-                $this->getContent()->setVariable("IS_NOT_EMPTY", "var isNotEmpty = false;");
-            }
+          $this->getContent()->setVariable("IS_NOT_EMPTY", "var isNotEmpty = true;");
+        } else {
+          $this->getContent()->setVariable("IS_NOT_EMPTY", "var isNotEmpty = false;");
+        }
 
         if ($this->contentProvider) {
 
