@@ -25,8 +25,9 @@ class GetDirectEditor extends \AbstractCommand implements \IAjaxCommand {
 
 		$rawHtml = new \Widgets\RawHtml();
                 //if the user clicks, the directEditor is saved and closed
-		$rawHtml->setJs("jQuery(document).keyup(function(e) {"
-                                  ."if (e.keyCode == 13) {removeAllDirectEditors(true);}" //enter
+		$rawHtml->setJs("firstTime = true;"
+                        . "jQuery(document).keyup(function(e) {"
+                                  ."if (e.keyCode == 13) {removeAllDirectEditors(firstTime); firstTime=false;}" //enter
                                   ."if (e.keyCode == 27) {removeAllDirectEditors(false);}" //escape
                                 ."});");
                 
