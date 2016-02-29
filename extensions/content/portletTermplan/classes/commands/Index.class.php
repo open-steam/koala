@@ -36,7 +36,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference handling
         $params = $requestObject->getParams();
-        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
@@ -73,7 +72,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl = new \HTML_TEMPLATE_IT();
         $tmpl->loadTemplateFile($portletFileName);
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
-
 
         if (sizeof($content) > 0) {
             //popupmenu
@@ -139,7 +137,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                       $max_votecount = $option_votecount;
               }
 
-              //refernce icon
+              //reference icon
               if ($portletIsReference) {
                   $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
                   $envId = $portlet->get_environment()->get_environment()->get_id();
