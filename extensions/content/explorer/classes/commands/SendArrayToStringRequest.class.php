@@ -21,8 +21,8 @@ class SendArrayToStringRequest extends \AbstractCommand implements \IAjaxCommand
         $value = $oldValue = $this->params["value"];
         $attribute = $this->params["attribute"];
         $value = html_entity_decode($value);
-        
-        $array = explode(" ", $value);
+
+        $array = array_filter(explode(" ", $value));
         $object->set_attribute($attribute, $array);
 
         $data["oldValue"] = $oldValue;

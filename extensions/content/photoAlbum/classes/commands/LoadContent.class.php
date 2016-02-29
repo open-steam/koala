@@ -88,17 +88,21 @@ class ContentProvider implements \Widgets\IContentProvider {
             //adding Tipsy
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
-            $tipsy->setHtml("<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"" . PATH_URL . "download/image/"
+            $tipsyHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"" . PATH_URL . "download/image/"
                     . $contentItem->get_creator()->get_attribute(OBJ_ICON)->get_id() . "/30/30\"> "
                     . $contentItem->get_creator()->get_attribute(USER_FIRSTNAME) . " "
                     . $contentItem->get_creator()->get_attribute(USER_FULLNAME) . "<br clear=\"all\">"
                     . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>"
-                    . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>");
-            //  . (($contentItem instanceof \steam_document) ? "<br>" . $contentItem->get_attribute(DOC_MIME_TYPE) : ""));
+                    . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
+
+            $tags = $contentItem->get_attribute(OBJ_KEYWORDS);
+            if(sizeOf($tags) > 0){
+              $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
+            }
+            $tipsy->setHtml($tipsyHtml);
 
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
             $desc = $contentItem->get_attribute("OBJ_DESC");
-            //$name = $objectModel->getReadableName();
             $name = getCleanName($contentItem, 50);
             if (isset($url) && $url != "") {
                 return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
@@ -108,7 +112,6 @@ class ContentProvider implements \Widgets\IContentProvider {
         } else if ($cell == $this->rawMarker) {
             return "";
             $html = "";
-            //$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
             $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
             $linkError = false;
             if ($contentItem instanceof \steam_exit) {

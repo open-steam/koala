@@ -1,28 +1,28 @@
 <?php
 namespace Clipboard\Commands;
 class LoadClipboard extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $objects;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
-	public function processData(\IRequestObject $requestObject) {		
+
+	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
-		
+
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		
+
 		if ($object && $object instanceof \steam_container) {
 			$this->objects = $object->get_inventory();
 		} else {
 			$this->objects = array();
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$listViewer = new \Widgets\ListViewer();
 		$listViewer->setHeadlineProvider(new HeadlineProvider());
@@ -42,18 +42,18 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 	public function getHeadlines() {
 		return array("", "Name", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
 	}
-	
+
 	public function getHeadLineWidths() {
 		return array(25, 415, 100, 150, 80, 40, 20);
 	}
-	
+
 	public function getHeadLineAligns() {
 		return array("left", "left", "right", "right", "right", "right", "right");
 	}
 }
 
 class ContentProvider implements \Widgets\IContentProvider {
-	
+
 	private $rawImage = 0;
 	private $rawName = 1;
 	private $rawMarker = 2;
@@ -61,16 +61,16 @@ class ContentProvider implements \Widgets\IContentProvider {
 	private $rawSize = 4;
 	private $rawMenu = 5;
 	private $rawCheckbox = 6;
-	
+
 	public function getId($contentItem) {
 		return $contentItem->get_id();
 	}
-	
+
 	public function getCellData($cell, $contentItem) {
 		if (!is_int($cell)) {
 			throw new \Exception("cell must be an integer!!");
 		}
-		
+
 		if ($cell == $this->rawCheckbox) {
 			if (!($contentItem instanceof \steam_trashbin)) {
 				return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if(this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
@@ -83,17 +83,21 @@ class ContentProvider implements \Widgets\IContentProvider {
 			//adding Tipsy
 			$tipsy = new \Widgets\Tipsy();
 			$tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
-			$tipsy->setHtml("<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"".PATH_URL."download/image/"
-			                . $contentItem->get_creator()->get_attribute(OBJ_ICON)->get_id()."/30/30\"> " 
+			$tipsyHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"".PATH_URL."download/image/"
+			                . $contentItem->get_creator()->get_attribute(OBJ_ICON)->get_id()."/30/30\"> "
 			                . $contentItem->get_creator()->get_attribute(USER_FIRSTNAME)." "
-			                . $contentItem->get_creator()->get_attribute(USER_FULLNAME) . "<br clear=\"all\">" 
+			                . $contentItem->get_creator()->get_attribute(USER_FULLNAME) . "<br clear=\"all\">"
 			                . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>"
-			                . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>");
-			              //  . (($contentItem instanceof \steam_document) ? "<br>" . $contentItem->get_attribute(DOC_MIME_TYPE) : ""));
-			
+			                . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
+
+			$tags = $contentItem->get_attribute(OBJ_KEYWORDS);
+			if(sizeOf($tags) > 0){
+				$tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
+			}
+			$tipsy->setHtml($tipsyHtml);
+
 			$url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 			$desc = $contentItem->get_attribute("OBJ_DESC");
-			//$name = $objectModel->getReadableName();
 			$name = getCleanName($contentItem, 50);
 			if (isset($url) && $url != "") {
 				return "<a href=\"".$url."\" title=\"$desc\"> " . $name ."</a>" . "<script>" . $tipsy->getHtml() . "</script>";
@@ -108,7 +112,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 			$linkError = false;
 			if ($contentItem instanceof \steam_exit) {
 				$exitObject = $contentItem->get_exit();
-				if ($exitObject instanceof \steam_object) { 
+				if ($exitObject instanceof \steam_object) {
 					$id = $exitObject->get_id();
 				} else {
 					$linkError = true;
@@ -141,11 +145,11 @@ class ContentProvider implements \Widgets\IContentProvider {
 			return $popupMenu;
 		}
 	}
-	
+
 	public function getNoContentText() {
 		return "Dieser Ordner enthält keine Objekte.";
 	}
-	
+
 	public function getOnClickHandler($contentItem) {
 		if (!($contentItem instanceof \steam_trashbin)) {
 			return "jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked);";
@@ -156,12 +160,12 @@ class ContentProvider implements \Widgets\IContentProvider {
 }
 
 class ColorProvider implements \Widgets\IColorProvider {
-	
+
 	public function getColor($contentItem) {
 		$color = $contentItem->get_attribute("OBJ_COLOR_LABEL");
 		return ($color === 0) ? "" : $color;
 	}
-	
+
 }
 
 class ContentFilter implements \Widgets\IContentFilter {
@@ -187,6 +191,6 @@ class ContentFilter implements \Widgets\IContentFilter {
 			return false;
 		}
 	}
-	
+
 }
 ?>
