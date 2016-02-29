@@ -17,8 +17,6 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
 	}
 
-
-
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 
@@ -67,12 +65,10 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
 <div class="attribute">
 	<div class="attributeName">Sichtbare Lesezeichen:</div>
-	<div><input type="text" class="text" value="" name="number" placeholder="10"></div>
+	<div><input type="number" value="10" name="numberOfElements" min="1"></div>
+	<input type="hidden" name="number" value="10">
+	<script>$("input[name=\"numberOfElements\"]").bind("keyup mouseup", function() { $("input[name=\"number\"]").val($("input[name=\"numberOfElements\"]").val())});</script>
 </div>
-
-
-
-
 
 END
 );

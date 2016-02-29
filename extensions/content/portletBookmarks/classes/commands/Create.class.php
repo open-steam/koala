@@ -42,7 +42,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
         $bookmarkPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Lesezeichen", $column);
 
         $bookmarkPortlet->set_attributes(array(
-            OBJ_DESC => "Lesezeichen",
+            OBJ_DESC => "Meine Lesezeichen",
             OBJ_TYPE => "container_portlet_bid",
             "bid:portlet" => "bookmarks",
             "bid:portlet:version" => $version,

@@ -65,7 +65,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
   <input type="hidden" name="number" value="10">
   <script>$("input[name=\"numberOfElements\"]").bind("keyup mouseup", function() { $("input[name=\"number\"]").val($("input[name=\"numberOfElements\"]").val())});</script>
 </div>
-</div>
+
 END
 );
 		$ajaxResponseObject->addWidget($ajaxForm);
