@@ -19,11 +19,12 @@
 
 .listviewer-item-unhover {
 	background-color: transparent;
-	border: 1px solid transparent;
+	/*border: 1px solid transparent;*/
 }
 
 .listviewer-item-hover {
-	border: 1px solid #aaa;
+	/*border: 1px solid #aaa;*/
+	background-color: #e5e5e5;
 }
 
 .listviewer-item-hover.red, .listviewer-item-hover.orange, .listviewer-item-hover.yellow, .listviewer-item-hover.green, .listviewer-item-hover.blue, .listviewer-item-hover.purple, .listviewer-item-hover.grey {
