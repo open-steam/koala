@@ -37,18 +37,17 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 
 		//datepicker
 		$datepickerStart = new \Widgets\DatePicker();
-		$datepickerStart->setLabel("Start der Abstimmung");
+		$datepickerStart->setLabel("Start:");
 		$datepickerStart->setData($object);
 		$datepickerStart->setContentProvider(new AttributeDataProviderPortletPollDates("start_date"));
 		$dialog->addWidget($datepickerStart);
 		$dialog->addWidget($clearer);
 
 		$datepickerEnd = new \Widgets\DatePicker();
-		$datepickerEnd->setLabel("Ende der Abstimmung");
+		$datepickerEnd->setLabel("Ende:");
 		$datepickerEnd->setData($object);
 		$datepickerEnd->setContentProvider(new AttributeDataProviderPortletPollDates("end_date"));
 		$dialog->addWidget($datepickerEnd);
-		$dialog->addWidget($clearer);
 		$dialog->addWidget($clearer);
 
 		$descLabelWidth = 140;
@@ -56,13 +55,17 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$voteLabelWidth = 10;
 		$voteInputWidth = 20;
 
+		$rawHtml = new \Widgets\RawHtml();
+		$rawHtml->setHtml('<h3>Optionen</h3>');
+		$dialog->addWidget($rawHtml);
+
 		//items
 		//0:
 		$item0Description = new \Widgets\TextInput();
 		$item0Description->setLabelWidth($descLabelWidth);
 		$item0Description->setInputWidth($descInputWidth);
 		$item0Description->setInputBackgroundColor("rgb(255,120,111)");
-		$item0Description->setLabel("Antworten");
+		$item0Description->setLabel("Option 1");
 		$item0Description->setData($object);
 		$item0Description->setContentProvider(new AttributeDataProviderPortletPollVotes(0,"description"));
 		$dialog->addWidget($item0Description);
@@ -81,6 +84,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item1Description->setLabelWidth($descLabelWidth);
 		$item1Description->setInputWidth($descInputWidth);
 		$item1Description->setInputBackgroundColor("rgb(250,186,97)");
+		$item1Description->setLabel("Option 2");
 		$item1Description->setData($object);
 		$item1Description->setContentProvider(new AttributeDataProviderPortletPollVotes(1,"description"));
 		$dialog->addWidget($item1Description);
@@ -99,6 +103,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item2Description->setLabelWidth($descLabelWidth);
 		$item2Description->setInputWidth($descInputWidth);
 		$item2Description->setInputBackgroundColor("rgb(244,229,123)");
+		$item2Description->setLabel("Option 3");
 		$item2Description->setData($object);
 		$item2Description->setContentProvider(new AttributeDataProviderPortletPollVotes(2,"description"));
 		$dialog->addWidget($item2Description);
@@ -117,6 +122,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item3Description->setLabelWidth($descLabelWidth);
 		$item3Description->setInputWidth($descInputWidth);
 		$item3Description->setInputBackgroundColor("rgb(194,222,102)");
+		$item3Description->setLabel("Option 4");
 		$item3Description->setData($object);
 		$item3Description->setContentProvider(new AttributeDataProviderPortletPollVotes(3,"description"));
 		$dialog->addWidget($item3Description);
@@ -135,6 +141,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item4Description->setLabelWidth($descLabelWidth);
 		$item4Description->setInputWidth($descInputWidth);
 		$item4Description->setInputBackgroundColor("rgb(113,182,255)");
+		$item4Description->setLabel("Option 5");
 		$item4Description->setData($object);
 		$item4Description->setContentProvider(new AttributeDataProviderPortletPollVotes(4,"description"));
 		$dialog->addWidget($item4Description);
@@ -153,6 +160,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item5Description->setLabelWidth($descLabelWidth);
 		$item5Description->setInputWidth($descInputWidth);
 		$item5Description->setInputBackgroundColor("rgb(207,163,224)");
+		$item5Description->setLabel("Option 6");
 		$item5Description->setData($object);
 		$item5Description->setContentProvider(new AttributeDataProviderPortletPollVotes(5,"description"));
 		$dialog->addWidget($item5Description);

@@ -37,22 +37,26 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 
 		//datepicker
 		$datepickerStart = new \Widgets\DatePicker();
-		$datepickerStart->setLabel("Start der Abstimmung");
+		$datepickerStart->setLabel("Start:");
 		$datepickerStart->setData($object);
 		$datepickerStart->setContentProvider(new AttributeDataProviderPortletTermplanDates("start_date"));
 		$dialog->addWidget($datepickerStart);
 		$dialog->addWidget($clearer);
 
 		$datepickerEnd = new \Widgets\DatePicker();
-		$datepickerEnd->setLabel("Ende der Abstimmung");
+		$datepickerEnd->setLabel("Ende:");
 		$datepickerEnd->setData($object);
 		$datepickerEnd->setContentProvider(new AttributeDataProviderPortletTermplanDates("end_date"));
 		$dialog->addWidget($datepickerEnd);
 		$dialog->addWidget($clearer);
 
+		$rawHtml = new \Widgets\RawHtml();
+		$rawHtml->setHtml('<h3>Termine</h3>');
+		$dialog->addWidget($rawHtml);
+
 		//term descriptions
 		$term0 = new \Widgets\DatePicker();
-		$term0->setLabel("Termin 1");
+		$term0->setLabel("Termin 1:");
 		$term0->setData($object);
 		$term0->setTimePicker(true);
 		$term0->setContentProvider(new AttributeDataProviderPortletTermplanEntries("0"));
@@ -60,7 +64,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($clearer);
 
 		$term1 = new \Widgets\DatePicker();
-		$term1->setLabel("Termin 2");
+		$term1->setLabel("Termin 2:");
 		$term1->setData($object);
 		$term1->setTimePicker(true);
 		$term1->setContentProvider(new AttributeDataProviderPortletTermplanEntries("1"));
@@ -68,7 +72,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($clearer);
 
 		$term2 = new \Widgets\DatePicker();
-		$term2->setLabel("Termin 3");
+		$term2->setLabel("Termin 3:");
 		$term2->setData($object);
 		$term2->setTimePicker(true);
 		$term2->setContentProvider(new AttributeDataProviderPortletTermplanEntries("2"));
@@ -76,7 +80,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($clearer);
 
 		$term3 = new \Widgets\DatePicker();
-		$term3->setLabel("Termin 4");
+		$term3->setLabel("Termin 4:");
 		$term3->setData($object);
 		$term3->setTimePicker(true);
 		$term3->setContentProvider(new AttributeDataProviderPortletTermplanEntries("3"));
@@ -84,7 +88,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($clearer);
 
 		$term4 = new \Widgets\DatePicker();
-		$term4->setLabel("Termin 5");
+		$term4->setLabel("Termin 5:");
 		$term4->setData($object);
 		$term4->setTimePicker(true);
 		$term4->setContentProvider(new AttributeDataProviderPortletTermplanEntries("4"));
@@ -92,7 +96,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($clearer);
 
 		$term5 = new \Widgets\DatePicker();
-		$term5->setLabel("Termin 6");
+		$term5->setLabel("Termin 6:");
 		$term5->setData($object);
 		$term5->setTimePicker(true);
 		$term5->setContentProvider(new AttributeDataProviderPortletTermplanEntries("5"));

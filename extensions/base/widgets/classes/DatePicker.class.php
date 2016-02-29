@@ -8,7 +8,7 @@ class DatePicker extends Widget {
     private $label;
     private $placeholder = "";
     private $data;
-
+    private $value;
     private $contentProvider;
     private $readOnly = false;
     private $labelWidth;
@@ -38,8 +38,8 @@ class DatePicker extends Widget {
 				$this->label = $label;
     }
 
-    public function setPlaceholder($placeholder) {
-				$this->placeholder = $placeholder;
+    public function setValue($value) {
+				$this->value = $value;
     }
 
     public function setData($data) {
@@ -143,6 +143,10 @@ class DatePicker extends Widget {
 				} else {
             $this->getContent()->setVariable("VALUE", "");
 				}
+
+        if ($this->value) {
+            $this->getContent()->setVariable("VALUE", $this->value);
+        }
 
 				if ($this->datePicker && $this->timePicker) {
             $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datetimepicker({dateFormat: \"dd.mm.yy\", hourGrid: 4, minuteGrid: 10});");

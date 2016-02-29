@@ -52,49 +52,53 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $html .= $descriptionInput->getHtml();
 
         $datepickerStart = new \Widgets\DatePicker();
-        $datepickerStart->setLabel("Start der Abstimmung");
+        $datepickerStart->setLabel("Start:");
         $datepickerStart->setName("startDate");
         $html .= $datepickerStart->getHtml();
         $html .='<script>$("input[name=\"startDate\"]").val("' . $currentDate . '");</script>';
 
         $datepickerEnd = new \Widgets\DatePicker();
-        $datepickerEnd->setLabel("Ende der Abstimmung");
+        $datepickerEnd->setLabel("Ende:");
         $datepickerEnd->setName("endDate");
         $html .= $datepickerEnd->getHtml();
         $html .='<script>$("input[name=\"endDate\"]").val("' . $futureDate . '");</script>';
 
+        $clearer = new \Widgets\Clearer();
+        $html .= $clearer->getHtml();
+        $html .='<h3>Termine</h3>';
+
         $term0 = new \Widgets\DatePicker();
-        $term0->setLabel("Termin 1");
+        $term0->setLabel("Termin 1:");
         $term0->setName("term0");
         $term0->setTimePicker(true);
         $html .= $term0->getHtml();
 
         $term1 = new \Widgets\DatePicker();
-        $term1->setLabel("Termin 2");
+        $term1->setLabel("Termin 2:");
         $term1->setName("term1");
         $term1->setTimePicker(true);
         $html .= $term1->getHtml();
 
         $term2 = new \Widgets\DatePicker();
-        $term2->setLabel("Termin 3");
+        $term2->setLabel("Termin 3:");
         $term2->setName("term2");
         $term2->setTimePicker(true);
         $html .= $term2->getHtml();
 
         $term3 = new \Widgets\DatePicker();
-        $term3->setLabel("Termin 4");
+        $term3->setLabel("Termin 4:");
         $term3->setName("term3");
         $term3->setTimePicker(true);
         $html .= $term3->getHtml();
 
         $term4 = new \Widgets\DatePicker();
-        $term4->setLabel("Termin 5");
+        $term4->setLabel("Termin 5:");
         $term4->setName("term4");
         $term4->setTimePicker(true);
         $html .= $term4->getHtml();
 
         $term5 = new \Widgets\DatePicker();
-        $term5->setLabel("Termin 6");
+        $term5->setLabel("Termin 6:");
         $term5->setName("term5");
         $term5->setTimePicker(true);
         $html .= $term5->getHtml();
