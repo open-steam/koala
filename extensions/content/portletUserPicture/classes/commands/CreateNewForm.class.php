@@ -2,22 +2,22 @@
 namespace PortletUserPicture\Commands;
 
 class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject){
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
-		
+
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("Create");
 		$ajaxForm->setSubmitNamespace("PortletUserPicture");
@@ -62,7 +62,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
 <div class="attribute">
 	<div class="attributeName">Überschrift:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
+	<div><input type="text" class="text" value="Mein Bild" name="title"></div>
 </div>
 END
 );
