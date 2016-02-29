@@ -5,7 +5,6 @@ class ForumSubscription extends AbstractSubscription {
 
     public function getUpdates() {
         $updates = array();
-        $threads = $this->object->get_annotations();
         $count = 0;
         
         if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("OBJ_LAST_CHANGED") !== $this->object->get_attribute("OBJ_ANNOTATIONS_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
@@ -24,7 +23,7 @@ class ForumSubscription extends AbstractSubscription {
                                 );
         }
         
-        foreach ($threads as $thread) {
+        foreach ($this->object->get_annotations() as $thread) {
             if ($thread instanceof \steam_document) {
                 if ($thread->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$thread->get_id()]) && in_array($thread->get_attribute("OBJ_CREATION_TIME"), $this->filter[$thread->get_id()]))) {
                     $updates[] = array(
@@ -56,8 +55,7 @@ class ForumSubscription extends AbstractSubscription {
                                 );
                 }
                 //if ($thread->get_attribute("OBJ_ANNOTATIONS_CHANGED") > $this->timestamp) { changes on a headline fo an existing reply did not affect the attribute OBJ_ANNOTATIONS_CHANGED of the superior forum
-                    $msgs = $thread->get_annotations();
-                    foreach ($msgs as $msg) {
+                    foreach ($thread->get_annotations() as $msg) {
                         if ($msg instanceof \steam_document) {
                             if ($msg->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$msg->get_id()]) && in_array($msg->get_attribute("OBJ_CREATION_TIME"), $this->filter[$msg->get_id()]))) {
                                 $updates[] = array(
