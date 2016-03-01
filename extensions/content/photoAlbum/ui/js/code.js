@@ -1,5 +1,3 @@
-
-
 var visible_gallery_id = 0;
 
 function activate_gallery(gallery_id)
