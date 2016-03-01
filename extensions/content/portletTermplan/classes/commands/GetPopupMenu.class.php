@@ -49,7 +49,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				$index = $key;
 			}
 		}
-		
+
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "Edit", "namespace" => "PortletTermplan", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
 						(count($inventory) > 1) ? array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
@@ -61,7 +61,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 						array("name" => "SEPARATOR"),
 						array("name" => "Kopieren <img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Ausschneiden <img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Referenzieren <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
+						array("name" => "Referenz erstellen <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Löschen <img src=\"{$trashIcon}\">",  "command" => "Delete", "namespace" => "PortletTermplan", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
 						array("name" => "SEPARATOR"),
 						array("name" => "Rechte <img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->id}'}", "type"=>"popup")
