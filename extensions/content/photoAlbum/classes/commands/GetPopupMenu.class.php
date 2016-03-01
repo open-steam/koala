@@ -39,6 +39,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 		$trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
 		$hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
 		$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
+		$sortIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/sort.png";
 		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
 		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
 		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
@@ -54,7 +55,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
 			array("name" => "Referenz erstellen<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
 			array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-			(count($inventory) >=2) ? array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
+			(count($inventory) >=2) ? array("name" => "Umsortieren<img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
 				($index != 0) ? array("name" => "Ganz nach vorne<img src=\"{$topIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}") : "",
 				($index != 0) ? array("name" => "Eins nach vorne<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
 				($index < count($inventory)-1) ? array("name" => "Eins nach hinten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}") : "",

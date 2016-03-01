@@ -37,6 +37,7 @@ class GetPopupMenuEntry extends \AbstractCommand implements \IAjaxCommand {
 		$deleteIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/delete.png";
 		$hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
 		$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
+		$sortIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/sort.png";
 		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
 		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
 		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
@@ -51,7 +52,7 @@ class GetPopupMenuEntry extends \AbstractCommand implements \IAjaxCommand {
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditTopicEntry", "namespace" => "PortletTopic", "params" => "{	'portletId':'{$this->id}','entryIndex':'{$this->entryIndex}','categoryIndex':'{$this->categoryIndex}'}", "type"=>"popup"),
-				($inventory >= 2) ? array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
+				($inventory >= 2) ? array("name" => "Umsortieren <img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
 							($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'first'}") : "",
 							($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'up'}") : "",
 							($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'down'}") : "",

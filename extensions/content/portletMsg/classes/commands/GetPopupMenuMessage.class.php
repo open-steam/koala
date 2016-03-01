@@ -32,6 +32,7 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
 		$deleteIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/delete.png";
 		$hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
 		$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
+		$sortIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/sort.png";
 		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
 		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
 		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
@@ -65,7 +66,7 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"),
 										array("name" => "Quelltext bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditMessageCode", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"),
 										array("name" => "{$pictureLabel} <img src=\"{$addImage}\">",  "command" => "EditMessageImage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"),
-										(count($content) > 1) ? array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
+										(count($content) > 1) ? array("name" => "Umsortieren <img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
 											($index != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "OrderMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}','order':'first'}") : "",
 											($index != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "OrderMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}','order':'up'}") : "",
 											($index < count($content)-1) ? array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "OrderMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}','order':'down'}") : "",
