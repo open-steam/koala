@@ -50,7 +50,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             $currentObjectID = "";
         }
         if ($path == "/explorer/") {
-            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">");
+            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/explorer_sort_white.png\">");
             $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">","onclick" => "openFileTree()");
 
             $object = $currentUser->get_workroom();
@@ -69,7 +69,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             }
 
         } else if (strpos($path, "/explorer/index/") !== false) {
-            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">");
+            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/explorer_sort_white.png\">");
             $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">","onclick" => "openFileTree()");
 
             if($currentObjectID != ""){
@@ -139,10 +139,10 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
           }
         } else if ($path == "/bookmarks/") {
             $object = $currentUser->get_attribute("USER_BOOKMARKROOM");
-            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">");
+            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/explorer_sort_white.png\">");
             $array[] = array("name" => "<img title=\"Ordner anlegen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newFolder_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'Bookmarks');return false;");
         } else if (strpos($path, "/bookmarks/index/") !== false) {
-            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/portal_sort_white.png\">");
+            $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/explorer_sort_white.png\">");
             if($currentObjectID != ""){
               $array[] = array("name" => "<img title=\"Ordner anlegen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newFolder_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$currentObjectID}}, '', 'popup', null, null, 'Bookmarks');return false;");
             }
