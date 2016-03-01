@@ -39,7 +39,7 @@ class FolderSubscription extends AbstractSubscription {
             $count++;
         }
         
-        foreach($objects as $id => $object){ //there is a new object in this folder, show an info if it is not created recently
+        foreach($objects as $id => $object){ //there is a new object in this folder, show an info if it is not created recently (eg. moved here)
             if(!array_key_exists($object->get_id(),$formerContent) && $object->get_attribute("OBJ_CREATION_TIME") < $this->timestamp){ 
                 $updates[] = array(
                     0, 

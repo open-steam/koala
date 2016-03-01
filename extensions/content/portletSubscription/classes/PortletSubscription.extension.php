@@ -142,16 +142,18 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         $objectName = $object->get_name();
         $objectDescription = $object->get_attribute(OBJ_DESC);
         
-        if (($objectDescription !== 0 && trim($objectDescription) !== "")){
-            //description exists
-            $title = $objectDescription;
-        }else{
-            //no description available
+        if (($objectName !== 0 && trim($objectName) !== "")){
+            //name exists
             $title = $objectName;
+        }else{
+            //no name available
+            $title = $objectDescription;
         }
         
+       
+        
         if($nameAndDescription){
-            $title = $objectDescription . " (" . $objectName.")";
+            $title = $objectName . " (" . $objectDescription.")";
         }
         //remove line breaks
         $title = str_replace(array("\r", "\n"), "", $title);
@@ -256,9 +258,6 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
                 return "s Objekt";
             break;
         }
-        
-        
-        
     }
 }
 ?>
