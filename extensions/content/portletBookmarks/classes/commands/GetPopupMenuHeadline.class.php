@@ -21,27 +21,27 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 		$this->width = $this->params["width"];
 		$this->portletObjectId = $this->params["portletObjectId"];
 		$this->user = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
-
 		$this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->portletObjectId);
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		//icons
-		$copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
-		$cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
-		$referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
-		$trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
-		$hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
+		$copyIcon = $explorerUrl . "icons/menu/copy.png";
+		$cutIcon = $explorerUrl . "icons/menu/cut.png";
+		$referIcon = $explorerUrl . "icons/menu/refer.png";
+		$trashIcon = $explorerUrl . "icons/menu/trash.png";
+		$hideIcon = $explorerUrl . "icons/menu/hide.png";
 		$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
-		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
-		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
-		$bottomIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/bottom.png";
-		$renameIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rename.png";
-		$editIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/edit.png";
-		$propertiesIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties.png";
-		$rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
-		$blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
+		$upIcon = $explorerUrl . "icons/menu/up.png";
+		$downIcon = $explorerUrl . "icons/menu/down.png";
+		$topIcon = $explorerUrl . "icons/menu/top.png";
+		$bottomIcon = $explorerUrl . "icons/menu/bottom.png";
+		$renameIcon = $explorerUrl . "icons/menu/rename.png";
+		$editIcon = $explorerUrl . "icons/menu/edit.png";
+		$propertiesIcon = $explorerUrl . "icons/menu/properties.png";
+		$rightsIcon = $explorerUrl . "icons/menu/rights.png";
+		$blankIcon = $explorerUrl . "icons/menu/blank.png";
 
 
 		$popupMenu =  new \Widgets\PopupMenu();
@@ -56,7 +56,7 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 						array("name" => "SEPARATOR"),
 						array("name" => "Kopieren <img src=\"{$copyIcon}\">",  "command" => "CopyMsg", "namespace" => "PortletMsg", "params" => "{'id':'{$this->portletObjectId}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Ausschneiden <img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->portletObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Referenz erstellen <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"), 
+						array("name" => "Referenz erstellen <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Löschen <img src=\"{$trashIcon}\">",  "command" => "Delete", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}'}", "type"=>"popup"),
 						array("name" => "SEPARATOR"),
 						array("name" => "Rechte <img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->portletObjectId}'}", "type"=>"popup"),

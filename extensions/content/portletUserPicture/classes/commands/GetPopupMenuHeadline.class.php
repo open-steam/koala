@@ -26,19 +26,20 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		//icons
-		$copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
-		$cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
-		$referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
-		$trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
-		$sortIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/sort.png";
-		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
-		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
-		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
-		$bottomIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/bottom.png";
-		$editIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/edit.png";
-		$rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
-		$blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
+		$copyIcon = $explorerUrl . "icons/menu/copy.png";
+		$cutIcon = $explorerUrl . "icons/menu/cut.png";
+		$referIcon = $explorerUrl . "icons/menu/refer.png";
+		$trashIcon = $explorerUrl . "icons/menu/trash.png";
+		$sortIcon = $explorerUrl . "icons/menu/sort.png";
+		$upIcon = $explorerUrl . "icons/menu/up.png";
+		$downIcon = $explorerUrl . "icons/menu/down.png";
+		$topIcon = $explorerUrl . "icons/menu/top.png";
+		$bottomIcon = $explorerUrl . "icons/menu/bottom.png";
+		$editIcon = $explorerUrl . "icons/menu/edit.png";
+		$rightsIcon = $explorerUrl . "icons/menu/rights.png";
+		$blankIcon = $explorerUrl . "icons/menu/blank.png";
 
 		$env = $this->object->get_environment();
 		$inventory = $env->get_inventory();

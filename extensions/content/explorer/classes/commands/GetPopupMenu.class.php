@@ -27,6 +27,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$count = count($this->selection);
+		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		if (!in_array($this->id, $this->selection) ||(in_array($this->id, $this->selection) && $count == 1)) {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 			$env = $object->get_environment();
@@ -51,24 +52,24 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 					$items = array(array("name" => "Keine Aktionen möglich"));
 				}
 			} else {
-        $copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
-        $cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
-        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
-        $trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
-        $hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
+        $copyIcon = $explorerUrl . "icons/menu/copy.png";
+        $cutIcon = $explorerUrl . "icons/menu/cut.png";
+        $referIcon = $explorerUrl . "icons/menu/refer.png";
+        $trashIcon = $explorerUrl . "icons/menu/trash.png";
+        $hideIcon = $explorerUrl . "icons/menu/hide.png";
         $bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-				$sortIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/sort.png";
-        $upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
-        $downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
-        $topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
-        $bottomIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/bottom.png";
-        $renameIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rename.png";
-        $editIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/edit.png";
-        $propertiesIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties.png";
-        $rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
-        $blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
-        $subscribeIcon = \Explorer::getInstance()->getAssetUrl() . "icons/subscribe.png";
-        $unsubscribeIcon = \Explorer::getInstance()->getAssetUrl() . "icons/unsubscribe.png";
+				$sortIcon = $explorerUrl . "icons/menu/sort.png";
+        $upIcon = $explorerUrl . "icons/menu/up.png";
+        $downIcon = $explorerUrl . "icons/menu/down.png";
+        $topIcon = $explorerUrl . "icons/menu/top.png";
+        $bottomIcon = $explorerUrl . "icons/menu/bottom.png";
+        $renameIcon = $explorerUrl . "icons/menu/rename.png";
+        $editIcon = $explorerUrl . "icons/menu/edit.png";
+        $propertiesIcon = $explorerUrl . "icons/menu/properties.png";
+        $rightsIcon = $explorerUrl . "icons/menu/rights.png";
+        $blankIcon = $explorerUrl . "icons/menu/blank.png";
+        $subscribeIcon = $explorerUrl . "icons/subscribe.png";
+        $unsubscribeIcon = $explorerUrl . "icons/unsubscribe.png";
 
         $subscription = "";
         //prepare subscription element it it is an enabled extension
@@ -138,12 +139,12 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
           }
       }
 
-      $copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
-      $cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
-      $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
-      $trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
-      $hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
-      $blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
+      $copyIcon = $explorerUrl . "icons/menu/copy.png";
+      $cutIcon = $explorerUrl . "icons/menu/cut.png";
+      $referIcon = $explorerUrl . "icons/menu/refer.png";
+      $trashIcon = $explorerUrl . "icons/menu/trash.png";
+      $hideIcon = $explorerUrl . "icons/menu/hide.png";
+      $blankIcon = $explorerUrl . "icons/menu/blank.png";
       $popupMenu =  new \Widgets\PopupMenu();
       if ($this->logged_in) {
           $items = array(
