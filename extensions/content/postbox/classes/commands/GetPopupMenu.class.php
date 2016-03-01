@@ -13,7 +13,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 
 	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
-		$this->id = $this->params["id"];$this->selection = json_decode($this->params["selection"]);		
+		$this->id = $this->params["id"];$this->selection = json_decode($this->params["selection"]);
 		$this->x = $this->params["x"];
 		$this->y = $this->params["y"];
 		$this->height = $this->params["height"];
@@ -26,16 +26,16 @@ public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 	if (!in_array($this->id, $this->selection) ||(in_array($this->id, $this->selection) && $count == 1)) {
                 $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$env = $object->get_environment();
-			
+
 		$inventory = $env->get_inventory();
 		foreach ($inventory as $key => $element) {
 			if ($element->get_id() == $this->id) {
 				$index = $key;
 			}
 		}
-			
+
 		$popupMenu =  new \Widgets\PopupMenu();
-			
+
 		if ($object instanceof \steam_trashbin) {
 			$items = array(array("name" => "Papierkorb leeren", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"));
 		} else if ($env instanceof \steam_trashbin) {
@@ -57,15 +57,15 @@ public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 			$rightsIcon = $explorerAssetUrl . "icons/menu/rights.png";
 			$blankIcon = $explorerAssetUrl . "icons/menu/blank.png";
 			$items = array(
-			array("name" => "Kopieren<img src=\"{$copyIcon}\">", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-			array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-			array("name" => "Referenzieren<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-			array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-			(count($inventory) >=2 ) ? array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
-			($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
-			($index < count($inventory)-1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}") : "",
-			($index != 0) ? array("name" => "Ganz nach oben<img src=\"{$topIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}") : "",
-			($index < count($inventory)-1) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}") : ""
+				array("name" => "Kopieren<img src=\"{$copyIcon}\">", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
+				array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
+				array("name" => "Referenzieren<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
+				array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
+				(count($inventory) >=2 ) ? array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
+					($index != 0) ? array("name" => "Ganz nach oben<img src=\"{$topIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}") : "",
+					($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
+					($index < count($inventory)-1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}") : "",
+					($index < count($inventory)-1) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}") : ""
 			)) : "",
 			array("name" => "SEPARATOR"),
 			array("raw" => "<a href=\"#\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'updater',null,null,'explorer'); } jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open'); return false;\">Umbenennen<img src=\"{$renameIcon}\"></a>"),
