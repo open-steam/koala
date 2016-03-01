@@ -43,34 +43,36 @@ class LoadPostbox extends \AbstractCommand implements \IAjaxCommand {
 }
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
+
 	public function getHeadlines() {
-		return array("", "Name", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
-	}
+      return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+  }
 
-	public function getHeadLineWidths() {
-		return array(25, 415, 100, 150, 80, 40, 20);
-	}
+  public function getHeadLineWidths() {
+      return array(25, 250, 10, 380, 10, 145, 75, 30, 20);
+  }
 
-	public function getHeadLineAligns() {
-		return array("left", "left", "right", "right", "right", "right", "right");
-	}
+  public function getHeadLineAligns() {
+      return array("left", "left", "left", "left", "left", "right", "right", "right", "right");
+  }
+
 }
 
 class ContentProvider implements \Widgets\IContentProvider {
+
 	private $rawImage = 0;
 	private $rawName = 1;
-	private $rawMarker = 2;
-	private $rawChangeDate = 3;
-	private $rawSize = 4;
-	private $rawMenu = 5;
-	private $rawCheckbox = 6;
-
+	private $rawDesc = 3;
+	private $rawMarker = 4;
+	private $rawChangeDate = 5;
+	private $rawSize = 6;
+	private $rawMenu = 7;
+	private $rawCheckbox = 8;
 	private $lastPlace;
 
 	public function setLastPlace($id){
 		$this->lastPlace = $id;
 	}
-
 
 	public function getId($contentItem) {
 		return $contentItem->get_id();
@@ -138,6 +140,8 @@ class ContentProvider implements \Widgets\IContentProvider {
 			} else {
 				return $name . "<script>" . $tipsy->getHtml() . "</script>";
 			}
+		} else if ($cell == $this->rawDesc) {
+			return $contentItem->get_attribute("OBJ_DESC");
 		} else if ($cell == $this->rawMarker) {
 			return "<div></div>";//speed test //TODO: fix
 			$html = "";

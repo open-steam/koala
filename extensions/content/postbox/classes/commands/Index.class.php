@@ -1,5 +1,4 @@
 <?php
-// #3 des Tickets: welcher Hinweistext?
 namespace Postbox\Commands;
 
 class Index extends \AbstractCommand implements \IFrameCommand {
@@ -24,7 +23,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $container = $obj->get_attribute("bid:postbox:container");
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
 
-
         //depending on the serverconfiguration (API_DOUBLE_FILENAME_NOT_ALLOWED) you need read rights and insert rights or only insert rights
         //required sanctions for inner container
         $requiredSanctionsForInnerContainer = SANCTION_READ | SANCTION_INSERT;
@@ -33,21 +31,17 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $requiredSanctionsForInnerContainer = SANCTION_INSERT;
         }
 
-
         $checkAccessInsert = $container->check_access($requiredSanctionsForInnerContainer);
         $checkAccessAdmin = $obj->check_access(SANCTION_ALL);
 
         $isDeadlineSet = true;
 
         if (!preg_match("/^\d{1,2}\.\d{1,2}\.\d{4} \d{2}:\d{2}/isU", $deadlineDateTime)) {
-
             $isDeadlineSet = false;
             if($checkAccessAdmin){
                 $obj->set_attribute("bid:postbox:deadline", "");
             }
-
         }
-
 
         if ($isDeadlineSet) {
             //determine current date
@@ -68,8 +62,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
         }
 
-        //Falls bereits eine Abgabe abgegeben wurde.
-
+        //there is already a submitted object
         $objPath = $obj->get_attribute("OBJ_PATH");
         $currentUserFullName = $currentUser->get_full_name();
         $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
@@ -81,7 +74,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $lastReleaseCurrentUser = 0;
         }
 
-
         if ($lastReleaseCurrentUser != 0) {
             $date = date("d.m.Y", $lastReleaseCurrentUser);
             $time = date("H:i", $lastReleaseCurrentUser);
@@ -90,28 +82,43 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $dateTime = "-";
         }
 
-
-
-
         $this->getExtension()->addJS();
+        $this->getExtension()->addCSS();
         $headlineHtml = new \Widgets\Breadcrumb();
         $headlineHtml->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/reference_folder.png\"></img> " . $obj->get_name() . " ")));
 
-
         $cssStyles = new \Widgets\RawHtml();
-        $cssStyles->setCss('.attribute{width:150px;float:left;padding-left:50px;padding-top:5px;} .value{margin-left:200px;padding-top:5px;} .value-red{color:red;padding-top:5px;margin-left:200px;} .value-green{color:green;padding-top:5px;margin-left:200px;}
-            #button{padding-left:50px;padding-right: 50px;
-                    }
-            .breadcrumb {
-                padding-left: 50px;
-                padding-right: 50px;
-            }
-            #postboxWrapper {
-                padding-left: 50px;
-                padding-right: 50px;
-            }');
+        $cssStyles->setCss('
+          .attribute{
+            width:100px;
+            float:left;
+            padding-top:5px;
+          }
 
-//TODO:Überprüfe, ob Actionbar zwischen Schreib- und Berechtigungsrechten unterscheidet.
+          .value{
+            margin-left:100px;
+            padding-top:5px;
+          }
+
+          .value-red{
+            color:red;
+            padding-top:5px;
+            margin-left:100px;
+          }
+
+          .value-green{
+            color:green;
+            padding-top:5px;
+            margin-left:100px;
+          }
+
+          #button{
+            padding-left:50px;
+            padding-right:50px;
+          }'
+        );
+
+        //TODO:Überprüfe, ob Actionbar zwischen Schreib- und Berechtigungsrechten unterscheidet.
         if ($checkAccessAdmin) {
             $actionBar = new \Widgets\ActionBar();
             $actionBar->setActions(array(
@@ -141,7 +148,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($jsWrapper);
             */
 
-
             if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
                 $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
@@ -167,8 +173,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($clearer);
             $frameResponseObject->addWidget($clearer);
 
-
-
             $loader = new \Widgets\Loader();
             $loader->setWrapperId("postboxWrapper");
             $loader->setMessage("Lade Abgaben ...");
@@ -183,11 +187,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($environmentData);
             $frameResponseObject->addWidget($loader);
 
-
         } else if ($checkAccessInsert) {
             //here we are allowed to insert new documents to the postbox
             $currentUserFullName = $GLOBALS["STEAM"]->get_current_steam_user()->get_full_name();
-
 
             $frameResponseObject->addWidget($cssStyles);
             $frameResponseObject->addWidget($headlineHtml);
@@ -234,23 +236,16 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 </div>
 END
             );
-                $buttonHtml->setJs('$(document).ready(function() {
-                                $("button").button();
-                                });');
-
+                $buttonHtml->setJs('$(document).ready(function() { $("button").button(); });');
                 $frameResponseObject->addWidget($buttonHtml);
             }
         } else {
             $buttonHtml = new \Widgets\RawHtml();
             $buttonHtml->setHtml("Sie besitzen nicht die nötigen Rechte, um dieses Objekt zu sehen.");
-
-                $frameResponseObject->addWidget($buttonHtml);
-
+            $frameResponseObject->addWidget($buttonHtml);
         }
-
         return $frameResponseObject;
     }
-
 }
 
 ?>
