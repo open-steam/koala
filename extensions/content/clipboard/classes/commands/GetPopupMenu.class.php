@@ -48,6 +48,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				$trashIcon = $explorerUrl . "icons/menu/trash.png";
 				$hideIcon = $explorerUrl . "icons/menu/hide.png";
 				$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
+				$colorpickerIcon = \Portal::getInstance()->getAssetUrl() . "icons/colorpicker.png";
 				$sortIcon = $explorerUrl . "icons/menu/sort.png";
 				$upIcon = $explorerUrl . "icons/menu/up.png";
 				$downIcon = $explorerUrl . "icons/menu/down.png";
@@ -60,7 +61,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				$blankIcon = $explorerUrl . "icons/menu/blank.png";
 				$items = array(
 					array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-					array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
+					array("name" => "Einfärben<img src=\"{$colorpickerIcon}\">", "direction" => "left", "menu" => array (
 						array("raw" => " <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'transparent'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerUrl}icons/transparent.png\"></a>
 														 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'red'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerUrl}icons/red.png\"></a>
 														 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'orange'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerUrl}icons/orange.png\"></a>
@@ -94,10 +95,11 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			$trashIcon = $explorerUrl . "icons/menu/trash.png";
 			$hideIcon = $explorerUrl . "icons/menu/hide.png";
 			$blankIcon = $explorerUrl . "icons/menu/blank.png";
+			$colorpickerIcon = \Portal::getInstance()->getAssetUrl() . "icons/colorpicker.png";
 			$popupMenu =  new \Widgets\PopupMenu();
 			$items = array(
 				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte löschen<img src=\"{$trashIcon}\"></a>"),
-				array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
+				array("name" => "Einfärben<img src=\"{$colorpickerIcon}\">", "direction" => "left", "menu" => array (
 					array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'transparent'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerUrl}icons/transparent.png\"></a>
 							   					 <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'red'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerUrl}icons/red.png\"></a>
 							   					 <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'orange'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerUrl}icons/orange.png\"></a>

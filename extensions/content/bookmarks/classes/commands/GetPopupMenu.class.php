@@ -48,6 +48,7 @@ public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 			$trashIcon = $explorerAssetUrl . "icons/menu/trash.png";
 			$hideIcon = $explorerAssetUrl . "icons/menu/hide.png";
 			$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
+			$colorpickerIcon = \Portal::getInstance()->getAssetUrl() . "icons/colorpicker.png";
 			$sortIcon = $explorerAssetUrl . "icons/menu/sort.png";
 			$upIcon = $explorerAssetUrl . "icons/menu/up.png";
 			$downIcon = $explorerAssetUrl . "icons/menu/down.png";
@@ -63,7 +64,7 @@ public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 				array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
 				array("name" => "Referenz erstellen<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
 				array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-				array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
+				array("name" => "Einfärben<img src=\"{$colorpickerIcon}\">", "direction" => "left", "menu" => array (
 				array("raw" => " <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'transparent'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/transparent.png\"></a>
 												 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'red'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/red.png\"></a>
 												 <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'orange'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$explorerAssetUrl}icons/orange.png\"></a>
@@ -96,13 +97,14 @@ public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$trashIcon = $explorerAssetUrl . "icons/menu/trash.png";
 		$hideIcon = $explorerAssetUrl . "icons/menu/hide.png";
 		$blankIcon = $explorerAssetUrl . "icons/menu/blank.png";
+		$colorpickerIcon = \Portal::getInstance()->getAssetUrl() . "icons/colorpicker.png";
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(
 			array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Copy', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Kopiere Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte kopieren<img src=\"{$copyIcon}\"></a>"),
 			array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte ausschneiden<img src=\"{$cutIcon}\"></a>"),
 			array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Referenziere Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objektreferenzen erstellen<img src=\"{$referIcon}\"></a>"),
 			array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte löschen<img src=\"{$trashIcon}\"></a>"),
-			array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
+			array("name" => "Einfärben<img src=\"{$colorpickerIcon}\">", "direction" => "left", "menu" => array (
 				array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'transparent'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerAssetUrl}icons/transparent.png\"></a>
 												 <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'red'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerAssetUrl}icons/red.png\"></a>
 												 <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'orange'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$explorerAssetUrl}icons/orange.png\"></a>

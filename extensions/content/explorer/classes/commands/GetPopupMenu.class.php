@@ -58,6 +58,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
         $trashIcon = $explorerUrl . "icons/menu/trash.png";
         $hideIcon = $explorerUrl . "icons/menu/hide.png";
         $bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
+				$colorpickerIcon = \Portal::getInstance()->getAssetUrl() . "icons/colorpicker.png";
 				$sortIcon = $explorerUrl . "icons/menu/sort.png";
         $upIcon = $explorerUrl . "icons/menu/up.png";
         $downIcon = $explorerUrl . "icons/menu/down.png";
@@ -91,7 +92,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             ($object->check_access(SANCTION_WRITE)) ? array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}") : "",
             ($this->logged_in) ? array("name" => "Referenz erstellen<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}") : "",
             ($object->check_access(SANCTION_WRITE)) ? array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}") : "",
-            ($object->check_access(SANCTION_WRITE)) ? array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
+            ($object->check_access(SANCTION_WRITE)) ? array("name" => "Einfärben<img src=\"{$colorpickerIcon}\">", "direction" => "left", "menu" => array (
                 array("raw" => " <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'transparent'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/transparent.png\"></a>
                     <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'red'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/red.png\"></a>
                     <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'orange'}, 'listviewer-overlay', 'updater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/orange.png\"></a>
@@ -145,6 +146,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
       $trashIcon = $explorerUrl . "icons/menu/trash.png";
       $hideIcon = $explorerUrl . "icons/menu/hide.png";
       $blankIcon = $explorerUrl . "icons/menu/blank.png";
+			$colorpickerIcon = \Portal::getInstance()->getAssetUrl() . "icons/colorpicker.png";
       $popupMenu =  new \Widgets\PopupMenu();
       if ($this->logged_in) {
           $items = array(
@@ -152,7 +154,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
               ($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte ausschneiden<img src=\"{$cutIcon}\"></a>") : "",
               array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Referenziere Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objektreferenzen erstellen<img src=\"{$referIcon}\"></a>"),
               ($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte löschen<img src=\"{$trashIcon}\"></a>") : "",
-              ($writeAccess) ? array("name" => "Darstellung<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array (
+              ($writeAccess) ? array("name" => "Einfärben<img src=\"{$colorpickerIcon}\">", "direction" => "left", "menu" => array (
                   array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'transparent'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/transparent.png\"></a>
                           <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'red'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/red.png\"></a>
                           <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', getParamsArray({'color':'orange'}), getElementIdArray('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  getSelectionAsArray().length); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/orange.png\"></a>
