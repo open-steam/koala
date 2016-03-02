@@ -108,13 +108,6 @@ class ContentProvider implements \Widgets\IContentProvider {
 
             return "<a href=\"" . $url . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img></a>";
         } elseif ($cell == $this->rawName) {
-            $cleanName = getCleanName($contentItem, 600);
-            if (strlen($cleanName) > 50) {
-                $longName = "<br><div style=\"font-weight:bold; width:100px; float:left;\">Name:</div><br> " . $cleanName;
-            } else {
-                $longName = "";
-            }
-
             $creator = $contentItem->get_creator();
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id());
@@ -123,7 +116,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                     . $creator->get_attribute(USER_FIRSTNAME) . " "
                     . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">"
                     . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>" //);
-                    . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>" . addslashes($longName);
+                    . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
 
             $tags = $contentItem->get_attribute(OBJ_KEYWORDS);
             if(sizeOf($tags) > 0){
@@ -145,13 +138,13 @@ class ContentProvider implements \Widgets\IContentProvider {
                 }
                 if ($contentItem instanceof \steam_docextern) {
                     $blank = $contentItem->get_attribute("DOC_BLANK");
-                        return "<a href=\"" . $url . "new/" . "\" target=\"_blank\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsyHtml . "</script>";
+                        return "<a href=\"" . $url . "new/" . "\" target=\"_blank\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
                 }
 
-                return "<a href=\"" . $url . "\" title=\"$name\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                return "<a href=\"" . $url . "\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
 
             } else {
-                return $name . "<script>" . $tipsyHtml . "</script>";
+                return $name . "<script>" . $tipsy->getHtml() . "</script>";
             }
         } elseif ($cell == $this->rawDesc) {
           return $contentItem->get_attribute("OBJ_DESC");
