@@ -38,6 +38,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 		$editIcon = $explorerUrl . "icons/menu/edit.png";
 		$rightsIcon = $explorerUrl . "icons/menu/rights.png";
 		$blankIcon = $explorerUrl . "icons/menu/blank.png";
+		$newIcon = $explorerUrl . "icons/menu/newElement.png";
 
 		$env = $this->object->get_environment();
 		$inventory = $env->get_inventory();
@@ -50,7 +51,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "Edit", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "Termin anlegen <img src=\"{$blankIcon}\">",  "command" => "CreateNewFormTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
+						array("name" => "Termin anlegen <img src=\"{$newIcon}\">",  "command" => "CreateNewFormTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
 					   	(count($inventory) > 1) ? array("name" => "Umsortieren <img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
 								($index != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'first'}") : "",
 								($index != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'up'}") : "",

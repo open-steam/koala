@@ -5,7 +5,7 @@
 	height: 16px;
 	width: 16px;
 	margin-right: 5px;
-	background-image: url("{PATH_URL}widgets/asset/config_grey_16.png");	
+	background-image: url("{PATH_URL}widgets/asset/config_grey_16.png");
 }
 
 .listviewer-item-unhover .popupmenuanker {
@@ -41,6 +41,8 @@
 
 .popupmenuitem img{
 	margin-left: 3px;
+	position: relative;
+	top: 3px;
 }
 
 .popupmenuitem:hover {
@@ -49,7 +51,7 @@
 
 .popupmenuseparator {
 	height: 1px;
-	border-top: 1px solid #ccc; 
+	border-top: 1px solid #ccc;
 }
 
 .popupmenuitem:hover .popupsubmenuwapper {
@@ -75,7 +77,7 @@
 .popupsubmenuanker {
 	background-image: url("{PATH_URL}widgets/asset/arrow_left.png");
 	background-repeat: no-repeat;
-	background-position: 0px 5px; 
+	background-position: 0px 5px;
 }
 
 .popupsubmenuwapper.left {

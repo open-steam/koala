@@ -43,6 +43,7 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 		$propertiesIcon = $explorerUrl . "icons/menu/properties.png";
 		$rightsIcon = $explorerUrl . "icons/menu/rights.png";
 		$blankIcon = $explorerUrl . "icons/menu/blank.png";
+		$newIcon = $explorerUrl . "icons/menu/newElement.png";
 
 		$env = $this->object->get_environment();
 		$inventory = $env->get_inventory();
@@ -55,7 +56,7 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "Edit", "namespace" => "PortletMsg", "params" => "{'portletId':'{$this->portletObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Meldung einfügen <img src=\"{$blankIcon}\">",  "command" => "CreateNewFormMsg", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}'}", "type"=>"popup"),
+						array("name" => "Meldung einfügen <img src=\"{$newIcon}\">",  "command" => "CreateNewFormMsg", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}'}", "type"=>"popup"),
 						(count($inventory) > 1) ? array("name" => "Umsortieren <img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
 							($index != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'first'}") : "",
 							($index != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'up'}") : "",

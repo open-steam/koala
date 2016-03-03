@@ -39,6 +39,7 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
 		$bottomIcon = $explorerUrl . "icons/menu/bottom.png";
 		$renameIcon = $explorerUrl . "icons/menu/rename.png";
 		$editIcon = $explorerUrl . "icons/menu/edit.png";
+		$editHtmlIcon = $explorerUrl . "icons/menu/edit_html.png";
 		$propertiesIcon = $explorerUrl . "icons/menu/properties.png";
 		$rightsIcon = $explorerUrl . "icons/menu/rights.png";
 		$blankIcon = $explorerUrl . "icons/menu/blank.png";
@@ -64,7 +65,7 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"),
-										array("name" => "Quelltext bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditMessageCode", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"),
+										array("name" => "Quelltext bearbeiten <img src=\"{$editHtmlIcon}\">",  "command" => "EditMessageCode", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"),
 										array("name" => "{$pictureLabel} <img src=\"{$addImage}\">",  "command" => "EditMessageImage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}'}", "type"=>"popup"),
 										(count($content) > 1) ? array("name" => "Umsortieren <img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
 											($index != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "OrderMessage", "namespace" => "PortletMsg", "params" => "{'portletObjectId':'{$this->portletObjectId}','messageObjectId':'{$this->messageObjectId}','order':'first'}") : "",
