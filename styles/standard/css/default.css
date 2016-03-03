@@ -132,7 +132,7 @@
 		position: relative;
 		margin-right: auto;
 		margin-left: auto;
-		height: 60px;
+		height: 55px;
 	}
 
 	#menu_wrapper_bg {
@@ -636,8 +636,8 @@
 	*/
 	#loginPanel {
 		position:absolute;
-		right:0px;
-		top:-75px;
+		right:-4px;
+		top:-67px;
 	}
 
 	#loginPanel td {
