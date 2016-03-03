@@ -26,26 +26,24 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $idRequestObject->setId($this->id);
 
         $extensions = \ExtensionMaster::getInstance()->getExtensionByType("IObjectExtension");
-        
+
         $commands = array();
 
         //sort order of new dialog in explorer
         //the order is defined in the platform whitelist constant
         usort($extensions, "sortExplorerNewDialog");
 
-        
         //root test for restricted creation
         $steamUser = $GLOBALS['STEAM']->get_current_steam_user();
-        if ($steamUser->get_name()=="root") $isRoot=true; else $isRoot=false;       
-        
+        if ($steamUser->get_name()=="root") $isRoot=true; else $isRoot=false;
+
         //skip list
         foreach ($extensions as $key => $extension) {
             //case portlet
             if (strstr(strtolower(get_class($extension)), "portlet")) {
                 unset($extensions[$key]);
             }
-            
-            
+
             //case create restricted to root
             if (defined("CREATE_RESTRICTED_TO_ROOT")){
                 if (!$isRoot){
@@ -53,16 +51,15 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                     if (strstr(strtolower(CREATE_RESTRICTED_TO_ROOT), strtolower($extensionClass))){
                         unset($extensions[$key]);
                     }
+                }
             }
-            }
-            
+
             //case depricated
             if (strstr($extension->getName(), "deprecated") ||
                     strstr($extension->getObjectReadableName(), "deprecated")) {
                 unset($extensions[$key]);
             }
         }
-
 
         //create new object dialog
         foreach ($extensions as $extension) {
@@ -81,25 +78,22 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->setSaveAndCloseButtonLabel(null);
         //and rename the cancel Button
         $dialog->setCancelButtonLabel("Abbrechen");
-        
 
+        $dialog->setWidth(400);
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
 
         $html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px\">";
-       
-        
+
         foreach ($commands as $command) {
             $namespaces = $command->getExtension()->getUrlNamespaces();
             $html .= "<div style=\"clear:both;\" class=\"explorernewentry\">";
             $html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img style=\"float:left;\" src=\"{$command->getExtension()->getObjectIconUrl()}\"><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">{$command->getExtension()->getObjectReadableName()}</p></a>";
             $html .= "</div>";
         }
-        
-        
+
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($html);
-
         $dialog->addWidget($rawHtml);
 
         $ajaxResponseObject->setStatus("ok");
