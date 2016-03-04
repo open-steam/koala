@@ -18,7 +18,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
 
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
 
         $container = $obj->get_attribute("bid:postbox:container");
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
@@ -62,28 +61,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
         }
 
-        //there is already a submitted object
-        $objPath = $obj->get_attribute("OBJ_PATH");
-        $currentUserFullName = $currentUser->get_full_name();
-        $filePath = $objPath . "/postbox_container/" . $currentUserFullName;
-        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
-
-        if ($file instanceof \steam_container) {
-            $lastReleaseCurrentUser = $file->get_attribute("OBJ_LAST_CHANGED");
-        } else {
-            $lastReleaseCurrentUser = 0;
-        }
-
-        if ($lastReleaseCurrentUser != 0) {
-            $date = date("d.m.Y", $lastReleaseCurrentUser);
-            $time = date("H:i", $lastReleaseCurrentUser);
-            $dateTime = $date . " " . $time . " Uhr";
-        } else {
-            $dateTime = "-";
-        }
-
         $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
+
         $headlineHtml = new \Widgets\Breadcrumb();
         $headlineHtml->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/reference_folder.png\"></img> " . $obj->get_name() . " ")));
 
@@ -150,18 +130,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             if (isset($isDeadlineEnd) && $isDeadlineEnd) {
                 $deadlineEndHtml = new \Widgets\RawHtml();
-                $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+                $deadlineEndHtml->setHtml('<div class="attribute">Abgabefrist:</div><div class="value-red">' . $deadlineDateTime . ' Uhr</div>');
                 $frameResponseObject->addWidget($deadlineEndHtml);
             } else if (!$isDeadlineSet) {
                 $noDeadlineHtml = new \Widgets\RawHtml();
-                $noDeadlineHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">-</div>');
+                $noDeadlineHtml->setHtml('<div class="attribute">Abgabefrist:</div><div class="value">keine</div>');
                 $frameResponseObject->addWidget($noDeadlineHtml);
             } else {
                 $deadlineRunHtml = new \Widgets\RawHtml();
-                $deadlineRunHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+                $deadlineRunHtml->setHtml('<div class="attribute">Abgabefrist:</div><div class="value-green">' . $deadlineDateTime . ' Uhr</div>');
                 $frameResponseObject->addWidget($deadlineRunHtml);
             }
             $advice = $obj->get_attribute("postbox:advice");
@@ -189,36 +166,44 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         } else if ($checkAccessInsert) {
             //here we are allowed to insert new documents to the postbox
-            $currentUserFullName = $GLOBALS["STEAM"]->get_current_steam_user()->get_full_name();
+
+            //check if there is already a submitted object
+            $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+            $inventory = $container->get_inventory();
+            $statusText = 'Es liegt keine Abgabe von dir vor.';
+            $class = 'value';
+            foreach ($inventory as $value){
+              if($value->get_creator() == $currentUser){
+                $statusText = 'Deine Abgabe war erfolgreich!';
+                $class = 'value-green';
+              }
+            }
 
             $frameResponseObject->addWidget($cssStyles);
             $frameResponseObject->addWidget($headlineHtml);
 
             $lastReleaseHtml = new \Widgets\RawHtml();
-            $lastReleaseHtml->setHtml('<div class="attribute">Letzte Abgabe:</div><div class="value">' . $dateTime . '</div>');
+            $lastReleaseHtml->setHtml('<div class="attribute">Status:</div><div class=' . $class . '>' . $statusText . '</div>');
             $isButtonSet = false;
 
             if (isset($isDeadlineEnd) && $isDeadlineEnd) { //deadline is over
                 $deadlineEndHtml = new \Widgets\RawHtml();
-                $deadlineEndHtml->setHtml('<div class="attribute">Status:</div><div class="value-red">Abgabefrist überschritten!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+                $deadlineEndHtml->setHtml('<div class="attribute">Abgabefrist:</div><div class="value-red">' . $deadlineDateTime . ' Uhr</div>');
                 $frameResponseObject->addWidget($deadlineEndHtml);
 
             } else if (!$isDeadlineSet) { // no deadline set
                 $noDeadlineHtml = new \Widgets\RawHtml();
-                $noDeadlineHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">-</div>');
+                $noDeadlineHtml->setHtml('<div class="attribute">Abgabefrist:</div><div class="value">keine</div>');
                 $frameResponseObject->addWidget($noDeadlineHtml);
                 $isButtonSet = true;
 
             } else {
                 $deadlineRunHtml = new \Widgets\RawHtml();
-                $deadlineRunHtml->setHtml('<div class="attribute">Status:</div><div class="value-green">Abgabe möglich!</div>
-                <div class="attribute">Abgabefrist:</div><div class="value">' . $deadlineDateTime . ' Uhr</div>');
+                $deadlineRunHtml->setHtml('<div class="attribute">Abgabefrist:</div><div class="value-green">' . $deadlineDateTime . ' Uhr</div>');
                 $frameResponseObject->addWidget($deadlineRunHtml);
                 $isButtonSet = true;
             }
-            $frameResponseObject->addWidget($lastReleaseHtml);
+
             $advice = $obj->get_attribute("postbox:advice");
 
             if (!($advice === "" || $advice === 0)) {
@@ -226,6 +211,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $adviceWidget->setHtml('<div class="attribute">Hinweis:</div><div class="value">'.$advice.'</div>');
                 $frameResponseObject->addWidget($adviceWidget);
             }
+
+            $frameResponseObject->addWidget($lastReleaseHtml);
 
             if ($isButtonSet) {
                 $buttonHtml = new \Widgets\RawHtml();
