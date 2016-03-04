@@ -11,7 +11,7 @@
 				</tr>
 				<tr>
 					<!--<td class="label">{SEARCH}:</td> -->
-					<td class="value"><input type="text" name="searchString" size="10" placeholder={SEARCH} style="font-size:21px;"/></td>
+					<td class="value"><input type="text" name="searchString" size="14" placeholder={SEARCH} style="font-size:14px;height:24px;border-radius:3px;"/></td>
 					<td class="value"><input class="bidButton" type="submit" name="action" value="{BUTTON_LABEL}" /></td>
 				</tr>
 				<tr>
@@ -88,7 +88,7 @@
 
 		<td  width="100"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
 		<td class="value"><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></td>
-		<td class="value"><div class="actionBar" style="margin:0px"><a class="bidButton" href="{DELETE_BUDDY_LINK}">{DELETE_BUDDY}</a></div></td>
+		<td class="value"><div class="actionBar" style="margin:0px"><a class="bidButton negative" href="{DELETE_BUDDY_LINK}">{DELETE_BUDDY}</a></div></td>
 
 	</tr>
 	<!-- END BLOCK_BUDDY_LIST -->
@@ -108,7 +108,7 @@
 		<td class="label" style="vertical-align:middle;">{GROUP_NAME}</td>
 		<td class="value" style="vertical-align:middle;" >{GROUP_DESC}</td>
 		<!-- BEGIN BLOCK_GROUP_LIST2 -->
-		<td class="value"><div class="actionBar" style="margin:0px"><a class="bidButton" href="{DELETE_GROUP_LINK}">{DELETE_GROUP}</a></div></td>
+		<td class="value"><div class="actionBar" style="margin:0px"><a class="bidButton negative" href="{DELETE_GROUP_LINK}">{DELETE_GROUP}</a></div></td>
 		<!-- END BLOCK_GROUP_LIST2 -->
 	</tr>
 	<!-- END BLOCK_GROUP_LIST -->
