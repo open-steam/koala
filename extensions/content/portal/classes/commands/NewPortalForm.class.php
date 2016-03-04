@@ -1,14 +1,14 @@
 <?php
 namespace Portal\Commands;
 class NewPortalForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject) {
 		if ($requestObject instanceof \UrlRequestObject) {
 			$this->params = $requestObject->getParams();
@@ -18,14 +18,14 @@ class NewPortalForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCo
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
-		
+
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("Create");
 		$ajaxForm->setSubmitNamespace("Portal");
-		
+
 		$img_3_col = $this->getExtension()->getAssetUrl() . "images/portal_3_col.jpg";
 		$img_2_col = $this->getExtension()->getAssetUrl() . "images/portal_2_col.jpg";
 		$img_1_col = $this->getExtension()->getAssetUrl() . "images/portal_1_col.jpg";
@@ -61,35 +61,36 @@ class NewPortalForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCo
 </style>
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
-	<div class="attributeName">Portalname:</div>
+	<div class="attributeName">Name:</div>
 	<div class="attributeValue"><input type="text" class="text" value="" name="name"></div>
 </div>
 <div style="height:150px" class="attribute">
-	<div class="attributeName">Anzahl Spalten:</div>
-	<div class="attributeValue"> 
+	<div class="attributeName">Spalten:</div>
+	<div class="attributeValue">
 		<div style="width:100px" class="attributeValueColumn">
-				<input type="radio" checked="" value="3" name="columns">Standard<br>
+				<input type="radio" checked="" value="3" name="columns">3<br>
 				<img width="100" height="100" border="0" src="{$img_3_col}">
 		</div>
 		<div style="width:100px" class="attributeValueColumn">
-				<input type="radio" value="2" name="columns">2-spaltig<br>
+				<input type="radio" value="2" name="columns">2<br>
 				<img width="100" height="100" border="0" src="{$img_2_col}">
 		</div>
 		<div style="width:100px" class="attributeValueColumn">
-				<input type="radio" value="1" name="columns">1-spaltig<br>
+				<input type="radio" value="1" name="columns">1<br>
 				<img width="100" height="100" border="0" src="{$img_1_col}">
 		</div>
 	</div>
 </div>
 END
 );
-                $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
+
+		$ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		$ajaxResponseObject->addWidget($ajaxForm);
 		return $ajaxResponseObject;
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
+
 	}
 }
 ?>

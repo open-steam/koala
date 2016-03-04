@@ -1,18 +1,18 @@
 <?php
 namespace Explorer\Commands;
 class NewDocumentHTMLForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
-	
+
 	public function getExtension() {
 		return \DocumentHTMLObject::getInstance();
 	}
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject) {
 		if ($requestObject instanceof \UrlRequestObject) {
 			$this->params = $requestObject->getParams();
@@ -22,16 +22,16 @@ class NewDocumentHTMLForm extends \AbstractCommand implements \IFrameCommand, \I
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
-		
+
 		$textInput = new \Widgets\TextInput();
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->addWidget($textInput);
 		$ajaxForm->setSubmitCommand("CreateDocumentHTML");
 		$ajaxForm->setSubmitNamespace("Explorer");
-		
+
 		$ajaxForm->setHtml(<<<END
 <style type="text/css">
 .attribute {
@@ -64,7 +64,7 @@ class NewDocumentHTMLForm extends \AbstractCommand implements \IFrameCommand, \I
 </style>
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
-	<div class="attributeName">Dateiname:</div>
+	<div class="attributeName">Name:</div>
 	<div class="attributeValue"><input id="nameInput" type="text" class="text" value="" name="name"></div>
 </div>
 <br>
@@ -72,12 +72,12 @@ END
 );
                 $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 		$ajaxResponseObject->addWidget($ajaxForm);
-               
+
 		return $ajaxResponseObject;
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
+
 	}
 }
 ?>

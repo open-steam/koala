@@ -79,7 +79,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         //and rename the cancel Button
         $dialog->setCancelButtonLabel("Abbrechen");
 
-        $dialog->setWidth(400);
+        $dialog->setWidth(500);
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
 

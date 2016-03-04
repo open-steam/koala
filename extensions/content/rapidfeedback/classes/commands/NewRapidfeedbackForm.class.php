@@ -64,7 +64,7 @@ class NewRapidfeedbackForm extends \AbstractCommand implements \IAjaxCommand {
 }
 </style>
 <div class="attribute">
-	<div class="attributeName">Titel:</div>
+	<div class="attributeName">Name:</div>
 	<div class="attributeValue"><input type="text" class="text" value="" name="title"></div>
 </div>
 <input type="hidden" name="id" value="{$this->id}">
