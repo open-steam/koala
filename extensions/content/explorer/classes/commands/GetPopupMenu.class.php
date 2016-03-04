@@ -46,8 +46,9 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			} else if ($env instanceof \steam_trashbin) {
 				$oldEnv = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["env"]);
 				if ($oldEnv instanceof \steam_object && $oldEnv->check_access(SANCTION_WRITE)) {
-				$items = array(
-					array("name" => "Wiederherstellen", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'env':document.getElementById('environment').value}"));
+					$restoreIcon = $explorerUrl . "icons/menu/restore.png";
+					$items = array(
+						array("name" => "Wiederherstellen<img src=\"{$restoreIcon}\">", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'env':document.getElementById('environment').value}"));
         } else {
 					$items = array(array("name" => "Keine Aktionen möglich"));
 				}

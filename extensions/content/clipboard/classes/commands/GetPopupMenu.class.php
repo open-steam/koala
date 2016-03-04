@@ -40,7 +40,9 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			if ($object instanceof \steam_trashbin) {
 				$items = array(array("name" => "Papierkorb leeren", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"));
 			} else if ($env instanceof \steam_trashbin) {
-				$items = array(array("name" => "Wiederherstellen", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'env':document.getElementById('environment').value}"));
+				$restoreIcon = $explorerUrl . "icons/menu/restore.png";
+				$items = array(
+					array("name" => "Wiederherstellen<img src=\"{$restoreIcon}\">", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'env':document.getElementById('environment').value}"));
 			} else {
 				$copyIcon = $explorerUrl . "icons/menu/copy.png";
 				$cutIcon = $explorerUrl . "icons/menu/cut.png";
