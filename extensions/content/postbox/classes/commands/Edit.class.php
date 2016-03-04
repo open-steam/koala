@@ -36,6 +36,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $clearer = new \Widgets\Clearer();
 
         $dialog->setTitle("Eigenschaften");
+        $dialog->setWidth(400);
 
         $dataNameInput = new \Widgets\TextInput();
         $dataNameInput->setLabel("Name der Abgabe");
@@ -56,7 +57,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
         $datepickerStart = new \Widgets\DatePicker();
         $datepickerStart->setName("deadline");
-        $datepickerStart->setLabel("Abgabefrist");
+        $datepickerStart->setLabel("Abgabefrist:");
         $datepickerStart->setTimePicker(true);
         $datepickerStart->setData($object);
         $datepickerStart->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:postbox:deadline"));
@@ -109,7 +110,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $textAreaAdvice->setData($object);
         $textAreaAdvice->setContentProvider(\Widgets\DataProvider::attributeProvider("postbox:advice"));
         $textAreaAdvice->setHeight(100);
-        $textAreaAdvice->setWidth(325);
+        $textAreaAdvice->setWidth(201);
 
         $dialog->addWidget($textAreaAdvice);
 
