@@ -51,9 +51,9 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->addWidget($clearer);
 
 		$descLabelWidth = 140;
-		$descInputWidth = 200;
+		$descInputWidth = 140;
 		$voteLabelWidth = 10;
-		$voteInputWidth = 20;
+		$voteInputWidth = 40;
 
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml('<h3>Optionen</h3>');
@@ -75,6 +75,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item0Votes->setInputWidth($voteInputWidth);
 		$item0Votes->setInputBackgroundColor("rgb(255,120,111)");
 		$item0Votes->setData($object);
+		$item0Votes->setType("number");
+		$item0Votes->setMin(0);
 		$item0Votes->setContentProvider(new AttributeDataProviderPortletPollVotes(0,"votes"));
 		$dialog->addWidget($item0Votes);
 		$dialog->addWidget($clearer);
@@ -94,6 +96,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item1Votes->setInputWidth($voteInputWidth);
 		$item1Votes->setInputBackgroundColor("rgb(250,186,97)");
 		$item1Votes->setData($object);
+		$item1Votes->setType("number");
+		$item1Votes->setMin(0);
 		$item1Votes->setContentProvider(new AttributeDataProviderPortletPollVotes(1,"votes"));
 		$dialog->addWidget($item1Votes);
 		$dialog->addWidget($clearer);
@@ -113,6 +117,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item2Votes->setInputWidth($voteInputWidth);
 		$item2Votes->setInputBackgroundColor("rgb(244,229,123)");
 		$item2Votes->setData($object);
+		$item2Votes->setType("number");
+		$item2Votes->setMin(0);
 		$item2Votes->setContentProvider(new AttributeDataProviderPortletPollVotes(2,"votes"));
 		$dialog->addWidget($item2Votes);
 		$dialog->addWidget($clearer);
@@ -132,6 +138,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item3Votes->setInputWidth($voteInputWidth);
 		$item3Votes->setInputBackgroundColor("rgb(194,222,102)");
 		$item3Votes->setData($object);
+		$item3Votes->setType("number");
+		$item3Votes->setMin(0);
 		$item3Votes->setContentProvider(new AttributeDataProviderPortletPollVotes(3,"votes"));
 		$dialog->addWidget($item3Votes);
 		$dialog->addWidget($clearer);
@@ -151,6 +159,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item4Votes->setInputWidth($voteInputWidth);
 		$item4Votes->setInputBackgroundColor("rgb(113,182,255)");
 		$item4Votes->setData($object);
+		$item4Votes->setType("number");
+		$item4Votes->setMin(0);
 		$item4Votes->setContentProvider(new AttributeDataProviderPortletPollVotes(4,"votes"));
 		$dialog->addWidget($item4Votes);
 		$dialog->addWidget($clearer);
@@ -170,6 +180,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$item5Votes->setInputWidth($voteInputWidth);
 		$item5Votes->setInputBackgroundColor("rgb(207,163,224)");
 		$item5Votes->setData($object);
+		$item5Votes->setType("number");
+		$item5Votes->setMin(0);
 		$item5Votes->setContentProvider(new AttributeDataProviderPortletPollVotes(5,"votes"));
 		$dialog->addWidget($item5Votes);
 		$dialog->addWidget($clearer);
