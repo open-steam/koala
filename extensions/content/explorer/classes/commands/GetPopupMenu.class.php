@@ -38,6 +38,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				if($element instanceof \steam_user || $element instanceof \steam_trashbin) $firstElement++;
 				if ($element->get_id() == $this->id) {
 					$index = $key;
+					break;
 				}
 			}
 
