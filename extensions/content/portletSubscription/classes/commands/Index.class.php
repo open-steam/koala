@@ -24,7 +24,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
-         //reference handling
+        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
@@ -36,8 +36,6 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         } else {
             $portletIsReference = false;
         }
-
-
 
         try {
             $subscriptionObjectID = $portlet->get_attribute("PORTLET_SUBSCRIPTION_OBJECTID");
@@ -53,63 +51,62 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             }
 
             //$portletName = getCleanName($portlet);
-        $portletName = $portlet->get_name();
+            $portletName = $portlet->get_name();
 
-        $portletInstance = \PortletSubscription::getInstance();
-        $portletPath = $portletInstance->getExtensionPath();
+            $portletInstance = \PortletSubscription::getInstance();
+            $portletPath = $portletInstance->getExtensionPath();
 
-        $tmpl = new \HTML_TEMPLATE_IT();
-        $tmpl->loadTemplateFile($portletPath . "/ui/html/index.template.html");
-        $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
+            $tmpl = new \HTML_TEMPLATE_IT();
+            $tmpl->loadTemplateFile($portletPath . "/ui/html/index.template.html");
+            $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
 
-        //headline
-        $tmpl->setCurrentBlock("BLOCK_FOLDER_HEADLINE");
-        $tmpl->setVariable("HEADLINE", $portletName);
+            //headline
+            $tmpl->setCurrentBlock("BLOCK_FOLDER_HEADLINE");
+            $tmpl->setVariable("HEADLINE", $portletName);
 
-        //refernce icon
-        if ($portletIsReference) {
-            $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
-            $envId = $portlet->get_environment()->get_environment()->get_id();
-            $envUrl = PATH_URL . "portal/index/" . $envId;
-            $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
-        }
+            //reference icon
+            if ($portletIsReference) {
+                $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
+                $envId = $portlet->get_environment()->get_environment()->get_id();
+                $envUrl = PATH_URL . "portal/index/" . $envId;
+                $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
+            }
 
-        if (!$portletIsReference) {
-            $popupmenu = new \Widgets\PopupMenu();
-            $popupmenu->setData($portlet);
-            $popupmenu->setNamespace("PortletSubscription");
-            $popupmenu->setElementId("portal-overlay");
-            $popupmenu->setParams(array(array("key" => "portletObjectId", "value" => $portlet->get_id())));
-            $popupmenu->setCommand("GetPopupMenuHeadline");
-            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
-        } else {
-            $popupmenu = new \Widgets\PopupMenu();
-            $popupmenu->setData($portlet);
-            $popupmenu->setNamespace("Portal");
-            $popupmenu->setElementId("portal-overlay");
-            $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
-                array("key" => "linkObjectId", "value" => $referenceId)
-            ));
-            $popupmenu->setCommand("PortletGetPopupMenuReference");
-            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
-        }
+            if (!$portletIsReference) {
+                $popupmenu = new \Widgets\PopupMenu();
+                $popupmenu->setData($portlet);
+                $popupmenu->setNamespace("PortletSubscription");
+                $popupmenu->setElementId("portal-overlay");
+                $popupmenu->setParams(array(array("key" => "portletObjectId", "value" => $portlet->get_id())));
+                $popupmenu->setCommand("GetPopupMenuHeadline");
+                $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
+            } else {
+                $popupmenu = new \Widgets\PopupMenu();
+                $popupmenu->setData($portlet);
+                $popupmenu->setNamespace("Portal");
+                $popupmenu->setElementId("portal-overlay");
+                $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
+                    array("key" => "linkObjectId", "value" => $referenceId)
+                ));
+                $popupmenu->setCommand("PortletGetPopupMenuReference");
+                $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
+            }
 
-        if (trim($portletName) == "") {
-            $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
-        } else {
-            $tmpl->setVariable("HEADLINE_CLASS", "headline");
-        }
-        $tmpl->parse("BLOCK_FOLDER_HEADLINE");
+            if (trim($portletName) == "") {
+                $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
+            } else {
+                $tmpl->setVariable("HEADLINE_CLASS", "headline");
+            }
+            $tmpl->parse("BLOCK_FOLDER_HEADLINE");
 
             $updates = $portletInstance->calculateUpdates($subscriptionObject, $portlet);
+
             if (count($updates) === 0) {
                 $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                 $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Keine Neuigkeiten</h3>");
                 $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
             } else {
-                //var_dump($updates);
                 foreach ($updates as $update) {
-                    //echo "hier".$update[2][1];
                     $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                     $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", $update[2]);
                     $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
@@ -133,11 +130,11 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             position: relative;
             top: 0px;
             left: 0px;
-        }
+          }
 
-        .subscription-close-button:hover {
+          .subscription-close-button:hover {
             cursor: pointer;
-        }"
+          }"
         );
         $this->contentHtml = $rawHtml;
     }
@@ -149,7 +146,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $frameResponseObject->addWidget($this->contentHtml);
-	return $frameResponseObject;
+        return $frameResponseObject;
     }
 }
 ?>

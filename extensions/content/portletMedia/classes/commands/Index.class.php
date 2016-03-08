@@ -40,7 +40,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference handling
         $params = $requestObject->getParams();
-        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
@@ -53,7 +52,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $portletIsReference = false;
         }
 
-        //hack
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
 
         //get content of portlet

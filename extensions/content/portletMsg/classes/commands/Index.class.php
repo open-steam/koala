@@ -79,7 +79,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
           $tmpl->setVariable("HEADLINE", $portletName);
 
-          //refernce icon
+          //reference icon
           if ($portletIsReference) {
               $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
               $envId = $portlet->get_environment()->get_environment()->get_id();
@@ -219,7 +219,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                       }else{
                         $tmpl->parse("BLOCK_MESSAGE_PICTURE_TOP");
                       }
-                      
+
                   }
 
                   //LINK

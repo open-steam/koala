@@ -55,7 +55,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
 
-        //refernce icon
+        //reference icon
         if ($portletIsReference) {
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
@@ -85,7 +85,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $user = $portlet->get_creator();
         $currentUser = \lms_steam::get_current_user();
         $tmpl->setVariable("DESCRIPTION", "Zum Profil");
-	$tmpl->setVariable("URL", PATH_URL . "user/index/" . $user->get_name() . "/");
+        $tmpl->setVariable("URL", PATH_URL . "user/index/" . $user->get_name() . "/");
         $pic_id = $user->get_attribute("OBJ_ICON")->get_id();
         $pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/" . ($width-20) . "/" . round(($width-20)*(185/140));
         $tmpl->setVariable("PICTURE_URL", $pic_link);
@@ -108,7 +108,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $frameResponseObject->addWidget($this->contentHtml);
-	return $frameResponseObject;
+        return $frameResponseObject;
     }
 }
 ?>

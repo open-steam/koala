@@ -24,7 +24,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         if (strpos($width, "px") === TRUE) {
             $width = substr($width, 0, count($width)-3);
         }
-        
+
         //icon
         $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
 
@@ -54,8 +54,8 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         } else {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
-        
-        //refernce icon
+
+        //reference icon
         if ($portletIsReference) {
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
@@ -91,11 +91,11 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         } else {
             $display = $chronic;
         }
-        
+
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($tmpl->get());
         $this->contentHtml = $rawHtml;
-        
+
         $listViewer = new \Widgets\ListViewer();
         $headlineProvider = new HeadlineProvider();
         $headlineProvider->setWidth($width);
@@ -106,7 +106,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $listViewer->setFilterHidden(FALSE);
         $listViewer->setContent($display);
         $this->listViewer = $listViewer;
-        
+
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml("</div></div>");
         $this->endHtml = $rawHtml;
@@ -118,19 +118,19 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $idResponseObject->addWidget($this->endHtml);
         return $idResponseObject;
     }
-    
+
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         $idResponseObject->addWidget($this->contentHtml);
         $idResponseObject->addWidget($this->listViewer);
         $idResponseObject->addWidget($this->endHtml);
-	return $frameResponseObject;
+        return $frameResponseObject;
     }
 }
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
-    
+
     private $width;
-    
+
     public function setWidth($width) {
         if (($width - 40) < 0) {
             $this->width = 40;
@@ -138,7 +138,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
             $this->width = $width;
         }
     }
-    
+
     public function getHeadlines() {
         return array("", "", "");
     }
@@ -159,7 +159,7 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawName = 1;
     private $rawChangeDate = 2;
     private $id;
-    
+
     public function setId($id) {
         $this->id = $id;
     }
