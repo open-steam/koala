@@ -45,13 +45,17 @@ class Chronic extends AbstractExtension implements IMenuExtension{
             foreach ($chronic as $chronicItem) {
                 $count++;
                 if($count<2) continue; //skip this and last element
-                $menuArray[] = array("name" => $this->getEntryIconTag($chronicItem)." ".$this->getEntryName($chronicItem), "link" => $this->getEntryPath($chronicItem)); //todo
+                $entryName = $this->getEntryName($chronicItem);
+                if(strlen($entryName) != 0){
+                  $menuArray[] = array("name" => $this->getEntryIconTag($chronicItem)." ".$entryName, "link" => $this->getEntryPath($chronicItem));
+                }
             }
             $result[1]["menu"] = $menuArray;
         }
         return $result;
     }
 
+    //for portlet chronic
     public function getChronic(){
         $chronic = $this->loadChronic();
         $result = array();
@@ -70,7 +74,10 @@ class Chronic extends AbstractExtension implements IMenuExtension{
                 $objectId = $minusCount;
                 $minusCount--;
             }
-            $result[] = array("id" => $objectId, "name" => $this->getEntryName($chronicItem, -1), "image" => $this->getEntryIconTag($chronicItem), "link" => $this->getEntryPath($chronicItem));
+            $entryName = $this->getEntryName($chronicItem, -1);
+            if(strlen($entryName) != 0){
+              $result[] = array("id" => $objectId, "name" => $entryName, "image" => $this->getEntryIconTag($chronicItem), "link" => $this->getEntryPath($chronicItem));
+            }
         }
         return $result;
     }
