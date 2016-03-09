@@ -146,9 +146,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
       $content->setVariable("SEARCH", "Suchbegriff");
       $content->setVariable("BUTTON_LABEL", "Suchen");
 
-      $content->setVariable("GROUPS", "Gruppen");
-      $content->setVariable("USER_LOGIN", "Benutzer (Login)");
-      $content->setVariable("USER_FULLNAME", "Benutzer (Namen)");
+      $content->setVariable("GROUPS", "Gruppenname");
+      $content->setVariable("USER_LOGIN", "Loginname");
+      $content->setVariable("USER_FULLNAME", "Benutzername");
 
       //preselect search
       $content->setVariable("PRE_SELECT_USER", "");
@@ -168,6 +168,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
           } else {
               $category = "group";
           }
+          
           foreach ($searchResult as $resultEntry) {
               $content->setVariable("SEARCH_RESULTS", "Suchergebnisse");
               $ignoredUser = false;
@@ -205,13 +206,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                           $picId = $resultUser->get_attribute("OBJ_ICON")->get_id();
                           $content->setVariable("BUDDY_PIC_LINK", PATH_URL . "download/image/" . $picId . "/50/60/");
                           if ($steamUser->get_id() == $resultUser->get_id()) {
-                              $content->setVariable("ALREADY_BUDDY", "Das bist Du!");
+                              $content->setVariable("ALREADY_BUDDY", "Das bist du");
                           } elseif (!($steamUser->is_buddy($resultUser))) {
                               $content->setVariable("ADD_FAVORITE_BUDDY", "Als Favorit hinzufügen");
 
                               $content->setVariable("FAVORITE_BUDDY_LINK", PATH_URL . "favorite/add/" . $urlId . "/" . $category . "/");
                           } else {
-                              $content->setVariable("ALREADY_BUDDY", "Bereits Teil der Favoritenliste");
+                              $content->setVariable("ALREADY_BUDDY", "Ist bereits ein Favorit");
                           }
                           $content->parse("BLOCK_SEARCH_RESULTS_BUDDY");
                           $loopCount++;
@@ -229,7 +230,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                               $content->setVariable("ADD_FAVORITE_GROUP", "Als Favorit hinzufügen");
                               $content->setVariable("FAVORITE_GROUP_LINK", PATH_URL . "favorite/add/" . $urlId . "/" . $category . "/");
                           } else {
-                              $content->setVariable("ALREADY_GROUP", "Bereits Teil der Favoritenliste");
+                              $content->setVariable("ALREADY_GROUP", "Ist bereits ein Favorit");
                           }
                           $content->parse("BLOCK_SEARCH_RESULTS_GROUP");
                           $loopCount++;
@@ -239,7 +240,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
           }
 
           if ($loopCount == 0 || (count($searchResult) == 0)) {
-              $content->setVariable("NO_RESULT", "Suchanfrage ergab keinen Treffer");
+              $content->setVariable("NO_RESULT", "Die Suchanfrage ergab keinen Treffer.");
           }
       }
 

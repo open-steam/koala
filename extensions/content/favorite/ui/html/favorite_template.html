@@ -1,27 +1,27 @@
-<table width="100%">
+<table style="width:100%;">
 	<tr>
-		<td width="50%" style="vertical-align:top;">
+		<td style="vertical-align:top; width:50%;">
 
 			<!-- BEGIN Search_Part -->
 
 			<form action="" method="post">
-			<table width="100%" cellpadding="5" cellspacing="0">
+			<table>
 				<tr>
 					<th colspan="2" class="group" style="text-align:left; font-size:18px;">{TITLE}</th>
 				</tr>
-				<tr>
-					<!--<td class="label">{SEARCH}:</td> -->
-					<td class="value"><input type="text" name="searchString" size="14" placeholder={SEARCH} style="font-size:14px;height:24px;border-radius:3px;"/></td>
-					<td class="value"><input class="bidButton" type="submit" name="action" value="{BUTTON_LABEL}" /></td>
+				<tr style="display:inline;">
+					<td class="value" style="padding-top: 10px; padding-left:0px;"><input type="radio" id="radio1" class="bidRadio left" {PRE_SELECT_USER} value="searchUser" name="searchType"><label for="radio1">{USER_LOGIN}</label>
+					<td class="value" style="padding-top: 10px; padding-left:0px;"><input type="radio" id="radio2" class="bidRadio" {PRE_SELECT_FULLNAME} value="searchUserFullname" name="searchType"><label for="radio2">{USER_FULLNAME}</label>
+					<td class="value" style="padding-top: 10px; padding-left:0px;"><input type="radio" id="radio3" class="bidRadio right" {PRE_SELECT_GROUP} value="searchGroup" name="searchType"><label for="radio3">{GROUPS}</label>
 				</tr>
-				<tr>
-					<td class="value" width="29%"><input type="radio" {PRE_SELECT_USER} style="width: 20px;" value="searchUser" name="searchType">{USER_LOGIN}
-					<td class="value" width="31%"><input type="radio" {PRE_SELECT_FULLNAME} style="width: 20px;" value="searchUserFullname" name="searchType">{USER_FULLNAME}
-					<td class="value"><input type="radio" {PRE_SELECT_GROUP} style="width: 20px;" value="searchGroup" name="searchType"> {GROUPS}
+				<tr style="display:inline;">
+					<!--<td class="label">{SEARCH}:</td> -->
+					<td class="value" style="padding-top: 10px;"><input type="text" name="searchString" placeholder={SEARCH} style="font-size:14px;height:25px;border-radius:3px;margin-left:-3px;width:175px;"/></td>
+					<td class="value" style="padding-top:10px;"><input class="bidButton" type="submit" name="action" value="{BUTTON_LABEL}" style="height: 31px;"/></td>
 				</tr>
 			</table>
 			</form>
-			<table width="90%" cellpadding="5" cellspacing="0">
+			<table style="padding-top: 10px;">
 				<!-- BEGIN BLOCK_NO_RESULT -->
 				<tr>
 					<th style="text-align:left;">{NO_RESULT}</th>
@@ -30,37 +30,36 @@
 
 				<!-- BEGIN BLOCK_SEARCH_TITLE -->
 				<tr>
-					<th colspan="2" class="group" style="text-align:left; font-size:18px;">{SEARCH_RESULTS}</th>
+					<th colspan="2" class="group" style="text-align:left; font-size:18px; padding-bottom: 10px;">{SEARCH_RESULTS}</th>
 				</tr>
 
 				<!-- END BLOCK_SEARCH_TITLE -->
 				<!-- BEGIN BLOCK_SEARCH_RESULTS_BUDDY -->
 				<tr>
-					<td style="align:left;" width="40"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
-					<td class="value"><div style=""><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></div></td>
+					<td style="width: 60px;"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
+					<td class="value" style="width: 200px; word-break: break-all;"><div style=""><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></div></td>
 
 					<!--  <td class="label" style="width:300px;vertical-align:middle">{BUDDY_NAME}</td> -->
 					<!-- BEGIN BLOCK_SEARCH_RESULTS2_BUDDY -->
 					<td class="value">
-					<div class="actionBar" style="margin: 0px"><a class="bidButton"
-						href="{FAVORITE_BUDDY_LINK}">{ADD_FAVORITE_BUDDY}</a></div>
+					<div style="padding-left: 10px"><a class="bidButton positive" href="{FAVORITE_BUDDY_LINK}">{ADD_FAVORITE_BUDDY}</a></div>
 					</td>
 					<!-- END BLOCK_SEARCH_RESULTS2_BUDDY -->
 					<!-- BEGIN BLOCK_ALREADY_FAV -->
-					<td class="value">{ALREADY_BUDDY}</td>
+					<td class="value" style="padding-left:10px;">{ALREADY_BUDDY}</td>
 					<!-- END BLOCK_ALREADY_FAV -->
 				</tr>
 				<!-- END BLOCK_SEARCH_RESULTS_BUDDY -->
 
 				<!-- BEGIN BLOCK_SEARCH_RESULTS_GROUP -->
 				<tr>
-					<td class="label" style="vertical-align:middle;">{GROUP_NAME}</td>
-					<td class="value" style="vertical-align:middle;">{GROUP_DESC}</td>
+					<td class="label" style="vertical-align:middle; width:150px; word-break: break-all;">{GROUP_NAME}</td>
+					<td class="value" style="vertical-align:middle; width:150px; word-break: break-all; color:#AAAAAA;">{GROUP_DESC}</td>
 
 					<!-- BEGIN BLOCK_SEARCH_RESULTS2_GROUP -->
 
 					<td class="value">
-					<div class="actionBar" style="margin: 0px"><a class="bidButton"
+					<div><a class="bidButton positive"
 						href="{FAVORITE_GROUP_LINK}">{ADD_FAVORITE_GROUP}</a></div>
 					</td>
 					<!-- END BLOCK_SEARCH_RESULTS2_GROUP -->
@@ -78,17 +77,17 @@
 			<!-- BEGIN List_Part -->
 
 		</td>
-		<td width="50%" style="vertical-align:top;">
-<table width="95%" cellpadding="5" cellspacing="0">
+		<td style="vertical-align:top; width:50%;">
+<table>
 	<tr>
-		<th colspan="2" class="group" style="text-align:left; font-size:18px;">{FAVORITE_BUDDYS}</th>
+		<th colspan="2" class="group" style="text-align:left; font-size:18px; padding-bottom:10px;">{FAVORITE_BUDDYS}</th>
 	</tr>
 	<!-- BEGIN BLOCK_BUDDY_LIST -->
 	<tr>
 
-		<td  width="100"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
-		<td class="value"><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></td>
-		<td class="value"><div class="actionBar" style="margin:0px"><a class="bidButton negative" href="{DELETE_BUDDY_LINK}">{DELETE_BUDDY}</a></div></td>
+		<td style="width: 60px;"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
+		<td class="value" style="width: 260px; word-break: break-all;"><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></td>
+		<td class="value" style="padding-left: 10px;"><div><a class="bidButton negative" href="{DELETE_BUDDY_LINK}">{DELETE_BUDDY}</a></div></td>
 
 	</tr>
 	<!-- END BLOCK_BUDDY_LIST -->
@@ -98,17 +97,17 @@
 	</tr>
 	<!-- END BLOCK_BUDDY_LIST2 -->
 	<tr>
-		<th colspan="2" class="group" style="text-align:left; font-size:18px;">{FAVORITE_GROUPS}</th>
+		<th colspan="2" class="group" style="text-align:left; font-size:18px; padding-top: 10px;">{FAVORITE_GROUPS}</th>
 	</tr>
 </table>
-<table width="95%" cellpadding="5" cellspacing="0">
+<table>
 	<!-- BEGIN BLOCK_GROUP_LIST -->
 
 	<tr>
-		<td class="label" style="vertical-align:middle;">{GROUP_NAME}</td>
-		<td class="value" style="vertical-align:middle;" >{GROUP_DESC}</td>
+		<td class="label" style="vertical-align:middle;width:165px;word-break:break-all;">{GROUP_NAME}</td>
+		<td class="value" style="vertical-align:middle;width:165px;color:#AAAAAA;word-break:break-all;" >{GROUP_DESC}</td>
 		<!-- BEGIN BLOCK_GROUP_LIST2 -->
-		<td class="value"><div class="actionBar" style="margin:0px"><a class="bidButton negative" href="{DELETE_GROUP_LINK}">{DELETE_GROUP}</a></div></td>
+		<td class="value"><div><a class="bidButton negative" href="{DELETE_GROUP_LINK}">{DELETE_GROUP}</a></div></td>
 		<!-- END BLOCK_GROUP_LIST2 -->
 	</tr>
 	<!-- END BLOCK_GROUP_LIST -->
