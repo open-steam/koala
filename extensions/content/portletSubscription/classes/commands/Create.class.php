@@ -41,8 +41,26 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
                 "PORTLET_SUBSCRIPTION_ORDER" => $params["sort"]
 	    ));
             
+            $currentContent = Create::getCurrentContent($params["objectid"]);
+            
+            $subscriptionPortlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $currentContent);
+            
+            
+            \ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($column->get_environment()->get_id());
+	}
+	
+        public function idResponse(\IdResponseObject $idResponseObject) {
+	
+	}
+        /**
+         * 
+         * @param type $objectId folder's or portal's objectId
+         * @return type returns an array with the content or -1 if the object type is not supported
+         */
+        public static function getCurrentContent($objectId){
             //if the object is a folder or a portal, we initially add all existing content to the PORTLET_SUBSCRIPTION_CONTENT variable to track the content
-            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["objectid"]);
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+            
             switch (getObjectType($object)){
                 case "room":
                     foreach($object->get_inventory() as $element){
@@ -56,17 +74,14 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
                             $currentContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_DESC));
                         }
                     }
+                break;
+                
+                default: return -1; //no object with an inventory
+                
             }
             
-            $subscriptionPortlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $currentContent);
-            
-            
-            \ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($column->get_environment()->get_id());
-	}
-	
-        public function idResponse(\IdResponseObject $idResponseObject) {
-	
-	}
+            return $currentContent;
+        }
         
         public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		

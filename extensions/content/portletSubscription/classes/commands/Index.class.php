@@ -46,9 +46,9 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
         //the object could be created, we can read the object and it is not moved to the trashbin (deleted for the user)
         if ($subscriptionObject instanceof \steam_object && $subscriptionObject->check_access_read() && !strpos($subscriptionObject->get_attribute("OBJ_PATH"), "trashbin")) {
-            if($portlet->get_name() !== "Änderungen in ".$subscriptionObject->get_name()){
-                $portlet->set_attribute("OBJ_NAME", "Änderungen in ".$subscriptionObject->get_name());
-            }
+           // if($portlet->get_name() !== "Änderungen in ".$subscriptionObject->get_name()){
+             //   $portlet->set_attribute("OBJ_NAME", "Änderungen in ".$subscriptionObject->get_name());
+            //}
 
             //$portletName = getCleanName($portlet);
             $portletName = $portlet->get_name();
@@ -63,6 +63,8 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             //headline
             $tmpl->setCurrentBlock("BLOCK_FOLDER_HEADLINE");
             $tmpl->setVariable("HEADLINE", $portletName);
+            
+            $updates = $portletInstance->calculateUpdates($subscriptionObject, $portlet);
 
             //reference icon
             if ($portletIsReference) {
@@ -97,15 +99,24 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             } else {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline");
             }
+            
+            if(count($updates) > 1 ){
+                
+                $tmpl->setCurrentBlock("BLOCK_HIDE_BUTTON");
+                    $tmpl->setVariable("HIDE_ALL_BUTTON", \PortletSubscription\Subscriptions\AbstractSubscription::getElementJS($portlet->get_id(), -1, time(), ""));
+                $tmpl->parse("BLOCK_HIDE_BUTTON");
+            }
+                
             $tmpl->parse("BLOCK_FOLDER_HEADLINE");
 
-            $updates = $portletInstance->calculateUpdates($subscriptionObject, $portlet);
+            
 
             if (count($updates) === 0) {
                 $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                 $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Keine Neuigkeiten</h3>");
                 $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
             } else {
+                
                 foreach ($updates as $update) {
                     $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                     $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", $update[2]);
