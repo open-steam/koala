@@ -83,8 +83,8 @@
         <table>
           <tbody style="display:block;">
             <tr class="infoBar" style="height:23px;">
-                <td width=27%><b>Meine Favoriten (Benutzer)</b></td>
-                <td width=18%><b>Rechte</b></td>
+                <td width="27%"><b>Meine Favoriten (Benutzer)</b></td>
+                <td width="18%"><b>Rechte</b></td>
             </tr>
           <tbody>
           <tbody class="scrollable-user" style="display:block;{CSS_USER}">
@@ -174,14 +174,20 @@
     
     $('#acquire_checkbox').change(
         function() {
-            //reset every dropdown list to its initial value and remove the changed status
-            $('select.non-acq.changed').each(function(number, obj) {
-                firstTime = true;
-                $(obj).removeClass('changed');
-                $(obj).val($(obj).attr('data-oldValue'));
-                $(obj).trigger('change');
-                firstTime = false;
-            });
+            if($('#acquire_checkbox').is(':checked')){
+                //reset every dropdown list to its initial value and remove the changed status
+                $('select.non-acq.changed').each(function(number, obj) {
+                    firstTime = true;
+                    $(obj).removeClass('changed');
+                    $(obj).val($(obj).attr('data-oldValue'));
+                    $(obj).trigger('change');
+                    firstTime = false;
+                });
+            } else {
+                $('select.non-acq').each(function(number, obj) {
+                    $(obj).addClass('changed');
+                });
+            }
         
             //add the changed class to this object
             if(($('#acquire_checkbox').is(':checked') && "{ACQUIRE_START}" != "acq") || (!$('#acquire_checkbox').is(':checked') && "{ACQUIRE_START}" == "acq")) {

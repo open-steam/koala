@@ -453,6 +453,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlEveryoneAcq->setType("group");
         $ddlEveryoneAcq->setReadOnly(true);
         $ddlEveryoneAcq->addDataEntries(self::getOptionsValues());
+        $ddlEveryoneAcq->setStartValue($dropdownValueAcq);
         
         $this->content->setCurrentBlock("GROUP_EVERYONE_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlEveryoneAcq->getHtml());    
@@ -498,6 +499,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ddlSteamAcq->setType("group");
         $ddlSteamAcq->setReadOnly(true);
         $ddlSteamAcq->addDataEntries(self::getOptionsValues());
+        $ddlSteamAcq->setStartValue($this->dropdownValueAcqSteamGroup);
         
         $this->content->setCurrentBlock("GROUP_STEAM_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlSteamAcq->getHtml());    
