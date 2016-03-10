@@ -82,9 +82,7 @@ class FolderSubscription extends AbstractSubscription {
                     );
                     
                     //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
-                    if(!array_key_exists($object->get_id(), $formerContent)){
-                        $formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
-                    }
+                    $formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
                 }
                 
                 
@@ -104,6 +102,10 @@ class FolderSubscription extends AbstractSubscription {
                             \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                         )
                     );
+                    
+                    if(array_key_exists($object->get_id(), $formerContent)){
+                        $formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
+                    }
                 }
                 
                 
@@ -122,6 +124,10 @@ class FolderSubscription extends AbstractSubscription {
                             \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                         )
                     );
+                    
+                    if(array_key_exists($object->get_id(), $formerContent)){
+                        $formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
+                    }
                 }
                 
                 //$portletInstance = \PortletSubscription::getInstance();
