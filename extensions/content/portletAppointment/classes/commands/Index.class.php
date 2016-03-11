@@ -123,7 +123,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $sortOrder = $portletObject->get_attribute("bid:portlet:app:app_order");
 
-            $sortOrderBool = false; 
+            $sortOrderBool = false;
             if (($sortOrder === "latest_first")){
                 $sortOrderBool = true;
             }
@@ -170,49 +170,44 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 }
 
                 $indexCount++;
-                $dash = false;
+                $endterm = false;
 
                 if ($appointment["start_date"]["day"] != "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_STARTDATE");
                     $tmpl->setVariable("STARTDATE", $appointment["start_date"]["day"] . "." . $appointment["start_date"]["month"] . "." . $appointment["start_date"]["year"]);
-                    $tmpl->setVariable("ENDDATE_ROW", "");
                     $tmpl->parse("BLOCK_TERM_STARTDATE");
                 }
 
                 if (trim($appointment["location"]) != "" && trim($appointment["location"]) != "0") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_LOCATION");
                     $tmpl->setVariable("LOCATION", $UBB->encode($appointment["location"]));
-                    $tmpl->setVariable("LOCATION_ROW", "");
                     $tmpl->parse("BLOCK_TERM_LOCATION");
                 }
 
                 if ($appointment["end_date"]["day"] != "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_ENDDATE");
                     $tmpl->setVariable("ENDDATE", $appointment["end_date"]["day"] . "." . $appointment["end_date"]["month"] . "." . $appointment["end_date"]["year"]);
-                    $tmpl->setVariable("ENDDATE_ROW", "");
                     $tmpl->parse("BLOCK_TERM_ENDDATE");
-                    $tmpl->setCurrentBlock("BLOCK_TERM_DASH");
-                    $tmpl->setVariable("DASH", "&nbsp;-&nbsp;");
-                    $tmpl->parse("BLOCK_TERM_DASH");
-                    $dash = true;
+                    $tmpl->setCurrentBlock("BLOCK_TERM_ENDTERM");
+                    $tmpl->setVariable("ENDTERM", "Ende:");
+                    $tmpl->parse("BLOCK_TERM_ENDTERM");
+                    $endterm = true;
                 }
 
                 if ($appointment["start_time"]["hour"] != "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_STARTTIME");
                     $tmpl->setVariable("STARTTIME", $appointment["start_time"]["hour"] . "." . $appointment["start_time"]["minutes"] . " Uhr");
-                    $tmpl->setVariable("TIME_ROW", "");
                     $tmpl->parse("BLOCK_TERM_STARTTIME");
                 }
 
                 if ($appointment["end_time"]["hour"] != "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_ENDTIME");
                     $tmpl->setVariable("ENDTIME", $appointment["end_time"]["hour"] . "." . $appointment["end_time"]["minutes"] . " Uhr");
-                    $tmpl->setVariable("TIME_ROW", "");
                     $tmpl->parse("BLOCK_TERM_ENDTIME");
-                    if(!$dash){
-                      $tmpl->setCurrentBlock("BLOCK_TERM_DASH");
-                      $tmpl->setVariable("DASH", "&nbsp;-&nbsp;");
-                      $tmpl->parse("BLOCK_TERM_DASH");
+                    if(!$endterm){
+                      $tmpl->setCurrentBlock("BLOCK_TERM_ENDTERM");
+                      $tmpl->setVariable("ENDTERM", "Ende:");
+                      $tmpl->parse("BLOCK_TERM_ENDTERM");
                     }
                 }
 
