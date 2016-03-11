@@ -16,6 +16,11 @@
     display:none;
 }
 
+.portal .hide_all_button{
+    float:right;
+    color:white;
+}
+
 .portal {
     padding-top: 1px;
 }
