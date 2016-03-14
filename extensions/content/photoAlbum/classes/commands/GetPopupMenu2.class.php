@@ -28,6 +28,7 @@ class GetPopupMenu2 extends \AbstractCommand implements \IAjaxCommand {
         $explorerUrl = \Explorer::getInstance()->getAssetUrl();
         if (!in_array($this->id, $this->selection) || (in_array($this->id, $this->selection) && $count == 1)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            $name = $object->get_name();
             $env = $object->get_environment();
 
             $inventory = $env->get_inventory();
@@ -62,6 +63,7 @@ class GetPopupMenu2 extends \AbstractCommand implements \IAjaxCommand {
                 $propertiesIcon = $explorerUrl . "icons/menu/properties.png";
                 $rightsIcon = $explorerUrl . "icons/menu/rights.png";
                 $blankIcon = $explorerUrl . "icons/menu/blank.png";
+                $downloadIcon = $explorerUrl . "icons/menu/download.png";
 
                 $items = array(
                     array("name" => "Kopieren<img src=\"{$copyIcon}\">", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
@@ -77,7 +79,7 @@ class GetPopupMenu2 extends \AbstractCommand implements \IAjaxCommand {
                     array("name" => "SEPARATOR"),
                     array("raw" => "<a href=\"#\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'updater',null,null,'explorer'); } jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open'); return false;\">Umbenennen<img src=\"{$renameIcon}\"></a>"),
                     (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index")) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
-                    (($object instanceof \steam_document) && (strstr($object->get_attribute(DOC_MIME_TYPE), "text"))) ? array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/") : "",
+                    (($object instanceof \steam_document) && ($object->get_attribute(DOC_MIME_TYPE) != "text/html") && ($object->check_access(SANCTION_READ))) ? array("name" => "Herunterladen<img src=\"{$downloadIcon}\">", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $name) : "",
                     array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
                     array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"));
             }

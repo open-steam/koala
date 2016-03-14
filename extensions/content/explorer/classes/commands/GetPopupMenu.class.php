@@ -30,6 +30,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		if (!in_array($this->id, $this->selection) ||(in_array($this->id, $this->selection) && $count == 1)) {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+			$name = $object->get_name();
 			$env = $object->get_environment();
 
 			$firstElement = 0;
@@ -75,6 +76,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
         $blankIcon = $explorerUrl . "icons/menu/blank.png";
         $subscribeIcon = $explorerUrl . "icons/subscribe.png";
         $unsubscribeIcon = $explorerUrl . "icons/unsubscribe.png";
+				$downloadIcon = $explorerUrl . "icons/menu/download.png";
 
         $subscription = "";
         //prepare subscription element it it is an enabled extension
@@ -120,7 +122,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             ($this->logged_in) ? array("name" => "SEPARATOR") : "",
             array("raw" => "<a href=\"#\" style=\"width:500px;\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'updater'); } jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open'); return false;\">Umbenennen<img src=\"{$renameIcon}\"></a>"),
             (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index") && ($object->check_access(SANCTION_READ))) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
-            (($object instanceof \steam_document) && (strstr($object->get_attribute(DOC_MIME_TYPE), "text")) && ($object->check_access(SANCTION_WRITE))) ? array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/") : "",
+            (($object instanceof \steam_document) && ($object->get_attribute(DOC_MIME_TYPE) != "text/html") && ($object->check_access(SANCTION_READ))) ? array("name" => "Herunterladen<img src=\"{$downloadIcon}\">", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $name) : "",
             array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
 
             //display rights dialog for a postbox or for a non postbox object
