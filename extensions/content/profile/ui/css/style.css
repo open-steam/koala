@@ -39,8 +39,8 @@
      display: block !important;
 }
 
-.widgets_radiobutton > div {
-     padding-left: 90px;
+.widgets_radiobutton > div:first-child {
+     padding-left: 55px;
 }
 
 .widgets_combobox > select {

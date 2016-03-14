@@ -222,20 +222,18 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     								. $script
     								. '</script>');
             $frameResponseObject->addWidget($rawHtml);
-
+            /*
             $contact_label = gettext("All Users");
             if (PLATFORM_ID == "bid") {
                 $contact_label = "Meine Favoriten";
             }
-
+            */
             // general information label
             $generalLabel = new \Widgets\RawHtml();
             $generalLabel->setHtml("<div class='grid' style='display:table; width:70%; margin-left:5px;'>
                     <div style='width:770px'>
-                        <div style='display:table-cell; width:365px; font-size: 15px;'><b>Allgemeine Informationen</b></div>
-                        <div style='display:table-cell; width:35px;'><center><b>Alle</b></center></div>
-                        <div style='display:table-cell; width:170px;'><center><b> $contact_label </b></center></div>
-                        <div style='display:table-cell; width:50px;'><center><b>Niemand</b></center></div>
+                        <div style='display:table-cell; width:335px; font-size: 15px;'><b>Allgemeine Informationen</b></div>
+                        <div style='display:table-cell; width:100px; font-size: 15px;'><center><b>Sichtbar für:</b></center></div>
                     </div>");
             $frameResponseObject->addWidget($generalLabel);
 
@@ -278,9 +276,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             // initialize options
             $options = array(
-                    array("value" => 0, "name" => ""),  // 0 = all users
-                    array("value" => PROFILE_DENY_ALLUSERS, "name" => ""),  // 1 = only contacts
-                    array("value" => (PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS), "name" => "")   // 3 = no one
+                    array("value" => 0, "name" => "Alle Benutzer", "class" => "bidRadio left"),  // 0 = all users
+                    array("value" => PROFILE_DENY_ALLUSERS, "name" => "Meine Favoriten", "class" => "bidRadio"),  // 1 = only contacts
+                    array("value" => (PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS), "name" => "Niemand", "class" => "bidRadio right")   // 3 = no one
             );
 
             // first name

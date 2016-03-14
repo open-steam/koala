@@ -4,25 +4,21 @@ namespace Widgets;
 
 class RadioButton extends Widget {
 
-    
     private $id;
     private $data;
     private $contentProvider;
     private $readOnly;
     private $label;
-    
     private $options;
     private $defaultChecked;
     private $type = "vertical";
     private $currentValue;
     private $objectId;
-    
-    
+
     public function setId($id){
         $this->id = "id_".$id."_radioButton";
     }
-    
-    
+
     public function setData($data) {
         $this->data = $data;
         if (is_int($data)) {
@@ -55,22 +51,20 @@ class RadioButton extends Widget {
     public function setType($type) {
         $this->type = $type;
     }
-    
+
     public function setCurrentValue($cv) {
         $this->currentValue = $cv;
     }
-    
+
     public function setObjectId($objectId) {
         $this->objectId = $objectId;
     }
-    
-    
-    
+
     public function getHtml() {
         if(!isset($this->id)){
             $this->setId(rand());
         }
-        
+
         $this->getContent()->setVariable("ID2", $this->id);
         if ($this->type == "vertical") {
             $this->getContent()->setCurrentBlock("BLOCK_RADIOBUTTON_VERTICAL");
@@ -113,6 +107,7 @@ class RadioButton extends Widget {
                 $this->getContent()->setVariable("RADIONAME", $this->id);
                 $this->getContent()->setVariable("RADIOVALUE", $option["value"]);
                 $this->getContent()->setVariable("RADIOLABEL", $option["name"]);
+                $this->getContent()->setVariable("RADIOCLASS", $option["class"]);
                 if (isset($this->contentProvider)) {
                     $this->getContent()->setVariable("ONCHANGE", "$(this).addClass('changed');".$this->contentProvider->getUpdateCode($this->data, $this->id));
                 }
@@ -162,6 +157,7 @@ class RadioButton extends Widget {
                 $this->getContent()->setVariable("RADIONAME_HORIZONTAL", $this->id);
                 $this->getContent()->setVariable("RADIOVALUE_HORIZONTAL", $option["value"]);
                 $this->getContent()->setVariable("RADIOLABEL_HORIZONTAL", $option["name"]);
+                $this->getContent()->setVariable("RADIOCLASS_HORIZONTAL", $option["class"]);
                 if (isset($this->contentProvider)) {
                     $this->getContent()->setVariable("ONCHANGE", $this->contentProvider->getUpdateCode($this->data, $this->id));
                 }
@@ -172,7 +168,6 @@ class RadioButton extends Widget {
             }
             $this->getContent()->parse("BLOCK_RADIOBUTTON_HORIZONTAL");
         }
-
         return $this->getContent()->get();
     }
 

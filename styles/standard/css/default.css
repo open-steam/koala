@@ -1446,12 +1446,24 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
     margin: -2px;
 	}
 
+	.bidRadio:disabled + label {
+		background: #6094C5;
+	}
+
 	.bidRadio + label:hover {
   	background: #FFA84D;
 	}
 
+	.bidRadio:disabled + label:hover {
+		background: #6094C5;
+	}
+
 	.bidRadio:checked + label {
 		background: #ff8300;
+	}
+
+	.bidRadio:checked:disabled + label {
+		background: #FFA84D;
 	}
 
 	.bidRadio.left + label{
