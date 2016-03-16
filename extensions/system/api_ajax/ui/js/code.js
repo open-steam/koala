@@ -57,6 +57,10 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                             jQuery.globalEval(responseData.js);
                             createDynamicWrapper("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
                             jQuery.globalEval(responseData.postjs);
+                        } else if (requestType == "inform") {
+                            jQuery.globalEval(responseData.js);
+                            createDynamicWrapper("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
+                            jQuery.globalEval(responseData.postjs);
                         } else if (requestType == "reload") {
                             window.location.reload();
                         } else if (requestType == "wizard") {
@@ -76,7 +80,7 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                 }
             };
         }
-        if (requestType != "data" && requestType != "wizard") {
+        if (requestType != "data" && requestType != "wizard" && requestType != "inform") {
             createOverlay("white", null, "show");
         }
         $.ajax({
