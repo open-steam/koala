@@ -814,7 +814,16 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     function buildDialog(){
         $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
         
-        if(self::isAdmin($this->steamUser)){
+        $isSchoolAdmin = false;
+        
+        $schoolAdminGroup = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
+        
+        if($schoolAdminGroup instanceof \steam_group){
+            $isSchoolAdmin = $schoolAdminGroup->is_member($this->steamUser);
+        }
+        
+        
+        if(self::isAdmin($this->steamUser) || $isSchoolAdmin){
           $this->dialog->setCustomButtons(array(array("class" => "button pill", "js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
         }
 
@@ -825,17 +834,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     }
     
     function isAdmin(\steam_user $candidate){
-        
-        $isSchoolAdmin = false;
-        
-        $schoolAdminGroup = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
-        
-        if($schoolAdminGroup instanceof \steam_group){
-            $isSchoolAdmin = $schoolAdminGroup->is_member($candidate);
+        if(\lms_steam::is_steam_admin($candidate)) {
+            return true;
         }
-        $isSteamAdmin = \lms_steam::is_steam_admin($candidate);
-        
-        if($isSchoolAdmin || $isSteamAdmin) {return true;}
-         else {return false;}
+        else {
+            return false;
+        }
     }
 }
