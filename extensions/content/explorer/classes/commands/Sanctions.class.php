@@ -714,13 +714,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                     $ddl->setCustomClass("non-acq");
                     $ddl->setSteamId($id);
                     
-                    if(self::isAdmin($user)){
-                        $ddl->setType("admin");
-                        $ddl->setStartValue(3);
-                        $ddl->setSaveFunction("");
-                        $ddl->setReadOnly(true);
-                    }
-                    
                     //get all groups, this user is a member of
                     $memberOf = array();
                     foreach($this->groupMapping as $group){
@@ -728,7 +721,15 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
                             $memberOf[] = "#group_".$group->get_id();
                         }
                     }
-                    $ddl->setMembers(implode(',',$memberOf)."#everyone_dd,#steam_dd");
+                    $ddl->setMembers(implode(',',$memberOf).",#everyone_dd,#steam_dd");
+                    
+                    if(self::isAdmin($user)){
+                        $ddl->setType("admin");
+                        $ddl->setMembers("");
+                        $ddl->setStartValue(3);
+                        $ddl->setSaveFunction("");
+                        $ddl->setReadOnly(true);
+                    }
 
                     $this->content->setCurrentBlock("FAVORITES");
                     $this->content->setCurrentBlock("FAV_DDSETINGS");

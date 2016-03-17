@@ -185,7 +185,9 @@
                 });
             } else {
                 $('select.non-acq').each(function(number, obj) {
-                    $(obj).addClass('changed');
+                    if($(obj).attr("data-type") !='admin'){
+                        $(obj).addClass('changed');
+                    }
                 });
             }
         
