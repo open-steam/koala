@@ -32,7 +32,7 @@ jQuery(document).ready(function(){
                     var obj = new Object;
                     obj.id = element.attr('id');
 
-                    sendRequest("GetDirectEditor", obj, item.attr('id'), "updater", null, null, "explorer");
+                    sendRequest("GetDirectEditor", obj, item.attr('id'), "nonModalUpdater", null, null, "explorer");
                 } else {
                     removeAllDirectEditors();
                 }
@@ -69,7 +69,7 @@ function removeDirectEditor(objectId, elementId) {
   //get the new name
 	var obj = new Object;
 	obj.id = objectId;
-	sendRequest("GetLabel", obj, elementId, "updater",null,null,"explorer");
+	sendRequest("GetLabel", obj, elementId, "nonModalUpdater",null,null,"explorer");
 }
 
 function getSelectionAsArray() {
