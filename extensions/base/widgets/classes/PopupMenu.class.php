@@ -65,7 +65,7 @@ class PopupMenu extends Widget {
 					continue;
 				}
 				if (isset($item["command"]) && isset($item["namespace"]) && isset($item["params"])) {
-					$onclick = "event.stopPropagation(); sendRequest('{$item["command"]}', {$item["params"]}, " . (isset($item["elementId"]) ?  "'" . $item["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($item["type"]) ?  "'" . $item["type"] . "'" : "'updater'") . ", null, null, '{$item["namespace"]}');";
+					$onclick = "event.stopPropagation();sendRequest('{$item["command"]}', {$item["params"]}, " . (isset($item["elementId"]) ?  "'" . $item["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($item["type"]) ?  "'" . $item["type"] . "'" : "'updater'") . ", null, null, '{$item["namespace"]}');jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open');";
 				} else {
 					$onclick = "";
 				}
@@ -82,7 +82,7 @@ class PopupMenu extends Widget {
 								$html .= "<div class=\"popupmenuitem\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\">{$subMenuItem["raw"]}</div>";
 							} else {
 								if (isset($subMenuItem["command"]) && isset($subMenuItem["namespace"]) && isset($subMenuItem["params"])) {
-									$onclick = "event.stopPropagation(); sendRequest('{$subMenuItem["command"]}', {$subMenuItem["params"]}, " . (isset($subMenuItem["elementId"]) ?  "'" . $subMenuItem["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($subMenuItem["type"]) ?  "'" . $subMenuItem["type"] . "'" : "'updater'") . ", null, null, '{$subMenuItem["namespace"]}');";
+									$onclick = "event.stopPropagation();sendRequest('{$subMenuItem["command"]}', {$subMenuItem["params"]}, " . (isset($subMenuItem["elementId"]) ?  "'" . $subMenuItem["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($subMenuItem["type"]) ?  "'" . $subMenuItem["type"] . "'" : "'updater'") . ", null, null, '{$subMenuItem["namespace"]}');jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open');";
 								} else {
 									$onclick = "";
 								}
