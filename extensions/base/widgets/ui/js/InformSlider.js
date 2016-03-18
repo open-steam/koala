@@ -1,8 +1,6 @@
-function createInformSlider() {
-  if (!jQuery('#informSlider').size()) {
-    window.requestAnimationFrame(createInformSlider);
-  }
-  else{
+function createInformSlider(id) {
+
+  if(!$('#informSlider').hasClass('ui-dialog-content')){ //dialog already exists
 
     $('#informSlider')
 
@@ -20,6 +18,7 @@ function createInformSlider() {
           	duration: 1000,
           	complete: function() {
              	 dialog.dialog("close");
+               dialog.parent().prev().remove();
                dialog.remove();
              	 $("html").css("overflow-x", origOverflow);
           	}
@@ -33,8 +32,5 @@ function createInformSlider() {
           draggable: false,
           resizable: false
       });
-
     }
 }
-
-createInformSlider();
