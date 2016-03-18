@@ -85,7 +85,6 @@ class ContentProvider implements \Widgets\IContentProvider {
         if (!is_int($cell)) {
             throw new \Exception("cell must be an integer!!");
         }
-        $objType = getObjectType($contentItem);
         if ($cell == $this->rawCheckbox) {
             return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if(this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
         } else if ($cell == $this->rawImage) {
@@ -225,6 +224,7 @@ class ColorProvider implements \Widgets\IColorProvider {
 class ContentFilter implements \Widgets\IContentFilter {
 
     public function filterObject($object) {
+
         if (get_class($object) === "steam_object") {
             return true;
         } else if ($object instanceof \steam_user) {
@@ -241,6 +241,8 @@ class ContentFilter implements \Widgets\IContentFilter {
             return true;
         } else if ($object instanceof \steam_script) {
             return true;
+        } else if ($object instanceof \steam_link && is_null($object->get_link_object())) {
+          return true;
         } else {
             return false;
         }
