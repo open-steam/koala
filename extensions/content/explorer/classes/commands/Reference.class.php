@@ -29,7 +29,7 @@ class Reference extends \AbstractCommand implements \IAjaxCommand {
 		$ajaxResponseObject->addWidget($jswrapper);
 		$informSlider = new \Widgets\InformSlider();
 		$informSlider->setTitle("Information");
-		$informSlider->setPostJsCode("createInformSlider(" . $this->id . ")");
+		$informSlider->setPostJsCode("createInformSlider()");
 		$informSlider->setContent("Die Referenz wurde in der Zwischenablage erstellt.");
 		$ajaxResponseObject->addWidget($informSlider);
 		return $ajaxResponseObject;
