@@ -241,7 +241,7 @@ class ContentFilter implements \Widgets\IContentFilter {
             return true;
         } else if ($object instanceof \steam_script) {
             return true;
-        } else if ($object instanceof \steam_link && is_null($object->get_link_object())) {
+        } else if ($object instanceof \steam_link && $object->get_link_object() == 0) {
           return true;
         } else {
             return false;
