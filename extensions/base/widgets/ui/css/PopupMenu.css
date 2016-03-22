@@ -24,13 +24,14 @@
 	display: block;
 }
 
-.popupmenuwapper {
+.popupmenuwrapper {
 	padding: 5px;
 	filter:alpha(opacity=95);
 	opacity:0.95;
 	background: #eee;
 	border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+	display: none;
 }
 
 .popupmenuitem {
@@ -64,11 +65,11 @@
 	width: 190px;
 	margin-top: -25px;
 	border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    box-shadow: 2px 2px 5px #888888;
-    padding: 5px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: 2px 2px 5px #888888;
+  padding: 5px;
 	filter:alpha(opacity=95);
 	opacity:0.95;
 	background: #eee;

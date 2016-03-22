@@ -24,15 +24,21 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
+		//icons
+		$createIcon = $explorerUrl . "icons/menu/newElement.png";
+		$pasteIcon = $explorerUrl . "icons/menu/paste.png";
+		$editIcon = $explorerUrl . "icons/menu/edit.png";
+
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = 	array(
-						array("name" => "Komponente erstellen",  "command" => "NewPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "Komponente aus Zwischenablage",  "command" => "InsertPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "Spaltenbreite bearbeiten",  "command" => "Edit", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup")
+						array("name" => "Komponente erstellen <img src=\"{$createIcon}\">", "command" => "NewPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
+						array("name" => "Komponente einfügen <img src=\"{$pasteIcon}\">", "command" => "InsertPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
+						array("name" => "Breite bearbeiten <img src=\"{$editIcon}\">", "command" => "Edit", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup")
 					);
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("210px");
+		$popupMenu->setWidth("170px");
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);
 		return $ajaxResponseObject;

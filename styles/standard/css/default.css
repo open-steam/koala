@@ -244,7 +244,7 @@
 		padding: 7px 10px 7px 10px;
 	}
 
-	.popupmenuwapper, #menu {
+	.popupmenuwrapper, #menu {
 		background: #a7a7a7;
 		background: -webkit-gradient(linear, left top, left bottom, from(#bebebe),to(#a1a1a1));
 		background: -moz-linear-gradient(top,#bebebe,#a1a1a1);

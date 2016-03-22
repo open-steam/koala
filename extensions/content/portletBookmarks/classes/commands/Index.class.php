@@ -41,10 +41,10 @@ class Index extends \AbstractCommand implements \IIdCommand {
         }
         $popupMenu = new \Widgets\PopupMenu();
         $popupMenu->setData($obj);
-        $popupMenu->setCommand("GetPopupMenu");
+        $popupMenu->setCommand("GetPopupMenuHeadline");
         $popupMenu->setNamespace("PortletBookmarks");
-        $popupMenu->setElementId("overlay_menu");
-        $popupMenu->setParams(array(array("key" => "id", "value" => $this->id)));
+        $popupMenu->setElementId("portal-overlay");
+        $popupMenu->setParams(array(array("key" => "portletObjectId", "value" => $this->id)));
         $listViewer = new \Widgets\ListViewer();
         $headline = new HeadlineProvider();
         $headline->setWidth($portletWidth);

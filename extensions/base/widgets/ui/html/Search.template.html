@@ -1,7 +1,7 @@
 <script>
     var updateTaglist = function() {
         var value = this.value;
-        var filterButtonID = $(this).prev().attr('id');
+        var filterButtonID = $(this).prev().prev().attr('id');
         if(value == ""){
             $("#"+filterButtonID).hide();
         }
@@ -66,12 +66,11 @@
 <div id="search-area-popupmenu"></div>
 
 <script>
-    $(document).ready(function(){$("#{ID}").keyup(updateTaglist);
-                $("#{ID}").val(decodeURI("{VALUE}"));
-                $(document).bind("listviewerReady", function(){$("#{ID}").each(updateTaglist);});
-
-
+    $(document).ready(function(){
+      $("#{ID}").keyup(updateTaglist);
+      $("#{ID}").val(decodeURI("{VALUE}"));
+      $(document).bind("listviewerReady", function(){
+        $("#{ID}").each(updateTaglist);
+      });
     });
-
-
 </script>

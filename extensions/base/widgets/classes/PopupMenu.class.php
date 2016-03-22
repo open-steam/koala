@@ -59,13 +59,13 @@ class PopupMenu extends Widget {
 	public function getHtml() {
 		$html = "";
 		if ($this->items && is_array($this->items)) {
-			$html .= "<div style=\"position:absolute; top:{$this->y}; left:{$this->x}; width:{$this->width}\" class=\"popupmenuwapper\" onMouseOver=\"event.stopPropagation(); \" onMouseOut=\"event.stopPropagation();\" onMouseMove=\"event.stopPropagation();\">";
+			$html .= "<div style=\"position:absolute; top:{$this->y}; left:{$this->x}; width:{$this->width}\" class=\"popupmenuwrapper\" onMouseOver=\"event.stopPropagation(); \" onMouseOut=\"event.stopPropagation();\" onMouseMove=\"event.stopPropagation();\">";
 			foreach ($this->items as $count => $item) {
 				if (!is_array($item)) {
 					continue;
 				}
 				if (isset($item["command"]) && isset($item["namespace"]) && isset($item["params"])) {
-					$onclick = "event.stopPropagation();sendRequest('{$item["command"]}', {$item["params"]}, " . (isset($item["elementId"]) ?  "'" . $item["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($item["type"]) ?  "'" . $item["type"] . "'" : "'updater'") . ", null, null, '{$item["namespace"]}');jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open');";
+					$onclick = "event.stopPropagation();sendRequest('{$item["command"]}', {$item["params"]}, " . (isset($item["elementId"]) ?  "'" . $item["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($item["type"]) ?  "'" . $item["type"] . "'" : "'updater'") . ", null, null, '{$item["namespace"]}');jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open');";
 				} else {
 					$onclick = "";
 				}
@@ -82,7 +82,7 @@ class PopupMenu extends Widget {
 								$html .= "<div class=\"popupmenuitem\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\">{$subMenuItem["raw"]}</div>";
 							} else {
 								if (isset($subMenuItem["command"]) && isset($subMenuItem["namespace"]) && isset($subMenuItem["params"])) {
-									$onclick = "event.stopPropagation();sendRequest('{$subMenuItem["command"]}', {$subMenuItem["params"]}, " . (isset($subMenuItem["elementId"]) ?  "'" . $subMenuItem["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($subMenuItem["type"]) ?  "'" . $subMenuItem["type"] . "'" : "'updater'") . ", null, null, '{$subMenuItem["namespace"]}');jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open');";
+									$onclick = "event.stopPropagation();sendRequest('{$subMenuItem["command"]}', {$subMenuItem["params"]}, " . (isset($subMenuItem["elementId"]) ?  "'" . $subMenuItem["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($subMenuItem["type"]) ?  "'" . $subMenuItem["type"] . "'" : "'updater'") . ", null, null, '{$subMenuItem["namespace"]}');jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open');";
 								} else {
 									$onclick = "";
 								}
@@ -104,11 +104,13 @@ class PopupMenu extends Widget {
 			$html .= "</div>";
 		} else {
 			if ($this->data->get_environment() instanceof \steam_object) {
-				$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"myId = this.id; jQuery('#' + myId).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; params.env = '{$this->data->get_environment()->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){ jQuery('#'+myId).removeClass('popupmenuloading').addClass('popupmenuanker').addClass('open'); }, null {$this->namespace} );event.stopPropagation();\"></div>";
+				$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"myId = this.id; jQuery('#' + myId).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; params.env = '{$this->data->get_environment()->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){}, null {$this->namespace} );event.stopPropagation();\"></div>";
 			} else {
-				$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"myId = this.id; jQuery('#' + myId).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalupdater', function(response){ jQuery('#'+myId).removeClass('popupmenuloading').addClass('popupmenuanker').addClass('open'); }, null {$this->namespace} );event.stopPropagation();\"></div>";
+				$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"myId = this.id; jQuery('#' + myId).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){}, null {$this->namespace} );event.stopPropagation();\"></div>";
 			}
 		}
+		$script = "jQuery(\".popupmenuwrapper\").children().last().find(\"img\").load(function(){jQuery(\"#\"+myId).removeClass(\"popupmenuloading\").addClass(\"popupmenuanker\").addClass(\"open\");jQuery(\".popupmenuwrapper\").show();})";
+		$html .= "<script>" . $script . "</script>";
 		return $html;
 	}
 }

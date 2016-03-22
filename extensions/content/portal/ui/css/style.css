@@ -133,7 +133,7 @@
     display: block;
 }
 
-.popupmenuwapper {
+.popupmenuwrapper {
     padding: 5px;
     filter:alpha(opacity=95);
     opacity:0.95;
