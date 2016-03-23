@@ -33,13 +33,15 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             $name = $object->get_name();
             $env = $object->get_environment();
 
-            $firstElement = 0;
+            $firstElement;
+            $counter = 0;
             $inventory = $env->get_inventory();
             foreach ($inventory as $key => $element) {
-                if($element instanceof \steam_user || $element instanceof \steam_trashbin) $firstElement++;
+                if($element instanceof \steam_user || $element instanceof \steam_trashbin) $counter++;
                 if ($element->get_id() == $this->id) {
                     $index = $key;
-                    break;
+                    $firstElement = $counter;
+                    $counter = 0;
                 }
             }
 
@@ -117,8 +119,8 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     ($object->check_access(SANCTION_WRITE) && count($inventory) >=2) ? array("name" => "Umsortieren<img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
                         ($index > $firstElement) ? array("name" => "Ganz nach oben<img src=\"{$topIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}", "type" => "nonModalUpdater") : "",
                         ($index > $firstElement) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}", "type" => "nonModalUpdater") : "",
-                        ($index < count($inventory)-1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}", "type" => "nonModalUpdater") : "",
-                        ($index < count($inventory)-1) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}", "type" => "nonModalUpdater") : ""
+                        ($index < count($inventory)-1-$counter) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}", "type" => "nonModalUpdater") : "",
+                        ($index < count($inventory)-1-$counter) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}", "type" => "nonModalUpdater") : ""
                     )) : "",
 
                     ($this->logged_in) ? array("name" => "SEPARATOR") : "",
