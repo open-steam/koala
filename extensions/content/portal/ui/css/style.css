@@ -54,15 +54,14 @@
     background: #396d9c;
     background: -webkit-gradient(linear, left top, left bottom, from(#7599bb),to(#356fa1));
     background: -moz-linear-gradient(top,#7599bb,#356fa1);
-    border: 1px solid #356fa1;
     color: #ffffff;
     padding: 4px;
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-topright: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    -moz-border-top-left-radius: 3px;
+    -moz-border-top-right-radius: 3px;
     -webkit-border-top-left-radius: 3px;
     -webkit-border-top-right-radius: 3px;
-    border-radius-topleft: 3px;
-    border-radius-topright: 3px;
 }
 
 .portlet h2 {
@@ -73,6 +72,7 @@
     color: #333333;
     margin: 0px;
     padding: 4px;
+    margin-top: 1px;
 }
 
 .portlet h3 {

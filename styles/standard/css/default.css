@@ -137,7 +137,6 @@
 
 	#menu_wrapper_bg {
 		border-top: 0px;
-		border-bottom: solid 1px #ffffff;
 	}
 
 	/*adjusted in html file*/
@@ -248,13 +247,12 @@
 		background: #a7a7a7;
 		background: -webkit-gradient(linear, left top, left bottom, from(#bebebe),to(#a1a1a1));
 		background: -moz-linear-gradient(top,#bebebe,#a1a1a1);
-		-moz-border-radius-topleft: 3px;
-		-moz-border-radius-topright: 3px;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		-moz-border-top-left-radius: 3px;
+		-moz-border-top-right-radius: 3px;
 		-webkit-border-top-left-radius: 3px;
 		-webkit-border-top-right-radius: 3px;
-		border-radius-topleft: 3px;
-		border-radius-topright: 3px;
-
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
