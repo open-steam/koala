@@ -14,7 +14,7 @@
             function() {
                 //add the changed class to this object
                 if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
-                if($('#{ID}').attr('data-oldValue') == $('#{ID}').val()){ $('#{ID}').removeClass('changed');}
+                if($('#{ID}').attr('data-oldValue') == $('#{ID}').val() && $('#acquire_checkbox').attr('data-oldValue') != "acq"){ $('#{ID}').removeClass('changed');} //only remove the changed class when the rights inheritance was off, otherwise rights that are equal to the old-value would not be marked as changed and thus not be saved
                 //update the value in the variable
                 {ID} = $('#{ID}').val();
                 
@@ -32,19 +32,15 @@
                 //prevent the everyone rights from beeing disabled to have the possibility to reset the rights to 'private'
                 if($('#{ID}').attr('id') != "everyone_dd"){
                     //mark every right as disabled
-                    //if($("select[data-subGroups*='#{ID}']").val() >= $('#{ID}').val()){
                     for (i = 0; i < $('#{ID}').val(); i++) {
                         $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
                     }
-                    //}
                 
                     //start from the parents right and make every greater right selectable again
                     for (i = $("select[data-subGroups*='#{ID}']").val(); i < 4; i++) {
                         $("#{ID} option[value='"+i+"']").removeAttr("disabled");
                     }
                 }
-                
-                
                
                
                 //update the direct members of the group
@@ -58,8 +54,6 @@
                     }
                 });
                 
-                
-                
             }
         );
     } else if($('#{ID}').attr('data-type') == "user"){
@@ -67,7 +61,7 @@
             function() {
                 //add the changed class to this object
                 if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
-                if($('#{ID}').attr('data-oldValue') == $('#{ID}').val()){ $('#{ID}').removeClass('changed');}
+                if($('#{ID}').attr('data-oldValue') == $('#{ID}').val() && $('#acquire_checkbox').attr('data-oldValue') != "acq"){ $('#{ID}').removeClass('changed');} //only remove the changed class when the rights inheritance was off, otherwise rights that are equal to the old-value would not be marked as changed and thus not be saved
                 //update the value in the variable
                 {ID} = $('#{ID}').val();
                 
