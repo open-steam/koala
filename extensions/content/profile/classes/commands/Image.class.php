@@ -139,7 +139,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("LABEL_UPLOAD", gettext("Upload"));
         $content->setVariable("LABEL_BACK_TO_PROFILE", gettext("Back to Profile"));
 
-        $deleteImageButtonURL = "http://$_SERVER[HTTP_HOST]" . "/widgets/asset/delete.png";
+        $deleteImageButtonURL = PATH_URL . "widgets/asset/delete.png";
         $content->setVariable("DELETE_BUTTON", $deleteImageButtonURL);
 
         $frameResponseObject->setConfirmText($confirmText);
@@ -148,7 +148,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
         $frameResponseObject->addWidget($rawHtml);
 
         $BackToProfileButton = new \Widgets\RawHtml();
-        $BackToProfileButton->setHtml('<a href="http://' . $_SERVER['HTTP_HOST'] . '/profile/index/" class="bidButton" style="margin-top: 150px; margin-bottom: 10px; margin-left: 810px;">Zurück zum Profil</a>');
+        $BackToProfileButton->setHtml('<a href="' . PATH_URL . 'profile/index/" class="bidButton" style="margin-top: 150px; margin-bottom: 10px; margin-left: 810px;">Zurück zum Profil</a>');
         $frameResponseObject->addWidget($BackToProfileButton);
 
         return $frameResponseObject;

@@ -48,10 +48,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $loader->setElementId("clipboardWrapper");
         $loader->setType("updater");
 
+        $environment = new \Widgets\RawHtml();
+        $environment->setHtml("<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
 
         $frameResponseObject->setTitle("Zwischenablage");
         $frameResponseObject->addWidget($breadcrumb);
-        //$frameResponseObject->addWidget($actionBar);
+        $frameResponseObject->addWidget($environment);
         $frameResponseObject->addWidget($loader);
         return $frameResponseObject;
     }

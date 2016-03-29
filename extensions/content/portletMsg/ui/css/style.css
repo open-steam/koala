@@ -7,6 +7,7 @@
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+	word-wrap: break-word;
 }
 
 .portlet.messages .message {
@@ -16,9 +17,13 @@
   	padding: 4px;
 }
 
+.portlet.messages .message.hidden {
+  	display: none;
+}
+
 .portlet.messages .message h2 {
 	font-size: 12px;
-  	margin: -4px -4px 4px -4px;
+  	margin: -3px -4px 4px -4px;
   	padding: 4px 4px 4px 8px;
 }
 
@@ -33,7 +38,7 @@
 .portlet.messages .message p {
   	margin-top: 0px;
 }
-	
+
 .portlet.messages .message .footer {
   	padding: 5px;
 }
@@ -52,6 +57,16 @@
   	float: left;
   	margin-right: 4px;
   	margin-bottom: 4px;
+}
+
+.portlet.messages .message img.top {
+	display: block;
+	margin: 0 auto;
+}
+
+.portlet.messages .message img.bottom {
+	display: block;
+	margin: 0 auto;
 }
 
 .portlet.messages .podcast {

@@ -36,7 +36,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference handling
         $params = $requestObject->getParams();
-        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
@@ -54,7 +53,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $htmlBody = "";
 
-        //hack
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
 
         //get content of portlet
@@ -74,7 +72,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl = new \HTML_TEMPLATE_IT();
         $tmpl->loadTemplateFile($portletFileName);
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
-
 
         if (sizeof($content) > 0) {
             //popupmenu
@@ -140,7 +137,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                       $max_votecount = $option_votecount;
               }
 
-              //refernce icon
+              //reference icon
               if ($portletIsReference) {
                   $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
                   $envId = $portlet->get_environment()->get_environment()->get_id();
@@ -170,7 +167,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
               $userTimeTable.= "<th style='background-color:#E0E0E0;'>Name</th>";
               $optionsCount = 0;
 
-
               foreach ($options as $option) {
                   if ($option != "") {
                       //show
@@ -179,8 +175,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                       $userTimeTable.="<th style='background-color:#E0E0E0;'>$optionText</th>";
                   }
               }
-              $userTimeTable.= "</tr>";
 
+              $userTimeTable.= "</tr>";
 
               $userVoteArray = array();
               foreach ($mapping as $username => $encodedTermChoices) {
@@ -196,7 +192,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                       }
                   }
               }
-
 
               //initialize votecount
               $voteCount = array();
@@ -220,7 +215,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
                   $backGroundGreen = "#99EE99";
 
-
                   for ($i = 0; $i < $optionsCount; $i++) {
                       //$userTimeTable.= "<td>";
                       $portletId = $portlet->get_id();
@@ -234,7 +228,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                               $userTimeTable.="<input onclick='$voteCommand;'  type='checkbox' name='termitem' value='$i' checked='checked'>";
 
                           if (!$pollActive)
-                              $userTimeTable.="<input type='checkbox' checked disabled>";
+                              $userTimeTable.="";
                           $voteCount[$i]++;
                           $userTimeTable.= "</td>";
                       }else {
@@ -313,8 +307,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                   $userTimeTable.= "<td class='termplansum' id='" . $portletId . "TermSum$i'>$voteCount[$i]</td>";
               }
               $userTimeTable.= "</tr>";
-
-
 
               $userTimeTable.= "</table>";
               //table created

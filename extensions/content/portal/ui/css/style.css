@@ -1,5 +1,5 @@
 .portal-warning{
-    width:920px;        
+    width:920px;
     color: #000000;
     padding: 4px;
     padding-bottom: 40px;
@@ -16,8 +16,13 @@
     display:none;
 }
 
+.portal .hide_all_button{
+    float:right;
+    color:white;
+}
+
 .portal {
-    padding-top: 1px;       
+    padding-top: 1px;
 }
 
 #portal-overlay {
@@ -49,15 +54,14 @@
     background: #396d9c;
     background: -webkit-gradient(linear, left top, left bottom, from(#7599bb),to(#356fa1));
     background: -moz-linear-gradient(top,#7599bb,#356fa1);
-    border: 1px solid #356fa1;
     color: #ffffff;
     padding: 4px;
-    -moz-border-radius-topleft: 3px;
-    -moz-border-radius-topright: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    -moz-border-top-left-radius: 3px;
+    -moz-border-top-right-radius: 3px;
     -webkit-border-top-left-radius: 3px;
     -webkit-border-top-right-radius: 3px;
-    border-radius-topleft: 3px;
-    border-radius-topright: 3px;
 }
 
 .portlet h2 {
@@ -68,6 +72,7 @@
     color: #333333;
     margin: 0px;
     padding: 4px;
+    margin-top: 1px;
 }
 
 .portlet h3 {
@@ -101,7 +106,7 @@
 
 
 
-/*workaround for showing gear menu BEGIN*/ 
+/*workaround for showing gear menu BEGIN*/
 
 .popupmenuanker {
     float: right;
@@ -109,7 +114,7 @@
     height: 16px;
     width: 16px;
     margin-right: 5px;
-    background-image: url("{PATH_URL}widgets/asset/config_grey_16.png");	
+    background-image: url("{PATH_URL}widgets/asset/config_grey_16.png");
 }
 
 .listviewer-item-unhover .popupmenuanker {
@@ -128,7 +133,7 @@
     display: block;
 }
 
-.popupmenuwapper {
+.popupmenuwrapper {
     padding: 5px;
     filter:alpha(opacity=95);
     opacity:0.95;
@@ -145,6 +150,8 @@
 
 .popupmenuitem img{
     margin-left: 3px;
+    position: relative;
+    top: 3px;
 }
 
 .popupmenuitem:hover {
@@ -153,7 +160,7 @@
 
 .popupmenuseparator {
     height: 1px;
-    border-top: 1px solid #ccc; 
+    border-top: 1px solid #ccc;
 }
 
 .popupmenuitem:hover .popupsubmenuwapper {
@@ -179,7 +186,7 @@
 .popupsubmenuanker {
     background-image: url("{PATH_URL}widgets/asset/arrow_left.png");
     background-repeat: no-repeat;
-    background-position: 0px 5px; 
+    background-position: 0px 5px;
 }
 
 .popupsubmenuwapper.left {

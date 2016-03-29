@@ -23,7 +23,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
         $dialog->setTitle("Einfügen einer Meldung");
         $dialog->setCancelButtonLabel(NULL);
         $dialog->setSaveAndCloseButtonLabel(NULL);
-        $dialog->setWidth("600");
+        $dialog->setWidth("450");
         $ajaxForm = new \Widgets\AjaxForm();
         $insertOption = new \Widgets\DropDownList();
         $insertOption->setName("insertOptionName");
@@ -34,7 +34,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
         $insertOption->setOptionValues($optionValues);
         $insertOption->setStartValue("oben");
         $insertOption->setClass("attribute");
-        
+
         $ajaxForm->setSubmitCommand("CreateMessage");
         $ajaxForm->setSubmitNamespace("PortletMsg");
 
@@ -47,9 +47,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 
 .attributeName {
   float: left;
-  padding-right: 20px;
-  text-align: right;
-  width: 100px;
+  width: 126px;
 }
 
 .attributeNameRequired {
@@ -71,6 +69,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 .widgets_textarea {
     width:250px;
     float:left;
+    height:210px;
 }
 .attributeValueColumn {
   float: left;
@@ -79,28 +78,29 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 }
 </style>
 <input type="hidden" name="id" value="{$this->id}">
-
-
-
 <div class="attribute">
 	<div class="attributeName">Überschrift:</div>
 	<div><input type="text" class="text" value="" name="title"></div>
 </div>
 <div class="attribute">
-    <div class="attributeName">Meldung einfügen:</div>
+	<div class="attributeName">Untertitel:</div>
+	<div><input type="text" class="text" value="" name="subtitle"></div>
+</div>
+<div class="attribute">
+    <div class="attributeName">Einfügen:</div>
     <div><select name="insertOption"
-        id="insertOptionId" size="1">        
+        id="insertOptionId" size="1">
         <option value="0">oben</option>
         <option value="1">unten</option>
 </select> </div>
    </div>
 <div class="attribute">
-	<div class="attributeName">Text:</div>
-	<div class="widgets_textarea"><textarea rows="10" style="height:206px;width:480px;" class="mce-small"  value="" name="text" id="text"></textarea><br clear="all">
+	<div class="attributeName">Inhalt:</div>
+	<div class="widgets_textarea"><textarea rows="10" style="height:206px;width:325px;" class="mce-small"  value="" name="text" id="text"></textarea><br clear="all">
 	<script type="text/javascript">
 		    	var mce_defaults = {
 	    			mode : "specific_textareas",
-	    			
+
 	    			// General options
 					theme : "advanced",
 					content_css : "{PATH_URL}widgets/css/tinymce.css",
@@ -109,7 +109,7 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 				    convert_urls : false,
 				    verify_html: "false",
 					language: "de",
-					
+
 					// Theme options
 					theme_advanced_buttons3 : "",
 					theme_advanced_buttons4 : "",
@@ -117,20 +117,20 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 					theme_advanced_toolbar_align : "left",
 					theme_advanced_statusbar_location : "none",
 					theme_advanced_resizing : false,
-					
+
 	    	};
-	    	
-	    	
+
+
 	    		load("mce", function() {
 					tinyMCE.init($.extend({
-						editor_selector: "mce-small", 
+						editor_selector: "mce-small",
 						plugins : "emotions,paste,noneditable",
 						// Theme options
 						theme_advanced_buttons1 : "bold,italic,underline,|,bullist,numlist,|,image,link,unlink,|,forecolor,removeformat,|,undo,redo,pasteword",
 						theme_advanced_buttons2 : ""
 					}, mce_defaults));
 	    		});
-	
+
 
 	</script>
 </div>
@@ -138,12 +138,26 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
 <div class="attribute">
 	<div><input type="hidden" name="parent" value="{$this->id}"></div>
 </div>
-
-
+<div class="attribute">
+	<div class="attributeName">Link-Text:</div>
+	<div><input type="text" class="text" value="" name="linkText"></div>
+</div>
+<div class="attribute">
+	<div class="attributeName">Link-Adresse:</div>
+	<div><input type="text" class="text" value="" name="linkAdress"></div>
+</div>
+<div class="attribute">
+	<div class="attributeName">In neuem Tab öffnen:</div>
+	<div><input type="checkbox" class="text" value="" name="newTab"></div>
+  <div><input type="hidden" class="text" value="false" name="newTabHidden"></div>
+</div>
+<script type="text/javascript">
+$("input[name=\"newTab\"]").bind("click", function() { if( $("input[name=\"newTabHidden\"]").val() == "true"){ $("input[name=\"newTabHidden\"]").val("false"); }else{ $("input[name=\"newTabHidden\"]").val("true"); }});
+</script>
 
 END
         );
-        $dialog->addWidget($ajaxForm);       
+        $dialog->addWidget($ajaxForm);
         $ajaxResponseObject->addWidget($dialog);
         $pollingDummy = new \Widgets\PollingDummy();
         $ajaxResponseObject->addWidget($pollingDummy);

@@ -1,17 +1,17 @@
 <?php
 namespace Explorer\Commands;
 class Order extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $direction;
 	private $object;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
-	public function processData(\IRequestObject $requestObject) {		
+
+	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 		$this->direction = $this->params["direction"];
@@ -29,34 +29,28 @@ class Order extends \AbstractCommand implements \IAjaxCommand {
 			$environment->swap_inventory($index, $index+1);
 		} else if ($this->direction == "top") {
 			for($i=0;$i<$index+1;$i++){
-				$environment->swap_inventory(0,$i); 
+				$environment->swap_inventory(0,$i);
 			}
 		} else if ($this->direction == "bottom") {
 			for($i=count($inventory)-1;$i>=$index;$i--){
 				$environment->swap_inventory($index,$i);
-			}		
+			}
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		$jswrapper = new \Widgets\JSWrapper();
-		$js = "console.log('start');
-			   if (jQuery('#explorerWrapper').length == 0) {
-			   	location.reload();
-			   } else {
-			  	 var element = jQuery('#{$this->id}');
-				   if ('{$this->direction}' == 'up') {
-						element.insertBefore(element.prev());
-				   } else if ('{$this->direction}' == 'down') {
-						element.insertAfter(element.next());
-				   } else if ('{$this->direction}' == 'top') {
-				   		element.insertBefore(element.parent().children().first());
-				   } else if ('{$this->direction}' == 'bottom') {
-				   		element.insertAfter(element.parent().children().last());
-				   }
-			   }
-		       console.log('DOnE');" ;
+	 	$js = "var element = jQuery('#{$this->id}');
+					if ('{$this->direction}' == 'up') {
+					 element.insertBefore(element.prev());
+					} else if ('{$this->direction}' == 'down') {
+					 element.insertAfter(element.next());
+					} else if ('{$this->direction}' == 'top') {
+						 element.insertBefore(element.parent().children().first());
+					} else if ('{$this->direction}' == 'bottom') {
+						 element.insertAfter(element.parent().children().last());
+					}";
 		$jswrapper->setJs($js);
 		$ajaxResponseObject->addWidget($jswrapper);
 		return $ajaxResponseObject;

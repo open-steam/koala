@@ -46,16 +46,17 @@
 }
 
 .close-button {
-	height: 20px;
-	width: 20px;
-	background-image: url("{PATH_URL}widgets/asset/close.png");
+	height: 16px;
+	width: 16px;
+	background-image: url("{PATH_URL}widgets/asset/custom_sprite_close.png");
+	background-position: 0px 0px;
 	position: absolute;
-	top: 4px;
-	right: 10px;
+	top: 6px;
+	right: 6px;
 	background-size: cover;
 }
 
 .close-button:hover {
 	cursor: pointer;
-	background-image: url("{PATH_URL}widgets/asset/close_red.png");
+	background-position: -16px 0px;
 }

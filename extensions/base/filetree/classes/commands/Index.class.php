@@ -8,24 +8,24 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
     private $openFolders = array();
     private $highlight = 0;
     private $openRoot = 3;
-    
+
     /* openroot explanation
-     * 
+     *
      * openroot is global variable
      * it is set in ajaxRespone
      * and used in getOneRootHTML
-     * 
-     * openroot=1 if $room is "/" (or the server root/root portal) 
+     *
+     * openroot=1 if $room is "/" (or the server root/root portal)
      * openroot=2 if $room is the personal workroom of the user
      * openroot=3 initial value, a room is given by parameter, no path up to server root or user workroom
-     * 
+     *
      * filetree shows up to three roots in the tree view
      * the first root is the server root "/"
      * the second root is the user workroom/user home
-     * the third root is shown, if there is no path up to the 1.(server) or 2.(user) root 
-     * 
+     * the third root is shown, if there is no path up to the 1.(server) or 2.(user) root
+     *
      */
-    
+
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -64,7 +64,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
                     if (!$currentContainer->check_access_read()) {
                         break;
                     }
-                    
+
                     if ($this->isHiddenItem($currentContainer, $currentUser)) {
                         break;
                     }
@@ -79,10 +79,9 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $room = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["dir"]);
         }
-        
-        //here is the problem line 65
+
         if(($room instanceof \steam_object) && ($currentUser instanceof \steam_user)){
-            if ($room->get_id() === $currentUser->get_workroom()->get_id()) { //here is the problem
+            if ($room->get_id() === $currentUser->get_workroom()->get_id()) {
                 $this->openRoot = 2;
             }
         }
@@ -99,7 +98,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         return $ajaxResponseObject;
     }
 
-    
+
     /*
      * getOneRootHTML
      */
@@ -130,16 +129,22 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
                 $css = "expanded";
             }
         }
+
+        $desc = $room->get_attribute(OBJ_DESC);
+        if(($desc !== 0 && trim($desc) !== "")){ //description exists
+            $desc = " (" . $desc . ")";
+        }
+
         $url = \ExtensionMaster::getInstance()->getUrlForObjectId($room->get_id(), "view");
-        $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $room->get_id() . "\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($room) . "\"></img> " . getCleanName($room, -1) . "</a>";
+        $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $room->get_id() . "\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($room) . "\"></img>" . getCleanName($room, -1) . "<span style='color: #AAAAAA;'>" . $desc . "</span></a>";
         if ($this->openRoot === $root) {
             $html .= $this->getFolderHtml($currentUser, $containerObject);
         }
         $html .= "</li>";
         return $html;
     }
-    
-    
+
+
     /*
      * getThreeRootHTML
      * returns data for three root nodes in the file tree
@@ -148,15 +153,15 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
     private function getThreeRootHTML($currentUser, $containerObject) {
         $bidServerRoot = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
         $html = "<ul class=\"jqueryFileTree\" style=\"display: none;\">";
-        
+
         //show server root
         $html .= $this->getOneRootHTML($currentUser, $containerObject, $bidServerRoot, 1);
-        
+
         //show user root only if user is loggt in
         if ($currentUser instanceof \steam_user){
             $html .= $this->getOneRootHTML($currentUser, $containerObject, $currentUser->get_workroom(), 2);
         }
-        
+
         if ($this->openRoot === 3) {
             $html .= $this->getOneRootHTML($currentUser, $containerObject, $containerObject, 3);
         }
@@ -165,7 +170,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         return $html;
     }
 
-    
+
     /*
      * getFolderHTML
      */
@@ -200,8 +205,13 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
                         $cssHighlight = "";
                     }
 
+                    $desc = $object->get_attribute(OBJ_DESC);
+                    if(($desc !== 0 && trim($desc) !== "")){ //description exists
+                        $desc = " (" . $desc . ")";
+                    }
+
                     $url = \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view");
-                    $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $object->get_id() . "\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . getCleanName($object, -1) . "</a>";
+                    $html .= "<li class=\"directory " . $css . "\"><a href=\"" . $url . "\" rel=\"" . $object->get_id() . "\" class=\"" . $cssHighlight . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . getCleanName($object, -1) . "<span style='color: #AAAAAA;'>" . $desc . "</span></a>";
                     if (in_array($object->get_id(), $this->openFolders)) {
                         $html .= $this->getFolderHTML($currentUser, $object);
                     }
@@ -213,7 +223,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
         return $html;
     }
 
-    
+
     /*
      * isHiddenItem returns true if an object is marked hidden
      */

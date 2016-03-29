@@ -31,7 +31,7 @@ class Index extends \AbstractCommand implements \IIdCommand {
           $number = count($bookmarks);
         }
         else{
-          $showAllBookmarksLink = '<br><div style="padding-top: 10px;"><a href="' . PATH_URL . 'bookmarks/">Alle Lesezeichen anzeigen</a></div>';
+          $showAllBookmarksLink = '<br><div style="padding-top: 10px; text-align: center;"><a href="' . PATH_URL . 'bookmarks/">Alle Lesezeichen anzeigen</a></div>';
         }
 
         $viewBookmarks = array();
@@ -41,10 +41,10 @@ class Index extends \AbstractCommand implements \IIdCommand {
         }
         $popupMenu = new \Widgets\PopupMenu();
         $popupMenu->setData($obj);
-        $popupMenu->setCommand("GetPopupMenu");
+        $popupMenu->setCommand("GetPopupMenuHeadline");
         $popupMenu->setNamespace("PortletBookmarks");
-        $popupMenu->setElementId("overlay_menu");
-        $popupMenu->setParams(array(array("key" => "id", "value" => $this->id)));
+        $popupMenu->setElementId("portal-overlay");
+        $popupMenu->setParams(array(array("key" => "portletObjectId", "value" => $this->id)));
         $listViewer = new \Widgets\ListViewer();
         $headline = new HeadlineProvider();
         $headline->setWidth($portletWidth);
@@ -66,7 +66,6 @@ class Index extends \AbstractCommand implements \IIdCommand {
         }
 
         $rawHtml->setHtml('<div id="'. $this->id .'" class="portlet bookmark"><h1 class="'. $head .'">'. $portletName .'<div class="editbutton" style="display:none;float:right;">' . $popupMenu->getHtml() . '</div></h1><div class="entry"><div>' . $listViewer->getHtml() . '</div>' . $showAllBookmarksLink . '<div id="overlay_menu"></div></div></div>');
-        //$rawHtml->setHtml('<div class="portlet bookmark"><h1 class="headline">Meine Lesezeichen <div class="editbutton" style="display:none;float:right;padding-right:5px;">' . $popupMenu->getHtml() . "</div></h1><div class=\"entry\"><div class=\"\" style=\"padding:5px;\">" . $listViewer->getHtml() . "</div><div class=\"\" style=\"padding-left:".($portletWidth/2-80)."px;padding-right:".($portletWidth/2-80)."px;\"><a href=\"" . PATH_URL . "bookmarks/\">Alle Lesezeichen anzeigen</a></div><br>" . '<div id="overlay_menu"></div></div></div><br>');
         $this->content = $rawHtml;
     }
 
@@ -76,9 +75,6 @@ class Index extends \AbstractCommand implements \IIdCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-
-
-
         return $frameResponseObject;
     }
 
@@ -153,9 +149,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             } else {
                 return $name;
             }
-        } //else if ($cell == $this->rawChangeDate) {
-            //return getReadableDate($contentItemObject->get_attribute("OBJ_LAST_CHANGED"));
-        //}
+        }
     }
 
     public function getNoContentText() {
@@ -186,7 +180,5 @@ class ContentFilter implements \Widgets\IContentFilter {
             return false;
         }
     }
-
 }
-
 ?>

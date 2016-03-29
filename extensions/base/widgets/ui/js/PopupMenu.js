@@ -1,1 +1,4 @@
-jQuery(document).click(function() {jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open');})
+jQuery(document).click(function() {
+  jQuery('.popupmenuwrapper').parent().html('');
+  jQuery('.open').removeClass('open');
+})

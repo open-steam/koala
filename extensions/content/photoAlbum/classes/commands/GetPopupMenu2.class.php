@@ -25,8 +25,10 @@ class GetPopupMenu2 extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $count = count($this->selection);
+        $explorerUrl = \Explorer::getInstance()->getAssetUrl();
         if (!in_array($this->id, $this->selection) || (in_array($this->id, $this->selection) && $count == 1)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            $name = $object->get_name();
             $env = $object->get_environment();
 
             $inventory = $env->get_inventory();
@@ -41,62 +43,67 @@ class GetPopupMenu2 extends \AbstractCommand implements \IAjaxCommand {
             if ($object instanceof \steam_trashbin) {
                 $items = array(array("name" => "Papierkorb leeren", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"));
             } else if ($env instanceof \steam_trashbin) {
-                $items = array(array("name" => "Wiederherstellen", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'env':document.getElementById('environment').value}"));
+              $restoreIcon = $explorerUrl . "icons/menu/restore.png";
+              $items = array(
+                array("name" => "Wiederherstellen<img src=\"{$restoreIcon}\">", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'env':document.getElementById('environment').value}", "type" => "nonModalUpdater"));
             } else {
-                $copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
-                $cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
-                $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
-                $trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
-                $hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
+                $copyIcon = $explorerUrl . "icons/menu/copy.png";
+                $cutIcon = $explorerUrl . "icons/menu/cut.png";
+                $referIcon = $explorerUrl . "icons/menu/refer.png";
+                $trashIcon = $explorerUrl . "icons/menu/trash.png";
+                $hideIcon = $explorerUrl . "icons/menu/hide.png";
                 $bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-                $upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
-                $downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
-                $topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
-                $bottomIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/bottom.png";
-                $renameIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rename.png";
-                $editIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/edit.png";
-                $propertiesIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties.png";
-                $rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
-                $blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
+                $sortIcon = $explorerUrl . "icons/menu/sort.png";
+                $upIcon = $explorerUrl . "icons/menu/up.png";
+                $downIcon = $explorerUrl . "icons/menu/down.png";
+                $topIcon = $explorerUrl . "icons/menu/top.png";
+                $bottomIcon = $explorerUrl . "icons/menu/bottom.png";
+                $renameIcon = $explorerUrl . "icons/menu/rename.png";
+                $editIcon = $explorerUrl . "icons/menu/edit.png";
+                $propertiesIcon = $explorerUrl . "icons/menu/properties.png";
+                $rightsIcon = $explorerUrl . "icons/menu/rights.png";
+                $blankIcon = $explorerUrl . "icons/menu/blank.png";
+                $downloadIcon = $explorerUrl . "icons/menu/download.png";
+
                 $items = array(
-                    array("name" => "Kopieren<img src=\"{$copyIcon}\">", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-                    array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-                    array("name" => "Referenzieren<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-                    array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}"),
-                    array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
-                            ($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
-                            ($index < count($inventory) - 1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}") : "",
-                            ($index != 0) ? array("name" => "Ganz nach oben<img src=\"{$topIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}") : "",
-                            ($index < count($inventory) - 1) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}") : ""
-                    )),
+                    array("name" => "Kopieren<img src=\"{$copyIcon}\">", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater"),
+                    array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater"),
+                    array("name" => "Referenz erstellen<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform"),
+                    array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater"),
+                    (count($inventory) >=2) ? array("name" => "Umsortieren<img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
+                            ($index != 0) ? array("name" => "Ganz nach oben<img src=\"{$topIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}", "type" => "nonModalUpdater") : "",
+                            ($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}", "type" => "nonModalUpdater") : "",
+                            ($index < count($inventory) - 1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}", "type" => "nonModalUpdater") : "",
+                            ($index < count($inventory) - 1) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}", "type" => "nonModalUpdater") : ""
+                    )) : "",
                     array("name" => "SEPARATOR"),
-                    array("raw" => "<a href=\"#\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'updater',null,null,'explorer'); } jQuery('.popupmenuwapper').parent().html('');jQuery('.open').removeClass('open'); return false;\">Umbenennen<img src=\"{$renameIcon}\"></a>"),
+                    array("raw" => "<a href=\"#\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'nonModalUpdater',null,null,'explorer'); } jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open'); return false;\">Umbenennen<img src=\"{$renameIcon}\"></a>"),
                     (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index")) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
-                    (($object instanceof \steam_document) && (strstr($object->get_attribute(DOC_MIME_TYPE), "text"))) ? array("name" => "Bearbeiten<img src=\"{$editIcon}\">", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/") : "",
+                    (($object instanceof \steam_document) && ($object->get_attribute(DOC_MIME_TYPE) != "text/html") && ($object->check_access(SANCTION_READ))) ? array("name" => "Herunterladen<img src=\"{$downloadIcon}\">", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $name) : "",
                     array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
                     array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"));
             }
             $popupMenu->setItems($items);
             $popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-            $popupMenu->setWidth("170px");
+            $popupMenu->setWidth("140px");
         } else {
-            $copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
-            $cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
-            $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
-            $trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
-            $hideIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/hide.png";
-            $blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
+            $copyIcon = $explorerUrl . "icons/menu/copy.png";
+            $cutIcon = $explorerUrl . "icons/menu/cut.png";
+            $referIcon = $explorerUrl . "icons/menu/refer.png";
+            $trashIcon = $explorerUrl . "icons/menu/trash.png";
+            $hideIcon = $explorerUrl . "icons/menu/hide.png";
+            $blankIcon = $explorerUrl . "icons/menu/blank.png";
             $popupMenu = new \Widgets\PopupMenu();
             $items = array(
                 array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Copy', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Kopiere Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte kopieren<img src=\"{$copyIcon}\"></a>"),
                 array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte ausschneiden<img src=\"{$cutIcon}\"></a>"),
-                array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Referenziere Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte referenzieren<img src=\"{$referIcon}\"></a>"),
+                array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Referenziere Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objektreferenzen erstellen<img src=\"{$referIcon}\"></a>"),
                 array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte löschen<img src=\"{$trashIcon}\"></a>"),
 
             );
             $popupMenu->setItems($items);
             $popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-            $popupMenu->setWidth("180px");
+            $popupMenu->setWidth("200px");
         }
 
         $ajaxResponseObject->setStatus("ok");

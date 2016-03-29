@@ -4,33 +4,33 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 	public function getName() {
 		return "PortletAppointment";
 	}
-	
+
 	public function getDesciption() {
 		return "Extension for portlet appointment.";
 	}
-	
+
 	public function getVersion() {
 		return "v1.0.0";
 	}
-	
+
 	public function getAuthors() {
 		$result = array();
 		$result[] = new Person("Marcel", "Jakoblew", "mjako@uni-paderborn.de");
 		return $result;
 	}
-	
+
 	public function getObjectReadableName() {
 		return "Termine";
 	}
-	
+
 	public function getObjectReadableDescription() {
 		return "... für das Anzeigen von Terminen.";
 	}
-	
+
 	public function getObjectIconUrl() {
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/portlet.png";
 	}
-	
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletAppointment\Commands\CreateNewForm();
 	}
@@ -43,8 +43,8 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 			return new \PortletAppointment\Commands\Index();
 		}
 	}
-        
-        public function getPriority() {
+
+	public function getPriority() {
 		return 56;
 	}
 }

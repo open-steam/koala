@@ -1,0 +1,8 @@
+#informSliderIcon {
+  background-image: url({PATH_URL}widgets/asset/info.png);
+  background-repeat: no-repeat;
+  padding-left: 60px;
+  background-size: 50px 50px;
+  height:100px;
+  word-wrap:break-word;
+}

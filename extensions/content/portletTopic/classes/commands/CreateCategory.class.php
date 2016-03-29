@@ -17,33 +17,36 @@ class CreateCategory extends \AbstractCommand implements \IAjaxCommand {
         $params = $requestObject->getParams();
         $objectId = $params["id"];
 
-        if (isset($params["title"])) {
-            $categoryTitle = $params["title"];
-        } else {
-            $categoryTitle = "Meine neue Kategorie";
-        }
-
         $topicObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $content = $topicObject->get_attribute("bid:portlet:content");
 
-        //prepare the category
-        $testTopic = array("description" => "",
-            "link_target" => "checked",
-            "link_url" => "",
-            "title" => "Neuer Eintrag");
-
-        $topics = array($testTopic);
-        $title = $categoryTitle;
-        $newCategory = array("title" => $title, "topics" => $topics);
-
-        //add the category
-        if ($content == "") {
-            $content = array();
+        $checkbox = "";
+        if($params["window"] == "true"){
+          $checkbox = "checked";
         }
-        $content[] = $newCategory;
+
+        //prepare the category
+        $Topic = array(
+            "description" => $params["desc"],
+            "link_target" => $checkbox,
+            "link_url" => $params["link"],
+            "title" => $params["title"]);
+
+        $topics = array($Topic);
+        $newCategory = array("title" => "", "topics" => $topics);
+
+        //add entry
+        if ($content == "") { //content not existing
+            $content = array();
+            $content[] = $newCategory;
+        }
+        else{ //content existing, add entry to the last topic
+          array_push($content, $newCategory);
+        }
 
         //persistate the new category
         $topicObject->set_attribute("bid:portlet:content", $content);
+
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

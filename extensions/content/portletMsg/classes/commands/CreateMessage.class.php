@@ -15,42 +15,70 @@ class CreateMessage extends \AbstractCommand implements \IAjaxCommand {
         $parentObjectId = $params["id"];
         $title = $params["title"];
         $text = $params["text"];
-        
+        $subtitle = $params["subtitle"];
+        $linkText = $params["linkText"];
+        $linkAdress = $params["linkAdress"];
+        $newTab = $params["newTabHidden"];
+
         if($params["insertOption"] === "0"){
             $this->insertTop = true;
         }else{
             $this->insertTop = false;
         }
-        
+
         //check diffrent types of parameter
         if (is_string($parentObjectId)) {
-
             $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $parentObjectId);
         } else {
-
             $portletObject = $parentObjectId;
         }
 
         if (strlen($title) == 0) {
-            $pName = "Neue Meldung";
+            $pName = " ";
         } else {
             $pName = $title;
         }
+
+        if (strlen($subtitle) == 0) {
+            $pDescription = "";
+        } else {
+            $pDescription = $subtitle;
+        }
+
         if (strlen($text) == 0) {
-            $pContent = "Bitte geben Sie hier den Meldungstext ein.";
+            $pContent = "";
         } else {
             $pContent = $text;
         }
+
+        if (strlen($linkText) == 0) {
+            $pLinkText = "";
+        } else {
+            $pLinkText = $linkText;
+        }
+
+        if (strlen($linkAdress) == 0) {
+            $pLinkAdress = "";
+        } else {
+            $pLinkAdress = $linkAdress;
+        }
+
+        if($newTab == "true"){
+          $checkbox = "checked";
+        }
+        else{
+          $checkbox = "";
+        }
+
         $pMimeType = "text/plain";
         $pEnvironment = $portletObject; //default is FALSE
-        $pDescription = "";
 
         $messageObject = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), strip_tags($pName), $pContent, $pMimeType, $pEnvironment, $pDescription);
 
         $messageObject->set_attribute("bid:doctype", "portlet:msg");
-        $messageObject->set_attribute("bid:portlet:msg:link_open", "checked");
-        $messageObject->set_attribute("bid:portlet:msg:link_url", "");
-        $messageObject->set_attribute("bid:portlet:msg:link_url_label", "");
+        $messageObject->set_attribute("bid:portlet:msg:link_open", $checkbox);
+        $messageObject->set_attribute("bid:portlet:msg:link_url", $pLinkAdress);
+        $messageObject->set_attribute("bid:portlet:msg:link_url_label", $pLinkText);
         $messageObject->set_attribute("bid:portlet:msg:picture_alignment", "left");
         $messageObject->set_attribute("bid:portlet:msg:picture_width", "");
 
@@ -88,10 +116,8 @@ END
         }else{
             $content[] = $id;
             $portletObject->set_attribute("bid:portlet:content", $content);
-
         }
-            }
-
+    }
 }
 
 ?>

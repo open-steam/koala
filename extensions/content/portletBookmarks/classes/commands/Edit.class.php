@@ -24,18 +24,13 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
 
-    //$titelInput = new \Widgets\TextInput();
-		//$titelInput->setLabel("Überschrift");
-		//$titelInput->setData($object);
-		//$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
-
 		$numberInput = new \Widgets\TextInput();
-		$numberInput->setLabel("Anzahl an Lesezeichen");
+		$numberInput->setLabel("Sichtbare Lesezeichen");
+		$numberInput->setPlaceholder("10");
 		$numberInput->setData($object);
+		$numberInput->setType("number");
 		$numberInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_BOOKMARK_COUNT"));
 
-		//$dialog->addWidget($titelInput);
-		//$dialog->addWidget($clearer);
 		$dialog->addWidget($numberInput);
 		$dialog->addWidget($clearer);
 

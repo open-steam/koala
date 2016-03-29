@@ -43,6 +43,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $titelInput = new \Widgets\TextInput();
         $titelInput->setLabel("Überschrift");
         $titelInput->setName("title");
+        $titelInput->setValue("Terminplaner");
         $html = $titelInput->getHtml();
 
         $descriptionInput = new \Widgets\TextInput();
@@ -51,47 +52,55 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $html .= $descriptionInput->getHtml();
 
         $datepickerStart = new \Widgets\DatePicker();
-        $datepickerStart->setLabel("Start der Abstimmung");
+        $datepickerStart->setLabel("Start:");
         $datepickerStart->setName("startDate");
         $html .= $datepickerStart->getHtml();
         $html .='<script>$("input[name=\"startDate\"]").val("' . $currentDate . '");</script>';
 
         $datepickerEnd = new \Widgets\DatePicker();
-        $datepickerEnd->setLabel("Ende der Abstimmung");
+        $datepickerEnd->setLabel("Ende:");
         $datepickerEnd->setName("endDate");
         $html .= $datepickerEnd->getHtml();
         $html .='<script>$("input[name=\"endDate\"]").val("' . $futureDate . '");</script>';
 
-        $term0 = new \Widgets\TextInput();
-        $term0->setLabel("Eintrag 1");
+        $clearer = new \Widgets\Clearer();
+        $html .= $clearer->getHtml();
+        $html .='<h3>Termine</h3>';
+
+        $term0 = new \Widgets\DatePicker();
+        $term0->setLabel("Termin 1:");
         $term0->setName("term0");
+        $term0->setTimePicker(true);
         $html .= $term0->getHtml();
-        //$html .='<script>$("input[name=\"term0\"]").val("Termin A");</script>';
 
-        $term1 = new \Widgets\TextInput();
-        $term1->setLabel("Eintrag 2");
+        $term1 = new \Widgets\DatePicker();
+        $term1->setLabel("Termin 2:");
         $term1->setName("term1");
+        $term1->setTimePicker(true);
         $html .= $term1->getHtml();
-        //$html .='<script>$("input[name=\"term1\"]").val("Termin B");</script>';
 
-        $term2 = new \Widgets\TextInput();
-        $term2->setLabel("Eintrag 3");
+        $term2 = new \Widgets\DatePicker();
+        $term2->setLabel("Termin 3:");
         $term2->setName("term2");
+        $term2->setTimePicker(true);
         $html .= $term2->getHtml();
 
-        $term3 = new \Widgets\TextInput();
-        $term3->setLabel("Eintrag 4");
+        $term3 = new \Widgets\DatePicker();
+        $term3->setLabel("Termin 4:");
         $term3->setName("term3");
+        $term3->setTimePicker(true);
         $html .= $term3->getHtml();
 
-        $term4 = new \Widgets\TextInput();
-        $term4->setLabel("Eintrag 5");
+        $term4 = new \Widgets\DatePicker();
+        $term4->setLabel("Termin 5:");
         $term4->setName("term4");
+        $term4->setTimePicker(true);
         $html .= $term4->getHtml();
 
-        $term5 = new \Widgets\TextInput();
-        $term5->setLabel("Eintrag 6");
+        $term5 = new \Widgets\DatePicker();
+        $term5->setLabel("Termin 6:");
         $term5->setName("term5");
+        $term5->setTimePicker(true);
         $html .= $term5->getHtml();
 
         $clearer = new \Widgets\Clearer();
@@ -99,20 +108,20 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 
         $html .= '<input type="hidden" name="id" value="' . $this->id . '">';
 
-        $css = "<style>.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
-	float:left;
-
-
-}.widgets_label {
-	clear:both;
-        float: left;
-	margin-right: 2px;
-	white-space: nowrap;
-}.widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
-	float: left;
-}
-
-</style>";
+        $css = "<style>
+          .widgets_textinput, .widgets_textinput input, .widgets_textinput div {
+            float:left;
+          }
+          .widgets_label {
+            clear:both;
+            float: left;
+            margin-right: 2px;
+            white-space: nowrap;
+          }
+          .widgets_datepicker, .widgets_datepicker div, .widgets_datepicker input {
+            float: left;
+          }
+        </style>";
         $ajaxForm->setHtml($css . $html);
         $ajaxResponseObject->addWidget($ajaxForm);
         return $ajaxResponseObject;

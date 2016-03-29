@@ -357,7 +357,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
         }
 
-
         $popupMenuSearch = new \Widgets\PopupMenu();
         $popupMenuSearch->setCommand("GetPopupMenuSearch");
         $popupMenuSearch->setNamespace("Explorer");
@@ -371,8 +370,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $searchField->setPopupMenu($popupMenuSearch);
             $searchField->setValue($this->filter);
         }
-
-
 
         $frameResponseObject->setTitle($title);
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {

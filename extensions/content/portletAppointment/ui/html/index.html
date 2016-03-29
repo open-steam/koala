@@ -12,7 +12,13 @@
 		{NO_MESSAGE_INFO}
 	</div>
 	<!-- END BLOCK_NO_MESSAGE -->
+
+	<!-- BEGIN BLOCK_OLD_TERMS_UP -->
+	{OLD_TERMS}
+	<!-- END BLOCK_OLD_TERMS_UP -->
+
 	<!-- BEGIN BLOCK_TERM -->
+	<div class={HIDDEN}>
 	<h2 class="subheadline">
 
 		<!-- BEGIN EDIT_BUTTON_TOPIC -->
@@ -28,26 +34,41 @@
 
 	</h2>
 	<div class="entry">
+		<div class="date">
+		<!-- BEGIN BLOCK_TERM_STARTDATE -->
+		{STARTDATE}
+		<!-- END BLOCK_TERM_STARTDATE -->
+		<!-- BEGIN BLOCK_TERM_STARTTIME -->
+		<br>
+		{STARTTIME}
+		<!-- END BLOCK_TERM_STARTTIME -->
+		<!-- BEGIN BLOCK_TERM_ENDTERM -->
+		<br><br>
+		{ENDTERM}
+		<!-- END BLOCK_TERM_ENDTERM -->
+		<!-- BEGIN BLOCK_TERM_ENDDATE -->
+		<br>
+		{ENDDATE}
+		<!-- END BLOCK_TERM_ENDDATE -->
+		<!-- BEGIN BLOCK_TERM_ENDTIME -->
+		<br>
+		{ENDTIME}
+		<!-- END BLOCK_TERM_ENDTIME -->
+		<br><br>
+		</div>
 		<!-- BEGIN BLOCK_TERM_LOCATION -->
 		<div class="location">{LOCATION}</div>
 		<!-- END BLOCK_TERM_LOCATION -->
-
-		<div class="date">
-		{STARTDATE}
-		<!-- BEGIN BLOCK_TERM_ENDDATE -->
-		&nbsp;-&nbsp;
-		{ENDDATE}
-		<!-- END BLOCK_TERM_ENDDATE -->
-		</div>
-
-		<!-- BEGIN BLOCK_TERM_TIME -->
-		<div class="date">{TIME}</div>
-		<!-- END BLOCK_TERM_TIME -->
-
 		<!-- BEGIN BLOCK_TERM_DESCRIPTION -->
 		<div class="description">{DESCRIPTION}</div>
 		<!-- END BLOCK_TERM_DESCRIPTION -->
 
 	</div>
+</div>
 	<!-- END BLOCK_TERM -->
+
+	<!-- BEGIN BLOCK_OLD_TERMS_BOTTOM -->
+	{OLD_TERMS}
+	<!-- END BLOCK_OLD_TERMS_BOTTOM -->
+
 </div>

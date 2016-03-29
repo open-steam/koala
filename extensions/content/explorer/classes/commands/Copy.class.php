@@ -78,8 +78,7 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $ajaxResponseObject->setStatus("ok");
             $jswrapper = new \Widgets\JSWrapper();
-            $js = "
-                    if ($('#error').length == 0) {
+            $js = " if ($('#error').length == 0) {
                         $('#content').prepend('<p id=\"error\" style=\"\">Es ist nicht möglich Ordner zu kopieren, die mehr als 200 Objekte enthalten oder deren Dateigröße 500MB übersteigt.<br>Folgende Ordner wurden nicht kopiert: " . $this->name . "</p>');
                     } else {
                         var html = $('#error').html();
@@ -87,14 +86,11 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
                         if (html.indexOf(' " . $this->name . "') == -1) {
                             $('#error').append(', ' + '" . $this->name . "');
                         }
-                    }
-                    $('.popupmenuwapper').hide();
-                    $('.popupmenuanker').removeClass('open')";
+                    }";
             $jswrapper->setJs($js);
             $ajaxResponseObject->addWidget($jswrapper);
 
             return $ajaxResponseObject;
         }
     }
-
 }

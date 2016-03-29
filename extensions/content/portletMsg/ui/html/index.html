@@ -8,48 +8,56 @@
 		{HEADLINE}
 	</h1>
 	<!-- END BLOCK_MESSAGE_HEADLINE -->
-	
-	
+
 	<!-- BEGIN BLOCK_MESSAGE -->
-	<div class="message">
+	<div class="message {HIDE_MESSAGE}">
 		<div class="editbutton">{POPUPMENU_MESSAGE}</div>
 		<h2 class="subheadline">
 			{MESSAGE_HEADLINE}
 		</h2>
-		
-		<!-- BEGIN BLOCK_MESSAGE_PICTURE -->
+
+		<!-- BEGIN BLOCK_MESSAGE_PICTURE_TOP -->
 		<img src="{MESSAGE_PICTURE_URL}" class="{MESSAGE_PICTURE_ALIGNMENT}" width="{MESSAGE_PICTURE_WIDTH}">
-		<!-- END BLOCK_MESSAGE_PICTURE -->
-		
+		<!-- END BLOCK_MESSAGE_PICTURE_TOP -->
+
 		<!-- BEGIN BLOCK_MESSAGE_SUBHEADLINE -->
 		<h3>
 			{MESSAGE_SUBHEADLINE}
 		</h3>
 		<!-- END BLOCK_MESSAGE_SUBHEADLINE -->
-		
+
 		<div class="entry">
 			{MESSAGE_CONTENT}
 		</div>
-		
+
 		<!-- BEGIN BLOCK_MESSAGE_LINK -->
 		<div class="footer">
 			<a href="{MESSAGE_LINK_URL}" target="{MESSAGE_LINK_TARGET}">{MESSAGE_LINK_URL_LABEL}</a>
 		</div>
 		<!-- END BLOCK_MESSAGE_LINK -->
+
+		<!-- BEGIN BLOCK_MESSAGE_PICTURE_BOTTOM -->
+		<img src="{MESSAGE_PICTURE_URL}" class="{MESSAGE_PICTURE_ALIGNMENT}" width="{MESSAGE_PICTURE_WIDTH}">
+		<!-- END BLOCK_MESSAGE_PICTURE_BOTTOM -->
+
 	</div>
 	<!-- END BLOCK_MESSAGE -->
-	
-	
+
+	<!-- BEGIN BLOCK_MORE_MESSAGES -->
+	<div class="message">
+	{MORE_MESSAGES}
+	</div>
+	<!-- END BLOCK_MORE_MESSAGES -->
+
 	<!-- BEGIN BLOCK_NO_MESSAGE -->
 	<div class="message">
 		{NO_MESSAGE_INFO}
 	</div>
 	<!-- END BLOCK_NO_MESSAGE -->
-	
-	
+
 	<div class="podcast">
 		<a href="{PATH_URL}portletMsg/rss/{PORTLET_ID}/">
 			<img src="{PATH_URL}styles/bid/images/icons/portlet/rss.gif">
 		</a>
-	</div>	
+	</div>
 </div>

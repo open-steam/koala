@@ -40,7 +40,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference handling
         $params = $requestObject->getParams();
-        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
@@ -53,9 +52,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $portletIsReference = false;
         }
 
-        //hack
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
-
 
         //get content of portlet
         $content = $portlet->get_attribute("bid:portlet:content");
@@ -102,14 +99,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline");
             }
 
-            //refernce icon
+            //reference icon
             if ($portletIsReference) {
                 $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
                 $envId = $portlet->get_environment()->get_environment()->get_id();
                 $envUrl = PATH_URL . "portal/index/" . $envId;
                 $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
             }
-
 
             //description
             if ($content["description"] === 0) {
@@ -118,20 +114,23 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("DESCRIPTION", $content["description"]);
             }
 
-
             $media_type = $content["media_type"];
+            $url = $content["url"];
 
+            //if internal object & page encrypted via https & url only contains http ---> replace with https
+            if(strpos(strtolower($url), "download/document") && strpos(PATH_URL, "https") && strpos(strtolower($url), "http:")){
+              $url = str_replace("http","https",strtolower($url));
+            }
 
             //determine youtube video
             $isYoutubeVideo = false;
-            $mediaArray = $portlet->get_attribute("bid:portlet:content");
-            if (strpos($mediaArray["url"], "youtube")) {
+            if (strpos($url, "youtube")) {
                 $isYoutubeVideo = true;
             }
 
             if ($media_type == "image") {
                 $tmpl->setCurrentBlock("image");
-                $tmpl->setVariable("URL", $content["url"]);
+                $tmpl->setVariable("URL", $url);
                 $tmpl->parse("image");
             } else if ($media_type == "movie" && !$isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movie");
@@ -143,16 +142,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $mediaplayerHtml->setHeight(intval(($columnWidth - 10) / 4 * 3));
                 $mediaplayerHtml->setWidth($columnWidth - 10);
 
-                $mediaArray = $portlet->get_attribute("bid:portlet:content");
-                $mediaplayerHtml->setTarget($mediaArray["url"]);
+                $mediaplayerHtml->setTarget($url);
                 $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
                 $tmpl->parse("movie");
             } else if ($media_type == "movie" && $isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movieYoutube");
-                $mediaArray = $portlet->get_attribute("bid:portlet:content");
-                //$tmpl->setVariable("YOUTUBE_URL", $mediaArray["url"]);
 
-                $url = $mediaArray["url"];
                 $youTubeUrlCode = "";
 
                 $column = $portlet->get_environment();
@@ -188,6 +183,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("MEDIA_PLAYER", $media_player);
                 $tmpl->setVariable("MEDIA_PLAYER_WIDTH", $width);
                 $tmpl->setVariable("MEDIA_PLAYER_HEIGHT", round($width * 11 / 40));
+                $tmpl->setVariable("URL", $url);
                 $tmpl->parse("audio");
             }
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
@@ -230,5 +226,4 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
 }
-
 ?>

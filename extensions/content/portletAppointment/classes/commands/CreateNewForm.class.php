@@ -1,24 +1,24 @@
 <?php
 namespace PortletAppointment\Commands;
 class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
 	private $content;
 	private $dialog;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject){
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
-		
+
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("Create");
 		$ajaxForm->setSubmitNamespace("PortletAppointment");
@@ -28,13 +28,12 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 .attribute {
   clear: left;
   padding: 5px 2px 5px 2px;
+	margin-left: -20px;
 }
 
 .attributeName {
   float: left;
-  padding-right: 20px;
-  text-align: right;
-  width: 80px;
+  width: 180px;
 }
 
 .attributeNameRequired {
@@ -53,9 +52,11 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 .attributeValue .text, .attributeValue textarea {
   width: 150px;
 }
+
 .text{
-             width:196px;
-    }
+	width:267px;
+}
+
 .attributeValueColumn {
   float: left;
   position: relative;
@@ -66,24 +67,22 @@ class CreateNewForm extends \AbstractCommand implements  \IAjaxCommand {
 
 
 <div class="attribute">
-	<div class="attributeName">Titel:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
+	<div class="attributeName">Überschrift:</div>
+	<div><input type="text" class="text" value="Termine" name="title"></div>
 </div>
 
 <div class="attribute">
-    <div class="attributeName">Sortierung:</div>
-    <div> 
+    <div class="attributeName">Sortierung (nach Startdatum):</div>
+    <div>
     <select size="1">
-        <option selected="" name="earliest_first" value="earliest_first">Frühe Termine zuerst anzeigen</option>
-        <option name="latest_first" value="latest_first">Späte Termine zuerst anzeigen</option>
+        <option selected="" name="earliest_first" value="earliest_first">chronologisch aufsteigend: älteste Termine zuerst</option>
+        <option name="latest_first" value="latest_first">chronologisch absteigend: jüngste Termine zuerst</option>
     </select>
     </div>
 </div>
 <div class="attribute">
 	<div><input type="hidden" name="parent" value="{$this->id}"></div>
 </div>
-
-
 
 END
 );

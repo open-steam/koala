@@ -2,29 +2,23 @@
 include_once PATH_LIB . 'sort_functions.inc.php';
 
 class ExtensionMaster {
-	
+
 	private static $instance;
-	
+
 	private function __construct() {
 		$extensions = $this->getAllExtensionIds();
 		foreach($extensions as $extension) {
 			$extension_instance = $extension::getInstance();
 		}
 	}
-	
+
 	public static function getInstance() {
 		if (!is_object(self::$instance)) {
 			self::$instance = new ExtensionMaster();
-			//$application = Application::getInstance();
-			//$mainmenu = MainMenu::getInstance();
-			//$semester = Semester::getInstance();
-			//$signin = SignIn::getInstance();
-			//$error = Error::getInstance();
-			//$notFound = NotFound::getInstance();
 		}
 		return self::$instance;
 	}
-	
+
 	public function getExtensionForNamespace($nameSpace) {
 		$result = array();
 		$extensions = $this->getAllExtensionsCached();
@@ -33,7 +27,7 @@ class ExtensionMaster {
 			foreach($extensionNameSpaces as $extensionNameSpace) {
 				if (strtolower($extensionNameSpace) == strtolower($nameSpace)) {
 					$result[] = $extension;
-				}	
+				}
 			}
 		}
 		return $this->findHighestPriorityExtension($result);
@@ -41,7 +35,7 @@ class ExtensionMaster {
 
 	public function handleRequest() {
 		$path = $this->getRequestUriAsArray();
-		// ajax extension will handle ajax Requests
+		//ajax extension will handle ajax Requests
 		$ajax = Ajax::getInstance();
 		if (Ajax::isAjaxRequest()) {
 			$ajax->enableAjaxErrorHandling();
@@ -51,51 +45,44 @@ class ExtensionMaster {
 			$indexExtensions[0]->handleRequest($path);
 		}
 	}
-	
+
 	private function getRequestUriAsArray() {
 		$server_name = str_replace("https://", "", str_replace("http://", "", PATH_URL));
 		$server_array =  explode("/", $server_name);
-		
+
 		$result = array();
 		$requestUrl = urldecode($_SERVER['REQUEST_URI']);
-                
-                
-                //bid 2 compatibility
-                $bid2PathCompatibilityExt = $this->getExtensionForNamespace("bid2PathCompatibility");
-                if($bid2PathCompatibilityExt){
-                    
-                    //error_log("b2pc-found");
-                    //logging::write_log( LOG_ERROR, "b2pc-found"); //test
-                    
-                    $keySearchStrings = $bid2PathCompatibilityExt->getOldPaths();
-                    $keyIgnoreStrings = $bid2PathCompatibilityExt->getIgnorePaths();
-                    
-                    $ignoreFound = false;
-                    foreach ($keyIgnoreStrings as $needle){
-                        if(strstr($requestUrl,$needle)){ //TODO: strpos should be faster
-                            //found
-                            $ignoreFound = true;
-                            break;
-                        }
-                    }
-                    
-                    if(!$ignoreFound)
-                    foreach ($keySearchStrings as $needle){
-                        if(strstr($requestUrl,$needle)){ //TODO: strpos should be faster
-                            //found
-                            $result[0]="bid2PathCompatibility"; //redirect to bid2PathCompatibility extension
-                            return $result;
-                        }
-                    }
-                }  else {
-                    //logging::write_log( LOG_ERROR, "b2pc-NOT-found"); //test
-                }
-                
-                
-                
-                //decode request path string
-                $path = explode("/", $requestUrl);
-		
+
+		//bid 2 compatibility
+		$bid2PathCompatibilityExt = $this->getExtensionForNamespace("bid2PathCompatibility");
+		if($bid2PathCompatibilityExt){
+			$keySearchStrings = $bid2PathCompatibilityExt->getOldPaths();
+			$keyIgnoreStrings = $bid2PathCompatibilityExt->getIgnorePaths();
+			$ignoreFound = false;
+			foreach ($keyIgnoreStrings as $needle){
+				if(strstr($requestUrl,$needle)){ //TODO: strpos should be faster
+					//found
+					$ignoreFound = true;
+					break;
+				}
+			}
+
+			if(!$ignoreFound)
+			foreach ($keySearchStrings as $needle){
+				if(strstr($requestUrl,$needle)){ //TODO: strpos should be faster
+					//found
+					$result[0]="bid2PathCompatibility"; //redirect to bid2PathCompatibility extension
+					return $result;
+				}
+			}
+		}
+		else {
+
+		}
+
+		//decode request path string
+		$path = explode("/", $requestUrl);
+
 		for($i=0; $i < count($path); $i++) {
 			if (isset($server_array[$i])) {
 				$server_array_part = $server_array[$i];
@@ -110,16 +97,15 @@ class ExtensionMaster {
 				}
 			}
 		}
-                
-                
-                
-                return $result;
+
+		return $result;
 	}
-	
-        /*
-         * TODO:
-         * warning, this is never used and doesn't work
-         */
+
+
+	/*
+	* TODO:
+	* warning, this is never used and doesn't work
+	*/
 	public function getExtensionForObjectId($objectId) {
 		if ($objectId == null || $objectId == 0) {
 			throw new Exception("Object Id is missing.");
@@ -133,9 +119,9 @@ class ExtensionMaster {
 		}
 		return $this->findHighestPriorityExtension($result);
 	}
-	
+
 	private function findHighestPriorityExtension($extensions) {
-                //a higher number has higher priority
+		//a higher number has higher priority
 		if (count($extensions) == 0) {
 			return null;
 		} else if (count($extensions) == 1) {
@@ -154,7 +140,7 @@ class ExtensionMaster {
 			return $returnCandiate;
 		}
 	}
-	
+
 	public function getCommandByObjectId($objectId, $method = "view", $requestType = "id") {
 		if ($objectId == "") {
 			throw new Exception("Missing Parameter objectId.");
@@ -169,10 +155,10 @@ class ExtensionMaster {
 			$command = $extension->getCommandByObjectId($idRequestObject, $method, $requestType);
 			if (isset($command) && $command instanceof ICommand) return $command;
 		}
-		return false;	
-		
+		return false;
+
 	}
-	
+
 	public function callCommand($commandName, $namespaceName, $params) {
 		$extension = ExtensionMaster::getInstance()->getExtensionForNamespace($namespaceName);
 		$ajaxRequestObject = new AjaxRequestObject();
@@ -180,13 +166,13 @@ class ExtensionMaster {
 		$ajaxRequestObject->setCommand($commandName);
 		$ajaxRequestObject->setElementId("");
 		$ajaxRequestObject->setRequestType("internal");
-		$ajaxRequestObject->setParams($params); 
+		$ajaxRequestObject->setParams($params);
 		$command = $extension->getCommand($ajaxRequestObject->getCommand());
 		$command->validateData($ajaxRequestObject);
 		$command->processData($ajaxRequestObject);
 		return $command;
 	}
-	
+
 	public function getUrlForObjectId($objectId, $method = "view") {
 		$command = $this->getCommandByObjectId($objectId, $method, $requestType = "frame");
 		if ($command instanceof ICommand) {
@@ -194,7 +180,7 @@ class ExtensionMaster {
 			return PATH_URL . $extensionUrlNamespaces[0] . "/" . $command->getCommandName() . "/" . $objectId . "/";
 		}
 	}
-	
+
 	public function getWidgetsByObjectId($objectId, $method = "view", $params = array()) {
 		$idRequestObject = new IdRequestObject();
 		$idRequestObject->setId($objectId);
@@ -213,9 +199,9 @@ class ExtensionMaster {
 				throw new Exception("Command validation error for $objectId.");
 			}
 		}
-		return "";	
+		return "";
 	}
-	
+
 	public function getExtensionById($id) {
 		$result = array();
 		$extensions = $this->getAllExtensionIds();
@@ -226,7 +212,7 @@ class ExtensionMaster {
 		}
 		return null;
 	}
-	
+
 	public function getAllExtensionsCached() {
 		$cache_status = CacheSettings::caching_enabled();
 		CacheSettings::enable_caching();
@@ -238,7 +224,7 @@ class ExtensionMaster {
 		usort($extensions, "sortExtensions");
 		return $extensions;
 	}
-	
+
 	public function getAllExtensions() {
 		$result = array();
 		$extensions = $this->getAllExtensionIds();
@@ -250,7 +236,7 @@ class ExtensionMaster {
 		}
 		return $result;
 	}
-	
+
 	private function getAllExtensionIds() {
 		$result = array();
 		$paths = $this->getExtensionPaths();
@@ -264,7 +250,7 @@ class ExtensionMaster {
 		if (!$cache_status) {
 			CacheSettings::disable_caching();
 		}
-		
+
 		if (defined("EXTENSIONS_WHITELIST") && EXTENSIONS_WHITELIST != "") {
 			$whitelist = explode(",", EXTENSIONS_WHITELIST);
 			$whitelist = array_trim($whitelist);
@@ -279,7 +265,7 @@ class ExtensionMaster {
 		$result  = array_diff($result, array_intersect($parts, $result));
 		return $result;
 	}
-	
+
 	public function getExtensionByType($ExtensionType) {
 		$result = array();
 		$extensions = $this->getAllExtensionsCached();
@@ -290,7 +276,7 @@ class ExtensionMaster {
 		}
 		return $result;
 	}
-	
+
 	private function getExtensionPaths() {
 		$result = array();
 		$result[] = PATH_PLATFORMS . "PLATFORM_ID/extensions/";
@@ -298,7 +284,7 @@ class ExtensionMaster {
 		$result[] = PATH_EXTENSIONS;
 		return $result;
 	}
-	
+
 	public function searchForExtensions($path) {
 		$result = array();
 		if (is_dir($path)) {
@@ -316,12 +302,12 @@ class ExtensionMaster {
 		}
 		return $result;
 	}
-	
+
 	public function send404Error($message = "no error description") {
 		logging::write_log( LOG_404, date("d.m.Y H:i", time()) . " " . "HTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ]." ".$message);
 		header("Location: " . URL_404);
 		die;
 	}
-	
+
 }
 ?>

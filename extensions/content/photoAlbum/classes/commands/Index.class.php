@@ -66,7 +66,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
               //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
             $frameResponseObject->addWidget($actionBar);
         }
-        
+
+        //$this->getExtension()->addJS();
+        $this->getExtension()->addCSS();
+
         $titleHtml = new \Widgets\RawHtml();
         $title = getCleanName($gallery);
         $titleHtml->setCss($titleCss .

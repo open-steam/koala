@@ -35,7 +35,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference handling
         $params = $requestObject->getParams();
-        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
@@ -48,8 +47,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $portletIsReference = false;
         }
 
+        $this->getExtension()->addCSS();
 
-        //hack
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
 
         //get content of portlet
@@ -90,8 +89,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
             }
 
-
-
             $UBB = new \UBBCode();
             include_once(PATH_BASE . "core/lib/bid/derive_url.php");
 
@@ -109,7 +106,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline");
             }
 
-            //refernce icon
+            //reference icon
             if ($portletIsReference) {
                 $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
                 $envId = $portlet->get_environment()->get_environment()->get_id();
@@ -117,7 +114,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
             }
 
-            $tmpl->setVariable("SIZE", trim($content["size"]));
+            if($content["size"] == ""){
+              $size = "15";
+            } else{
+              $size = $content["size"];
+            }
+
+            $tmpl->setVariable("SIZE", $size);
 
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
                 $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");

@@ -15,4 +15,5 @@
 
 .portlet.media {
   border: 1px solid #CDCDCD;
+  word-wrap: break-word;
 }

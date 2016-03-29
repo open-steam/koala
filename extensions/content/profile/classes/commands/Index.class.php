@@ -150,8 +150,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $GLOBALS["content"]->setVariable("LAST_LOGIN", how_long_ago($user_profile["USER_LAST_LOGIN"]));
         }
         if (CHANGE_PROFILE_PICTURE && PROFILE_PICTURE && $current_user->get_id() == $user->get_id()){
-            $editImageURL = "http://$_SERVER[HTTP_HOST]" . "/profile/image/";
-            $editImageButtonURL = "http://$_SERVER[HTTP_HOST]" . "/styles/bid/images/icons/portlet/edit.gif";
+            $editImageURL = PATH_URL . "profile/image/";
+            $editImageButtonURL = PATH_STYLE . "images/icons/portlet/edit.gif";
             $GLOBALS["content"]->setVariable("EDIT_BUTTON", '<a href=' . $editImageURL . '><img id="imageEditButton" title="Bearbeiten" src=' . $editImageButtonURL . '></a>');
         }
         $GLOBALS["content"]->parse("BLOCK_LEFT_SIDE");
@@ -222,20 +222,18 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     								. $script
     								. '</script>');
             $frameResponseObject->addWidget($rawHtml);
-
+            /*
             $contact_label = gettext("All Users");
             if (PLATFORM_ID == "bid") {
                 $contact_label = "Meine Favoriten";
             }
-
+            */
             // general information label
             $generalLabel = new \Widgets\RawHtml();
             $generalLabel->setHtml("<div class='grid' style='display:table; width:70%; margin-left:5px;'>
                     <div style='width:770px'>
-                        <div style='display:table-cell; width:365px; font-size: 15px;'><b>Allgemeine Informationen</b></div>
-                        <div style='display:table-cell; width:35px;'><center><b>Alle</b></center></div>
-                        <div style='display:table-cell; width:170px;'><center><b> $contact_label </b></center></div>
-                        <div style='display:table-cell; width:50px;'><center><b>Niemand</b></center></div>
+                        <div style='display:table-cell; width:335px; font-size: 15px;'><b>Allgemeine Informationen</b></div>
+                        <div style='display:table-cell; width:100px; font-size: 15px;'><center><b>Sichtbar für:</b></center></div>
                     </div>");
             $frameResponseObject->addWidget($generalLabel);
 
@@ -278,9 +276,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             // initialize options
             $options = array(
-                    array("value" => 0, "name" => ""),  // 0 = all users
-                    array("value" => PROFILE_DENY_ALLUSERS, "name" => ""),  // 1 = only contacts
-                    array("value" => (PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS), "name" => "")   // 3 = no one
+                    array("value" => 0, "name" => "Alle Benutzer", "class" => "bidRadio left"),  // 0 = all users
+                    array("value" => PROFILE_DENY_ALLUSERS, "name" => "Meine Favoriten", "class" => "bidRadio"),  // 1 = only contacts
+                    array("value" => (PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS), "name" => "Niemand", "class" => "bidRadio right")   // 3 = no one
             );
 
             // first name
@@ -288,7 +286,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("First name"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setReadOnly(TRUE);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_FIRSTNAME"));
                 $frameResponseObject->addWidget($clearer);
@@ -306,7 +304,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Last name"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setReadOnly(TRUE);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_FULLNAME"));
                 $frameResponseObject->addWidget($clearer);
@@ -324,7 +322,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("name"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setReadOnly(TRUE);
                 $textWidget->setContentProvider(\Widgets\DataProvider::staticProvider($user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")));
                 $frameResponseObject->addWidget($clearer);
@@ -361,7 +359,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Academic degree"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_ACADEMIC_DEGREE"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -378,7 +376,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Description"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -486,7 +484,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Wants"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_WANTS"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -504,7 +502,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Haves"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_HAVES"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -522,7 +520,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Hometown"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_HOMETOWN"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -538,14 +536,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             // main focus
             // TODO: was textarea before
             if (ENABLED_MAIN_FOCUS) {
-                //$textWidget = new \Widgets\Textarea();
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Main focus"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
-                //$textWidget->setWidth("400");
-                //$textWidget->setAutosave(TRUE);
-                //$textWidget->setLinebreaks("");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_FOCUS"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -563,7 +557,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Other interests"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_OTHER_INTERESTS"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -581,7 +575,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Organizations"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_ORGANIZATIONS"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -607,7 +601,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("E-mail"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setReadOnly("TRUE");
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_EMAIL"));
                 $frameResponseObject->addWidget($clearer);
@@ -627,7 +621,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("E-mail"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_EMAIL"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -645,7 +639,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Address"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_ADDRESS"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -661,11 +655,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             // bid address
             // TODO: was textarea before
             if (ENABLED_BID_ADRESS) {
-                //$textWidget = new \Widgets\TextArea();
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Address"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_ADRESS"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -683,7 +676,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel("Telefon");
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_TELEPHONE"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -701,7 +694,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel("Telefon");
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:user_callto"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -719,7 +712,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Phone, mobile"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_PHONE_MOBILE"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -737,7 +730,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Website"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_WEBSITE_URI"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -755,7 +748,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("ICQ number"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_ICQ"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -773,7 +766,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("MSN identification"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_MSN"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -791,7 +784,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("AIM-alias"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_AIM"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -809,7 +802,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Yahoo-ID"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_YAHOO"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);
@@ -827,7 +820,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $textWidget = new \Widgets\TextInput();
                 $textWidget->setLabel(gettext("Skype name"));
                 $textWidget->setData($user);
-                $textWidget->setInputWidth("130px");
+                $textWidget->setInputWidth(130);
                 $textWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("USER_PROFILE_IM_SKYPE"));
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($textWidget);

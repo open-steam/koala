@@ -22,9 +22,6 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        //$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        
-        
         //current time + one week
         $deadline = time() + 604800;
         $currentDateTime = date("d.m.Y H:i", $deadline) . "";
@@ -38,9 +35,9 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                     $(".widgets_textinput_save_button").hide();
 
                     $(".widgets_datepicker input").val("'.$currentDateTime.'");
-            
+
                     $(".widgets_checkbox input").change(function(){
-                        if(!this.checked){ 
+                        if(!this.checked){
                             $("#datepicker_overlay").show();
                             $("#cb").val("false");
                         }else{
@@ -48,7 +45,9 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                             $("#cb").val("true");
                         }
                     });
-            
+
+                    $("input[name=\"noDeadline\"]").css("margin-left", "3px");
+
                 </script>';
 
         $textInput = new \Widgets\TextInput();
@@ -57,13 +56,13 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         $datePicker = new \Widgets\DatePicker();
         $datePicker->setName("deadline");
-        $datePicker->setLabel("Abgabefrist");
+        $datePicker->setLabel("Abgabefrist:");
         $datePicker->setTimePicker(true);
 
         $checkbox = new \Widgets\Checkbox();
         $checkbox->setName("noDeadline");
         $checkbox->setLabel("Keine Abgabefrist:");
-       
+
         $ajaxForm->setHtml($textInput->getHtml() .'<div style="clear:both;">'.$checkbox->getHtml() ."</div>".'<div id="datepicker_overlay" style="clear:both;">'. $datePicker->getHtml()."</div>".$html."");
 
         $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
@@ -71,7 +70,6 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $ajaxResponseObject->setStatus("ok");
 
         $ajaxResponseObject->addWidget($ajaxForm);
-
 
         return $ajaxResponseObject;
     }

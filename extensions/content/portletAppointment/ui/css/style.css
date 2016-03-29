@@ -7,4 +7,9 @@
 
 .portlet.appointment {
   border: 1px solid #CDCDCD;
+  word-wrap: break-word;
+}
+
+.portlet.appointment .hidden{
+  display: none;
 }

@@ -312,7 +312,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("IS_ACQUIRED_DISABLE_BUTTONS", ($this->acquire instanceof \steam_container)? "disabled":"");
         
         
-        $content->setVariable("INHERIT_FROM", getCleanName($this->environment));
+        $content->setVariable("INHERIT_FROM", getCleanName($this->environment). " mit der id ".$this->environment);
         $content->setVariable("NO_ENVIRONMENT_ADAPT_TEXT", ($this->environmentName == "")? "S": "Oder s");
          if ($this->environmentName == "") {
             $content->setVariable("NO_ENVIRONMENT", "disabled");

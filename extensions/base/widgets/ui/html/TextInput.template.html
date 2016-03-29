@@ -1,6 +1,6 @@
 <div class="widgets_label" {LABEL_STYLE}>{LABEL}</div>
 <div class="widgets_textinput">
-    <input id="{ID}" name="{INPUT_FIELD_NAME}" type="text" data-oldValue="{VALUE}" data-saveFunction="{SAVE_FUNCTION}" value="{VALUE}" placeholder="{PLACEHOLDER}" onkeyup="checkIfEmpty()" {INPUT_STYLE} {READONLY} />
+    <input id="{ID}" name="{INPUT_FIELD_NAME}" type="{TYPE}" data-oldValue="{VALUE}" data-saveFunction="{SAVE_FUNCTION}" value="{VALUE}" {PLACEHOLDER} {CHECK_IF_EMPTY} {MIN} {MAX} {INPUT_STYLE} {READONLY} />
 </div>
 
 <script type="text/javascript">
@@ -8,12 +8,12 @@
     document.getElementById("{FOCUS_ID}").focus();
     <!-- END BLOCK_FOCUS -->
     {IS_NOT_EMPTY}
-    
-    function checkIfEmpty() {
-            if($('#{ID}').val() == "" && isNotEmpty){$('#{ID}').css({'background-color' : '#F5AfA4'});}
-            else {$('#{ID}').css({'background-color' : '#FFF'});}
+
+    function checkIfEmpty(objectID) {
+            if($('#'+objectID).val() == "" && isNotEmpty){$('#'+objectID).css({'background-color' : '#F5AfA4'});}
+            else {$('#'+objectID).css({'background-color' : '#FFF'});}
     };
-       
+
     $('#{ID}').change(
         function() {
             //add the changed class to this object

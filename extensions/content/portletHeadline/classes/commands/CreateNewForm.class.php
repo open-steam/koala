@@ -35,14 +35,12 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 .attributeName {
   float: left;
   padding-right: 20px;
-  text-align: right;
   width: 80px;
 }
 
 .attributeNameRequired {
   float: left;
   padding-right: 20px;
-  text-align: right;
   font-weight: bold;
   width: 80px;
 }
@@ -55,9 +53,10 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 .attributeValue .text, .attributeValue textarea {
   width: 100px;
 }
-                        .text{
-             width:196px;
-    }
+
+.text{
+  width:196px;
+}
 
 .attributeValueColumn {
   float: left;
@@ -68,17 +67,33 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 <input type="hidden" name="id" value="{$this->id}">
 
 <div class="attribute">
-	<div class="attributeName">Überschrift:</div>
-	<div><input type="text" class="text" value="" name="title"></div>
+	<div class="attributeName">Titel:</div>
+	<div><input type="text" class="text" value="Überschrift" name="title"></div>
 </div>
+
+<div class="attribute">
+	<div class="attributeName">Ausrichtung:</div>
+<select size="1" name="alignment">
+        <option value="left">Linksbündig</option>
+        <option value="right">Rechtsbündig</option>
+        <option value="center" selected>Zentriert</option>
+</select>
+</div>
+
+<div class="attribute">
+	<div class="attributeName">Größe:</div>
+	<div><input type="number" class="text" value="15" name="sizeInput" min="1"></div>
+  <input type="hidden" name="size" value="15">
+  <script>$("input[name=\"sizeInput\"]").bind("keyup mouseup", function() { $("input[name=\"size\"]").val($("input[name=\"sizeInput\"]").val())});</script>
+</div>
+</div>
+
 <div class="attribute">
 	<div><input type="hidden" name="parent" value="{$this->id}"></div>
 </div>
 
-
-
 END
-        );
+);
         $ajaxResponseObject->addWidget($ajaxForm);
         return $ajaxResponseObject;
     }

@@ -35,8 +35,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference handling
         $params = $requestObject->getParams();
-
-        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
@@ -56,7 +54,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //old bib
         include_once(PATH_BASE . "core/lib/bid/slashes.php");
-
 
         //get content of portlet
         $content = $portlet->get_attribute("bid:portlet:content");
@@ -92,10 +89,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $allow_html = false;
         }
 
-
         $UBB = new \UBBCode();
         include_once(PATH_BASE . "core/lib/bid/derive_url.php");
-
 
         $portletFileName = $portletPath . "/ui/html/index.html";
         $tmpl = new \HTML_TEMPLATE_IT();
@@ -112,7 +107,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
         }
 
-        //refernce icon
+        //reference icon
         if ($portletIsReference) {
             $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
             $envId = $portlet->get_environment()->get_environment()->get_id();

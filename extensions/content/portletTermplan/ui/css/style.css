@@ -27,8 +27,13 @@
 
 .portlet.termplan {
   border: 1px solid #CDCDCD;
+  word-wrap: break-word;
 }
 
 .portlet.termplan .hidden {
   display: none;
+}
+
+.portlet.termplan .entry {
+  overflow-x: scroll;
 }

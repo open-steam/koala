@@ -253,7 +253,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $keywordmatrix = array();
             foreach ($inventory as $inv) {
 
-
                 if (!($inv->get_id() == $this->id)) {
                     $keywordmatrix[] = $inv->get_attribute("OBJ_KEYWORDS");
                 }
@@ -283,7 +282,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             tagfield.value = valOld + " " + name;
 
             $(\'#'.$keywordArea->getId().'\').addClass(\'changed\');
-
 
             '.$keywordArea->getId().' = tagfield.value;
             //sendRequest("SendArrayToStringRequest", {"id": ' . $this->id . ', "attribute": "OBJ_KEYWORDS", "value": tagfield.value}, "", "data", function(response){widgets_textinput_save_success(tagfield.id, response);}, null, "Explorer");
@@ -332,7 +330,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $checkboxWWW->setReadOnly(true);
         }
 
-
         $checkboxHiddenObject = new \Widgets\Checkbox();
         $checkboxHiddenObject->setLabel("Verstecktes Objekt:");
         $checkboxHiddenObject->setCheckedValue("1");
@@ -344,15 +341,15 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $checkboxHiddenObject->setReadOnly(true);
         }
 
+        /*
         //checkbox for the option to enable or disable the tag-column
         $checkboxShowTags = new \Widgets\Checkbox();
-
         $checkboxShowTags->setLabel("Tags anzeigen:");
         $checkboxShowTags->setCheckedValue("1");
         $checkboxShowTags->setUncheckedValue(0);
         $checkboxShowTags->setData($object);
         $checkboxShowTags->setContentProvider(\Widgets\DataProvider::attributeProvider("SHOW_TAGS"));
-
+        */
 
         $seperator = new \Widgets\RawHtml();
         $seperator->setHtml("<br style=\"clear:both\"/>");
@@ -399,9 +396,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($seperator);
         $dialog->addWidget($checkboxHiddenObject);
 
-
-
-
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
             //check if the attribute exists, if not: set it to false
             if($object->get_attribute("SHOW_TAGS") == 0 && $isWriteable){
@@ -409,7 +403,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
 
             //only show the option to disable the tagcolumn if tags are enabled on the system
-            $dialog->addWidget($checkboxShowTags);
+            //$dialog->addWidget($checkboxShowTags);
 
             $dialog->addWidget($keywordArea);
             $dialog->addWidget($tagrawHtml);
@@ -418,7 +412,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if ($type != "portal" && $type != "docextern") {
             $dialog->addWidget($seperator);
         }
-
 
         if ($type == "container" || $type == "room") {
             $dialog->addWidget($textAreaDescription);
@@ -460,7 +453,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($seperator);
         }
 
-
         //www-link
         if ($type == "docextern") {
             $urlInput = new \Widgets\TextInput();
@@ -476,7 +468,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($textAreaDescription);
             $dialog->setSaveAndCloseButtonForceReload(true);
         }
-
 
         if ($type == "portal") {
             $statusbarCheckbox = new \Widgets\Checkbox();
@@ -523,7 +514,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $object = $currentUser->get_workroom();
 
         $dialog = new \Widgets\Dialog();
-        //$dialog->setTitle("Eigenschaften von " . $object->get_name());
         $dialog->setTitle("Eigenschaften");
 
         $dialog->setButtons(array(array("name" => "speichern", "href" => "save")));

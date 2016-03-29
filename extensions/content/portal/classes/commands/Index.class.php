@@ -25,8 +25,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $portalInstance = \Portal::getInstance();
         $portalPath = $portalInstance->getExtensionPath();
 
-        //$popupmenudummy = new \Widgets\PopupMenu();
-        //$popupmenudummy->getCssStyle();
         //template
         $templateFileName = $portalPath . "/ui/html/index.html";
         $tmpl = new \HTML_TEMPLATE_IT();
@@ -51,14 +49,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         try{
             $portalColumns = $this->portalObject->get_inventory();
         }catch(\NotFoundException $e) {
-            \ExtensionMaster::getInstance()->send404Error($e); 
+            \ExtensionMaster::getInstance()->send404Error($e);
         }
-        catch(\AccessDeniedException $e){ 
+        catch(\AccessDeniedException $e){
             throw new \Exception("Access denied.", E_USER_RIGHTS);
         }
-        
-        
-        
+
         $htmlBody = "";
         $extensionMaster = \ExtensionMaster::getInstance();
 
@@ -75,11 +71,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $htmlBody.= $data["html"];
             $count++;
         }
-        /*    if ($portalWidth > 900) {
-          $warning = "Damit das Portal korrekt dargestellt werden kann, müssen die Breite der Spalten verringert werden.
-          Eine Verminderung der Spaltengröße kann in den <a onclick=\"sendRequest('Sort', {'id':" . $objectId . "}, '', 'popup', null, null, 'portal');return false;;menu_clicked(this);\">Optionen</a> vorgenommen werden.";
-          $tmpl->setVariable("WARNING", $warning);
-          } */
 
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         if (isset($this->portalObject) && $this->portalObject->check_access_write($currentUser)) {
@@ -90,14 +81,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl->setVariable("BODY", $htmlBody);
         $tmpl->setVariable("PORTAL_OBJECT_ID", $this->portalObject->get_id());
 
-
         $htmlBodyTemplated = $tmpl->get();
 
         $this->rawHtmlWidget->setHtml($htmlBodyTemplated);
     }
 
     public function idResponse(IdResponseObject $idResponseObject) {
-        
+
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -112,15 +102,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $frameResponseObject->addWidget($cssWidget);
 
-        //Start Testcase
-        //$testLink = new \Widgets\RawHtml();
-        //$link = "<a onclick=\"sendRequest('ColorOptions', {'id':'" . $this->id . "'}, '', 'popup', null, null, 'portal');return false;\">Farben</a>";
-        //$testLink->setHtml($link);
-        //$frameResponseObject->addWidget($testLink); //TODO: Einkommentieren zum Testen der Farbkonfig
-        //End Testcase
-
         $assetUrl = \Portal::getInstance()->getAssetUrl();
-        //    $minPicUrl = $assetUrl . "icons/min.png";
         $maxPicUrl = $assetUrl . "icons/max.png";
 
         $frameResponseObject->setTitle(getCleanName($this->portalObject));
@@ -133,7 +115,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $jsWrapper->setPostJsCode(<<<END
                     $('#menu_wrapper').hide();
                     $('#content_wrapper').prepend('<div id="max-layer" class="min-max-layer"><a id="max-href"><img id="max-pic" class="max-min-pic" src="{$maxPicUrl}"></a></div>');
-                    
+
                     $('.max-min-pic').css('width', '20px');
                     $('.min-max-layer').css('width', '20px');
                     $('.min-max-layer').css('margin-left', 'auto');
@@ -144,26 +126,17 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $('.max-min-pic').css('margin-right', 'auto');
                     $('.max-min-pic').css('margin-top', 'auto');
                     $('.max-min-pic').css('margin-bottom', 'auto');
-                    
+
                     $("#max-pic").click(function() {
                         $("#max-layer").hide();
                         $('#menu_wrapper').show();
                         return false;
                     });
-                    
-                    
-                    
-                    
 END
             );
-
             $frameResponseObject->addWidget($jsWrapper);
         }
-
-
-
         return $frameResponseObject;
     }
-
 }
 ?>

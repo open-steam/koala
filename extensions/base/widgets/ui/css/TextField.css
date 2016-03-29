@@ -1,4 +1,4 @@
 .widgets_textfield {
 	float: left;
-	white-space: nowrap;
+	word-break: break-all;
 }

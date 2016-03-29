@@ -8,7 +8,7 @@
 }
 
 .listviewer .listviewer-head {
-	
+
 }
 
 .listviewer .listviewer-item {
@@ -19,15 +19,12 @@
 
 .listviewer-item-unhover {
 	background-color: transparent;
-	border: 1px solid transparent;
+	/*border: 1px solid transparent;*/
 }
 
 .listviewer-item-hover {
-	border: 1px solid #aaa;
-}
-
-.listviewer-item-hover.red, .listviewer-item-hover.orange, .listviewer-item-hover.yellow, .listviewer-item-hover.green, .listviewer-item-hover.blue, .listviewer-item-hover.purple, .listviewer-item-hover.grey {
-	background-color: white;
+	/*border: 1px solid #aaa;*/
+	background-color: #e5e5e5;
 }
 
 .listviewer-item-selected.red, .listviewer-item-selected.orange, .listviewer-item-selected.yellow, .listviewer-item-selected.green, .listviewer-item-selected.blue, .listviewer-item-selected.purple, .listviewer-item-selected.grey {
@@ -36,7 +33,6 @@
 
 .listviewer-item-selected {
 	background-color: #396D9C;
-	border: 1px solid #396D9C;
 	color: white;
 }
 
@@ -67,7 +63,6 @@
 }
 
 .listviewer .listviewer-noitem{
-	padding: 30px;
 	text-align:center;
 }
 
@@ -87,38 +82,59 @@
 }
 
 .red {
-	border: 1px solid #FB6E65;
 	background-color: #F3B6AE;
 }
 
 .orange {
-	border: 1px solid #F7AF4D;
 	background-color: #FAD7A5;
 }
 
 .yellow {
-	border: 1px solid #F1DE51;
 	background-color: #FAF3AA;
 }
 
 .green {
-	border: 1px solid #B8D852;
 	background-color: #DDEDAA;
 }
 
 .blue {
-	border: 1px solid #63A8FD;
 	background-color: #B7D9FE;
 }
 
 .purple {
-	border: 1px solid #C393DB;
 	background-color: #DEBCEA;
 }
 
 .grey {
-	border: 1px solid #AFAFAF;
 	background-color: #D6D6D6;
+}
+
+.listviewer-item-hover.red {
+	background-color: #e97a6b;
+}
+
+.listviewer-item-hover.orange {
+	background-color: #f6b75d;
+}
+
+.listviewer-item-hover.yellow {
+	background-color: #f6e962;
+}
+
+.listviewer-item-hover.green {
+	background-color: #c4e06b;
+}
+
+.listviewer-item-hover.blue {
+	background-color: #6cb1fd;
+}
+
+.listviewer-item-hover.purple {
+	background-color: #c182d8;
+}
+
+.listviewer-item-hover.grey {
+	background-color: #b0b0b0;
 }
 
 .hiddenObject {
@@ -126,7 +142,6 @@
 }
 
 .justTrashed{
-	border: 1px solid #fff;
 	background-color: #fff;
 }
 

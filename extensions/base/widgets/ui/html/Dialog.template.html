@@ -11,9 +11,7 @@
 		{DIALOG_CONTENT}
 		<br style="clear:both">
 
-
-
-                <!-- BEGIN SAVE_AND_CLOSE_BUTTON -->
+		<!-- BEGIN SAVE_AND_CLOSE_BUTTON -->
 		<div style="float:right; margin-top:10px;"><a class="bidButton" onclick="
                     //count the changes and if there is at least one reload the site
                     var i = 0;
@@ -47,7 +45,7 @@
                     " href="#">{SAVE_AND_CLOSE_BUTTON_LABEL}</a></div>
 		<!-- END SAVE_AND_CLOSE_BUTTON -->
 
-                <!-- BEGIN CANCEL_BUTTON -->
+		<!-- BEGIN CANCEL_BUTTON -->
 		<div style="float:right; margin-top:10px;"><a class="bidButton negative" onclick="
                     {CANCEL_BUTTON_JS}
                     //unset possibly set event
@@ -58,29 +56,8 @@
                     " href="#">{CANCEL_BUTTON_LABEL}</a>&nbsp;</div>
 		<!-- END CANCEL_BUTTON -->
 
-
-                <!-- BEGIN BLOCK_CUSTOM_BUTTONS -->
+		<!-- BEGIN BLOCK_CUSTOM_BUTTONS -->
 		<div style="float:right; margin-top:10px;"><a class="bidButton {BUTTON_CLASS}" onclick="{BUTTON_JS}" href="#">{BUTTON_LABEL}</a>&nbsp;</div>
 		<!-- END BLOCK_CUSTOM_BUTTONS -->
 	</div>
 </div>
-
-<script type="text/javascript">
-    	jQuery('#dialog_wrapper').css({"right": $(window).width() / 2 - jQuery('#dialog').width() / 2 + "px"});
-	var resizeTimer = null;
-	jQuery(window).bind('resize', function() {
-		if (resizeTimer) clearTimeout(resizeTimer);
-		resizeTimer = setTimeout(function() {jQuery('#dialog_wrapper').css({"right": $(window).width() / 2 - jQuery('#dialog').width() / 2 + "px"});}, 100);
-	});
-	jQuery('#dialog').slideDown("slow");
-        //close the dialog on escape
-        jQuery(document).keyup(function(e) {
-            if (e.keyCode == 27) {
-                //unset possibly set event
-                $(window).unbind('beforeunload');
-                closeDialog();}
-        });
-
-
-
-</script>

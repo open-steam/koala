@@ -13,24 +13,18 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 		$params = $requestObject->getParams();
 		$objectId = $params["portletId"];
 
-                $clearer = new \Widgets\Clearer();
+		$clearer = new \Widgets\Clearer();
 
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		$dialog = new \Widgets\Dialog();
 		$dialog->setTitle("Bearbeiten von " . $object->get_attribute("OBJ_DESC"));
 
-    //$titelInput = new \Widgets\TextInput();
-		//$titelInput->setLabel("Überschrift");
-		//$titelInput->setData($object);
-		//$titelInput->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_DESC"));
-
 		$numberInput = new \Widgets\TextInput();
-		$numberInput->setLabel("Anzahl an Objekten");
+		$numberInput->setLabel("Sichtbare Objekte");
 		$numberInput->setData($object);
+		$numberInput->setType("number");
 		$numberInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_CHRONIC_COUNT"));
 
-    //$dialog->addWidget($titelInput);
-    //$dialog->addWidget($clearer);
     $dialog->addWidget($numberInput);
     $dialog->addWidget($clearer);
 

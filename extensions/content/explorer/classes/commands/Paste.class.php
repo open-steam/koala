@@ -73,35 +73,35 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
             return $ajaxResponseObject;
         }
     }
-    
-    
+
+
     /*
      * $steamObject = moving object
      * $steamEnvirument = destination
-     * 
-     * 
+     *
+     *
      * types
-     * 
+     *
      * container_portal_bid
-     * 
+     *
      * container_portalColumn_bid
-     * 
+     *
      * container_portlet_bid
      */
     private function protectedInsert($steamObject, $steamEnvironment){
         if((!$steamEnvironment instanceof \steam_object) || !($steamObject instanceof \steam_object)){
             return false;
         }
-        
-        
+
+
         $userObject = $GLOBALS["STEAM"]->get_current_steam_user();
         $userObjectId = $userObject->get_id();
         $steamEnvironmentId = $steamEnvironment->get_id();
-        
+
         //case bookmarks
         $bookmarksRoom = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute(USER_BOOKMARKROOM);
 	$bookmarksRoomId = $bookmarksRoom->get_id();
-        
+
         if($bookmarksRoomId === $steamEnvironmentId){
             if($steamObject instanceof \steam_link){
                 $steamObject->move($steamEnvironment);
@@ -109,20 +109,20 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
             }
             return FALSE;
         }
-        
+
         //case portal
         $steamObjectType = $steamObject->get_attribute("OBJ_TYPE");
         $envObjectType = $steamEnvironment->get_attribute("OBJ_TYPE");
-        
-        
+
+
         if($envObjectType==="container_portal_bid" xor $steamObjectType==="container_portlet_bid"){
             return false;
         }
-        
+
         if($envObjectType==="container_portal_bid" && $steamObjectType==="container_portlet_bid"){
             $portalObject = $steamEnvironment;
-            
-            
+
+
             //get first column
             $portalInventory = $portalObject->get_inventory();
             $firstColumn = $portalInventory[0];
@@ -130,8 +130,8 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
                 //no fist column found
                 return false;
             }
-            
-            
+
+
             //move a valid portlet
             if($steamObjectType==="container_portlet_bid"){
                 $steamObject->move($firstColumn);
@@ -140,8 +140,8 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
                 return false;
             }
         }
-        
-        
+
+
         //case normal
         $steamObject->move($steamEnvironment);
         return true;

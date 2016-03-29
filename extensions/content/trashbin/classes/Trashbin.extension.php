@@ -37,10 +37,10 @@ class Trashbin extends AbstractExtension implements IObjectExtension, IObjectMod
 	}
 
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
-                return false; //quick fix TODO: test object for trashbin
+		return false; //quick fix TODO: test object for trashbin
 		return new \Trashbin\Commands\Index();
 	}
-	
+
 
 	public function getObjectModels() {
 		$objectModels = array();
@@ -66,6 +66,7 @@ class Trashbin extends AbstractExtension implements IObjectExtension, IObjectMod
 		}
 		return null;
 	}
+
 	public function getPriority() {
 		return 6;
 	}

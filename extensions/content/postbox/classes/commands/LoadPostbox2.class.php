@@ -43,34 +43,36 @@ class LoadPostbox2 extends \AbstractCommand implements \IAjaxCommand {
 }
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
+
 	public function getHeadlines() {
-		return array("", "Name", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
-	}
+      return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+  }
 
-	public function getHeadLineWidths() {
-		return array(25, 415, 100, 150, 80, 40, 20);
-	}
+  public function getHeadLineWidths() {
+      return array(25, 250, 10, 380, 10, 145, 75, 30, 20);
+  }
 
-	public function getHeadLineAligns() {
-		return array("left", "left", "right", "right", "right", "right", "right");
-	}
+  public function getHeadLineAligns() {
+      return array("left", "left", "left", "left", "left", "right", "right", "right", "right");
+  }
+
 }
 
 class ContentProvider implements \Widgets\IContentProvider {
+
 	private $rawImage = 0;
 	private $rawName = 1;
-	private $rawMarker = 2;
-	private $rawChangeDate = 3;
-	private $rawSize = 4;
-	private $rawMenu = 5;
-	private $rawCheckbox = 6;
-
+	private $rawDesc = 3;
+	private $rawMarker = 4;
+	private $rawChangeDate = 5;
+	private $rawSize = 6;
+	private $rawMenu = 7;
+	private $rawCheckbox = 8;
 	private $lastPlace;
 
 	public function setLastPlace($id){
 		$this->lastPlace = $id;
 	}
-
 
 	public function getId($contentItem) {
 		return $contentItem->get_id();
@@ -105,17 +107,20 @@ class ContentProvider implements \Widgets\IContentProvider {
 		} else if ($cell == $this->rawName) {
 			$tipsy = new \Widgets\Tipsy();
 			$tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
-			$tipsy->setHtml("<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"".PATH_URL."download/image/"
-			. $contentItem->get_creator()->get_attribute(OBJ_ICON)->get_id()."/30/30\"> "
-			. $contentItem->get_creator()->get_attribute(USER_FIRSTNAME)." "
-			. $contentItem->get_creator()->get_attribute(USER_FULLNAME) . "<br clear=\"all\">"
-			. "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>"
-			. "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>");
-			//  . (($contentItem instanceof \steam_document) ? "<br>" . $contentItem->get_attribute(DOC_MIME_TYPE) : ""));
+			$tipsyHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"".PATH_URL."download/image/"
+				. $contentItem->get_creator()->get_attribute(OBJ_ICON)->get_id()."/30/30\"> "
+				. $contentItem->get_creator()->get_attribute(USER_FIRSTNAME)." "
+				. $contentItem->get_creator()->get_attribute(USER_FULLNAME) . "<br clear=\"all\">"
+				. "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>"
+				. "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
 
+			$tags = $contentItem->get_attribute(OBJ_KEYWORDS);
+			if(sizeOf($tags) > 0 && $tags[0] != ""){
+				$tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
+			}
+			$tipsy->setHtml($tipsyHtml);
 
 			$desc = $contentItem->get_attribute("OBJ_DESC");
-			//$name = $objectModel->getReadableName();
 			$name = getCleanName($contentItem, 50);
 			if($desc === 0 || $desc ===""){
 				$desc=$name;
@@ -135,6 +140,8 @@ class ContentProvider implements \Widgets\IContentProvider {
 			} else {
 				return $name . "<script>" . $tipsy->getHtml() . "</script>";
 			}
+		} else if ($cell == $this->rawDesc) {
+			return $contentItem->get_attribute("OBJ_DESC");
 		} else if ($cell == $this->rawMarker) {
 			return "<div></div>";//speed test //TODO: fix
 			$html = "";
@@ -183,7 +190,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 
 	public function getOnClickHandler($contentItem) {
 		if (!($contentItem instanceof \steam_trashbin)) {
-			return "jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[6].children[0].checked);";
+			return "jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked);";
 		} else {
 			return "";
 		}

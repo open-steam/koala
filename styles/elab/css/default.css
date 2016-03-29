@@ -12,8 +12,7 @@ html {
 
 #header #logo {
 	background: url(../images/page_layout/logo.png) no-repeat;
-	top: 3px;
-	left: 20px;
+	top: 5px;
 }
 
 #site_wrapper {

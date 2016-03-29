@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
 					var obj = new Object;
 					obj.id = element.attr('id');
 
-					sendRequest("GetDirectEditor", obj, item.attr('id'), "updater", null, null, "explorer");
+					sendRequest("GetDirectEditor", obj, item.attr('id'), "nonModalUpdater", null, null, "explorer");
 				} else {
 					removeAllDirectEditors();
 				}
@@ -36,10 +36,16 @@ var oldVal;
 
 function removeAllDirectEditors(save) {
 	if(save){
+		//define the dataSaveFunctionCallback to make the contentProvider happy
+		jQuery.globalEval("function dataSaveFunctionCallback(response){return true;}");
 		$('.changed').each(function(number, obj) {
 			eval($(obj).attr('data-saveFunction'));
+			$(obj).removeClass("changed");
 		});
 	}
+
+	jQuery(document).keyup(function(e) {});
+
 	var elements = jQuery(".directEditor");
 	if (elements) {
 		for(i=0; i<elements.length; i++) {
@@ -53,9 +59,10 @@ function removeAllDirectEditors(save) {
 function removeDirectEditor(objectId, elementId) {
 	jQuery("#" + elementId).removeClass("directEditor").html("");
 
+  //get the new name
 	var obj = new Object;
 	obj.id = objectId;
-	sendRequest("GetLabel", obj, elementId, "updater",null,null,"explorer");
+	sendRequest("GetLabel", obj, elementId, "nonModalUpdater",null,null,"explorer");
 }
 
 function getSelectionAsArray() {
