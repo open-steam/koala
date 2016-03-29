@@ -82,11 +82,17 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                 $downloadIcon = $explorerUrl . "icons/menu/download.png";
 
                 $subscription = "";
+                $user = $GLOBALS["STEAM"]->get_current_steam_user();
+                if ($user->get_name() == "root"){
+                  $isRoot = true;
+                } else {
+                  $isRoot = false;
+                }
 
                 //prepare subscription element it it is an enabled extension
                 if (strpos(EXTENSIONS_WHITELIST, "PortletSubscription")) {
+                  if ($isRoot || !strpos(CREATE_RESTRICTED_TO_ROOT, "PortletSubscription")){
                     $type = getObjectType($object);
-                    $user = $GLOBALS["STEAM"]->get_current_steam_user();
                     if ($type === "forum" || $type === "wiki" || $type === "room" || $type === "gallery" || $type === "portal" || ($type === "rapidfeedback" && $object->get_creator()->get_id() == $user->get_id()) || ($type === "document" && strstr($object->get_attribute(DOC_MIME_TYPE), "text")) || $type === "postbox") {
                         $subscriptions = $user->get_attribute("USER_HOMEPORTAL_SUBSCRIPTIONS");
                         if (is_array($subscriptions) && in_array($object->get_id(), $subscriptions)) {
@@ -95,6 +101,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                             $subscription = array("name" => "Abonnieren<img src=\"{$subscribeIcon}\">", "command" => "Subscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}', 'column' : '2' }", "type" => "reload");
                         }
                     }
+                  }
                 }
 
                 $items = array(
