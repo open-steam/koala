@@ -13,6 +13,7 @@
 .ddlist {
     width: 100%;
 }
+
 td{
     font-family: arial;
 }
@@ -32,6 +33,11 @@ p{
 table{
     width: 100%;
 }
+
 select {
     width: 100%;
+}
+
+br {
+  display: none;
 }

@@ -404,7 +404,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         //select distinct all groups that are on the highest level to be statet as "subgroups" of sTeam for the recursion
         foreach ($this->groups as $group){
             if($group !== $this->steamgroup && $group != $this->everyone){
-                $this->rootGroups[explode(".", $group->get_groupname())[0]] = $group;
+                $this->rootGroups[reset(explode(".", $group->get_groupname()))] = $group;
             }
         }
 
