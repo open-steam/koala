@@ -2,7 +2,7 @@
 
 namespace Widgets;
 
-class DropDownList extends Widget {
+class DropDownListSanction extends DropDownList {
     
     protected $id;
     protected $name = "";
@@ -17,87 +17,30 @@ class DropDownList extends Widget {
     protected $onChange = "";
     protected $saveFunction = "";
     protected $customClass;
+    protected $steamId;
+    protected $members = "";
+    protected $subGroups;
+    protected $type;
     
-    public function setId($id){
-        $this->id = $id;
-    }
     
-    public function getId(){
-        if(!isset($this->id)){
-            $this->setId("id_".rand()."_dropdown");
-        }
-        return $this->id;
-    }
     
-    public function setName($name) {
-        $this->name = $name;
+    public function setSteamId($steamId){
+        $this->steamId = $steamId;
     }
     
-    public function setLabel($label) {
-        $this->label = $label . ":";
-    }
-
-    public function addDataEntry($label, $value="") {
-        $this->data[] = array($label, $value);
+    public function setMembers($members){
+        $this->members = $members;
     }
     
-    /**
-     * processes arrays for the dropdown list elemtnts
-     * @param type $dataEntries array with key=>value pairs for the dropfown list
-     */
-    public function addDataEntries($dataEntries) {
-        foreach($dataEntries as $key => $value){
-            $this->addDataEntry($key, $value);
-        }
+    public function setType($type){
+        $this->type = $type;
     }
     
-    /**
-     * 
-     * @param type $focus set to true to focus this DropDownList field
-     */
-    public function setFocus($focus) {
-        $this->focus = $focus;
-    }
-
-    public function setReadOnly($readOnly) {
-        $this->readOnly = $readOnly;
-    }
-
-    /**
-     * @param type $width width in pixels (without px at the end)
-     */
-    public function setLabelWidth($labelWidth) {
-        $this->labelWidth = $labelWidth."px";
-    }
-
-    /**
-     * @param type $width width in pixels (without px at the end)
-     */
-    public function setInputWidth($inputWidth) {
-        $this->inputWidth = $inputWidth;
+    public function setSubGroups($subGroups){
+        $this->subGroups = $subGroups;
     }
     
-    public function setStartValue($startValue){
-        $this->startValue = $startValue;
-    }
-
-    public function setSize($size) {
-        $this->size = $size;
-    }
-
-    public function setOnChange($onChange) {
-        $this->onChange = $onChange;
-    }
     
-    public function setSaveFunction($saveFunction) {
-        $this->saveFunction = $saveFunction;
-    }
-    
-    public function setCustomClass($customClass) {
-        $this->customClass = $customClass;
-    }
-    
-
     public function getHtml() {
         
         if(!isset($this->id)){
@@ -123,6 +66,10 @@ class DropDownList extends Widget {
         
         $this->getContent()->setVariable("READ_ONLY", ($this->readOnly)?"disabled=\"disabled\"":"");
         $this->getContent()->setVariable("CUSTOM_CLASS", $this->customClass);
+        $this->getContent()->setVariable("STEAM_ID", $this->steamId);
+        $this->getContent()->setVariable("MEMBERS", $this->members);
+        $this->getContent()->setVariable("TYPE", $this->type);
+        $this->getContent()->setVariable("SUB_GROUPS", $this->subGroups);
         $this->getContent()->setVariable("SAVE_FUNCTION", $this->saveFunction);
 
         foreach ($this->data as $element) {

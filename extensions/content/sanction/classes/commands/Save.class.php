@@ -39,12 +39,8 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
     }
 
 
-
-
     public function validateData(\IRequestObject $requestObject) {
-
         return true;
-
     }
 
     public function processData(\IRequestObject $requestObject) {
@@ -102,14 +98,11 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                     $holderOfRightsObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $holderOfRightsId, CLASS_OBJECT);
                     $ret1 = $this->object->sanction($sanction, $holderOfRightsObject);
 
-                    var_dump($ret1 . " ". $sanction);
-                    var_dump($this->object->get_sanction());
                     //sanction_meta auf SANCTION_ALL setzen, wenn SANCTION_SANCTION gesetzt ist
                     if($this->object->check_access(SANCTION_SANCTION, $holderOfRightsObject)){
 
                     $this->object->sanction_meta(SANCTION_ALL, $holderOfRightsObject);
                     }
-
 
                     $holderOfRightsObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $holderOfRightsId);
                     $this->object->sanction($sanction, $holderOfRightsObject);
@@ -173,12 +166,7 @@ class Save extends \AbstractCommand implements \IAjaxCommand {
                    // $this->object->sanction_meta(SANCTION_READ, \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $everyoneId, CLASS_OBJECT));
                 }
 
-
-
-
-
             break;
-
 
             case "addUserOrGroup":
 

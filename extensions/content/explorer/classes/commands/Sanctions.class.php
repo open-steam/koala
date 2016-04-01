@@ -12,6 +12,61 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     private $creator;
     private $environment;
 
+    private $content;
+    private $ajaxResponseObject;
+
+    private $userPicUrl;
+    private $groupPicUrl;
+    private $favPicUrl;
+
+    private $favorites = array();
+    private $favoritesAcq = array();
+
+    private $user = array();
+    private $userMapping = array();
+
+    private $userAcq = array();
+    private $userMappingAcq = array();
+
+    private $rootGroups = array();
+
+    private $groups = array();
+    private $groupsRights = array();
+    private $groupMapping = array();
+    private $groupMappingA = array();
+    private $groupMappingName = array();
+
+    private $groupsAcq = array();
+    private $groupsRightsAcq = array();
+    private $groupMappingAcq = array();
+    private $groupMappingAAcq = array();
+    private $groupMappingNameAcq = array();
+
+    private $everyone;
+    private $everyoneId;
+
+    private $steamgroup;
+    private $steamgroupId;
+    private $dropdownValueSteamGroup;
+    private $dropdownValueAcqSteamGroup;
+
+
+    /**
+     * @var type array with the current sanctions
+     */
+    private $sanction;
+
+    /**
+     * @var type array with the environment's sancrions
+     */
+    private $environmentSanction;
+
+    /**
+     * @var type different Objects need different write sanctions.
+     */
+    private $sanctionWriteForCurrentObject;
+
+
     public function validateData(\IRequestObject $requestObject) {
         return true;
     }
@@ -29,108 +84,68 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 
-
+        $this->ajaxResponseObject = $ajaxResponseObject;
         $this->steam = $GLOBALS["STEAM"];
         $this->object = \steam_factory::get_object($this->steam->get_id(), $this->id);
-        //$objId = $this->id;
-        $ajaxResponseObject->setStatus("ok");
+        $this->ajaxResponseObject->setStatus("ok");
 
         //check if the user can modify the sanctions
         if (!$this->object->check_access(SANCTION_SANCTION)) {
             $labelDenied = new \Widgets\RawHtml();
-            $labelDenied->setHtml("Sie haben keine Berechtigung die Rechte einzusehen und zu verändern!");
+            $labelDenied->setHtml("Sie haben keine Berechtigung die Rechte einzusehen oder zu verändern!");
             $dialogDenied = new \Widgets\Dialog();
             $dialogDenied->setTitle("Rechte von »" . getCleanName($this->object) . "«");
+            $dialogDenied->setCancelButtonLabel("");
+            $dialogDenied->setSaveAndCloseButtonLabel("Schließen");
             $dialogDenied->addWidget($labelDenied);
 
-            $ajaxResponseObject->addWidget($dialogDenied);
-            return $ajaxResponseObject;
+            $this->ajaxResponseObject->addWidget($dialogDenied);
+            return $this->ajaxResponseObject;
         }
 
-        $this->steamUser = \lms_steam::get_current_user();
-
-        $dialog = new \Widgets\Dialog();
-        $dialog->setAutoSaveDialog(false);
-        $dialog->setWidth(600);
-        $dialog->setTitle("Rechte von »" . getCleanName($this->object) . "«");
-
-
-        //GET CREATOR TODO: USEFULL FOR ROOT FOLDER
-        //SET ICON URL
-        $userPicUrl = PATH_URL . "explorer/asset/icons/user.png";
-        $groupPicUrl = PATH_URL . "explorer/asset/icons/group.png";
-        $favPicUrl = PATH_URL . "explorer/asset/icons/red.png";
-
-        //GET OWNER OF THE CURRENT OBJECT
-
-        $this->creator = $this->object->get_creator();
-
-
-
-        //GET FAVORITES
-
-        $favorites = array();
-        $favoritesAcq = array();
+        self::setupVariables();
 
         foreach ($this->steamUser->get_buddies() as $favorite) {
-            $favorites[$favorite->get_id()] = $favorite;
-            $favoritesAcq[$favorite->get_id()] = $favorite;
+            $this->favorites[$favorite->get_id()] = $favorite;
+            $this->favoritesAcq[$favorite->get_id()] = $favorite;
         }
 
-        //GET GROUPS
-        $groups = array();
-        $groupsAcq = array();
         foreach ($this->steamUser->get_groups() as $group) {
-            $groups[$group->get_id()] = $group;
-            $groupsAcq[$group->get_id()] = $group;
+            $this->groups[$group->get_id()] = $group;
+            $this->groupsAcq[$group->get_id()] = $group;
         }
-       //GET GROUPS EVERYONE
-        $everyone = \steam_factory::groupname_to_object($this->steam->get_id(), "everyone");
-        $everyoneId = $everyone->get_id();
-        //GET GROUP STEAM
-        $steamgroup = \steam_factory::groupname_to_object($this->steam->get_id(), "sTeam");
-        $steamgroupId = $steamgroup->get_id();
 
-        //GET SANCTION
-        $sanction = $this->object->get_sanction();
-
-        $this->environment = $this->object->get_environment();
-
-
-        if ($this->environment instanceof \steam_room) {
-            $environmentSanction = $this->environment->get_sanction();
-        }
-        $additionalUser = array();
-        $additionalGroups = array();
-        foreach ($sanction as $id => $sanct) {
-            if (!array_key_exists($id, $groups) &&
-                    !array_key_exists($id, $favorites) &&
+        foreach ($this->sanction as $id => $sanct) {
+            if (!array_key_exists($id, $this->groups) &&
+                    !array_key_exists($id, $this->favorites) &&
                     $id != $this->creator->get_id() && $id != 0 &&
-                    $id != $everyoneId) {
+                    $id != $this->everyoneId) {
                 $additionalObject = \steam_factory::get_object($this->steam->get_id(), $id);
                 if ($additionalObject instanceof \steam_group) {
-                    $additionalGroups[$id] = $additionalObject;
+                    $this->groups[$id] = $additionalObject;
                 } else if ($additionalObject instanceof \steam_user) {
-                    $additionalUser[$id] = $additionalObject;
+                    $this->user[$id] = $additionalObject;
                 } else {
                     throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt.");
                 }
             }
         }
 
-        $additionalUserAcq = array();
-        $additionalGroupsAcq = array();
-        if (isset($environmentSanction) && is_array($environmentSanction)) {
-            foreach ($environmentSanction as $id => $envSanct) {
-                if (!array_key_exists($id, $groups) &&
-                        !array_key_exists($id, $favorites) &&
+        if ($this->environment instanceof \steam_room) {
+            $this->environmentSanction = $this->environment->get_sanction();
+        }
+
+        if (isset($this->environmentSanction) && is_array($this->environmentSanction)) {
+            foreach ($this->environmentSanction as $id => $envSanct) {
+                if (!array_key_exists($id, $this->groups) &&
+                        !array_key_exists($id, $this->favorites) &&
                         $id != $this->creator->get_id() && $id != 0 &&
-                        $id != $everyoneId) {
+                        $id != $this->everyoneId) {
                     $additionalObject = \steam_factory::get_object($this->steam->get_id(), $id);
                     if ($additionalObject instanceof \steam_group) {
-                        $additionalGroupsAcq[$id] = $additionalObject;
+                        $this->groupsAcq[$id] = $additionalObject;
                     } else if ($additionalObject instanceof \steam_user) {
-                        $additionalUserAcq[$id] = $additionalObject;
+                        $this->userAcq[$id] = $additionalObject;
                     } else {
                         throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt.");
                     }
@@ -138,603 +153,678 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
             }
         }
 
-        foreach ($additionalGroups as $id => $group) {
-            $groups[$id] = $group;
-        }
-        foreach ($additionalGroupsAcq as $id => $group) {
-            $groupsAcq[$id] = $group;
-        }
-        $user = array();
-        foreach ($additionalUser as $id => $usr) {
-            $user[$id] = $usr;
-        }
-        $userAcq = array();
-        foreach ($additionalUserAcq as $id => $usr) {
-            $userAcq[$id] = $usr;
-        }
-        foreach ($favorites as $id => $favi) {
-            if ($favi instanceof \steam_user) {
-                $user[$id] = $favi;
-                $userAcq[$id] = $favi;
-            } else if ($favi instanceof \steam_group) {
-                $groups[$id] = $favi;
-                $groupsAcq[$id] = $favi;
+        foreach ($this->favorites as $id => $favorite) {
+            if ($favorite instanceof \steam_user) {
+                $this->user[$id] = $favorite;
+                $this->userAcq[$id] = $favorite;
+            } else if ($favorite instanceof \steam_group) {
+                $this->groups[$id] = $favorite;
+                $this->groupsAcq[$id] = $favorite;
             } else {
                 throw new \Exception("Favoriten beeinhalten das Objekt einer ungültigen Klasse!");
             }
         }
 
+        self::defineObjectSpecificWriteSanctions();
+
+        foreach ($this->groups as $g) {
+            $id = $g->get_id();
+            $name = $g->get_groupname();
+            $this->groupMappingA[$id] = $name;
+            $this->groupMappingName[$name] = $id;
+        }
+
+        foreach ($this->groupsAcq as $g) {
+            $id = $g->get_id();
+            $name = $g->get_groupname();
+            $this->groupMappingAAcq[$id] = $name;
+            $this->groupMappingNameAcq[$name] = $id;
+        }
+
+        foreach ($this->groupMappingA as $name) {
+            $array = explode(".", $name);
+            $length = count($array);
+            if ($length > 1) {
+
+                $string = "";
+                for ($i = 0; $i < $length; $i++) {
+                    if ($i == 0) {
+                        $string .= $array[$i];
+                        if (!isset($this->groupMappingName[$string])) {
+                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
+                            $groupId = $group->get_id();
+                            $this->groupMappingName[$string] = $groupId;
+                            $this->groupMappingA[$groupId] = $string;
+                            $this->groups[$groupId] = $group;
+                        }
+                    } else {
+                        $string .= "." . $array[$i];
+                        if (!isset($this->groupMappingName[$string])) {
+                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
+                            $groupId = $group->get_id();
+                            $this->groupMappingName[$string] = $groupId;
+                            $this->groupMappingA[$groupId] = $string;
+                            $this->groups[$groupId] = $group;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($this->groupMappingAAcq as $name) {
+            $array = explode(".", $name);
+            $length = count($array);
+            if ($length > 1) {
+
+                $string = "";
+                for ($i = 0; $i < $length; $i++) {
+                    if ($i == 0) {
+                        $string .= $array[$i];
+                        if (!isset($this->groupMappingNameAcq[$string])) {
+                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
+                            $groupId = $group->get_id();
+                            $this->groupMappingNameAcq[$string] = $groupId;
+                            $this->groupMappingAAcq[$groupId] = $string;
+                            $this->groupsAcq[$groupId] = $group;
+                        }
+                    } else {
+                        $string .= "." . $array[$i];
+                        if (!isset($this->groupMappingNameAcq[$string])) {
+                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
+                            $groupId = $group->get_id();
+                            $this->groupMappingNameAcq[$string] = $groupId;
+                            $this->groupMappingAAcq[$groupId] = $string;
+                            $this->groupsAcq[$groupId] = $group;
+                        }
+                    }
+                }
+            }
+        }
+
+        asort($this->groupMappingA);
+        asort($this->groupMappingAAcq);
+
+        foreach ($this->groupMappingA as $id => $name) {
+            $this->groupMapping[$id] = $this->groups[$id];
+        }
+
+        foreach ($this->groupMappingAAcq as $id => $name) {
+            $this->groupMappingAcq[$id] = $this->groupsAcq[$id];
+        }
+
+        foreach ($this->user as $id => $u) {
+            if ($u instanceof \steam_user) {
+                $this->userMapping[$id] = $u->get_full_name();
+            }
+        }
+
+        asort($this->userMapping);
+
+        foreach ($this->userAcq as $id => $u) {
+            if ($u instanceof \steam_user) {
+                $this->userMappingAcq [$id] = $u->get_full_name();
+            }
+        }
+
+        asort($this->userMappingAcq);
+
+        self::setUpTemplate();
+        self::buildGlobalGroups();
+        self::buildGroupFavorites();
+        self::buildGroupFavoritesAcq();
+        self::buildUserFavorites();
+        self::buildUserFavoritesAcq();
+        self::buildDialog();
+
+        $this->ajaxResponseObject->addWidget($this->dialog);
+
+        if($this->object->get_attribute("OBJ_TYPE") === "postbox"){
+            $deactiveAcq = new \Widgets\JSWrapper();
+            $deactiveAcq->setPostJsCode('$("#radio_acquire").attr("disabled",true);');
+            $this->ajaxResponseObject->addWidget($deactiveAcq);
+        }
+
+        return $this->ajaxResponseObject;
+    }
+
+
+    function getOptionsValues() {
+        return array(0 => "Kein Zugriff", 1 => "Nur Lesen", 2 => "Lesen und Schreiben", 3 => "Lesen, Schreiben und Berechtigen");
+    }
+
+
+    function setupVariables(){
+        $this->steamUser = \lms_steam::get_current_user();
+
+        $this->everyone = \steam_factory::groupname_to_object($this->steam->get_id(), "everyone");
+        $this->everyoneId = $this->everyone->get_id();
+
+        $this->steamgroup = \steam_factory::groupname_to_object($this->steam->get_id(), "sTeam");
+        $this->steamgroupId = $this->steamgroup->get_id();
+
+        $this->sanction = $this->object->get_sanction();
+
+        $this->dialog = new \Widgets\Dialog();
+        $this->dialog->setAutoSaveDialog(false);
+        $this->dialog->setWidth(600);
+        $this->dialog->setTitle("Rechte von »" . getCleanName($this->object) . "«");
+
+        $this->userPicUrl = PATH_URL . "explorer/asset/icons/user.png";
+        $this->groupPicUrl = PATH_URL . "explorer/asset/icons/group.png";
+        $this->favPicUrl = PATH_URL . "explorer/asset/icons/red.png";
+
+        $this->creator = $this->object->get_creator();
+
+        $this->environment = $this->object->get_environment();
+
+    }
+
+
+    function setUpTemplate(){
+
+        $this->content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
+        $css = \Explorer::getInstance()->readCSS("sanctions.css");
+        $this->content->setVariable("CSS", $css);
+
+        //start with the composition of the dialog
+        if ($this->environment instanceof \steam_room) {
+            $this->content->setVariable("INHERIT_HEADLINE", "<h3>Option 1: Rechte erben</h3>");
+            $this->content->setVariable("PREDEFINED_HEADLINE", "<h3>Option 2: Vordefinierte Rechte verwenden</h3>");
+            $this->content->setVariable("INDIVIDUAL_HEADLINE", "<h3>Option 3: Individuelle Rechte festlegen</h3>");
+            $this->content->setVariable("INHERIT_FROM", "Rechte vom Elternelement<b>" . getCleanName($this->environment) . "</b> übernehmen:");
+        } else{
+            $this->content->setVariable("NO_ENVIRONMENT", "style='display:none;'");
+            $this->content->setVariable("INHERIT_FROM", "");
+            $this->content->setVariable("PREDEFINED_HEADLINE", "<h3>Option 1: Vordefinierte Rechte verwenden</h3>");
+            $this->content->setVariable("INDIVIDUAL_HEADLINE", "<h3>Option 2: Individuelle Rechte festlegen</h3>");
+        }
+
+        if ($this->object->get_acquire() instanceof \steam_room) {
+            $this->content->setVariable("ACQUIRE_START", "acq");
+            $this->content->setVariable("DISPLAY_NORMAL_CLASS", "invisible");
+            $this->content->setVariable("DISPLAY_ACQ_CLASS", "visible");
+
+            $this->content->setVariable("CHECKBOX_CHECKED", "checked=\"checked\"");
+
+        } else {
+            $this->content->setVariable("ACQUIRE_START", "");
+            $this->content->setVariable("DISPLAY_NORMAL_CLASS", "visible");
+            $this->content->setVariable("DISPLAY_ACQ_CLASS", "invisible");
+            $this->content->setVariable("CHECKBOX_CHECKED", "");
+        }
+
+        $this->content->setVariable("PRIVATE_PIC", PATH_URL . "explorer/asset/icons/private.png");
+        $this->content->setVariable("USER_DEF_PIC", PATH_URL . "explorer/asset/icons/user_defined.png");
+        $this->content->setVariable("USER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/server_public.png");
+        $this->content->setVariable("SERVER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/world_public.png");
+
+        if($this->creator instanceof \steam_user){
+            $this->content->setVariable("CREATOR_FULL_NAME", $this->creator->get_full_name());
+        } else {
+            $this->content->setVariable("CREATOR_FULL_NAME", getCleanName($this->creator));
+        }
+
+        $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
+        $this->content->setVariable("STEAMID", $this->steamgroupId);
+        $this->content->setVariable("SEND_REQUEST_ACQ", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": acquire_checkbox }, "", "data", function(response){dataSaveFunctionCallback(response);}, null, "explorer");');
+    }
+
+
+    function defineObjectSpecificWriteSanctions(){
         //if the document is a questionary
         if (strcmp($this->object->get_attribute("bid:doctype"), "questionary") == 0) {
-            $SANCTION_WRITE_FOR_CURRENT_OBJECT = SANCTION_INSERT;
+            $this->sanctionWriteForCurrentObject = SANCTION_INSERT;
         }
         // In message boards only annotating is allowed. The owner
         // is the only one who can also write and change message
         // board entries.
         else if ($this->object instanceof \steam_messageboard) {
-            $SANCTION_WRITE_FOR_CURRENT_OBJECT = SANCTION_ANNOTATE;
+            $this->sanctionWriteForCurrentObject = SANCTION_ANNOTATE;
         }
         // normal documents
         else {
-            $SANCTION_WRITE_FOR_CURRENT_OBJECT = SANCTION_WRITE | SANCTION_EXECUTE | SANCTION_MOVE | SANCTION_INSERT | SANCTION_ANNOTATE;
+            $this->sanctionWriteForCurrentObject = SANCTION_WRITE | SANCTION_EXECUTE | SANCTION_MOVE | SANCTION_INSERT | SANCTION_ANNOTATE;
         }
-        $groupMappingA = array();
-        $groupMappingName = array();
-        foreach ($groups as $g) {
-            $id = $g->get_id();
-            $name = $g->get_groupname();
-            $groupMappingA[$id] = $name;
-            $groupMappingName[$name] = $id;
-        }
-        $groupMappingAAcq = array();
-        $groupMappingNameAcq = array();
-        foreach ($groupsAcq as $g) {
-            $id = $g->get_id();
-            $name = $g->get_groupname();
-            $groupMappingAAcq[$id] = $name;
-            $groupMappingNameAcq[$name] = $id;
-        }
-        foreach ($groupMappingA as $name) {
-            $array = explode(".", $name);
-            $length = count($array);
-            if ($length > 1) {
+    }
 
-                $string = "";
-                for ($i = 0; $i < $length; $i++) {
-                    if ($i == 0) {
-                        $string .= $array[$i];
-                        if (!isset($groupMappingName[$string])) {
-                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
-                            $groupId = $group->get_id();
-                            $groupMappingName[$string] = $groupId;
-                            $groupMappingA[$groupId] = $string;
-                            $groups[$groupId] = $group;
-                        }
-                    } else {
-                        $string .= "." . $array[$i];
-                        if (!isset($groupMappingName[$string])) {
-                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
-                            $groupId = $group->get_id();
-                            $groupMappingName[$string] = $groupId;
-                            $groupMappingA[$groupId] = $string;
-                            $groups[$groupId] = $group;
-                        }
-                    }
-                }
+    function buildGlobalGroups(){
+        $dropDownValue = 0;
+        if ($this->object->check_access(SANCTION_SANCTION, $this->everyone)) {$dropDownValue = 3;}
+        else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) {$dropDownValue = 2;}
+        else if ($this->object->check_access_read($this->everyone)) {$dropDownValue = 1;}
+
+        $allUserIds = array();
+        foreach($this->user as $user){
+            $allUserIds[] = "#fav_".$user->get_id()."_dd";
+        }
+        $allUserIds = implode(",",$allUserIds);
+
+        $allGroupIds = array();
+
+        //select distinct all groups that are on the highest level to be statet as "subgroups" of sTeam for the recursion
+        foreach ($this->groups as $group){
+            if($group !== $this->steamgroup && $group != $this->everyone){
+                $this->rootGroups[explode(".", $group->get_groupname())[0]] = $group;
             }
         }
-        foreach ($groupMappingAAcq as $name) {
-            $array = explode(".", $name);
-            $length = count($array);
-            if ($length > 1) {
 
-                $string = "";
-                for ($i = 0; $i < $length; $i++) {
-                    if ($i == 0) {
-                        $string .= $array[$i];
-                        if (!isset($groupMappingNameAcq[$string])) {
-                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
-                            $groupId = $group->get_id();
-                            $groupMappingNameAcq[$string] = $groupId;
-                            $groupMappingAAcq[$groupId] = $string;
-                            $groupsAcq[$groupId] = $group;
-                        }
-                    } else {
-                        $string .= "." . $array[$i];
-                        if (!isset($groupMappingNameAcq[$string])) {
-                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
-                            $groupId = $group->get_id();
-                            $groupMappingNameAcq[$string] = $groupId;
-                            $groupMappingAAcq[$groupId] = $string;
-                            $groupsAcq[$groupId] = $group;
-                        }
-                    }
-                }
-            }
-        }
-        asort($groupMappingA);
-        asort($groupMappingAAcq);
-        $groupMapping = array();
-        foreach ($groupMappingA as $id => $name) {
-            $groupMapping[$id] = $groups[$id];
+        foreach($this->rootGroups as $group){
+            $allGroupIds[] = "#group_".$group->get_id();
         }
 
-        $groupMappingAcq = array();
-        foreach ($groupMappingAAcq as $id => $name) {
-            $groupMappingAcq[$id] = $groupsAcq[$id];
-        }
+        $allGroupIds = implode(",",$allGroupIds);
 
-        //MAPPING USER
-        $userMapping = array();
-        foreach ($user as $id => $u) {
-            if ($u instanceof \steam_user) {
-                $userMapping[$id] = $u->get_full_name();
-            }
-        }
-        asort($userMapping);
+        $ddlEveryone = new \Widgets\DropDownListSanction();
+        $ddlEveryone->setId("everyone_dd");
+        $ddlEveryone->setName("ddlist");
+        $ddlEveryone->setSize("1");
+        $ddlEveryone->setType("group");
+        $ddlEveryone->setReadOnly(false);
+        $ddlEveryone->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->everyoneId, 'type': 'sanction', 'value': everyone_dd }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
+        $ddlEveryone->setCustomClass("non-acq");
+        $ddlEveryone->setMembers($allUserIds);
+        $ddlEveryone->setSubGroups("#steam_dd");
+        $ddlEveryone->setSteamId($this->everyoneId);
+        $ddlEveryone->addDataEntries(self::getOptionsValues());
+        $ddlEveryone->setStartValue($dropDownValue);
 
-        $userMappingAcq = array();
-
-        foreach ($userAcq as $id => $u) {
-            if ($u instanceof \steam_user) {
-                $userMappingAcq [$id] = $u->get_full_name();
-            }
-        }
-        asort($userMappingAcq);
-
-
-        $content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
-        $css = \Explorer::getInstance()->readCSS("sanctions.css");
-        $content->setVariable("CSS", $css);
-
-        //ACQUIRE
-        if ($this->environment instanceof \steam_room) {
-            $content->setVariable("INHERIT_FROM", "Übernehme Rechte von:<b>" . getCleanName($this->environment) . "</b>");
-        } else{
-            //$content->setVariable("NO_ENVIRONMENT", "disabled");
-            $content->setVariable("NO_ENVIRONMENT", "style='display:none;'");
-            $content->setVariable("INHERIT_FROM", "");
-        }
-
-        if ($this->object->get_acquire() instanceof \steam_room) {
-            $content->setVariable("ACQUIRE_START", "activateAcq();");
-        }
-
-        //PICTURES
-        $content->setVariable("PRIVATE_PIC", PATH_URL . "explorer/asset/icons/private.png");
-        $content->setVariable("USER_DEF_PIC", PATH_URL . "explorer/asset/icons/user_defined.png");
-        $content->setVariable("USER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/server_public.png");
-        $content->setVariable("SERVER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/world_public.png");
-
-        if($this->creator instanceof \steam_user){
-            $content->setVariable("CREATOR_FULL_NAME", $this->creator->get_full_name());
-        } else {
-            $content->setVariable("CREATOR_FULL_NAME", getCleanName($this->creator));
-        }
-
-
-        $content->setVariable("EVERYONEID", $everyoneId);
-        $readCheck = $this->object->check_access_read($everyone);
-        $writeCheck = $this->object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $everyone);
-        $sanctionCheck = $this->object->check_access(SANCTION_SANCTION, $everyone);
-        $dropdownValue = 0;
-        if ($sanctionCheck)
-            $dropdownValue = 3;
-        else if ($writeCheck)
-            $dropdownValue = 2;
-        else if ($readCheck)
-            $dropdownValue = 1;
-        $content->setVariable("EVERYONE_VALUE", $dropdownValue);
-
-
-        if ($this->environment instanceof \steam_room) {
-            $readCheckAcq = $this->environment->check_access_read($everyone);
-            $writeCheckAcq = $this->environment->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $everyone);
-            $sanctionCheckAcq = $this->environment->check_access(SANCTION_SANCTION, $everyone);
-        } else {
-            $readCheckAcq = 0;
-            $writeCheckAcq = 0;
-            $sanctionCheckAcq = 0;
-
-        }
+        $this->content->setCurrentBlock("GROUP_EVERYONE");
+        $this->content->setVariable("DROPDOWNLIST", $ddlEveryone->getHtml());
+        $this->content->parse("GROUP_EVERYONE");
 
         $dropdownValueAcq = 0;
-        if ($sanctionCheckAcq)
-            $dropdownValueAcq = 3;
-        else if ($writeCheckAcq)
-            $dropdownValueAcq = 2;
-        else if ($readCheckAcq)
-            $dropdownValueAcq = 1;
-        $content->setVariable("EVERYONE_VALUE_ACQ", $dropdownValueAcq);
-
-
-        $content->setVariable("STEAMID", $steamgroupId);
-        $readCheckSteamGroup = $this->object->check_access_read($steamgroup);
-        $writeCheckSteamGroup = $this->object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $steamgroup);
-        $sanctionCheckSteamGroup = $this->object->check_access(SANCTION_SANCTION, $steamgroup);
-        $dropdownValueSteamGroup = 0;
-        if ($sanctionCheckSteamGroup)
-            $dropdownValueSteamGroup = 3;
-        else if ($writeCheckSteamGroup)
-            $dropdownValueSteamGroup = 2;
-        else if ($readCheckSteamGroup)
-            $dropdownValueSteamGroup = 1;
-        $content->setVariable("STEAM_VALUE", $dropdownValueSteamGroup);
-
         if ($this->environment instanceof \steam_room) {
-            $readCheckAcqSteamGroup = $this->environment->check_access_read($steamgroup);
-            $writeCheckAcqSteamGroup = $this->environment->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $steamgroup);
-            $sanctionCheckAcqSteamGroup = $this->environment->check_access(SANCTION_SANCTION, $steamgroup);
-        } else {
-            $readCheckAcqSteamGroup = 0;
-            $writeCheckAcqSteamGroup = 0;
-            $sanctionCheckAcqSteamGroup = 0;
+            if ($this->environment->check_access(SANCTION_SANCTION, $this->everyone)) { $dropdownValueAcq = 3; }
+            else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) { $dropdownValueAcq = 2; }
+            else if ($this->environment->check_access_read($this->everyone)) { $dropdownValueAcq = 1; }
         }
 
-        $dropdownValueAcqSteamGroup = 0;
-        if ($sanctionCheckAcqSteamGroup)
-            $dropdownValueAcqSteamGroup = 3;
-        else if ($writeCheckAcqSteamGroup)
-            $dropdownValueAcqSteamGroup = 2;
-        else if ($readCheckAcqSteamGroup)
-            $dropdownValueAcqSteamGroup = 1;
-        $content->setVariable("STEAM_VALUE_ACQ", $dropdownValueAcqSteamGroup);
+        $ddlEveryoneAcq = new \Widgets\DropDownListSanction();
+        $ddlEveryoneAcq->setId("everyone_acq");
+        $ddlEveryoneAcq->setName("ddlist");
+        $ddlEveryoneAcq->setSize("1");
+        $ddlEveryoneAcq->setType("group");
+        $ddlEveryoneAcq->setReadOnly(true);
+        $ddlEveryoneAcq->addDataEntries(self::getOptionsValues());
+        $ddlEveryoneAcq->setStartValue($dropdownValueAcq);
 
-        $content->setVariable("EVERYONE_ID", $everyoneId);
-        $content->setVariable("STEAM_ID", $steamgroupId);
-        $content->setVariable("SEND_REQUEST_SANCTION", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "sanctionId": id, "type": "sanction", "value": value }, "", "data", function(response){jQuery(\'#dynamic_wrapper\').remove(); jQuery(\'#overlay\').remove(); sendRequest(\'Sanctions\', {\'id\':\'' . $this->id . '\'}, \'\', \'popup\', null, null, \'explorer\');}, null, "explorer");');
-        $content->setVariable("SEND_REQUEST_CRUDE", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "crude", "value": value }, "", "data", function(response){jQuery(\'#dynamic_wrapper\').remove(); jQuery(\'#overlay\').remove(); sendRequest(\'Sanctions\', {\'id\':\'' . $this->id . '\'}, \'\', \'popup\', null, null, \'explorer\');}, null, "explorer");');
-        $content->setVariable("SEND_REQUEST_ACQ_ACT", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": "acq" }, "", "data", null, null, "explorer");');
-        $content->setVariable("SEND_REQUEST_ACQ_DEACT", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": "non_acq" }, "", "data", null, null, "explorer");');
-        //TEMPLATE GROUPS
+        $this->content->setCurrentBlock("GROUP_EVERYONE_ACQ");
+        $this->content->setVariable("DROPDOWNLIST", $ddlEveryoneAcq->getHtml());
+        $this->content->parse("GROUP_EVERYONE_ACQ");
 
-        if (count($groupMapping) == 0) {
-            $content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
+        $this->dropdownValueSteamGroup = 0;
+        if ($this->object->check_access(SANCTION_SANCTION, $this->steamgroup)) {$this->dropdownValueSteamGroup = 3;}
+        else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {$this->dropdownValueSteamGroup = 2;}
+        else if ($this->object->check_access_read($this->steamgroup)) {$this->dropdownValueSteamGroup = 1;}
+        $ddlSteam = new \Widgets\DropDownListSanction();
+        $steamId = "steam_dd";
+        $ddlSteam->setId($steamId);
+        $ddlSteam->setName("ddlist");
+        $ddlSteam->setSize("1");
+        $ddlSteam->setType("group");
+        $ddlSteam->setReadOnly(false);
+        $ddlSteam->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $this->steamgroupId, 'type': 'sanction', 'value': $steamId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
+        $ddlSteam->setCustomClass("non-acq");
+        $ddlSteam->setMembers($allUserIds);
+        $ddlSteam->setSubGroups($allGroupIds);
+        $ddlSteam->setSteamId($this->steamgroupId);
+        $ddlSteam->addDataEntries(self::getOptionsValues());
+        $ddlSteam->setStartValue($this->dropdownValueSteamGroup);
+
+        $this->content->setCurrentBlock("GROUP_STEAM");
+        $this->content->setVariable("DROPDOWNLIST", $ddlSteam->getHtml());
+        $this->content->parse("GROUP_STEAM");
+
+        $this->dropdownValueAcqSteamGroup = 0;
+        if ($this->environment instanceof \steam_room) {
+            if ($this->environment->check_access(SANCTION_SANCTION, $this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 3;}
+            else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 2;}
+            else if ($this->environment->check_access_read($this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 1;}
+        }
+
+        $ddlSteamAcq = new \Widgets\DropDownListSanction();
+        $ddlSteamAcq->setId("steam_dd_acq");
+        $ddlSteamAcq->setName("ddlist");
+        $ddlSteamAcq->setSize("1");
+        $ddlSteamAcq->setType("group");
+        $ddlSteamAcq->setReadOnly(true);
+        $ddlSteamAcq->addDataEntries(self::getOptionsValues());
+        $ddlSteamAcq->setStartValue($this->dropdownValueAcqSteamGroup);
+
+        $this->content->setCurrentBlock("GROUP_STEAM_ACQ");
+        $this->content->setVariable("DROPDOWNLIST", $ddlSteamAcq->getHtml());
+        $this->content->parse("GROUP_STEAM_ACQ");
+
+    }
+
+
+    function buildGroupFavorites(){
+        if (count($this->groupMapping) == 0) {
+            $this->content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
-            $groupsRights = array();
-            if(count($groupMapping) > 5){
-              $content->setVariable("CSS_GROUPS", "height:110px;");
+            if(count($this->groupMapping) > 4){
+              $this->content->setVariable("CSS_GROUPS", "height:104px;");
             } else {
-              $content->setVariable("CSS_GROUPS", "");
+              $this->content->setVariable("CSS_GROUPS", "");
             }
+            foreach ($this->groupMapping as $id => $group) {
 
-            foreach ($groupMapping as $id => $group) {
+                if($group->get_attribute("GROUP_INVISIBLE") != 0){
+                    continue;
+                }
+                $groupname = $group->get_groupname();
+                if ($groupname != "Everyone" && $groupname != "sTeam") {
+
+                    $name = $group->get_attribute("OBJ_DESC");
+                    $realname = $group->get_name();
+                    if ($name == "" || $name == "0") {
+                      $name = $group->get_name();
+                    }
+
+                    $dropDownValue = 0;
+                    if ($this->object->check_access(SANCTION_SANCTION, $group)) {$dropDownValue = 3;}
+                    elseif ($this->object->check_access($this->sanctionWriteForCurrentObject, $group)) {$dropDownValue = 2;}
+                    elseif ($this->object->check_access_read($group)) {$dropDownValue = 1;}
+
+                    $this->groupsRights[$id] = $dropDownValue;
+
+                    $ddl = new \Widgets\DropDownListSanction();
+                    $ddl->setId("group_" . $id);
+                    $ddl->setName("ddlist");
+                    $ddl->setType("group");
+                    $ddl->setSize("1");
+                    $ddl->setReadOnly(false);
+                    $ddl->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $id, 'type': 'sanction', 'value':group_$id }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
+                    $ddl->setCustomClass("non-acq");
+                    $ddl->setSteamId($id);
+                    $members = array();
+
+                    foreach($this->user as $user){
+                        if($group->is_member($user)){
+                            $members[] = '#fav_'.$user->get_id()."_dd";
+                        }
+                    }
+
+                    $ddl->setMembers(implode(',',$members));
+
+                    $subGroups = array();
+                    foreach($group->get_subgroups() as $subGroup){
+                        if(array_key_exists($subGroup->get_id(), $this->groupMapping)){
+                            $subGroups[] = "#group_".$subGroup->get_id();
+                        }
+                    }
+
+                    $ddl->setSubGroups(implode(',', $subGroups));
+
+                    $indent = count(explode(".", $groupname));
+                    if ($indent == 1) {
+                        $optionValues = self::getOptionsValues();
+
+                    } else {
+                        $parent = $group->get_parent_group();
+
+                        if ($this->object->check_access(SANCTION_SANCTION, $parent)) {$dropDownValueParent = 3;}
+                        else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $parent)) {$dropDownValueParent = 2;}
+                        else if ($this->object->check_access_read($parent)) {$dropDownValueParent = 1;}
+                        else {$dropDownValueParent = 0;}
+
+                        $optionValues = self::getOptionsValues();
+                    }
+                    $ddl->addDataEntries($optionValues);
+                    $ddl->setStartValue($dropDownValue);
+
+                    $this->content->setCurrentBlock("GROUPS");
+                    $this->content->setCurrentBlock("GROUP_DDSETTINGS");
+                    $this->content->setVariable("GROUPID", $id);
+                    $this->content->setVariable("GROUP_ID", $id);
+                    $this->content->setVariable("GROUPNAME", $name . " (". $realname . ")" );
+                    $this->content->setVariable("INDENTINDEX", $indent);
+                    $this->content->setVariable("DROPDOWNLIST", $ddl->getHtml());
+                    if (isset($this->favorites[$id])) {
+                        $this->content->setVariable("IMG_PATH", $this->favPicUrl);
+                    } else {
+                        $this->content->setVariable("IMG_PATH", $this->groupPicUrl);
+                    }
+                    $this->content->parse("GROUP_DDSETTINGS");
+                    $this->content->parse("GROUPS");
+                }
+            }
+        }
+    }
+
+
+    function buildGroupFavoritesAcq(){
+        if (count($this->groupMappingAcq) == 0) {
+            $this->content->setVariable("NO_GROUP_MEMBER_ACQ", "Sie sind kein Mitglied einer Gruppe");
+        } else {
+            foreach ($this->groupMappingAcq as $id => $group) {
+
+                if($group->get_attribute("GROUP_INVISIBLE") !== 0){
+                   continue;
+                }
                 $name = $group->get_attribute("OBJ_DESC");
                 $realname = $group->get_name();
                 if ($name == "" || $name == "0") {
-                    $name = $group->get_name();
-                }
-                $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
-                if(!($groupVisibility == 0)){
-                    unset($groupMapping[$id]);
-                   continue;
+                    $name = $realname;
                 }
                 $groupname = $group->get_groupname();
-                $readCheck = $this->object->check_access_read($group);
-                $writeCheck = $this->object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $group);
-                $sanctionCheck = $this->object->check_access(SANCTION_SANCTION, $group);
 
-
-                if ($sanctionCheck) {
-                    $dropDownValue = 3;
-                } elseif ($writeCheck) {
-                    $dropDownValue = 2;
-                } elseif ($readCheck) {
-                    $dropDownValue = 1;
-                } else {
-                    $dropDownValue = 0;
+                $dropDownValueAcq = 0;
+                if ($this->environment instanceof \steam_room) {
+                    if ($this->environment->check_access(SANCTION_SANCTION, $group)) {$dropDownValueAcq = 3;}
+                    else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $group)) {$dropDownValueAcq = 2;}
+                    else if ($this->environment->check_access_read($group)) {$dropDownValueAcq = 1;}
                 }
 
-                $groupsRights[$id] = $dropDownValue;
+                $this->groupsRightsAcq[$id] = $dropDownValueAcq;
 
+                $ddlAcq = new \Widgets\DropDownListSanction();
+                $ddlAcq->setId("group_" . $id."_acq");
+                $ddlAcq->setName("ddlist_acq");
+                $ddlAcq->setType("group");
+                $ddlAcq->setSize("1");
+                $ddlAcq->setReadOnly(true);
+                $ddlAcq->setStartValue($dropDownValueAcq);
+                $ddlAcq->addDataEntries(self::getOptionsValues());
 
-                $explodeName = array();
-                $explodeName = explode(".", $groupname);
-
-                $explodeLength = count($explodeName);
-
-
-                $ddl = new \Widgets\DropDownList();
-                $ddl->setId("group_" . $id . "_dd");
-                $ddl->setName("ddlist");
-                $ddl->setOnChange("specificChecked(id, value);");
-                $ddl->setSize("1");
-                $ddl->setDisabled(false);
-
-                $intend = $explodeLength;
-                if ($intend == 1) {
-                    $optionValues = self::getOptionsValues(0);
-                } else {
-                    $parent = $group->get_parent_group();
-                    $readCheckParent = $this->object->check_access_read($parent);
-                    $writeCheckParent = $this->object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $parent);
-                    $sanctionCheckParent = $this->object->check_access(SANCTION_SANCTION, $parent);
-                    if ($sanctionCheckParent) {
-                        $dropDownValueParent = 3;
-                    } else if ($writeCheckParent) {
-                        $dropDownValueParent = 2;
-                    } else if ($readCheckParent) {
-                        $dropDownValueParent = 1;
-                    } else {
-                        $dropDownValueParent = 0;
-                    }
-                    $optionValues = self::getOptionsValues($dropDownValueParent);
-                }
-                $ddl->setOptionValues($optionValues);
+                $indent = count(explode(".", $groupname));
 
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
-                    $content->setCurrentBlock("GROUPS");
-                    $content->setCurrentBlock("GROUP_DDSETTINGS");
-                    $content->setVariable("GROUPID", $id);
-                    $content->setVariable("GROUP_ID", $id);
-                    $content->setVariable("GROUPNAME", $name . " (". $realname . ")" );
-                    $content->setVariable("OPTIONVALUE", max($dropDownValue, $dropdownValueSteamGroup));
-                    $content->setVariable("INDENTINDEX", $intend);
-                    $content->setVariable("DROPDOWNLIST", $ddl->getHtml());
-                    if (isset($favorites[$id])) {
-                        $content->setVariable("IMG_PATH", $favPicUrl);
+                    $this->content->setCurrentBlock("GROUPS_ACQ");
+                    $this->content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
+                    $this->content->setVariable("GROUPID_ACQ", $id);
+                    $this->content->setVariable("GROUP_ID_ACQ", $id);
+                    $this->content->setVariable("GROUPNAME_ACQ", $name . " (". $realname . ")" );
+                    $this->content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $this->dropdownValueAcqSteamGroup));
+                    $this->content->setVariable("INDENTINDEX_ACQ", $indent);
+                    $this->content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
+                    if (isset($this->favorites[$id])) {
+                        $this->content->setVariable("IMG_PATH_ACQ", $this->favPicUrl);
                     } else {
-                        $content->setVariable("IMG_PATH", $groupPicUrl);
+                        $this->content->setVariable("IMG_PATH_ACQ", $this->groupPicUrl);
                     }
-                    $content->parse("GROUP_DDSETTINGS");
-                    $content->parse("GROUPS");
+                    $this->content->parse("GROUP_DDSETTINGS_ACQ");
+                    $this->content->parse("GROUPS_ACQ");
                 }
             }
         }
-        if (count($groupMappingAcq) == 0) {
-            $content->setVariable("NO_GROUP_MEMBER_ACQ", "Sie sind kein Mitglied einer Gruppe");
+    }
+
+
+    function buildUserFavorites(){
+        if (count($this->userMapping) == 0) {
+            $this->content->setVariable("NO_FAV_MEMBER", "Es können keinem Benutzer Rechte zugewiesen werden. ");
         } else {
-            foreach ($groupMappingAcq as $id => $group) {
-                 $groupVisibility = $group->get_attribute("GROUP_INVISIBLE");
-                if(!($groupVisibility === 0)){
-                   continue;
-                }
-                $name = $group->get_attribute("OBJ_DESC");
-                $realname = $group->get_name();
-                if ($name == "" || $name == "0") {
-                    $name = $group->get_name();
-                }
-                $groupname = $group->get_groupname();
-                if ($this->environment instanceof \steam_room) {
-                    $readCheckAcq = $this->environment->check_access_read($group);
-                    $writeCheckAcq = $this->environment->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $group);
-                    $sanctionCheckAcq = $this->environment->check_access(SANCTION_SANCTION, $group);
-                } else {
-                    $readCheckAcq = 0;
-                    $writeCheckAcq = 0;
-                    $sanctionCheckAcq = 0;
-                }
-                $dropDownValueAcq = 0;
-                if ($sanctionCheckAcq) {
-                    $dropDownValueAcq = 3;
-                } else if ($writeCheckAcq) {
-                    $dropDownValueAcq = 2;
-                } else if ($readCheckAcq) {
-                    $dropDownValueAcq = 1;
-                }
-                $explodeName = array();
-                $explodeName = explode(".", $groupname);
+            $this->content->setVariable("DUMMY_FAV", "");
+            $this->content->setVariable("DUMMY_FAV_ACQ", "");
 
-                $explodeLength = count($explodeName);
-
-                $ddlAcq = new \Widgets\DropDownList();
-                $ddlAcq->setId("group_" . $id . "_dd_acq");
-                $ddlAcq->setName("ddlist_acq");
-                $ddlAcq->setSize("1");
-                $ddlAcq->setDisabled(true);
-
-                $optionValuesAcq = self::getOptionsValues($dropDownValueAcq);
-
-                $ddlAcq->setOptionValues($optionValuesAcq);
-
-                $intend = count(explode(".", $groupname));
-
-                if ($name != "Everyone" && $name != "sTeam") {
-                    $content->setCurrentBlock("GROUPS_ACQ");
-                    $content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
-                    $content->setVariable("GROUPID_ACQ", $id);
-                    $content->setVariable("GROUP_ID_ACQ", $id);
-                    $content->setVariable("GROUPNAME_ACQ", $name . " (". $realname . ")" );
-                    $content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $dropdownValueAcqSteamGroup));
-                    $content->setVariable("INDENTINDEX_ACQ", $intend);
-                    $content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
-                    if (isset($favorites[$id])) {
-                        $content->setVariable("IMG_PATH_ACQ", $favPicUrl);
-                    } else {
-                        $content->setVariable("IMG_PATH_ACQ", $groupPicUrl);
-                    }
-                    $content->parse("GROUP_DDSETTINGS_ACQ");
-                    $content->parse("GROUPS_ACQ");
-                }
-            }
-        }
-
-        //TEMPLATE FAVORITES
-        if (count($userMapping) == 0) {
-            $content->setVariable("NO_FAV_MEMBER", "Es können keinem Benutzer Rechte zugewiesen werden. ");
-        } else {
-            $content->setVariable("DUMMY_FAV", "");
-            $content->setVariable("DUMMY_FAV_ACQ", "");
-
-            if (count($userMapping) > 5) {
-                $content->setVariable("CSS_USER", "height:110px;");
+            if (count($this->userMapping) > 4) {
+                $this->content->setVariable("CSS_USER", "height:104px;");
             } else {
-                $content->setVariable("CSS_USER", "");
+                $this->content->setVariable("CSS_USER", "");
             }
 
-            foreach ($userMapping as $id => $name) {
-                $favo = \steam_factory::get_object($this->steam->get_id(), $id);
-                if ($favo instanceof \steam_user) {
-                    $readCheck = $this->object->check_access_read($favo);
-                    $writeCheck = $this->object->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $favo);
-                    $sanctionCheck = $this->object->check_access(SANCTION_SANCTION, $favo);
+            foreach ($this->userMapping as $id => $name) {
 
+                $user = \steam_factory::get_object($this->steam->get_id(), $id);
+                if ($user instanceof \steam_user) {
 
                     $dropDownValue = 0;
-                    if ($sanctionCheck) {
-                        $dropDownValue = 3;
-                    } elseif ($writeCheck) {
-                        $dropDownValue = 2;
-                    } elseif ($readCheck) {
-                        $dropDownValue = 1;
-                    }
+                    if ($this->object->check_access(SANCTION_SANCTION, $user)) {$dropDownValue = 3;}
+                    elseif ($this->object->check_access($this->sanctionWriteForCurrentObject, $user)) {$dropDownValue = 2;}
+                    elseif ($this->object->check_access_read($user)) {$dropDownValue = 1;}
 
-
-                    $userGroups = $favo->get_groups();
+                    //check if the user is in one group with more rights
                     $maxSanct = 0;
-                    foreach ($userGroups as $group) {
-                        if (isset($groupMapping[$group->get_id()])) {
-                            $currentValue = $groupsRights[$group->get_id()];
+                    $maxSanctFromGroupMembership = 0;
+                    foreach ($user->get_groups() as $group) {
+                        if (isset($this->groupMapping[$group->get_id()])) {
+                            $currentValue = $this->groupsRights[$group->get_id()];
                             if ($currentValue > $maxSanct) {
-                                $maxSanct = $currentValue;
+                                $maxSanctFromGroupMembership = $currentValue;
                             }
                         }
                     }
 
-                    if ($dropDownValue > $maxSanct) {
-                        $selectedValue = $dropDownValue;
-                    } else {
-                        $selectedValue = $maxSanct;
-                    }
+                    //display the hights rights
+                    $selectedValue = max($maxSanctFromGroupMembership, $dropDownValue);
 
-                    $ddl = new \Widgets\DropDownList();
-                    $ddl->setId("fav_" . $id . "_dd");
+                    $ddl = new \Widgets\DropDownListSanction();
+                    $ddlId = "fav_" . $id . "_dd";
+                    $ddl->setId($ddlId);
                     $ddl->setName("ddlist");
-                    $ddl->setOnChange("specificChecked(id, value);");
+                    $ddl->setType("user");
                     $ddl->setSize("1");
-                    $ddl->setDisabled(false);
+                    $ddl->setReadOnly(false);
                     $ddl->setStartValue($selectedValue);
-                    $optionValues = self::getOptionsValues($maxSanct);
-                    $ddl->setOptionValues($optionValues);
 
+                    $ddl->addDataEntries(self::getOptionsValues());
+                    $ddl->setSaveFunction("sendRequest('UpdateSanctions', { 'id': $this->id, 'sanctionId': $id, 'type': 'sanction', 'value': $ddlId }, '', 'data', function(response){dataSaveFunctionCallback(response);}, null, 'explorer');");
+                    $ddl->setCustomClass("non-acq");
+                    $ddl->setSteamId($id);
 
-                    $content->setCurrentBlock("FAVORITES");
-                    $content->setCurrentBlock("FAV_DDSETINGS");
-                    $content->setVariable("FAVNAME", $name);
-                    $content->setVariable("DROPDOWNLIST_USER", $ddl->getHtml());
-                    if (isset($favorites[$id])) {
-                        $content->setVariable("IMG_PATH", $favPicUrl);
+                    //get all groups, this user is a member of
+                    $memberOf = array();
+                    foreach($this->groupMapping as $group){
+                        if($group->is_member($user)){
+                            $memberOf[] = "#group_".$group->get_id();
+                        }
+                    }
+                    $ddl->setMembers(implode(',',$memberOf).",#everyone_dd,#steam_dd");
+
+                    if(self::isAdmin($user)){
+                        $ddl->setType("admin");
+                        $ddl->setMembers("");
+                        $ddl->setStartValue(3);
+                        $ddl->setSaveFunction("");
+                        $ddl->setReadOnly(true);
+                    }
+
+                    $this->content->setCurrentBlock("FAVORITES");
+                    $this->content->setCurrentBlock("FAV_DDSETINGS");
+                    $this->content->setVariable("FAVNAME", $name);
+                    $this->content->setVariable("DROPDOWNLIST_FAVORITES", $ddl->getHtml());
+                    if (isset($this->favorites[$id])) {
+                        $this->content->setVariable("IMG_PATH", $this->favPicUrl);
                     } else {
-                        $content->setVariable("IMG_PATH", $userPicUrl);
+                        $this->content->setVariable("IMG_PATH", $this->userPicUrl);
                     }
-                    $content->parse("FAV_DDSETTINGS");
-                    $content->parse("FAVORITES");
+                    $this->content->parse("FAV_DDSETTINGS");
+                    $this->content->parse("FAVORITES");
                 }
             }
         }
-
-        if (count($userMappingAcq) == 0) {
-            $content->setVariable("NO_FAV_MEMBER_ACQ", "Es können keinem Benutzer Rechte zugewiesen werden.");
-        }foreach ($userMappingAcq as $id => $name) {
-            $favo = \steam_factory::get_object($this->steam->get_id(), $id);
-            if ($this->environment instanceof \steam_room) {
-                $readCheckAcq = $this->environment->check_access_read($favo);
-                $writeCheckAcq = $this->environment->check_access($SANCTION_WRITE_FOR_CURRENT_OBJECT, $favo);
-                $sanctionCheckAcq = $this->environment->check_access(SANCTION_SANCTION, $favo);
-            } else {
-                $readCheckAcq = 0;
-                $writeCheckAcq = 0;
-                $sanctionCheckAcq = 0;
-            }
-
-            $dropDownValueAcq = 0;
-            if ($sanctionCheckAcq) {
-                $dropDownValueAcq = 3;
-            } elseif ($writeCheckAcq) {
-                $dropDownValueAcq = 2;
-            } elseif ($readCheckAcq) {
-                $dropDownValueAcq = 1;
-            }
+    }
 
 
-            $userGroups = $favo->get_groups();
-            $maxSanct = 0;
-            foreach ($userGroups as $group) {
-                if (isset($groupMapping[$group->get_id()])) {
-                    $currentValue = $groupsRights[$group->get_id()];
-                    if ($currentValue > $maxSanct) {
-                        $maxSanct = $currentValue;
+    function buildUserFavoritesAcq(){
+        if (count($this->userMappingAcq) == 0) {
+            $this->content->setVariable("NO_FAV_MEMBER_ACQ", "Es können keinem Benutzer Rechte zugewiesen werden.");
+        } else {
+            foreach ($this->userMappingAcq as $id => $name) {
+                $user = \steam_factory::get_object($this->steam->get_id(), $id);
+
+                if ($user instanceof \steam_user) {
+
+                    $dropDownValueAcq = 0;
+                    if ($this->environment instanceof \steam_room) {
+                       if ($this->environment->check_access(SANCTION_SANCTION, $user)) {$dropDownValueAcq = 3;}
+                       elseif ($this->environment->check_access($this->sanctionWriteForCurrentObject, $user)) {$dropDownValueAcq = 2;}
+                       elseif ($this->environment->check_access_read($user)) {$dropDownValueAcq = 1;}
                     }
+
+                    $maxSanct = 0;
+                    $maxSanctFromGroupMembership = 0;
+                    foreach ($user->get_groups() as $group) {
+                        if (isset($this->groupMapping[$group->get_id()])) {
+                            $currentValue = $this->groupsRightsAcq[$group->get_id()];
+                            if ($currentValue > $maxSanct) {
+                                $maxSanctFromGroupMembership = $currentValue;
+                            }
+                        }
+                    }
+
+                    //display the hights rights
+                    if ($dropDownValueAcq > $maxSanctFromGroupMembership) {
+                        $selectedValue = $dropDownValueAcq;
+                    } else {
+                        $selectedValue = $maxSanctFromGroupMembership;
+                    }
+
+                    $ddl = new \Widgets\DropDownListSanction();
+                    $ddl->setId("fav_" . $id . "_dd_acq");
+                    $ddl->setName("ddlist");
+                    $ddl->setSize("1");
+                    $ddl->setType("user");
+                    $ddl->setReadOnly(true);
+                    $ddl->setStartValue($selectedValue);
+                    $ddl->addDataEntries(self::getOptionsValues());
+
+                    $this->content->setCurrentBlock("FAVORITES_ACQ");
+                    $this->content->setCurrentBlock("FAV_DDSETINGS_ACQ");
+                    $this->content->setVariable("FAVNAME_ACQ", $name);
+                    $this->content->setVariable("DROPDOWNLIST_USER_ACQ", $ddl->getHtml());
+                    if (isset($this->favorites[$id])) {
+                        $this->content->setVariable("IMG_PATH_ACQ", $this->favPicUrl);
+                    } else {
+                        $this->content->setVariable("IMG_PATH_ACQ", $this->userPicUrl);
+                    }
+                    $this->content->parse("FAV_DDSETTING_ACQS");
+                    $this->content->parse("FAVORITES_ACQ");
                 }
             }
-
-
-            if ($dropDownValueAcq > $maxSanct) {
-                $selectedValue = $dropDownValueAcq;
-            } else {
-                $selectedValue = $maxSanct;
-            }
-
-            $ddl = new \Widgets\DropDownList();
-            $ddl->setId("fav_" . $id . "_dd_acq");
-            $ddl->setName("ddlist");
-            $ddl->setOnChange("specificChecked(id, value);");
-            $ddl->setSize("1");
-            $ddl->setDisabled(true);
-            $ddl->setStartValue($selectedValue);
-            $optionValues = self::getOptionsValues(0);
-            $ddl->setOptionValues($optionValues);
-
-
-            $content->setCurrentBlock("FAVORITES_ACQ");
-            $content->setCurrentBlock("FAV_DDSETINGS_ACQ");
-            $content->setVariable("FAVNAME_ACQ", $name);
-            $content->setVariable("DROPDOWNLIST_USER_ACQ", $ddl->getHtml());
-            if (isset($favorites[$id])) {
-                $content->setVariable("IMG_PATH_ACQ", $favPicUrl);
-            } else {
-                $content->setVariable("IMG_PATH_ACQ", $userPicUrl);
-            }
-            $content->parse("FAV_DDSETTING_ACQS");
-            $content->parse("FAVORITES_ACQ");
         }
+    }
 
+
+    function buildDialog(){
         $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
-        $admins = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
-        $isAdmin = false;
-        if($admins instanceof \steam_group){
-            $isAdmin = $admins->is_member($this->steamUser);
-        }
-        $isAdmin2 = \lms_steam::is_steam_admin($this->steamUser);
-        if($isAdmin || $isAdmin2){
-          $dialog->setCustomButtons(array(array("js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+
+        $isSchoolAdmin = false;
+
+        $schoolAdminGroup = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
+
+        if($schoolAdminGroup instanceof \steam_group){
+            $isSchoolAdmin = $schoolAdminGroup->is_member($this->steamUser);
         }
 
+        if(self::isAdmin($this->steamUser) || $isSchoolAdmin){
+          $this->dialog->setCustomButtons(array(array("js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+        }
 
         $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml($content->get());
-        $dialog->addWidget($rawHtml);
+        $rawHtml->setHtml($this->content->get());
+        $this->dialog->addWidget($rawHtml);
 
-        $ajaxResponseObject->addWidget($dialog);
-
-
-        if($this->object->get_attribute("OBJ_TYPE") === "postbox"){
-            $deactiveAcq = new \Widgets\JSWrapper();
-            $deactiveAcq->setPostJsCode('$("#radio_acquire").attr("disabled",true);');
-            $ajaxResponseObject->addWidget($deactiveAcq);
-        }
-
-        return $ajaxResponseObject;
     }
 
-    private static
 
-    function getOptionsValues($dropDownValue) {
-        $optionValues = array();
-        for ($i = $dropDownValue; $i <= 3; $i++) {
-            if ($i == 1) {
-                $optionValues[1] = "Nur Lesen";
-            } else if ($i == 2) {
-                $optionValues[2] = "Lesen und Schreiben";
-            } else if ($i == 3) {
-                $optionValues[3] = "Lesen, Schreiben und Berechtigen";
-            } else if ($i == 0) {
-                $optionValues[0] = "Kein Zugriff";
-            }
+    function isAdmin(\steam_user $candidate){
+        if(\lms_steam::is_steam_admin($candidate)) {
+            return true;
         }
-        return $optionValues;
+        else {
+            return false;
+        }
     }
-
 }
-
-?>

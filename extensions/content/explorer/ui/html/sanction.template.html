@@ -1,47 +1,37 @@
 <style>
     {CSS}
 </style>
-
-<div id="crude_div" class="visible">
-    <table>
-        <tr valign="middle">
-            <td><input id="radio_acquire" onClick="activateAcq()" type="checkbox" {NO_ENVIRONMENT} />{INHERIT_FROM}</td>
-        </tr>
-    </table>
-
-    <br />
-
-    <div id="buttons-label">Hier können vordefinierte Rechte verwendet werden:
-    </div>
-
+{INHERIT_HEADLINE}
+<div id="checkbox_acquire">
+<table>
+    <tr valign="middle">
+        <td>{INHERIT_FROM}<input id="acquire_checkbox" type="checkbox" {NO_ENVIRONMENT} data-oldValue="{ACQUIRE_START}" data-saveFunction='{SEND_REQUEST_ACQ}' {CHECKBOX_CHECKED}/></td>
+    </tr>
+</table>
+</div>
+{PREDEFINED_HEADLINE}
+<div id="crude_div" class="{DISPLAY_NORMAL_CLASS}">
+  <p style="float: left; margin-right: 10px; margin-top: 8px;">Leserechte vergeben an:</p>
     <div id="buttons">
-        <input type="button"  value="Privat" onclick="setCrude('privat');" />
-        <input type="button"  value="Benutzer-Öffentlich" onclick="setCrude('user_public');" />
-        <input type="button"  value="Welt-Öffentlich" onclick="setCrude('server_public');" />
+        <input type="button" class="bidButton" value="Niemanden" onclick="setCrude('privat');" />
+        <input type="button" class="bidButton" value="Angemeldete Benutzer" onclick="setCrude('user_public');" />
+        <input type="button" class="bidButton" value="Alle (auch Besucher)" onclick="setCrude('server_public');" />
     </div>
 
 </div>
 
-
-<div id="crude_acq_div" class="invisible">
-    <table> <tr valign="middle">
-            <td><input id="radio_acquire_acq" type="checkbox" onClick="deactivateAcq()" {NO_ENVIRONMENT} />{INHERIT_FROM}</td>
-        </tr>
-    </table>
-    <br />
-    <div id="buttons-label">Hier können vordefinierte Rechte verwendet werden:
-    </div>
+<div id="crude_acq_div" class="{DISPLAY_ACQ_CLASS}">
+  <p style="float: left; margin-right: 10px; margin-top: 8px;">Leserechte vergeben an:</p>
     <div id="buttons">
-        <input type="button"  value="Privat" disabled />
-        <input type="button"  value="Benutzer-Öffentlich" disabled />
-        <input type="button"  value="Welt-Öffentlich" disabled />
+        <input type="button" class="bidButton" value="Niemanden" disabled />
+        <input type="button" class="bidButton" value="Angemeldete Benutzer" disabled />
+        <input type="button" class="bidButton" value="Alle (auch Besucher)" disabled />
     </div>
 </div>
 
+{INDIVIDUAL_HEADLINE}
 
-<div id="creator_div"><p>Der Besitzer des aktuellen Objektes ist<b>{CREATOR_FULL_NAME}</b> und hat volle Zugriffsrechte.</p></div>
-
-<div id="specific_div" class="visible">
+<div id="specific_div" class="{DISPLAY_NORMAL_CLASS}">
 
     <table id="global" width="100%">
         <tr class="infoBar" style="height:23px;">
@@ -51,24 +41,18 @@
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Jeder</td>
             <td width="40%" align="right" >
-                <select name="ddlist" id="everyone_dd" size="1" onChange="specificChecked('group_{EVERYONEID}_dd', value);" class="ddlist">
-                    <option value="0">Kein Zugriff</option>
-                    <option value="1">Nur Lesen</option>
-                    <option value="2">Lesen und Schreiben</option>
-                    <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select>
+                <!-- BEGIN GROUP_EVERYONE -->
+                {DROPDOWNLIST}
+                <!-- END GROUP_EVERYONE -->
             </td>
         </tr>
 
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
             <td width="40%" align="right" >
-                    <select name="ddlist" id="steam_dd" size="1" onChange="specificChecked('group_{STEAMID}_dd', value);" class="ddlist">
-                    <option value="0">Kein Zugriff</option>
-                    <option value="1">Nur Lesen</option>
-                    <option value="2">Lesen und Schreiben</option>
-                    <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select>
+                <!-- BEGIN GROUP_STEAM -->
+                {DROPDOWNLIST}
+                <!-- END GROUP_STEAM -->
             </td>
         </tr>
         <tr class="infoBar" style="height:23px;">
@@ -94,8 +78,8 @@
         <table>
           <tbody style="display:block;">
             <tr class="infoBar" style="height:23px;">
-                <td width=27%><b>Meine Favoriten (Benutzer)</b></td>
-                <td width=18%><b>Rechte</b></td>
+                <td width="27%"><b>Meine Favoriten (Benutzer)</b></td>
+                <td width="18%"><b>Rechte</b></td>
             </tr>
           <tbody>
           <tbody class="scrollable-user" style="display:block;{CSS_USER}">
@@ -103,7 +87,7 @@
           <tr valign="middle">
               <td width="66%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
               <td width="34%" align="right">
-                    {DROPDOWNLIST_USER}
+                    {DROPDOWNLIST_FAVORITES}
               </td>
           </tr>
           <!-- END FAVORITES -->
@@ -111,7 +95,7 @@
         </table>
     </div>
 </div>
-<div id="specific_acq_div" class="invisible">
+<div id="specific_acq_div" class="{DISPLAY_ACQ_CLASS}">
     <table id="right_settings_table_acq" width="100%">
         <tr class="infoBar" style="height:23px;">
             <td width="60%"><b>Globale Einstellungen</b></td>
@@ -120,23 +104,17 @@
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Jeder</td>
             <td width="40%" align="right" >
-                <select name="ddlist" id="everyone_dd_acq" size="1" disabled="disabled">
-                    <option value="0">Kein Zugriff</option>
-                    <option value="1">Nur Lesen</option>
-                    <option value="2">Lesen und Schreiben</option>
-                    <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select>
+                <!-- BEGIN GROUP_EVERYONE_ACQ -->
+                {DROPDOWNLIST}
+                <!-- END GROUP_EVERYONE_ACQ -->
             </td>
         </tr>
         <tr valign="middle">
             <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
             <td width="40%" align="right" >
-                <select name="ddlist" id="steam_dd_acq" size="1" disabled="disabled">
-                    <option value="0">Kein Zugriff</option>
-                    <option value="1">Nur Lesen</option>
-                    <option value="2">Lesen und Schreiben</option>
-                    <option value="3">Lesen, Schreiben und Berechtigen</option>
-                </select>
+                <!-- BEGIN GROUP_STEAM_ACQ -->
+                {DROPDOWNLIST}
+                <!-- END GROUP_STEAM_ACQ -->
             </td>
         </tr>
         <tr class="infoBar" style="height:23px;">
@@ -168,8 +146,7 @@
             <tbody class="scrollable-user" style="display:block;{CSS_USER}">
             <!-- BEGIN FAVORITES_ACQ -->
             <tr>
-                <td width="66%"><img style="float:left" src="{IMG_PATH_ACQ}">
-                  <div style="text-indent: 1em;">{FAVNAME_ACQ}</div>
+                <td width="66%"><img style="float:left" src="{IMG_PATH_ACQ}"><div style="text-indent: 1em;">{FAVNAME_ACQ}</div>
                 </td>
                 <td width=34%>{DROPDOWNLIST_USER_ACQ}</td>
             </tr>
@@ -179,92 +156,96 @@
     </div>
 </div>
 
+<div id="creator_div"><p style="color:grey;">Der Besitzer des aktuellen Objektes ist<b>{CREATOR_FULL_NAME}</b> und hat volle Zugriffsrechte.</p></div>
+
+<a target="_blank" href="https://bid.lspb.de/explorer/ViewDocument/640419/">Warum sind in den Auswahlboxen einige Rechte nicht auswählbar?</a></p>
+
 <script language="JavaScript">
-    /*function checkDDListStatus(){
-        var ddZero = 0;
-        var ddAll = 0;
-        $('select[name="ddlist"]').each(function(){
-            if($(this).val() == 0){
-                ddZero++;
+    /*$('select').change(
+        function(e) {
+            var id = e.currentTarget.id;
+            //add the changed class to this object
+            if($(id).attr('data-oldValue') != $(id).val()){ $(id).addClass('changed');}
+            //update the value in the variable
+            x = $("#"+id).val();
+        }
+    );*/
+
+    $('#acquire_checkbox').change(
+        function() {
+            if($('#acquire_checkbox').is(':checked')){
+                //reset every dropdown list to its initial value and remove the changed status
+                $('select.non-acq.changed').each(function(number, obj) {
+                    firstTime = true;
+                    $(obj).removeClass('changed');
+                    $(obj).val($(obj).attr('data-oldValue'));
+                    $(obj).trigger('change');
+                    firstTime = false;
+                });
+            } else {
+                $('select.non-acq').each(function(number, obj) {
+                    if($(obj).attr("data-type") !='admin'){
+                        $(obj).addClass('changed');
+                    }
+                });
             }
-            ddAll++;
-        });
-        return (ddZero == ddAll);
+
+            //add the changed class to this object
+            if(($('#acquire_checkbox').is(':checked') && "{ACQUIRE_START}" != "acq") || (!$('#acquire_checkbox').is(':checked') && "{ACQUIRE_START}" == "acq")) {
+                $('#acquire_checkbox').addClass('changed');}
+            else {$('#acquire_checkbox').removeClass('changed');}
+            //update the value in the variable
+            if($('#acquire_checkbox').is(':checked')) {acquire_checkbox = "acq";}
+            else {acquire_checkbox = "not-acq";}
 
 
-    }*/
-    function activateAcq(){
-        document.getElementById("crude_div").className ="invisible";
-        document.getElementById("crude_acq_div").className ="visible";
-        document.getElementById("specific_div").className ="invisible";
-        document.getElementById("specific_acq_div").className ="visible";
-        document.getElementById("radio_acquire_acq").checked=true;
-        {SEND_REQUEST_ACQ_ACT}
-    }
-    function deactivateAcq(){
-        document.getElementById("crude_div").className ="visible";
-        document.getElementById("crude_acq_div").className ="invisible";
-        document.getElementById("specific_div").className ="visible";
-        document.getElementById("specific_acq_div").className ="invisible";
-        document.getElementById("radio_acquire").checked=false;
-        {SEND_REQUEST_ACQ_DEACT}
-    }
+
+            $("#crude_div").toggle();
+            $("#crude_acq_div").toggle();
+            $("#specific_div").toggle();
+            $("#specific_acq_div").toggle();
+        }
+    );
+
+
+
     function setCrude(value){
         if(value == "privat"){
-            $("select").val(0);
-            $('select').addClass('changed');
+            $("select.non-acq:not([data-type='admin'])").each(function(){$(this).val(0); $(this).trigger('change');});
+            //$("select").trigger('change');
+
+
         }else if(value == "server_public"){
-            if($("#everyone_dd").val() == 0 ){
+            //if($("#everyone_dd").val() == 0 ){
                 $("#everyone_dd").val(1);
-                $("#everyone_dd").addClass('changed');
+                $("#everyone_dd").trigger('change');
                 $("#steam_dd").val(1);
-                $("#steam_dd").addClass('changed');
-            }
+                $("#steam_dd").trigger('change');
+            //}
 
         }else if(value == "user_public"){
             $("#everyone_dd").val(0);
-            if($("#steam_dd").val() == 0){
+            $("#everyone_dd").trigger('change');
+            //if($("#steam_dd").val() == 0){
                 $("#steam_dd").val(1);
-                $("#steam_dd").addClass('changed');
-            }
-
+                $("#steam_dd").trigger('change');
+            //}
         }
-        {SEND_REQUEST_CRUDE}
+        //{SEND_REQUEST_CRUDE}
     }
     function specificChecked(id, value){
         objId=id.split("_");
         id=objId[1];
-        {SEND_REQUEST_SANCTION}
+        //{SEND_REQUEST_SANCTION}
     }
-    $('#everyone_dd').val('{EVERYONE_VALUE}');
 
-    $('#steam_dd').val('{STEAM_VALUE}');
-    // <!-- BEGIN GROUP_DDSETTINGS -->
-    $('#group_{GROUP_ID}_dd').val('{OPTIONVALUE}');
+    //trigger the change for each select object to disable not selectable options
+    $( document ).ready(function() {
+        firstTime = true;
+        $("select.non-acq").trigger('change');
+        firstTime = false;
+    });
 
-    // <!-- END GROUP_DDSETTINGS -->
-
-    // <!-- BEGIN FAV_DDSETTINGS -->
-    $('#fav_{FAV_ID}_dd').val('{FAV_OPTION_VALUE}');
-    //<!-- END FAV_DDSETTINGS  -->
-
-    // <!-- BEGIN AU_DDSETTINGS -->
-    $('#au_{AU_ID}_dd').val('{AU_OPTION_VALUE}');
-    //<!-- END AU_DDSETTINGS  -->
-    $('#everyone_dd_acq').val('{EVERYONE_VALUE_ACQ}');
-    $('#steam_dd_acq').val('{STEAM_VALUE_ACQ}');
-    // <!-- BEGIN GROUP_DDSETTINGS_ACQ -->
-    $('#group_{GROUP_ID_ACQ}_dd_acq').val('{OPTIONVALUE_ACQ}');
-    // <!-- END GROUP_DDSETTINGS_ACQ -->
-
-    // <!-- BEGIN FAV_DDSETTINGS_ACQ -->
-    $('#fav_{FAV_ID_ACQ}_dd_acq').val('{FAV_OPTION_VALUE_ACQ}');
-
-    //<!-- END FAV_DDSETTINGS_ACQ -->
-
-    // <!-- BEGIN AU_DDSETTINGS_ACQ -->
-    $('#au_{AU_ID_ACQ}_dd_acq').val('{AU_OPTION_VALUE_ACQ}');
-    // <!-- END AU_DDSETTINGS_ACQ -->
-    {ACQUIRE_START}
+    //{ACQUIRE_START}
 
 </script>
