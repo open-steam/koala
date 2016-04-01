@@ -1,0 +1,102 @@
+<div class="widgets_label" {LABEL_STYLE}>{LABEL}</div>
+<div class="widgets_dropdownlist">
+    <select name="{DROPDOWN_LIST_NAME}" id="{ID}" data-type="{TYPE}" data-steamId="{STEAM_ID}" data-members="{MEMBERS}" data-subGroups="{SUB_GROUPS}" size="{SIZE}" data-oldValue="{DATA_OLD_VALUE}" data-saveFunction="{SAVE_FUNCTION}" onChange="{ONCHANGE}" class="{CUSTOM_CLASS}" {READ_ONLY}>
+        <!-- BEGIN OPTION_VALUES -->
+        <option value="{VALUE}" {SELECTED}>{LABEL}</option>
+        <!-- END OPTION_VALUES -->
+    </select>
+</div>
+
+<script type="text/javascript">
+    
+    if($('#{ID}').attr('data-type') == "group"){
+        $('#{ID}').change(
+            function() {
+                //add the changed class to this object
+                if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
+                if($('#{ID}').attr('data-oldValue') == $('#{ID}').val() && $('#acquire_checkbox').attr('data-oldValue') != "acq"){ $('#{ID}').removeClass('changed');} //only remove the changed class when the rights inheritance was off, otherwise rights that are equal to the old-value would not be marked as changed and thus not be saved
+                //update the value in the variable
+                {ID} = $('#{ID}').val();
+                
+                //update subgroups
+                $.each($('#{ID}').attr('data-subGroups').split(","), function(index,value){
+                    if(value != ""){
+                        //recursively traverse all subgroups and set the rights
+                        if(!firstTime){
+                            $(value).val( {ID} );
+                        }
+                        $(value).trigger('change');
+                    }
+                });
+                
+                //prevent the everyone rights from beeing disabled to have the possibility to reset the rights to 'private'
+                if($('#{ID}').attr('id') != "everyone_dd"){
+                    //mark every right as disabled
+                    for (i = 0; i < $('#{ID}').val(); i++) {
+                        $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
+                    }
+                
+                    //start from the parents right and make every greater right selectable again
+                    for (i = $("select[data-subGroups*='#{ID}']").val(); i < 4; i++) {
+                        $("#{ID} option[value='"+i+"']").removeAttr("disabled");
+                    }
+                }
+               
+               
+                //update the direct members of the group
+                console.log("adjusting rights");
+                $.each($('#{ID}').attr('data-members').split(","), function(index,value){
+                    if(value != "" && $(value).attr("data-type") !='admin'){
+                        if(!firstTime){
+                            $(value).val( {ID} );
+                        }
+                        $(value).trigger('change');
+                    }
+                });
+                
+            }
+        );
+    } else if($('#{ID}').attr('data-type') == "user"){
+        $('#{ID}').change(
+            function() {
+                //add the changed class to this object
+                if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
+                if($('#{ID}').attr('data-oldValue') == $('#{ID}').val() && $('#acquire_checkbox').attr('data-oldValue') != "acq"){ $('#{ID}').removeClass('changed');} //only remove the changed class when the rights inheritance was off, otherwise rights that are equal to the old-value would not be marked as changed and thus not be saved
+                //update the value in the variable
+                {ID} = $('#{ID}').val();
+                
+                //update selectable options
+                //calculate the minimum rights that can't be lower
+                var minimumValue = 0;
+                $.each($('#{ID}').attr('data-members').split(","), function(index,value){
+                    if(value != ""){
+                        if($(value).val() > minimumValue){
+                            
+                            minimumValue = $(value).val();
+                        }
+                    }
+                });
+                //make every lesser right unselectable
+                for (i = 0; i < minimumValue; i++) {
+                   $("#{ID} option[value='"+i+"']").attr("disabled","disabled");
+                }
+                
+                //enable each greater right to be selectable
+                for (i = minimumValue; i < 4; i++) {
+                   $("#{ID} option[value='"+i+"']").removeAttr("disabled");
+                }
+                
+            }
+        );
+    } else if($('#{ID}').attr('data-type') == "admin"){
+        $('#{ID}').change(
+            function() {
+               //nothing to change for an admin who already has all rights and can't be detracted
+            }
+        );
+    } else {
+        console.log("illegal object type");
+    }
+    
+    
+</script>

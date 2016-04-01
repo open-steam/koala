@@ -1423,6 +1423,10 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		outline-width: 0;
 	}
 
+	.bidButton:disabled{
+		background: #6094C5;
+	}
+
 	/*
 	** Styles for the standard radio design
 	*/
