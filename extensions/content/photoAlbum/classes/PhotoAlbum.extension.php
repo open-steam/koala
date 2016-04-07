@@ -94,7 +94,7 @@ class PhotoAlbum extends AbstractExtension implements IObjectExtension, IObjectM
 				$array[] = array("name" => "<img title=\"Galerie-Ansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "photoAlbum/index/" . $currentObjectID . "/'");
 			}
 			else if (strpos($path, "/photoalbum/index/") !== false) {
-				$array[] = array("name" => "<img title=\"Explorer-Ansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "photoAlbum/explorerView/" . $currentObjectID . "/'");
+				$array[] = array("name" => "<img title=\"Explorer-Ansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer_white.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "photoAlbum/explorerView/" . $currentObjectID . "/'");
 			}
 			else{
 				return;
