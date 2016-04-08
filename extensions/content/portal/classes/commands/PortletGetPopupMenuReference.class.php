@@ -45,7 +45,7 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
 		$blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
 
 		$popupMenu =  new \Widgets\PopupMenu();
-		$items = array(	
+		$items = array(
 						array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
 							array("name" => "Eins nach oben<img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'up'}", "type"=>"popup"),
 							array("name" => "Eins nach unten<img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'down'}", "type"=>"popup"),
@@ -55,7 +55,7 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
 						array("name" => "SEPARATOR"),
 						array("name" => "Kopieren<img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Ausschneiden<img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Referenz erstellen<img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->sourceObjectId}','user':'{$this->user}'}", "type"=>"popup"),
+						array("name" => "Referenz erstellen<img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->sourceObjectId}','user':'{$this->user}'}", "type"=>"inform"),
 						array("name" => "Löschen<img src=\"{$trashIcon}\">",  "command" => "DeleteReference", "namespace" => "PortalColumn", "params" => "{'linkObjectId':'{$this->linkObjectId}'}", "type"=>"popup"),
 						array("name" => "SEPARATOR"),
 						array("name" => "Rechte<img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->linkObjectId}'}", "type"=>"popup"),
