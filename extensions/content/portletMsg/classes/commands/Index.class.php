@@ -192,8 +192,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                   //PICTURE
                   // parse in picture if it exists
                   if ($message->get_attribute("bid:portlet:msg:picture_id") != "") {
-
-                      if($message->get_attribute("bid:portlet:msg:picture_alignment") == "bottom"){
+                    $alignment = $message->get_attribute("bid:portlet:msg:picture_alignment");
+                      if($alignment == "bottom"){
                         $tmpl->setCurrentBlock("BLOCK_MESSAGE_PICTURE_BOTTOM");
                       }else{
                         $tmpl->setCurrentBlock("BLOCK_MESSAGE_PICTURE_TOP");
@@ -203,7 +203,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                       if (extract_percentual_length($picture_width) == "") {
                           $bare_picture_width = extract_length($picture_width);
                           if ($bare_picture_width == "") {
-                              $picture_width = $column_width/2;;
+                            if ( $alignment == "bottom" || $alignment == "top" ) {
+                              $picture_width = $column_width;
+                            }
+                            else{
+                              $picture_width = $column_width/2;
+                            }
                           } else if ($bare_picture_width > $column_width) {
                               $picture_width = $column_width;
                           }
@@ -211,7 +216,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
                       $tmpl->setVariable("MESSAGE_PICTURE_ID", $message->get_attribute("bid:portlet:msg:picture_id")); //not used anymore
                       $tmpl->setVariable("MESSAGE_PICTURE_URL", getDownloadUrlForObjectId($message->get_attribute("bid:portlet:msg:picture_id")));
-                      $tmpl->setVariable("MESSAGE_PICTURE_ALIGNMENT", $message->get_attribute("bid:portlet:msg:picture_alignment"));
+                      $tmpl->setVariable("MESSAGE_PICTURE_ALIGNMENT", $alignment);
                       $tmpl->setVariable("MESSAGE_PICTURE_WIDTH", $picture_width);
 
                       if($message->get_attribute("bid:portlet:msg:picture_alignment") == "bottom"){
