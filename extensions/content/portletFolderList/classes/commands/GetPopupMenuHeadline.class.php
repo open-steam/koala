@@ -22,36 +22,46 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 		$this->width = $this->params["width"];
 		$this->portletObjectId = $this->params["portletObjectId"];
 		$this->user = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
-
 		$this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->portletObjectId);
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		//icons
-		$copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
-		$cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
-		$referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
-		$trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
-		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
-		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
-		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
-		$bottomIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/bottom.png";
-		$editIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/edit.png";
-		$rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
-		$blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
+		$copyIcon = $explorerUrl . "icons/menu/copy.png";
+		$cutIcon = $explorerUrl . "icons/menu/cut.png";
+		$referIcon = $explorerUrl . "icons/menu/refer.png";
+		$trashIcon = $explorerUrl . "icons/menu/trash.png";
+		$upIcon = $explorerUrl . "icons/menu/up.png";
+		$downIcon = $explorerUrl . "icons/menu/down.png";
+		$topIcon = $explorerUrl . "icons/menu/top.png";
+		$bottomIcon = $explorerUrl . "icons/menu/bottom.png";
+		$editIcon = $explorerUrl . "icons/menu/edit.png";
+		$rightsIcon = $explorerUrl . "icons/menu/rights.png";
+		$blankIcon = $explorerUrl . "icons/menu/blank.png";
+		$sortIcon = $explorerUrl . "icons/menu/sort.png";
+
+		$env = $this->object->get_environment();
+		$inventory = $env->get_inventory();
+		$id = intval($this->id);
+		foreach ($inventory as $key => $element) {
+			if ($element->get_id() == $id) {
+				$index = $key;
+			}
+		}
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "Edit", "namespace" => "PortletFolderList", "params" => "{'portletId':'{$this->portletObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Umsortieren <img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
-							array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'up'}", "type"=>"popup"),
-							array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'down'}", "type"=>"popup"),
-							array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'first'}", "type"=>"popup"),
-							array("name" => "Ganz nach unten <img src=\"{$bottomIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'last'}", "type"=>"popup"),
-						)),
+						(count($inventory) > 1) ? array("name" => "Umsortieren <img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
+							($index != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'first'}") : "",
+							($index != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'up'}") : "",
+							($index < count($inventory)-1) ? array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'down'}") : "",
+							($index < count($inventory)-1) ? array("name" => "Ganz nach unten <img src=\"{$bottomIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->portletObjectId}','order':'last'}") : "",
+						)) : "",
 						array("name" => "SEPARATOR"),
 						array("name" => "Kopieren <img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->portletObjectId}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Ausschneiden <img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->portletObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Referenz erstellen <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"), 
+						array("name" => "Referenz erstellen <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Löschen <img src=\"{$trashIcon}\">",  "command" => "Delete", "namespace" => "PortletFolderList", "params" => "{'portletId':'{$this->portletObjectId}'}", "type"=>"popup"),
 						array("name" => "SEPARATOR"),
 						array("name" => "Rechte <img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->portletObjectId}'}", "type"=>"popup"),

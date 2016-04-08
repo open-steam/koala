@@ -182,7 +182,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadLineWidths() {
         if ($this->date === "true") {
-            return array(22, $this->width-170, 130);
+            return array(22, $this->width-170, 135);
         } else {
             return array(22, $this->width-40, 0);
         }
@@ -245,9 +245,9 @@ class ContentProvider implements \Widgets\IContentProvider {
 
     public function getNoContentText() {
         if ($this->valid) {
-            return "Keine Objekte vorhanden.";
+            return "Der ausgewählte Ordner ist leer.";
         } else {
-            return "Objekt ID ungültig oder keine Leserechte.";
+            return "Die eingegebene Objekt-ID ist nicht vorhanden oder Sie verfügen nicht über die notwenigen Leserechte.";
         }
     }
 
