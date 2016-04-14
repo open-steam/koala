@@ -1,5 +1,5 @@
 <div id="{WRAPPER_ID}">
-	<div id="loading" style="z-index:240; position:relative;width:100%;height:400px;text-align:center">
+	<div id="loading" style="z-index:240; position:absolute;width:100%;height:400px;text-align:center">
 		<div style="margin-top:100px">
 			<b>{MESSAGE}</b><br>
 			<svg id="bidLoader" version="1.1" id="L7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
@@ -39,6 +39,6 @@
 </div>
 <script type="text/javascript">
    jQuery(document).ready(function(){
-     sendRequest("{COMMENT}", {PARAMS}, "{ELEMENT_ID}", "{TYPE}");
+     sendRequest("{COMMENT}", {PARAMS}, "{ELEMENT_ID}", "{TYPE}", {COMPLETEFUNCTION}, {SUCCESSFUNCTION}, "{NAMESPACE}");
    });
 </script>
