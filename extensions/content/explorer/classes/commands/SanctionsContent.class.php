@@ -11,45 +11,33 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
     private $steamUser;
     private $creator;
     private $environment;
-
     private $content;
     private $ajaxResponseObject;
-
     private $userPicUrl;
     private $groupPicUrl;
     private $favPicUrl;
-
     private $favorites = array();
-    private $favoritesAcq = array();
-
     private $user = array();
     private $userMapping = array();
-
     private $userAcq = array();
     private $userMappingAcq = array();
-
     private $rootGroups = array();
-
     private $groups = array();
     private $groupsRights = array();
     private $groupMapping = array();
     private $groupMappingA = array();
     private $groupMappingName = array();
-
     private $groupsAcq = array();
     private $groupsRightsAcq = array();
     private $groupMappingAcq = array();
     private $groupMappingAAcq = array();
     private $groupMappingNameAcq = array();
-
     private $everyone;
     private $everyoneId;
-
     private $steamgroup;
     private $steamgroupId;
     private $dropdownValueSteamGroup;
     private $dropdownValueAcqSteamGroup;
-
 
     /**
      * @var type array with the current sanctions
@@ -66,7 +54,6 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
      */
     private $sanctionWriteForCurrentObject;
 
-
     public function validateData(\IRequestObject $requestObject) {
         return true;
     }
@@ -79,7 +66,6 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->params = $requestObject->getParams();
             isset($this->params["id"]) ? $this->id = $this->params["id"] : "";
         }
-
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
@@ -107,7 +93,6 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
 
         foreach ($this->steamUser->get_buddies() as $favorite) {
             $this->favorites[$favorite->get_id()] = $favorite;
-            $this->favoritesAcq[$favorite->get_id()] = $favorite;
         }
 
         foreach ($this->steamUser->get_groups() as $group) {
@@ -161,7 +146,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                 $this->groups[$id] = $favorite;
                 $this->groupsAcq[$id] = $favorite;
             } else {
-                throw new \Exception("Favoriten beeinhalten das Objekt einer ungültigen Klasse!");
+                throw new \Exception("Favoriten beinhalten das Objekt einer ungültigen Klasse!");
             }
         }
 
@@ -190,22 +175,16 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                 for ($i = 0; $i < $length; $i++) {
                     if ($i == 0) {
                         $string .= $array[$i];
-                        if (!isset($this->groupMappingName[$string])) {
-                            $group = \steam_factory::get_group($this->steam->get_id(), $string);
-                            $groupId = $group->get_id();
-                            $this->groupMappingName[$string] = $groupId;
-                            $this->groupMappingA[$groupId] = $string;
-                            $this->groups[$groupId] = $group;
-                        }
                     } else {
-                        $string .= "." . $array[$i];
-                        if (!isset($this->groupMappingName[$string])) {
+                        $string .= "." . $array[$i];   
+                    }
+                    
+                    if (!isset($this->groupMappingName[$string])) {
                             $group = \steam_factory::get_group($this->steam->get_id(), $string);
                             $groupId = $group->get_id();
                             $this->groupMappingName[$string] = $groupId;
                             $this->groupMappingA[$groupId] = $string;
                             $this->groups[$groupId] = $group;
-                        }
                     }
                 }
             }
@@ -278,12 +257,12 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
 
         $this->ajaxResponseObject->addWidget($this->dialog);
 
-        if($this->object->get_attribute("OBJ_TYPE") === "postbox"){
+        if ($this->object->get_attribute("OBJ_TYPE") === "postbox") {
             $deactiveAcq = new \Widgets\JSWrapper();
             $deactiveAcq->setPostJsCode('$("#radio_acquire").attr("disabled",true); $("#sanctionsWrapper").hide();');
             $this->ajaxResponseObject->addWidget($deactiveAcq);
         }
-        
+
         $hideLoader = new \Widgets\JSWrapper();
         $hideLoader->setPostJsCode('$("#sanctionsWrapper").hide();');
         $this->ajaxResponseObject->addWidget($hideLoader);
@@ -291,13 +270,11 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         return $this->ajaxResponseObject;
     }
 
-
     function getOptionsValues() {
         return array(0 => "Kein Zugriff", 1 => "Nur Lesen", 2 => "Lesen und Schreiben", 3 => "Lesen, Schreiben und Berechtigen");
     }
 
-
-    function setupVariables(){
+    function setupVariables() {
         $this->steamUser = \lms_steam::get_current_user();
 
         $this->everyone = \steam_factory::groupname_to_object($this->steam->get_id(), "everyone");
@@ -320,11 +297,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->creator = $this->object->get_creator();
 
         $this->environment = $this->object->get_environment();
-
     }
 
-
-    function setUpTemplate(){
+    function setUpTemplate() {
 
         $this->content = \Explorer::getInstance()->loadTemplate("sanction.template.html");
         $css = \Explorer::getInstance()->readCSS("sanctions.css");
@@ -336,7 +311,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("PREDEFINED_HEADLINE", "<h3>Option 2: Vordefinierte Rechte verwenden</h3>");
             $this->content->setVariable("INDIVIDUAL_HEADLINE", "<h3>Option 3: Individuelle Rechte festlegen</h3>");
             $this->content->setVariable("INHERIT_FROM", "Rechte vom Elternelement<b>" . getCleanName($this->environment) . "</b> übernehmen:");
-        } else{
+        } else {
             $this->content->setVariable("NO_ENVIRONMENT", "style='display:none;'");
             $this->content->setVariable("INHERIT_FROM", "");
             $this->content->setVariable("PREDEFINED_HEADLINE", "<h3>Option 1: Vordefinierte Rechte verwenden</h3>");
@@ -349,7 +324,6 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("DISPLAY_ACQ_CLASS", "visible");
 
             $this->content->setVariable("CHECKBOX_CHECKED", "checked=\"checked\"");
-
         } else {
             $this->content->setVariable("ACQUIRE_START", "");
             $this->content->setVariable("DISPLAY_NORMAL_CLASS", "visible");
@@ -362,7 +336,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->content->setVariable("USER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/server_public.png");
         $this->content->setVariable("SERVER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/world_public.png");
 
-        if($this->creator instanceof \steam_user){
+        if ($this->creator instanceof \steam_user) {
             $this->content->setVariable("CREATOR_FULL_NAME", $this->creator->get_full_name());
         } else {
             $this->content->setVariable("CREATOR_FULL_NAME", getCleanName($this->creator));
@@ -373,8 +347,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->content->setVariable("SEND_REQUEST_ACQ", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": acquire_checkbox }, "", "data", function(response){dataSaveFunctionCallback(response);}, null, "explorer");');
     }
 
-
-    function defineObjectSpecificWriteSanctions(){
+    function defineObjectSpecificWriteSanctions() {
         //if the document is a questionary
         if (strcmp($this->object->get_attribute("bid:doctype"), "questionary") == 0) {
             $this->sanctionWriteForCurrentObject = SANCTION_INSERT;
@@ -391,41 +364,43 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         }
     }
 
-    function buildGlobalGroups(){
+    function buildGlobalGroups() {
         $dropDownValue = 0;
-        if ($this->object->check_access(SANCTION_SANCTION, $this->everyone)) {$dropDownValue = 3;}
-        else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) {$dropDownValue = 2;}
-        else if ($this->object->check_access_read($this->everyone)) {$dropDownValue = 1;}
+        if ($this->object->check_access(SANCTION_SANCTION, $this->everyone)) {
+            $dropDownValue = 3;
+        } else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) {
+            $dropDownValue = 2;
+        } else if ($this->object->check_access_read($this->everyone)) {
+            $dropDownValue = 1;
+        }
 
         $allUserIds = array();
-        foreach($this->user as $user){
-            $allUserIds[] = "#fav_".$user->get_id()."_dd";
+        foreach ($this->user as $user) {
+            $allUserIds[] = "#fav_" . $user->get_id() . "_dd";
         }
-        $allUserIds = implode(",",$allUserIds);
+        $allUserIds = implode(",", $allUserIds);
 
         $allGroupIds = array();
 
         //select distinct all groups that are on the highest level to be statet as "subgroups" of sTeam for the recursion
-        foreach ($this->groups as $group){
-            if($group !== $this->steamgroup && $group !== $this->everyone){
+        foreach ($this->groups as $group) {
+            if ($group !== $this->steamgroup && $group !== $this->everyone) {
                 $possibleRootGroupName = reset(explode(".", $group->get_groupname()));
-                if(!array_key_exists($possibleRootGroup, $this->rootGroups))
-                {
+                if (!array_key_exists($possibleRootGroup, $this->rootGroups)) {
                     $recursionGroup = $group;
-                    while($recursionGroup->get_parent_group() instanceof \steam_group){
+                    while ($recursionGroup->get_parent_group() instanceof \steam_group) {
                         $recursionGroup = $recursionGroup->get_parent_group();
                     }
                     $this->rootGroups[$possibleRootGroupName] = $recursionGroup;
                 }
-
             }
         }
 
-        foreach($this->rootGroups as $group){
-            $allGroupIds[] = "#group_".$group->get_id();
+        foreach ($this->rootGroups as $group) {
+            $allGroupIds[] = "#group_" . $group->get_id();
         }
 
-        $allGroupIds = implode(",",$allGroupIds);
+        $allGroupIds = implode(",", $allGroupIds);
 
         $ddlEveryone = new \Widgets\DropDownListSanction();
         $ddlEveryone->setId("everyone_dd");
@@ -447,9 +422,13 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
 
         $dropdownValueAcq = 0;
         if ($this->environment instanceof \steam_room) {
-            if ($this->environment->check_access(SANCTION_SANCTION, $this->everyone)) { $dropdownValueAcq = 3; }
-            else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) { $dropdownValueAcq = 2; }
-            else if ($this->environment->check_access_read($this->everyone)) { $dropdownValueAcq = 1; }
+            if ($this->environment->check_access(SANCTION_SANCTION, $this->everyone)) {
+                $dropdownValueAcq = 3;
+            } else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) {
+                $dropdownValueAcq = 2;
+            } else if ($this->environment->check_access_read($this->everyone)) {
+                $dropdownValueAcq = 1;
+            }
         }
 
         $ddlEveryoneAcq = new \Widgets\DropDownListSanction();
@@ -466,9 +445,13 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->content->parse("GROUP_EVERYONE_ACQ");
 
         $this->dropdownValueSteamGroup = 0;
-        if ($this->object->check_access(SANCTION_SANCTION, $this->steamgroup)) {$this->dropdownValueSteamGroup = 3;}
-        else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {$this->dropdownValueSteamGroup = 2;}
-        else if ($this->object->check_access_read($this->steamgroup)) {$this->dropdownValueSteamGroup = 1;}
+        if ($this->object->check_access(SANCTION_SANCTION, $this->steamgroup)) {
+            $this->dropdownValueSteamGroup = 3;
+        } else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {
+            $this->dropdownValueSteamGroup = 2;
+        } else if ($this->object->check_access_read($this->steamgroup)) {
+            $this->dropdownValueSteamGroup = 1;
+        }
         $ddlSteam = new \Widgets\DropDownListSanction();
         $steamId = "steam_dd";
         $ddlSteam->setId($steamId);
@@ -490,9 +473,13 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
 
         $this->dropdownValueAcqSteamGroup = 0;
         if ($this->environment instanceof \steam_room) {
-            if ($this->environment->check_access(SANCTION_SANCTION, $this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 3;}
-            else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 2;}
-            else if ($this->environment->check_access_read($this->steamgroup)) {$this->dropdownValueAcqSteamGroup = 1;}
+            if ($this->environment->check_access(SANCTION_SANCTION, $this->steamgroup)) {
+                $this->dropdownValueAcqSteamGroup = 3;
+            } else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {
+                $this->dropdownValueAcqSteamGroup = 2;
+            } else if ($this->environment->check_access_read($this->steamgroup)) {
+                $this->dropdownValueAcqSteamGroup = 1;
+            }
         }
 
         $ddlSteamAcq = new \Widgets\DropDownListSanction();
@@ -507,22 +494,20 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->content->setCurrentBlock("GROUP_STEAM_ACQ");
         $this->content->setVariable("DROPDOWNLIST", $ddlSteamAcq->getHtml());
         $this->content->parse("GROUP_STEAM_ACQ");
-
     }
 
-
-    function buildGroupFavorites(){
+    function buildGroupFavorites() {
         if (count($this->groupMapping) == 0) {
             $this->content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
-            if(count($this->groupMapping) > 4){
-              $this->content->setVariable("CSS_GROUPS", "height:104px;");
+            if (count($this->groupMapping) > 4) {
+                $this->content->setVariable("CSS_GROUPS", "height:104px;");
             } else {
-              $this->content->setVariable("CSS_GROUPS", "");
+                $this->content->setVariable("CSS_GROUPS", "");
             }
             foreach ($this->groupMapping as $id => $group) {
 
-                if($group->get_attribute("GROUP_INVISIBLE") != 0){
+                if ($group->get_attribute("GROUP_INVISIBLE") != 0) {
                     continue;
                 }
                 $groupname = $group->get_groupname();
@@ -531,13 +516,17 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $name = $group->get_attribute("OBJ_DESC");
                     $realname = $group->get_name();
                     if ($name == "" || $name == "0") {
-                      $name = $group->get_name();
+                        $name = $group->get_name();
                     }
 
                     $dropDownValue = 0;
-                    if ($this->object->check_access(SANCTION_SANCTION, $group)) {$dropDownValue = 3;}
-                    elseif ($this->object->check_access($this->sanctionWriteForCurrentObject, $group)) {$dropDownValue = 2;}
-                    elseif ($this->object->check_access_read($group)) {$dropDownValue = 1;}
+                    if ($this->object->check_access(SANCTION_SANCTION, $group)) {
+                        $dropDownValue = 3;
+                    } elseif ($this->object->check_access($this->sanctionWriteForCurrentObject, $group)) {
+                        $dropDownValue = 2;
+                    } elseif ($this->object->check_access_read($group)) {
+                        $dropDownValue = 1;
+                    }
 
                     $this->groupsRights[$id] = $dropDownValue;
 
@@ -552,18 +541,18 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $ddl->setSteamId($id);
                     $members = array();
 
-                    foreach($this->user as $user){
-                        if($group->is_member($user)){
-                            $members[] = '#fav_'.$user->get_id()."_dd";
+                    foreach ($this->user as $user) {
+                        if ($group->is_member($user)) {
+                            $members[] = '#fav_' . $user->get_id() . "_dd";
                         }
                     }
 
-                    $ddl->setMembers(implode(',',$members));
+                    $ddl->setMembers(implode(',', $members));
 
                     $subGroups = array();
-                    foreach($group->get_subgroups() as $subGroup){
-                        if(array_key_exists($subGroup->get_id(), $this->groupMapping)){
-                            $subGroups[] = "#group_".$subGroup->get_id();
+                    foreach ($group->get_subgroups() as $subGroup) {
+                        if (array_key_exists($subGroup->get_id(), $this->groupMapping)) {
+                            $subGroups[] = "#group_" . $subGroup->get_id();
                         }
                     }
 
@@ -572,14 +561,18 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $indent = count(explode(".", $groupname));
                     if ($indent == 1) {
                         $optionValues = self::getOptionsValues();
-
                     } else {
                         $parent = $group->get_parent_group();
 
-                        if ($this->object->check_access(SANCTION_SANCTION, $parent)) {$dropDownValueParent = 3;}
-                        else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $parent)) {$dropDownValueParent = 2;}
-                        else if ($this->object->check_access_read($parent)) {$dropDownValueParent = 1;}
-                        else {$dropDownValueParent = 0;}
+                        if ($this->object->check_access(SANCTION_SANCTION, $parent)) {
+                            $dropDownValueParent = 3;
+                        } else if ($this->object->check_access($this->sanctionWriteForCurrentObject, $parent)) {
+                            $dropDownValueParent = 2;
+                        } else if ($this->object->check_access_read($parent)) {
+                            $dropDownValueParent = 1;
+                        } else {
+                            $dropDownValueParent = 0;
+                        }
 
                         $optionValues = self::getOptionsValues();
                     }
@@ -590,7 +583,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setCurrentBlock("GROUP_DDSETTINGS");
                     $this->content->setVariable("GROUPID", $id);
                     $this->content->setVariable("GROUP_ID", $id);
-                    $this->content->setVariable("GROUPNAME", $name . " (". $realname . ")" );
+                    $this->content->setVariable("GROUPNAME", $name . " (" . $realname . ")");
                     $this->content->setVariable("INDENTINDEX", $indent);
                     $this->content->setVariable("DROPDOWNLIST", $ddl->getHtml());
                     if (isset($this->favorites[$id])) {
@@ -605,15 +598,14 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         }
     }
 
-
-    function buildGroupFavoritesAcq(){
+    function buildGroupFavoritesAcq() {
         if (count($this->groupMappingAcq) == 0) {
             $this->content->setVariable("NO_GROUP_MEMBER_ACQ", "Sie sind kein Mitglied einer Gruppe");
         } else {
             foreach ($this->groupMappingAcq as $id => $group) {
 
-                if($group->get_attribute("GROUP_INVISIBLE") !== 0){
-                   continue;
+                if ($group->get_attribute("GROUP_INVISIBLE") !== 0) {
+                    continue;
                 }
                 $name = $group->get_attribute("OBJ_DESC");
                 $realname = $group->get_name();
@@ -624,15 +616,19 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
 
                 $dropDownValueAcq = 0;
                 if ($this->environment instanceof \steam_room) {
-                    if ($this->environment->check_access(SANCTION_SANCTION, $group)) {$dropDownValueAcq = 3;}
-                    else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $group)) {$dropDownValueAcq = 2;}
-                    else if ($this->environment->check_access_read($group)) {$dropDownValueAcq = 1;}
+                    if ($this->environment->check_access(SANCTION_SANCTION, $group)) {
+                        $dropDownValueAcq = 3;
+                    } else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $group)) {
+                        $dropDownValueAcq = 2;
+                    } else if ($this->environment->check_access_read($group)) {
+                        $dropDownValueAcq = 1;
+                    }
                 }
 
                 $this->groupsRightsAcq[$id] = $dropDownValueAcq;
 
                 $ddlAcq = new \Widgets\DropDownListSanction();
-                $ddlAcq->setId("group_" . $id."_acq");
+                $ddlAcq->setId("group_" . $id . "_acq");
                 $ddlAcq->setName("ddlist_acq");
                 $ddlAcq->setType("group");
                 $ddlAcq->setSize("1");
@@ -647,7 +643,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
                     $this->content->setVariable("GROUPID_ACQ", $id);
                     $this->content->setVariable("GROUP_ID_ACQ", $id);
-                    $this->content->setVariable("GROUPNAME_ACQ", $name . " (". $realname . ")" );
+                    $this->content->setVariable("GROUPNAME_ACQ", $name . " (" . $realname . ")");
                     $this->content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $this->dropdownValueAcqSteamGroup));
                     $this->content->setVariable("INDENTINDEX_ACQ", $indent);
                     $this->content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
@@ -663,8 +659,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         }
     }
 
-
-    function buildUserFavorites(){
+    function buildUserFavorites() {
         if (count($this->userMapping) == 0) {
             $this->content->setVariable("NO_FAV_MEMBER", "Es können keinem Benutzer Rechte zugewiesen werden. ");
         } else {
@@ -683,9 +678,13 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                 if ($user instanceof \steam_user) {
 
                     $dropDownValue = 0;
-                    if ($this->object->check_access(SANCTION_SANCTION, $user)) {$dropDownValue = 3;}
-                    elseif ($this->object->check_access($this->sanctionWriteForCurrentObject, $user)) {$dropDownValue = 2;}
-                    elseif ($this->object->check_access_read($user)) {$dropDownValue = 1;}
+                    if ($this->object->check_access(SANCTION_SANCTION, $user)) {
+                        $dropDownValue = 3;
+                    } elseif ($this->object->check_access($this->sanctionWriteForCurrentObject, $user)) {
+                        $dropDownValue = 2;
+                    } elseif ($this->object->check_access_read($user)) {
+                        $dropDownValue = 1;
+                    }
 
                     //check if the user is in one group with more rights
                     $maxSanct = 0;
@@ -718,15 +717,15 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
 
                     //get all groups, this user is a member of
                     $memberOf = array();
-                    foreach($this->groupMapping as $group){
-                        if($group->is_member($user)){
-                            $memberOf[] = "#group_".$group->get_id();
+                    foreach ($this->groupMapping as $group) {
+                        if ($group->is_member($user)) {
+                            $memberOf[] = "#group_" . $group->get_id();
                         }
                     }
-                    $ddl->setMembers(implode(',',$memberOf).",#everyone_dd,#steam_dd");
+                    $ddl->setMembers(implode(',', $memberOf) . ",#everyone_dd,#steam_dd");
 
                     //show the full rights for admins and the creator/owner of the object
-                    if(self::isAdmin($user) || $user === $this->creator){
+                    if (self::isAdmin($user) || $user === $this->creator) {
                         $ddl->setType("admin");
                         $ddl->setMembers("");
                         $ddl->setStartValue(3);
@@ -750,8 +749,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         }
     }
 
-
-    function buildUserFavoritesAcq(){
+    function buildUserFavoritesAcq() {
         if (count($this->userMappingAcq) == 0) {
             $this->content->setVariable("NO_FAV_MEMBER_ACQ", "Es können keinem Benutzer Rechte zugewiesen werden.");
         } else {
@@ -762,9 +760,13 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
 
                     $dropDownValueAcq = 0;
                     if ($this->environment instanceof \steam_room) {
-                       if ($this->environment->check_access(SANCTION_SANCTION, $user)) {$dropDownValueAcq = 3;}
-                       elseif ($this->environment->check_access($this->sanctionWriteForCurrentObject, $user)) {$dropDownValueAcq = 2;}
-                       elseif ($this->environment->check_access_read($user)) {$dropDownValueAcq = 1;}
+                        if ($this->environment->check_access(SANCTION_SANCTION, $user)) {
+                            $dropDownValueAcq = 3;
+                        } elseif ($this->environment->check_access($this->sanctionWriteForCurrentObject, $user)) {
+                            $dropDownValueAcq = 2;
+                        } elseif ($this->environment->check_access_read($user)) {
+                            $dropDownValueAcq = 1;
+                        }
                     }
 
                     $maxSanct = 0;
@@ -810,35 +812,32 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         }
     }
 
-
-    function buildDialog(){
+    function buildDialog() {
         $sanctionURL = "http://$_SERVER[HTTP_HOST]" . "/Sanction/Index/" . $this->id . "/";
 
         $isSchoolAdmin = false;
 
-        $schoolAdminGroup = \steam_factory::groupname_to_object($GLOBALS[ "STEAM" ]->get_id(), "SchulAdmins");
+        $schoolAdminGroup = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "SchulAdmins");
 
-        if($schoolAdminGroup instanceof \steam_group){
+        if ($schoolAdminGroup instanceof \steam_group) {
             $isSchoolAdmin = $schoolAdminGroup->is_member($this->steamUser);
         }
 
-        if(self::isAdmin($this->steamUser) || $isSchoolAdmin){
-          $this->dialog->setCustomButtons(array(array("js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
+        if (self::isAdmin($this->steamUser) || $isSchoolAdmin) {
+            $this->dialog->setCustomButtons(array(array("js" => "window.open('$sanctionURL', '_self')", "label" => "Erweiterte Ansicht öffnen")));
         }
 
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($this->content->get());
         $this->dialog->addWidget($rawHtml);
-
     }
 
-
-    function isAdmin(\steam_user $candidate){
-        if(\lms_steam::is_steam_admin($candidate)) {
+    function isAdmin(\steam_user $candidate) {
+        if (\lms_steam::is_steam_admin($candidate)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
+
 }
