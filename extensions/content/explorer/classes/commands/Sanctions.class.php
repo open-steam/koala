@@ -1,7 +1,9 @@
 <?php
 
 namespace Explorer\Commands;
-
+/**
+ * this class displays a loading animation while the sanctions dialog is beeing loaded
+ */
 class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
 

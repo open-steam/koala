@@ -667,9 +667,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("DUMMY_FAV_ACQ", "");
 
             if (count($this->userMapping) > 4) {
-                $this->content->setVariable("CSS_USER", "height:104px;");
+                $this->content->setVariable("CSS_USER", "display:block; height:104px;");
             } else {
-                $this->content->setVariable("CSS_USER", "");
+                $this->content->setVariable("CSS_USER", "display:block;");
             }
 
             foreach ($this->userMapping as $id => $name) {
