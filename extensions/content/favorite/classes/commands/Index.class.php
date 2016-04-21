@@ -325,7 +325,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("GROUP_NAME", $buddy);
             $content->setVariable("GROUP_DESC", $groupDesc);
             $content->setVariable("DELETE_GROUP", "Favorit Löschen");
-
+            $content->setVariable("GROUP_ID",  $id);
             $content->setVariable("DELETE_GROUP_LINK", PATH_URL . "favorite/delete/" . $id . "/");
 
             $content->parse("BLOCK_GROUP_LIST");
