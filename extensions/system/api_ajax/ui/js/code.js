@@ -64,7 +64,7 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                         } else if (requestType == "inform") {
                             if($('#informSlider').length == 0){
                               jQuery.globalEval(responseData.js);
-                              jQuery('body').append("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
+                              createDynamicWrapper("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
                               jQuery.globalEval(responseData.postjs);
                             }
                         } else if (requestType == "reload") {
