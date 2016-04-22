@@ -35,11 +35,11 @@ class PortletReference extends \AbstractCommand implements \IAjaxCommand {
 		$js = "document.getElementById('clipboardIconbarWrapper').innerHTML = '" . $clipboardModel->getIconbarHtml() . "';" ;
 		$jswrapper->setJs($js);
 		$ajaxResponseObject->addWidget($jswrapper);
-		$informSlider = new \Widgets\InformSlider();
-		$informSlider->setTitle("Information");
-		$informSlider->setPostJsCode("createInformSlider()");
-		$informSlider->setContent("Die Referenz wurde in der Zwischenablage erstellt.");
-		$ajaxResponseObject->addWidget($informSlider);
+		//$informSlider = new \Widgets\InformSlider();
+		//$informSlider->setTitle("Information");
+		//$informSlider->setPostJsCode("createInformSlider()");
+		//$informSlider->setContent("Die Referenz wurde in der Zwischenablage erstellt.");
+		//$ajaxResponseObject->addWidget($informSlider);
 		return $ajaxResponseObject;
 	}
 

@@ -61,8 +61,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				($index != 0) ? array("name" => "Eins nach vorne<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}") : "",
 				($index < count($inventory)-1) ? array("name" => "Eins nach hinten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}") : "",
 				($index < count($inventory)-1) ? array("name" => "Ganz nach hinten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}") : ""
-			)
-		),
+				)) : "",
 		array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"));
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");

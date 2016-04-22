@@ -53,7 +53,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 						array("name" => "SEPARATOR"),
 						array("name" => "Kopieren <img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
 						array("name" => "Ausschneiden <img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Referenz erstellen <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"inform"),
+						array("name" => "Referenz erstellen <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"nonModalUpdater"),
 						array("name" => "Löschen <img src=\"{$trashIcon}\">",  "command" => "Delete", "namespace" => "PortletRss", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
 					   	array("name" => "SEPARATOR"),
 						array("name" => "Rechte <img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->id}'}", "type"=>"popup")
