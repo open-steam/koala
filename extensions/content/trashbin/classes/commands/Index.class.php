@@ -49,7 +49,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
 		$loader = new \Widgets\Loader();
 		$loader->setWrapperId("trashbinWrapper");
-		$loader->setMessage("Lade Daten ...");
+		$loader->setMessage("Lade gelöschte Objekte...");
 		$loader->setCommand("loadContent");
 		$loader->setParams(array("id"=>$this->id));
 		$loader->setElementId("trashbinWrapper");

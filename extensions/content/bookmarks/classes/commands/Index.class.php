@@ -61,19 +61,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $loader = new \Widgets\Loader();
         $loader->setWrapperId("bookmarksWrapper");
-        $loader->setMessage("Lade Lesezeichen ...");
-        $loader->setCommand("loadBookmarks");
+        $loader->setMessage("Lade Lesezeichen...");
+        $loader->setCommand("LoadBookmarks");
+        $loader->setNamespace("Bookmarks");
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("bookmarksWrapper");
         $loader->setType("updater");
-
 
         $environmentData = new \Widgets\RawHtml();
         $environmentData->setHtml("<input type=\"hidden\" id=\"environment\" value=\"$this->id\">");
 
         $script = "function initSort(){";
         foreach ($objects as $o) {
-            if ($o instanceof \steam_link && $o->get_link_object() == 0) $o->delete(); //remove bookmarks whose target objects has been deleted 
+            if ($o instanceof \steam_link && $o->get_link_object() == 0) $o->delete(); //remove bookmarks whose target objects has been deleted
             if (getObjectType($o) !== "trashbin") {
                 $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
                 $('#" . $o->get_id() . "').attr('onmouseover', '');

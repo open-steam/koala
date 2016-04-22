@@ -28,7 +28,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
         $loader = new \Widgets\Loader();
         $loader->setWrapperId("sanctionsWrapper");
-        $loader->setMessage("Lade Rechtedialog ...");
+        $loader->setMessage("Lade Rechtedialog...");
         $loader->setCommand("sanctionsContent");
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("sanctionsContent");
@@ -36,14 +36,14 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $loader->setType("popup");
 
         $rawHtml = new \Widgets\RawHtml();
-        
+
         $rawHtml->setHtml("<div id=\"sanctionsContent\">" . $loader->getHtml() . "</div>");
         $rawHtml->addWidget($loader);
-        
-        
+
+
         $ajaxResponseObject->addWidget($rawHtml);
         $ajaxResponseObject->setStatus("ok");
-        
+
         return $ajaxResponseObject;
     }
 

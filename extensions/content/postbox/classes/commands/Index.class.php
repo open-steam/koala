@@ -20,14 +20,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
         $container = $obj->get_attribute("bid:postbox:container");
-        
+
         if(!$container instanceof \steam_container){
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml("Dieses Objekt ist kein Briefkastenobjekt.");
             $frameResponseObject->addWidget($rawHtml);
             return $frameResponseObject;
         }
-            
+
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
 
         //depending on the serverconfiguration (API_DOUBLE_FILENAME_NOT_ALLOWED) you need read rights and insert rights or only insert rights
@@ -160,8 +160,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             $loader = new \Widgets\Loader();
             $loader->setWrapperId("postboxWrapper");
-            $loader->setMessage("Lade Abgaben ...");
-            $loader->setCommand("loadPostbox");
+            $loader->setMessage("Lade Abgaben...");
+            $loader->setCommand("LoadPostbox");
+            $loader->setNamespace("Postbox");
             $loader->setParams(array("id" => $container->get_id()));
             $loader->setElementId("postboxWrapper");
             $loader->setType("updater");

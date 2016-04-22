@@ -42,8 +42,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $loader = new \Widgets\Loader();
         $loader->setWrapperId("clipboardWrapper");
-        $loader->setMessage("Lade Daten ...");
-        $loader->setCommand("loadClipboard");
+        $loader->setMessage("Lade Zwischenablage...");
+        $loader->setCommand("LoadClipboard");
+        $loader->setNamespace("Clipboard");
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("clipboardWrapper");
         $loader->setType("updater");

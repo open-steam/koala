@@ -88,7 +88,7 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
 
         $loader = new \Widgets\Loader();
         $loader->setWrapperId("explorerWrapper");
-        $loader->setMessage("Lade Dokumente ...");
+        $loader->setMessage("Lade Fotos...");
         $loader->setCommand("loadContent");
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("explorerWrapper");

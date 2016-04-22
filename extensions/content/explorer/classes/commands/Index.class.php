@@ -299,7 +299,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $loader = new \Widgets\Loader();
         $loader->setWrapperId("explorerWrapper");
-        $loader->setMessage("Lade Dokumente ...");
+        $loader->setMessage("Lade Objekte...");
         $loader->setCommand("loadContent");
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("explorerWrapper");

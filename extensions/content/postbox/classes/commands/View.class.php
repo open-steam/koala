@@ -31,7 +31,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
             $now = mktime(date("H"), date("i"), 0, date("n"), date("j"), date("Y"));
             //compute Deadline
             $deadlineArray = explode(" ", $deadlineDateTime);
-            //0 -> day, 1 -> month, 2 -> year  
+            //0 -> day, 1 -> month, 2 -> year
             $deadlineDate = explode(".", $deadlineArray[0]);
             // 0 -> hour, 1 -> minute
             $deadlineTime = explode(":", $deadlineArray[1]);
@@ -98,8 +98,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
 
             $loader = new \Widgets\Loader();
             $loader->setWrapperId("postboxWrapper");
-            $loader->setMessage("Lade Abgaben ...");
-            $loader->setCommand("loadPostbox2");
+            $loader->setMessage("Lade Abgaben...");
+            $loader->setCommand("LoadPostbox2");
+            $loader->setNamespace("Postbox");
             $loader->setParams(array("id" => $this->id));
             $loader->setElementId("postboxWrapper");
             $loader->setType("updater");
@@ -110,7 +111,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($environmentData);
             $frameResponseObject->addWidget($loader);
         } else {
-           
+
         }
         return $frameResponseObject;
     }
