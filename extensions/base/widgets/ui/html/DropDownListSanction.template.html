@@ -44,7 +44,6 @@
                
                
                 //update the direct members of the group
-                console.log("adjusting rights");
                 $.each($('#{ID}').attr('data-members').split(","), function(index,value){
                     if(value != "" && $(value).attr("data-type") !='admin'){
                         if(!firstTime){
