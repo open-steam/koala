@@ -52,7 +52,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $members = $this->group->get_members();
 
-        $groupName = "<i>" . $this->group->get_name() . "</i>";
+        $groupName = "<u>" . $this->group->get_name() . "</u>";
         $parent = $this->group->get_parent_group();
         while ($parent instanceof \steam_group) {
             $groupName = "<a href='/group/index/" . $parent->get_id() . "'>" . $parent->get_name() . "</a>." . $groupName;
