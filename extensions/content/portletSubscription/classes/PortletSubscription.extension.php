@@ -70,7 +70,6 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
                     } else {
                         $filter[$filterElement[1]] = array($filterElement[0]);
                     }
-                    $updates[] = array($filterElement[0], $filterElement[1], "");
                 }
             } else {
                 $private = FALSE;
