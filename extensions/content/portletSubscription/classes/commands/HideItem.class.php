@@ -82,16 +82,18 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
 
                     //if a newer notification should be hidden while older notifications of other objects should still exist, filter the newer out
                     $filter = array_values($filter);
-
                 }
-                //save back the variables to the object
-                $portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", $filter);
-                $portlet->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", $timestamp);
+
 
                 //now we try to remove a notification for a deleted object, if the user wants to hide it
                 //if the objectID is in the folderlist and the timestamp of the notofication is -1 (not possible for changes, but only for deletions)
                 if (array_key_exists($this->objectID, $formerContent) && $this->itemTimestamp == -1) {
-
+                    //delete a possibleentry in the filter
+                    foreach ($filter as $id => $filterElement) {
+                        if ($filterElement[1] == $this->objectID) {
+                            unset($filter[$id]);
+                        }
+                    }
                     unset($formerContent[$this->objectID]);
                 } else if (!array_key_exists($this->objectID, $formerContent) && $this->itemTimestamp == -1) {
 
@@ -101,7 +103,9 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
                     $formerContent[$this->objectID] = array("name" => $object->get_attribute(OBJ_NAME));
                 }
 
-                //save back the modified folderlist
+                //save back the variables to the object
+                $portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", $filter);
+                $portlet->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", $timestamp);
                 $portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
 
                 //hide the html-item 
