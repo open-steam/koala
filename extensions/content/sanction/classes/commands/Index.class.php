@@ -445,7 +445,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $content->setVariable("VALUE", "<a href=\"/sanction/Index/".substr($value, 1)."/\">Objekt</a> mit der Id ".$value. " und dem Namen \"". $value->get_name()."\"");
             }
             else if(in_array($key, array("CONT_LAST_MODIFIED", "OBJ_CREATION_TIME", "OBJ_LAST_CHANGED", "PORTLET_SUBSCRIPTION_TIMESTAMP", "DOC_LAST_MODIFIED", "DOC_LAST_ACCESSED", "OBJ_ANNOTATIONS_CHANGED"))){
-                $content->setVariable("VALUE", $value ." (".date("d.m.Y H:i", $value).")");
+                $content->setVariable("VALUE", $value ." (".date("d.m.Y H:i:s", $value).")");
             }
             else {
                 $content->setVariable("VALUE", $value);
