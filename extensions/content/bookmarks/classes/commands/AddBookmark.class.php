@@ -7,7 +7,7 @@ class AddBookmark extends \AbstractCommand implements \IAjaxCommand{
     private $name;
     private $link;
     private $bookmarks;
-    private $oldObject;
+    private $duplicateNameObject;
     private $rename;
 
     public function validateData(\IRequestObject $requestObject){
@@ -33,8 +33,8 @@ class AddBookmark extends \AbstractCommand implements \IAjaxCommand{
         $this->link->set_attribute(OBJ_DESC,  $object->get_attribute(OBJ_DESC));
         $this->link->set_attribute(DOC_MIME_TYPE,  $object->get_attribute(DOC_MIME_TYPE));
         $this->name = $this->link->get_name();
-        $this->oldObject = $this->bookmarks->get_object_by_name($this->name);
-        if($this->oldObject == 0 || $this->rename){
+        $this->duplicateNameObject = $this->bookmarks->get_object_by_name($this->name);
+        if($this->duplicateNameObject == 0 || $this->rename){
           $this->link->move($this->bookmarks);
         }
     }
@@ -42,7 +42,7 @@ class AddBookmark extends \AbstractCommand implements \IAjaxCommand{
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject){
         $ajaxResponseObject->setStatus("ok");
 
-        if($this->oldObject != 0  && !$this->rename){   //there exists a bookmark with this name, ask the user what to do
+        if($this->duplicateNameObject != 0  && !$this->rename){   //there exists a bookmark with this name, ask the user what to do
           $dialog = new \Widgets\Dialog();
           $dialog->setTitle("Information");
           $dialog->setSaveAndCloseButtonLabel(null);
@@ -63,7 +63,7 @@ class AddBookmark extends \AbstractCommand implements \IAjaxCommand{
 
           $replaceButton = array();
     			$replaceButton["label"] = "Ersetzen";
-    			$replaceButton["js"] = "sendRequest('Delete', {'id':{$this->oldObject->get_id()}}, '', 'nonModalUpdater', function(){sendRequest('AddBookmark', {'id':{$this->id}}, '', 'inform', null, null, 'bookmarks');}, null, 'explorer');$('#dialog_wrapper').remove();";
+    			$replaceButton["js"] = "sendRequest('Delete', {'id':{$this->duplicateNameObject->get_id()}}, '', 'nonModalUpdater', function(){sendRequest('AddBookmark', {'id':{$this->id}}, '', 'inform', null, null, 'bookmarks');}, null, 'explorer');$('#dialog_wrapper').remove();";
     			$buttons[1] = $replaceButton;
 
     			$dialog->setButtons($buttons);

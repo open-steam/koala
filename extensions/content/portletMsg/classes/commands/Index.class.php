@@ -200,16 +200,16 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                       }
 
                       $picture_width = (($message->get_attribute("bid:portlet:msg:picture_width") != "") ? trim($message->get_attribute("bid:portlet:msg:picture_width")) : "");
-                      if (extract_percentual_length($picture_width) == "") {
+                      if (extract_percentual_length($picture_width) == "") { //empty string --> width has no percent sign
                           $bare_picture_width = extract_length($picture_width);
                           if ($bare_picture_width == "") {
                             if ( $alignment == "bottom" || $alignment == "top" ) {
                               $picture_width = $column_width;
                             }
                             else{
-                              $picture_width = $column_width/2;
+                              $picture_width = intval($column_width)/2;
                             }
-                          } else if ($bare_picture_width > $column_width) {
+                          } else if (intval($bare_picture_width) > intval($column_width)) {
                               $picture_width = $column_width;
                           }
                       }

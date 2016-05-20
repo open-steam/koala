@@ -74,7 +74,6 @@ function getParamsArray(paramsObject) {
 		po.id = ids[i];
 		paramsArray.push(po);
 	}
-	console.log(paramsArray);
 	return paramsArray;
 }
 
