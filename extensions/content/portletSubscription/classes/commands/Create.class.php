@@ -64,14 +64,14 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
             switch (getObjectType($object)){
                 case "room":
                     foreach($object->get_inventory() as $element){
-                        $currentContent[$element->get_id()] = array("name"=>$element->get_attribute(OBJ_DESC));
+                        $currentContent[$element->get_id()] = array("name"=>$element->get_attribute(OBJ_NAME));
                     }
                 break;
                 
                 case "portal":
                     foreach($object->get_inventory() as $column){
                         foreach ($column->get_inventory() as $portlet){
-                            $currentContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_DESC));
+                            $currentContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_NAME));
                         }
                     }
                 break;

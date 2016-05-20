@@ -31,9 +31,9 @@ class PortalSubscription extends AbstractSubscription {
         if(!is_array($this->formerContent)) {$this->formerContent = array();}
         
         foreach($this->formerContent as $id => $notUsed){
-            if(!array_key_exists($id,$portletIds)){ //the object existed in this folder but isn't there anymore, display an info that it is deleted / moved
+            if(!array_key_exists($id,$portletIds)){ //the object existed in this portal but isn't there anymore, display an info that it is deleted / moved
                 $this->updates[] = array(
-                                    0, 
+                                    PHP_INT_MAX-1, //display the deleted files at the end
                                     $id,
                                     $this->getElementHtml(
                                         $id, 
@@ -49,10 +49,10 @@ class PortalSubscription extends AbstractSubscription {
             $this->count++;
         }
         
-        foreach($this->content as $id => $object){ //there is a new object in this folder, show an info if it is not created recently
+        foreach($this->content as $id => $object){ //there is a new object in this portal, show an info if it is not created recently
             if(!array_key_exists($object->get_id(),$this->formerContent) && $object->get_attribute("OBJ_CREATION_TIME") < $this->timestamp){ 
                 $this->updates[] = array(
-                                    0, 
+                                    PHP_INT_MAX-1, //display the deleted files at the end
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(),
@@ -66,7 +66,7 @@ class PortalSubscription extends AbstractSubscription {
                                 );
                 $this->count++;
             } else {
-                $this->formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_DESC));   
+                $this->formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));   
             }
             
         }
@@ -160,7 +160,7 @@ class PortalSubscription extends AbstractSubscription {
                                 
                                 //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
                                 if(!array_key_exists($portlet->get_id(), $this->formerContent)){
-                                    $this->formerContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_DESC));
+                                    $this->formerContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_NAME));
                                 }
                                 
                             } else if ($portlet->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("OBJ_LAST_CHANGED") < $portlet->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$portlet->get_id()]) && in_array($portlet->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$portlet->get_id()]))) {

@@ -23,7 +23,7 @@ class FolderSubscription extends AbstractSubscription {
         foreach($formerContent as $id => $unUsed){
             if(!array_key_exists($id,$objectIds)){ //the object existed in this folder but isn't there anymore, display an info that it is deleted / moved
                 $updates[] = array(
-                    0, 
+                    PHP_INT_MAX, //display the deleted files at the end
                     $id,
                     $this->getElementHtml(
                         $id, 
@@ -42,7 +42,7 @@ class FolderSubscription extends AbstractSubscription {
         foreach($objects as $id => $object){ //there is a new object in this folder, show an info if it is not created recently (eg. moved here)
             if(!array_key_exists($object->get_id(),$formerContent) && $object->get_attribute("OBJ_CREATION_TIME") < $this->timestamp){ 
                 $updates[] = array(
-                    0, 
+                    PHP_INT_MAX-1, //display the deleted files at the end
                     $object->get_id(),
                     $this->getElementHtml(
                         $object->get_id(),

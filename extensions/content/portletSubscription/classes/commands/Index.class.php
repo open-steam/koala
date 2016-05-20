@@ -1,4 +1,5 @@
 <?php
+
 namespace PortletSubscription\Commands;
 
 class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
@@ -18,7 +19,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $column = $portlet->get_environment();
         $width = $column->get_attribute("bid:portal:column:width");
         if (strpos($width, "px") == TRUE) {
-            $width = substr($width, 0, count($width)-3);
+            $width = substr($width, 0, count($width) - 3);
         }
 
         //icon
@@ -46,10 +47,9 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
         //the object could be created, we can read the object and it is not moved to the trashbin (deleted for the user)
         if ($subscriptionObject instanceof \steam_object && $subscriptionObject->check_access_read() && !strpos($subscriptionObject->get_attribute("OBJ_PATH"), "trashbin")) {
-           // if($portlet->get_name() !== "Änderungen in ".$subscriptionObject->get_name()){
-             //   $portlet->set_attribute("OBJ_NAME", "Änderungen in ".$subscriptionObject->get_name());
+            // if($portlet->get_name() !== "Änderungen in ".$subscriptionObject->get_name()){
+            //   $portlet->set_attribute("OBJ_NAME", "Änderungen in ".$subscriptionObject->get_name());
             //}
-
             //$portletName = getCleanName($portlet);
             $portletName = $portlet->get_name();
 
@@ -63,12 +63,12 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             //headline
             $tmpl->setCurrentBlock("BLOCK_FOLDER_HEADLINE");
             $tmpl->setVariable("HEADLINE", $portletName);
-            
+
             $updates = $portletInstance->calculateUpdates($subscriptionObject, $portlet);
 
             //reference icon
             if ($portletIsReference) {
-                $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
+                $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
                 $envId = $portlet->get_environment()->get_environment()->get_id();
                 $envUrl = PATH_URL . "portal/index/" . $envId;
                 $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
@@ -99,24 +99,24 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             } else {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline");
             }
-            
-            if(count($updates) > 1 ){
-                
+
+            if (count($updates) > 1) {
+
                 $tmpl->setCurrentBlock("BLOCK_HIDE_BUTTON");
-                    $tmpl->setVariable("HIDE_ALL_BUTTON", \PortletSubscription\Subscriptions\AbstractSubscription::getElementJS($portlet->get_id(), -1, time(), ""));
+                $tmpl->setVariable("HIDE_ALL_BUTTON", \PortletSubscription\Subscriptions\AbstractSubscription::getElementJS($portlet->get_id(), -1, time(), ""));
                 $tmpl->parse("BLOCK_HIDE_BUTTON");
             }
-                
+
             $tmpl->parse("BLOCK_FOLDER_HEADLINE");
 
-            
+
 
             if (count($updates) === 0) {
                 $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                 $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Keine Neuigkeiten</h3>");
                 $tmpl->parse("BLOCK_SUBSCRIPTION_ELEMENT");
             } else {
-                
+
                 foreach ($updates as $update) {
                     $tmpl->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
                     $tmpl->setVariable("SUBSCRIPTION_ELEMENT_HTML", $update[2]);
@@ -137,7 +137,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $rawHtml->setCss(".subscription-close-button {
             height: 16px;
             width: 16px;
-            background-image: url(\"".PATH_URL."widgets/asset/close.gif\");
+            background-image: url(\"" . PATH_URL . "widgets/asset/close.gif\");
             position: relative;
             top: 0px;
             left: 0px;
@@ -159,5 +159,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $frameResponseObject->addWidget($this->contentHtml);
         return $frameResponseObject;
     }
+
 }
+
 ?>
