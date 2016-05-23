@@ -106,11 +106,7 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml("");
         $ajaxResponseObject->addWidget($rawHtml);
-/*
-        $jswrapper = new \Widgets\JSWrapper();
-        $jswrapper->setPostJsCode('closeDialog()');
-        $ajaxResponseObject->addWidget($jswrapper);
-*/
+
         if ($this->success === true) {
             $ajaxResponseObject->setStatus("ok");
             $jswrapper = new \Widgets\JSWrapper();

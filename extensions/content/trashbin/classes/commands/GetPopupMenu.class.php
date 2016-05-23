@@ -44,9 +44,9 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			} else if ($env instanceof \steam_trashbin) {
 				$items = array(
 					array("name" => "Endgültig löschen<img src=\"{$trashIcon}\">", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater"),
-					array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater")
+					array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform")
 				);
-			} 
+			}
 			$popupMenu->setItems($items);
 			$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
 			$popupMenu->setWidth("150px");
@@ -60,7 +60,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			$popupMenu =  new \Widgets\PopupMenu();
 			$items = array(
 				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('EmptyTrashbin', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte endgültig löschen<img src=\"{$trashIcon}\"></a>"),
-				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte ausschneiden<img src=\"{$cutIcon}\"></a>")
+				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'inform', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\">{$count} Objekte ausschneiden<img src=\"{$cutIcon}\"></a>")
 			);
 
 			$popupMenu->setItems($items);
