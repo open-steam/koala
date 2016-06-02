@@ -47,9 +47,9 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
         //the object could be created, we can read the object and it is not moved to the trashbin (deleted for the user)
         if ($subscriptionObject instanceof \steam_object && $subscriptionObject->check_access_read() && !strpos($subscriptionObject->get_attribute("OBJ_PATH"), "trashbin")) {
-            // if($portlet->get_name() !== "Änderungen in ".$subscriptionObject->get_name()){
-            //   $portlet->set_attribute("OBJ_NAME", "Änderungen in ".$subscriptionObject->get_name());
-            //}
+            if($portlet->get_name() !== "Änderungen in ".$subscriptionObject->get_name()){
+               $portlet->set_attribute("OBJ_NAME", "Änderungen in ".$subscriptionObject->get_name());
+            }
             //$portletName = getCleanName($portlet);
             $portletName = $portlet->get_name();
 
