@@ -58,7 +58,7 @@ class NewGallery extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
 	<div class="attributeName">Name:</div>
-	<div class="attributeValue"><input type="text" class="text" value="" name="name"></div>
+	<div class="attributeValue"><input type="text" class="text" value="" name="name" onkeyup="checkInput(this)"></div>
 </div>
 <br>
 END

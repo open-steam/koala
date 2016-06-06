@@ -117,3 +117,29 @@ function clone(obj) {
 
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
+
+
+function alreadyExistsInExplorer(name) {
+	return $("a").filter(function() {
+		return ($.trim($(this).text()) === name) && ($(this).parent().attr("id") !== undefined) && ($(this).parent().attr("id").endsWith("_1"));
+	});
+}
+
+
+function checkInput(object){
+	var name = $(object).val();
+	if(name.length == 0){
+		$(object).css("background-color", "lightpink");
+		$(".bidButton:not(.negative)").addClass("disabled");
+	}
+	else{
+		if(alreadyExistsInExplorer(name).length != 0){
+			$(object).css("background-color", "lightpink");
+			$(".bidButton:not(.negative)").addClass("disabled");
+		}
+		else{
+			$(object).css("background-color", "lightgreen");
+			$(".bidButton.disabled:not(.negative)").removeClass("disabled");
+		}
+	}
+}

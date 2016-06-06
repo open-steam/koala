@@ -53,6 +53,7 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $textInput = new \Widgets\TextInput();
         $textInput->setName("name");
         $textInput->setLabel("Name");
+        $textInput->checkIfExisting(true);
 
         $datePicker = new \Widgets\DatePicker();
         $datePicker->setName("deadline");

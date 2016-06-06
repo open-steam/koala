@@ -1,10 +1,10 @@
 <!-- BEGIN AJAX_FORM -->
-<form id="{AJAX_FORM_NAME}" onsubmit="sendAjaxFrom(); return false;">
+<form id="{AJAX_FORM_NAME}" onsubmit="sendAjaxForm(); return false;">
 	{AJAX_FORM_CONTENT}
 </form>
-<div style="float:right; margin-top:10px"><a class="bidButton negative" onclick="closeDialog();return false;" href="#" style="margin-right: 4px;">Abbrechen</a><a href="#" class="bidButton" onclick="sendAjaxFrom(); return false;">Erstellen</a></div>
+<div style="float:right; margin-top:10px"><a class="bidButton negative" onclick="closeDialog();return false;" href="#" style="margin-right: 4px;">Abbrechen</a><a href="#" class="bidButton" onclick="sendAjaxForm(); return false;">Erstellen</a></div>
 <script>
-function sendAjaxFrom() {
+function sendAjaxForm() {
 	{AJAX_SENDCODE}
 }
 </script>

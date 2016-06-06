@@ -1,14 +1,14 @@
 <?php
 namespace Wiki\Commands;
 class NewWikiForm extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject) {
 		if ($requestObject instanceof \UrlRequestObject) {
 			$this->params = $requestObject->getParams();
@@ -18,7 +18,7 @@ class NewWikiForm extends \AbstractCommand implements \IAjaxCommand {
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxForm = new \Widgets\AjaxForm();
@@ -63,7 +63,7 @@ class NewWikiForm extends \AbstractCommand implements \IAjaxCommand {
 </style>
 <div class="attribute">
 	<div class="attributeName">Name:</div>
-	<div class="attributeValue"><input type="text" class="text" value="" name="title"></div>
+	<div class="attributeValue"><input type="text" class="text" value="" name="title" onkeyup="checkInput(this)"></div>
 </div>
 <input type="hidden" name="id" value="{$this->id}">
 END

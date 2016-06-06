@@ -18,6 +18,7 @@ class TextInput extends Widget {
     private $readOnly = false;
     private $isNotEmpty = false;
     private $CheckIfEmpty = false;
+    private $CheckIfExisting = false;
     private $labelWidth;
     private $inputWidth;
     private $inputBackgroundColor;
@@ -99,6 +100,14 @@ class TextInput extends Widget {
      */
     public function checkIfEmpty($checkIfEmpty) {
         $this->checkIfEmpty = $checkIfEmpty;
+    }
+
+    /**
+     *
+     * @param type $checkIfExisting boolean
+     */
+    public function checkIfExisting($checkIfExisting) {
+        $this->checkIfExisting = $checkIfExisting;
     }
 
     /**
@@ -211,6 +220,12 @@ class TextInput extends Widget {
             }
             $style = "style=\"{$style}\"";
             $this->getContent()->setVariable("INPUT_STYLE", $style);
+        }
+
+        if($this->checkIfExisting){
+          $this->getContent()->setVariable("CHECK_IF_EXISTING", "onkeyup='checkInput(this)'");
+        } else {
+          $this->getContent()->setVariable("CHECK_IF_EXISTING", "");
         }
 
         if($this->checkIfEmpty){
