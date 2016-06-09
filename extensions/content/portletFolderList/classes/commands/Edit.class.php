@@ -41,11 +41,11 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 		$dialog->addWidget(new \Widgets\Clearer());
 
 		$dateInput = new \Widgets\Checkbox();
-		$dateInput->setLabel("Änderungsdatum anzeigen:");
+		$dateInput->setLabel("Beschreibung anzeigen:");
 		$dateInput->setData($object);
 		$dateInput->setCheckedValue("true");
 		$dateInput->setUncheckedValue("false");
-		$dateInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_FOLDERLIST_CHANGEDATE"));
+		$dateInput->setContentProvider(\Widgets\DataProvider::attributeProvider("PORTLET_FOLDERLIST_DESCRIPTION"));
 		$dialog->addWidget($dateInput);
 
 		$jsWrapper = new \Widgets\RawHtml();

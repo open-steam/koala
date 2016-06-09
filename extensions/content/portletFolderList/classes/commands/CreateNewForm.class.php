@@ -74,12 +74,12 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 			  <script>$("input[name=\"numberOfObjects\"]").bind("keyup mouseup", function() { $("input[name=\"number\"]").val($("input[name=\"numberOfObjects\"]").val())});</script>
 			</div>
 			<div class="attribute">
-				<div class="attributeName">Änderungsdatum anzeigen:</div>
-				<div><input type="checkbox" class="text" value="" name="showChangeDate"></div>
-			  <div><input type="hidden" class="text" value="false" name="showChangeDateHidden"></div>
+				<div class="attributeName">Beschreibung anzeigen:</div>
+				<div><input type="checkbox" class="text" value="" name="showDescription"></div>
+			  <div><input type="hidden" class="text" value="false" name="showDescriptionHidden"></div>
 			</div>
 			<script type="text/javascript">
-			$("input[name=\"showChangeDate\"]").bind("click", function() { if( $("input[name=\"showChangeDateHidden\"]").val() == "true"){ $("input[name=\"showChangeDateHidden\"]").val("false"); }else{ $("input[name=\"showChangeDateHidden\"]").val("true"); }});
+			$("input[name=\"showDescription\"]").bind("click", function() { if( $("input[name=\"showDescriptionHidden\"]").val() == "true"){ $("input[name=\"showDescriptionHidden\"]").val("false"); }else{ $("input[name=\"showDescriptionHidden\"]").val("true"); }});
 			</script>
 END
 		);

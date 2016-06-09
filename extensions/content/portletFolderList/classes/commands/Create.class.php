@@ -16,18 +16,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
       } else {
           $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["id"]);
       }
-      /*
-      try {
-          $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["folderid"]);
-          if (!$object->check_access_read() || getObjectType($object) !== "room") {
-              $this->error = true;
-              $params["folderid"] = 0;
-          }
-      } catch (\steam_exception $ex) {
-          $this->error = true;
-          $params["folderid"] = 0;
-      }
-      */
+
       $name = "Ordnerinhalt";
       if (isset($params["title"]) && $params["title"] != "") {
           $name = $params["title"];
@@ -43,7 +32,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
 	        "bid:portlet:version" => "3.0",
                 "PORTLET_FOLDERLIST_FOLDERID" => $params["folderid"],
                 "PORTLET_FOLDERLIST_ITEMCOUNT" => $params["number"],
-                "PORTLET_FOLDERLIST_CHANGEDATE" => $params["showChangeDateHidden"]
+                "PORTLET_FOLDERLIST_DESCRIPTION" => $params["showDescriptionHidden"]
 	    ));
 	}
 
