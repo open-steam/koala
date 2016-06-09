@@ -151,8 +151,8 @@ class FolderSubscription extends AbstractSubscription {
                                 $this->object->get_id() . "_0",
                                 $this->private,
                                 $this->object->get_attribute("OBJ_LAST_CHANGED"),
-                                "Ordnereigenschaften wurden geändert:",
-                                \PortletSubscription::getNameForSubscription($this->object),
+                                "Die Ordnereigenschaften wurden geändert",
+                                "",
                                 \ExtensionMaster::getInstance()->getUrlForObjectId($this->object->get_id(), "view")
                             )
             );

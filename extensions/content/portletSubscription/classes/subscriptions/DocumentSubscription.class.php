@@ -40,8 +40,8 @@ class DocumentSubscription extends AbstractSubscription {
                                 $document->get_id() . "_0",
                                 $this->private,
                                 $document->get_attribute("OBJ_LAST_CHANGED"),
-                                "Dokumenteneigenschaften wurden geändert:",
-                                \PortletSubscription::getNameForSubscription($document),
+                                "Die Dokumenteneigenschaften wurden geändert",
+                                "",
                                 \ExtensionMaster::getInstance()->getUrlForObjectId($document->get_id(), "view")
                             )
             );

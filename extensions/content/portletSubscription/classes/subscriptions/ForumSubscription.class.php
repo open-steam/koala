@@ -16,8 +16,8 @@ class ForumSubscription extends AbstractSubscription {
                                         $this->object->get_id() . "_" . $count,
                                         $this->private,
                                         $this->object->get_attribute("OBJ_LAST_CHANGED"),
-                                        "Eigenschaften vom Forum geändert:",
-                                        \PortletSubscription::getNameForSubscription($this->object),
+                                        "Die Eigenschaften vom Forum wurden geändert",
+                                        "",
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $this->object->get_id()
                                     )
                                 );
