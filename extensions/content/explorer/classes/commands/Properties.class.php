@@ -27,7 +27,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         $isWriteable = $object->check_access_write();
 
-
         $type = getObjectType($object);
 
         switch ($type) {
@@ -206,6 +205,10 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $creator = $object->get_creator();
         $creatorName = getCleanName($creator);
         $ownerField->setValue($creatorName);
+
+        $idField = new \Widgets\TextField();
+        $idField->setLabel("ID");
+        $idField->setValue($this->id);
 
         $embedField = new \Widgets\TextField();
         $embedField->setLabel("Einbettungs-Link");
@@ -390,6 +393,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($seperator);
         $dialog->addWidget($ownerField);
         $dialog->addWidget($seperator);
+
+        if ($type == "userHome" || $type == "room") {
+          $dialog->addWidget($idField);
+          $dialog->addWidget($seperator);
+        }
+        
         $dialog->addWidget($changedField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($createdField);
