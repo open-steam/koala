@@ -61,7 +61,7 @@ class Dialog extends Widget{
     /**
      *
      * @param boolean $autoSaveDialog
-     * Some dialogs still save their data on every change. E.g. the sancions dialog
+     * Some dialogs still save their data on every change.
      * If Autosave is on, the abort button is not displayed and the savebutton just closes the dialog.
      * The autosavemechanism is not implemented in this class.
      * saveAndCloseButtonJs is still executed
@@ -78,6 +78,11 @@ class Dialog extends Widget{
         $this->saveAndCloseButtonLabel = $saveAndCloseButtonLabel;
     }
 
+    /**
+     * This code is always executed to provide an alternative for the cound of objcts with a 'changed' class
+     * 
+     * @param type $saveAndCloseButtonJs
+     */
     public function setSaveAndCloseButtonJs($saveAndCloseButtonJs){
         $this->saveAndCloseButtonJs = $saveAndCloseButtonJs;
     }

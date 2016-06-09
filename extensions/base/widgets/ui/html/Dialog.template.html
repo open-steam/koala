@@ -62,12 +62,14 @@
             elementsToSave = $('.changed');
             elementsToSaveSize = elementsToSave.size();
 
+            {SAVE_AND_CLOSE_BUTTON_JS}
+
             if(elementsToSaveSize == 0){
                 closeDialog();
                 {SAVE_AND_CLOSE_BUTTON_RELOAD}
             } else {
 
-                {SAVE_AND_CLOSE_BUTTON_JS}
+                
 
                 if (($("#progressbarwrapper").length == 0)) {
                     $('#overlay').css("z-index", 300);
