@@ -62,10 +62,6 @@ class Postbox extends AbstractExtension implements IObjectExtension, IIconBarExt
       if (strpos($path, "postbox") !== false && strpos($path, "view") == false) {
         $oldURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $newURL = str_replace("postbox", "explorer", $oldURL);
-        //$arr = explode('/', $path);
-        //$id = $arr[count($arr)-2];
-
-        //$path = strtolower($_SERVER["REQUEST_URI"]);
         $pathArray = explode("/", $path);
         $currentObjectID = "";
         for ($count = 0; $count < count($pathArray); $count++) {
@@ -79,9 +75,11 @@ class Postbox extends AbstractExtension implements IObjectExtension, IIconBarExt
         }
         if($currentObjectID != ""){
           $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+          $env = $obj->get_environment();
+          $array = array();
+    			$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
           $user = lms_steam::get_current_user();
           $checkAccessAdmin = $obj->check_access(SANCTION_ALL, $user);
-          $array = array();
           if ($checkAccessAdmin) {
               $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('edit', {'id':{$currentObjectID}}, '', 'popup', null, null, 'postbox');return false;");
               $array[] = array("name" => "<img title=\"In Ordner umwandeln\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/folder_white_convert.png\">", "onclick"=>"if(confirm('Das aktuelle Abgabefach wird in einen Ordner umgewandelt. Dieser Vorgang kann nicht rückgängig gemacht werden!')){sendRequest('Release', {'id':{$currentObjectID}}, '', 'data', null, null, 'postbox');window.open('$newURL', '_self');return false;}");

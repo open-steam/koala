@@ -93,6 +93,8 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
 
             if($currentObjectID != ""){
               $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+              $env = $object->get_environment();
+              $array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
               $mimetype = $object->get_attribute(DOC_MIME_TYPE);
               $objName = $object->get_name();
               $envSanction = $object->check_access(SANCTION_SANCTION);
@@ -116,6 +118,8 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
         } else if (strpos($path, "/explorer/editdocument/") !== false) {
           if($currentObjectID != ""){
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+            $env = $object->get_environment();
+            $array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
             $envSanction = $object->check_access(SANCTION_SANCTION);
 
             if ($envSanction) {
@@ -128,6 +132,8 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
         } else if (strpos($path, "/explorer/codeeditdocument/") !== false) {
           if($currentObjectID != ""){
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+            $env = $object->get_environment();
+            $array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
             $envSanction = $object->check_access(SANCTION_SANCTION);
 
             if ($envSanction) {

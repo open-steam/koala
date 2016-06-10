@@ -196,17 +196,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 \ExtensionMaster::getInstance()->send404Error();
                 break;
         }
-        $title = getCleanName($object, 65);
 
+        //build breadcrumb
+        $title = getCleanName($object, 65);
+        $breadcrumbArray = array(array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\" style=\"float: left;\"></img><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>"));
         $parent = $object->get_environment();
-        if ($parent instanceof \steam_container) {
-            //$parentLink = array("name"=>"nach oben", "link"=>PATH_URL . "explorer/Index/" . $parent->get_id() . "/");
-            $parentLink = "";
-        } else {
-            $parentLink = "";
+        while($parent instanceof \steam_container){
+          $title = getCleanName($parent, 65);
+          array_unshift($breadcrumbArray, array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($parent) . "\" style=\"float: left;\"></img><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>", "link" => PATH_URL . "explorer/index/" . $parent->get_id() . "/"));
+          $parent = $parent->get_environment();
         }
+        array_unshift($breadcrumbArray, "");
         $breadcrumb = new \Widgets\Breadcrumb();
-        $breadcrumb->setData(array($parentLink, array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\"></img> " . $title)));
+        $breadcrumb->setData($breadcrumbArray);
 
         $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
@@ -292,7 +294,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         else{
           $desc = $object->get_attribute("OBJ_DESC");
         }
-        $description->setHtml("<p style='margin-left: 22px; margin-top: 0px; color: #AAAAAA;'>" . $desc . "</p>");
+        $description->setHtml("<p style='margin-left:22px; margin-top:0px; color:#AAAAAA; clear:both;'>" . $desc . "</p>");
 
         $environment = new \Widgets\RawHtml();
         $environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");

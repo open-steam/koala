@@ -28,6 +28,7 @@ class Chronic extends AbstractExtension implements IMenuExtension{
         $result = array();
 
         // upwards menu
+        /*
         $result[] = array("name" => "Aufwärts", "menu" => array());
         $menuArray = $result[0]["menu"];
         $menuArray = $this->getUpwardsMenu($menuArray);
@@ -35,11 +36,12 @@ class Chronic extends AbstractExtension implements IMenuExtension{
             $menuArray[] = array("name" => "Keine Aufwärts-Navigation möglich.");
         }
         $result[0]["menu"] = $menuArray;
+        */
 
         // chronic
         $result[] = array("name" => "Verlauf", "menu" => array($this->getBackEntry()));
         if ($length > 1) {
-            $menuArray = $result[1]["menu"];
+            $menuArray = $result[0]["menu"];
             $menuArray[] = array("name" => "SEPARATOR");
             $count = 0;
             foreach ($chronic as $chronicItem) {
@@ -50,7 +52,7 @@ class Chronic extends AbstractExtension implements IMenuExtension{
                   $menuArray[] = array("name" => $this->getEntryIconTag($chronicItem)." ".$entryName, "link" => $this->getEntryPath($chronicItem));
                 }
             }
-            $result[1]["menu"] = $menuArray;
+            $result[0]["menu"] = $menuArray;
         }
         return $result;
     }

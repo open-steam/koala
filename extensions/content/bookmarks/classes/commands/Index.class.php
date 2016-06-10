@@ -41,19 +41,21 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $objects = array();
         }
 
+        //build breadcrumb
+        $title = getCleanName($object, 65);
+        $breadcrumbArray = array(array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($object) . "\" style=\"float: left;\"></img><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>"));
+        $parent = $object->get_environment();
+        while($parent instanceof \steam_container){
+          $title = getCleanName($parent, 65);
+          array_unshift($breadcrumbArray, array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($parent) . "\" style=\"float: left;\"></img><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>", "link" => PATH_URL . "bookmarks/index/" . $parent->get_id() . "/"));
+          $parent = $parent->get_environment();
+        }
+        array_unshift($breadcrumbArray, "");
+        $breadcrumb = new \Widgets\Breadcrumb();
+        $breadcrumb->setData($breadcrumbArray);
+
         $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
-        $title = "Lesezeichen";
-        $bookmarkParentFolderId = $currentUser->get_attribute("USER_BOOKMARKROOM")->get_id();
-        if ($this->id != $bookmarkParentFolderId) {
-            $title.=" - " . $object->get_name();
-        }
-        $breadcrumb = new \Widgets\Breadcrumb();
-        $breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/reference_folder.png\"></img> " . $title . " ")));
-
-        //$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-        //$breadcrumb = new \Widgets\Breadcrumb();
-        //$breadcrumb->setData(array(array("name"=>"<img src=\"{$bookmarkIcon}\"> Lesezeichenordner")));
 
         //$actionBar = new \Widgets\ActionBar();
         //$actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
