@@ -16,8 +16,8 @@ class ForumSubscription extends AbstractSubscription {
                                         $this->object->get_id() . "_" . $count,
                                         $this->private,
                                         $this->object->get_attribute("OBJ_LAST_CHANGED"),
-                                        "Eigenschaften vom Forum geändert:",
-                                        \PortletSubscription::getNameForSubscription($this->object),
+                                        "Die Eigenschaften vom Forum wurden geändert",
+                                        "",
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $this->object->get_id()
                                     )
                                 );
@@ -39,7 +39,8 @@ class ForumSubscription extends AbstractSubscription {
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                     )
                                 );
-                } else if ($thread->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $thread->get_attribute("OBJ_LAST_CHANGED") !== $thread->get_attribute("OBJ_ANNOTATIONS_CHANGED") && !(isset($this->filter[$thread->get_id()]) && in_array($thread->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$thread->get_id()]))) {
+                    //                                                  //+1 as the thread might be created a second later then the forum object
+                } else if ($thread->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp + 1 && $thread->get_attribute("OBJ_LAST_CHANGED") !== $thread->get_attribute("OBJ_ANNOTATIONS_CHANGED") && !(isset($this->filter[$thread->get_id()]) && in_array($thread->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$thread->get_id()]))) {
                     $updates[] = array(
                                     $thread->get_attribute("OBJ_LAST_CHANGED"), 
                                     $thread->get_id(),

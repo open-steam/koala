@@ -17,9 +17,9 @@ class Subscribe extends \AbstractCommand implements \IAjaxCommand {
                 $portal = $user->get_attribute("HOME_PORTAL");
                 
                 if ($portal instanceof \steam_object) {
-                    $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+                    //$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
                     $column = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $portal->get_path() . "/" . $this->params["column"]);
-                    \ExtensionMaster::getInstance()->callCommand("Create", "PortletSubscription", array("parent" => $column, "objectid" => $this->id, "title" => "" . getCleanName($object), "type" => "0", "sort" => "0", "version"=>"3.0"));
+                    \ExtensionMaster::getInstance()->callCommand("Create", "PortletSubscription", array("parent" => $column, "objectid" => $this->id, "title" => "", "type" => "0", "sort" => "0", "version"=>"3.0"));
                 }
 	}
 	
