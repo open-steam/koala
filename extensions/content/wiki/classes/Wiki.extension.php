@@ -1,5 +1,5 @@
 <?php
-class Wiki extends AbstractExtension implements IObjectExtension{
+class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtension {
 
 	public function getName() {
 		return "Wiki";
@@ -46,6 +46,25 @@ class Wiki extends AbstractExtension implements IObjectExtension{
 
 	public function getPriority() {
 		return 8;
+	}
+
+	public function getIconBarEntries() {
+		$array = array();
+		$path = strtolower($_SERVER["REQUEST_URI"]);
+		if(strpos($path, "wiki") !== false){
+			$pathArray = explode("/", $path);
+			$currentObjectID = "";
+			for ($count = 0; $count < count($pathArray); $count++) {
+					if (intval($pathArray[$count]) !== 0) {
+							$currentObjectID = $pathArray[$count];
+							break;
+					}
+			}
+			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+			$env = $object->get_environment();
+			$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
+			return $array;
+		}
 	}
 }
 ?>

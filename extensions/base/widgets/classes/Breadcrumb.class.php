@@ -3,11 +3,11 @@ namespace Widgets;
 
 class Breadcrumb extends Widget {
 	private $data;
-	
+
 	public function setData($data) {
 		$this->data = $data;
 	}
-	
+
 	public function getHtml() {
 		if ($this->data && is_array($this->data)) {
 			foreach ($this->data as $key => $item) {
@@ -25,7 +25,7 @@ class Breadcrumb extends Widget {
 					}
 					if ($key < count($this->data)-1) {
 						$this->getContent()->setCurrentBlock("BREADCRUMB_ITEM_SEPERATOR");
-						$this->getContent()->setVariable("ITEM_SEPERATOR", "/");
+						$this->getContent()->setVariable("ITEM_SEPERATOR", ">");
 						$this->getContent()->parse("BREADCRUMB_ITEM_SEPERATOR");
 					}
 				} else if ($item instanceof \steam_object) {
