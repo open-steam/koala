@@ -383,10 +383,12 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $allGroupIds = array();
 
         //select distinct all groups that are on the highest level to be statet as "subgroups" of sTeam for the recursion
+        //not root in terms of admins but in terms of high-level-group
         foreach ($this->groups as $group) {
             if ($group !== $this->steamgroup && $group !== $this->everyone) {
-                $possibleRootGroupName = reset(explode(".", $group->get_groupname()));
-                if (!array_key_exists($possibleRootGroup, $this->rootGroups)) {
+                $temp = explode(".", $group->get_groupname()); // reset expects a variable and no return value of another function, otherwise it throws an PHP Strict error
+                $possibleRootGroupName = reset($temp);
+                if (!array_key_exists($possibleRootGroupName, $this->rootGroups)) {
                     $recursionGroup = $group;
                     while ($recursionGroup->get_parent_group() instanceof \steam_group) {
                         $recursionGroup = $recursionGroup->get_parent_group();
@@ -690,7 +692,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $maxSanct = 0;
                     $maxSanctFromGroupMembership = 0;
                     foreach ($user->get_groups() as $group) {
-                        if (isset($this->groupMapping[$group->get_id()])) {
+                        if (isset($this->groupMapping[$group->get_id()]) && $group != $this->steamgroup) {
                             $currentValue = $this->groupsRights[$group->get_id()];
                             if ($currentValue > $maxSanct) {
                                 $maxSanctFromGroupMembership = $currentValue;
@@ -772,7 +774,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $maxSanct = 0;
                     $maxSanctFromGroupMembership = 0;
                     foreach ($user->get_groups() as $group) {
-                        if (isset($this->groupMapping[$group->get_id()])) {
+                        if (isset($this->groupMapping[$group->get_id()]) && $group != $this->steamgroup && $group->get_attribute("GROUP_INVISIBLE") !== true) {
                             $currentValue = $this->groupsRightsAcq[$group->get_id()];
                             if ($currentValue > $maxSanct) {
                                 $maxSanctFromGroupMembership = $currentValue;
