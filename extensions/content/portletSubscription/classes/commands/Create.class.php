@@ -64,13 +64,10 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
 
     /**
      * 
-     * @param type $objectId folder's or portal's objectId
+     * @param type $object steam_object like folder or portal
      * @return type returns an array with the content or -1 if the object type is not supported
      */
     public static function getCurrentContent($subscribedObject) {
-        //if the object is a folder or a portal, we initially add all existing content to the PORTLET_SUBSCRIPTION_CONTENT variable to track the content
-
-
         switch (getObjectType($subscribedObject)) {
             case "room":
                 foreach ($subscribedObject->get_inventory() as $element) {
