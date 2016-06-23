@@ -83,7 +83,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
                 }
                 break;
 
-            default: return -1; //no object with an inventory
+            default: return array(); //no object with an inventory
         }
 
         return $currentContent;
