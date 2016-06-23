@@ -78,7 +78,7 @@ class PortalSubscription extends AbstractSubscription {
                             foreach ($portlet->get_attribute("bid:portlet:content") as $message) {
                                 $messageObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $message);
 
-                                if ($messageObject->get_attribute("OBJ_LAST_CHANGED") > $latestUpdate) {
+                                if ($messageObject instanceof \steam_object && $messageObject->get_attribute("OBJ_LAST_CHANGED") > $latestUpdate) {
                                     $latestUpdate = $messageObject->get_attribute("OBJ_LAST_CHANGED");
                                 }
 
@@ -87,7 +87,14 @@ class PortalSubscription extends AbstractSubscription {
                                         $messageObject->get_attribute("OBJ_CREATION_TIME"),
                                         $messageObject->get_id(),
                                         $this->getElementHtml(
-                                                $messageObject->get_id(), $messageObject->get_id() . "_" . $this->count, $this->private, $messageObject->get_attribute("OBJ_CREATION_TIME"), "Neue Meldung (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", \PortletSubscription::getNameForSubscription($messageObject), PATH_URL . "portal/Index/" . $this->object->get_id() . "/", " (Spalte " . $column->get_name() . ")"
+                                                $messageObject->get_id(), 
+                                                $messageObject->get_id() . "_" . $this->count, 
+                                                $this->private, 
+                                                $messageObject->get_attribute("OBJ_CREATION_TIME"), 
+                                                "Neue Meldung (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
+                                                \PortletSubscription::getNameForSubscription($messageObject), 
+                                                PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
+                                                " (Spalte " . $column->get_name() . ")"
                                         )
                                     );
                                 } else if ($messageObject instanceof \steam_object && $messageObject->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("OBJ_LAST_CHANGED") < $messageObject->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$messageObject->get_id()]) && in_array($messageObject->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$messageObject->get_id()]))) {
@@ -124,7 +131,14 @@ class PortalSubscription extends AbstractSubscription {
                 $portlet->get_attribute("OBJ_CREATION_TIME"),
                 $portlet->get_id(),
                 $this->getElementHtml(
-                        $portlet->get_id(), $portlet->get_id() . "_" . $this->count, $this->private, $portlet->get_attribute("OBJ_CREATION_TIME"), "Neues Portlet (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", \PortletSubscription::getNameForSubscription($portlet), PATH_URL . "portal/Index/" . $this->object->get_id() . "/", " (Spalte " . $column->get_name() . ")"
+                        $portlet->get_id(), 
+                        $portlet->get_id() . "_" . $this->count, 
+                        $this->private, 
+                        $portlet->get_attribute("OBJ_CREATION_TIME"), 
+                        "Neues Portlet (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
+                        \PortletSubscription::getNameForSubscription($portlet), 
+                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
+                        " (Spalte " . $column->get_name() . ")"
                 )
             );
 
