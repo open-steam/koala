@@ -28,14 +28,28 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 
         $desc = $params["desc"];
 
-        $startD = $params["startDate"];
-        $endD = $params["endDate"];
 
         $startDateArray = array();
-        $startDateArray = explode(".", $startD);
+        $startDateArray = explode(".", $params["startDate"]);
 
         $endDateArray = array();
-        $endDateArray = explode(".", $endD);
+        $endDateArray = explode(".", $params["endDate"]);
+
+        //if one of the date fields is empty, fill it with the current date
+        $fallbackDate = array("d", "m", "Y");
+        for ($i = 0; $i <= 2; $i++) {
+            if (!isset($startDateArray[$i]) || $startDateArray[$i] == "") {
+                $startDateArray[$i] = date($fallbackDate[$i]);
+            }
+
+            if (!isset($endDateArray[$i]) || $endDateArray[$i] == "") {
+                if ($i == 1) { //set the end deadline to the next month
+                    $endDateArray[$i] = date($fallbackDate[$i]) + 1;
+                } else {
+                    $endDateArray[$i] = date($fallbackDate[$i]);
+                }
+            }
+        }
 
         //check diffrent types of parameter
         if (is_string($column)) {
@@ -44,18 +58,13 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
             $columnObject = $column;
         }
 
-        //get date
-        $currentYear = date("Y") . "";
-        $nextYear = (date("Y") + 1) . "";
-
-        if($name == ""){
-    			$name = " ";
-    		}
+        if ($name == "") {
+            $name = " ";
+        }
 
         //create
         $pollObject = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), $name, $columnObject);
 
-        $pollTopic = "Beschreibung der Abstimmung";
         $startDate = array("day" => $startDateArray[0], "month" => $startDateArray[1], "year" => $startDateArray[2],);
         $endDate = array("day" => $endDateArray[0], "month" => $endDateArray[1], "year" => $endDateArray[2],);
         $options = array($input0, $input1, $input2, $input3, $input4, $input5);

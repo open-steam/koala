@@ -15,10 +15,10 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 		//create headline
 		$params = $requestObject->getParams();
 
-		$name = $params["title"];
-		$column = $params["parent"];
-		$size = $params["size"];
-		$alignment = $params["alignment"];
+		$name = (isset($params["title"])? $params["title"] : "");
+		$column = (isset($params["parent"])? $params["parent"] : "");
+		$size = (isset($params["size"])? $params["size"] : "");
+		$alignment =  (isset($params["alignment"])? $params["alignment"] : "");
 
 		$version = "3.0";
 
