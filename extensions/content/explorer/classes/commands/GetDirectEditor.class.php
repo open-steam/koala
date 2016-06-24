@@ -13,7 +13,6 @@ class GetDirectEditor extends \AbstractCommand implements \IAjaxCommand {
 	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
-
 		$this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 	}
 
@@ -21,7 +20,7 @@ class GetDirectEditor extends \AbstractCommand implements \IAjaxCommand {
 		$titelInput = new \Widgets\TextInput();
 		$titelInput->setData($this->object);
 		$titelInput->setFocus(true);
-		$titelInput->setInputWidth(245);
+		if(strpos(strtolower($_SERVER["REQUEST_URI"]), "galleryview") == false) $titelInput->setInputWidth(245);
 		$titelInput->setContentProvider(new \Widgets\NameAttributeDataProvider("OBJ_NAME", getCleanName($this->object, -1)));
 
 		$rawHtml = new \Widgets\RawHtml();

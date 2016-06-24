@@ -21,11 +21,11 @@ class Delete extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        
+
         $ajaxResponseObject->setStatus("ok");
         $jswrapper = new \Widgets\JSWrapper();
         $trashbinModel = new \Explorer\Model\Trashbin($this->trashbin);
-        $js = "jQuery('#{$this->id}').addClass('justTrashed').removeClass('listviewer-item-selected').find('input:checkbox').attr('disabled', 'disabled');
+        $js = "jQuery('#{$this->id}').addClass('justTrashed').removeClass('listviewer-item-selected selected').find('input:checkbox').attr('disabled', 'disabled');
 			   var checkbox = document.getElementById('{$this->id}_checkbox');
 			   if (!checkbox) {
 			   		location.reload();

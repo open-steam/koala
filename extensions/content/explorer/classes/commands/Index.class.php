@@ -48,6 +48,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
         } else {
             $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+
+            if(!is_object($currentUser)){
+              $portal = \lms_portal::get_instance();
+          		$portal->logout();
+          		die;
+            }
+
             $object = $currentUser->get_workroom();
             $this->id = $object->get_id();
 
@@ -294,7 +301,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         else{
           $desc = $object->get_attribute("OBJ_DESC");
         }
-        $description->setHtml("<p style='margin-left:22px; margin-top:0px; color:#AAAAAA; clear:both;'>" . $desc . "</p>");
+        $description->setHtml("<p style='margin-top:0px; color:#AAAAAA; clear:both;'>" . $desc . "</p>");
 
         $environment = new \Widgets\RawHtml();
         $environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");

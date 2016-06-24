@@ -1,5 +1,5 @@
 <script>
-    var updateTaglist = function() {
+    var updateExplorerTagList = function() {
         var value = this.value;
         var filterButtonID = $(this).prev().prev().attr('id');
         if(value == ""){
@@ -16,8 +16,43 @@
                     }
                     else{
                         $("#search-area").show();
-                        var tagIndex = "#" + this.id + "_2";
+                        var tagIndex = "#" + this.id + "_5";
                         var nameIndex = "#" + this.id + "_1";
+                        var name = $(nameIndex).text().toLowerCase();
+                        var tags = $(tagIndex).text().toLowerCase();
+                        if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
+                            $(('#' + this.id)).removeClass("show");
+                            $(('#' + this.id)).addClass("hide");
+                            $(('#' + this.id)).hide();
+                        } else {
+                            $(('#' + this.id)).removeClass("hide");
+                            $(('#' + this.id)).addClass("show");
+                            $(('#' + this.id)).show();
+                        }
+                    }
+                }
+        );
+    };
+
+    var updateGalleryTagList = function() {
+        var value = this.value;
+        var filterButtonID = $(this).prev().prev().attr('id');
+        if(value == ""){
+            $("#"+filterButtonID).hide();
+        }
+        else{
+            $("#"+filterButtonID).show();
+        }
+        var items = $('#explorerGallery').children();
+        items.each(
+                function() {
+                    if(this.className.indexOf("noitem") > -1){
+                        $("#search-area").hide();
+                    }
+                    else{
+                        $("#search-area").show();
+                        var tagIndex = $(this).find("p");
+                        var nameIndex = $(this).find("a");
                         var name = $(nameIndex).text().toLowerCase();
                         var tags = $(tagIndex).text().toLowerCase();
                         if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
@@ -40,8 +75,8 @@
         ];
         $("#{ID}").autocomplete({
             source: availableTags,
-            close: updateTaglist,
-            change: updateTaglist,
+            close: {FUNCTION},
+            change: {FUNCTION},
 
         });
     });
@@ -66,10 +101,10 @@
 
 <script>
     $(document).ready(function(){
-      $("#{ID}").keyup(updateTaglist);
+      $("#{ID}").keyup({FUNCTION});
       $("#{ID}").val(decodeURI("{VALUE}"));
-      $(document).bind("listviewerReady", function(){
-        $("#{ID}").each(updateTaglist);
+      $(document).bind({TRIGGER}, function(){
+        $("#{ID}").each({FUNCTION});
       });
     });
 </script>

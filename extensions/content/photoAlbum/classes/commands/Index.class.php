@@ -127,7 +127,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $html.= "<script>
 
-function vollbild() {
+function fullscreen() {
  var element = document.getElementById('colorbox');
 
 if (element.requestFullScreen) {
@@ -164,7 +164,7 @@ setTimeout(function(){jQuery.colorbox.reload()},1000);
 }
  $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
             $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, reposition:true,
- onOpen: function(){jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"vollbild()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."\">');
+ onOpen: function(){jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"fullscreen()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."\">');
                     jQuery('#gallery').hide();
 
                     $('#cboxFullscreen').mouseover(function(){this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_black.png"."';});

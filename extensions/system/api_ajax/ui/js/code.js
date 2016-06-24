@@ -41,7 +41,8 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
             params = {};
         }
 
-        if(command == "Copy" && $("#"+params.id).find("img").attr("src").indexOf("portal") > -1){
+        var src = $("#"+params.id).find("img").attr("src");
+        if(command == "Copy" && src != undefined && src.indexOf("portal") > -1){
           command = "PortalCopy";
           namespace = "portal";
         }

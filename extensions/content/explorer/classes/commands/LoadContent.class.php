@@ -137,8 +137,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                     }
                 }
                 if ($contentItem instanceof \steam_docextern) {
-                    $blank = $contentItem->get_attribute("DOC_BLANK");
-                        return "<a href=\"" . $url . "new/" . "\" target=\"_blank\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
+                    return "<a href=\"" . $url . "new/" . "\" target=\"_blank\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
                 }
 
                 return "<a href=\"" . $url . "\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
@@ -150,7 +149,7 @@ class ContentProvider implements \Widgets\IContentProvider {
           return $contentItem->get_attribute("OBJ_DESC");
         } elseif ($cell == $this->rawMarker) {
             //  return ""; //disabled
-            if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
+            //if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
                 $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
                 $keywordList = "";
                 foreach ($keywords as $keyword) {
@@ -159,11 +158,9 @@ class ContentProvider implements \Widgets\IContentProvider {
                     }
                 }
                 return $keywordList;
-            } else {
-                return "";
-            }
-
-
+            //} else {
+              //  return "";
+            //}
 
             //speed test //TODO: fix
             $html = "";
@@ -204,7 +201,6 @@ class ContentProvider implements \Widgets\IContentProvider {
             $popupMenu = new \Widgets\PopupMenu();
             $popupMenu->setData($contentItem);
             $popupMenu->setElementId("listviewer-overlay");
-
             return $popupMenu;
         }
     }

@@ -49,13 +49,19 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
         if ($currentObjectID === "403" || $currentObjectID === "404") {
             $currentObjectID = "";
         }
-        if ($path == "/explorer/") {
+        if ($path == "/explorer/" || $path == "/explorer/galleryview/") {
             $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/explorer_sort_white.png\">");
             $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">","onclick" => "openFileTree()");
 
             $object = $currentUser->get_workroom();
             $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
             $envSanction = $object->check_access(SANCTION_SANCTION);
+
+            if($path == "/explorer/"){
+              $array[] = array("name" => "<img title=\"Galerieansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "explorer/galleryview/'");
+            } else{
+              $array[] = array("name" => "<img title=\"Listenansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer_white.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "explorer/'");
+            }
 
             if ($envSanction) {
                     $array[] = array("name" => "<img title=\"Neues Objekt\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
@@ -67,8 +73,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             } else {
                     $array[] = array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
             }
-
-        } else if (strpos($path, "/explorer/index/") !== false) {
+        } else if (strpos($path, "/explorer/index/") !== false || strpos($path, "/explorer/galleryview/") !== false) {
             $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/explorer_sort_white.png\">");
             $array[] = array("name" => "<img name=\"false\" title=\"Navigationsbaum\" src=\"" . \FileTree::getInstance()->getAssetUrl() . "icons/tree_white.png\">","onclick" => "openFileTree()");
 
@@ -76,6 +81,12 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
               $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
               $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
               $envSanction = $object->check_access(SANCTION_SANCTION);
+
+              if(strpos($path, "/explorer/index/") !== false){
+                $array[] = array("name" => "<img title=\"Galerieansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "explorer/galleryview/" . $currentObjectID . "/'");
+              } else{
+                $array[] = array("name" => "<img title=\"Listenansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer_white.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "explorer/index/" . $currentObjectID . "/'");
+              }
 
               if ($envSanction) {
                       $array[] = array("name" => "<img title=\"Neues Objekt\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
