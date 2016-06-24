@@ -105,9 +105,9 @@ class RadioButton extends Widget {
 
                 $this->getContent()->setVariable("ID", $this->id);
                 $this->getContent()->setVariable("RADIONAME", $this->id);
-                $this->getContent()->setVariable("RADIOVALUE", $option["value"]);
-                $this->getContent()->setVariable("RADIOLABEL", $option["name"]);
-                $this->getContent()->setVariable("RADIOCLASS", $option["class"]);
+                $this->getContent()->setVariable("RADIOVALUE", (isset($option["value"])? $option["value"] : ""));
+                $this->getContent()->setVariable("RADIOLABEL", (isset($option["name"])? $option["name"] : ""));
+                $this->getContent()->setVariable("RADIOCLASS", (isset($option["class"])? $option["class"] : ""));
                 if (isset($this->contentProvider)) {
                     $this->getContent()->setVariable("ONCHANGE", "$(this).addClass('changed');".$this->contentProvider->getUpdateCode($this->data, $this->id));
                 }

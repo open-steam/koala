@@ -17,8 +17,8 @@ class TextInput extends Widget {
     private $focus = false;
     private $readOnly = false;
     private $isNotEmpty = false;
-    private $CheckIfEmpty = false;
-    private $CheckIfExisting = false;
+    private $checkIfEmpty = false;
+    private $checkIfExisting = false;
     private $labelWidth;
     private $inputWidth;
     private $inputBackgroundColor;

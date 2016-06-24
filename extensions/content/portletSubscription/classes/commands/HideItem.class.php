@@ -52,7 +52,7 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
                 if ($this->objectID == -1) {
                     $filter = array();
                     $timestamp = $this->itemTimestamp;
-                    $formerContent = \PortletSubscription\Commands\Create::getCurrentContent($subscriptionObject->get_id());
+                    $formerContent = \PortletSubscription\Commands\Create::getCurrentContent($subscriptionObject);
                 }
 
                 //add the new filtering to the filters if it is an normal notification, no deletion

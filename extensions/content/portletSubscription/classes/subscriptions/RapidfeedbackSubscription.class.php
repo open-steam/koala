@@ -1,40 +1,96 @@
 <?php
+
 namespace PortletSubscription\Subscriptions;
 
 class RapidfeedbackSubscription extends AbstractSubscription {
 
+    private $updates = array();
+
     public function getUpdates() {
-        $updates = array();
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
-        if ($this->object->get_creator()->get_id() == $user->get_id()) {
-            $surveys = $this->object->get_inventory();
-            $count = 0;
-            foreach ($surveys as $survey) {
-                $result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
-                $results = $result_container->get_inventory();
-                foreach ($results as $result) {
-                    if ($result instanceof \steam_document && $result->get_attribute("RAPIDFEEDBACK_RELEASED") != 0) {
-                        if ($result->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$result->get_id()]) && in_array($result->get_attribute("OBJ_CREATION_TIME"), $this->filter[$result->get_id()]))) {
-                            $updates[] = array(
-                                $result->get_attribute("OBJ_CREATION_TIME"),
-                                $result->get_id(),
-                                $this->getElementHtml(
-                                        $result->get_id(), 
-                                        $result->get_id() . "_" . $count, 
-                                        $this->private, 
-                                        $result->get_attribute("OBJ_CREATION_TIME"), 
-                                        "Neue Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
-                                        \PortletSubscription::getNameForSubscription($survey),
-                                        PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
-                                )
-                            );
-                        }
+        $count = 0;
+
+        // travers eover all surveys in this container
+        foreach ($this->object->get_inventory() as $survey) {
+            $result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
+            $results = $result_container->get_inventory();
+            foreach ($results as $result) {
+                if ($result instanceof \steam_document && $result->get_attribute("RAPIDFEEDBACK_RELEASED") != 0) {
+                    if ($result->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$result->get_id()]) && in_array($result->get_attribute("OBJ_CREATION_TIME"), $this->filter[$result->get_id()]))) {
+                        $this->updates[] = array(
+                            $result->get_attribute("OBJ_CREATION_TIME"),
+                            $result->get_id(),
+                            $this->getElementHtml(
+                                    $result->get_id(), $result->get_id() . "_" . $count, $this->private, $result->get_attribute("OBJ_CREATION_TIME"), "Neue Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", \PortletSubscription::getNameForSubscription($survey), PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
+                            )
+                        );
+                    } else if ($result->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$result->get_id()]) && in_array($result->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$result->get_id()]))) {
+                        $this->updates[] = array(
+                            $result->get_attribute("OBJ_LAST_CHANGED"),
+                            $result->get_id(),
+                            $this->getElementHtml(
+                                    $result->get_id(), $result->get_id() . "_" . $count, $this->private, $result->get_attribute("OBJ_LAST_CHANGED"), "Geänderte Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", \PortletSubscription::getNameForSubscription($survey), PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
+                            )
+                        );
                     }
                 }
-                $count++;
             }
+
+
+
+            if ($survey instanceof \steam_container) {
+                if ($survey->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$survey->get_id()]) && in_array($survey->get_attribute("OBJ_CREATION_TIME"), $this->filter[$survey->get_id()]))) {
+                    $this->updates[] = array(
+                        $survey->get_attribute("OBJ_CREATION_TIME"),
+                        $survey->get_id(),
+                        $this->getElementHtml(
+                                $survey->get_id(), 
+                                $survey->get_id() . "_" . $count, 
+                                $this->private, 
+                                $survey->get_attribute("OBJ_CREATION_TIME"), 
+                                "Neuer Fragebogen in <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>:", 
+                                $survey->get_attribute("OBJ_DESC"), 
+                                PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
+                        )
+                    );
+                } else if ($survey->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$survey->get_id()]) && in_array($survey->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$survey->get_id()]))) {
+                    $this->updates[] = array(
+                        $survey->get_attribute("OBJ_LAST_CHANGED"),
+                        $survey->get_id(),
+                        $this->getElementHtml(
+                                $survey->get_id(), 
+                                $survey->get_id() . "_" . $count, 
+                                $this->private, 
+                                $survey->get_attribute("OBJ_LAST_CHANGED"), 
+                                "Geänderter Fragebogen in <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>:", 
+                                $survey->get_attribute("OBJ_DESC"), 
+                                PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
+                        )
+                    );
+                }
+            }
+
+            $count++;
         }
-        return $updates;
+        
+        //if the object change doesn't come from the modified content, the object itself was modified
+        if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("CONT_LAST_MODIFIED") != $this->object->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
+            
+            $this->updates[] = array(
+                            $this->object->get_attribute("OBJ_LAST_CHANGED"), 
+                            $this->object->get_id(), 
+                            $this->getElementHtml(
+                                $this->object->get_id(), 
+                                $this->object->get_id() . "_0",
+                                $this->private,
+                                $this->object->get_attribute("OBJ_LAST_CHANGED"),
+                                "Die Fragebogeneigenschaften wurden geändert",
+                                "",
+                                \ExtensionMaster::getInstance()->getUrlForObjectId($this->object->get_id(), "view")
+                            )
+            );
+        }
+
+        return $this->updates;
     }
 
 }

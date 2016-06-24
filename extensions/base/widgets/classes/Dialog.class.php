@@ -142,9 +142,9 @@ class Dialog extends Widget{
             $this->customButtons = array_reverse($this->customButtons);
             foreach ($this->customButtons as $button) {
                 $this->getContent()->setCurrentBlock("BLOCK_CUSTOM_BUTTONS");
-                $this->getContent()->setVariable("BUTTON_CLASS", $button["class"]);
-                $this->getContent()->setVariable("BUTTON_JS", $button["js"]);
-                $this->getContent()->setVariable("BUTTON_LABEL", $button["label"]);
+                $this->getContent()->setVariable("BUTTON_CLASS", (isset($button["class"])? $button["class"] : ""));
+                $this->getContent()->setVariable("BUTTON_JS", (isset($button["js"])? $button["js"] : ""));
+                $this->getContent()->setVariable("BUTTON_LABEL", (isset($button["label"])? $button["label"] : ""));
                 $this->getContent()->parse("BLOCK_CUSTOM_BUTTONS");
             }
         }

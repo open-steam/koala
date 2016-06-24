@@ -477,7 +477,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $constants = get_defined_constants();
         
         //replace important constants with stars
-        $forbiddenConstants = array("STEAM_ROOT_PW", "STEAM_ROOT_LOGIN");
+        $forbiddenConstants = array("STEAM_ROOT_PW", "STEAM_ROOT_LOGIN", "STEAM_DATABASE_PASS", "STEAM_DATABASE_USER", "STEAM_GUEST_PW", "LDAP_PASSWORD", "LDAP_LOGIN", "ENCRYPTION_KEY");
         foreach ($forbiddenConstants as $forbiddenConstant){
             $constants[$forbiddenConstant] = "***";
         }

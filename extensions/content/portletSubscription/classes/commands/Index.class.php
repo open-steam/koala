@@ -126,16 +126,16 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                     }
                 } else {
                     $this->template->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
-                    $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Das abonnierte Objekt mit der id " . $this->subscriptionObjectId . " existiert nicht (mehr). Es liegt vermutlich im Papierkorb.");
+                    $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Das abonnierte Objekt mit der id " . $this->subscriptionObjectId . " existiert nicht (mehr). Es liegt vermutlich im Papierkorb.</h3>");
                     $this->template->parse("BLOCK_SUBSCRIPTION_ELEMENT");
                 }
             }
         } else if (!is_numeric($this->subscriptionObjectId)) {
             $this->template->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
             if ($this->subscriptionObjectId !== "") {
-                $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Die Id enthält nicht ausschließlich Ziffern.");
+                $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Die Id enthält nicht ausschließlich Ziffern.</h3>");
             } else {
-                $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Sie müssen die Id des zu überwachenden Objektes festlegen.");
+                $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Sie müssen die Id des zu überwachenden Objektes festlegen.</h3>");
             }
 
             $this->template->parse("BLOCK_SUBSCRIPTION_ELEMENT");
@@ -143,7 +143,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             self::displayForbidden();
         } else {
             $this->template->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
-            $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Das abonnierte Objekt mit der id " . $this->subscriptionObjectId . " existiert nicht (mehr).");
+            $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Das abonnierte Objekt mit der id " . $this->subscriptionObjectId . " existiert nicht (mehr).</h3>");
             $this->template->parse("BLOCK_SUBSCRIPTION_ELEMENT");
         }
 
@@ -178,7 +178,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
     public function displayForbidden() {
         $this->template->parse("BLOCK_FOLDER_HEADLINE");
         $this->template->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
-        $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "Sie haben nicht die nötigen Rechte, um das Objekt mit der id " . $this->subscriptionObjectId . " zu überwachen.");
+        $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Sie haben nicht die nötigen Rechte, um das Objekt mit der id " . $this->subscriptionObjectId . " zu überwachen.</h3>");
         $this->template->parse("BLOCK_SUBSCRIPTION_ELEMENT");
     }
 

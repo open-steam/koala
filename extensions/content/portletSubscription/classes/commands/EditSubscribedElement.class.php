@@ -32,17 +32,17 @@ class EditSubscribedElement extends \AbstractCommand implements \IAjaxCommand {
         //the subscribed object has has changed, now reset the subscription object
         if ($this->portletSubscriptionElement->get_attribute("PORTLET_SUBSCRIPTION_OBJECTID") != $this->newSubscribedElementId) {
 
-            if ($this->securityChecks() || 1 == 1) {
-                $this->portletSubscriptionElement->set_attribute("PORTLET_SUBSCRIPTION_OBJECTID", $this->newSubscribedElementId);
-                $this->portletSubscriptionElement->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", time());
-                $this->portletSubscriptionElement->set_attribute("PORTLET_SUBSCRIPTION_FILTER", array());
+            //if ($this->securityChecks()) {
+            $this->portletSubscriptionElement->set_attribute("PORTLET_SUBSCRIPTION_OBJECTID", $this->newSubscribedElementId);
+            $this->portletSubscriptionElement->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", time());
+            $this->portletSubscriptionElement->set_attribute("PORTLET_SUBSCRIPTION_FILTER", array());
 
-                $currentContent = \PortletSubscription\Commands\Create::getCurrentContent(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->newSubscribedElementId));
-                $this->portletSubscriptionElement->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $currentContent);
-                
-            } else {
-                \logging::write_log(LOG_SECURITY, "Security check nicht bestanden");
-            }
+            $currentContent = \PortletSubscription\Commands\Create::getCurrentContent(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->newSubscribedElementId));
+            $this->portletSubscriptionElement->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $currentContent);
+
+            //} else {
+            //   \logging::write_log(LOG_SECURITY, "Security check nicht bestanden");
+            // }
         }
 
 
