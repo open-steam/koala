@@ -37,6 +37,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         $headline_fontcolor = $obj->get_attribute("bid:portal:headline_fontcolor");
         //entry
         $content_fontcolor = $obj->get_attribute("bid:portal:content_fontcolor");
+        $description_fontcolor = $obj->get_attribute("bid:portal:description_fontcolor");
         $content_bgcolor = $obj->get_attribute("bid:portal:content_bgcolor");
         //a
         $link_fontcolor = $obj->get_attribute("bid:portal:link_fontcolor");
@@ -102,6 +103,16 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
         }
         $contentfont->setOnChange($onchange);
 
+        $descriptionfont = new \Widgets\ColorPicker();
+        $descriptionfont->setId("descriptionfont");
+        $descriptionfont->setLabel("Schriftfarbe der Beschreibung");
+        if ($description_fontcolor !== 0) {
+            $descriptionfont->setValue($description_fontcolor);
+        } else {
+            $descriptionfont->setValue("#AAAAAA");
+        }
+        $descriptionfont->setOnChange($onchange);
+
         $contentbg = new \Widgets\ColorPicker();
         $contentbg->setId("contentbg");
         $contentbg->setLabel("Hintergrundfarbe des Inhalts");
@@ -124,7 +135,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
 
         $portalbg = new \Widgets\ColorPicker();
         $portalbg->setId("portalbg");
-        $portalbg->setLabel("Hintergrundfarbe des Außenrandes");
+        $portalbg->setLabel("Hintergrundfarbe des Portals");
         if($bgcolor == "0"){
             $portalbg->setValue("#FFFFFF");
         }
@@ -151,6 +162,9 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
                     $("#contentfont").spectrum({
     color: "#333333",showInput: true
 });
+                    $("#descriptionfont").spectrum({
+    color: "#AAAAAA",showInput: true
+});
                     $("#contentbg").spectrum({
     color: "#FBFBFB",
                 showInput: true
@@ -176,6 +190,7 @@ END
         $dialog->addWidget($headfont);
         $dialog->addWidget($headbg);
         $dialog->addWidget($contentfont);
+        $dialog->addWidget($descriptionfont);
         $dialog->addWidget($contentbg);
         $dialog->addWidget($portalLinkColor);
         $dialog->addWidget($portalbg);

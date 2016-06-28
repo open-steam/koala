@@ -23,6 +23,7 @@ class ColorGeneratorPortal {
         $headline_fontcolor = $obj->get_attribute("bid:portal:headline_fontcolor");
         $headline_bgcolor = $obj->get_attribute("bid:portal:headline_bgcolor");
         $content_fontcolor = $obj->get_attribute("bid:portal:content_fontcolor");
+        $description_fontcolor = $obj->get_attribute("bid:portal:description_fontcolor");
         $content_bgcolor = $obj->get_attribute("bid:portal:content_bgcolor");
         $link_fontcolor = $obj->get_attribute("bid:portal:link_fontcolor");
         $bgcolor = $obj->get_attribute("bid:portal:bgcolor");
@@ -47,6 +48,13 @@ class ColorGeneratorPortal {
                             }
                             ';
         }
+        $dt_font_css = '';
+        if ($description_fontcolor !== 0) {
+            $dt_font_css = '.portlet .description{
+                            color:' . $description_fontcolor . '
+                            }
+                            ';
+        }
         $link_font_css = '';
         if ($link_fontcolor !== 0) {
             $link_font_css = '.portlet a{
@@ -54,7 +62,7 @@ class ColorGeneratorPortal {
                             }
                             ';
         }
-        //Die Farben liegen in Hexcode vor, oder sind 0 (Default) 
+        //Die Farben liegen in Hexcode vor, oder sind 0 (Default)
         //top:0.58 0.34 0.60
         //mean:0.58 0.46 0.42
         //buttom: 0.58 0.50 0.42
@@ -63,7 +71,7 @@ class ColorGeneratorPortal {
         if ($component_bgcolor !== 0) {
 
             $hsl = self::color_hex2hsl($component_bgcolor);
-            
+
             $hsl0 = intval($hsl[0] * 360);
              $cp_bg_css = '.portlet h1{
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
@@ -72,15 +80,15 @@ class ColorGeneratorPortal {
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
                   border: 0px solid #356FA1;
-    
-              }'; 
-           
+
+              }';
+
         }
         $headline_bgcolor_css = '';
         if ( $headline_bgcolor !== 0) {
 
             $hsl = self::color_hex2hsl($headline_bgcolor);
-            
+
             $hsl0 = intval($hsl[0] * 360);
              $headline_bgcolor_css = '.portal h2.subheadline{
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
@@ -95,13 +103,13 @@ class ColorGeneratorPortal {
               to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
-              }';   
+              }';
         }
          $content_bgcolor_css = '';
         if ( $content_bgcolor !== 0) {
 
             $hsl = self::color_hex2hsl($content_bgcolor);
-            
+
             $hsl0 = intval($hsl[0] * 360);
              $content_bgcolor_css = '.portal .portlet .entry {
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
@@ -110,40 +118,40 @@ class ColorGeneratorPortal {
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
               margin-bottom:0px;
-              }';  
+              }';
              $content_bgcolor_css .= '#sortable-topics{
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
               background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
               to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
-              }';  
+              }';
              $content_bgcolor_css .= '.message{
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
               background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
               to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
-              }'; 
+              }';
               $content_bgcolor_css .= ' .podcast {
-    
+
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
               background: -webkit-gradient(linear, left top, left bottom, from(hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2]-0.05, 0) * 100 . '%)),
               to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
                   border-top: 0px solid #CDCDCD;
-              }';  
-              $content_bgcolor_css .= '.portlet h3{border-top: 0px solid #CDCDCD;}'; 
-              //$content_bgcolor_css .= '.portlet h3{border-top: 0px solid #CDCDCD;}.bookmark{height:28px;}'; 
-              
-              
+              }';
+              $content_bgcolor_css .= '.portlet h3{border-top: 0px solid #CDCDCD;}';
+              //$content_bgcolor_css .= '.portlet h3{border-top: 0px solid #CDCDCD;}.bookmark{height:28px;}';
+
+
               }
          $bgcolor_css = '';
         if ( $bgcolor !== 0) {
 
             $hsl = self::color_hex2hsl($bgcolor);
-            
+
             $hsl0 = intval($hsl[0] * 360);
              $bgcolor_css = '.portal{
               background: hsl(' . $hsl0 . ',' . $hsl[1] * 100 . '%,' . $hsl[2] * 100 . '%);
@@ -151,14 +159,14 @@ class ColorGeneratorPortal {
               to(hsl(' . $hsl0 . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2], 1) * 100 . '%)));
               background: -moz-linear-gradient(top,hsl(' . $hsl0 . ',' . max($hsl[1], 0) * 100 . '%,' . max($hsl[2], 0) * 100 . '%),
               hsl(' . intval($hsl[0] * 360) . ',' . min($hsl[1]+0.05, 1) * 100 . '%,' . min($hsl[2]+0.05, 1) * 100 . '%));
-              }';                        
+              }';
         }
 
-        return $cp_font_css . $ht_font_css . $ct_font_css . $link_font_css . $cp_bg_css. $headline_bgcolor_css . $content_bgcolor_css .$bgcolor_css;
-                
+        return $cp_font_css . $ht_font_css . $ct_font_css . $dt_font_css . $link_font_css . $cp_bg_css. $headline_bgcolor_css . $content_bgcolor_css .$bgcolor_css;
+
     }
 
-    private static function color_hex2hsl($hex) {        
+    private static function color_hex2hsl($hex) {
         $sign = substr($hex, 0, 1);
         if ($sign == "#") {
             $hex = substr($hex, 1);

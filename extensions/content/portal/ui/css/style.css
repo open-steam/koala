@@ -96,6 +96,10 @@
     min-height:15px;
 }
 
+.portlet .description {
+  color: #AAAAAA;
+}
+
 .ui-state-highlight { height: 2.5em; line-height: 1.2em; }
 
 .portal-wrapper {

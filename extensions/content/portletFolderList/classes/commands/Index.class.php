@@ -93,8 +93,6 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
         }
 
-        $this->getExtension()->addCSS();
-
         if (trim($portletName) == "") {
             $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
         } else {
@@ -242,7 +240,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             }
         } else if ($cell == $this->rawDescription) {
             $desc = $contentItemObject->get_attribute("OBJ_DESC");
-            return "<div title=\"$desc\"> " . $desc . "</div>";
+            return "<div class='description' title=\"$desc\"> " . $desc . "</div>";
         }
     }
 
