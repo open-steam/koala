@@ -132,7 +132,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
               }
 
               $max_votecount = 1;
-              foreach ($optionsVotecount as $option_votecount) {
+              foreach ($options_votecount as $option_votecount) {
                   if ($option_votecount > $max_votecount)
                       $max_votecount = $option_votecount;
               }
