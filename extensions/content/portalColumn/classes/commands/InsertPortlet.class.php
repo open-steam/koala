@@ -41,7 +41,7 @@ class InsertPortlet extends \AbstractCommand implements \IAjaxCommand {
             $portletType = $steamObject->get_attribute("bid:portlet");
 
 
-            if ($portletType !== 0 && in_array($portletType, array("msg", "appointment", "termplan", "topic", "headline", "poll", "media", "rss", "chronic", "userpicture", "folderlist"))) {
+            if ($portletType !== 0 && in_array($portletType, array("msg", "appointment", "termplan", "topic", "headline", "poll", "media", "rss", "chronic", "userpicture", "folderlist", "subscription"))) {
 
                 $steamObject->move($columnObject);
             }
