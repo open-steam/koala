@@ -24,7 +24,6 @@ class TextInput extends Widget {
     private $inputBackgroundColor;
     private $customSuccessCode = "";
 
-
     public function setId($id){
         $this->id = "id_".$id."_textinput";
     }
@@ -161,7 +160,6 @@ class TextInput extends Widget {
         }
         $this->getContent()->setVariable("ID", $this->id);
 
-
         $reverseSpecialHtmlWidget = new \Widgets\JSWrapper();
         $reverseSpecialHtmlWidget->setJs("function rSHW(value){" .
                 "value.replace(/&amp;/g,'&');" .
@@ -171,7 +169,6 @@ class TextInput extends Widget {
                 "value.replace(/&lt;/g,'<');" .
                 "value.replace(/&gt;/g,'>');}");
         $this->addWidget($reverseSpecialHtmlWidget);
-
 
         if (isset($this->label) && trim($this->label) !== "") {
             $this->getContent()->setVariable("LABEL", $this->label);
@@ -248,6 +245,9 @@ class TextInput extends Widget {
 
             $valueString = $this->contentProvider->getData($this->data);
             $valueString = ($valueString === "0") ? "" : htmlspecialchars($valueString);
+            if($this->type === "number"){
+              $valueString = str_replace("px", "", $valueString);
+            }
             $this->getContent()->setVariable("VALUE", $valueString);
 
             $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id, $this->customSuccessCode));
