@@ -18,10 +18,10 @@ class CreateTerm extends \AbstractCommand implements \IAjaxCommand {
 		$appointmentObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		$terms = $appointmentObject->get_attribute("bid:portlet:content");
 
-		$startDateArray = explode(".", $params["start_date"]);
-		$endDateArray = explode(".", $params["end_date"]);
-		$startTimeArray = explode(":", $params["start_time"]);
-		$endTimeArray = explode(":", $params["end_time"]);
+		$startDateArray = (strpos($params["start_date"], "."))? explode(".", $params["start_date"]) : array("", "", "");
+		$endDateArray = (strpos($params["end_date"], "."))? explode(".", $params["end_date"]) : array("", "", "");
+		$startTimeArray = (strpos($params["start_time"], ":"))? explode(":", $params["start_time"]) : array("", "");
+		$endTimeArray = (strpos($params["end_time"], ":"))? explode(":", $params["end_time"]) : array("", "");
 
 		$startDate = array("day"=> $startDateArray[0], "month" => $startDateArray[1], "year" => $startDateArray[2]);
 		$startTime = array("hour" => $startTimeArray[0], "minutes" => $startTimeArray[1]);

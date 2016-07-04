@@ -36,8 +36,8 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 
 		//default values
 		$address = $params["rss"];
-		$num_items = "5";
-		$desc_length = "50";
+		$num_items = (empty($params["num_items"]))? "5" : $params["num_items"];
+		$desc_length = (empty($params["num_items"]))? "50" : $params["desc_length"];
 		$style = "message"; //Breit
 		$style = "rss_feed"; //Schmal
 		if($html){

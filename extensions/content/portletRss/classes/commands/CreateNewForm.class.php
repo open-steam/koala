@@ -37,13 +37,23 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
         $addressInput->setLabel("RSS-Adresse");
         $addressInput->setName("rss");
 
+
+        $countInput = new \Widgets\TextInput();
+        $countInput->setLabel("Anzahl Beiträge");
+        $countInput->setName("num_items");
+
+        $lengthInput = new \Widgets\TextInput();
+        $lengthInput->setLabel("Länge des Inhalts");
+        $lengthInput->setName("desc_length");
+
+
         $checkbox = new \Widgets\Checkbox();
-        $checkbox->setLabel("HTML zulassen:");
+        $checkbox->setLabel("HTML zulassen <br/> (hebt die Beschränkung der Länge des Inhalts auf):");
         $checkbox->setCheckedValue("checked");
         $checkbox->setUncheckedValue("");
         $checkbox->setName("html2");
 
-        $html .= $titelInput->getHtml() . $addressInput->getHtml() . $checkbox->getHtml();
+        $html .= $titelInput->getHtml() . $addressInput->getHtml() .$countInput->getHtml() . $lengthInput->getHtml() . $checkbox->getHtml();
         $html .= '<script>$("input[name=\"html2\"]").bind("click", function() {
   if( $("input[name=\"html\"]").val()== "true"){
     $("input[name=\"html\"]").val("false");
