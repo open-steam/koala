@@ -7,6 +7,7 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
     private $params;
     private $env;
     private $id;
+    private $path;
     private $elements;
     private $clipboard;
 
@@ -18,11 +19,11 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
         $this->params = $requestObject->getParams();
         $this->clipboard = $GLOBALS["STEAM"]->get_current_steam_user();
         if (!isset($this->params["env"])) {
-            $path = $this->params["path"];
-            if ($path == "bookmarks/") {
+            $this->path = strtolower($this->params["path"]);
+            if ($this->path == "bookmarks/") {
                 $this->env = $this->clipboard->get_attribute("USER_BOOKMARKROOM")->get_id();
-            } else if (strpos($path, "bookmark") !== false) {
-               $pathArray = explode("/", $path);
+            } else if (strpos($this->path, "bookmark") !== false || strpos($this->path, "photoalbum") !== false || strpos($this->path, "portal") !== false){
+               $pathArray = explode("/", $this->path);
                if(is_numeric($pathArray[2])){
                    $this->env = $pathArray[2];
                }
@@ -93,14 +94,13 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
             return false;
         }
 
-
         $userObject = $GLOBALS["STEAM"]->get_current_steam_user();
         $userObjectId = $userObject->get_id();
         $steamEnvironmentId = $steamEnvironment->get_id();
 
         //case bookmarks
         $bookmarksRoom = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute(USER_BOOKMARKROOM);
-	$bookmarksRoomId = $bookmarksRoom->get_id();
+	      $bookmarksRoomId = $bookmarksRoom->get_id();
 
         if($bookmarksRoomId === $steamEnvironmentId){
             if($steamObject instanceof \steam_link){
@@ -111,36 +111,45 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
         }
 
         //case portal
-        $steamObjectType = $steamObject->get_attribute("OBJ_TYPE");
-        $envObjectType = $steamEnvironment->get_attribute("OBJ_TYPE");
+        $steamObjectType = getObjectType($steamObject);
+        $envObjectType = getObjectType($steamEnvironment);
 
-
-        if($envObjectType==="container_portal_bid" xor $steamObjectType==="container_portlet_bid"){
-            return false;
-        }
-
-        if($envObjectType==="container_portal_bid" && $steamObjectType==="container_portlet_bid"){
+        if($envObjectType === "portal"){
+          $portletType = $steamObject->get_attribute("bid:portlet");
+          if(is_numeric($portletType)) return false;
+          if($portletType == "msg" || $portletType == "appointment" || $portletType == "termplan" || $portletType == "topic" || $portletType == "headline" || $portletType == "poll" || $portletType == "media" || $portletType == "rss" || $portletType == "chronic" || $portletType == "userpicture" || $portletType == "folderlist" || $portletType == "subscription"){
             $portalObject = $steamEnvironment;
-
-
             //get first column
             $portalInventory = $portalObject->get_inventory();
             $firstColumn = $portalInventory[0];
-            if(!($firstColumn->get_attribute("OBJ_TYPE")==="container_portalColumn_bid")){
+            if(!($firstColumn->get_attribute("OBJ_TYPE") === "container_portalColumn_bid")){
                 //no fist column found
                 return false;
             }
-
-
-            //move a valid portlet
-            if($steamObjectType==="container_portlet_bid"){
-                $steamObject->move($firstColumn);
-                return true;
-            }else{
-                return false;
-            }
+            $steamObject->move($firstColumn);
+            return true;
+          } else {
+            return false;
+          }
         }
 
+        $path = strtolower($_SERVER["REQUEST_URI"]);
+
+        //case photoalbum
+        if(strpos($path, "photoalbum") != false){
+          if($steamObject instanceof \steam_document && substr($steamObject->get_attribute("DOC_MIME_TYPE"),0,5) === "image"){
+            $steamObject->move($steamEnvironment);
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        //case explorer
+        if(strpos($path, "explorer") != false && $steamObject instanceof \container_portlet_bid) {
+          return false;
+        }
 
         //case normal
         $steamObject->move($steamEnvironment);

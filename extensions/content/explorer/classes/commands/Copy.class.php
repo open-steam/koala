@@ -23,7 +23,6 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
         $this->rename = $this->params["rename"];
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         if (getObjectType($object) === "portal") {
-            $portalInstance = \PortletTopic::getInstance();
             $portalObjectId = $object->get_id();
             \ExtensionMaster::getInstance()->callCommand("PortalCopy", "Portal", array("id" => $portalObjectId));
         } elseif (getObjectType($object) === "pyramiddiscussion") {

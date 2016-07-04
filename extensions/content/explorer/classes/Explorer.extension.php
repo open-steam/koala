@@ -33,7 +33,8 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
         $TrashbinNotEmpty = $trashbinCount == 0 ? FALSE : TRUE;
 
         $clipboardModel = new \Explorer\Model\Clipboard($currentUser);
-        $clipboardCount = count($currentUser->get_inventory());
+        $clipboardInventory = $currentUser->get_inventory();
+        $clipboardCount = count($clipboardInventory);
         $ClipboardNotEmpty = $clipboardCount == 0 ? FALSE : TRUE;
 
         $array = array();
@@ -166,10 +167,11 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
         }
         if ($ClipboardNotEmpty) {
           if($path != "/clipboard/"){
+            $paste = $this->checkClipboardInventory($clipboardInventory);
             $array[] = array("name" => "<div id=\"clipboardIconbarWrapper\">" . $clipboardModel->getIconbarHtml() . "</div>",
                 "menu" => array(
                     array("name" => "Zwischenablage öffnen", "link" => "/clipboard/"),
-                    array("name" => "Objekte hier einfügen", "onclick" => "event.stopPropagation();sendRequest('Paste', {'env':jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer');"),
+                    ($paste) ? array("name" => "Objekte hier einfügen", "onclick" => "event.stopPropagation();sendRequest('Paste', {'env':jQuery('#environment').attr('value')}, '', 'popup', null, null, 'explorer')") : "",
                     array("name" => "Zwischenablage leeren", "onclick" => "event.stopPropagation();sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');")));
           }
           else{
@@ -227,6 +229,19 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             }
         }
         return null;
+    }
+
+    public function checkClipboardInventory($inventory) {
+      $path = strtolower($_SERVER["REQUEST_URI"]);
+      if(strpos($path, "favorite") !== false) return false;
+      if(strpos($path, "group") !== false) return false;
+      if(strpos($path, "postbox") !== false) return false;
+      if(strpos($path, "profile") !== false) return false;
+      if(strpos($path, "rapidfeedback") !== false) return false;
+      if(strpos($path, "wiki") !== false) return false;
+      if(strpos($path, "viewdocument") !== false) return false;
+      if(strpos($path, "editdocument") !== false) return false;
+      return true;
     }
 
 }
