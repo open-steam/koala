@@ -62,7 +62,8 @@ class FolderSubscription extends AbstractSubscription {
         
         
         foreach ($objects as $object) {
-            if ($object instanceof \steam_object) {
+            //this extension is also used to monitor homePortals. As every change in the user's home portal or any user action causes a change of the user object (e.g. update history), this is not what one wants to see.
+            if ($object instanceof \steam_object && getObjectType($object) !== "user") {
                 $creationTime = $object->get_attribute("OBJ_CREATION_TIME");
                 $lastChanged = $object->get_attribute("OBJ_LAST_CHANGED");
                 $contLastModified = $object->get_attribute("CONT_LAST_MODIFIED");

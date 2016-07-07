@@ -104,7 +104,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         } else if ($type === "wiki") {
             $wikiSubscription = new \PortletSubscription\Subscriptions\WikiSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter, $depth);
             $updates = array_merge($updates, $wikiSubscription->getUpdates());
-        } else if ($type === "room") {
+        } else if ($type === "room" || $type === "userHome") {
             $folderSubscription = new \PortletSubscription\Subscriptions\FolderSubscription($portlet, $subscriptionObject, $private, $timestamp, $filter, $depth);
             $updates = array_merge($updates, $folderSubscription->getUpdates());
         } else if ($type === "gallery") {
