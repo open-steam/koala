@@ -39,7 +39,13 @@ class PortalSubscription extends AbstractSubscription {
                     PHP_INT_MAX - 1, //display the deleted files at the end
                     $id,
                     $this->getElementHtml(
-                            $id, $id . "_" . $this->count, $this->private, "In letzter Zeit", "Nicht mehr vorhandenes Objekt: " . $this->formerContent[$id]["name"], "", ""
+                            $id, 
+                            $id . "_" . $this->count, 
+                            $this->private, 
+                            "In letzter Zeit", 
+                            "Nicht mehr vorhandenes Objekt: " . $this->formerContent[$id]["name"], 
+                            "", 
+                            ""
                     )
                 );
             }
@@ -52,7 +58,13 @@ class PortalSubscription extends AbstractSubscription {
                     PHP_INT_MAX - 1, //display the deleted files at the end
                     $object->get_id(),
                     $this->getElementHtml(
-                            $object->get_id(), $object->get_id() . "_" . $this->count, $this->private, "In letzter Zeit", "Neu vorhandenes Objekt: " . \PortletSubscription::getNameForSubscription($object), "", ""
+                            $object->get_id(), 
+                            $object->get_id() . "_" . $this->count, 
+                            $this->private, 
+                            "In letzter Zeit", 
+                            "Neu vorhandenes Objekt: " . \PortletSubscription::getNameForSubscription($object), 
+                            "", 
+                            ""
                     )
                 );
                 $this->count++;
@@ -117,6 +129,24 @@ class PortalSubscription extends AbstractSubscription {
             }
             $this->count++;
         }
+        
+        //if the object change doesn't come from the modified content, the object itself was modified
+        if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("CONT_LAST_MODIFIED") != $this->object->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
+            
+            $this->updates[] = array(
+                            $this->object->get_attribute("OBJ_LAST_CHANGED"), 
+                            $this->object->get_id(), 
+                            $this->getElementHtml(
+                                $this->object->get_id(), 
+                                $this->object->get_id() . "_0",
+                                $this->private,
+                                $this->object->get_attribute("OBJ_LAST_CHANGED"),
+                                "Die Portaleigenschaften wurden geändert",
+                                "",
+                                \ExtensionMaster::getInstance()->getUrlForObjectId($this->object->get_id(), "view")
+                            )
+            );
+        }
 
         //save back all changes to the objects in this container
         $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $this->formerContent);
@@ -151,7 +181,14 @@ class PortalSubscription extends AbstractSubscription {
                 $portlet->get_attribute("OBJ_LAST_CHANGED"),
                 $portlet->get_id(),
                 $this->getElementHtml(
-                        $portlet->get_id(), $portlet->get_id() . "_" . $this->count, $this->private, $portlet->get_attribute("OBJ_LAST_CHANGED"), "Geändertes Portlet (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", \PortletSubscription::getNameForSubscription($portlet), PATH_URL . "portal/Index/" . $this->object->get_id() . "/", " (Spalte " . $column->get_name() . ")"
+                        $portlet->get_id(), 
+                        $portlet->get_id() . "_" . $this->count, 
+                        $this->private, 
+                        $portlet->get_attribute("OBJ_LAST_CHANGED"), 
+                        "Geändertes Portlet (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
+                        \PortletSubscription::getNameForSubscription($portlet), 
+                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
+                        " (Spalte " . $column->get_name() . ")"
                 )
             );
         }
