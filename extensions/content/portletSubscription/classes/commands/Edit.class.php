@@ -22,26 +22,24 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
 
         $this->portlet = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["portletId"]);
 
-
         $this->dialog = new \Widgets\Dialog();
 
-        $this->dialog->setWidth(600);
+        $this->dialog->setWidth(400);
         $this->dialog->setTitle("Bearbeiten von »" . getCleanName($this->portlet) . "«");
 
         $this->content = \PortletSubscription::getInstance()->loadTemplate("form.template.html");
         $css = \PortletSubscription::getInstance()->readCSS("form.css");
         $this->content->setVariable("CSS", $css);
 
-
         $this->content->setVariable("FORM_TITLE", $this->portlet->get_attribute("OBJ_NAME"));
         $this->content->setVariable("FORM_OBJECT_ID", $this->portlet->get_attribute("PORTLET_SUBSCRIPTION_OBJECTID"));
 
         $subscriptionType = array(
-            0 => "Unbegrenzt",
             604800 => "1 Woche",
             1209600 => "2 Wochen",
             1814400 => "3 Wochen",
-            2419200 => "4 Wochen"
+            2419200 => "4 Wochen",
+            0 => "Unbegrenzt"
         );
         foreach ($subscriptionType as $key => $value) {
             $this->content->setCurrentBlock("FORM_SUBSCRIPTION_TYPE");

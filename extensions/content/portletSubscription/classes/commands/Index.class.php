@@ -52,7 +52,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
             $subscriptionObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->subscriptionObjectId);
         } catch (\exception $ex) {
-            
+
         }
         $this->template->setVariable("PORTLET_ID", $this->portlet->get_id());
         $this->portletName = $this->portlet->get_name();
@@ -160,15 +160,16 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         .subscription-close-button:hover {
             cursor: pointer;
         }
-        .subscription-close-button.blue{
+
+        .subscription-close-button.blueeye{
             background-image: url(\"" . PATH_URL . "widgets/asset/eye.png\");
             clear:both;
-            
-        }  
-        .subscription-close-button.white{
+        }
+
+        .subscription-close-button.whiteeye{
             background-image: url(\"" . PATH_URL . "widgets/asset/eye_white.png\");
             margin-right:1px;
-        }  
+        }
 "
         );
         $this->contentHtml = $rawHtml;

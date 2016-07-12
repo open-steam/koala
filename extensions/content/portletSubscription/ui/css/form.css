@@ -6,8 +6,7 @@
 .attributeName {
   float: left;
   padding-right: 20px;
-  text-align: right;
-  width: 100px;
+  width: 150px;
 }
 
 .attributeNameRequired {
@@ -26,9 +25,10 @@
 .attributeValue .text, .attributeValue textarea {
   width: 100px;
 }
-                        .text{
-             width:196px;
-    }
+
+.text{
+  width:196px;
+}
 
 .attributeValueColumn {
   float: left;

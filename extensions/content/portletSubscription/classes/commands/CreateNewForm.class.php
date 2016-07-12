@@ -32,8 +32,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 .attributeName {
   float: left;
   padding-right: 20px;
-  text-align: right;
-  width: 100px;
+  width: 150px;
 }
 
 .attributeNameRequired {
@@ -52,9 +51,10 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 .attributeValue .text, .attributeValue textarea {
   width: 100px;
 }
-                        .text{
-             width:196px;
-    }
+
+.text{
+  width:196px;
+}
 
 .attributeValueColumn {
   float: left;
@@ -76,11 +76,11 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 	<div class="attributeName">Änderungen im Zeitraum:</div>
 	<div>
             <select name="type">
-                <option value="0">Unbegrenzt</option>
                 <option value="604800">1 Woche</option>
                 <option value="1209600">2 Wochen</option>
                 <option value="1814400">3 Wochen</option>
                 <option value="2419200">4 Wochen</option>
+                <option value="0">Unbegrenzt</option>
             </select>
         </div>
 </div>
