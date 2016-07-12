@@ -207,7 +207,7 @@ class GalleryView extends \AbstractCommand implements \IFrameCommand {
 					if (count($objects) > 0) {
 							$first = $objects[0];
 							$mimetype = $first->get_attribute(DOC_MIME_TYPE);
-							if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/gif" || $mimetype == "image/svg+xml") {
+							if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/gif" || $mimetype == "image/svg+xml" || $mimetype == "image/bmp") {
 									// Image
 									$preHtml = "<div style=\"text-align:center\"><img style=\"max-width:100%\" src=\"" . PATH_URL . "Download/Document/" . $first->get_id() . "/\"></div>";
 							} elseif ($mimetype == "text/html") {

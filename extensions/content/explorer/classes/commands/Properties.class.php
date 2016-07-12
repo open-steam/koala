@@ -136,7 +136,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $isGif = strpos($docType, "gif") !== false;
             $isPng = strpos($docType, "png") !== false;
             $isSvg = strpos($docType, "svg") !== false;
-            if ($isGif || $isJpeg || $isJpg || $isPng || $isSvg) {
+            $isBmp = strpos($docType, "bmp") !== false;
+            if ($isGif || $isJpeg || $isJpg || $isPng || $isSvg || $isBmp) {
                 $documentIsPicture = true;
             }
         }
