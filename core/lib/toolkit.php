@@ -174,7 +174,8 @@ function isPicture($docType) {
     $isJpeg = strpos($docType, "jpeg") !== false;
     $isGif = strpos($docType, "gif") !== false;
     $isPng = strpos($docType, "png") !== false;
-    return $isGif || $isJpeg || $isJpg || $isPng;
+    $isSvg = strpos($docType, "svg") !== false;
+    return $isGif || $isJpeg || $isJpg || $isPng || $isSvg;
 }
 
 //parameter $showName added to decide, wether we want the name returned or not. (initial used in the subscriptions to avoid Names like 'Test (rapidfeedback_1438187882)')
@@ -493,6 +494,7 @@ function deriveIcon($object) {
         "image/jpg" => "image.png",
         "image/x-ms-bmp" => "image.png",
         "image/png" => "image.png",
+        "image/svg+xml" => "image.png",
         "text/html" => "text.png",
         "text/plain" => "text.png",
         "text/xml" => "text.png",

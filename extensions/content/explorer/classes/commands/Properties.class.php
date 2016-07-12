@@ -135,7 +135,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $isJpeg = strpos($docType, "jpeg") !== false;
             $isGif = strpos($docType, "gif") !== false;
             $isPng = strpos($docType, "png") !== false;
-            if ($isGif || $isJpeg || $isJpg || $isPng) {
+            $isSvg = strpos($docType, "svg") !== false;
+            if ($isGif || $isJpeg || $isJpg || $isPng || $isSvg) {
                 $documentIsPicture = true;
             }
         }
@@ -398,7 +399,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           $dialog->addWidget($idField);
           $dialog->addWidget($seperator);
         }
-        
+
         $dialog->addWidget($changedField);
         $dialog->addWidget($seperator);
         $dialog->addWidget($createdField);

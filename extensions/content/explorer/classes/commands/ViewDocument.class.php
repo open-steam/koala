@@ -91,7 +91,7 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
 
                 //document type: image
                 $html = "";
-                if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/jpg" || $mimetype == "image/gif") {  // Image
+                if ($mimetype == "image/png" || $mimetype == "image/jpeg" || $mimetype == "image/jpg" || $mimetype == "image/gif" || $mimetype == "image/svg+xml") {  // Image
                     $dummyContent = $object->get_content(); //to check sanction
                     $html = "<h2>" . $name . "</h2><div style=\"text-align:center\"><img style=\"max-width:100%\" title=\"{$name}\" alt=\"Bild: {$name}\" src=\"" . PATH_URL . "Download/Document/" . $this->id . "/\"></div>";
                 }
