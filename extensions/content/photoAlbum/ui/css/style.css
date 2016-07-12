@@ -1,3 +1,8 @@
 div[id$="_3"].listviewer-item-cell {
     color: #AAAAAA;
 }
+
+img.bmp {
+  max-width: 200px;
+  max-height: 200px;
+}

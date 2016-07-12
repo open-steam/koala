@@ -10,8 +10,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     private $rowHtmlEnd = '</div>';
     private $cssStyle = '<style></style>';
 
-    private function getPictureHtml($name, $path, $fullscreenPath, $title) {
-        return '<div class="pic"><a class="slideshow" title="' . $title . '" href="' . $fullscreenPath . '"><img class="lazy" src="' . $path . '"></a></div>';
+    private function getPictureHtml($name, $path, $fullscreenPath, $title, $class) {
+        return '<div class="pic"><a class="slideshow" title="' . $title . '" href="' . $fullscreenPath . '"><img class="lazy ' . $class . '" src="' . $path . '"></a></div>';
     }
 
     public function validateData(\IRequestObject $requestObject) {
@@ -114,8 +114,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $name .= " | " . $keywordString;
                 }
                 $fullscreen = PATH_URL . "download/document/" . $pic->get_id();
-                $pictureURL = PATH_URL . "download/image/" . $pic->get_id() . "/200/200";
-                $html .= $this->getPictureHtml($name, $pictureURL, $fullscreen, $name);
+
+                if($pic->get_attribute(DOC_MIME_TYPE) === "image/svg+xml"){
+                  $pictureURL = PATH_URL . "download/document/" . $pic->get_id();
+                  $html .= $this->getPictureHtml($name, $pictureURL, $fullscreen, $name, "");
+                } elseif($pic->get_attribute(DOC_MIME_TYPE) === "image/bmp"){
+                  $pictureURL = PATH_URL . "download/document/" . $pic->get_id();
+                  $html .= $this->getPictureHtml($name, $pictureURL, $fullscreen, $name, "bmp");
+                }
+                else{
+                  $pictureURL = PATH_URL . "download/image/" . $pic->get_id() . "/200/200";
+                  $html .= $this->getPictureHtml($name, $pictureURL, $fullscreen, $name, "");
+                }
+
                 $html .= '</div>';
                 if (($i - $invisiblePicCounter) % 4 == 3) {
                     $html .= $this->rowHtmlEnd;
