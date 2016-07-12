@@ -38,7 +38,7 @@ abstract class AbstractSubscription {
         if ($private === TRUE) {
             //do not show the cross to hide each single changed element but only one button to hide all
             $sendRequest = AbstractSubscription::getElementJS($this->portlet->get_id(), $id, $timestamp, $divid);
-            $html .= "<div class=\"subscription-close-button\" title=\"ausblenden\" onclick=\"".$sendRequest."\" style=\"float:right;\"></div>";
+            $html .= "<div class=\"subscription-close-button blue\" title=\"ausblenden\" onclick=\"".$sendRequest."\" style=\"float:right;\"></div>";
         }
 
         $html .= "</h2>

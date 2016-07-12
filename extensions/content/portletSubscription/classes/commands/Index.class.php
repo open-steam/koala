@@ -152,15 +152,24 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $rawHtml->setCss(".subscription-close-button {
             height: 16px;
             width: 16px;
-            background-image: url(\"" . PATH_URL . "widgets/asset/close.gif\");
             position: relative;
             top: 0px;
             left: 0px;
-          }
+        }
 
-          .subscription-close-button:hover {
+        .subscription-close-button:hover {
             cursor: pointer;
-          }"
+        }
+        .subscription-close-button.blue{
+            background-image: url(\"" . PATH_URL . "widgets/asset/eye.png\");
+            clear:both;
+            
+        }  
+        .subscription-close-button.white{
+            background-image: url(\"" . PATH_URL . "widgets/asset/eye_white.png\");
+            margin-right:1px;
+        }  
+"
         );
         $this->contentHtml = $rawHtml;
     }
