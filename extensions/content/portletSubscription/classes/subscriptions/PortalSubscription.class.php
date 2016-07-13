@@ -39,12 +39,12 @@ class PortalSubscription extends AbstractSubscription {
                     PHP_INT_MAX - 1, //display the deleted files at the end
                     $id,
                     $this->getElementHtml(
-                            $id, 
-                            $id . "_" . $this->count, 
-                            $this->private, 
-                            "In letzter Zeit", 
-                            "Nicht mehr vorhandenes Objekt: " . $this->formerContent[$id]["name"], 
-                            "", 
+                            $id,
+                            $id . "_" . $this->count,
+                            $this->private,
+                            "In letzter Zeit",
+                            "Das Portlet " . $this->formerContent[$id]["name"] . " ist nicht mehr vorhanden",
+                            "",
                             ""
                     )
                 );
@@ -58,12 +58,12 @@ class PortalSubscription extends AbstractSubscription {
                     PHP_INT_MAX - 1, //display the deleted files at the end
                     $object->get_id(),
                     $this->getElementHtml(
-                            $object->get_id(), 
-                            $object->get_id() . "_" . $this->count, 
-                            $this->private, 
-                            "In letzter Zeit", 
-                            "Neu vorhandenes Objekt: " . \PortletSubscription::getNameForSubscription($object), 
-                            "", 
+                            $object->get_id(),
+                            $object->get_id() . "_" . $this->count,
+                            $this->private,
+                            "In letzter Zeit",
+                            "Neues Portlet " . \PortletSubscription::getNameForSubscription($object),
+                            "",
                             ""
                     )
                 );
@@ -99,14 +99,14 @@ class PortalSubscription extends AbstractSubscription {
                                         $messageObject->get_attribute("OBJ_CREATION_TIME"),
                                         $messageObject->get_id(),
                                         $this->getElementHtml(
-                                                $messageObject->get_id(), 
-                                                $messageObject->get_id() . "_" . $this->count, 
-                                                $this->private, 
-                                                $messageObject->get_attribute("OBJ_CREATION_TIME"), 
-                                                "Neue Meldung (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
-                                                \PortletSubscription::getNameForSubscription($messageObject), 
-                                                PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
-                                                " (Spalte " . $column->get_name() . ")"
+                                                $messageObject->get_id(),
+                                                $messageObject->get_id() . "_" . $this->count,
+                                                $this->private,
+                                                $messageObject->get_attribute("OBJ_CREATION_TIME"),
+                                                "Neue Meldung ",
+                                                \PortletSubscription::getNameForSubscription($messageObject),
+                                                PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
+                                                " in Spalte " . $column->get_name() . ""
                                         )
                                     );
                                 } else if ($messageObject instanceof \steam_object && $messageObject->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("OBJ_LAST_CHANGED") < $messageObject->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$messageObject->get_id()]) && in_array($messageObject->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$messageObject->get_id()]))) {
@@ -114,7 +114,7 @@ class PortalSubscription extends AbstractSubscription {
                                         $messageObject->get_attribute("OBJ_LAST_CHANGED"),
                                         $messageObject->get_id(),
                                         $this->getElementHtml(
-                                                $messageObject->get_id(), $messageObject->get_id() . "_" . $this->count, $this->private, $messageObject->get_attribute("OBJ_LAST_CHANGED"), "Geänderte Meldung (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", \PortletSubscription::getNameForSubscription($messageObject), PATH_URL . "portal/Index/" . $this->object->get_id() . "/", " (Spalte " . $column->get_name() . ")"
+                                                $messageObject->get_id(), $messageObject->get_id() . "_" . $this->count, $this->private, $messageObject->get_attribute("OBJ_LAST_CHANGED"), "Die Meldung ", \PortletSubscription::getNameForSubscription($messageObject), PATH_URL . "portal/Index/" . $this->object->get_id() . "/", " in Spalte " . $column->get_name() . " wurde geändert"
                                         )
                                     );
                                 }
@@ -129,15 +129,15 @@ class PortalSubscription extends AbstractSubscription {
             }
             $this->count++;
         }
-        
+
         //if the object change doesn't come from the modified content, the object itself was modified
         if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("CONT_LAST_MODIFIED") != $this->object->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
-            
+
             $this->updates[] = array(
-                            $this->object->get_attribute("OBJ_LAST_CHANGED"), 
-                            $this->object->get_id(), 
+                            $this->object->get_attribute("OBJ_LAST_CHANGED"),
+                            $this->object->get_id(),
                             $this->getElementHtml(
-                                $this->object->get_id(), 
+                                $this->object->get_id(),
                                 $this->object->get_id() . "_0",
                                 $this->private,
                                 $this->object->get_attribute("OBJ_LAST_CHANGED"),
@@ -161,14 +161,14 @@ class PortalSubscription extends AbstractSubscription {
                 $portlet->get_attribute("OBJ_CREATION_TIME"),
                 $portlet->get_id(),
                 $this->getElementHtml(
-                        $portlet->get_id(), 
-                        $portlet->get_id() . "_" . $this->count, 
-                        $this->private, 
-                        $portlet->get_attribute("OBJ_CREATION_TIME"), 
-                        "Neues Portlet (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
-                        \PortletSubscription::getNameForSubscription($portlet), 
-                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
-                        " (Spalte " . $column->get_name() . ")"
+                        $portlet->get_id(),
+                        $portlet->get_id() . "_" . $this->count,
+                        $this->private,
+                        $portlet->get_attribute("OBJ_CREATION_TIME"),
+                        "Neues Portlet ",
+                        \PortletSubscription::getNameForSubscription($portlet),
+                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
+                        " in Spalte " . $column->get_name() . ""
                 )
             );
 
@@ -181,14 +181,14 @@ class PortalSubscription extends AbstractSubscription {
                 $portlet->get_attribute("OBJ_LAST_CHANGED"),
                 $portlet->get_id(),
                 $this->getElementHtml(
-                        $portlet->get_id(), 
-                        $portlet->get_id() . "_" . $this->count, 
-                        $this->private, 
-                        $portlet->get_attribute("OBJ_LAST_CHANGED"), 
-                        "Geändertes Portlet (in Portal <a href=\"" . PATH_URL . "portal/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
-                        \PortletSubscription::getNameForSubscription($portlet), 
-                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
-                        " (Spalte " . $column->get_name() . ")"
+                        $portlet->get_id(),
+                        $portlet->get_id() . "_" . $this->count,
+                        $this->private,
+                        $portlet->get_attribute("OBJ_LAST_CHANGED"),
+                        "Das Portlet ",
+                        \PortletSubscription::getNameForSubscription($portlet),
+                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
+                        " in Spalte " . $column->get_name() . " wurde geändert"
                 )
             );
         }
