@@ -176,9 +176,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     if ($i == 0) {
                         $string .= $array[$i];
                     } else {
-                        $string .= "." . $array[$i];   
+                        $string .= "." . $array[$i];
                     }
-                    
+
                     if (!isset($this->groupMappingName[$string])) {
                             $group = \steam_factory::get_group($this->steam->get_id(), $string);
                             $groupId = $group->get_id();
@@ -340,6 +340,12 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("CREATOR_FULL_NAME", $this->creator->get_full_name());
         } else {
             $this->content->setVariable("CREATOR_FULL_NAME", getCleanName($this->creator));
+        }
+
+        if ($this->environment instanceof \steam_room) {
+            $this->content->setVariable("RIGHTS_HELP_PAGE", "https://bid.lspb.de/explorer/ViewDocument/640419/");
+        } else {
+            $this->content->setVariable("RIGHTS_HELP_PAGE", "https://bid.lspb.de/explorer/ViewDocument/1204915/");
         }
 
         $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
