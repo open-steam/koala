@@ -25,7 +25,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
     }
 
     public function getObjectReadableDescription() {
-        return "Auflistung der Änderungen von abonnierten Objekten.";
+        return "Auflistung der Änderungen von abonnierten Objekten";
     }
 
     public function getObjectIconUrl() {
@@ -128,7 +128,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
 
     /**
      * Method to get a standardised name for the subscription. Return the description if it exisits, if the description doesn't exisit, retuen at least the object name.
-     * 
+     *
      * @param steam_object $object the object to get tne name of
      * @param type $length the returned string length. Default is 30, -1 means: no cropping
      * @param type $nameAndDescription set to true, to get a name like OBJ_DESC (OBJ_NAME)

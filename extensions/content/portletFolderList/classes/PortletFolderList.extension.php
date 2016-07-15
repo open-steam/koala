@@ -24,7 +24,7 @@ class PortletFolderList extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectReadableDescription() {
-		return "Auflistung der Objekte innerhalb eines bestimmten Ordners.";
+		return "Listet alle Objekte innerhalb eines bestimmten Ordners auf";
 	}
 
 	public function getObjectIconUrl() {

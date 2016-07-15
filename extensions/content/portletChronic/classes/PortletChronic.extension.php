@@ -24,7 +24,7 @@ class PortletChronic extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectReadableDescription() {
-		return "Verlauf für den persönlichen Schreibtisch.";
+		return "Zeigt die letzten besuchten Seiten an";
 	}
 
 	public function getObjectIconUrl() {

@@ -20,11 +20,11 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 	}
 
 	public function getObjectReadableName() {
-		return "Termine";
+		return "Terminkalender";
 	}
 
 	public function getObjectReadableDescription() {
-		return "... für das Anzeigen von Terminen.";
+		return "Für das Anlegen & Anzeigen von Terminen";
 	}
 
 	public function getObjectIconUrl() {

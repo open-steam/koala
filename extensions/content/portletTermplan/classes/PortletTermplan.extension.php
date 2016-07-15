@@ -24,7 +24,7 @@ class PortletTermplan extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectReadableDescription() {
-		return "... eine Doodle-ähnliche Abstimmung über Termine.";
+		return "Erleichtert das Finden von Terminen per Abstimmung";
 	}
 
 	public function getObjectIconUrl() {
