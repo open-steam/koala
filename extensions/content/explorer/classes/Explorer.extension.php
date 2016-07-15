@@ -162,7 +162,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
         } else if (strpos($path, "/bookmarks/index/") !== false) {
             $array[] = array("name" => "<img id=\"sort-icon\" name=\"false\" onclick=\"if(name == 'false'){initSort();}else{window.location.reload();}\" title=\"Sortieren\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/explorer_sort_white.png\">");
             if($currentObjectID != ""){
-              $array[] = array("name" => "<img title=\"Ordner anlegen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newFolder_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$currentObjectID}}, '', 'popup', null, null, 'Bookmarks');return false;");
+              $array[] = array("name" => "<img title=\"Ordner anlegen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/folder_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$currentObjectID}}, '', 'popup', null, null, 'Bookmarks');return false;");
             }
         }
         if ($ClipboardNotEmpty) {
