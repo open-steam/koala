@@ -88,8 +88,8 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 	<div class="attributeName">Sortierung:</div>
 	<div>
             <select name="sort">
-                <option value="0">Neueste Änderungen zuerst anzeigen</option>
-                <option value="1">Älteste Änderungen zuerst anzeigen</option>
+                <option value="0">Älteste Änderungen zuerst anzeigen</option>
+                <option value="1">Neueste Änderungen zuerst anzeigen</option>
             </select>
         </div>
 </div>
