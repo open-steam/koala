@@ -70,7 +70,7 @@ class GallerySubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
-                                        "Neues Bild: ". \PortletSubscription::getNameForSubscription($object) ." (in Fotoalbum <a href=\"" . PATH_URL . "photoAlbum/Index/" . $this->object->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($this->object) . "</a>)",
+                                        "Neues Bild: <a href=\"" . PATH_URL . "explorer/ViewDocument/" . $object->get_id() . "/" . "\">".\PortletSubscription::getNameForSubscription($object)."</a> (in Fotoalbum <a href=\"" . PATH_URL . "photoAlbum/Index/" . $this->object->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($this->object) . "</a>)",
                                         "",
                                         PATH_URL . "gallery/Index/" . $this->object->get_id() . "/"
                                     )
@@ -80,7 +80,7 @@ class GallerySubscription extends AbstractSubscription {
                         $formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
                     }
                     
-                } else if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$object->get_id()]))) {
+                } else if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp+1 && !(isset($this->filter[$object->get_id()]) && (in_array($object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$object->get_id()]) || in_array($object->get_attribute("OBJ_LAST_CHANGED")-1, $this->filter[$object->get_id()])))) {
                     $updates[] = array(
                                     $object->get_attribute("OBJ_LAST_CHANGED"), 
                                     $object->get_id(),
@@ -89,7 +89,7 @@ class GallerySubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $count,
                                         $this->private,
                                         $object->get_attribute("OBJ_LAST_CHANGED"),
-                                        "Geändertes Bild: ". \PortletSubscription::getNameForSubscription($object) ." (in Fotoalbum <a href=\"" . PATH_URL . "photoAlbum/Index/" . $this->object->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($this->object) . "</a>)",
+                                        "Geändertes Bild: <a href=\"" . PATH_URL . "explorer/ViewDocument/" . $object->get_id() . "/" . "\">".\PortletSubscription::getNameForSubscription($object)."</a> (in Fotoalbum <a href=\"" . PATH_URL . "photoAlbum/Index/" . $this->object->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($this->object) . "</a>)",
                                         "",
                                         PATH_URL . "gallery/Index/" . $this->object->get_id() . "/"
                                     )
