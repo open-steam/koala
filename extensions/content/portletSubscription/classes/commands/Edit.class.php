@@ -51,8 +51,8 @@ class Edit extends \AbstractCommand implements \IAjaxCommand {
         }
 
         $subscriptionOrder = array(
-            0 => "Neueste Änderungen zuerst anzeigen",
-            1 => "Älteste Änderungen zuerst anzeigen"
+            0 => "Älteste Änderungen zuerst anzeigen",
+            1 => "Neueste Änderungen zuerst anzeigen"
         );
 
         foreach ($subscriptionOrder as $key => $value) {

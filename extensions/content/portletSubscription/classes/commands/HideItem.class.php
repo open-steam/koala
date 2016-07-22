@@ -110,21 +110,23 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
 
                 //hide the html-item 
                 $jsWrapper = new \Widgets\JSWrapper();
-
-                //$js .= "if ($('#" . $this->portletID . " div').children('div:visible').length == 1) $('#" . $this->portletID . "').append('<h3>Keine Neuigkeiten</h3>');";
-
+                $js = "";
+                
                 if ($this->objectID == -1) {
                     $jsSelector = "$('#" . $portlet->get_id() . "').children('div').hide();"
-                            . "$('#" . $portlet->get_id() . "').children('h1').children('a').hide();";
+                                 ."$('#" . $portlet->get_id() . "').children('h1').children('a').hide();"
+                                 ."$('#" . $this->portletID . "').append('<h3>Keine Neuigkeiten</h3>');";
                     //$(\"[id*='subscription1376_']\").hide();
                 } else {
+                    $js .= "if ($('#" . $this->portletID . " div').children('div:visible').length == 0) $('#" . $this->portletID . "').append('<h3>Keine Neuigkeiten</h3>');";
+
                     $jsSelector = "$('#" . $this->params["hide"] . "').hide(); "
                             . "if($('#" . $portlet->get_id() . "').children('div').children('div:visible').length == 0){"
                             . "$('#" . $portlet->get_id() . "').children('h1').children('a').hide();"
                             . "}";
                 }
 
-                $jsWrapper->setJs($jsSelector);
+                $jsWrapper->setJs($jsSelector.$js);
             }
         }
 
