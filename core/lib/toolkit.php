@@ -149,7 +149,7 @@ function getReadableDate($timestamp) {
     //} elseif ($is_yesterday) {
       //  return "gestern um " . date("H:i", $timestamp);
     } else {
-        return date("d.m.Y, H:i ", $timestamp) . " Uhr";
+        return date("d.m.Y, H:i ", $timestamp) . "Uhr";
     }
 }
 

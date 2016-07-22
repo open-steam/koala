@@ -53,18 +53,55 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadlines() {
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
-            return array("", "Name", "", "Beschreibung", "", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         } else {
-            return array("", "Name", "", "Beschreibung", "", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         }
     }
 
     public function getHeadLineWidths() {
-        return array(25, 250, 10, 380, 10, 0, 145, 75, 30, 20);
+        return array(25, 250, 10, 380, 10, 145, 75, 30, 20);
     }
 
     public function getHeadLineAligns() {
-        return array("left", "left", "left", "left", "left", "left", "right", "right", "right", "right");
+        return array("left", "left", "left", "left", "left", "right", "right", "right", "right");
+    }
+
+    public function getOnClickHandler($headline) {
+      if(strpos($headline, "Name") !== false) {
+        return "sortByName(this)";
+      }
+      if(strpos($headline, "Änderungsdatum") !== false) {
+        return "sortByDate(this)";
+      }
+      else{
+        return "";
+      }
+
+    }
+
+    public function getOnMouseOverHandler($headline) {
+      if(strpos($headline, "Name") !== false) {
+        return "jQuery(this).addClass('hover')";
+      }
+      if(strpos($headline, "Änderungsdatum") !== false) {
+        return "jQuery(this).addClass('hover')";
+      }
+      else{
+        return "";
+      }
+    }
+
+    public function getOnMouseOutHandler($headline) {
+      if(strpos($headline, "Name") !== false) {
+        return "jQuery(this).removeClass('hover')";
+      }
+      if(strpos($headline, "Änderungsdatum") !== false) {
+        return "jQuery(this).removeClass('hover')";
+      }
+      else{
+        return "";
+      }
     }
 
 }
@@ -74,12 +111,12 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawImage = 0;
     private $rawName = 1;
     private $rawDesc = 3;
-    private $rawMarker = 5;
-    private $rawChangeDate = 6;
-    private $rawSize = 7;
+    //private $rawMarker = 5;
+    private $rawChangeDate = 5;
+    private $rawSize = 6;
     //private $rawSubscribe = 6;
-    private $rawMenu = 8;
-    private $rawCheckbox = 9;
+    private $rawMenu = 7;
+    private $rawCheckbox = 8;
     private $object;
 
     //save the current object to check the attribute SHOW_TAGS lateron
@@ -212,7 +249,7 @@ class ContentProvider implements \Widgets\IContentProvider {
     public function getOnClickHandler($contentItem) {
         if (!($contentItem instanceof \steam_trashbin)) {
             //check the checkbox at the end of the row. If the order or number of the headlines changes, adjust the selector for the proper field
-            return "jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked);";
+            return "jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked);";
         } else {
             return "";
         }

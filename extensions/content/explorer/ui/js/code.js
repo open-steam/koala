@@ -24,15 +24,15 @@ jQuery(document).ready(function(){
 
 function removeAllDirectEditors(save) {
 	if(save){
-                //define the dataSaveFunctionCallback to make the contentProvider happy
-                jQuery.globalEval("function dataSaveFunctionCallback(response){return true;}");
+		//define the dataSaveFunctionCallback to make the contentProvider happy
+		jQuery.globalEval("function dataSaveFunctionCallback(response){return true;}");
 		$('.changed').each(function(number, obj) {
-                        eval($(obj).attr('data-saveFunction'));
-                        $(obj).removeClass("changed");
+			eval($(obj).attr('data-saveFunction'));
+			$(obj).removeClass("changed");
 		});
 	}
 
-        jQuery(document).keyup(function(e) {});
+	jQuery(document).keyup(function(e) {});
 
 	var elements = jQuery(".directEditor");
 	if (elements) {
@@ -51,6 +51,8 @@ function removeDirectEditor(objectId, elementId) {
 	var obj = new Object;
 	obj.id = objectId;
 	sendRequest("GetLabel", obj, elementId, "nonModalUpdater");
+	sendRequest("GetChangeDate", obj, obj.id + "_5", "nonModalUpdater");
+	resetListViewerHeadItem();
 }
 
 function getSelectionAsArray() {

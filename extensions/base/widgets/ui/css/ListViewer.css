@@ -46,6 +46,11 @@
 	min-height: 1px;
 }
 
+.listviewer .listviewer-head-item.hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 .listviewer .listviewer-item-cell {
 	float: left;
 	padding-top: 4px;
@@ -64,11 +69,6 @@
 
 .listviewer .listviewer-noitem{
 	text-align:center;
-}
-
-.listviewer .listviewer-head-item {
-	float: left;
-	font-weight: bold;
 }
 
 .listviewer .listviewer-head{
