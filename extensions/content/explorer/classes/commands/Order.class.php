@@ -46,16 +46,16 @@ class Order extends \AbstractCommand implements \IAjaxCommand {
 	 	$js = "var element = jQuery('#{$this->id}');
 					if ('{$this->direction}' == 'up') {
 					 element.insertBefore(element.prev());
-					 resetListViewerHeadItem();
+					 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					} else if ('{$this->direction}' == 'down') {
 					 element.insertAfter(element.next());
-					 resetListViewerHeadItem();
+					 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					} else if ('{$this->direction}' == 'top') {
 						 element.insertBefore(element.parent().children().first());
-						 resetListViewerHeadItem();
+						 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					} else if ('{$this->direction}' == 'bottom') {
 						 element.insertAfter(element.parent().children().last());
-						 resetListViewerHeadItem();
+						 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					}";
 		$jswrapper->setJs($js);
 		$ajaxResponseObject->addWidget($jswrapper);

@@ -52,7 +52,7 @@ function removeDirectEditor(objectId, elementId) {
 	obj.id = objectId;
 	sendRequest("GetLabel", obj, elementId, "nonModalUpdater");
 	sendRequest("GetChangeDate", obj, obj.id + "_5", "nonModalUpdater");
-	resetListViewerHeadItem();
+	if($('.listviewer').length != 0) resetListViewerHeadItem();
 }
 
 function getSelectionAsArray() {

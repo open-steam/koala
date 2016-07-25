@@ -71,7 +71,7 @@ function removeDirectEditor(objectId, elementId) {
 	obj.id = objectId;
 	sendRequest("GetLabel", obj, elementId, "nonModalUpdater",null,null,"explorer");
   sendRequest("GetChangeDate", obj, obj.id + "_5", "nonModalUpdater",null,null,"explorer");
-  resetListViewerHeadItem();
+  if($('.listviewer').length != 0) resetListViewerHeadItem();
 }
 
 function getSelectionAsArray() {
