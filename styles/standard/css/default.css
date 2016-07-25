@@ -587,18 +587,15 @@
 	** only used in portal.template.html
 	*/
 	#error {
-		background-color: #d11e01;
-		border: 3px solid #c61c00;
-		padding: 8px;
-		color: #eee;
-		text-align: center;
-		font-size: 110%;
+		color: #000;
+		font-size: 120%;
+    text-align: center;
 	}
 
 	/*not used? in js?*/
 	#error a {
 		text-decoration: underline;
-		color: #eee;
+		color: #396d9c;
 	}
 
 	/*

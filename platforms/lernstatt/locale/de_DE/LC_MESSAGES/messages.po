@@ -6086,7 +6086,7 @@ msgstr "Kein Zugriff"
 
 #: ../public/error.php:12
 msgid "No sufficient rights for this object"
-msgstr "Keine ausreichenden Rechte um diese Aktion auszuführen"
+msgstr "Keine ausreichenden Rechte für dieses Objekt"
 
 #: ../public/error.php:13
 msgid "You have not the required rights to execute this action. Please consult the owner of the object for further information."
@@ -8061,7 +8061,7 @@ msgstr "Ungültiger Benutzername oder falsches Passwort."
 #: ../public/sign_in.php:69
 #: ../public/sign_in.php:87
 msgid "Please verify your credentials and try again."
-msgstr "Bitte überprüfen Sie Ihren Benutzernamen und das Passwort."
+msgstr "Bitte überprüfen Sie Ihre Zugangsdaten und versuchen Sie es erneut."
 
 #: ../public/sign_in.php:102
 msgid "Use your IMT credentials to log in into koaLA knowledge network. Here, you can get and discuss course materials online, extend your personal and academic network, and cooperate with fellow students and colleagues."

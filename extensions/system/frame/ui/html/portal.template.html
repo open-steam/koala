@@ -271,9 +271,9 @@
                                             {HEADLINE1}{HEADLINE2}
                                         </div>
 
-
                                         <!-- BEGIN PROBLEM_BLOCK -->
-                                        <p id="error" style="display:none">{PROBLEM_DESCRIPTION}<br/>{PROBLEM_SOLUTION}</p>
+                                        <img src={PROBLEM_ICON} style="display: block; margin:auto;">
+                                        <p id="error" style="display:none">{PROBLEM_DESCRIPTION} {PROBLEM_SOLUTION}</p>
                                         <script type="text/javascript">$('#error').fadeIn('slow');</script>
                                         <!-- END PROBLEM_BLOCK -->
 
@@ -281,8 +281,6 @@
                                         <p id="confirmation" style="display:none">{CONFIRMATION_TEXT}</p>
                                         <script type="text/javascript">$('#confirmation').fadeIn('slow');</script>
                                         <!-- END BLOCK_CONFIRMATION -->
-
-
 
                                         <div id="content">
                                             <!-- BEGIN BLOCK_SIGN_IN -->

@@ -30,27 +30,27 @@
     top: 44px;
     left: 0;
 }
-    
+
 #container .leds .led {
     width: 39px;
     height: 68px;
     background: url('{PATH_URL}404/asset/images/status_led_sprite.png') no-repeat;
 }
-        
+
 #container .leds .led.green {
     background-position: bottom left;
     float: left;
 }
-            
+
 #container .leds .led.green.active { background-position: top left; }
-            
+
 #container .leds .led.red {
     background-position: top right;
     float: right;
 }
 
 #container .leds .led.red.active { background-position: bottom right; }
-                
+
 #container .flip {
     width: 622px;
     height: 152px;
@@ -63,7 +63,7 @@
     background: url('{PATH_URL}404/asset/images/status_flip_container.png') no-repeat;
     position: relative;
 }
-    
+
 #container .flip .break {
     width: 584px;
     height: 2px;
@@ -73,7 +73,7 @@
     top: 50%;
     left: 19px;
 }
-        
+
 #container .flip .break .link {
     width: 5px;
     height: 12px;
@@ -81,7 +81,7 @@
     position: absolute;
     top: -3px;
 }
-            
+
 #container .flip .break .link.left {
     left: 10px;
 }
@@ -89,7 +89,7 @@
 #container .flip .break .link.right {
     right: 10px;
 }
-                
+
 #container .sorry {
     width: 550px;
     color: #666;
@@ -99,18 +99,18 @@
     background-color: white;
     padding: 10px;
 }
-        
+
 #container .sorry *:first-child {
     margin: 0;
 }
 
 #container .sorry p a, #container .sorry p a:visited{
-        color: #666;
+        color: #396d9c;
         text-decoration: none;
 }
-			
+
 #container .sorry p a:hover {
-        color: #666;
+        color: #396d9c;
         text-decoration: none;
-        border-bottom: 1px solid #666;
+        border-bottom: 1px solid #396d9c;
 }

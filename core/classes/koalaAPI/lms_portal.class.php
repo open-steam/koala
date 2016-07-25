@@ -794,6 +794,7 @@ return $rand_value;
             $_SESSION[ "error" ] = "";
         } elseif ($description && $description != "") {
         $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
+        $this->template->setVariable( "PROBLEM_ICON", PATH_URL . "widgets/asset/emotes/wrong.png");
         $this->template->setVariable( "PROBLEM_DESCRIPTION", $description );
         $this->template->setVariable( "PROBLEM_SOLUTION", $solution );
         $this->template->parse( "PROBLEM_BLOCK" );

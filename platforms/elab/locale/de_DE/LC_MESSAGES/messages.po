@@ -6172,7 +6172,7 @@ msgstr "Kein Zugriff"
 
 #: ../public/error.php:12
 msgid "No sufficient rights for this object"
-msgstr "Keine ausreichenden Rechte um diese Aktion auszuführen"
+msgstr "Keine ausreichenden Rechte für dieses Objekt"
 
 #: ../public/error.php:13
 msgid ""
@@ -8291,7 +8291,7 @@ msgstr "Ungültiger Benutzername oder falsches Passwort."
 
 #: ../public/sign_in.php:30 ../public/sign_in.php:69 ../public/sign_in.php:87
 msgid "Please verify your credentials and try again."
-msgstr "Bitte überprüfen Sie Ihren Benutzernamen und das Passwort."
+msgstr "Bitte überprüfen Sie Ihre Zugangsdaten und versuchen Sie es erneut."
 
 #: ../public/sign_in.php:102
 msgid ""
