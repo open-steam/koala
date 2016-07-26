@@ -84,6 +84,12 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
                     }
                 }
                 break;
+                
+            case "postbox":
+                foreach ($subscribedObject->get_attribute("bid:postbox:container")->get_inventory() as $element) {
+                    $currentContent[$element->get_id()] = array("name" => $element->get_attribute(OBJ_NAME));
+                }
+                break;
 
             default: return array(); //no object with an inventory
         }
