@@ -52,11 +52,24 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
             $subscriptionObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->subscriptionObjectId);
         } catch (\exception $ex) {
-
+            
         }
         $this->template->setVariable("PORTLET_ID", $this->portlet->get_id());
-        $this->portletName = $this->portlet->get_name();
+
         $this->template->setCurrentBlock("BLOCK_FOLDER_HEADLINE");
+
+        $this->portletName = $this->portlet->get_name();
+        if ($subscriptionObject instanceof \steam_object && $subscriptionObject->check_access_read()) {
+            $prefix = "Änderungen in ";
+            //only update the name automatically if the name starts with the default prefix 'Änderungen in '
+            if (substr($this->portlet->get_name(), 0, strlen($prefix)) === $prefix) {
+                $this->portletName = $prefix . $subscriptionObject->get_name();
+                if ($this->portlet->get_name() !== $this->portletName) {
+                    $this->portlet->set_attribute("OBJ_NAME", $this->portletName);
+                }
+            }
+        }
+        
         $this->template->setVariable("HEADLINE", $this->portletName);
 
         if (trim($this->portletName) == "") {
@@ -108,10 +121,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
                 //the object could be created, we can read the object and it is not moved to the trashbin (deleted for the user)
                 if (!strpos($subscriptionObject->get_attribute("OBJ_PATH"), "trashbin")) {
-                    //do not take care of the name as it is the user's tast to choose an appropriate name
-                    // if($this->portlet->get_name() !== "Änderungen in ".$subscriptionObject->get_name()){
-                    //   $this->portlet->set_attribute("OBJ_NAME", "Änderungen in ".$subscriptionObject->get_name());
-                    //}
+                    //
                     //$this->portletName = getCleanName($this->portlet);
                     if (count($updates) === 0) {
                         $this->template->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
