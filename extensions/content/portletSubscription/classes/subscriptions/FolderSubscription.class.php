@@ -49,9 +49,9 @@ class FolderSubscription extends AbstractSubscription {
                         $object->get_id() . "_" . $count,
                         $this->private,
                         "In letzter Zeit",
-                        "Neu vorhandenes Objekt: ".\PortletSubscription::getNameForSubscription($object),
-                        "",
-                        ""
+                        "Neu vorhandenes Objekt: ",
+                        \PortletSubscription::getNameForSubscription($object),
+                        \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                     )
                 );
             }
