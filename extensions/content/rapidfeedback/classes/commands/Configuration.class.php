@@ -20,7 +20,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$RapidfeedbackExtension->addCSS();
 		$RapidfeedbackExtension->addJS();
-		
+
 		// access not allowed for non-admins
 		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
 		$admin = 0;
@@ -35,11 +35,11 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		}
 		if ($admin == 0) {
 			$rawWidget = new \Widgets\RawHtml();
-			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Fragebogen Instanz</center>");
+			$rawWidget->setHtml("<center>Die Bearbeitung dieses Fragebogens ist den Administratoren vorbehalten.</center>");
 			$frameResponseObject->addWidget($rawWidget);
 			return $frameResponseObject;
 		}
-		
+
 		// display actionbar
 		$surveys = $rapidfeedback->get_inventory();
 		$surveyCount = 0;
@@ -67,7 +67,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 			$actionbar->setActions($actions);
 		}
 		$frameResponseObject->addWidget($actionbar);
-		
+
 		// configuration got submitted
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit_rapidfeedback"])) {
 			$rapidfeedback->set_name($_POST["title"]);
@@ -77,7 +77,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 			$rapidfeedback->set_attribute("RAPIDFEEDBACK_SHOW_CREATIONTIME", $_POST["creationtime"]);
 			$rapidfeedback->set_attribute("RAPIDFEEDBACK_ADMIN_EDIT", $_POST["adminedit"]);
 			$rapidfeedback->set_attribute("RAPIDFEEDBACK_OWN_EDIT", $_POST["ownedit"]);
-			
+
 			// delete previous sanctions if current user is creator
 			$participants = $rapidfeedback->get_attribute("RAPIDFEEDBACK_GROUP");
 			$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
@@ -102,7 +102,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 					}
 				}
 			}
-			
+
 			// collect submitted sanctions
 			$groups = $rapidfeedback->get_creator()->get_groups();
 			$staff = array();
@@ -115,7 +115,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 					array_push($staff, $group);
 				}
 			}
-			
+
 			// set new sanctions
 			if ($user->get_id() == $rapidfeedback->get_creator()->get_id()) {
 				foreach ($participants as $group) {
@@ -135,10 +135,10 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 				$rapidfeedback->set_attribute("RAPIDFEEDBACK_GROUP", $participants);
 				$rapidfeedback->set_attribute("RAPIDFEEDBACK_STAFF", $staff);
 			}
-		
+
 			$frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
 		}
-		
+
 		// display configuration form
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_configuration.template.html");
 		$content->setCurrentBlock("BLOCK_CONFIGURATION_TABLE");
@@ -211,7 +211,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 		}
 		$content->setVariable("EDIT_RAPIDFEEDBACK", "Änderungen speichern");
 		$content->parse("BLOCK_CONFIGURATION_TABLE");
-		
+
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);

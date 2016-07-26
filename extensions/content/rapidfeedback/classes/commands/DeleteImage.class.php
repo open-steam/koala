@@ -1,14 +1,14 @@
 <?php
 namespace Rapidfeedback\Commands;
 class DeleteImage extends \AbstractCommand implements \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject) {
 		if ($requestObject instanceof \UrlRequestObject) {
 			$this->params = $requestObject->getParams();
@@ -18,9 +18,9 @@ class DeleteImage extends \AbstractCommand implements \IAjaxCommand {
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-            	$destObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+    $destObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		//remove old image
 		$oldImageId = $destObject->get_attribute("bid:rfb:picture_id");
 		if ($oldImageId !== 0) {
