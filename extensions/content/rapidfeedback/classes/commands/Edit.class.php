@@ -30,7 +30,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $cssWidgetNumbers->setHtml("");
         $frameResponseObject->addWidget($cssWidgetNumbers);
 
-
         // access not allowed for non-admins
         $user = $GLOBALS["STEAM"]->get_current_steam_user();
         $staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
@@ -47,7 +46,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         // non admins are not allowed to edit survey
         if ($admin == 0) {
             $rawWidget = new \Widgets\RawHtml();
-            $rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
+            $rawWidget->setHtml("<center>Die Bearbeitung dieses Fragebogens ist den Administratoren vorbehalten.</center>");
             $frameResponseObject->addWidget($rawWidget);
             return $frameResponseObject;
         }
@@ -233,15 +232,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         }
         $frameResponseObject->addWidget($actionbar);
 
-
         // display edit form
         $content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_edit.template.html");
         $content->setCurrentBlock("BLOCK_CREATE_SURVEY");
         $content->setVariable("CREATE_LABEL", "Fragebogen erstellen");
         $content->setVariable("TITLE_LABEL", "Titel:");
         $content->setVariable("BEGINTEXT_LABEL", "Willkommenstext:");
-
-
         $content->setVariable("ENDTEXT_LABEL", "Abschlusstext:");
         $content->setVariable("STARTTYPE_LABEL", "Durchführungszeitraum:");
         $content->setVariable("STARTTYPE0_LABEL", "Manuell");

@@ -17,12 +17,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$portal = \lms_portal::get_instance();
 		$portal->initialize( GUEST_NOT_ALLOWED );
-		
+
 		// Disable caching
 		// TODO: Work on cache handling. An enabled cache leads to bugs
 		// if used with the wiki.
 		\CacheSettings::disable_caching();
-		
+
 		$wiki_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$objectType = $wiki_container->get_attribute("OBJ_TYPE");
 		if ($objectType != "0" && $objectType == "container_wiki_koala")  {
@@ -32,7 +32,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			$wiki_container = $wiki_doc->get_environment();
 			$create = FALSE;
 		}
-		
+
 		if (isset($_GET["title"])) {
 			$values[ "title" ] = $_GET["title"];
 		}
@@ -41,7 +41,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$WikiExtension->addJS();
 		$WikiExtension->addCSS();
 		$content = $WikiExtension->loadTemplate("wiki_edit.template.html");
-		
+
+		if (!($wiki_container->check_access_read())) {
+				$errorHtml = new \Widgets\RawHtml();
+				$errorHtml->setHtml("Das Wiki kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
+				$frameResponseObject->addWidget($errorHtml);
+				return $frameResponseObject;
+		}
+
 		$wiki_entries = $wiki_container->get_inventory(CLASS_DOCUMENT);
 		foreach ($wiki_entries as $wiki_entry) {
 		    if ($wiki_entry->get_attribute(DOC_MIME_TYPE) === "text/wiki") {
@@ -51,12 +58,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			$content->parse("BLOCK_WIKI_ENTRY_OPTION");
 		    }
 		}
-		
+
 		$problems = "";
 
 		if (!isset($create))
 		    $create = FALSE;
-		
+
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		    $values = $_POST["values"];
 		    if (get_magic_quotes_gpc()) {
@@ -65,31 +72,31 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				if (!empty($values['body']))
 			   		$values['body'] = stripslashes($values['body']);
 		    }
-		    
+
 		    //Check if already exists
 		    $lw = new \koala_wiki($wiki_container);
 		    if($lw->contains_item($values['title']) && $create){
 				$problems = gettext('Enter an other name. This wiki already exists.');
 		    }
-		
+
 		    if (empty($values["title"]))
 				$problems = gettext("Please enter a subject for your message.");
 		    if (empty($values["body"]))
 				$problems .= ( empty($problems)) ? gettext("Please enter your message.") : "<br>" . gettext("Please enter your message.");
-		
+
 		    if (strpos($values["title"], "/")) {
 				if (!isset($problems))
 			    	$problems = "";
 				$problems .= gettext("Please don't use the \"/\"-char in the subject of your post.");
 		    }
-		
+
 		    if (empty($problems)) {
 				$wiki_content = str_replace("@", "&#64;", $values["body"]);
-		
+
 				if (!empty($values['save'])) {
 				    if ($create) {
 						$wiki_doc = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $values["title"] . ".wiki", $wiki_content, "text/wiki", $wiki_container, "");
-			
+
 						if (ENABLED_SEARCH & WIKI_SEARCH_ENABLED) {
 						    $indexer = new \wiki_indexer($wiki_container->get_id());
 						    $indexer->add_new_document($wiki_doc->get_id(), $values["title"], "");
@@ -98,7 +105,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 						// PRUEFEN, OB ALLES OK, DANN NEUE WERTE SPEICHERN
 						$wiki_doc->set_name($values['title'] . ".wiki");
 						$wiki_doc->set_content($wiki_content);
-				
+
 						if (ENABLED_SEARCH & WIKI_SEARCH_ENABLED) {
 						    $indexer = new \wiki_indexer($wiki_container->get_id());
 						    $indexer->update_changed_document($wiki_doc->get_id(), "", "", $wiki_doc);
@@ -107,12 +114,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				    // Clean cache for wiki_entries
 				    $cache = get_cache_function($wiki_container->get_id(), 600);
 				    $cache->clean($wiki_container->get_id());
-			
+
 				    // clean rsscache
 				    $rcache = get_cache_function("rss", 600);
 				    $feedlink = PATH_URL . "wiki/RSS/" . $wiki_container->get_id();
 				    $rcache->drop("lms_rss::get_items", $feedlink);
-			
+
 				    header("Location: " . PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/");
 				    die;
 				} else {
@@ -181,14 +188,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		//$content->setVariable( "HINT_WIKI_URL", gettext( "web link" ) );
 		//$content->setVariable( "LABEL_WIKI_IMAGE", gettext( "IMG" ) );
 		//$content->setVariable( "HINT_WIKI_IMAGE", gettext( "image" ) );
-		
+
 		$content->setVariable("ANNOTATION_IMAGE_URL", PATH_URL . "/wiki/asset/icons/comment_small.gif");
 
 		$content->setVariable("LABEL_PREVIEW", gettext("Preview"));
 		$content->setVariable("LABEL_SAVE_CHANGES", gettext("Save changes"));
 		$content->setVariable("LABEL_RETURN", gettext("back"));
 		$content->setVariable("JS_NOTICE", '"' . gettext("Warning!\\nYou have edited your entry!\\nIf you proceed, all changes will be lost!\\nDo you really want to proceed?") . '"');
-		
+
 		$content->setVariable("WIKI_CON_ID", $wiki_container->get_id());
 
 		// widget: Images
@@ -223,7 +230,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 			<img src="$path" title="{$image->get_name()}">
 		</td>
 	</tr>
-</table>  	
+</table>
 END
 				    );
 				    $content->parse("BLOCK_WIKI_ENTRY_IMAGE");
@@ -248,13 +255,13 @@ END
 		//$content->setVariable("WIDGET_TITLE", gettext("Images"));
 		//$content->setVariable("WIDGET_HTML_CODE", $widget->get());
 		//$content->parse("BLOCK_WIDGET");
-		
+
 		if ($create) {
 		    $pagetitle = gettext("New Article");
 		} else {
 		    $pagetitle = str_replace("%NAME", h(substr($wiki_doc->get_name(), 0, -5)), gettext("Edit '%NAME'?"));
 		}
-		
+
 		//$rootlink = \lms_steam::get_link_to_root($wiki_container);
 		(WIKI_FULL_HEADLINE) ?
 				$headline = array(
@@ -267,13 +274,13 @@ END
 				$headline = array(
 			    array("name" => h($wiki_container->get_name()), "link" => PATH_URL . "wiki/Index/" . $wiki_container->get_id() . "/"),
 			    array("link" => "", "name" => $pagetitle));
-	    
+
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($content->get());
 		$frameResponseObject->addWidget($rawHtml);
 		$frameResponseObject->setHeadline($headline);
-                $pollingDummy = new \Widgets\PollingDummy();
-                $frameResponseObject->addWidget($pollingDummy);
+		$pollingDummy = new \Widgets\PollingDummy();
+		$frameResponseObject->addWidget($pollingDummy);
 		return $frameResponseObject;
 	}
 }

@@ -29,7 +29,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$RapidfeedbackExtension->addJS();
 		$RapidfeedbackExtension->addJS("jquery.tablesorter.js");
 		$RapidfeedbackExtension->addCSS("jquery.tablesorter.css");
-		
+
 		// access not allowed for non-admins
 		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
 		$admin = 0;
@@ -44,11 +44,11 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		}
 		if ($admin == 0) {
 			$rawWidget = new \Widgets\RawHtml();
-			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
+			$rawWidget->setHtml("<center>Die Bearbeitung dieses Fragebogens ist den Administratoren vorbehalten.</center>");
 			$frameResponseObject->addWidget($rawWidget);
 			return $frameResponseObject;
 		}
-		
+
 		// display actionbar
 		$actionBar = new \Widgets\ActionBar();
 		$actions = array(
@@ -57,19 +57,19 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			);
 		$actionBar->setActions($actions);
 		$frameResponseObject->addWidget($actionBar);
-		
+
 		// display tabbar
 		$tabBar = new \Widgets\TabBar();
 		$tabBar->setTabs(array(
-			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id . "/"), 
+			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id . "/"),
 			array("name"=>"Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
-		));	
+		));
 		$tabBar->setActiveTab(0);
 		$frameResponseObject->addWidget($tabBar);
-		
+
 		$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
 		$survey_object->parseXML($xml);
-		
+
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_individualresults.template.html");
 		$content->setCurrentBlock("BLOCK_RESULTS");
 		$content->setVariable("RESULTS_LABEL", "Individuelle Auswertung");
@@ -78,7 +78,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		} else {
 			$content->setVariable("RESULTS_AMOUNT", $result_container->get_attribute("RAPIDFEEDBACK_RESULTS") . " Abgabe");
 		}
-		
+
 		// display questions in the first line
 		$questionCount = 1;
 		foreach ($survey_object->getQuestions() as $question) {
@@ -114,7 +114,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				$questionCount++;
 			}
 		}
-		
+
 		if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_SHOW_PARTICIPANTS") == 0) {
 			$content->setVariable("DISPLAY_PARTICIPANTS", "none");
 		} else {
@@ -125,17 +125,17 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		} else {
 			$content->setVariable("TIME_LABEL", "Erstellungszeit");
 		}
-		
+
 		// initialize table sorting
-		$initJS = '$(document).ready(function() { 
+		$initJS = '$(document).ready(function() {
 					        $("#resulttable").tablesorter({
 					        	headers : {' .
 					        	 	($questionCount+1) . ': { sorter : false }
 								}, sortList: [[' . $questionCount . ',1]]
-							}); 
+							});
 				   });';
 		$content->setVariable("INIT_JS_SORT", "<script>" . $initJS . "</script>");
-		
+
 		// display results
 		$results = $result_container->get_inventory();
 		$resultCount = 0;
@@ -193,10 +193,10 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			}
 		}
 		$content->parse("BLOCK_RESULTS");
-		
+
 		$tipsy = new \Widgets\Tipsy();
 		$frameResponseObject->addWIdget($tipsy);
-		
+
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);

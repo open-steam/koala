@@ -6146,7 +6146,7 @@ msgstr "Fehler in der koaLA-Konfiguration"
 #: ../public/error.php:53
 #: ../public/error.php:57
 msgid "Mail an error description"
-msgstr "Eine Fehlerbeschreibung senden."
+msgstr "Eine Fehlerbeschreibung senden"
 
 #: ../public/error.php:44
 msgid "There is an error in the koala configuration. %MAIL."

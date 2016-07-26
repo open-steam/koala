@@ -19,7 +19,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$RapidfeedbackExtension->addJS();
-    
+
 		// check if current user is admin
 		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
 		$admin = 0;
@@ -34,12 +34,20 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$admin = 1;
 			$allowed = true;
 		}
-		
-                // chronic
-                \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($rapidfeedback);
-        
+
+		// chronic
+		\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($rapidfeedback);
+
 		// redirect if there is no survey
 		$surveyCount = 0;
+
+		if (!($rapidfeedback->check_access_read())) {
+				$errorHtml = new \Widgets\RawHtml();
+				$errorHtml->setHtml("Der Fragebogen kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
+				$frameResponseObject->addWidget($errorHtml);
+				return $frameResponseObject;
+		}
+
 		$surveys = $rapidfeedback->get_inventory();
 		foreach ($surveys as $survey) {
 			if ($survey instanceof \steam_container && !($survey instanceof \steam_user)) {
@@ -50,7 +58,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			header('Location: ' . $RapidfeedbackExtension->getExtensionUrl() . "edit/" . $this->id . "/");
     		die();
 		}
-    	
+
 		// display actionbar for admin
 		if ($admin == 1) {
 			$actionbar = new \Widgets\Actionbar();
@@ -63,7 +71,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$actionbar->setActions($actions);
 			$frameResponseObject->addWidget($actionbar);
 		}
-		
+
 		// get the surveys that are to be shown and sort them
 		$surveys = $rapidfeedback->get_inventory();
 		$surveys_inactive = array();
@@ -77,7 +85,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 				if (is_array($starttype)) {
 					if (time() > $starttype[1] && $state == 0) {
 						$survey->set_attribute("RAPIDFEEDBACK_STATE", 1);
-					} 
+					}
 					if (time() > $starttype[0] && $state == 1) {
 						$survey->set_attribute("RAPIDFEEDBACK_STATE", 2);
 					}
@@ -126,7 +134,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("QUESTIONS_LABEL", "Anzahl der Fragen");
 			$content->setVariable("RESULTS_LABEL", "Anzahl der Abgaben");
 			$content->setVariable("ACTIONS_LABEL", "Aktionen");
-		
+
 			foreach ($surveys as $survey) {
 				$content->setCurrentBlock("BLOCK_SURVEY_ELEMENT");
 				$content->setVariable("NAME_VALUE", $survey->get_attribute("OBJ_DESC"));
@@ -173,7 +181,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					$content->setVariable("DISPLAY_REPEAT", "none");
 					if ($resultContainer->get_attribute("RAPIDFEEDBACK_RESULTS") == 0) {
 						$content->setVariable("DISPLAY_RESULTS", "none");
-					} 
+					}
 				} else {
 					$content->setVariable("STATE_VALUE", "Beendet");
 					$content->setVariable("DISPLAY_EDIT", "none");
@@ -206,7 +214,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 					$content->setVariable("DISPLAY_STOP", "none");
 					$content->setVariable("DISPLAY_REPEAT", "none");
 				}
-				
+
 				// show users results in the table
 				if (isset($participants[$user->get_id()])) {
 					$content->setCurrentBlock("BLOCK_SURVEY_PARTICIPATION");
@@ -257,7 +265,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			}
 			$content->parse("BLOCK_SURVEY_TABLE");
 		}
-		
+
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);

@@ -1,23 +1,20 @@
 <?php
 namespace Rapidfeedback\Commands;
-class AdminAction extends \AbstractCommand implements \IAjaxCommand
-{
+class AdminAction extends \AbstractCommand implements \IAjaxCommand{
+
     private $params;
     private $id;
 
-    public function validateData(\IRequestObject $requestObject)
-    {
+    public function validateData(\IRequestObject $requestObject){
         return true;
     }
 
-    public function processData(\IRequestObject $requestObject)
-    {
+    public function processData(\IRequestObject $requestObject){
         $this->params = $requestObject->getParams();
         isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
     }
 
-    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject)
-    {
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject){
         // admin action (start, stop, copy, delete) got submitted
         $element = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $rapidfeedback = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["rf"]);
@@ -38,18 +35,18 @@ class AdminAction extends \AbstractCommand implements \IAjaxCommand
                     $copy->set_attribute("RAPIDFEEDBACK_STATE", 0);
                     $copy->set_attribute("RAPIDFEEDBACK_STARTTYPE", 0);
 
-                                        $copyInventory = $copy->get_inventory();
-                                        $resultContainer = "";
-                                        foreach ($copyInventory as $element) {
-                                            if ($element->get_name() === "results") {
-                                                $resultContainer = $element;
-                                                break;
-                                            }
-                                        }
+                    $copyInventory = $copy->get_inventory();
+                    $resultContainer = "";
+                    foreach ($copyInventory as $element) {
+                        if ($element->get_name() === "results") {
+                            $resultContainer = $element;
+                            break;
+                        }
+                    }
                     // clean resultcontainer and set sanctions
                     if ($resultContainer instanceof \steam_container) {
-                                                $resultContainer->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
-                                                $resultContainer->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
+                        $resultContainer->set_attribute("RAPIDFEEDBACK_RESULTS", 0);
+                        $resultContainer->set_attribute("RAPIDFEEDBACK_PARTICIPANTS", array());
                         $results = $resultContainer->get_inventory();
                         foreach ($results as $result) {
                             $result->delete();

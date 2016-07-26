@@ -24,7 +24,7 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$RapidfeedbackExtension->addCSS();
 		$RapidfeedbackExtension->addJS();
-		
+
 		// access not allowed for non-admins
 		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
 		$admin = 0;
@@ -39,11 +39,11 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		}
 		if ($admin == 0) {
 			$rawWidget = new \Widgets\RawHtml();
-			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
+			$rawWidget->setHtml("<center>Die Bearbeitung dieses Fragebogens ist den Administratoren vorbehalten.</center>");
 			$frameResponseObject->addWidget($rawWidget);
 			return $frameResponseObject;
 		}
-		
+
 		// display actionbar
 		$actionbar = new \Widgets\Actionbar();
 		$actions = array(
@@ -51,16 +51,16 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		);
 		$actionbar->setActions($actions);
 		$frameResponseObject->addWidget($actionbar);
-		
+
 		// display tabbar
 		$tabBar = new \Widgets\TabBar();
 		$tabBar->setTabs(array(
-			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id . "/"), 
+			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id . "/"),
 			array("name"=>"Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
-		));	
+		));
 		$tabBar->setActiveTab(1);
 		$frameResponseObject->addWidget($tabBar);
-		
+
 		// display results
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_overallresults.template.html");
 		$content->setCurrentBlock("BLOCK_RESULTS");
@@ -90,10 +90,10 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 		}
 		$content->setVariable("QUESTIONS_HTML", $question_html);
 		$content->parse("BLOCK_RESULTS");
-		
+
 		$tipsy = new \Widgets\Tipsy();
 		$frameResponseObject->addWidget($tipsy);
-		
+
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);
