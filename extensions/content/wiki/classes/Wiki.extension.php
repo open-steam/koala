@@ -97,7 +97,15 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 					$array[] = array("name" => "<img title=\"Neuer Eintrag\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wikiID}'");
 				}
 				if(strpos($path, "entry") !== false){
-					$array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}'");
+					if(strpos($path, ".wiki") !== false){
+						$path = $_SERVER["REQUEST_URI"];
+						$pathArray = explode("/", $path);
+						$wiki_doc = $object->get_object_by_name($pathArray[count($pathArray)-1]);
+						$array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wiki_doc->get_id()}'");
+					}
+					else{
+						$array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}'");
+					}
 				}
 			}
 			return $array;
