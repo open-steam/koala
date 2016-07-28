@@ -55,10 +55,14 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 			$pathArray = explode("/", $path);
 			$wikiID = "";
 			for ($count = 0; $count < count($pathArray); $count++) {
-					if (intval($pathArray[$count]) !== 0) {
-							$id = $pathArray[$count];
-							break;
-					}
+				if(strpos($pathArray[$count], '?') !== false){
+					$id = intval(explode('?', $pathArray[$count])[0]);
+					break;
+				}
+				elseif(intval($pathArray[$count]) !== 0) {
+					$id = $pathArray[$count];
+					break;
+				}
 			}
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
 			$env = $object->get_environment();

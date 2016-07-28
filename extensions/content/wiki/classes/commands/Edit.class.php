@@ -11,7 +11,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 
 	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
-		isset($this->params[0]) ? $this->id = $this->params[0]: "";
+		if(isset($this->params[0])){
+			if(strpos($this->params[0], '?') !== false) {
+				$this->id = intval(explode('?', $this->params[0])[0]);
+			}
+			else{
+				$this->id = $this->params[0];
+			}
+		}
 	}
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
