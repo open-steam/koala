@@ -24,7 +24,7 @@ class PhotoAlbum extends AbstractExtension implements IObjectExtension, IObjectM
 	}
 
 	public function getObjectReadableDescription() {
-		return "In Fotoalben können Sie Bilder zeigen, seien es Fotos vom letzten Schulfest oder Folien einer Präsentation.";
+		return "In Fotoalben können Sie Bilder sammeln und auf verschiedene Arten betrachten";
 	}
 
 	public function getObjectIconUrl() {

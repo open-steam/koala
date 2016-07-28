@@ -34,7 +34,7 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
 	}
 
 	public function getObjectReadableDescription() {
-		return "Sie können allein oder gemeinsam eine vorstrukturierte Seite mit Texten, Bildern, Filmen, Terminen u.v.m. gestalten.";
+		return "Erstellen Sie gemeinsam oder alleine eine Webseite mit Meldungen, Medienelementen, Terminen, Abstimmungen und vielem mehr";
 	}
 
 	public function getObjectIconUrl() {

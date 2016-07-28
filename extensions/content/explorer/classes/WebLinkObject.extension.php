@@ -28,7 +28,7 @@ class WebLinkObject extends AbstractExtension implements IObjectExtension {
 	}
 
 	public function getObjectReadableDescription() {
-		return "WWW-Referenzen ermöglichen es Ihnen, Quellen aus dem Internet in Ihre Ordner einzubinden.";
+		return "URL's ermöglichen es Ihnen, auf beliebige Webseiten zu verweisen";
 	}
 
 	public function getObjectIconUrl() {

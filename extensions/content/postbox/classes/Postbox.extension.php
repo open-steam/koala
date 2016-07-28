@@ -25,7 +25,7 @@ class Postbox extends AbstractExtension implements IObjectExtension, IIconBarExt
     }
 
     public function getObjectReadableDescription() {
-        return "";
+        return "Briefkästen dienen der Abgabe von digitalen Dokumenten, zum Beispiel Hausaufgaben";
     }
 
     public function getObjectIconUrl() {

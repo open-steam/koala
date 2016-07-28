@@ -24,7 +24,7 @@ class Rapidfeedback extends AbstractExtension implements IObjectExtension, IIcon
 	}
 
 	public function getObjectReadableDescription() {
-		return "Mit Fragebögen können Sie in strukturierter Weise Rückmeldungen einholen – beispielsweise im Rahmen einer Umfrage oder der Durchführung eines Experiments.";
+		return "Mit Fragebögen können Sie mithilfe von verschiedenen Fragetypen Rückmeldungen einholen, Umfragen durchführen oder Lernerfolge messen";
 	}
 
 	public function getObjectIconUrl() {
