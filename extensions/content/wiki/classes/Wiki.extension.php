@@ -90,10 +90,10 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 					$array[] = array("name" => "<img title=\"Bild hinzufügen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('Upload', {'id':{$wikiID}}, '', 'popup');return false;");
 				}
 				if(strpos($path, "glossary") !== false){
-					$array[] = array("name" => "<img title=\"Neuer Eintrag\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wikiID}/'");
+					$array[] = array("name" => "<img title=\"Neuer Eintrag\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wikiID}'");
 				}
 				if(strpos($path, "entry") !== false){
-					$array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}/'");
+					$array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}'");
 				}
 			}
 			return $array;
