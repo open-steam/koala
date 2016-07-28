@@ -1321,3 +1321,12 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
   	margin: 20px;
   	display:inline-block;
 	}
+
+	.popupmenuanker {
+		float: right;
+		cursor: pointer;
+		height: 16px;
+		width: 16px;
+		margin-right: 5px;
+		background-image: url(../images/config_grey_16.png);
+	}

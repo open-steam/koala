@@ -1,13 +1,4 @@
 @CHARSET "UTF-8";
-.popupmenuanker {
-	float: right;
-	cursor: pointer;
-	height: 16px;
-	width: 16px;
-	margin-right: 5px;
-	background-image: url("{PATH_URL}widgets/asset/config_grey_16.png");
-}
-
 .listviewer-item-unhover .popupmenuanker {
 	display: none;
 }
