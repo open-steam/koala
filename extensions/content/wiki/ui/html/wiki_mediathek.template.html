@@ -29,10 +29,10 @@ function showBox( imageID, width, height )
 	document.getElementById("image").src = url;
 	document.getElementById("image").alt = img.alt;
 	document.getElementById("image").title = img.title;
-	
+
 	document.getElementById("imgName").innerHTML = img.name;
 	document.getElementById("imgDesc").innerHTML = img.alt;
-	
+
 	document.getElementById("imageBox").style.left = ( ( screenWidth - newWidth ) / 2 + 20 ) + "px";
 	document.getElementById("imageBox").style.top = ( ( screenHeight - newHeight ) / 2 + 10 ) + "px";
 
@@ -67,15 +67,11 @@ function confirmDeletion(question, note, id)
 </div>
 
 <!--  BEGIN BLOCK_IMAGE -->
-<div style="float: left; margin: 0px 0px 20px 20px; margin-top: 5px; text-align: center; width: 170px;">
-	<div style="height: 90px; width: 170px; display: table-cell; vertical-align: middle;">
-		<a href="{PREVIEW_LINK}"><img style="vertical-align: middle;" src="{IMAGE_LINK}" id="{IMAGE_ID}" name="{IMAGE_NAME}" alt="{IMAGE_DESCRIPTION}" title="{IMAGE_DESCRIPTION}"></a>
+<div style="float: left; margin: 0px 0px 20px 20px; margin-top: 5px; text-align: center; width: 160px;">
+	<div style="height: 90px; width: 160px; display: table-cell; vertical-align: middle;">
+		<a href="{PREVIEW_LINK}"><img style="vertical-align: middle; max-width: 160px;" src="{IMAGE_LINK}" id="{IMAGE_ID}" name="{IMAGE_NAME}" alt="{IMAGE_DESCRIPTION}" title="{IMAGE_DESCRIPTION}"></a>
 	</div>
-	<div style="padding: 10px 0px; margin: 10px 0px 2px; background: #EEEEEE;">{IMAGE_NAME}</div>
+	<div style="padding: 10px 5px; margin: 10px 0px 2px; background: #EEEEEE; white-space: nowrap; overflow: hidden;">{IMAGE_NAME}</div>
 	<div style="padding: 10px 0px; margin-bottom: 10px; background: #EEEEEE;" >{IMAGE_ACTIONS}</div>
 </div>
 <!-- END BLOCK_IMAGE -->
-
-<div class="buttons" style="text-align: left; clear: left; margin-top: 30px;">
-	<a class="button" href="{BACK_LINK}">{BACK_LABEL}</a>
-</div>

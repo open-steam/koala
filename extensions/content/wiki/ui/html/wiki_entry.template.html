@@ -5,26 +5,20 @@
 
 <script type="text/javascript">
 
-function showBox( imageID, width, height )
-{
+function showBox( imageID, width, height ){
 	var img = document.getElementById( imageID );
 	var screenWidth = self.innerWidth - 100;
 	var screenHeight = self.innerHeight - 140;
 	var newWidth = width;
 	var newHeight = height;
-
 	var url = img.src;
-	//var to = url.indexOf( "&" );
-	//url = url.substring( 0, to );
 
-	if ( width > screenWidth )
-	{
+	if ( width > screenWidth ){
 		newHeight = Math.floor( height *  screenWidth / width );
 		newWidth = screenWidth;
 	}
 
-	if ( height > screenHeight )
-	{
+	if ( height > screenHeight ){
 		newWidth = Math.floor( width *  screenHeight / height );
 		newHeight = screenHeight;
 	}
@@ -35,26 +29,21 @@ function showBox( imageID, width, height )
 	document.getElementById("image").src = url;
 	document.getElementById("image").alt = img.alt;
 	document.getElementById("image").title = img.title;
-	
 	document.getElementById("imgName").innerHTML = img.name;
 	document.getElementById("imgDesc").innerHTML = img.alt;
-	
 	document.getElementById("imageBox").style.left = ( ( screenWidth - newWidth ) / 2 + 20 ) + "px";
 	document.getElementById("imageBox").style.top = ( ( screenHeight - newHeight ) / 2 + 10 ) + "px";
-
 	document.getElementById("container").style.visibility = "visible";
 }
 
-function hideBox()
-{
+function hideBox(){
 	document.getElementById("container").style.visibility = "hidden";
 }
 </script>
 
 <style type="text/css">
 
-#container
-{
+#container{
 	font-size: 16px;
 	height: 100%;
 	width: 100%;
@@ -65,8 +54,7 @@ function hideBox()
 	z-index: 1;
 }
 
-#greyBox
-{
+#greyBox{
 	background-color: #000000;
 	height: 100%;
 	width: 100%;
@@ -74,21 +62,17 @@ function hideBox()
 	top: 0;
 	position: fixed;
 	z-index: 2;
-	
 	filter: alpha(opacity=50); /* IE5-7 */
 	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /* IE8 */
 	opacity: .5; /* everything else */
 }
 
-#imageBox
-{
+#imageBox{
 	border-radius: 15px;
 	-moz-border-radius: 15px 15px 15px 15px;
 	-webkit-border-radius: 15px;
-	
 	-webkit-box-shadow: 0px 0px 10px #000000;
 	-moz-box-shadow: 0px 0px 10px #000000;
-	
 	background-color: #FFFFFF;
 	padding: 20px;
 	text-align: center;
@@ -96,16 +80,14 @@ function hideBox()
 	z-index: 3;
 }
 
-#imgName
-{
+#imgName{
 	text-align: left;
 	position: absolute;
 	left: 20px;
 	top: 20px;
 }
 
-#close
-{
+#close{
 	text-align: right;
 	position: absolute;
 	right: 20px;
@@ -129,7 +111,7 @@ function hideBox()
 <p>
   <table width="100%">
     <tr valign="top">
-      <td width="60">
+      <td width="70">
       	<!-- BEGIN BLOCK_AUTHOR_IMG -->
         <a href="{AUTHOR_LINK}"><img src="{IMAGE_SRC}"></a>
         <!-- END BLOCK_AUTHOR_IMG -->
@@ -147,6 +129,7 @@ function hideBox()
 		  <ul>
 		  {NUMBER_VERSIONS}
 	   	  {LINK_VERSION_MANAGEMENT}
+        {LINK_DELETE_ENTRY}
 	   	  </ul>
 	   	<br />
 	   	<!-- END BLOCK_VERSIONS -->

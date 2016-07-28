@@ -55,8 +55,7 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 
 		$prev_versions = $wiki_doc->get_previous_versions();
 
-		if ( ! is_array( $prev_versions ) )
-		{
+		if(!is_array($prev_versions)){
 			$prev_versions = array();
 		}
 
@@ -66,13 +65,9 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 
 		$content->setCurrentBlock( "BLOCK_VERSION_LIST" );
 
-		if(isset($_GET["markedfordiff"]) && !empty($_GET["markedfordiff"]))
-		{
+		if(isset($_GET["markedfordiff"]) && !empty($_GET["markedfordiff"])){
 			$uri_params = "?markedfordiff=" . $_GET["markedfordiff"];
-			//$start = $portal->set_paginator( $content, 10, $no_versions, "(" . gettext("%TOTAL versions in list") . ")", $uri_params );
 		}
-		//$start = $portal->set_paginator( $content, 10, $no_versions, "(" . gettext("%TOTAL versions in list") . ")" );
-		//$end   = ( $start + 10 > $no_versions ) ? $no_versions : $start + 10;
 
 		$entry_name = str_replace ( ".wiki", "", $wiki_doc->get_identifier() );
 		$start = 0;
@@ -87,76 +82,71 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 
 		// Use buffer for document attributes
 		$attributes_tnr = array();
-		for( $i = $start; $i < $end; $i++ )
-		{
+		for( $i = $start; $i < $end; $i++ ){
 			$attributes_tnr[$prev_versions[$i]->get_id()] = $prev_versions[$i]->get_attributes( array( DOC_USER_MODIFIED, DOC_LAST_MODIFIED, DOC_VERSION, DOC_SIZE ), TRUE);
 		}
 		$attributes_result = $GLOBALS["STEAM"]->buffer_flush();
 
 		// use buffer for author attributes
 		$author_tnr = array();
-		for( $i = $start; $i < $end; $i++ )
-		{
+		for( $i = $start; $i < $end; $i++ ){
 			$author_tnr[$prev_versions[$i]->get_id()] = $attributes_result[$attributes_tnr[$prev_versions[$i]->get_id()]][DOC_USER_MODIFIED]->get_attributes( array(USER_FIRSTNAME, USER_FULLNAME, OBJ_NAME) , TRUE);
 		}
 		$author_result = $GLOBALS["STEAM"]->buffer_flush();
 
-		for( $i = $start; $i < $end; $i++ )
-		{
+		for( $i = $start; $i < $end; $i++ ){
 			$doc = $prev_versions[$i];
 			$attributes = $attributes_result[$attributes_tnr[$doc->get_id()]];
 			$last_author  = $author_result[$author_tnr[$doc->get_id()]];
 			$content->setCurrentBlock( "BLOCK_VERSION" );
 
-			if ( $doc instanceof \steam_document )
-			{
+			if ( $doc instanceof \steam_document ){
 				$content->setVariable( "VALUE_SIZE", get_formatted_filesize( $doc->get_content_size() ) );
 				$content->setVariable( "VALUE_CREATOR_LINK", PATH_URL . "user/index/" . $author_result[$author_tnr[$doc->get_id()]][OBJ_NAME] . "/" );
 				$content->setVariable( "VALUE_CREATOR", h($last_author[ USER_FIRSTNAME ]) . " " . h($last_author[ USER_FULLNAME ]) );
 				$content->setVariable( "VALUE_DATE", strftime( "%x %X", $attributes[ "DOC_LAST_MODIFIED" ] ) );
 
-			    if ($doc->get_id() !== $wiki_doc->get_id()) {
-			      	$content->setVariable( "VALUE_VERSION_LINK", PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/" );
-			      	$content->setVariable( "VALUE_VERSION_NUMBER", "Version " . h($attributes_result[$attributes_tnr[$doc->get_id()]][DOC_VERSION]) );
-			      	$content->setCurrentBlock("BLOCK_RECOVER");
-			      	$content->setVariable( "VALUE_ACTION_RECOVER", "&raquo; " . gettext("Recover this version"));
-			      	$content->setVariable( "VALUE_RECOVER_LINK", PATH_URL . "wiki/recover/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/");
-			      	$content->parse("BLOCK_RECOVER");
-			    } else {
-			      	$content->setVariable( "VALUE_VERSION_LINK", PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/" );
-			      	$content->setVariable( "VALUE_VERSION_NUMBER", "Version " . h($attributes_result[$attributes_tnr[$doc->get_id()]][DOC_VERSION]) . " (" . gettext("current") . ")" );
-			    }
+		    if ($doc->get_id() !== $wiki_doc->get_id()) {
+	      	$content->setVariable( "VALUE_VERSION_LINK", PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/" );
+	      	$content->setVariable( "VALUE_VERSION_NUMBER", "Version " . h($attributes_result[$attributes_tnr[$doc->get_id()]][DOC_VERSION]) );
+					if($wiki_container->check_access_write()){
+						$content->setCurrentBlock("BLOCK_RECOVER");
+	      		$content->setVariable( "VALUE_ACTION_RECOVER", "&raquo; " . gettext("Recover this version"));
+	      		$content->setVariable( "VALUE_RECOVER_LINK", PATH_URL . "wiki/recover/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/");
+						$content->parse("BLOCK_RECOVER");
+					}
+				} else {
+			    $content->setVariable( "VALUE_VERSION_LINK", PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/" );
+			    $content->setVariable( "VALUE_VERSION_NUMBER", "Version " . h($attributes_result[$attributes_tnr[$doc->get_id()]][DOC_VERSION]) . " (" . gettext("current") . ")" );
+			  }
 
-				if( isset( $_GET["markedfordiff"] ) && $_GET["markedfordiff"] == $doc->get_id())
-				{
+				if( isset( $_GET["markedfordiff"] ) && $_GET["markedfordiff"] == $doc->get_id()){
 					$content->setVariable( "VALUE_ACTION_MARK", "&raquo; " . gettext("Currently marked for version compare"));
 				}
-				else
-				{
+				else{
 					$content->setVariable( "VALUE_ACTION_MARK", "<a href=\"" . PATH_URL . "wiki/versions/" . $wiki_doc->get_id() . "/?markedfordiff=" . $doc->get_id() . "\">" . "&raquo; " . gettext("Mark for version compare") . "</a>");
 				}
-				if($attributes[DOC_VERSION] != 1)
-				{
+				if($attributes[DOC_VERSION] != 1){
 					$content->setVariable( "VALUE_ACTION_DIFF", "&raquo; " . gettext("Compare to previous version") . " " . ($attributes[ DOC_VERSION ] - 1) );
 					$content->setVariable( "VALUE_DIFF_LINK", PATH_URL . "wiki/compare/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/" . $prev_versions[$i+1]->get_id());
 				}
-				if(isset($_GET["markedfordiff"]) &&  $_GET["markedfordiff"] != $doc->get_id())
-				{
+				if(isset($_GET["markedfordiff"]) &&  $_GET["markedfordiff"] != $doc->get_id()){
 					$marked = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $_GET["markedfordiff"] );
 					$content->setVariable( "VALUE_ACTION_MARKED_DIFF", "<a href=\"" . PATH_URL . "wiki/compare/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/" . $_GET["markedfordiff"] . "\">" . "&raquo; " . gettext("Compare to marked version") . " " . $marked->get_version() . "</a>");
 				}
 			}
 
 			//is user authorized to delete version?
+			/*
 			$content->setVariable( "MESSAGE_DELETION", "Diese Version wirklich löschen?" );
 			$current_user = \lms_steam::get_current_user();
 			$admin_group = \steam_factory::get_group( $GLOBALS["STEAM"]->get_id(), "admin" );
 			$isAdmin = ( is_object( $admin_group ) && $admin_group->is_member( $current_user ) );
 			$usersEntry = $last_author["OBJ_NAME"] === $current_user->get_name();
+			*/
 			$notCurrentVersion = $doc->get_id() !== $wiki_doc->get_id();
 
-			if ( ( $isAdmin || $usersEntry ) && $notCurrentVersion )
-			{
+			if($wiki_container->check_access_write() && $notCurrentVersion){
 				$content->setVariable( "VALUE_ACTION_DELETE", "<a href=\"" . PATH_URL . "wiki/delete/version/" . $doc->get_id() . "\" onclick=\"return confirmDeletion();\">" . "&raquo; " . "Diese Version löschen" . "</a><br \/>" );
 			}
 
@@ -166,7 +156,6 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 
 		$wiki_html_handler->set_main_html( $content->get() );
 
-		//$rootlink = \lms_steam::get_link_to_root( $wiki_container );
 		(WIKI_FULL_HEADLINE) ?
 		$headline = array(
 						$rootlink[0],

@@ -8283,8 +8283,8 @@ msgstr "Ihr Eintrag"
 
 #: ../public/weblog_entry_edit.php:141
 #: ../public/wiki_edit.php:153
-msgid "Edit '%NAME'?"
-msgstr "'%NAME' ändern?"
+msgid "Edit '%NAME'"
+msgstr "'%NAME' bearbeiten"
 
 #: ../public/weblog_new.php:42
 msgid "The name of the weblog is missing."

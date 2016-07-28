@@ -53,16 +53,49 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 		$path = strtolower($_SERVER["REQUEST_URI"]);
 		if(strpos($path, "wiki") !== false){
 			$pathArray = explode("/", $path);
-			$currentObjectID = "";
+			$wikiID = "";
 			for ($count = 0; $count < count($pathArray); $count++) {
 					if (intval($pathArray[$count]) !== 0) {
-							$currentObjectID = $pathArray[$count];
+							$id = $pathArray[$count];
 							break;
 					}
 			}
-			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
 			$env = $object->get_environment();
+			if($object instanceof steam_document){
+				$object = $env;
+				$wikiID = $env->get_id();
+				$env = $env->get_environment();
+			}
+			else{
+				$wikiID = $id;
+			}
+
 			$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
+
+			if(strpos($path, "mediathek") == false){
+				$array[] = array("name" => "<img title=\"Mediathek\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/mediathek/{$wikiID}/'");
+			}
+
+			if(strpos($path, "glossary") == false){
+				$array[] = array("name" => "<img title=\"Glossar\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/glossary/{$wikiID}/'");
+			}
+
+			$user = lms_steam::get_current_user();
+			if($object->check_access_write($user)){
+				if(strpos($path, "configuration") == false){
+					$array[] = array("name" => "<img title=\"Einstellungen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/configuration/{$wikiID}/'");
+				}
+				if(strpos($path, "mediathek") !== false){
+					$array[] = array("name" => "<img title=\"Bild hinzufügen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('Upload', {'id':{$wikiID}}, '', 'popup');return false;");
+				}
+				if(strpos($path, "glossary") !== false){
+					$array[] = array("name" => "<img title=\"Neuer Eintrag\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wikiID}/'");
+				}
+				if(strpos($path, "entry") !== false){
+					$array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}/'");
+				}
+			}
 			return $array;
 		}
 	}

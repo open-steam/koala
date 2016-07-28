@@ -42,9 +42,9 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$WikiExtension->addCSS();
 		$content = $WikiExtension->loadTemplate("wiki_edit.template.html");
 
-		if (!($wiki_container->check_access_read())) {
+		if (!($wiki_container->check_access_write())) {
 				$errorHtml = new \Widgets\RawHtml();
-				$errorHtml->setHtml("Das Wiki kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
+				$errorHtml->setHtml("Das Wiki kann nicht angezeigt werden, da Sie nicht über die erforderlichen Schreibrechte verfügen.");
 				$frameResponseObject->addWidget($errorHtml);
 				return $frameResponseObject;
 		}
@@ -148,16 +148,10 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		    if (WIKI_WYSIWYG) {
 				//TODO
 				$content->setVariable("TEXT_DSC", h($wikicontent));
-				//$content->setVariable( "TEXT_DSC", wikitext_to_html( h($wikicontent), $wiki_container->get_id() ) );
 		    } else {
 				$content->setVariable("TEXT_DSC", h($wikicontent));
 		    }
 		    $content->setVariable("TITLE_COMMENT", str_replace(".wiki", "", h($wikiname)));
-		    if (isset($_SERVER["HTTP_REFERER"])) {
-		    	$content->setVariable("BACK_LINK", $_SERVER["HTTP_REFERER"]);
-		    } else {
-		    	$content->setVariable("BACK_LINK", $WikiExtension->getExtensionUrl() . "Index/" . $wiki_container->get_id());
-		    }
 		} else {
 		    $content->setVariable("TITLE_COMMENT", h($values["title"]));
 		    if (isset($values["body"]))
@@ -167,35 +161,10 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("LABEL_HERE_IT_IS", "");
 		$content->setVariable("LABEL_TITLE", gettext("Title"));
 		$content->setVariable("LABEL_BODY", gettext("Body"));
-
-		//$content->setVariable( "LABEL_WIKI_H2", gettext( "H2" ) );
-		//$content->setVariable( "HINT_WIKI_H2", gettext( "heading (level 2)" ) );
-		//$content->setVariable( "LABEL_WIKI_H3", gettext( "H3" ) );
-		//$content->setVariable( "HINT_WIKI_H3", gettext( "heading (level 3)" ) );
-		//$content->setVariable( "LABEL_WIKI_BOLD", gettext( "'''B'''" ) );
-		//$content->setVariable( "HINT_WIKI_BOLD", gettext( "boldface" ) );
-		//$content->setVariable( "LABEL_WIKI_ITALIC", gettext( "''I''" ) );
-		//$content->setVariable( "HINT_WIKI_ITALIC", gettext( "italic" ) );
-		//$content->setVariable( "LABEL_WIKI_BULLET_LIST", gettext( "* list" ) );
-		//$content->setVariable( "HINT_WIKI_BULLET_LIST", gettext( "bullet list" ) );
-		//$content->setVariable( "LABEL_WIKI_NUMBERED_LIST", gettext( "# list" ) );
-		//$content->setVariable( "HINT_WIKI_NUMBERED_LIST", gettext( "numbered list" ) );
-		//$content->setVariable( "LABEL_WIKI_LINE", gettext( "-----" ) );
-		//$content->setVariable( "HINT_WIKI_LINE", gettext( "horizontal line" ) );
-		//$content->setVariable( "LABEL_WIKI_LINK", gettext( "[[wiki]]" ) );
-		//$content->setVariable( "HINT_WIKI_LINK", gettext( "wiki link" ) );
-		//$content->setVariable( "LABEL_WIKI_URL", gettext( "[URL]" ) );
-		//$content->setVariable( "HINT_WIKI_URL", gettext( "web link" ) );
-		//$content->setVariable( "LABEL_WIKI_IMAGE", gettext( "IMG" ) );
-		//$content->setVariable( "HINT_WIKI_IMAGE", gettext( "image" ) );
-
 		$content->setVariable("ANNOTATION_IMAGE_URL", PATH_URL . "/wiki/asset/icons/comment_small.gif");
-
 		$content->setVariable("LABEL_PREVIEW", gettext("Preview"));
 		$content->setVariable("LABEL_SAVE_CHANGES", gettext("Save changes"));
-		$content->setVariable("LABEL_RETURN", gettext("back"));
 		$content->setVariable("JS_NOTICE", '"' . gettext("Warning!\\nYou have edited your entry!\\nIf you proceed, all changes will be lost!\\nDo you really want to proceed?") . '"');
-
 		$content->setVariable("WIKI_CON_ID", $wiki_container->get_id());
 
 		// widget: Images
@@ -235,34 +204,16 @@ END
 				    );
 				    $content->parse("BLOCK_WIKI_ENTRY_IMAGE");
 				    $i++;
-				    //$widget->setCurrentBlock("BLOCK_IMAGE");
-				    //$widget->setVariable("WIKI_IMAGE_NAME", $image->get_name());
-				    //$widget->setVariable("WIKI_IMAGE_ADD_LINK", "javascript:insert('[[Image:" . $image->get_identifier() . "]]', '', 'formular', 'values[body]')");
-				    //$widget->setVariable("WIKI_IMAGE_LINK", PATH_URL . "get_document.php?id=" . $image->get_id() . "&width=40&height=80");
-				    //$widget->setVariable("WIKI_IMAGE_VIEW_LINK", PATH_URL . "doc/" . $image->get_id() . "/");
-				    //$widget->setVariable("WIKI_IMAGE_TITLE", $image->get_name());
-				    //$widget->setVariable("WIKI_IMAGE_ADD", gettext("Insert"));
-				    //$widget->setVariable("WIKI_IMAGE_VIEW", gettext("View"));
-				    //$widget->parse("BLOCK_IMAGE");
-				}
+					}
 		    }
 		}
-		//$widget->setVariable("UPLOAD_TEXT", gettext("Upload an image"));
-		//$widget->setVariable("UPLOAD_LINK", PATH_URL . "upload/?env=" . $wiki_container->get_id());
-		//$widget->setVariable("WIKI_IMAGE_EXTERNAL", gettext("External image"));
-		//$widget->setVariable("WIKI_IMAGE_EXTERNAL_LINK", "javascript:insert('[[Image:http://', ']]', 'formular', 'values[body]')");
-		//$content->setCurrentBlock("BLOCK_WIDGET");
-		//$content->setVariable("WIDGET_TITLE", gettext("Images"));
-		//$content->setVariable("WIDGET_HTML_CODE", $widget->get());
-		//$content->parse("BLOCK_WIDGET");
 
 		if ($create) {
 		    $pagetitle = gettext("New Article");
 		} else {
-		    $pagetitle = str_replace("%NAME", h(substr($wiki_doc->get_name(), 0, -5)), gettext("Edit '%NAME'?"));
+		    $pagetitle = str_replace("%NAME", h(substr($wiki_doc->get_name(), 0, -5)), gettext("Edit '%NAME'"));
 		}
 
-		//$rootlink = \lms_steam::get_link_to_root($wiki_container);
 		(WIKI_FULL_HEADLINE) ?
 				$headline = array(
 			    $rootlink[0],

@@ -44,56 +44,48 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
 
 		$question = "Dieses Bild wirklich löschen?";
 		$note = gettext("Achtung: Alle Wiki Einträge, die dieses Bild enthalten, müssen manuell aktualisiert werden.");
-		if ( sizeof( $inventory ) > 0 )
-		{
+		if ( sizeof( $inventory ) > 0 ){
 			\steam_factory::load_attributes( $GLOBALS["STEAM"]->get_id(), $inventory , array( OBJ_NAME, OBJ_DESC, DOC_MIME_TYPE ) );
 			$images = array();
 
-			foreach( $inventory as $object )
-			{
+			foreach( $inventory as $object ){
 		    	$mime = strtolower($object->get_attribute(DOC_MIME_TYPE));
 		    	if ( $mime === "image/jpg" || $mime === "image/jpeg" || $mime === "image/gif" || $mime === "image/png" ) $images[] = $object;
 			}
 
-			foreach( $images as $image )
-			{
+			foreach( $images as $image ){
 				$actions = '<a href="#" onclick="sendRequest(\'Properties\', {\'id\':' . $image->get_id() . '}, \'\', \'popup\', null, null, \'explorer\')">' . "Eigenschaften" . '</a><br>';
-				$actions .= '<a href="#" onclick="return confirmDeletion(\'' . $question . '\',\'' . $note . '\',' . $image->get_id() . ');">' . "Bild löschen" . '</a>';
+
+				if($wiki_container->check_access_write()){
+					$actions .= '<a href="#" onclick="return confirmDeletion(\'' . $question . '\',\'' . $note . '\',' . $image->get_id() . ');">' . "Bild löschen" . '</a>';
+				}
 
 				$imageData = imagecreatefromstring( $image->get_content() );
 
 				$width = $newWidth = imagesx( $imageData );
 				$height = $newHeight = imagesy( $imageData );
 
-				if ( $width > 160 )
-				{
+				if ( $width > 160 ){
 					$newHeight = (int) ( $height * 160 / $width );
 					$newWidth = 160;
 				}
 
-				if ( $newHeight > 80 )
-				{
+				if ( $newHeight > 80 ){
 					$newWidth = (int) ( $newWidth * 80 / $newHeight );
 					$newHeight = 80;
 				}
 
 				$content->setCurrentBlock("BLOCK_IMAGE");
-				    $content->setVariable("IMAGE_NAME", $image->get_name());
-		    	    $content->setVariable("IMAGE_ID", $image->get_id());
-					$content->setVariable("IMAGE_DESCRIPTION", $image->get_attribute('OBJ_DESC'));
-				    $content->setVariable("IMAGE_LINK", PATH_URL . "download/image/" . $image->get_id() . "/" . $newWidth . "/" . $newHeight);
-				    $content->setVariable("PREVIEW_LINK", "javascript:showBox(" . $image->get_id() . "," . $width . "," . $height . ");");
-				    $content->setVariable("IMAGE_ACTIONS", $actions);
+				$content->setVariable("IMAGE_NAME", $image->get_name());
+		    $content->setVariable("IMAGE_ID", $image->get_id());
+				$content->setVariable("IMAGE_DESCRIPTION", $image->get_attribute('OBJ_DESC'));
+				$content->setVariable("IMAGE_LINK", PATH_URL . "download/image/" . $image->get_id() . "/" . $newWidth . "/" . $newHeight);
+				$content->setVariable("PREVIEW_LINK", "javascript:showBox(" . $image->get_id() . "," . $width . "," . $height . ");");
+				$content->setVariable("IMAGE_ACTIONS", $actions);
 				$content->parse("BLOCK_IMAGE");
 			}
 		}
-		$content->setVariable( "LABEL_CLOSE", gettext( "close" ) );
-                if (isset($_SERVER["HTTP_REFERER"])) {
-                    $content->setVariable( "BACK_LINK", $_SERVER["HTTP_REFERER"]);
-                } else {
-                    $content->setVariable( "BACK_LINK", PATH_URL . "wiki/Index/" . $wiki_container->get_id() . "/" );
-                }
-                $content->setVariable( "BACK_LABEL", gettext( "back" ) );
+		$content->setVariable( "LABEL_CLOSE", "Schließen");
 
 		$wiki_html_handler->set_main_html( $content->get() );
 

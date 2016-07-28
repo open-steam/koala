@@ -50,7 +50,7 @@
 
 	b, strong {
 		font-weight: bold;
-                padding-left: 5px;
+		padding-left: 5px;
 	}
 
 	img {
@@ -59,14 +59,6 @@
 
 	img.border {
 		border: 3px solid #eee;
-	}
-
-	p {
-
-	}
-
-	code {
-
 	}
 
 	h1 {
@@ -171,7 +163,6 @@
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
-
 	}
 
 	#footer_wrapper {
@@ -187,7 +178,7 @@
 	/*currently not used*/
 	/*adjusted in html file*/
 		#betaInfo {
-                        display:none;
+			display:none;
 			position: absolute;
 			width: 50px;
 			height: 160px;
@@ -228,16 +219,15 @@
 		width: 160px;
 	}
 
-        #trashbinIconbarWrapper img{
-            margin-right: 2px;
-            float: left;
-        }
+	#trashbinIconbarWrapper img{
+		margin-right: 2px;
+		float: left;
+	}
 
-        #clipboardIconbarWrapper img{
-            margin-right: 2px;
-            float: left;
-        }
-
+	#clipboardIconbarWrapper img{
+		margin-right: 2px;
+		float: left;
+	}
 
 	#menu #icon_bar li .menu_text {
 		padding: 7px 10px 7px 10px;
@@ -271,9 +261,6 @@
 		padding: 0;
 	}
 
-	#menu .menu_icon {
-	}
-
 	#menu li{
 		float:left;
 		cursor:pointer;
@@ -301,7 +288,6 @@
 		color:#000000;
 		background-color:#ccc;
 		text-decoration:none;
-
 		-moz-border-radius-topleft: 3px;
 		-moz-border-radius-topright: 3px;
 		-webkit-border-top-left-radius: 3px;
@@ -328,7 +314,7 @@
 
 	#menu li ul{
 		padding-top: 3px;
-                background:#eee;
+		background:#eee;
 		display:none;
 		height:auto;
 		filter:alpha(opacity=95);
@@ -338,9 +324,7 @@
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
-
 		border: 1px solid #ccc;
-
 		-moz-border-radius-bottomleft: 3px;
 		-moz-border-radius-bottomright: 3px;
 		-webkit-border-bottom-left-radius: 3px;
@@ -363,17 +347,17 @@
 	}
 
 	#menu li ul .menu_text{
-                color:black;
+		color:black;
 		display:block;
 		padding: 3px 25px 3px 10px;
 		text-align:left;
 		border: 1px solid transparent;
 	}
 
-        #menu li ul .menu_text img{
-            position: relative;
-            top: 2px;
-        }
+	#menu li ul .menu_text img{
+		position: relative;
+		top: 2px;
+	}
 
 	#menu li ul .menu_text:hover{
 		background:#ccc;
@@ -394,27 +378,22 @@
 	}
 
 	#menu .seperator {
-	    cursor:default;
-    	border-bottom: 1px solid #ccc;
-    }
+	  cursor:default;
+    border-bottom: 1px solid #ccc;
+  }
 
-    /*
-     *
-     */
-   	#clipboard {
-   		padding: 0px;
-    	margin: 5px 0px 0px 0px;
-    	width: 70px;
-    	margin-left: 710px;
+	#clipboard {
+		padding: 0px;
+		margin: 5px 0px 0px 0px;
+		width: 70px;
+		margin-left: 710px;
 		background: url(../images/page_layout/main_menu_bg.png) repeat-x bottom;
-
 		-moz-border-radius-topleft: 3px;
 		-moz-border-radius-topright: 3px;
 		-webkit-border-top-left-radius: 3px;
 		-webkit-border-top-right-radius: 3px;
 		border-radius-topleft: 3px;
 		border-radius-topright: 3px;
-
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
@@ -462,7 +441,6 @@
 		margin-left: -180px;
 		background:#eee;
 		display:none;
-
 		width: 250px;
 		filter:alpha(opacity=95);
 		opacity:0.95;
@@ -471,9 +449,7 @@
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
-
 		border: 1px solid #ccc;
-
 		-moz-border-radius-bottomleft: 3px;
 		-moz-border-radius-bottomright: 3px;
 		-webkit-border-bottom-left-radius: 3px;
@@ -523,7 +499,7 @@
 
 	#clipboard ul li ul li ul li{
 		display: inline;
-	    border: 0px;
+	  border: 0px;
 	}
 
 	#clipboard ul li ul li ul li .menu_icon img{
@@ -549,24 +525,6 @@
 		border: 0px;
 	}
 
-	/*
-	** Headline
-	** only used in portal.template.html
-	** used but without style...
-	*/
-	#headline {
-
-	}
-
-	/*
-	** Content
-	** only used in portal.template.html
-	** used but without style...
-	*/
-	#content {
-
-	}
-
 	#content img{
 		max-width: 100%
 	}
@@ -579,7 +537,7 @@
 		text-align: right;
 		font-size: 90%;
 		color: #666;
-                height: 300px;
+		height: 300px;
 	}
 
 	/*
@@ -639,13 +597,11 @@
 		vertical-align:bottom;
 	}
 
-        #loginPanelWarning {
+	#loginPanelWarning {
 		position:absolute;
 		right:0px;
 		top:-80px;
 	}
-
-
 
 	/*
 	** Paginator
@@ -661,20 +617,9 @@
 	}
 
 	/*never used*/
-	.paginator .first {
-
-	}
-
-	/*never used*/
 	.paginator .current {
 		font-weight: bold;
 	}
-
-	/*never used*/
-	.paginator .last {
-
-	}
-
 
 	/*
 	** Info Bar
@@ -696,8 +641,6 @@
 	**          user.template.html, weblog_index.template.html, wiki_index.template.html
 	*/
 	.actionBar {
-/* 		border-top: 3px solid #eee; */
-/* 		border-bottom: 3px solid #eee; */
 		padding: 6px 0 6px 0;
 		text-align: right;
 	}
@@ -721,31 +664,6 @@ input[type="submit"].button.right:active, a.button.right:active { top: 0px }
 input[type="submit"].button.big, a.button.big { font-size: 16px; padding-left: 17px; padding-right: 17px; }
 input[type="submit"].button span.icon, a.button span.icon { display: inline-block; width: 14px; height: 12px; margin: auto 7px auto auto; position: relative; top: 2px; background-image: url('../images/css3buttons_icons.png'); background-repeat: no-repeat; }
 input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
-
-/* 	.actionBar a.button, input[type=submit], div.buttons a{ */
-/* 		background: #ccc url(../images/page_layout/button_bg.png); */
-/* 		padding:3px; */
-/* 		border:1px solid #bbb; */
-/* 		text-decoration: none; */
-/* 		white-space: nowrap; */
-/* 		color: #003A6F; */
-/* 		cursor:pointer; */
-/* 	} */
-
-/* 	.actionBar a.button:hover, input[type=submit]:hover, div.buttons a:hover{ */
-/* 		background: #bbb; */
-/* 	} */
-
-	never used
-/* 	.actionBar div.button { */
-/* 		background-color: #5b85ab; */
-/* 		background: url(../images/page_layout/action_bar_button.png) repeat-x bottom; */
-/* 		color: #111; */
-/* 		padding: 6px 4px 6px 4px; */
-/* 		text-decoration: none; */
-/* 		line-height: 2em; */
-/* 		white-space: nowrap; */
-/* 	} */
 
 	/* used in: units_extern_new.template.html, courses_create_paul.template.html, courses_create.template.html, groups_edit.template.html, list_staff.template.html, messages_mailbox.template.html,
 	**          messages_read.template.html, messages_write.template.html, profile_edit.template.html
@@ -851,12 +769,6 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		padding-top:8px;
 	}
 
-	/*used but without style*/
-	.grid td.value {
-
-	}
-
-
 	/*
 	** Preview
 	** used in: comments.template.html, forum_discussion.template.html, forum_post.template.html, weblog_post.template.html
@@ -886,10 +798,6 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 
 	.messageBox .header a {
 		color: #000;
-	}
-
-	.messageBox .message {
-
 	}
 
 	.messageBox .message td {
@@ -964,20 +872,20 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	}
 
 	#startpage #left {
-	     vertical-align: top;
-	     width: 33%;
+		vertical-align: top;
+		width: 33%;
 	}
 
 	#startpage #center {
 		border-left:  1px solid #ddd;
 		border-right:  1px solid #ddd;
-	    vertical-align: top;
-	    width: 33%;
+		vertical-align: top;
+		width: 33%;
 	}
 
 	#startpage #right {
-	     vertical-align: top;
-	     width: 33%;
+		vertical-align: top;
+		width: 33%;
 	}
 
 	/*Logo unten links*/
@@ -991,15 +899,11 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		bottom: 27px;
 		left: 17px;
 	}
+
 	/*
 	** Forum (Discussion, Reply)
 	** used in forum_discussion.template.html
 	*/
-
-	.forum {
-
-	}
-
 	.forum .topic {
 		margin-bottom: 15px;
 	}
@@ -1050,11 +954,9 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	}
 
 	.forumSearch {
-	    float: left;
+	  float: left;
 		text-align: left;
 		margin: 0;
-		/* padding: 0; */
-		/* margin-bottom: 15px; */
 		background-color: #fff;
 		padding: 5px;
 	}
@@ -1062,7 +964,7 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	/*never used*/
 	.forumSearch h3 {
 		margin: 0;
-	    margin-bottom: 5px;
+	  margin-bottom: 5px;
 		color: #888;
 		border-bottom: 1px solid #ddd;
 	}
@@ -1080,11 +982,6 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		padding: 0;
 	}
 
-	/* all below used in calendar.template.html*/
-	.calendar.week {
-
-	}
-
 	.calendar.week .weekday h3 {
 		margin: 10px 0 0 0;
 		padding: 5px;
@@ -1093,7 +990,6 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		border-bottom:1px solid #ddd;
 		color: #111;
 		font-weight: normal;
-		//font-size;
 	}
 
 	.calendar.week .time {
@@ -1125,20 +1021,14 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	** only used in weblog_index.template.html
 	*/
 
-	.weblog {
-
-	}
-
 	.weblog .main {
 		padding: 0 15px 0 5px;
 	}
-
 
 	.weblog .main img {
 		float: none;
 		border: 5px solid #ddd;
 	}
-
 
 	.weblog .main .date {
 		text-align: right;
@@ -1146,10 +1036,6 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		padding: 0;
 		margin-bottom: 8px;
 		color: #888;
-	}
-
-	.weblog .main .entry {
-
 	}
 
 	.weblog .main .entry .title {
@@ -1194,14 +1080,6 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	** used in wiki_edit.template.html, wiki_index.template.html
 	*/
 
-	.wiki {
-
-	}
-
-	.wiki .main #wikiIndex {
-
-	}
-
 	.wiki .main .sectionIndex {
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
@@ -1215,20 +1093,14 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		border-bottom: 1px solid #ddd;
 	}
 
-	.wiki .main .sectionLinks {
-
-	}
-
 	.wiki .main {
 		padding: 0 15px 0 5px;
+		width: 100%;
 	}
-
 
 	.wiki .main img {
 		float: none;
-		border: 5px solid #ddd;
 	}
-
 
 	.wiki .main .date {
 		text-align: right;
@@ -1236,10 +1108,6 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		padding: 0;
 		margin-bottom: 8px;
 		color: #888;
-	}
-
-	.wiki .main .entry {
-
 	}
 
 	.wiki .main .entry .title {
@@ -1291,12 +1159,6 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 
 
 	/*
-	** Units
-	** never used ;)
-	*/
-
-
-	/*
 	** New (to mark something new)
 	** used in: forum_all_topics.template.html, forum_discussion.template.html, groups_all.template.html, home.template.html, rss_feeds.template.html
 	*/
@@ -1314,17 +1176,8 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	**
 	** #reserveList .reserveListEntry.book used in list_reserve_list_article.template.html but no style given
 	*/
-	#reserveList {
-
-	}
-
 	#reserveList .reserveListEntry {
 		margin-bottom: 15px;
-	}
-
-	/*used in list_reserve_list_book.template.html*/
-	#reserveList .reserveListEntry.book {
-
 	}
 
 	/*used in list_reserve_list_headline.template.html*/
@@ -1332,39 +1185,17 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		border-bottom: 1px solid #ddd;
 	}
 
-	/*used in list_reserve_list_html.template.html*/
-	#reserveList .reserveListEntry.html {
-
-	}
-
-	/*used in list_reserve_list_weblink.template.html*/
-	#reserveList .reserveListEntry.weblink {
-
-	}
-
-	/*used in list_reserve_list_file.template.html*/
-	#reserveList .reserveListEntry.file {
-
-	}
-
-	/*used in list_reserve_list_text.template.html*/
-	#reserveList .reserveListEntry.text {
-
-	}
-
 	/*
 	** Error Style for Input-Text
 	** used in: exam_organization_setup_exam_date_time.template.html
 	**
 	*/
-	input.InputError
-	{
+	input.InputError{
 		background: #d11e01;
 		color: #ffffff;
 	}
 
-	input.InputNormal
-	{
+	input.InputNormal{
 		background: #ffffff;
 		color: #000000;
 	}

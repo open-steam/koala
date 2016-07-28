@@ -8462,10 +8462,6 @@ msgstr "Sollen alle %NO Einträge in dieser Kategorie auch gelöscht werden?"
 msgid "Delete '%NAME'?"
 msgstr "'%NAME' löschen?"
 
-#: ../public/weblog_category_edit.php:73
-msgid "Edit '%NAME'"
-msgstr ""
-
 #: ../public/weblog_delete.php:11
 msgid "The weblog '%NAME' has been deleted."
 msgstr "Weblog '%NAME' wurde gelöscht."
@@ -8523,8 +8519,8 @@ msgid "Your post"
 msgstr "Ihr Eintrag"
 
 #: ../public/weblog_entry_edit.php:144 ../public/wiki_edit.php:151
-msgid "Edit '%NAME'?"
-msgstr "'%NAME' ändern?"
+msgid "Edit '%NAME'"
+msgstr "'%NAME' bearbeiten"
 
 #: ../public/weblog_new.php:42
 msgid "The name of the weblog is missing."
