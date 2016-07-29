@@ -35,6 +35,10 @@ class FolderObject extends AbstractExtension implements IObjectExtension {
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/folder.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/640353/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \Explorer\Commands\NewFolderForm();
 	}

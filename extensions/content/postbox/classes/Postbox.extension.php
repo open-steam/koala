@@ -32,6 +32,10 @@ class Postbox extends AbstractExtension implements IObjectExtension, IIconBarExt
         return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/postbox.png";
     }
 
+    public function getHelpUrl(){
+      return "https://bid.lspb.de/explorer/ViewDocument/1205004/";
+    }
+
     public function getCreateNewCommand(IdRequestObject $idEnvironment) {
         return new \Postbox\Commands\NewPostbox();
     }

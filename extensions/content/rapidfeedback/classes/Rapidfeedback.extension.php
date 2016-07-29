@@ -31,6 +31,10 @@ class Rapidfeedback extends AbstractExtension implements IObjectExtension, IIcon
 		return $this->getAssetUrl() . "icons/rapidfeedback.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/728049/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \Rapidfeedback\Commands\NewRapidfeedbackForm();
 	}

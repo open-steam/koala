@@ -31,6 +31,10 @@ class PhotoAlbum extends AbstractExtension implements IObjectExtension, IObjectM
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/gallery.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/640358/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PhotoAlbum\Commands\NewGallery();
 	}

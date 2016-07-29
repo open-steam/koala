@@ -41,6 +41,10 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/portal.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/640356/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \Portal\Commands\NewPortalForm();
 	}

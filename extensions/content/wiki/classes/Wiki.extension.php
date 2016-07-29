@@ -31,6 +31,10 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 		return $this->getAssetUrl() . "icons/wiki.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/728048/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \Wiki\Commands\NewWikiForm();
 	}

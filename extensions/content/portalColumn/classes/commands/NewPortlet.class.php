@@ -76,7 +76,7 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 			if($helpurl != "") $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><img src='" . PATH_URL . "explorer/asset/icons/help.png\' style=\"float:right; width: 16px; height: 16px;\"></a>";
 			$html .= "<br>";
 		}
-		$html .= "<div style=\"float:right\"><a class=\"bidButton negative\" onclick=\"closeDialog();return false;\" href=\"#\">Abbrechen</a></div></div><div id=\"wizard_wrapper\"></div>";
+		$html .= "<br><div style=\"float:right\"><a class=\"bidButton negative\" onclick=\"closeDialog();return false;\" href=\"#\">Abbrechen</a></div></div><div id=\"wizard_wrapper\"></div>";
 
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($html);

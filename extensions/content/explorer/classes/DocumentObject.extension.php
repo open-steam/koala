@@ -35,6 +35,10 @@ class DocumentObject extends AbstractExtension implements IObjectExtension {
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/generic.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/640341/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \Explorer\Commands\NewDocumentForm();
 	}
