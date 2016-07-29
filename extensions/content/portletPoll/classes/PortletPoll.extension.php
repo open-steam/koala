@@ -31,6 +31,10 @@ class PortletPoll extends AbstractExtension implements IObjectExtension{
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/poll.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/729019/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletPoll\Commands\CreateNewForm();
 	}

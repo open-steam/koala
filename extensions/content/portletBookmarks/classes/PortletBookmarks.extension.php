@@ -31,6 +31,10 @@ class PortletBookmarks extends AbstractExtension implements IObjectExtension{
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/bookmark.png";
 	}
 
+	public function getHelpUrl(){
+		return "";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletBookmarks\Commands\CreateNewForm();
 	}

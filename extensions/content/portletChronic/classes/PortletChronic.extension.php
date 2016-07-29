@@ -31,6 +31,10 @@ class PortletChronic extends AbstractExtension implements IObjectExtension{
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/chronic.png";
 	}
 
+	public function getHelpUrl(){
+		return "";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletChronic\Commands\CreateNewForm();
 	}

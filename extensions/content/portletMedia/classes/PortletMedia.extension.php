@@ -31,6 +31,10 @@ class PortletMedia extends AbstractExtension implements IObjectExtension{
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/play.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/729003/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletMedia\Commands\CreateNewForm();
 	}

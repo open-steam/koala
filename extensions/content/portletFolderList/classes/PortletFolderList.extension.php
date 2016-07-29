@@ -31,6 +31,10 @@ class PortletFolderList extends AbstractExtension implements IObjectExtension{
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/folder.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/1204992/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletFolderList\Commands\CreateNewForm();
 	}

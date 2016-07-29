@@ -31,6 +31,10 @@ class PortletUserPicture extends AbstractExtension implements IObjectExtension{
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/userPicture.png";
 	}
 
+	public function getHelpUrl(){
+		return "";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletUserPicture\Commands\CreateNewForm();
 	}

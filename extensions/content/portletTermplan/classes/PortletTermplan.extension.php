@@ -31,6 +31,10 @@ class PortletTermplan extends AbstractExtension implements IObjectExtension{
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/termplan.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/729020/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletTermplan\Commands\CreateNewForm();
 	}

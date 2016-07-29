@@ -31,6 +31,10 @@ class PortletHeadline extends AbstractExtension implements IObjectExtension{
 		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/headline.png";
 	}
 
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/640714/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \PortletHeadline\Commands\CreateNewForm();
 	}

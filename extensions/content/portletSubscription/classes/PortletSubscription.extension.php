@@ -32,6 +32,10 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         return Explorer::getInstance()->getAssetUrl() . "icons/subscribe.png";
     }
 
+    public function getHelpUrl(){
+      return "https://bid.lspb.de/explorer/ViewDocument/1204999/";
+    }
+
     public function getCreateNewCommand(IdRequestObject $idEnvironment) {
         return new \PortletSubscription\Commands\CreateNewForm();
     }
