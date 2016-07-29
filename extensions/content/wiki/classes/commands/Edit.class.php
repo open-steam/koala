@@ -80,7 +80,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		    //Check if already exists
 		    $lw = new \koala_wiki($wiki_container);
 		    if($lw->contains_item($values['title']) && $create){
-					$problems = gettext('Enter an other name. This wiki already exists.');
+					$problems = "Es existiert bereits ein Eintrag mit diesem Namen. Bitte wählen Sie einen anderen.";
 		    }
 
 		    if (empty($values["title"])) $problems = gettext("Please enter a subject for your message.");
