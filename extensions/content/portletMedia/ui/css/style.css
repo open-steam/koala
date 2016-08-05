@@ -16,3 +16,8 @@
 .portlet.media {
   word-wrap: break-word;
 }
+
+.portlet.media .CSSLoader {
+	position: relative;
+	margin: 0 0 0 -50px;
+}

@@ -156,18 +156,30 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                 //document type: audio
                 else if ((strpos($mimetype, "audio") !== false)) {
                     $mediaplayerHtml = new \Widgets\RawHtml();
-                    $mediaplayerPath = \PortletMedia::getInstance()->getAssetUrl() . 'emff_lila_info.swf';
-                    $mediaplayerWidth = "200";
-                    $mediaplayerHeight = round(200 * 11 / 40) . "";
                     $mediaPlayerUrl = getDownloadUrlForObjectId($this->id);
-                    $mediaplayerHtml->setHtml('<h2>' . $name . '</h2><object style="width:' . $mediaplayerWidth . 'px; height:' . $mediaplayerHeight . 'px" type="application/x-shockwave-flash" data="' . $mediaplayerPath . '"><param name="movie" value="' . $mediaplayerPath . '" /><param name="FlashVars" value="src=' . $mediaPlayerUrl . '" /><param name="bgcolor" value="#cccccc"></object>');
+                    if((strpos($mimetype, "mpeg") !== false)) { //mp3 format, use html 5 audio tag
+                      $mediaplayerHtml->setHtml('<h2>' . $name . '</h2><div class="CSSLoader"></div><audio controls style="display:none;" oncanplay="$(this).prev().remove();$(this).show();"><source src="' . $mediaPlayerUrl . '" type="audio/mpeg">Ihr Browser unterstützt das Audio-Element nicht.</audio>');
+                    }
+                    else{
+                      $mediaplayerPath = \PortletMedia::getInstance()->getAssetUrl() . 'emff_lila_info.swf';
+                      $mediaplayerWidth = "200";
+                      $mediaplayerHeight = round(200 * 11 / 40) . "";
+                      $mediaplayerHtml->setHtml('<h2>' . $name . '</h2><object style="width:' . $mediaplayerWidth . 'px; height:' . $mediaplayerHeight . 'px" type="application/x-shockwave-flash" data="' . $mediaplayerPath . '"><param name="movie" value="' . $mediaplayerPath . '" /><param name="FlashVars" value="src=' . $mediaPlayerUrl . '" /><param name="bgcolor" value="#cccccc"></object>');
+                    }
                 }
 
                 //document type: video
                 else if ((strpos($mimetype, "video/x-flv") !== false) || (strpos($mimetype, "video/x-m4v") !== false) || (strpos($mimetype, "video/mpeg") !== false) || (strpos($mimetype, "video/mp4") !== false) || (strpos($mimetype, "video/3gpp") !== false) || (strpos($mimetype, "video/quicktime") !== false)){
                     $html = "<h2>" . $name . "</h2>";
-                    $mediaplayerHtml = new \Widgets\Videoplayer();
-                    $mediaplayerHtml->setTarget(getDownloadUrlForObjectId($this->id));
+                    $mediaPlayerUrl = getDownloadUrlForObjectId($this->id);
+                    if((strpos($mimetype, "mp4") !== false)) { //mp4 format, use html 5 video tag
+                      $mediaplayerHtml = new \Widgets\RawHtml();
+                      $mediaplayerHtml->setHtml('<div class="CSSLoader"></div><video controls width="950" style="display:none;" oncanplay="$(this).prev().remove();$(this).show();"><source src="' . $mediaPlayerUrl . '" type="video/mp4">Ihr Browser unterstützt das Video-Element nicht.</video>');
+                    }
+                    else{
+                      $mediaplayerHtml = new \Widgets\Videoplayer();
+                      $mediaplayerHtml->setTarget($mediaPlayerUrl);
+                    }
                 }
 
                 //document type: download

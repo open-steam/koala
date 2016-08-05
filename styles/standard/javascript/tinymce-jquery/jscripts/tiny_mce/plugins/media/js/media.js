@@ -116,12 +116,12 @@
 
 		insert : function() {
 			var editor = tinyMCEPopup.editor;
-
 			this.formToData();
 			editor.execCommand('mceRepaint');
 			tinyMCEPopup.restoreSelection();
 			editor.selection.setNode(editor.plugins.media.dataToImg(this.data));
 			tinyMCEPopup.close();
+			editor.execCallback('onchange_callback');
 		},
 
 		preview : function() {
@@ -273,11 +273,11 @@
                 } else if (data.type == 'audio') {
                     if (data.video.sources[0])
                         setVal('src', data.video.sources[0].src);
-                    
+
                     src = data.video.sources[1];
                     if (src)
                         setVal('audio_altsource1', src.src);
-                    
+
                     src = data.video.sources[2];
                     if (src)
                         setVal('audio_altsource2', src.src);
@@ -343,13 +343,13 @@
                 } else if (data.type == 'audio') {
                     if (!data.video.sources)
                         data.video.sources = [];
-                    
+
                     data.video.sources[0] = {src : src};
-                    
+
                     src = getVal("audio_altsource1");
                     if (src)
                         data.video.sources[1] = {src : src};
-                    
+
                     src = getVal("audio_altsource2");
                     if (src)
                         data.video.sources[2] = {src : src};

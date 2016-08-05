@@ -3,7 +3,7 @@
 
 		<div title="schließen ohne zu speichern" class="close-button" onclick="closeDialog()"></div>
 
-		<div class="infoBar"><h2>{DIALOG_TITLE}</h2>
+		<div class="dialogTitleBar"><h2>{DIALOG_TITLE}</h2>
 		<!-- BEGIN BLOCK_DIALOG_DESCRIPTION -->
 		{DIALOG_DESCRIPTION}
 		<!-- END BLOCK_DIALOG_DESCRIPTION -->
@@ -69,7 +69,7 @@
                 {SAVE_AND_CLOSE_BUTTON_RELOAD}
             } else {
 
-                
+
 
                 if (($("#progressbarwrapper").length == 0)) {
                     $('#overlay').css("z-index", 300);

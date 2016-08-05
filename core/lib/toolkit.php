@@ -837,7 +837,8 @@ function cleanHTML($dirtyHTML) {
         'src' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
-        'preload' => 'CDATA'
+        'preload' => 'CDATA',
+        'controls' => 'CDATA'
             )
     );
 
@@ -850,7 +851,8 @@ function cleanHTML($dirtyHTML) {
         'src' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
-        'preload' => 'CDATA'
+        'preload' => 'CDATA',
+        'controls' => 'CDATA'
             )
     );
 

@@ -37,7 +37,7 @@
         <div id="specific_div" class="visible">
             Oder setzen Sie die Zugriffsrechte individuell:
             <table id="global" width="100%">
-                <tr class="infoBar">
+                <tr class="dialogTitleBar">
                     <td width="40%"><b>Globale Benutzergruppen</b></td>
                     <td><b>Lesen</b></td>
                     <td><b>Schreiben</b></td>
@@ -70,7 +70,7 @@
                     <td>{STEAM_USER_sanction}</td>
                 </tr>
 
-                <tr class="infoBar">
+                <tr class="dialogTitleBar">
                     <td width="40%"><b>Gruppen</b></td>
                     <td><b>Lesen</b></td>
                     <td><b>Schreiben</b></td>
@@ -99,7 +99,7 @@
                 <!-- END GROUPS -->
 
 
-                <tr class="infoBar">
+                <tr class="dialogTitleBar">
                     <td width="40%"><b>Benutzer</b></td>
                     <td><b>Lesen</b></td>
                     <td><b>Schreiben</b></td>
@@ -226,7 +226,7 @@
       $("table").eq(2).hide();
       $("table").eq(3).hide();
       $("table").eq(4).hide();
-      
+
       if(displayed == "none"){
         $(element).css("color", "blue");
         $(element).css("font-weight", "bold");

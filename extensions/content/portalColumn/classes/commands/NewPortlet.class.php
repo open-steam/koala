@@ -39,7 +39,7 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
 
-		$html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px\">";
+		$html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px; margin-top: 20px;\">";
 
 		$user = \lms_steam::get_current_user();
 		$homeId = $user->get_attribute("HOME_PORTAL")->get_id();

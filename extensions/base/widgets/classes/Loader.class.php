@@ -53,13 +53,12 @@ class Loader extends Widget {
     public function getHtml() {
         $this->getContent()->setVariable("WRAPPER_ID", $this->wrapperId);
         $this->getContent()->setVariable("MESSAGE", $this->message);
-        //$this->getContent()->setVariable("IMAGE_SRC", PATH_URL . "widgets/asset/loading.gif");
-        $this->getContent()->setVariable("COMMENT", $this->command);
-        $this->getContent()->setVariable("ELEMENT_ID", $this->elementId);
-        $this->getContent()->setVariable("TYPE", $this->type);
-        $this->getContent()->setVariable("COMPLETEFUNCTION", $this->completeFunction);
-        $this->getContent()->setVariable("SUCCESSFUNCTION", $this->successFunction);
-        $this->getContent()->setVariable("NAMESPACE", $this->namespace);
+        //$this->getContent()->setVariable("COMMAND", $this->command);
+        //$this->getContent()->setVariable("ELEMENT_ID", $this->elementId);
+        //$this->getContent()->setVariable("TYPE", $this->type);
+        //$this->getContent()->setVariable("COMPLETEFUNCTION", $this->completeFunction);
+        //$this->getContent()->setVariable("SUCCESSFUNCTION", $this->successFunction);
+        //$this->getContent()->setVariable("NAMESPACE", $this->namespace);
         $params = "";
         if (isset($this->params)) {
             foreach (array_keys($this->params) as $key) {
@@ -68,7 +67,16 @@ class Loader extends Widget {
             }
             $params = substr($params, 0, -1);
         }
-        $this->getContent()->setVariable("PARAMS", "{" . $params . "}");
+        //$this->getContent()->setVariable("PARAMS", "{" . $params . "}");
+
+        if(isset($this->command)){
+          $this->getContent()->setVariable("SCRIPT", '<script type="text/javascript">
+           jQuery(document).ready(function(){
+             sendRequest("' . $this->command . '", {' . $params . '}, "' . $this->elementId . '", "' . $this->type . '", ' . $this->completeFunction . ', ' . $this->successFunction . ', "' . $this->namespace . '");
+           });
+           </script>');
+         }
+
         return $this->getContent()->get();
     }
 

@@ -5,7 +5,6 @@ namespace PortletMedia\Commands;
 class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
     private $params;
-    private $id;
     private $content;
     private $rawHtmlWidget;
 
@@ -134,16 +133,30 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->parse("image");
             } else if ($media_type == "movie" && !$isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movie");
-                $mediaplayerHtml = new \Widgets\Videoplayer();
 
+                $pathArray = explode("/", $url);
+                $currentObjectID = "";
+                for ($count = 0; $count < count($pathArray); $count++) {
+                    if (intval($pathArray[$count]) !== 0) {
+                        $currentObjectID = $pathArray[$count];
+                        break;
+                    }
+                }
+
+                $mime = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID)->get_attribute(DOC_MIME_TYPE);
                 $column = $portlet->get_environment();
                 $columnWidth = intval($column->get_attribute("bid:portal:column:width"));
 
-                $mediaplayerHtml->setHeight(intval(($columnWidth - 10) / 4 * 3));
-                $mediaplayerHtml->setWidth($columnWidth - 10);
-
-                $mediaplayerHtml->setTarget($url);
-                $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
+                if((strpos($mime, "mp4") !== false)) { //mp4 format, use html 5 video tag
+                  $tmpl->setVariable("MEDIA_PLAYER", '<div class="CSSLoader"></div><video controls width="' . intval($columnWidth - 10) . '" oncanplay="$(this).prev().remove();$(this).show();" style="display:none;"><source src="' . $url . '" type="video/mp4">Ihr Browser unterstützt das Video-Element nicht.</video>');
+                }
+                else{
+                  $mediaplayerHtml = new \Widgets\Videoplayer();
+                  $mediaplayerHtml->setHeight(intval(($columnWidth - 10) / 4 * 3));
+                  $mediaplayerHtml->setWidth($columnWidth - 10);
+                  $mediaplayerHtml->setTarget($url);
+                  $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
+                }
                 $tmpl->parse("movie");
             } else if ($media_type == "movie" && $isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movieYoutube");
@@ -178,12 +191,27 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->parse("movieYoutube");
             } else if ($media_type == "audio") {
                 $tmpl->setCurrentBlock("audio");
+
+                $pathArray = explode("/", $url);
+                $currentObjectID = "";
+                for ($count = 0; $count < count($pathArray); $count++) {
+                    if (intval($pathArray[$count]) !== 0) {
+                        $currentObjectID = $pathArray[$count];
+                        break;
+                    }
+                }
+
+                $mime = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID)->get_attribute(DOC_MIME_TYPE);
                 $width = str_replace(array("px", "%"), "", $portlet->get_environment()->get_attribute("bid:portal:column:width")) - 10;
-                $media_player = $portletInstance->getAssetUrl() . 'emff_lila_info.swf';
-                $tmpl->setVariable("MEDIA_PLAYER", $media_player);
-                $tmpl->setVariable("MEDIA_PLAYER_WIDTH", $width);
-                $tmpl->setVariable("MEDIA_PLAYER_HEIGHT", round($width * 11 / 40));
-                $tmpl->setVariable("URL", $url);
+
+                if((strpos($mime, "mpeg") !== false)) { //mp3 format, use html 5 audio tag
+                  $mediaPlayerUrl = getDownloadUrlForObjectId($currentObjectID);
+                  $tmpl->setVariable("AUDIO_PLAYER", '<div class="CSSLoader"></div><audio controls style="width:' . $width . 'px; display:none;" oncanplay="$(this).prev().remove();$(this).show();"><source src="' . $mediaPlayerUrl . '" type="audio/mpeg">Ihr Browser unterstützt das Audio-Element nicht.</audio>');
+                }
+                else{
+                  $media_player = $portletInstance->getAssetUrl() . 'emff_lila_info.swf';
+                  $tmpl->setVariable("AUDIO_PLAYER", '<object style="width:' . $width . 'px; height:' . round($width * 11 / 40) . 'px" type="application/x-shockwave-flash" data="' . $media_player . '"><param name="movie" value="{MEDIA_PLAYER}" /><param name="FlashVars" value="src=' . $url . '" /><param name="bgcolor" value="#cccccc"></object>');
+                }
                 $tmpl->parse("audio");
             }
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {

@@ -83,14 +83,14 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->setPositionX($this->params["mouseX"]);
         $dialog->setPositionY($this->params["mouseY"]);
 
-        $html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px\">";
+        $html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px; margin-top: 20px;\">";
 
         foreach ($commands as $command) {
             $namespaces = $command->getExtension()->getUrlNamespaces();
             $html .= "<div style=\"clear:both;\" class=\"explorernewentry\">";
             $html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><img style=\"float:left;\" src=\"{$command->getExtension()->getObjectIconUrl()}\"><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">{$command->getExtension()->getObjectReadableName()}</p></a>";
             $helpurl = $command->getExtension()->getHelpUrl();
-      			if($helpurl != "") 
+      			if($helpurl != "")
             $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><img src='" . PATH_URL . "explorer/asset/icons/help.png\' style=\"float:right; width: 16px; height: 16px;\"></a>";
             $html .= "</div>";
         }

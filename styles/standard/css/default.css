@@ -622,19 +622,6 @@
 	}
 
 	/*
-	** Info Bar
-	** used in: tutorial_new.template.html, tutorials_prefs.template.html, units.template.html, units_docpool_new.template.html, units_extern_new.template.html,
-	**          units_homework_list_inventory.template.html, units_homework_new.template.html, units_homework.template.html, units_pointlist_new.template.html,
-	**          units_pointlist_sheets_edit.template.html, units_pointlist.template.html, units_pyramiddiscussion_new.template.html, units_routeplaner_new.template.html
-	*/
-	.infoBar {
-		margin-bottom: 15px;
-		background: url(../images/page_layout/info_bar_bg.png) repeat-x bottom;
-		background-color: #efefef;
-	}
-
-
-	/*
 	** Action Bar
 	** used in: calendar.template.html, courses_overview.template.html, document_read.template.html, forum_all_topics.template.html, forum_discussion.template.html,
 	**          group_profile.template.html, groups_public.template.html, messages_mailbox.template.html, profile_edit.template.html, rss_feeds.template.html, user_profile.template.html,
@@ -1322,6 +1309,9 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
   	display:inline-block;
 	}
 
+	/*
+	** Styles for the popupmenuanker (gear)
+	*/
 	.popupmenuanker {
 		float: right;
 		cursor: pointer;
@@ -1330,3 +1320,74 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 		margin-right: 5px;
 		background-image: url(../images/config_grey_16.png);
 	}
+
+	/*
+	** Styles for the standard CSS loader
+	*/
+.CSSLoader {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+		margin: -50px 0 0 -50px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 10px solid rgba(158, 158, 158, 0);
+    border-top-color: #ffff4d;
+    -webkit-animation: CSSLoaderSpin 2s linear infinite;
+    animation: CSSLoaderSpin 3s linear infinite;
+}
+
+.CSSLoader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 10px solid rgba(158, 158, 158, 0);
+    border-top-color: #ffa84d;
+    -webkit-animation: CSSLoaderSpin 3s linear infinite;
+    animation: CSSLoaderSpin 5s linear infinite;
+}
+
+.CSSLoader:after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    border: 10px solid rgba(158, 158, 158, 0);
+    border-top-color: #3a6e9f;
+    -webkit-animation: CSSLoaderSpin 1.5s linear infinite;
+    animation: CSSLoaderSpin 3s linear infinite;
+}
+
+@-webkit-keyframes CSSLoaderSpin {
+  0%   {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes CSSLoaderSpin {
+  0%   {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
