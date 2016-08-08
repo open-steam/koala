@@ -927,8 +927,21 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $checkboxWidget->setData($user);
             $checkboxWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_SHOW_HIDDEN_DOCUMENTS"));
             $frameResponseObject->addWidget($clearer);
-
             $frameResponseObject->addWidget($checkboxWidget);
+
+            $explorerViewWidget = new \Widgets\ComboBox();
+            $explorerViewWidget->setLabel("Exploreransicht");
+            $explorerViewWidget->setData($user);
+            $explorerViewWidget->setOptions(array(
+                //array("name" => "Intelligente Auswahl", "value" => "touch"),
+                array("name" => "Liste", "value" => "list"),
+                array("name" => "Galerie", "value" => "gallery"),
+            ));
+            $explorerViewWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_VIEW"));
+            $frameResponseObject->addWidget($clearer);
+            $frameResponseObject->addWidget($explorerViewWidget);
+            $frameResponseObject->addWidget($clearer);
+
             //save button at the end of the form
             $saveButton = new \Widgets\SaveButton();
             $frameResponseObject->addWidget($saveButton);

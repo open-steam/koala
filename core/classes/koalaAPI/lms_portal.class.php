@@ -469,10 +469,10 @@ return $rand_value;
             return FALSE;
         }
         $_SESSION[ "LMS_USER" ] = $this->lms_user;
-                language_support::choose_language( lms_steam::get_user_language());
-                if ($login == $password) {
-                        header( "Location: " . PATH_URL . "terms/"  );
-                } elseif ( empty ( $request ) ) {
+        language_support::choose_language( lms_steam::get_user_language());
+        if ($login == $password) {
+                header( "Location: " . PATH_URL . "terms/"  );
+        } elseif ( empty ( $request ) ) {
             header( "Location: " . PATH_URL . "desktop/"  );
         } else {
             header( "Location: " . PATH_SERVER . $request );

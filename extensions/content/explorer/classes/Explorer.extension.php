@@ -58,11 +58,13 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
             $envSanction = $object->check_access(SANCTION_SANCTION);
 
+            /*
             if($path == "/explorer/"){
               $array[] = array("name" => "<img title=\"Galerieansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "explorer/galleryview/'");
             } else{
               $array[] = array("name" => "<img title=\"Listenansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer_white.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "explorer/'");
             }
+            */
 
             if ($envSanction) {
                     $array[] = array("name" => "<img title=\"Neues Objekt\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
@@ -83,11 +85,13 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
               $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
               $envSanction = $object->check_access(SANCTION_SANCTION);
 
+              /*
               if(strpos($path, "/explorer/index/") !== false){
                 $array[] = array("name" => "<img title=\"Galerieansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "explorer/galleryview/" . $currentObjectID . "/'");
               } else{
                 $array[] = array("name" => "<img title=\"Listenansicht\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer_white.png\">", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "explorer/index/" . $currentObjectID . "/'");
               }
+              */
 
               if ($envSanction) {
                       $array[] = array("name" => "<img title=\"Neues Objekt\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");

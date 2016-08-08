@@ -73,7 +73,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         if (!$object instanceof \steam_object) {
-
             \ExtensionMaster::getInstance()->send404Error();
         }
 
@@ -87,6 +86,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             throw new \Exception("This object cannot contain any objects.", E_OBJECT_NO_INVENTORY);
         }
         */
+
+        //check the explorer view attribute which is specified in the profile
+        $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
+        if($viewAttribute == "gallery"){
+          header("location: " . PATH_URL . "explorer/GalleryView/" . $this->id . "/");
+          die;
+        }
 
         $objectModel = \AbstractObjectModel::getObjectModel($object);
 

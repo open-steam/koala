@@ -69,6 +69,13 @@ class GalleryView extends \AbstractCommand implements \IFrameCommand {
 					\ExtensionMaster::getInstance()->send404Error();
 			}
 
+			//check the explorer view attribute which is specified in the profile
+      $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
+      if($viewAttribute == "list"){
+        header("location: " . PATH_URL . "explorer/Index/" . $this->id . "/");
+        die;
+      }
+
 			$objectModel = \AbstractObjectModel::getObjectModel($object);
 
 			if ($object && $object instanceof \steam_container) {
