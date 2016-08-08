@@ -266,13 +266,13 @@ class GalleryView extends \AbstractCommand implements \IFrameCommand {
 
 			$slider = new \Widgets\RawHtml();
 			$slider->setHtml('<script>$(function() {$("#slider").slider({
-				value:5,
+				value:10,
 				min: 1,
-				max: 12,
+				max: 15,
 				step: 1,
 				slide: function(event, ui) {
 					$("#objectSlider").val(ui.value);
-					$(".galleryEntry").removeClass("Row1 Row2 Row3 Row4 Row5 Row6 Row7 Row8 Row9 Row10 Row11 Row12").addClass("Row" + ui.value);
+					$(".galleryEntry").removeClass("Row1 Row2 Row3 Row4 Row5 Row6 Row7 Row8 Row9 Row10 Row11 Row12 Row13 Row14 Row15").addClass("Row" + ui.value);
 				}
 			});
 			$("#objectSlider").val($("#slider").slider("value"))});</script><p id="objectSliderLabel" style="margin-top: 20px;float: right;margin-right: -130px;"><label for="objectSlider">Objekte pro Zeile:</label><input type="text" id="objectSlider" readonly style="border:0; color:#f6931f; font-weight:bold; width:30px;"></p><div id="slider"></div>');
