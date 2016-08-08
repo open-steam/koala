@@ -52,6 +52,10 @@ div[id$="_3"].listviewer-item-cell {
     display:block;
 }
 
+.galleryEntry input {
+    width: 100%;
+}
+
 .galleryEntry:hover .popupmenuanker {
     display:block;
 }
