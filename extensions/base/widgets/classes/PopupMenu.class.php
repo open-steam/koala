@@ -71,7 +71,7 @@ class PopupMenu extends Widget {
 				}
 
 				if (isset($item["menu"])) {
-					$html .= "<div class=\"popupmenuitem popupsubmenuanker\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\"><a href=\"#\">{$item["name"]}</a>";
+					$html .= "<div class=\"popupmenuitem popupsubmenuanker {$item["direction"]}\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\"><a href=\"#\">{$item["name"]}</a>";
 					if (is_array($item["menu"])) {
 						$html .= "<div class=\"popupsubmenuwapper {$item["direction"]}\">";
 						foreach ($item["menu"] as $subMenuItem) {
@@ -117,7 +117,7 @@ class PopupMenu extends Widget {
 				}
 			}
 		}
-		$script = "jQuery(\".popupmenuwrapper\").children().last().find(\"img\").load(function(){jQuery(that).removeClass(\"popupmenuloading\").addClass(\"popupmenuanker\").addClass(\"open\");jQuery(\".popupmenuwrapper\").show();})";
+		$script = "jQuery(\".popupmenuwrapper\").children().last().find(\"img\").load(function(){jQuery(that).removeClass(\"popupmenuloading\").addClass(\"popupmenuanker\").addClass(\"open\");jQuery(\".popupmenuwrapper\").css(\"display\", \"table\");})";
 		$html .= "<script>" . $script . "</script>";
 		return $html;
 	}

@@ -55,7 +55,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                 if ($oldEnv instanceof \steam_object && $oldEnv->check_access(SANCTION_WRITE)) {
                     $restoreIcon = $explorerUrl . "icons/menu/restore.png";
                     $items = array(
-                        array("name" => "Wiederherstellen<img src=\"{$restoreIcon}\">", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'env':document.getElementById('environment').value}", "type" => "nonModalUpdater"));
+                        array("name" => "<img src=\"{$restoreIcon}\">Wiederherstellen", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'env':document.getElementById('environment').value}", "type" => "nonModalUpdater"));
                 } else {
                     $items = array(array("name" => "Keine Aktionen möglich"));
                 }
@@ -96,20 +96,20 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     if ($type === "forum" || $type === "wiki" || $type === "room" || $type === "gallery" || $type === "portal" || ($type === "rapidfeedback" && $object->get_creator()->get_id() == $user->get_id()) || ($type === "document" && strstr($object->get_attribute(DOC_MIME_TYPE), "text")) || $type === "postbox") {
                         $subscriptions = $user->get_attribute("USER_HOMEPORTAL_SUBSCRIPTIONS");
                         if (is_array($subscriptions) && in_array($object->get_id(), $subscriptions)) {
-                            $subscription = array("name" => "Abbestellen<img src=\"{$unsubscribeIcon}\">", "command" => "Unsubscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}' }", "type" => "reload");
+                            $subscription = array("name" => "<img src=\"{$unsubscribeIcon}\">Abbestellen", "command" => "Unsubscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}' }", "type" => "reload");
                         } else {
-                            $subscription = array("name" => "Abonnieren<img src=\"{$subscribeIcon}\">", "command" => "Subscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}', 'column' : '2' }", "type" => "reload");
+                            $subscription = array("name" => "<img src=\"{$subscribeIcon}\">Abonnieren", "command" => "Subscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}', 'column' : '2' }", "type" => "reload");
                         }
                     }
                   }
                 }
 
                 $items = array(
-                    ($this->logged_in && $object->check_access(SANCTION_READ)) ? array("name" => "Kopieren<img src=\"{$copyIcon}\">", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
-                    ($object->check_access(SANCTION_WRITE)) ? array("name" => "Ausschneiden<img src=\"{$cutIcon}\">", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
-                    ($this->logged_in) ? array("name" => "Referenz erstellen<img src=\"{$referIcon}\">", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
-                    ($object->check_access(SANCTION_WRITE)) ? array("name" => "Löschen<img src=\"{$trashIcon}\">", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater") : "",
-                    ($object->check_access(SANCTION_WRITE)) ? array("name" => "Einfärben<img src=\"{$colorpickerIcon}\">", "direction" => "left", "menu" => array (
+                    ($this->logged_in && $object->check_access(SANCTION_READ)) ? array("name" => "<img src=\"{$copyIcon}\">Kopieren", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
+                    ($object->check_access(SANCTION_WRITE)) ? array("name" => "<img src=\"{$cutIcon}\">Ausschneiden", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
+                    ($this->logged_in) ? array("name" => "<img src=\"{$referIcon}\">Referenz erstellen", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
+                    ($object->check_access(SANCTION_WRITE)) ? array("name" => "<img src=\"{$trashIcon}\">Löschen", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater") : "",
+                    ($object->check_access(SANCTION_WRITE)) ? array("name" => "<img src=\"{$colorpickerIcon}\">Einfärben", "direction" => "right", "menu" => array (
                         array("raw" => " <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'transparent'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/transparent.png\"></a>
                             <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'red'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/red.png\"></a>
                             <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'orange'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/orange.png\"></a>
@@ -119,32 +119,31 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                             <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'purple'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/purple.png\"></a>
                             <a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'grey'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/grey.png\"></a>"),
                     )) : "",
-                    ($this->logged_in /*&& !\Bookmarks\Model\Bookmark::isBookmark($this->id)*/) ? array("name" => "Lesezeichen anlegen<img src=\"{$bookmarkIcon}\">", "command" => "AddBookmark", "namespace" => "bookmarks", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
+                    ($this->logged_in /*&& !\Bookmarks\Model\Bookmark::isBookmark($this->id)*/) ? array("name" => "<img src=\"{$bookmarkIcon}\">Lesezeichen anlegen", "command" => "AddBookmark", "namespace" => "bookmarks", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
 
                     $subscription,
 
-                    ($object->check_access(SANCTION_WRITE) && count($inventory) >=2) ? array("name" => "Umsortieren<img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
-                        ($index > $firstElement) ? array("name" => "Ganz nach oben<img src=\"{$topIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}", "type" => "nonModalUpdater") : "",
-                        ($index > $firstElement) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}", "type" => "nonModalUpdater") : "",
-                        ($index < count($inventory)-1-$counter) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}", "type" => "nonModalUpdater") : "",
-                        ($index < count($inventory)-1-$counter) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}", "type" => "nonModalUpdater") : ""
+                    ($object->check_access(SANCTION_WRITE) && count($inventory) >=2) ? array("name" => "<img src=\"{$sortIcon}\">Umsortieren", "direction" => "right", "menu" => array(
+                        ($index > $firstElement) ? array("name" => "<img src=\"{$topIcon}\">Ganz nach oben", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}", "type" => "nonModalUpdater") : "",
+                        ($index > $firstElement) ? array("name" => "<img src=\"{$upIcon}\">Eins nach oben", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}", "type" => "nonModalUpdater") : "",
+                        ($index < count($inventory)-1-$counter) ? array("name" => "<img src=\"{$downIcon}\">Eins nach unten", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'down'}", "type" => "nonModalUpdater") : "",
+                        ($index < count($inventory)-1-$counter) ? array("name" => "<img src=\"{$bottomIcon}\">Ganz nach unten", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}", "type" => "nonModalUpdater") : ""
                     )) : "",
 
                     ($this->logged_in) ? array("name" => "SEPARATOR") : "",
-                    array("raw" => "<a href=\"#\" style=\"width:500px;\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'nonModalUpdater'); } jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open'); return false;\">Umbenennen<img src=\"{$renameIcon}\"></a>"),
-                    (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index") && ($object->check_access(SANCTION_READ))) ? array("name" => "Listenansicht<img src=\"{$blankIcon}\">", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
-                    (($object instanceof \steam_document) && ($object->get_attribute(DOC_MIME_TYPE) != "text/html") && ($object->check_access(SANCTION_READ))) ? array("name" => "Herunterladen<img src=\"{$downloadIcon}\">", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $name) : "",
-                    array("name" => "Eigenschaften...<img src=\"{$propertiesIcon}\">", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
+                    array("raw" => "<a href=\"#\" style=\"width:500px;\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'nonModalUpdater'); } jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open'); return false;\"><img src=\"{$renameIcon}\">Umbenennen</a>"),
+                    (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index") && ($object->check_access(SANCTION_READ))) ? array("name" => "<img src=\"{$blankIcon}\">Listenansicht", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
+                    (($object instanceof \steam_document) && ($object->get_attribute(DOC_MIME_TYPE) != "text/html") && ($object->check_access(SANCTION_READ))) ? array("name" => "<img src=\"{$downloadIcon}\">Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $name) : "",
+                    array("name" => "<img src=\"{$propertiesIcon}\">Eigenschaften", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
 
                     //display rights dialog for a postbox or for a non postbox object
-                    ($object->check_access(SANCTION_SANCTION) && ($object->get_attribute(OBJ_TYPE) === 'postbox')) ? array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "postbox", "params" => "{'id':'{$this->id}'}", "type" => "popup") : "",
-                    ($object->check_access(SANCTION_SANCTION) && (stristr($object->get_attribute(OBJ_TYPE), 'postbox') === FALSE)) ? array("name" => "Rechte...<img src=\"{$rightsIcon}\">", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup") : ""
+                    ($object->check_access(SANCTION_SANCTION) && ($object->get_attribute(OBJ_TYPE) === 'postbox')) ? array("name" => "<img src=\"{$rightsIcon}\">Rechte", "command" => "Sanctions", "namespace" => "postbox", "params" => "{'id':'{$this->id}'}", "type" => "popup") : "",
+                    ($object->check_access(SANCTION_SANCTION) && (stristr($object->get_attribute(OBJ_TYPE), 'postbox') === FALSE)) ? array("name" => "<img src=\"{$rightsIcon}\">Rechte", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup") : ""
                 );
             }
 
             $popupMenu->setItems($items);
             $popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-            $popupMenu->setWidth("150px");
         } else {
             $writeAccess = TRUE;
             $readAccess = TRUE;
@@ -180,11 +179,11 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             $popupMenu =  new \Widgets\PopupMenu();
             if ($this->logged_in) {
                 $items = array(
-                    ($readAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Copy', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Kopiere Objekte ...', 0,  $SelectionFunction); return false;\">{$count} Objekte kopieren<img src=\"{$copyIcon}\"></a>") : "",
-                    ($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  $SelectionFunction); return false;\">{$count} Objekte ausschneiden<img src=\"{$cutIcon}\"></a>") : "",
-                    array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Referenziere Objekte ...', 0,  $SelectionFunction); return false;\">{$count} Objektreferenzen erstellen<img src=\"{$referIcon}\"></a>"),
-                    ($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', $paramsArrayFunction({}), $ElementIdFunction(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  $SelectionFunction); return false;\">{$count} Objekte löschen<img src=\"{$trashIcon}\"></a>") : "",
-                    ($writeAccess) ? array("name" => "{$count} Objekte einfärben<img src=\"{$colorpickerIcon}\">", "direction" => "left", "menu" => array (
+                    ($readAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Copy', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Kopiere Objekte ...', 0,  $SelectionFunction); return false;\"><img src=\"{$copyIcon}\">{$count} Objekte kopieren</a>") : "",
+                    ($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  $SelectionFunction); return false;\"><img src=\"{$cutIcon}\">{$count} Objekte ausschneiden</a>") : "",
+                    array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Referenziere Objekte ...', 0,  $SelectionFunction); return false;\"><img src=\"{$referIcon}\">{$count} Objektreferenzen erstellen</a>"),
+                    ($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', $paramsArrayFunction({}), $ElementIdFunction(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  $SelectionFunction); return false;\"><img src=\"{$trashIcon}\">{$count} Objekte löschen</a>") : "",
+                    ($writeAccess) ? array("name" => "<img src=\"{$colorpickerIcon}\">{$count} Objekte einfärben", "direction" => "right", "menu" => array (
                     array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'transparent'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/transparent.png\"></a>
                         <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'red'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/red.png\"></a>
                         <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'orange'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><img src=\"{$this->getExtension()->getAssetUrl()}icons/orange.png\"></a>
@@ -200,7 +199,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             }
             $popupMenu->setItems($items);
             $popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-            $popupMenu->setWidth("200px");
         }
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($popupMenu);

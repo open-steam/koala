@@ -58,22 +58,20 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = array(
-						(count($inventory) > 1) ? array("name" => "Umsortieren<img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
-							($index != 0) ? array("name" => "Ganz nach oben<img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'first'}") : "",
-							($index != 0) ? array("name" => "Eins nach oben<img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'up'}") : "",
-							($index < count($inventory)-1) ? array("name" => "Eins nach unten<img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'down'}") : "",
-							($index < count($inventory)-1) ? array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'last'}") : "",
+						(count($inventory) > 1) ? array("name" => "<img src=\"{$sortIcon}\">Umsortieren", "direction" => "right", "menu" => array(
+							($index != 0) ? array("name" => "<img src=\"{$topIcon}\">Ganz nach oben",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'first'}") : "",
+							($index != 0) ? array("name" => "<img src=\"{$upIcon}\">Eins nach oben",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'up'}") : "",
+							($index < count($inventory)-1) ? array("name" => "<img src=\"{$downIcon}\">Eins nach unten",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'down'}") : "",
+							($index < count($inventory)-1) ? array("name" => "<img src=\"{$bottomIcon}\">Ganz nach unten",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'last'}") : "",
 						)) : "",
+						array("name" => "<img src=\"{$copyIcon}\">Kopieren",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
+						array("name" => "<img src=\"{$cutIcon}\">Ausschneiden",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
+						array("name" => "<img src=\"{$trashIcon}\">Löschen",  "command" => "DeleteReference", "namespace" => "PortalColumn", "params" => "{'linkObjectId':'{$this->linkObjectId}'}", "type"=>"popup"),
 						array("name" => "SEPARATOR"),
-						array("name" => "Kopieren<img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Ausschneiden<img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Löschen<img src=\"{$trashIcon}\">",  "command" => "DeleteReference", "namespace" => "PortalColumn", "params" => "{'linkObjectId':'{$this->linkObjectId}'}", "type"=>"popup"),
-						array("name" => "SEPARATOR"),
-						array("name" => "Rechte<img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->linkObjectId}'}", "type"=>"popup"),
+						array("name" => "<img src=\"{$rightsIcon}\">Rechte",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->linkObjectId}'}", "type"=>"popup"),
 						);
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("150px");
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

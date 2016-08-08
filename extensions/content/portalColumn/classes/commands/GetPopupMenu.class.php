@@ -32,13 +32,12 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = 	array(
-						array("name" => "Komponente erstellen <img src=\"{$createIcon}\">", "command" => "NewPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "Komponente einfügen <img src=\"{$pasteIcon}\">", "command" => "InsertPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "Breite bearbeiten <img src=\"{$editIcon}\">", "command" => "Edit", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup")
+						array("name" => "<img src=\"{$createIcon}\">Komponente erstellen", "command" => "NewPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
+						array("name" => "<img src=\"{$pasteIcon}\">Komponente einfügen", "command" => "InsertPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
+						array("name" => "<img src=\"{$editIcon}\">Breite bearbeiten", "command" => "Edit", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup")
 					);
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("170px");
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);
 		return $ajaxResponseObject;

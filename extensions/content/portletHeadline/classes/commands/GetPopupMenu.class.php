@@ -54,24 +54,22 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = 	array(
-					array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "Edit", "namespace" => "PortletHeadline", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-					(count($inventory) > 1) ? array("name" => "Umsortieren <img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
-						($index != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'first'}") : "",
-						($index != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'up'}") : "",
-						($index < count($inventory)-1) ? array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'down'}") : "",
-						($index < count($inventory)-1) ? array("name" => "Ganz nach unten <img src=\"{$bottomIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'last'}") : ""
+					array("name" => "<img src=\"{$editIcon}\">Bearbeiten",  "command" => "Edit", "namespace" => "PortletHeadline", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
+					(count($inventory) > 1) ? array("name" => "<img src=\"{$sortIcon}\">Umsortieren", "direction" => "right", "menu" => array(
+						($index != 0) ? array("name" => "<img src=\"{$topIcon}\">Ganz nach oben",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'first'}") : "",
+						($index != 0) ? array("name" => "<img src=\"{$upIcon}\">Eins nach oben",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'up'}") : "",
+						($index < count($inventory)-1) ? array("name" => "<img src=\"{$downIcon}\">Eins nach unten",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'down'}") : "",
+						($index < count($inventory)-1) ? array("name" => "<img src=\"{$bottomIcon}\">Ganz nach unten",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'last'}") : ""
 					)) : "",
+					array("name" => "<img src=\"{$copyIcon}\">Kopieren",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
+					array("name" => "<img src=\"{$cutIcon}\">Ausschneiden",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
+					array("name" => "<img src=\"{$referIcon}\">Referenz erstellen",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"nonModalUpdater"),
+					array("name" => "<img src=\"{$trashIcon}\">Löschen",  "command" => "Delete", "namespace" => "PortletHeadline", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
 					array("name" => "SEPARATOR"),
-					array("name" => "Kopieren <img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
-					array("name" => "Ausschneiden <img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
-					array("name" => "Referenz erstellen <img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"nonModalUpdater"),
-					array("name" => "Löschen <img src=\"{$trashIcon}\">",  "command" => "Delete", "namespace" => "PortletHeadline", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-					array("name" => "SEPARATOR"),
-					array("name" => "Rechte <img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->id}'}", "type"=>"popup"),
+					array("name" => "<img src=\"{$rightsIcon}\">Rechte",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->id}'}", "type"=>"popup"),
 					);
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("150px");
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

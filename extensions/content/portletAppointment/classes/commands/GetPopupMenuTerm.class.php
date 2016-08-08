@@ -43,11 +43,10 @@ class GetPopupMenuTerm extends \AbstractCommand implements \IAjaxCommand {
 		$blankIcon = $explorerUrl . "icons/menu/blank.png";
 
 		$popupMenu =  new \Widgets\PopupMenu();
-		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"),
-						array("name" => "Löschen <img src=\"{$deleteIcon}\">",  "command" => "DeleteTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"));
+		$items = array(	array("name" => "<img src=\"{$editIcon}\">Bearbeiten",  "command" => "EditTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"),
+						array("name" => "<img src=\"{$deleteIcon}\">Löschen",  "command" => "DeleteTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"));
 		$popupMenu->setItems($items);
-		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("150px");
+		$popupMenu->setPosition(round($this->x + $this->width - 105) . "px", round($this->y + $this->height + 4) . "px");
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

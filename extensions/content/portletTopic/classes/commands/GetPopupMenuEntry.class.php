@@ -52,17 +52,16 @@ class GetPopupMenuEntry extends \AbstractCommand implements \IAjaxCommand {
 		$inventory = $this->countPortletEntries();
 
 		$popupMenu =  new \Widgets\PopupMenu();
-		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditTopicEntry", "namespace" => "PortletTopic", "params" => "{	'portletId':'{$this->id}','entryIndex':'{$this->entryIndex}','categoryIndex':'{$this->categoryIndex}'}", "type"=>"popup"),
-				($inventory >= 2) ? array("name" => "Umsortieren <img src=\"{$sortIcon}\">", "direction" => "left", "menu" => array(
-							($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "Ganz nach oben <img src=\"{$topIcon}\">",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'first'}") : "",
-							($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "Eins nach oben <img src=\"{$upIcon}\">",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'up'}") : "",
-							($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "Eins nach unten <img src=\"{$downIcon}\">",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'down'}") : "",
-							($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "Ganz nach unten <img src=\"{$bottomIcon}\">",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'last'}") : "",
+		$items = array(	array("name" => "<img src=\"{$editIcon}\">Bearbeiten",  "command" => "EditTopicEntry", "namespace" => "PortletTopic", "params" => "{	'portletId':'{$this->id}','entryIndex':'{$this->entryIndex}','categoryIndex':'{$this->categoryIndex}'}", "type"=>"popup"),
+				($inventory >= 2) ? array("name" => "<img src=\"{$sortIcon}\">Umsortieren", "direction" => "right", "menu" => array(
+							($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "<img src=\"{$topIcon}\">Ganz nach oben",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'first'}") : "",
+							($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "<img src=\"{$upIcon}\">Eins nach oben",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'up'}") : "",
+							($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "<img src=\"{$downIcon}\">Eins nach unten",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'down'}") : "",
+							($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "<img src=\"{$bottomIcon}\">Ganz nach unten",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'last'}") : "",
 						)) : "",
-						array("name" => "Löschen <img src=\"{$deleteIcon}\">",  "command" => "DeleteEntry", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}'}","type"=>"popup"));
+						array("name" => "<img src=\"{$deleteIcon}\">Löschen",  "command" => "DeleteEntry", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}'}","type"=>"popup"));
 		$popupMenu->setItems($items);
-		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("150px");
+		$popupMenu->setPosition(round($this->x + $this->width - 105) . "px", round($this->y + $this->height + 4) . "px");
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);
