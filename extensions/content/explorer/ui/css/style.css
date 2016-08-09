@@ -110,7 +110,6 @@ div[id$="_3"].listviewer-item-cell {
 
 .galleryEntry.selected .popupmenuanker {
   background-image: url("http://localhost/widgets/asset/config_white_16.png");
-  display: block;
 }
 
 .galleryEntry.selected .galleryEntryCheckbox {
