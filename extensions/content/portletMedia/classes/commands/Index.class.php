@@ -121,6 +121,20 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
               $url = str_replace("http","https",strtolower($url));
             }
 
+            $pathArray = explode("/", $url);
+            $currentObjectID = "";
+            for ($count = 0; $count < count($pathArray); $count++) {
+                if (intval($pathArray[$count]) !== 0) {
+                    $currentObjectID = $pathArray[$count];
+                    break;
+                }
+            }
+
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+            if($object instanceof \steam_document){
+              $mime = $object->get_attribute(DOC_MIME_TYPE);
+            }
+
             //determine youtube video
             $isYoutubeVideo = false;
             if (strpos($url, "youtube")) {
@@ -134,21 +148,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             } else if ($media_type == "movie" && !$isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movie");
 
-                $pathArray = explode("/", $url);
-                $currentObjectID = "";
-                for ($count = 0; $count < count($pathArray); $count++) {
-                    if (intval($pathArray[$count]) !== 0) {
-                        $currentObjectID = $pathArray[$count];
-                        break;
-                    }
-                }
-
-                $mime = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID)->get_attribute(DOC_MIME_TYPE);
                 $column = $portlet->get_environment();
                 $columnWidth = intval($column->get_attribute("bid:portal:column:width"));
 
-                if((strpos($mime, "mp4") !== false)) { //mp4 format, use html 5 video tag
-                  $tmpl->setVariable("MEDIA_PLAYER", '<div class="CSSLoader"></div><video controls width="' . intval($columnWidth - 10) . '" oncanplay="$(this).prev().remove();$(this).show();" style="display:none;"><source src="' . $url . '" type="video/mp4">Ihr Browser unterstützt das Video-Element nicht.</video>');
+                if($mime && strpos($mime, "mp4") !== false) { //mp4 format, use html 5 video tag
+                    $tmpl->setVariable("MEDIA_PLAYER", '<div class="CSSLoader"></div><video controls width="' . intval($columnWidth - 10) . '" oncanplay="$(this).prev().remove();$(this).show();" style="display:none;"><source src="' . $url . '" type="video/mp4">Ihr Browser unterstützt das Video-Element nicht.</video>');
                 }
                 else{
                   $mediaplayerHtml = new \Widgets\Videoplayer();
@@ -192,19 +196,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             } else if ($media_type == "audio") {
                 $tmpl->setCurrentBlock("audio");
 
-                $pathArray = explode("/", $url);
-                $currentObjectID = "";
-                for ($count = 0; $count < count($pathArray); $count++) {
-                    if (intval($pathArray[$count]) !== 0) {
-                        $currentObjectID = $pathArray[$count];
-                        break;
-                    }
-                }
-
-                $mime = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID)->get_attribute(DOC_MIME_TYPE);
                 $width = str_replace(array("px", "%"), "", $portlet->get_environment()->get_attribute("bid:portal:column:width")) - 10;
 
-                if((strpos($mime, "mpeg") !== false)) { //mp3 format, use html 5 audio tag
+                if($mime && strpos($mime, "mpeg") !== false) { //mp3 format, use html 5 audio tag
                   $mediaPlayerUrl = getDownloadUrlForObjectId($currentObjectID);
                   $tmpl->setVariable("AUDIO_PLAYER", '<div class="CSSLoader"></div><audio controls style="width:' . $width . 'px; display:none;" oncanplay="$(this).prev().remove();$(this).show();"><source src="' . $mediaPlayerUrl . '" type="audio/mpeg">Ihr Browser unterstützt das Audio-Element nicht.</audio>');
                 }

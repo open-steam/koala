@@ -46,7 +46,7 @@ class ColorOptions extends \AbstractCommand implements \IAjaxCommand {
 
         $ajaxResponseObject->setStatus("ok");
         $dialog = new \Widgets\Dialog();
-        $dialog->setTitle("Optionen zur Farbgestaltung von Portalen");
+        $dialog->setTitle("Farbgestaltung");
         $dialog->setAutoSaveDialog(true);
         $dialog->setWidth(400);
 
@@ -184,7 +184,6 @@ END
 
                 );
         $ajaxResponseObject->addWidget($jsWrapper);
-
         $dialog->addWidget($cpfont);
         $dialog->addWidget($cpbg);
         $dialog->addWidget($headfont);
