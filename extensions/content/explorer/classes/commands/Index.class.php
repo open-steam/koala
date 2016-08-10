@@ -89,7 +89,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         //check the explorer view attribute which is specified in the profile
         $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
-        if($viewAttribute == "gallery"){
+        if($viewAttribute && $viewAttribute == "gallery"){
           header("location: " . PATH_URL . "explorer/GalleryView/" . $this->id . "/");
           die;
         }
