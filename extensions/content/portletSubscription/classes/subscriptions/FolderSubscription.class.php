@@ -81,15 +81,13 @@ class FolderSubscription extends AbstractSubscription {
                             \ExtensionMaster::getInstance()->getUrlForObjectId($object->get_id(), "view")
                         )
                     );
-                    
+
                     //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
                     $formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
                 }
                 
                 
-                //$containerLastModified = $object->get_attribute("CONT_LAST_MODIFIED");
-                
-                else if ($lastChanged > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($lastChanged, $this->filter[$object->get_id()]))) {
+                if ($lastChanged > $this->timestamp && $lastChanged > $creationTime+1 && !(isset($this->filter[$object->get_id()]) && in_array($lastChanged, $this->filter[$object->get_id()]))) {
                     $updates[] = array(
                         $lastChanged, 
                         $object->get_id(),
@@ -110,8 +108,8 @@ class FolderSubscription extends AbstractSubscription {
                 }
                 
                 
-                
-                else if ($contLastModified > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($contLastModified, $this->filter[$object->get_id()]))) {
+                /*
+                else if (!$newObjectCausedUpdate && $contLastModified > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($contLastModified, $this->filter[$object->get_id()]))) {
                     $updates[] = array(
                         $contLastModified, 
                         $object->get_id(),
