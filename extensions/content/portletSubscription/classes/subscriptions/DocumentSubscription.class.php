@@ -14,32 +14,37 @@ class DocumentSubscription extends AbstractSubscription {
                     return $updates;
                 } 
             } 
+            
+        $docLastModified = $document->get_attribute("DOC_LAST_MODIFIED");
+        $objLastChanged = $document->get_attribute("OBJ_LAST_CHANGED");
        
-        if ($document->get_attribute("DOC_LAST_MODIFIED") > $this->timestamp && !(isset($this->filter[$document->get_id()]) && in_array($document->get_attribute("DOC_LAST_MODIFIED"), $this->filter[$document->get_id()]))) {
+        if ($docLastModified > $this->timestamp && !(isset($this->filter[$document->get_id()]) && in_array($docLastModified, $this->filter[$document->get_id()]))) {
             
             $updates[] = array(
-                            $document->get_attribute("DOC_LAST_MODIFIED"), 
+                            $docLastModified, 
                             $document->get_id(), 
                             $this->getElementHtml(
                                 $document->get_id(), 
                                 $document->get_id() . "_0",
                                 $this->private,
-                                $document->get_attribute("DOC_LAST_MODIFIED"),
+                                $docLastModified,
                                 "Dokumenteninhalt wurde geändert:",
                                 \PortletSubscription::getNameForSubscription($document),
                                 \ExtensionMaster::getInstance()->getUrlForObjectId($document->get_id(), "view")
                             )
             );
-        } else if ($document->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$document->get_id()]) && in_array($document->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$document->get_id()]))) {
+        }
+        //the change of the content also updates the objLastChanged attribute. 
+        if ($objLastChanged > $this->timestamp && $objLastChanged > $docLastModified+1 && !(isset($this->filter[$document->get_id()]) && in_array($objLastChanged, $this->filter[$document->get_id()]))) {
             
             $updates[] = array(
-                            $document->get_attribute("OBJ_LAST_CHANGED"), 
+                            $objLastChanged, 
                             $document->get_id(), 
                             $this->getElementHtml(
                                 $document->get_id(), 
                                 $document->get_id() . "_0",
                                 $this->private,
-                                $document->get_attribute("OBJ_LAST_CHANGED"),
+                                $objLastChanged,
                                 "Die Dokumenteneigenschaften wurden geändert",
                                 "",
                                 \ExtensionMaster::getInstance()->getUrlForObjectId($document->get_id(), "view")

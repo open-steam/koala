@@ -156,15 +156,18 @@ class PortalSubscription extends AbstractSubscription {
 
     public function getUpdatesForPortlet($portlet, $column) {
         //check, if the portlet is new and if it was created after the portal (to skip the initially created portlets)
-        if ($portlet->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && $this->object->get_attribute("OBJ_CREATION_TIME") + 1 < $portlet->get_attribute("OBJ_CREATION_TIME") && !(isset($this->filter[$portlet->get_id()]) && in_array($portlet->get_attribute("OBJ_CREATION_TIME"), $this->filter[$portlet->get_id()]))) {
+        $creationTime = $portlet->get_attribute("OBJ_CREATION_TIME");
+        $lastChanged = $portlet->get_attribute("OBJ_LAST_CHANGED");
+        
+        if ($creationTime > $this->timestamp && $this->object->get_attribute("OBJ_CREATION_TIME") + 1 < $creationTime && !(isset($this->filter[$portlet->get_id()]) && in_array($creationTime, $this->filter[$portlet->get_id()]))) {
             $this->updates[] = array(
-                $portlet->get_attribute("OBJ_CREATION_TIME"),
+                $creationTime,
                 $portlet->get_id(),
                 $this->getElementHtml(
                         $portlet->get_id(),
                         $portlet->get_id() . "_" . $this->count,
                         $this->private,
-                        $portlet->get_attribute("OBJ_CREATION_TIME"),
+                        $creationTime,
                         "Neues Portlet ",
                         \PortletSubscription::getNameForSubscription($portlet),
                         PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
@@ -176,15 +179,17 @@ class PortalSubscription extends AbstractSubscription {
             if (!array_key_exists($portlet->get_id(), $this->formerContent)) {
                 $this->formerContent[$portlet->get_id()] = array("name" => $portlet->get_attribute(OBJ_NAME));
             }
-        } else if ($portlet->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("OBJ_LAST_CHANGED") < $portlet->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$portlet->get_id()]) && in_array($portlet->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$portlet->get_id()]))) {
+        }
+        
+        if ($lastChanged > $this->timestamp && $lastChanged > $creationTime+1 && $this->object->get_attribute("OBJ_LAST_CHANGED") < $lastChanged && !(isset($this->filter[$portlet->get_id()]) && in_array($lastChanged, $this->filter[$portlet->get_id()]))) {
             $this->updates[] = array(
-                $portlet->get_attribute("OBJ_LAST_CHANGED"),
+                $lastChanged,
                 $portlet->get_id(),
                 $this->getElementHtml(
                         $portlet->get_id(),
                         $portlet->get_id() . "_" . $this->count,
                         $this->private,
-                        $portlet->get_attribute("OBJ_LAST_CHANGED"),
+                        $lastChanged,
                         "Das Portlet ",
                         \PortletSubscription::getNameForSubscription($portlet),
                         PATH_URL . "portal/Index/" . $this->object->get_id() . "/",

@@ -57,29 +57,11 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
 
                 //add the new filtering to the filters if it is an normal notification, no deletion
                 if ($this->itemTimestamp > 1 && $this->objectID > 0) {
+                    //simply add the to be hidden notification to the filter
+                    //we do not clean up the filter here but only when the user views the updte page and there is no update to show we clean the whole filter
+                    //and sace a lot of sorting strategies, overhead and complexity
                     $filter[] = array($this->itemTimestamp, $this->objectID);
-
-                    usort($filter, "sortSubscriptionElements");
-
-
-                    //clean up the filter list (if the timestamp and the object id is equal in the filter and in the calculated updates, increase the timestamp for the object and remove the filterelement)
-                    //this loop cannot deal with multiple entries for one object
-                    $count = 0;
-                    while (isset($filter[$count]) && isset($updates[$count]) && ($filter[$count][0] == $updates[$count][0]) && ($filter[$count][1] == $updates[$count][1])) {
-                        $timestamp = $filter[$count][0];
-                        unset($filter[$count]);
-                        $count++;
-                    }
-
-                    //check for each object if there is another entry for the same id but with an smaller (older) timestamp and filter this out
-                    foreach ($filter as $id1 => $filterElement) {
-                        foreach ($filter as $filterElement2) {
-                            if ($filterElement2[1] == $filterElement[1] && $filterElement2[0] > $filterElement[0]) {
-                                unset($filter[$id1]);
-                            }
-                        }
-                    }
-
+                    
                     //if a newer notification should be hidden while older notifications of other objects should still exist, filter the newer out
                     $filter = array_values($filter);
                 }
@@ -88,7 +70,7 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
                 //now we try to remove a notification for a deleted object, if the user wants to hide it
                 //if the objectID is in the folderlist and the timestamp of the notofication is -1 (not possible for changes, but only for deletions)
                 if (array_key_exists($this->objectID, $formerContent) && $this->itemTimestamp == -1) {
-                    //delete a possibleentry in the filter
+                    //delete a possible entry in the filter, not necessary, but okay here
                     foreach ($filter as $id => $filterElement) {
                         if ($filterElement[1] == $this->objectID) {
                             unset($filter[$id]);
@@ -111,22 +93,23 @@ class HideItem extends \AbstractCommand implements \IAjaxCommand {
                 //hide the html-item 
                 $jsWrapper = new \Widgets\JSWrapper();
                 $js = "";
-                
+
                 if ($this->objectID == -1) {
                     $jsSelector = "$('#" . $portlet->get_id() . "').children('div').hide();"
-                                 ."$('#" . $portlet->get_id() . "').children('h1').children('a').hide();"
-                                 ."$('#" . $this->portletID . "').append('<h3>Keine Neuigkeiten</h3>');";
+                            . "$('#" . $portlet->get_id() . "').children('h1').children('a').hide();"
+                            . "$('#" . $this->portletID . "').append('<h3>Keine Neuigkeiten</h3>');";
                     //$(\"[id*='subscription1376_']\").hide();
                 } else {
-                    $js .= "if ($('#" . $this->portletID . " div').children('div:visible').length == 0) $('#" . $this->portletID . "').append('<h3>Keine Neuigkeiten</h3>');";
+
 
                     $jsSelector = "$('#" . $this->params["hide"] . "').hide(); "
-                            . "if($('#" . $portlet->get_id() . "').children('div').children('div:visible').length == 0){"
-                            . "$('#" . $portlet->get_id() . "').children('h1').children('a').hide();"
-                            . "}";
+                                . "if($('#" . $portlet->get_id() . "').children('div').children('div:visible').length == 0){"
+                                    . "$('#" . $portlet->get_id() . "').children('h1').children('a').hide();"
+                                . "}";
+                    $js .= "if ($('#" . $this->portletID . "').children('div').children('div:visible').length == 0) $('#" . $this->portletID . "').append('<h3>Keine Neuigkeiten</h3>');";
                 }
 
-                $jsWrapper->setJs($jsSelector.$js);
+                $jsWrapper->setJs($jsSelector . $js);
             }
         }
 

@@ -113,6 +113,13 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                     $this->template->setCurrentBlock("BLOCK_HIDE_BUTTON");
                     $this->template->setVariable("HIDE_ALL_BUTTON", \PortletSubscription\Subscriptions\AbstractSubscription::getElementJS($this->portlet->get_id(), -1, time(), ""));
                     $this->template->parse("BLOCK_HIDE_BUTTON");
+                } 
+                
+                if(count($updates) === 0) {
+                    //if there is no update to show we use the opportunity to clean up the filter and update the timestamp
+                    //this saves a lot of filter-bookkeeping
+                    $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", array());
+                    $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", time());
                 }
 
                 $this->template->parse("BLOCK_FOLDER_HEADLINE");
