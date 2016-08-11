@@ -69,13 +69,11 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $tipsy->setHtml($tipsyHtml);
 
           $url = \ExtensionMaster::getInstance()->getUrlForObjectId($id, "view");
-          $iconBlue = PATH_URL . "explorer/asset/icons/mimetype/svg/blue/" . deriveIcon($object);
-          $iconWhite = PATH_URL . "explorer/asset/icons/mimetype/svg/white/" . deriveIcon($object);
-          $iconRed = PATH_URL . "explorer/asset/icons/mimetype/svg/red/" . deriveIcon($object);
 
-          $iconBlue = str_replace("png", "svg", $iconBlue);
-          $iconWhite = str_replace("png", "svg", $iconWhite);
-          $iconRed = str_replace("png", "svg", $iconRed);
+          $icon =  deriveIcon($object);
+          $iconSVG = str_replace("png", "svg", $icon);
+          $idSVG = str_replace(".svg", "", $iconSVG);
+          $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
 
           if (isset($url) && $url != "") {
               if ($object instanceof \steam_link) {
@@ -98,10 +96,8 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $popupMenu = new \Widgets\PopupMenu();
           $popupMenu->setData($object);
           $popupMenu->setElementId("gallery-overlay");
-          //$popupMenu->setNamespace("Explorer");
           $popupMenu->setCommand("GetPopupMenu");
           $popupMenuHtml = $popupMenu->getHtml();
-          //$ajaxResponseObject->addWidget($popupMenu);
 
           $tagList = "";
           foreach ($tags as $tag) {
@@ -117,11 +113,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
                 " . $urlHtml . "
 
-                <div class='galleryPicture blue' style='background:url(" . $iconBlue . "); background-repeat:no-repeat; background-size:cover;'></div>
-
-                <div class='galleryPicture white' style='background:url(" . $iconWhite . "); background-repeat:no-repeat; background-size:cover;'></div>
-
-                <div class='galleryPicture red' style='background:url(" . $iconRed . "); background-repeat:no-repeat; background-size:cover;'></div>
+                <svg class='galleryPicture' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>
 
                 </a>
 

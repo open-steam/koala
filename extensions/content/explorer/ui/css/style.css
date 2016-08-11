@@ -52,7 +52,7 @@ div[id$="_3"].listviewer-item-cell {
     display:block;
 }
 
-.galleryEntry input {
+.galleryEntry input[type="text"] {
     width: 100%;
 }
 
@@ -64,12 +64,12 @@ div[id$="_3"].listviewer-item-cell {
     background-color: #396D9C !important;
 }
 
-.galleryEntry.selected .galleryPicture.blue {
-    display:none;
+.galleryEntry .SVGChild {
+    color: #3a6e9f;
 }
 
-.galleryEntry.selected .galleryPicture.white {
-    display:table-cell;
+.galleryEntry.selected .SVGChild {
+    color: #FFFFFF;
 }
 
 .galleryEntry.selected a {
@@ -120,16 +120,8 @@ div[id$="_3"].listviewer-item-cell {
     disabled:true;
 }
 
-.galleryEntry.justTrashed .galleryPicture.blue {
-    display:none;
-}
-
-.galleryEntry.justTrashed .galleryPicture.white {
-    display:none;
-}
-
-.galleryEntry.justTrashed .galleryPicture.red {
-    display:table-cell;
+.galleryEntry.justTrashed .SVGChild {
+    color: #FF0000;
 }
 
 .galleryEntry.justTrashed a {
