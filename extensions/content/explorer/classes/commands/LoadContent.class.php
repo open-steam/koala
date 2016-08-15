@@ -143,7 +143,12 @@ class ContentProvider implements \Widgets\IContentProvider {
         } elseif ($cell == $this->rawImage) {
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
 
-            return "<a href=\"" . $url . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img></a>";
+            $icon = deriveIcon($contentItem);
+            $iconSVG = str_replace("png", "svg", $icon);
+            $idSVG = str_replace(".svg", "", $iconSVG);
+            $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+
+            return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } elseif ($cell == $this->rawName) {
             $creator = $contentItem->get_creator();
             $tipsy = new \Widgets\Tipsy();
