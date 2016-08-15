@@ -1,18 +1,45 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
- "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg id="reference_folder" version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="100%" height="100%" viewBox="0 0 16.000000 16.000000"
- preserveAspectRatio="xMidYMid">
-
-<g class="SVGChild" transform="translate(0.000000,16.000000) scale(0.100000,-0.100000)"
-fill="currentColor" stroke="none">
-<path d="M2 83 c1 -50 2 -52 5 -15 l4 42 52 2 c36 1 42 2 20 5 -18 2 -33 8
--33 14 0 5 -11 9 -25 9 -24 0 -25 -2 -23 -57z"/>
-<path d="M24 86 c-8 -22 -1 -59 14 -64 7 -2 12 5 12 16 0 19 23 45 50 55 8 3
--4 6 -28 6 -28 1 -44 -4 -48 -13z"/>
-<path d="M145 90 c3 -5 8 -10 11 -10 2 0 4 5 4 10 0 6 -5 10 -11 10 -5 0 -7
--4 -4 -10z"/>
-<path d="M67 43 c-14 -13 -6 -23 18 -23 16 0 25 6 25 15 0 15 -31 21 -43 8z"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="reference_folder"
+   width="100%"
+   height="100%"
+   viewBox="0 0 50 50">
+  <defs
+     id="defs7" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1354"
+     inkscape:window-height="735"
+     id="namedview5"
+     showgrid="false"
+     inkscape:zoom="6.675088"
+     inkscape:cx="25"
+     inkscape:cy="27.482146"
+     inkscape:window-x="64"
+     inkscape:window-y="12"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="folder" />
+  <path
+     fill="currentColor"
+     d="M 3 4 C 1.346 4 0 5.346 0 7 L 0 33.09375 C 1.464 25.29875 3.1045 16.552 3.1875 16.125 C 3.6955 13.535 5.6495 12 8.4375 12 L 47 12 L 47 11 C 47 9.346 45.654 8 44 8 L 18.03125 8 C 17.75225 7.899 17.185 6.994 16.875 6.5 C 16.106 5.275 15.317 4 14 4 L 3 4 z M 8.4375 14 C 7.1575 14 5.56425 14.44825 5.15625 16.53125 C 5.02925 17.17825 1.132 37.9105 0 43.9375 L 0 44 C 0 45.654 1.346 47 3 47 L 42 47 C 43.62 47 44.947 45.70175 45 44.09375 L 49.96875 17.1875 L 50 17 C 50 15.346 48.654 14 47 14 L 8.4375 14 z M 27.121094 18.267578 L 38.787109 29.933594 L 27.121094 41.599609 L 27.121094 34.767578 C 18.78776 34.767578 12.953776 37.434245 8.7871094 43.267578 C 10.453776 34.934244 15.454427 26.60026 27.121094 24.933594 L 27.121094 18.267578 z "
+     id="path3" />
+  <g
+     id="g3440"
+     transform="matrix(0.06535948,0,0,0.06535948,8.78769,15.76721)"
+     fill="currentColor">
+  </g>
 </svg>

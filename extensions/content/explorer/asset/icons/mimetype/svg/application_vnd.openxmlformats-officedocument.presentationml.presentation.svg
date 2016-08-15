@@ -1,14 +1,60 @@
-<?xml version="1.0" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
- "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg id="application_vnd.openxmlformats-officedocument.presentationml.presentation" version="1.0" xmlns="http://www.w3.org/2000/svg"
- width="100%" height="100%" viewBox="0 0 16.000000 16.000000"
- preserveAspectRatio="xMidYMid">
-
-<g class="SVGChild" transform="translate(0.000000,16.000000) scale(0.100000,-0.100000)"
-fill="currentColor" stroke="none">
-<path d="M35 140 c-11 -17 5 -30 38 -31 31 -2 31 -2 4 -6 -30 -5 -32 -8 -41
--60 -5 -30 -3 -33 19 -33 20 0 25 5 25 25 0 17 5 25 18 25 41 0 59 60 23 80
--25 13 -78 13 -86 0z"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100%"
+   height="100%"
+   viewBox="0 0 88.024445 86"
+   version="1.1"
+   id="application_vnd.openxmlformats-officedocument.presentationml.presentation"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="application_vnd.openxmlformats-officedocument.presentationml.presentation.svg">
+  <defs
+     id="defs124" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1440"
+     inkscape:window-height="795"
+     id="namedview122"
+     showgrid="false"
+     inkscape:zoom="4.3623932"
+     inkscape:cx="20.515932"
+     inkscape:cy="53.75"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="application_vnd.openxmlformats-officedocument.presentationml.presentation"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <g
+     id="g3607"
+     fill="currentColor"
+     transform="translate(-223.01556,0)">
+    <path
+       d="M 46.314453 0 C 30.864453 2.63 15.433906 5.3495314 0.00390625 8.0195312 C 0.00390625 31.339531 -0.00609375 54.67 0.00390625 78 C 15.253906 80.68 30.523672 83.22 45.763672 86 L 51.984375 86 L 51.984375 76 C 61.994375 76 71.994141 75.979297 81.994141 76.029297 C 83.704141 75.949297 85.604453 76.089297 87.064453 75.029297 C 88.224453 73.239297 87.925391 71.000469 88.025391 68.980469 C 87.885391 50.290469 88.093828 31.599922 87.923828 12.919922 C 88.153828 10.619922 86.354687 8.8307813 84.054688 9.0507812 C 73.374686 8.8907812 62.674375 9.06 51.984375 9 L 51.984375 0 L 46.314453 0 z M 51.984375 12 L 84.984375 12 L 84.984375 73 L 51.984375 73 L 51.984375 65 L 75.984375 65 L 75.984375 61 L 51.984375 61 L 51.984375 56 L 75.984375 56 L 75.984375 52 L 51.994141 52 C 51.984141 50.04 51.984609 48.079141 51.974609 46.119141 C 55.934609 47.349141 60.444375 47.319453 63.984375 44.939453 C 67.814375 42.669453 69.814531 38.339531 70.144531 34.019531 C 65.754531 33.989531 61.364375 34 56.984375 34 C 56.974375 29.65 57.034531 25.300937 56.894531 20.960938 C 55.254531 21.280938 53.614375 21.620703 51.984375 21.970703 L 51.984375 12 z M 24.648438 25.951172 C 27.534687 25.889922 30.304687 26.304844 32.554688 28.339844 C 36.864688 33.569844 35.723984 43.190312 29.333984 46.320312 C 27.063984 47.480312 24.464141 47.320234 21.994141 47.240234 C 21.984141 51.150234 21.974375 55.060703 21.984375 58.970703 C 20.004375 58.800703 18.015156 58.630703 16.035156 58.470703 C 15.945156 47.790703 15.924922 37.099922 16.044922 26.419922 C 18.759922 26.549922 21.762187 26.012422 24.648438 25.951172 z "
+       transform="translate(223.01556,0)"
+       id="path14" />
+    <path
+       id="path60"
+       d="m 282.01,18.87 c 6.95,0.32 12.79,6.17 13.16,13.1 -4.39,0.05 -8.78,0.03 -13.17,0.03 0,-4.38 -0.01,-8.76 0.01,-13.13 z"
+       inkscape:connector-curvature="0"/>
+    <path
+       id="path94"
+       d="m 245,31.83 c 1.97,-0.09 4.41,-0.45 5.74,1.4 1.14,1.96 1.08,4.54 0.13,6.56 -1.14,2.06 -3.72,1.86 -5.71,2.1 -0.21,-3.35 -0.19,-6.7 -0.16,-10.06 z"
+       inkscape:connector-curvature="0"/>
+  </g>
 </svg>
