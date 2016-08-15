@@ -39,7 +39,20 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $ajaxResponseObject->addWidget($noItem);
         }
 
+        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $userHiddenAttribute = $currentUser->get_attribute("EXPLORER_SHOW_HIDDEN_DOCUMENTS");
+
         foreach ($this->objects as $key => $object) {
+
+          $hidden = "";
+          if ($object->get_attribute("bid:hidden") === "1") {
+            if($userHiddenAttribute == "TRUE"){
+              $hidden = "hiddenObject";
+            }
+            else{
+              continue;
+            }
+          }
 
           $entry = new \Widgets\RawHtml();
 
@@ -109,7 +122,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $colorProvider = new ColorProvider();
           $color = $colorProvider->getColor($object);
 
-          $entry->setHtml("<li class='galleryEntry " . $color . "' id='" . $id . "'>
+          $entry->setHtml("<li class='galleryEntry " . $color . " " . $hidden . "' id='" . $id . "'>
 
                 " . $urlHtml . "
 

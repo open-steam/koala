@@ -354,3 +354,7 @@ div[id$="_3"].listviewer-item-cell {
 .explorernewentry {
   padding-top: 5px;
 }
+
+.galleryEntry.hiddenObject {
+  opacity: 0.5;
+}
