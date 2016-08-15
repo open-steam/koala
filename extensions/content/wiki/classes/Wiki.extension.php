@@ -28,7 +28,7 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 	}
 
 	public function getObjectIconUrl() {
-		return $this->getAssetUrl() . "icons/wiki.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/wiki.svg";
 	}
 
 	public function getHelpUrl(){

@@ -28,7 +28,7 @@ class PortletChronic extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/chronic.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/chronic.svg";
 	}
 
 	public function getHelpUrl(){

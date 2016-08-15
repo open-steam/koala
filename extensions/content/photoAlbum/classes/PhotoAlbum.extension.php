@@ -28,7 +28,7 @@ class PhotoAlbum extends AbstractExtension implements IObjectExtension, IObjectM
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/gallery.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/gallery.svg";
 	}
 
 	public function getHelpUrl(){

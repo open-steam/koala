@@ -32,7 +32,7 @@ class DocumentHTMLObject extends AbstractExtension implements IObjectExtension {
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/text.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/text.svg";
 	}
 
 	public function getHelpUrl(){

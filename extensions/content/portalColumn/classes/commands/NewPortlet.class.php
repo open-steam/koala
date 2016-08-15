@@ -70,10 +70,13 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 			//forbid creation of portlets which can only be created by the root user
 			if (defined("CREATE_RESTRICTED_TO_ROOT") && !$isRoot && strstr(strtolower(CREATE_RESTRICTED_TO_ROOT), strtolower($namespaces[0]))) continue;
 
-			$html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\" style=\"display:block; clear:both;\"><img src=\"{$command->getExtension()->getObjectIconUrl()}\" style=\"float:left;\"><p style='float:left; top: -10px; position: relative; left: 5px;'>{$command->getExtension()->getObjectReadableName()}</p></a>";
+			$url = $command->getExtension()->getObjectIconUrl();
+			$name = str_replace(".svg", "", array_pop(explode("/", $url)));
+
+			$html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\" style=\"display:block; clear:both;\"><svg style='float:left; width:18px; height:18px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $url . "#" . $name . "' /></svg><p style='float:left; top: -10px; position: relative; left: 5px;'>{$command->getExtension()->getObjectReadableName()}</p></a>";
 
 			$helpurl = $command->getExtension()->getHelpUrl();
-			if($helpurl != "") $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><img src='" . PATH_URL . "explorer/asset/icons/help.png\' style=\"float:right; width: 16px; height: 16px;\"></a>";
+			if($helpurl != "") $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><svg style='float:right; width:16px; height:16px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . PATH_URL . "explorer/asset/icons/help.svg#help' /></svg></a>";
 			$html .= "<br>";
 		}
 		$html .= "<br><div style=\"float:right\"><a class=\"bidButton negative\" onclick=\"closeDialog();return false;\" href=\"#\">Abbrechen</a></div></div><div id=\"wizard_wrapper\"></div>";

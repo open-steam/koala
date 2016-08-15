@@ -28,7 +28,7 @@ class PortletBookmarks extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/bookmark.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/bookmark.svg";
 	}
 
 	public function getHelpUrl(){

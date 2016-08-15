@@ -70,7 +70,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
           $url = \ExtensionMaster::getInstance()->getUrlForObjectId($id, "view");
 
-          $icon =  deriveIcon($object);
+          $icon = deriveIcon($object);
           $iconSVG = str_replace("png", "svg", $icon);
           $idSVG = str_replace(".svg", "", $iconSVG);
           $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;

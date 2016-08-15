@@ -36,7 +36,7 @@ class Mokodesk extends AbstractExtension implements IObjectExtension
 
     public function getObjectIconUrl()
     {
-        return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/mokodesk.png";
+        return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/mokodesk.svg";
     }
 
     public function getCreateNewCommand(IdRequestObject $idEnvironment)

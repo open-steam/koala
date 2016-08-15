@@ -38,7 +38,7 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/portal.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/portal.svg";
 	}
 
 	public function getHelpUrl(){

@@ -29,7 +29,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
     }
 
     public function getObjectIconUrl() {
-        return Explorer::getInstance()->getAssetUrl() . "icons/subscribe.png";
+        return Explorer::getInstance()->getAssetUrl() . "icons/subscribe.svg";
     }
 
     public function getHelpUrl(){

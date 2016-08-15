@@ -28,7 +28,7 @@ class PortletTermplan extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/termplan.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/termplan.svg";
 	}
 
 	public function getHelpUrl(){

@@ -28,7 +28,7 @@ class PortletTopic extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer.svg";
 	}
 
 	public function getHelpUrl(){

@@ -28,7 +28,7 @@ class PortletPoll extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/poll.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/poll.svg";
 	}
 
 	public function getHelpUrl(){

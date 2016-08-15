@@ -28,7 +28,7 @@ class Rapidfeedback extends AbstractExtension implements IObjectExtension, IIcon
 	}
 
 	public function getObjectIconUrl() {
-		return $this->getAssetUrl() . "icons/rapidfeedback.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/rapidfeedback.svg";
 	}
 
 	public function getHelpUrl(){

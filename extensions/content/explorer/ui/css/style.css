@@ -350,3 +350,7 @@ div[id$="_3"].listviewer-item-cell {
   margin-bottom: 15px;
   margin-right: -113px;
 }
+
+.explorernewentry {
+  padding-top: 5px;
+}

@@ -28,7 +28,7 @@ class PortletUserPicture extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/userPicture.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/userPicture.svg";
 	}
 
 	public function getHelpUrl(){

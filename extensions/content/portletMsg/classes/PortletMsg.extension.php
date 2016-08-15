@@ -28,7 +28,7 @@ class PortletMsg extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/messages.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/messages.svg";
 	}
 
 	public function getHelpUrl(){

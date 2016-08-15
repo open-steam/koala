@@ -28,7 +28,7 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/appointment.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/appointment.svg";
 	}
 
 	public function getHelpUrl(){

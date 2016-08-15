@@ -28,7 +28,7 @@ class PortletMedia extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/play.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/play.svg";
 	}
 
 	public function getHelpUrl(){

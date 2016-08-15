@@ -80,7 +80,7 @@ class Dialog extends Widget{
 
     /**
      * This code is always executed to provide an alternative for the cound of objcts with a 'changed' class
-     * 
+     *
      * @param type $saveAndCloseButtonJs
      */
     public function setSaveAndCloseButtonJs($saveAndCloseButtonJs){
@@ -135,6 +135,8 @@ class Dialog extends Widget{
         foreach ($this->getWidgets() as $widget) {
             $content .= $widget->getHtml();
         }
+
+        $this->getContent()->setVariable("CLOSE_BUTTON_ICON", PATH_URL . "widgets/asset/close.svg#close"); 
 
         $this->getContent()->setVariable("DIALOG_CONTENT", $content);
 
