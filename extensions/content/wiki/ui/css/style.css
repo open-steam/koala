@@ -119,8 +119,9 @@
 .wiki_toolbar .toolbar_combo_button {
 	position: relative;
 	cursor: pointer;
-	width: 10px;
-	height: 20px;
+	width: 12px;
+	height: 12px;
+	color: #396d9e;
 }
 
 .wiki_toolbar .toolbar_select_popup_wrapper {
