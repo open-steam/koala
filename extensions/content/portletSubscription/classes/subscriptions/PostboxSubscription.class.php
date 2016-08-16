@@ -112,6 +112,23 @@ class PostboxSubscription extends AbstractSubscription {
             $count++;
         }
         
+        if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("CONT_LAST_MODIFIED") != $this->object->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
+            
+            $updates[] = array(
+                            $this->object->get_attribute("OBJ_LAST_CHANGED"), 
+                            $this->object->get_id(), 
+                            $this->getElementHtml(
+                                $this->object->get_id(), 
+                                $this->object->get_id() . "_0",
+                                $this->private,
+                                $this->object->get_attribute("OBJ_LAST_CHANGED"),
+                                "Die Objekteigenschaften wurden geändert",
+                                "",
+                                \ExtensionMaster::getInstance()->getUrlForObjectId($this->object->get_id(), "view")
+                            )
+            );
+        }
+        
         $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
         
         return $updates;
