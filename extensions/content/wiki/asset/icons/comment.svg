@@ -7,12 +7,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="100%"
    height="100%"
-   viewBox="0 0 270 240"
-   id="pyramiddiscussion">
+   width="100%"
+   id="comment"
+   viewBox="0 100 930 930">
   <defs
-     id="defs8" />
+     id="defs7" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -22,20 +22,20 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="640"
-     inkscape:window-height="480"
-     id="namedview6"
+     inkscape:window-width="1297"
+     inkscape:window-height="651"
+     id="namedview5"
      showgrid="false"
-     inkscape:zoom="0.98333333"
-     inkscape:cx="135"
-     inkscape:cy="120"
+     inkscape:zoom="0.25376344"
+     inkscape:cx="465"
+     inkscape:cy="465"
      inkscape:window-x="0"
-     inkscape:window-y="23"
+     inkscape:window-y="46"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="comment" />
   <path
-     fill="currentColor"
-     d="M 265,230 5,230 135,5"
-     id="path4"
-     inkscape:connector-curvature="0" />
+     d="m 764.89466,152.5339 -592.85712,0 c -57.43304,0 -118.571438,59.2857 -118.571438,118.57144 l 0,355.71426 c 0,118.57144 118.571438,118.57144 118.571438,118.57144 l 59.2857,0 0,237.14286 237.14286,-237.14286 c 0,0 238.99555,0 296.42856,0 57.43305,0 118.57144,-62.99108 118.57144,-118.57144 l 0,-355.71426 c 0,-57.43305 -59.2857,-118.57144 -118.57144,-118.57144 z"
+     id="path3"
+     inkscape:connector-curvature="0"
+     fill="currentColor" />
 </svg>

@@ -59,16 +59,12 @@
 }
 
 .wiki-close-button {
-	height: 12px;
-	width: 12px;
-	background-image: url(../asset/icons/close.gif);
-	position: absolute;
-	top: 2px;
-	right: 5px;
+	float: right;
 }
 
 .wiki-close-button:hover {
 	cursor: pointer;
+	color: red;
 }
 
 #wiki_dialog_link_extern, #wiki_dialog_link_entry, #wiki_dialog_link_entry_name, #wiki_dialog_image_extern, #wiki_dialog_image_entry, .popup_dialog {
@@ -79,6 +75,10 @@
 ** Wiki
 ** used in wiki_edit.template.html, wiki_index.template.html
 */
+
+.wiki_toolbar {
+	border-spacing: 5px;
+}
 
 .wiki_toolbar td {
 	margin: 0px;
@@ -97,7 +97,7 @@
 	padding: 0px;
 	border: 0px;
 	border-spacing: 0px;
-	height: 20px;
+	height: 30px;
 }
 
 #toolbar_select_wrapper_style {
@@ -121,7 +121,6 @@
 	cursor: pointer;
 	width: 10px;
 	height: 20px;
-	background-image: url(../asset/icons/combo_icon.gif)
 }
 
 .wiki_toolbar .toolbar_select_popup_wrapper {
@@ -165,8 +164,8 @@
 .wiki_toolbar .toolbar_icon {
 	display: block;
 	cursor: pointer;
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 }
 
 .wiki_toolbar .toolbar_icon:hover, .wiki_toolbar .toolbar_combo_button:hover {
@@ -174,47 +173,47 @@
 }
 
 .wiki_toolbar .toolbar_icon_bold {
-	background-image: url(../asset/icons/fett.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_italic {
-	background-image: url(../asset/icons/kursiv.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_ul {
-	background-image: url(../asset/icons/ul.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_ol {
-	background-image: url(../asset/icons/ol.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_line {
-	background-image: url(../asset/icons/line.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_link {
-	background-image: url(../asset/icons/link.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_image {
-	background-image: url(../asset/icons/image.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_note {
-	background-image: url(../asset/icons/note.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_comment {
-	background-image: url(../asset/icons/comment.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_help{
-	background-image: url(../asset/icons/help.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_table{
-	background-image: url(../asset/icons/table.gif);
+
 }
 
 .wiki_toolbar .toolbar_icon_pressed{
@@ -439,4 +438,8 @@
 
 .wiki .main .sectionIndex > a {
 	padding-right: 22px;
+}
+
+.bidButton {
+	float: right;
 }
