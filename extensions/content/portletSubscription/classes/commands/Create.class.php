@@ -72,6 +72,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
             case "room":
             case "userHome":
             case "gallery":
+            case "wiki":   
                 foreach ($subscribedObject->get_inventory() as $element) {
                     $currentContent[$element->get_id()] = array("name" => $element->get_attribute(OBJ_NAME));
                 }
