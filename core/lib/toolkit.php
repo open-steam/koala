@@ -367,6 +367,7 @@ function deriveIcon($object) {
     $mimetype = $preLoadResults[$mimetypeIndex];
     $name = $preLoadResults[$nameIndex];
     //finished preload attibutes
+
     //worksheet
     if ($worksheet_role === "build")
         return "worksheet.png";
@@ -402,7 +403,7 @@ function deriveIcon($object) {
 
 
     if ($doctype === "portal") {
-        return "portal_old.png";
+        return "portal.png";
     }
 
     if ($objtype === "container_portal_bid")
