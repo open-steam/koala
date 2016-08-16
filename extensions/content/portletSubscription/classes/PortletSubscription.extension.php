@@ -32,8 +32,8 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
         return Explorer::getInstance()->getAssetUrl() . "icons/subscribe.svg";
     }
 
-    public function getHelpUrl(){
-      return "https://bid.lspb.de/explorer/ViewDocument/1204999/";
+    public function getHelpUrl() {
+        return "https://bid.lspb.de/explorer/ViewDocument/1204999/";
     }
 
     public function getCreateNewCommand(IdRequestObject $idEnvironment) {
@@ -56,14 +56,8 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
     }
 
     public function calculateUpdates($subscriptionObject, $portlet, $filtering = true) {
-        $updates = array();
-
-        if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE") == "0") {
-            if ($portlet->check_access_write()) {
-                // 'private' indicates whether the user can change the attributes of the object (to filter out an update)
-                $private = TRUE;
-                $timestamp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP");
-                $filterHelp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER");
+        if ($portlet->check_access_write()) {
+            $filterHelp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER");
 
                 $filter = array();
                 foreach ($filterHelp as $filterElement) {
@@ -76,20 +70,25 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
                         $filter[$filterElement[1]] = array($filterElement[0]);
                     }
                 }
+            if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE") == "0") {
+
+                // 'private' indicates whether the user can change the attributes of the object (to filter out an update)
+                $private = TRUE;
+                $timestamp = $portlet->get_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP");
             } else {
-                $private = FALSE;
-                $timestamp = "1209600";
-                $filter = array();
+                $private = TRUE;
+                $timestamp = time() - intval($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE"));
+                
             }
         } else {
             $private = FALSE;
-            $timestamp = time() - intval($portlet->get_attribute("PORTLET_SUBSCRIPTION_TYPE"));
+            $timestamp = time() - "1209600";
             $filter = array();
         }
         if (!$filtering) {
             $filter = array();
         }
-        $updates = $this->collectUpdates($updates, $portlet, $subscriptionObject, $private, $timestamp, $filter);
+        $updates = $this->collectUpdates(array(), $portlet, $subscriptionObject, $private, $timestamp, $filter);
 
         usort($updates, "sortSubscriptionElements");
         if ($portlet->get_attribute("PORTLET_SUBSCRIPTION_ORDER") == "1") {
