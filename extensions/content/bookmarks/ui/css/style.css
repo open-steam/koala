@@ -1,3 +1,15 @@
 div[id$="_3"].listviewer-item-cell {
     color: #AAAAAA;
 }
+
+div[id$="_0"].listviewer-item-cell {
+    color: #3a6e9f;
+}
+
+.listviewer-item-selected > div[id$="_0"].listviewer-item-cell {
+    color: white;
+}
+
+.justTrashed > div[id$="_0"].listviewer-item-cell {
+    color: red;
+}

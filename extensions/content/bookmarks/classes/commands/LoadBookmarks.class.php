@@ -130,17 +130,32 @@ class ContentProvider implements \Widgets\IContentProvider {
                 if ($exitObj === 0) {
                     return "";
                 } else {
-                    return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($exitObj) . "\"></img>";
+                  $icon = deriveIcon($exitObj);
+                  $iconSVG = str_replace("png", "svg", $icon);
+                  $idSVG = str_replace(".svg", "", $iconSVG);
+                  $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+                  return "<svg style='width:16px; height:16px; left:5px; position:relative;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+                  //return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($exitObj) . "\"></img>";
                 }
             } else if ($contentItem instanceof \steam_link) {
                 $linkObj = $contentItem->get_link_object();
                 if ($linkObj === 0) {
                     return "";
                 } else {
-                    return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($linkObj) . "\"></img>";
+                  $icon = deriveIcon($linkObj);
+                  $iconSVG = str_replace("png", "svg", $icon);
+                  $idSVG = str_replace(".svg", "", $iconSVG);
+                  $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+                  return "<svg style='width:16px; height:16px; left:5px; position:relative;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+                  //return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($linkObj) . "\"></img>";
                 }
             } else {
-                return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img>";
+              $icon = deriveIcon($contentItem);
+              $iconSVG = str_replace("png", "svg", $icon);
+              $idSVG = str_replace(".svg", "", $iconSVG);
+              $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+              return "<svg style='width:16px; height:16px; left:5px; position:relative;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+              //return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img>";
             }
         } else if ($cell == $this->rawName) {
             $tipsy = new \Widgets\Tipsy();
