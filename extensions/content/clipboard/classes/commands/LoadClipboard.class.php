@@ -87,7 +87,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 			return "";
 		}
 	}
-	
+
 }
 
 class ContentProvider implements \Widgets\IContentProvider {
@@ -117,7 +117,12 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return "";
 			}
 		} else if ($cell == $this->rawImage) {
-			return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem)."\"></img>";
+			$icon = deriveIcon($contentItem);
+ 			$iconSVG = str_replace("png", "svg", $icon);
+ 			$idSVG = str_replace(".svg", "", $iconSVG);
+ 			$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+ 			return "<svg style='width:16px; height:16px; left:5px; position:relative;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+			//return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem)."\"></img>";
 		} else if ($cell == $this->rawName) {
 			//adding Tipsy
 			$tipsy = new \Widgets\Tipsy();
