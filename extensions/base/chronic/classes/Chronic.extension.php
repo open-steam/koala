@@ -209,7 +209,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 $lastElement = $chronicItem;
                 $cleandChronic[] = $chronicItem;
             } else {
-                
+
             }
         }
         $chronic = $cleandChronic;
@@ -328,7 +328,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
     }
 
     private function getEntryIconTag($chronicEntry) {
-        $defaultIcon = "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/folder.png" . "\"></img> ";
+        $defaultIcon = "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/folder.svg#folder'/></svg>";
 
         $content = explode(":", $chronicEntry);
         $entryType = $content[0];
@@ -338,7 +338,15 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             try {
                 $steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
                 if ($steamObject instanceof \steam_object) {
-                    return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($steamObject) . "\"></img>";
+                    $icon = deriveIcon($steamObject);
+                    $iconSVG = str_replace("png", "svg", $icon);
+                    $idSVG = str_replace(".svg", "", $iconSVG);
+                    $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+          } elseif ($cell == $this->rawName) {
+              $creator = $contentItem->get_creator();
+              $tipsy = new \Widgets\Tipsy();
+
                 } else {
                     return $defaultIcon;
                 }
@@ -349,9 +357,9 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             $objectPath = $content[1];
             try {
                 if (strpos($objectPath, "/forum/showTopic/") === 0) {
-                    return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/forumthread.png\"></img>";
+                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/forumthread.svg#forumthread'/></svg>";
                 } elseif (strpos($objectPath, "/wiki/entry/") === 0) {
-                    return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/wiki.png\"></img>";
+                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/wiki.svg#wiki'/></svg>";
                 } else {
                     return $defaultIcon;
                 }
