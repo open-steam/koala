@@ -151,8 +151,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
         if (CHANGE_PROFILE_PICTURE && PROFILE_PICTURE && $current_user->get_id() == $user->get_id()) {
             $editImageURL = PATH_URL . "profile/image/";
-            $editImageButtonURL = PATH_STYLE . "images/icons/portlet/edit.gif";
-            $GLOBALS["content"]->setVariable("EDIT_BUTTON", '<a href=' . $editImageURL . '><img id="imageEditButton" title="Bearbeiten" src=' . $editImageButtonURL . '></a>');
+            $GLOBALS["content"]->setVariable("EDIT_BUTTON", '<a href=' . $editImageURL . '><svg id="imageEditButton" title="Bearbeiten" style="width:20px; height:20px; color:#FFFFFF;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="' . PATH_URL . 'widgets/asset/edit.svg#edit" /></svg></a>');
         }
         $GLOBALS["content"]->parse("BLOCK_LEFT_SIDE");
 
