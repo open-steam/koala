@@ -1,16 +1,14 @@
 <?php
-
 namespace PortletSubscription\Subscriptions;
 
 class RapidfeedbackSubscription extends AbstractSubscription {
 
-    private $updates = array();
-
     public function getUpdates() {
-        $count = 0;
-
-        // travers eover all surveys in this container
-        foreach ($this->object->get_inventory() as $survey) {
+        
+        $this->content = $this->object->get_inventory();
+        
+        // travers over all surveys in this container
+        foreach ($this->content as $survey) {
             $result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
             $results = $result_container->get_inventory();
             foreach ($results as $result) {
@@ -20,7 +18,13 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                             $result->get_attribute("OBJ_CREATION_TIME"),
                             $result->get_id(),
                             $this->getElementHtml(
-                                    $result->get_id(), $result->get_id() . "_" . $count, $this->private, $result->get_attribute("OBJ_CREATION_TIME"), "Neue Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", \PortletSubscription::getNameForSubscription($survey), PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
+                                    $result->get_id(), 
+                                    $result->get_id() . "_" . $this->count, 
+                                    $this->private, 
+                                    $result->get_attribute("OBJ_CREATION_TIME"), 
+                                    "Neue Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
+                                    \PortletSubscription::getNameForSubscription($survey), 
+                                    PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
                             )
                         );
                     } else if ($result->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$result->get_id()]) && in_array($result->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$result->get_id()]))) {
@@ -28,7 +32,13 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                             $result->get_attribute("OBJ_LAST_CHANGED"),
                             $result->get_id(),
                             $this->getElementHtml(
-                                    $result->get_id(), $result->get_id() . "_" . $count, $this->private, $result->get_attribute("OBJ_LAST_CHANGED"), "Geänderte Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", \PortletSubscription::getNameForSubscription($survey), PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
+                                    $result->get_id(), 
+                                    $result->get_id() . "_" . $this->count, 
+                                    $this->private, 
+                                    $result->get_attribute("OBJ_LAST_CHANGED"), 
+                                    "Geänderte Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
+                                    \PortletSubscription::getNameForSubscription($survey), 
+                                    PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
                             )
                         );
                     }
@@ -44,7 +54,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                         $survey->get_id(),
                         $this->getElementHtml(
                                 $survey->get_id(), 
-                                $survey->get_id() . "_" . $count, 
+                                $survey->get_id() . "_" . $this->count, 
                                 $this->private, 
                                 $survey->get_attribute("OBJ_CREATION_TIME"), 
                                 "Neuer Fragebogen in <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>:", 
@@ -58,7 +68,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                         $survey->get_id(),
                         $this->getElementHtml(
                                 $survey->get_id(), 
-                                $survey->get_id() . "_" . $count, 
+                                $survey->get_id() . "_" . $this->count, 
                                 $this->private, 
                                 $survey->get_attribute("OBJ_LAST_CHANGED"), 
                                 "Geänderter Fragebogen in <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>:", 
@@ -69,7 +79,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                 }
             }
 
-            $count++;
+            $this->count++;
         }
         
         //if the object change doesn't come from the modified content, the object itself was modified

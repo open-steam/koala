@@ -9,6 +9,11 @@ abstract class AbstractSubscription {
     protected $timestamp;
     protected $filter;
     protected $depth;
+    protected $updates;
+    protected $count;
+    protected $formerContent;
+    protected $changedFormerContent;
+    protected $content;
 
     public function __construct($portlet, $object, $private, $timestamp, $filter, $depth) {
         $this->portlet = $portlet;
@@ -17,6 +22,10 @@ abstract class AbstractSubscription {
         $this->timestamp = $timestamp;
         $this->filter = $filter;
         $this->depth = $depth;
+        $this->updates = array();
+        $this->count = 0;
+        $this->formerContent = $this->portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
+        $this->changedFormerContent = false;
     }
 
     abstract public function getUpdates();

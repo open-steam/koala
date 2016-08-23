@@ -1,25 +1,18 @@
 <?php
-
 namespace PortletSubscription\Subscriptions;
 
 class PortalSubscription extends AbstractSubscription {
 
-    private $updates;
     private $columns;
-    private $count;
-    private $formerContent;
-    private $content;
-
+    
     public function getUpdates() {
-        $this->updates = array();
+        
         $this->columns = $this->object->get_inventory();
-        $this->formerContent = $this->portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
-        $this->count = 0;
-
+        
         foreach ($this->columns as $column) {
             foreach ($column->get_inventory() as $portlet) {
                 $this->content[] = $portlet;
-            };
+            }
         }
 
         //build an array with the existing ids to compare ids and not objects later on
@@ -62,15 +55,13 @@ class PortalSubscription extends AbstractSubscription {
                             $object->get_id() . "_" . $this->count,
                             $this->private,
                             "In letzter Zeit",
-                            "Neues Portlet " . \PortletSubscription::getNameForSubscription($object),
-                            "",
-                            ""
+                            "Neues Portlet " ,
+                            \PortletSubscription::getNameForSubscription($object),
+                            PATH_URL . "portal/Index/" . $this->object->get_id() . "/"
                     )
                 );
                 $this->count++;
-            } else {
-                $this->formerContent[$object->get_id()] = array("name" => $object->get_attribute(OBJ_NAME));
-            }
+            } 
         }
 
 
@@ -114,7 +105,13 @@ class PortalSubscription extends AbstractSubscription {
                                         $messageObject->get_attribute("OBJ_LAST_CHANGED"),
                                         $messageObject->get_id(),
                                         $this->getElementHtml(
-                                                $messageObject->get_id(), $messageObject->get_id() . "_" . $this->count, $this->private, $messageObject->get_attribute("OBJ_LAST_CHANGED"), "Die Meldung ", \PortletSubscription::getNameForSubscription($messageObject), PATH_URL . "portal/Index/" . $this->object->get_id() . "/", " in Spalte " . $column->get_name() . " wurde geändert"
+                                                $messageObject->get_id(), 
+                                                $messageObject->get_id() . "_" . $this->count, 
+                                                $this->private, 
+                                                $messageObject->get_attribute("OBJ_LAST_CHANGED"), 
+                                                "Die Meldung ", 
+                                                \PortletSubscription::getNameForSubscription($messageObject), PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
+                                                " in Spalte " . $column->get_name() . " wurde geändert"
                                         )
                                     );
                                 }
@@ -149,8 +146,10 @@ class PortalSubscription extends AbstractSubscription {
         }
 
         //save back all changes to the objects in this container
-        $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $this->formerContent);
-
+        if($this->changedFormerContent){
+            $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $this->formerContent);
+        }
+        
         return $this->updates;
     }
 
@@ -176,9 +175,11 @@ class PortalSubscription extends AbstractSubscription {
             );
 
             //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
-            if (!array_key_exists($portlet->get_id(), $this->formerContent)) {
-                $this->formerContent[$portlet->get_id()] = array("name" => $portlet->get_attribute(OBJ_NAME));
+            if(!array_key_exists($portlet->get_id(), $this->formerContent) || $this->formerContent[$portlet->get_id()]["name"] !== $portlet->get_attribute(OBJ_NAME)){
+                $this->formerContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_NAME));
+                $this->changedFormerContent = true;
             }
+            
         }
         
         if ($lastChanged > $this->timestamp && $lastChanged > $creationTime+1 && $this->object->get_attribute("OBJ_LAST_CHANGED") < $lastChanged && !(isset($this->filter[$portlet->get_id()]) && in_array($lastChanged, $this->filter[$portlet->get_id()]))) {
@@ -196,6 +197,12 @@ class PortalSubscription extends AbstractSubscription {
                         " in Spalte " . $column->get_name() . " wurde geändert"
                 )
             );
+            
+            //update the name of this object if it has changed
+            if(array_key_exists($portlet->get_id(), $this->formerContent) &&  $this->formerContent[$portlet->get_id()]["name"] !== $portlet->get_attribute(OBJ_NAME)){
+                $this->formerContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_NAME));
+                $this->changedFormerContent = true;
+            }
         }
     }
 
