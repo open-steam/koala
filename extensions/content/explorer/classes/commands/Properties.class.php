@@ -409,7 +409,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
             //check if the attribute exists, if not: set it to false
-            if($object->get_attribute("SHOW_TAGS") == 0 && $isWriteable){
+            if($object->get_attribute("SHOW_TAGS") === false && $isWriteable){
                 $object->set_attribute("SHOW_TAGS", 'false');
             }
 
