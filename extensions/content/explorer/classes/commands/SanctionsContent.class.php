@@ -15,7 +15,6 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
     private $ajaxResponseObject;
     private $userPicUrl;
     private $groupPicUrl;
-    private $favPicUrl;
     private $favorites = array();
     private $user = array();
     private $userMapping = array();
@@ -290,9 +289,8 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->dialog->setWidth(600);
         $this->dialog->setTitle("Rechte von »" . getCleanName($this->object) . "«");
 
-        $this->userPicUrl = PATH_URL . "explorer/asset/icons/user.png";
-        $this->groupPicUrl = PATH_URL . "explorer/asset/icons/group.png";
-        $this->favPicUrl = PATH_URL . "explorer/asset/icons/red.png";
+        $this->userPicUrl = PATH_URL . "explorer/asset/icons/user.svg";
+        $this->groupPicUrl = PATH_URL . "explorer/asset/icons/group.svg";
 
         $this->creator = $this->object->get_creator();
 
@@ -595,9 +593,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setVariable("INDENTINDEX", $indent);
                     $this->content->setVariable("DROPDOWNLIST", $ddl->getHtml());
                     if (isset($this->favorites[$id])) {
-                        $this->content->setVariable("IMG_PATH", $this->favPicUrl);
+                        $this->content->setVariable("IMG_PATH", "<svg class='svg favorite'><use xlink:href='" . $this->groupPicUrl . "#group'/></svg>");
                     } else {
-                        $this->content->setVariable("IMG_PATH", $this->groupPicUrl);
+                        $this->content->setVariable("IMG_PATH", "<svg class='svg'><use xlink:href='" . $this->groupPicUrl . "#group'/></svg>");
                     }
                     $this->content->parse("GROUP_DDSETTINGS");
                     $this->content->parse("GROUPS");
@@ -656,9 +654,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setVariable("INDENTINDEX_ACQ", $indent);
                     $this->content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
                     if (isset($this->favorites[$id])) {
-                        $this->content->setVariable("IMG_PATH_ACQ", $this->favPicUrl);
+                        $this->content->setVariable("IMG_PATH_ACQ", "<svg class='svg favorite'><use xlink:href='" . $this->groupPicUrl . "#group'/></svg>");
                     } else {
-                        $this->content->setVariable("IMG_PATH_ACQ", $this->groupPicUrl);
+                        $this->content->setVariable("IMG_PATH_ACQ", "<svg class='svg'><use xlink:href='" . $this->groupPicUrl . "#group'/></svg>");
                     }
                     $this->content->parse("GROUP_DDSETTINGS_ACQ");
                     $this->content->parse("GROUPS_ACQ");
@@ -746,9 +744,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setVariable("FAVNAME", $name);
                     $this->content->setVariable("DROPDOWNLIST_FAVORITES", $ddl->getHtml());
                     if (isset($this->favorites[$id])) {
-                        $this->content->setVariable("IMG_PATH", $this->favPicUrl);
+                        $this->content->setVariable("IMG_PATH", "<svg class='svg favorite'><use xlink:href='" . $this->userPicUrl . "#user'/></svg>");
                     } else {
-                        $this->content->setVariable("IMG_PATH", $this->userPicUrl);
+                        $this->content->setVariable("IMG_PATH", "<svg class='svg'><use xlink:href='" . $this->userPicUrl . "#user'/></svg>");
                     }
                     $this->content->parse("FAV_DDSETTINGS");
                     $this->content->parse("FAVORITES");
@@ -809,9 +807,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setVariable("FAVNAME_ACQ", $name);
                     $this->content->setVariable("DROPDOWNLIST_USER_ACQ", $ddl->getHtml());
                     if (isset($this->favorites[$id])) {
-                        $this->content->setVariable("IMG_PATH_ACQ", $this->favPicUrl);
+                        $this->content->setVariable("IMG_PATH_ACQ", "<svg class='svg favorite'><use xlink:href='" . $this->userPicUrl . "#user'/></svg>");
                     } else {
-                        $this->content->setVariable("IMG_PATH_ACQ", $this->userPicUrl);
+                        $this->content->setVariable("IMG_PATH_ACQ", "<svg class='svg'><use xlink:href='" . $this->userPicUrl . "#user'/></svg>");
                     }
                     $this->content->parse("FAV_DDSETTING_ACQS");
                     $this->content->parse("FAVORITES_ACQ");

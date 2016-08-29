@@ -15,8 +15,8 @@
 }
 
 .predefined-rights{
-    float: left; 
-    margin-right: 10px; 
+    float: left;
+    margin-right: 10px;
     margin-top: 8px;
 }
 
@@ -50,4 +50,15 @@ select {
 
 br {
   display: none;
+}
+
+.svg {
+  width: 16px;
+  height: 16px;
+  color: #3a6e9f;
+  float: left;
+}
+
+.favorite {
+  color: #ff8300;
 }
