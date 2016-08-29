@@ -2,12 +2,6 @@
 
 namespace Sanction\Commands;
 
-/*
- * 
- * icons von der extension explorer beziehen oder dublizieren?
- * 
- */
-
 class Index extends \AbstractCommand implements \IFrameCommand {
 
     private $params;
@@ -22,10 +16,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     private $environment;
     private $environmentName = "";
     private $environmentSanction = false;
-    
+
     //acquire is an object, if the rights are acquired, otherwise it is an integer value
     private $acquire;
-    
+
     //if $this->acquire is an object of the type steam_container
     private $rightsAreAcquired = false;
 
@@ -54,7 +48,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
     private function isInheritedSanction($steamUserOrGroup, $sanction) {
-        //wenn check_access true liefert und der Wert mit dem in dem 
+        //wenn check_access true liefert und der Wert mit dem in dem
         //sanction array nicht übereinstimmt, muss der Wert geerbt sein
         //gucke, ob ich überhaupt die Berechitugung zu $sanction habe
         //return Array(false, true);
@@ -79,7 +73,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     return Array(true, false);
                 }
             }
-            //der Nutzer hat das Recht in Sanction, es wurde allerdings geerbt und kann somit 
+            //der Nutzer hat das Recht in Sanction, es wurde allerdings geerbt und kann somit
             //hier nicht entzogen werden. (=> Checkbox ist ausgegraut)
             return Array(true, true);
         }
@@ -98,7 +92,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
 
-
         $this->steamObject = $GLOBALS["STEAM"];
         $this->steamUser = \lms_steam::get_current_user();
 
@@ -111,6 +104,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         $this->object = \steam_factory::get_object($this->steamObject->get_id(), $this->id);
+
+        $this->getExtension()->addCSS();
 
         //check if it was possible to build an object for that ID
         if (!is_object($this->object)) {
@@ -141,7 +136,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
         //ACQUIRE SETTINGS
-        //check if the environment is a steam_container otherwise it sould not be 
+        //check if the environment is a steam_container otherwise it sould not be
         //possible to inherit the rights from the environment
         //get acquire returns the object, the rights are acquired from
         //or an integervalue if no rights are acquired
@@ -190,7 +185,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
 
-        //check if there are additional users or grous that have rights 
+        //check if there are additional users or grous that have rights
         //concerning the current object
         $user = array();
         foreach ($this->sanctionRaw as $id => $sanct) {
@@ -275,17 +270,15 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         asort($userMapping);
 
 
-        //load the template for the view and assign variabels 
+        //load the template for the view and assign variabels
         $content = \Sanction::getInstance()->loadTemplate("sanction.template.html");
 
 
 
         //***PICTURES**//
         //paths to the images
-
-        $userPicUrl = PATH_URL . "explorer/asset/icons/user.png";
-        $groupPicUrl = PATH_URL . "explorer/asset/icons/group.png";
-        $favPicUrl = PATH_URL . "explorer/asset/icons/red.png";
+        $userPicUrl = PATH_URL . "explorer/asset/icons/user.svg";
+        $groupPicUrl = PATH_URL . "explorer/asset/icons/group.svg";
 
         //assign template variables
         $content->setVariable("OBJECT_ID", $this->id);
@@ -350,7 +343,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
                 $content->setCurrentBlock("GROUPS");
-                //generate in every group-block in the template the checkboxes 
+                //generate in every group-block in the template the checkboxes
                 //and check them if the specificright is granted
                 foreach ($sanctions as $key => $value) {
                     $checkbox = $this::generateCheckboxRaw($groupId, $key, $value[0], ($value[1] OR $this->acquire instanceof \steam_container));
@@ -360,9 +353,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
                 if (isset($favorites[$groupId])) {
-                    $content->setVariable("IMG_PATH", $favPicUrl);
+                    $content->setVariable("IMG_PATH", "<svg class='svg favorite'><use xlink:href='" . $groupPicUrl . "#group'/></svg>");
                 } else {
-                    $content->setVariable("IMG_PATH", $groupPicUrl);
+                    $content->setVariable("IMG_PATH", "<svg class='svg'><use xlink:href='" . $groupPicUrl . "#group'/></svg>");
                 }
 
                 //a '.' in the group name means that the group is a sub-group
@@ -394,7 +387,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 
                     $content->setCurrentBlock("FAVORITES");
-                    //generate in every group-block in the template the checkboxes 
+                    //generate in every group-block in the template the checkboxes
                     //and check them if the specificright is granted
                     foreach ($sanctions as $key => $value) {
                         $checkbox = $this::generateCheckboxRaw($id, $key, $value[0], ($value[1] OR $this->acquire instanceof \steam_container));
@@ -405,9 +398,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
                     $content->setVariable("GROUPNAME", $favo->get_full_name());
                     if (isset($favorites[$id])) {
-                        $content->setVariable("IMG_PATH", $favPicUrl);
+                        $content->setVariable("IMG_PATH", "<svg class='svg favorite'><use xlink:href='" . $userPicUrl . "#user'/></svg>");
                     } else {
-                        $content->setVariable("IMG_PATH", $userPicUrl);
+                        $content->setVariable("IMG_PATH", "<svg class='svg'><use xlink:href='" . $groupPicUrl . "#user'/></svg>");
                     }
                     $content->parse("FAVORITES");
                 }
@@ -471,8 +464,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
             $content->parse("CONSTANTS");
         }
-        
-        
+
+
         if ($this->object instanceof \steam_container) {
             foreach ($this->object->get_inventory() as $object) {
                 $content->setCurrentBlock("CONTENT");

@@ -6,7 +6,7 @@ class Sanction extends AbstractExtension{
 	}
 
 	public function getDesciption() {
-		return "Extension to view detailed sanctions of a steam Object.";
+		return "Extension to view detailed sanctions of an object.";
 	}
 
 	public function getVersion() {
@@ -24,12 +24,11 @@ class Sanction extends AbstractExtension{
 	}
 
 	public function getObjectReadableDescription() {
-		return "Hier können sie die Rechte eines s-Team Objektes verwalten.";
+		return "Hier können sie die Rechte eines Objektes verwalten.";
 	}
 
 	public function getObjectIconUrl() {
-		//TODO: new icon
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/gallery.svg";
+		return Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg";
 	}
 
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
