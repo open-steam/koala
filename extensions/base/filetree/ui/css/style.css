@@ -14,22 +14,22 @@ ul.jqueryFileTree li {
 	white-space: nowrap;
 }
 
-.jqueryFileTree li.collapsed { 
-    background: url("/filetree/asset/tree_plus.gif") left top no-repeat; 
+.jqueryFileTree li.collapsed {
+    background: url("/filetree/asset/tree_plus.svg") left top no-repeat;
 }
 
-.jqueryFileTree li.expanded { 
-    background: url("/filetree/asset/tree_minus.gif") left top no-repeat; 
+.jqueryFileTree li.expanded {
+    background: url("/filetree/asset/tree_minus.svg") left top no-repeat;
 }
 
-.jqueryFileTree li.wait { 
-    background: url("/filetree/asset/spinner.gif") left top no-repeat; 
-}
+.jqueryFileTree li.wait {
+
+ }
 
 ul.jqueryFileTree a {
 	color: #333;
 	text-decoration: none;
-        display: inline-block;
+	display: inline-block;
 	padding: 0px 2px;
 }
 
@@ -37,6 +37,14 @@ ul.jqueryFileTree a:hover {
 	background: #BDF;
 }
 
-.jqueryFileTree li a.highlighted { 
-    background-color: #DDDDDD; 
+.jqueryFileTree li a.highlighted {
+    background-color: #DDDDDD;
+}
+
+.svg {
+	width: 16px;
+	height: 16px;
+	color: #3a6e9f;
+	position: relative;
+  top: 3px;
 }
