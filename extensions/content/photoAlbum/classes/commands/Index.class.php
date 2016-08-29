@@ -49,7 +49,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         \lms_portal::get_instance()->add_javascript_src("lazyload", PATH_URL . "styles/standard/javascript/lazy/jquery.lazyload.min.js");
         \lms_portal::get_instance()->add_javascript_src("colorbox", PATH_URL . "styles/standard/javascript/colorbox/jquery.colorbox.js");
 
-        $titleCss = '#gallery-title{margin-left:50px;}';
         if ($gallery->check_access(SANCTION_SANCTION)) {
             $actionBar = new \Widgets\ActionBar();
             //$actionBar->setActions(array(
@@ -72,16 +71,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $titleHtml = new \Widgets\RawHtml();
         $title = getCleanName($gallery);
-        $titleHtml->setCss($titleCss .
-                '#gallery{margin-top:25px;}
-            .gal-element{background:#EEEEEE;height:204px;width:204px;margin:5px;float:left;}
-            .row{clear:both;margin-left:45px;margin-right:45;}
-            .pic {width:200px;height:200px;max-height:200px;max-width:200px;display: table-cell;
-    vertical-align: middle;
-	text-align: center;}
-            img.lazy{padding:2px;max-width:200px;}
-          ');
-        $titleHtml->setHtml('<h1 id="gallery-title">' . $title . '</h1>');
+        $titleHtml->setHtml("<svg style='width:16px; height:16px; float:left; color:#3a6e9f; right:5px; position:relative;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/gallery.svg#gallery'/></svg><h1 id='gallery-title'>" . $title . "</h1>");
         $frameResponseObject->addWidget($titleHtml);
 
         $inventory = $gallery->get_inventory();
