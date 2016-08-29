@@ -73,7 +73,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->getExtension()->addCSS();
 
         $headlineHtml = new \Widgets\Breadcrumb();
-        $headlineHtml->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/reference_folder.png\"></img> " . $obj->get_name() . " ")));
+        $headlineHtml->setData(array("", array("name" => "<svg style='width:16px; height:16px; color:#3a6e9f; top:3px; position:relative;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/postbox.svg#postbox'/></svg> " . $obj->get_name() . " ")));
 
         $cssStyles = new \Widgets\RawHtml();
         $cssStyles->setCss('
