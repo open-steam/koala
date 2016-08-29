@@ -69,7 +69,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                 }
             }
         }
-        
+
         $this->template->setVariable("HEADLINE", $this->portletName);
 
         if (trim($this->portletName) == "") {
@@ -113,10 +113,11 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                     $this->template->setCurrentBlock("BLOCK_HIDE_BUTTON");
                     $this->template->setVariable("HIDE_ALL_BUTTON", \PortletSubscription\Subscriptions\AbstractSubscription::getElementJS($this->portlet->get_id(), -1, time(), ""));
                     $this->template->parse("BLOCK_HIDE_BUTTON");
-                } 
-                
-                if(count($updates) === 0) {
-                    //if there is no update to show we use the opportunity to clean up the filter and update the timestamp
+                }
+
+                if (count($updates) === 0 && count($this->portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER")) > 0) {
+                    //if there is no update to show we use the opportunity to clean up the filter and update the timestamp 
+                    //but only when there is something to erase from the filter to save unneccesary updates
                     //this saves a lot of filter-bookkeeping
                     $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", array());
                     $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_TIMESTAMP", time());

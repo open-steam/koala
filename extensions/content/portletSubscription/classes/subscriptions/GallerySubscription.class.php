@@ -5,51 +5,52 @@ class GallerySubscription extends AbstractSubscription {
     
     public function getUpdates() {
         
-        $updates = array();
-        $count = 0;
-        $objects = $this->object->get_inventory();
+        $this->content = $this->object->get_inventory();
         
+        
+        if(!is_array($this->formerContent)) {
+            $this->formerContent = array();
+            $this->changedFormerContent = true;
+        }
+        
+        //build an array with the existing ids to compare ids and not objects later on to find new and deleted elements
         $objectIds = Array();
-        foreach($objects as $object)
+        foreach($this->content as $object)
         {
             $objectIds[$object->get_id()] = true;
         }
         
-        
-        $formerContent = $this->portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
-        if(!is_array($formerContent)) {$formerContent = array();}
-        
-        $count = 0;
-        foreach($formerContent as $id => $unUsed){
+
+        foreach($this->formerContent as $id => $unUsed){
             if(!array_key_exists($id,$objectIds)){ //the object existed in this folder but isn't there anymore, display an info that it is deleted / moved
-                $updates[] = array(
+                $this->updates[] = array(
                     PHP_INT_MAX, //display the deleted files at the end
                     $id,
                     $this->getElementHtml(
                         $id, 
-                        $id . "_" . $count,
+                        $id . "_" . $this->count,
                         $this->private,
                         "In letzter Zeit",
-                        "Nicht mehr vorhandenes Objekt: ".$formerContent[$id]["name"],
+                        "Nicht mehr vorhandenes Objekt: ".$this->formerContent[$id]["name"],
                         "",
                         ""
                     )
                 );
             }
-            $count++;
+            $this->count++;
         }
         
         
         
-        foreach ($objects as $id => $object) {
+        foreach ($this->content as $id => $object) {
             //there is a new object in this folder, show an info if it is not created recently (eg. moved here)
-            if(!array_key_exists($object->get_id(),$formerContent) && $object->get_attribute("OBJ_CREATION_TIME") < $this->timestamp){ 
-                $updates[] = array(
+            if(!array_key_exists($object->get_id(),$this->formerContent) && $object->get_attribute("OBJ_CREATION_TIME") < $this->timestamp){ 
+                $this->updates[] = array(
                     PHP_INT_MAX-1, //display the deleted files at the end
                     $object->get_id(),
                     $this->getElementHtml(
                         $object->get_id(),
-                        $object->get_id() . "_" . $count,
+                        $object->get_id() . "_" . $this->count,
                         $this->private,
                         "In letzter Zeit",
                         "Neu vorhandenes Objekt: ".\PortletSubscription::getNameForSubscription($object),
@@ -58,16 +59,16 @@ class GallerySubscription extends AbstractSubscription {
                     )
                 );
             }
-            $count++;
+            $this->count++;
             
             if ($object instanceof \steam_document) {
                 if ($object->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("OBJ_CREATION_TIME"), $this->filter[$object->get_id()]))) {
-                    $updates[] = array(
+                    $this->updates[] = array(
                                     $object->get_attribute("OBJ_CREATION_TIME"), 
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $count,
+                                        $object->get_id() . "_" . $this->count,
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
                                         "Neues Bild: <a href=\"" . PATH_URL . "explorer/ViewDocument/" . $object->get_id() . "/" . "\">".\PortletSubscription::getNameForSubscription($object)."</a> (in Fotoalbum <a href=\"" . PATH_URL . "photoAlbum/Index/" . $this->object->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($this->object) . "</a>)",
@@ -75,18 +76,21 @@ class GallerySubscription extends AbstractSubscription {
                                         PATH_URL . "gallery/Index/" . $this->object->get_id() . "/"
                                     )
                                 );
+                    
                     //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
-                    if(!array_key_exists($object->get_id(), $formerContent)){
-                        $formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
+                    if(!array_key_exists($object->get_id(), $this->formerContent) || $this->formerContent[$object->get_id()]["name"] !== $object->get_attribute(OBJ_NAME)){
+                        $this->formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
+                        $this->changedFormerContent = true;
                     }
                     
-                } else if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp+1 && !(isset($this->filter[$object->get_id()]) && (in_array($object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$object->get_id()]) || in_array($object->get_attribute("OBJ_LAST_CHANGED")-1, $this->filter[$object->get_id()])))) {
-                    $updates[] = array(
+                } 
+                if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $object->get_attribute("OBJ_LAST_CHANGED") > $object->get_attribute("OBJ_CREATION_TIME") && !(isset($this->filter[$object->get_id()]) && (in_array($object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$object->get_id()])))) {
+                    $this->updates[] = array(
                                     $object->get_attribute("OBJ_LAST_CHANGED"), 
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $count,
+                                        $object->get_id() . "_" . $this->count,
                                         $this->private,
                                         $object->get_attribute("OBJ_LAST_CHANGED"),
                                         "Geändertes Bild: <a href=\"" . PATH_URL . "explorer/ViewDocument/" . $object->get_id() . "/" . "\">".\PortletSubscription::getNameForSubscription($object)."</a> (in Fotoalbum <a href=\"" . PATH_URL . "photoAlbum/Index/" . $this->object->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($this->object) . "</a>)",
@@ -94,14 +98,21 @@ class GallerySubscription extends AbstractSubscription {
                                         PATH_URL . "gallery/Index/" . $this->object->get_id() . "/"
                                     )
                                 );
+                    
+                    //update the name of this object if it has changed
+                    if(array_key_exists($object->get_id(), $this->formerContent) &&  $this->formerContent[$object->get_id()]["name"] !== $object->get_attribute(OBJ_NAME)){
+                        $this->formerContent[$object->get_id()] = array("name"=>$object->get_attribute(OBJ_NAME));
+                        $this->changedFormerContent = true;
+                    }
+                    
                 }
             } 
-            $count++;
+            $this->count++;
         }
         
         if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("CONT_LAST_MODIFIED") != $this->object->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
             
-            $updates[] = array(
+            $this->updates[] = array(
                             $this->object->get_attribute("OBJ_LAST_CHANGED"), 
                             $this->object->get_id(), 
                             $this->getElementHtml(
@@ -117,9 +128,11 @@ class GallerySubscription extends AbstractSubscription {
         }
         
         //save back all changes to the objects in this container
-        $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $formerContent);
+        if($this->changedFormerContent){
+            $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $this->formerContent);
+        }
         
-        return $updates;
+        return $this->updates;
     }
 }
 ?>
