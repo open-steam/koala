@@ -148,7 +148,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             $idSVG = str_replace(".svg", "", $iconSVG);
             $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
 
-            return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
+            return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } elseif ($cell == $this->rawName) {
             $creator = $contentItem->get_creator();
             $tipsy = new \Widgets\Tipsy();

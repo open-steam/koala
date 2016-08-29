@@ -109,6 +109,34 @@
 	background-color: #D6D6D6;
 }
 
+.redColor {
+	color: #e97a6b;
+}
+
+.orangeColor {
+	color: #f6b75d;
+}
+
+.yellowColor {
+	color: #f6e962;
+}
+
+.greenColor {
+	color: #c4e06b;
+}
+
+.blueColor {
+	color: #6cb1fd;
+}
+
+.purpleColor {
+	color: #c182d8;
+}
+
+.greyColor {
+	color: #b0b0b0;
+}
+
 .listviewer-item-hover.red {
 	background-color: #e97a6b;
 }

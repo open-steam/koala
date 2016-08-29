@@ -55,10 +55,11 @@
 	cursor: pointer;
 }
 
-.popupmenuitem img{
-	padding-right: 3px;
+.popupmenuitem svg {
 	position: relative;
 	top: 3px;
+	width: 16px;
+	height: 16px;
 }
 
 .popupmenuitem:hover {

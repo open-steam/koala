@@ -32,36 +32,28 @@ class GetPopupMenuEntry extends \AbstractCommand implements \IAjaxCommand {
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		//icons
-		$copyIcon = $explorerUrl . "icons/menu/copy.png";
-		$cutIcon = $explorerUrl . "icons/menu/cut.png";
-		$referIcon = $explorerUrl . "icons/menu/refer.png";
-		$deleteIcon = $explorerUrl . "icons/menu/delete.png";
-		$hideIcon = $explorerUrl . "icons/menu/hide.png";
-		$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-		$sortIcon = $explorerUrl . "icons/menu/sort.png";
-		$upIcon = $explorerUrl . "icons/menu/up.png";
-		$downIcon = $explorerUrl . "icons/menu/down.png";
-		$topIcon = $explorerUrl . "icons/menu/top.png";
-		$bottomIcon = $explorerUrl . "icons/menu/bottom.png";
-		$renameIcon = $explorerUrl . "icons/menu/rename.png";
-		$editIcon = $explorerUrl . "icons/menu/edit.png";
-		$propertiesIcon = $explorerUrl . "icons/menu/properties.png";
-		$rightsIcon = $explorerUrl . "icons/menu/rights.png";
-		$blankIcon = $explorerUrl . "icons/menu/blank.png";
+		$deleteIcon = $explorerUrl . "icons/menu/svg/trash.svg";
+		$sortIcon = $explorerUrl . "icons/menu/svg/sort.svg";
+		$upIcon = $explorerUrl . "icons/menu/svg/up.svg";
+		$downIcon = $explorerUrl . "icons/menu/svg/down.svg";
+		$topIcon = $explorerUrl . "icons/menu/svg/top.svg";
+		$bottomIcon = $explorerUrl . "icons/menu/svg/bottom.svg";
+		$editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
 
 		$inventory = $this->countPortletEntries();
 
 		$popupMenu =  new \Widgets\PopupMenu();
-		$items = array(	array("name" => "<img src=\"{$editIcon}\">Bearbeiten",  "command" => "EditTopicEntry", "namespace" => "PortletTopic", "params" => "{	'portletId':'{$this->id}','entryIndex':'{$this->entryIndex}','categoryIndex':'{$this->categoryIndex}'}", "type"=>"popup"),
-				($inventory >= 2) ? array("name" => "<img src=\"{$sortIcon}\">Umsortieren", "direction" => "right", "menu" => array(
-							($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "<img src=\"{$topIcon}\">Ganz nach oben",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'first'}") : "",
-							($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "<img src=\"{$upIcon}\">Eins nach oben",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'up'}") : "",
-							($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "<img src=\"{$downIcon}\">Eins nach unten",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'down'}") : "",
-							($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "<img src=\"{$bottomIcon}\">Ganz nach unten",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'last'}") : "",
-						)) : "",
-						array("name" => "<img src=\"{$deleteIcon}\">Löschen",  "command" => "DeleteEntry", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}'}","type"=>"popup"));
+		$items = array(	array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten",  "command" => "EditTopicEntry", "namespace" => "PortletTopic", "params" => "{	'portletId':'{$this->id}','entryIndex':'{$this->entryIndex}','categoryIndex':'{$this->categoryIndex}'}", "type"=>"popup"),
+						array("name" => "<svg><use xlink:href='{$deleteIcon}#trash'/></svg> Löschen",  "command" => "DeleteEntry", "namespace" => "PortletTopic", "params" => "{'portletId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}'}","type"=>"popup"),
+						($inventory >= 2) ? array("name" => "<svg><use xlink:href='{$sortIcon}#sort'/></svg> Umsortieren", "direction" => "right", "menu" => array(
+									($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "<svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'first'}") : "",
+									($this->categoryIndex != 0 || $this->entryIndex != 0) ? array("name" => "<svg><use xlink:href='{$upIcon}#up'/></svg> Eins nach oben",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'up'}") : "",
+									($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "<svg><use xlink:href='{$downIcon}#down'/></svg> Eins nach unten",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'down'}") : "",
+									($this->entryIndex < count($this->entries)-1 || $this->categoryIndex < count($this->categories)-1) ? array("name" => "<svg><use xlink:href='{$bottomIcon}#bottom'/></svg> Ganz nach unten",  "command" => "OrderEntry", "namespace" => "PortletTopic", "params" => "{'portletObjectId':'{$this->id}','categoryIndex':'{$this->categoryIndex}','entryIndex':'{$this->entryIndex}','order':'last'}") : "",
+								)) : "");
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 105) . "px", round($this->y + $this->height + 4) . "px");
+		$popupMenu->setWidth("120px");
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

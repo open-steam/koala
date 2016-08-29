@@ -126,7 +126,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
                 " . $urlHtml . "
 
-                <svg class='galleryPicture' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>
+                <svg class='galleryPicture'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>
 
                 </a>
 

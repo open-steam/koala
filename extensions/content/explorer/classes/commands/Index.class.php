@@ -216,7 +216,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
   			$iconSVG = str_replace("png", "svg", $icon);
   			$idSVG = str_replace(".svg", "", $iconSVG);
   			$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-  			$breadcrumbArray = array(array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>"));
+  			$breadcrumbArray = array(array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>"));
   			$parent = $object->get_environment();
   			while($parent instanceof \steam_container){
   				$title = getCleanName($parent, 65);
@@ -224,7 +224,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
   				$iconSVG = str_replace("png", "svg", $icon);
   				$idSVG = str_replace(".svg", "", $iconSVG);
   				$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-  				array_unshift($breadcrumbArray, array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>", "link" => PATH_URL . "explorer/index/" . $parent->get_id() . "/"));
+  				array_unshift($breadcrumbArray, array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>", "link" => PATH_URL . "explorer/index/" . $parent->get_id() . "/"));
   				$parent = $parent->get_environment();
   			}
         array_unshift($breadcrumbArray, "");

@@ -26,15 +26,15 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		//icons
-		$createIcon = $explorerUrl . "icons/menu/newElement.png";
-		$pasteIcon = $explorerUrl . "icons/menu/paste.png";
-		$editIcon = $explorerUrl . "icons/menu/edit.png";
+		$createIcon = $explorerUrl . "icons/menu/svg/newElement.svg";
+		$pasteIcon = $explorerUrl . "icons/menu/svg/paste.svg";
+		$editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
 
 		$popupMenu =  new \Widgets\PopupMenu();
 		$items = 	array(
-						array("name" => "<img src=\"{$createIcon}\">Komponente erstellen", "command" => "NewPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "<img src=\"{$pasteIcon}\">Komponente einfügen", "command" => "InsertPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "<img src=\"{$editIcon}\">Breite bearbeiten", "command" => "Edit", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup")
+						array("name" => "<svg><use xlink:href='{$createIcon}#newElement'/></svg> Komponente erstellen", "command" => "NewPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
+						array("name" => "<svg><use xlink:href='{$pasteIcon}#paste'/></svg> Komponente einfügen", "command" => "InsertPortlet", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
+						array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Breite bearbeiten", "command" => "Edit", "namespace" => "PortalColumn", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup")
 					);
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");

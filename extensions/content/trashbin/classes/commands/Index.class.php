@@ -42,7 +42,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
 		$title = "Papierkorb";
 		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array("", array("name" => "<svg style='width:16px; height:16px; color:#3a6e9f;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" .  PATH_URL . "explorer/asset/icons/trashbin.svg#trashbin'/></svg>" . $title)));
+		$breadcrumb->setData(array("", array("name" => "<svg style='width:16px; height:16px; color:#3a6e9f;'><use xlink:href='" .  PATH_URL . "explorer/asset/icons/trashbin.svg#trashbin'/></svg>" . $title)));
 
 		//$actionBar = new \Widgets\ActionBar();
 		//$actionBar->setActions(array(array("name"=>"Papierkorb leeren", "ajax"=>array("onclick"=>array("command"=>"EmptyTrashbin", "params"=>array(), "requestType"=>"popup", "namespace"=>"explorer")))));

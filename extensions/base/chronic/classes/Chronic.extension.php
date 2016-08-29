@@ -328,7 +328,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
     }
 
     private function getEntryIconTag($chronicEntry) {
-        $defaultIcon = "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/folder.svg#folder'/></svg>";
+        $defaultIcon = "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' ><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/folder.svg#folder'/></svg>";
 
         $content = explode(":", $chronicEntry);
         $entryType = $content[0];
@@ -342,7 +342,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     $iconSVG = str_replace("png", "svg", $icon);
                     $idSVG = str_replace(".svg", "", $iconSVG);
                     $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' ><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
           } elseif ($cell == $this->rawName) {
               $creator = $contentItem->get_creator();
               $tipsy = new \Widgets\Tipsy();
@@ -357,9 +357,9 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             $objectPath = $content[1];
             try {
                 if (strpos($objectPath, "/forum/showTopic/") === 0) {
-                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/forumthread.svg#forumthread'/></svg>";
+                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/forumthread.svg#forumthread'/></svg>";
                 } elseif (strpos($objectPath, "/wiki/entry/") === 0) {
-                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/wiki.svg#wiki'/></svg>";
+                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/wiki.svg#wiki'/></svg>";
                 } else {
                     return $defaultIcon;
                 }
