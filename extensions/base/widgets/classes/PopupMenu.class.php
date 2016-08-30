@@ -117,7 +117,23 @@ class PopupMenu extends Widget {
 				}
 			}
 		}
-		$script = "var lastSVG = jQuery(\".popupmenuwrapper\").children().last().find(\"use\");if(lastSVG.length != 0){lastSVG.load(function(){jQuery(that).removeClass(\"popupmenuloading\").addClass(\"popupmenuanker\").addClass(\"open\");jQuery(\".popupmenuwrapper\").css(\"display\", \"table\");})}";
+		$script = "
+		function showPopupMenu(){
+			jQuery(that).removeClass(\"popupmenuloading\").addClass(\"popupmenuanker\").addClass(\"open\");
+			jQuery(\".popupmenuwrapper\").css(\"display\", \"table\");
+		}
+	 	var lastSVG = jQuery(\".popupmenuwrapper\").children().last().find(\"use\");
+	 	if(lastSVG.length != 0){
+			if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+				//call function directly because svg load event do not fire in firefox
+				showPopupMenu();
+			}
+			else{
+		 		lastSVG.load(function(){
+			 		showPopupMenu();
+		 		})
+	 		}
+ 		}";
 		$html .= "<script>" . $script . "</script>";
 		return $html;
 	}
