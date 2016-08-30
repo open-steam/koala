@@ -84,7 +84,7 @@ class PostboxSubscription extends AbstractSubscription {
                 } 
 
                  
-                else if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$object->get_id()]))) {
+                if ($object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $object->get_attribute("OBJ_LAST_CHANGED") > $object->get_attribute("OBJ_CREATION_TIME") && !(isset($this->filter[$object->get_id()]) && in_array($object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$object->get_id()]))) {
                 
                     $this->updates[] = array(
                                     $object->get_attribute("OBJ_LAST_CHANGED"), 
