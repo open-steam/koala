@@ -30,7 +30,7 @@ class WikiSubscription extends AbstractSubscription {
                         $id . "_" . $this->count,
                         $this->private,
                         "In letzter Zeit",
-                        "Nicht mehr vorhandener Eintrag: ".$name,
+                        "Nicht mehr vorhandener Artikel: ".$name,
                         "",
                         ""
                     )
