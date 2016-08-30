@@ -35,7 +35,7 @@ abstract class AbstractSubscription {
         //for deleted item it is not possible to give a exact date.
         if(date("Y", $timestamp)){
             //try to build a date out of the timestamp, then build the correct formatted date
-            $dateString = date("d.m.Y H:i", $timestamp) . " Uhr";
+            $dateString = date("d.m.Y H:i:s", $timestamp) . " Uhr";
         } else {
             //if it fails return a general phrase
             $dateString = "In letzter Zeit";

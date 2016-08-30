@@ -107,8 +107,8 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
 
                 $updates = $this->portletInstance->calculateUpdates($subscriptionObject, $this->portlet);
-
-                if (count($updates) > 1) {
+                $isInTrashbin = preg_match("%/home/([a-z0-9]+)/trashbin/%isU", $subscriptionObject->get_attribute("OBJ_PATH"), $matches);
+                if (count($updates) > 1 && !$isInTrashbin) {
 
                     $this->template->setCurrentBlock("BLOCK_HIDE_BUTTON");
                     $this->template->setVariable("HIDE_ALL_BUTTON", \PortletSubscription\Subscriptions\AbstractSubscription::getElementJS($this->portlet->get_id(), -1, time(), ""));
@@ -125,11 +125,16 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
                 $this->template->parse("BLOCK_FOLDER_HEADLINE");
 
+                
+                //the object could be created, we can read the object 
+                //check whether it is in a trashbin or not
+                if ($isInTrashbin) {
 
+                    $this->template->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
+                    $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Das abonnierte Objekt mit der id " . $this->subscriptionObjectId . " existiert nicht (mehr). Es liegt aber noch im Papierkorb des Benutzers ".$matches[1].".</h3>");
+                    $this->template->parse("BLOCK_SUBSCRIPTION_ELEMENT");
+                } else {
 
-                //the object could be created, we can read the object and it is not moved to the trashbin (deleted for the user)
-                if (!strpos($subscriptionObject->get_attribute("OBJ_PATH"), "trashbin")) {
-                    //
                     //$this->portletName = getCleanName($this->portlet);
                     if (count($updates) === 0) {
                         $this->template->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
@@ -142,10 +147,6 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                             $this->template->parse("BLOCK_SUBSCRIPTION_ELEMENT");
                         }
                     }
-                } else {
-                    $this->template->setCurrentBlock("BLOCK_SUBSCRIPTION_ELEMENT");
-                    $this->template->setVariable("SUBSCRIPTION_ELEMENT_HTML", "<h3>Das abonnierte Objekt mit der id " . $this->subscriptionObjectId . " existiert nicht (mehr). Es liegt vermutlich im Papierkorb.</h3>");
-                    $this->template->parse("BLOCK_SUBSCRIPTION_ELEMENT");
                 }
             }
         } else if (!is_numeric($this->subscriptionObjectId)) {
