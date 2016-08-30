@@ -134,7 +134,9 @@ class FolderSubscription extends AbstractSubscription {
         }
         
         //save back all changes to the objects in this container
-        $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $this->formerContent);
+        if($this->changedFormerContent){
+            $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $this->formerContent);
+        }
         
         return $this->updates;
     }
