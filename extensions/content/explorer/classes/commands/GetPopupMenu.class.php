@@ -97,7 +97,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                         if (is_array($subscriptions) && in_array($object->get_id(), $subscriptions)) {
                             $subscription = array("name" => "<svg><use xlink:href='{$unsubscribeIcon}#unsubscribe'/></svg> Abbestellen", "command" => "Unsubscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}' }", "type" => "reload");
                         } else {
-                            $subscription = array("name" => "<svg><use xlink:href='{$subscribeIcon}#subscribe'/></svg> Abonnieren", "command" => "Subscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}', 'column' : '2' }", "type" => "reload");
+                            $subscription = array("name" => "<svg><use xlink:href='{$subscribeIcon}#subscribe'/></svg> Abonnieren", "command" => "Subscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}', 'column' : '2' }", "type" => "nonModalUpdater");
                         }
                     }
                   }

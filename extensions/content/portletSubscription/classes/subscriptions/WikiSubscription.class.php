@@ -21,7 +21,13 @@ class WikiSubscription extends AbstractSubscription {
         
         foreach($this->formerContent as $id => $unUsed){
             if(!array_key_exists($id,$objectIds)){ //the object existed in this folder but isn't there anymore, display an info that it is deleted / moved
-                $name = substr($this->formerContent[$id]["name"], 0, strpos($this->formerContent[$id]["name"], ".wiki"));
+                
+                $name = $this->formerContent[$id]["name"];
+                $string = "Nicht mehr vorhandenes Bild: ".$name;
+                if(strpos($name, ".wiki") !== false){
+                    $string = "Nicht mehr vorhandener Artikel: ".substr($name, 0, strpos($name, ".wiki"));
+                }
+                
                 $this->updates[] = array(
                     PHP_INT_MAX, //display the deleted files at the end
                     $id,
@@ -30,7 +36,7 @@ class WikiSubscription extends AbstractSubscription {
                         $id . "_" . $this->count,
                         $this->private,
                         "In letzter Zeit",
-                        "Nicht mehr vorhandener Eintrag: ".$name,
+                        $string,
                         "",
                         ""
                     )
