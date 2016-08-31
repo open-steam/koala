@@ -22,7 +22,7 @@ class koala_html_menu
 					$this->tpl->setCurrentBlock( "BLOCK_MENU" );
 					// separator:
 					if ($menu_entry[ "name" ] === "SEPARATOR") {
-						$this->tpl->touchBlock( "BLOCK_SEPERATOR" );
+						$this->tpl->touchBlock( "BLOCK_SEPARATOR" );
 					} else {
 						$this->tpl->setCurrentBlock( "BLOCK_MENUITEM" );
 						if ( isset( $menu_entry[ "link" ] ) && !empty( $menu_entry[ "link" ] ) ) {
@@ -40,8 +40,8 @@ class koala_html_menu
 						if ( isset( $menu_entry[ "icon" ] ) && !empty( $menu_entry[ "icon" ] ) ) {
 							$this->tpl->setVariable( "MENUITEM_ICON", $menu_entry[ "icon" ] );
 						}
-						
-						
+
+
 						// submenu:
 						if ( isset( $menu_entry[ "menu" ] ) && is_array( $menu_entry[ "menu" ] ) ) {
 							$this->tpl->setCurrentBlock( "BLOCK_SUBMENU");
@@ -52,7 +52,7 @@ class koala_html_menu
 							$this->tpl->setVariable( "SUBMENU_HTML", $submenu->get_html() );
 							$this->tpl->parse( "BLOCK_SUBMENU" );
 						}
-						
+
 						$this->tpl->parse( "BLOCK_MENUITEM" );
 					}
 					$this->tpl->parse( "BLOCK_MENU" );

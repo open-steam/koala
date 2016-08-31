@@ -71,7 +71,14 @@ class PopupMenu extends Widget {
 				}
 
 				if (isset($item["menu"])) {
-					$html .= "<div class=\"popupmenuitem popupsubmenuanker {$item["direction"]}\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\"><a href=\"#\">{$item["name"]}</a>";
+					$triangle = "";
+					if($item["direction"] == "left"){
+						$triangle = "<div style='float:left; color:#3a6e9f; padding-top:5px;'>◀</div>";
+					}
+					if($item["direction"] == "right"){
+						$triangle = "<div style='float:right; color:#3a6e9f; padding-top:5px;'>▶</div>";
+					}
+					$html .= "<div class=\"popupmenuitem popupsubmenuanker {$item["direction"]}\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\"><a href=\"#\">{$item["name"]}</a>" . $triangle;
 					if (is_array($item["menu"])) {
 						$html .= "<div class=\"popupsubmenuwapper {$item["direction"]}\">";
 						foreach ($item["menu"] as $subMenuItem) {

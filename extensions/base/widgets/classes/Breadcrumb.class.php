@@ -24,9 +24,9 @@ class Breadcrumb extends Widget {
 						$this->getContent()->parse("BREADCRUMB_ITEM_WITHOUT_LINK");
 					}
 					if ($key < count($this->data)-1) {
-						$this->getContent()->setCurrentBlock("BREADCRUMB_ITEM_SEPERATOR");
-						$this->getContent()->setVariable("ITEM_SEPERATOR", ">");
-						$this->getContent()->parse("BREADCRUMB_ITEM_SEPERATOR");
+						$this->getContent()->setCurrentBlock("BREADCRUMB_ITEM_SEPARATOR");
+						$this->getContent()->setVariable("ITEM_SEPARATOR", ">");
+						$this->getContent()->parse("BREADCRUMB_ITEM_SEPARATOR");
 					}
 				} else if ($item instanceof \steam_object) {
 					$this->getContent()->setCurrentBlock("BREADCRUMB_ITEM_WITHOUT_LINK");

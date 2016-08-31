@@ -103,7 +103,7 @@ class PhotoAlbum extends AbstractExtension implements IObjectExtension, IObjectM
 
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
 			$env = $object->get_environment();
-			$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
+			//$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
 			$envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
 			$envSanction = $object->check_access(SANCTION_SANCTION);
 

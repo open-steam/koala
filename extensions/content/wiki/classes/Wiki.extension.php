@@ -79,39 +79,42 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 				$wikiID = $id;
 			}
 
-			$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
+			//$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
 
 			if(strpos($path, "mediathek") == false){
-				$array[] = array("name" => "<img title=\"Mediathek\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/gallery.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/mediathek/{$wikiID}/'");
+				$array[] = array("name" => "<div title='Mediathek'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/gallery.svg#gallery'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/mediathek/{$wikiID}/'");
 			}
 
 			if(strpos($path, "glossary") == false){
-				$array[] = array("name" => "<img title=\"Glossar\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/explorer_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/glossary/{$wikiID}/'");
+				$array[] = array("name" => "<div title='Glossar'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/explorer.svg#explorer'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/glossary/{$wikiID}/'");
 			}
 
 			$user = lms_steam::get_current_user();
 			if($object->check_access_write($user)){
 				if(strpos($path, "configuration") == false){
-					$array[] = array("name" => "<img title=\"Einstellungen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/configuration/{$wikiID}/'");
+					$array[] = array("name" => "<div title='Einstellungen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/configuration/{$wikiID}/'");
 				}
 				if(strpos($path, "mediathek") !== false){
-					$array[] = array("name" => "<img title=\"Bild hinzufügen\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"sendRequest('Upload', {'id':{$wikiID}}, '', 'popup');return false;");
+					$array[] = array("name" => "<div title='Bild hinzufügen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"sendRequest('Upload', {'id':{$wikiID}}, '', 'popup');return false;");
 				}
 				if(strpos($path, "glossary") !== false){
-					$array[] = array("name" => "<img title=\"Neuer Eintrag\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/newElement_white.png\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wikiID}'");
+					$array[] = array("name" => "<div title='Neuer Eintrag'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wikiID}'");
 				}
 				if(strpos($path, "entry") !== false){
 					if(strpos($path, ".wiki") !== false){
 						$path = $_SERVER["REQUEST_URI"];
 						$pathArray = explode("/", $path);
 						$wiki_doc = $object->get_object_by_name($pathArray[count($pathArray)-1]);
-						$array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wiki_doc->get_id()}'");
+						$array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wiki_doc->get_id()}'");
 					}
 					else{
-						$array[] = array("name" => "<img title=\"Bearbeiten\" src=\"" . PATH_URL . "styles/bid/images/icons/portlet/edit.gif\">", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}'");
+						$array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}'");
 					}
 				}
 			}
+
+			$array[] = array("name" => "SEPARATOR");
+
 			return $array;
 		}
 	}

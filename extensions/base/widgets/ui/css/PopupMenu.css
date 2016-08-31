@@ -91,20 +91,6 @@
 	background: #eee;
 }
 
-.popupsubmenuanker.left {
-	background-image: url("{PATH_URL}widgets/asset/left.svg");
-	background-repeat: no-repeat;
-	background-position: left;
-	background-size: 16px;
-}
-
-.popupsubmenuanker.right {
-	background-image: url("{PATH_URL}widgets/asset/right.svg");
-	background-repeat: no-repeat;
-	background-position: right;
-	background-size: 16px;
-}
-
 .popupsubmenuwapper.left {
 	right: 97%
 }

@@ -60,7 +60,7 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
                                 array("name" => "<img title=\"Eigenschaften\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/properties_white.png\">", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;"),
                                 array("name" => "<img title=\"Farben des Portals anpassen\" src=\"" . \Portal::getInstance()->getAssetUrl() . "icons/colorpicker_white.png\">", "onclick"=>"sendRequest('ColorOptions', {'id':'" . $object->get_id() . "'}, '', 'popup', null, null, 'portal');return false;"),
                                 array("name" => "<img title=\"Rechte\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights_white.png\">", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;"),
-																array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'")
+																//array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'")
                             );
 		}
 	}

@@ -356,8 +356,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkboxShowTags->setContentProvider(\Widgets\DataProvider::attributeProvider("SHOW_TAGS"));
         */
 
-        $seperator = new \Widgets\RawHtml();
-        $seperator->setHtml("<br style=\"clear:both\"/>");
+        $separator = new \Widgets\RawHtml();
+        $separator->setHtml("<br style=\"clear:both\"/>");
         $headlineAlg = new \Widgets\RawHtml();
         $headlineAlg->setHtml("<h3>Allgemein</h3>");
         $headlineMeta = new \Widgets\RawHtml();
@@ -388,23 +388,23 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         //embed link
         if ($documentIsPicture || $documentIsMedia) {
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($embedField);
         }
 
-        $dialog->addWidget($seperator);
+        $dialog->addWidget($separator);
         $dialog->addWidget($ownerField);
-        $dialog->addWidget($seperator);
+        $dialog->addWidget($separator);
 
         if ($type == "userHome" || $type == "room") {
           $dialog->addWidget($idField);
-          $dialog->addWidget($seperator);
+          $dialog->addWidget($separator);
         }
 
         $dialog->addWidget($changedField);
-        $dialog->addWidget($seperator);
+        $dialog->addWidget($separator);
         $dialog->addWidget($createdField);
-        $dialog->addWidget($seperator);
+        $dialog->addWidget($separator);
         $dialog->addWidget($checkboxHiddenObject);
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
@@ -421,12 +421,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         }
 
         if ($type != "portal" && $type != "docextern") {
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
         }
 
         if ($type == "container" || $type == "room") {
             $dialog->addWidget($textAreaDescription);
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
 
             //case head document possible
             $inventory = array();
@@ -447,7 +447,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
               }
             }
 
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
                 $dialog->addWidget($textAreaDescription);
@@ -458,10 +458,10 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $currentUserId = $currentUser->get_id();
             if ($currentUserId == $creatorId) {
                 $dialog->addWidget($checkboxInput);
-                $dialog->addWidget($seperator);
+                $dialog->addWidget($separator);
             }
             $dialog->addWidget($textAreaDescription);
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
         }
 
         //www-link
@@ -473,9 +473,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             if(!$isWriteable){
                 $urlInput->setReadOnly(true);
             }
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($urlInput);
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
             $dialog->setSaveAndCloseButtonForceReload(true);
         }
@@ -490,27 +490,27 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             if(!$isWriteable){
                 $statusbarCheckbox->setReadOnly(true);
             }
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($statusbarCheckbox);
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
         }
 
         //wiki
         if (($type == "wiki") && ($typeName != "unbekannt")){
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
         }
 
         //gallery
         if ($type == "gallery"){
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
         }
 
         //all other objects
         if ($typeName == "unbekannt"){
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
         }
 

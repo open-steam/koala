@@ -251,7 +251,7 @@
 	#menu {
 		margin-right: auto;
 		margin-left: auto;
-		height:28px;
+		height:30px;
 	}
 
 	/*used in menu.template.html, */
@@ -261,9 +261,16 @@
 		padding: 0;
 	}
 
-	#menu li{
+	#menu li {
 		float:left;
 		cursor:pointer;
+	}
+
+	#icon_bar li.separator {
+		float: left;
+		width: 20px;
+		height: 20px;
+		border: none;
 	}
 
 	#menu li .menu_text a {
@@ -271,7 +278,7 @@
 	}
 
 	#menu li .menu_text{
-		padding: 7px 25px 5px 10px;
+		padding: 8px 25px 5px 10px;
 		color:#003A6F;
 		display:block;
 		text-align:center;
@@ -285,8 +292,7 @@
 	}
 
 	#menu li .menu_text:hover, #menu .activemenu{
-		color:#000000;
-		background-color:#ccc;
+		background-color: #6094C5;
 		text-decoration:none;
 		-moz-border-radius-topleft: 3px;
 		-moz-border-radius-topright: 3px;
@@ -296,15 +302,11 @@
 		border-radius-topright: 3px;
 	}
 
-	#menu li.activemenu span a{
-		color:#000000;
-	}
-
-	#menu li.activemenu span {
-		color:#000000;
-	}
-
 	#menu li .menu_text:hover a{
+		color:#000000;
+	}
+
+	#menu li:hover a{
 		color:#000000;
 	}
 
@@ -377,10 +379,15 @@
 		color:#ffffff;
 	}
 
-	#menu .seperator {
+	#menu .separator {
 	  cursor:default;
     border-bottom: 1px solid #ccc;
   }
+
+	#menu svg {
+		height: 16px;
+		width: 16px;
+	}
 
 	#clipboard {
 		padding: 0px;

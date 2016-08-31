@@ -29,20 +29,24 @@ class Chronic extends AbstractExtension implements IMenuExtension {
         $result = array();
 
         // upwards menu
-        /*
-        $result[] = array("name" => "Aufwärts", "menu" => array());
+        $result[] = array("name" => "Hierarchie", "menu" => array());
         $menuArray = $result[0]["menu"];
         $menuArray = $this->getUpwardsMenu($menuArray);
         if (count($menuArray) == 0) {
-            $menuArray[] = array("name" => "Keine Aufwärts-Navigation möglich.");
+            $menuArray[] = array("name" => "Keine Hierarchie vorhanden.");
+        }else{
+            $parent = $menuArray[0];
+            $parent["name"] = "aufwärts";
+            $menuArray = array_reverse($menuArray, true);
+            array_unshift($menuArray, array("name" => "SEPARATOR"));
+            array_unshift($menuArray, $parent);
         }
         $result[0]["menu"] = $menuArray;
-        */
 
         // chronic
         $result[] = array("name" => "Verlauf", "menu" => array($this->getBackEntry()));
         if ($length > 1) {
-            $menuArray = $result[0]["menu"];
+            $menuArray = $result[1]["menu"];
             $menuArray[] = array("name" => "SEPARATOR");
             $count = 0;
             foreach ($chronic as $chronicItem) {
@@ -54,7 +58,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     $menuArray[] = array("name" => $this->getEntryIconTag($chronicItem) . " " . $entryName, "link" => $this->getEntryPath($chronicItem));
                 }
             }
-            $result[0]["menu"] = $menuArray;
+            $result[1]["menu"] = $menuArray;
         }
         return $result;
     }
@@ -483,7 +487,11 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     if (!($environmentObject instanceof \steam_object))
                         throw new \steam_exception;
 
-                    $objectArray = array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($environmentObject) . "\"></img> " . getCleanName($environmentObject, 20));
+                    $icon = deriveIcon($environmentObject);
+                    $iconSVG = str_replace("png", "svg", $icon);
+                    $idSVG = str_replace(".svg", "", $iconSVG);
+                    $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+                    $objectArray = array("name" => "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' ><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg> " . getCleanName($environmentObject, 20));
 
                     if ($environmentObject->check_access_read()) {
                         $objectArray["link"] = $this->getEntryPath("oid:" . $environmentObject->get_id());
