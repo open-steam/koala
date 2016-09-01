@@ -2,26 +2,26 @@
 namespace Explorer\Model;
 class Trashbin extends \AbstractObjectModel {
 	private $trashbin;
-	
+
 	public static function isObject(\steam_object $steamObject) {
-	
+
 	}
-	
+
 	public function __construct($trashbin) {
 		$this->trashbin = $trashbin;
 	}
-	
+
 	public function getIconbarHtml() {
 		$trashbinCount = count($this->trashbin->get_inventory());
 		if ($trashbinCount > 25) {
-			$trashbinIconName = "trashbin_red_16.png";
+			$color = "#ff0300;";
 		} else if ($trashbinCount > 10) {
-			$trashbinIconName = "trashbin_orange_16.png";
+			$color = "#ff8300;";
 		} else {
-			$trashbinIconName = "trashbin_white_16.png";
+			$color = "#ffffff;";
 		}
-		return "<img title=\"Papierkorb\" src=\"" . \Explorer::getInstance()->getExtensionUrl() . "asset/icons/{$trashbinIconName}\">$trashbinCount";
+		return "<div style=\"float:left; color:" . $color . "\" title=\"Papierkorb\"><svg><use xlink:href=\" " . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/trash.svg#trash\"/></svg></div>$trashbinCount";
 	}
-	
+
 }
 ?>

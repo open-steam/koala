@@ -96,7 +96,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_horizontal.png";
         $script .= '
             $("#sort-icon").attr("name", "true");
-            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");});
+            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
             var newIds = "";
             $( ".listviewer-items" ).sortable({zIndex: 1});
             $( ".listviewer-items" ).bind("sortupdate", function(event, ui){

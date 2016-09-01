@@ -47,9 +47,9 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
             }
         }
 
-        $isExplorer = false;
-        if (strpos($_SERVER['REQUEST_URI'], "/explorer/") === 0) {
-            $isExplorer = true;
+        $isExplorerOrBookmark = false;
+        if (strpos(strtolower($_SERVER['REQUEST_URI']), "/explorer/") === 0 || strpos(strtolower($_SERVER['REQUEST_URI']), "/bookmarks/") === 0) {
+            $isExplorerOrBookmark = true;
             if ($currentID === "") {
                 $currentID = $GLOBALS["STEAM"]->get_current_steam_user()->get_workroom()->get_id();
             }
@@ -90,7 +90,7 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
 
         $result = array();
 
-        if (!$isExplorer) {
+        if (!$isExplorerOrBookmark) {
             $iconHtml = "<div title='Navigationsbaum'><svg><use xlink:href='" . $this->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>";
             $result[] = array("name" => $iconHtml, "onclick" => "openFileTree()");
         }
