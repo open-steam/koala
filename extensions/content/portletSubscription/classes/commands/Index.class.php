@@ -52,7 +52,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
             $subscriptionObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->subscriptionObjectId);
         } catch (\exception $ex) {
-            
+
         }
         $this->template->setVariable("PORTLET_ID", $this->portlet->get_id());
 
@@ -112,11 +112,12 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
                     $this->template->setCurrentBlock("BLOCK_HIDE_BUTTON");
                     $this->template->setVariable("HIDE_ALL_BUTTON", \PortletSubscription\Subscriptions\AbstractSubscription::getElementJS($this->portlet->get_id(), -1, time(), ""));
+                    $this->template->setVariable("EYE_ICON_PATH", PATH_URL . "/widgets/asset/eye.svg#eye");
                     $this->template->parse("BLOCK_HIDE_BUTTON");
                 }
 
                 if (count($updates) === 0 && count($this->portlet->get_attribute("PORTLET_SUBSCRIPTION_FILTER")) > 0) {
-                    //if there is no update to show we use the opportunity to clean up the filter and update the timestamp 
+                    //if there is no update to show we use the opportunity to clean up the filter and update the timestamp
                     //but only when there is something to erase from the filter to save unneccesary updates
                     //this saves a lot of filter-bookkeeping
                     $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_FILTER", array());
@@ -125,8 +126,8 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
                 $this->template->parse("BLOCK_FOLDER_HEADLINE");
 
-                
-                //the object could be created, we can read the object 
+
+                //the object could be created, we can read the object
                 //check whether it is in a trashbin or not
                 if ($isInTrashbin) {
 
@@ -181,12 +182,12 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         }
 
         .subscription-close-button.blueeye{
-            background-image: url(\"" . PATH_URL . "widgets/asset/eye.png\");
+            color: #3A6E9F;
             clear:both;
         }
 
         .subscription-close-button.whiteeye{
-            background-image: url(\"" . PATH_URL . "widgets/asset/eye_white.png\");
+            color: #FFFFFF;
             margin-right:1px;
         }
 "

@@ -130,9 +130,12 @@ class ContentProvider implements \Widgets\IContentProvider {
             $contentItemObject = $contentItem;
         }
 
-
         if ($cell == $this->rawImage) {
-            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItemObject) . "\"></img>";
+          $icon = deriveIcon($contentItem);
+          $iconSVG = str_replace("png", "svg", $icon);
+          $idSVG = str_replace(".svg", "", $iconSVG);
+          $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+          return "<svg style='width:16px; height:16px; color:#3a6e9f;' ><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
         } else if ($cell == $this->rawName) {
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItemObject->get_id(), "view");
             $desc = $contentItemObject->get_attribute("OBJ_DESC");
