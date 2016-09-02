@@ -160,6 +160,18 @@ class lms_portal
         // CHOOSE RIGHT LANGUAGE AND SET LOCALES FOR GETTEXT
         language_support::choose_language();
 
+
+        // SET LOGO
+        $url = strtolower(PATH_URL);
+        $keywords = array('vm04', 'elab', 'localhost', 'bid-owl', 'schulen-gt', 'lspb');
+        foreach ($keywords as $keyword) {
+          if (strpos($url, $keyword) !== false) {
+            $this->template->setVariable( "LOGO_PATH", PATH_URL . "styles/standard/images/page_layout/" . $keyword);
+            break;
+          }
+        }
+
+
         // SET LOGO URL
         if (defined("LOGO_PATH_URL")) {
             $this->template->setVariable( "LOGO_PATH_URL", LOGO_PATH_URL );

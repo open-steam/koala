@@ -2,19 +2,6 @@ html {
 	background: #ffffff;
 }
 
-#header #logo_wrapper {
-	top: 0px;
-	height: 56px;
-	width: 117px;
-	left: 0px;
-	position: absolute;
-}
-
-#header #logo {
-	background: url(../images/page_layout/logo.png) no-repeat;
-	top: 5px;
-}
-
 #menu_wrapper_bg {
 	background-color: #fff;
 }

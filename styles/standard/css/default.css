@@ -192,13 +192,13 @@
 		padding-top: 3px;
 	}
 
-	#header #logo {
+	#header #logo_wrapper {
 		position: absolute;
-		background: url(../images/page_layout/logo.png) no-repeat;
-		width: 210px;
-		height: 55px;
-		top: 5px;
-		left: 0px;
+	}
+
+	#header #logo svg {
+		height: 50px;
+		width: 250px;
 	}
 
 

@@ -16,6 +16,9 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $portlet = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $params = $requestObject->getParams();
         $elements = $portlet->get_attribute("PORTLET_CHRONIC_COUNT");
+
+        $this->getExtension()->addCSS();
+
         if (intval($elements) <= 0) {
             $elements = 5;
         }
