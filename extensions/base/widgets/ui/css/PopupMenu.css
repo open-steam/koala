@@ -42,9 +42,7 @@
 
 .popupmenuwrapper {
 	padding: 5px;
-	filter:alpha(opacity=95);
-	opacity:0.95;
-	background: #eee;
+	background: #3a6e9f;
 	border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 	display: none;
@@ -55,6 +53,10 @@
 	cursor: pointer;
 }
 
+.popupmenuitem a {
+	color: #FFFFFF;
+}
+
 .popupmenuitem svg {
 	position: relative;
 	top: 3px;
@@ -63,12 +65,16 @@
 }
 
 .popupmenuitem:hover {
-	background-color: #ccc;
+	background-color: #6094C5;
+}
+
+.popupmenuitem:active {
+	background: #264767;
 }
 
 .popupmenuseparator {
 	height: 1px;
-	border-top: 1px solid #ccc;
+	border-top: 1px solid #ffffff;
 }
 
 .popupmenuitem:hover .popupsubmenuwapper {
@@ -86,9 +92,7 @@
   border-bottom-right-radius: 3px;
   box-shadow: 2px 2px 5px #888888;
   padding: 5px;
-	filter:alpha(opacity=95);
-	opacity:0.95;
-	background: #eee;
+	background: #3a6e9f;
 }
 
 .popupsubmenuwapper.left {
