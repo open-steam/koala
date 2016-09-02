@@ -573,12 +573,12 @@ return $rand_value;
                     $koala_html_menu->add_menu_entry(
                       array( "name" => ((MENU_YOU) ? gettext( "You" ): $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")), "link" => PATH_URL . "desktop/", "menu" => array(
                     //YOU SUBMENU
-                    (YOUR_DESKTOP) ? array( "name" => ((MENU_YOU) ? gettext( "Your desktop" ) : "Schreibtisch"), "link" => PATH_URL . "desktop/" ) : "",
+                    (YOUR_DESKTOP) ? array( "name" => "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/portal.svg#portal'/></svg> " . ((MENU_YOU) ? gettext( "Your desktop" ) : "Schreibtisch"), "link" => PATH_URL . "desktop/" ) : "",
                     (YOUR_PORTFOLIO) ? array( "name" => ((MENU_YOU) ? "Mein Portfolio" : "Portfolio"), "link" => PATH_URL . "portfolio/") : "",
                     //(YOUR_NEWS) ? array( "name" => gettext( "Your news" ), "link" => PATH_URL . "desktop/news/" ) : "",
                     //(YOUR_CALENDER) ? array( "name" => gettext( "Your calendar" ), "link" => PATH_URL . "desktop/calendar/" ) : "",
-                    (YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Your documents" ) : "Dokumente"), "link" => PATH_URL . "explorer/" ) : "",
-                    (YOUR_BOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Lesezeichen" ) : "Lesezeichen"), "link" => PATH_URL . "bookmarks/") : "",
+                    (YOUR_DOCUMENTS) ? array( "name" => "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/folder.svg#folder'/></svg> " . ((MENU_YOU) ? gettext( "Your documents" ) : "Dokumente"), "link" => PATH_URL . "explorer/" ) : "",
+                    (YOUR_BOOKMARKS) ? array( "name" => "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/bookmark.svg#bookmark'/></svg> " . ((MENU_YOU) ? gettext( "Meine Lesezeichen" ) : "Lesezeichen"), "link" => PATH_URL . "bookmarks/") : "",
 
                     //not used
                     (YOUR_SCHOOLBOOKMARKS) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Schul-Lesezeichen" ) : "Schul-Lesezeichen"), "link" => PATH_URL . "school/") : "",
@@ -590,11 +590,11 @@ return $rand_value;
 
                     /*(YOUR_DOCUMENTS) ? array( "name" => ((MENU_YOU) ? gettext( "Einstellungen2" ) : "Favoriten"), "link" => PATH_URL . "favorite/" ) : "",*/
 
-                    (YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "profile/") : "",
+                    (YOUR_PROFILE) ? array( "name" => "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/user.svg#user'/></svg> " . ((MENU_YOU) ? gettext( "Your profile" ) : "Profil"), "link" => PATH_URL . "profile/") : "",
 
-                    (YOUR_FAVORITES) ? array( "name" => ((MENU_YOU) ? gettext( "Meine Favoriten" ) : "Favoriten"), "link" => PATH_URL . "favorite/index/") : "",
+                    (YOUR_FAVORITES) ? array( "name" => "<svg style='color:#ff8300;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/group.svg#group'/></svg> " . ((MENU_YOU) ? gettext( "Meine Favoriten" ) : "Favoriten"), "link" => PATH_URL . "favorite/index/") : "",
 
-                    (defined("PLATFORM_USERMANAGEMENT_URL")) ? array( "name" => ((MENU_YOU) ? gettext( "Benutzerverwaltung" ) : "Benutzerverwaltung"), "link" => PLATFORM_USERMANAGEMENT_URL) : ""
+                    (defined("PLATFORM_USERMANAGEMENT_URL")) ? array( "name" => "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/group.svg#group'/></svg> " . ((MENU_YOU) ? gettext( "Benutzerverwaltung" ) : "Benutzerverwaltung"), "link" => PLATFORM_USERMANAGEMENT_URL) : ""
 
                     /*(YOUR_PROFILE) ? array( "name" => ((MENU_YOU) ? gettext( "Configuration" ) : "Einstellungen"), "link" => PATH_URL . "profile/SystemConfig/" ) : ""*/
                 )));
@@ -913,7 +913,7 @@ return $rand_value;
         $this->template->setVariable( "RSS_LINK", $rss_link );
         $this->template->parse( "BLOCK_RSS_FEED" );
         $this->template->setCurrentBlock( "FEEDS_BLOCK" );
-            $this->template->setVariable( "RSS_STYLE_PATH", PATH_STYLE );
+            $this->template->setVariable( "RSS_STYLE_PATH", \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/rss.svg");
             $this->template->setVariable( "RSS_FEED_LINK", $rss_link );
             $this->template->setVariable( "RSS_FEED_NAME", $rss_name );
             $this->template->setVariable( "RSS_FEED_DSC", $rss_dsc );

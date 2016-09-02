@@ -56,7 +56,7 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 		);
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 125) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("110px");
+		$popupMenu->setWidth("120px");
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

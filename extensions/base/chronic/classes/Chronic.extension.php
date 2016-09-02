@@ -36,7 +36,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             $menuArray[] = array("name" => "Keine Hierarchie vorhanden.");
         }else{
             $parent = $menuArray[0];
-            $parent["name"] = "aufwärts";
+            $parent["name"] = "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/up.svg#up'/></svg> Aufwärts";
             $menuArray = array_reverse($menuArray, true);
             array_unshift($menuArray, array("name" => "SEPARATOR"));
             array_unshift($menuArray, $parent);
@@ -120,7 +120,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 
     //get entry for back button
     private function getBackEntry() {
-        return array("name" => "zurück", "onclick" => "history.back();return false;"); //remove for php back method
+        return array("name" => "<svg style='width:16px; height:16px; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/left.svg#left'/></svg> Zurück", "onclick" => "history.back();return false;"); //remove for php back method
 
         $chronic = $this->loadChronic();
         $startBackIndex = 1;
@@ -133,7 +133,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 
             $backEntry = $chronic[$startBackIndex];
 
-            return array("name" => "zurück", "link" => $this->getEntryPath($backEntry));
+            return array("name" => "<svg style='width:16px; height:16px; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/left.svg#left'/></svg> Zurück", "link" => $this->getEntryPath($backEntry));
         }
 
         return "";
@@ -332,7 +332,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
     }
 
     private function getEntryIconTag($chronicEntry) {
-        $defaultIcon = "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' ><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/folder.svg#folder'/></svg>";
+        $defaultIcon = "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/folder.svg#folder'/></svg>";
 
         $content = explode(":", $chronicEntry);
         $entryType = $content[0];
@@ -346,7 +346,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     $iconSVG = str_replace("png", "svg", $icon);
                     $idSVG = str_replace(".svg", "", $iconSVG);
                     $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' ><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+                    return "<svg><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
           } elseif ($cell == $this->rawName) {
               $creator = $contentItem->get_creator();
               $tipsy = new \Widgets\Tipsy();
@@ -361,9 +361,9 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             $objectPath = $content[1];
             try {
                 if (strpos($objectPath, "/forum/showTopic/") === 0) {
-                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/forumthread.svg#forumthread'/></svg>";
+                    return "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/forumthread.svg#forumthread'/></svg>";
                 } elseif (strpos($objectPath, "/wiki/entry/") === 0) {
-                    return "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/wiki.svg#wiki'/></svg>";
+                    return "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/wiki.svg#wiki'/></svg>";
                 } else {
                     return $defaultIcon;
                 }
@@ -491,7 +491,7 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     $iconSVG = str_replace("png", "svg", $icon);
                     $idSVG = str_replace(".svg", "", $iconSVG);
                     $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-                    $objectArray = array("name" => "<svg style='width:16px; height:16px; color:#3a6e9f; position:relative; top:3px;' ><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg> " . getCleanName($environmentObject, 20));
+                    $objectArray = array("name" => "<svg><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg> " . getCleanName($environmentObject, 20));
 
                     if ($environmentObject->check_access_read()) {
                         $objectArray["link"] = $this->getEntryPath("oid:" . $environmentObject->get_id());

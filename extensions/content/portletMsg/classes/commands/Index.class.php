@@ -73,6 +73,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
           $tmpl = new \HTML_TEMPLATE_IT();
           $tmpl->loadTemplateFile($portletFileName);
           $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
+          $tmpl->setVariable("RSS_STYLE_PATH", \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/rss.svg");
 
           //headline
           $tmpl->setCurrentBlock("BLOCK_MESSAGE_HEADLINE");

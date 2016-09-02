@@ -137,10 +137,6 @@
 		margin-left: auto;
 	}
 
-	#site_wrapper {
-		background: url(../images/page_layout/site_bg.gif) repeat-x;
-	}
-
 	/*adjusted in html file*/
 	#page_wrapper_bg {
 		margin-right: auto;
@@ -216,7 +212,7 @@
 	#icon_bar li ul {
 		margin-left: -100px;
 		margin-top: -5px;
-		width: 160px;
+		width: 180px;
 	}
 
 	#trashbinIconbarWrapper img{
@@ -349,7 +345,7 @@
 	}
 
 	#menu li ul .menu_text{
-		color:black;
+		color: #396d9c;
 		display:block;
 		padding: 3px 25px 3px 10px;
 		text-align:left;
@@ -384,9 +380,21 @@
     border-bottom: 1px solid #ccc;
   }
 
-	#menu svg {
+	#menu a svg {
 		height: 16px;
 		width: 16px;
+		position: relative;
+		top: 3px;
+	}
+
+	#icon_bar svg {
+		height: 16px;
+		width: 16px;
+	}
+
+	#icon_bar span > svg {
+		position: relative;
+		top: 3px;
 	}
 
 	#clipboard {

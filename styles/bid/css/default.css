@@ -15,10 +15,6 @@ html {
 	top: 5px;
 }
 
-#site_wrapper {
-	background: #ffffff;
-}
-
 #menu_wrapper_bg {
 	background-color: #fff;
 }
@@ -43,9 +39,7 @@ html {
 }
 
 .dialogTitleBar {
-	 background: #e7e7e7;
-	 background: -webkit-gradient(linear, left top, left bottom, from(#7599bb),to(#356fa1));
-	 background: transparent -moz-linear-gradient(center top , #7599BB, #356FA1) repeat scroll 0% 0%;
+	 background: #3a6e9f;
 	 color: #FFFFFF;
 	 height: 28px;
 	 margin-top: -17px;
