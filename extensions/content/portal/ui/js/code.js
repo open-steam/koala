@@ -3,7 +3,7 @@ function portalLockButton(id){
 	for (var i = 0; i < editButtons.length; i++) {
 		if (editButtons[i].style.display=="block"){
 			editButtons[i].style.display = "none";
-			jQuery("#edit_icon").parent().css("background-color", "#3a6e9f");
+			jQuery("#edit_icon").parent().css("background-color", "");
 			createCookie("portalEditMode", "0", 1);
 		}else{
 			editButtons[i].style.display = "block";

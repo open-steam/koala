@@ -41,7 +41,6 @@
 }
 
 .popupmenuwrapper {
-	padding: 5px;
 	background: #3a6e9f;
 	border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -49,7 +48,7 @@
 }
 
 .popupmenuitem {
-	padding: 5px;
+	padding: 8px;
 	cursor: pointer;
 }
 
@@ -66,6 +65,16 @@
 
 .popupmenuitem:hover {
 	background-color: #6094C5;
+}
+
+.popupmenuitem:first-child {
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+}
+
+.popupmenuitem:last-child {
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
 }
 
 .popupmenuitem:active {
@@ -91,7 +100,6 @@
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   box-shadow: 2px 2px 5px #888888;
-  padding: 5px;
 	background: #3a6e9f;
 }
 
