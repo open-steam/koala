@@ -346,11 +346,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_horizontal.png";
+        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_explorer.svg";
         $script .= '
             $("#sort-icon").attr("name", "true");
-            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300");
-});
+            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
             var newIds = "";
             $( ".listviewer-items" ).sortable({zIndex: 1});
             $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
@@ -362,7 +361,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                     newIds = "";
             });
-            $("#content").prepend("<div style=\"margin-left:380px;position:absolute;height:35px;width:180px;background-image:url(' . $assetUrl . ');\"></div>");
+            $("#content").prepend("<div style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(' . $assetUrl . ');\"></div>");
 
 
 
