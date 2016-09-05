@@ -27,7 +27,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         }
 
         //icon
-        $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
+        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
         //reference handling
         if (isset($this->params["referenced"]) && $this->params["referenced"] == true) {
@@ -82,7 +82,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         //reference icon
         if ($this->portletIsReference) {
             $envUrl = PATH_URL . "portal/index/" . $this->portlet->get_environment()->get_environment()->get_id();
-            $this->template->setVariable("REFERENCE_ICON", "<a title='" . \Portal::getInstance()->getReferenceTooltip() . "' href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
+            $this->template->setVariable("REFERENCE_ICON", "<a title='" . \Portal::getInstance()->getReferenceTooltip() . "' href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
         }
 
         $popupmenu = new \Widgets\PopupMenu();

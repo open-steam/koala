@@ -31,7 +31,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 
         //icon
-        $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
+        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
         //reference handling
         $params = $requestObject->getParams();
@@ -112,7 +112,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
-            $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
+            $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
         }
 
         //popupmenu

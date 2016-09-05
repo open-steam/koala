@@ -3,7 +3,7 @@
 	display: none;
 }
 
-.listviewer-item-hover .popupmenuanker, .popupmenuanker.open {
+.listviewer-item-hover .popupmenuanker {
 	display: block;
 }
 
