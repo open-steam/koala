@@ -27,7 +27,7 @@ class EditMessage extends \AbstractCommand implements \IFrameCommand, \IIdComman
 		$title = new \Widgets\TextInput();
 		$title->setLabel("Überschrift");
 		$title->setData($object);
-		$title->setContentProvider(\Widgets\DataProvider::nameURLEncodeDataProvider());
+		$title->setContentProvider(\Widgets\DataProvider::attributeProvider("OBJ_NAME"));
 		$dialog->addWidget($title);
 		$dialog->addWidget($clearer);
 		$dialog->addWidget($clearer);
