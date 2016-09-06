@@ -95,7 +95,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     if ($type === "forum" || $type === "wiki" || $type === "room" || $type === "gallery" || $type === "portal" || ($type === "rapidfeedback" && $object->get_creator()->get_id() == $user->get_id()) || ($type === "document" && strstr($object->get_attribute(DOC_MIME_TYPE), "text")) || $type === "postbox") {
                         $subscriptions = $user->get_attribute("USER_HOMEPORTAL_SUBSCRIPTIONS");
                         if (is_array($subscriptions) && in_array($object->get_id(), $subscriptions)) {
-                            $subscription = array("name" => "<svg><use xlink:href='{$unsubscribeIcon}#unsubscribe'/></svg> Abbestellen", "command" => "Unsubscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}' }", "type" => "reload");
+                            $subscription = array("name" => "<svg><use xlink:href='{$unsubscribeIcon}#unsubscribe'/></svg> Abbestellen", "command" => "Unsubscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}' }", "type" => "nonModalUpdater");
                         } else {
                             $subscription = array("name" => "<svg><use xlink:href='{$subscribeIcon}#subscribe'/></svg> Abonnieren", "command" => "Subscribe", "namespace" => "explorer", "params" => "{'id':'{$object->get_id()}', 'column' : '2' }", "type" => "nonModalUpdater");
                         }
