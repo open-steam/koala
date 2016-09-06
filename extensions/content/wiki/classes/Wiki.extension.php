@@ -91,9 +91,6 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 
 			$user = lms_steam::get_current_user();
 			if($object->check_access_write($user)){
-				if(strpos($path, "configuration") == false){
-					$array[] = array("name" => "<div title='Einstellungen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/configuration/{$wikiID}/'");
-				}
 				if(strpos($path, "mediathek") !== false){
 					$array[] = array("name" => "<div title='Bild hinzufügen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"sendRequest('Upload', {'id':{$wikiID}}, '', 'popup');return false;");
 				}
@@ -111,6 +108,14 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 						$array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}'");
 					}
 				}
+
+				$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$wikiID}}, '', 'popup', null, null, 'explorer');return false;");
+
+			}
+
+			$envSanction = $object->check_access(SANCTION_SANCTION);
+			if ($envSanction) {
+				$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$wikiID}}, '', 'popup', null, null, 'explorer');return false;");
 			}
 
 			$array[] = array("name" => "SEPARATOR");

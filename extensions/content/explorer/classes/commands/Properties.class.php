@@ -497,9 +497,31 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         }
 
         //wiki
-        if (($type == "wiki") && ($typeName != "unbekannt")){
+        if ($type == "wiki"){
+
+          $wiki_entries = $object->get_inventory(CLASS_DOCUMENT);
+          $wiki_entries_sorted = array();
+          foreach ($wiki_entries as $wiki_entry) {
+              if ($wiki_entry->get_attribute(DOC_MIME_TYPE) === "text/wiki")
+                  $wiki_entries_sorted[] = str_replace(".wiki", "", $wiki_entry->get_name());
+          }
+          sort($wiki_entries_sorted);
+          $array[] = array("name"=>"Glossar", "value"=>"glossary");
+          foreach ($wiki_entries_sorted as $wiki_entry) {
+              $array[] = array("name"=>$wiki_entry, "value"=>$wiki_entry);
+          }
+
+          $comboBox = new \Widgets\ComboBox();
+          $comboBox->setLabel("Startseite");
+          $comboBox->setOptions($array);
+      		$comboBox->setData($object);
+      		$comboBox->setContentProvider(\Widgets\DataProvider::attributeProvider("WIKI_STARTPAGE"));
+          $dialog->addWidget($comboBox);
+
+          if($typeName != "unbekannt"){
             $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
+          }
         }
 
         //gallery

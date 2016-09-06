@@ -27,7 +27,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 		$ajaxResponseObject->setStatus("ok");
 		$jswrapper = new \Widgets\JSWrapper();
 		$jswrapper->setJs(<<<END
-		closeDialog();
+		closeWikiDialog();
 		sendRequest("LoadContent", {"id":"{$this->id}"}, "explorerWrapper", "updater", null, null, "explorer");
 END
 		);

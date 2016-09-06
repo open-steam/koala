@@ -67,7 +67,7 @@
     	}
     }
 
-    function closeDialog(type) {
+    function closeWikiDialog(type) {
     	switch (type) {
     	case "image":
     		document.getElementById("popup_dialog_wiki_image").innerHTML = document.getElementById("popup_dialog_wiki_image").oldHTML;
@@ -113,7 +113,7 @@
     			}
     		}
     	}
-    	closeDialog("image");
+    	closeWikiDialog("image");
     }
 
     function insertLink() {
@@ -142,7 +142,7 @@
             wikiText.value = wikiText.value.substr(0, selectionStart) + "[[" + name + description + "]]" + wikiText.value.substr(selectionEnd);
             set_selection(wikiText.id, selectionStart + 2 + name.length + i, selectionStart + 2 + name.length + description.length);
         }
-        closeDialog("link");
+        closeWikiDialog("link");
     }
 
     function insertComment() {
@@ -150,7 +150,7 @@
     	var comment = document.getElementById("popup_dialog_wiki_comment_comment").value;
     	wikiText.value = wikiText.value.substr(0, selectionStart) + "[" + name + "[" + comment + "]]" + wikiText.value.substr(selectionEnd);
     	set_selection(wikiText.id, selectionStart + 1 + name.length + 1, selectionStart + 2 + name.length + 1 + comment.length);
-    	closeDialog("comment");
+    	closeWikiDialog("comment");
     }
 
     function getInputSelection(el) {
@@ -322,11 +322,11 @@
           }
     		}
     	}
-			
+
       generatedTable += "\n|}";
 
 			wikiText.value = wikiText.value.substr(0, selectionStart) +generatedTable+ wikiText.value.substr(selectionEnd);
-			closeDialog("table");
+			closeWikiDialog("table");
     }
 
     function insert(aTag, eTag, form, element) {
