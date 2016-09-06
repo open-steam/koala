@@ -13,32 +13,36 @@ class RapidfeedbackSubscription extends AbstractSubscription {
             $results = $result_container->get_inventory();
             foreach ($results as $result) {
                 if ($result instanceof \steam_document && $result->get_attribute("RAPIDFEEDBACK_RELEASED") != 0) {
-                    if ($result->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$result->get_id()]) && in_array($result->get_attribute("OBJ_CREATION_TIME"), $this->filter[$result->get_id()]))) {
+                    $resultCreationTime = $result->get_attribute("OBJ_CREATION_TIME");
+                    $resultLastChanged = $result->get_attribute("OBJ_LAST_CHANGED");
+                    if ($resultCreationTime > $this->timestamp && !(isset($this->filter[$result->get_id()]) && in_array($resultCreationTime, $this->filter[$result->get_id()]))) {
                         $this->updates[] = array(
-                            $result->get_attribute("OBJ_CREATION_TIME"),
+                            $resultCreationTime,
                             $result->get_id(),
                             $this->getElementHtml(
                                     $result->get_id(), 
                                     $result->get_id() . "_" . $this->count, 
                                     $this->private, 
-                                    $result->get_attribute("OBJ_CREATION_TIME"), 
+                                    $resultCreationTime, 
                                     "Neue Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
-                                    \PortletSubscription::getNameForSubscription($survey), 
-                                    PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
+                                    \PortletSubscription::getNameForSubscription($result), 
+                                    PATH_URL . "rapidfeedback/view/" . $survey->get_id() . "/1/". $result->get_id() ."/1/"
+                                    //                       id of the survey object / page / result id / if isset: forms are view only
                             )
                         );
-                    } else if ($result->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$result->get_id()]) && in_array($result->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$result->get_id()]))) {
+                    }
+                    if ($resultLastChanged > $this->timestamp && $resultLastChanged > $resultCreationTime && !(isset($this->filter[$result->get_id()]) && in_array($resultLastChanged, $this->filter[$result->get_id()]))) {
                         $this->updates[] = array(
-                            $result->get_attribute("OBJ_LAST_CHANGED"),
+                            $resultLastChanged,
                             $result->get_id(),
                             $this->getElementHtml(
                                     $result->get_id(), 
                                     $result->get_id() . "_" . $this->count, 
                                     $this->private, 
-                                    $result->get_attribute("OBJ_LAST_CHANGED"), 
+                                    $resultLastChanged, 
                                     "Geänderte Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
-                                    \PortletSubscription::getNameForSubscription($survey), 
-                                    PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
+                                    \PortletSubscription::getNameForSubscription($result), 
+                                    PATH_URL . "rapidfeedback/view/" . $survey->get_id() . "/1/". $result->get_id() ."/1/"
                             )
                         );
                     }
@@ -48,29 +52,33 @@ class RapidfeedbackSubscription extends AbstractSubscription {
 
 
             if ($survey instanceof \steam_container) {
-                if ($survey->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$survey->get_id()]) && in_array($survey->get_attribute("OBJ_CREATION_TIME"), $this->filter[$survey->get_id()]))) {
+                $surveyCreationTime = $survey->get_attribute("OBJ_CREATION_TIME");
+                $surveyLastChanged = $survey->get_attribute("OBJ_LAST_CHANGED");
+                
+                if ($surveyCreationTime > $this->timestamp && !(isset($this->filter[$survey->get_id()]) && in_array($surveyCreationTime, $this->filter[$survey->get_id()]))) {
                     $this->updates[] = array(
-                        $survey->get_attribute("OBJ_CREATION_TIME"),
+                        $surveyCreationTime,
                         $survey->get_id(),
                         $this->getElementHtml(
                                 $survey->get_id(), 
                                 $survey->get_id() . "_" . $this->count, 
                                 $this->private, 
-                                $survey->get_attribute("OBJ_CREATION_TIME"), 
+                                $surveyCreationTime, 
                                 "Neuer Fragebogen in <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>:", 
                                 $survey->get_attribute("OBJ_DESC"), 
                                 PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
                         )
                     );
-                } else if ($survey->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$survey->get_id()]) && in_array($survey->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$survey->get_id()]))) {
+                }
+                if ($surveyLastChanged > $this->timestamp && $surveyLastChanged > $surveyCreationTime && !(isset($this->filter[$survey->get_id()]) && in_array($surveyLastChanged, $this->filter[$survey->get_id()]))) {
                     $this->updates[] = array(
-                        $survey->get_attribute("OBJ_LAST_CHANGED"),
+                        $surveyLastChanged,
                         $survey->get_id(),
                         $this->getElementHtml(
                                 $survey->get_id(), 
                                 $survey->get_id() . "_" . $this->count, 
                                 $this->private, 
-                                $survey->get_attribute("OBJ_LAST_CHANGED"), 
+                                $surveyLastChanged, 
                                 "Geänderter Fragebogen in <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>:", 
                                 $survey->get_attribute("OBJ_DESC"), 
                                 PATH_URL . "rapidfeedback/individualResults/" . $survey->get_id() . "/"
