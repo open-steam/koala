@@ -89,7 +89,8 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
                 $content->parse("BLOCK_IMAGE");
             }
         }
-        $content->setVariable("LABEL_CLOSE", "Schließen");
+
+        $content->setVariable("CLOSE_IMAGE_SRC", PATH_URL . 'wiki/asset/icons/close.svg#close');
 
         $wiki_html_handler->set_main_html($content->get());
 

@@ -108,7 +108,7 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 		$WikiExtension = \Wiki::getInstance();
 		$WikiExtension->addCSS();
 		$content = $WikiExtension->loadTemplate( "wiki_entry.template.html" );
-		$content->setVariable( "LABEL_CLOSE", gettext("Schließen") );
+		$content->setVariable( "CLOSE_IMAGE_SRC", PATH_URL . 'wiki/asset/icons/close.svg#close');
 
 		if(ENABLED_SEARCH & WIKI_SEARCH_ENABLED){
 			$search_widget = new \search_widget();
@@ -144,6 +144,10 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 			$versions = $wiki_doc->get_previous_versions();
 			$no_versions = ( is_array( $versions ) ) ? count( $versions ) : 0;
 			$content->setVariable("VERSION_MANAGEMENT", "Versionsverwaltung" );
+
+			if($is_prev_version){
+				$content->setVariable("LINK_RECOVER_ENTRY", "<li><a href=\"" . PATH_URL . "wiki/recover/" . $wiki_doc->get_id() . "/" . $version_doc->get_id() . "\">&raquo; Diese Version wiederherstellen</a></li>");
+			}
 
 			if ($wiki_container->check_access_move($user)) {
 				$content->setVariable("LINK_DELETE_ENTRY", "<li><a href=\"" . PATH_URL . "wiki/delete/" . $wiki_container->get_id() . "/" . $wiki_doc->get_id() . "\">&raquo; Eintrag löschen</a></li>");

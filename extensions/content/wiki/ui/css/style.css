@@ -413,11 +413,11 @@
 }
 
 #imageBox{
-	border-radius: 15px;
-	-moz-border-radius: 15px 15px 15px 15px;
-	-webkit-border-radius: 15px;
-	-webkit-box-shadow: 0px 0px 10px #000000;
-	-moz-box-shadow: 0px 0px 10px #000000;
+	border-radius: 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px;
+	-webkit-box-shadow: 2px 2px 5px #333;
+	-moz-box-shadow: 2px 2px 5px #333;
 	background-color: #FFFFFF;
 	padding: 20px;
 	text-align: center;
@@ -426,17 +426,21 @@
 }
 
 #imgName{
-	text-align: left;
-	position: absolute;
 	left: 20px;
 	top: 20px;
 }
 
-#close{
-	text-align: right;
+#close svg{
 	position: absolute;
-	right: 20px;
-	top: 20px;
+	right: 5px;
+	top: 5px;
+	color: #000000;
+	width: 18px;
+	height: 18px;
+}
+
+#close:hover svg {
+	color:red;
 }
 
 .wiki .main .sectionIndex > a {

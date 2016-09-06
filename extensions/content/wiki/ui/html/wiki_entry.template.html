@@ -68,11 +68,11 @@ function hideBox(){
 }
 
 #imageBox{
-	border-radius: 15px;
-	-moz-border-radius: 15px 15px 15px 15px;
-	-webkit-border-radius: 15px;
-	-webkit-box-shadow: 0px 0px 10px #000000;
-	-moz-box-shadow: 0px 0px 10px #000000;
+	border-radius: 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px;
+	-webkit-box-shadow: 2px 2px 5px #333;
+	-moz-box-shadow: 2px 2px 5px #333;
 	background-color: #FFFFFF;
 	padding: 20px;
 	text-align: center;
@@ -81,18 +81,23 @@ function hideBox(){
 }
 
 #imgName{
-	text-align: left;
-	position: absolute;
 	left: 20px;
 	top: 20px;
 }
 
-#close{
-	text-align: right;
+#close svg{
 	position: absolute;
-	right: 20px;
-	top: 20px;
+	right: 5px;
+	top: 5px;
+  color: #000000;
+  width: 18px;
+  height: 18px;
 }
+
+#close:hover svg{
+  color:red;
+}
+
 </style>
 
 <div id="container">
@@ -100,7 +105,7 @@ function hideBox(){
 	<div id="imageBox">
 		<br />
 		<span id="imgName"></span>
-		<div id="close"><a href="javascript:hideBox();">{LABEL_CLOSE}</a></div>
+		<div id="close"><a href="javascript:hideBox();"><svg><use xlink:href={CLOSE_IMAGE_SRC} /></svg></a></div>
 		<p><img id="image" src=""></p>
 		<span id="imgDesc"></span>
 	</div>
@@ -129,6 +134,7 @@ function hideBox(){
 		  <ul>
 		  {NUMBER_VERSIONS}
 	   	  {LINK_VERSION_MANAGEMENT}
+        {LINK_RECOVER_ENTRY}
         {LINK_DELETE_ENTRY}
 	   	  </ul>
 	   	<br />

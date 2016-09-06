@@ -91,10 +91,12 @@ class koala_wiki extends koala_object {
 		}
 		*/
 
+		/*
 		if ($context == "version") {
 			$wiki_orig = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $wiki_obj->get_id());
 			if ($wiki_orig->check_access_write($user)) $version_menu[] = array("link" => PATH_URL . "wiki/recover/" . $wiki_orig->get_id() . "/" . $this->version, "name" => gettext("Recover version"));
 		}
+		*/
 
 		$menue = array("index" => $index_menu, "entry" => $entry_menu, "mediathek" => $mediathek_menu, "version" => $version_menu);
 
