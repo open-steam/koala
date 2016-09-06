@@ -84,8 +84,8 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
             </select>
         </div>
 </div>
-Disabled time-limited notifications because you hide all notifications, the filter is emptied and the timestamp is set to the current date.
-But this timestamp is ignored if the timeframe is limited
+Disabled time-limited notifications because if you hide all notifications, the filter is emptied and the timestamp is set to the current date.
+But this timestamp is ignored if the timeframe is limited and thus already filtered notifications would be displayed
 -->
 <input type="hidden" name="type" value="0">
 
