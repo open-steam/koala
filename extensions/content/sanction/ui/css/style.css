@@ -1,10 +1,12 @@
-.svg {
+#sanctions .svg {
   width: 16px;
   height: 16px;
   color: #3a6e9f;
   float: left;
+  top: -1px;
+  position: relative;
 }
 
-.favorite {
+#sanctions .favorite {
   color: #ff8300;
 }

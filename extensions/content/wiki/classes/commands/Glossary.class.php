@@ -146,8 +146,8 @@ class Glossary extends \AbstractCommand implements \IFrameCommand {
 		(WIKI_RSS) ? $portal->set_rss_feed(PATH_URL . "wiki/RSS/" . $wiki_container->get_id() , gettext("Feed"), gettext("Subscribe to this forum's Newsfeed")) : "";
 		$wiki_html_handler->set_main_html( $content->get());
 
-		(WIKI_FULL_HEADLINE) ? $headline = array( $rootlink[0], $rootlink[1], array("link" => $rootlink[1]["link"] . "{$place}/", "name" => gettext("{$place}")), array( "link" => "", "name" => h($wiki_container->get_name() )) ) :
-		$headline = array(array( "link" => "", "name" => h($wiki_container->get_name())));
+		(WIKI_FULL_HEADLINE) ? $headline = array( $rootlink[0], $rootlink[1], array("link" => $rootlink[1]["link"] . "{$place}/", "name" => gettext("{$place}")), array( "link" => "", "name" => '<svg style="width:16px; height:16px; color:#3a6e9f; top:3px; position:relative;"><use xlink:href="' . \Explorer::getInstance()->getAssetUrl() . 'icons/mimetype/svg/wiki.svg#wiki"></use></svg> ' . h($wiki_container->get_name() )) ) :
+		$headline = array(array( "link" => "", "name" => '<svg style="width:16px; height:16px; color:#3a6e9f; top:3px; position:relative;"><use xlink:href="' . \Explorer::getInstance()->getAssetUrl() . 'icons/mimetype/svg/wiki.svg#wiki"></use></svg> ' . h($wiki_container->get_name())));
 
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($wiki_html_handler->get_html());

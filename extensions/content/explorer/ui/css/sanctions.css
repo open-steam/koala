@@ -57,6 +57,8 @@ br {
   height: 16px;
   color: #3a6e9f;
   float: left;
+  top: -1px;
+  position: relative;
 }
 
 .favorite {
