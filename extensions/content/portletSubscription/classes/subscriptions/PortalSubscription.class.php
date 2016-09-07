@@ -1,14 +1,15 @@
 <?php
+
 namespace PortletSubscription\Subscriptions;
 
 class PortalSubscription extends AbstractSubscription {
 
     private $columns;
-    
+
     public function getUpdates() {
-        
+
         $this->columns = $this->object->get_inventory();
-        
+
         foreach ($this->columns as $column) {
             foreach ($column->get_inventory() as $portlet) {
                 $this->content[] = $portlet;
@@ -32,12 +33,12 @@ class PortalSubscription extends AbstractSubscription {
                     PHP_INT_MAX - 1, //display the deleted files at the end
                     $id,
                     $this->getElementHtml(
-                            $id,
-                            $id . "_" . $this->count,
-                            $this->private,
-                            "In letzter Zeit",
-                            "Das Portlet " . $this->formerContent[$id]["name"] . " ist nicht mehr vorhanden",
-                            "",
+                            $id, 
+                            $id . "_" . $this->count, 
+                            $this->private, 
+                            "In letzter Zeit", 
+                            "Das Portlet " . $this->formerContent[$id]["name"] . " ist nicht mehr vorhanden", 
+                            "", 
                             ""
                     )
                 );
@@ -51,17 +52,17 @@ class PortalSubscription extends AbstractSubscription {
                     PHP_INT_MAX - 1, //display the deleted files at the end
                     $object->get_id(),
                     $this->getElementHtml(
-                            $object->get_id(),
-                            $object->get_id() . "_" . $this->count,
-                            $this->private,
-                            "In letzter Zeit",
-                            "Neues Portlet " ,
-                            \PortletSubscription::getNameForSubscription($object),
+                            $object->get_id(), 
+                            $object->get_id() . "_" . $this->count, 
+                            $this->private, 
+                            "In letzter Zeit", 
+                            "Neues Portlet ",
+                            \PortletSubscription::getNameForSubscription($object), 
                             PATH_URL . "portal/Index/" . $this->object->get_id() . "/"
                     )
                 );
                 $this->count++;
-            } 
+            }
         }
 
 
@@ -81,39 +82,49 @@ class PortalSubscription extends AbstractSubscription {
                             foreach ($portlet->get_attribute("bid:portlet:content") as $message) {
                                 $messageObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $message);
 
-                                if ($messageObject instanceof \steam_object && $messageObject->get_attribute("OBJ_LAST_CHANGED") > $latestUpdate) {
-                                    $latestUpdate = $messageObject->get_attribute("OBJ_LAST_CHANGED");
-                                }
+                                if ($messageObject instanceof \steam_object) {
+                                    
+                                    $messageObjectCreationTime = $messageObject->get_attribute("OBJ_CREATION_TIME");
+                                    $messageObjectLastChanged = $messageObject->get_attribute("OBJ_LAST_CHANGED");
 
-                                if ($messageObject instanceof \steam_object && $messageObject->get_attribute("OBJ_CREATION_TIME") > $this->timestamp && !(isset($this->filter[$messageObject->get_id()]) && in_array($messageObject->get_attribute("OBJ_CREATION_TIME"), $this->filter[$messageObject->get_id()]))) {
-                                    $this->updates[] = array(
-                                        $messageObject->get_attribute("OBJ_CREATION_TIME"),
-                                        $messageObject->get_id(),
-                                        $this->getElementHtml(
-                                                $messageObject->get_id(),
-                                                $messageObject->get_id() . "_" . $this->count,
-                                                $this->private,
-                                                $messageObject->get_attribute("OBJ_CREATION_TIME"),
-                                                "Neue Meldung ",
-                                                \PortletSubscription::getNameForSubscription($messageObject),
-                                                PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
-                                                " in Spalte " . $column->get_name() . ""
-                                        )
-                                    );
-                                } else if ($messageObject instanceof \steam_object && $messageObject->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("OBJ_LAST_CHANGED") < $messageObject->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$messageObject->get_id()]) && in_array($messageObject->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$messageObject->get_id()]))) {
-                                    $this->updates[] = array(
-                                        $messageObject->get_attribute("OBJ_LAST_CHANGED"),
-                                        $messageObject->get_id(),
-                                        $this->getElementHtml(
-                                                $messageObject->get_id(), 
-                                                $messageObject->get_id() . "_" . $this->count, 
-                                                $this->private, 
-                                                $messageObject->get_attribute("OBJ_LAST_CHANGED"), 
-                                                "Die Meldung ", 
-                                                \PortletSubscription::getNameForSubscription($messageObject), PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
-                                                " in Spalte " . $column->get_name() . " wurde geändert"
-                                        )
-                                    );
+                                    
+                                    if ($messageObjectLastChanged > $latestUpdate) {
+                                        $latestUpdate = $messageObjectLastChanged;
+                                    }
+                                    
+                                    if ($messageObjectCreationTime > $this->timestamp && !(isset($this->filter[$messageObject->get_id()]) && in_array($messageObjectCreationTime, $this->filter[$messageObject->get_id()]))) {
+                                        $this->updates[] = array(
+                                            $messageObjectCreationTime,
+                                            $messageObject->get_id(),
+                                            $this->getElementHtml(
+                                                    $messageObject->get_id(), 
+                                                    $messageObject->get_id() . "_" . $this->count, 
+                                                    $this->private, 
+                                                    $messageObjectCreationTime, 
+                                                    "Neue Meldung ", 
+                                                    \PortletSubscription::getNameForSubscription($messageObject), 
+                                                    PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
+                                                    " in Spalte " . $column->get_name() . ""
+                                            )
+                                        );
+                                    }
+                                    
+                                    if ($messageObjectLastChanged > $this->timestamp && $messageObjectLastChanged > $messageObjectCreationTime+1 && $this->object->get_attribute("OBJ_LAST_CHANGED") < $messageObjectLastChanged && !(isset($this->filter[$messageObject->get_id()]) && in_array($messageObjectLastChanged, $this->filter[$messageObject->get_id()]))) {
+                                        $this->updates[] = array(
+                                            $messageObjectLastChanged,
+                                            $messageObject->get_id(),
+                                            $this->getElementHtml(
+                                                    $messageObject->get_id(), 
+                                                    $messageObject->get_id() . "_" . $this->count, 
+                                                    $this->private, 
+                                                    $messageObjectLastChanged, 
+                                                    "Die Meldung ", 
+                                                    \PortletSubscription::getNameForSubscription($messageObject), 
+                                                    PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
+                                                    " in Spalte " . $column->get_name() . " wurde geändert"
+                                            )
+                                        );
+                                    }
                                 }
                             }
                         }
@@ -131,25 +142,25 @@ class PortalSubscription extends AbstractSubscription {
         if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("CONT_LAST_MODIFIED") != $this->object->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
 
             $this->updates[] = array(
-                            $this->object->get_attribute("OBJ_LAST_CHANGED"),
-                            $this->object->get_id(),
-                            $this->getElementHtml(
-                                $this->object->get_id(),
-                                $this->object->get_id() . "_0",
-                                $this->private,
-                                $this->object->get_attribute("OBJ_LAST_CHANGED"),
-                                "Die Portaleigenschaften wurden geändert",
-                                "",
-                                \ExtensionMaster::getInstance()->getUrlForObjectId($this->object->get_id(), "view")
-                            )
+                $this->object->get_attribute("OBJ_LAST_CHANGED"),
+                $this->object->get_id(),
+                $this->getElementHtml(
+                        $this->object->get_id(), 
+                        $this->object->get_id() . "_0", 
+                        $this->private, 
+                        $this->object->get_attribute("OBJ_LAST_CHANGED"), 
+                        "Die Portaleigenschaften wurden geändert", 
+                        "", 
+                        \ExtensionMaster::getInstance()->getUrlForObjectId($this->object->get_id(), "view")
+                )
             );
         }
 
         //save back all changes to the objects in this container
-        if($this->changedFormerContent){
+        if ($this->changedFormerContent) {
             $this->portlet->set_attribute("PORTLET_SUBSCRIPTION_CONTENT", $this->formerContent);
         }
-        
+
         return $this->updates;
     }
 
@@ -157,50 +168,49 @@ class PortalSubscription extends AbstractSubscription {
         //check, if the portlet is new and if it was created after the portal (to skip the initially created portlets)
         $creationTime = $portlet->get_attribute("OBJ_CREATION_TIME");
         $lastChanged = $portlet->get_attribute("OBJ_LAST_CHANGED");
-        
+
         if ($creationTime > $this->timestamp && $this->object->get_attribute("OBJ_CREATION_TIME") + 1 < $creationTime && !(isset($this->filter[$portlet->get_id()]) && in_array($creationTime, $this->filter[$portlet->get_id()]))) {
             $this->updates[] = array(
                 $creationTime,
                 $portlet->get_id(),
                 $this->getElementHtml(
-                        $portlet->get_id(),
-                        $portlet->get_id() . "_" . $this->count,
-                        $this->private,
-                        $creationTime,
-                        "Neues Portlet ",
-                        \PortletSubscription::getNameForSubscription($portlet),
-                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
-                        " in Spalte " . $column->get_name() . ""
+                        $portlet->get_id(), 
+                        $portlet->get_id() . "_" . $this->count, 
+                        $this->private, 
+                        $creationTime, 
+                        "Neues ".\PortletSubscription::getPortletTypeForSubscription($portlet)."Portlet", 
+                        \PortletSubscription::getNameForSubscription($portlet), 
+                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
+                        " in Spalte " . $column->get_name()
                 )
             );
 
             //if the object is newer than the container mark it as a new object and add immediatly it to the known objects
-            if(!array_key_exists($portlet->get_id(), $this->formerContent) || $this->formerContent[$portlet->get_id()]["name"] !== $portlet->get_attribute(OBJ_NAME)){
-                $this->formerContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_NAME));
+            if (!array_key_exists($portlet->get_id(), $this->formerContent) || $this->formerContent[$portlet->get_id()]["name"] !== $portlet->get_attribute(OBJ_NAME)) {
+                $this->formerContent[$portlet->get_id()] = array("name" => $portlet->get_attribute(OBJ_NAME));
                 $this->changedFormerContent = true;
             }
-            
         }
-        
-        if ($lastChanged > $this->timestamp && $lastChanged > $creationTime+1 && $this->object->get_attribute("OBJ_LAST_CHANGED") < $lastChanged && !(isset($this->filter[$portlet->get_id()]) && in_array($lastChanged, $this->filter[$portlet->get_id()]))) {
+
+        if ($lastChanged > $this->timestamp && $lastChanged > $creationTime + 1 && $this->object->get_attribute("OBJ_LAST_CHANGED") < $lastChanged && !(isset($this->filter[$portlet->get_id()]) && in_array($lastChanged, $this->filter[$portlet->get_id()]))) {
             $this->updates[] = array(
                 $lastChanged,
                 $portlet->get_id(),
                 $this->getElementHtml(
-                        $portlet->get_id(),
-                        $portlet->get_id() . "_" . $this->count,
-                        $this->private,
-                        $lastChanged,
-                        "Das Portlet ",
-                        \PortletSubscription::getNameForSubscription($portlet),
-                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/",
-                        " in Spalte " . $column->get_name() . " wurde geändert"
+                        $portlet->get_id(), 
+                        $portlet->get_id() . "_" . $this->count, 
+                        $this->private, 
+                        $lastChanged, 
+                        "Geändertes ".\PortletSubscription::getPortletTypeForSubscription($portlet)."Portlet",
+                        \PortletSubscription::getNameForSubscription($portlet), 
+                        PATH_URL . "portal/Index/" . $this->object->get_id() . "/", 
+                        " in Spalte " . $column->get_name()
                 )
             );
-            
+
             //update the name of this object if it has changed
-            if(array_key_exists($portlet->get_id(), $this->formerContent) &&  $this->formerContent[$portlet->get_id()]["name"] !== $portlet->get_attribute(OBJ_NAME)){
-                $this->formerContent[$portlet->get_id()] = array("name"=>$portlet->get_attribute(OBJ_NAME));
+            if (array_key_exists($portlet->get_id(), $this->formerContent) && $this->formerContent[$portlet->get_id()]["name"] !== $portlet->get_attribute(OBJ_NAME)) {
+                $this->formerContent[$portlet->get_id()] = array("name" => $portlet->get_attribute(OBJ_NAME));
                 $this->changedFormerContent = true;
             }
         }

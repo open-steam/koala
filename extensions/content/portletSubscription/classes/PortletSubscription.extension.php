@@ -261,7 +261,59 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
                 break;
         }
     }
+    
+    
+    public static function getPortletTypeForSubscription($portlet) {
+        if (!($portlet instanceof steam_object)) {
+            return "s Objekt";
+        }
+        
+        $portletType = $portlet->get_attribute("bid:portlet");
+        
+        switch ($portletType) {
+            case "msg":
+                return "Meldungs-";
 
+            case "headline":
+                return "Überschriften-";
+            
+            case "topic":
+                return "Linkliste-";
+            
+            case "appointment":
+                return "Terminkalender-";
+            
+            case "media":
+                return "Medien-";
+            
+            case "rss":
+                return "RSS-";
+            
+            case "poll":
+                return "Abstimmungs-";
+            
+            case "termplan":
+                return "Terminplaner-";
+            
+            case "subscription":
+                return "Abonnement-";
+            
+            case "userpicture":
+                return "Benutzerbild-";
+            
+            case "chronic":
+                return "Verlaufs-";
+            
+            case "bookmarks":
+                return "Lesezeichen-";
+            
+            default:
+                return "Unknown-";
+     
+        }
+        
+    }
+    
 }
 
 ?>

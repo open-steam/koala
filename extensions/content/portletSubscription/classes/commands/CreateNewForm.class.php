@@ -72,7 +72,7 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
 	<div class="attributeName">Objekt ID:</div>
 	<div><input type="text" class="text" value="" name="objectid"></div>
 </div>
-<div class="attribute">
+<!-- <div class="attribute">
 	<div class="attributeName">Änderungen im Zeitraum:</div>
 	<div>
             <select name="type">
@@ -84,6 +84,12 @@ class CreateNewForm extends \AbstractCommand implements \IAjaxCommand {
             </select>
         </div>
 </div>
+Disabled time-limited notifications because if you hide all notifications, the filter is emptied and the timestamp is set to the current date.
+But this timestamp is ignored if the timeframe is limited and thus already filtered notifications would be displayed
+-->
+<input type="hidden" name="type" value="0">
+
+
 <div class="attribute">
 	<div class="attributeName">Sortierung:</div>
 	<div>
