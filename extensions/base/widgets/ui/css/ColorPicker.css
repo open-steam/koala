@@ -318,11 +318,6 @@ License: MIT
     margin:0;
 }
 
-/* Buttons */
-.sp-button-container {
-    float: right;
-}
-
 /* Replacer (the little preview div that shows up instead of the <input>) */
 .sp-replacer {
     margin:0;
@@ -383,7 +378,7 @@ License: MIT
 }
 
 
-/* Buttons: http://hellohappy.org/css3-buttons/ */
+/* Buttons: http://hellohappy.org/css3-buttons/
 .sp-container button {
   background-color: #eeeeee;
   background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
@@ -425,6 +420,7 @@ License: MIT
     -o-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
     box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
 }
+*/
 .sp-cancel
 {
     font-size: 11px;
