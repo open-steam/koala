@@ -920,7 +920,6 @@ $.datepicker._setTime = function(inst, date) {
 	var tp_inst = this._get(inst, 'timepicker');
 	var dp_inst = inst.settings.dateFormat;
 	if (tp_inst) {
-
 		var defaults = tp_inst._defaults,
 			// calling _setTime with no date sets time to defaults
 			hour = date ? date.getHours() : defaults.hour,
@@ -944,9 +943,7 @@ $.datepicker._setTime = function(inst, date) {
 
 		tp_inst._onTimeChange();
 		tp_inst._updateDateTime(inst);
-	}
-
-	if(dp_inst){
+	} else if(dp_inst){
 		inst.selectedMonth = inst.selectedMonth + 1;
 		if(inst.selectedMonth <= 9) inst.selectedMonth = '0' + inst.selectedMonth;
 		if(inst.selectedDay <= 9) inst.selectedDay = '0' + inst.selectedDay;
