@@ -28,7 +28,7 @@ class Pyramiddiscussion extends AbstractExtension implements IObjectExtension{
     }
 
     public function getObjectIconUrl(){
-        return Explorer::getInstance() . "icons/mimetype/svg/pyramiddiscussion.svg";
+        return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/pyramiddiscussion.svg";
     }
 
     public function getHelpUrl(){

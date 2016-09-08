@@ -55,19 +55,16 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
 
             //case depricated
-            if (strstr($extension->getName(), "deprecated") ||
-                    strstr($extension->getObjectReadableName(), "deprecated")) {
+            if (strstr($extension->getName(), "deprecated") || strstr($extension->getObjectReadableName(), "deprecated")) {
                 unset($extensions[$key]);
             }
         }
 
         //create new object dialog
         foreach ($extensions as $extension) {
-            {
-                $command = $extension->getCreateNewCommand($idRequestObject);
-                if ($command) {
-                    $commands[] = $command;
-                }
+            $command = $extension->getCreateNewCommand($idRequestObject);
+            if ($command) {
+                $commands[] = $command;
             }
         }
 
@@ -90,12 +87,10 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
             $url = $command->getExtension()->getObjectIconUrl();
             $name = str_replace(".svg", "", array_pop(explode("/", $url)));
-
             $html .= "<div style=\"clear:both;\" class=\"explorernewentry\">";
             $html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . $url . "#" . $name . "' /></svg><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">{$command->getExtension()->getObjectReadableName()}</p></a>";
             $helpurl = $command->getExtension()->getHelpUrl();
-      			if($helpurl != "")
-            $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><svg style='float:right; width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/help.svg#help' /></svg></a>";
+    			  if($helpurl != "") $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><svg style='float:right; width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/help.svg#help' /></svg></a>";
             $html .= "</div>";
         }
 

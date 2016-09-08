@@ -29,7 +29,7 @@ class Forum extends AbstractExtension implements IObjectExtension, IObjectModelE
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/forum.png";;
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/forum.svg";;
 	}
 
 	public function getHelpUrl(){
