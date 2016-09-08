@@ -42,10 +42,16 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
 
             //document type: link
             if ($object instanceof \steam_docextern) {
+
+              header('Location: ' . $object->get_attribute("DOC_EXTERN_URL"));
+              die;
+
+                /*
                 if (isset($this->params[1]) && $this->params[1] === "new") {
                     header('Location: ' . $object->get_attribute("DOC_EXTERN_URL") . '');
                     die;
                 }
+
                 $actionBar = new \Widgets\ActionBar();
                 $actionBar->setActions(array(
                     array("name" => "URL in neuem Fenster öffnen", "onclick" => "javascript:window.open('{$object->get_attribute("DOC_EXTERN_URL")}');return false;")
@@ -56,6 +62,7 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($actionBar);
                 $frameResponseObject->addWidget($rawHtml);
                 return $frameResponseObject;
+                */
             }
 
             //document type: steam document
