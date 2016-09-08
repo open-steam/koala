@@ -101,8 +101,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
           }
 
           #button{
-            padding-left:50px;
-            padding-right:50px;
+            width: 151px;
           }'
         );
 
@@ -228,7 +227,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $buttonHtml->setHtml(<<<END
                         <br>
 <div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$container->get_id()}}, '', 'popup', null, null);return false;">
-<button>Abgabe einreichen</button>
+<button class="bidButton">Abgabe einreichen</button>
 </div>
 END
             );
