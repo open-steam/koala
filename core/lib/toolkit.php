@@ -408,8 +408,53 @@ function deriveIcon($object) {
 
     if ($objtype === "container_portal_bid")
         return "portal.png";
-    else if ($objtype === "container_portlet_bid")
-        return "portlet.png";
+    else if ($objtype === "container_portlet_bid"){
+      $portletType = $object->get_attribute("bid:portlet");
+
+      switch ($portletType) {
+          case "msg":
+              return "messages.png";
+
+          case "headline":
+              return "headline.png";
+
+          case "topic":
+              return "explorer.png";
+
+          case "appointment":
+              return "appointment.png";
+
+          case "media":
+              return "play.png";
+
+          case "rss":
+              return "rss.png";
+
+          case "poll":
+              return "poll.png";
+
+          case "termplan":
+              return "termplan.png";
+
+          case "subscription":
+              return "subscribe.png";
+
+          case "userpicture":
+              return "userPicture.png";
+
+          case "chronic":
+              return "chronic.png";
+
+          case "bookmarks":
+              return "bookmark.png";
+
+          case "folderlist":
+              return "folder.png";
+
+          default:
+              return "portlet.png";
+      }
+    }
     /* else if($objtype === "LARS_DESKTOP")
 
       return "lars_desktop.gif";
