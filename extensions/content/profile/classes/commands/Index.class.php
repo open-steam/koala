@@ -927,7 +927,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $checkboxWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_SHOW_HIDDEN_DOCUMENTS"));
             $frameResponseObject->addWidget($clearer);
             $frameResponseObject->addWidget($checkboxWidget);
+            $frameResponseObject->addWidget($clearer);
 
+            // explorer view (list vs. gallery)
             $explorerViewWidget = new \Widgets\ComboBox();
             $explorerViewWidget->setLabel("Exploreransicht");
             $explorerViewWidget->setData($user);
@@ -937,8 +939,38 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 array("name" => "Galerie", "value" => "gallery"),
             ));
             $explorerViewWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_VIEW"));
-            $frameResponseObject->addWidget($clearer);
             $frameResponseObject->addWidget($explorerViewWidget);
+            $frameResponseObject->addWidget($clearer);
+
+            // number of items per row (gallery view)
+            $galleryNumberWidget = new \Widgets\TextInput();
+            $galleryNumberWidget->setLabel("Objekte pro Zeile");
+            $galleryNumberWidget->setData($user);
+            $galleryNumberWidget->setType("number");
+            $galleryNumberWidget->setMin(1);
+            $galleryNumberWidget->setMax(15);
+            $galleryNumberWidget->setInputWidth(128);
+            $galleryNumberWidget->setPlaceholder(10);
+            $galleryNumberWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("GALLERY_NUMBER"));
+            $frameResponseObject->addWidget($galleryNumberWidget);
+
+            $raw = new \Widgets\RawHtml();
+            $raw->setHtml("<script>
+            if($('select').val() == 'list'){
+              $('.widgets_label').last().hide();
+              $('.widgets_label').last().next().hide();
+            }
+            $('select').change(function(){
+              if($(this).val() == 'list'){
+                $('.widgets_label').last().hide();
+                $('.widgets_label').last().next().hide();
+              }else{
+                $('.widgets_label').last().show();
+                $('.widgets_label').last().next().show();
+              }
+            });</script>");
+
+            $frameResponseObject->addWidget($raw);
             $frameResponseObject->addWidget($clearer);
 
             //save button at the end of the form

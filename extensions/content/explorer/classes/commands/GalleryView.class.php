@@ -274,6 +274,7 @@ class GalleryView extends \AbstractCommand implements \IFrameCommand {
 			$loader->setElementId("explorerWrapper");
 			$loader->setType("updater");
 
+			/*
 			$slider = new \Widgets\RawHtml();
 			$slider->setHtml('<script>$(function() {$("#slider").slider({
 				value:10,
@@ -286,9 +287,10 @@ class GalleryView extends \AbstractCommand implements \IFrameCommand {
 				}
 			});
 			$("#objectSlider").val($("#slider").slider("value"))});</script><p id="objectSliderLabel" style="margin-top: 20px;float: right;margin-right: -130px;"><label for="objectSlider">Objekte pro Zeile:</label><input type="text" id="objectSlider" readonly style="border:0; color:#f6931f; font-weight:bold; width:30px;"></p><div id="slider"></div>');
+			*/
 
 			$rawHtml = new \Widgets\RawHtml();
-			$rawHtml->setHtml("<div id=\"explorerContent\">" . $breadcrumb->getHtml() . $description->getHtml() . $environment->getHtml() . $selectAll->getHtml() . $slider->getHtml() . $loader->getHtml() . "</div>");
+			$rawHtml->setHtml("<div id=\"explorerContent\">" . $breadcrumb->getHtml() . $description->getHtml() . $environment->getHtml() . $selectAll->getHtml() . $loader->getHtml() . "</div>");
 
 			$script = "function initSort(){";
 			foreach ($objects as $o) {
