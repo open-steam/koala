@@ -344,3 +344,14 @@ function callNextRequest(){
     jQuery('#overlay').remove();
   }
 }
+
+$(document).ready(function() {
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > 55) {
+      $('#menu').addClass('fixed');
+    }
+    if ($(window).scrollTop() < 56) {
+      $('#menu').removeClass('fixed');
+    }
+  });
+});

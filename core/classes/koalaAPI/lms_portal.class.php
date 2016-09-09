@@ -706,7 +706,8 @@ return $rand_value;
             //$koala_html_menu->add_menu_entry( array( "name" => gettext( "Sign in" ), "link" => PATH_URL . "sign_in.php" ) );
             //$koala_html_menu->add_menu_entry( array( "name" => gettext( "Downloads" ), "link" => PATH_URL . "downloads/" ) );
             //$koala_html_menu->add_menu_entry(array("name" => " ", "link" => "#"));
-            return "<div id='menu'></div>";
+            //return "<div id='menu'></div>";
+            return "";
         }
 
         return $koala_html_menu->get_html();

@@ -196,11 +196,66 @@
 
     <div id="background"></div>
 
-    <div id="header_wrapper" class="content_width">
+    <div id="header_wrapper">
         <div id="header">
             <div id="logo_wrapper">
                 <a id="logo" href="{LOGO_PATH_URL}" style="{CUSTOM_LOGO_STYLE}"><svg><use xlink:href='{LOGO_PATH}.svg#logo'/></svg></a>
             </div>
+            <!-- BEGIN BLOCK_SIGN_IN -->
+            <div id="loginDiv" style="display:none">
+                <form id="loginPanel" action="{LOGIN_FORM_ACTION}" method="post" name="loginform">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" class="input" name="values[login]" size="12" id="first_field" placeholder="{LABEL_LOGIN}" style="font-size:14px; height:24px; width:110px; border-radius:3px;"/>
+                            </td>
+                            <td>
+                                <input type="password" class="input" name="values[password]" size="12" placeholder="{LABEL_PASSWORD}" style="font-size:14px; height:24px; width:110px; border-radius:3px;"/>
+                            </td>
+                            <td>
+                                <input type="hidden" name="values[req]" value="{SIGN_IN_REQUEST}">
+                                    <input type="submit" class="bidButton" type="submit" value="{SIGN_IN_BUTTON_TEXT}" style="height:31px;"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <script>
+                if($.browser.msie){
+                    if( 9 > parseInt($.browser.version)){
+                        $("#loginPanelWarning").show();
+                        alert("Ihr Browser wird nicht unterstützt. Wir empfehlen eine aktuelle Version von Firefox oder Chrome.");
+                    }else{
+                        $("#loginDiv").show();
+                    }
+                }else{
+                    $("#loginDiv").show();
+
+                }
+            </script>
+
+            <script>
+                //loginVisible = function(visible){
+                //    if(visible){
+                //        jQuery("#loginPanel").css("display", "block");
+                //        jQuery("#loginPanelWarning").css("display", "none");
+                //    }else{
+                //        jQuery("#loginPanel").css("display", "none");
+                //        jQuery("#loginPanelWarning").css("display", "block");
+                //    }
+                //}
+
+                //if(jQuery.browser.mozilla) loginVisible(false);
+                //if(jQuery.browser.webkit) loginVisible(true);
+                //if(jQuery.browser.safari) loginVisible(true);
+                //if(jQuery.browser.opera) loginVisible(true);
+                //if(jQuery.browser.msie) loginVisible(true);
+
+            </script>
+
+
+
+            <!-- END BLOCK_SIGN_IN -->
             <div id="noJs" style="display: block;font-size:1.5em;">
                 Um den Server nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser.
             </div>
@@ -253,7 +308,7 @@
                         </div>
 
                         <div id="menu_wrapper_bg">
-                            <div id="menu_wrapper" class="content_width">
+                            <div id="menu_wrapper">
                                 <div id="menu">
                                     <div id="icon_bar">{ICON_BAR_HTML}</div>{MENU_HTML}
                                 </div>
@@ -283,61 +338,6 @@
                                         <!-- END BLOCK_CONFIRMATION -->
 
                                         <div id="content">
-                                            <!-- BEGIN BLOCK_SIGN_IN -->
-                                            <div id="loginDiv" style="display:none">
-                                                <form id="loginPanel" action="{LOGIN_FORM_ACTION}" method="post" name="loginform">
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <input type="text" class="input" name="values[login]" size="12" id="first_field" placeholder="{LABEL_LOGIN}" style="font-size:14px; height:24px; width:110px; border-radius:3px;"/>
-                                                            </td>
-                                                            <td>
-                                                                <input type="password" class="input" name="values[password]" size="12" placeholder="{LABEL_PASSWORD}" style="font-size:14px; height:24px; width:110px; border-radius:3px;"/>
-                                                            </td>
-                                                            <td>
-                                                                <input type="hidden" name="values[req]" value="{SIGN_IN_REQUEST}">
-                                                                    <input type="submit" class="bidButton" type="submit" value="{SIGN_IN_BUTTON_TEXT}" style="height:31px;"/>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </form>
-                                            </div>
-                                            <script>
-                                                if($.browser.msie){
-                                                    if( 9 > parseInt($.browser.version)){
-                                                        $("#loginPanelWarning").show();
-                                                        alert("Ihr Browser wird nicht unterstützt. Wir empfehlen eine aktuelle Version von Firefox oder Chrome.");
-                                                    }else{
-                                                        $("#loginDiv").show();
-                                                    }
-                                                }else{
-                                                    $("#loginDiv").show();
-
-                                                }
-                                            </script>
-
-                                            <script>
-                                                //loginVisible = function(visible){
-                                                //    if(visible){
-                                                //        jQuery("#loginPanel").css("display", "block");
-                                                //        jQuery("#loginPanelWarning").css("display", "none");
-                                                //    }else{
-                                                //        jQuery("#loginPanel").css("display", "none");
-                                                //        jQuery("#loginPanelWarning").css("display", "block");
-                                                //    }
-                                                //}
-
-                                                //if(jQuery.browser.mozilla) loginVisible(false);
-                                                //if(jQuery.browser.webkit) loginVisible(true);
-                                                //if(jQuery.browser.safari) loginVisible(true);
-                                                //if(jQuery.browser.opera) loginVisible(true);
-                                                //if(jQuery.browser.msie) loginVisible(true);
-
-                                            </script>
-
-
-
-                                            <!-- END BLOCK_SIGN_IN -->
                                             {MAIN_HTML}
                                         </div>
 
@@ -356,10 +356,12 @@
 
                         <div id="footer_shadow"></div>
 
-                        <div id="footer_wrapper" class="content_width">
+                        <div id="footer_wrapper">
                             <div id="footer">
+                              <div style="position:relative; bottom:-50px;">
                                 {COPYRIGHT_INFO} {IMPRESSUM_INFO} {POLICY_INFO} {SECURITY_INFO}  {FUNDING_INFO} {POWERED_BY_INFO}
                                 {STATISTICS_REQUESTS} {STATISTICS_PAGETIME}
+                              </div>
                             </div>
                         </div>
 

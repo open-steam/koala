@@ -22,6 +22,7 @@
 		font-family: 'Lucida Grande', Verdana, Arial, Helvetica, sans-serif;
 		overflow-x: hidden;
 		width:100%;
+		height:100%;
 	}
 
 	input, textarea {
@@ -42,6 +43,7 @@
 		background: url(../images/page_layout/body_bg.png) repeat-x;
 		color: #111;
 		width:100%;
+		height:100%;
 	}
 
 	table, td {
@@ -137,6 +139,11 @@
 		margin-left: auto;
 	}
 
+	/*152 because of header, menu and footer */
+	#site_wrapper {
+  	min-height: calc(100vh - 152px);
+	}
+
 	/*adjusted in html file*/
 	#page_wrapper_bg {
 		margin-right: auto;
@@ -153,18 +160,13 @@
 	}
 
 	#content_wrapper {
-		padding: 10px 10px 20px 10px;
+		padding: 10px 10px 10px 10px;
 		margin: 0;
 		min-height: 400px;
-		-moz-box-shadow:2px 2px 5px #888;
-		-webkit-box-shadow:2px 2px 5px #888;
-		box-shadow:2px 2px 5px #888;
 	}
 
 	#footer_wrapper {
-		margin-top: 3px;
-		margin-right: auto;
-		margin-left: auto;
+
 	}
 
 	/*adjusted in html file*/
@@ -194,6 +196,7 @@
 
 	#header #logo_wrapper {
 		position: absolute;
+		left: 10px;
 	}
 
 	#header #logo svg {
@@ -212,14 +215,6 @@
 	#icon_bar li ul {
 		margin-left: -128px;
 		width: 180px;
-	}
-
-	#icon_bar > ul > li:last-child > span > span {
-		border-top-right-radius: 3px;
-	}
-
-	#icon_bar > ul > li:last-child > span > span:hover {
-		border-top-right-radius: 3px;
 	}
 
 	#icon_bar > ul > li > ul > li:last-child > span > span {
@@ -243,10 +238,10 @@
 	}
 
 	#menu #icon_bar li .menu_text {
-		padding: 7px 10px 7px 10px;
+		padding: 7px 10px 4px 10px;
 	}
 
-	.popupmenuwrapper, #menu {
+	.popupmenuwrapper {
 		background: #a7a7a7;
 		background: -webkit-gradient(linear, left top, left bottom, from(#bebebe),to(#a1a1a1));
 		background: -moz-linear-gradient(top,#bebebe,#a1a1a1);
@@ -261,6 +256,13 @@
 		box-shadow:2px 2px 5px #888;
 	}
 
+	.fixed {
+		top: 0;
+		z-index: 100;
+		position: fixed;
+		width: 100%;
+	}
+
 	#menu {
 		margin-right: auto;
 		margin-left: auto;
@@ -272,14 +274,6 @@
 		list-style:none;
 		margin: 0;
 		padding: 0;
-	}
-
-	#menu > ul > li:first-child {
-		border-top-left-radius: 3px;
-	}
-
-	#menu > ul > li:first-child > a > span {
-		border-top-left-radius: 3px;
 	}
 
 	#menu li {
@@ -309,10 +303,6 @@
 	#menu li .menu_text:hover, #menu .activemenu{
 		background-color: #6094C5;
 		text-decoration:none;
-	}
-
-	#icon_bar li:last-child.activemenu{
-		border-top-right-radius: 3px;
 	}
 
 	#menu li .menu_text:active {
@@ -562,10 +552,11 @@
 	** only used in portal.template.html
 	*/
 	#footer {
-		text-align: right;
+		text-align: center;
 		font-size: 90%;
 		color: #666;
-		height: 50px;
+		height: 67px;
+		background: url(../images/page_layout/body_bg_footer.png);
 	}
 
 	/*
@@ -617,8 +608,8 @@
 	*/
 	#loginPanel {
 		position:absolute;
-		right:-4px;
-		top:-67px;
+		right:0px;
+		top:15px;
 	}
 
 	#loginPanel td {
