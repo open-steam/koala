@@ -14,8 +14,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
-
-
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -33,7 +31,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         //chronic
-        //\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
+        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
 
         //check the explorer view attribute which is specified in the profile
         $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
