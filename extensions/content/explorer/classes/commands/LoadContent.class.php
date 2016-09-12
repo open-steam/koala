@@ -151,15 +151,17 @@ class ContentProvider implements \Widgets\IContentProvider {
             return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } elseif ($cell == $this->rawName) {
             $creator = $contentItem->get_creator();
+            if(is_object($creator)){
+              $creatorHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"" . PATH_URL . "download/image/"
+                           . $creator->get_attribute(OBJ_ICON)->get_id() . "/30/30\"> "
+                           . $creator->get_attribute(USER_FIRSTNAME) . " "
+                           . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">";
+            }
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id());
-            $tipsyHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"" . PATH_URL . "download/image/"
-                    . $creator->get_attribute(OBJ_ICON)->get_id() . "/30/30\"> "
-                    . $creator->get_attribute(USER_FIRSTNAME) . " "
-                    . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">"
-                    . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>" //);
-                    . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
-
+            $tipsyHtml = $creatorHtml
+                       . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>" //);
+                       . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
             $tags = $contentItem->get_attribute(OBJ_KEYWORDS);
             if(sizeOf($tags) > 0){
               $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";

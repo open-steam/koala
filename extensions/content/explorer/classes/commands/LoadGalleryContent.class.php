@@ -62,12 +62,16 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $creator = $object->get_creator();
           $tags = $object->get_attribute(OBJ_KEYWORDS);
 
+          if(is_object($creator)){
+            $creatorHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"" . PATH_URL . "download/image/"
+                         . $creator->get_attribute(OBJ_ICON)->get_id() . "/30/30\"> "
+                         . $creator->get_attribute(USER_FIRSTNAME) . " "
+                         . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">";
+          }
+
           $tipsy = new \Widgets\Tipsy();
           $tipsy->setElementId($id);
-          $tipsyHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"" . PATH_URL . "download/image/"
-                  . $creator->get_attribute(OBJ_ICON)->get_id() . "/30/30\"> "
-                  . $creator->get_attribute(USER_FIRSTNAME) . " "
-                  . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">"
+          $tipsyHtml = $creatorHtml
                   . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($object->get_attribute(OBJ_LAST_CHANGED)) . "<br>" //);
                   . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($object->get_attribute(OBJ_CREATION_TIME)) . "<br>";
 
