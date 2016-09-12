@@ -44,7 +44,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         switch (count($columns)) {
             case 1:
             	\ExtensionMaster::getInstance()->callCommand("Create", "PortletHeadline", array("parent" => $columns[1], "title" => $this->params["name"], "version"=>"3.0"));
-				\ExtensionMaster::getInstance()->callCommand("Create", "PortletMsg", array("parent" => $columns[1], "title" => "Meldungen", "version"=>"3.0"));
+							\ExtensionMaster::getInstance()->callCommand("Create", "PortletMsg", array("parent" => $columns[1], "title" => "Meldungen", "version"=>"3.0"));
                 break;
             case 2:
             	\ExtensionMaster::getInstance()->callCommand("Create", "PortletTopic", array("parent" => $columns[1], "title" => "Linkliste", "version"=>"3.0"));
@@ -52,7 +52,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             	\ExtensionMaster::getInstance()->callCommand("Create", "PortletMsg", array("parent" => $columns[2], "title" => "Meldungen", "version"=>"3.0"));
                 break;
             case 3:
-                \ExtensionMaster::getInstance()->callCommand("Create", "PortletTopic", array("parent" => $columns[1], "title" => "Linkliste", "version"=>"3.0"));
+              \ExtensionMaster::getInstance()->callCommand("Create", "PortletTopic", array("parent" => $columns[1], "title" => "Linkliste", "version"=>"3.0"));
             	\ExtensionMaster::getInstance()->callCommand("Create", "PortletHeadline", array("parent" => $columns[2], "title" => $this->params["name"], "version"=>"3.0"));
             	\ExtensionMaster::getInstance()->callCommand("Create", "PortletMsg", array("parent" => $columns[2], "title" => "Meldungen", "version"=>"3.0"));
             	\ExtensionMaster::getInstance()->callCommand("Create", "PortletAppointment", array("parent" => $columns[3], "title" => "Termine", "version"=>"3.0"));
@@ -60,11 +60,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         }
 
 		$jswrapper = new \Widgets\JSWrapper();
-		$jswrapper->setJs(<<<END
-		closeDialog();
-		sendRequest("LoadContent", {"id":"{$this->id}"}, "explorerWrapper", "updater", null, null, "explorer");
-END
-		);
+		$jswrapper->setJs('closeDialog(); location.reload();');
 		$ajaxResponseObject->addWidget($jswrapper);
 		return $ajaxResponseObject;
 	}

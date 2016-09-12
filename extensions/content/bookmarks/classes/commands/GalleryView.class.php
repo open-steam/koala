@@ -2,7 +2,7 @@
 
 namespace Bookmarks\Commands;
 
-class Index extends \AbstractCommand implements \IFrameCommand {
+class GalleryView extends \AbstractCommand implements \IFrameCommand {
 
     private $params;
     private $id;
@@ -14,8 +14,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
-
-
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -37,8 +35,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         //check the explorer view attribute which is specified in the profile
         $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
-        if($viewAttribute && $viewAttribute == "gallery"){
-          header("location: " . PATH_URL . "bookmarks/GalleryView/" . $this->id . "/");
+        if($viewAttribute && $viewAttribute == "list"){
+          header("location: " . PATH_URL . "bookmarks/index/" . $this->id . "/");
           die;
         }
 
@@ -78,10 +76,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //$actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
+        $selectAll = new \Widgets\RawHtml();
+  			$selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:22px;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
+
         $loader = new \Widgets\Loader();
         $loader->setWrapperId("bookmarksWrapper");
         $loader->setMessage("Lade Lesezeichen...");
-        $loader->setCommand("LoadBookmarks");
+        $loader->setCommand("LoadGalleryContent");
         $loader->setNamespace("Bookmarks");
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("bookmarksWrapper");
@@ -100,31 +101,33 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
             }
         }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_explorer.svg";
+        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_gallery.svg";
         $script .= '
             $("#sort-icon").attr("name", "true");
             $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
             var newIds = "";
-            $( ".listviewer-items" ).sortable({zIndex: 1});
-            $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
+            $("#bookmarksGallery").sortable();
+            $("#bookmarksGallery").disableSelection();
+            $("#bookmarksGallery").bind("sortupdate", function(event, ui){
                 var changedElement = $(ui.item).attr("id");
-                $(".listviewer-items").children();
-                $(".listviewer-items").children().each(function(index, value){
-                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
-                    else newIds+=value.id + ", ";});
-                    sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
-                    newIds = "";
+                $("#bookmarksGallery").children().each(function(index, value){
+                    if(index == $("#bookmarksGallery").children().length-1) newIds += value.id;
+                    else newIds += value.id + ", ";
+                  });
+                sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
+                newIds = "";
             });
             $("#content").prepend("<div style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(' . $assetUrl . ');\"></div>");
 
-    }';
+        }';
+
         $environmentData->setJs($script);
 
         $frameResponseObject->setTitle("Lesezeichen");
         //$frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($environmentData);
         $frameResponseObject->addWidget($breadcrumb);
-
+        $frameResponseObject->addWidget($selectAll);
         $frameResponseObject->addWidget($loader);
         return $frameResponseObject;
     }

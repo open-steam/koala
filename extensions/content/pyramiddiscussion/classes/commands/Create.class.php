@@ -60,20 +60,20 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 
         $private_group = \steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "PrivGroups");
         $basegroup_original = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $basegroup);
-        
+
         if ($basegroup_original->count_members() > 64) {
             $rawWidget = new \Widgets\RawHtml();
             $rawWidget->setHtml("Error: Gruppe enthält mehr als 64 Mitglieder.");
             $ajaxResponseObject->addWidget($rawWidget);
             return $ajaxResponseObject;
         }
-        
+
         $container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $pyramidRoom = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), $this->params["title"], $container, $this->params["title"]);
         $basegroup = \steam_factory::create_group($GLOBALS["STEAM"]->get_id(), "pyramid_" . $pyramidRoom->get_id(), $private_group);
         $basegroup->set_attribute("GROUP_INVISIBLE", true);
         $basegroup->set_sanction_all($basegroup);
-        
+
         if ($admingroup != 0) {
             $admingroup = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $admingroup);
         }
@@ -89,7 +89,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
             foreach ($admingroup->get_members() as $member) {
                 if (!$basegroup->is_member($member) && $member instanceof \steam_user) {
                     $basegroup->add_member($member);
-                } 
+                }
                 if ($member instanceof \steam_user) {
                     $basegroup->set_admin($member);
                     array_push($admins, $member);
@@ -103,7 +103,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
             $basegroup->set_admin($user);
             array_push($admins, $user);
         }*/
-        
+
         //$pyramidRoom->set_sanction_all($admingroup);
         $pyramidRoom->set_sanction_all($basegroup);
         $pyramidRoom->set_attribute("OBJ_TYPE", "container_pyramiddiscussion");
@@ -171,11 +171,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         $basegroup->set_attribute("PYRAMIDDISCUSSION_INSTANCES", array($pyramidRoom->get_id()));
 
         $jswrapper = new \Widgets\JSWrapper();
-        $jswrapper->setJs(<<<END
-		closeDialog();
-		sendRequest("LoadContent", {"id":"{$this->id}"}, "explorerWrapper", "updater", null, null, "explorer");
-END
-        );
+        $jswrapper->setJs('closeDialog(); location.reload();');
         $ajaxResponseObject->addWidget($jswrapper);
         return $ajaxResponseObject;
     }

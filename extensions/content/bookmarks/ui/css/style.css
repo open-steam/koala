@@ -13,3 +13,359 @@ div[id$="_0"].listviewer-item-cell {
 .justTrashed > div[id$="_0"].listviewer-item-cell {
     color: red;
 }
+
+#bookmarksGallery {
+   list-style-type:none;
+   margin:0;
+   padding:0;
+   width: 950px;
+   display:inline-block;
+}
+
+.galleryEntry {
+    box-shadow: 2px 2px 5px #888;
+    -webkit-border-radius: 3px;
+    display: inline-block;
+    position: relative;
+    height: 55px;
+    width: 55px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
+    float: left;
+    background-color: #FFFFFF;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+
+.galleryEntry:hover {
+    background-color: #EEEEEE;
+}
+
+.galleryEntry:hover .galleryEntryCheckbox {
+    display:block;
+}
+
+.galleryEntry input[type="text"] {
+    width: 100%;
+}
+
+.galleryEntry:hover .popupmenuanker {
+    display:block;
+}
+
+.galleryEntry.selected {
+    background-color: #396D9C !important;
+}
+
+.galleryEntry .SVGChild {
+    color: #3a6e9f;
+}
+
+.galleryEntry.selected .SVGChild {
+    color: #FFFFFF;
+}
+
+.galleryEntry.selected a {
+    color: #FFFFFF;
+}
+
+.galleryPicture {
+  width: 55px;
+  height: 55px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+}
+
+.galleryPicture.white {
+  display: none;
+}
+
+.galleryPicture.red {
+  display: none;
+}
+
+.galleryEntryCheckbox {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  cursor: pointer;
+  display: none;
+}
+
+.galleryEntry .popupmenuanker {
+    display: none;
+    right: 3px;
+    top: 3px;
+    position: absolute;
+}
+
+.galleryEntry.selected .popupmenuanker {
+  color: white;
+}
+
+.galleryEntry.selected .galleryEntryCheckbox {
+  display: block;
+}
+
+.galleryEntry.justTrashed .galleryEntryCheckbox {
+    disabled:true;
+}
+
+.galleryEntry.justTrashed .SVGChild {
+    color: #FF0000;
+}
+
+.galleryEntry.justTrashed a {
+    color: #FF0000;
+}
+
+.galleryEntry div[id$="_1"] a {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.galleryEntry.red {
+	background-color: #F3B6AE;
+}
+
+.galleryEntry.orange {
+	background-color: #FAD7A5;
+}
+
+.galleryEntry.yellow {
+	background-color: #FAF3AA;
+}
+
+.galleryEntry.green {
+	background-color: #DDEDAA;
+}
+
+.galleryEntry.blue {
+	background-color: #B7D9FE;
+}
+
+.galleryEntry.purple {
+	background-color: #DEBCEA;
+}
+
+.galleryEntry.grey {
+	background-color: #D6D6D6;
+}
+
+.galleryEntry.red:hover {
+	background-color: #e97a6b;
+}
+
+.galleryEntry.orange:hover {
+	background-color: #f6b75d;
+}
+
+.galleryEntry.yellow:hover {
+	background-color: #f6e962;
+}
+
+.galleryEntry.green:hover {
+	background-color: #c4e06b;
+}
+
+.galleryEntry.blue:hover {
+	background-color: #6cb1fd;
+}
+
+.galleryEntry.purple:hover {
+	background-color: #c182d8;
+}
+
+.galleryEntry.grey:hover {
+	background-color: #b0b0b0;
+}
+
+.redColor {
+	color: #e97a6b;
+}
+
+.orangeColor {
+	color: #f6b75d;
+}
+
+.yellowColor {
+	color: #f6e962;
+}
+
+.greenColor {
+	color: #c4e06b;
+}
+
+.blueColor {
+	color: #6cb1fd;
+}
+
+.purpleColor {
+	color: #c182d8;
+}
+
+.greyColor {
+	color: #b0b0b0;
+}
+
+.galleryEntry.Row1 {
+  height: 910px;
+  width: 910px;
+}
+
+.galleryEntry.Row1 .galleryPicture {
+  height: 910px;
+  width: 910px;
+}
+
+.galleryEntry.Row2 {
+  height: 434px;
+  width: 434px;
+}
+
+.galleryEntry.Row2 .galleryPicture {
+  height: 434px;
+  width: 434px;
+}
+
+.galleryEntry.Row3 {
+  height: 276px;
+  width: 276px;
+}
+
+.galleryEntry.Row3 .galleryPicture {
+  height: 276px;
+  width: 276px;
+}
+
+.galleryEntry.Row4 {
+  height: 196px;
+  width: 196px;
+}
+
+.galleryEntry.Row4 .galleryPicture {
+  height: 196px;
+  width: 196px;
+}
+
+.galleryEntry.Row5 {
+  height: 150px;
+  width: 150px;
+}
+
+.galleryEntry.Row5 .galleryPicture {
+  height: 150px;
+  width: 150px;
+}
+
+.galleryEntry.Row6 {
+  height: 118px;
+  width: 118px;
+}
+
+.galleryEntry.Row6 .galleryPicture {
+  height: 118px;
+  width: 118px;
+}
+
+.galleryEntry.Row7 {
+  height: 95px;
+  width: 95px;
+}
+
+.galleryEntry.Row7 .galleryPicture {
+  height: 95px;
+  width: 95px;
+}
+
+.galleryEntry.Row8 {
+  height: 78px;
+  width: 78px;
+}
+
+.galleryEntry.Row8 .galleryPicture {
+  height: 78px;
+  width: 78px;
+}
+
+.galleryEntry.Row9 {
+  height: 65px;
+  width: 65px;
+}
+
+.galleryEntry.Row9 .galleryPicture {
+  height: 65px;
+  width: 65px;
+}
+
+.galleryEntry.Row10 {
+  height: 55px;
+  width: 55px;
+}
+
+.galleryEntry.Row10 .galleryPicture {
+  height: 55px;
+  width: 55px;
+}
+
+.galleryEntry.Row11 {
+  height: 46px;
+  width: 46px;
+}
+
+.galleryEntry.Row11 .galleryPicture {
+  height: 46px;
+  width: 46px;
+}
+
+.galleryEntry.Row12 {
+  height: 39px;
+  width: 39px;
+}
+
+.galleryEntry.Row12 .galleryPicture {
+  height: 39px;
+  width: 39px;
+}
+
+.galleryEntry.Row13 {
+  height: 33px;
+  width: 33px;
+}
+
+.galleryEntry.Row13 .galleryPicture {
+  height: 33px;
+  width: 33px;
+}
+
+.galleryEntry.Row14 {
+  height: 27px;
+  width: 27px;
+}
+
+.galleryEntry.Row14 .galleryPicture {
+  height: 27px;
+  width: 27px;
+}
+
+.galleryEntry.Row15 {
+  height: 23px;
+  width: 23px;
+}
+
+.galleryEntry.Row15 .galleryPicture {
+  height: 23px;
+  width: 23px;
+}
+
+.galleryEntry.hiddenObject {
+  opacity: 0.5;
+}

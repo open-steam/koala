@@ -32,12 +32,7 @@ class NewWebarena extends \AbstractCommand implements \IAjaxCommand
         $newObject->set_attribute("OBJ_TYPE", "container_webarena");
 
         $jswrapper = new \Widgets\JSWrapper();
-        $jswrapper->setJs(<<<END
-        closeDialog();
-        sendRequest("LoadContent", {"id":"{$this->id}"}, "explorerWrapper", "updater", null, null, "explorer");
-
-END
-        );
+        $jswrapper->setJs('closeDialog(); location.reload();');
         $ajaxResponseObject->addWidget($jswrapper);
 
         return $ajaxResponseObject;

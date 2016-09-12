@@ -191,7 +191,7 @@
 	*/
 	#header {
 		text-align: right;
-		padding-top: 3px;
+		padding: 3px;
 	}
 
 	#header #logo_wrapper {

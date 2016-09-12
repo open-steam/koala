@@ -370,6 +370,10 @@ div[id$="_3"].listviewer-item-cell {
   width: 23px;
 }
 
+.galleryEntry.hiddenObject {
+  opacity: 0.5;
+}
+
 #slider {
   width: 155px;
   height: 0.5em;
@@ -381,8 +385,4 @@ div[id$="_3"].listviewer-item-cell {
 
 .explorernewentry {
   padding-top: 5px;
-}
-
-.galleryEntry.hiddenObject {
-  opacity: 0.5;
 }
