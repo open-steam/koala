@@ -437,7 +437,7 @@ function deriveIcon($object) {
               return "termplan.png";
 
           case "subscription":
-              return "subscribe.png";
+              return "unsubscribe.png";
 
           case "userpicture":
               return "userPicture.png";
