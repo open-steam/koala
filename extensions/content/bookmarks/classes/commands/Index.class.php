@@ -30,8 +30,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $this->id = $object->get_id();
         }
 
+
         //chronic
-        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
+        //\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
+        $title = getCleanName($object, 65);
+        $chronicPath = "/bookmarks/index/" . $this->id . "/";
+        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentPath($chronicPath, $title);
 
         //check the explorer view attribute which is specified in the profile
         $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
@@ -47,7 +51,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         //build breadcrumb
-  			$title = getCleanName($object, 65);
   			$icon = deriveIcon($object);
   			$iconSVG = str_replace("png", "svg", $icon);
   			$idSVG = str_replace(".svg", "", $iconSVG);

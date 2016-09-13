@@ -290,7 +290,6 @@ class Chronic extends AbstractExtension implements IMenuExtension {
             return "command";
         } elseif ($entryType == "pth") {
             $path = $content[1];
-
             return $path;
         } elseif ($entryType == "oth") {
             $type = $content[1];
@@ -430,10 +429,10 @@ class Chronic extends AbstractExtension implements IMenuExtension {
 
     private function getUpwardsMenu($menuArray) {
         $moreItems = true;
+        $bookmarks = false;
 
         $chronic = $this->loadChronic();
-        if (!isset($chronic[0]))
-            $moreItems = false;
+        if (!isset($chronic[0])) $moreItems = false;
         $currentLocation = $chronic[0];
         $content = explode(":", $currentLocation);
         $entryType = $content[0];
@@ -448,8 +447,13 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                 $firstCycle = true; // to prevent a infinity loop in the recursion
             }
 
-            if (preg_match("/\/wiki\/entry\/([0-9]+)\//i", $content[1], $output)) { // forum
+            if (preg_match("/\/wiki\/entry\/([0-9]+)\//i", $content[1], $output)) { // wiki
                 $currentObjectId = $output[1];
+            }
+
+            if (preg_match("/\/bookmarks\/index\/([0-9]+)\//i", $content[1], $output)) { // bookmarks
+                $currentObjectId = $output[1];
+                $bookmarks = true;
             }
         }
 
@@ -494,7 +498,12 @@ class Chronic extends AbstractExtension implements IMenuExtension {
                     $objectArray = array("name" => "<svg><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg> " . getCleanName($environmentObject, 20));
 
                     if ($environmentObject->check_access_read()) {
+                      if($bookmarks){
+                        $objectArray["link"] = "/bookmarks/index/" . $environmentObject->get_id() . "/";
+                      }
+                      else{
                         $objectArray["link"] = $this->getEntryPath("oid:" . $environmentObject->get_id());
+                      }
                     } else {
                         $moreItems = false;
                         break;
