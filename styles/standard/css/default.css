@@ -237,7 +237,7 @@
 		float: left;
 	}
 
-	#menu #icon_bar li .menu_text {
+	#menu #icon_bar > ul > li > span > span {
 		padding: 7px 10px 4px 10px;
 	}
 
