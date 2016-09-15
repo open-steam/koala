@@ -58,6 +58,43 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         return array("left", "left", "left", "left", "left", "right", "right", "right", "right");
     }
 
+    public function getOnClickHandler($headline) {
+  		if(strpos($headline, "Name") !== false) {
+  			return "sortByName(this)";
+  		}
+  		if(strpos($headline, "Änderungsdatum") !== false) {
+  			return "sortByDate(this)";
+  		}
+  		else{
+  			return "";
+  		}
+
+  	}
+
+  	public function getOnMouseOverHandler($headline) {
+  		if(strpos($headline, "Name") !== false) {
+  			return "jQuery(this).addClass('hover')";
+  		}
+  		if(strpos($headline, "Änderungsdatum") !== false) {
+  			return "jQuery(this).addClass('hover')";
+  		}
+  		else{
+  			return "";
+  		}
+  	}
+
+  	public function getOnMouseOutHandler($headline) {
+  		if(strpos($headline, "Name") !== false) {
+  			return "jQuery(this).removeClass('hover')";
+  		}
+  		if(strpos($headline, "Änderungsdatum") !== false) {
+  			return "jQuery(this).removeClass('hover')";
+  		}
+  		else{
+  			return "";
+  		}
+  	}
+
 }
 
 class ContentProvider implements \Widgets\IContentProvider {

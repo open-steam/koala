@@ -193,7 +193,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 	}
 
 	public function getNoContentText() {
-		return "Dieser Ordner enthält keine Objekte.";
+		return "Die Zwischenablage ist leer.";
 	}
 
 	public function getOnClickHandler($contentItem) {
