@@ -42,7 +42,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			} else if ($env instanceof \steam_trashbin) {
 				$trashIcon = $explorerAssetUrl . "icons/menu/svg/trash.svg";
 				$cutIcon = $explorerAssetUrl . "icons/menu/svg/cut.svg";
-				
+
 				$items = array(
 					array("name" => "<svg><use xlink:href='{$trashIcon}#trash'/></svg> Endgültig löschen", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater"),
 					array("name" => "<svg><use xlink:href='{$cutIcon}#cut'/></svg> Ausschneiden", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform")
@@ -54,10 +54,21 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			$cutIcon = $explorerAssetUrl . "icons/menu/svg/cut.svg";
 			$trashIcon = $explorerAssetUrl . "icons/menu/svg/trash.svg";
 
+			$viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
+			if($viewAttribute && $viewAttribute == "gallery"){
+				$paramsArrayFunction = "getGalleryParamsArray";
+				$ElementIdFunction = "getGalleryElementIdArray";
+				$SelectionFunction = "getGallerySelectionAsArray().length";
+			}else{
+				$paramsArrayFunction = "getParamsArray";
+				$ElementIdFunction = "getElementIdArray";
+				$SelectionFunction = "getSelectionAsArray().length";
+			}
+
 			$popupMenu =  new \Widgets\PopupMenu();
 			$items = array(
-				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('EmptyTrashbin', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> {$count} Objekte endgültig löschen</a>"),
-				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'inform', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\"><svg><use xlink:href='{$cutIcon}#cut'/></svg> {$count} Objekte ausschneiden</a>")
+				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('EmptyTrashbin', $paramsArrayFunction({}), $ElementIdFunction(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0, $SelectionFunction); return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> {$count} Objekte endgültig löschen</a>"),
+				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Lösche Objekte ...', 0, $SelectionFunction); return false;\"><svg><use xlink:href='{$cutIcon}#cut'/></svg> {$count} Objekte ausschneiden</a>")
 			);
 
 			$popupMenu->setItems($items);

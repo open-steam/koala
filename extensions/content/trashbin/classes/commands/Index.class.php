@@ -50,11 +50,22 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		$loader = new \Widgets\Loader();
 		$loader->setWrapperId("trashbinWrapper");
 		$loader->setMessage("Lade gelöschte Objekte...");
-		$loader->setCommand("loadContent");
 		$loader->setParams(array("id"=>$this->id));
+		$loader->setNamespace("Trashbin");
 		$loader->setElementId("trashbinWrapper");
 		$loader->setType("updater");
 
+		//check the explorer view attribute which is specified in the profile
+		$viewAttribute = $currentUser->get_attribute("EXPLORER_VIEW");
+		if($viewAttribute && $viewAttribute == "gallery"){
+			$loader->setCommand("loadGalleryContent");
+			$selectAll = new \Widgets\RawHtml();
+			$selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:22px;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
+			$frameResponseObject->addWidget($selectAll);
+		}
+		else{
+			$loader->setCommand("loadContent");
+		}
 
 		$frameResponseObject->setTitle($title);
 		$frameResponseObject->addWidget($breadcrumb);

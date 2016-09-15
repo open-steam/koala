@@ -1,6 +1,6 @@
 <?php
 
-namespace Clipboard\Commands;
+namespace Trashbin\Commands;
 
 class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
@@ -29,12 +29,12 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
         $ajaxResponseObject->setStatus("ok");
 
         $galleryStart = new \Widgets\RawHtml();
-        $galleryStart->setHtml("<ul id='clipboardGallery'>");
+        $galleryStart->setHtml("<ul id='trashbinGallery'>");
         $ajaxResponseObject->addWidget($galleryStart);
 
         if(sizeOf($this->objects) == 0){
           $noItem = new \Widgets\RawHtml();
-          $noItem->setHtml("<div class='gallery-noitem'>Die Zwischenablage ist leer.</div><script>$('#selectAll').hide();$('#objectSliderLabel').hide();$('#slider').hide();</script>");
+          $noItem->setHtml("<div class='gallery-noitem'>Der Papierkorb ist leer.</div><script>$('#selectAll').hide();$('#objectSliderLabel').hide();$('#slider').hide();</script>");
           $ajaxResponseObject->addWidget($noItem);
         }
 
