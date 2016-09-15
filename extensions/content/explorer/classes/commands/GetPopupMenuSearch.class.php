@@ -34,7 +34,6 @@ class GetPopupMenuSearch extends \AbstractCommand implements \IAjaxCommand {
         $popupMenu = new \Widgets\PopupMenu();
         $popupMenu->setItems($items);
         $popupMenu->setPosition(round($this->x + $this->width )  . "px", round($this->y + $this->height -20) . "px");
-        $popupMenu->setWidth("200px");
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($popupMenu);
         return $ajaxResponseObject;

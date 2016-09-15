@@ -97,12 +97,23 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			$trashIcon = $explorerAssetUrl . "icons/menu/svg/trash.svg";
 			$brushIcon = $explorerAssetUrl . "icons/menu/svg/brush.svg";
 
+			$viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
+			if($viewAttribute && $viewAttribute == "gallery"){
+				$paramsArrayFunction = "getGalleryParamsArray";
+				$ElementIdFunction = "getGalleryElementIdArray";
+				$SelectionFunction = "getGallerySelectionAsArray().length";
+			}else{
+				$paramsArrayFunction = "getParamsArray";
+				$ElementIdFunction = "getElementIdArray";
+				$SelectionFunction = "getSelectionAsArray().length";
+			}
+
 			$popupMenu =  new \Widgets\PopupMenu();
 			$items = array(
-				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Copy', getParamsArray({}), getElementIdArray(''), 'inform', null, null, 'explorer', 'Kopiere Objekte ...', 0,  getSelectionAsArray().length); return false;\"><svg><use xlink:href='{$copyIcon}#copy'/></svg> {$count} Objekte kopieren</a>"),
-				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', getParamsArray({}), getElementIdArray(''), 'inform', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  getSelectionAsArray().length); return false;\"><svg><use xlink:href='{$cutIcon}#cut'/></svg> {$count} Objekte ausschneiden</a>"),
-				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', getParamsArray({}), getElementIdArray(''), 'inform', null, null, 'explorer', 'Referenziere Objekte ...', 0,  getSelectionAsArray().length); return false;\"><svg><use xlink:href='{$referIcon}#refer'/></svg> {$count} Objektreferenzen erstellen</a>"),
-				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> {$count} Objekte löschen</a>"),
+				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Copy', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Kopiere Objekte ...', 0, $SelectionFunction); return false;\"><svg><use xlink:href='{$copyIcon}#copy'/></svg> {$count} Objekte kopieren</a>"),
+				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Schneide Objekte aus ...', 0, $SelectionFunction); return false;\"><svg><use xlink:href='{$cutIcon}#cut'/></svg> {$count} Objekte ausschneiden</a>"),
+				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Referenziere Objekte ...', 0, $SelectionFunction); return false;\"><svg><use xlink:href='{$referIcon}#refer'/></svg> {$count} Objektreferenzen erstellen</a>"),
+				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', $paramsArrayFunction({}), $ElementIdFunction(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0, $SelectionFunction); return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> {$count} Objekte löschen</a>"),
 				array("name" => "<svg><use xlink:href='{$brushIcon}#brush'/></svg> {$count} Objekte einfärben", "direction" => "right", "menu" => array (
 				array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'transparent'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='greyColor'><use xlink:href='{$explorerAssetUrl}icons/menu/svg/transparent.svg#transparent'/></svg></a>
 						<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'red'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='redColor'><use xlink:href='{$explorerAssetUrl}icons/menu/svg/color.svg#color'/></svg></a>

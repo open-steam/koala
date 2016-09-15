@@ -87,13 +87,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
         */
 
-        //check the explorer view attribute which is specified in the profile
-        $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
-        if($viewAttribute && $viewAttribute == "gallery"){
-          header("location: " . PATH_URL . "explorer/GalleryView/" . $this->id . "/");
-          die;
-        }
-
         $objectModel = \AbstractObjectModel::getObjectModel($object);
 
         if ($object && $object instanceof \steam_container) {
@@ -317,57 +310,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         else{
           $desc = $object->get_attribute("OBJ_DESC");
         }
-        $description->setHtml("<p style='margin-top:0px; color:#AAAAAA; clear:both;'>" . $desc . "</p>");
-
-        $environment = new \Widgets\RawHtml();
-        $environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
-
-        $loader = new \Widgets\Loader();
-        $loader->setWrapperId("explorerWrapper");
-        $loader->setMessage("Lade Objekte...");
-        $loader->setCommand("loadContent");
-        $loader->setParams(array("id" => $this->id));
-        $loader->setElementId("explorerWrapper");
-        $loader->setType("updater");
-
-        $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml("<div id=\"explorerContent\">" . $breadcrumb->getHtml() . $description->getHtml() . $environment->getHtml() . $loader->getHtml() . "</div>");
-
-        $rawHtml->addWidget($breadcrumb);
-        $rawHtml->addWidget($environment);
-        $rawHtml->addWidget($loader);
-
-        $script = "function initSort(){";
-        foreach ($objects as $o) {
-            if (getObjectType($o) !== "trashbin") {
-                $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
-                $('#" . $o->get_id() . "').attr('onmouseover', '');
-                $('#" . $o->get_id() . "').attr('onmouseout', '');
-                $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
-            }
-        }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_explorer.svg";
-        $script .= '
-            $("#sort-icon").attr("name", "true");
-            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
-            var newIds = "";
-            $( ".listviewer-items" ).sortable({zIndex: 1});
-            $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
-                var changedElement = $(ui.item).attr("id");
-                $(".listviewer-items").children();
-                $(".listviewer-items").children().each(function(index, value){
-                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
-                    else newIds+=value.id + ", ";});
-                    sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
-                    newIds = "";
-            });
-            $("#content").prepend("<div style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(' . $assetUrl . ');\"></div>");
-
-
-
-    }';
-        $rawHtml->setJs($script);
-        $rawHtml->setPostJsCode('$($(".popupmenuanker")[0]).css("margin-top", "3px");');
+        $description->setHtml("<p style='float:left; color:#AAAAAA; clear:both; margin-top:0px'>" . $desc . "</p>");
 
         $inventory = $object->get_inventory();
         $keywordmatrix = array();
@@ -400,8 +343,94 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($searchField);
         }
 
+        $environment = new \Widgets\RawHtml();
+        $environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
+        $selectAll = new \Widgets\RawHtml();
+
+        $loader = new \Widgets\Loader();
+        $loader->setWrapperId("explorerWrapper");
+        $loader->setMessage("Lade Objekte...");
+        $loader->setParams(array("id" => $this->id));
+        $loader->setElementId("explorerWrapper");
+        $loader->setType("updater");
+
+        //check the explorer view attribute which is specified in the profile
+        $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
+        if($viewAttribute && $viewAttribute == "gallery"){
+          $loader->setCommand("loadGalleryContent");
+          $searchField->setGalleryView();
+          $selectAll = new \Widgets\RawHtml();
+          $selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:20px;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
+          $script = "function initSort(){";
+    			foreach ($objects as $o) {
+    					if (getObjectType($o) !== "trashbin") {
+    							$script .= "$('#" . $o->get_id() . "').attr('onclick', '');
+    							$('#" . $o->get_id() . "').attr('onmouseover', '');
+    							$('#" . $o->get_id() . "').attr('onmouseout', '');
+    							$('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
+    					}
+    			}
+    			$assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_gallery.svg";
+    			$script .= '
+    					$("#sort-icon").attr("name", "true");
+    					$("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
+    					var newIds = "";
+    					$("#explorerGallery").sortable();
+    					$("#explorerGallery").disableSelection();
+    					$("#explorerGallery").bind("sortupdate", function(event, ui){
+    							var changedElement = $(ui.item).attr("id");
+    							$("#explorerGallery").children().each(function(index, value){
+    									if(index == $("#explorerGallery").children().length-1) newIds += value.id;
+    									else newIds += value.id + ", ";
+    								});
+    							sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
+    							newIds = "";
+    					});
+    					$("#content").prepend("<div style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(' . $assetUrl . ');\"></div>");
+    	}';
+        }
+        else{
+          $loader->setCommand("loadContent");
+          $selectAll->setHtml("");
+          $script = "function initSort(){";
+          foreach ($objects as $o) {
+              if (getObjectType($o) !== "trashbin") {
+                  $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
+                  $('#" . $o->get_id() . "').attr('onmouseover', '');
+                  $('#" . $o->get_id() . "').attr('onmouseout', '');
+                  $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
+              }
+          }
+          $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_explorer.svg";
+          $script .= '
+              $("#sort-icon").attr("name", "true");
+              $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
+              var newIds = "";
+              $( ".listviewer-items" ).sortable({zIndex: 1});
+              $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
+                  var changedElement = $(ui.item).attr("id");
+                  $(".listviewer-items").children();
+                  $(".listviewer-items").children().each(function(index, value){
+                      if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
+                      else newIds+=value.id + ", ";});
+                      sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
+                      newIds = "";
+              });
+              $("#content").prepend("<div style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(' . $assetUrl . ');\"></div>");
+      }';
+        }
+
+        $sortHtml = new \Widgets\RawHtml();
+        $sortHtml->setJs($script);
+        $sortHtml->setPostJsCode('$($(".popupmenuanker")[0]).css("margin-top", "3px");');
+
         //$frameResponseObject->addWidget($actionBar);
-        $frameResponseObject->addWidget($rawHtml);
+        $frameResponseObject->addWidget($sortHtml);
+        $frameResponseObject->addWidget($breadcrumb);
+        $frameResponseObject->addWidget($description);
+        $frameResponseObject->addWidget($environment);
+        $frameResponseObject->addWidget($selectAll);
+        $frameResponseObject->addWidget($loader);
 
         return $frameResponseObject;
     }

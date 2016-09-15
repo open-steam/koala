@@ -26,13 +26,11 @@ div[id$="_0"].listviewer-item-cell {
     box-shadow: 2px 2px 5px #888;
     -webkit-border-radius: 3px;
     display: inline-block;
-    position: relative;
     height: 55px;
     width: 55px;
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 40px;
-    float: left;
     background-color: #FFFFFF;
     padding-left: 10px;
     padding-right: 10px;
@@ -49,7 +47,14 @@ div[id$="_0"].listviewer-item-cell {
 }
 
 .galleryEntry input[type="text"] {
-    width: 100%;
+    width: calc(100% - 30px) !important;
+		float: none;
+		margin-top: 6px;
+		margin-left: 10px;
+}
+
+.galleryEntry .widgets_textinput {
+	float: none;
 }
 
 .galleryEntry:hover .popupmenuanker {
@@ -90,18 +95,17 @@ div[id$="_0"].listviewer-item-cell {
 }
 
 .galleryEntryCheckbox {
-  position: absolute;
-  top: 3px;
-  left: 3px;
   cursor: pointer;
   display: none;
+	position: absolute;
+	margin-top: 6px;
+	margin-left: -5px;
 }
 
 .galleryEntry .popupmenuanker {
     display: none;
-    right: 3px;
-    top: 3px;
-    position: absolute;
+		margin-right: -6px;
+		margin-top: 5px;
 }
 
 .galleryEntry.selected .popupmenuanker {
@@ -130,6 +134,8 @@ div[id$="_0"].listviewer-item-cell {
   white-space: nowrap;
   text-align: center;
   margin-top: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 .galleryEntry.red {

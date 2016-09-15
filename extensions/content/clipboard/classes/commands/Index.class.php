@@ -23,11 +23,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
         $this->id = $currentUser->get_id();
 
-        $objects = $currentUser->get_inventory();
-        if($objects === 0){
-            $objects = array();
-        }
-
         $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
 
@@ -40,21 +35,32 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //$actionBar->setActions(array(array("name" => "Zwischenablage leeren", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
+        $frameResponseObject->setTitle("Zwischenablage");
+        $environment = new \Widgets\RawHtml();
+        $environment->setHtml("<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
+        $frameResponseObject->addWidget($breadcrumb);
+        $frameResponseObject->addWidget($environment);
+
         $loader = new \Widgets\Loader();
         $loader->setWrapperId("clipboardWrapper");
         $loader->setMessage("Lade Zwischenablage...");
-        $loader->setCommand("LoadClipboard");
         $loader->setNamespace("Clipboard");
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("clipboardWrapper");
         $loader->setType("updater");
 
-        $environment = new \Widgets\RawHtml();
-        $environment->setHtml("<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
+        //check the explorer view attribute which is specified in the profile
+        $viewAttribute = $currentUser->get_attribute("EXPLORER_VIEW");
+        if($viewAttribute && $viewAttribute == "gallery"){
+          $loader->setCommand("LoadGalleryContent");
+          $selectAll = new \Widgets\RawHtml();
+          $selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:22px; margin-top:-28px;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
+          $frameResponseObject->addWidget($selectAll);
+        }
+        else{
+          $loader->setCommand("LoadClipboard");
+        }
 
-        $frameResponseObject->setTitle("Zwischenablage");
-        $frameResponseObject->addWidget($breadcrumb);
-        $frameResponseObject->addWidget($environment);
         $frameResponseObject->addWidget($loader);
         return $frameResponseObject;
     }

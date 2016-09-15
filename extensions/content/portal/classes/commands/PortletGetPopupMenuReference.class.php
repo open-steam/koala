@@ -69,7 +69,6 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
 						array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->linkObjectId}'}", "type"=>"popup"),
 						);
 		$popupMenu->setItems($items);
-		$popupMenu->setWidth("120px");
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
 
 		$ajaxResponseObject->setStatus("ok");

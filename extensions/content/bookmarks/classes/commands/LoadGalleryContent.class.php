@@ -160,8 +160,8 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $color = $colorProvider->getColor($object);
 
           $galleryNumber = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("GALLERY_NUMBER");
-          $galleryNumberClass = "Row10";
-          if(is_numeric($galleryNumber) && $galleryNumber > 0 && $galleryNumber < 16){
+          $galleryNumberClass = "Row5";
+          if(is_numeric($galleryNumber) && $galleryNumber > 0 && $galleryNumber < 11){
             $galleryNumberClass = "Row" . $galleryNumber;
           }
 

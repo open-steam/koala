@@ -1,41 +1,40 @@
 <?php
 
-namespace Explorer\Commands;
+namespace Clipboard\Commands;
 
 class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
     private $params;
     private $id;
     private $objects;
-    private $object;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
     }
 
     public function processData(\IRequestObject $requestObject) {
-        $this->params = $requestObject->getParams();
-        $this->id = $this->params["id"];
+      $this->params = $requestObject->getParams();
+  		$this->id = $this->params["id"];
 
-        $this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+  		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
-        if ($this->object && $this->object instanceof \steam_container) {
-            $this->objects = $this->object->get_inventory();
-        } else {
-            $this->objects = array();
-        }
-    }
+  		if ($object && $object instanceof \steam_container) {
+  			$this->objects = $object->get_inventory();
+  		} else {
+  			$this->objects = array();
+  		}
+  	}
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $ajaxResponseObject->setStatus("ok");
 
         $galleryStart = new \Widgets\RawHtml();
-        $galleryStart->setHtml("<ul id='explorerGallery'>");
+        $galleryStart->setHtml("<ul id='clipboardGallery'>");
         $ajaxResponseObject->addWidget($galleryStart);
 
         if(sizeOf($this->objects) == 0){
           $noItem = new \Widgets\RawHtml();
-          $noItem->setHtml("<div class='gallery-noitem'>Dieser Ordner enthält keine Objekte.</div><script>$('#selectAll').hide();$('#objectSliderLabel').hide();$('#slider').hide();</script>");
+          $noItem->setHtml("<div class='gallery-noitem'>Dieser Zwischenablage ist leer.</div><script>$('#selectAll').hide();$('#objectSliderLabel').hide();$('#slider').hide();</script>");
           $ajaxResponseObject->addWidget($noItem);
         }
 

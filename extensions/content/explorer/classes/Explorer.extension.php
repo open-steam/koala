@@ -50,7 +50,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
         if ($currentObjectID === "403" || $currentObjectID === "404") {
             $currentObjectID = "";
         }
-        if ($path == "/explorer/" || $path == "/explorer/galleryview/") {
+        if ($path == "/explorer/") {
             $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
 
             $object = $currentUser->get_workroom();
@@ -79,7 +79,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             $array[] = array("name" => "SEPARATOR");
             $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
 
-        } else if (strpos($path, "/explorer/index/") !== false || strpos($path, "/explorer/galleryview/") !== false) {
+        } else if (strpos($path, "/explorer/index/") !== false) {
             $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
 
             if($currentObjectID != ""){
@@ -177,7 +177,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             $array[] = array("name" => "SEPARATOR");
             $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
 
-        } else if (strpos($path, "/bookmarks/index/") !== false || strpos($path, "/bookmarks/galleryview/") !== false) {
+        } else if (strpos($path, "/bookmarks/index/") !== false) {
             $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
             if($currentObjectID != ""){
               $array[] = array("name" => "<div title='Ordner anlegen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/folder.svg#folder'/></svg></div>", "onclick"=>"sendRequest('newElement', {'id':{$currentObjectID}}, '', 'popup', null, null, 'Bookmarks');return false;");

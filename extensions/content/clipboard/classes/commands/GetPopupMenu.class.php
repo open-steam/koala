@@ -65,15 +65,15 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 					array("name" => "<svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater"),
 					(!\Bookmarks\Model\Bookmark::isBookmark($this->id)) ? array("name" =>"<svg><use xlink:href='{$bookmarkIcon}#bookmark'/></svg> Lesezeichen anlegen", "command" => "AddBookmark", "namespace" => "bookmarks", "elementId" => "{$this->id}_BookmarkMarkerWrapper", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
 					array("name" => "<svg><use xlink:href='{$brushIcon}#brush'/></svg> Einfärben", "direction" => "right", "menu" => array (
-					array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'transparent'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='greyColor'><use xlink:href='{$explorerUrl}icons/menu/svg/transparent.svg#transparent'/></svg></a>
-							<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'red'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='redColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
-							<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'orange'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='orangeColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
-							<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'yellow'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='yellowColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
-							<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'green'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='greenColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
-							<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'blue'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='blueColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
-							<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'purple'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='purpleColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
-							<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'grey'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='greyColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>"),
-					)),
+					array("raw" => "<a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'transparent'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><svg class='greyColor'><use xlink:href='{$explorerUrl}icons/menu/svg/transparent.svg#transparent'/></svg></a>
+							<a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'red'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><svg class='redColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
+							<a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'orange'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><svg class='orangeColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
+							<a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'yellow'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><svg class='yellowColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
+							<a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'green'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><svg class='greenColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
+							<a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'blue'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><svg class='blueColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
+							<a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'purple'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><svg class='purpleColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
+							<a href=\"#\" onclick=\"sendRequest('ChangeColorLabel', {'id':'{$this->id}', 'color':'grey'}, 'listviewer-overlay', 'nonModalUpdater', null, null, 'explorer'); return false;\"><svg class='greyColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>"),
+						)),
 					(count($inventory) >=2) ? array("name" => "<svg><use xlink:href='{$sortIcon}#sort'/></svg> Umsortieren", "direction" => "right", "menu" => array(
 							($index > $firstElement) ? array("name" => "<svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'top'}", "type" => "nonModalUpdater") : "",
 							($index > $firstElement) ? array("name" => "<svg><use xlink:href='{$upIcon}#up'/></svg> Eins nach oben", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'up'}", "type" => "nonModalUpdater") : "",
@@ -93,9 +93,20 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			$trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
 			$brushIcon =  $explorerUrl . "icons/menu/svg/brush.svg";
 
+			$viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
+			if($viewAttribute && $viewAttribute == "gallery"){
+				$paramsArrayFunction = "getGalleryParamsArray";
+				$ElementIdFunction = "getGalleryElementIdArray";
+				$SelectionFunction = "getGallerySelectionAsArray().length";
+			}else{
+				$paramsArrayFunction = "getParamsArray";
+				$ElementIdFunction = "getElementIdArray";
+				$SelectionFunction = "getSelectionAsArray().length";
+			}
+
 			$popupMenu =  new \Widgets\PopupMenu();
 			$items = array(
-				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', getParamsArray({}), getElementIdArray(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  getSelectionAsArray().length); return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> {$count} Objekte löschen</a>"),
+				array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', $paramsArrayFunction({}), $ElementIdFunction(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0, $SelectionFunction); return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> {$count} Objekte löschen</a>"),
 				array("name" => "<svg><use xlink:href='{$brushIcon}#brush'/></svg> {$count} Objekte einfärben", "direction" => "right", "menu" => array (
 				array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'transparent'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='greyColor'><use xlink:href='{$explorerUrl}icons/menu/svg/transparent.svg#transparent'/></svg></a>
 						<a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'red'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='redColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
@@ -110,7 +121,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 			);
 			$popupMenu->setItems($items);
 			$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-			$popupMenu->setWidth("160px");
 		}
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

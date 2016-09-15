@@ -948,9 +948,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $galleryNumberWidget->setData($user);
             $galleryNumberWidget->setType("number");
             $galleryNumberWidget->setMin(1);
-            $galleryNumberWidget->setMax(15);
+            $galleryNumberWidget->setMax(10);
             $galleryNumberWidget->setInputWidth(128);
-            $galleryNumberWidget->setPlaceholder(10);
+            $galleryNumberWidget->setPlaceholder(5);
             $galleryNumberWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("GALLERY_NUMBER"));
             $frameResponseObject->addWidget($galleryNumberWidget);
 
