@@ -73,6 +73,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->steam = $GLOBALS["STEAM"];
         $this->object = \steam_factory::get_object($this->steam->get_id(), $this->id);
         $this->ajaxResponseObject->setStatus("ok");
+        $hideLoader = new \Widgets\JSWrapper();
+        $hideLoader->setPostJsCode('$("#sanctionsWrapper").hide();');
+        $this->ajaxResponseObject->addWidget($hideLoader);
 
         //check if the user can modify the sanctions
         if (!$this->object->check_access(SANCTION_SANCTION)) {
@@ -83,7 +86,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $dialogDenied->setCancelButtonLabel("");
             $dialogDenied->setSaveAndCloseButtonLabel("Schließen");
             $dialogDenied->addWidget($labelDenied);
-
+            
             $this->ajaxResponseObject->addWidget($dialogDenied);
             return $this->ajaxResponseObject;
         }
@@ -115,7 +118,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             }
         }
 
-        if ($this->environment instanceof \steam_room) {
+        if ($this->environment instanceof \steam_container) {
             $this->environmentSanction = $this->environment->get_sanction();
         }
 
@@ -262,10 +265,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->ajaxResponseObject->addWidget($deactiveAcq);
         }
 
-        $hideLoader = new \Widgets\JSWrapper();
-        $hideLoader->setPostJsCode('$("#sanctionsWrapper").hide();');
-        $this->ajaxResponseObject->addWidget($hideLoader);
-
+        
         return $this->ajaxResponseObject;
     }
 
@@ -304,7 +304,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->content->setVariable("CSS", $css);
 
         //start with the composition of the dialog
-        if ($this->environment instanceof \steam_room) {
+        if ($this->environment instanceof \steam_container) {
             $this->content->setVariable("INHERIT_HEADLINE", "<h3>Option 1: Rechte erben</h3>");
             $this->content->setVariable("PREDEFINED_HEADLINE", "<h3>Option 2: Vordefinierte Rechte verwenden</h3>");
             $this->content->setVariable("INDIVIDUAL_HEADLINE", "<h3>Option 3: Individuelle Rechte festlegen</h3>");
@@ -316,7 +316,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("INDIVIDUAL_HEADLINE", "<h3>Option 2: Individuelle Rechte festlegen</h3>");
         }
 
-        if ($this->object->get_acquire() instanceof \steam_room) {
+        if ($this->object->get_acquire() instanceof \steam_container) {
             $this->content->setVariable("ACQUIRE_START", "acq");
             $this->content->setVariable("DISPLAY_NORMAL_CLASS", "invisible");
             $this->content->setVariable("DISPLAY_ACQ_CLASS", "visible");
@@ -340,7 +340,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("CREATOR_FULL_NAME", getCleanName($this->creator));
         }
 
-        if ($this->environment instanceof \steam_room) {
+        if ($this->environment instanceof \steam_container) {
             $this->content->setVariable("RIGHTS_HELP_PAGE", "https://bid.lspb.de/explorer/ViewDocument/640419/");
         } else {
             $this->content->setVariable("RIGHTS_HELP_PAGE", "https://bid.lspb.de/explorer/ViewDocument/1204915/");
@@ -427,7 +427,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->content->parse("GROUP_EVERYONE");
 
         $dropdownValueAcq = 0;
-        if ($this->environment instanceof \steam_room) {
+        if ($this->environment instanceof \steam_container) {
             if ($this->environment->check_access(SANCTION_SANCTION, $this->everyone)) {
                 $dropdownValueAcq = 3;
             } else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->everyone)) {
@@ -478,7 +478,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         $this->content->parse("GROUP_STEAM");
 
         $this->dropdownValueAcqSteamGroup = 0;
-        if ($this->environment instanceof \steam_room) {
+        if ($this->environment instanceof \steam_container) {
             if ($this->environment->check_access(SANCTION_SANCTION, $this->steamgroup)) {
                 $this->dropdownValueAcqSteamGroup = 3;
             } else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $this->steamgroup)) {
@@ -621,7 +621,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                 $groupname = $group->get_groupname();
 
                 $dropDownValueAcq = 0;
-                if ($this->environment instanceof \steam_room) {
+                if ($this->environment instanceof \steam_container) {
                     if ($this->environment->check_access(SANCTION_SANCTION, $group)) {
                         $dropDownValueAcq = 3;
                     } else if ($this->environment->check_access($this->sanctionWriteForCurrentObject, $group)) {
@@ -765,7 +765,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                 if ($user instanceof \steam_user) {
 
                     $dropDownValueAcq = 0;
-                    if ($this->environment instanceof \steam_room) {
+                    if ($this->environment instanceof \steam_container) {
                         if ($this->environment->check_access(SANCTION_SANCTION, $user)) {
                             $dropDownValueAcq = 3;
                         } elseif ($this->environment->check_access($this->sanctionWriteForCurrentObject, $user)) {
