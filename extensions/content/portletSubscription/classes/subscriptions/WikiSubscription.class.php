@@ -63,7 +63,7 @@ class WikiSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $this->count,
                                         $this->private,
                                         $creationTime,
-                                        "Neuer Artikel (in Wiki <a href=\"" . PATH_URL . "wiki/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                        "Neuer Artikel:",
                                         substr($object->get_name(), 0, strpos($object->get_name(), ".wiki")),
                                         PATH_URL . "wiki/entry/" . $object->get_id() . "/"
                                     )
@@ -85,7 +85,7 @@ class WikiSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $this->count,
                                         $this->private,
                                         $lastChanged,
-                                        "Geänderter Artikel (in Wiki <a href=\"" . PATH_URL . "wiki/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                        "Geänderter Artikel:",
                                         substr($object->get_name(), 0, strpos($object->get_name(), ".wiki")),
                                         PATH_URL . "wiki/entry/" . $object->get_id() . "/"
                                     )
@@ -108,7 +108,7 @@ class WikiSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $this->count,
                                         $this->private,
                                         $creationTime,
-                                        "Neues Bild (in Wikimediathek <a href=\"" . PATH_URL . "wiki/mediathek/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                        "Neues Bild in <a href=\"" . PATH_URL . "wiki/mediathek/" . $this->object->get_id() . "/" . "\">Mediathek</a>:",
                                         $object->get_name(),
                                         PATH_URL . "wiki/mediathek/". $this->object->get_id() . "/"
                                     )
@@ -130,7 +130,7 @@ class WikiSubscription extends AbstractSubscription {
                                         $object->get_id() . "_" . $this->count,
                                         $this->private,
                                         $lastChanged,
-                                        "Geändertes Bild (in Wikimediathek <a href=\"" . PATH_URL . "wiki/mediathek/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
+                                        "Geändertes Bild in <a href=\"" . PATH_URL . "wiki/mediathek/" . $this->object->get_id() . "/" . "\">Mediathek</a>:",
                                         $object->get_name(),
                                         PATH_URL . "wiki/mediathek/" . $this->object->get_id() . "/"
                                     )
