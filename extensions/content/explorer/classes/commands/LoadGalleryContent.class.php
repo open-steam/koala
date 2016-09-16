@@ -44,6 +44,24 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
         foreach ($this->objects as $key => $object) {
 
+          if (get_class($object) === "steam_object") {
+              continue;
+          } elseif ($object instanceof \steam_user) {
+              continue;
+          } elseif ($object instanceof \steam_trashbin) {
+              continue;
+          } elseif ($object instanceof \steam_drawing) {
+              continue;
+          } elseif ($object instanceof \steam_calendar) {
+              continue;
+          } elseif ($object instanceof \steam_date) {
+              continue;
+          } elseif ($object instanceof \steam_group) {
+              continue;
+          } elseif ($object instanceof \steam_script) {
+              continue;
+          }
+
           $hidden = "";
           if ($object->get_attribute("bid:hidden") === "1") {
             if($userHiddenAttribute == "TRUE"){
