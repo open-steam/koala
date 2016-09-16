@@ -306,6 +306,9 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
 
             case "bookmarks":
                 return "Lesezeichen-";
+                
+            case "folderlist":
+                return "Ordnerinhalt-";
 
             default:
                 return "Unknown-";
