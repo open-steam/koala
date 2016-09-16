@@ -58,7 +58,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				$editIcon = $explorerAssetUrl . "icons/menu/svg/edit.svg";
 				$propertiesIcon = $explorerAssetUrl . "icons/menu/svg/properties.svg";
 				$rightsIcon = $explorerAssetUrl . "icons/menu/svg/rights.svg";
-				$explorerIcon = $explorerAssetUrl . "icons/menu/svg/explorer.svg";
+				$folderIcon = $explorerAssetUrl . "icons/mimetype/svg/folder.svg";
 
 				$items = array(
 					array("name" => "<svg><use xlink:href='{$copyIcon}#copy'/></svg> Kopieren", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform"),
@@ -83,7 +83,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 				)) : "",
 				array("name" => "SEPARATOR"),
 				array("raw" => "<a href=\"#\" style=\"width:500px;\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'nonModalUpdater',null,null,'explorer'); } jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open'); return false;\"><svg><use xlink:href='{$renameIcon}#rename'/></svg> Umbenennen</a>"),
-				(($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index")) ? array("name" => "<svg><use xlink:href='{$explorerIcon}#explorer'/></svg> Listenansicht", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
+				(($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index")) ? array("name" => "<svg><use xlink:href='{$folderIcon}#folder'/></svg> Ordnerinhalt anzeigen", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
 				(($object instanceof \steam_document) && (strstr($object->get_attribute(DOC_MIME_TYPE), "text"))) ? array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/") : "",
 				array("name" => "<svg><use xlink:href='{$propertiesIcon}#properties'/></svg> Eigenschaften", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
 				array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"));

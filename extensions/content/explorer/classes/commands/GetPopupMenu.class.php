@@ -75,7 +75,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                 $editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
                 $propertiesIcon = $explorerUrl . "icons/menu/svg/properties.svg";
                 $rightsIcon = $explorerUrl . "icons/menu/svg/rights.svg";
-                $explorerIcon = $explorerUrl . "icons/menu/svg/explorer.svg";
+                $folderIcon = $explorerUrl . "icons/mimetype/svg/folder.svg";
                 $subscribeIcon = $explorerUrl . "icons/subscribe.svg";
                 $unsubscribeIcon = $explorerUrl . "icons/unsubscribe.svg";
                 $downloadIcon = $explorerUrl . "icons/menu/svg/download.svg";
@@ -129,7 +129,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                         ($index < count($inventory)-1-$counter) ? array("name" => "<svg><use xlink:href='{$bottomIcon}#bottom'/></svg> Ganz nach unten", "command" => "Order", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'direction':'bottom'}", "type" => "nonModalUpdater") : ""
                     )) : "",
                     array("raw" => "<a href=\"#\" style=\"width:500px;\" onclick=\"event.stopPropagation(); removeAllDirectEditors();if (!jQuery('#{$this->id}_1').hasClass('directEditor')) { jQuery('#{$this->id}_1').addClass('directEditor').html(''); var obj = new Object; obj.id = '{$this->id}'; sendRequest('GetDirectEditor', obj, '{$this->id}_1', 'nonModalUpdater'); } jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open'); return false;\"><svg><use xlink:href='{$renameIcon}#rename'/></svg> Umbenennen</a>"),
-                    (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index") && ($object->check_access(SANCTION_READ))) ? array("name" => "<svg><use xlink:href='{$explorerIcon}#explorer'/></svg> Listenansicht", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
+                    (($object instanceof \steam_container) && ($object->get_attribute("bid:presentation") === "index") && ($object->check_access(SANCTION_READ))) ? array("name" => "<svg><use xlink:href='{$folderIcon}#folder'/></svg> Ordnerinhalt anzeigen", "link" => PATH_URL . "Explorer/Index/" . $this->id . "/?view=list") : "",
                     (($object instanceof \steam_document) && ($object->get_attribute(DOC_MIME_TYPE) != "text/html") && ($object->check_access(SANCTION_READ))) ? array("name" => "<svg><use xlink:href='{$downloadIcon}#download'/></svg> Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $name) : "",
                     ($this->logged_in) ? array("name" => "SEPARATOR") : "",
                     array("name" => "<svg><use xlink:href='{$propertiesIcon}#properties'/></svg> Eigenschaften", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),

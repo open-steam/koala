@@ -230,7 +230,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $createdField->setValue($createDate . " Uhr");
 
         $containerViewRadio = new \Widgets\RadioButton();
-        $containerViewRadio->setLabel("Erstes Dokument");
+        $containerViewRadio->setLabel("Darstellung");
         $containerViewRadio->setData($object);
         $containerViewRadio->setDefaultChecked("normal");
         $containerViewRadio->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:presentation"));
@@ -436,12 +436,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                   $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
 
                   if (strpos($mime, "html") !== false) {
-                      $dialog->addWidget($headlineView);
-                      $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
+                      //$dialog->addWidget($headlineView);
+                      $containerViewRadio->setOptions(array(array("name" => "normal (Liste/Galerie)", "value" => "normal"), array("name" => "1. Dokument als Deckblatt", "value" => "index"), array("name" => "1. Dokument über dem Ordnerinhalt", "value" => "head")));
                       $dialog->addWidget($containerViewRadio);
                   } else if (getObjectType($inventory[0]) === "portal") {
-                      $dialog->addWidget($headlineView);
-                      $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
+                      //$dialog->addWidget($headlineView);
+                      $containerViewRadio->setOptions(array(array("name" => "normal (Liste/Galerie)", "value" => "normal"), array("name" => "1. Dokument als Deckblatt", "value" => "index")));
                       $dialog->addWidget($containerViewRadio);
                   }
               }
