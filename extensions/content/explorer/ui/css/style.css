@@ -98,12 +98,25 @@ div[id$="_3"].listviewer-item-cell {
   display: none;
 }
 
+.galleryReference {
+  width:16px;
+  height:16px;
+  float:right;
+  margin-top:-10px;
+  margin-right:-8px;
+  color:#3a6e9f;
+}
+
+.galleryEntry.selected .galleryReference {
+    color: #FFFFFF;
+}
+
 .galleryEntryCheckbox {
   cursor: pointer;
   display: none;
 	position: absolute;
-	margin-top: 6px;
-	margin-left: -5px;
+	margin-top: -6px;
+	margin-left: -6px;
 }
 
 .galleryEntry .popupmenuanker {
@@ -132,6 +145,10 @@ div[id$="_3"].listviewer-item-cell {
     color: #FF0000;
 }
 
+.galleryEntry.justTrashed .galleryReference {
+    color: #FF0000;
+}
+
 .galleryEntry div[id$="_1"] a {
   display: block;
   overflow: hidden;
@@ -139,7 +156,7 @@ div[id$="_3"].listviewer-item-cell {
   text-align: center;
   margin-top: 5px;
 	margin-left: 10px;
-	margin-right: 10px;
+	margin-right: 14px;
 }
 
 .galleryEntry.red {

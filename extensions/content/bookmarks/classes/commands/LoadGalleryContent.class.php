@@ -90,14 +90,14 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           if ($object instanceof \steam_exit) {
               $exitObj = $object->get_exit();
               if ($exitObj === 0) {
-                  return "";
+                $icon = "folder.png";
               } else {
                 $icon = deriveIcon($exitObj);
               }
           } else if ($object instanceof \steam_link) {
               $linkObj = $object->get_link_object();
               if ($linkObj === 0) {
-                  return "";
+                $icon = "generic.png";
               } else {
                 $icon = deriveIcon($linkObj);
               }
@@ -109,9 +109,15 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $idSVG = str_replace(".svg", "", $iconSVG);
           $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
 
+          $text = "Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. ";
+          $text.= "Änderungen können nur am Originalobjekt vorgenommen werden. ";
+          $text.= "Ein Klick auf dieses Element führt Sie zum Originalobjekt.";
+
+          $linkIcon = "<div class='galleryReference'></div>";
           if (isset($url) && $url != "") {
             $objTypeName = getObjectType($object);
             if ($object instanceof \steam_link) {
+                $linkIcon = "<div title='" . $text . "'><svg class='galleryReference'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
                 $linkObj = $object->get_link_object();
                 $linkObjectType = getObjectType($linkObj);
                 if ($linkObjectType === "rapidfeedback") {
@@ -167,13 +173,15 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
           $entry->setHtml("<li class='galleryEntry " . $color . " " . $hidden . " " . $galleryNumberClass . "' id='" . $id . "'>
 
+                <input id='" . $id . "_checkbox' class='galleryEntryCheckbox' type='checkbox' onclick='event.stopPropagation(); if(this.checked){ jQuery(\"#" . $id . "\").addClass(\"selected\") } else { jQuery(\"#" . $id . "\").removeClass(\"selected\") }'>
+
+                " . $linkIcon . "
+
                 " . $urlHtml . "
 
                 <svg class='galleryPicture'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>
 
                 </a>
-
-                <input id='" . $id . "_checkbox' class='galleryEntryCheckbox' type='checkbox' onclick='event.stopPropagation(); if(this.checked){ jQuery(\"#" . $id . "\").addClass(\"selected\") } else { jQuery(\"#" . $id . "\").removeClass(\"selected\") }'>
 
                 <p style='display:none'>" . $tagList . "</p>
 

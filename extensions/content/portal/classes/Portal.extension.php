@@ -140,10 +140,9 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
 	}
 
         public function getReferenceTooltip(){
-            $text = "Dieser Pfeil zeigt an das dies eine referenzierte Komponente ist. ";
-            $text.= "Die Komponente befinden sich in einem anderen Portal, hier sehen Sie lediglich ein Abbild der Orginalkomponente. ";
-            $text.= "Die Komponente kann nur in ihrem ursprünglichen Portal bearbeitet werden. ";
-            $text.= "Ein Klick auf den Pfeil leitet Sie zum ursprünglichen Portal weiter. ";
+            $text = "Diese Komponente ist lediglich eine Referenz auf eine bestehende Komponente. ";
+						$text.= "Änderungen können nur an der Originalkomponente vorgenommen werden. "; 
+						$text.= "Klicken Sie dazu auf den Pfeil, der Sie zur Originalkomponente führt.";
             return $text;
         }
 
