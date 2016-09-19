@@ -152,11 +152,9 @@ function createOverlay(color, opacity, effect) {
             "top": 0,
             "left": jQuery(window).scrollLeft()});
     });
-    if (jQuery("body").height() > jQuery(window).height()) {
-        height = jQuery("body").height();
-    } else {
-        height = jQuery(window).height();
-    }
+
+    height = Math.max(jQuery("body").height(), jQuery(window).height(), jQuery("#site_wrapper").height()+152);
+
     if (effect == "fadeIn") {
         jQuery('#overlay').hide();
         jQuery('#overlay').css({"height": height});
