@@ -5,6 +5,15 @@
 
 .listviewer-item-hover .popupmenuanker {
 	display: block;
+	float: none;
+}
+
+.listviewer-item-unhover .referenceWrapper {
+	display: none;
+}
+
+.listviewer-item-hover .referenceWrapper {
+	display: block;
 }
 
 .popupmenuloading {

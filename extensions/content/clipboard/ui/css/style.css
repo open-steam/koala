@@ -98,17 +98,27 @@ div[id$="_0"].listviewer-item-cell {
   display: none;
 }
 
-.galleryReference {
+.galleryEntry .galleryReferenceWrapper {
+  width: 16px;
+  height: 16px;
+  float: right;
+  margin-top: -10px;
+  margin-right: -7px;
+}
+
+.galleryEntry .galleryReference {
   width:16px;
   height:16px;
-  float:right;
-  margin-top:-10px;
-  margin-right:-8px;
   color:#3a6e9f;
+	display: none;
 }
 
 .galleryEntry.selected .galleryReference {
     color: #FFFFFF;
+}
+
+.galleryEntry:hover .galleryReference {
+    display: block;
 }
 
 .galleryEntryCheckbox {

@@ -53,18 +53,18 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadlines() {
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
-            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         } else {
-            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         }
     }
 
     public function getHeadLineWidths() {
-        return array(25, 250, 10, 380, 10, 145, 75, 30, 20);
+        return array(25, 250, 10, 370, 10, 145, 75, 20, 20, 20);
     }
 
     public function getHeadLineAligns() {
-        return array("left", "left", "left", "left", "left", "right", "right", "right", "right");
+        return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
     }
 
     public function getOnClickHandler($headline) {
@@ -115,8 +115,9 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawChangeDate = 5;
     private $rawSize = 6;
     //private $rawSubscribe = 6;
-    private $rawMenu = 7;
-    private $rawCheckbox = 8;
+    private $rawReference = 7;
+    private $rawMenu = 8;
+    private $rawCheckbox = 9;
     private $object;
 
     //save the current object to check the attribute SHOW_TAGS lateron
@@ -141,13 +142,27 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return "";
             }
         } elseif ($cell == $this->rawImage) {
-            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
-
-            $icon = deriveIcon($contentItem);
+            if ($contentItem instanceof \steam_exit) {
+                $exitObj = $contentItem->get_exit();
+                if ($exitObj === 0) {
+                    $icon = "folder.png";
+                } else {
+                  $icon = deriveIcon($exitObj);
+                }
+            } else if ($contentItem instanceof \steam_link) {
+                $linkObj = $contentItem->get_link_object();
+                if ($linkObj === 0) {
+                    $icon = "generic.png";
+                } else {
+                  $icon = deriveIcon($linkObj);
+                }
+            } else {
+              $icon = deriveIcon($contentItem);
+            }
             $iconSVG = str_replace("png", "svg", $icon);
             $idSVG = str_replace(".svg", "", $iconSVG);
             $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
             return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } elseif ($cell == $this->rawName) {
             $creator = $contentItem->get_creator();
@@ -246,6 +261,13 @@ class ContentProvider implements \Widgets\IContentProvider {
             $popupMenu->setData($contentItem);
             $popupMenu->setElementId("listviewer-overlay");
             return $popupMenu;
+        } else if ($cell == $this->rawReference) {
+          if ($contentItem instanceof \steam_link) {
+            $text = "Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. ";
+            $text.= "Änderungen können nur am Originalobjekt vorgenommen werden. ";
+            $text.= "Ein Klick auf dieses Element führt Sie zum Originalobjekt.";
+            return "<div class='referenceWrapper' title='" . $text . "'><svg style='width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
+          }
         }
     }
 
@@ -256,7 +278,7 @@ class ContentProvider implements \Widgets\IContentProvider {
     public function getOnClickHandler($contentItem) {
         if (!($contentItem instanceof \steam_trashbin)) {
             //check the checkbox at the end of the row. If the order or number of the headlines changes, adjust the selector for the proper field
-            return "jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked);";
+            return "jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked);";
         } else {
             return "";
         }

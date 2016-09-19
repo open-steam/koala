@@ -112,10 +112,10 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $text.= "Änderungen können nur am Originalobjekt vorgenommen werden. ";
           $text.= "Ein Klick auf dieses Element führt Sie zum Originalobjekt.";
 
-          $linkIcon = "<div class='galleryReference'></div>";
+          $linkIcon = "<div class='galleryReferenceWrapper'></div>";
           if (isset($url) && $url != "") {
               if ($object instanceof \steam_link) {
-                  $linkIcon = "<div title='" . $text . "'><svg class='galleryReference'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
+                  $linkIcon = "<div class='galleryReferenceWrapper' title='" . $text . "'><svg class='galleryReference'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
                   $linkObject = $object->get_link_object();
                   $linkObjectType = getObjectType($linkObject);
                   if ($linkObjectType === "rapidfeedback") {
