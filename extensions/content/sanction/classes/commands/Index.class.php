@@ -16,6 +16,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     private $environment;
     private $environmentName = "";
     private $environmentSanction = false;
+    private $environmentId;
 
     //acquire is an object, if the rights are acquired, otherwise it is an integer value
     private $acquire;
@@ -150,6 +151,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if ($this->environment instanceof \steam_container) {
             $this->environmentSanction = $this->environment->get_sanction();
             $this->environmentName = getCleanName($this->environment);
+            $this->environmentId = $this->environment->get_id();
         }
 
 
@@ -289,7 +291,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("IS_ACQUIRED_DISABLE_BUTTONS", ($this->acquire instanceof \steam_container) ? "disabled" : "");
 
 
-        $content->setVariable("INHERIT_FROM", getCleanName($this->environment) . " mit der id " . $this->environment);
+        $content->setVariable("INHERIT_FROM", getCleanName($this->environment) . " mit der id <a href=\"/sanction/Index/".$this->environmentId."\">" . $this->environment."</a>");
         $content->setVariable("NO_ENVIRONMENT_ADAPT_TEXT", ($this->environmentName == "") ? "S" : "Oder s");
         if ($this->environmentName == "") {
             $content->setVariable("NO_ENVIRONMENT", "disabled");
