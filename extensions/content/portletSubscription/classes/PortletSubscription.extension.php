@@ -202,7 +202,7 @@ class PortletSubscription extends AbstractExtension implements IObjectExtension 
                 return "r Papierkorb:";
                 break;
             case "docextern":
-                return " Internet-Referenz:";
+                return " Weblink:";
                 break;
             case "portal_old":
                 return "s altes Portal:";

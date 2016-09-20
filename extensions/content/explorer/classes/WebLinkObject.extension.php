@@ -24,11 +24,11 @@ class WebLinkObject extends AbstractExtension implements IObjectExtension {
 	}
 
 	public function getObjectReadableName() {
-		return "URL";
+		return "Weblink";
 	}
 
 	public function getObjectReadableDescription() {
-		return "URL's ermöglichen es Ihnen, auf beliebige Webseiten zu verweisen";
+		return "Weblinks ermöglichen es Ihnen, auf beliebige Webseiten zu verweisen";
 	}
 
 	public function getObjectIconUrl() {
