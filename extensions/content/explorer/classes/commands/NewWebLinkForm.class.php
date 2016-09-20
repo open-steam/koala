@@ -64,11 +64,11 @@ class NewWebLinkForm extends \AbstractCommand implements \IFrameCommand, \IAjaxC
 </style>
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
-	<div class="attributeName">Titel:</div>
+	<div class="attributeName">Name:</div>
 	<div class="attributeValue"><input type="text" class="text" value="" name="name" onkeyup="checkInput(this)"></div>
 </div>
 <div class="attribute">
-	<div class="attributeName">Ziel-Url:</div>
+	<div class="attributeName">Weblink:</div>
 	<div class="attributeValue"><input type="text" class="text" value="" name="url"></div>
 </div>
 <br>

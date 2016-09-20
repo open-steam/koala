@@ -106,8 +106,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 break;
 
             case "docextern":
-                $labelName = "Internet-Link-Name";
-                $typeName = "Internet-Referenz";
+                $labelName = "Name";
+                $typeName = "Weblink";
                 break;
 
             case "unknown":
@@ -467,7 +467,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         //www-link
         if ($type == "docextern") {
             $urlInput = new \Widgets\TextInput();
-            $urlInput->setLabel("URL");
+            $urlInput->setLabel("Weblink");
             $urlInput->setData($object);
             $urlInput->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_EXTERN_URL"));
             if(!$isWriteable){
