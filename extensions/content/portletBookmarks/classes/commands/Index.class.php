@@ -129,9 +129,24 @@ class ContentProvider implements \Widgets\IContentProvider {
         }else{
             $contentItemObject = $contentItem;
         }
-
         if ($cell == $this->rawImage) {
-          $icon = deriveIcon($contentItem);
+          if ($contentItem instanceof \steam_exit) {
+              $exitObj = $contentItem->get_exit();
+              if ($exitObj === 0) {
+                  $icon = "folder.png";
+              } else {
+                $icon = deriveIcon($exitObj);
+              }
+          } else if ($contentItem instanceof \steam_link) {
+              $linkObj = $contentItem->get_link_object();
+              if ($linkObj === 0) {
+                  $icon = "generic.png";
+              } else {
+                $icon = deriveIcon($linkObj);
+              }
+          } else {
+            $icon = deriveIcon($contentItem);
+          }
           $iconSVG = str_replace("png", "svg", $icon);
           $idSVG = str_replace(".svg", "", $iconSVG);
           $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
