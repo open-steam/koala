@@ -26,7 +26,7 @@ class FolderSubscription extends AbstractSubscription {
                     $id,
                     $this->getElementHtml(
                         $id, 
-                        $id . "_" . $this->count,
+                        $id . "_" . $this->count++,
                         $this->private,
                         "In letzter Zeit",
                         "Nicht mehr vorhandenes Objekt: ".$this->formerContent[$id]["name"],
@@ -35,7 +35,6 @@ class FolderSubscription extends AbstractSubscription {
                     )
                 );
             }
-            $this->count++;
         }
         
         foreach($this->content as $id => $object){ //there is a new object in this folder, show an info if it is not created recently (eg. moved here)
@@ -45,7 +44,7 @@ class FolderSubscription extends AbstractSubscription {
                     $object->get_id(),
                     $this->getElementHtml(
                         $object->get_id(),
-                        $object->get_id() . "_" . $this->count,
+                        $object->get_id() . "_" . $this->count++,
                         $this->private,
                         "In letzter Zeit",
                         "Neu vorhandenes Objekt: ",
@@ -54,7 +53,6 @@ class FolderSubscription extends AbstractSubscription {
                     )
                 );
             }
-            $this->count++;
         }
         
         
@@ -72,7 +70,7 @@ class FolderSubscription extends AbstractSubscription {
                         $object->get_id(),
                         $this->getElementHtml(
                             $object->get_id(), 
-                            $object->get_id() . "_" . $this->count,
+                            $object->get_id() . "_" . $this->count++,
                             $this->private,
                             $creationTime,
                             "Neue". \PortletSubscription::getObjectTypeForSubscription($object),
@@ -95,7 +93,7 @@ class FolderSubscription extends AbstractSubscription {
                         $object->get_id(),
                         $this->getElementHtml(
                             $object->get_id(), 
-                            $object->get_id() . "_" . $this->count,
+                            $object->get_id() . "_" . $this->count++,
                             $this->private,
                             $lastChanged,
                             "Geänderte". \PortletSubscription::getObjectTypeForSubscription($object),
@@ -113,7 +111,6 @@ class FolderSubscription extends AbstractSubscription {
                 
 
             }
-            $this->count++;
         }
         //if the object change doesn't come from the modified content, the object itself was modified
         if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("CONT_LAST_MODIFIED") != $this->object->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
@@ -123,7 +120,7 @@ class FolderSubscription extends AbstractSubscription {
                             $this->object->get_id(), 
                             $this->getElementHtml(
                                 $this->object->get_id(), 
-                                $this->object->get_id() . "_0",
+                                $this->object->get_id() . "_".$this->count++,
                                 $this->private,
                                 $this->object->get_attribute("OBJ_LAST_CHANGED"),
                                 "Die Ordnereigenschaften wurden geändert",

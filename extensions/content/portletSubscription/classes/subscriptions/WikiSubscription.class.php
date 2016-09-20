@@ -33,7 +33,7 @@ class WikiSubscription extends AbstractSubscription {
                     $id,
                     $this->getElementHtml(
                         $id, 
-                        $id . "_" . $this->count,
+                        $id . "_" . $this->count++,
                         $this->private,
                         "In letzter Zeit",
                         $string,
@@ -42,7 +42,6 @@ class WikiSubscription extends AbstractSubscription {
                     )
                 );
             }
-            $this->count++;
         }
         
         //as there is no possibility to compy and paste an article into the wiki that is older then the current timestamp we do not have to track if there is an inserted object
@@ -60,7 +59,7 @@ class WikiSubscription extends AbstractSubscription {
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $this->count,
+                                        $object->get_id() . "_" . $this->count++,
                                         $this->private,
                                         $creationTime,
                                         "Neuer Artikel:",
@@ -82,7 +81,7 @@ class WikiSubscription extends AbstractSubscription {
                                     $object->get_id(), 
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $this->count,
+                                        $object->get_id() . "_" . $this->count++,
                                         $this->private,
                                         $lastChanged,
                                         "Geänderter Artikel:",
@@ -105,7 +104,7 @@ class WikiSubscription extends AbstractSubscription {
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $this->count,
+                                        $object->get_id() . "_" . $this->count++,
                                         $this->private,
                                         $creationTime,
                                         "Neues Bild in <a href=\"" . PATH_URL . "wiki/mediathek/" . $this->object->get_id() . "/" . "\">Mediathek</a>:",
@@ -127,7 +126,7 @@ class WikiSubscription extends AbstractSubscription {
                                     $object->get_id(), 
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $this->count,
+                                        $object->get_id() . "_" . $this->count++,
                                         $this->private,
                                         $lastChanged,
                                         "Geändertes Bild in <a href=\"" . PATH_URL . "wiki/mediathek/" . $this->object->get_id() . "/" . "\">Mediathek</a>:",
@@ -143,7 +142,6 @@ class WikiSubscription extends AbstractSubscription {
                     }
                 }
             }
-            $this->count++;
         }
         
         if ($this->object->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && $this->object->get_attribute("CONT_LAST_MODIFIED") != $this->object->get_attribute("OBJ_LAST_CHANGED") && !(isset($this->filter[$this->object->get_id()]) && in_array($this->object->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$this->object->get_id()]))) {
@@ -153,7 +151,7 @@ class WikiSubscription extends AbstractSubscription {
                             $this->object->get_id(), 
                             $this->getElementHtml(
                                 $this->object->get_id(), 
-                                $this->object->get_id() . "_0",
+                                $this->object->get_id() . "_".$this->count++,
                                 $this->private,
                                 $this->object->get_attribute("OBJ_LAST_CHANGED"),
                                 "Die Wikieigenschaften wurden geändert",

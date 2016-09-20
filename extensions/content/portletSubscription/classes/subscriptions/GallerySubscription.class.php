@@ -28,7 +28,7 @@ class GallerySubscription extends AbstractSubscription {
                     $id,
                     $this->getElementHtml(
                         $id, 
-                        $id . "_" . $this->count,
+                        $id . "_" . $this->count++,
                         $this->private,
                         "In letzter Zeit",
                         "Nicht mehr vorhandenes Objekt: ".$this->formerContent[$id]["name"],
@@ -37,7 +37,6 @@ class GallerySubscription extends AbstractSubscription {
                     )
                 );
             }
-            $this->count++;
         }
         
         
@@ -54,7 +53,7 @@ class GallerySubscription extends AbstractSubscription {
                     $object->get_id(),
                     $this->getElementHtml(
                         $object->get_id(),
-                        $object->get_id() . "_" . $this->count,
+                        $object->get_id() . "_" . $this->count++,
                         $this->private,
                         "In letzter Zeit",
                         "Neu vorhandenes Objekt: ",
@@ -63,7 +62,6 @@ class GallerySubscription extends AbstractSubscription {
                     )
                 );
             }
-            $this->count++;
             
             if ($object instanceof \steam_document) {
                 if ($creationTime > $this->timestamp && !(isset($this->filter[$object->get_id()]) && in_array($creationTime, $this->filter[$object->get_id()]))) {
@@ -72,7 +70,7 @@ class GallerySubscription extends AbstractSubscription {
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $this->count,
+                                        $object->get_id() . "_" . $this->count++,
                                         $this->private,
                                         $creationTime,
                                         "Neues Bild: <a href=\"" . PATH_URL . "explorer/ViewDocument/" . $object->get_id() . "/" . "\">".\PortletSubscription::getNameForSubscription($object)."</a> (in Fotoalbum <a href=\"" . PATH_URL . "photoAlbum/Index/" . $this->object->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($this->object) . "</a>)",
@@ -94,7 +92,7 @@ class GallerySubscription extends AbstractSubscription {
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $this->count,
+                                        $object->get_id() . "_" . $this->count++,
                                         $this->private,
                                         $lastChanged,
                                         "Geändertes Bild: <a href=\"" . PATH_URL . "explorer/ViewDocument/" . $object->get_id() . "/" . "\">".\PortletSubscription::getNameForSubscription($object)."</a> (in Fotoalbum <a href=\"" . PATH_URL . "photoAlbum/Index/" . $this->object->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($this->object) . "</a>)",
@@ -111,7 +109,7 @@ class GallerySubscription extends AbstractSubscription {
                     
                 }
             } 
-            $this->count++;
+            
         }
         
         $objectLastChanged = $this->object->get_attribute("OBJ_LAST_CHANGED");
@@ -124,7 +122,7 @@ class GallerySubscription extends AbstractSubscription {
                             $this->object->get_id(), 
                             $this->getElementHtml(
                                 $this->object->get_id(), 
-                                $this->object->get_id() . "_0",
+                                $this->object->get_id() . "_".$this->count++,
                                 $this->private,
                                 $objectLastChanged,
                                 "Die Albumeigenschaften wurden geändert",

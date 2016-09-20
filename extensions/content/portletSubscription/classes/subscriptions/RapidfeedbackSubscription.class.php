@@ -21,7 +21,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                             $result->get_id(),
                             $this->getElementHtml(
                                     $result->get_id(), 
-                                    $result->get_id() . "_" . $this->count, 
+                                    $result->get_id() . "_" . $this->count++,
                                     $this->private, 
                                     $resultCreationTime, 
                                     "Neue Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
@@ -37,7 +37,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                             $result->get_id(),
                             $this->getElementHtml(
                                     $result->get_id(), 
-                                    $result->get_id() . "_" . $this->count, 
+                                    $result->get_id() . "_" . $this->count++,
                                     $this->private, 
                                     $resultLastChanged, 
                                     "Geänderte Abgabe (in Fragebogen Ordner <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
@@ -61,7 +61,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                         $survey->get_id(),
                         $this->getElementHtml(
                                 $survey->get_id(), 
-                                $survey->get_id() . "_" . $this->count, 
+                                $survey->get_id() . "_" . $this->count++,
                                 $this->private, 
                                 $surveyCreationTime, 
                                 "Neuer Fragebogen in <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>:", 
@@ -76,7 +76,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                         $survey->get_id(),
                         $this->getElementHtml(
                                 $survey->get_id(), 
-                                $survey->get_id() . "_" . $this->count, 
+                                $survey->get_id() . "_" . $this->count++,
                                 $this->private, 
                                 $surveyLastChanged, 
                                 "Geänderter Fragebogen in <a href=\"" . PATH_URL . "rapidfeedback/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>:", 
@@ -86,8 +86,6 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                     );
                 }
             }
-
-            $this->count++;
         }
         
         //if the object change doesn't come from the modified content, the object itself was modified
@@ -98,7 +96,7 @@ class RapidfeedbackSubscription extends AbstractSubscription {
                             $this->object->get_id(), 
                             $this->getElementHtml(
                                 $this->object->get_id(), 
-                                $this->object->get_id() . "_0",
+                                $this->object->get_id() . "_".$this->count++,
                                 $this->private,
                                 $this->object->get_attribute("OBJ_LAST_CHANGED"),
                                 "Die Fragebogeneigenschaften wurden geändert",
