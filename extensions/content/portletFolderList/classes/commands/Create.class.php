@@ -17,7 +17,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
           $column = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["id"]);
       }
 
-      $name = "Ordnerinhalt";
+      $name = " ";
       if (isset($params["title"]) && $params["title"] != "") {
           $name = $params["title"];
       }
