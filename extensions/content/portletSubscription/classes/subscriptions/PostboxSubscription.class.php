@@ -26,7 +26,7 @@ class PostboxSubscription extends AbstractSubscription {
                     $id,
                     $this->getElementHtml(
                         $id, 
-                        $id . "_" . $this->count,
+                        $id . "_" . $this->count++,
                         $this->private,
                         "In letzter Zeit",
                         "Nicht mehr vorhandene Abgabe: ".$this->formerContent[$id]["name"],
@@ -35,7 +35,6 @@ class PostboxSubscription extends AbstractSubscription {
                     )
                 );
             }
-            $this->count++;
         }
         
         foreach($this->content as $id => $object){ //there is a new object in this folder, show an info if it is not created recently (eg. moved here)
@@ -45,7 +44,7 @@ class PostboxSubscription extends AbstractSubscription {
                     $object->get_id(),
                     $this->getElementHtml(
                         $object->get_id(),
-                        $object->get_id() . "_" . $this->count,
+                        $object->get_id() . "_" . $this->count++,
                         $this->private,
                         "In letzter Zeit",
                         "Neu vorhandene Abgabe: ",
@@ -54,7 +53,6 @@ class PostboxSubscription extends AbstractSubscription {
                     )
                 );
             }
-            $this->count++;
         }
         
         
@@ -66,7 +64,7 @@ class PostboxSubscription extends AbstractSubscription {
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $this->count,
+                                        $object->get_id() . "_" . $this->count++,
                                         $this->private,
                                         $object->get_attribute("OBJ_CREATION_TIME"),
                                         "Neue Abgabe (im Briefkasten <a href=\"" . PATH_URL . "postbox/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
@@ -91,7 +89,7 @@ class PostboxSubscription extends AbstractSubscription {
                                     $object->get_id(),
                                     $this->getElementHtml(
                                         $object->get_id(), 
-                                        $object->get_id() . "_" . $this->count,
+                                        $object->get_id() . "_" . $this->count++,
                                         $this->private,
                                         $object->get_attribute("OBJ_LAST_CHANGED"),
                                         "Geänderte Abgabe (im Briefkasten <a href=\"" . PATH_URL . "postbox/Index/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):",
@@ -117,7 +115,7 @@ class PostboxSubscription extends AbstractSubscription {
                             $this->object->get_id(), 
                             $this->getElementHtml(
                                 $this->object->get_id(), 
-                                $this->object->get_id() . "_0",
+                                $this->object->get_id() . "_".$this->count++,
                                 $this->private,
                                 $this->object->get_attribute("OBJ_LAST_CHANGED"),
                                 "Die Objekteigenschaften wurden geändert",

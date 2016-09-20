@@ -34,7 +34,7 @@ class PortalSubscription extends AbstractSubscription {
                     $id,
                     $this->getElementHtml(
                             $id, 
-                            $id . "_" . $this->count, 
+                            $id . "_" . $this->count++,
                             $this->private, 
                             "In letzter Zeit", 
                             "Das Portlet " . $this->formerContent[$id]["name"] . " ist nicht mehr vorhanden", 
@@ -43,7 +43,7 @@ class PortalSubscription extends AbstractSubscription {
                     )
                 );
             }
-            $this->count++;
+            
         }
 
         foreach ($this->content as $id => $object) { //there is a new object in this portal, show an info if it is not created recently
@@ -53,7 +53,7 @@ class PortalSubscription extends AbstractSubscription {
                     $object->get_id(),
                     $this->getElementHtml(
                             $object->get_id(), 
-                            $object->get_id() . "_" . $this->count, 
+                            $object->get_id() . "_" . $this->count++,
                             $this->private, 
                             "In letzter Zeit", 
                             "Neues Portlet ",
@@ -61,7 +61,6 @@ class PortalSubscription extends AbstractSubscription {
                             PATH_URL . "portal/Index/" . $this->object->get_id() . "/"
                     )
                 );
-                $this->count++;
             }
         }
 
@@ -98,7 +97,7 @@ class PortalSubscription extends AbstractSubscription {
                                             $messageObject->get_id(),
                                             $this->getElementHtml(
                                                     $messageObject->get_id(), 
-                                                    $messageObject->get_id() . "_" . $this->count, 
+                                                    $messageObject->get_id() . "_" . $this->count++,
                                                     $this->private, 
                                                     $messageObjectCreationTime, 
                                                     "Neue Meldung ", 
@@ -115,7 +114,7 @@ class PortalSubscription extends AbstractSubscription {
                                             $messageObject->get_id(),
                                             $this->getElementHtml(
                                                     $messageObject->get_id(), 
-                                                    $messageObject->get_id() . "_" . $this->count, 
+                                                    $messageObject->get_id() . "_" . $this->count++,
                                                     $this->private, 
                                                     $messageObjectLastChanged, 
                                                     "Die Meldung ", 
@@ -135,7 +134,6 @@ class PortalSubscription extends AbstractSubscription {
                     }
                 }
             }
-            $this->count++;
         }
 
         //if the object change doesn't come from the modified content, the object itself was modified
@@ -146,7 +144,7 @@ class PortalSubscription extends AbstractSubscription {
                 $this->object->get_id(),
                 $this->getElementHtml(
                         $this->object->get_id(), 
-                        $this->object->get_id() . "_0", 
+                        $this->object->get_id() . "_".$this->count++,
                         $this->private, 
                         $this->object->get_attribute("OBJ_LAST_CHANGED"), 
                         "Die Portaleigenschaften wurden geändert", 
@@ -175,7 +173,7 @@ class PortalSubscription extends AbstractSubscription {
                 $portlet->get_id(),
                 $this->getElementHtml(
                         $portlet->get_id(), 
-                        $portlet->get_id() . "_" . $this->count, 
+                        $portlet->get_id() . "_" . $this->count++,
                         $this->private, 
                         $creationTime, 
                         "Neues ".\PortletSubscription::getPortletTypeForSubscription($portlet)."Portlet", 
@@ -198,7 +196,7 @@ class PortalSubscription extends AbstractSubscription {
                 $portlet->get_id(),
                 $this->getElementHtml(
                         $portlet->get_id(), 
-                        $portlet->get_id() . "_" . $this->count, 
+                        $portlet->get_id() . "_" . $this->count++,
                         $this->private, 
                         $lastChanged, 
                         "Geändertes ".\PortletSubscription::getPortletTypeForSubscription($portlet)."Portlet",

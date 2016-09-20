@@ -23,7 +23,7 @@ class DocumentSubscription extends AbstractSubscription {
                             $this->object->get_id(), 
                             $this->getElementHtml(
                                 $this->object->get_id(), 
-                                $this->object->get_id() . "_0",
+                                $this->object->get_id() . "_".$this->count++,
                                 $this->private,
                                 $docLastModified,
                                 "Dokumenteninhalt wurde geändert:",
@@ -40,7 +40,7 @@ class DocumentSubscription extends AbstractSubscription {
                             $this->object->get_id(), 
                             $this->getElementHtml(
                                 $this->object->get_id(), 
-                                $this->object->get_id() . "_0",
+                                $this->object->get_id() . "_".$this->count++,
                                 $this->private,
                                 $objLastChanged,
                                 "Die Dokumenteneigenschaften wurden geändert",

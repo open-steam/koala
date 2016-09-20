@@ -11,7 +11,7 @@ class ForumSubscription extends AbstractSubscription {
                 $this->object->get_id(),
                 $this->getElementHtml(
                         $this->object->get_id(), 
-                        $this->object->get_id() . "_" . $this->count, 
+                        $this->object->get_id() . "_" . $this->count++, 
                         $this->private, 
                         $this->object->get_attribute("OBJ_LAST_CHANGED"), 
                         "Die Eigenschaften vom Forum wurden geändert", 
@@ -29,7 +29,7 @@ class ForumSubscription extends AbstractSubscription {
                         $thread->get_id(),
                         $this->getElementHtml(
                                 $thread->get_id(), 
-                                $thread->get_id() . "_" . $this->count, 
+                                $thread->get_id() . "_" . $this->count++, 
                                 $this->private, 
                                 $thread->get_attribute("OBJ_CREATION_TIME"), 
                                 "Neues Thema (im Forum <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
@@ -44,7 +44,7 @@ class ForumSubscription extends AbstractSubscription {
                         $thread->get_id(),
                         $this->getElementHtml(
                                 $thread->get_id(), 
-                                $thread->get_id() . "_" . $this->count, 
+                                $thread->get_id() . "_" . $this->count++, 
                                 $this->private, 
                                 $thread->get_attribute("OBJ_LAST_CHANGED"), 
                                 "Geändertes Thema (im Forum <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
@@ -62,7 +62,7 @@ class ForumSubscription extends AbstractSubscription {
                                 $msg->get_id(),
                                 $this->getElementHtml(
                                         $msg->get_id(), 
-                                        $msg->get_id() . "_" . $this->count, 
+                                        $msg->get_id() . "_" . $this->count++,
                                         $this->private, 
                                         $msg->get_attribute("OBJ_CREATION_TIME"), 
                                         "Neuer Beitrag (im Thema <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($thread) . "</a> im Forum <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
@@ -70,13 +70,14 @@ class ForumSubscription extends AbstractSubscription {
                                         PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id()
                                 )
                             );
+                            
                         } else if ($msg->get_attribute("OBJ_LAST_CHANGED") > $this->timestamp && !(isset($this->filter[$msg->get_id()]) && in_array($msg->get_attribute("OBJ_LAST_CHANGED"), $this->filter[$msg->get_id()]))) {
                             $this->updates[] = array(
                                 $msg->get_attribute("OBJ_LAST_CHANGED"),
                                 $msg->get_id(),
                                 $this->getElementHtml(
                                         $msg->get_id(), 
-                                        $msg->get_id() . "_" . $this->count, 
+                                        $msg->get_id() . "_" . $this->count++,
                                         $this->private, 
                                         $msg->get_attribute("OBJ_LAST_CHANGED"), 
                                         "Geänderter Beitrag (im Thema <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . $thread->get_id() . "/" . "\">" . \PortletSubscription::getNameForSubscription($thread) . "</a> im Forum <a href=\"" . PATH_URL . "forum/showTopic/" . $this->object->get_id() . "/" . "\">" . getCleanName($this->object) . "</a>):", 
@@ -86,10 +87,10 @@ class ForumSubscription extends AbstractSubscription {
                             );
                         }
                     }
-                    $this->count++;
+                    
                 }
             }
-            $this->count++;
+            
         }
         return $this->updates;
     }
