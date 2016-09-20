@@ -13,7 +13,11 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$this->params = $requestObject->getParams();
 		if(isset($this->params[0])){
 			if(strpos($this->params[0], '?') !== false) {
-				$this->id = intval(explode('?', $this->params[0])[0]);
+					$temp = explode('?', $this->params[0]);
+					if(sizeof($temp) > 0){
+						$this->id = intval($temp[0]);
+						break;
+					}
 			}
 			else{
 				$this->id = $this->params[0];
