@@ -145,13 +145,18 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $writeAccess = TRUE;
             $readAccess = TRUE;
+            $downloadable = true;
             foreach ($this->selection as $selectedObjectID) {
                 $selectedObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $selectedObjectID);
+                if(!($selectedObject instanceof \steam_document) || ($selectedObject->get_attribute(DOC_MIME_TYPE) == "text/html")){
+                  $downloadable = false;
+                }
                 if (!$selectedObject->check_access(SANCTION_WRITE)) {
                     $writeAccess = FALSE;
                 }
                 if (!$selectedObject->check_access(SANCTION_READ)) {
                     $readAccess = FALSE;
+                    $downloadable = false;
                 }
             }
 
@@ -160,6 +165,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             $referIcon = $explorerUrl . "icons/menu/svg/refer.svg";
             $trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
             $brushIcon = $explorerUrl . "icons/menu/svg/brush.svg";
+            $downloadIcon = $explorerUrl . "icons/menu/svg/download.svg";
 
             $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
         		if($viewAttribute && $viewAttribute == "gallery"){
@@ -179,6 +185,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     ($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Cut', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Schneide Objekte aus ...', 0,  $SelectionFunction); return false;\"><svg><use xlink:href='{$cutIcon}#cut'/></svg> {$count} Objekte ausschneiden</a>") : "",
                     array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Reference', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Referenziere Objekte ...', 0,  $SelectionFunction); return false;\"><svg><use xlink:href='{$referIcon}#refer'/></svg> {$count} Objektreferenzen erstellen</a>"),
                     ($writeAccess) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Delete', $paramsArrayFunction({}), $ElementIdFunction(''), 'updater', null, null, 'explorer', 'Lösche Objekte ...', 0,  $SelectionFunction); return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> {$count} Objekte löschen</a>") : "",
+                    ($downloadable) ? array("raw" => "<a href=\"#\" onclick=\"sendMultiRequest('Download', $paramsArrayFunction({}), $ElementIdFunction(''), 'inform', null, null, 'explorer', 'Lade Objekte herunter ...', 0,  $SelectionFunction); return false;\"><svg><use xlink:href='{$downloadIcon}#download'/></svg> {$count} Objekte herunterladen</a>") : "",
                     ($writeAccess) ? array("name" => "<svg><use xlink:href='{$brushIcon}#brush'/></svg> {$count} Objekte einfärben", "direction" => "right", "menu" => array (
                     array("raw" => " <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'transparent'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='greyColor'><use xlink:href='{$explorerUrl}icons/menu/svg/transparent.svg#transparent'/></svg></a>
                         <a href=\"#\" onclick=\"sendMultiRequest('ChangeColorLabel', $paramsArrayFunction({'color':'red'}), $ElementIdFunction('listviewer-overlay'), 'updater', null, null, 'explorer', 'Ändere Farbe ...', 0,  $SelectionFunction); return false;\"><svg class='redColor'><use xlink:href='{$explorerUrl}icons/menu/svg/color.svg#color'/></svg></a>
