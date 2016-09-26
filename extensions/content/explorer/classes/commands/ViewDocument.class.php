@@ -194,8 +194,12 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
 
                 //document type: download
                 else {
-                    //header("location: " . PATH_URL . "Download/Document/" . $this->id . "/");
-                    $html = "<h2><svg style='width:16px; height:16px; color:#3a6e9f; top:3px; position:relative;'><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/generic.svg#generic'></use></svg> " . $name . "</h2>Derzeit ist es noch nicht möglich, diesen Dateityp direkt anzuzeigen. Sie können die Datei <a href=" . PATH_URL . "Download/Document/" . $this->id . "/" . $objName . ">herunterladen</a> um sie zu betrachten.";
+                  //header("location: " . PATH_URL . "Download/Document/" . $this->id . "/");
+                  $icon = deriveIcon($object);
+                  $iconSVG = str_replace("png", "svg", $icon);
+                  $idSVG = str_replace(".svg", "", $iconSVG);
+                  $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+                  $html = "<h2><svg style='width:16px; height:16px; color:#3a6e9f; top:3px; position:relative;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg> " . $name . "</h2>Derzeit ist es noch nicht möglich, diesen Dateityp direkt anzuzeigen. Sie können die Datei <a href=" . PATH_URL . "Download/Document/" . $this->id . "/" . $objName . ">herunterladen</a> um sie zu betrachten.";
                 }
 
                 //default
