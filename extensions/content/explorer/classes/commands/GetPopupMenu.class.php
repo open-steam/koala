@@ -145,18 +145,18 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
         } else {
             $writeAccess = TRUE;
             $readAccess = TRUE;
-            $downloadable = true;
+            $downloadable = TRUE;
             foreach ($this->selection as $selectedObjectID) {
                 $selectedObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $selectedObjectID);
                 if(!($selectedObject instanceof \steam_document) || ($selectedObject->get_attribute(DOC_MIME_TYPE) == "text/html")){
-                  $downloadable = false;
+                  $downloadable = FALSE;
                 }
                 if (!$selectedObject->check_access(SANCTION_WRITE)) {
                     $writeAccess = FALSE;
                 }
                 if (!$selectedObject->check_access(SANCTION_READ)) {
                     $readAccess = FALSE;
-                    $downloadable = false;
+                    $downloadable = FALSE;
                 }
             }
 
