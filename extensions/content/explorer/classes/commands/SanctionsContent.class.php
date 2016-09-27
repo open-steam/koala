@@ -588,7 +588,6 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setCurrentBlock("GROUPS");
                     $this->content->setCurrentBlock("GROUP_DDSETTINGS");
                     $this->content->setVariable("GROUPID", $id);
-                    $this->content->setVariable("GROUP_ID", $id);
                     $this->content->setVariable("GROUPNAME", $name . " (" . $realname . ")");
                     $this->content->setVariable("INDENTINDEX", $indent);
                     $this->content->setVariable("DROPDOWNLIST", $ddl->getHtml());
@@ -647,8 +646,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                 if ($groupname != "Everyone" && $groupname != "sTeam") {
                     $this->content->setCurrentBlock("GROUPS_ACQ");
                     $this->content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
-                    $this->content->setVariable("GROUPID_ACQ", $id);
-                    $this->content->setVariable("GROUP_ID_ACQ", $id);
+                    $this->content->setVariable("GROUPID_ACQ", $id); 
                     $this->content->setVariable("GROUPNAME_ACQ", $name . " (" . $realname . ")");
                     $this->content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $this->dropdownValueAcqSteamGroup));
                     $this->content->setVariable("INDENTINDEX_ACQ", $indent);
@@ -742,6 +740,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setCurrentBlock("FAVORITES");
                     $this->content->setCurrentBlock("FAV_DDSETINGS");
                     $this->content->setVariable("FAVNAME", $name);
+                    $this->content->setVariable("USERNAME", $user->get_name());
                     $this->content->setVariable("DROPDOWNLIST_FAVORITES", $ddl->getHtml());
                     if (isset($this->favorites[$id])) {
                         $this->content->setVariable("IMG_PATH", "<svg class='svg favorite'><use xlink:href='" . $this->userPicUrl . "#user'/></svg>");
@@ -805,6 +804,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setCurrentBlock("FAVORITES_ACQ");
                     $this->content->setCurrentBlock("FAV_DDSETINGS_ACQ");
                     $this->content->setVariable("FAVNAME_ACQ", $name);
+                    $this->content->setVariable("USERNAME_ACQ", $user->get_name());
                     $this->content->setVariable("DROPDOWNLIST_USER_ACQ", $ddl->getHtml());
                     if (isset($this->favorites[$id])) {
                         $this->content->setVariable("IMG_PATH_ACQ", "<svg class='svg favorite'><use xlink:href='" . $this->userPicUrl . "#user'/></svg>");

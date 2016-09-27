@@ -82,7 +82,7 @@
             <!-- BEGIN GROUPS -->
             <tr valign="middle">
                 <td width="60%">{IMG_PATH}
-                    <div style="text-indent: {INDENTINDEX}em;">{GROUPNAME}</div>
+                    <div style="text-indent: {INDENTINDEX}em;"><a href="/group/index/{GROUPID}" target="_blank">{GROUPNAME}</a></div>
                 </td>
                 <td width="40%" align="right" >
                     {DROPDOWNLIST}
@@ -108,7 +108,7 @@
                 <!-- BEGIN FAVORITES -->
                 <tr valign="middle">
                     <td width="66%">{IMG_PATH}
-                        <div class="indented">{FAVNAME}</div>
+                        <div class="indented"><a href="/profile/index/{USERNAME}" target="_blank">{FAVNAME}</a></div>
                     </td>
                     <td width="34%" align="right">
                         {DROPDOWNLIST_FAVORITES}
@@ -159,7 +159,7 @@
             <!-- BEGIN GROUPS_ACQ -->
             <tr valign="middle">
                 <td width="60%">{IMG_PATH_ACQ}
-                    <div style="text-indent: {INDENTINDEX_ACQ}em;">{GROUPNAME_ACQ}</div>
+                    <div style="text-indent: {INDENTINDEX_ACQ}em;"><a href="/group/index/{GROUPID_ACQ}" target="_blank">{GROUPNAME_ACQ}</a></div>
                 </td>
                 <td width="40%" align="right">
                     {DROPDOWNLIST_ACQ}
@@ -180,7 +180,7 @@
             <tbody class="scrollable-user" style="{CSS_USER}">
                 <!-- BEGIN FAVORITES_ACQ -->
                 <tr>
-                    <td width="66%">{IMG_PATH_ACQ}<div class="indented">{FAVNAME_ACQ}</div>
+                    <td width="66%">{IMG_PATH_ACQ}<div class="indented"><a href="/profile/index/{USERNAME_ACQ}" target="_blank">{FAVNAME_ACQ}</a></div>
                     </td>
                     <td width=34%>{DROPDOWNLIST_USER_ACQ}</td>
                 </tr>

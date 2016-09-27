@@ -398,7 +398,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $intend = count(explode(".", $groupName));
                     $content->setVariable("INDENTINDEX", $intend);
 
-                    $content->setVariable("GROUPNAME", $favo->get_full_name());
+                    $content->setVariable("USERNAME", $favo->get_full_name());
+                    $content->setVariable("USERLOGIN", $favo->get_name());
                     if (isset($favorites[$id])) {
                         $content->setVariable("IMG_PATH", "<svg class='svg favorite'><use xlink:href='" . $userPicUrl . "#user'/></svg>");
                     } else {
