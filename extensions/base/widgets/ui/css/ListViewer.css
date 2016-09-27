@@ -177,3 +177,12 @@
 	color: red;
 	text-decoration:line-through;
 }
+
+.justRestoredFromTrashed{
+	background-color: #fff;
+}
+
+.justRestoredFromTrashed div, .justRestoredFromTrashed a{
+	color: LimeGreen;
+	text-decoration:line-through;
+}
