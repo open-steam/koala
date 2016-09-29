@@ -1,0 +1,100 @@
+<!-- BEGIN BLOCK_CONFIGURATION_TABLE -->
+<form action="" method="post" onsubmit="return checkTitle();" style="font-size:11px">
+	<div id="options">
+		<!-- <center> -->
+			<table class="questionnaire_table" border="1" width="70%" style="margin-left:auto; margin-right:auto;">
+				<tr>
+					<th colspan="2">{QUESTIONNAIRE_OPTIONS}</th>
+				</tr>
+				<tr>
+					<td class="label">{TITLE_LABEL}</td>
+					<td width="70%"><input id="title" type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
+				</tr>
+				<tr>
+					<td class="label">{DESC_LABEL}</td>
+					<td><textarea name="desc" style="width:99%" rows="4">{DESC_VALUE}</textarea></td>
+				</tr>
+				<tr>
+					<td class="label">{TIMES_LABEL}</td>
+					<td>
+						<input type="radio" name="times" value=1 {ONE_TIME_CHECKED}>{ONE_TIME}
+						<input type="radio" name="times" value=0 {MANY_TIMES_CHECKED}>{MANY_TIMES}
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table class="questionnaire_table" border="1" width="70%" style="margin-left:auto; margin-right:auto;">
+				<tr>
+					<th colspan="3">{RIGHTS_LABEL}</th>
+				</tr>
+				<tr>
+					<th width="50%">{OWNER_LABEL}</th>
+					<th width="25%" style="text-align:center;">{PARTICIPATE_LABEL}</th>
+					<th width="25%" style="text-align:center;">{EDIT_LABEL}</th>
+				</tr>
+				<tr>
+					<td>{OWNER_NAME}</td>
+					<td style="text-align:center;"><input type="checkbox" checked disabled></td>
+					<td style="text-align:center;"><input type="checkbox" checked disabled></td>
+				</tr>
+				<tr>
+					<th width="50%">{GROUP_LABEL}</th>
+					<th width="25%" style="text-align:center;">{PARTICIPATE_LABEL}</th>
+					<th width="25%" style="text-align:center;">{EDIT_LABEL}</th>
+				</tr>
+				<!-- BEGIN BLOCK_GROUP -->
+				<tr>
+					<td>{GROUP_NAME}</td>
+					<td style="text-align:center;"><input type="checkbox" name="participate{GROUP_ID}" {PARTICIPATE_CHECKED} {PARTICIPATE_DISABLED}></td>
+					<td style="text-align:center;"><input type="checkbox" name="admin{GROUP_ID}" {ADMIN_CHECKED} {ADMIN_DISABLED}></td>
+				</tr>
+				<!-- END BLOCK_GROUP -->
+			</table>
+			<br>
+			<table class="questionnaire_table" border="1" width="70%" style="margin-left:auto; margin-right:auto;">
+				<tr>
+					<th colspan="2">{RESULT_OPTIONS}</th>
+				</tr>
+				<tr>
+					<td class="label" style="width:40%;">{PARTICIPANTS_LABEL}</td>
+					<td>
+						<input type="radio" name="participants" value=1 {PARTICIPANTS_YES_CHECKED}>{LABEL_YES}
+						<input type="radio" name="participants" value=0 {PARTICIPANTS_NO_CHECKED}>{LABEL_NO}
+					</td>
+				</tr>
+				<tr>
+					<td class="label">{CREATIONTIME_LABEL}</td>
+					<td>
+						<input type="radio" name="creationtime" value=1 {CREATIONTIME_YES_CHECKED}>{LABEL_YES}
+						<input type="radio" name="creationtime" value=0 {CREATIONTIME_NO_CHECKED}>{LABEL_NO}
+					</td>
+				</tr>
+				<tr>
+					<td class="label">{ADMINEDIT_LABEL}</td>
+					<td>
+						<input type="radio" name="adminedit" value=1 {ADMINEDIT_YES_CHECKED}>{LABEL_YES}
+						<input type="radio" name="adminedit" value=0 {ADMINEDIT_NO_CHECKED}>{LABEL_NO}
+					</td>
+				</tr>
+				<tr>
+					<td class="label">{OWNEDIT_LABEL}</td>
+					<td>
+						<input type="radio" name="ownedit" value=1 {OWNEDIT_YES_CHECKED}>{LABEL_YES}
+						<input type="radio" name="ownedit" value=0 {OWNEDIT_NO_CHECKED}>{LABEL_NO}
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table style="margin-left:auto; margin-right:auto;"> 
+				<tr>
+					<td colspan="2">
+						<div style="text-align:center" class="buttons">
+							<input type="submit" value="{EDIT_QUESTIONNAIRE}" name="edit_questionnaire">
+						</div>
+					</td>
+				</tr>
+			</table>
+		<!-- </center> -->
+	</div>
+</form>
+<!-- END BLOCK_CONFIGURATION_TABLE -->

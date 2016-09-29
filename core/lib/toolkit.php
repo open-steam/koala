@@ -472,6 +472,12 @@ function deriveIcon($object) {
         return "rapidfeedback.png";
     }
 
+    //rapidfeedback
+    if ($objtype === "QUESTIONNAIRE_CONTAINER") {
+        return "rapidfeedback.png";
+    }
+
+
     //wiki
     if ($objtype === "container_wiki_koala") {
         return "wiki.png";

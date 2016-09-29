@@ -126,6 +126,11 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 break;
         }
 
+        if($type == "room" && $object->get_attribute("OBJ_TYPE") == "QUESTIONNAIRE_CONTAINER"){
+          $labelName = "Name";
+          $typeName = "Fragebogen";
+          $type = "questionnaire";
+        }
 
         //pic tests
         $documentIsPicture = false;
@@ -522,6 +527,66 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
           }
+        }
+
+        //questionnaire
+        if ($type == "questionnaire"){
+          $multipleFill = new \Widgets\RadioButton();
+          $multipleFill->setLabel("Mehrfach ausfüllbar:");
+          $multipleFill->setData($object);
+          $multipleFill->setType("horizontal");
+          $multipleFill->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_PARTICIPATION_TIMES"));
+          $multipleFill->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
+
+          $showParticipants = new \Widgets\RadioButton();
+          $showParticipants->setLabel("Teilnehmer anzeigen:");
+          $showParticipants->setData($object);
+          $showParticipants->setType("horizontal");
+          $showParticipants->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_SHOW_PARTICIPANTS"));
+          $showParticipants->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
+
+          $showCreationTime = new \Widgets\RadioButton();
+          $showCreationTime->setLabel("Erstellungszeit anzeigen:");
+          $showCreationTime->setData($object);
+          $showCreationTime->setType("horizontal");
+          $showCreationTime->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_SHOW_CREATIONTIME"));
+          $showCreationTime->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
+
+          $adminEdit = new \Widgets\RadioButton();
+          $adminEdit->setLabel("Administratoren dürfen Antworten bearbeiten:");
+          $adminEdit->setData($object);
+          $adminEdit->setType("horizontal");
+          $adminEdit->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_ADMIN_EDIT"));
+          $adminEdit->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
+
+          $ownEdit = new \Widgets\RadioButton();
+          $ownEdit->setLabel("Teilnehmer dürfen eigene Antworten bearbeiten:");
+          $ownEdit->setData($object);
+          $ownEdit->setType("horizontal");
+          $ownEdit->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_OWN_EDIT"));
+          $ownEdit->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
+
+          if(!$isWriteable){
+              $multipleFill->setReadOnly(true);
+              $showParticipants->setReadOnly(true);
+              $showCreationTime->setReadOnly(true);
+              $adminEdit->setReadOnly(true);
+              $ownEdit->setReadOnly(true);
+          }
+
+          $dialog->addWidget($multipleFill);
+
+          $dialog->addWidget($textAreaDescription);
+
+          //$separator = new \Widgets\RawHtml();
+          //$separator->setHtml("<br style=\"clear:both\"/>");
+          $headlineResults = new \Widgets\RawHtml();
+          $headlineResults->setHtml("<h3>Ergebnis-Einstellungen</h3>");
+          $dialog->addWidget($headlineResults);
+          $dialog->addWidget($showParticipants);
+          $dialog->addWidget($showCreationTime);
+          $dialog->addWidget($adminEdit);
+          $dialog->addWidget($ownEdit);
         }
 
         //gallery

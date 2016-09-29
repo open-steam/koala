@@ -1,0 +1,127 @@
+<!-- BEGIN BLOCK_EDIT -->
+<li class="ui-state-default-rf" id="rfelement{ELEMENT_ID}">
+    <table width="100%">
+        <tr>
+            <td align="right" style="padding:0px; border:0px;">
+                <span class="images-rfb">
+                    <img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+                    &nbsp
+                    <img onclick="copyElement({ELEMENT_ID}); setTimeout(function(){$('#save-que-button').click(); }, 750);" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+                    &nbsp
+                    <img onclick="deleteElement({ELEMENT_ID}); setTimeout(function(){$('#save-que-button').click(); }, 750);" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
+                </span>
+            </td>
+        </tr>
+        <tr><td></td></tr>
+        <tr>
+            <td style="padding:0px; border:0px;">
+                <h2 style="margin:0px;">{NUMBER}. {QUESTION_TEXT}</h2>
+                {HELP_TEXT}
+                <br>
+                <table style="text-align: left;">
+                    <!-- BEGIN BLOCK_ROW_VIEW -->
+                    <tr>
+                        <!-- BEGIN BLOCK_COLUMN_VIEW -->
+                        <td style="padding: 0px 0px 0px 0px; border:0px;">
+                            <!-- BEGIN BLOCK_OPTION_VIEW -->
+                            <input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}" style="vertical-align:middle;">
+                            <!-- END BLOCK_OPTION_VIEW -->
+                        </td>
+                        <td style="padding: 0px 5px 0px 0px; border:0px;">{OPTION_LABEL}</td>
+                        <!-- END BLOCK_COLUMN_VIEW -->
+                    </tr>
+                    <!-- END BLOCK_ROW_VIEW -->
+                </table>
+            </td>
+        </tr>
+    </table>
+</li>
+<input type="hidden" name="rfelement{ELEMENT_ID}" value="{ELEMENT_DATA}">
+<input type="hidden" name="rfelement{ELEMENT_ID}_options" value="{OPTION_DATA}">
+<!-- END BLOCK_EDIT -->
+
+<!-- BEGIN BLOCK_VIEW -->
+<tr>
+    <td style="{ERROR_BORDER}">
+        <b>{QUESTION_TEXT}</b>
+        <br>
+        {HELP_TEXT}
+        <br>
+        <table class="questionnaire_style" style="text-align: left;">
+            <!-- BEGIN BLOCK_ROW_VIEW -->
+            <tr>
+                <!-- BEGIN BLOCK_COLUMN_VIEW -->
+                <td style="padding: 0px 0px 0px 0px; border:0px;">
+                    <!-- BEGIN BLOCK_OPTION_VIEW -->
+                    <input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}" {OPTION_CHECKED} {QUESTION_DISABLED} style="vertical-align:middle;">
+                    <!-- END BLOCK_OPTION_VIEW -->
+                </td>
+                <td style="padding: 0px 5px 0px 0px; border:0px;">{OPTION_LABEL}</td>
+                <!-- END BLOCK_COLUMN_VIEW -->
+            </tr>
+            <!-- END BLOCK_ROW_VIEW -->
+        </table>
+    </td>
+</tr>
+<!-- END BLOCK_VIEW -->
+
+<!-- BEGIN BLOCK_NO_RESULTS -->
+<tr>
+    <td>
+        <font size="2"><b>{QUESTION_TEXT}</b></font>
+        <br>
+        {NO_RESULTS}
+    </td>
+</tr>
+<!-- END BLOCK_NO_RESULTS -->
+
+<!-- BEGIN BLOCK_RESULTS -->
+<tr>
+    <td>
+        <font size="2"><b>{QUESTION_TEXT}</b></font>
+        <br>
+        <table width="100%" class="questionnaire_style">
+            <tr>
+                <td width="50%">
+                    <table border="1" width="100%">
+                        <tr>
+                            <th style="border:1px solid black;">{POSSIBLE_ANSWER_LABEL}</th>
+                            <th style="border:1px solid black;">{POSSIBLE_ANSWER_AMOUNT}</th>
+                            <th style="border:1px solid black;">{POSSIBLE_ANSWER_PERCENT}</th>
+                        </tr>
+                        <!-- BEGIN BLOCK_RESULTS_OPTION -->
+                        <tr>
+                            <td>{OPTION_LABEL}</td>
+                            <td>{OPTION_RESULT}</td>
+                            <td>{OPTION_PERCENT}</td>
+                        </tr>
+                        <!-- END BLOCK_RESULTS_OPTION -->
+                    </table>
+                    <br>
+            <center>
+                {QUESTION_STATS}
+            </center>
+            <br>
+            {INFO_TEXT}
+            </td>
+            <td>
+                <div id="chart_div_{QUESTION_ID}"></div>
+            </td>
+</tr>
+</table>
+</td>
+</tr>
+<script type="text/javascript">
+                                google.setOnLoadCallback(drawChart{QUESTION_ID});
+                                function drawChart{QUESTION_ID}() {
+                        var data = new google.visualization.DataTable();
+                                data.addColumn("string", "Task");
+                                data.addColumn("number", "%");
+                                data.addRows({OPTION_COUNT});<!-- BEGIN BLOCK_SCRIPT_OPTION -->
+                                data.setValue({OPTION_COUNTER}, 0, "{OPTION_SCRIPT_LABEL}");
+                                data.setValue({OPTION_COUNTER}, 1, {OPTION_SCRIPT_RESULT});<!-- END BLOCK_SCRIPT_OPTION -->
+                                var chart = new google.visualization.BarChart(document.getElementById("chart_div_{QUESTION_ID}"));
+                                chart.draw(data, {width: 450, height: 200, backgroundColor: "#EEEEEE", hAxis: {minValue: 0, maxValue: 100}});
+                        }
+</script>
+<!-- END BLOCK_RESULTS -->

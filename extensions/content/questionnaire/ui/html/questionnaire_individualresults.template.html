@@ -1,0 +1,59 @@
+<!-- BEGIN BLOCK_RESULTS -->
+{INIT_JS_SORT}
+<center style="font-size:11px">
+	<table width="100%" class="grid" border="0">
+		<tr>
+			<th><center><font size="3">{RESULTS_LABEL} ({RESULTS_AMOUNT})</font></center></th>
+		</tr>
+		<tr>
+			<td>
+				<div style="width:940px; overflow:auto;">
+					<table class="questionnaire_style tablesorter" id="resulttable">
+						<thead>
+							<tr>
+								<!-- BEGIN BLOCK_QUESTION -->
+								<th id="{TIPSY_ID}" style="padding-right:15px;">
+									{QUESTION_TEXT}
+									{TIPSY_HTML}
+								</th>
+								<!-- END BLOCK_QUESTION -->
+								<th style="display: {DISPLAY_PARTICIPANTS};">
+									{PARTICIPANT_LABEL}
+								</th>
+								<th style="display: {DISPLAY_TIME}; padding-right:20px;">
+									{TIME_LABEL}
+								</th>
+								<th>
+									Aktionen
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- BEGIN BLOCK_RESULT -->
+							<tr>
+								<!-- BEGIN BLOCK_RESULT_COL -->
+								<td valign="top" style="background-color: {BG_COLOR_COL};">
+									{RESULT_HTML}
+								</td>
+								<!-- END BLOCK_RESULT_COL -->
+								<td style="background-color: {BG_COLOR}; display: {DISPLAY_PARTICIPANTS_RESULT};">
+									<a href="{USER_URL}">{USER_NAME}</a>
+								</td>
+								<td style="background-color: {BG_COLOR}; display: {DISPLAY_TIME_RESULT};">
+									{TIMESTAMP}
+								</td>
+								<td style="background-color: {BG_COLOR};">
+									<a href="{VIEW_URL}"><img style="cursor: hand;" src="{ASSET_URL}/preview.png" title="{VIEW_TITLE}" width="12px" height="12px"></a>
+									<a href="{EDIT_URL}" style="display:{DISPLAY_EDIT}"><img style="cursor: hand;" src="{ASSET_URL}/edit.png" title="{EDIT_TITLE}" width="12px" height="12px"></a>
+									<a href="#" onclick="deleteResult({RESULT_ID}, {RESULT_SURVEY}, {RESULT_RF})"><img style="cursor: hand; display:{DISPLAY_EDIT};" src="{ASSET_URL}/delete.png" title="{DELETE_TITLE}" width="12px" height="12px"></a>
+								</td>
+							</tr>
+							<!-- END BLOCK_RESULT -->
+						</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</center>
+<!-- END BLOCK_RESULTS -->
