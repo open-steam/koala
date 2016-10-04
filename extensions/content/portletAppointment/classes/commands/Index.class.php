@@ -170,19 +170,19 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $indexCount++;
                 $endterm = false;
 
-                if ($appointment["start_date"]["day"] != "") {
+                if ($appointment["start_date"]["day"] !== "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_STARTDATE");
                     $tmpl->setVariable("STARTDATE", $appointment["start_date"]["day"] . "." . $appointment["start_date"]["month"] . "." . $appointment["start_date"]["year"]);
                     $tmpl->parse("BLOCK_TERM_STARTDATE");
                 }
 
-                if (trim($appointment["location"]) != "" && trim($appointment["location"]) != "0") {
+                if (trim($appointment["location"]) !== "" && trim($appointment["location"]) !== "0") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_LOCATION");
                     $tmpl->setVariable("LOCATION", $UBB->encode($appointment["location"]));
                     $tmpl->parse("BLOCK_TERM_LOCATION");
                 }
 
-                if ($appointment["end_date"]["day"] != "") {
+                if ($appointment["end_date"]["day"] !== "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_ENDDATE");
                     $tmpl->setVariable("ENDDATE", $appointment["end_date"]["day"] . "." . $appointment["end_date"]["month"] . "." . $appointment["end_date"]["year"]);
                     $tmpl->parse("BLOCK_TERM_ENDDATE");
@@ -192,13 +192,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $endterm = true;
                 }
 
-                if ($appointment["start_time"]["hour"] != "") {
+                if ($appointment["start_time"]["hour"] !== "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_STARTTIME");
                     $tmpl->setVariable("STARTTIME", $appointment["start_time"]["hour"] . "." . $appointment["start_time"]["minutes"] . " Uhr");
                     $tmpl->parse("BLOCK_TERM_STARTTIME");
                 }
 
-                if ($appointment["end_time"]["hour"] != "") {
+                if ($appointment["end_time"]["hour"] !== "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_ENDTIME");
                     $tmpl->setVariable("ENDTIME", $appointment["end_time"]["hour"] . "." . $appointment["end_time"]["minutes"] . " Uhr");
                     $tmpl->parse("BLOCK_TERM_ENDTIME");
@@ -209,13 +209,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     }
                 }
 
-                if (trim($appointment["description"]) != "" && trim($appointment["description"]) != "0") {
+                if (trim($appointment["description"]) !== "" && trim($appointment["description"]) !== "0") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_DESCRIPTION");
                     $tmpl->setVariable("DESCRIPTION", $UBB->encode($appointment["description"]));
                     $tmpl->parse("BLOCK_TERM_DESCRIPTION");
                 }
 
-                if (trim($appointment["linkurl"]) != "" && trim($appointment["linkurl"]) != "0") {
+                if (trim($appointment["linkurl"]) !== "" && trim($appointment["linkurl"]) !== "0") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_LINK");
 
                     //open link in new window
