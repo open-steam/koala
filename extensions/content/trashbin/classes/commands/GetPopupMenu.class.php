@@ -54,7 +54,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     $formerEnvironment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $object->get_attribute("OBJ_LAST_LOCATION_ID"));
                     if ($formerEnvironment instanceof \steam_object && $formerEnvironment->check_access(SANCTION_WRITE)) {
                         $restoreIcon = $explorerAssetUrl . "icons/menu/svg/restore.svg";
-                        $items[] = array("name" => "<svg><use xlink:href='{$restoreIcon}#restore'/></svg> Zurücklegen".$formerEnvironment->get_id(), "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'restoreFromTrashbin': 'true'}", "type" => "nonModalUpdater");
+                        $items[] = array("name" => "<svg><use xlink:href='{$restoreIcon}#restore'/></svg> Zurücklegen", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'restoreFromTrashbin': 'true'}", "type" => "nonModalUpdater");
                     }
                 }
             }
