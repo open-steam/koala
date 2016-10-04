@@ -24,7 +24,7 @@ class Restore extends \AbstractCommand implements \IAjaxCommand {
 
         if (isset($this->params["restoreFromTrashbin"]) && $this->params["restoreFromTrashbin"] === 'true') {
             $this->env = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->object->get_attribute("OBJ_LAST_LOCATION_ID"));
-            if ($this->env instanceof \steam_object) {
+            if ($this->env instanceof \steam_object && $this->env->check_access_write()) {
                 $this->restoreFromTrashbin = true;
                 $this->object->move($this->env);
             }
@@ -37,6 +37,9 @@ class Restore extends \AbstractCommand implements \IAjaxCommand {
             }
 
             $this->trashbin = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_TRASHBIN");
+
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+            $object->move($this->env);
         }
     }
 
@@ -70,4 +73,5 @@ class Restore extends \AbstractCommand implements \IAjaxCommand {
     }
 
 }
+
 ?>
