@@ -81,13 +81,6 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$survey_object->parseXML($xml);
 		$questions = $survey_object->getQuestions();
 
-		if($resultNumber == 0){
-			$rawWidget = new \Widgets\RawHtml();
-			$rawWidget->setHtml("<p>Anzahl Abgaben: " . $resultNumber . "</p>");
-			$frameResponseObject->addWidget($rawWidget);
-			return $frameResponseObject;
-		}
-
 		$content = $QuestionnaireExtension->loadTemplate("questionnaire_individualresults.template.html");
 		$content->setCurrentBlock("BLOCK_RESULTS");
 		//$content->setVariable("RESULTS_LABEL", "Individuelle Auswertung");
@@ -232,7 +225,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$frameResponseObject->addWIdget($tipsy);
 		$PopupMenuStyle = \Widgets::getInstance()->readCSS("PopupMenu.css");
 		$rawWidget = new \Widgets\RawHtml();
-		$rawWidget->setHtml($content->get() . "<div id='result-overlay'><style>" . $PopupMenuStyle . "</style>");
+		$rawWidget->setHtml($content->get() . "<style>" . $PopupMenuStyle . "</style>");
 		$frameResponseObject->addWidget($rawWidget);
 		return $frameResponseObject;
 	}
