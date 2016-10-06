@@ -536,7 +536,14 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           $multipleFill->setData($object);
           $multipleFill->setType("horizontal");
           $multipleFill->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_PARTICIPATION_TIMES"));
-          $multipleFill->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
+          $multipleFill->setOptions(array(array("name" => "Ja", "value" => 0), array("name" => "Nein", "value" => 1)));
+
+          $startType = new \Widgets\RadioButton();
+          $startType->setLabel("Durchführung:");
+          $startType->setData($object);
+          $startType->setType("horizontal");
+          $startType->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_STARTTYPE"));
+          $startType->setOptions(array(array("name" => "manuell", "value" => 0), array("name" => "zeitgesteuert", "value" => 1)));
 
           $showParticipants = new \Widgets\RadioButton();
           $showParticipants->setLabel("Teilnehmer anzeigen:");
@@ -568,6 +575,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
           if(!$isWriteable){
               $multipleFill->setReadOnly(true);
+              $startType->setReadOnly(true);
               $showParticipants->setReadOnly(true);
               $showCreationTime->setReadOnly(true);
               $adminEdit->setReadOnly(true);
@@ -575,6 +583,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           }
 
           $dialog->addWidget($multipleFill);
+
+          $dialog->addWidget($startType);
 
           $dialog->addWidget($textAreaDescription);
 

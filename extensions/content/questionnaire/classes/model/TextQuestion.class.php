@@ -41,9 +41,9 @@ class TextQuestion extends AbstractQuestion {
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$content = $QuestionnaireExtension->loadTemplate("questiontypes/textquestion.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
-                 if($number != -1){
-                    $content->setVariable("NUMBER", $number);
-                }
+    if($number != -1){
+    $content->setVariable("NUMBER", $number);
+    }
 		$content->setVariable("ELEMENT_ID", $id);
 		$content->setVariable("ASSETURL", $QuestionnaireExtension->getAssetUrl() . "icons/");
 		$content->setVariable("EDIT_LABEL", "Bearbeiten");

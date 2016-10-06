@@ -38,17 +38,27 @@ class Export extends \AbstractCommand implements \IFrameCommand {
             $this->survey_object->parseXML($xml);
 
             $this->user = $GLOBALS["STEAM"]->get_current_steam_user();
-            $this->staff = $this->questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
+						$creator = $this->questionnaire->get_creator();
 
-            foreach ($this->staff as $group) {
-                if ($group->is_member($this->user)) {
-                    $this->admin = 1;
-                    break;
-		}
-            }
-            if ($this->questionnaire->get_creator()->get_id() == $this->user->get_id()) {
-                $this->admin = 1;
-            }
+		    		// check if current user is admin
+		    		$staff = $this->questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
+		    		$this->admin = 0;
+		    		if ($creator->get_id() == $this->user->get_id() || \lms_steam::is_steam_admin($this->user)) {
+		    			$this->admin = 1;
+		    		}
+		    		else{
+		    			if(in_array($this->user, $staff)){
+		    				$this->admin = 1;
+		    			}
+		    			else{
+		    				foreach ($staff as $object) {
+		    					if ($object instanceof steam_group && $object->is_member($this->user)) {
+		    						$this->admin = 1;
+		    						break;
+		    					}
+		    				}
+		    			}
+		    		}
 
             if ($this->admin == 1) {
                 $this->objPHPExcel = new \PHPExcel();
@@ -125,8 +135,8 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 
             $questions = $this->survey_object->getQuestions();
 
-		$questionCount = 1;
-		foreach ($questions as $question) {
+						$questionCount = 1;
+						foreach ($questions as $question) {
                     if ($question instanceof \Questionnaire\Model\AbstractQuestion) {
                         if ($question instanceof \Questionnaire\Model\TextQuestion) {
                             $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, "Frage ".$questionCount . " (kurzer Text)");
@@ -209,15 +219,13 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 			$column++;
 		}
 
+  }
 
-        }
-
-        private function buildAnswerRows($row)
-        {
+        private function buildAnswerRows($row){
             $resultCount = 1;
                 //go into the directory and get all results
                 $results = $this->result_container->get_inventory();
-		foreach ($results as $result) {
+								foreach ($results as $result) {
                     $column = 1;
                     if ($result instanceof \steam_object && $result->get_attribute("QUESTIONNAIRE_RELEASED") != 0) {
 
@@ -271,7 +279,6 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                         $resultCount++;
                         $row++;
                     }
-
 
 		}
 

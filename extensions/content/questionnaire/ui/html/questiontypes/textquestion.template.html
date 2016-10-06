@@ -43,9 +43,9 @@
 <!-- END BLOCK_VIEW -->
 
 <!-- BEGIN BLOCK_NO_RESULTS -->
-<tr>
-    <td>
-        <font size="2"><b>{QUESTION_TEXT}</b></font>
+<tr class="question">
+    <td class="question_container">
+        <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
         <br>
         {NO_RESULTS}
     </td>
@@ -53,12 +53,12 @@
 <!-- END BLOCK_NO_RESULTS -->
 
 <!-- BEGIN BLOCK_RESULTS -->
-<tr>
-    <td>
-        <font size="2"><b>{QUESTION_TEXT}</b></font>
+<tr class="question">
+    <td class="question_container">
+        <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
         <br>
         <!-- BEGIN BLOCK_RESULT -->
-        <font style="background-color: #C0C0C0; line-height:14pt;">- {RESULT_TEXT}</font>
+        <font style="line-height:14pt;">- {RESULT_TEXT}</font>
         <br>
         <!-- END BLOCK_RESULT -->
     </td>

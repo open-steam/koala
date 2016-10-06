@@ -66,9 +66,9 @@
 <!-- END BLOCK_VIEW -->
 
 <!-- BEGIN BLOCK_NO_RESULTS -->
-<tr>
-	<td>
-		<font size="2"><b>{QUESTION_TEXT}</b></font>
+<tr class="question">
+	<td class="question_container">
+		<div class="question_headline"><b>{QUESTION_TEXT}</b></div>
 		<br>
 		{NO_RESULTS}
 	</td>
@@ -76,21 +76,21 @@
 <!-- END BLOCK_NO_RESULTS -->
 
 <!-- BEGIN BLOCK_RESULTS -->
-<tr>
-	<td>
-		<font size="2"><b>{QUESTION_TEXT}</b></font>
+<tr class="question">
+	<td class="question_container">
+		<div class="question_headline"><b>{QUESTION_TEXT}</b></div>
 		<br>
 		<table width="100%" class="questionnaire_style">
 			<tr>
 				<td width="50%">
-					<table border="1" width="100%">
+					<table width="100%">
 						<tr>
-							<th style="border:1px solid black;">{POSSIBLE_ANSWER_LABEL}</th>
-							<th style="border:1px solid black;">{POSSIBLE_ANSWER_AMOUNT}</th>
-							<th style="border:1px solid black;">{POSSIBLE_ANSWER_PERCENT}</th>
+							<th>{POSSIBLE_ANSWER_LABEL}</th>
+							<th>{POSSIBLE_ANSWER_AMOUNT}</th>
+							<th>{POSSIBLE_ANSWER_PERCENT}</th>
 						</tr>
 						<!-- BEGIN BLOCK_RESULTS_OPTION -->
-						<tr>
+						<tr {ROW_STYLE}>
 							<td>{OPTION_LABEL}</td>
 							<td>{OPTION_RESULT}</td>
 							<td>{OPTION_PERCENT}</td>

@@ -158,6 +158,9 @@ class SingleChoiceQuestion extends AbstractQuestion {
 			$counter = 0;
 			foreach ($this->options as $option) {
 				$content->setCurrentBlock("BLOCK_RESULTS_OPTION");
+				if($counter % 2 != 0) {
+					$content->setVariable("ROW_STYLE", "style='background-color:white;'");
+				}
 				$content->setVariable("OPTION_LABEL", $option);
 				$content->setVariable("OPTION_RESULT", $this->results[$counter]);
 				if ($resultCount != 0) {
@@ -209,7 +212,7 @@ class SingleChoiceQuestion extends AbstractQuestion {
 				$s = $s + ($resultArray[$count] - $mw) * ($resultArray[$count] - $mw);
 			}
 			$s = round(sqrt($s), 1);
-			$content->setVariable("QUESTION_STATS", "n = " . $resultCount . ", mw = " . $mw . ", md = " . $md . ", s = " . $s);
+			$content->setVariable("QUESTION_STATS", "Anzahl: " . $resultCount . " Mittelwert: " . $mw . " Median: " . $md . " Standardabweichung: " . $s);
 			$content->parse("BLOCK_RESULTS");
 		}
 		return $content->get();

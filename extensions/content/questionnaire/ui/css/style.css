@@ -21,6 +21,16 @@
 	border-bottom: none;
 }
 
+.grid td {
+  background-color: transparent;
+}
+
+.grid th {
+  border: none;
+  background-color: #3a6e9f;
+  color: white;
+}
+
 .grid td.label {
 	font-weight: normal;
   text-align: left;
@@ -36,7 +46,7 @@
 #sortable_rf li {
 	margin: 0 5px 5px 5px;
 	padding: 5px;
-	font-size: 11px;
+	font-size: 12px;
 	height: auto;
 }
 
@@ -70,4 +80,27 @@ html>body #sortable_rf li {
 
 .dialog .widgets_radiobutton .widgets_label {
   width: 285px;
+}
+
+.question_headline {
+  background-color: #3a6e9f;
+  color: white;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  font-size: 12px;
+  padding: 3px;
+  margin: -5px;
+}
+
+.question_container {
+  background-color: #eee !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-top: 10px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.question {
+  border-top: 15px solid white;
 }

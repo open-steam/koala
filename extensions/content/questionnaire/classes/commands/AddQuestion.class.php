@@ -33,7 +33,7 @@ class AddQuestion extends \AbstractCommand implements \IAjaxCommand {
 				break;
 			case 3:
 				$newquestion = new \Questionnaire\Model\MultipleChoiceQuestion();
-                              				foreach ($this->params["options"] as $option) {
+        foreach ($this->params["options"] as $option) {
 					$newquestion->addOption(rawurldecode($option));
 				}
 				$newquestion->setArrangement($this->params["questionArrangement"]);

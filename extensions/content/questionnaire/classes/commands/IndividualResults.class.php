@@ -16,11 +16,12 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params[0]);
-                if (!($survey instanceof \steam_object)) {
-                    \ExtensionMaster::getInstance()->send404Error();
-                }
+    if (!($survey instanceof \steam_object)) {
+      \ExtensionMaster::getInstance()->send404Error();
+    }
 		$questionnaire = $survey->get_environment();
 		$result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
+		$resultNumber = $result_container->get_attribute("QUESTIONNAIRE_RESULTS");
 		$survey_object = new \Questionnaire\Model\Survey($questionnaire);
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
@@ -29,19 +30,28 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$QuestionnaireExtension->addJS();
 		$QuestionnaireExtension->addJS("jquery.tablesorter.js");
 		$QuestionnaireExtension->addCSS("jquery.tablesorter.css");
+		$creator = $questionnaire->get_creator();
 
-		// access not allowed for non-admins
+		// check if current user is admin
 		$staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
 		$admin = 0;
-		foreach ($staff as $group) {
-			if ($group->is_member($user)) {
-				$admin = 1;
-				break;
-			}
-		}
-		if ($questionnaire->get_creator()->get_id() == $user->get_id()) {
+		if ($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) {
 			$admin = 1;
 		}
+		else{
+			if(in_array($user, $staff)){
+				$admin = 1;
+			}
+			else{
+				foreach ($staff as $object) {
+					if ($object instanceof steam_group && $object->is_member($user)) {
+						$admin = 1;
+						break;
+					}
+				}
+			}
+		}
+
 		if ($admin == 0) {
 			$rawWidget = new \Widgets\RawHtml();
 			$rawWidget->setHtml("<center>Die Bearbeitung dieses Fragebogens ist den Administratoren vorbehalten.</center>");
@@ -52,8 +62,8 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		// display actionbar
 		$actionBar = new \Widgets\ActionBar();
 		$actions = array(
-			array("name" => "Export als Excel-Datei" , "link" => $QuestionnaireExtension->getExtensionUrl() . "export/" . $this->id . "/"),
-			array("name" => "Übersicht" , "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
+			//array("name" => "Export als Excel-Datei" , "link" => $QuestionnaireExtension->getExtensionUrl() . "export/" . $this->id . "/"),
+			//array("name" => "Übersicht" , "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
 			);
 		$actionBar->setActions($actions);
 		$frameResponseObject->addWidget($actionBar);
@@ -61,27 +71,31 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		// display tabbar
 		$tabBar = new \Widgets\TabBar();
 		$tabBar->setTabs(array(
-			array("name"=>"Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id . "/"),
-			array("name"=>"Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
+			array("name"=>"<svg style='height:16px; width:16px; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/user.svg#user'></use></svg> Individuelle Auswertung", "link"=>$this->getExtension()->getExtensionUrl() . "individualResults/" . $this->id . "/"),
+			array("name"=>"<svg style='height:16px; width:16px; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/group.svg#group'></use></svg> Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
 		));
 		$tabBar->setActiveTab(0);
 		$frameResponseObject->addWidget($tabBar);
 
 		$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
 		$survey_object->parseXML($xml);
+		$questions = $survey_object->getQuestions();
+
+		if($resultNumber == 0){
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<p>Anzahl Abgaben: " . $resultNumber . "</p>");
+			$frameResponseObject->addWidget($rawWidget);
+			return $frameResponseObject;
+		}
 
 		$content = $QuestionnaireExtension->loadTemplate("questionnaire_individualresults.template.html");
 		$content->setCurrentBlock("BLOCK_RESULTS");
-		$content->setVariable("RESULTS_LABEL", "Individuelle Auswertung");
-		if ($result_container->get_attribute("QUESTIONNAIRE_RESULTS") != 1) {
-			$content->setVariable("RESULTS_AMOUNT", $result_container->get_attribute("QUESTIONNAIRE_RESULTS") . " Abgaben");
-		} else {
-			$content->setVariable("RESULTS_AMOUNT", $result_container->get_attribute("QUESTIONNAIRE_RESULTS") . " Abgabe");
-		}
+		//$content->setVariable("RESULTS_LABEL", "Individuelle Auswertung");
+		$content->setVariable("RESULTS_AMOUNT", "Anzahl Abgaben: " . $resultNumber);
 
 		// display questions in the first line
 		$questionCount = 1;
-		foreach ($survey_object->getQuestions() as $question) {
+		foreach ($questions as $question) {
 			if ($question instanceof \Questionnaire\Model\AbstractQuestion) {
 				$content->setCurrentBlock("BLOCK_QUESTION");
 				$text = "";
@@ -103,7 +117,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				if (strlen($text) > 25) {
 					$text = substr($text, 0, 25) . "...";
 				}
-				$text = $text . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+				//$text = $text . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
 				$content->setVariable("QUESTION_TEXT", $questionCount . "." . $text);
 				$tipsy = new \Widgets\Tipsy();
 				$tipsy->setElementId("tipsy" . $questionCount);
@@ -126,15 +140,17 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("TIME_LABEL", "Erstellungszeit");
 		}
 
-		// initialize table sorting
-		$initJS = '$(document).ready(function() {
-					        $("#resulttable").tablesorter({
-					        	headers : {' .
-					        	 	($questionCount+1) . ': { sorter : false }
-								}, sortList: [[' . $questionCount . ',1]]
-							});
-				   });';
-		$content->setVariable("INIT_JS_SORT", "<script>" . $initJS . "</script>");
+		if($resultNumber != 0){
+			// initialize table sorting
+			$initJS = '$(document).ready(function() {
+						        $("#resulttable").tablesorter({
+						        	headers : {' .
+						        	 	($questionCount+1) . ': { sorter : false }
+									}, sortList: [[' . $questionCount . ',1]]
+								});
+					   });';
+			$content->setVariable("INIT_JS_SORT", "<script>" . $initJS . "</script>");
+		}
 
 		// display results
 		$results = $result_container->get_inventory();
@@ -154,7 +170,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 					if ($resultCount % 2 == 0) {
 						$content->setVariable("BG_COLOR_COL", "#FFFFFF");
 					} else {
-						$content->setVariable("BG_COLOR_COL", "#FFFCCC");
+						$content->setVariable("BG_COLOR_COL", "#EEE");
 					}
 					$content->setVariable("RESULT_HTML", $resultHTML);
 					$content->parse("BLOCK_RESULT_COL");
@@ -173,8 +189,18 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				if ($resultCount % 2 == 0) {
 					$content->setVariable("BG_COLOR", "#FFFFFF");
 				} else {
-					$content->setVariable("BG_COLOR", "#FFFCCC");
+					$content->setVariable("BG_COLOR", "#EEE");
 				}
+
+				$popupMenu = new \Widgets\PopupMenu();
+				$popupMenu->setCommand("GetPopupMenu");
+				$popupMenu->setNamespace("Questionnaire");
+				$popupMenu->setData($questionnaire);
+				$popupMenu->setElementId("result-overlay");
+				$popupMenu->setParams(array(array("key" => "resultId", "value" => $result->get_id())));
+
+				$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+/*
 				$content->setVariable("ASSET_URL", $QuestionnaireExtension->getAssetUrl() . "icons");
 				$content->setVariable("VIEW_TITLE", "Details");
 				$content->setVariable("VIEW_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $this->id . "/1/" . $result->get_id() . "/1" . "/");
@@ -185,6 +211,14 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 					$content->setVariable("DISPLAY_EDIT", "none");
 				}
 				$content->setVariable("DELETE_TITLE", "Löschen");
+*/
+
+				//bearbeiten und löschen braucht admin edit == 1
+
+				//<a href="{VIEW_URL}"><img style="cursor: hand;" src="{ASSET_URL}/preview.png" title="{VIEW_TITLE}" width="12px" height="12px"></a>
+				//<a href="{EDIT_URL}" style="display:{DISPLAY_EDIT}"><img style="cursor: hand;" src="{ASSET_URL}/edit.png" title="{EDIT_TITLE}" width="12px" height="12px"></a>
+				//<a href="#" onclick="deleteResult({RESULT_ID}, {RESULT_SURVEY}, {RESULT_RF})"><img style="cursor: hand; display:{DISPLAY_EDIT};" src="{ASSET_URL}/delete.png" title="{DELETE_TITLE}" width="12px" height="12px"></a>
+
 				$content->setVariable("RESULT_ID", $result->get_id());
 				$content->setVariable("RESULT_SURVEY", $survey->get_id());
 				$content->setVariable("RESULT_RF", $questionnaire->get_id());
@@ -196,9 +230,9 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 
 		$tipsy = new \Widgets\Tipsy();
 		$frameResponseObject->addWIdget($tipsy);
-
+		$PopupMenuStyle = \Widgets::getInstance()->readCSS("PopupMenu.css");
 		$rawWidget = new \Widgets\RawHtml();
-		$rawWidget->setHtml($content->get());
+		$rawWidget->setHtml($content->get() . "<div id='result-overlay'><style>" . $PopupMenuStyle . "</style>");
 		$frameResponseObject->addWidget($rawWidget);
 		return $frameResponseObject;
 	}

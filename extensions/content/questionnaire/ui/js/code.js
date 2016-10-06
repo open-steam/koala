@@ -413,8 +413,7 @@ function initiateCounter() {
  * function to save the order in sortable
  */
 function getSortables() {
-    if (!checkTitle())
-        return false;
+    //if (!checkTitle()) return false;
     var result = $('#sortable_rf').sortable('toArray');
     document.getElementById("sortable_array").value = result;
 }

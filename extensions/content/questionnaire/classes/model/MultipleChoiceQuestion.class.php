@@ -167,6 +167,9 @@ class MultipleChoiceQuestion extends AbstractQuestion {
             $counter = 0;
             foreach ($this->options as $option) {
                 $content->setCurrentBlock("BLOCK_RESULTS_OPTION");
+                if($counter % 2 != 0) {
+                  $content->setVariable("ROW_STYLE", "style='background-color:white;'");
+                }
                 $content->setVariable("OPTION_LABEL", $option);
                 $content->setVariable("OPTION_RESULT", $this->results[$counter]);
                 $content->setVariable("OPTION_PERCENT", round((($this->results[$counter] / $this->resultCount) * 100), 1));
@@ -179,14 +182,15 @@ class MultipleChoiceQuestion extends AbstractQuestion {
             $counter = 0;
             foreach ($this->options as $option) {
                 $content->setCurrentBlock("BLOCK_SCRIPT_OPTION");
+
                 $content->setVariable("OPTION_SCRIPT_LABEL", $option);
                 $content->setVariable("OPTION_COUNTER", $counter);
                 $content->setVariable("OPTION_SCRIPT_RESULT", round((($this->results[$counter] / $this->resultCount) * 100), 1));
                 $content->parse("BLOCK_SCRIPT_OPTION");
                 $counter++;
             }
-            $content->setVariable("QUESTION_STATS", "n = " . $this->resultCount);
-            $content->setVariable("INFO_TEXT", "Die Prozentwerte können zusammengerechnet mehr als 100% ergeben, weil die Befragten mehrere Antworten auswählen konnten.");
+            $content->setVariable("QUESTION_STATS", "Anzahl: " . $this->resultCount);
+            $content->setVariable("INFO_TEXT", "Die Prozentwerte können zusammengerechnet mehr als 100% ergeben, da die Befragten mehrere Antworten auswählen konnten.");
             $content->parse("BLOCK_RESULTS");
         }
         return $content->get();

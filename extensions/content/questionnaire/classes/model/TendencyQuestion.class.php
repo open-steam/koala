@@ -160,15 +160,19 @@ class TendencyQuestion extends AbstractQuestion {
 			$content->setCurrentBlock("BLOCK_RESULTS");
 			$content->setVariable("QUESTION_TEXT", $this->questionText);
 			$content->setVariable("QUESTION_ID", $id);
+			$content->setVariable("STATS_LABEL", "Statistik");
 			for ($count = 0; $count < $this->steps; $count++) {
 				$content->setCurrentBlock("BLOCK_FIRST_ROW_STEP");
 				$content->setVariable("FIRST_ROW_ID", $id);
-				$content->setVariable("FIRST_ROW_COUNTER", $count+1);
+				//$content->setVariable("FIRST_ROW_COUNTER", $count+1);
 				$content->parse("BLOCK_FIRST_ROW_STEP");
 			}
 			$counter = 0;
 			foreach ($this->options as $option) {
 				$content->setCurrentBlock("BLOCK_RESULTS_ROW");
+				if($counter % 2 != 0) {
+					$content->setVariable("ROW_STYLE", "style='background-color:white;'");
+				}
 				$content->setVariable("ROW_LABEL1", $option[0]);
 				$content->setVariable("ROW_LABEL2", $option[1]);
 				for ($count = 0; $count < $this->steps; $count++) {
@@ -215,12 +219,12 @@ class TendencyQuestion extends AbstractQuestion {
 					$md = 0;
 					$s = 0;
 				}
-				$content->setVariable("STATS_LABEL", "Statistik");
-				$tipsy = new \Widgets\Tipsy();
-				$tipsy->setElementId("tipsy" . $id . "_" . $counter);
-				$tipsy->setHtml("<div>n = " . $this->resultCount[$counter] . "<br>mw = " . $mw . "<br>md = " . $md . "<br>s = " . $s . "</div>");
-				$content->setVariable("TIPSY_ID", "tipsy" . $id . "_" . $counter);
-				$content->setVariable("TIPSY_HTML", "<script>" . $tipsy->getHtml() . "</script>");
+				//$tipsy = new \Widgets\Tipsy();
+				//$tipsy->setElementId("tipsy" . $id . "_" . $counter);
+				//$tipsy->setHtml("<div>n = " . $this->resultCount[$counter] . "<br>mw = " . $mw . "<br>md = " . $md . "<br>s = " . $s . "</div>");
+				//$content->setVariable("TIPSY_ID", "tipsy" . $id . "_" . $counter);
+				//$content->setVariable("TIPSY_HTML", "<script>" . $tipsy->getHtml() . "</script>");
+				$content->setVariable("STATS", "Anzahl: " . $this->resultCount[$counter] . " Mittelwert: " . $mw . " Median: " . $md . " Standardabweichung: " . $s);
 				$content->parse("BLOCK_RESULTS_ROW");
 				$counter++;
 			}

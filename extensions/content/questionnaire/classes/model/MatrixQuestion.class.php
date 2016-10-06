@@ -199,6 +199,7 @@ class MatrixQuestion extends AbstractQuestion {
 			$content->setCurrentBlock("BLOCK_RESULTS");
 			$content->setVariable("QUESTION_TEXT", $this->questionText);
 			$content->setVariable("QUESTION_ID", $id);
+			$content->setVariable("STATS_LABEL", "Statistik");
 
 			foreach ($this->columns as $column) {
 				$content->setCurrentBlock("BLOCK_RESULTS_COLUMN");
@@ -209,6 +210,9 @@ class MatrixQuestion extends AbstractQuestion {
 			$counter = 0;
 			foreach ($this->rows as $row) {
 				$content->setCurrentBlock("BLOCK_RESULTS_ROW");
+				if($counter % 2 != 0) {
+					$content->setVariable("ROW_STYLE", "style='background-color:white;'");
+				}
 				$content->setVariable("ROW_LABEL", $row);
 				for ($count = 0; $count < count($this->columns); $count++) {
 					$content->setCurrentBlock("BLOCK_RESULTS_ROW_ELEMENT");
@@ -254,12 +258,12 @@ class MatrixQuestion extends AbstractQuestion {
 					$md = 0;
 					$s = 0;
 				}
-				$content->setVariable("STATS_LABEL", "Statistik");
-				$tipsy = new \Widgets\Tipsy();
-				$tipsy->setElementId("tipsy" . $id . "_" . $counter);
-				$tipsy->setHtml("<div>n = " . $this->resultCount[$counter] . "<br>mw = " . $mw . "<br>md = " . $md . "<br>s = " . $s . "</div>");
-				$content->setVariable("TIPSY_ID", "tipsy" . $id . "_" . $counter);
-				$content->setVariable("TIPSY_HTML", "<script>" . $tipsy->getHtml() . "</script>");
+				$content->setVariable("STATS", "Anzahl: " . $this->resultCount[$counter] . " Mittelwert: " . $mw . " Median: " . $md . " Standardabweichung: " . $s);
+				//$tipsy = new \Widgets\Tipsy();
+				//$tipsy->setElementId("tipsy" . $id . "_" . $counter);
+				//$tipsy->setHtml("<div>n = " . $this->resultCount[$counter] . "<br>mw = " . $mw . "<br>md = " . $md . "<br>s = " . $s . "</div>");
+				//$content->setVariable("TIPSY_ID", "tipsy" . $id . "_" . $counter);
+				//$content->setVariable("TIPSY_HTML", "<script>" . $tipsy->getHtml() . "</script>");
 				$content->parse("BLOCK_RESULTS_ROW");
 				$counter++;
 			}

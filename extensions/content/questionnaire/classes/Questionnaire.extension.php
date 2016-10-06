@@ -28,7 +28,7 @@ class Questionnaire extends AbstractExtension implements IObjectExtension, IIcon
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/rapidfeedback.svg";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/questionnaire.svg";
 	}
 
 	public function getHelpUrl(){
@@ -66,15 +66,54 @@ class Questionnaire extends AbstractExtension implements IObjectExtension, IIcon
 			}
 
 			if($currentObjectID != ""){
-				$obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
-				$env = $obj->get_environment();
+				$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+				if($object instanceof \steam_room){
+					$questionnaire = $object;
+					$questionnaireId = $currentObjectID;
+					$survey = $questionnaire->get_inventory()[0];
+					$surveyId = $survey->get_id();
+				}
+				else{
+					$survey = $object;
+					$surveyId = $currentObjectID;
+					$questionnaire = $survey->get_environment();
+					$questionnaireId = $questionnaire->get_id();
+				}
+
 				$array = array();
 				$user = lms_steam::get_current_user();
-				$checkAccessAdmin = $obj->check_access(SANCTION_ALL, $user);
+				$checkAccessAdmin = $survey->check_access(SANCTION_ALL, $user);
 				if ($checkAccessAdmin) {
-						$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$currentObjectID}}, '', 'popup', null, null, 'explorer');return false;");
-						$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$currentObjectID}, 'dialog':true}, '', 'popup', null, null, 'questionnaire');return false;");
+					if(strpos($path, "individualresults") !== false){
+						$array[] = array("name" => "<div title='Export als Excel-Datei'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/application_ms-excel.svg#application_ms-excel'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/export/" . $surveyId . "/'");
+						$array[] = array("name" => "<div title='Anzeigen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/questionnaire.svg#questionnaire'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/index/" . $questionnaireId . "/'");
+						$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$questionnaireId}}, '', 'popup', null, null, 'explorer');return false;");
+						$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$questionnaireId}, 'dialog':true}, '', 'popup', null, null, 'questionnaire');return false;");
 					}
+					else if(strpos($path, "overallresults") !== false){
+						$array[] = array("name" => "<div title='Anzeigen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/questionnaire.svg#questionnaire'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/index/" . $questionnaireId . "/'");
+						$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$questionnaireId}}, '', 'popup', null, null, 'explorer');return false;");
+						$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$questionnaireId}, 'dialog':true}, '', 'popup', null, null, 'questionnaire');return false;");
+					}
+					else if(strpos($path, "edit") !== false){
+						$array[] = array("name" => "<div title='Bearbeiten abschließen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/index/" . $questionnaireId . "/'");
+						$array[] = array("name" => "<div title='Auswertung'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/results.svg#results'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/overallResults/" . $surveyId . "/'");
+						$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$questionnaireId}}, '', 'popup', null, null, 'explorer');return false;");
+						$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$questionnaireId}, 'dialog':true}, '', 'popup', null, null, 'questionnaire');return false;");
+					}
+					else if(strpos($path, "view") !== false){
+						$array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/edit/" . $surveyId . "/'");
+						$array[] = array("name" => "<div title='Anzeigen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/questionnaire.svg#questionnaire'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/index/" . $questionnaireId . "/'");
+						$array[] = array("name" => "<div title='Auswertung'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/results.svg#results'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/overallResults/" . $surveyId . "/'");
+						$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$questionnaireId}}, '', 'popup', null, null, 'explorer');return false;");
+						$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$questionnaireId}, 'dialog':true}, '', 'popup', null, null, 'questionnaire');return false;");
+					}
+					else if(strpos($path, "index") !== false){
+						$array[] = array("name" => "<div title='Auswertung'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/results.svg#results'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/overallResults/" . $surveyId . "/'");
+						$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$questionnaireId}}, '', 'popup', null, null, 'explorer');return false;");
+						$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$questionnaireId}, 'dialog':true}, '', 'popup', null, null, 'questionnaire');return false;");
+					}
+				}
 				$array[] = array("name" => "SEPARATOR");
 				return $array;
 			}
