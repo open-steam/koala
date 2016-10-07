@@ -19,10 +19,10 @@
         </tr>
         <tr>
             <td style="padding:0px; border:0px;">
-                <h2 style="margin:0px;">Hinweis zum Überspringen von Fragen</h2>
+                <h2 style="margin:0px;">Sprungmarke</h2>
                 <div>{QUESTION_TEXT}</div>
                 <br>
-                <div>Direkt zu Frage {QUESTION_TO} <a>springen</a>.</div>                        
+                <div>Direkt zu Frage {QUESTION_TO} <a>springen</a>.</div>
             </td>
         </tr>
     </table>
@@ -33,10 +33,10 @@
 
 <!-- BEGIN BLOCK_VIEW -->
 
-<tr>
-    <td>
-        <div><b>Hinweis zum Überspringen von Fragen</b></div>
-
+<tr class="question">
+    <td class="question_container">
+        <div class="question_headline"><b>Sprungmarke</b></div>
+        <br>
         <div>{QUESTION_TEXT}</div>
         <br>
         <div>Direkt zu Frage {QUESTION_TO} <a href="{JUMP_TO}">springen</a>.</div>

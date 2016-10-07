@@ -41,11 +41,11 @@
 <!-- END BLOCK_EDIT -->
 
 <!-- BEGIN BLOCK_VIEW -->
-<tr>
-	<td style="{ERROR_BORDER}">
-		<b>{QUESTION_TEXT}</b>
+<tr class="question">
+    <td style="{ERROR_BORDER}" class="question_container">
+		<div class="question_headline"><b>{QUESTION_TEXT}</b></div>
 		<br>
-		{HELP_TEXT}
+		<div>{HELP_TEXT}</div>
 		<br>
 		<table class="questionnaire_style" style="text-align: left;">
 			<!-- BEGIN BLOCK_ROW_VIEW -->
@@ -56,7 +56,7 @@
 					<input type="radio" name="question{QUESTION_ID}" {OPTION_CHECKED} {QUESTION_DISABLED} value="{QUESTION_COUNTER}">
 					<!-- END BLOCK_OPTION_VIEW -->
 				</td>
-				<td style="padding: 0px 5px 0px 0px; border:0px;">{OPTION_LABEL}</td>
+				<td style="padding: 0px 10px 0px 0px; border:0px;">{OPTION_LABEL}</td>
 				<!-- END BLOCK_COLUMN_VIEW -->
 			</tr>
 			<!-- END BLOCK_ROW_VIEW -->

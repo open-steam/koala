@@ -170,6 +170,9 @@ class MultipleChoiceQuestion extends AbstractQuestion {
                 if($counter % 2 != 0) {
                   $content->setVariable("ROW_STYLE", "style='background-color:white;'");
                 }
+                else{
+                  $content->setVariable("ROW_STYLE", "style='background-color:#CFCFCF'");
+                }
                 $content->setVariable("OPTION_LABEL", $option);
                 $content->setVariable("OPTION_RESULT", $this->results[$counter]);
                 $content->setVariable("OPTION_PERCENT", round((($this->results[$counter] / $this->resultCount) * 100), 1));

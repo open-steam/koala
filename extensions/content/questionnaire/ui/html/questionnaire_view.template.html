@@ -1,3 +1,5 @@
+{QUESTIONNAIRE_NAME}
+{QUESTIONNAIRE_DESC}
 <!-- BEGIN BLOCK_VIEW_SURVEY -->
 <form action="" id="form" method="post" style="font-size:12px">
 	<center>
@@ -5,19 +7,19 @@
 			{SURVEY_NAME}
 			{SURVEY_PAGE}
 		</h1>
-		<table class="grid" border="0" width="75%">
+		<table class="grid" border="0" width="100%">
 			<tr style="display:{DISPLAY_BEGIN};">
-				<td>{SURVEY_BEGIN}</td>
+				<td><h3>{SURVEY_BEGIN}</h3></td>
 			</tr>
 			{QUESTIONS_HTML}
 			<tr style="display:{DISPLAY_END};">
-				<td>{SURVEY_END}</td>
+				<td><h3>{SURVEY_END}</h3></td>
 			</tr>
 			<tr>
 				<td>
 					<div class="buttons">
-						<input type="button" onclick="submitPrevious('{PREVIOUS_URL}');" name="previous" style="text-align:left; display:{DISPLAY_PREVIOUS}" value="{PREVIOUS_LABEL}">
-						<input type="button" onclick="submitNext('{NEXT_URL}');" name="next" style="float: right; display:{DISPLAY_NEXT}" value="{NEXT_LABEL}">
+						<input type="button" class="bidButton" onclick="submitPrevious('{PREVIOUS_URL}');" name="previous" style="text-align:left; display:{DISPLAY_PREVIOUS}" value="{PREVIOUS_LABEL}">
+						<input type="button" class="bidButton" onclick="submitNext('{NEXT_URL}');" name="next" style="display:{DISPLAY_NEXT}" value="{NEXT_LABEL}">
 					</div>
 				</td>
 			</tr>

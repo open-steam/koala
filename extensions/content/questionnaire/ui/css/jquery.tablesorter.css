@@ -5,7 +5,7 @@ table.tablesorter {
 	font-size: 8pt;
 	width: 100%;
 	text-align: left;
-	border-spacing: 2px;
+	border-spacing: 0px;
 }
 
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {

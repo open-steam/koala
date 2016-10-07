@@ -173,6 +173,9 @@ class TendencyQuestion extends AbstractQuestion {
 				if($counter % 2 != 0) {
 					$content->setVariable("ROW_STYLE", "style='background-color:white;'");
 				}
+				else{
+					$content->setVariable("ROW_STYLE", "style='background-color:#CFCFCF'");
+				}
 				$content->setVariable("ROW_LABEL1", $option[0]);
 				$content->setVariable("ROW_LABEL2", $option[1]);
 				for ($count = 0; $count < $this->steps; $count++) {

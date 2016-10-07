@@ -161,6 +161,9 @@ class SingleChoiceQuestion extends AbstractQuestion {
 				if($counter % 2 != 0) {
 					$content->setVariable("ROW_STYLE", "style='background-color:white;'");
 				}
+				else{
+					$content->setVariable("ROW_STYLE", "style='background-color:#CFCFCF'");
+				}
 				$content->setVariable("OPTION_LABEL", $option);
 				$content->setVariable("OPTION_RESULT", $this->results[$counter]);
 				if ($resultCount != 0) {

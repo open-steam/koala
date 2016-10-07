@@ -271,16 +271,18 @@ class View extends \AbstractCommand implements \IFrameCommand {
       $actionbar = new \Widgets\Actionbar();
       if ($admin == 1 && $preview == 1 && ($state == 0 || $state == 1)) {
           $actions = array(
-              array("name" => "Fragebogen bearbeiten", "link" => $QuestionnaireExtension->getExtensionUrl() . "edit/" . $questionnaire->get_id() . "/" . $survey->get_id() . "/"),
-              array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
+              //array("name" => "Fragebogen bearbeiten", "link" => $QuestionnaireExtension->getExtensionUrl() . "edit/" . $questionnaire->get_id() . "/" . $survey->get_id() . "/"),
+              //array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
           );
       } else {
           $actions = array(
-              array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
+              //array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
           );
       }
       $actionbar->setActions($actions);
       $frameResponseObject->addWidget($actionbar);
+
+
 
       // display success msg if there was a submit, else just display survey
       if ($_SERVER["REQUEST_METHOD"] == "POST" && ($page > $pages) && empty($errors) && $preview == 0) {
@@ -307,6 +309,10 @@ class View extends \AbstractCommand implements \IFrameCommand {
 
           // display survey
           $content = $QuestionnaireExtension->loadTemplate("questionnaire_view.template.html");
+
+          $content->setVariable("QUESTIONNAIRE_NAME", '<svg style="width:16px; height:16px; float:left; color:#3a6e9f; right:5px; position:relative;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . PATH_URL . 'explorer/asset/icons/mimetype/svg/questionnaire.svg#questionnaire"></use></svg><h1>' . $questionnaire->get_name() . '</h1>');
+      		$content->setVariable("QUESTIONNAIRE_DESC", '<p style="color:#AAAAAA; clear:both; margin-top:0px">' . $questionnaire->get_attribute("OBJ_DESC") . '</p>');
+
           $content->setCurrentBlock("BLOCK_VIEW_SURVEY");
           if ($preview == 1) {
               $content->setVariable("SURVEY_NAME", $survey_object->getName() . " (Vorschau)");
@@ -394,7 +400,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
               $content->setVariable("NEXT_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/" . ($page + 1) . "/" . $resultOrPreview);
           } else if ($pages == $page) {
               if ($preview == 1 || $disabled == 1) {
-                  $content->setVariable("NEXT_LABEL", "Zurück zur Übersicht");
+                  $content->setVariable("DISPLAY_NEXT", "none");
                   $content->setVariable("NEXT_URL", $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/");
               } else {
                   $content->setVariable("NEXT_LABEL", "Fragebogen abschließen");

@@ -213,6 +213,9 @@ class MatrixQuestion extends AbstractQuestion {
 				if($counter % 2 != 0) {
 					$content->setVariable("ROW_STYLE", "style='background-color:white;'");
 				}
+				else{
+					$content->setVariable("ROW_STYLE", "style='background-color:#CFCFCF'");
+				}
 				$content->setVariable("ROW_LABEL", $row);
 				for ($count = 0; $count < count($this->columns); $count++) {
 					$content->setCurrentBlock("BLOCK_RESULTS_ROW_ELEMENT");

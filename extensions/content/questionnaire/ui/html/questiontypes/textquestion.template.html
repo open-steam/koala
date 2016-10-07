@@ -31,11 +31,11 @@
 <!-- END BLOCK_EDIT -->
 
 <!-- BEGIN BLOCK_VIEW -->
-<tr>
-    <td style="{ERROR_BORDER}">
-        <b>{QUESTION_TEXT}</b>
+<tr class="question">
+    <td style="{ERROR_BORDER}" class="question_container">
+        <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
         <br>
-        {HELP_TEXT}
+        <div>{HELP_TEXT}</div>
         <br>
         <input type="text" style="width: 99%" value="{ELEMENT_INPUT}" name="question{ELEMENT_ID}" maxlength="{ELEMENT_MAXLENGTH}" {QUESTION_DISABLED}>
     </td>

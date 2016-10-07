@@ -43,22 +43,22 @@
 <!-- END BLOCK_EDIT -->
 
 <!-- BEGIN BLOCK_VIEW -->
-<tr>
-	<td style="{ERROR_BORDER}">
-		<b>{QUESTION_TEXT}</b>
-		<br>
-		{HELP_TEXT}
+<tr class="question">
+  <td style="{ERROR_BORDER}" class="question_container">
+    <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
+    <br>
+    <div>{HELP_TEXT}</div>
 		<br>
 		<table class="questionnaire_style" style="">
 			<!-- BEGIN BLOCK_OPTION_VIEW -->
 			<tr>
-				<td style="padding: 0px 5px 0px 0px;text-align:right;">{OPTION_VIEW1}</td>
+				<td style="padding: 0px 10px 0px 0px;text-align:right;">{OPTION_VIEW1}</td>
 				<td style="padding: 0px 0px 0px 0px;text-align:left;">
 					<!-- BEGIN BLOCK_STEP_VIEW -->
-					<input type="radio" name="question{QUESTION_ID}_{OPTION_COUNTER}" value="{STEP_VALUE}" {STEP_CHECKED} {QUESTION_DISABLED}>
+					<input type="radio" name="question{QUESTION_ID}_{OPTION_COUNTER}" value="{STEP_VALUE}" style="margin-right: 10px;" {STEP_CHECKED} {QUESTION_DISABLED}>
 					<!-- END BLOCK_STEP_VIEW -->
 				</td>
-				<td style="padding: 0px 0px 0px 5px;">{OPTION_VIEW2}</td>
+				<td>{OPTION_VIEW2}</td>
 			</tr>
 			<!-- END BLOCK_OPTION_VIEW -->
 		</table>
