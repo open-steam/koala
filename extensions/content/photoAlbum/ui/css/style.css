@@ -18,6 +18,9 @@ img.bmp {
   width: 204px;
   margin: 5px;
   display: inline-block;
+  background: white;
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px #888;
 }
 
 .row {

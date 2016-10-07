@@ -51,7 +51,7 @@
         loop: true,
         slideshow: false,
         slideshowAuto: true,
-        slideshowSpeed: 2500,
+        slideshowSpeed: 5000,
         slideshowStart: "start slideshow",
         slideshowStop: "stop slideshow",
         photoRegex: /\.(gif|png|jp(e|g|eg)|bmp|ico|webp)((#|\?).*)?$/i,

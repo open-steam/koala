@@ -21,13 +21,13 @@
 */
 #cboxOverlay{background:#fff;}
 #colorbox{outline:0;}
-    #cboxContent{margin-top:32px; overflow:visible; background:#000;}
+    #cboxContent{margin-top:32px; overflow:visible;}
         .cboxIframe{background:#fff;}
         #cboxError{padding:50px; border:1px solid #ccc;}
-        #cboxLoadedContent{background:#eee; padding:1px;}
+        #cboxLoadedContent{padding:1px;}
         #cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
-        #cboxLoadingOverlay{background:#eee;}
-        #cboxTitle{position:absolute; top:-22px; left:25px; color:#000;overflow: hidden;max-width:800px;max-height:15px;}
+        #cboxLoadingOverlay{background:transparent;}
+        #cboxTitle{position:absolute; top:-25px; left:10px; color:#000;overflow: hidden;max-width:800px;max-height:22px;font-weight:bold;font-size:18px;}
         #cboxCurrent{position:absolute; top:-22px; right:205px; text-indent:-9999px;}
 
         /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
