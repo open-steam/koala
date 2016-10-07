@@ -17,7 +17,7 @@ img.bmp {
   height: 204px;
   width: 204px;
   margin: 5px;
-  float: left;
+  display: inline-block;
 }
 
 .row {

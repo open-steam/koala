@@ -140,3 +140,77 @@ function clone(obj) {
 
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
+
+
+function fullscreen() {
+  var element = document.getElementById('colorbox');
+
+  if (element.requestFullScreen) {
+    if (!document.fullScreen) {
+      element.requestFullscreen();
+    } else {
+      document.exitFullScreen();
+    }
+  } else if (element.mozRequestFullScreen) {
+    if (!document.mozFullScreen) {
+      element.mozRequestFullScreen();
+    } else {
+      document.mozCancelFullScreen();
+    }
+  } else if (element.webkitRequestFullScreen) {
+    if (!document.webkitIsFullScreen) {
+      element.webkitRequestFullScreen();
+    } else {
+      document.webkitCancelFullScreen();
+    }
+  }
+  setTimeout(function(){jQuery.colorbox.reload()},1000);
+}
+
+function initialize() {
+  jQuery('img.lazy').lazyload({failure_limit : 10});
+
+  $('a.slideshow').colorbox(
+    {
+      rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, reposition:true,
+
+      onOpen: function(){
+        jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"fullscreen()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."\">');
+
+        jQuery('#gallery').hide();
+
+        $('#cboxFullscreen').mouseover(
+          function(){
+            this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_black.png"."';
+          }
+        );
+        $('#cboxFullscreen').mouseout(
+          function(){
+            this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."';
+          }
+        );
+      },
+
+      onCleanup: function(){
+        jQuery('#gallery').show();
+        var element = document.getElementById('colorbox');
+        if (element.requestFullScreen) {
+          if (!document.fullScreen) {
+          } else {
+            document.exitFullScreen();
+          }
+        } else if (element.mozRequestFullScreen) {
+          if (!document.mozFullScreen) {
+          } else {
+            document.mozCancelFullScreen();
+          }
+        } else if (element.webkitRequestFullScreen) {
+          if (!document.webkitIsFullScreen) {
+          } else {
+            document.webkitCancelFullScreen();
+          }
+        }
+      }
+    }
+  );
+}

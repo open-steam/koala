@@ -1,7 +1,15 @@
 <div id="gallery">
-    <!-- BEGIN PICTURE_BLOCK-->
-   <a class="fancybox" style="margin-left" rel="{GALLERY_ID}" href="{PICTURE_FULLSCREEN_URL}" title="{PICTURE_TITLE}">
-	<img src="{PICTURE_URL}" alt="{PICTURE_ALTERNATIV}" />
-</a>
-    <!-- END PICTURE_BLOCK-->
+    <!-- BEGIN BLOCK_ROW -->
+    <div class="row">
+    <!-- BEGIN BLOCK_PICTURE -->
+    <div class="gal-element">
+      <div class="pic">
+        <a class="slideshow" title={TITLE} href={FULLSCREENPATH}>
+          <img class="lazy {CLASS}" src={PATH}>
+        </a>
+      </div>
+    </div>
+    <!-- END BLOCK_PICTURE -->
+  </div>
+    <!-- END BLOCK_ROW -->
 </div>
