@@ -19,9 +19,9 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 		$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["survey"]);
 		$questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["rf"]);
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
-		$state = $questionnaire->get_attribute("QUESTIONNAIRE_STATE");
 		$released = $result->get_attribute("QUESTIONNAIRE_RELEASED");
 		$creator = $questionnaire->get_creator()->get_id();
+		$active = \Questionnaire::getInstance()->isActive($this->id);
 
 		// check if user is admin
 		$staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
@@ -38,14 +38,14 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 
 		$allowed = true;
 		// if current user is no admin, questionnaire is active, result is his unreleased result or editing is allowed
-		if ($state == 1 && $admin == 0 && $result->get_creator()->get_id()  == $user->get_id()) {
+		if ($active && $admin == 0 && $result->get_creator()->get_id()  == $user->get_id()) {
 			if ($released == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) {
 				$allowed = true;
 			}
 		}
 		// if current user is admin, it is his own unreleased result or own editing is allowed or admin editing is allowed
 		if ($admin == 1) {
-			if ($state == 1 && $result->get_creator()->get_id()  == $user->get_id() && ($released == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1)) {
+			if ($active && $result->get_creator()->get_id()  == $user->get_id() && ($released == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1)) {
 				$allowed = true;
 			}
 			if ($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1) {

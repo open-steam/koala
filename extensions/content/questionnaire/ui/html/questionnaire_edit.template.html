@@ -40,6 +40,7 @@
                     <td class="label">{ENDTEXT_LABEL}</td>
                     <td><textarea name="endtext" style="width:99%" rows="4">{ENDTEXT_VALUE}</textarea></td>
                 </tr>
+                <!--
                 <tr>
                     <td class="label">{STARTTYPE_LABEL}</td>
                     <td>
@@ -51,7 +52,7 @@
                             {END_LABEL}
                             <input id="datepicker_end" name="end" value="{END_VALUE}" maxlength="16" size="16">
                         </div>
-                    </td></tr><tr>
+                    </td></tr>--><tr>
                     <td colspan="2">
                         <div style="text-align:center" class="buttons">
                             <input type="submit" value="{CREATE_SURVEY}" name="create_survey">
@@ -65,7 +66,7 @@
     <table class="grid" border="0" width="100%">
         <tr style="display:{DISPLAY_QUESTIONS}">
             <td colspan="2">
-                <ul id="sortable_rf" style="cursor: move; overflow: auto;">
+                <ul id="sortable_rf" style="overflow: auto;">
                     {QUESTIONS_HTML}
                     <li id="newquestion" class="ui-state-default-rf" style="display:none">
                         <table width="100%">
@@ -231,7 +232,7 @@
                             <tr>
                                 <td style="padding:3px 5px 0px 0px;"></td>
                                 <td style="padding:0px;">
-                                    <input id="rfb-new-question"type="button" onclick="addElement();
+                                    <input id="rfb-new-question"type="button" onclick="addElement({QUESTIONNAIRE_ID});
         setTimeout(function() {
             $('#save-que-button').click();
         }, 750);" value="{SAVE_LABEL}">
@@ -276,7 +277,7 @@
                             <tr>
                                 <td style="padding:3px 5px 0px 0px;"></td>
                                 <td style="padding:0px;">
-                                    <input id="rfb-new-element" type="button" onclick="addLayoutElement();
+                                    <input id="rfb-new-element" type="button" onclick="addLayoutElement({QUESTIONNAIRE_ID});
         setTimeout(function() {
             $('#save-que-button').click();
         }, 750);" value="Element hinzufügen">
@@ -308,3 +309,4 @@
     initiateCounter();
 </script>
 <!-- END BLOCK_CREATE_SURVEY -->
+<div id="edit-overlay"></div>

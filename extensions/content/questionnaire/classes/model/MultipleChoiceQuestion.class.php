@@ -61,7 +61,7 @@ class MultipleChoiceQuestion extends AbstractQuestion {
         return $question;
     }
 
-    function getEditHTML($id, $number = -1) {
+    function getEditHTML($questionnaireId, $id, $number = -1) {
 
         $QuestionnaireExtension = \Questionnaire::getInstance();
         $content = $QuestionnaireExtension->loadTemplate("questiontypes/multiplechoicequestion.template.html");
@@ -104,6 +104,15 @@ class MultipleChoiceQuestion extends AbstractQuestion {
         $data = "3," . rawurlencode($this->questionText) . "," . rawurlencode($this->helpText) . "," . $this->required . "," . $this->arrangement;
         $content->setVariable("ELEMENT_DATA", $data);
         $content->setVariable("OPTION_DATA", $options);
+
+        $popupMenu = new \Widgets\PopupMenu();
+    		$popupMenu->setCommand("GetPopupMenuEdit");
+    		$popupMenu->setNamespace("Questionnaire");
+    		$popupMenu->setData(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $questionnaireId));
+    		$popupMenu->setElementId("edit-overlay");
+    		$popupMenu->setParams(array(array("key" => "questionId", "value" => $id)));
+    		$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+
         $content->parse("BLOCK_EDIT");
         return $content->get();
     }

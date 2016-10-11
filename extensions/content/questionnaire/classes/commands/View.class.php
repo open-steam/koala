@@ -88,7 +88,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
 
       // check if user is allowed to view survey
       $participants = $survey->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
-      $state = $survey->get_attribute("QUESTIONNAIRE_STATE");
+      $active = \Questionnaire::getInstance()->isActive($this->id);
       // if user is admin and is preview or view of someones result
       if ($admin == 1 && ($preview == 1 || $disabled == 1)) {
           $allowed = true;
@@ -96,7 +96,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
       // if user is admin and is editing someones result
       if ($admin == 1 && $resultObject instanceof \steam_object) {
           // own result
-          if ($resultObject->get_creator()->get_id() == $user->get_id() && $state == 1 && (($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0)) {
+          if ($resultObject->get_creator()->get_id() == $user->get_id() && $active && (($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0)) {
               $allowed = true;
               // other peoples result
           } else if ($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1) {
@@ -105,7 +105,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
       }
       // if user is editing or viewing his own result and is allowed to
       if ($admin == 0 && $resultObject instanceof \steam_object) {
-          if ($resultObject->get_creator()->get_id() == $user->get_id() && $state == 1 && (($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0)) {
+          if ($resultObject->get_creator()->get_id() == $user->get_id() && $active && (($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0)) {
               $allowed = true;
           }
           if ($resultObject->get_creator()->get_id() == $user->get_id() && $disabled == 1) {
@@ -113,7 +113,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
           }
       }
       // if user or admin is starting a new result
-      if ($state == 1 && $disabled == 0 && $preview == 0 && $resultOrPreview == "" && !(isset($participants[$user->get_id()]) && $times == 1)) {
+      if ($active && $disabled == 0 && $preview == 0 && $resultOrPreview == "" && !(isset($participants[$user->get_id()]) && $times == 1)) {
           $allowed = true;
       }
 
@@ -267,23 +267,6 @@ class View extends \AbstractCommand implements \IFrameCommand {
           }
       }
 
-      // display actionbar
-      $actionbar = new \Widgets\Actionbar();
-      if ($admin == 1 && $preview == 1 && ($state == 0 || $state == 1)) {
-          $actions = array(
-              //array("name" => "Fragebogen bearbeiten", "link" => $QuestionnaireExtension->getExtensionUrl() . "edit/" . $questionnaire->get_id() . "/" . $survey->get_id() . "/"),
-              //array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
-          );
-      } else {
-          $actions = array(
-              //array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
-          );
-      }
-      $actionbar->setActions($actions);
-      $frameResponseObject->addWidget($actionbar);
-
-
-
       // display success msg if there was a submit, else just display survey
       if ($_SERVER["REQUEST_METHOD"] == "POST" && ($page > $pages) && empty($errors) && $preview == 0) {
           if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0) {
@@ -338,8 +321,8 @@ class View extends \AbstractCommand implements \IFrameCommand {
           } else {
               $content->setVariable("SURVEY_END", nl2br($survey_object->getEndText()));
           }
-          $state = $survey->get_attribute("QUESTIONNAIRE_STATE");
-          if ($admin == 0 | $state != 0) {
+
+          if ($admin == 0 | $active) {
               $content->setVariable("DISPLAY_EDIT", "none");
           }
           $content->setVariable("ASSET_URL", $QuestionnaireExtension->getAssetUrl() . "icons");

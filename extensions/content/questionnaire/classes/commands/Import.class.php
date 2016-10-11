@@ -7,6 +7,8 @@
 namespace Questionnaire\Commands;
 class Import extends \AbstractCommand implements \IFrameCommand {
 
+	//TODO: never used
+
 	private $params;
 	private $id;
 

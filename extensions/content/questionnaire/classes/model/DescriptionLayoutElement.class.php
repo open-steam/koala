@@ -22,7 +22,7 @@ class DescriptionLayoutElement extends AbstractLayoutElement {
         return $layoutElement;
     }
 
-    public function getEditHTML($id, $number = -1) {
+    public function getEditHTML($questionnaireId, $id, $number = -1) {
         $QuestionnaireExtension = \Questionnaire::getInstance();
         $content = $QuestionnaireExtension->loadTemplate("layoutelements/description.template.html");
         $content->setCurrentBlock("BLOCK_EDIT");
@@ -38,6 +38,15 @@ class DescriptionLayoutElement extends AbstractLayoutElement {
         $content->setVariable("DESCRIPTION_CONTENT", $this->description);
         $data = "7," . rawurlencode($this->description);
         $content->setVariable("ELEMENT_DATA", $data);
+
+        $popupMenu = new \Widgets\PopupMenu();
+    		$popupMenu->setCommand("GetPopupMenuEdit");
+    		$popupMenu->setNamespace("Questionnaire");
+    		$popupMenu->setData(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $questionnaireId));
+    		$popupMenu->setElementId("edit-overlay");
+    		$popupMenu->setParams(array(array("key" => "questionId", "value" => $id), array("key" => "layoutElement", "value" => true)));
+    		$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+
         $content->parse("BLOCK_EDIT");
         return $content->get();
     }

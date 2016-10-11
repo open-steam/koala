@@ -78,7 +78,7 @@ class AddQuestion extends \AbstractCommand implements \IAjaxCommand {
 
 		$rawHtml = new \Widgets\RawHtml();
 
-		$rawHtml->setHtml($newquestion->getEditHTML($this->params["questionID"]));
+		$rawHtml->setHtml($newquestion->getEditHTML($this->id, $this->params["questionID"]));
 
 		$ajaxResponseObject->addWidget($rawHtml);
 		$ajaxResponseObject->setStatus("ok");

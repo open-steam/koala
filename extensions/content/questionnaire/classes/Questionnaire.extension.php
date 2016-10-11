@@ -96,7 +96,8 @@ class Questionnaire extends AbstractExtension implements IObjectExtension, IIcon
 						$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$questionnaireId}, 'dialog':true}, '', 'popup', null, null, 'questionnaire');return false;");
 					}
 					else if(strpos($path, "edit") !== false){
-						$array[] = array("name" => "<div title='Bearbeiten abschließen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/index/" . $questionnaireId . "/'");
+						$array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initiateSortable();}else{removeSortable();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
+						//$array[] = array("name" => "<div title='Bearbeiten abschließen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/index/" . $questionnaireId . "/'");
 						$array[] = array("name" => "<div title='Auswertung'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/results.svg#results'/></svg></div>", "onclick"=>"location.href='" . PATH_URL .  "questionnaire/overallResults/" . $surveyId . "/'");
 						$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$questionnaireId}}, '', 'popup', null, null, 'explorer');return false;");
 						$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$questionnaireId}, 'dialog':true}, '', 'popup', null, null, 'questionnaire');return false;");
@@ -118,6 +119,38 @@ class Questionnaire extends AbstractExtension implements IObjectExtension, IIcon
 				return $array;
 			}
 		}
+	}
+
+	public function isActive($id){
+		$questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
+		$start = $questionnaire->get_attribute("QUESTIONNAIRE_START");
+		$end = $questionnaire->get_attribute("QUESTIONNAIRE_END");
+
+		if (!preg_match("/^\d{1,2}\.\d{1,2}\.\d{4} \d{2}:\d{2}/isU", $start)) {
+			return false;
+		}
+		if (!preg_match("/^\d{1,2}\.\d{1,2}\.\d{4} \d{2}:\d{2}/isU", $end)) {
+			return false;
+		}
+
+		//determine current date
+		$now = mktime(date("H"), date("i"), 0, date("n"), date("j"), date("Y"));
+
+		$startArray = explode(" ", $start);
+		$startDate = explode(".", $startArray[0]);
+		$startTime = explode(":", $startArray[1]);
+		$start = mktime($startTime[0], $startTime[1], 0, $startDate[1], $startDate[0], $startDate[2]);
+
+		$endArray = explode(" ", $end);
+		$endDate = explode(".", $endArray[0]);
+		$endTime = explode(":", $endArray[1]);
+		$end = mktime($endTime[0], $endTime[1], 0, $endDate[1], $endDate[0], $endDate[2]);
+
+		if ($now > $start && $now < $end) {
+				return true;
+		}
+
+		return false;
 	}
 }
 ?>

@@ -2,6 +2,8 @@
 namespace Questionnaire\Commands;
 class AdminAction extends \AbstractCommand implements \IAjaxCommand{
 
+    //TODO: never used
+
     private $params;
     private $id;
 

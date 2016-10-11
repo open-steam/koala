@@ -71,11 +71,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 		// get the surveys that are to be shown and sort them
 		$surveys = $questionnaire->get_inventory();
+		$survey = $surveys[0];
+
+		/*
 		$surveys_inactive = array();
 		$surveys_running = array();
 		$surveys_ended = array();
-		$survey = $surveys[0];
-
 		if ($survey instanceof \steam_container && !($survey instanceof \steam_user)) {
 			$starttype = $survey->get_attribute("QUESTIONNAIRE_STARTTYPE");
 			$state = $survey->get_attribute("QUESTIONNAIRE_STATE");
@@ -106,6 +107,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		} else {
 			$surveys = $surveys_running;
 		}
+		*/
 
 		// display surveys
 		$content = $QuestionnaireExtension->loadTemplate("questionnaire_index.template.html");
@@ -117,13 +119,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("QUESTIONS_LABEL", "Anzahl der Fragen");
 		$content->setVariable("RESULTS_LABEL", "Anzahl der Abgaben");
 		$content->setVariable("ACTIONS_LABEL", "Aktionen");
-
-		$survey = $surveys[0];
 		$content->setCurrentBlock("BLOCK_SURVEY_ELEMENT");
 		$content->setVariable("NAME_VALUE", $survey->get_attribute("OBJ_DESC"));
 		$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 		$participants = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
-		$state = $survey->get_attribute("QUESTIONNAIRE_STATE");
+		$active = \Questionnaire::getInstance()->isActive($this->id);
 		$groups = $questionnaire->get_attribute("QUESTIONNAIRE_GROUP");
 		if(in_array($user, $groups)){
 			$allowed = true;
@@ -137,7 +137,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			}
 		}
 		$times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES");
-		if ((isset($participants[$user->get_id()]) && $times == 1) || $state != 1) {
+		if ((isset($participants[$user->get_id()]) && $times == 1) || !$active) {
 			$allowed  = false;
 		}
 		if ($allowed) {
@@ -147,24 +147,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 			//$content->setVariable("DISPLAY_VIEW", "none");
 			$content->setVariable("NAME_VALUE_NOLINK", $survey->get_attribute("OBJ_DESC"));
 		}
-		$starttype = $survey->get_attribute("QUESTIONNAIRE_STARTTYPE");
-		if ($state == 0) {
-			if (is_array($starttype)) {
-				$content->setVariable("STATE_VALUE", "Inaktiv (Start: " . date('d.m.Y H:i', $starttype[1]) . ")");
-				//$content->setVariable("DISPLAY_START", "none");
-			} else {
-				$content->setVariable("STATE_VALUE", "Inaktiv");
-			}
+		if (!$active){
+			$content->setVariable("STATE_VALUE", "Inaktiv");
 			$content->setVariable("DISPLAY_RESULTS", "none");
 			$content->setVariable("DISPLAY_STOP", "none");
 			$content->setVariable("DISPLAY_REPEAT", "none");
-		} else if ($state == 1) {
-			if (is_array($starttype)) {
-				$content->setVariable("STATE_VALUE", "Aktiv (Ende: " . date('d.m.Y H:i', $starttype[0]) . ")");
-				$content->setVariable("DISPLAY_STOP", "none");
-			} else {
-				$content->setVariable("STATE_VALUE", "Aktiv");
-			}
+		} else if ($active) {
+			$content->setVariable("STATE_VALUE", "Aktiv");
 			//$content->setVariable("DISPLAY_START", "none");
 			$content->setVariable("DISPLAY_REPEAT", "none");
 			if ($resultContainer->get_attribute("QUESTIONNAIRE_RESULTS") == 0) {

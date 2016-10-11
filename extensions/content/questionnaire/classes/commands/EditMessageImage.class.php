@@ -3,6 +3,8 @@
 namespace Questionnaire\Commands;
 class EditMessageImage extends \AbstractCommand implements \IAjaxCommand {
 
+	//TODO: never used
+
 	private $params;
 	private $dialog;
 

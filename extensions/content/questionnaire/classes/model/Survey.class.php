@@ -71,24 +71,8 @@ class Survey extends \AbstractObjectModel {
 			$results_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey_container->get_path() . "/results");
 		}
 
-		if ($survey_container->get_attribute("QUESTIONNAIRE_STATE") == 0 || $survey_container->get_attribute("QUESTIONNAIRE_STATE") == "0") {
-			$survey_container->set_attribute("QUESTIONNAIRE_STATE", 0);
-			$results_container->set_attribute("QUESTIONNAIRE_RESULTS", 0);
-			$results_container->set_attribute("QUESTIONNAIRE_PARTICIPANTS", array());
-		}
-
-		if ($this->starttype == 0) {
-			$survey_container->set_attribute("QUESTIONNAIRE_STARTTYPE", 0);
-		} else {
-			$begin = $this->begin;
-			$end = $this->end;
-			$begin = mktime(substr($begin,11,2), substr($begin,14,2), 0, substr($begin,3,2), substr($begin,0,2), substr($begin,6,4));
-			$end = mktime(substr($end,11,2), substr($end,14,2), 0, substr($end,3,2), substr($end,0,2), substr($end,6,4));
-			$times = array();
-			array_push($times, $end);
-			array_push($times, $begin);
-			$survey_container->set_attribute("QUESTIONNAIRE_STARTTYPE", $times);
-		}
+		$results_container->set_attribute("QUESTIONNAIRE_RESULTS", 0);
+		$results_container->set_attribute("QUESTIONNAIRE_PARTICIPANTS", array());
 
 		$xml = new \SimpleXMLElement("<survey></survey>");
        	$xml->addChild("name", $this->name);

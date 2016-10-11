@@ -10,15 +10,15 @@
 						<thead>
 							<tr>
 								<!-- BEGIN BLOCK_QUESTION -->
-								<th id="{TIPSY_ID}" style="padding-right:10px; font-weight:inherit;">
+								<th id="{TIPSY_ID}" style="padding-right:10px; font-weight:bold;">
 									{QUESTION_TEXT}
 									{TIPSY_HTML}
 								</th>
 								<!-- END BLOCK_QUESTION -->
-								<th style="display: {DISPLAY_PARTICIPANTS}; font-weight:inherit;">
+								<th style="display: {DISPLAY_PARTICIPANTS}; font-weight:bold;">
 									{PARTICIPANT_LABEL}
 								</th>
-								<th style="display: {DISPLAY_TIME}; padding-right:20px; font-weight:inherit;">
+								<th style="display: {DISPLAY_TIME}; padding-right:20px; font-weight:bold;">
 									{TIME_LABEL}
 								</th>
 								<th>
@@ -29,17 +29,17 @@
 							<!-- BEGIN BLOCK_RESULT -->
 							<tr>
 								<!-- BEGIN BLOCK_RESULT_COL -->
-								<td valign="top" style="background-color: {BG_COLOR_COL};">
+								<td align="center" valign="top" style="background-color: {BG_COLOR_COL};">
 									{RESULT_HTML}
 								</td>
 								<!-- END BLOCK_RESULT_COL -->
-								<td style="background-color: {BG_COLOR}; display: {DISPLAY_PARTICIPANTS_RESULT};">
+								<td align="center" style="background-color: {BG_COLOR}; display: {DISPLAY_PARTICIPANTS_RESULT};">
 									<a href="{USER_URL}">{USER_NAME}</a>
 								</td>
-								<td style="background-color: {BG_COLOR}; display: {DISPLAY_TIME_RESULT};">
+								<td align="center" style="background-color: {BG_COLOR}; display: {DISPLAY_TIME_RESULT};">
 									{TIMESTAMP}
 								</td>
-								<td style="background-color: {BG_COLOR};">
+								<td align="center" style="background-color: {BG_COLOR};">
 									{POPUPMENUANKER}
 								</td>
 							</tr>

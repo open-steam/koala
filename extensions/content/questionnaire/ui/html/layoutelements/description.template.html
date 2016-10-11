@@ -1,21 +1,10 @@
 <!-- BEGIN BLOCK_EDIT -->
 <li class="ui-state-default-rf" id="rfelement{ELEMENT_ID}" >
-	<table width="100%">
+	<table width="100%" class="question">
 		<tr>
-			<td align="right" style="padding:0px; border:0px;">
-                              <span class="images-rfb">
-				<img onclick="editLayoutElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-				&nbsp
-				<img onclick="copyElement({ELEMENT_ID});setTimeout(function(){$('#save-que-button').click();}, 750);" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-				&nbsp
-				<img onclick="deleteElement({ELEMENT_ID});setTimeout(function(){$('#save-que-button').click();}, 750);" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-			</span>
-                                </td>
-		</tr>
-		<tr>
-			<td style="padding:0px; border:0px;">
-				<h2 style="margin:0px;">{DESCRIPTION_LABEL}</h2>
-				{DESCRIPTION_CONTENT}
+			<td style="padding:0px; border:0px;" class="question_container">
+				<div class="question_headline" style="margin:0px; height:15px;"><b>{DESCRIPTION_LABEL}</b>{POPUPMENUANKER}</div>
+				<div style="margin:5px;">{DESCRIPTION_CONTENT}</div>
 			</td>
 		</tr>
 	</table>

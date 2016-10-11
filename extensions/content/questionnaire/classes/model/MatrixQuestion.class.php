@@ -73,14 +73,14 @@ class MatrixQuestion extends AbstractQuestion {
 		return $question;
 	}
 
-	function getEditHTML($id, $number = -1) {
+	function getEditHTML($questionnaireId, $id, $number = -1) {
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$content = $QuestionnaireExtension->loadTemplate("questiontypes/matrixquestion.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
 		$content->setVariable("ELEMENT_ID", $id);
-                 if($number != -1){
-                    $content->setVariable("NUMBER", $number);
-                }
+    if($number != -1){
+      $content->setVariable("NUMBER", $number);
+    }
 		$content->setVariable("ASSETURL", $QuestionnaireExtension->getAssetUrl() . "icons/");
 		$content->setVariable("EDIT_LABEL", "Bearbeiten");
 		$content->setVariable("COPY_LABEL", "Kopieren");
@@ -106,9 +106,19 @@ class MatrixQuestion extends AbstractQuestion {
 		$counter = 0;
 		foreach ($this->rows as $row) {
 			$content->setCurrentBlock("BLOCK_ROW");
+			if (($counter % 2) == 0) {
+				$content->setVariable("BG_COLOR", "#CFCFCF");
+			} else {
+				$content->setVariable("BG_COLOR", "#FFFFFF");
+			}
 			$content->setVariable("ROW_LABEL", $row);
 			for ($count = 1; $count <= $columns; $count++) {
 				$content->setCurrentBlock("BLOCK_ROW_ELEMENT");
+				if (($counter % 2) == 0) {
+					$content->setVariable("BG_COLOR_ELEMENT", "#CFCFCF");
+				} else {
+					$content->setVariable("BG_COLOR_ELEMENT", "#FFFFFF");
+				}
 				$content->setVariable("QUESTION_ID", $id);
 				$content->setVariable("OPTION_COUNT", $counter);
 				$content->parse("BLOCK_ROW_ELEMENT");
@@ -123,6 +133,15 @@ class MatrixQuestion extends AbstractQuestion {
 		$content->setVariable("ELEMENT_DATA", $data);
 		$content->setVariable("COLUMN_DATA", $columnData);
 		$content->setVariable("ROW_DATA", $rowData);
+
+		$popupMenu = new \Widgets\PopupMenu();
+		$popupMenu->setCommand("GetPopupMenuEdit");
+		$popupMenu->setNamespace("Questionnaire");
+		$popupMenu->setData(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $questionnaireId));
+		$popupMenu->setElementId("edit-overlay");
+		$popupMenu->setParams(array(array("key" => "questionId", "value" => $id)));
+		$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+
 		$content->parse("BLOCK_EDIT");
 		return $content->get();
 	}

@@ -2,6 +2,8 @@
 namespace Questionnaire\Commands;
 class UploadImage extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
+	//TODO: never used
+
 	private $params;
 	private $id;
 

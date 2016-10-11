@@ -538,12 +538,19 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           $multipleFill->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_PARTICIPATION_TIMES"));
           $multipleFill->setOptions(array(array("name" => "Ja", "value" => 0), array("name" => "Nein", "value" => 1)));
 
-          $startType = new \Widgets\RadioButton();
-          $startType->setLabel("Durchführung:");
-          $startType->setData($object);
-          $startType->setType("horizontal");
-          $startType->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_STARTTYPE"));
-          $startType->setOptions(array(array("name" => "manuell", "value" => 0), array("name" => "zeitgesteuert", "value" => 1)));
+          $startDate = new \Widgets\DatePicker();
+          $startDate->setLabel("Start:");
+          $startDate->setData($object);
+          $startDate->setDatePicker(true);
+      		$startDate->setTimePicker(true);
+          $startDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_START"));
+
+          $endDate = new \Widgets\DatePicker();
+          $endDate->setLabel("Ende:");
+          $endDate->setData($object);
+          $endDate->setDatePicker(true);
+      		$endDate->setTimePicker(true);
+          $endDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_END"));
 
           $showParticipants = new \Widgets\RadioButton();
           $showParticipants->setLabel("Teilnehmer anzeigen:");
@@ -575,7 +582,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
           if(!$isWriteable){
               $multipleFill->setReadOnly(true);
-              $startType->setReadOnly(true);
+              $startDate->setReadOnly(true);
+              $endDate->setReadOnly(true);
               $showParticipants->setReadOnly(true);
               $showCreationTime->setReadOnly(true);
               $adminEdit->setReadOnly(true);
@@ -584,7 +592,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
           $dialog->addWidget($multipleFill);
 
-          $dialog->addWidget($startType);
+          $dialog->addWidget($startDate);
+
+          $dialog->addWidget($endDate);
 
           $dialog->addWidget($textAreaDescription);
 

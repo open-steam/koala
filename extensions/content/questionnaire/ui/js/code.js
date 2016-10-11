@@ -295,19 +295,35 @@ function changeCreateDialog(type) {
     }
 }
 
-// initiate sortable
-$(function() {
-    $("#sortable_rf").sortable({
-        placeholder: "ui-state-placeholder-rf",
-        axis: "y",
-        forcePlaceholderSize: true,
-        update: function() {
-            setTimeout(function() {
-                $('#save-que-button').click();
-            }, 750);
-        }
-    });
+$( document ).ready(function() {
+  $("#sortable_rf").sortable({
+    placeholder: "ui-state-placeholder-rf",
+    axis: "y",
+    forcePlaceholderSize: true,
+    update: function() {
+        setTimeout(function() {
+            $('#save-que-button').click();
+        }, 750);
+    }
+  });
+  $("#sortable_rf").sortable("disable");
 });
+
+// initiate sortable
+function initiateSortable(){
+  $("#sortable_rf").sortable("enable");
+  $("#sortable_rf").css('cursor', 'move');
+  $("#sort-icon").parent().css("background-color", "#ff8300");
+  $("#sort-icon").attr("name", "true");
+}
+
+// remove sortable
+function removeSortable(){
+  $("#sortable_rf").sortable("disable");
+  $("#sortable_rf").css('cursor', 'auto');
+  $("#sort-icon").parent().css("background-color", "#3a6e9f");
+  $("#sort-icon").attr("name", "false");
+}
 
 /*
  * function to create single choice option
@@ -445,6 +461,7 @@ function deleteElement(id) {
         $('input[name=rfelement' + id + '_rows]').remove();
         $('input[name=rfelement' + id + '_columns]').remove();
     }
+    setTimeout(function(){$('#save-que-button').click();},750);
 }
 
 function editLayoutElement(id) {
@@ -586,59 +603,60 @@ function editElement(id) {
 /*
  * function to copy question id
  */
-function copyElement(id) {
+function copyElement(questionnaireId, id) {
     var data = document.getElementsByName('rfelement' + id)[0].value;
     data = data.split(',');
     switch (data[0]) {
         case "0":
-            createTextQuestion(data, '#rfelement' + id);
+            createTextQuestion(questionnaireId, data, '#rfelement' + id);
             break;
         case "1":
-            createTextareaQuestion(data, '#rfelement' + id);
+            createTextareaQuestion(questionnaireId, data, '#rfelement' + id);
             break;
         case "2":
             var options = document.getElementsByName('rfelement' + id + '_options')[0].value;
             options = options.split(',');
-            createSingleChoiceQuestion(data, options, '#rfelement' + id);
+            createSingleChoiceQuestion(questionnaireId, data, options, '#rfelement' + id);
             break;
         case "3":
             var options = document.getElementsByName('rfelement' + id + '_options')[0].value;
             options = options.split(',');
-            createMultipleChoiceQuestion(data, options, '#rfelement' + id);
+            createMultipleChoiceQuestion(questionnaireId, data, options, '#rfelement' + id);
             break;
         case "4":
             var columns = document.getElementsByName('rfelement' + id + '_columns')[0].value;
             columns = columns.split(',');
             var rows = document.getElementsByName('rfelement' + id + '_rows')[0].value;
             rows = rows.split(',');
-            createMatrixQuestion(data, columns, rows, '#rfelement' + id);
+            createMatrixQuestion(questionnaireId, data, columns, rows, '#rfelement' + id);
             break;
         case "5":
             var options = document.getElementsByName('rfelement' + id + '_rows')[0].value;
             options = options.split(',');
-            createGradingQuestion(data, options, '#rfelement' + id);
+            createGradingQuestion(questionnaireId, data, options, '#rfelement' + id);
             break;
         case "6":
             var options = document.getElementsByName('rfelement' + id + '_options')[0].value;
             options = options.split(',');
-            createTendencyQuestion(data, options, '#rfelement' + id);
+            createTendencyQuestion(questionnaireId, data, options, '#rfelement' + id);
             break;
         case "7":
-            createDescriptionLayoutElement(data[1], '#rfelement' + id);
+            createDescriptionLayoutElement(questionnaireId, data[1], '#rfelement' + id);
             break;
         case "8":
-            createHeadlineLayoutElement(data[1], '#rfelement' + id);
+            createHeadlineLayoutElement(questionnaireId, data[1], '#rfelement' + id);
             break;
         case "9":
-            createPageBreakLayoutElement('#rfelement' + id);
+            createPageBreakLayoutElement(questionnaireId, '#rfelement' + id);
             break;
     }
+    setTimeout(function(){$('#save-que-button').click();},750);
 }
 
 /*
  * function to add a layout element
  */
-function addLayoutElement() {
+function addLayoutElement(questionnaireId) {
 
     if (document.getElementById('editID').value != '-1') {
         var deleteid = document.getElementById('editID').value;
@@ -653,35 +671,35 @@ function addLayoutElement() {
     switch (type) {
         case "7":
             var description = document.getElementById('layout_description').value;
-            createDescriptionLayoutElement(description, '#newlayout');
+            createDescriptionLayoutElement(questionnaireId, description, '#newlayout');
             hideLayoutDialog();
             break;
         case "8":
             var headline = document.getElementById('layout_headline').value;
-            createHeadlineLayoutElement(headline, '#newlayout');
+            createHeadlineLayoutElement(questionnaireId, headline, '#newlayout');
             hideLayoutDialog();
             break;
         case "9":
-            createPageBreakLayoutElement('#newlayout');
+            createPageBreakLayoutElement(questionnaireId, '#newlayout');
             hideLayoutDialog();
             break;
         case "10":
             var text = $('#text-JL').val();
             var to = $('#to-JL').val();
-            createJumpLabelLayoutElement(text, to, '#newlayout');
+            createJumpLabelLayoutElement(questionnaireId, text, to, '#newlayout');
             hideLayoutDialog();
             break;
 
     }
 }
 
-function createJumpLabelLayoutElement(text, to, insertPoint) {
+function createJumpLabelLayoutElement(questionnaireId, text, to, insertPoint) {
     params = {};
     params.layoutType = "10";
     params.text = text;
     params.to = to;
     params.layoutID = elementCounter;
-
+    params.id = questionnaireId;
     var successFunction = function(response) {
         responseData = jQuery.parseJSON(response);
         $(responseData.html).insertBefore($(insertPoint));
@@ -690,11 +708,12 @@ function createJumpLabelLayoutElement(text, to, insertPoint) {
     elementCounter++;
 }
 
-function createDescriptionLayoutElement(description, insertPoint) {
+function createDescriptionLayoutElement(questionnaireId, description, insertPoint) {
     params = {};
     params.layoutType = "7";
     params.description = description;
     params.layoutID = elementCounter;
+    params.id = questionnaireId;
     var successFunction = function(response) {
         responseData = jQuery.parseJSON(response);
         $(responseData.html).insertBefore($(insertPoint));
@@ -703,11 +722,12 @@ function createDescriptionLayoutElement(description, insertPoint) {
     elementCounter++;
 }
 
-function createHeadlineLayoutElement(headline, insertPoint) {
+function createHeadlineLayoutElement(questionnaireId, headline, insertPoint) {
     params = {};
     params.layoutType = "8";
     params.headline = headline;
     params.layoutID = elementCounter;
+    params.id = questionnaireId;
     var successFunction = function(response) {
         responseData = jQuery.parseJSON(response);
         $(responseData.html).insertBefore($(insertPoint));
@@ -716,10 +736,11 @@ function createHeadlineLayoutElement(headline, insertPoint) {
     elementCounter++;
 }
 
-function createPageBreakLayoutElement(insertPoint) {
+function createPageBreakLayoutElement(questionnaireId, insertPoint) {
     params = {};
     params.layoutType = "9";
     params.layoutID = elementCounter;
+    params.id = questionnaireId;
     var successFunction = function(response) {
         responseData = jQuery.parseJSON(response);
         $(responseData.html).insertBefore($(insertPoint));
@@ -731,7 +752,7 @@ function createPageBreakLayoutElement(insertPoint) {
 /*
  * function to add a new question
  */
-function addElement() {
+function addElement(questionnaireId) {
     var question = encodeURIComponent(document.getElementById('questionText').value);
     if (jQuery.trim(question) == '') {
         alert("Bitte einen Fragetext eingeben.");
@@ -759,13 +780,13 @@ function addElement() {
         case "0":
             var inputLength = document.getElementById('textquestionLength').value;
             var data = new Array(type, question, helpText, required, inputLength);
-            createTextQuestion(data, '#newquestion');
+            createTextQuestion(questionnaireId, data, '#newquestion');
             hideCreateDialog();
             break;
         case "1":
             var rows = document.getElementById('textareaRows').value;
             var data = new Array(type, question, helpText, required, rows);
-            createTextareaQuestion(data, '#newquestion');
+            createTextareaQuestion(questionnaireId, data, '#newquestion');
             hideCreateDialog();
             break;
         case "2":
@@ -777,7 +798,7 @@ function addElement() {
                 }
             }
             var data = new Array(type, question, helpText, required, arrangement);
-            createSingleChoiceQuestion(data, options, '#newquestion');
+            createSingleChoiceQuestion(questionnaireId, data, options, '#newquestion');
             hideCreateDialog();
             break;
         case "3":
@@ -789,7 +810,7 @@ function addElement() {
                 }
             }
             var data = new Array(type, question, helpText, required, arrangement);
-            createMultipleChoiceQuestion(data, options, '#newquestion');
+            createMultipleChoiceQuestion(questionnaireId, data, options, '#newquestion');
             hideCreateDialog();
             break;
         case "4":
@@ -805,7 +826,7 @@ function addElement() {
                 }
             }
             var data = new Array(type, question, helpText, required);
-            createMatrixQuestion(data, columns, rows, '#newquestion');
+            createMatrixQuestion(questionnaireId, data, columns, rows, '#newquestion');
             hideCreateDialog();
             break;
         case "5":
@@ -816,7 +837,7 @@ function addElement() {
                 }
             }
             var data = new Array(type, question, helpText, required);
-            createGradingQuestion(data, options, '#newquestion');
+            createGradingQuestion(questionnaireId, data, options, '#newquestion');
             hideCreateDialog();
             break;
         case "6":
@@ -829,7 +850,7 @@ function addElement() {
                 }
             }
             var data = new Array(type, question, helpText, required, steps);
-            createTendencyQuestion(data, options, '#newquestion');
+            createTendencyQuestion(questionnaireId, data, options, '#newquestion');
             hideCreateDialog();
     }
 
@@ -838,8 +859,9 @@ function addElement() {
 /*
  * function to create textquestion
  */
-function createTextQuestion(data, insertPoint) {
+function createTextQuestion(questionnaireId, data, insertPoint) {
     params = {};
+    params.id = questionnaireId;
     params.questionType = data[0];
     params.questionText = data[1];
     params.questionHelp = data[2];
@@ -858,15 +880,16 @@ function createTextQuestion(data, insertPoint) {
 /*
  * function to create textareaquestion
  */
-function createTextareaQuestion(data, insertPoint) {
-    createTextQuestion(data, insertPoint);
+function createTextareaQuestion(questionnaireId, data, insertPoint) {
+    createTextQuestion(questionnaireId, data, insertPoint);
 }
 
 /*
  * function to create singlechoice question
  */
-function createSingleChoiceQuestion(data, options, insertPoint) {
+function createSingleChoiceQuestion(questionnaireId, data, options, insertPoint) {
     params = {};
+    params.id = questionnaireId;
     params.questionType = data[0];
     params.questionText = data[1];
     params.questionHelp = data[2];
@@ -885,15 +908,16 @@ function createSingleChoiceQuestion(data, options, insertPoint) {
 /*
  * function to create multiple choice question
  */
-function createMultipleChoiceQuestion(data, options, insertPoint) {
-    createSingleChoiceQuestion(data, options, insertPoint);
+function createMultipleChoiceQuestion(questionnaireId, data, options, insertPoint) {
+    createSingleChoiceQuestion(questionnaireId, data, options, insertPoint);
 }
 
 /*
  * function to create matrix question
  */
-function createMatrixQuestion(data, columns, rows, insertPoint) {
+function createMatrixQuestion(questionnaireId, data, columns, rows, insertPoint) {
     params = {};
+    params.id = questionnaireId;
     params.questionType = data[0];
     params.questionText = data[1];
     params.questionHelp = data[2];
@@ -913,16 +937,16 @@ function createMatrixQuestion(data, columns, rows, insertPoint) {
 /*
  * function to create grading question
  */
-function createGradingQuestion(data, rows, insertPoint) {
+function createGradingQuestion(questionnaireId, data, rows, insertPoint) {
     var columns = new Array('sehr gut', 'gut', 'befriedigend', 'ausreichend', 'mangelhaft', 'ungenügend');
-    createMatrixQuestion(data, columns, rows, insertPoint);
+    createMatrixQuestion(questionnaireId, data, columns, rows, insertPoint);
 }
 
 /*
  * function to create tendency question
  */
-function createTendencyQuestion(data, options, insertPoint) {
-    createSingleChoiceQuestion(data, options, insertPoint);
+function createTendencyQuestion(questionnaireId, data, options, insertPoint) {
+    createSingleChoiceQuestion(questionnaireId, data, options, insertPoint);
 }
 
 /*

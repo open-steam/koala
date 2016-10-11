@@ -1,30 +1,17 @@
 <!-- BEGIN BLOCK_EDIT -->
 <li class="ui-state-default-rf" id="rfelement{ELEMENT_ID}">
-    <table width="100%">
+    <table width="100%" class="question">
         <tr>
-            <td align="right" style="padding:0px; border:0px;">
-                <span class="images-rfb">
-                    <img onclick="editElement({ELEMENT_ID});" src="{ASSETURL}edit.png" title="{EDIT_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-                    &nbsp
-                    <img onclick="copyElement({ELEMENT_ID}); setTimeout(function(){$('#save-que-button').click(); }, 750);" src="{ASSETURL}copy.png" title="{COPY_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-                    &nbsp
-                    <img onclick="deleteElement({ELEMENT_ID}); setTimeout(function(){$('#save-que-button').click(); }, 750);" src="{ASSETURL}delete.png" title="{DELETE_LABEL}" width="12px" height="12px" style="cursor: pointer; cursor: hand;">
-                </span>
-            </td>
-        </tr>
-        <tr><td></td></tr>
-        <tr>
-            <td style="padding:0px; border:0px;">
-                <h2 style="margin:0px;">{NUMBER}. {QUESTION_TEXT}</h2>
-                {HELP_TEXT}
-                <br>
+            <td style="padding:0px; border:0px;" class="question_container">
+                <div class="question_headline" style="margin:0px; height:15px;"><b>{NUMBER}. {QUESTION_TEXT}</b>{POPUPMENUANKER}</div>
+                <div style="margin:5px;">{HELP_TEXT}</div>
                 <table style="text-align: left;">
                     <!-- BEGIN BLOCK_ROW_VIEW -->
                     <tr>
                         <!-- BEGIN BLOCK_COLUMN_VIEW -->
                         <td style="padding: 0px 0px 0px 0px; border:0px;">
                             <!-- BEGIN BLOCK_OPTION_VIEW -->
-                            <input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}" style="vertical-align:middle;">
+                            <input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}" style="vertical-align:middle;" disabled>
                             <!-- END BLOCK_OPTION_VIEW -->
                         </td>
                         <td style="padding: 0px 5px 0px 0px; border:0px;">{OPTION_LABEL}</td>
@@ -85,15 +72,15 @@
                 <td width="50%">
                     <table width="100%">
                         <tr>
-                            <th>{POSSIBLE_ANSWER_LABEL}</th>
-                            <th>{POSSIBLE_ANSWER_AMOUNT}</th>
-                            <th>{POSSIBLE_ANSWER_PERCENT}</th>
+                            <th style="text-align:center;">{POSSIBLE_ANSWER_LABEL}</th>
+                            <th style="text-align:center;">{POSSIBLE_ANSWER_AMOUNT}</th>
+                            <th style="text-align:center;">{POSSIBLE_ANSWER_PERCENT}</th>
                         </tr>
                         <!-- BEGIN BLOCK_RESULTS_OPTION -->
                         <tr {ROW_STYLE}>
-                            <td>{OPTION_LABEL}</td>
-                            <td>{OPTION_RESULT}</td>
-                            <td>{OPTION_PERCENT}</td>
+                            <td align="center">{OPTION_LABEL}</td>
+                            <td align="center">{OPTION_RESULT}</td>
+                            <td align="center">{OPTION_PERCENT}</td>
                         </tr>
                         <!-- END BLOCK_RESULTS_OPTION -->
                     </table>

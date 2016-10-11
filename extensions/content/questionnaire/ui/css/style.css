@@ -54,8 +54,6 @@
 }
 
 #sortable_rf li {
-	margin: 0 5px 5px 5px;
-	padding: 5px;
 	font-size: 12px;
 	height: auto;
 }
@@ -63,24 +61,6 @@
 html>body #sortable_rf li {
 	height: auto;
 	line-height: 13px;
-}
-
-.ui-state-default-rf {
-	background-color: #EEEEEE;
-	border-top: 1px solid white;
-	border-right: 1px solid black;
-	border-left: 1px solid white;
-	border-bottom: 1px solid black;
-}
-
-.ui-state-default-rf:hover {
-	background-color: #E3E3F3;
-}
-
-.ui-state-default-rf td {
-	background-color: transparent;
-	border: 0px;
-  text-align: left;
 }
 
 .ui-state-placeholder-rf {

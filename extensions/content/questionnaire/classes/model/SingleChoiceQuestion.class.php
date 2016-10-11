@@ -50,7 +50,7 @@ class SingleChoiceQuestion extends AbstractQuestion {
 		return $question;
 	}
 
-	function getEditHTML($id , $number = -1) {
+	function getEditHTML($questionnaireId, $id , $number = -1) {
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$content = $QuestionnaireExtension->loadTemplate("questiontypes/singlechoicequestion.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
@@ -90,6 +90,15 @@ class SingleChoiceQuestion extends AbstractQuestion {
 		$data = "2," . rawurlencode($this->questionText) . "," . rawurlencode($this->helpText) . "," . $this->required . "," . $this->arrangement;
 		$content->setVariable("ELEMENT_DATA", $data);
 		$content->setVariable("OPTION_DATA", $options);
+
+		$popupMenu = new \Widgets\PopupMenu();
+		$popupMenu->setCommand("GetPopupMenuEdit");
+		$popupMenu->setNamespace("Questionnaire");
+		$popupMenu->setData(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $questionnaireId));
+		$popupMenu->setElementId("edit-overlay");
+		$popupMenu->setParams(array(array("key" => "questionId", "value" => $id)));
+		$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+
 		$content->parse("BLOCK_EDIT");
 		return $content->get();
 	}

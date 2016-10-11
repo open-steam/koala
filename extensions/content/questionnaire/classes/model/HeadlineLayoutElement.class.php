@@ -20,13 +20,13 @@ class HeadlineLayoutElement extends AbstractLayoutElement {
 		return $layoutElement;
 	}
 
-	public function getEditHTML($id, $number = -1) {
+	public function getEditHTML($questionnaireId, $id, $number = -1) {
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$content = $QuestionnaireExtension->loadTemplate("layoutelements/headline.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
-                 if($number != -1){
-                    $content->setVariable("NUMBER", $number);
-                }
+    if($number != -1){
+      $content->setVariable("NUMBER", $number);
+    }
 		$content->setVariable("ELEMENT_ID", $id);
 		$content->setVariable("ASSETURL", $QuestionnaireExtension->getAssetUrl() . "icons/");
 		$content->setVariable("EDIT_LABEL", "Bearbeiten");
@@ -36,6 +36,15 @@ class HeadlineLayoutElement extends AbstractLayoutElement {
 		$content->setVariable("HEADLINE_CONTENT", $this->headline);
 		$data = "8," . rawurlencode($this->headline);
 		$content->setVariable("ELEMENT_DATA", $data);
+
+		$popupMenu = new \Widgets\PopupMenu();
+		$popupMenu->setCommand("GetPopupMenuEdit");
+		$popupMenu->setNamespace("Questionnaire");
+		$popupMenu->setData(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $questionnaireId));
+		$popupMenu->setElementId("edit-overlay");
+		$popupMenu->setParams(array(array("key" => "questionId", "value" => $id), array("key" => "layoutElement", "value" => true)));
+		$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+
 		$content->parse("BLOCK_EDIT");
 		return $content->get();
 	}

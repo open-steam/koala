@@ -2,6 +2,8 @@
 namespace Questionnaire\Commands;
 class DeleteImage extends \AbstractCommand implements \IAjaxCommand {
 
+	//TODO: never used
+
 	private $params;
 	private $id;
 

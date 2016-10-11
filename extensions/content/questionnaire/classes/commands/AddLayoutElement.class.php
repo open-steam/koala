@@ -37,7 +37,7 @@ class AddLayoutElement extends \AbstractCommand implements \IAjaxCommand {
         }
 
         $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml($newelement->getEditHTML($this->params["layoutID"]));
+        $rawHtml->setHtml($newelement->getEditHTML($this->id, $this->params["layoutID"]));
 
         $ajaxResponseObject->addWidget($rawHtml);
         $ajaxResponseObject->setStatus("ok");

@@ -37,13 +37,13 @@ class TextareaQuestion extends AbstractQuestion {
 		$this->results = $results;
 	}
 
-	function getEditHTML($id, $number = -1) {
+	function getEditHTML($questionnaireId, $id, $number = -1) {
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$content = $QuestionnaireExtension->loadTemplate("questiontypes/textareaquestion.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
-                 if($number != -1){
-                    $content->setVariable("NUMBER", $number);
-                }
+    if($number != -1){
+      $content->setVariable("NUMBER", $number);
+    }
 		$content->setVariable("ELEMENT_ID", $id);
 		$content->setVariable("ASSETURL", $QuestionnaireExtension->getAssetUrl() . "icons/");
 		$content->setVariable("EDIT_LABEL", "Bearbeiten");
@@ -58,6 +58,15 @@ class TextareaQuestion extends AbstractQuestion {
 		$data = "1," . rawurlencode($this->questionText) . "," . rawurlencode($this->helpText) . "," . $this->required . "," . $this->rows;
 		$content->setVariable("ELEMENT_DATA", $data);
 		$content->setVariable("ELEMENT_ROWS", $this->rows);
+
+		$popupMenu = new \Widgets\PopupMenu();
+		$popupMenu->setCommand("GetPopupMenuEdit");
+		$popupMenu->setNamespace("Questionnaire");
+		$popupMenu->setData(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $questionnaireId));
+		$popupMenu->setElementId("edit-overlay");
+		$popupMenu->setParams(array(array("key" => "questionId", "value" => $id)));
+		$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+
 		$content->parse("BLOCK_EDIT");
 		return $content->get();
 	}
