@@ -54,14 +54,10 @@ class SingleChoiceQuestion extends AbstractQuestion {
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$content = $QuestionnaireExtension->loadTemplate("questiontypes/singlechoicequestion.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
-                if($number != -1){
-                    $content->setVariable("NUMBER", $number);
-                }
+    if($number != -1){
+      $content->setVariable("NUMBER", $number);
+    }
 		$content->setVariable("ELEMENT_ID", $id);
-		$content->setVariable("ASSETURL", $QuestionnaireExtension->getAssetUrl() . "icons/");
-		$content->setVariable("EDIT_LABEL", "Bearbeiten");
-		$content->setVariable("COPY_LABEL", "Kopieren");
-		$content->setVariable("DELETE_LABEL", "Löschen");
 		if ($this->required == 1) {
 			$content->setVariable("QUESTION_TEXT", $this->questionText . " (Pflichtfrage)");
 		} else {

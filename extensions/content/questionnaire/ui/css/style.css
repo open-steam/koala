@@ -68,10 +68,6 @@ html>body #sortable_rf li {
 	border: none;
 }
 
-.dialog .widgets_radiobutton .widgets_label {
-  width: 285px;
-}
-
 .question_headline {
   background-color: #3a6e9f;
   color: white;

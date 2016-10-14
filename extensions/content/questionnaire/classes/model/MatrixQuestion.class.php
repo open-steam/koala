@@ -81,10 +81,6 @@ class MatrixQuestion extends AbstractQuestion {
     if($number != -1){
       $content->setVariable("NUMBER", $number);
     }
-		$content->setVariable("ASSETURL", $QuestionnaireExtension->getAssetUrl() . "icons/");
-		$content->setVariable("EDIT_LABEL", "Bearbeiten");
-		$content->setVariable("COPY_LABEL", "Kopieren");
-		$content->setVariable("DELETE_LABEL", "Löschen");
 		if ($this->required == 1) {
 			$content->setVariable("QUESTION_TEXT", $this->questionText . " (Pflichtfrage)");
 		} else {

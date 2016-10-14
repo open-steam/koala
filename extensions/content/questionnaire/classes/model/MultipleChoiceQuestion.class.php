@@ -70,10 +70,6 @@ class MultipleChoiceQuestion extends AbstractQuestion {
             $content->setVariable("NUMBER", $number);
         }
         $content->setVariable("ELEMENT_ID", $id);
-        $content->setVariable("ASSETURL", $QuestionnaireExtension->getAssetUrl() . "icons/");
-        $content->setVariable("EDIT_LABEL", "Bearbeiten");
-        $content->setVariable("COPY_LABEL", "Kopieren");
-        $content->setVariable("DELETE_LABEL", "Löschen");
         if ($this->required == 1) {
             $content->setVariable("QUESTION_TEXT", $this->questionText . " (Pflichtfrage)");
         } else {

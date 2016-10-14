@@ -37,11 +37,6 @@ class JumpLabel extends AbstractLayoutElement {
             $content->setVariable("NUMBER", $number);
         }
         $content->setVariable("ELEMENT_ID", $id);
-        $content->setVariable("ASSETURL", $QuestionnaireExtension->getAssetUrl() . "icons/");
-        $content->setVariable("EDIT_LABEL", "Bearbeiten");
-        $content->setVariable("COPY_LABEL", "Kopieren");
-        $content->setVariable("DELETE_LABEL", "Löschen");
-
         $content->setVariable("QUESTION_TEXT", rawurldecode($this->text));
         $content->setVariable("QUESTION_TO", $this->to);
 

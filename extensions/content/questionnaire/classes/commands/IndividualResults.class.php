@@ -133,6 +133,14 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("TIME_LABEL", "Erstellungszeit");
 		}
 
+		$popupMenuHeadline = new \Widgets\PopupMenu();
+		$popupMenuHeadline->setCommand("GetPopupMenuHeadline");
+		$popupMenuHeadline->setNamespace("Questionnaire");
+		$popupMenuHeadline->setData($questionnaire);
+		$popupMenuHeadline->setElementId("result-overlay");
+		$popupMenuHeadline->setParams(array(array("key" => "id", "value" => $this->id)));
+		$content->setVariable("POPUPMENUANKER_HEADLINE", $popupMenuHeadline->getHtml());
+
 		if($resultNumber != 0){
 			// initialize table sorting
 			$initJS = '$(document).ready(function() {
