@@ -58,11 +58,21 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
             }
 
             foreach ($images as $image) {
+                $popupMenu = new \Widgets\PopupMenu();
+                $popupMenu->setCommand("GetPopupMenuMediathek");
+                $popupMenu->setNamespace("Wiki");
+                $popupMenu->setData($wiki_container);
+                $popupMenu->setElementId("wiki-overlay");
+                $popupMenu->setParams(array(array("key" => "id", "value" => $image->get_id())));
+                $content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+
+                /*
                 $actions = '<a href="#" onclick="sendRequest(\'Properties\', {\'id\':' . $image->get_id() . '}, \'\', \'popup\', null, null, \'explorer\')">' . "Eigenschaften" . '</a><br>';
 
                 if ($wiki_container->check_access_write()) {
                     $actions .= '<a href="#" onclick="return confirmDeletion(\'' . $question . '\',\'' . $note . '\',' . $image->get_id() . ');">' . "Bild löschen" . '</a>';
                 }
+                */
 
                 $imageData = imagecreatefromstring($image->get_content());
 
@@ -85,7 +95,7 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
                 $content->setVariable("IMAGE_DESCRIPTION", $image->get_attribute('OBJ_DESC'));
                 $content->setVariable("IMAGE_LINK", PATH_URL . "download/image/" . $image->get_id() . "/" . $newWidth . "/" . $newHeight);
                 $content->setVariable("PREVIEW_LINK", "javascript:showBox(" . $image->get_id() . "," . $width . "," . $height . ");");
-                $content->setVariable("IMAGE_ACTIONS", $actions);
+                //$content->setVariable("IMAGE_ACTIONS", $actions);
                 $content->parse("BLOCK_IMAGE");
             }
         }
@@ -109,8 +119,10 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
                     array("link" => "", "name" => gettext("Mediathek"))
         );
 
+        $PopupMenuStyle = \Widgets::getInstance()->readCSS("PopupMenu.css");
+
         $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml($wiki_html_handler->get_html());
+        $rawHtml->setHtml($wiki_html_handler->get_html() . "<style>" . $PopupMenuStyle . "</style>");
         $frameResponseObject->addWidget($rawHtml);
         $frameResponseObject->setHeadline($headline);
         return $frameResponseObject;

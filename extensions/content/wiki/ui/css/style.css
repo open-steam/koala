@@ -446,3 +446,25 @@
 .wiki .main .sectionIndex > a {
 	padding-right: 22px;
 }
+
+.imageContainer {
+	float: left;
+	margin: 0px 0px 20px 20px;
+	margin-top: 5px;
+	text-align: center;
+	width: 160px;
+	border-radius: 3px;
+	box-shadow: 2px 2px 5px #888;
+}
+
+.imageContainer:hover {
+	background-color: #EEEEEE;
+}
+
+.imageContainer:hover .popupmenuanker{
+	display: block;
+}
+
+.popupmenuanker {
+	display: none;
+}
