@@ -77,19 +77,25 @@
 */
 
 .wiki_toolbar {
-	border-spacing: 5px;
+	border-spacing: 0px;
+	background: #3a6e9f;
+	width: 940px;
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
 }
 
 .wiki_toolbar td {
 	margin: 0px;
 	padding: 0px;
-	border: 1px solid grey;
+	border: none;
+	background: #3a6e9f;
 }
 
 .wiki_toolbar .toolbar_select_text {
 	padding-left: 3px;
 	padding-right: 3px;
 	vertical-align: middle;
+	color: #FFFFFF;
 }
 
 .wiki_toolbar .toolbar_select_wrapper {
@@ -105,7 +111,8 @@
 }
 
 .wiki_toolbar .toolbar_select_text_td {
-	background-color: white;
+	background-color: #3a6e9f;
+	border-top-left-radius: 3px;
 }
 
 .wiki_toolbar .toolbar_select_wrapper td {
@@ -121,7 +128,7 @@
 	cursor: pointer;
 	width: 12px;
 	height: 30px;
-	color: #396d9e;
+	color: #FFFFFF;
 	vertical-align: middle;
   display: table-cell;
 }
@@ -131,8 +138,7 @@
 	position: absolute;
 	top: 20px;
 	right: -1px;
-	background-color: white;
-	border: 1px solid grey;
+	background-color: #3a6e9f;
 }
 
 #toolbar_select_wrapper_style .toolbar_select_popup_wrapper {
@@ -144,7 +150,7 @@
 }
 
 .wiki_toolbar .toolbar_select_popup_wrapper .toolbar_select_popup_item:hover {
-	background-color: #ccc;
+	background-color: #6094C5;
 }
 
 .wiki_toolbar .toolbar_select_popup_wrapper .toolbar_select_popup_item h1  {
@@ -160,19 +166,19 @@
 }
 
 .wiki_toolbar .toolbar_select_popup_wrapper .toolbar_select_popup_item  {
-	padding: 3px;
+	padding: 4px;
 	cursor: pointer;
 }
 
 .wiki_toolbar .toolbar_icon {
 	display: block;
 	cursor: pointer;
-	width: 30px;
+	width: 50px;
 	height: 30px;
 }
 
 .wiki_toolbar .toolbar_icon:hover, .wiki_toolbar .toolbar_combo_button:hover {
-	background-color: #ccc;
+	background-color: #6094C5;
 }
 
 .wiki_toolbar .toolbar_icon_bold {
@@ -220,7 +226,7 @@
 }
 
 .wiki_toolbar .toolbar_icon_pressed{
-	background-color: #CCCCCC;
+	background-color: #264767;
 }
 
 .wiki .wiki_text .html{
@@ -327,19 +333,19 @@
 .wiki #wikiHelp{
 	float: left;
 	display: block;
-	width: 99%;
-	border: 1px solid #B3B2B2;
-	background-color: #B3B2B2;
+	width: 940px;
+	background-color: #6094C5;
+	height: 200px;
 }
 
 .wiki #wikiHelp .index{
 	float: left;
 	width: 19%;
 	cursor: pointer;
-	height: 125px;
+	height: 200px;
 	overflow: auto;
-	color: #0645AD;
-	background: white;
+	color: #FFFFFF;
+	background: #3a6e9f;
 	padding-left:5px;
 	padding-top:5px;
 }
@@ -347,18 +353,17 @@
 .wiki #wikiHelp .pages{
 	float: right;
 	width: 80%;
-	height: 125px;
+	height: 200px;
 	overflow: auto;
 }
 
 .wiki #wikiHelp table{
 	width: 100%;
 	border-style: none;
-	border-top: 1px solid #EEEEEE;
 }
 
 .wiki #wikiHelp .current{
-	background-color: #B3B2B2;
+	background-color: #6094C5;
 }
 
 .wiki #wikiHelp .pages .disabled{
@@ -467,4 +472,19 @@
 
 .popupmenuanker {
 	display: none;
+}
+
+.helpTableHeadline {
+	text-align: center !important;
+	background-color: #3a6e9f !important;
+	color: #FFFFFF;
+	border: none !important;
+}
+
+.white {
+	background-color: #FFFFFF !important;
+}
+
+.grey {
+	background-color: #d4d4d4 !important;
 }
