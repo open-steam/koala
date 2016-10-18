@@ -30,13 +30,6 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
         $wiki_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $user = \lms_steam::get_current_user();
 
-        if (!($wiki_container->check_access_write())) {
-            $errorHtml = new \Widgets\RawHtml();
-            $errorHtml->setHtml("Das Wiki kann nicht angezeigt werden, da Sie nicht über die erforderlichen Schreibrechte verfügen.");
-            $frameResponseObject->addWidget($errorHtml);
-            return $frameResponseObject;
-        }
-
         if (isset($this->params[1])) {
             if ($this->params[0] == "version" && isset($this->params[1])) {
                 // delete previous version of a doc
@@ -54,7 +47,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
                         header("Location: " . PATH_URL . "wiki/versions/" . $parent_wiki->get_id());
                         die;
                     }
-                    
+
                     $keys = array_keys($all_versions);
                     sort($keys);
                     $new_array = array();

@@ -26,6 +26,7 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 		\CacheSettings::disable_caching();
 
 		$WikiExtension = \Wiki::getInstance();
+		$WikiExtension->addCSS();
 		$wiki_doc = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$wiki_container = $wiki_doc->get_environment();
 
@@ -100,6 +101,10 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 			$last_author  = $author_result[$author_tnr[$doc->get_id()]];
 			$content->setCurrentBlock( "BLOCK_VERSION" );
 
+			if ($i % 2 == 1) {
+  			$content->setVariable("CLASS", "class='white'");
+  		}
+
 			if ( $doc instanceof \steam_document ){
 				$content->setVariable( "VALUE_SIZE", get_formatted_filesize( $doc->get_content_size() ) );
 				$content->setVariable( "VALUE_CREATOR_LINK", PATH_URL . "user/index/" . $author_result[$author_tnr[$doc->get_id()]][OBJ_NAME] . "/" );
@@ -134,11 +139,39 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 					$marked = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $_GET["markedfordiff"] );
 					$content->setVariable( "VALUE_ACTION_MARKED_DIFF", "<a href=\"" . PATH_URL . "wiki/compare/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/" . $_GET["markedfordiff"] . "\">" . "&raquo; " . gettext("Compare to marked version") . " " . $marked->get_version() . "</a>");
 				}
+/*
+				$markedfordiff = "";
+				if(isset($_GET["markedfordiff"]) && $_GET["markedfordiff"]){
+					$markedfordiff = $_GET["markedfordiff"];
+				}
+
+				$prevVersionId = "";
+				if($attributes[DOC_VERSION] != 1){
+					$prevVersionId = $prev_versions[$i+1]->get_id();
+				}
+
+				$params = array(
+					array("key" => "docId", "value" => $doc->get_id()),
+					array("key" => "wikiDocId", "value" => $wiki_doc->get_id()),
+					array("key" => "markedfordiff", "value" => $markedfordiff),
+					array("key" => "docVersion", "value" => $attributes[DOC_VERSION]),
+					array("key" => "prevVersionId", "value" => $prevVersionId)
+				);
+
+				$popupMenu = new \Widgets\PopupMenu();
+				$popupMenu->setCommand("GetPopupMenuVersion");
+				$popupMenu->setNamespace("Wiki");
+				$popupMenu->setData($wiki_doc);
+				$popupMenu->setElementId("wiki-overlay");
+				$popupMenu->setParams($params);
+				$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+*/
 			}
 
 			//is user authorized to delete version?
-			/*
+
 			$content->setVariable( "MESSAGE_DELETION", "Diese Version wirklich löschen?" );
+/*
 			$current_user = \lms_steam::get_current_user();
 			$admin_group = \steam_factory::get_group( $GLOBALS["STEAM"]->get_id(), "admin" );
 			$isAdmin = ( is_object( $admin_group ) && $admin_group->is_member( $current_user ) );
@@ -173,6 +206,8 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($wiki_html_handler->get_html());
+		$PopupMenuStyle = \Widgets::getInstance()->readCSS("PopupMenu.css");
+		$rawHtml->setCss($PopupMenuStyle . ".popupmenuanker {display:block;}");
 		$frameResponseObject->addWidget($rawHtml);
 		$frameResponseObject->setHeadline($headline);
 		return $frameResponseObject;

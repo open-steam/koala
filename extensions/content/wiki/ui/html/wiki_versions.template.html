@@ -21,19 +21,19 @@ function confirmDeletion()
 <form action="" method="post">
 <table class="grid" width="100%" cellspacing="1" cellpadding="5">
 <tr>
-	<th>{LABEL_VERSION_NUMBER}</th>
-	<th>{LABEL_SIZE}</th>
-	<th title="{GROUP_MEM_TITLE}">{LABEL_DATE}</th>
-	<th title="{VALUE_MAX_TITLE}">{LABEL_CREATOR}</th>
-	<th>{LABEL_ACTION}</th>
+	<th class="versionTableHeadline">{LABEL_VERSION_NUMBER}</th>
+	<th class="versionTableHeadline">{LABEL_SIZE}</th>
+	<th class="versionTableHeadline" title="{GROUP_MEM_TITLE}">{LABEL_DATE}</th>
+	<th class="versionTableHeadline" title="{VALUE_MAX_TITLE}">{LABEL_CREATOR}</th>
+	<th class="versionTableHeadline">{LABEL_ACTION}</th>
 </tr>
 <!-- BEGIN BLOCK_VERSION -->
 <tr>
-	<td><a href="{VALUE_VERSION_LINK}">{VALUE_VERSION_NUMBER}</a></td>
-	<td align="center">{VALUE_SIZE}</td>
-	<td align="center">{VALUE_DATE}</td>
-	<td align="center"><a href="{VALUE_CREATOR_LINK}">{VALUE_CREATOR}</a></td>
-	<td align="left">
+	<td {CLASS}><a href="{VALUE_VERSION_LINK}">{VALUE_VERSION_NUMBER}</a></td>
+	<td {CLASS} align="center">{VALUE_SIZE}</td>
+	<td {CLASS} align="center">{VALUE_DATE}</td>
+	<td {CLASS} align="center"><a href="{VALUE_CREATOR_LINK}">{VALUE_CREATOR}</a></td>
+	<td {CLASS} align="left">
   <!-- BEGIN BLOCK_RECOVER -->
 		<a href="{VALUE_RECOVER_LINK}">{VALUE_ACTION_RECOVER}</a><br />
   <!-- END BLOCK_RECOVER -->
@@ -48,3 +48,4 @@ function confirmDeletion()
 </form>
 <!-- END BLOCK_VERSION_LIST -->
 {EXTRA_INFO}
+ <div id="wiki-overlay"></div>

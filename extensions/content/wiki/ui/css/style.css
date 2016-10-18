@@ -488,3 +488,14 @@
 .grey {
 	background-color: #d4d4d4 !important;
 }
+
+.versionTableHeadline {
+	background-color: #3a6e9f !important;
+	color: white;
+	text-align: center !important;
+	border: none !important;
+}
+
+td {
+	border: none !important;
+}

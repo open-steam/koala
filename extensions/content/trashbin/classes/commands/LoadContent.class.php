@@ -51,7 +51,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
     }
 
     public function getHeadLineWidths() {
-        return array(25, 240, 10, 250, 10, 140, 145, 75, 10, 20, 20);
+        return array(25, 240, 10, 250, 10, 140, 145, 65, 20, 20, 20);
     }
 
     public function getHeadLineAligns() {

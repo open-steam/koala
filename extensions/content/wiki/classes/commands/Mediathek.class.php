@@ -120,9 +120,9 @@ class Mediathek extends \AbstractCommand implements \IFrameCommand {
         );
 
         $PopupMenuStyle = \Widgets::getInstance()->readCSS("PopupMenu.css");
-
         $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml($wiki_html_handler->get_html() . "<style>" . $PopupMenuStyle . "</style>");
+        $rawHtml->setHtml($wiki_html_handler->get_html());
+        $rawHtml->setCss($PopupMenuStyle);
         $frameResponseObject->addWidget($rawHtml);
         $frameResponseObject->setHeadline($headline);
         return $frameResponseObject;
