@@ -49,7 +49,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     array("name" => "<svg><use xlink:href='{$trashIcon}#trash'/></svg> Endgültig löschen", "command" => "EmptyTrashbin", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater"),
                     array("name" => "<svg><use xlink:href='{$cutIcon}#cut'/></svg> Ausschneiden", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform")
                 );
-
+                /*
                 if ($object->get_attribute("OBJ_LAST_LOCATION_ID") !== "") {
                     $formerEnvironment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $object->get_attribute("OBJ_LAST_LOCATION_ID"));
                     if ($formerEnvironment instanceof \steam_object && $formerEnvironment->check_access(SANCTION_WRITE)) {
@@ -57,6 +57,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                         $items[] = array("name" => "<svg><use xlink:href='{$restoreIcon}#restore'/></svg> Zurücklegen", "command" => "Restore", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'restoreFromTrashbin': 'true'}", "type" => "nonModalUpdater");
                     }
                 }
+                */
             }
             $popupMenu->setItems($items);
             $popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");

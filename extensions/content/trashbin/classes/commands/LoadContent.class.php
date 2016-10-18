@@ -47,15 +47,17 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadlines() {
-        return array("", "Name", "", "Beschreibung", "", "ehem. Umgebung", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+        return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+        //return array("", "Name", "", "Beschreibung", "", "ehem. Umgebung", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
     }
 
     public function getHeadLineWidths() {
-        return array(25, 240, 10, 250, 10, 140, 145, 65, 20, 20, 20);
+        return array(25, 250, 10, 370, 10, 145, 75, 20, 20, 20);
+        //return array(25, 240, 10, 250, 10, 140, 145, 65, 20, 20, 20);
     }
 
     public function getHeadLineAligns() {
-        return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
+        //return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
     }
 
     public function getOnClickHandler($headline) {
@@ -99,12 +101,12 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawName = 1;
     private $rawDesc = 3;
     private $rawMarker = 4;
-    private $rawFormerEnvironment = 5;
-    private $rawChangeDate = 6;
-    private $rawSize = 7;
-    private $rawReference = 8;
-    private $rawMenu = 9;
-    private $rawCheckbox = 10;
+    //private $rawFormerEnvironment = 5;
+    private $rawChangeDate = 5;
+    private $rawSize = 6;
+    private $rawReference = 7;
+    private $rawMenu = 8;
+    private $rawCheckbox = 9;
 
     public function getId($contentItem) {
         return $contentItem->get_id();
@@ -200,6 +202,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             $html .= "</div>";
             return $html;
         } else if ($cell == $this->rawFormerEnvironment) {
+          /*
             if ($contentItem->get_attribute("OBJ_LAST_LOCATION_ID") !== "") {
                 $formerEnvironment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $contentItem->get_attribute("OBJ_LAST_LOCATION_ID"));
                 if($formerEnvironment instanceof \steam_object && ($formerEnvironment->get_attribute("OBJ_TYPE") === "container_portalColumn_bid" || $formerEnvironment->get_attribute("OBJ_NAME") === "postbox_container")){
@@ -214,6 +217,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                 }
                 return "";
             }
+            */
         } else if ($cell == $this->rawChangeDate) {
             return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
         } else if ($cell == $this->rawSize) {
