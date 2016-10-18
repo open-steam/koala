@@ -35,23 +35,16 @@ END
         } else {
             $portal = \steam_factory::create_room($GLOBALS["STEAM"]->get_id(), strip_tags($this->params["name"]), $current_room);
 
-
             $jswrapper = new \Widgets\JSWrapper();
-            $jswrapper->setJs(<<<END
-		closeDialog();
-		sendRequest("LoadContent", {"id":"{$this->id}"}, "explorerWrapper", "updater", null, null, "explorer");
-END
-            );
+            $jswrapper->setJs('closeDialog(); location.reload();');
         }
-
-
 
         $ajaxResponseObject->addWidget($jswrapper);
         return $ajaxResponseObject;
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
+
     }
 
 }

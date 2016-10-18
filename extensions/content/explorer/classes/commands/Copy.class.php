@@ -9,6 +9,8 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
     private $user;
     private $success = true;
     private $name;
+    private $duplicateNameObject;
+    private $rename;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -18,9 +20,9 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
         $this->user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $this->rename = $this->params["rename"];
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         if (getObjectType($object) === "portal") {
-            $portalInstance = \PortletTopic::getInstance();
             $portalObjectId = $object->get_id();
             \ExtensionMaster::getInstance()->callCommand("PortalCopy", "Portal", array("id" => $portalObjectId));
         } elseif (getObjectType($object) === "pyramiddiscussion") {
@@ -28,9 +30,12 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
         } else if (getObjectType($object) === "forum") {
             \ExtensionMaster::getInstance()->callCommand("ForumCopy", "Forum", array("objectId" => $object->get_id()));
         } else {
+          $this->name = $object->get_name();
+          $this->duplicateNameObject = $this->user->get_object_by_name($this->name);
+          if($this->duplicateNameObject == 0 || $this->rename){
             if ($object instanceof \steam_link) {
                 $copy = \steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $object->get_link_object());
-                $copy->set_name($object->get_name());
+                $copy->set_name($this->name);
                 $copy->move($this->user);
             } elseif ($object instanceof \steam_container) {
                 list($countObjects, $countSize) = $this->countInventoryRecursive($object);
@@ -39,12 +44,12 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
                     $copy->move($this->user);
                 } else {
                     $this->success = false;
-                    $this->name = $object->get_name();
                 }
             } else {
                 $copy = $object->copy();
                 $copy->move($this->user);
             }
+          }
         }
     }
 
@@ -66,6 +71,41 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+      $ajaxResponseObject->setStatus("ok");
+
+      if($this->duplicateNameObject != 0  && !$this->rename){   //there exists an object with this name in the clipboard, ask the user what to do
+        $dialog = new \Widgets\Dialog();
+        $dialog->setTitle("Information");
+        $dialog->setSaveAndCloseButtonLabel(null);
+        $dialog->setCancelButtonLabel("Abbrechen");
+
+        $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->setHtml('<div>In der Zwischenablage existiert bereits ein Objekt mit dem Namen "' . $this->name . '". Bitte wählen Sie eine der angegebenen Handlungsalternativen.</div><br style="clear:both"><div><div style="font-weight: bold; float: left;">Beide behalten:</div><div style="margin-left: 100px;"> Der Name des neuen Objekts wird zur eindeutigen Zuordnung durch eine Ziffer ergänzt.</div></div><div><div style="font-weight: bold; float: left;">Ersetzen:</div><div style="margin-left: 100px;">Das bestehende Objekt wird durch das neue Objekt ersetzt.</div></div><div><div style="font-weight: bold; float: left;">Abbrechen:</div><div style="margin-left: 100px;">Das Erstellung der Kopie wird abgebrochen.</div></div>');
+        $dialog->addWidget($rawHtml);
+
+        $jswrapper = new \Widgets\JSWrapper();
+        $jswrapper->setJs('createOverlay("white", null, "show")');
+        $ajaxResponseObject->addWidget($jswrapper);
+
+        $keepBothButton = array();
+        $keepBothButton["label"] = "Beide behalten";
+        $keepBothButton["js"] = "sendRequest('Copy', {'id':{$this->id}, 'rename':true}, '', 'data', null, null, 'explorer');closeDialog();";
+        $buttons[0] = $keepBothButton;
+
+        $replaceButton = array();
+        $replaceButton["label"] = "Ersetzen";
+        $replaceButton["js"] = "sendRequest('Delete', {'id':{$this->duplicateNameObject->get_id()}}, '', 'data', function(){sendRequest('Copy', {'id':{$this->id}}, '', 'data', null, null, 'explorer');}, null, 'explorer');closeDialog();";
+        $buttons[1] = $replaceButton;
+
+        $dialog->setButtons($buttons);
+        $dialog->setWidth(500);
+        $ajaxResponseObject->addWidget($dialog);
+      }
+      else{
+        $rawHtml = new \Widgets\RawHtml();
+        $rawHtml->setHtml("");
+        $ajaxResponseObject->addWidget($rawHtml);
+
         if ($this->success === true) {
             $ajaxResponseObject->setStatus("ok");
             $jswrapper = new \Widgets\JSWrapper();
@@ -73,7 +113,6 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
             $js = "document.getElementById('clipboardIconbarWrapper').innerHTML = '" . $clipboardModel->getIconbarHtml() . "';";
             $jswrapper->setJs($js);
             $ajaxResponseObject->addWidget($jswrapper);
-
             return $ajaxResponseObject;
         } else {
             $ajaxResponseObject->setStatus("ok");
@@ -89,8 +128,8 @@ class Copy extends \AbstractCommand implements \IAjaxCommand {
                     }";
             $jswrapper->setJs($js);
             $ajaxResponseObject->addWidget($jswrapper);
-
-            return $ajaxResponseObject;
+          }
         }
+        return $ajaxResponseObject;
     }
 }

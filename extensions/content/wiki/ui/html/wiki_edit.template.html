@@ -1,21 +1,21 @@
 <table class="wiki" width="100%" cellpadding="0">
 <tr valign="top">
-<td class="main">
+<td class="main" style="width:100%;">
 <form action="{FORM_ACTION}" method="post" name="formular">
 <input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}">
 <table class="grid" width="100%" cellpadding="5" cellspacing="0">
   <tr>
-  	<td style="border-right: 0px;">
-      <div class="label">{LABEL_TITLE}*:</div>
-      <input type="text" name="values[title]" style="width: 99%;" value="{TITLE_COMMENT}">
+  	<td style="border-right: 0px; background-color: #FFFFFF;">
+      <h2 class="label">{LABEL_TITLE}:</h2>
+      <input type="text" name="values[title]" style="width: 936px;" value="{TITLE_COMMENT}">
     </td>
   </tr>
   <tr>
-    <td style="border-right: 0px;">
-    <div class="label">{LABEL_BODY}*:</div>
+    <td style="border-right: 0px; background-color: #FFFFFF;">
+    <h2 class="label">{LABEL_BODY}:</h2>
 	<table class="wiki_toolbar">
 	<tr>
-		<td>
+		<td style="border-top-left-radius:3px;">
 			<table class="toolbar_select_wrapper" id="toolbar_select_wrapper_style">
 				<tr >
 					<td class="toolbar_select_text_td">
@@ -23,10 +23,11 @@
 					</td>
 					<td class="toolbar_combo_button_td">
 						<div class="toolbar_combo_button" title="unterschiedliche Stil-Varianten für ausgewählten Text" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_style').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_style').style.display='none'">
-							<div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_style">
-								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '=', '=', 'Bitte wählen sie den Text aus, der den Titel-Stil bekommen soll.');" title="Stile Titel für ausgewählten Text" class="toolbar_select_popup_item"><h1 unselectable="on">Titel</h1></div>
-								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '==', '==', 'Bitte wählen sie den Text aus, der den Überschrift-Stil bekommen soll.')" title="Stile Überschrift für ausgewählten Text" class="toolbar_select_popup_item"><h2 unselectable="on">Überschrift</h2></div>
-								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '===', '===', 'Bitte wählen sie den Text aus, der den Zwischenüberschrift-Stil bekommen soll.')" title="Stile Zwischenüberschrift für ausgewählten Text" class="toolbar_select_popup_item"><h3 unselectable="on">Zwischenüberschrift</h3></div>
+              ▼
+              <div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_style">
+								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '=', '=', 'Bitte wählen sie den Text aus, der den Titel-Stil bekommen soll.');" title="Titel-Stil für ausgewählten Text" class="toolbar_select_popup_item"><h1 unselectable="on">Titel</h1></div>
+								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '==', '==', 'Bitte wählen sie den Text aus, der den Überschrift-Stil bekommen soll.')" title="Überschrift-Stil für ausgewählten Text" class="toolbar_select_popup_item"><h2 unselectable="on">Überschrift</h2></div>
+								<div unselectable="on" onclick="this.parentNode.style.display='none';wiki_markup('Content', '===', '===', 'Bitte wählen sie den Text aus, der den Zwischenüberschrift-Stil bekommen soll.')" title="Zwischenüberschrift-Stil für ausgewählten Text" class="toolbar_select_popup_item"><h3 unselectable="on">Zwischenüberschrift</h3></div>
 							</div>
 						</div>
 					</td>
@@ -34,23 +35,24 @@
 			</table>
 		</td>
 		<td>
-			<span unselectable="on" onclick="wiki_markup('Content', '\'\'\'', '\'\'\'', 'Bitte wählen sie Text aus, den sie fett hervorheben wollen.')"  title="ausgewählten Text fett hervorheben" class="toolbar_icon toolbar_icon_bold"></span>
+			<span unselectable="on" onclick="wiki_markup('Content', '\'\'\'', '\'\'\'', 'Bitte wählen sie Text aus, den sie fett hervorheben wollen.')"  title="ausgewählten Text fett hervorheben" class="toolbar_icon toolbar_icon_bold"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/bold.svg#bold' /></svg></span>
 		</td>
 		<td>
-			<span unselectable="on" onclick="wiki_markup('Content', '\'\'', '\'\'', 'Bitte wählen sie Text aus, den sie kursiv hervorheben wollen.')"  title="ausgewählten Text kursiv hervorheben" class="toolbar_icon toolbar_icon_italic"></span>
+			<span unselectable="on" onclick="wiki_markup('Content', '\'\'', '\'\'', 'Bitte wählen sie Text aus, den sie kursiv hervorheben wollen.')"  title="ausgewählten Text kursiv hervorheben" class="toolbar_icon toolbar_icon_italic"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/italic.svg#italic' /></svg></span>
 		</td>
 		<td>
 			<table class="toolbar_select_wrapper" id="toolbar_select_wrapper_ul">
 				<tr>
 					<td>
-						<span onclick="wiki_markup('Content', '*', '', '')"  title="fügt sie eine unnummerierte Liste ein" class="toolbar_icon toolbar_icon_ul"></span>
+						<span onclick="wiki_markup('Content', '*', '', '')"  title="unnummerierte Liste einfügen" class="toolbar_icon toolbar_icon_ul"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/ul.svg#ul' /></svg></span>
 					</td>
 					<td class="toolbar_combo_button_td">
-						<div class="toolbar_combo_button" title="fügt sie unterschiedliche Ebenen in eine unnummerierte Liste ein" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_ul').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_ul').style.display='none'">
-							<div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_ul">
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '*', '', '')" title="1. Ebene der unnummerieten Liste" class="toolbar_select_popup_item">1. Ebene</div>
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '**', '', '')" title="2. Ebene der unnummerieten Liste" class="toolbar_select_popup_item">2. Ebene</div>
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '***', '', '')" title="3. Ebene der unnummerieten Liste" class="toolbar_select_popup_item">3. Ebene</div>
+						<div class="toolbar_combo_button" title="unterschiedliche Ebenen in eine unnummerierte Liste einfügen" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_ul').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_ul').style.display='none'">
+              ▼
+              <div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_ul">
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '*', '', '')" title="1. Ebene der unnummerierten Liste" class="toolbar_select_popup_item">1. Ebene</div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '**', '', '')" title="2. Ebene der unnummerierten Liste" class="toolbar_select_popup_item">2. Ebene</div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '***', '', '')" title="3. Ebene der unnummerierten Liste" class="toolbar_select_popup_item">3. Ebene</div>
 							</div>
 						</div>
 					</td>
@@ -61,14 +63,15 @@
 			<table class="toolbar_select_wrapper" id="toolbar_select_wrapper_ol">
 				<tr>
 					<td>
-						<span onclick="wiki_markup('Content', '#', '', '')"  title="fügt eine nummerierte Liste ein" class="toolbar_icon toolbar_icon_ol"></span>
+						<span onclick="wiki_markup('Content', '#', '', '')"  title="nummerierte Liste einfügen" class="toolbar_icon toolbar_icon_ol"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/ol.svg#ol' /></svg></span>
 					</td>
 					<td class="toolbar_combo_button_td">
-						<div class="toolbar_combo_button" title="fügt unterschiedliche Ebenen in eine nummerierte Liste ein" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_ol').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_ol').style.display='none'">
-							<div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_ol">
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '#', '', '')" title="1. Ebene der nummerieten Liste" class="toolbar_select_popup_item">1. Ebene</div>
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '##', '', '')" title="2. Ebene der nummerieten Liste" class="toolbar_select_popup_item">2. Ebene</div>
-								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '###', '', '')" title="3. Ebene der nummerieten Liste" class="toolbar_select_popup_item">3. Ebene</div>
+						<div class="toolbar_combo_button" title="unterschiedliche Ebenen in eine nummerierte Liste einfügen" onMouseOver="document.getElementById('toolbar_select_popup_wrapper_ol').style.display='block'" onMouseOut="document.getElementById('toolbar_select_popup_wrapper_ol').style.display='none'">
+              ▼
+              <div class="toolbar_select_popup_wrapper" id="toolbar_select_popup_wrapper_ol">
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '#', '', '')" title="1. Ebene der nummerierten Liste" class="toolbar_select_popup_item">1. Ebene</div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '##', '', '')" title="2. Ebene der nummerierten Liste" class="toolbar_select_popup_item">2. Ebene</div>
+								<div onclick="this.parentNode.style.display='none';wiki_markup('Content', '###', '', '')" title="3. Ebene der nummerierten Liste" class="toolbar_select_popup_item">3. Ebene</div>
 							</div>
 						</div>
 					</td>
@@ -76,25 +79,25 @@
 			</table>
 		</td>
 		<td>
-			<span unselectable="on" onclick="wiki_markup('Content', '\n-----------\n', '', '')"  title="fügt Trennline ein" class="toolbar_icon toolbar_icon_line"></span>
+			<span unselectable="on" onclick="wiki_markup('Content', '\n-----------\n', '', '')"  title="Trennlinie einfügen" class="toolbar_icon toolbar_icon_line"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/line.svg#line' /></svg></span>
 		</td>
 		<td>
-			<span unselectable="on" onclick="wiki_dialog('Content', 'image')"  title="fügt ein Bild ein" class="toolbar_icon toolbar_icon_image"></span>
+			<span unselectable="on" onclick="wiki_dialog('Content', 'image')"  title="Bild einfügen" class="toolbar_icon toolbar_icon_image"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/image.svg#image' /></svg></span>
 		</td>
 		<td>
-			<span unselectable="on" onclick="wiki_dialog('Content', 'link')"  title="fügt eine Verknüpfung ein" class="toolbar_icon toolbar_icon_link"></span>
+			<span unselectable="on" onclick="wiki_dialog('Content', 'link')"  title="Verknüpfung einfügen" class="toolbar_icon toolbar_icon_link"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/link.svg#link' /></svg></span>
 		</td>
 		<td>
-			<span unselectable="on" onclick="wiki_markup('Content', '[', '[ ]]', 'Bitte wählen sie Text aus, den sie markieren wollen.')"  title="ausgewählten Text markieren" class="toolbar_icon toolbar_icon_note"></span>
+			<span unselectable="on" onclick="wiki_markup('Content', '[', '[ ]]', 'Bitte wählen sie Text aus, den sie markieren wollen.')"  title="ausgewählten Text markieren" class="toolbar_icon toolbar_icon_note"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/highlighter.svg#highlighter' /></svg></span>
 		</td>
 		<td>
-			<span unselectable="on" onclick="wiki_dialog('Content', 'coment')"  title="ausgewählten Text kommentieren" class="toolbar_icon toolbar_icon_comment"></span>
+			<span unselectable="on" onclick="wiki_dialog('Content', 'comment')"  title="ausgewählten Text kommentieren" class="toolbar_icon toolbar_icon_comment"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/comment.svg#comment' /></svg></span>
 		</td>
 		<td>
-			<span unselectable="on" onclick="wiki_dialog('Content', 'table')" title="Tabelle einfügen" class = "toolbar_icon toolbar_icon_table"> </span>
+			<span unselectable="on" onclick="wiki_dialog('Content', 'table')" title="Tabelle einfügen" class = "toolbar_icon toolbar_icon_table"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/table.svg#table' /></svg></span>
 		</td>
-		<td>
-			<span unselectable="on" onclick="helpChangeState()" title="Hilfe" class = "toolbar_icon toolbar_icon_help"> </span>
+		<td style="border-top-right-radius:3px;">
+			<span unselectable="on" onclick="helpChangeState()" title="Hilfe" class = "toolbar_icon toolbar_icon_help"><svg style='width:20px; height:20px; padding-top: 5px; padding-left: 15px; color:#FFFFFF;'><use xlink:href='../asset/icons/help.svg#help' /></svg></span>
 		</td>
 
 	</tr>
@@ -102,12 +105,12 @@
 
 	<div id="wikiHelp" style="display:none;">
 		<div class="index">
-			<div onClick="switchHelpText(this.id);" id="Sformat" class="current">Format</div>
-			<div onClick="switchHelpText(this.id);" id="Slist" >Listen</div>
-			<div onClick="switchHelpText(this.id);" id="Sueberschriften">Überschriften</div>
-                        <div onClick="switchHelpText(this.id);" id="Slinks">Links & Bilder</div>
-                        <div onClick="switchHelpText(this.id);" id="Selemente">Elemente</div>
-			<div onClick="switchHelpText(this.id);" id="Stabellen">Tabellen</div>
+			<div onClick="switchHelpText(this.id);" id="Sformat" class="current" style="padding:9px;">Format</div>
+			<div onClick="switchHelpText(this.id);" id="Slist" style="padding:9px;">Listen</div>
+			<div onClick="switchHelpText(this.id);" id="Sueberschriften" style="padding:9px;">Überschriften</div>
+      <div onClick="switchHelpText(this.id);" id="Slinks" style="padding:9px;">Links & Bilder</div>
+      <div onClick="switchHelpText(this.id);" id="Selemente" style="padding:9px;">Elemente</div>
+			<div onClick="switchHelpText(this.id);" id="Stabellen" style="padding:9px;">Tabellen</div>
 		</div>
 		<div class ="pages">
 			<div id="Pformat" class="helpTable current">
@@ -118,24 +121,24 @@
     				<col width="35%">
   					</colgroup>
 					<tr>
-						<th>Beschreibung</th>
-						<th>Was du eingibst</th>
-						<th>Wie es aussieht</th>
+						<th class="helpTableHeadline">Beschreibung</th>
+						<th class="helpTableHeadline">Eingabe</th>
+						<th class="helpTableHeadline">Ausgabe</th>
 					</tr>
 					<tr>
-						<td>Kursiv</td>
-						<td>''Kursiver Text''</td>
-						<td><i>Kursiver Text</i></td>
+						<td class="grey">Kursiv</td>
+						<td class="grey">''Kursiver Text''</td>
+						<td class="grey"><i>Kursiver Text</i></td>
 					</tr>
 					<tr>
-						<td>Fett</td>
-						<td>'''Fetter Text'''</td>
-						<td><strong>Fetter Text</strong></td>
+						<td class="white">Fett</td>
+						<td class="white">'''Fetter Text'''</td>
+						<td class="white"><strong>Fetter Text</strong></td>
 					</tr>
 					<tr>
-						<td>Fett & kursiv</td>
-						<td>'''''Fetter & kursiver Text'''''</td>
-						<td><i><strong>Fetter & kursiver Text</strong></i></td>
+						<td class="grey">Fett & kursiv</td>
+						<td class="grey">'''''Fetter & kursiver Text'''''</td>
+						<td class="grey"><i><strong>Fetter & kursiver Text</strong></i></td>
 					</tr>
 				</table>
 			</div>
@@ -147,19 +150,19 @@
     				<col width="35%">
   					</colgroup>
 					<tr>
-						<th>Beschreibung</th>
-						<th>Was du eingibst</th>
-						<th>Wie es aussieht</th>
+						<th class="helpTableHeadline">Beschreibung</th>
+						<th class="helpTableHeadline">Eingabe</th>
+						<th class="helpTableHeadline">Ausgabe</th>
 					</tr>
 					<tr>
-						<td>Aufgezählte Liste</td>
-						<td>*Listeneintrag <br/> *Listeneintrag</td>
-						<td><ul><li>Listeneintrag</li><li>Listeneintrag</li></ul></td>
+						<td class="grey">Aufgezählte Liste</td>
+						<td class="grey">*Listeneintrag <br/> *Listeneintrag</td>
+						<td class="grey"><ul><li>Listeneintrag</li><li>Listeneintrag</li></ul></td>
 					</tr>
 					<tr>
-						<td>Nummerierte Liste</td>
-						<td>#Listeneintrag <br/>#Listeneintrag</td>
-						<td><ol><li>Listeneintrag</li><li>Listeneintrag</li></ol></td>
+						<td class="white">Nummerierte Liste</td>
+						<td class="white">#Listeneintrag <br/>#Listeneintrag</td>
+						<td class="white"><ol><li>Listeneintrag</li><li>Listeneintrag</li></ol></td>
 					</tr>
 				</table>
 			</div>
@@ -171,64 +174,64 @@
     				<col width="35%">
   					</colgroup>
 					<tr>
-						<th>Beschreibung</th>
-						<th>Was du eingibst</th>
-						<th>Wie es aussieht</th>
+						<th class="helpTableHeadline">Beschreibung</th>
+						<th class="helpTableHeadline">Eingabe</th>
+						<th class="helpTableHeadline">Ausgabe</th>
 					</tr>
 					<tr>
-						<td>Titel</td>
-						<td>=Überschrift=</td>
-						<td><h1>Überschrift</h1></td>
+						<td class="grey">Titel</td>
+						<td class="grey">=Überschrift=</td>
+						<td class="grey"><h1>Überschrift</h1></td>
 					</tr>
 					<tr>
-						<td>Überschrift</td>
-						<td>==Überschrift==</td>
-						<td><h2>Überschrift</h2></td>
+						<td class="white">Überschrift</td>
+						<td class="white">==Überschrift==</td>
+						<td class="white"><h2>Überschrift</h2></td>
 					</tr>
 					<tr>
-						<td>Zwischenüberschrift</td>
-						<td>===Überschrift===</td>
-						<td><h3>Überschrift</h3></td>
+						<td class="grey">Zwischenüberschrift</td>
+						<td class="grey">===Überschrift===</td>
+						<td class="grey"><h3>Überschrift</h3></td>
 					</tr>
 				</table>
 			</div>
-                    <div id="Ptabellen" class="helpTable disabled">
-                        <table>
-                            <colgroup>
-                                <col width="25%">
-                                <col width="40%">
-                                <col width="35%">
-                            </colgroup>
-                            <tr>
-                                <th>Beschreibung</th>
-                                <th>Was du eingibst</th>
-                                <th>Wie es aussieht</th>
-                            </tr>
-                            <tr>
-                                <td>Tabelle</td>
-                                <td>|-<br/>
-                                    !Ueberschrift !! Ueberschrift <br/>
-                                    |- <br/>
-                                    |Beispiel||Beispiel <br/>
-                                    |- <br/>
-                                    |Beispiel||Beispiel <br/>
-                                    |} <br/> </td>
-                                <td><table><tbody><tr>
-                                            </tr><tr>
-                                                <th>Ueberschrift </th><th> Ueberschrift
-                                                </th></tr><tr>
-                                                <td>Beispiel</td>
-                                                <td>Beispiel
-                                                </td>
-                                            </tr><tr>
-                                                <td>Beispiel</td>
-                                                <td>Beispiel
-                                                </td>
-                                            </tr></tbody></table></td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div id="Pelemente" class="helpTable disabled">
+      <div id="Ptabellen" class="helpTable disabled">
+          <table>
+              <colgroup>
+                  <col width="25%">
+                  <col width="40%">
+                  <col width="35%">
+              </colgroup>
+              <tr>
+                  <th class="helpTableHeadline">Beschreibung</th>
+                  <th class="helpTableHeadline">Eingabe</th>
+                  <th class="helpTableHeadline">Ausgabe</th>
+              </tr>
+              <tr>
+                  <td class="grey">Tabelle</td>
+                  <td class="grey">|-<br/>
+                      !Ueberschrift !! Ueberschrift <br/>
+                      |- <br/>
+                      |Beispiel||Beispiel <br/>
+                      |- <br/>
+                      |Beispiel||Beispiel <br/>
+                      |} <br/> </td>
+                  <td class="grey"><table><tbody><tr>
+                  </tr><tr>
+                      <th>Ueberschrift </th><th> Ueberschrift
+                      </th></tr><tr>
+                      <td>Beispiel</td>
+                      <td>Beispiel
+                      </td>
+                  </tr><tr>
+                      <td>Beispiel</td>
+                      <td>Beispiel
+                      </td>
+                  </tr></tbody></table></td>
+              </tr>
+          </table>
+      </div>
+      <div id="Pelemente" class="helpTable disabled">
 			<table>
 			<colgroup>
     				<col width="25%">
@@ -236,35 +239,28 @@
     				<col width="35%">
   					</colgroup>
 					<tr>
-						<th>Beschreibung</th>
-						<th>Was du eingibst</th>
-						<th>Wie es aussieht</th>
+						<th class="helpTableHeadline">Beschreibung</th>
+						<th class="helpTableHeadline">Eingabe</th>
+						<th class="helpTableHeadline">Ausgabe</th>
 					</tr>
 					<tr>
-						<td>Trennlinie</td>
-						<td>
-                                                    -----------
-                                                </td>
-                                                <td><hr style="background-color: black; height: 1px;"></td>
+						<td class="grey">Trennlinie</td>
+						<td class="grey">-----------</td>
+            <td class="grey"><hr style="background-color: black; height: 1px;"></td>
 					</tr>
-                                        <tr>
-						<td>Text markieren</td>
-						<td>
-                                                    [Text[]]
-                                                </td>
-                                                <td><div class="marked">Text</div></td>
+          <tr>
+						<td class="white">Text markieren</td>
+						<td class="white">[Text[]]</td>
+            <td class="white"><div class="marked">Text</div></td>
 					</tr>
-                                        <tr>
-						<td>Kommentar</td>
-						<td>
-                                                    [Text[Kommentar]]
-                                                </td>
-                                                <td><div class="annotated">Text</div><div class="annotation"><img title="Kommentar" src="{ANNOTATION_IMAGE_URL}"></div></td>
+          <tr>
+						<td class="grey">Kommentar</td>
+						<td class="grey">[Text[Kommentar]]</td>
+            <td class="grey"><div class="annotated">Text</div><div class="annotation"><img title="Kommentar" src="{ANNOTATION_IMAGE_URL}"></div></td>
 					</tr>
-
 				</table>
 			</div>
-                    <div id="Plinks" class="helpTable disabled">
+      <div id="Plinks" class="helpTable disabled">
 			<table>
 			<colgroup>
     				<col width="25%">
@@ -272,35 +268,35 @@
     				<col width="35%">
   					</colgroup>
 					<tr>
-						<th>Beschreibung</th>
-						<th>Was du eingibst</th>
-						<th>Wie es aussieht</th>
+						<th class="helpTableHeadline">Beschreibung</th>
+						<th class="helpTableHeadline">Eingabe</th>
+						<th class="helpTableHeadline">Ausgabe</th>
 					</tr>
 
 					<tr>
-						<td>Bild einfügen</td>
-						<td>[[http://bildurl.jpg]]</td>
-						<td></td>
+						<td class="grey">Bild einfügen</td>
+						<td class="grey">[[http://bildurl.jpg]]</td>
+						<td class="grey"></td>
 					</tr>
-                                        <tr>
-						<td>Link einfügen</td>
-                                                <td>[http://linkurl.com]</td>
-						<td><a href="http://linkurl.com" class="external">http://linkurl.com</a></td>
+          <tr>
+						<td class="white">Link einfügen</td>
+            <td class="white">[http://linkurl.com]</td>
+						<td class="white"><a href="http://linkurl.com" class="external">http://linkurl.com</a></td>
 					</tr>
-                                        <tr>
-						<td>Link mit Beschreibung einfügen</td>
-                                                <td>[http://linkurl.com|Beschreibung]</td>
-						<td><a href="http://linkurl.com" class="external">Beschreibung</a></td>
+          <tr>
+						<td class="grey">Link mit Beschreibung einfügen</td>
+            <td class="grey">[http://linkurl.com|Beschreibung]</td>
+						<td class="grey"><a href="http://linkurl.com" class="external">Beschreibung</a></td>
 					</tr>
-                                        <tr>
-						<td>internen Link einfügen</td>
-                                                <td>[[Wikieintrag]]</td>
-						<td><a href="../entry/{WIKI_CON_ID}/Wikieintrag.wiki" class="notexistant">Wikieintrag</a></td>
+          <tr>
+						<td class="white">internen Link einfügen</td>
+            <td class="white">[[Wikieintrag]]</td>
+						<td class="white"><a href="../entry/{WIKI_CON_ID}/Wikieintrag.wiki" class="notexistant">Wikieintrag</a></td>
 					</tr>
-                                        <tr>
-						<td>internen Link mit Beschreibung einfügen</td>
-                                                <td>[[Wikieintrag|Beschreibung]]</td>
-						<td><a href="../entry/{WIKI_CON_ID}/Wikieintrag.wiki" class="notexistant">Beschreibung</a></td>
+          <tr>
+						<td class="grey">internen Link mit Beschreibung einfügen</td>
+            <td class="grey">[[Wikieintrag|Beschreibung]]</td>
+						<td class="grey"><a href="../entry/{WIKI_CON_ID}/Wikieintrag.wiki" class="notexistant">Beschreibung</a></td>
 					</tr>
 				</table>
 			</div>
@@ -309,38 +305,32 @@
 
 	<div class="overlay" id="popup_dialog_overlay"></div>
 	<div class="popup_dialog" id="popup_dialog_wiki_table">
-		<div class="wiki-close-button" onclick="closeDialog('table');"></div>
+		<div class="wiki-close-button" onclick="closeWikiDialog('table');"><svg style="width:18px; height: 18px;"><use xlink:href='../asset/icons/close.svg#close' /></svg></div>
 		<h2>Tabelle erstellen</h2>
 		<div>
-			<fieldset>
-                            <div>
-				<input type="checkbox" id="popup_dialog_wiki_table_headerbox">
-				<label for="popup_dialog_wiki_table_headerbox"> mit Kopfzeile</label>
-                            </div>
-
-
-                                <div style="float:left; padding-right: 5px;">
-				<label for="popup_dialog_wiki_table_columnsBox"> Spalten</label>
-                                <br/>
-				<input type="text" id="popup_dialog_wiki_table_columnsBox" size="4">
-                                </div>
-
-
-
-                                <div style="float: left;">
-				<label for="popup_dialog_wiki_table_rowsBox"> Zeilen</label>
-                                <br/>
-				<input type="text" id ="popup_dialog_wiki_table_rowsBox" size="4">
-                                </div>
-
+			<fieldset style="border: none;">
+        <div>
+				  <input type="checkbox" id="popup_dialog_wiki_table_headerbox">
+				  <label for="popup_dialog_wiki_table_headerbox"> mit Kopfzeile</label>
+        </div>
+        <div style="float:left; padding-right: 5px;">
+			    <label for="popup_dialog_wiki_table_columnsBox"> Spalten</label>
+          <br/>
+				  <input type="text" id="popup_dialog_wiki_table_columnsBox" size="4">
+        </div>
+        <div style="float: left;">
+				  <label for="popup_dialog_wiki_table_rowsBox"> Zeilen</label>
+          <br/>
+				  <input type="text" id ="popup_dialog_wiki_table_rowsBox" size="4">
+        </div>
 			</fieldset>
 			<div id = table_preview></div>
 		</div>
-		<div class="button" onclick="insertTable()">erstellen</div>
+		<div class="bidButton" onclick="insertTable()" style="float:right;">Erstellen</div>
 		<br>
 	</div>
  	<div class="popup_dialog" id="popup_dialog_wiki_image">
-		<div class="wiki-close-button" onclick="closeDialog('image');"></div>
+		<div class="wiki-close-button" onclick="closeWikiDialog('image');"><svg style='width:18px; height:18px;'><use xlink:href='../asset/icons/close.svg#close' /></svg></div>
 		<h2>Bild einbinden</h2>
 		<table>
 			<tr>
@@ -357,7 +347,7 @@
 					Web-Adresse:
 				</td>
 				<td>
-					<input type="text" name="url" id="popup_dialog_wiki_image_url" placeholder="http:// oder https://" title="http:// oder https://">
+					<input type="text" name="url" id="popup_dialog_wiki_image_url" placeholder="https://..." title="https://...">
 				</td>
 			</tr>
 			<tr id="wiki_dialog_image_entry">
@@ -377,10 +367,10 @@
 			</tr>
 		</table>
 		<br>
-		<div class="button" onclick="insertImage()">einfügen</div>
+		<div class="bidButton" onclick="insertImage()" style="float:right;">Einfügen</div>
 	</div>
 	<div class="popup_dialog" id="popup_dialog_wiki_link">
-		<div class="wiki-close-button" onclick="closeDialog('link');"></div>
+		<div class="wiki-close-button" onclick="closeWikiDialog('link');"><svg style='width:18px; height:18px;'><use xlink:href='../asset/icons/close.svg#close' /></svg></div>
 		<h2>Verknüpfung mit anderem Artikel erstellen</h2>
 		<table>
 			<tr>
@@ -405,7 +395,7 @@
 					Web-Adresse:
 				</td>
 				<td>
-					<input type="text" name="url" id="popup_dialog_wiki_link_url" placeholder="http:// oder https:// oder mailto://" title="http:// oder https:// oder mailto://">
+					<input type="text" name="url" id="popup_dialog_wiki_link_url" placeholder="https:// oder mailto://" title="https:// oder mailto://">
 				</td>
 			</tr>
 			<tr id="wiki_dialog_link_entry">
@@ -431,10 +421,10 @@
 			</tr>
 		</table>
 		<br>
-		<div class="button" onclick="insertLink()">einfügen</div>
+		<div class="bidButton" onclick="insertLink()" style="float:right;">Einfügen</div>
 	</div>
-	<div class="popup_dialog" id="popup_dialog_wiki_coment">
-		<div class="wiki-close-button" onclick="closeDialog('coment');"></div>
+	<div class="popup_dialog" id="popup_dialog_wiki_comment">
+		<div class="wiki-close-button" onclick="closeWikiDialog('comment');"><svg style='width:18px; height:18px;'><use xlink:href='../asset/icons/close.svg#close' /></svg></div>
 		<h2>Text kommentieren</h2>
 		<table>
 			<tr>
@@ -442,7 +432,7 @@
 					Text:
 				</td>
 				<td>
-					<div id="popup_dialog_wiki_coment_text"></div>
+					<div id="popup_dialog_wiki_comment_text"></div>
 				</td>
 			</tr>
 			<tr>
@@ -450,19 +440,19 @@
 					Kommentar:
 				</td>
 				<td>
-					<textarea id="popup_dialog_wiki_coment_coment"></textarea>
+					<textarea id="popup_dialog_wiki_comment_comment"></textarea>
 				</td>
 			</tr>
 		</table>
 		<br>
-		<div class="button" onclick="insertComent()">einfügen</div>
+		<div class="bidButton" onclick="insertComment()" style="float:right;">Einfügen</div>
 	</div>
 
-    <textarea name="values[body]" id="Content" style="width: 99%;" rows="30">{TEXT_DSC}</textarea><br />
+    <textarea name="values[body]" id="Content" style="width: 936px;" rows="30">{TEXT_DSC}</textarea><br />
     </td>
     </tr>
   <tr>
-    <td class="buttons"><div class="buttons" style="text-align: left;"><input type="submit" class="button" name="values[save]" value="{LABEL_SAVE_CHANGES}"/> <a class="button" href="{BACK_LINK}">{LABEL_RETURN}</a></div></td>
+    <td class="buttons" style="background-color: #FFFFFF;"><div class="buttons"><input type="submit" class="bidButton" name="values[save]" value="{LABEL_SAVE_CHANGES}"/></div></td>
   </tr>
 </table>
 </form>

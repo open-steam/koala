@@ -46,6 +46,11 @@
 	min-height: 1px;
 }
 
+.listviewer .listviewer-head-item.hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 .listviewer .listviewer-item-cell {
 	float: left;
 	padding-top: 4px;
@@ -64,11 +69,6 @@
 
 .listviewer .listviewer-noitem{
 	text-align:center;
-}
-
-.listviewer .listviewer-head-item {
-	float: left;
-	font-weight: bold;
 }
 
 .listviewer .listviewer-head{
@@ -109,6 +109,34 @@
 	background-color: #D6D6D6;
 }
 
+.redColor {
+	color: #e97a6b;
+}
+
+.orangeColor {
+	color: #f6b75d;
+}
+
+.yellowColor {
+	color: #f6e962;
+}
+
+.greenColor {
+	color: #c4e06b;
+}
+
+.blueColor {
+	color: #6cb1fd;
+}
+
+.purpleColor {
+	color: #c182d8;
+}
+
+.greyColor {
+	color: #b0b0b0;
+}
+
 .listviewer-item-hover.red {
 	background-color: #e97a6b;
 }
@@ -147,5 +175,14 @@
 
 .justTrashed div, .justTrashed a{
 	color: red;
+	text-decoration:line-through;
+}
+
+.justRestoredFromTrashed{
+	background-color: #fff;
+}
+
+.justRestoredFromTrashed div, .justRestoredFromTrashed a{
+	color: LimeGreen;
 	text-decoration:line-through;
 }

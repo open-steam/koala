@@ -12,7 +12,7 @@
         <tr valign="middle">
             <td width="60%" {MANAGE}>Abgaben verwalten:</td>
             <td width="40%" align="right" {MANAGE}>
-                <select name="admin_postbox" id="admin_postbox" size="1" data-saveFunction="{SEND_REQUEST_ADMIN_POSTBOX}">
+                <select name="admin_postbox" id="admin_postbox" size="1" style="width: 300px;" data-saveFunction="{SEND_REQUEST_ADMIN_POSTBOX}">
                     <option value="0">{NO_USERS}</option>
                     <!-- BEGIN ADMIN_POSTBOX -->
                         <option {SELECTED} value="{OBJECT_ID}">{OBJECT_NAME}</option>
@@ -23,7 +23,7 @@
         <tr valign="middle">
             <td width="60%">Abgaben einreichen:</td>
             <td width="40%" align="right" >
-                <select name="insert_postbox" id="insert_postbox" size="1" data-saveFunction="{SEND_REQUEST_INSERT_POSTBOX}">
+                <select name="insert_postbox" id="insert_postbox" size="1" style="width: 300px;" data-saveFunction="{SEND_REQUEST_INSERT_POSTBOX}">
                         <option value="0">niemand</option>
                         <!-- BEGIN INSERT_POSTBOX -->
                           <option {SELECTED} value="{OBJECT_ID}" title="{OBJECT_NAME}">{OBJECT_NAME}</option>

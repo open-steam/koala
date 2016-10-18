@@ -46,7 +46,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 		$configWebserverIp = "";
 
 		//icon
-		$referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
+		$referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
 		//reference handling
 		if(isset($params["referenced"]) && $params["referenced"]==true){

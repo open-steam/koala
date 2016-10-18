@@ -26,28 +26,14 @@ class GetPopupMenuTerm extends \AbstractCommand implements \IAjaxCommand {
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
 		//icons
-		$copyIcon = $explorerUrl . "icons/menu/copy.png";
-		$cutIcon = $explorerUrl . "icons/menu/cut.png";
-		$referIcon = $explorerUrl . "icons/menu/refer.png";
-		$deleteIcon = $explorerUrl . "icons/menu/delete.png";
-		$hideIcon = $explorerUrl . "icons/menu/hide.png";
-		$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-		$upIcon = $explorerUrl . "icons/menu/up.png";
-		$downIcon = $explorerUrl . "icons/menu/down.png";
-		$topIcon = $explorerUrl . "icons/menu/top.png";
-		$bottomIcon = $explorerUrl . "icons/menu/bottom.png";
-		$renameIcon = $explorerUrl . "icons/menu/rename.png";
-		$editIcon = $explorerUrl . "icons/menu/edit.png";
-		$propertiesIcon = $explorerUrl . "icons/menu/properties.png";
-		$rightsIcon = $explorerUrl . "icons/menu/rights.png";
-		$blankIcon = $explorerUrl . "icons/menu/blank.png";
+		$deleteIcon = $explorerUrl . "icons/menu/svg/trash.svg";
+		$editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
 
 		$popupMenu =  new \Widgets\PopupMenu();
-		$items = array(	array("name" => "Bearbeiten <img src=\"{$editIcon}\">",  "command" => "EditTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"),
-						array("name" => "Löschen <img src=\"{$deleteIcon}\">",  "command" => "DeleteTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"));
+		$items = array(	array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten",  "command" => "EditTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"),
+						array("name" => "<svg><use xlink:href='{$deleteIcon}#trash'/></svg> Löschen",  "command" => "DeleteTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}','termIndex':'{$this->termIndex}'}", "type"=>"popup"));
 		$popupMenu->setItems($items);
-		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("150px");
+		$popupMenu->setPosition(round($this->x + $this->width - 105) . "px", round($this->y + $this->height + 4) . "px");
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

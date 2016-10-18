@@ -42,19 +42,30 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 
 		$title = "Papierkorb";
 		$breadcrumb = new \Widgets\Breadcrumb();
-		$breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/trashbin_16.png\"></img> " . $title)));
+		$breadcrumb->setData(array("", array("name" => "<svg style='width:16px; height:16px; color:#3a6e9f;'><use xlink:href='" .  PATH_URL . "explorer/asset/icons/trashbin.svg#trashbin'/></svg>" . $title)));
 
 		//$actionBar = new \Widgets\ActionBar();
 		//$actionBar->setActions(array(array("name"=>"Papierkorb leeren", "ajax"=>array("onclick"=>array("command"=>"EmptyTrashbin", "params"=>array(), "requestType"=>"popup", "namespace"=>"explorer")))));
 
 		$loader = new \Widgets\Loader();
 		$loader->setWrapperId("trashbinWrapper");
-		$loader->setMessage("Lade Daten ...");
-		$loader->setCommand("loadContent");
+		$loader->setMessage("Lade gelöschte Objekte...");
 		$loader->setParams(array("id"=>$this->id));
+		$loader->setNamespace("Trashbin");
 		$loader->setElementId("trashbinWrapper");
 		$loader->setType("updater");
 
+		//check the explorer view attribute which is specified in the profile
+		$viewAttribute = $currentUser->get_attribute("EXPLORER_VIEW");
+		if($viewAttribute && $viewAttribute == "gallery"){
+			$loader->setCommand("loadGalleryContent");
+			$selectAll = new \Widgets\RawHtml();
+			$selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:22px;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
+			$frameResponseObject->addWidget($selectAll);
+		}
+		else{
+			$loader->setCommand("loadContent");
+		}
 
 		$frameResponseObject->setTitle($title);
 		$frameResponseObject->addWidget($breadcrumb);

@@ -28,7 +28,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 			$name = " ";
 		}
 
-		if($params["number"] == ""){
+		if(!isset($params["number"]) || $params["number"] == ""){
 			$number = 10;
 		}
 		else{

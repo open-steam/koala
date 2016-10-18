@@ -65,13 +65,20 @@ class PopupMenu extends Widget {
 					continue;
 				}
 				if (isset($item["command"]) && isset($item["namespace"]) && isset($item["params"])) {
-					$onclick = "event.stopPropagation();sendRequest('{$item["command"]}', {$item["params"]}, " . (isset($item["elementId"]) ?  "'" . $item["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($item["type"]) ?  "'" . $item["type"] . "'" : "'updater'") . ", null, null, '{$item["namespace"]}');jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open');";
+					$onclick = "event.stopPropagation();sendRequest('{$item["command"]}', {$item["params"]}, " . (isset($item["elementId"]) ?  "'" . $item["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($item["type"]) ?  "'" . $item["type"] . "'" : "'updater'") . ", null, null, '{$item["namespace"]}');jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open');jQuery('#footer_wrapper').css('padding-top', '0px');";
 				} else {
 					$onclick = "";
 				}
 
 				if (isset($item["menu"])) {
-					$html .= "<div class=\"popupmenuitem popupsubmenuanker\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\"><a href=\"#\">{$item["name"]}</a>";
+					$triangle = "";
+					if($item["direction"] == "left"){
+						$triangle = "<div style='color:#FFFFFF; float:right; padding-top:5px; padding-left:5px;'>◀</div>";
+					}
+					if($item["direction"] == "right"){
+						$triangle = "<div style='color:#FFFFFF; float:right; padding-top:5px; padding-left:5px;'>▶</div>";
+					}
+					$html .= "<div class=\"popupmenuitem popupsubmenuanker {$item["direction"]}\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\"><a href=\"#\">{$item["name"]}</a>" . $triangle;
 					if (is_array($item["menu"])) {
 						$html .= "<div class=\"popupsubmenuwapper {$item["direction"]}\">";
 						foreach ($item["menu"] as $subMenuItem) {
@@ -82,7 +89,7 @@ class PopupMenu extends Widget {
 								$html .= "<div class=\"popupmenuitem\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\">{$subMenuItem["raw"]}</div>";
 							} else {
 								if (isset($subMenuItem["command"]) && isset($subMenuItem["namespace"]) && isset($subMenuItem["params"])) {
-									$onclick = "event.stopPropagation();sendRequest('{$subMenuItem["command"]}', {$subMenuItem["params"]}, " . (isset($subMenuItem["elementId"]) ?  "'" . $subMenuItem["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($subMenuItem["type"]) ?  "'" . $subMenuItem["type"] . "'" : "'updater'") . ", null, null, '{$subMenuItem["namespace"]}');jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open');";
+									$onclick = "event.stopPropagation();sendRequest('{$subMenuItem["command"]}', {$subMenuItem["params"]}, " . (isset($subMenuItem["elementId"]) ?  "'" . $subMenuItem["elementId"] . "'": "'" . $this->elementId . "'") . ", " . (isset($subMenuItem["type"]) ?  "'" . $subMenuItem["type"] . "'" : "'updater'") . ", null, null, '{$subMenuItem["namespace"]}');jQuery('.popupmenuwrapper').parent().html('');jQuery('.open').removeClass('open');jQuery('#footer_wrapper').css('padding-top', '0px');";
 								} else {
 									$onclick = "";
 								}
@@ -103,13 +110,39 @@ class PopupMenu extends Widget {
 			}
 			$html .= "</div>";
 		} else {
+			$viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
 			if ($this->data->get_environment() instanceof \steam_object) {
-				$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"that = this; jQuery('.popupmenuanker.open').removeClass('open'); jQuery(this).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; params.env = '{$this->data->get_environment()->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){}, null {$this->namespace} );event.stopPropagation();\"></div>";
-			} else {
-				$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"that = this; jQuery('.popupmenuanker.open').removeClass('open'); jQuery(this).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){}, null {$this->namespace} );event.stopPropagation();\"></div>";
+				if($viewAttribute && $viewAttribute == "gallery"){
+					$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"that = this; jQuery('.popupmenuanker.open').removeClass('open'); jQuery('#footer_wrapper').css('padding-top', '0px'); jQuery(this).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; params.env = '{$this->data->get_environment()->get_id()}'; if (typeof getGallerySelectionAsJSON == 'function') { params.selection = getGallerySelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){}, null {$this->namespace} );event.stopPropagation();\"><svg style='width:16px; height:16px; pointer-events:none;'><use xlink:href='" .PATH_URL. "widgets/asset/config.svg#config'/></svg></div>";
+				}else {
+					$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"that = this; jQuery('.popupmenuanker.open').removeClass('open'); jQuery('#footer_wrapper').css('padding-top', '0px'); jQuery(this).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; params.env = '{$this->data->get_environment()->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){}, null {$this->namespace} );event.stopPropagation();\"><svg style='width:16px; height:16px; pointer-events:none;'><use xlink:href='" .PATH_URL. "widgets/asset/config.svg#config'/></svg></div>";
+				}
+			}else {
+				if($viewAttribute && $viewAttribute == "gallery"){
+					$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"that = this; jQuery('.popupmenuanker.open').removeClass('open'); jQuery('#footer_wrapper').css('padding-top', '0px'); jQuery(this).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; if (typeof getGallerySelectionAsJSON == 'function') { params.selection = getGallerySelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){}, null {$this->namespace} );event.stopPropagation();\"><svg style='width:16px; height:16px; pointer-events:none;'><use xlink:href='" .PATH_URL. "widgets/asset/config.svg#config'/></svg></div>";
+				}else {
+					$html = "<div id=\"popupmenu{$this->data->get_id()}\" class=\"popupmenuanker\" onclick=\"that = this; jQuery('.popupmenuanker.open').removeClass('open'); jQuery('#footer_wrapper').css('padding-top', '0px'); jQuery(this).addClass('popupmenuloading'); params = new Object(); params.id = '{$this->data->get_id()}'; if (typeof getSelectionAsJSON == 'function') { params.selection = getSelectionAsJSON(); }; params.x = jQuery(this).position().left; params.y = jQuery(this).position().top; params.height = jQuery(this).height(); params.width = jQuery(this).width(); ".$this->getParamsString()." sendRequest('{$this->command}', params, '{$this->elementId}', 'nonModalUpdater', function(response){}, null {$this->namespace} );event.stopPropagation();\"><svg style='width:16px; height:16px;' pointer-events:none;><use xlink:href='" .PATH_URL. "widgets/asset/config.svg#config'/></svg></div>";
+				}
 			}
 		}
-		$script = "jQuery(\".popupmenuwrapper\").children().last().find(\"img\").load(function(){jQuery(that).removeClass(\"popupmenuloading\").addClass(\"popupmenuanker\").addClass(\"open\");jQuery(\".popupmenuwrapper\").show();})";
+		$script = "
+		function showPopupMenu(){
+			jQuery(that).removeClass(\"popupmenuloading\").addClass(\"popupmenuanker\").addClass(\"open\");
+			jQuery(\".popupmenuwrapper\").css(\"display\", \"table\");
+			adjustFooter();
+		}
+	 	var lastSVG = jQuery(\".popupmenuwrapper\").children().last().find(\"use\");
+	 	if(lastSVG.length != 0){
+			if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+				//call function directly because svg load event do not fire in firefox
+				showPopupMenu();
+			}
+			else{
+		 		lastSVG.load(function(){
+			 		showPopupMenu();
+		 		})
+	 		}
+ 		}";
 		$html .= "<script>" . $script . "</script>";
 		return $html;
 	}

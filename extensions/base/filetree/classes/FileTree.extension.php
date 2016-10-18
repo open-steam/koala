@@ -18,11 +18,11 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
         $result[] = new Person("Jan", "Petertonkoker", "janp@mail.uni-paderborn.de");
         return $result;
     }
-    
+
     public function getIconBarEntries() {
         $this->addJS();
         $this->addCSS();
-        
+
         $currentID = "";
         $path = explode("/", $_SERVER['REQUEST_URI']);
         for ($count = 0; $count < count($path); $count++) {
@@ -37,7 +37,7 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
         if (strpos($_SERVER['REQUEST_URI'], "/favorite/") === 0) {
             $currentID = "";
         }
-           
+
         if ($currentID !== "") {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentID);
             if ($object instanceof \steam_object && !(getObjectType($object) === "room") && !(getObjectType($object) === "userHome")) {
@@ -46,15 +46,15 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
                 }
             }
         }
-        
-        $isExplorer = false;
-        if (strpos($_SERVER['REQUEST_URI'], "/explorer/") === 0) {
-            $isExplorer = true;
+
+        $isExplorerOrBookmark = false;
+        if (strpos(strtolower($_SERVER['REQUEST_URI']), "/explorer/") === 0 || strpos(strtolower($_SERVER['REQUEST_URI']), "/bookmarks/") === 0) {
+            $isExplorerOrBookmark = true;
             if ($currentID === "") {
                 $currentID = $GLOBALS["STEAM"]->get_current_steam_user()->get_workroom()->get_id();
             }
         }
-        
+
         $user = $GLOBALS["STEAM"]->get_current_steam_user();
         $filetree = $user->get_attribute("FILETREE");
         if (!is_array($filetree)) {
@@ -64,14 +64,14 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
                               "width" => 250,
                               "height" => 500);
         }
-        
-        \lms_portal::get_instance()->add_javascript_code($this->getName(), 
+
+        \lms_portal::get_instance()->add_javascript_code($this->getName(),
                 "var filetreeVisible = " . $filetree["visible"] . ";
                  var filetreePosition = " . $filetree["position"] . ";
                  var filetreeWidth = " . $filetree["width"] . ";
                  var filetreeHeight = " . $filetree["height"] . ";
                  var filetreeCurrentID = '" . $currentID . "';
-                     
+
                  function openFileTree() {
                     if ($('#fileTree').html() == '') {
                             $('#fileTree').fileTree({
@@ -87,11 +87,11 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
                         $('#treeDialog').dialog('open');
                     }
                }");
-        
+
         $result = array();
-        
-        if (!$isExplorer) {
-            $iconHtml = "<img name=\"false\" title=\"Navigationsbaum\" src=\"" . $this->getAssetUrl() . "icons/tree_white.png\">";
+
+        if (!$isExplorerOrBookmark) {
+            $iconHtml = "<div title='Navigationsbaum'><svg><use xlink:href='" . $this->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>";
             $result[] = array("name" => $iconHtml, "onclick" => "openFileTree()");
         }
         return $result;

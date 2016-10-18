@@ -8,6 +8,7 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
 	private $sourceObjectId;
 	private $linkObjectId;
 	private $user;
+	private $column;
 
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
@@ -24,8 +25,9 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
 		$this->sourceObjectId = $this->params["sourceObjectId"];
 		$this->linkObjectId = $this->params["linkObjectId"];
 
-		$portletObject = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $this->sourceObjectId );
-		$portal = $portletObject->get_environment()->get_environment();
+		$portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->sourceObjectId);
+		$this->column = $portletObject->get_environment();
+		$portal = $this->column->get_environment();
 
 		$this->sourcePortalObjectId = $portal->get_id();
 		$this->user = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
@@ -33,36 +35,41 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		//icons
-		$copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
-		$cutIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/cut.png";
-		$referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/refer.png";
-		$trashIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/trash.png";
-		$upIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/up.png";
-		$downIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/down.png";
-		$topIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/top.png";
-		$bottomIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/bottom.png";
-		$rightsIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/rights.png";
-		$blankIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/blank.png";
+		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
+		$copyIcon = $explorerUrl . "icons/menu/svg/copy.svg";
+		$cutIcon = $explorerUrl . "icons/menu/svg/cut.svg";
+		$trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
+		$sortIcon = $explorerUrl . "icons/menu/svg/sort.svg";
+		$upIcon = $explorerUrl . "icons/menu/svg/up.svg";
+		$downIcon = $explorerUrl . "icons/menu/svg/down.svg";
+		$topIcon = $explorerUrl . "icons/menu/svg/top.svg";
+		$bottomIcon = $explorerUrl . "icons/menu/svg/bottom.svg";
+		$rightsIcon = $explorerUrl . "icons/menu/svg/rights.svg";
+
+		$inventory = $this->column->get_inventory();
+		$id = intval($this->linkObjectId);
+		foreach ($inventory as $key => $element) {
+			if ($element->get_id() == $id) {
+				$index = $key;
+			}
+		}
 
 		$popupMenu =  new \Widgets\PopupMenu();
-		$items = array(	
-						array("name" => "Umsortieren<img src=\"{$blankIcon}\">", "direction" => "left", "menu" => array(
-							array("name" => "Eins nach oben<img src=\"{$upIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'up'}", "type"=>"popup"),
-							array("name" => "Eins nach unten<img src=\"{$downIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'down'}", "type"=>"popup"),
-							array("name" => "Ganz nach oben<img src=\"{$topIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'first'}", "type"=>"popup"),
-							array("name" => "Ganz nach unten<img src=\"{$bottomIcon}\">",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'last'}", "type"=>"popup"),
-						)),
+		$items = array(
+						array("name" => "<svg><use xlink:href='{$copyIcon}#copy'/></svg> Kopieren",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
+						array("name" => "<svg><use xlink:href='{$cutIcon}#cut'/></svg> Ausschneiden",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
+						array("name" => "<svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen",  "command" => "DeleteReference", "namespace" => "PortalColumn", "params" => "{'linkObjectId':'{$this->linkObjectId}'}", "type"=>"popup"),
+						(count($inventory) > 1) ? array("name" => "<svg><use xlink:href='{$sortIcon}#sort'/></svg> Umsortieren", "direction" => "right", "menu" => array(
+							($index != 0) ? array("name" => "<svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'first'}") : "",
+							($index != 0) ? array("name" => "<svg><use xlink:href='{$upIcon}#up'/></svg> Eins nach oben",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'up'}") : "",
+							($index < count($inventory)-1) ? array("name" => "<svg><use xlink:href='{$downIcon}#down'/></svg> Eins nach unten",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'down'}") : "",
+							($index < count($inventory)-1) ? array("name" => "<svg><use xlink:href='{$bottomIcon}#bottom'/></svg> Ganz nach unten",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->linkObjectId}','order':'last'}") : "",
+						)) : "",
 						array("name" => "SEPARATOR"),
-						array("name" => "Kopieren<img src=\"{$copyIcon}\">",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Ausschneiden<img src=\"{$cutIcon}\">",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->linkObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Referenz erstellen<img src=\"{$referIcon}\">",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->sourceObjectId}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "Löschen<img src=\"{$trashIcon}\">",  "command" => "DeleteReference", "namespace" => "PortalColumn", "params" => "{'linkObjectId':'{$this->linkObjectId}'}", "type"=>"popup"),
-						array("name" => "SEPARATOR"),
-						array("name" => "Rechte<img src=\"{$rightsIcon}\">",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->linkObjectId}'}", "type"=>"popup"),
+						array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->linkObjectId}'}", "type"=>"popup"),
 						);
 		$popupMenu->setItems($items);
 		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
-		$popupMenu->setWidth("150px");
 
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($popupMenu);

@@ -20,14 +20,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $obj = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
         $container = $obj->get_attribute("bid:postbox:container");
-        
+
         if(!$container instanceof \steam_container){
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml("Dieses Objekt ist kein Briefkastenobjekt.");
             $frameResponseObject->addWidget($rawHtml);
             return $frameResponseObject;
         }
-            
+
         $deadlineDateTime = $obj->get_attribute("bid:postbox:deadline");
 
         //depending on the serverconfiguration (API_DOUBLE_FILENAME_NOT_ALLOWED) you need read rights and insert rights or only insert rights
@@ -73,7 +73,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->getExtension()->addCSS();
 
         $headlineHtml = new \Widgets\Breadcrumb();
-        $headlineHtml->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/reference_folder.png\"></img> " . $obj->get_name() . " ")));
+        $headlineHtml->setData(array("", array("name" => "<svg style='width:16px; height:16px; color:#3a6e9f; top:3px; position:relative;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/postbox.svg#postbox'/></svg> " . $obj->get_name() . " ")));
 
         $cssStyles = new \Widgets\RawHtml();
         $cssStyles->setCss('
@@ -101,8 +101,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
           }
 
           #button{
-            padding-left:50px;
-            padding-right:50px;
+            width: 151px;
           }'
         );
 
@@ -160,8 +159,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             $loader = new \Widgets\Loader();
             $loader->setWrapperId("postboxWrapper");
-            $loader->setMessage("Lade Abgaben ...");
-            $loader->setCommand("loadPostbox");
+            $loader->setMessage("Lade Abgaben...");
+            $loader->setCommand("LoadPostbox");
+            $loader->setNamespace("Postbox");
             $loader->setParams(array("id" => $container->get_id()));
             $loader->setElementId("postboxWrapper");
             $loader->setType("updater");
@@ -227,7 +227,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $buttonHtml->setHtml(<<<END
                         <br>
 <div id="button" onclick="sendRequest('NewDocumentForm', {'id':{$container->get_id()}}, '', 'popup', null, null);return false;">
-<button>Abgabe einreichen</button>
+<button class="bidButton">Abgabe einreichen</button>
 </div>
 END
             );

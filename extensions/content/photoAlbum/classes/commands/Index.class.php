@@ -6,13 +6,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     private $params;
     private $id;
-    private $rowHtmlBegin = '<div class="row">';
-    private $rowHtmlEnd = '</div>';
-    private $cssStyle = '<style></style>';
-
-    private function getPictureHtml($name, $path, $fullscreenPath, $title) {
-        return '<div class="pic"><a class="slideshow" title="' . $title . '" href="' . $fullscreenPath . '"><img class="lazy" src="' . $path . '"></a></div>';
-    }
+    private $content;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -23,7 +17,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
     }
 
-//TODO: CLEAN UP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
         if ($this->id === "") {
             $errorHtml = new \Widgets\RawHtml();
@@ -42,166 +35,70 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
         if (!($gallery->check_access_read())) {
             $errorHtml = new \Widgets\RawHtml();
-            $errorHtml->setHtml("Sie verfügen nicht über die erforderliche Zugriffsberechtigung! Das Fotoalbum kann nicht angezeigt werden. Sie benötigen mindestens Leserechte!");
+            $errorHtml->setHtml("Das Fotoalbum kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
             $frameResponseObject->addWidget($errorHtml);
             return $frameResponseObject;
         }
+
         \lms_portal::get_instance()->add_javascript_src("lazyload", PATH_URL . "styles/standard/javascript/lazy/jquery.lazyload.min.js");
         \lms_portal::get_instance()->add_javascript_src("colorbox", PATH_URL . "styles/standard/javascript/colorbox/jquery.colorbox.js");
 
-        $titleCss = '#gallery-title{margin-left:50px;}';
-        if ($gallery->check_access(SANCTION_SANCTION)) {
-            $actionBar = new \Widgets\ActionBar();
-            //$actionBar->setActions(array(
-              //array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"),
-              //array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "photoAlbum"))),
-              //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer"))),
-              //array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
-            $frameResponseObject->addWidget($actionBar);
-        } else if ($gallery->check_access_write()) {
-            $actionBar = new \Widgets\ActionBar();
-            //$actionBar->setActions(array(
-              //array("name" => "Explorer-Ansicht", "link" => PATH_URL . "photoAlbum/explorerView/" . $this->id . "/"),
-              //array("name" => "Neues Bild", "ajax" => array("onclick" => array("command" => "Addpicture", "params" => array("id" => $this->id), "requestType" => "popup"))),
-              //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "Properties", "params" => array("id" => $this->id), "requestType" => "popup", "namespace" => "explorer")))));
-            $frameResponseObject->addWidget($actionBar);
-        }
-
-        //$this->getExtension()->addJS();
+        $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
 
         $titleHtml = new \Widgets\RawHtml();
         $title = getCleanName($gallery);
-        $titleHtml->setCss($titleCss .
-                '#gallery{margin-top:25px;}
-            .gal-element{background:#EEEEEE;height:204px;width:204px;margin:5px;float:left;}
-            .row{clear:both;margin-left:45px;margin-right:45;}
-            .pic {width:200px;height:200px;max-height:200px;max-width:200px;display: table-cell;
-    vertical-align: middle;
-	text-align: center;}
-            img.lazy{padding:2px;max-width:200px;}
-          ');
-        $titleHtml->setHtml('<h1 id="gallery-title">' . $title . '</h1>');
+        $titleHtml->setHtml("<svg style='width:16px; height:16px; float:left; color:#3a6e9f; right:5px; position:relative;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/gallery.svg#gallery'/></svg><h1 id='gallery-title'>" . $title . "</h1>");
         $frameResponseObject->addWidget($titleHtml);
 
         $inventory = $gallery->get_inventory();
 
-        $html = $this->cssStyle;
-        $html .= '<div id="gallery">';
+        $this->content = \Photoalbum::getInstance()->loadTemplate("index.template.html");
+
         $invisiblePicCounter = 0;
+        $rowOpen = false;
         foreach ($inventory as $i => $pic) {
             if (!$pic->check_access_read()) {
                 $invisiblePicCounter++;
             } else {
                 if (($i - $invisiblePicCounter) % 4 == 0) {
-                    $html .= $this->rowHtmlBegin;
+                    $this->content->setCurrentBlock("BLOCK_ROW");
+                    $rowOpen = true;
                 }
-                $html .= '<div class="gal-element">';
+                $id = $pic->get_id();
                 $name = $pic->get_name();
-                $desc = $pic->get_attribute("OBJ_DESC");
-                $keywords = $pic->get_attribute("OBJ_KEYWORDS");
-                $keywordString = "";
-                if($keywords !== 0 && is_array($keywords)){
-                    foreach ($keywords as $key) {
-                        $keywordString.= $key. " ";
-                    }
-                   $keywordString =  trim($keywordString);
+                $fullscreen = PATH_URL . "download/document/" . $id;
+                $class = "";
+
+                if($pic->get_attribute(DOC_MIME_TYPE) === "image/svg+xml"){
+                  $pictureURL = PATH_URL . "download/document/" . $id;
+                } elseif($pic->get_attribute(DOC_MIME_TYPE) === "image/bmp"){
+                  $pictureURL = PATH_URL . "download/document/" . $id;
+                  $class = "bmp";
                 }
-                if ($desc !== 0 && $desc !== "") {
-                    $name.= " | " . $desc;
+                else{
+                  $pictureURL = PATH_URL . "download/image/" . $id . "/200/200";
                 }
-                if($keywordString !== ""){
-                    $name .= " | " . $keywordString;
-                }
-                $fullscreen = PATH_URL . "download/document/" . $pic->get_id();
-                $pictureURL = PATH_URL . "download/image/" . $pic->get_id() . "/200/200";
-                $html .= $this->getPictureHtml($name, $pictureURL, $fullscreen, $name);
-                $html .= '</div>';
+
+                $this->content->setCurrentBlock("BLOCK_PICTURE");
+                $this->content->setVariable("TITLE", $name);
+                $this->content->setVariable("FULLSCREENPATH", $fullscreen);
+                $this->content->setVariable("CLASS", $class);
+                $this->content->setVariable("PATH", $pictureURL);
+                $this->content->parse("BLOCK_PICTURE");
+
                 if (($i - $invisiblePicCounter) % 4 == 3) {
-                    $html .= $this->rowHtmlEnd;
+                    $this->content->parse("BLOCK_ROW");
+                    $rowOpen = false;
                 }
+
             }
         }
-        $html .= $this->rowHtmlBegin;
-        $html .= $this->rowHtmlEnd;
 
-        $html.= "<script>
+        if($rowOpen) $this->content->parse("BLOCK_ROW");
 
-function vollbild() {
- var element = document.getElementById('colorbox');
-
-if (element.requestFullScreen) {
-
-    if (!document.fullScreen) {
-        element.requestFullscreen();
-
-    } else {
-        document.exitFullScreen();
-    }
-
- } else if (element.mozRequestFullScreen) {
-
-    if (!document.mozFullScreen) {
-        element.mozRequestFullScreen();
-
-    } else {
-       document.mozCancelFullScreen();
-    }
-
-} else if (element.webkitRequestFullScreen) {
-
-    if (!document.webkitIsFullScreen) {
-        element.webkitRequestFullScreen();
-
-
-    } else {
-        document.webkitCancelFullScreen();
-    }
-
-}
-setTimeout(function(){jQuery.colorbox.reload()},1000);
-
-}
- $(document).ready(function() {jQuery('img.lazy').lazyload({failure_limit : 10});});
-            $('a.slideshow').colorbox({rel: 'slideshow', slideshow:true, scalePhotos: true,photo:true, width: '100%', height:'100%',slideshowAuto:false, transition:'elastic', escKey:false, reposition:true,
- onOpen: function(){jQuery('#cboxContent').append('<img id=\"cboxFullscreen\" onclick=\"vollbild()\" src=\"".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."\">');
-                    jQuery('#gallery').hide();
-
-                    $('#cboxFullscreen').mouseover(function(){this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_black.png"."';});
-                    $('#cboxFullscreen').mouseout(function(){this.src='".\PhotoAlbum::getInstance()->getAssetUrl()."icons/image_fullscreen_grey.png"."';});}
-
-,onCleanup: function(){
-jQuery('#gallery').show();
-var element = document.getElementById('colorbox');
- if (element.requestFullScreen) {
-
-    if (!document.fullScreen) {
-
-    } else {
-        document.exitFullScreen();
-    }
-
- } else if (element.mozRequestFullScreen) {
-
-    if (!document.mozFullScreen) {
-
-    } else {
-       document.mozCancelFullScreen();
-    }
-
-} else if (element.webkitRequestFullScreen) {
-
-    if (!document.webkitIsFullScreen) {
-
-    } else {
-        document.webkitCancelFullScreen();
-    }
-} }
-            });</script>";
         $rawHtml = new \Widgets\RawHtml();
-        $rawHtml->setHtml($html);
-
-
+        $rawHtml->setHtml($this->content->get() . "<script>initialize()</script>");
         $frameResponseObject->addWidget($rawHtml);
         return $frameResponseObject;
     }

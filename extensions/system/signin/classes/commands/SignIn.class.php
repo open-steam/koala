@@ -19,7 +19,7 @@ class SignIn extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function processData(\IRequestObject $requestObject) {
-        
+
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -101,14 +101,9 @@ class SignIn extends \AbstractCommand implements \IFrameCommand {
         $content = \SignIn::getInstance()->loadTemplate("signin.template.html");
         $content->setVariable("REQUEST_URI", (isset($_GET["req"]) ? $_GET["req"] : ""));
 
-        $content->setVariable("LOGIN_INFO", "Sie haben keine Berechtigung, auf das ausgewählte Objekt zuzugreifen. Möglicherweise haben Sie einen falschen Benutzernamen oder ein falsches Passwort eingegeben. " .
-                "(" .
-                "Hinweis: Bitte beachten Sie, dass Sie in Ihren Browsereinstellungen dieser Seite das Speichern von Cookies erlauben. Das ist für die Anmeldung notwendig." .
-                ")");
-
-        //old text
-        //$content->setVariable( "LOGIN_INFO", gettext("Use your IMT credentials to log in into koaLA knowledge network. Here, you can get and discuss course materials online, extend your personal and academic network, and cooperate with fellow students and colleagues.") . "<br>(" . gettext("Hinweis: Bitte beachten Sie, dass Sie in Ihren Browsereinstellungen dieser Seite das Speichern von Cookies erlauben. Das ist für die Anmeldung notwendig.") . ")");
-
+        if (empty($problem)) {
+          $content->setVariable("LOGIN_INFO", "<div class='infoBar'>Sie haben keine Berechtigung, auf das ausgewählte Objekt zuzugreifen. Möglicherweise haben Sie einen falschen Benutzernamen oder ein falsches Passwort eingegeben. (Hinweis: Bitte beachten Sie, dass Sie in Ihren Browsereinstellungen dieser Seite das Speichern von Cookies erlauben. Das ist für die Anmeldung notwendig)</div>");
+        }
 
         $content->setVariable("LOGIN_NAME_TEXT", gettext("Login"));
         $content->setVariable("PASSWORD_NAME_TEXT", gettext("Password"));
@@ -122,9 +117,10 @@ class SignIn extends \AbstractCommand implements \IFrameCommand {
         if (isset($values["login"]) && !empty($values["login"])) {
             $portal->add_javascript_onload("SignIn", "if($('#second_field').length > 0){document.getElementById('second_field').focus();}");
         }
-        else
+        else{
             $portal->add_javascript_onload("SignIn", "if($('#first_field').length > 0){document.getElementById('first_field').focus();}");
-
+        }
+        
         $frameResponseObject->setTitle(gettext("Sign in"));
         $frameResponseObject->setHeadline("Anmeldung");
         $rawHtml = new \Widgets\RawHtml();
@@ -136,6 +132,3 @@ class SignIn extends \AbstractCommand implements \IFrameCommand {
 
 }
 ?>
-
-
-

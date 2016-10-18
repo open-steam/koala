@@ -19,7 +19,7 @@ class CreateEntryForm extends \AbstractCommand implements \IAjaxCommand {
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 
-		$seperatorHtml = "<br style=\"clear:both\"/>";
+		$separatorHtml = "<br style=\"clear:both\"/>";
 
 		$ajaxForm = new \Widgets\AjaxForm();
 		$ajaxForm->setSubmitCommand("CreateEntry");
@@ -45,12 +45,12 @@ class CreateEntryForm extends \AbstractCommand implements \IAjaxCommand {
 
 		//build html
 		$html = $titel->getHtml();
-		$html.= $seperatorHtml;
+		$html.= $separatorHtml;
 		$html.= '<input type="hidden" name="id" value="'.$this->id.'">';
 		$html .= $desc->getHtml();
-		$html.= $seperatorHtml;
+		$html.= $separatorHtml;
 		$html .= $link->getHtml();
-		$html.= $seperatorHtml;
+		$html.= $separatorHtml;
 		$html .= $window->getHtml();
 		$html .= '<input type="hidden" name="categoryIndex" value="'.$this->params["categoryIndex"].'">';
 		$html .= '<input type="hidden" name="window" value="false">';

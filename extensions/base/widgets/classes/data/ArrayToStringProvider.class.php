@@ -41,7 +41,7 @@ class ArrayToStringProvider implements IDataProvider {
                 $variableName = ($ownVariableName)? $ownVariableName:'value';
                 
                 //build the functioncall
-                return "sendRequest('SendArrayToStringRequest', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': {$variableName}}, '', 'data'{$function}, null, 'Explorer');";
+                return "sendRequest('SendArrayToStringRequest', {'id': {$objectId}, 'attribute': '{$this->attribute}', 'value': {$variableName}.trim()}, '', 'data'{$function}, null, 'Explorer');";
 	}
 	
 	public function isChangeable($object) {

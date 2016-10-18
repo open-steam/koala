@@ -1,5 +1,5 @@
 <?php
-class Rapidfeedback extends AbstractExtension implements IObjectExtension{
+class Rapidfeedback extends AbstractExtension implements IObjectExtension, IIconBarExtension {
 
 	public function getName() {
 		return "rapidfeedback";
@@ -18,23 +18,27 @@ class Rapidfeedback extends AbstractExtension implements IObjectExtension{
 		$result[] = new Person("Petertonkoker", "Jan", "janp@mail.uni-paderborn.de");
 		return $result;
 	}
-	
+
 	public function getObjectReadableName() {
 		return "Fragebogen";
 	}
-	
+
 	public function getObjectReadableDescription() {
-		return "Mit Fragebögen können Sie in strukturierter Weise Rückmeldungen einholen – beispielsweise im Rahmen einer Umfrage oder der Durchführung eines Experiments.";
+		return "Mit Fragebögen können Sie mithilfe von verschiedenen Fragetypen Rückmeldungen einholen, Umfragen durchführen oder Lernerfolge messen";
 	}
-	
+
 	public function getObjectIconUrl() {
-		return $this->getAssetUrl() . "icons/rapidfeedback.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/rapidfeedback.svg";
 	}
-	
+
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/728049/";
+	}
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \Rapidfeedback\Commands\NewRapidfeedbackForm();
 	}
-	
+
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
 		$RapidfeedbackObject = steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $idRequestObject->getId() );
 		$RapidfeedbackType = $RapidfeedbackObject->get_attribute("OBJ_TYPE");
@@ -43,9 +47,28 @@ class Rapidfeedback extends AbstractExtension implements IObjectExtension{
 		}
 		return null;
 	}
-	
+
 	public function getPriority() {
 		return 8;
+	}
+
+	public function getIconBarEntries() {
+		$array = array();
+		$path = strtolower($_SERVER["REQUEST_URI"]);
+		if(strpos($path, "rapidfeedback") !== false){
+			$pathArray = explode("/", $path);
+			$currentObjectID = "";
+			for ($count = 0; $count < count($pathArray); $count++) {
+					if (intval($pathArray[$count]) !== 0) {
+							$currentObjectID = $pathArray[$count];
+							break;
+					}
+			}
+			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+			$env = $object->get_environment();
+			//$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
+			return $array;
+		}
 	}
 }
 ?>

@@ -1,0 +1,37 @@
+.attribute {
+  clear: left;
+  padding: 5px 2px 5px 2px;
+}
+
+.attributeName {
+  float: left;
+  padding-right: 10px;
+  width: 150px;
+}
+
+.attributeNameRequired {
+  float: left;
+  padding-right: 20px;
+  text-align: right;
+  font-weight: bold;
+  width: 180px;
+}
+
+.attributeValue {
+  float: left;
+  width: 300px;
+}
+
+.attributeValue .text, .attributeValue textarea {
+  width: 100px;
+}
+
+.text{
+  width:196px;
+}
+
+.attributeValueColumn {
+  float: left;
+  position: relative;
+  text-align: center;
+}

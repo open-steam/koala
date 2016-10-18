@@ -77,14 +77,34 @@ class Sort extends \AbstractCommand implements \IAjaxCommand {
         $string = trim($string);
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setCss('
-        .sort{clear:both;}
-        .columnWidth{margin-right: 10px; padding: 5px;}
-        .currentValue{padding: 5px 0px 0px 5px;}
-        .columnSort {list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; background: #eee;; padding: 5px; width: 143px;}
-        .elementSort{ margin: 5px; padding: 5px; width: 120px;background: #396d9c;
-	background: -webkit-gradient(linear, left top, left bottom, from(#7599bb),to(#356fa1));
-	background: -moz-linear-gradient(top,#7599bb,#356fa1); color: #ffffff; }
-');
+        .sort{
+          clear:both;
+        }
+        .columnWidth{
+          margin-right: 10px;
+          padding: 5px;
+        }
+        .currentValue{
+          padding: 5px 0px 0px 5px;
+        }
+        .columnSort {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          float: left;
+          margin-right: 10px;
+          background: #eee;
+          padding: 5px;
+          width: 143px;
+        }
+        .elementSort{
+          margin: 5px;
+          padding: 5px;
+          width: 120px;
+          background: #396d9c;
+          color: #FFFFFF;
+	      }
+        ');
         $js = <<<END
         <script>
         if(parseInt($('#sum').text()) > 900){

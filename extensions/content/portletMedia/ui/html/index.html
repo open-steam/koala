@@ -12,19 +12,19 @@
 			<!-- BEGIN image -->
 			<img src="{URL}">
 			<!-- END image -->
-			
+
 			<!-- BEGIN movie -->
-                        {MEDIA_PLAYER}
-                        <!-- END movie -->
-		
-                        <!-- BEGIN movieYoutube -->
-                        
-                        <iframe style="width: {MEDIA_PLAYER_WIDTH}px; height:{MEDIA_PLAYER_HEIGHT}px" src="//www.youtube.com/embed/{YOUTUBE_URL_CODE}"></iframe>
-                        
-                        <!-- END movieYoutube -->
-		
+			{MEDIA_PLAYER}
+			<!-- END movie -->
+
+      <!-- BEGIN movieYoutube -->
+
+      <iframe style="width: {MEDIA_PLAYER_WIDTH}px; height:{MEDIA_PLAYER_HEIGHT}px" src="//www.youtube.com/embed/{YOUTUBE_URL_CODE}"></iframe>
+
+      <!-- END movieYoutube -->
+
 			<!-- BEGIN audio -->
-			<object style="width: {MEDIA_PLAYER_WIDTH}px; height:{MEDIA_PLAYER_HEIGHT}px" type="application/x-shockwave-flash" data="{MEDIA_PLAYER}"><param name="movie" value="{MEDIA_PLAYER}" /><param name="FlashVars" value="src={URL}" /><param name="bgcolor" value="#cccccc"></object>
+			{AUDIO_PLAYER}
 			<!-- END audio -->
 		</div>
 		<div class="description">

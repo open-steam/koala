@@ -6086,7 +6086,7 @@ msgstr "Kein Zugriff"
 
 #: ../public/error.php:12
 msgid "No sufficient rights for this object"
-msgstr "Keine ausreichenden Rechte um diese Aktion auszuführen"
+msgstr "Keine ausreichenden Rechte für dieses Objekt"
 
 #: ../public/error.php:13
 msgid "You have not the required rights to execute this action. Please consult the owner of the object for further information."
@@ -6146,7 +6146,7 @@ msgstr "Fehler in der koaLA-Konfiguration"
 #: ../public/error.php:53
 #: ../public/error.php:57
 msgid "Mail an error description"
-msgstr "Eine Fehlerbeschreibung senden."
+msgstr "Eine Fehlerbeschreibung senden"
 
 #: ../public/error.php:44
 msgid "There is an error in the koala configuration. %MAIL."
@@ -8061,7 +8061,7 @@ msgstr "Ungültiger Benutzername oder falsches Passwort."
 #: ../public/sign_in.php:69
 #: ../public/sign_in.php:87
 msgid "Please verify your credentials and try again."
-msgstr "Bitte überprüfen Sie Ihren Benutzernamen und das Passwort."
+msgstr "Bitte überprüfen Sie Ihre Zugangsdaten und versuchen Sie es erneut."
 
 #: ../public/sign_in.php:102
 msgid "Use your IMT credentials to log in into koaLA knowledge network. Here, you can get and discuss course materials online, extend your personal and academic network, and cooperate with fellow students and colleagues."
@@ -8283,8 +8283,8 @@ msgstr "Ihr Eintrag"
 
 #: ../public/weblog_entry_edit.php:141
 #: ../public/wiki_edit.php:153
-msgid "Edit '%NAME'?"
-msgstr "'%NAME' ändern?"
+msgid "Edit '%NAME'"
+msgstr "'%NAME' bearbeiten"
 
 #: ../public/weblog_new.php:42
 msgid "The name of the weblog is missing."

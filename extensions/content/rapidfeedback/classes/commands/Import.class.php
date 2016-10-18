@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ *
  * Import function to import bidowl questionnaires
  *
  */
@@ -23,7 +23,7 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 		$rapidfeedback = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$RapidfeedbackExtension->addCSS();
-		
+
 		// access not allowed for non-admins
 		$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
@@ -39,11 +39,11 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 		}
 		if ($admin == 0) {
 			$rawWidget = new \Widgets\RawHtml();
-			$rawWidget->setHtml("<center>Zugang verwehrt. Sie sind kein Administrator in dieser Rapid Feedback Instanz</center>");
+			$rawWidget->setHtml("<center>Die Bearbeitung dieses Fragebogens ist den Administratoren vorbehalten.</center>");
 			$frameResponseObject->addWidget($rawWidget);
 			return $frameResponseObject;
 		}
-		
+
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["import_survey"])) {
 			$bidowl_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $_POST["id"]);
 			if ((!($bidowl_container instanceof \steam_container)) || ($bidowl_container->get_attribute("bid:doctype") != "questionary")) {
@@ -66,12 +66,12 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 				$editor_rights = $bidowl_container->get_attribute("bid:questionary:editor_rights");;
 				$author_rights = $bidowl_container->get_attribute("bid:questionary:author_rights");;
 				*/
-				
+
 				$survey_object = new \Rapidfeedback\Model\Survey($rapidfeedback);
 				$survey_object->setName($name);
 				$survey_object->setBeginText("");
 				$survey_object->setEndText("");
-				
+
 				// import questions and layout elements
 				$question_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $bidowl_container->get_path() . "/questions");
 				$questions = $question_container->get_inventory();
@@ -99,7 +99,7 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 							break;
 						case 3:
 							// input file
-							break;	
+							break;
 						case 4:
 							// radio
 							$newquestion = new \Rapidfeedback\Model\SingleChoiceQuestion();
@@ -108,7 +108,7 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 							}
 							$newquestion->setArrangement($question_geometry["columns"]);
 							$isQuestion = true;
-							break;	
+							break;
 						case 5:
 							// select
 							$newquestion = new \Rapidfeedback\Model\SingleChoiceQuestion();
@@ -116,25 +116,25 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 								$newquestion->addOption($option);
 							}
 							$isQuestion = true;
-							break;								
+							break;
 						case 6:
 							// caption
 							$newquestion = new \Rapidfeedback\Model\HeadlineLayoutElement();
 							$newquestion->setHeadline($question_geometry["text"]);
 							$isQuestion = false;
-							break;								
-						case 7:		
-							// text	
+							break;
+						case 7:
+							// text
 							$newquestion = new \Rapidfeedback\Model\TextQuestion();
 							$newquestion->setInputLength($question_geometry["maxlength"]);
 							$isQuestion = true;
-							break;								
+							break;
 						case 8:
 							// textarea
 							$newquestion = new \Rapidfeedback\Model\TextareaQuestion();
 							$newquestion->setRows($question_geometry["height"]);
 							$isQuestion = true;
-							break;	
+							break;
 						case 9:
 							// new page
 							$newquestion = new \Rapidfeedback\Model\PageBreakLayoutElement();
@@ -174,9 +174,9 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 					}
 					$survey_object->addQuestion($newquestion);
 				}
-				
+
 				$survey_container = $survey_object->createSurvey();
-				
+
 				/* import start type and times
 				$edittime = $bidowl_container->get_attribute("bid:questionary:edittime");
 				if ($edittime[0]) {
@@ -185,7 +185,7 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 					array_push($times, $edittime[1]);
 					$survey_container->set_attribute("RAPIDFEEDBACK_STARTTYPE", $times);
 				}*/
-				
+
 				// set sanctions on resultcontainer
 				$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey_container->get_path() . "/results");
 				if ($resultContainer instanceof \steam_container) {
@@ -197,7 +197,7 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 				$frameResponseObject->setConfirmText("Import erfolgreich");
 			}
 		}
-		
+
 		// display actionbar
 		$surveys = $rapidfeedback->get_inventory();
 		$surveyCount = 0;
@@ -225,7 +225,7 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 			$actionbar->setActions($actions);
 		}
 		$frameResponseObject->addWidget($actionbar);
-		
+
 		// display import form
 		$content = $RapidfeedbackExtension->loadTemplate("rapidfeedback_import.template.html");
 		$content->setCurrentBlock("BLOCK_IMPORT_DIALOG");
@@ -233,7 +233,7 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("ID_LABEL", "Objekt ID:");
 		$content->setVariable("IMPORT_SURVEY", "Fragebogen importieren");
 		$content->parse("BLOCK_IMPORT_DIALOG");
-		
+
 		$rawWidget = new \Widgets\RawHtml();
 		$rawWidget->setHtml($content->get());
 		$frameResponseObject->addWidget($rawWidget);

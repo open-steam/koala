@@ -1,0 +1,37 @@
+<style>
+    {CSS}
+</style>
+<input type="hidden" name="id" value="{$this->id}">
+
+
+
+
+<div class="attribute">
+    <div class="attributeName">Titel:</div>
+    <div><input type="text" class="text" value="{FORM_TITLE}" name="title" id="title"></div>
+</div>
+<div class="attribute">
+    <div class="attributeName">Objekt ID:</div>
+    <div><input type="text" class="text" value="{FORM_OBJECT_ID}" name="objectid" id="objectId"></div>
+</div>
+
+<!--<div class="attribute">
+    <div class="attributeName">Änderungen im Zeitraum:</div>
+    <div>
+        <select name="type" id="portletSubscriptionType">
+            <!-- BEGIN FORM_SUBSCRIPTION_TYPE -->
+            <option value="{KEY}" {SELECTED}>{VALUE}</option>
+            <!-- END FORM_SUBSCRIPTION_TYPE -->
+        </select>
+    </div>
+</div>-->
+<div class="attribute">
+    <div class="attributeName">Sortierung:</div>
+    <div>
+        <select name="sort" id="portletSubscriptionOrder">
+            <!-- BEGIN FORM_SUBSCRIPTION_ORDER -->
+            <option value="{KEY}" {SELECTED}>{VALUE}</option>
+            <!-- END FORM_SUBSCRIPTION_ORDER -->
+        </select>
+    </div>
+</div>

@@ -28,17 +28,14 @@ class GetPopupMenuSearch extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        $copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/copy.png";
+        $copyIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/copy.svg";
         $items = array();
-        $items[] = array("name" => "Filtereinstellungen kopieren... <img src=\"{$copyIcon}\">", "command" => "CopyFilterSettings", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'filter': encodeURI($('#searchfield').val()) }", "type" => "popup");
+        $items[] = array("name" => "<svg><use xlink:href='{$copyIcon}#copy'/></svg> Filtereinstellungen kopieren", "command" => "CopyFilterSettings", "namespace" => "explorer", "params" => "{'id':'{$this->id}', 'filter': encodeURI($('#searchfield').val()) }", "type" => "popup");
         $popupMenu = new \Widgets\PopupMenu();
         $popupMenu->setItems($items);
         $popupMenu->setPosition(round($this->x + $this->width )  . "px", round($this->y + $this->height -20) . "px");
-        $popupMenu->setWidth("220px");
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($popupMenu);
-
-
         return $ajaxResponseObject;
     }
 

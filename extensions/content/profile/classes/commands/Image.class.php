@@ -139,7 +139,7 @@ class Image extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("LABEL_UPLOAD", gettext("Upload"));
         $content->setVariable("LABEL_BACK_TO_PROFILE", gettext("Back to Profile"));
 
-        $deleteImageButtonURL = PATH_URL . "widgets/asset/delete.png";
+        $deleteImageButtonURL = PATH_URL . "widgets/asset/close.svg#close";
         $content->setVariable("DELETE_BUTTON", $deleteImageButtonURL);
 
         $frameResponseObject->setConfirmText($confirmText);

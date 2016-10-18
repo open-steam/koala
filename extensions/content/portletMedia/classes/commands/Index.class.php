@@ -5,7 +5,6 @@ namespace PortletMedia\Commands;
 class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
     private $params;
-    private $id;
     private $content;
     private $rawHtmlWidget;
 
@@ -36,7 +35,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //$this->getExtension()->addJS();
 
         //icon
-        $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
+        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
         //reference handling
         $params = $requestObject->getParams();
@@ -104,7 +103,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
                 $envId = $portlet->get_environment()->get_environment()->get_id();
                 $envUrl = PATH_URL . "portal/index/" . $envId;
-                $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
+                $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
             }
 
             //description
@@ -122,6 +121,20 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
               $url = str_replace("http","https",strtolower($url));
             }
 
+            $pathArray = explode("/", $url);
+            $currentObjectID = "";
+            for ($count = 0; $count < count($pathArray); $count++) {
+                if (intval($pathArray[$count]) !== 0) {
+                    $currentObjectID = $pathArray[$count];
+                    break;
+                }
+            }
+
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
+            if($object instanceof \steam_document){
+              $mime = $object->get_attribute(DOC_MIME_TYPE);
+            }
+
             //determine youtube video
             $isYoutubeVideo = false;
             if (strpos($url, "youtube")) {
@@ -134,16 +147,20 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->parse("image");
             } else if ($media_type == "movie" && !$isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movie");
-                $mediaplayerHtml = new \Widgets\Videoplayer();
 
                 $column = $portlet->get_environment();
                 $columnWidth = intval($column->get_attribute("bid:portal:column:width"));
 
-                $mediaplayerHtml->setHeight(intval(($columnWidth - 10) / 4 * 3));
-                $mediaplayerHtml->setWidth($columnWidth - 10);
-
-                $mediaplayerHtml->setTarget($url);
-                $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
+                if($mime && strpos($mime, "mp4") !== false) { //mp4 format, use html 5 video tag
+                    $tmpl->setVariable("MEDIA_PLAYER", '<div class="CSSLoader"></div><video controls width="' . intval($columnWidth - 10) . '" oncanplay="$(this).prev().remove();$(this).show();" style="display:none;"><source src="' . $url . '" type="video/mp4">Ihr Browser unterstützt das Video-Element nicht.</video>');
+                }
+                else{
+                  $mediaplayerHtml = new \Widgets\Videoplayer();
+                  $mediaplayerHtml->setHeight(intval(($columnWidth - 10) / 4 * 3));
+                  $mediaplayerHtml->setWidth($columnWidth - 10);
+                  $mediaplayerHtml->setTarget($url);
+                  $tmpl->setVariable("MEDIA_PLAYER", $mediaplayerHtml->getHtml());
+                }
                 $tmpl->parse("movie");
             } else if ($media_type == "movie" && $isYoutubeVideo) {
                 $tmpl->setCurrentBlock("movieYoutube");
@@ -178,12 +195,17 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->parse("movieYoutube");
             } else if ($media_type == "audio") {
                 $tmpl->setCurrentBlock("audio");
+
                 $width = str_replace(array("px", "%"), "", $portlet->get_environment()->get_attribute("bid:portal:column:width")) - 10;
-                $media_player = $portletInstance->getAssetUrl() . 'emff_lila_info.swf';
-                $tmpl->setVariable("MEDIA_PLAYER", $media_player);
-                $tmpl->setVariable("MEDIA_PLAYER_WIDTH", $width);
-                $tmpl->setVariable("MEDIA_PLAYER_HEIGHT", round($width * 11 / 40));
-                $tmpl->setVariable("URL", $url);
+
+                if($mime && strpos($mime, "mpeg") !== false) { //mp3 format, use html 5 audio tag
+                  $mediaPlayerUrl = getDownloadUrlForObjectId($currentObjectID);
+                  $tmpl->setVariable("AUDIO_PLAYER", '<div class="CSSLoader"></div><audio controls style="width:' . $width . 'px; display:none;" oncanplay="$(this).prev().remove();$(this).show();"><source src="' . $mediaPlayerUrl . '" type="audio/mpeg">Ihr Browser unterstützt das Audio-Element nicht.</audio>');
+                }
+                else{
+                  $media_player = $portletInstance->getAssetUrl() . 'emff_lila_info.swf';
+                  $tmpl->setVariable("AUDIO_PLAYER", '<object style="width:' . $width . 'px; height:' . round($width * 11 / 40) . 'px" type="application/x-shockwave-flash" data="' . $media_player . '"><param name="movie" value="{MEDIA_PLAYER}" /><param name="FlashVars" value="src=' . $url . '" /><param name="bgcolor" value="#cccccc"></object>');
+                }
                 $tmpl->parse("audio");
             }
             if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {

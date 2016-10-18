@@ -39,7 +39,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         }
 
         //icon
-        $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
+        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
          //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
@@ -70,7 +70,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         if ($portletIsReference) {
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
-            $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
+            $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
         }
 
         if (!$portletIsReference) {
@@ -122,8 +122,8 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
         $listViewer = new \Widgets\ListViewer();
         $headlineProvider = new HeadlineProvider();
+        $headlineProvider->setDescription($portlet->get_attribute("PORTLET_FOLDERLIST_DESCRIPTION"));
         $headlineProvider->setWidth($width);
-        $headlineProvider->setDate($portlet->get_attribute("PORTLET_FOLDERLIST_CHANGEDATE"));
         $listViewer->setHeadlineProvider($headlineProvider);
         $listViewer->setContentProvider($contentProvider);
         $listViewer->setContent($display);
@@ -157,39 +157,40 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     private $width;
-    private $date;
+    private $description;
 
-    public function setDate($bool) {
-        $this->date = $bool;
+    public function setDescription($bool) {
+        $this->description = $bool;
     }
 
     public function setWidth($width) {
-        if ($this->date === "true") {
-            $min = 170;
-        } else {
-            $min = 40;
+      if ($this->description === "true") {
+        if(($width/2-28) < 66){
+          $this->width = 66;
         }
-        if (($width - $min) < 0) {
-            $this->width = $min;
-        } else {
-            $this->width = $width;
+        else{
+          $this->width = $width/2-28;
         }
+      }
+      else{
+        $this->width = $width-34;
+      }
     }
 
     public function getHeadlines() {
-        return array("", "", "");
+        return array("", "", "", "");
     }
 
     public function getHeadLineWidths() {
-        if ($this->date === "true") {
-            return array(22, $this->width-170, 130);
+        if ($this->description === "true") {
+            return array(22, $this->width, 22, $this->width);
         } else {
-            return array(22, $this->width-40, 0);
+            return array(22, $this->width, 0, 0);
         }
     }
 
     public function getHeadLineAligns() {
-        return array("left", "left", "right");
+        return array("left", "left", "left", "left");
     }
 
 }
@@ -198,7 +199,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 
     private $rawImage = 0;
     private $rawName = 1;
-    private $rawChangeDate = 2;
+    private $rawDescription = 3;
     private $valid = true;
 
     public function getId($contentItem) {
@@ -224,7 +225,6 @@ class ContentProvider implements \Widgets\IContentProvider {
             return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItemObject) . "\"></img>";
         } else if ($cell == $this->rawName) {
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItemObject->get_id(), "view");
-            $desc = $contentItemObject->get_attribute("OBJ_DESC");
             $name = getCleanName($contentItemObject, 50);
 
             // check existence of link target
@@ -234,20 +234,21 @@ class ContentProvider implements \Widgets\IContentProvider {
             }
 
             if (isset($url) && $url != "") {
-                return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>";
+                return "<a href=\"" . $url . "\" title=\"$name\"> " . $name . "</a>";
             } else {
                 return $name;
             }
-        } else if ($cell == $this->rawChangeDate) {
-            return getReadableDate($contentItemObject->get_attribute("OBJ_LAST_CHANGED"));
+        } else if ($cell == $this->rawDescription) {
+            $desc = $contentItemObject->get_attribute("OBJ_DESC");
+            return "<div class='description' title=\"$desc\"> " . $desc . "</div>";
         }
     }
 
     public function getNoContentText() {
         if ($this->valid) {
-            return "Keine Objekte vorhanden.";
+            return "Der ausgewählte Ordner ist leer.";
         } else {
-            return "Objekt ID ungültig oder keine Leserechte.";
+            return "Die eingegebene Objekt-ID ist nicht vorhanden oder Sie verfügen nicht über die notwenigen Leserechte.";
         }
     }
 

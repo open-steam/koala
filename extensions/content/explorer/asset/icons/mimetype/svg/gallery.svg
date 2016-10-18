@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="100%"
+   height="100%"
+   viewBox="0 0 576 512"
+   id="gallery"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="gallery.svg">
+  <defs
+     id="defs13" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1026"
+     inkscape:window-height="841"
+     id="namedview11"
+     showgrid="false"
+     inkscape:zoom="0.4609375"
+     inkscape:cx="288"
+     inkscape:cy="256"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <path
+     d="M544 64h-32v-32c0-17.6-14.4-32-32-32h-448c-17.6 0-32 14.4-32 32v384c0 17.6 14.4 32 32 32h32v32c0 17.6 14.4 32 32 32h448c17.6 0 32-14.4 32-32v-384c0-17.6-14.4-32-32-32zM64 96v320h-31.943c-0.020-0.017-0.041-0.038-0.057-0.058v-383.885c0.017-0.020 0.038-0.041 0.057-0.057h447.885c0.020 0.017 0.041 0.038 0.058 0.058v31.942h-384c-17.6 0-32 14.4-32 32v0zM544 479.942c-0.017 0.020-0.038 0.041-0.058 0.058h-447.885c-0.020-0.017-0.041-0.038-0.057-0.058v-383.885c0.017-0.020 0.038-0.041 0.057-0.057h447.885c0.020 0.017 0.041 0.038 0.058 0.058v383.884z"
+     id="path5"
+     fill="currentColor"/>
+  <path
+     d="M480 176c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48z"
+     id="path7"
+     fill="currentColor" />
+  <path
+     d="M512 448h-384v-64l112-192 128 160h32l112-96z"
+     id="path9"
+     fill="currentColor" />
+</svg>

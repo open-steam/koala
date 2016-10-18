@@ -1,9 +1,3 @@
-<!-- BEGIN BLOCK_INFO -->
-<div class="infoBar">
-	{INFO_TEXT}
-</div>
-<!-- END BLOCK_INFO -->
-
 <form action="{FORM_ACTION}" method="post" name="formular">
 <input type="hidden" name="values[backlink]" value="{VALUE_BACKLINK}" />
 
@@ -17,14 +11,14 @@
 		<td class="label">{LABEL_WIKI_STARTPAGE}:</td>
 		<td class="value">
 			<select name="values[wiki_startpage]" size="1">
-				<option {WIKI_STARTPAGE_GLOSSARY_SELECTED} value="glossary">{OPTION_WIKI_GLOSSARY}</option> 
+				<option {WIKI_STARTPAGE_GLOSSARY_SELECTED} value="glossary">{OPTION_WIKI_GLOSSARY}</option>
 				<!-- BEGIN BLOCK_WIKI_STARTPAGE_OPTION -->
-				<option {WIKI_STARTPAGE_SELECTED}>{OPTION_WIKI_STARTPAGE}</option>  
+				<option {WIKI_STARTPAGE_SELECTED}>{OPTION_WIKI_STARTPAGE}</option>
 				<!-- END BLOCK_WIKI_STARTPAGE_OPTION -->
 			</select>
 		</td>
 	</tr>
-  <!-- END BLOCK_WIKI_STARTPAGE -->  
+  <!-- END BLOCK_WIKI_STARTPAGE -->
   {HTML_WIDGET_FOOTER}
 	<!-- BEGIN BLOCK_EXTENSIONS -->
 		<td class="label">{LABEL_EXTENSIONS}:</td>
@@ -37,7 +31,7 @@
 	<!-- END BLOCK_EXTENSIONS -->
 	<tr>
 		<td class="label">&nbsp;</td>
-		<td class="value"><div class="buttons" style="text-align: left;"><input type="submit" value="{LABEL_CREATE}" {NAME_SAVE_BUTTON}/> {BACKLINK}</div></td>
+		<td class="value"><div class="buttons" style="text-align: left;"><input class="bidButton" type="submit" value="{LABEL_CREATE}" {NAME_SAVE_BUTTON}/></div></td>
 	</tr>
 </table>
 <input type="hidden" name="new" value="true">

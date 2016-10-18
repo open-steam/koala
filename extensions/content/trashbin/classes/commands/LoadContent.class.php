@@ -47,15 +47,50 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadlines() {
-        return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+        return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+        //return array("", "Name", "", "Beschreibung", "", "ehem. Umgebung", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
     }
 
     public function getHeadLineWidths() {
-        return array(25, 250, 10, 380, 10, 145, 75, 30, 20);
+        return array(25, 250, 10, 370, 10, 145, 75, 20, 20, 20);
+        //return array(25, 240, 10, 250, 10, 140, 145, 65, 20, 20, 20);
     }
 
     public function getHeadLineAligns() {
-        return array("left", "left", "left", "left", "left", "right", "right", "right", "right");
+        //return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
+    }
+
+    public function getOnClickHandler($headline) {
+        if (strpos($headline, "Name") !== false) {
+            return "sortByName(this)";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "sortByDate(this)";
+        } else {
+            return "";
+        }
+    }
+
+    public function getOnMouseOverHandler($headline) {
+        if (strpos($headline, "Name") !== false) {
+            return "jQuery(this).addClass('hover')";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "jQuery(this).addClass('hover')";
+        } else {
+            return "";
+        }
+    }
+
+    public function getOnMouseOutHandler($headline) {
+        if (strpos($headline, "Name") !== false) {
+            return "jQuery(this).removeClass('hover')";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "jQuery(this).removeClass('hover')";
+        } else {
+            return "";
+        }
     }
 
 }
@@ -66,10 +101,12 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawName = 1;
     private $rawDesc = 3;
     private $rawMarker = 4;
+    //private $rawFormerEnvironment = 5;
     private $rawChangeDate = 5;
     private $rawSize = 6;
-    private $rawMenu = 7;
-    private $rawCheckbox = 8;
+    private $rawReference = 7;
+    private $rawMenu = 8;
+    private $rawCheckbox = 9;
 
     public function getId($contentItem) {
         return $contentItem->get_id();
@@ -87,8 +124,28 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return "";
             }
         } else if ($cell == $this->rawImage) {
-            $url = PATH_URL . "explorer/index/" . $contentItem->get_id() . "/";
-            return "<a href=\"" . $url . "\"><img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img></a>";
+            if ($contentItem instanceof \steam_exit) {
+                $exitObj = $contentItem->get_exit();
+                if ($exitObj === 0) {
+                    $icon = "folder.png";
+                } else {
+                    $icon = deriveIcon($exitObj);
+                }
+            } else if ($contentItem instanceof \steam_link) {
+                $linkObj = $contentItem->get_link_object();
+                if ($linkObj === 0) {
+                    $icon = "generic.png";
+                } else {
+                    $icon = deriveIcon($linkObj);
+                }
+            } else {
+                $icon = deriveIcon($contentItem);
+            }
+            $iconSVG = str_replace("png", "svg", $icon);
+            $idSVG = str_replace(".svg", "", $iconSVG);
+            $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+            return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } else if ($cell == $this->rawName) {
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
@@ -100,21 +157,20 @@ class ContentProvider implements \Widgets\IContentProvider {
                     . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
 
             $tags = $contentItem->get_attribute(OBJ_KEYWORDS);
-            if(sizeOf($tags) > 0){
-              $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
+            if (sizeOf($tags) > 0) {
+                $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
             }
             $tipsy->setHtml($tipsyHtml);
-
-            $url = PATH_URL . "explorer/index/" . $contentItem->get_id() . "/";
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
             $desc = $contentItem->get_attribute("OBJ_DESC");
             $name = getCleanName($contentItem, 50);
-            if (isset($url) && $url != "") {
+            if (isset($url) && $url != "" && $contentItem->get_attribute("OBJ_TYPE") !== "container_portlet_bid") {
                 return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
             } else {
                 return $name . "<script>" . $tipsy->getHtml() . "</script>";
             }
         } else if ($cell == $this->rawDesc) {
-          return $contentItem->get_attribute("OBJ_DESC");
+            return $contentItem->get_attribute("OBJ_DESC");
         } else if ($cell == $this->rawMarker) {
             return "";
             $html = "";
@@ -145,6 +201,23 @@ class ContentProvider implements \Widgets\IContentProvider {
             }
             $html .= "</div>";
             return $html;
+        } else if ($cell == $this->rawFormerEnvironment) {
+          /*
+            if ($contentItem->get_attribute("OBJ_LAST_LOCATION_ID") !== "") {
+                $formerEnvironment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $contentItem->get_attribute("OBJ_LAST_LOCATION_ID"));
+                if($formerEnvironment instanceof \steam_object && ($formerEnvironment->get_attribute("OBJ_TYPE") === "container_portalColumn_bid" || $formerEnvironment->get_attribute("OBJ_NAME") === "postbox_container")){
+                    $formerEnvironment = $formerEnvironment->get_environment();
+                }
+                if ($formerEnvironment instanceof \steam_object) {
+                    $url = \ExtensionMaster::getInstance()->getUrlForObjectId($formerEnvironment->get_id(), "view");
+                    $name = getCleanName($formerEnvironment, 20);
+                    if (isset($url) && $url != "") {
+                        return "<a href=\"" . $url . "\"> " . $name . "</a>";
+                    }
+                }
+                return "";
+            }
+            */
         } else if ($cell == $this->rawChangeDate) {
             return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
         } else if ($cell == $this->rawSize) {
@@ -154,6 +227,13 @@ class ContentProvider implements \Widgets\IContentProvider {
             $popupMenu->setData($contentItem);
             $popupMenu->setElementId("listviewer-overlay");
             return $popupMenu;
+        } else if ($cell == $this->rawReference) {
+            if ($contentItem instanceof \steam_link) {
+                $text = "Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. ";
+                $text.= "Änderungen können nur am Originalobjekt vorgenommen werden. ";
+                $text.= "Ein Klick auf dieses Element führt Sie zum Originalobjekt.";
+                return "<div class='referenceWrapper' title='" . $text . "'><svg style='width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
+            }
         }
     }
 
@@ -163,7 +243,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 
     public function getOnClickHandler($contentItem) {
         if (!($contentItem instanceof \steam_trashbin)) {
-            return "jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked);";
+            return "jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked);";
         } else {
             return "";
         }

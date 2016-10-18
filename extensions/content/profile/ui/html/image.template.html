@@ -6,8 +6,10 @@
 					<td id="userImage">
 						<img src="{USER_IMAGE}" class="border" alt="{LABEL_YOUR_BUDDY_ICON}" />
 						<form action="" method="post" onsubmit="return window.confirm('{WINDOW_CONFIRM_TEXT}');">
-							<input type="hidden" name="action" value="deleteicon">
-							<input type="image" id="imageEditButton" title="Löschen" src={DELETE_BUTTON} {HIDE_BUTTON}/>
+							<label>
+								<input type="submit" name="action" value="deleteicon" style="display:none;">
+								<svg id="imageEditButton" title="Löschen" style="width:20px; height:20px; color:#FFFFFF;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href={DELETE_BUTTON} {HIDE_BUTTON}/></svg>
+							</label>
 						</form>
 					</td>
 				</tr>

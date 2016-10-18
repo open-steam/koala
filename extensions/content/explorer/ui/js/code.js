@@ -24,15 +24,15 @@ jQuery(document).ready(function(){
 
 function removeAllDirectEditors(save) {
 	if(save){
-                //define the dataSaveFunctionCallback to make the contentProvider happy
-                jQuery.globalEval("function dataSaveFunctionCallback(response){return true;}");
+		//define the dataSaveFunctionCallback to make the contentProvider happy
+		jQuery.globalEval("function dataSaveFunctionCallback(response){return true;}");
 		$('.changed').each(function(number, obj) {
-                        eval($(obj).attr('data-saveFunction'));
-                        $(obj).removeClass("changed");
+			eval($(obj).attr('data-saveFunction'));
+			$(obj).removeClass("changed");
 		});
 	}
 
-        jQuery(document).keyup(function(e) {});
+	jQuery(document).keyup(function(e) {});
 
 	var elements = jQuery(".directEditor");
 	if (elements) {
@@ -51,6 +51,8 @@ function removeDirectEditor(objectId, elementId) {
 	var obj = new Object;
 	obj.id = objectId;
 	sendRequest("GetLabel", obj, elementId, "nonModalUpdater");
+	sendRequest("GetChangeDate", obj, obj.id + "_5", "nonModalUpdater");
+	if($('.listviewer').length != 0) resetListViewerHeadItem();
 }
 
 function getSelectionAsArray() {
@@ -59,8 +61,18 @@ function getSelectionAsArray() {
 	return result;
 }
 
+function getGallerySelectionAsArray() {
+	var result = new Array();
+	$(".galleryEntry.selected").each(function() {result.push(this.id);});
+	return result;
+}
+
 function getSelectionAsJSON() {
 	return $.toJSON(getSelectionAsArray());
+}
+
+function getGallerySelectionAsJSON() {
+	return $.toJSON(getGallerySelectionAsArray());
 }
 
 function getParamsArray(paramsObject) {
@@ -74,13 +86,35 @@ function getParamsArray(paramsObject) {
 		po.id = ids[i];
 		paramsArray.push(po);
 	}
-	console.log(paramsArray);
+	return paramsArray;
+}
+
+function getGalleryParamsArray(paramsObject) {
+	if (!paramsObject) {
+		paramsObject = {};
+	}
+	var ids = getGallerySelectionAsArray();
+	var paramsArray = new Array();
+	for (i = 0; i < ids.length; i++) {
+		var po = clone(paramsObject);
+		po.id = ids[i];
+		paramsArray.push(po);
+	}
 	return paramsArray;
 }
 
 function getElementIdArray(elementId) {
 	var elementIdArray = new Array();
 	var ids = getSelectionAsArray();
+	for (i = 0; i < ids.length; i++) {
+		elementIdArray.push(elementId);
+	}
+	return elementIdArray;
+}
+
+function getGalleryElementIdArray(elementId) {
+	var elementIdArray = new Array();
+	var ids = getGallerySelectionAsArray();
 	for (i = 0; i < ids.length; i++) {
 		elementIdArray.push(elementId);
 	}
@@ -117,4 +151,30 @@ function clone(obj) {
     }
 
     throw new Error("Unable to copy obj! Its type isn't supported.");
+}
+
+
+function alreadyExistsInExplorer(name) {
+	return $("a").filter(function() {
+		return ($.trim($(this).text()) === name) && ($(this).parent().attr("id") !== undefined) && ($(this).parent().attr("id").endsWith("_1"));
+	});
+}
+
+
+function checkInput(object){
+	var name = $(object).val();
+	if(name.length == 0){
+		$(object).css("background-color", "lightpink");
+		$(".bidButton:not(.negative)").addClass("disabled");
+	}
+	else{
+		if(alreadyExistsInExplorer(name).length != 0){
+			$(object).css("background-color", "lightpink");
+			$(".bidButton:not(.negative)").addClass("disabled");
+		}
+		else{
+			$(object).css("background-color", "lightgreen");
+			$(".bidButton.disabled:not(.negative)").removeClass("disabled");
+		}
+	}
 }

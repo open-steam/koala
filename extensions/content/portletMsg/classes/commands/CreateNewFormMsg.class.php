@@ -31,9 +31,9 @@ class CreateNewFormMsg extends \AbstractCommand implements \IAjaxCommand {
         $optionValues = array();
         $optionValues[0] = "oben";
         $optionValues[1] = "unten";
-        $insertOption->setOptionValues($optionValues);
+        $insertOption->addDataEntries($optionValues);
         $insertOption->setStartValue("oben");
-        $insertOption->setClass("attribute");
+        $insertOption->setCustomClass("attribute");
 
         $ajaxForm->setSubmitCommand("CreateMessage");
         $ajaxForm->setSubmitNamespace("PortletMsg");

@@ -12,9 +12,6 @@
     margin-left: 12px;
     font-size: 2em;
 }
-.portal .editbutton {
-    display:none;
-}
 
 .portal .hide_all_button{
     float:right;
@@ -38,9 +35,7 @@
     background: #fbfbfb;
     background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6),to(#fefefe));
     background: -moz-linear-gradient(top,#f6f6f6,#fefefe);
-    border-left: 1px solid #cdcdcd;
-    border-right: 1px solid #cdcdcd;
-    border-bottom: 1px solid #cdcdcd;
+    border: 1px solid #cdcdcd;
     color: #333333;
     margin-bottom: 8px;
     -moz-border-radius: 3px;
@@ -49,11 +44,11 @@
 }
 
 .portlet h1 {
-    margin: -1px;
+    margin-left: -1px;
+    margin-top: -1px;
+    margin-right: -1px;
     font-size: 12px;
-    background: #396d9c;
-    background: -webkit-gradient(linear, left top, left bottom, from(#7599bb),to(#356fa1));
-    background: -moz-linear-gradient(top,#7599bb,#356fa1);
+    background: #3a6e9f;
     color: #ffffff;
     padding: 4px;
     border-top-left-radius: 3px;
@@ -72,11 +67,9 @@
     color: #333333;
     margin: 0px;
     padding: 4px;
-    margin-top: 1px;
 }
 
 .portlet h3 {
-    border-top: 1px solid #cdcdcd;
     font-size: 12px;
     font-weight: normal;
     margin: 0px;
@@ -97,100 +90,26 @@
     min-height:15px;
 }
 
-.ui-state-highlight { height: 2.5em; line-height: 1.2em; }
+.portlet .description {
+  color: #AAAAAA;
+}
+
+.ui-state-highlight {
+  /*height: 2.5em;*/
+  line-height: 1.2em;
+}
 
 .portal-wrapper {
     overflow-x: auto;
 }
 
-
-
-
-/*workaround for showing gear menu BEGIN*/
-
-.popupmenuanker {
-    float: right;
-    cursor: pointer;
-    height: 16px;
-    width: 16px;
-    margin-right: 5px;
-    background-image: url("{PATH_URL}widgets/asset/config_grey_16.png");
+.portal .editbutton {
+   display:none;
 }
 
-.listviewer-item-unhover .popupmenuanker {
-    display: none;
+.portal .headline .editbutton svg{
+   color: #FFFFFF;
+   width: 16px;
+   height: 16px;
+   padding-right: 5px;
 }
-
-.listviewer-item-hover .popupmenuanker, .popupmenuanker.open {
-    display: block;
-}
-
-.popupmenuloading {
-    background-image: url("{PATH_URL}widgets/asset/ajax-loader.gif");
-}
-
-.listviewer-item-unhover .popupmenuloading {
-    display: block;
-}
-
-.popupmenuwrapper {
-    padding: 5px;
-    filter:alpha(opacity=95);
-    opacity:0.95;
-    background: #eee;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
-
-.popupmenuitem {
-    padding: 5px;
-    text-align: right;
-    cursor: pointer;
-}
-
-.popupmenuitem img{
-    margin-left: 3px;
-    position: relative;
-    top: 3px;
-}
-
-.popupmenuitem:hover {
-    background-color: #ccc;
-}
-
-.popupmenuseparator {
-    height: 1px;
-    border-top: 1px solid #ccc;
-}
-
-.popupmenuitem:hover .popupsubmenuwapper {
-    display: block;
-}
-
-.popupsubmenuwapper {
-    display: none;
-    position: absolute;
-    width: 190px;
-    margin-top: -25px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    box-shadow: 2px 2px 5px #888888;
-    padding: 5px;
-    filter:alpha(opacity=95);
-    opacity:0.95;
-    background: #eee;
-}
-
-.popupsubmenuanker {
-    background-image: url("{PATH_URL}widgets/asset/arrow_left.png");
-    background-repeat: no-repeat;
-    background-position: 0px 5px;
-}
-
-.popupsubmenuwapper.left {
-    margin-left: -150px;
-}
-
- /*workaround for showing gear menu END*/

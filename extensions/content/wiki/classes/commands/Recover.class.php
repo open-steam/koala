@@ -16,10 +16,10 @@ class Recover extends \AbstractCommand implements \IFrameCommand {
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		require_once( PATH_LIB . "wiki_handling.inc.php" );
-		
+
 		$portal = \lms_portal::get_instance();
 		$portal->initialize( GUEST_NOT_ALLOWED );
-		
+
 		// Disable caching
 		// TODO: Work on cache handling. An enabled cache leads to bugs
 		// if used with the wiki.
@@ -28,45 +28,43 @@ class Recover extends \AbstractCommand implements \IFrameCommand {
 		$wiki_doc = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$version_doc = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params[1]);
 		$wiki_container = $wiki_doc->get_environment();
-		
+
 		$user = \lms_steam::get_current_user();
-		
-		if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" )
-		{
+
+		if (!($wiki_container->check_access_write())) {
+				$errorHtml = new \Widgets\RawHtml();
+				$errorHtml->setHtml("Das Wiki kann nicht angezeigt werden, da Sie nicht über die erforderlichen Schreibrechte verfügen.");
+				$frameResponseObject->addWidget($errorHtml);
+				return $frameResponseObject;
+		}
+
+		if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" ){
 			$problems = "";
-		
-			try
-			{
+
+			try{
 				$new_content = $version_doc->get_content();
 				$wiki_doc->set_content($new_content);
 			}
-			catch( Exception $ex )
-			{
+			catch( Exception $ex ){
 				$problems = $ex->get_message();
 			}
-			
-			if( empty($problems) )
-			{
+
+			if( empty($problems) ){
 				$_SESSION[ "confirmation" ] = str_replace( "%VERSION", $version_doc->get_version(), gettext( "Version %VERSION recovered." ) );
 					header( "Location: " . PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/" );
 			   		die;
-				
+
 			}
-			else
-			{
+			else{
 				$portal->set_problem_description( $problems, $hints );
 			}
 		}
-		$backlink = PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/";
-		
+
 		$WikiExtension = \Wiki::getInstance();
 		$content = $WikiExtension->loadTemplate("wiki_recover_version.template.html" );
-		$content->setVariable( "BACK_LINK", $backlink );
 		$content->setVariable( "INFO_TEXT", gettext( "A new version will be created from the one you are recovering. The actual version will not be lost. Is that what you want?" ) );
 		$content->setVariable( "LABEL_OK", gettext( "Yes, Recover version" ) );
-		$content->setVariable( "BACKLINK", "<a class='button' href=\"$backlink\">" . gettext( "back" ) . "</a>" );
-		
-		//$rootlink = \lms_steam::get_link_to_root( $wiki_container );
+
 		(WIKI_FULL_HEADLINE) ?
 		$headline = array(
 						$rootlink[0],

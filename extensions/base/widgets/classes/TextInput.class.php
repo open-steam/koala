@@ -17,12 +17,12 @@ class TextInput extends Widget {
     private $focus = false;
     private $readOnly = false;
     private $isNotEmpty = false;
-    private $CheckIfEmpty = false;
+    private $checkIfEmpty = false;
+    private $checkIfExisting = false;
     private $labelWidth;
     private $inputWidth;
     private $inputBackgroundColor;
     private $customSuccessCode = "";
-
 
     public function setId($id){
         $this->id = "id_".$id."_textinput";
@@ -103,6 +103,14 @@ class TextInput extends Widget {
 
     /**
      *
+     * @param type $checkIfExisting boolean
+     */
+    public function checkIfExisting($checkIfExisting) {
+        $this->checkIfExisting = $checkIfExisting;
+    }
+
+    /**
+     *
      * @param type $isNotEmpty boolean
      */
     public function setIsNotEmpty($isNotEmpty) {
@@ -152,7 +160,6 @@ class TextInput extends Widget {
         }
         $this->getContent()->setVariable("ID", $this->id);
 
-
         $reverseSpecialHtmlWidget = new \Widgets\JSWrapper();
         $reverseSpecialHtmlWidget->setJs("function rSHW(value){" .
                 "value.replace(/&amp;/g,'&');" .
@@ -162,7 +169,6 @@ class TextInput extends Widget {
                 "value.replace(/&lt;/g,'<');" .
                 "value.replace(/&gt;/g,'>');}");
         $this->addWidget($reverseSpecialHtmlWidget);
-
 
         if (isset($this->label) && trim($this->label) !== "") {
             $this->getContent()->setVariable("LABEL", $this->label);
@@ -213,6 +219,12 @@ class TextInput extends Widget {
             $this->getContent()->setVariable("INPUT_STYLE", $style);
         }
 
+        if($this->checkIfExisting){
+          $this->getContent()->setVariable("CHECK_IF_EXISTING", "onkeyup='checkInput(this)'");
+        } else {
+          $this->getContent()->setVariable("CHECK_IF_EXISTING", "");
+        }
+
         if($this->checkIfEmpty){
           $this->getContent()->setVariable("CHECK_IF_EMPTY", "onkeyup='checkIfEmpty(this.id)'");
         } else {
@@ -233,6 +245,9 @@ class TextInput extends Widget {
 
             $valueString = $this->contentProvider->getData($this->data);
             $valueString = ($valueString === "0") ? "" : htmlspecialchars($valueString);
+            if($this->type === "number"){
+              $valueString = str_replace("px", "", $valueString);
+            }
             $this->getContent()->setVariable("VALUE", $valueString);
 
             $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id, $this->customSuccessCode));

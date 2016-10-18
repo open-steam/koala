@@ -35,6 +35,8 @@ class Order extends \AbstractCommand implements \IAjaxCommand {
 			for($i=count($inventory)-1;$i>=$index;$i--){
 				$environment->swap_inventory($index,$i);
 			}
+		} else {
+			$environment->order_inventory_objects($this->params["indices"]);
 		}
 	}
 
@@ -44,12 +46,16 @@ class Order extends \AbstractCommand implements \IAjaxCommand {
 	 	$js = "var element = jQuery('#{$this->id}');
 					if ('{$this->direction}' == 'up') {
 					 element.insertBefore(element.prev());
+					 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					} else if ('{$this->direction}' == 'down') {
 					 element.insertAfter(element.next());
+					 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					} else if ('{$this->direction}' == 'top') {
 						 element.insertBefore(element.parent().children().first());
+						 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					} else if ('{$this->direction}' == 'bottom') {
 						 element.insertAfter(element.parent().children().last());
+						 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					}";
 		$jswrapper->setJs($js);
 		$ajaxResponseObject->addWidget($jswrapper);

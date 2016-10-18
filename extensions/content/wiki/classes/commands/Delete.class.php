@@ -27,6 +27,9 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
 
         $WikiExtension = \Wiki::getInstance();
 
+        $wiki_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $user = \lms_steam::get_current_user();
+
         if (isset($this->params[1])) {
             if ($this->params[0] == "version" && isset($this->params[1])) {
                 // delete previous version of a doc
@@ -39,7 +42,6 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
                     //user authorized ?
                     $current_user = \lms_steam::get_current_user();
                     $author = $doc->get_attribute("DOC_USER_MODIFIED");
-
                     if ($current_user->get_name() !== $author->get_attribute("OBJ_NAME")) {
                         //TODO: Error Message
                         header("Location: " . PATH_URL . "wiki/versions/" . $parent_wiki->get_id());
@@ -84,9 +86,6 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
             }
         }
 
-        $wiki_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        $user = \lms_steam::get_current_user();
-
         if ($wiki_container->get_attribute("UNIT_TYPE")) {
             $place = "units";
         } else {
@@ -100,8 +99,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
                 $entryName = $wiki_doc->get_name();
                 $startpage = $wiki_container->get_attribute("WIKI_STARTPAGE") . ".wiki";
 
-                if ($entryName == $startpage)
-                    $wiki_container->set_attribute("WIKI_STARTPAGE", "glossary");
+                if ($entryName == $startpage) $wiki_container->set_attribute("WIKI_STARTPAGE", "glossary");
 
                 \lms_steam::delete($wiki_doc);
                 // clean wiki cache (not used by wiki)
@@ -125,16 +123,13 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
                 $wiki_name = h(substr($wiki_doc->get_name(), 0, -5));
                 $content = $WikiExtension->loadTemplate("wiki_delete.template.html");
                 $content->setVariable("LABEL_ARE_YOU_SURE", str_replace("%NAME", h($wiki_name), gettext("Are you sure you want to delete the wiki page '%NAME' ?")));
-                $content->setVariable("LABEL_DELETE", gettext('Delete'));
+                $content->setVariable("LABEL_DELETE", gettext("yes, delete it"));
                 $content->setVariable("LABEL_OR", gettext('or'));
-                $content->setVariable("LABEL_CANCEL", gettext('Cancel'));
                 $content->setVariable("FORM_ACTION", $_SERVER["REQUEST_URI"]);
-                $content->setVariable("BACK_LINK", PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/");
 
                 //Breadcrumbs
-             //   $rootlink = \lms_steam::get_link_to_root($wiki_container);
                 (WIKI_FULL_HEADLINE) ?
-                                $headline = array(
+                            $headline = array(
                             $rootlink[0],
                             $rootlink[1],
                             array("link" => $rootlink[1]["link"] . "communication/", "name" => gettext("Communication")),
@@ -142,7 +137,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
                             array("link" => PATH_URL . "wiki/" . $wiki_doc->get_id() . "/", "name" => str_replace(".wiki", "", h($wiki_doc->get_name()))),
                             array("link" => "", "name" => gettext("Delete"))
                                 ) :
-                                $headline = array(
+                            $headline = array(
                             array("name" => h($wiki_container->get_name()), "link" => PATH_URL . "wiki/Index/" . $wiki_container->get_id() . "/"),
                             array("link" => PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/", "name" => str_replace(".wiki", "", h($wiki_doc->get_name()))),
                             array("link" => "", "name" => gettext("Delete"))
@@ -199,14 +194,9 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
             $content = $WikiExtension->loadTemplate("object_delete.template.html");
             if ($object->check_access_write($user)) {
                 $content->setVariable("LABEL_ARE_YOU_SURE", str_replace("%NAME", h($object->get_name()), gettext("Are you sure you want to delete the wiki '%NAME' ?")));
-
-                //$rootlink = \lms_steam::get_link_to_root($object);
-                $content->setVariable("DELETE_BACK_LINK", PATH_URL . "explorer/Index/" . $wiki_container->get_environment()->get_id() . "/");
-
                 $content->setCurrentBlock("BLOCK_DELETE");
                 $content->setVariable("FORM_ACTION", $_SERVER["REQUEST_URI"]);
                 $content->setVariable("LABEL_DELETE_IT", gettext("yes, delete it"));
-                $content->setVariable("BACK_LINK", $_SERVER["HTTP_REFERER"]);
                 $content->setVariable("LABEL_RETURN", gettext("back"));
                 $content->parse("BLOCK_DELETE");
             } else {
@@ -226,19 +216,17 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
 
             $content->setVariable("ICON_SRC", PATH_URL . "get_document.php?id=" . $icon_id);
 
-           // $rootlink = \lms_steam::get_link_to_root($wiki_container);
             (WIKI_FULL_HEADLINE) ?
-                            $headline = array(
+                        $headline = array(
                         $rootlink[0],
                         $rootlink[1],
                         array("link" => $rootlink[1]["link"] . "{$place}/", "name" => gettext("{$place}")),
                         array("name" => h($wiki_container->get_name()), "link" => PATH_URL . "wiki/Index/" . $wiki_container->get_id() . "/"),
                         array("name" => gettext("Delete wiki"), "link" => "")
                             ) :
-                            $headline = array(
+                        $headline = array(
                         array("name" => h($wiki_container->get_name()), "link" => PATH_URL . "wiki/Index/" . $wiki_container->get_id() . "/"),
                         array("name" => gettext("Delete wiki"), "link" => ""));
-
 
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml($content->get());

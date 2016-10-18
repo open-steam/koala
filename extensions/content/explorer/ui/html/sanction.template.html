@@ -3,15 +3,19 @@
 </style>
 {INHERIT_HEADLINE}
 <div id="checkbox_acquire">
-<table>
-    <tr valign="middle">
-        <td>{INHERIT_FROM}<input id="acquire_checkbox" type="checkbox" {NO_ENVIRONMENT} data-oldValue="{ACQUIRE_START}" data-saveFunction='{SEND_REQUEST_ACQ}' {CHECKBOX_CHECKED}/></td>
-    </tr>
-</table>
+    <table>
+        <tr valign="middle">
+            <td>
+                <div class="indented">{INHERIT_FROM}
+                    <input id="acquire_checkbox" type="checkbox" {NO_ENVIRONMENT} data-oldValue="{ACQUIRE_START}" data-saveFunction='{SEND_REQUEST_ACQ}' {CHECKBOX_CHECKED}/>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 {PREDEFINED_HEADLINE}
 <div id="crude_div" class="{DISPLAY_NORMAL_CLASS}">
-  <p style="float: left; margin-right: 10px; margin-top: 8px;">Leserechte vergeben an:</p>
+    <p class="predefined-rights indented">Leserechte vergeben an:</p>
     <div id="buttons">
         <input type="button" class="bidButton" value="Niemanden" onclick="setCrude('privat');" />
         <input type="button" class="bidButton" value="Angemeldete Benutzer" onclick="setCrude('user_public');" />
@@ -21,7 +25,7 @@
 </div>
 
 <div id="crude_acq_div" class="{DISPLAY_ACQ_CLASS}">
-  <p style="float: left; margin-right: 10px; margin-top: 8px;">Leserechte vergeben an:</p>
+    <p class="predefined-rights indented">Leserechte vergeben an:</p>
     <div id="buttons">
         <input type="button" class="bidButton" value="Niemanden" disabled />
         <input type="button" class="bidButton" value="Angemeldete Benutzer" disabled />
@@ -34,12 +38,18 @@
 <div id="specific_div" class="{DISPLAY_NORMAL_CLASS}">
 
     <table id="global" width="100%">
-        <tr class="infoBar" style="height:23px;">
-            <td width="60%"><b>Globale Einstellungen</b></td>
-            <td width="40%"><b>Rechte</b></td>
+        <tr class="dialogTitleBar infobar-height">
+            <td width="60%">
+                <b>Globale Einstellungen</b>
+            </td>
+            <td width="40%">
+                <b>Rechte</b>
+            </td>
         </tr>
         <tr valign="middle">
-            <td width="60%" style="text-indent: 1em;">Jeder</td>
+            <td width="60%" class="indented">
+                Jeder
+            </td>
             <td width="40%" align="right" >
                 <!-- BEGIN GROUP_EVERYONE -->
                 {DROPDOWNLIST}
@@ -48,16 +58,22 @@
         </tr>
 
         <tr valign="middle">
-            <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
+            <td width="60%" class="indented">
+                Angemeldete Benutzer
+            </td>
             <td width="40%" align="right" >
                 <!-- BEGIN GROUP_STEAM -->
                 {DROPDOWNLIST}
                 <!-- END GROUP_STEAM -->
             </td>
         </tr>
-        <tr class="infoBar" style="height:23px;">
-            <td width="60%"><b>Meine Gruppen</b></td>
-            <td width="40%"><b>Rechte</b></td>
+        <tr class="dialogTitleBar infobar-height">
+            <td width="60%">
+                <b>Meine Gruppen</b>
+            </td>
+            <td width="40%">
+                <b>Rechte</b>
+            </td>
         </tr>
     </table>
 
@@ -65,7 +81,9 @@
         <table >
             <!-- BEGIN GROUPS -->
             <tr valign="middle">
-                <td width="60%"><img style="float:left" src="{IMG_PATH}"> <div style="text-indent: {INDENTINDEX}em;">{GROUPNAME}</div></td>
+                <td width="60%">{IMG_PATH}
+                    <div style="text-indent: {INDENTINDEX}em;"><a href="/group/index/{GROUPID}" target="_blank">{GROUPNAME}</a></div>
+                </td>
                 <td width="40%" align="right" >
                     {DROPDOWNLIST}
                 </td>
@@ -76,33 +94,45 @@
 
     <div>
         <table>
-          <tbody style="display:block;">
-            <tr class="infoBar" style="height:23px;">
-                <td width="27%"><b>Meine Favoriten (Benutzer)</b></td>
-                <td width="18%"><b>Rechte</b></td>
-            </tr>
-          <tbody>
-          <tbody class="scrollable-user" style="display:block;{CSS_USER}">
-          <!-- BEGIN FAVORITES -->
-          <tr valign="middle">
-              <td width="66%"><img style="float:left" src="{IMG_PATH}"><div style="text-indent: 1em;">{FAVNAME}</div></td>
-              <td width="34%" align="right">
-                    {DROPDOWNLIST_FAVORITES}
-              </td>
-          </tr>
-          <!-- END FAVORITES -->
-          </tbody>
+            <tbody style="display:block;">
+                <tr class="dialogTitleBar infobar-height">
+                    <td width="27%">
+                        <b>Meine Favoriten (Benutzer)</b>
+                    </td>
+                    <td width="18%">
+                        <b>Rechte</b>
+                    </td>
+                </tr>
+            <tbody>
+            <tbody class="scrollable-user" style="{CSS_USER}">
+                <!-- BEGIN FAVORITES -->
+                <tr valign="middle">
+                    <td width="66%">{IMG_PATH}
+                        <div class="indented"><a href="/profile/index/{USERNAME}" target="_blank">{FAVNAME}</a></div>
+                    </td>
+                    <td width="34%" align="right">
+                        {DROPDOWNLIST_FAVORITES}
+                    </td>
+                </tr>
+                <!-- END FAVORITES -->
+            </tbody>
         </table>
     </div>
 </div>
 <div id="specific_acq_div" class="{DISPLAY_ACQ_CLASS}">
     <table id="right_settings_table_acq" width="100%">
-        <tr class="infoBar" style="height:23px;">
-            <td width="60%"><b>Globale Einstellungen</b></td>
-            <td width="40%"><b>Rechte</b></td>
+        <tr class="dialogTitleBar infobar-height">
+            <td width="60%">
+                <b>Globale Einstellungen</b>
+            </td>
+            <td width="40%">
+                <b>Rechte</b>
+            </td>
         </tr>
         <tr valign="middle">
-            <td width="60%" style="text-indent: 1em;">Jeder</td>
+            <td width="60%" class="indented">
+                Jeder
+            </td>
             <td width="40%" align="right" >
                 <!-- BEGIN GROUP_EVERYONE_ACQ -->
                 {DROPDOWNLIST}
@@ -110,14 +140,16 @@
             </td>
         </tr>
         <tr valign="middle">
-            <td width="60%" style="text-indent: 1em;">Angemeldete Benutzer</td>
+            <td width="60%" class="indented">
+                Angemeldete Benutzer
+            </td>
             <td width="40%" align="right" >
                 <!-- BEGIN GROUP_STEAM_ACQ -->
                 {DROPDOWNLIST}
                 <!-- END GROUP_STEAM_ACQ -->
             </td>
         </tr>
-        <tr class="infoBar" style="height:23px;">
+        <tr class="dialogTitleBar infobar-height">
             <td width="60%"><b>Meine Gruppen</b></td>
             <td width="40%"><b>Rechte</b></td>
         </tr>
@@ -126,8 +158,10 @@
         <table>
             <!-- BEGIN GROUPS_ACQ -->
             <tr valign="middle">
-                <td width="60%"><img style="float:left" src="{IMG_PATH_ACQ}"> <div style="text-indent: {INDENTINDEX_ACQ}em;">{GROUPNAME_ACQ}</div></td>
-                <td width="40%" align="right" >
+                <td width="60%">{IMG_PATH_ACQ}
+                    <div style="text-indent: {INDENTINDEX_ACQ}em;"><a href="/group/index/{GROUPID_ACQ}" target="_blank">{GROUPNAME_ACQ}</a></div>
+                </td>
+                <td width="40%" align="right">
                     {DROPDOWNLIST_ACQ}
                 </td>
             </tr>
@@ -137,115 +171,106 @@
 
     <div>
         <table>
-          <tbody style="display:block;">
-            <tr class="infoBar" style="height:23px;">
-                <td width=27%><b>Meine Favoriten (Benutzer) {DUMMY_FAV_ACQ}</b></td>
-                <td width=18%><b>Rechte</b></td>
-            </tr>
+            <tbody style="display:block;">
+                <tr class="dialogTitleBar infobar-height">
+                    <td width=27%><b>Meine Favoriten (Benutzer) {DUMMY_FAV_ACQ}</b></td>
+                    <td width=18%><b>Rechte</b></td>
+                </tr>
             <tbody>
-            <tbody class="scrollable-user" style="display:block;{CSS_USER}">
-            <!-- BEGIN FAVORITES_ACQ -->
-            <tr>
-                <td width="66%"><img style="float:left" src="{IMG_PATH_ACQ}"><div style="text-indent: 1em;">{FAVNAME_ACQ}</div>
-                </td>
-                <td width=34%>{DROPDOWNLIST_USER_ACQ}</td>
-            </tr>
-            <!-- END FAVORITES_ACQ -->
+            <tbody class="scrollable-user" style="{CSS_USER}">
+                <!-- BEGIN FAVORITES_ACQ -->
+                <tr>
+                    <td width="66%">{IMG_PATH_ACQ}<div class="indented"><a href="/profile/index/{USERNAME_ACQ}" target="_blank">{FAVNAME_ACQ}</a></div>
+                    </td>
+                    <td width=34%>{DROPDOWNLIST_USER_ACQ}</td>
+                </tr>
+                <!-- END FAVORITES_ACQ -->
             </tbody>
         </table>
     </div>
 </div>
 
-<div id="creator_div"><p style="color:grey;">Der Besitzer des aktuellen Objektes ist<b>{CREATOR_FULL_NAME}</b> und hat volle Zugriffsrechte.</p></div>
+<div id="creator_div" class="indented"><p style="color:grey;">Der Besitzer des aktuellen Objektes ist<b>{CREATOR_FULL_NAME}</b> und hat volle Zugriffsrechte.</p></div>
 
-<a target="_blank" href="https://bid.lspb.de/explorer/ViewDocument/640419/">Warum sind in den Auswahlboxen einige Rechte nicht auswählbar?</a></p>
+<div class="indented"><a target="_blank" href="{RIGHTS_HELP_PAGE}">Warum sind in den Auswahlboxen einige Rechte nicht auswählbar?</a></div>
 
 <script language="JavaScript">
-    /*$('select').change(
-        function(e) {
-            var id = e.currentTarget.id;
-            //add the changed class to this object
-            if($(id).attr('data-oldValue') != $(id).val()){ $(id).addClass('changed');}
-            //update the value in the variable
-            x = $("#"+id).val();
-        }
-    );*/
-
     $('#acquire_checkbox').change(
-        function() {
-            if($('#acquire_checkbox').is(':checked')){
-                //reset every dropdown list to its initial value and remove the changed status
-                $('select.non-acq.changed').each(function(number, obj) {
-                    firstTime = true;
-                    $(obj).removeClass('changed');
-                    $(obj).val($(obj).attr('data-oldValue'));
-                    $(obj).trigger('change');
-                    firstTime = false;
-                });
-            } else {
-                $('select.non-acq').each(function(number, obj) {
-                    if($(obj).attr("data-type") !='admin'){
-                        $(obj).addClass('changed');
-                    }
-                });
+            function () {
+                if ($('#acquire_checkbox').is(':checked')) {
+                    //reset every dropdown list to its initial value and remove the changed status
+                    $('select.non-acq.changed').each(function (number, obj) {
+                        firstTime = true;
+                        $(obj).removeClass('changed');
+                        $(obj).val($(obj).attr('data-oldValue'));
+                        $(obj).trigger('change');
+                        firstTime = false;
+                    });
+                } else {
+                    $('select.non-acq').each(function (number, obj) {
+                        if ($(obj).attr("data-type") != 'admin') {
+                            $(obj).addClass('changed');
+                        }
+                    });
+                }
+
+                //add the changed class to this object
+                if (($('#acquire_checkbox').is(':checked') && "{ACQUIRE_START}" != "acq") || (!$('#acquire_checkbox').is(':checked') && "{ACQUIRE_START}" == "acq")) {
+                    $('#acquire_checkbox').addClass('changed');
+                }
+                else {
+                    $('#acquire_checkbox').removeClass('changed');
+                }
+                //update the value in the variable
+                if ($('#acquire_checkbox').is(':checked')) {
+                    acquire_checkbox = "acq";
+                }
+                else {
+                    acquire_checkbox = "not-acq";
+                }
+
+
+
+                $("#crude_div").toggle();
+                $("#crude_acq_div").toggle();
+                $("#specific_div").toggle();
+                $("#specific_acq_div").toggle();
             }
-
-            //add the changed class to this object
-            if(($('#acquire_checkbox').is(':checked') && "{ACQUIRE_START}" != "acq") || (!$('#acquire_checkbox').is(':checked') && "{ACQUIRE_START}" == "acq")) {
-                $('#acquire_checkbox').addClass('changed');}
-            else {$('#acquire_checkbox').removeClass('changed');}
-            //update the value in the variable
-            if($('#acquire_checkbox').is(':checked')) {acquire_checkbox = "acq";}
-            else {acquire_checkbox = "not-acq";}
-
-
-
-            $("#crude_div").toggle();
-            $("#crude_acq_div").toggle();
-            $("#specific_div").toggle();
-            $("#specific_acq_div").toggle();
-        }
     );
 
 
 
-    function setCrude(value){
-        if(value == "privat"){
-            $("select.non-acq:not([data-type='admin'])").each(function(){$(this).val(0); $(this).trigger('change');});
-            //$("select").trigger('change');
+    function setCrude(value) {
+        if (value == "privat") {
+
+            $("select.non-acq:not([data-type='admin'])").each(function () {
+                $(this).val(0);
+                $(this).trigger('change');
+            });
+
+        } else if (value == "server_public") {
+
+            $("#everyone_dd").val(1);
+            $("#everyone_dd").trigger('change');
+            $("#steam_dd").val(1);
+            $("#steam_dd").trigger('change');
 
 
-        }else if(value == "server_public"){
-            //if($("#everyone_dd").val() == 0 ){
-                $("#everyone_dd").val(1);
-                $("#everyone_dd").trigger('change');
-                $("#steam_dd").val(1);
-                $("#steam_dd").trigger('change');
-            //}
+        } else if (value == "user_public") {
 
-        }else if(value == "user_public"){
             $("#everyone_dd").val(0);
             $("#everyone_dd").trigger('change');
-            //if($("#steam_dd").val() == 0){
-                $("#steam_dd").val(1);
-                $("#steam_dd").trigger('change');
-            //}
+            $("#steam_dd").val(1);
+            $("#steam_dd").trigger('change');
+
         }
-        //{SEND_REQUEST_CRUDE}
-    }
-    function specificChecked(id, value){
-        objId=id.split("_");
-        id=objId[1];
-        //{SEND_REQUEST_SANCTION}
     }
 
     //trigger the change for each select object to disable not selectable options
-    $( document ).ready(function() {
+    $(document).ready(function () {
         firstTime = true;
         $("select.non-acq").trigger('change');
         firstTime = false;
     });
-
-    //{ACQUIRE_START}
 
 </script>

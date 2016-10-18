@@ -1,14 +1,14 @@
 <?php
 namespace Explorer\Commands;
 class CreateDocumentPlain extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
-	
+
 	private $params;
 	private $id;
-	
+
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
 	}
-	
+
 	public function processData(\IRequestObject $requestObject) {
 		if ($requestObject instanceof \UrlRequestObject) {
 			$this->params = $requestObject->getParams();
@@ -18,26 +18,21 @@ class CreateDocumentPlain extends \AbstractCommand implements \IFrameCommand, \I
 			isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
 		}
 	}
-	
+
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$ajaxResponseObject->setStatus("ok");
 
 		$current_room = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        $portal = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), strip_tags($this->params["name"]), "", "text/plain", $current_room);
-		
-       
+    $portal = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), strip_tags($this->params["name"]), "", "text/plain", $current_room);
+
 		$jswrapper = new \Widgets\JSWrapper();
-		$jswrapper->setJs(<<<END
-		closeDialog();
-		sendRequest("LoadContent", {"id":"{$this->id}"}, "explorerWrapper", "updater", null, null, "explorer");
-END
-		);
+		$jswrapper->setJs('closeDialog(); location.reload();');
 		$ajaxResponseObject->addWidget($jswrapper);
 		return $ajaxResponseObject;
 	}
-	
+
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		
+
 	}
 }
 ?>

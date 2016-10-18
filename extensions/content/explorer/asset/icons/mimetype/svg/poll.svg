@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 16 16"
+   id="poll"
+   version="1.1"
+   height="100%"
+   width="100%"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="poll.svg">
+  <defs
+     id="defs16" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1348"
+     inkscape:window-height="706"
+     id="namedview14"
+     showgrid="false"
+     inkscape:zoom="29.5"
+     inkscape:cx="8"
+     inkscape:cy="8"
+     inkscape:window-x="0"
+     inkscape:window-y="46"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g6" />
+  <g
+     transform="translate(-71.09-24.1)"
+     id="g4"
+     fill="currentColor">
+    <g
+       transform="matrix(-.00091-1.10684 1.52004-.00066-1480.91 29.915)"
+       stroke="none"
+       id="g6">
+      <path
+         d="m 3.3757237,1021.0278 0.00119,5.2606 -3.06743669,6e-4 -0.001183,-5.2606 z"
+         id="path8"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m -5.4806476,1021.0225 0.00246,6.9055 -3.0651019,4e-4 -0.0026,-6.9054 z"
+         id="path10"
+         inkscape:connector-curvature="0" />
+      <path
+         d="m -1.0567879,1021.0251 0.00425,9.2092 -3.0620802,-7e-4 -0.00425,-9.2094 z"
+         id="path12"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

@@ -1,11 +1,12 @@
 var currentX = 0;
 var currentY = 0;
+var nextRequest = 0;
 
 function sendMultiRequest(command, paramsArray, elementIdArray, requestType, completeFunction, successFunction, namespace, message, loop, count) {
     if (paramsArray.length >= 1) {
         if ((jQuery("#progressbarwrapper").length == 0)) {
             createOverlay("white", null, "show");
-            createDynamicWrapper("<div id=\"progressbarwrapper\" style=\"z-index: 255; position: fixed; top: 50%; left:50%; margin-left: -150px\"><div id=\"progressbar\" style=\"width:300px; height:10px\"></div><div id=\"message\">" + message + "</div></div>");
+            $("body").append("<div id=\"progressbarwrapper\" style=\"z-index: 255; position: fixed; top: 60%; left:50%; margin-left: -150px\"><div id=\"progressbar\" style=\"width:300px; height:10px\"></div><div id=\"message\">" + message + "</div></div>");
             $("#progressbar").progressbar({
                 value: 0
             });
@@ -18,11 +19,17 @@ function sendMultiRequest(command, paramsArray, elementIdArray, requestType, com
         var elementId = elementIdArray[0];
         paramsArray.splice(0, 1);
         elementIdArray.splice(0, 1);
-        sendRequest(command, params, elementId, requestType, function() {
+        sendRequest(command, params, elementId, requestType, function(response) {
+          if(response.responseText.indexOf("dialog") == -1){ //send next request
             sendMultiRequest(command, paramsArray, elementIdArray, requestType, completeFunction, successFunction, namespace, message, loop + 1, count);
+          }
+          else{ //request need dialog confirmation,
+            nextRequest = function(){sendMultiRequest(command, paramsArray, elementIdArray, requestType, completeFunction, successFunction, namespace, message, loop + 1, count);}
+          }
         }, successFunction, namespace);
     } else {
-        closeDialog();
+      nextRequest = 0;
+      callNextRequest();
     }
 }
 
@@ -33,6 +40,13 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
         if (!params || (typeof(params) != 'object') || $.isArray(params)) {
             params = {};
         }
+
+        var src = $("#"+params.id).find("img").attr("src");
+        if(command == "Copy" && src != undefined && src.indexOf("portal") > -1){
+          command = "PortalCopy";
+          namespace = "portal";
+        }
+
         params.command = command;
         params.elementId = elementId;
         params.requestType = requestType;
@@ -62,11 +76,9 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                             createDynamicWrapper("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
                             jQuery.globalEval(responseData.postjs);
                         } else if (requestType == "inform") {
-                            if($('#informSlider').length == 0){
-                              jQuery.globalEval(responseData.js);
-                              jQuery('body').append("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
-                              jQuery.globalEval(responseData.postjs);
-                            }
+                            jQuery.globalEval(responseData.js);
+                            createDynamicWrapper("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
+                            jQuery.globalEval(responseData.postjs);
                         } else if (requestType == "reload") {
                             window.location.reload();
                         } else if (requestType == "wizard") {
@@ -80,7 +92,8 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                         } else {
                             handleError("Falscher Anfragetyp", response, params);
                         }
-                    } else {
+                    }
+                    else {
                         handleError("Server meldet Fehler(1)", response, params);
                     }
                 }
@@ -139,11 +152,9 @@ function createOverlay(color, opacity, effect) {
             "top": 0,
             "left": jQuery(window).scrollLeft()});
     });
-    if (jQuery("body").height() > jQuery(window).height()) {
-        height = jQuery("body").height();
-    } else {
-        height = jQuery(window).height();
-    }
+
+    height = Math.max(jQuery("body").height(), jQuery(window).height(), jQuery("#site_wrapper").height()+152);
+
     if (effect == "fadeIn") {
         jQuery('#overlay').hide();
         jQuery('#overlay').css({"height": height});
@@ -215,7 +226,7 @@ function closeDialog() {
         }
         jQuery('#dialog').slideUp("slow", function() {
             jQuery('#dynamic_wrapper').remove();
-            jQuery('#overlay').remove();
+            callNextRequest();
         });
         window.closing = false;
         window.ajaxSaving = false;
@@ -321,3 +332,24 @@ function readCookie(name) {
 function eraseCookie(name) {
     createCookie(name, "", -1);
 }
+
+function callNextRequest(){
+  if(typeof nextRequest == "function"){
+    nextRequest();
+  }
+  else{
+    $('#progressbarwrapper').remove();
+    jQuery('#overlay').remove();
+  }
+}
+
+$(document).ready(function() {
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > 55) {
+      $('#menu').addClass('fixed');
+    }
+    if ($(window).scrollTop() < 56) {
+      $('#menu').removeClass('fixed');
+    }
+  });
+});

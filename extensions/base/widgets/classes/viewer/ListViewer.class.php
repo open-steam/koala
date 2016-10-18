@@ -60,6 +60,9 @@ class ListViewer extends Widget {
 		foreach($this->headlineProvider->getHeadlines() as $key => $headline) {
 			$this->getContent()->setCurrentBlock("LISTVIEWER_HEAD_ITEM");
 			$this->getContent()->setVariable("LISTVIEWER_HEAD_ITEM_NAME", ($headline != "")?$headline:"");
+			if(method_exists($this->headlineProvider, "getOnClickHandler")) $this->getContent()->setVariable("LISTVIEWER_ITEM_HEAD_ONCLICK", $this->headlineProvider->getOnClickHandler($headline));
+			if(method_exists($this->headlineProvider, "getOnMouseOverHandler")) $this->getContent()->setVariable("LISTVIEWER_ITEM_HEAD_ONMOUSEOVER", $this->headlineProvider->getOnMouseOverHandler($headline));
+			if(method_exists($this->headlineProvider, "getOnMouseOutHandler")) $this->getContent()->setVariable("LISTVIEWER_ITEM_HEAD_ONMOUSEOUT", $this->headlineProvider->getOnMouseOutHandler($headline));
 			$widths = $this->headlineProvider->getHeadLineWidths();
 			$this->getContent()->setVariable("LISTVIEWER_HEAD_ITEM_WIDTH", $widths[$key]);
 			$aligns = $this->headlineProvider->getHeadLineAligns();

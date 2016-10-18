@@ -62,7 +62,7 @@ class NewPortalForm extends \AbstractCommand implements \IFrameCommand, \IAjaxCo
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
 	<div class="attributeName">Name:</div>
-	<div class="attributeValue"><input type="text" class="text" value="" name="name"></div>
+	<div class="attributeValue"><input type="text" class="text" value="" name="name" onkeyup="checkInput(this)"></div>
 </div>
 <div style="height:150px" class="attribute">
 	<div class="attributeName">Spalten:</div>
@@ -85,6 +85,7 @@ END
 );
 
 		$ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
+
 		$ajaxResponseObject->addWidget($ajaxForm);
 		return $ajaxResponseObject;
 	}

@@ -3,23 +3,21 @@ class koala_wiki extends koala_object {
 
 	private $template;
 	private $steam_wiki;
-        private $version;
-        
+  private $version;
+
 	public function __construct($steam_container) {
 		$this->template = Wiki::getInstance()->loadTemplate("wiki_index.template.html");
-		
-		//$this->template = new HTML_TEMPLATE_IT();
-		//$this->template->loadTemplateFile(PATH_TEMPLATES . "wiki_index.template.html");
+
 		if (!$steam_container instanceof steam_container) {
 			throw new Exception($steam_container->get_id() . " is not a steam_container", E_PARAMETER);
 		}
 		$this->steam_wiki = $steam_container;
 		$this->steam_object = $steam_container;
 	}
-        
-        public function set_version($version) {
-            $this->version = $version;
-        }
+
+  public function set_version($version) {
+    $this->version = $version;
+  }
 
 	public function contains_item($itemname){
 		$items = $this->get_items($this->steam_wiki->get_id());
@@ -44,39 +42,37 @@ class koala_wiki extends koala_object {
 		    $place = "communication";
 		}
 
-                $is_admin = false;
+    $is_admin = false;
 		if ($wiki_obj->get_creator()->get_id() == $user->get_id()) {
-                    $is_admin = true;
+      $is_admin = true;
 		}
-                        
+
 		if ($context == "index") {
-			if($wiki_obj->check_access_write( $user )){
-				$index_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => "Neuer Eintrag");
-			}
-			if (WIKI_MEDIATHEK && $wiki_obj->check_access_write($user))
-			$index_menu[] = array("link" => PATH_URL . "wiki/mediathek/" . $wiki_obj->get_id(), "name" => gettext("Mediathek"));
+
+			//if($wiki_obj->check_access_write( $user )) $index_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => "Neuer Eintrag");
+			//if (WIKI_MEDIATHEK && $wiki_obj->check_access_write($user)) $index_menu[] = array("link" => PATH_URL . "wiki/mediathek/" . $wiki_obj->get_id(), "name" => gettext("Mediathek"));
 
 			// TODO for groups
 			//$grp = lms_steam::get_koala_group_for_object_id($wiki_obj->get_id());
 			//$grp = steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $wiki_obj->get_id());
 			//$is_admin = $grp->is_admin($user);
-			
-                        if ($is_admin) {
+
+			/*
+      if ($is_admin) {
 				(WIKI_EDIT) ? $index_menu[] = array("link" => PATH_URL . "wiki/configuration/" . $wiki_obj->get_id(), "name" => gettext("Preferences")) : "";
-                        }
+      }
 			if ($is_admin) {
 				(WIKI_DELETE) ? $index_menu[] = array("link" => PATH_URL . "wiki/delete/" . $wiki_obj->get_id(), "name" => gettext("Delete")) : "";
 				(WIKI_EXPORT && ($place !== "units")) ? $index_menu[] = array("link" => PATH_URL . "wiki/export/" . $wiki_obj->get_id(), "name" => "Wiki-Export") : "";
 			}
-			//$this->template->setVariable("SPACER", "&nbsp;");
+			*/
 		}
 
+		/*
 		if ($context == "entry") {
 			if ($wiki_obj->check_access_write($user)) {
-                                $entry_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => "Bearbeiten");
-                                if (WIKI_MEDIATHEK) {
-                                    $entry_menu[] = array("link" => PATH_URL . "wiki/mediathek/" . $wiki_obj->get_environment()->get_id(), "name" => gettext("Mediathek"));
-                                }
+        $entry_menu[] = array("link" => PATH_URL . "wiki/edit/" . $wiki_obj->get_id(), "name" => "Bearbeiten");
+        if (WIKI_MEDIATHEK) $entry_menu[] = array("link" => PATH_URL . "wiki/mediathek/" . $wiki_obj->get_environment()->get_id(), "name" => gettext("Mediathek"));
 				$entry_menu[] = array("link" => PATH_URL . "wiki/glossary/" . $wiki_obj->get_environment()->get_id() . "/", "name" => "Glossar");
 				if ($wiki_obj->check_access_move($user)) {
 					$entry_menu[] = array("link" => PATH_URL . "wiki/delete/" . $wiki_obj->get_environment()->get_id() . "/" . $wiki_obj->get_id(), "name" => gettext("Delete"));
@@ -85,34 +81,31 @@ class koala_wiki extends koala_object {
 				$entry_menu[] = array("link" => PATH_URL . "wiki/glossary/" . $wiki_obj->get_environment()->get_id() . "/", "name" => "Glossar");
 			}
 		}
+		*/
 
+		/*
 		if ($context == "mediathek") {
 			if ($wiki_obj->check_access_write($user)) {
 				$mediathek_menu[] = array("onclick" => "sendRequest('Upload', { id : " . $wiki_obj->get_id() . "}, '', 'popup');", "name" => "Bilder hinzufügen");
 			}
 		}
+		*/
 
+		/*
 		if ($context == "version") {
 			$wiki_orig = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $wiki_obj->get_id());
-			if ($wiki_orig->check_access_write($user))
-			$version_menu[] = array("link" => PATH_URL . "wiki/recover/" . $wiki_orig->get_id() . "/" . $this->version, "name" => gettext("Recover version"));
+			if ($wiki_orig->check_access_write($user)) $version_menu[] = array("link" => PATH_URL . "wiki/recover/" . $wiki_orig->get_id() . "/" . $this->version, "name" => gettext("Recover version"));
 		}
-                
+		*/
+
 		$menue = array("index" => $index_menu, "entry" => $entry_menu, "mediathek" => $mediathek_menu, "version" => $version_menu);
 
 		(isset($menue[$context])) ? $fctns = $menue[$context] : $fctns = "";
 		if (is_array($fctns)) {
 			$actionBar = new Widgets\ActionBar();
 			$actionBar->setActions($fctns);
-			
 			$this->template->setCurrentBlock("BLOCK_ADMIN_NEW");
 			$this->template->setVariable("ACTIONBAR", $actionBar->getHtml());
-			/*foreach ($fctns as $fctn) {
-				$this->template->setCurrentBlock("BLOCK_FUNCTION");
-				$this->template->setVariable("LINK_FCTN", $fctn["link"]);
-				$this->template->setVariable("LABEL_FCTN", $fctn["name"]);
-				$this->template->parse("BLOCK_FUNCTION");
-			}*/
 			$this->template->parse("BLOCK_ADMIN_NEW");
 		}
 	}
@@ -132,11 +125,7 @@ class koala_wiki extends koala_object {
 				continue;
 			}
 
-			$result[$i] = $item->get_attributes(
-			array(
-			OBJ_CREATION_TIME, DOC_USER_MODIFIED, DOC_MIME_TYPE, DOC_LAST_MODIFIED, OBJ_NAME
-			)
-			);
+			$result[$i] = $item->get_attributes(array(OBJ_CREATION_TIME, DOC_USER_MODIFIED, DOC_MIME_TYPE, DOC_LAST_MODIFIED, OBJ_NAME));
 
 			$author_obj = $item->get_attribute(DOC_USER_MODIFIED);
 			if (is_object($author_obj)) {
@@ -153,17 +142,6 @@ class koala_wiki extends koala_object {
 			if (!strstr($item->get_name(), ".wiki")) {
 				continue;
 			}
-			// Comments are unused in wikis at the moment
-			/*
-			$comments = $item->get_annotations();
-			if ( count( $comments ) > 0 )
-			{
-			$result[ $i ][ "COMMENTS_NO" ]   = count( $comments );
-			$result[ $i ][ "COMMENTS_LAST" ] = $comments[ 0 ]->get_attribute( "OBJ_CREATION_TIME" );
-			$author = $comments[ 0 ]->get_creator();
-			$result[ $i ][ "COMMENTS_LAST_AUTHOR" ] = $author->get_attribute( "USER_FIRSTNAME" ) . " " . $author->get_attribute( "USER_FULLNAME" );
-			}
-			*/
 			$author = $item->get_attribute(DOC_USER_MODIFIED);
 			if (is_object($author)) {
 				$name = $authors[$author->get_id()]->get_attribute(USER_FIRSTNAME) . " " . $authors[$author->get_id()]->get_attribute(USER_FULLNAME);
@@ -180,12 +158,10 @@ class koala_wiki extends koala_object {
 
 	public function set_widget_html($widget_title, $widget_html) {
 		$this->template->setVariable("WIDGETS_PREFIX", "<td class=\"sidebar\" width=\"30%\">");
-
 		$this->template->setCurrentBlock("BLOCK_WIDGET");
 		$this->template->setVariable("WIDGET_TITLE", "<h3>&raquo; " . $widget_title . "</h3>");
 		$this->template->setVariable("WIDGET_HTML_CODE", $widget_html);
 		$this->template->parse("BLOCK_WIDGET");
-
 		$this->template->setVariable("WIDGETS_POSTFIX", "</td>");
 	}
 
@@ -202,8 +178,6 @@ class koala_wiki extends koala_object {
 			return NULL;
 		}
 		$t = Wiki::getInstance()->loadTemplate("widget_wiki_comments.template.html");
-		//$t = new HTML_TEMPLATE_IT();
-		//$t->loadTemplateFile(PATH_TEMPLATES . "widget_wiki_comments.template.html");
 		$forward = FALSE;
 		$linked_list->reset($forward);
 		while ($list_element = $linked_list->get_element($forward)) {
@@ -222,8 +196,6 @@ class koala_wiki extends koala_object {
 			return NULL;
 		}
 		$t = Wiki::getInstance()->loadTemplate("widget_wiki_comments.template.html");
-		//$t = new HTML_TEMPLATE_IT();
-		//$t->loadTemplateFile(PATH_TEMPLATES . "widget_wiki_comments.template.html");
 		$forward = FALSE;
 		$linked_list->reset($forward);
 		while ($list_element = $linked_list->get_element($forward)) {
@@ -242,8 +214,6 @@ class koala_wiki extends koala_object {
 			return NULL;
 		}
 		$t = Wiki::getInstance()->loadTemplate("widget_wiki_changed.template.html");
-		//$t = new HTML_TEMPLATE_IT();
-		//$t->loadTemplateFile(PATH_TEMPLATES . "widget_wiki_changed.template.html");
 		$forward = FALSE;
 		$linked_list->reset($forward);
 		while ($list_element = $linked_list->get_element($forward)) {
@@ -259,8 +229,6 @@ class koala_wiki extends koala_object {
 
 	public function set_widget_categories() {
 		$t = Wiki::getInstance()->loadTemplate("widget_weblog_categories.template.html");
-		//$t = new HTML_TEMPLATE_IT();
-		//$t->loadTemplateFile(PATH_TEMPLATES . "widget_weblog_categories.template.html");
 		$t->setVariable("IMAGE_FEED", getStyleResourceUrl("images/feedsmall.gif"));
 		$t->setVariable("LINK_ALL_ENTRIES", PATH_URL . "weblog/" . $this->steam_weblog->get_id() . "/?entries=all");
 		$t->setVariable("LABEL_ALL_ENTRIES", gettext("All entries") . " (" . count($this->steam_weblog->get_date_objects()) . ")");
@@ -278,8 +246,6 @@ class koala_wiki extends koala_object {
 
 	public function set_widget_links($wiki_doc) {
 		$t = Wiki::getInstance()->loadTemplate("widget_wiki_links.template.html");
-		//$t = new HTML_TEMPLATE_IT();
-		//$t->loadTemplateFile(PATH_TEMPLATES . "widget_wiki_links.template.html");
 		$links = $wiki_doc->get_attribute("OBJ_WIKILINKS");
 		if (!is_array($links)) {
 			$links = array();
@@ -298,9 +264,6 @@ class koala_wiki extends koala_object {
 	public function set_widget_previous_versions($wiki_doc) {
 		$requests_start = $GLOBALS["STEAM"]->get_request_count();
 		$t = Wiki::getInstance()->loadTemplate("widget_wiki_previous_versions.template.html");
-		//$t = new HTML_TEMPLATE_IT();
-		//$t->loadTemplateFile(PATH_TEMPLATES . "widget_wiki_previous_versions.template.html");
-
 		$prev_versions = $wiki_doc->get_previous_versions();
 		if (!is_array($prev_versions)) {
 			$prev_versions = array();
@@ -343,14 +306,11 @@ class koala_wiki extends koala_object {
 			$t->setVariable("VERSION_MANAGEMENT", "<p><li>&raquo; <small><a href=\"" . PATH_URL . "wiki/" . $wiki_doc->get_id() . "/versions/\">" . gettext("enter version management") . "</a></small></li>");
 		}
 		$this->set_widget_html(gettext("Previous versions"), $t->get());
-		//error_log("set_widget_previous_versions: request count=" . ($GLOBALS["STEAM"]->get_request_count() - $requests_start));
 	}
 
 	public function set_widget_archive() {
 		$months = $this->steam_weblog->get_archives($this->steam_weblog->get_date_objects());
 		$t = Wiki::getInstance()->loadTemplate("widget_weblog_archive.template.html");
-		//$t = new HTML_TEMPLATE_IT();
-		//$t->loadTemplateFile(PATH_TEMPLATES . "widget_weblog_archive.template.html");
 		while (list( $year_month, $no_entries ) = each($months)) {
 			$year_month_str = explode("-", $year_month);
 			$timestamp = mktime(0, 0, 0, $year_month_str[1], 1, $year_month_str[0]);
@@ -377,8 +337,6 @@ class koala_wiki extends koala_object {
 			}
 		}
 		$t = Wiki::getInstance()->loadTemplate("widget_weblog_access.template.html");
-		//$t = new HTML_TEMPLATE_IT();
-		//$t->loadTemplateFile(PATH_TEMPLATES . "widget_weblog_access.template.html");
 		$t->setCurrentBlock("BLOCK_ACCESS");
 		$t->setVariable("LABEL_ACCESS", $access);
 		$t->parse("BLOCK_ACCESS");

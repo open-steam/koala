@@ -1,7 +1,6 @@
 <script type="text/javascript">
-function showBox( imageID, width, height )
-{
-	var img = document.getElementById( imageID );
+function showBox(imageID, width, height){
+	var img = document.getElementById(imageID);
 	var screenWidth = self.innerWidth - 100;
 	var screenHeight = self.innerHeight - 140;
 	var newWidth = width;
@@ -11,14 +10,12 @@ function showBox( imageID, width, height )
 	//var to = url.indexOf( "&" );
 	url = url.substring( 0, url.length-6);
 
-	if ( width > screenWidth )
-	{
+	if (width > screenWidth){
 		newHeight = Math.floor( height *  screenWidth / width );
 		newWidth = screenWidth;
 	}
 
-	if ( height > screenHeight )
-	{
+	if(height > screenHeight){
 		newWidth = Math.floor( width *  screenHeight / height );
 		newHeight = screenHeight;
 	}
@@ -29,24 +26,23 @@ function showBox( imageID, width, height )
 	document.getElementById("image").src = url;
 	document.getElementById("image").alt = img.alt;
 	document.getElementById("image").title = img.title;
-	
+
 	document.getElementById("imgName").innerHTML = img.name;
 	document.getElementById("imgDesc").innerHTML = img.alt;
-	
+
 	document.getElementById("imageBox").style.left = ( ( screenWidth - newWidth ) / 2 + 20 ) + "px";
 	document.getElementById("imageBox").style.top = ( ( screenHeight - newHeight ) / 2 + 10 ) + "px";
 
 	document.getElementById("container").style.visibility = "visible";
 }
 
-function hideBox()
-{
+function hideBox(){
 	document.getElementById("container").style.visibility = "hidden";
 }
 
-function confirmDeletion(question, note, id)
-{
-	var confirmed = confirm( question + " \n\n " + note);
+function confirmDeletion(id){
+
+	var confirmed = confirm('Wollen Sie dieses Bild wirklich löschen? Beachten Sie: Alle Wiki Einträge, die dieses Bild enthalten, müssen daraufhin manuell aktualisiert werden!');
 	if (confirmed) {
 		var params = {};
 		params.id = id;
@@ -60,22 +56,19 @@ function confirmDeletion(question, note, id)
 	<div id="imageBox">
 		<br />
 		<span id="imgName"></span>
-		<div id="close"><a href="javascript:hideBox();">{LABEL_CLOSE}</a></div>
+		<div id="close"><a href="javascript:hideBox();"><svg style='width:18px; height:18px;'><use xlink:href={CLOSE_IMAGE_SRC} /></svg></a></div>
 		<p><img id="image" src=""></p>
 		<span id="imgDesc"></span>
 	</div>
 </div>
 
 <!--  BEGIN BLOCK_IMAGE -->
-<div style="float: left; margin: 0px 0px 20px 20px; margin-top: 5px; text-align: center; width: 170px;">
-	<div style="height: 90px; width: 170px; display: table-cell; vertical-align: middle;">
-		<a href="{PREVIEW_LINK}"><img style="vertical-align: middle;" src="{IMAGE_LINK}" id="{IMAGE_ID}" name="{IMAGE_NAME}" alt="{IMAGE_DESCRIPTION}" title="{IMAGE_DESCRIPTION}"></a>
+<div class="imageContainer">
+	<div style="height:16px;padding-top:3px;">{POPUPMENUANKER}</div>
+	<div style="height: 90px; width: 160px; display: table-cell; vertical-align: middle;">
+		<a href="{PREVIEW_LINK}"><img style="vertical-align: middle; max-width: 160px;" src="{IMAGE_LINK}" id="{IMAGE_ID}" name="{IMAGE_NAME}" alt="{IMAGE_DESCRIPTION}" title="{IMAGE_DESCRIPTION}"></a>
 	</div>
-	<div style="padding: 10px 0px; margin: 10px 0px 2px; background: #EEEEEE;">{IMAGE_NAME}</div>
-	<div style="padding: 10px 0px; margin-bottom: 10px; background: #EEEEEE;" >{IMAGE_ACTIONS}</div>
+	<div style="padding: 10px 5px; width: 145px; white-space: nowrap; overflow: hidden;">{IMAGE_NAME}</div>
 </div>
 <!-- END BLOCK_IMAGE -->
-
-<div class="buttons" style="text-align: left; clear: left; margin-top: 30px;">
-	<a class="button" href="{BACK_LINK}">{BACK_LABEL}</a>
-</div>
+ <div id="wiki-overlay"></div>

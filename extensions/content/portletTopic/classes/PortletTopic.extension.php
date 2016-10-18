@@ -24,11 +24,15 @@ class PortletTopic extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectReadableDescription() {
-		return "...zum Anlegen von strukturierten Aufzählungen.";
+		return "Dient dem Anlegen einer Liste von externen und/oder internen Links";
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/portlet.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/explorer.svg";
+	}
+
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/640966/";
 	}
 
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {

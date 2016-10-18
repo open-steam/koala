@@ -24,15 +24,19 @@ class WebLinkObject extends AbstractExtension implements IObjectExtension {
 	}
 
 	public function getObjectReadableName() {
-		return "URL";
+		return "Weblink";
 	}
 
 	public function getObjectReadableDescription() {
-		return "WWW-Referenzen ermöglichen es Ihnen, Quellen aus dem Internet in Ihre Ordner einzubinden.";
+		return "Weblinks ermöglichen es Ihnen, auf beliebige Webseiten zu verweisen";
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/www.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/www.svg";
+	}
+
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/640380/";
 	}
 
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {

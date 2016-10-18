@@ -6172,7 +6172,7 @@ msgstr "Kein Zugriff"
 
 #: ../public/error.php:12
 msgid "No sufficient rights for this object"
-msgstr "Keine ausreichenden Rechte um diese Aktion auszuführen"
+msgstr "Keine ausreichenden Rechte für dieses Objekt"
 
 #: ../public/error.php:13
 msgid ""
@@ -6238,7 +6238,7 @@ msgstr "Fehler in der koaLA-Konfiguration"
 
 #: ../public/error.php:45 ../public/error.php:54 ../public/error.php:58
 msgid "Mail an error description"
-msgstr "Eine Fehlerbeschreibung senden."
+msgstr "Eine Fehlerbeschreibung senden"
 
 #: ../public/error.php:45
 msgid "There is an error in the koala configuration. %MAIL."
@@ -8291,7 +8291,7 @@ msgstr "Ungültiger Benutzername oder falsches Passwort."
 
 #: ../public/sign_in.php:30 ../public/sign_in.php:69 ../public/sign_in.php:87
 msgid "Please verify your credentials and try again."
-msgstr "Bitte überprüfen Sie Ihren Benutzernamen und das Passwort."
+msgstr "Bitte überprüfen Sie Ihre Zugangsdaten und versuchen Sie es erneut."
 
 #: ../public/sign_in.php:102
 msgid ""
@@ -8462,10 +8462,6 @@ msgstr "Sollen alle %NO Einträge in dieser Kategorie auch gelöscht werden?"
 msgid "Delete '%NAME'?"
 msgstr "'%NAME' löschen?"
 
-#: ../public/weblog_category_edit.php:73
-msgid "Edit '%NAME'"
-msgstr ""
-
 #: ../public/weblog_delete.php:11
 msgid "The weblog '%NAME' has been deleted."
 msgstr "Weblog '%NAME' wurde gelöscht."
@@ -8523,8 +8519,8 @@ msgid "Your post"
 msgstr "Ihr Eintrag"
 
 #: ../public/weblog_entry_edit.php:144 ../public/wiki_edit.php:151
-msgid "Edit '%NAME'?"
-msgstr "'%NAME' ändern?"
+msgid "Edit '%NAME'"
+msgstr "'%NAME' bearbeiten"
 
 #: ../public/weblog_new.php:42
 msgid "The name of the weblog is missing."

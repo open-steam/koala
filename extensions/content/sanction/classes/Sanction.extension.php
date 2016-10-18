@@ -6,7 +6,7 @@ class Sanction extends AbstractExtension{
 	}
 
 	public function getDesciption() {
-		return "Extension to view detailed sanctions of a steam Object.";
+		return "Extension to view detailed sanctions of an object.";
 	}
 
 	public function getVersion() {
@@ -18,23 +18,23 @@ class Sanction extends AbstractExtension{
 		$result[] = new Person("Andreas", "Schultz", "schultza@mail.uni-paderborn.de");
 		return $result;
 	}
-	
+
 	public function getObjectReadableName() {
 		return "Rechteverwaltung";
 	}
-	
+
 	public function getObjectReadableDescription() {
-		return "Hier können sie die Rechte eines s-Team Objektes verwalten.";
+		return "Hier können sie die Rechte eines Objektes verwalten.";
 	}
-	
+
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/gallery.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg";
 	}
-	
+
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {
 		return new \Gallery\Commands\NewGallery();
 	}
-	
+
 	public function getCommandByObjectId(IdRequestObject $idRequestObject){
 		$galleryObject = steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $idRequestObject->getId() );
 		$galleryType = $galleryObject->get_attribute("bid:collectiontype");
@@ -43,11 +43,11 @@ class Sanction extends AbstractExtension{
 		}
 		return null;
 	}
-	
+
 	public function getObjectModels() {
 		return null;
 	}
-	
+
 	public function getCurrentObject(UrlRequestObject $urlRequestObject) {
 		$params = $urlRequestObject->getParams();
 		$id = $params[0];
@@ -66,7 +66,7 @@ class Sanction extends AbstractExtension{
 		}
 		return null;
 	}
-	
+
 	public function getPriority() {
 		return 5;
 	}

@@ -24,11 +24,15 @@ class PortletBookmarks extends AbstractExtension implements IObjectExtension{
 	}
 
 	public function getObjectReadableDescription() {
-		return "Übersicht der Lesezeichen für den persönlichen Schreibtisch.";
+		return "Zeigt die eigenen Lesezeichen an";
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/portlet.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/bookmark.svg";
+	}
+
+	public function getHelpUrl(){
+		return "";
 	}
 
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {

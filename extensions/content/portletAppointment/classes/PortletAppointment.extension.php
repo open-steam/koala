@@ -20,15 +20,19 @@ class PortletAppointment extends AbstractExtension implements IObjectExtension {
 	}
 
 	public function getObjectReadableName() {
-		return "Termine";
+		return "Terminkalender";
 	}
 
 	public function getObjectReadableDescription() {
-		return "... für das Anzeigen von Terminen.";
+		return "Für das Anlegen & Anzeigen von Terminen";
 	}
 
 	public function getObjectIconUrl() {
-		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/portlet.png";
+		return Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/appointment.svg";
+	}
+
+	public function getHelpUrl(){
+		return "https://bid.lspb.de/explorer/ViewDocument/641070/";
 	}
 
 	public function getCreateNewCommand(IdRequestObject $idEnvironment) {

@@ -1,3 +1,45 @@
 div[id$="_3"].listviewer-item-cell {
     color: #AAAAAA;
 }
+
+img.bmp {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+#gallery {
+  margin-top: 25px;
+
+}
+
+.gal-element {
+  background: #EEEEEE;
+  height: 204px;
+  width: 204px;
+  margin: 5px;
+  display: inline-block;
+  background: white;
+  border-radius: 3px;
+  box-shadow: 2px 2px 5px #888;
+}
+
+.row {
+  clear: both;
+  margin-left: 45px;
+  margin-right: 45;
+}
+
+.pic {
+  width: 200px;
+  height: 200px;
+  max-height: 200px;
+  max-width: 200px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+img.lazy {
+  padding: 2px;
+  max-width: 200px;
+}

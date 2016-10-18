@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100%"
+   height="100%"
+   id="rights"
+   viewBox="0 0 700 700">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1357"
+     inkscape:window-height="680"
+     id="namedview32"
+     showgrid="false"
+     inkscape:zoom="0.44853766"
+     inkscape:cx="-234.34847"
+     inkscape:cy="327.22586"
+     inkscape:window-x="36"
+     inkscape:window-y="102"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="key" />
+  <g
+     id="g19"
+     transform="matrix(0,0.72449464,-0.72449464,0,619.5461,-30.15873)">
+    <title
+       id="title21">Layer 1</title>
+    <g
+       id="layer1">
+      <g
+         transform="matrix(2.116591,0,0,2.116591,-102.64501,-421.37692)"
+         id="g2346">
+        <path
+          fill="currentColor"
+           d="M 350.02344 12.544922 C 272.74518 12.544922 210 79.314974 210 161.57812 C 210 223.35511 245.378 276.38094 295.73047 298.9668 L 295.73047 337.6875 C 313.37674 338.01968 318.09475 337.48707 319.23047 337.06445 L 306.75781 368.64258 L 306.75781 371.90234 L 330.42383 387.8125 L 308.51953 402.33398 L 308.35352 407.0293 L 329.60938 426.43555 L 303.46484 456.07031 L 303.45117 468.95508 L 330.42383 502.82031 L 305.72656 525.53125 L 305.92773 530.74805 L 316.24023 545.375 L 308.54492 565.50781 L 309.36914 583.24609 L 333.53906 605.99414 L 311.48438 623.18164 L 311.48438 633.82031 L 383.75977 689.56836 L 404.31836 689.56836 L 404.31836 298.9668 C 454.6574 276.38094 490 223.35511 490 161.57812 C 490 79.31499 427.30171 12.544922 350.02344 12.544922 z M 350.02344 51.457031 C 371.54765 51.457031 388.98438 68.940648 388.98438 90.464844 C 388.98438 111.98905 371.50077 129.42383 349.97656 129.42383 C 328.45235 129.42383 311.01563 111.98905 311.01562 90.464844 C 311.01562 68.940648 328.49923 51.457031 350.02344 51.457031 z "
+           transform="matrix(0,-0.65212054,0.65212054,0,68.162566,603.10156)"
+           id="path2907" />
+      </g>
+    </g>
+  </g>
+</svg>

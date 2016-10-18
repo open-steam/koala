@@ -1,4 +1,5 @@
 <?php
+
 namespace Widgets;
 
 class DatePicker extends Widget {
@@ -15,39 +16,38 @@ class DatePicker extends Widget {
     private $inputWidth;
     private $inputBackgroundColor;
     private $customSaveCode = "";
-
     private $datePicker = true;
     private $timePicker = false;
 
-    public function setId($id){
-        $this->id = "id_".$id."_datepicker";
+    public function setId($id) {
+        $this->id = "id_" . $id . "_datepicker";
     }
 
-    public function getId(){
-        if(!isset($this->id)){
+    public function getId() {
+        if (!isset($this->id)) {
             $this->setId(rand());
         }
         return $this->id;
     }
 
-    public function setName($name){
+    public function setName($name) {
         $this->name = $name;
     }
 
     public function setLabel($label) {
-				$this->label = $label;
+        $this->label = $label;
     }
 
     public function setValue($value) {
-				$this->value = $value;
+        $this->value = $value;
     }
 
     public function setData($data) {
-				$this->data = $data;
+        $this->data = $data;
     }
 
     public function setContentProvider($contentProvider) {
-				$this->contentProvider = $contentProvider;
+        $this->contentProvider = $contentProvider;
     }
 
     public function setReadOnly($readOnly) {
@@ -55,14 +55,14 @@ class DatePicker extends Widget {
     }
 
     /**
-     * @param type $width width in pixels (without px at the end)
+     * @param type $labelWidth width in pixels (without px at the end)
      */
     public function setLabelWidth($labelWidth) {
-        $this->labelWidth = $labelWidth."px";
+        $this->labelWidth = $labelWidth . "px";
     }
 
     /**
-     * @param type $width width in pixels (without px at the end)
+     * @param type $inputWidth width in pixels (without px at the end)
      */
     public function setInputWidth($inputWidth) {
         $this->inputWidth = $inputWidth;
@@ -80,15 +80,15 @@ class DatePicker extends Widget {
     }
 
     public function setDatePicker($datePicker) {
-				$this->datePicker = $datePicker;
+        $this->datePicker = $datePicker;
     }
 
     public function setTimePicker($timePicker) {
-				$this->timePicker = $timePicker;
+        $this->timePicker = $timePicker;
     }
 
     public function getHtml() {
-				if(!isset($this->id)){
+        if (!isset($this->id)) {
             $this->setId(rand());
         }
 
@@ -100,9 +100,9 @@ class DatePicker extends Widget {
             $this->getContent()->setVariable("LABEL", "");
         }
 
-				$this->getContent()->setVariable("PLACEHOLDER", $this->placeholder);
+        $this->getContent()->setVariable("PLACEHOLDER", $this->placeholder);
 
-        if($this->name !== ""){
+        if ($this->name !== "") {
             $this->getContent()->setVariable("INPUT_FIELD_NAME", $this->name);
         }
 
@@ -140,23 +140,25 @@ class DatePicker extends Widget {
             $this->getContent()->setVariable("VALUE", $currentDateValue);
 
             $this->getContent()->setVariable("SAVE_FUNCTION", $this->contentProvider->getUpdateCode($this->data, $this->id));
-				} else {
+        } else {
             $this->getContent()->setVariable("VALUE", "");
-				}
+        }
 
         if ($this->value) {
             $this->getContent()->setVariable("VALUE", $this->value);
         }
 
-				if ($this->datePicker && $this->timePicker) {
+        if ($this->datePicker && $this->timePicker) {
             $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datetimepicker({dateFormat: \"dd.mm.yy\", hourGrid: 4, minuteGrid: 10});");
-				} else if ($this->datePicker) {
+        } else if ($this->datePicker) {
             $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datepicker({dateFormat: \"dd.mm.yy\", showButtonPanel: true});");
-				} else if ($this->timePicker) {
+        } else if ($this->timePicker) {
             $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").timepicker({hourGrid: 4, minuteGrid: 10});");
-				}
+        }
 
-				return $this->getContent()->get();
-		}
+        return $this->getContent()->get();
+    }
+
 }
+
 ?>

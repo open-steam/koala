@@ -61,7 +61,7 @@ class Dialog extends Widget{
     /**
      *
      * @param boolean $autoSaveDialog
-     * Some dialogs still save their data on every change. E.g. the sancions dialog
+     * Some dialogs still save their data on every change.
      * If Autosave is on, the abort button is not displayed and the savebutton just closes the dialog.
      * The autosavemechanism is not implemented in this class.
      * saveAndCloseButtonJs is still executed
@@ -78,6 +78,11 @@ class Dialog extends Widget{
         $this->saveAndCloseButtonLabel = $saveAndCloseButtonLabel;
     }
 
+    /**
+     * This code is always executed to provide an alternative for the cound of objcts with a 'changed' class
+     *
+     * @param type $saveAndCloseButtonJs
+     */
     public function setSaveAndCloseButtonJs($saveAndCloseButtonJs){
         $this->saveAndCloseButtonJs = $saveAndCloseButtonJs;
     }
@@ -131,15 +136,17 @@ class Dialog extends Widget{
             $content .= $widget->getHtml();
         }
 
+        $this->getContent()->setVariable("CLOSE_BUTTON_ICON", PATH_URL . "widgets/asset/close.svg#close"); 
+
         $this->getContent()->setVariable("DIALOG_CONTENT", $content);
 
         if ($this->customButtons && is_array($this->customButtons)) {
             $this->customButtons = array_reverse($this->customButtons);
             foreach ($this->customButtons as $button) {
                 $this->getContent()->setCurrentBlock("BLOCK_CUSTOM_BUTTONS");
-                $this->getContent()->setVariable("BUTTON_CLASS", $button["class"]);
-                $this->getContent()->setVariable("BUTTON_JS", $button["js"]);
-                $this->getContent()->setVariable("BUTTON_LABEL", $button["label"]);
+                $this->getContent()->setVariable("BUTTON_CLASS", (isset($button["class"])? $button["class"] : ""));
+                $this->getContent()->setVariable("BUTTON_JS", (isset($button["js"])? $button["js"] : ""));
+                $this->getContent()->setVariable("BUTTON_LABEL", (isset($button["label"])? $button["label"] : ""));
                 $this->getContent()->parse("BLOCK_CUSTOM_BUTTONS");
             }
         }

@@ -56,6 +56,43 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
       return array("left", "left", "left", "left", "left", "right", "right", "right", "right");
   }
 
+	public function getOnClickHandler($headline) {
+		if(strpos($headline, "Name") !== false) {
+			return "sortByName(this)";
+		}
+		if(strpos($headline, "Änderungsdatum") !== false) {
+			return "sortByDate(this)";
+		}
+		else{
+			return "";
+		}
+
+	}
+
+	public function getOnMouseOverHandler($headline) {
+		if(strpos($headline, "Name") !== false) {
+			return "jQuery(this).addClass('hover')";
+		}
+		if(strpos($headline, "Änderungsdatum") !== false) {
+			return "jQuery(this).addClass('hover')";
+		}
+		else{
+			return "";
+		}
+	}
+
+	public function getOnMouseOutHandler($headline) {
+		if(strpos($headline, "Name") !== false) {
+			return "jQuery(this).removeClass('hover')";
+		}
+		if(strpos($headline, "Änderungsdatum") !== false) {
+			return "jQuery(this).removeClass('hover')";
+		}
+		else{
+			return "";
+		}
+	}
+
 }
 
 class ContentProvider implements \Widgets\IContentProvider {
@@ -92,17 +129,32 @@ class ContentProvider implements \Widgets\IContentProvider {
 				if($exitObj === 0){
 					return "";
 				}else{
-					return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($exitObj)."\"></img>";
+					$url = \ExtensionMaster::getInstance()->getUrlForObjectId($exitObj->get_id(), "view");
+					$icon = deriveIcon($exitObj);
+					$iconSVG = str_replace("png", "svg", $icon);
+					$idSVG = str_replace(".svg", "", $iconSVG);
+					$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+					return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
 				}
 			}else if($contentItem instanceof \steam_link){
 				$linkObj = $contentItem->get_link_object();
 				if($linkObj === 0){
 					return "";
 				}else{
-					return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($linkObj)."\"></img>";
+					$url = \ExtensionMaster::getInstance()->getUrlForObjectId($linkObj->get_id(), "view");
+					$icon = deriveIcon($linkObj);
+					$iconSVG = str_replace("png", "svg", $icon);
+					$idSVG = str_replace(".svg", "", $iconSVG);
+					$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+					return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
 				}
 			}else{
-				return "<img src=\"".PATH_URL."explorer/asset/icons/mimetype/".deriveIcon($contentItem)."\"></img>";
+				$url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+				$icon = deriveIcon($contentItem);
+				$iconSVG = str_replace("png", "svg", $icon);
+				$idSVG = str_replace(".svg", "", $iconSVG);
+				$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+				return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
 			}
 		} else if ($cell == $this->rawName) {
 			$tipsy = new \Widgets\Tipsy();

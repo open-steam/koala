@@ -63,6 +63,8 @@ function removeDirectEditor(objectId, elementId) {
 	var obj = new Object;
 	obj.id = objectId;
 	sendRequest("GetLabel", obj, elementId, "nonModalUpdater",null,null,"explorer");
+	sendRequest("GetChangeDate", obj, obj.id + "_5", "nonModalUpdater",null,null,"explorer");
+	if($('.listviewer').length != 0) resetListViewerHeadItem();
 }
 
 function getSelectionAsArray() {
@@ -86,7 +88,6 @@ function getParamsArray(paramsObject) {
 		po.id = ids[i];
 		paramsArray.push(po);
 	}
-	//console.log(paramsArray);
 	return paramsArray;
 }
 

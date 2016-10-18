@@ -33,7 +33,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         try{
           //icon
-          $referIcon = \Portal::getInstance()->getAssetUrl() . "icons/refer_white.png";
+          $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
            //reference handling
           if (isset($params["referenced"]) && $params["referenced"] == true) {
@@ -73,6 +73,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
           $tmpl = new \HTML_TEMPLATE_IT();
           $tmpl->loadTemplateFile($portletFileName);
           $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
+          $tmpl->setVariable("RSS_STYLE_PATH", \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/rss.svg");
 
           //headline
           $tmpl->setCurrentBlock("BLOCK_MESSAGE_HEADLINE");
@@ -84,7 +85,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
               $titleTag = "title='".\Portal::getInstance()->getReferenceTooltip()."'";
               $envId = $portlet->get_environment()->get_environment()->get_id();
               $envUrl = PATH_URL . "portal/index/" . $envId;
-              $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><img src='{$referIcon}'></a>");
+              $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
           }
 
           if (!$portletIsReference) {
@@ -192,26 +193,31 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                   //PICTURE
                   // parse in picture if it exists
                   if ($message->get_attribute("bid:portlet:msg:picture_id") != "") {
-
-                      if($message->get_attribute("bid:portlet:msg:picture_alignment") == "bottom"){
+                    $alignment = $message->get_attribute("bid:portlet:msg:picture_alignment");
+                      if($alignment == "bottom"){
                         $tmpl->setCurrentBlock("BLOCK_MESSAGE_PICTURE_BOTTOM");
                       }else{
                         $tmpl->setCurrentBlock("BLOCK_MESSAGE_PICTURE_TOP");
                       }
 
                       $picture_width = (($message->get_attribute("bid:portlet:msg:picture_width") != "") ? trim($message->get_attribute("bid:portlet:msg:picture_width")) : "");
-                      if (extract_percentual_length($picture_width) == "") {
+                      if (extract_percentual_length($picture_width) == "") { //empty string --> width has no percent sign
                           $bare_picture_width = extract_length($picture_width);
                           if ($bare_picture_width == "") {
-                              $picture_width = $column_width/2;;
-                          } else if ($bare_picture_width > $column_width) {
+                            if ( $alignment == "bottom" || $alignment == "top" ) {
+                              $picture_width = $column_width;
+                            }
+                            else{
+                              $picture_width = intval($column_width)/2;
+                            }
+                          } else if (intval($bare_picture_width) > intval($column_width)) {
                               $picture_width = $column_width;
                           }
                       }
 
                       $tmpl->setVariable("MESSAGE_PICTURE_ID", $message->get_attribute("bid:portlet:msg:picture_id")); //not used anymore
                       $tmpl->setVariable("MESSAGE_PICTURE_URL", getDownloadUrlForObjectId($message->get_attribute("bid:portlet:msg:picture_id")));
-                      $tmpl->setVariable("MESSAGE_PICTURE_ALIGNMENT", $message->get_attribute("bid:portlet:msg:picture_alignment"));
+                      $tmpl->setVariable("MESSAGE_PICTURE_ALIGNMENT", $alignment);
                       $tmpl->setVariable("MESSAGE_PICTURE_WIDTH", $picture_width);
 
                       if($message->get_attribute("bid:portlet:msg:picture_alignment") == "bottom"){

@@ -18,14 +18,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IAj
 
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		$dialog = new \Widgets\Dialog();
-		$dialog->setTitle("Eigenschaften von Spalte " . $object->get_attribute("OBJ_DESC"));
+		$dialog->setTitle("Breite von Spalte " . $object->get_attribute("OBJ_DESC"));
 
 		$dialog->setPositionX($this->params["mouseX"]);
 		$dialog->setPositionY($this->params["mouseY"]);
 
 		$clearer = new \Widgets\Clearer();
 		$sizeInput = new \Widgets\TextInput();
-		$sizeInput->setLabel("Breite der Spalte");
+		$sizeInput->setLabel("Breite");
 		$sizeInput->setData($object);
 		$sizeInput->setType("number");
 		$sizeInput->setMin(100);

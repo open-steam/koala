@@ -9,6 +9,11 @@ abstract class AbstractSubscription {
     protected $timestamp;
     protected $filter;
     protected $depth;
+    protected $updates;
+    protected $count;
+    protected $formerContent;
+    protected $changedFormerContent;
+    protected $content;
 
     public function __construct($portlet, $object, $private, $timestamp, $filter, $depth) {
         $this->portlet = $portlet;
@@ -17,6 +22,10 @@ abstract class AbstractSubscription {
         $this->timestamp = $timestamp;
         $this->filter = $filter;
         $this->depth = $depth;
+        $this->updates = array();
+        $this->count = 0;
+        $this->formerContent = $this->portlet->get_attribute("PORTLET_SUBSCRIPTION_CONTENT");
+        $this->changedFormerContent = false;
     }
 
     abstract public function getUpdates();
@@ -26,7 +35,7 @@ abstract class AbstractSubscription {
         //for deleted item it is not possible to give a exact date.
         if(date("Y", $timestamp)){
             //try to build a date out of the timestamp, then build the correct formatted date
-            $dateString = date("d.m.Y H:i", $timestamp) . " Uhr";
+            $dateString = date("d.m.Y H:i:s", $timestamp) . " Uhr";
         } else {
             //if it fails return a general phrase
             $dateString = "In letzter Zeit";
@@ -37,8 +46,8 @@ abstract class AbstractSubscription {
             <h2 class=\"subheadline\">" . $dateString;
         if ($private === TRUE) {
             //do not show the cross to hide each single changed element but only one button to hide all
-            //$sendRequest = AbstractSubscription::getElementJS($this->portlet->get_id(), $id, $timestamp, $divid);
-            //$html .= "<div class=\"subscription-close-button\" title=\"ausblenden\" onclick=\"".$sendRequest."\" style=\"float:right;\"></div>";
+            $sendRequest = AbstractSubscription::getElementJS($this->portlet->get_id(), $id, $timestamp, $divid);
+            $html .= "<div class=\"subscription-close-button blueeye\" title=\"Ausblenden\" onclick=\"".$sendRequest."\" style=\"float:right;\"><svg style='width:16px; height:16px;' ><use xlink:href='" . PATH_URL . "/widgets/asset/eye.svg#eye'/></svg></div>";
         }
 
         $html .= "</h2>
@@ -46,7 +55,7 @@ abstract class AbstractSubscription {
             </div>";
         return $html;
     }
-    
+
     public static function getElementJS($portletId, $objectId, $timestamp, $divid){
         $params = "{ portletID : " . $portletId . ", objectID : " . $objectId . ", timestamp : " . $timestamp . ", hide : 'subscription" . $portletId . "_" . $divid . "' }";
         return "sendRequest('HideItem', " . $params . ", 'subscription" . $portletId . "_" . $divid . "', 'updater', '', '', 'PortletSubscription');";

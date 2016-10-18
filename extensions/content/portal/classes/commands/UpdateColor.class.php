@@ -37,10 +37,11 @@ class UpdateColor extends \AbstractCommand implements \IAjaxCommand {
             $obj->set_attribute("bid:portal:headline_fontcolor", 0);
             $obj->set_attribute("bid:portal:headline_bgcolor", 0);
             $obj->set_attribute("bid:portal:content_fontcolor", 0);
+            $obj->set_attribute("bid:portal:description_fontcolor", 0);
             $obj->set_attribute("bid:portal:content_bgcolor", 0);
             $obj->set_attribute("bid:portal:link_fontcolor", 0);
             $obj->set_attribute("bid:portal:bgcolor", 0);
-            
+
             /*$obj->set_attribute("bid:portal:component_fontcolor", 0);
             $obj->set_attribute("bid:portal:component_bgcolor", 0);
             $obj->set_attribute("bid:portal:headline_fontcolor", 0);
@@ -59,6 +60,8 @@ class UpdateColor extends \AbstractCommand implements \IAjaxCommand {
             $obj->set_attribute("bid:portal:headline_bgcolor", $value);
         } else if ($colortype === "contentfont") {
             $obj->set_attribute("bid:portal:content_fontcolor", $value);
+        } else if ($colortype === "descriptionfont") {
+            $obj->set_attribute("bid:portal:description_fontcolor", $value);
         } else if ($colortype === "contentbg") {
             $obj->set_attribute("bid:portal:content_bgcolor", $value);
         } else if ($colortype === "portalLinkColor") {
@@ -71,6 +74,7 @@ class UpdateColor extends \AbstractCommand implements \IAjaxCommand {
             $obj->set_attribute("bid:portal:headline_fontcolor", 0);
             $obj->set_attribute("bid:portal:headline_bgcolor", 0);
             $obj->set_attribute("bid:portal:content_fontcolor", 0);
+            $obj->set_attribute("bid:portal:description_fontcolor", 0);
             $obj->set_attribute("bid:portal:content_bgcolor", 0);
             $obj->set_attribute("bid:portal:link_fontcolor", 0);
             $obj->set_attribute("bid:portal:bgcolor", 0);
@@ -84,4 +88,3 @@ class UpdateColor extends \AbstractCommand implements \IAjaxCommand {
 
 }
 ?>
-

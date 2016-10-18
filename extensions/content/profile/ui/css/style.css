@@ -21,7 +21,7 @@
 #imageEditButton {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 0px;
     cursor: pointer;
     display: none;
 }

@@ -149,10 +149,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $GLOBALS["content"]->setVariable("LABEL_LAST_LOGIN", gettext("last login") . ":");
             $GLOBALS["content"]->setVariable("LAST_LOGIN", how_long_ago($user_profile["USER_LAST_LOGIN"]));
         }
-        if (CHANGE_PROFILE_PICTURE && PROFILE_PICTURE && $current_user->get_id() == $user->get_id()){
+        if (CHANGE_PROFILE_PICTURE && PROFILE_PICTURE && $current_user->get_id() == $user->get_id()) {
             $editImageURL = PATH_URL . "profile/image/";
-            $editImageButtonURL = PATH_STYLE . "images/icons/portlet/edit.gif";
-            $GLOBALS["content"]->setVariable("EDIT_BUTTON", '<a href=' . $editImageURL . '><img id="imageEditButton" title="Bearbeiten" src=' . $editImageButtonURL . '></a>');
+            $GLOBALS["content"]->setVariable("EDIT_BUTTON", '<a href=' . $editImageURL . '><svg id="imageEditButton" title="Bearbeiten" style="width:20px; height:20px; color:#FFFFFF;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><use xlink:href="' . PATH_URL . 'widgets/asset/edit.svg#edit" /></svg></a>');
         }
         $GLOBALS["content"]->parse("BLOCK_LEFT_SIDE");
 
@@ -184,50 +183,49 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             // infobar
             /*
-            $infoBar = new \Widgets\InfoBar();
-            if (PLATFORM_ID == "bid") {
-                $infoBar->addParagraph("Hier können Sie Ihre persönlichen Kontaktdaten und Einstellungen einrichten. Bis auf Ihren Namen sind alle Angaben freiwillig und können von Ihnen geändert werden. Klicken Sie auf den Button <b><i>Profil-Privatsphäre</i></b> um festzulegen, wem welche Informationen angezeigt werden sollen.");
-            } else {
-                $infoBar->addParagraph(gettext("Please complete your profile. None of the fields are mandatory. Some of the fields can not be changed due to central identity management at the IMT.<br/><b>Note: With the button <i>Profile Privacy</i> you can control which information can be seen by other users.</b>"));
-            }
-            $frameResponseObject->addWidget($infoBar);
-            */
+              $infoBar = new \Widgets\InfoBar();
+              if (PLATFORM_ID == "bid") {
+              $infoBar->addParagraph("Hier können Sie Ihre persönlichen Kontaktdaten und Einstellungen einrichten. Bis auf Ihren Namen sind alle Angaben freiwillig und können von Ihnen geändert werden. Klicken Sie auf den Button <b><i>Profil-Privatsphäre</i></b> um festzulegen, wem welche Informationen angezeigt werden sollen.");
+              } else {
+              $infoBar->addParagraph(gettext("Please complete your profile. None of the fields are mandatory. Some of the fields can not be changed due to central identity management at the IMT.<br/><b>Note: With the button <i>Profile Privacy</i> you can control which information can be seen by other users.</b>"));
+              }
+              $frameResponseObject->addWidget($infoBar);
+             */
 
             $clearer = new \Widgets\Clearer();
 
-            if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY){
-              $script =   '$("#PrivacyButton").show();'
+            if (CHANGE_PROFILE_PRIVACY && PROFILE_PRIVACY) {
+                $script = '$("#PrivacyButton").show();'
                         . '$("#PrivacyButton").click(function() {'
-                          . 'var that = this;'
-                          . 'if ($(this).html() == "Sichtbarkeit ►") {'
-                            . '$("#privacyShield").animate({"margin-left":"800px", "width": $("#sl-row").width - 180 + "px"},1000, function () {'
-                              . '$(that).html("◄ Sichtbarkeit");'
-                            . '});'
-                          . '} else {'
-                            . '$("#privacyShield").animate({"width":"100%", "margin-left":"460px"},1000, function () {'
-                              . '$(that).html("Sichtbarkeit ►");'
-                            . '});'
-                          . '}'
-                      . '});';
-            }
-            else{
-              $script = '$("#PrivacyButton").hide()';
+                        . 'var that = this;'
+                        . 'if ($(this).html() == "Sichtbarkeit ►") {'
+                        . '$("#privacyShield").animate({"margin-left":"800px", "width": $("#sl-row").width - 180 + "px"},1000, function () {'
+                        . '$(that).html("◄ Sichtbarkeit");'
+                        . '});'
+                        . '} else {'
+                        . '$("#privacyShield").animate({"width":"100%", "margin-left":"460px"},1000, function () {'
+                        . '$(that).html("Sichtbarkeit ►");'
+                        . '});'
+                        . '}'
+                        . '});';
+            } else {
+                $script = '$("#PrivacyButton").hide()';
             }
 
             // table cell html
             $rawHtml = new \Widgets\RawHtml();
             $rawHtml->setHtml($GLOBALS["content"]->get() . '<td class="detail" valign="top" style="line-height: 13px;">'
                     . '<style type="text/css"> .widget.textarea textarea { margin-top: 5px; margin-bottom: 5px; }</style>'
-    								. '<script>'
-    								. $script
-    								. '</script>');
+                    . '<script>'
+                    . $script
+                    . '</script>');
             $frameResponseObject->addWidget($rawHtml);
             /*
-            $contact_label = gettext("All Users");
-            if (PLATFORM_ID == "bid") {
-                $contact_label = "Meine Favoriten";
-            }
-            */
+              $contact_label = gettext("All Users");
+              if (PLATFORM_ID == "bid") {
+              $contact_label = "Meine Favoriten";
+              }
+             */
             // general information label
             $generalLabel = new \Widgets\RawHtml();
             $generalLabel->setHtml("<div class='grid' style='display:table; width:70%; margin-left:5px;'>
@@ -276,9 +274,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             // initialize options
             $options = array(
-                    array("value" => 0, "name" => "Alle Benutzer", "class" => "bidRadio left"),  // 0 = all users
-                    array("value" => PROFILE_DENY_ALLUSERS, "name" => "Meine Favoriten", "class" => "bidRadio"),  // 1 = only contacts
-                    array("value" => (PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS), "name" => "Niemand", "class" => "bidRadio right")   // 3 = no one
+                array("value" => 0, "name" => "Alle Benutzer", "class" => "bidRadio left"), // 0 = all users
+                array("value" => PROFILE_DENY_ALLUSERS, "name" => "Meine Favoriten", "class" => "bidRadio"), // 1 = only contacts
+                array("value" => (PROFILE_DENY_ALLUSERS + PROFILE_DENY_CONTACTS), "name" => "Niemand", "class" => "bidRadio right")   // 3 = no one
             );
 
             // first name
@@ -833,13 +831,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($radioButton);
             }
             /*
-            if (ENABLED_CONTACTS_GROUPS_TITLE) {
-                $contacts_title = new \Widgets\RawHtml();
-                $contacts_title->setHtml("<br><b style='font-size:15px;'>" . gettext("Contacts and Groups") . "</b><br><br>");
-                $frameResponseObject->addWidget($clearer);
-                $frameResponseObject->addWidget($contacts_title);
-            }
-            */
+              if (ENABLED_CONTACTS_GROUPS_TITLE) {
+              $contacts_title = new \Widgets\RawHtml();
+              $contacts_title->setHtml("<br><b style='font-size:15px;'>" . gettext("Contacts and Groups") . "</b><br><br>");
+              $frameResponseObject->addWidget($clearer);
+              $frameResponseObject->addWidget($contacts_title);
+              }
+             */
             if (ENABLED_CONTACTS) {
                 $raw = new \Widgets\RawHtml();
                 $raw->setHtml('<div class="widgets_label">' . $contact_label . ':</div><div style="width:134px; height:19px; float: left;"></div>');
@@ -859,14 +857,26 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
                 $groupString = "";
                 $groups = $current_user->get_groups();
-                foreach ($groups as $group){
-                  $name = $group->get_groupname();
-                  $groupString =  $groupString . $name;
-                  $groupDescription = $group->get_attribute("OBJ_DESC");
-                  if($groupDescription != ""){
-                    $groupString = $groupString . " (" . $groupDescription . ")";
-                  }
-                  $groupString = $groupString . '</br>';
+                foreach ($groups as $group) {
+                    $fullName = $group->get_groupname();
+
+                    $matches = array();
+                    $re = "/([a-z0-9\\s\\-\\_]+)+/iu";
+                    preg_match_all($re, $fullName, $matches);
+                    $groupName = $matches[0][sizeof($matches[0]) - 1];
+                    $fromLinkExcludedGroups = array("sTeam");
+                    if (!in_array($groupName, $fromLinkExcludedGroups)) {
+                        $groupName = "<a href='/group/index/" . $group->get_id() . "'>" . $groupName . "</a>";
+                    }
+                    $groupDescription = $group->get_attribute("OBJ_DESC");
+                    if ($groupDescription != "") {
+                        $displaydGroupName = "<acronym title='" . $groupDescription . "'>" . $groupName . "</acronym>";
+                        //$fullName = $fullName . " (" . $groupDescription . ")";
+                    } else {
+                        $displaydGroupName = $groupName;
+                    }
+
+                    $groupString = $groupString . $displaydGroupName . '</br>';
                 }
 
                 $raw->setHtml('<div class="widgets_label">Meine Gruppen:</div><div style="width:134px; padding-top:11px; float: left; overflow-y:hidden; white-space: nowrap;">' . $groupString . '</div>');
@@ -916,8 +926,53 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $checkboxWidget->setData($user);
             $checkboxWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_SHOW_HIDDEN_DOCUMENTS"));
             $frameResponseObject->addWidget($clearer);
-
             $frameResponseObject->addWidget($checkboxWidget);
+            $frameResponseObject->addWidget($clearer);
+
+            // explorer view (list vs. gallery)
+            $explorerViewWidget = new \Widgets\ComboBox();
+            $explorerViewWidget->setLabel("Exploreransicht");
+            $explorerViewWidget->setData($user);
+            $explorerViewWidget->setOptions(array(
+                //array("name" => "Intelligente Auswahl", "value" => "touch"),
+                array("name" => "Liste", "value" => "list"),
+                array("name" => "Galerie", "value" => "gallery"),
+            ));
+            $explorerViewWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("EXPLORER_VIEW"));
+            $frameResponseObject->addWidget($explorerViewWidget);
+            $frameResponseObject->addWidget($clearer);
+
+            // number of items per row (gallery view)
+            $galleryNumberWidget = new \Widgets\TextInput();
+            $galleryNumberWidget->setLabel("Objekte pro Zeile");
+            $galleryNumberWidget->setData($user);
+            $galleryNumberWidget->setType("number");
+            $galleryNumberWidget->setMin(1);
+            $galleryNumberWidget->setMax(10);
+            $galleryNumberWidget->setInputWidth(128);
+            $galleryNumberWidget->setPlaceholder(5);
+            $galleryNumberWidget->setContentProvider(\Widgets\DataProvider::attributeProvider("GALLERY_NUMBER"));
+            $frameResponseObject->addWidget($galleryNumberWidget);
+
+            $raw = new \Widgets\RawHtml();
+            $raw->setHtml("<script>
+            if($('select').val() == 'list'){
+              $('.widgets_label').last().hide();
+              $('.widgets_label').last().next().hide();
+            }
+            $('select').change(function(){
+              if($(this).val() == 'list'){
+                $('.widgets_label').last().hide();
+                $('.widgets_label').last().next().hide();
+              }else{
+                $('.widgets_label').last().show();
+                $('.widgets_label').last().next().show();
+              }
+            });</script>");
+
+            $frameResponseObject->addWidget($raw);
+            $frameResponseObject->addWidget($clearer);
+
             //save button at the end of the form
             $saveButton = new \Widgets\SaveButton();
             $frameResponseObject->addWidget($saveButton);
@@ -926,11 +981,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $rawClose = new \Widgets\RawHtml();
             $rawClose->setHtml("</td></tr></table>");
             $frameResponseObject->addWidget($rawClose);
-
-
         } else {
             //show profile of another user
-
             //\Profile::getInstance()->addCSS();
             $GLOBALS["content"]->setCurrentBlock("BLOCK_RIGHT_SIDE");
             // display profile
@@ -1171,14 +1223,14 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 // GROUPS
                 $groupString = "";
                 $groups = $user->get_groups();
-                foreach ($groups as $group){
-                  $name = $group->get_groupname();
-                  $groupString =  $groupString . $name;
-                  $groupDescription = $group->get_attribute("OBJ_DESC");
-                  if($groupDescription != ""){
-                    $groupString = $groupString . " (" . $groupDescription . ")";
-                  }
-                  $groupString = $groupString . '</br>';
+                foreach ($groups as $group) {
+                    $name = $group->get_groupname();
+                    $groupString = $groupString . $name;
+                    $groupDescription = $group->get_attribute("OBJ_DESC");
+                    if ($groupDescription != "") {
+                        $groupString = $groupString . " (" . $groupDescription . ")";
+                    }
+                    $groupString = $groupString . '</br>';
                 }
 
                 $html_code_groups = '<div style="float: left;">' . $groupString . '</div>';
@@ -1190,13 +1242,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $GLOBALS["content"]->setVariable("HEADER_GENERAL_INFORMATION", gettext("General Information"));
             }
             /*
-            if ($this->CONTACT_DATA_displayed) {
-                $GLOBALS["content"]->setVariable("HEADER_CONTACT_DATA", gettext("Contact Data"));
-            }
-            if ($this->CONTACTS_AND_GROUPS_displayed) {
-                $GLOBALS["content"]->setVariable("HEADER_CONTACTS_AND_GROUPS", gettext("Contacts and Groups"));
-            }
-            */
+              if ($this->CONTACT_DATA_displayed) {
+              $GLOBALS["content"]->setVariable("HEADER_CONTACT_DATA", gettext("Contact Data"));
+              }
+              if ($this->CONTACTS_AND_GROUPS_displayed) {
+              $GLOBALS["content"]->setVariable("HEADER_CONTACTS_AND_GROUPS", gettext("Contacts and Groups"));
+              }
+             */
             $GLOBALS["content"]->setVariable("DISPLAY_RIGHT_SIDE", "");
 
             // this needed?

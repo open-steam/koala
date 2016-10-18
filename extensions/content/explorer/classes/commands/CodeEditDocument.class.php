@@ -40,10 +40,10 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
 
                 $actionBar = new \Widgets\ActionBar();
                 $actionBar->setActions(array(
-                    //array("name" => "Anzeigen", "link" => PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
-                    //array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
-                    //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                    //array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
+                        //array("name" => "Anzeigen", "link" => PATH_URL . "Explorer/ViewDocument/" . $this->id . "/"),
+                        //array("name" => "Bearbeiten", "link" => PATH_URL . "Explorer/EditDocument/" . $this->id . "/"),
+                        //array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+                        //array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))
                 ));
 
                 $contentText = new \Widgets\TextareaCode();
@@ -56,10 +56,10 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
                 $saveButton = new \Widgets\SaveButton();
                 $saveButton->setLabel("Speichern & Anzeigen");
                 $saveButton->setBeforeSaveJS("if(j == 0){window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';}");
-        				$saveButton->setSaveReload("window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';");
+                $saveButton->setSaveReload("window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';");
 
-        				$cancelButton = new \Widgets\RawHtml();
-        				$cancelButton->setHtml('<div style="float:right; margin-top:5px;"><a class="bidButton negative" href="' . PATH_URL . 'explorer/ViewDocument/' . $this->id . '/">Abbrechen</a>&nbsp;</div>');
+                $cancelButton = new \Widgets\RawHtml();
+                $cancelButton->setHtml('<div style="float:right; margin-top:5px;"><a class="bidButton negative" href="' . PATH_URL . 'explorer/ViewDocument/' . $this->id . '/">Abbrechen</a>&nbsp;</div>');
 
                 $frameResponseObject->setTitle($name);
                 $frameResponseObject->addWidget($actionBar);
@@ -69,9 +69,11 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($clearer);
 
                 return $frameResponseObject;
+            } else {
+                \ExtensionMaster::getInstance()->send404Error();
             }
         } else {
-            ExtensionMaster::getInstance()->send404Error();
+            \ExtensionMaster::getInstance()->send404Error();
         }
     }
 

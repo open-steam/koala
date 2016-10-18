@@ -43,12 +43,12 @@ class CreateCatForm extends \AbstractCommand implements \IAjaxCommand {
 
 		//build html
 		$html = $titel->getHtml();
-		$html.= $seperatorHtml;
+		$html.= $separatorHtml;
 		$html.= '<input type="hidden" name="id" value="'.$this->id.'">';
 		$html .= $link->getHtml();
-		$html.= $seperatorHtml;
+		$html.= $separatorHtml;
 		$html .= $desc->getHtml();
-		$html.= $seperatorHtml;
+		$html.= $separatorHtml;
 		$html .= $window->getHtml();
 		$html .= '<input type="hidden" name="categoryIndex" value="'.$this->params["categoryIndex"].'">';
 		$html .= '<input type="hidden" name="window" value="false">';

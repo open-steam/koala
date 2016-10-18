@@ -149,7 +149,7 @@ function getReadableDate($timestamp) {
     //} elseif ($is_yesterday) {
       //  return "gestern um " . date("H:i", $timestamp);
     } else {
-        return date("d.m.Y, H:i ", $timestamp) . " Uhr";
+        return date("d.m.Y, H:i ", $timestamp) . "Uhr";
     }
 }
 
@@ -174,7 +174,8 @@ function isPicture($docType) {
     $isJpeg = strpos($docType, "jpeg") !== false;
     $isGif = strpos($docType, "gif") !== false;
     $isPng = strpos($docType, "png") !== false;
-    return $isGif || $isJpeg || $isJpg || $isPng;
+    $isSvg = strpos($docType, "svg") !== false;
+    return $isGif || $isJpeg || $isJpg || $isPng || $isSvg;
 }
 
 //parameter $showName added to decide, wether we want the name returned or not. (initial used in the subscriptions to avoid Names like 'Test (rapidfeedback_1438187882)')
@@ -366,6 +367,7 @@ function deriveIcon($object) {
     $mimetype = $preLoadResults[$mimetypeIndex];
     $name = $preLoadResults[$nameIndex];
     //finished preload attibutes
+
     //worksheet
     if ($worksheet_role === "build")
         return "worksheet.png";
@@ -401,13 +403,58 @@ function deriveIcon($object) {
 
 
     if ($doctype === "portal") {
-        return "portal_old.png";
+        return "portal.png";
     }
 
     if ($objtype === "container_portal_bid")
         return "portal.png";
-    else if ($objtype === "container_portlet_bid")
-        return "portlet.png";
+    else if ($objtype === "container_portlet_bid"){
+      $portletType = $object->get_attribute("bid:portlet");
+
+      switch ($portletType) {
+          case "msg":
+              return "messages.png";
+
+          case "headline":
+              return "headline.png";
+
+          case "topic":
+              return "explorer.png";
+
+          case "appointment":
+              return "appointment.png";
+
+          case "media":
+              return "play.png";
+
+          case "rss":
+              return "rss.png";
+
+          case "poll":
+              return "poll.png";
+
+          case "termplan":
+              return "termplan.png";
+
+          case "subscription":
+              return "unsubscribe.png";
+
+          case "userpicture":
+              return "userPicture.png";
+
+          case "chronic":
+              return "chronic.png";
+
+          case "bookmarks":
+              return "bookmark.png";
+
+          case "folderlist":
+              return "folder.png";
+
+          default:
+              return "portlet.png";
+      }
+    }
     /* else if($objtype === "LARS_DESKTOP")
 
       return "lars_desktop.gif";
@@ -493,6 +540,7 @@ function deriveIcon($object) {
         "image/jpg" => "image.png",
         "image/x-ms-bmp" => "image.png",
         "image/png" => "image.png",
+        "image/svg+xml" => "image.png",
         "text/html" => "text.png",
         "text/plain" => "text.png",
         "text/xml" => "text.png",
@@ -835,7 +883,8 @@ function cleanHTML($dirtyHTML) {
         'src' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
-        'preload' => 'CDATA'
+        'preload' => 'CDATA',
+        'controls' => 'CDATA'
             )
     );
 
@@ -848,7 +897,8 @@ function cleanHTML($dirtyHTML) {
         'src' => 'CDATA',
         'width' => 'CDATA',
         'height' => 'CDATA',
-        'preload' => 'CDATA'
+        'preload' => 'CDATA',
+        'controls' => 'CDATA'
             )
     );
 

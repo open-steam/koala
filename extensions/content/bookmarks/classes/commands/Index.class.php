@@ -14,8 +14,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         isset($this->params[0]) ? $this->id = $this->params[0] : "";
-
-
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
@@ -32,8 +30,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $this->id = $object->get_id();
         }
 
+
         //chronic
         //\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($object);
+        $title = getCleanName($object, 65);
+        $chronicPath = "/bookmarks/index/" . $this->id . "/";
+        \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentPath($chronicPath, $title);
 
         if ($object && $object instanceof \steam_container) {
             $objects = $object->get_inventory();
@@ -41,64 +43,114 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $objects = array();
         }
 
+        //build breadcrumb
+  			$icon = deriveIcon($object);
+  			$iconSVG = str_replace("png", "svg", $icon);
+  			$idSVG = str_replace(".svg", "", $iconSVG);
+  			$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+  			$breadcrumbArray = array(array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>"));
+        /*
+        $parent = $object->get_environment();
+  			while($parent instanceof \steam_container){
+  				$title = getCleanName($parent, 65);
+  				$icon = deriveIcon($object);
+  				$iconSVG = str_replace("png", "svg", $icon);
+  				$idSVG = str_replace(".svg", "", $iconSVG);
+  				$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+  				array_unshift($breadcrumbArray, array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>", "link" => PATH_URL . "bookmarks/index/" . $parent->get_id() . "/"));
+  				$parent = $parent->get_environment();
+  			}
+        */
+        array_unshift($breadcrumbArray, "");
+        $breadcrumb = new \Widgets\Breadcrumb();
+        $breadcrumb->setData($breadcrumbArray);
+
         $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
-        $title = "Lesezeichen";
-        $bookmarkParentFolderId = $currentUser->get_attribute("USER_BOOKMARKROOM")->get_id();
-        if ($this->id != $bookmarkParentFolderId) {
-            $title.=" - " . $object->get_name();
-        }
-        $breadcrumb = new \Widgets\Breadcrumb();
-        $breadcrumb->setData(array("", array("name" => "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/reference_folder.png\"></img> " . $title . " ")));
 
-        //$bookmarkIcon = \Bookmarks::getInstance()->getAssetUrl() . "icons/bookmark.png";
-        //$breadcrumb = new \Widgets\Breadcrumb();
-        //$breadcrumb->setData(array(array("name"=>"<img src=\"{$bookmarkIcon}\"> Lesezeichenordner")));
+        $loader = new \Widgets\Loader();
+        $loader->setWrapperId("bookmarksWrapper");
+        $loader->setMessage("Lade Lesezeichen...");
+        $loader->setNamespace("Bookmarks");
+        $loader->setParams(array("id" => $this->id));
+        $loader->setElementId("bookmarksWrapper");
+        $loader->setType("updater");
 
         //$actionBar = new \Widgets\ActionBar();
         //$actionBar->setActions(array(array("name" => "Ordner anlegen", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup")))));
         //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
 
-        $loader = new \Widgets\Loader();
-        $loader->setWrapperId("bookmarksWrapper");
-        $loader->setMessage("Lade Lesezeichen ...");
-        $loader->setCommand("loadBookmarks");
-        $loader->setParams(array("id" => $this->id));
-        $loader->setElementId("bookmarksWrapper");
-        $loader->setType("updater");
+        //check the explorer view attribute which is specified in the profile
+        $viewAttribute = $currentUser->get_attribute("EXPLORER_VIEW");
+        if($viewAttribute && $viewAttribute == "gallery"){
+          $loader->setCommand("LoadGalleryContent");
+          $selectAll = new \Widgets\RawHtml();
+          $selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:22px;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
+          $frameResponseObject->addWidget($selectAll);
+          $script = "function initSort(){";
+          foreach ($objects as $o) {
+              if ($o instanceof \steam_link && $o->get_link_object() == 0) $o->delete(); //remove bookmarks whose target objects has been deleted
+              if (getObjectType($o) !== "trashbin") {
+                  $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
+                  $('#" . $o->get_id() . "').attr('onmouseover', '');
+                  $('#" . $o->get_id() . "').attr('onmouseout', '');
+                  $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
+              }
+          }
+          $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_gallery.svg";
+          $script .= '
+              $("#sort-icon").attr("name", "true");
+              $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
+              var newIds = "";
+              $("#bookmarksGallery").sortable();
+              $("#bookmarksGallery").disableSelection();
+              $("#bookmarksGallery").bind("sortupdate", function(event, ui){
+                  var changedElement = $(ui.item).attr("id");
+                  $("#bookmarksGallery").children().each(function(index, value){
+                      if(index == $("#bookmarksGallery").children().length-1) newIds += value.id;
+                      else newIds += value.id + ", ";
+                    });
+                  sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
+                  newIds = "";
+              });
+              $("#content").prepend("<div style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(' . $assetUrl . ');\"></div>");
 
+          }';
+        }
+        else{
+          $loader->setCommand("LoadBookmarks");
+          $script = "function initSort(){";
+          foreach ($objects as $o) {
+              if ($o instanceof \steam_link && $o->get_link_object() == 0) $o->delete(); //remove bookmarks whose target objects has been deleted
+              if (getObjectType($o) !== "trashbin") {
+                  $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
+                  $('#" . $o->get_id() . "').attr('onmouseover', '');
+                  $('#" . $o->get_id() . "').attr('onmouseout', '');
+                  $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
+              }
+          }
+          $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_explorer.svg";
+          $script .= '
+              $("#sort-icon").attr("name", "true");
+              $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
+              var newIds = "";
+              $( ".listviewer-items" ).sortable({zIndex: 1});
+              $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
+                  var changedElement = $(ui.item).attr("id");
+                  $(".listviewer-items").children();
+                  $(".listviewer-items").children().each(function(index, value){
+                      if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
+                      else newIds+=value.id + ", ";});
+                      sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
+                      newIds = "";
+              });
+              $("#content").prepend("<div style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(' . $assetUrl . ');\"></div>");
+
+      }';
+        }
 
         $environmentData = new \Widgets\RawHtml();
         $environmentData->setHtml("<input type=\"hidden\" id=\"environment\" value=\"$this->id\">");
-
-        $script = "function initSort(){";
-        foreach ($objects as $o) {
-            if ($o instanceof \steam_link && $o->get_link_object() == 0) $o->delete(); //remove bookmarks whose target objects has been deleted 
-            if (getObjectType($o) !== "trashbin") {
-                $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
-                $('#" . $o->get_id() . "').attr('onmouseover', '');
-                $('#" . $o->get_id() . "').attr('onmouseout', '');
-                $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
-            }
-        }
-        $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_horizontal.png";
-        $script .= '
-            $("#sort-icon").attr("name", "true");
-            $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#CCCCCC");});
-            var newIds = "";
-            $( ".listviewer-items" ).sortable({zIndex: 1});
-            $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
-                var changedElement = $(ui.item).attr("id");
-                $(".listviewer-items").children();
-                $(".listviewer-items").children().each(function(index, value){
-                    if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
-                    else newIds+=value.id + ", ";});
-                    sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
-                    newIds = "";
-            });
-            $("#content").prepend("<div style=\"margin-left:380px;position:absolute;height:35px;width:180px;background-image:url(' . $assetUrl . ');\"></div>");
-
-    }';
         $environmentData->setJs($script);
 
         $frameResponseObject->setTitle("Lesezeichen");

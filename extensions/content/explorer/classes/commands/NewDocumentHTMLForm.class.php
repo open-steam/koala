@@ -65,7 +65,7 @@ class NewDocumentHTMLForm extends \AbstractCommand implements \IFrameCommand, \I
 <input type="hidden" name="id" value="{$this->id}">
 <div class="attribute">
 	<div class="attributeName">Name:</div>
-	<div class="attributeValue"><input id="nameInput" type="text" class="text" value="" name="name"></div>
+	<div class="attributeValue"><input id="nameInput" type="text" class="text" value="" name="name" onkeyup="checkInput(this)"></div>
 </div>
 <br>
 END

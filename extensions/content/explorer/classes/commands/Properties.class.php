@@ -27,7 +27,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         $isWriteable = $object->check_access_write();
 
-
         $type = getObjectType($object);
 
         switch ($type) {
@@ -107,8 +106,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                 break;
 
             case "docextern":
-                $labelName = "Internet-Link-Name";
-                $typeName = "Internet-Referenz";
+                $labelName = "Name";
+                $typeName = "Weblink";
                 break;
 
             case "unknown":
@@ -136,7 +135,9 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $isJpeg = strpos($docType, "jpeg") !== false;
             $isGif = strpos($docType, "gif") !== false;
             $isPng = strpos($docType, "png") !== false;
-            if ($isGif || $isJpeg || $isJpg || $isPng) {
+            $isSvg = strpos($docType, "svg") !== false;
+            $isBmp = strpos($docType, "bmp") !== false;
+            if ($isGif || $isJpeg || $isJpg || $isPng || $isSvg || $isBmp) {
                 $documentIsPicture = true;
             }
         }
@@ -207,6 +208,10 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $creatorName = getCleanName($creator);
         $ownerField->setValue($creatorName);
 
+        $idField = new \Widgets\TextField();
+        $idField->setLabel("ID");
+        $idField->setValue($this->id);
+
         $embedField = new \Widgets\TextField();
         $embedField->setLabel("Einbettungs-Link");
         $embedLink2 = PATH_SERVER . "/download/document/" . $object->get_id();
@@ -225,7 +230,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $createdField->setValue($createDate . " Uhr");
 
         $containerViewRadio = new \Widgets\RadioButton();
-        $containerViewRadio->setLabel("Erstes Dokument");
+        $containerViewRadio->setLabel("Darstellung");
         $containerViewRadio->setData($object);
         $containerViewRadio->setDefaultChecked("normal");
         $containerViewRadio->setContentProvider(\Widgets\DataProvider::attributeProvider("bid:presentation"));
@@ -351,8 +356,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkboxShowTags->setContentProvider(\Widgets\DataProvider::attributeProvider("SHOW_TAGS"));
         */
 
-        $seperator = new \Widgets\RawHtml();
-        $seperator->setHtml("<br style=\"clear:both\"/>");
+        $separator = new \Widgets\RawHtml();
+        $separator->setHtml("<br style=\"clear:both\"/>");
         $headlineAlg = new \Widgets\RawHtml();
         $headlineAlg->setHtml("<h3>Allgemein</h3>");
         $headlineMeta = new \Widgets\RawHtml();
@@ -383,22 +388,28 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         //embed link
         if ($documentIsPicture || $documentIsMedia) {
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($embedField);
         }
 
-        $dialog->addWidget($seperator);
+        $dialog->addWidget($separator);
         $dialog->addWidget($ownerField);
-        $dialog->addWidget($seperator);
+        $dialog->addWidget($separator);
+
+        if ($type == "userHome" || $type == "room") {
+          $dialog->addWidget($idField);
+          $dialog->addWidget($separator);
+        }
+
         $dialog->addWidget($changedField);
-        $dialog->addWidget($seperator);
+        $dialog->addWidget($separator);
         $dialog->addWidget($createdField);
-        $dialog->addWidget($seperator);
+        $dialog->addWidget($separator);
         $dialog->addWidget($checkboxHiddenObject);
 
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
             //check if the attribute exists, if not: set it to false
-            if($object->get_attribute("SHOW_TAGS") == 0 && $isWriteable){
+            if($object->get_attribute("SHOW_TAGS") === false && $isWriteable){
                 $object->set_attribute("SHOW_TAGS", 'false');
             }
 
@@ -410,12 +421,12 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         }
 
         if ($type != "portal" && $type != "docextern") {
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
         }
 
         if ($type == "container" || $type == "room") {
             $dialog->addWidget($textAreaDescription);
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
 
             //case head document possible
             $inventory = array();
@@ -425,18 +436,18 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                   $mime = $inventory[0]->get_attribute("DOC_MIME_TYPE");
 
                   if (strpos($mime, "html") !== false) {
-                      $dialog->addWidget($headlineView);
-                      $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index"), array("name" => "Kopfdokument (über der Ordneransicht)", "value" => "head")));
+                      //$dialog->addWidget($headlineView);
+                      $containerViewRadio->setOptions(array(array("name" => "normal (Liste/Galerie)", "value" => "normal"), array("name" => "1. Dokument als Deckblatt", "value" => "index"), array("name" => "1. Dokument über dem Ordnerinhalt", "value" => "head")));
                       $dialog->addWidget($containerViewRadio);
                   } else if (getObjectType($inventory[0]) === "portal") {
-                      $dialog->addWidget($headlineView);
-                      $containerViewRadio->setOptions(array(array("name" => "Normal (Ordneransicht)", "value" => "normal"), array("name" => "Deckblatt (statt der Ordneransicht)", "value" => "index")));
+                      //$dialog->addWidget($headlineView);
+                      $containerViewRadio->setOptions(array(array("name" => "normal (Liste/Galerie)", "value" => "normal"), array("name" => "1. Dokument als Deckblatt", "value" => "index")));
                       $dialog->addWidget($containerViewRadio);
                   }
               }
             }
 
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
         } else if ($type == "document") {
             if (true) { //former documentIsPicture
                 $dialog->addWidget($textAreaDescription);
@@ -447,24 +458,24 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $currentUserId = $currentUser->get_id();
             if ($currentUserId == $creatorId) {
                 $dialog->addWidget($checkboxInput);
-                $dialog->addWidget($seperator);
+                $dialog->addWidget($separator);
             }
             $dialog->addWidget($textAreaDescription);
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
         }
 
         //www-link
         if ($type == "docextern") {
             $urlInput = new \Widgets\TextInput();
-            $urlInput->setLabel("URL");
+            $urlInput->setLabel("Weblink");
             $urlInput->setData($object);
             $urlInput->setContentProvider(\Widgets\DataProvider::attributeProvider("DOC_EXTERN_URL"));
             if(!$isWriteable){
                 $urlInput->setReadOnly(true);
             }
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($urlInput);
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
             $dialog->setSaveAndCloseButtonForceReload(true);
         }
@@ -479,27 +490,49 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             if(!$isWriteable){
                 $statusbarCheckbox->setReadOnly(true);
             }
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($statusbarCheckbox);
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
         }
 
         //wiki
-        if (($type == "wiki") && ($typeName != "unbekannt")){
-            $dialog->addWidget($seperator);
+        if ($type == "wiki"){
+
+          $wiki_entries = $object->get_inventory(CLASS_DOCUMENT);
+          $wiki_entries_sorted = array();
+          foreach ($wiki_entries as $wiki_entry) {
+              if ($wiki_entry->get_attribute(DOC_MIME_TYPE) === "text/wiki")
+                  $wiki_entries_sorted[] = str_replace(".wiki", "", $wiki_entry->get_name());
+          }
+          sort($wiki_entries_sorted);
+          $array[] = array("name"=>"Glossar", "value"=>"glossary");
+          foreach ($wiki_entries_sorted as $wiki_entry) {
+              $array[] = array("name"=>$wiki_entry, "value"=>$wiki_entry);
+          }
+
+          $comboBox = new \Widgets\ComboBox();
+          $comboBox->setLabel("Startseite");
+          $comboBox->setOptions($array);
+      		$comboBox->setData($object);
+      		$comboBox->setContentProvider(\Widgets\DataProvider::attributeProvider("WIKI_STARTPAGE"));
+          $dialog->addWidget($comboBox);
+
+          if($typeName != "unbekannt"){
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
+          }
         }
 
         //gallery
         if ($type == "gallery"){
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
         }
 
         //all other objects
         if ($typeName == "unbekannt"){
-            $dialog->addWidget($seperator);
+            $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
         }
 
