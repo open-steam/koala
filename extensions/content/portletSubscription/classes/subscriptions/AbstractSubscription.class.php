@@ -33,7 +33,7 @@ abstract class AbstractSubscription {
     protected function getElementHtml($id, $divid, $private, $timestamp, $text, $linktext, $link, $additionalHTML = "") {
 
         //for deleted item it is not possible to give a exact date.
-        if(date("Y", $timestamp)){
+        if(is_numeric($timestamp) && date("Y", $timestamp)){
             //try to build a date out of the timestamp, then build the correct formatted date
             $dateString = date("d.m.Y H:i:s", $timestamp) . " Uhr";
         } else {
