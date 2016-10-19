@@ -206,7 +206,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             }
         } elseif ($cell == $this->rawDesc) {
           return $contentItem->get_attribute("OBJ_DESC");
-        } elseif ($cell == $this->rawMarker) {
+        /*} elseif ($cell == $this->rawMarker) {
             //  return ""; //disabled
             //if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
                 $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
@@ -251,7 +251,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             }
             $html .= "</div>";
 
-            return $html;
+            return $html;*/
         } elseif ($cell == $this->rawChangeDate) {
             return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
         } elseif ($cell == $this->rawSize) {
