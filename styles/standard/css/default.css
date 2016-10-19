@@ -330,9 +330,7 @@
 		border-bottom-right-radius: 3px;
 	}
 
-	#menu li:hover ul{
-		display:block;
-	}
+	
 
 	#menu li li {
 		display:block;
