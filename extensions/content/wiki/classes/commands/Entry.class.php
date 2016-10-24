@@ -126,8 +126,8 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable( "VALUE_ENTRY_TEXT", wiki_to_html_plain( $wiki_doc, $version_doc ) );
 
 		if ($wiki_doc->check_access_write($user) || WIKI_SHOW_AUTHOR_TO_READER) {
-			$pic_link = ( $attributes[ "DOC_USER_MODIFIED" ]->get_attribute("OBJ_ICON")->get_id() == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $attributes[ "DOC_USER_MODIFIED" ]->get_attribute("OBJ_ICON")->get_id() . "/60/70";
-			$content->setVariable( "IMAGE_SRC", $pic_link);
+			//$pic_link = ( $attributes[ "DOC_USER_MODIFIED" ]->get_attribute("OBJ_ICON")->get_id() == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $attributes[ "DOC_USER_MODIFIED" ]->get_attribute("OBJ_ICON")->get_id() . "/60/70";
+			//$content->setVariable( "IMAGE_SRC", $pic_link);
 			$content->setVariable( "AUTHOR_LINK", PATH_URL . "profile/index/" . $attributes[ "DOC_USER_MODIFIED" ]->get_name() . "/" );
 			$content->setVariable( "VALUE_POSTED_BY", h($last_author[ "USER_FIRSTNAME" ]) . " " . h($last_author[ "USER_FULLNAME" ]) );
 			$content->setVariable( "LABEL_BY", gettext("created by"));
@@ -137,33 +137,55 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 
 		if ( $wiki_doc->check_access_write($user) ){
 			$content->setCurrentBlock( "BLOCK_ACCESS" );
-			$content->setVariable( "POST_LABEL_DELETE", gettext( "delete" ) );
-			$content->setVariable( "POST_LABEL_EDIT", gettext( "edit" ) );
+			//$content->setVariable( "POST_LABEL_DELETE", gettext( "delete" ) );
+			//$content->setVariable( "POST_LABEL_EDIT", gettext( "edit" ) );
 			$content->parse( "BLOCK_ACCESS" );
 
 			$versions = $wiki_doc->get_previous_versions();
 			$no_versions = ( is_array( $versions ) ) ? count( $versions ) : 0;
-			$content->setVariable("VERSION_MANAGEMENT", "Versionsverwaltung" );
+			//$content->setVariable("VERSION_MANAGEMENT", "Versionsverwaltung" );
+			$params = array();
 
 			if($is_prev_version){
-				$content->setVariable("LINK_RECOVER_ENTRY", "<li><a href=\"" . PATH_URL . "wiki/recover/" . $wiki_doc->get_id() . "/" . $version_doc->get_id() . "\">&raquo; Diese Version wiederherstellen</a></li>");
+				//$content->setVariable("LINK_RECOVER_ENTRY", "<li><a href=\"" . PATH_URL . "wiki/recover/" . $wiki_doc->get_id() . "/" . $version_doc->get_id() . "\">&raquo; Diese Version wiederherstellen</a></li>");
+				array_push($params, array("key" => "versionDocId", "value" => $version_doc->get_id()));
+				if ($no_versions > 0){
+					if($no_versions == 1){
+						$content->setVariable("NUMBER_VERSIONS", " (" . $no_versions . " " . gettext( "weitere Version verfügbar)" ));
+					}
+					else{
+						$content->setVariable("NUMBER_VERSIONS", " (" . $no_versions . " " . gettext( "weitere Versionen verfügbar)" ));
+					}
+					//$content->setVariable("LINK_VERSION_MANAGEMENT", "<li><a href=\"" . PATH_URL . "wiki/versions/" . $wiki_doc->get_id() . "\">&raquo; " . gettext("enter version management") . "</a></li>");
+				}
+				else {
+					$content->setVariable("NUMBER_VERSIONS", " (Keine Vorgängerversionen verfügbar)");
+				}
+			}
+			else{
+				$content->setVariable("NUMBER_VERSIONS", " (aktuellste Version)");
 			}
 
 			if ($wiki_container->check_access_move($user)) {
-				$content->setVariable("LINK_DELETE_ENTRY", "<li><a href=\"" . PATH_URL . "wiki/delete/" . $wiki_container->get_id() . "/" . $wiki_doc->get_id() . "\">&raquo; Eintrag löschen</a></li>");
+				//$content->setVariable("LINK_DELETE_ENTRY", "<li><a href=\"" . PATH_URL . "wiki/delete/" . $wiki_container->get_id() . "/" . $wiki_doc->get_id() . "\">&raquo; Eintrag löschen</a></li>");
 			}
 
-			if ( $no_versions > 0 ){
-				$content->setVariable("NUMBER_VERSIONS", "<li>" . $no_versions . " " . gettext( "Vorgängerversion(en) verfügbar" ) . "</li>" );
-				$content->setVariable("LINK_VERSION_MANAGEMENT", "<li><a href=\"" . PATH_URL . "wiki/versions/" . $wiki_doc->get_id() . "\">&raquo; " . gettext("enter version management") . "</a></li>");
-			}
-			else {
-				$content->setVariable("NUMBER_VERSIONS", "<li>" . "Keine Vorgängerversionen verfügbar" . "</li>" );
-			}
+			array_push($params, array("key" => "isPrevVersion", "value" => $is_prev_version));
+			array_push($params, array("key" => "wikiDocId", "value" => $wiki_doc->get_id()));
+			array_push($params, array("key" => "numberOfVersions", "value" => $no_versions));
+
+			$popupMenu = new \Widgets\PopupMenu();
+			$popupMenu->setCommand("GetPopupMenuEntry");
+			$popupMenu->setNamespace("Wiki");
+			$popupMenu->setData($wiki_container);
+			$popupMenu->setElementId("wiki-overlay");
+			$popupMenu->setParams($params);
+			$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
+
 		}
 
-		$content->setVariable("LINKS", gettext( "Wiki Links" ) );
-		$links = $wiki_doc->get_attribute( "OBJ_WIKILINKS_CURRENT" );
+		$content->setVariable("LINKS", gettext("Wiki Links"));
+		$links = $wiki_doc->get_attribute("OBJ_WIKILINKS_CURRENT");
 
 		$found_doc = false;
 		if (is_array($links)) {
@@ -176,17 +198,17 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 		}
 
 		if (!$found_doc){
-			$content->setCurrentBlock( "BLOCK_LINKS" );
-			$content->setVariable( "LINK", "keine Links vorhanden");
-			$content->parse( "BLOCK_LINKS" );
+			$content->setCurrentBlock("BLOCK_LINKS");
+			$content->setVariable("LINK", "keine Links vorhanden");
+			$content->parse("BLOCK_LINKS");
 		}
 		else {
-			foreach( $links as $doc ){
-				if ( $doc instanceof \steam_document ){
-					$name = str_replace( ".wiki", "", h( $doc->get_name() ) );
+			foreach($links as $doc){
+				if($doc instanceof \steam_document){
+					$name = str_replace(".wiki", "", h($doc->get_name()));
 					$link = PATH_URL . "wiki/entry/" . $doc->get_id() . "/";
-					$content->setVariable( "LINK", '<li>&raquo; <a href="' . $link . '">' . $name . '</a></li>' );
-					$content->parse( "BLOCK_LINKS" );
+					$content->setVariable("LINK", '<a href="' . $link . '">' . $name . '</a><br>');
+					$content->parse("BLOCK_LINKS");
 				}
 			}
 		}
@@ -207,11 +229,13 @@ class Entry extends \AbstractCommand implements \IFrameCommand {
 		} else {
 			$headline[] = array( "link" => PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/", "name" => str_replace( ".wiki", "", h($wiki_doc->get_name()) ) );
 			$headline[] = array( "link" => PATH_URL . "wiki/versions/" . $wiki_doc->get_id(), "name" => gettext("Version management"));
-			$headline[] = array( "link" => "", "name" => "Version" . " " . $version_doc->get_version() . " (" . gettext("Preview") . ")");
+			$headline[] = array( "link" => "", "name" => "Version" . " " . $version_doc->get_version());
 		}
 
 		$rawHtml = new \Widgets\RawHtml();
 		$rawHtml->setHtml($wiki_html_handler->get_html());
+		$PopupMenuStyle = \Widgets::getInstance()->readCSS("PopupMenu.css");
+		$rawHtml->setCss($PopupMenuStyle . ".popupmenuanker {display:block;}");
 		$frameResponseObject->addWidget($rawHtml);
 		$frameResponseObject->setHeadline($headline);
 		return $frameResponseObject;

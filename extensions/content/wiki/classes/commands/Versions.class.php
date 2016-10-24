@@ -99,6 +99,7 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 			$doc = $prev_versions[$i];
 			$attributes = $attributes_result[$attributes_tnr[$doc->get_id()]];
 			$last_author  = $author_result[$author_tnr[$doc->get_id()]];
+			$params = array();
 			$content->setCurrentBlock( "BLOCK_VERSION" );
 
 			if ($i % 2 == 1) {
@@ -125,8 +126,10 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 			    $content->setVariable( "VALUE_VERSION_NUMBER", "Version " . h($attributes_result[$attributes_tnr[$doc->get_id()]][DOC_VERSION]) . " (" . gettext("current") . ")" );
 			  }
 
-				if( isset( $_GET["markedfordiff"] ) && $_GET["markedfordiff"] == $doc->get_id()){
+				if(isset($_GET["markedfordiff"]) && $_GET["markedfordiff"] == $doc->get_id()){
 					$content->setVariable( "VALUE_ACTION_MARK", "&raquo; " . gettext("Currently marked for version compare"));
+					array_push($params, array("key" => "markedForDiff", "value" => $_GET["markedfordiff"]));
+					$content->setVariable("CLASS", "class='orange'");
 				}
 				else{
 					$content->setVariable( "VALUE_ACTION_MARK", "<a href=\"" . PATH_URL . "wiki/versions/" . $wiki_doc->get_id() . "/?markedfordiff=" . $doc->get_id() . "\">" . "&raquo; " . gettext("Mark for version compare") . "</a>");
@@ -134,38 +137,14 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 				if($attributes[DOC_VERSION] != 1){
 					$content->setVariable( "VALUE_ACTION_DIFF", "&raquo; " . gettext("Compare to previous version") . " " . ($attributes[ DOC_VERSION ] - 1) );
 					$content->setVariable( "VALUE_DIFF_LINK", PATH_URL . "wiki/compare/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/" . $prev_versions[$i+1]->get_id());
+					array_push($params, array("key" => "prevVersionId", "value" => $prev_versions[$i+1]->get_id()));
 				}
-				if(isset($_GET["markedfordiff"]) &&  $_GET["markedfordiff"] != $doc->get_id()){
+				if(isset($_GET["markedfordiff"]) && $_GET["markedfordiff"] != $doc->get_id()){
 					$marked = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $_GET["markedfordiff"] );
 					$content->setVariable( "VALUE_ACTION_MARKED_DIFF", "<a href=\"" . PATH_URL . "wiki/compare/" . $wiki_doc->get_id() . "/" . $doc->get_id() . "/" . $_GET["markedfordiff"] . "\">" . "&raquo; " . gettext("Compare to marked version") . " " . $marked->get_version() . "</a>");
-				}
-/*
-				$markedfordiff = "";
-				if(isset($_GET["markedfordiff"]) && $_GET["markedfordiff"]){
-					$markedfordiff = $_GET["markedfordiff"];
+					array_push($params, array("key" => "markedForDiff", "value" => $_GET["markedfordiff"]));
 				}
 
-				$prevVersionId = "";
-				if($attributes[DOC_VERSION] != 1){
-					$prevVersionId = $prev_versions[$i+1]->get_id();
-				}
-
-				$params = array(
-					array("key" => "docId", "value" => $doc->get_id()),
-					array("key" => "wikiDocId", "value" => $wiki_doc->get_id()),
-					array("key" => "markedfordiff", "value" => $markedfordiff),
-					array("key" => "docVersion", "value" => $attributes[DOC_VERSION]),
-					array("key" => "prevVersionId", "value" => $prevVersionId)
-				);
-
-				$popupMenu = new \Widgets\PopupMenu();
-				$popupMenu->setCommand("GetPopupMenuVersion");
-				$popupMenu->setNamespace("Wiki");
-				$popupMenu->setData($wiki_doc);
-				$popupMenu->setElementId("wiki-overlay");
-				$popupMenu->setParams($params);
-				$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
-*/
 			}
 
 			//is user authorized to delete version?
@@ -182,6 +161,18 @@ class Versions extends \AbstractCommand implements \IFrameCommand {
 			if($wiki_container->check_access_write() && $notCurrentVersion){
 				$content->setVariable( "VALUE_ACTION_DELETE", "<a href=\"" . PATH_URL . "wiki/delete/version/" . $doc->get_id() . "\" onclick=\"return confirmDeletion();\">" . "&raquo; " . "Diese Version löschen" . "</a><br \/>" );
 			}
+
+			array_push($params, array("key" => "docId", "value" => $doc->get_id()));
+			array_push($params, array("key" => "wikiDocId", "value" => $wiki_doc->get_id()));
+			array_push($params, array("key" => "docVersion", "value" => $attributes[DOC_VERSION]));
+
+			$popupMenu = new \Widgets\PopupMenu();
+			$popupMenu->setCommand("GetPopupMenuVersion");
+			$popupMenu->setNamespace("Wiki");
+			$popupMenu->setData($wiki_doc);
+			$popupMenu->setElementId("wiki-overlay");
+			$popupMenu->setParams($params);
+			$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
 
 			$content->parse( "BLOCK_VERSION" );
 		}

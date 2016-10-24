@@ -99,7 +99,7 @@ function hideBox(){
 }
 
 </style>
-
+<!--
 <div id="container">
 	<div id="greyBox"></div>
 	<div id="imageBox">
@@ -116,20 +116,25 @@ function hideBox(){
 <p>
   <table width="100%">
     <tr valign="top">
-      <td width="70">
+      <td width="70"> -->
       	<!-- BEGIN BLOCK_AUTHOR_IMG -->
-        <a href="{AUTHOR_LINK}"><img src="{IMAGE_SRC}"></a>
+        <!-- <a href="{AUTHOR_LINK}"><img src="{IMAGE_SRC}"></a>-->
         <!-- END BLOCK_AUTHOR_IMG -->
+        <!--
       </td>
       <td>
+      -->
       	<!-- BEGIN BLOCK_AUTHOR_VERSION -->
+        <!--
       	<b>Version {VALUE_VERSION}</b> {LABEL_BY}<br />
         <a href="{AUTHOR_LINK}">{VALUE_POSTED_BY}</a> | {VALUE_DATE_TIME} <br/>
-        <small><a href="{POST_PERMALINK}">{POST_PERMALINK_LABEL}</a></small>
+        <small><a href="{POST_PERMALINK}">{POST_PERMALINK_LABEL}</a></small>-->
         <!-- END BLOCK_AUTHOR_VERSION -->
+        <!--
       </td>
-	  <td class="sidebar" width="220">
+	  <td class="sidebar" width="220">-->
 	  	<!-- BEGIN BLOCK_VERSIONS -->
+        <!--
 	  	<h3>{VERSION_MANAGEMENT}</h3>
 		  <ul>
 		  {NUMBER_VERSIONS}
@@ -137,15 +142,39 @@ function hideBox(){
         {LINK_RECOVER_ENTRY}
         {LINK_DELETE_ENTRY}
 	   	  </ul>
-	   	<br />
+	   	<br />-->
 	   	<!-- END BLOCK_VERSIONS -->
-	   	<h3>{LINKS}</h3>
-	   	<ul>
-		  <!-- BEGIN BLOCK_LINKS -->
-		  {LINK}
-		  <!-- END BLOCK_LINKS -->
+	   	<!--<h3>{LINKS}</h3>
+	   	<ul>-->
+		  <!-- BEGIN BLOCK_LINKS_OLD -->
+		  <!--{LINK}-->
+		  <!-- END BLOCK_LINKS_OLD -->
+      <!--
 		</ul>
       </td>
     </tr>
   </table>
+  -->
+  <hr>
+  <table class="grid" width="100%" cellspacing="1" cellpadding="5">
+  <tr>
+  	<th class="versionTableHeadline">Version</th>
+  	<th class="versionTableHeadline">erstellt am</th>
+  	<th class="versionTableHeadline">erstellt durch</th>
+  	<th class="versionTableHeadline">Wiki Links</th>
+  	<th class="versionTableHeadline" style="text-align:right;">Aktionen</th>
+  </tr>
+  <tr>
+  	<td><b>{VALUE_VERSION}</b>{NUMBER_VERSIONS}</td>
+  	<td>{VALUE_DATE_TIME}</td>
+  	<td><a href="{AUTHOR_LINK}">{VALUE_POSTED_BY}</a></td>
+  	<td>
+      <!-- BEGIN BLOCK_LINKS -->
+      {LINK}
+      <!-- END BLOCK_LINKS -->
+    </td>
+  	<td align="left">{POPUPMENUANKER}</td>
+  </tr>
+  </table>
 </p>
+<div id="wiki-overlay"></div>

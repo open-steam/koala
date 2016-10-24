@@ -38,7 +38,7 @@ class Recover extends \AbstractCommand implements \IFrameCommand {
 				return $frameResponseObject;
 		}
 
-		if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" ){
+		//if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" ){
 			$problems = "";
 
 			try{
@@ -49,16 +49,15 @@ class Recover extends \AbstractCommand implements \IFrameCommand {
 				$problems = $ex->get_message();
 			}
 
-			if( empty($problems) ){
+			if(empty($problems)){
 				$_SESSION[ "confirmation" ] = str_replace( "%VERSION", $version_doc->get_version(), gettext( "Version %VERSION recovered." ) );
-					header( "Location: " . PATH_URL . "wiki/entry/" . $wiki_doc->get_id() . "/" );
-			   		die;
-
+				header( "Location: " . PATH_URL . "wiki/versions/" . $wiki_doc->get_id() . "/" );
+			  die;
 			}
 			else{
 				$portal->set_problem_description( $problems, $hints );
 			}
-		}
+		//}
 
 		$WikiExtension = \Wiki::getInstance();
 		$content = $WikiExtension->loadTemplate("wiki_recover_version.template.html" );
