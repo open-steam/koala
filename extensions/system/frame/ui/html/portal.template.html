@@ -123,17 +123,27 @@
                 }
             }
 
-            var alreadyClicked=false;
-
+            //var alreadyClicked = false;
             function menu_clicked(element) {
-                if (alreadyClicked) return;
+               // if (alreadyClicked)
+                    //return;
 
-                var links=element.getElementsByTagName('a');
-
-                if (links.length==0) return;
-
-                alreadyClicked=true;
-                location.href=links[0].href;
+                //var links = element.getElementsByTagName('a');
+                /*for(i=0; i > document.querySelector("#menu ul").length; i++){
+                    document.querySelector("#menu ul")[i].style.display = "none";
+                }
+                console.log(document.querySelector("#menu ul"));*/
+        
+                var submenu = element.getElementsByTagName('ul');
+                if(submenu[0] && submenu[0].style.display == "block"){
+                    submenu[0].style.display = "none";
+                } else if (submenu[0] && (submenu[0].style.display == "none" || submenu[0].style.display == "")){
+                    submenu[0].style.display = "block";
+                }
+                //if (links.length == 0)
+                //    return;
+                //alreadyClicked = true;
+                //location.href=links[0].href;
             }
 
             function unsavedContent() {

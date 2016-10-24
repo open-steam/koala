@@ -583,7 +583,7 @@ return $rand_value;
                         require_once( PATH_LIB . "determine_school.php" );
             if (YOU_MENU) {
                     $koala_html_menu->add_menu_entry(
-                      array( "name" => ((MENU_YOU) ? gettext( "You" ): $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")), "link" => PATH_URL . "desktop/", "menu" => array(
+                      array( "name" => ((MENU_YOU) ? gettext( "You" ): $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")), "menu" => array(
                     //YOU SUBMENU
                     (YOUR_DESKTOP) ? array( "name" => "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/portal.svg#portal'/></svg> " . ((MENU_YOU) ? gettext( "Your desktop" ) : "Schreibtisch"), "link" => PATH_URL . "desktop/" ) : "",
                     (YOUR_PORTFOLIO) ? array( "name" => ((MENU_YOU) ? "Mein Portfolio" : "Portfolio"), "link" => PATH_URL . "portfolio/") : "",
