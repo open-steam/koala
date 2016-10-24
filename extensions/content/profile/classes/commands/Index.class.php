@@ -35,10 +35,17 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         } else {
             $user = $current_user;
         }
-        $this->profileUser = $user;
-        $login = $user->get_name();
-        $frameResponseObject->setTitle($login);
-        $frameResponseObject = $this->execute($frameResponseObject);
+
+        if($user == 0){
+          $rawHtml = new \Widgets\RawHtml();
+          $rawHtml->setHtml("Der Nutzer kann leider nicht angezeigt werden. Bitte achten Sie auf die korrekte Schreibweise des Nutzernamens. Sollten weiterhin Probleme auftreten ist der angeforderte Nutzer eventuell nicht mehr vorhanden.");
+        }
+        else{
+          $this->profileUser = $user;
+          $login = $user->get_name();
+          $frameResponseObject->setTitle($login);
+          $frameResponseObject = $this->execute($frameResponseObject);
+        }
         return $frameResponseObject;
     }
 
