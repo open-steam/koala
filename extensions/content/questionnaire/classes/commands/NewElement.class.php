@@ -38,27 +38,27 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->setPositionY($this->params["mouseY"]);
 
         $questionTypes = array(
-          "ShortTextQuestion" => "Kurzer Text",
-          "LongTextQuestion" => "Langer Text",
-          "SingleChoiceQuestion" => "Single Choice",
-          "MultipleChoiceQuestion" => "Multiple Choice",
-          "MatrixQuestion" => "Matrix",
-          "GradingQuestion" => "Benotung",
-          "TendencyQuestion" => "Tendenz"
+          array("ShortTextQuestion", "Kurzer Text"),
+          array("LongTextQuestion", "Langer Text"),
+          array("SingleChoiceQuestion", "Single Choice"),
+          array("MultipleChoiceQuestion", "Multiple Choice"),
+          array("MatrixQuestion", "Matrix"),
+          array("GradingQuestion", "Benotung"),
+          array("TendencyQuestion", "Tendenz")
         );
 
         $layoutTypes = array(
-          "Description" => "Beschreibung",
-          "Headline" => "Überschrift",
-          "PageBreak" => "Seitenumbruch",
-          "JumpLabel" => "Sprungmarke"
+          array("Description", "Beschreibung"),
+          array("Headline", "Überschrift"),
+          array("PageBreak", "Seitenumbruch"),
+          array("JumpLabel", "Sprungmarke")
         );
 
-        $html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px; margin-top: 20px;\">";
-        $html .= "<h3>Antwort-Typen</h3>";
+        //$html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px; margin-top: 20px;\">";
+        $html = "<h3>Antwort-Typen</h3>";
         foreach ($questionTypes as $key => $value){
           $html .= "<div style=\"clear:both;\" class=\"questionnaireNewElement\">";
-          $html .= "<a href=\"\" onclick=\"sendRequest('NewElementForm', {'id':{$this->id}, 'key':'{$key}', 'value':'{$value}'}, 'wizard', 'wizard', null, null, 'questionnaire');return false;\" title=\"{$value}\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . PATH_URL . "questionnaire/asset/icons/" . $key . ".svg#" . $key . "'/></svg><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">" . $value . "</p></a>";
+          $html .= "<a href=\"\" onclick=\"showCreateDialog(" . $key . ");closeDialog();window.scrollTo(0,document.body.scrollHeight);return false;\" title=\"{$value[1]}\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . PATH_URL . "questionnaire/asset/icons/" . $value[0] . ".svg#" . $value[0] . "'/></svg><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">" . $value[1] . "</p></a>";
           $helpurl = " ";
 			    if($helpurl != "") $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><svg style='float:right; width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/help.svg#help' /></svg></a>";
           $html .= "</div>";
@@ -66,7 +66,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $html .= "<h3 style='margin-top:30px;'>Layout</h3>";
         foreach ($layoutTypes as $key => $value){
           $html .= "<div style=\"clear:both;\" class=\"questionnaireNewElement\">";
-          $html .= "<a href=\"\" onclick=\"sendRequest('NewElementForm', {'id':{$this->id}, 'key':'{$key}', 'value':'{$value}'}, 'wizard', 'wizard', null, null, 'questionnaire');return false;\" title=\"{$value}\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . PATH_URL . "questionnaire/asset/icons/" . $key . ".svg#" . $key . "'/></svg><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">" . $value . "</p></a>";
+          $html .= "<a href=\"\" onclick=\"showLayoutDialog(" . ($key+7) . ");closeDialog();window.scrollTo(0,document.body.scrollHeight);return false;\" title=\"{$value[1]}\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . PATH_URL . "questionnaire/asset/icons/" . $value[0] . ".svg#" . $value[0] . "'/></svg><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">" . $value[1] . "</p></a>";
           $helpurl = " ";
           if($helpurl != "") $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><svg style='float:right; width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/help.svg#help' /></svg></a>";
           $html .= "</div>";

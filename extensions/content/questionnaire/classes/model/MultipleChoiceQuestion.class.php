@@ -78,23 +78,26 @@ class MultipleChoiceQuestion extends AbstractQuestion {
 
         $content->setVariable("HELP_TEXT", $this->helpText);
         $options = "";
-        $counter = 0;
+        if($this->arrangement == "horizontal"){
+          $content->setCurrentBlock("BLOCK_ROW_VIEW");
+        }
         foreach ($this->options as $option) {
-            if ((($counter) % $this->arrangement) == 0 || $counter == 0) {
-                $content->setCurrentBlock("BLOCK_ROW_VIEW");
-            }
-            $content->setCurrentBlock("BLOCK_COLUMN_VIEW");
-            $content->setCurrentBlock("BLOCK_OPTION_VIEW");
-            $content->setVariable("QUESTION_ID", $id);
-            $content->setVariable("OPTION_COUNT", $counter);
-            $content->setVariable("OPTION_LABEL", $option);
-            $content->parse("BLOCK_OPTION_VIEW");
-            $content->parse("BLOCK_COLUMN_VIEW");
-            if ((($counter + 1) % $this->arrangement) == 0) {
-                $content->parse("BLOCK_ROW_VIEW");
-            }
-            $options = $options . rawurlencode($option) . ",";
-            $counter++;
+          if ($this->arrangement == "vertikal"){
+            $content->setCurrentBlock("BLOCK_ROW_VIEW");
+          }
+          $content->setCurrentBlock("BLOCK_COLUMN_VIEW");
+          $content->setCurrentBlock("BLOCK_OPTION_VIEW");
+          $content->setVariable("QUESTION_ID", $id);
+          $content->setVariable("OPTION_LABEL", $option);
+          $content->parse("BLOCK_OPTION_VIEW");
+          $content->parse("BLOCK_COLUMN_VIEW");
+          if($this->arrangement == "vertikal") {
+            $content->parse("BLOCK_ROW_VIEW");
+          }
+          $options = $options . rawurlencode($option) . ",";
+        }
+        if($this->arrangement == "horizontal"){
+          $content->parse("BLOCK_ROW_VIEW");
         }
         $options = substr($options, 0, strlen($options) - 1);
         $data = "3," . rawurlencode($this->questionText) . "," . rawurlencode($this->helpText) . "," . $this->required . "," . $this->arrangement;

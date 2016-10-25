@@ -33,6 +33,7 @@
 
 .grid td {
   background-color: transparent;
+  border: none;
 }
 
 .grid th {
@@ -44,6 +45,7 @@
 .grid td.label {
 	font-weight: normal;
   text-align: left;
+  color: black;
 }
 
 #sortable_rf {
@@ -76,6 +78,14 @@ html>body #sortable_rf li {
   font-size: 12px;
   padding: 3px;
   margin: -5px;
+}
+
+.question_headline.left {
+  border-top-right-radius: 0px;
+}
+
+.question_headline.right {
+  border-top-left-radius: 0px;
 }
 
 .question_container {

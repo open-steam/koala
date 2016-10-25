@@ -1,7 +1,8 @@
 var elementCounter;
 var singleChoiceCounter = 1;
 var multipleChoiceCounter = 1;
-var matrixCounter = 1;
+var matrixColumnCounter = 1;
+var matrixRowCounter = 1;
 var gradingCounter = 1;
 var tendencyCounter = 1;
 
@@ -46,13 +47,13 @@ function initiateDatepicker() {
 /*
  * function to show the create dialog
  */
-function showCreateDialog() {
+function showCreateDialog(type) {
     resetCreateDialog();
     if (document.getElementById('editID').value != '-1') {
         $('#rfelement' + document.getElementById('editID').value).show();
         document.getElementById('editID').value = '-1';
     }
-    changeCreateDialog("0");
+    changeCreateDialog(type.toString());
     $('#newquestion').show();
     $('#newlayout').hide();
     $('#newquestion_button').hide();
@@ -85,13 +86,13 @@ function hideCreateDialog() {
 /*
  * function to show the layout element dialog
  */
-function showLayoutDialog() {
+function showLayoutDialog(type) {
     resetLayoutDialog();
     if (document.getElementById('editID').value != '-1') {
         $('#rfelement' + document.getElementById('editID').value).show();
         document.getElementById('editID').value = '-1';
     }
-    changeLayoutDialog("7");
+    changeLayoutDialog(type.toString());
     $('#newquestion').hide();
     $('#newlayout').show();
     $('#newquestion_button').hide();
@@ -134,7 +135,7 @@ function resetCreateDialog() {
     document.getElementById('textareaRows').value = 4;
 
     // remove single choice options
-    document.getElementById('singleChoiceColumns').value = 1;
+    document.getElementById('singleChoiceColumns').value = "vertikal";
     for (var i = 1; i < singleChoiceCounter; i++) {
         if (document.getElementsByName('singlechoice_' + i)[0] != undefined) {
             $('#singlechoice_' + i).remove();
@@ -144,7 +145,7 @@ function resetCreateDialog() {
     singleChoiceCounter = 1;
 
     // remove multiple choice options
-    document.getElementById('multipleChoiceColumns').value = 1;
+    document.getElementById('multipleChoiceColumns').value = "vertikal";
     for (var i = 1; i < multipleChoiceCounter; i++) {
         if (document.getElementsByName('multiplechoice_' + i)[0] != undefined) {
             $('#multiplechoice_' + i).remove();
@@ -153,19 +154,23 @@ function resetCreateDialog() {
     document.getElementsByName('multiplechoice_0')[0].value = '';
     multipleChoiceCounter = 1;
 
-    // reset matrix
-    showMatrixColumn(1);
-    document.getElementById('matrixColumns').value = 1;
-    for (var i = 1; i <= 5; i++) {
-        document.getElementsByName('matrix_column_' + i)[0].value = '';
-    }
-    for (var i = 1; i < matrixCounter; i++) {
-        if (document.getElementsByName('matrix_' + i)[0] != undefined) {
-            $('#matrix_' + i).remove();
+    //columns
+    for (var i = 1; i < matrixColumnCounter; i++) {
+        if (document.getElementsByName('matrix_column_' + i)[0] != undefined) {
+            $('#matrix_column_' + i).remove();
         }
     }
-    document.getElementsByName('matrix_0')[0].value = '';
-    matrixCounter = 1;
+    document.getElementsByName('matrix_column_0')[0].value = '';
+    matrixColumnCounter = 1;
+
+    //rows
+    for (var i = 1; i < matrixRowCounter; i++) {
+        if (document.getElementsByName('matrix_row_' + i)[0] != undefined) {
+            $('#matrix_row_' + i).remove();
+        }
+    }
+    document.getElementsByName('matrix_row_0')[0].value = '';
+    matrixRowCounter = 1;
 
     // reset grading
     for (var i = 1; i < gradingCounter; i++) {
@@ -196,6 +201,7 @@ function resetCreateDialog() {
  * @param type
  */
 function changeLayoutDialog(type) {
+    $('#layoutType').val(type);
     switch (type) {
         case "7":
             $('#description_preview').show();
@@ -228,6 +234,7 @@ function changeLayoutDialog(type) {
  * change the create dialog to display the dialog corresponding to type
  */
 function changeCreateDialog(type) {
+  $('#questionType').val(type);
     switch (type) {
         case "0":
             $('#text_preview').show();
@@ -330,7 +337,7 @@ function removeSortable(){
  */
 function createSingleChoiceOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="margin: 0px; padding: 0px 0px 2px 1px; border:none;" class="option_element" id="singlechoice_' + singleChoiceCounter + '"><input name="singlechoice_' + singleChoiceCounter + '" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteSingleChoiceOption(' + singleChoiceCounter + ')" src="' + asseturl + '/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#singlechoice_options'));
+    $('<li style="margin: 0px; padding-bottom: 5px; border:none;" class="option_element" id="singlechoice_' + singleChoiceCounter + '"><input name="singlechoice_' + singleChoiceCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteSingleChoiceOption(' + singleChoiceCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#singlechoice_options'));
     singleChoiceCounter++;
 }
 
@@ -346,7 +353,7 @@ function deleteSingleChoiceOption(id) {
  */
 function createMultipleChoiceOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px" id="multiplechoice_' + multipleChoiceCounter + '"><input name="multiplechoice_' + multipleChoiceCounter + '" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteMultipleChoiceOption(' + multipleChoiceCounter + ')" src="' + asseturl + '/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#multiplechoice_options'));
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="multiplechoice_' + multipleChoiceCounter + '"><input name="multiplechoice_' + multipleChoiceCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMultipleChoiceOption(' + multipleChoiceCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#multiplechoice_options'));
     multipleChoiceCounter++;
 }
 
@@ -358,24 +365,40 @@ function deleteMultipleChoiceOption(id) {
 }
 
 /*
- * function to create matrix option
+ * function to create matrix column option
  */
-function createMatrixOption() {
+function createMatrixColumnOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="matrix_' + matrixCounter + '"><input name="matrix_' + matrixCounter + '" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteMatrixOption(' + matrixCounter + ')" src="' + asseturl + '/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#matrix_options'));
-    matrixCounter++;
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="matrix_column_' + matrixColumnCounter + '"><input name="matrix_column_' + matrixColumnCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMatrixColumnOption(' + matrixColumnCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#matrix_column_options'));
+    matrixColumnCounter++;
 }
 
 /*
- * function to delete matrix option
+ * function to delete matrix column option
  */
-function deleteMatrixOption(id) {
-    $('#matrix_' + id).remove();
+function deleteMatrixColumnOption(id) {
+    $('#matrix_column_' + id).remove();
+}
+
+/*
+ * function to create matrix row option
+ */
+function createMatrixRowOption() {
+    var asseturl = document.getElementById('asseturl').value;
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="matrix_row_' + matrixRowCounter + '"><input name="matrix_row_' + matrixRowCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMatrixRowOption(' + matrixRowCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#matrix_row_options'));
+    matrixRowCounter++;
+}
+
+/*
+ * function to delete matrix row option
+ */
+function deleteMatrixRowOption(id) {
+    $('#matrix_row_' + id).remove();
 }
 
 /*
  * function to show matrix column input fields (amount = count)
- */
+
 function showMatrixColumn(count) {
     count = parseInt(count);
     for (var i = 1; i <= count; i++) {
@@ -385,13 +408,14 @@ function showMatrixColumn(count) {
         document.getElementById('matrix_column_' + i).style.display = 'none';
     }
 }
+*/
 
 /*
  * function to create grading option
  */
 function createGradingOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="grading_' + gradingCounter + '"><input name="grading_' + gradingCounter + '" type="text" value="" style="width: 95%;">&nbsp<input type="image" onclick="deleteGradingOption(' + gradingCounter + ')" src="' + asseturl + '/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#grading_options'));
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="grading_' + gradingCounter + '"><input name="grading_' + gradingCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteGradingOption(' + gradingCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#grading_options'));
     gradingCounter++;
 }
 
@@ -407,7 +431,7 @@ function deleteGradingOption(id) {
  */
 function createTendencyOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding: 0px 0px 2px 1px;" id="tendency_' + tendencyCounter + '"><input type="text" name="tendency_input_' + tendencyCounter + '_0" value="" style="width: 30%;"> - - - <input type="text" name="tendency_input_' + tendencyCounter + '_1" value="" style="width: 30%;">&nbsp<input type="image" onclick="deleteTendencyOption(' + tendencyCounter + ')" src="' + asseturl + '/delete.png" title="Löschen" width="12px" height="12px"></li>').appendTo($('#tendency_options'));
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="tendency_' + tendencyCounter + '"><input type="text" name="tendency_input_' + tendencyCounter + '_0" value="" style="width:45%;"><div style="width:4%; display:inline-block;"> - - - </div><input type="text" name="tendency_input_' + tendencyCounter + '_1" value="" style="width:45%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteTendencyOption(' + tendencyCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#tendency_options'));
     tendencyCounter++;
 }
 
@@ -554,19 +578,20 @@ function editElement(id) {
         case "4":
             var columns = document.getElementsByName('rfelement' + id + '_columns')[0].value;
             columns = columns.split(',');
-            showMatrixColumn(columns.length);
-            document.getElementById('matrixColumns').value = columns.length;
-            for (var i = 1; i <= columns.length; i++) {
-                document.getElementsByName('matrix_column_' + i)[0].value = decodeURIComponent(columns[i - 1]);
+            for (var i = 0; i < columns.length; i++) {
+                if (i != 0) {
+                    createMatrixColumnOption();
+                }
+                document.getElementsByName('matrix_column_' + i)[0].value = decodeURIComponent(columns[i]);
             }
 
             var rows = document.getElementsByName('rfelement' + id + '_rows')[0].value;
             rows = rows.split(',');
             for (var i = 0; i < rows.length; i++) {
                 if (i != 0) {
-                    createMatrixOption();
+                    createMatrixRowOption();
                 }
-                document.getElementsByName('matrix_' + i)[0].value = decodeURIComponent(rows[i]);
+                document.getElementsByName('matrix_row_' + i)[0].value = decodeURIComponent(rows[i]);
             }
             $('#newquestion').show();
             break;
@@ -814,15 +839,16 @@ function addElement(questionnaireId) {
             hideCreateDialog();
             break;
         case "4":
-            var countRows = document.getElementById('matrixColumns').value;
             var columns = new Array();
-            for (var i = 1; i <= countRows; i++) {
-                columns.push(encodeURIComponent(document.getElementsByName('matrix_column_' + i)[0].value));
+            for (var i = 0; i <= matrixColumnCounter; i++) {
+                if (document.getElementsByName('matrix_column_' + i)[0] != undefined) {
+                    columns.push(encodeURIComponent(document.getElementsByName('matrix_column_' + i)[0].value));
+                }
             }
             var rows = new Array();
-            for (var i = 0; i <= matrixCounter; i++) {
-                if (document.getElementsByName('matrix_' + i)[0] != undefined) {
-                    rows.push(encodeURIComponent(document.getElementsByName('matrix_' + i)[0].value));
+            for (var i = 0; i <= matrixRowCounter; i++) {
+                if (document.getElementsByName('matrix_row_' + i)[0] != undefined) {
+                    rows.push(encodeURIComponent(document.getElementsByName('matrix_row_' + i)[0].value));
                 }
             }
             var data = new Array(type, question, helpText, required);
