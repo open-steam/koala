@@ -513,6 +513,10 @@ function editLayoutElement(id) {
             break;
         case "9":
             break;
+        case "10":
+            document.getElementById('text-JL').value = decodeURIComponent(data[1]);
+            document.getElementById('to-JL').value = decodeURIComponent(data[2]);
+            break;
     }
     $('#newlayout').show();
 }
