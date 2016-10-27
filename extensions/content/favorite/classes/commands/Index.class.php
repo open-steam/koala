@@ -258,6 +258,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
                             $content->setCurrentBlock("BLOCK_SEARCH_RESULTS_GROUP");
                             $content->setVariable("GROUP_NAME", $resultEntry);
+                            $content->setVariable("GROUP_ID",  $resultGroup->get_id());
 
                             $groupDesc = $resultGroup->get_attribute("OBJ_DESC");
                             $content->setVariable("GROUP_DESC", $groupDesc);
