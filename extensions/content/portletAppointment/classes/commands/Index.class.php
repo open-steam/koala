@@ -198,7 +198,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->parse("BLOCK_TERM_STARTTIME");
                 }
 
-                if ($appointment["end_time"]["hour"] !== "") {
+                if (isset($appointment["end_time"]["hour"]) && $appointment["end_time"]["hour"] !== "") {
                     $tmpl->setCurrentBlock("BLOCK_TERM_ENDTIME");
                     $tmpl->setVariable("ENDTIME", $appointment["end_time"]["hour"] . "." . $appointment["end_time"]["minutes"] . " Uhr");
                     $tmpl->parse("BLOCK_TERM_ENDTIME");
