@@ -97,6 +97,6 @@ html>body #sortable_rf li {
   padding-right: 1px;
 }
 
-.question {
-  border-top: 15px solid white;
+.ui-state-default-rf {
+  margin-bottom: 10px;
 }

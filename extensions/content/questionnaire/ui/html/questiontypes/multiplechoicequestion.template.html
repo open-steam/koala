@@ -1,6 +1,6 @@
 <!-- BEGIN BLOCK_EDIT -->
 <li class="ui-state-default-rf" id="rfelement{ELEMENT_ID}">
-    <table width="100%" class="question">
+    <table width="100%">
         <tr>
             <td style="padding:0px; border:0px;" class="question_container">
                 <div class="question_headline" style="margin:0px; height:15px;"><b>{NUMBER}. {QUESTION_TEXT}</b>{POPUPMENUANKER}</div>
@@ -28,12 +28,10 @@
 <!-- END BLOCK_EDIT -->
 
 <!-- BEGIN BLOCK_VIEW -->
-<tr class="question">
+<tr>
     <td style="{ERROR_BORDER}" class="question_container">
         <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
-        <br>
-        <div>{HELP_TEXT}</div>
-        <br>
+        <div style="margin:5px;">{HELP_TEXT}</div>
         <table class="questionnaire_style" style="text-align: left;">
             <!-- BEGIN BLOCK_ROW_VIEW -->
             <tr>
@@ -43,7 +41,7 @@
                     <input type="checkbox" name="question{QUESTION_ID}_{OPTION_COUNT}" {OPTION_CHECKED} {QUESTION_DISABLED} style="vertical-align:middle;">
                     <!-- END BLOCK_OPTION_VIEW -->
                 </td>
-                <td style="padding: 0px 10px 0px 0px; border:0px;">{OPTION_LABEL}</td>
+                <td style="padding: 0px 5px 0px 0px; border:0px;">{OPTION_LABEL}</td>
                 <!-- END BLOCK_COLUMN_VIEW -->
             </tr>
             <!-- END BLOCK_ROW_VIEW -->
@@ -53,7 +51,7 @@
 <!-- END BLOCK_VIEW -->
 
 <!-- BEGIN BLOCK_NO_RESULTS -->
-<tr class="question">
+<tr>
     <td class="question_container">
         <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
         <br>
@@ -63,7 +61,7 @@
 <!-- END BLOCK_NO_RESULTS -->
 
 <!-- BEGIN BLOCK_RESULTS -->
-<tr class="question">
+<tr>
     <td class="question_container">
         <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
         <br>

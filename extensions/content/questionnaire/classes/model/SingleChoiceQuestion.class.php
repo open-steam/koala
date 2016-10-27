@@ -117,29 +117,34 @@ class SingleChoiceQuestion extends AbstractQuestion {
 			$content->setVariable("QUESTION_TEXT", '<span id="'. ($id+1) .'">'. ($id+1) . '</span>' . ". " . $this->questionText);
 		}
 		$content->setVariable("HELP_TEXT", $this->helpText);
-
-		$counter = 0;
+		if($this->arrangement == "horizontal"){
+			$content->setCurrentBlock("BLOCK_ROW_VIEW");
+		}
 		foreach ($this->options as $option) {
-			if ((($counter) % $this->arrangement) == 0 || $counter == 0) {
+			if ($this->arrangement == "vertikal"){
 				$content->setCurrentBlock("BLOCK_ROW_VIEW");
 			}
 			$content->setCurrentBlock("BLOCK_COLUMN_VIEW");
 			$content->setCurrentBlock("BLOCK_OPTION_VIEW");
 			$content->setVariable("QUESTION_ID", $id);
 			$content->setVariable("OPTION_LABEL", $option);
-			$content->setVariable("QUESTION_COUNTER", $counter);
+			/*
 			if ($counter == $input) {
 				$content->setVariable("OPTION_CHECKED", "checked");
 			}
 			if ($disabled == 1) {
 				$content->setVariable("QUESTION_DISABLED", "disabled");
 			}
+			*/
 			$content->parse("BLOCK_OPTION_VIEW");
 			$content->parse("BLOCK_COLUMN_VIEW");
-			if ((($counter+1) % $this->arrangement) == 0) {
+			if($this->arrangement == "vertikal") {
 				$content->parse("BLOCK_ROW_VIEW");
 			}
-			$counter++;
+			$options = $options . rawurlencode($option) . ",";
+		}
+		if($this->arrangement == "horizontal"){
+			$content->parse("BLOCK_ROW_VIEW");
 		}
 		$content->parse("BLOCK_VIEW");
 		return $content->get();

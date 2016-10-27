@@ -4,8 +4,6 @@ class Survey extends \AbstractObjectModel {
 
 	private $questions = array();
 	private $name = "";
-	private $begintext = "";
-	private $endtext = "";
 	private $starttype = 0;
 	private $begin = 0;
 	private $end = 0;
@@ -25,22 +23,6 @@ class Survey extends \AbstractObjectModel {
 
 	public function getName() {
 		return $this->name;
-	}
-
-	public function setBeginText($input) {
-		$this->begintext = $input;
-	}
-
-	public function getBeginText() {
-		return $this->begintext;
-	}
-
-	public function setEndText($input) {
-		$this->endtext = $input;
-	}
-
-	public function getEndText() {
-		return $this->endtext;
 	}
 
 	public function setStartType($starttype, $begin = 0, $end = 0) {
@@ -76,8 +58,6 @@ class Survey extends \AbstractObjectModel {
 
 		$xml = new \SimpleXMLElement("<survey></survey>");
        	$xml->addChild("name", $this->name);
-       	$xml->addChild("begintext", $this->begintext);
-       	$xml->addChild("endtext", $this->endtext);
        	$questionCount = 0;
        	$pageCount = 1;
 		foreach ($this->questions as $question) {
@@ -106,8 +86,6 @@ class Survey extends \AbstractObjectModel {
 	public function parseXML($xml) {
 		$simpleXML = simplexml_load_string($xml->get_content());
 		$this->name = $simpleXML->name;
-		$this->begintext = $simpleXML->begintext;
-		$this->endtext = $simpleXML->endtext;
 		$questions = array();
 		foreach ($simpleXML->question as $question) {
 			switch ($question->type) {

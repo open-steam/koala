@@ -53,10 +53,10 @@ function showCreateDialog(type) {
         $('#rfelement' + document.getElementById('editID').value).show();
         document.getElementById('editID').value = '-1';
     }
-    changeCreateDialog(type.toString());
+    changeQuestionDialog(type.toString(), false);
     $('#newquestion').show();
     $('#newlayout').hide();
-    $('#newquestion_button').hide();
+    //$('#newquestion_button').hide();
     $("form").each(function() {
         $(this).keypress(enterFunction)
     });
@@ -80,7 +80,7 @@ function hideCreateDialog() {
     $('#tendency_preview').hide();
     $('#newquestion').hide();
     $('#text_preview').show();
-    $('#newquestion_button').show();
+    //$('#newquestion_button').show();
 }
 
 /*
@@ -92,10 +92,10 @@ function showLayoutDialog(type) {
         $('#rfelement' + document.getElementById('editID').value).show();
         document.getElementById('editID').value = '-1';
     }
-    changeLayoutDialog(type.toString());
+    changeLayoutDialog(type.toString(), false);
     $('#newquestion').hide();
     $('#newlayout').show();
-    $('#newquestion_button').hide();
+    //$('#newquestion_button').hide();
 }
 
 /*
@@ -107,7 +107,7 @@ function hideLayoutDialog() {
         document.getElementById('editID').value = '-1';
     }
     $('#newlayout').hide();
-    $('#newquestion_button').show();
+    //$('#newquestion_button').show();
 }
 
 /**
@@ -200,32 +200,64 @@ function resetCreateDialog() {
  * change the layout dialog to display the dialog corresponding to type
  * @param type
  */
-function changeLayoutDialog(type) {
+function changeLayoutDialog(type, edit) {
     $('#layoutType').val(type);
+
+    if(edit){
+      $('#rfb-new-element').val("Änderungen speichern");
+    }
+    else{
+      $('#rfb-new-element').val("Element hinzufügen");
+    }
+
     switch (type) {
         case "7":
             $('#description_preview').show();
             $('#headline_preview').hide();
             $('#jumplabel_preview').hide();
             $('#jumplabel_preview2').hide();
+            if(edit){
+              $('#layout_headline_left').html("Beschreibung bearbeiten");
+            }
+            else{
+              $('#layout_headline_left').html("Neue Beschreibung erstellen");
+            }
             break;
         case "8":
             $('#description_preview').hide();
             $('#headline_preview').show();
             $('#jumplabel_preview').hide();
             $('#jumplabel_preview2').hide();
+            if(edit){
+              $('#layout_headline_left').html("Überschrift bearbeiten");
+            }
+            else{
+              $('#layout_headline_left').html("Neue Überschrift erstellen");
+            }
             break;
         case "9":
             $('#description_preview').hide();
             $('#headline_preview').hide();
             $('#jumplabel_preview').hide();
             $('#jumplabel_preview2').hide();
+            if(edit){
+              $('#layout_headline_left').html("Seitenumbruch bearbeiten");
+            }
+            else{
+              $('#layout_headline_left').html("Neuen Seitenumbruch erstellen");
+            }
             break;
         case "10":
             $('#description_preview').hide();
             $('#headline_preview').hide();
             $('#jumplabel_preview').show();
             $('#jumplabel_preview2').show();
+            if(edit){
+              $('#layout_headline_left').html("Sprungmarke bearbeiten");
+            }
+            else{
+              $('#layout_headline_left').html("Neue Sprungmarke erstellen");
+            }
             break;
     }
 }
@@ -233,8 +265,18 @@ function changeLayoutDialog(type) {
 /*
  * change the create dialog to display the dialog corresponding to type
  */
-function changeCreateDialog(type) {
+function changeQuestionDialog(type, edit) {
   $('#questionType').val(type);
+
+  if(edit){
+    $('#question_headline_left').html("Frage bearbeiten");
+    $('#rfb-new-question').val("Änderungen speichern");
+  }
+  else{
+    $('#question_headline_left').html("Neue Frage erstellen");
+    $('#rfb-new-question').val("Frage hinzufügen");
+  }
+
     switch (type) {
         case "0":
             $('#text_preview').show();
@@ -244,6 +286,7 @@ function changeCreateDialog(type) {
             $('#matrix_preview').hide();
             $('#grading_preview').hide();
             $('#tendency_preview').hide();
+            $('#question_headline_right').html("Typ: kurzer Text");
             break;
         case "1":
             $('#text_preview').hide();
@@ -253,6 +296,7 @@ function changeCreateDialog(type) {
             $('#matrix_preview').hide();
             $('#grading_preview').hide();
             $('#tendency_preview').hide();
+            $('#question_headline_right').html("Typ: langer Text");
             break;
         case "2":
             $('#text_preview').hide();
@@ -262,6 +306,7 @@ function changeCreateDialog(type) {
             $('#matrix_preview').hide();
             $('#grading_preview').hide();
             $('#tendency_preview').hide();
+            $('#question_headline_right').html("Typ: Single Choice");
             break;
         case "3":
             $('#text_preview').hide();
@@ -271,6 +316,7 @@ function changeCreateDialog(type) {
             $('#matrix_preview').hide();
             $('#grading_preview').hide();
             $('#tendency_preview').hide();
+            $('#question_headline_right').html("Typ: Multiple Choice");
             break;
         case "4":
             $('#text_preview').hide();
@@ -280,6 +326,7 @@ function changeCreateDialog(type) {
             $('#matrix_preview').show();
             $('#grading_preview').hide();
             $('#tendency_preview').hide();
+            $('#question_headline_right').html("Typ: Matrix");
             break;
         case "5":
             $('#text_preview').hide();
@@ -289,6 +336,7 @@ function changeCreateDialog(type) {
             $('#matrix_preview').hide();
             $('#grading_preview').show();
             $('#tendency_preview').hide();
+            $('#question_headline_right').html("Typ: Benotung");
             break;
         case "6":
             $('#text_preview').hide();
@@ -298,6 +346,7 @@ function changeCreateDialog(type) {
             $('#matrix_preview').hide();
             $('#grading_preview').hide();
             $('#tendency_preview').show();
+            $('#question_headline_right').html("Typ: Tendenz");
             break;
     }
 }
@@ -307,11 +356,7 @@ $( document ).ready(function() {
     placeholder: "ui-state-placeholder-rf",
     axis: "y",
     forcePlaceholderSize: true,
-    update: function() {
-        setTimeout(function() {
-            $('#save-que-button').click();
-        }, 750);
-    }
+    update: function(event, ui){updateNumbering()}
   });
   $("#sortable_rf").sortable("disable");
 });
@@ -330,6 +375,26 @@ function removeSortable(){
   $("#sortable_rf").css('cursor', 'auto');
   $("#sort-icon").parent().css("background-color", "#3a6e9f");
   $("#sort-icon").attr("name", "false");
+
+  $('#save-que-button').click();
+}
+
+// update numbering of questions during sort or after creation/deletion/duplication
+function updateNumbering(){
+  var counter = 1;
+  var sortedIDs = $('#sortable_rf').sortable('toArray');
+  for(var i = 0; i<sortedIDs.length; i++){
+    var question = sortedIDs[i];
+    if(question != "newquestion" && question != "newlayout" && question != "") {
+      var title = $("#"+question).find(".question_headline").find("b").html();
+      var titleArray = title.split(".");
+      if(!isNaN(titleArray[0])){
+        var newTitle = counter + "." + titleArray[1];
+        counter++;
+        $("#"+question).find(".question_headline").find("b").html(newTitle);
+      }
+    }
+  }
 }
 
 /*
@@ -497,13 +562,13 @@ function editLayoutElement(id) {
         $('#element' + document.getElementById('editID').value).show();
         document.getElementById('editID').value = '-1';
     }
-    document.getElementById('newquestion_button').style.display = '';
+    //document.getElementById('newquestion_button').style.display = '';
     document.getElementById('editID').value = id;
     document.getElementById('layoutType').value = data[0];
     $('#newlayout').insertBefore($('#rfelement' + id));
     $('#rfelement' + id).hide();
     $('#newquestion').hide();
-    changeLayoutDialog(data[0]);
+    changeLayoutDialog(data[0], true);
     switch (data[0]) {
         case "7":
             document.getElementById('layout_description').value = decodeURIComponent(data[1]);
@@ -524,7 +589,7 @@ function editLayoutElement(id) {
 /*
  * function to open the edit question dialog for question id
  */
-function editElement(id) {
+function editQuestion(id) {
     var data = document.getElementsByName('rfelement' + id)[0].value;
     data = data.split(',');
     resetCreateDialog();
@@ -533,12 +598,12 @@ function editElement(id) {
         $('#rfelement' + document.getElementById('editID').value).show();
         document.getElementById('editID').value = '-1';
     }
-    document.getElementById('newquestion_button').style.display = '';
+    //document.getElementById('newquestion_button').style.display = '';
     document.getElementById('editID').value = id;
     $('#newlayout').hide();
     $('#newquestion').insertBefore($('#rfelement' + id));
     $('#rfelement' + id).hide();
-    changeCreateDialog(data[0]);
+    changeQuestionDialog(data[0], true);
     document.getElementById('questionType').value = data[0];
     document.getElementById('questionText').value = decodeURIComponent(data[1]);
     document.getElementById('helpText').value = decodeURIComponent(data[2]);
@@ -720,6 +785,11 @@ function addLayoutElement(questionnaireId) {
             break;
 
     }
+
+    setTimeout(function() {
+        $('#save-que-button').click();
+    }, 750);
+
 }
 
 function createJumpLabelLayoutElement(questionnaireId, text, to, insertPoint) {
@@ -781,10 +851,10 @@ function createPageBreakLayoutElement(questionnaireId, insertPoint) {
 /*
  * function to add a new question
  */
-function addElement(questionnaireId) {
+function addQuestion(questionnaireId) {
     var question = encodeURIComponent(document.getElementById('questionText').value);
     if (jQuery.trim(question) == '') {
-        alert("Bitte einen Fragetext eingeben.");
+        alert("Bitte geben Sie einen Fragetext ein.");
         return;
     }
     var type = document.getElementById('questionType').value;
@@ -883,6 +953,10 @@ function addElement(questionnaireId) {
             createTendencyQuestion(questionnaireId, data, options, '#newquestion');
             hideCreateDialog();
     }
+
+    setTimeout(function() {
+        $('#save-que-button').click();
+    }, 750);
 
 }
 

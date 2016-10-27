@@ -305,22 +305,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
           if ($pages > 1) {
               $content->setVariable("SURVEY_PAGE", "<br>Seite " . $page . " von " . $pages);
           }
-          if (trim($survey_object->getBeginText()) == "" || $page > 1) {
-              $content->setVariable("DISPLAY_BEGIN", "none");
-          } else {
-              if ($welcomePictureId !== 0) {
-                  $picUrl = getDownloadUrlForObjectId($welcomePictureId);
 
-                  $content->setVariable("SURVEY_BEGIN", nl2br($survey_object->getBeginText()) . '<br><br><img src="' . $picUrl . '" width="' . $welcomePictureWidth . '">');
-              } else {
-                  $content->setVariable("SURVEY_BEGIN", nl2br($survey_object->getBeginText()));
-              }
-          }
-          if (trim($survey_object->getEndText()) == "" || $page != $pages) {
-              $content->setVariable("DISPLAY_END", "none");
-          } else {
-              $content->setVariable("SURVEY_END", nl2br($survey_object->getEndText()));
-          }
+          $content->setVariable("DISPLAY_BEGIN", "none");
+          $content->setVariable("DISPLAY_END", "none");
 
           if ($admin == 0 | $active) {
               $content->setVariable("DISPLAY_EDIT", "none");

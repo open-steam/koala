@@ -55,7 +55,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         );
 
         //$html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px; margin-top: 20px;\">";
-        $html = "<h3>Antwort-Typen</h3>";
+        $html = "<h3>Fragen</h3>";
         foreach ($questionTypes as $key => $value){
           $html .= "<div style=\"clear:both;\" class=\"questionnaireNewElement\">";
           $html .= "<a href=\"\" onclick=\"showCreateDialog(" . $key . ");closeDialog();window.scrollTo(0,document.body.scrollHeight);return false;\" title=\"{$value[1]}\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . PATH_URL . "questionnaire/asset/icons/" . $value[0] . ".svg#" . $value[0] . "'/></svg><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">" . $value[1] . "</p></a>";
@@ -63,7 +63,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 			    if($helpurl != "") $html .= "<a href=\"\" onclick=\"window.open('" . $helpurl . "', '_blank');\" title=\"mehr Informationen\"><svg style='float:right; width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/help.svg#help' /></svg></a>";
           $html .= "</div>";
         }
-        $html .= "<h3 style='margin-top:30px;'>Layout</h3>";
+        $html .= "<h3 style='margin-top:30px;'>Layout-Elemente</h3>";
         foreach ($layoutTypes as $key => $value){
           $html .= "<div style=\"clear:both;\" class=\"questionnaireNewElement\">";
           $html .= "<a href=\"\" onclick=\"showLayoutDialog(" . ($key+7) . ");closeDialog();window.scrollTo(0,document.body.scrollHeight);return false;\" title=\"{$value[1]}\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . PATH_URL . "questionnaire/asset/icons/" . $value[0] . ".svg#" . $value[0] . "'/></svg><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">" . $value[1] . "</p></a>";

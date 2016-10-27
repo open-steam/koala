@@ -1,68 +1,13 @@
 <!-- BEGIN BLOCK_CREATE_SURVEY -->
 <form id="surveyFormOptions" action="" method="post" onsubmit="return getSortables();" style="font-size:12px" >
-    <form id="surveyFormQuestions" action="" method="post" onsubmit="return getSortables();" style="font-size:12px" >
-
-        <input type="hidden" id="sortable_array" name="sortable_array" value="">
-        <input type="hidden" id="elementcounter" value="{ELEMENT_COUNTER}">
-        <input type="hidden" id="editID" value="-1">
-        <input type="hidden" id="editRF" name="editRF" value="{EDIT_ID}">
-        <input type="hidden" id="asseturl" value="{ASSET_URL}">
-        <div id="options">
-            <h1 style="padding-left:5px">Allgemeine Eigenschaften</h1>
-            <!-- <center> -->
-            <table class="grid" border="0" width="100%">
-                <tr>
-                    <th colspan="2">{CREATE_LABEL}</th>
-                </tr>
-
-                <!--
-                <tr>
-                    <td class="label">{TITLE_LABEL}</td>
-                    <td width="90%"><input id="title" type="text" name="title" value="{TITLE_VALUE}" style="width:99%"></td>
-                </tr>
-                -->
-
-                <tr>
-                    <td class="label">{BEGINTEXT_LABEL}</td>
-                    <td><textarea name="begintext" style="width:99%" rows="4">{BEGINTEXT_VALUE}</textarea></td>
-                </tr>
-
-                <!-- BEGIN BLOCK_PICTURE -->
-                <!--
-                <tr>
-                    <td class="label"><a class="button" onclick="sendRequest('EditMessageImage', {'id': '{EDIT_ID_MSG}'}, '', 'popup', null, null, 'questionnaire');
-        return false;">Bild hinzufügen</a></td>
-                    <td><img src="{WELCOME_IMG_SRC}" style="max-width: 790px;max-height: 300px;overflow: hidden;"> </td>
-                </tr>
-                -->
-                <!-- END BLOCK_PICTURE -->
-                <tr>
-                    <td class="label">{ENDTEXT_LABEL}</td>
-                    <td><textarea name="endtext" style="width:99%" rows="4">{ENDTEXT_VALUE}</textarea></td>
-                </tr>
-                <!--
-                <tr>
-                    <td class="label">{STARTTYPE_LABEL}</td>
-                    <td>
-                        <input type="radio" value="0" name="starttype" onclick="document.getElementById('starttype_automatic').style.display = 'none'" {STARTTYPE_FIRST}>{STARTTYPE0_LABEL}
-                        <input type="radio" value="1" name="starttype" onclick="document.getElementById('starttype_automatic').style.display = ''" {STARTTYPE_SECOND}>{STARTTYPE1_LABEL}
-                        <div id="starttype_automatic" style="display:{DISPLAY_DATEPICKER};">
-                            {START_LABEL}
-                            <input id="datepicker_begin" name="begin" value="{BEGIN_VALUE}" maxlength="16" size="16">
-                            {END_LABEL}
-                            <input id="datepicker_end" name="end" value="{END_VALUE}" maxlength="16" size="16">
-                        </div>
-                    </td></tr>--><tr>
-                    <td colspan="2">
-                        <div style="text-align:center" class="buttons">
-                            <input type="submit" value="{CREATE_SURVEY}" name="create_survey">
-                        </div>
-                    </td>
-                </tr></table>
-
-    </form>
-    <br> <br>
-    <h1 style="padding-left:5px;">Fragen</h1>
+  <input type="hidden" id="sortable_array" name="sortable_array" value="">
+  <input type="hidden" id="elementcounter" value="{ELEMENT_COUNTER}">
+  <input type="hidden" id="editID" value="-1">
+  <input type="hidden" id="editRF" name="editRF" value="{EDIT_ID}">
+  <input type="hidden" id="asseturl" value="{ASSET_URL}">
+  <div id="options">
+    <h1 style="padding-left:5px">Fragebogen <i>{TITLE}</i> bearbeiten</h1>
+    <!-- <center> -->
     <table class="grid" border="0" width="100%">
         <tr style="display:{DISPLAY_QUESTIONS}">
             <td colspan="2">
@@ -72,8 +17,8 @@
                         <table width="100%" class="question_container" style="padding:0px; border-spacing:0px;">
                             <thead>
                               <tr>
-                                <th class="question_headline left">Neue Frage</th>
-                                <th class="question_headline right"></th>
+                                <th class="question_headline left" id="question_headline_left"></th>
+                                <th class="question_headline right" id="question_headline_right"></th>
                               </tr>
                             </thead>
                             <tr>
@@ -91,7 +36,7 @@
                             <tr style="display:none;">
                                 <td class="label" style="padding:6px 5px 0px 0px;">{QUESTIONTYPE_LABEL}:</td>
                                 <td style="padding:0px;">
-                                    <select name="questionType" id="questionType" onchange="changeCreateDialog(options[selectedIndex].value);">
+                                    <select name="questionType" id="questionType" onchange="changeQuestionDialog(options[selectedIndex].value);">
                                         <option value="0">{TEXTQUESTION_LABEL}</option>
                                         <option value="1">{TEXTAREAQUESTION_LABEL}</option>
                                         <option value="2">{SINGLECHOICE_LABEL}</option>
@@ -259,10 +204,7 @@
                             <tr>
                                 <td style="padding:5px;"></td>
                                 <td style="padding:5px;">
-                                    <input class="bidButton" id="rfb-new-question"type="button" style="float:right; padding-left:5px; margin-left:5px;" onclick="addElement({QUESTIONNAIRE_ID});
-        setTimeout(function() {
-            $('#save-que-button').click();
-        }, 750);" value="{SAVE_LABEL}">
+                                    <input class="bidButton" id="rfb-new-question" type="button" style="float:right; padding-left:5px; margin-left:5px;" onclick="addQuestion({QUESTIONNAIRE_ID});" value="{SAVE_LABEL}">
                                     <input class="bidButton negative" type="button" style="float:right;" onclick="hideCreateDialog();" value="{CANCEL_LABEL}">
                                 </td>
                             </tr>
@@ -272,8 +214,8 @@
                         <table width="100%" class="question_container" style="padding:0px; border-spacing:0px;">
                             <thead>
                               <tr>
-                                <th class="question_headline left">Neues Layoutelement</th>
-                                <th class="question_headline right"></th>
+                                <th class="question_headline left" id="layout_headline_left"></th>
+                                <th class="question_headline right" id="layout_headline_right"></th>
                               </tr>
                             </thead>
                             <tr style="display:none;">
@@ -310,17 +252,14 @@
                             <tr>
                                 <td style="padding:5px;"></td>
                                 <td style="padding:5px;">
-                                    <input class="bidButton" id="rfb-new-element" style="float:right; padding-left:5px; margin-left:5px;" type="button" onclick="addLayoutElement({QUESTIONNAIRE_ID});
-        setTimeout(function() {
-            $('#save-que-button').click();
-        }, 750);" value="Element hinzufügen">
+                                    <input class="bidButton" id="rfb-new-element" style="float:right; padding-left:5px; margin-left:5px;" type="button" onclick="addLayoutElement({QUESTIONNAIRE_ID});" value="Element hinzufügen">
                                     <input class="bidButton negative" style="float:right;" type="button" onclick="hideLayoutDialog();" value="{CANCEL_LABEL}">
                                 </td>
                             </tr>
                         </table>
                     </li>
                 </ul>
-                <div id="newquestion_button" align="center">
+                <div id="newquestion_button" align="center" style="display:none;">
                     <input type="button" onclick="showCreateDialog();" value="{ADDQUESTION_LABEL}">
                     <input type="button" onclick="showLayoutDialog();" value="{ADDLAYOUT_LABEL}">
                 </div>

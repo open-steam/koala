@@ -71,8 +71,6 @@ class Import extends \AbstractCommand implements \IFrameCommand {
 
 				$survey_object = new \Questionnaire\Model\Survey($questionnaire);
 				$survey_object->setName($name);
-				$survey_object->setBeginText("");
-				$survey_object->setEndText("");
 
 				// import questions and layout elements
 				$question_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $bidowl_container->get_path() . "/questions");

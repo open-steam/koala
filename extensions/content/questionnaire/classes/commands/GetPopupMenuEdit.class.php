@@ -36,13 +36,13 @@ class GetPopupMenuEdit extends \AbstractCommand implements \IAjaxCommand {
         $trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
         $copyIcon = $explorerUrl . "icons/menu/svg/copy.svg";
 
-        $editMethod = "editElement";
+        $editMethod = "editQuestion";
         if($this->layoutElement) $editMethod = "editLayoutElement";
 
 				$items = array(
-          array("raw" => "<a href=\"#\" onclick=\"{$editMethod}({$this->questionId});\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>"),
-					array("raw" => "<a href=\"#\" onclick=\"copyElement({$this->id}, {$this->questionId});\"><svg><use xlink:href='{$copyIcon}#copy'/></svg> Duplizieren</a>"),
-					array("raw" => "<a href=\"#\" onclick=\"deleteElement({$this->questionId});\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>")
+          array("raw" => "<a href=\"#\" onclick=\"{$editMethod}({$this->questionId});return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>"),
+					array("raw" => "<a href=\"#\" onclick=\"copyElement({$this->id}, {$this->questionId});return false;\"><svg><use xlink:href='{$copyIcon}#copy'/></svg> Duplizieren</a>"),
+					array("raw" => "<a href=\"#\" onclick=\"deleteElement({$this->questionId});return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>")
 				);
 
         $popupMenu = new \Widgets\PopupMenu();

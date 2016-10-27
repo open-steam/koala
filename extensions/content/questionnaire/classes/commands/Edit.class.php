@@ -73,15 +73,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 
             $survey_object->setName($_POST["title"]);
         }
-        if (isset($_POST["begintext"])) {
-
-            $survey_object->setBeginText($_POST["begintext"]);
-        }
-        if (isset($_POST["endtext"])) {
-
-            $survey_object->setEndText($_POST["endtext"]);
-        }
-
         $questioncounter = 0;
         $sortedQuestions = $_POST["sortable_array"];
         $sortedQuestions != '' ? ($sortedQuestions = explode(',', $sortedQuestions)) : '';
@@ -212,10 +203,8 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
       // display edit form
       $content = $QuestionnaireExtension->loadTemplate("questionnaire_edit.template.html");
       $content->setCurrentBlock("BLOCK_CREATE_SURVEY");
-      $content->setVariable("CREATE_LABEL", "Fragebogen erstellen");
+      $content->setVariable("TITLE", $questionnaire->get_attribute("OBJ_NAME"));
       $content->setVariable("QUESTIONNAIRE_ID", $this->id);
-      $content->setVariable("BEGINTEXT_LABEL", "Willkommenstext:");
-      $content->setVariable("ENDTEXT_LABEL", "Abschlusstext:");
       $content->setVariable("ELEMENT_COUNTER", 0);
       $content->setVariable("QUESTION_LABEL", "Frage");
       $content->setVariable("HELPTEXT_LABEL", "Hilfetext");
@@ -268,14 +257,12 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
           $xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
           $survey_object->parseXML($xml);
           //$content->setVariable("TITLE_VALUE", $survey_object->getName());
-          $content->setVariable("BEGINTEXT_VALUE", $survey_object->getBeginText());
           /*
           $welcomeImageId = $survey->get_attribute("bid:rfb:picture_id");
           if ($welcomeImageId !== 0) {
               $content->setVariable("WELCOME_IMG_SRC", PATH_URL . "download/document/$welcomeImageId/");
           }
           */
-          $content->setVariable("ENDTEXT_VALUE", $survey_object->getEndText());
           $questions = $survey_object->getQuestions();
           $question_html = "";
           $id_counter = 0;
@@ -293,7 +280,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
           $content->setVariable("ELEMENT_COUNTER", $id_counter);
           $content->setVariable("QUESTIONS_HTML", $question_html);
           $content->setVariable("BACK_URL", $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/");
-          $content->setVariable("CREATE_LABEL", "Fragebogen bearbeiten");
+          $content->setVariable("TITLE", $questionnaire->get_attribute("OBJ_NAME"));
           $content->setVariable("CREATE_SURVEY", "Änderungen speichern");
           $create_label = "Umfrage bearbeiten";
       } else {
