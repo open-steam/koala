@@ -322,7 +322,7 @@
 		display:none;
 		height:auto;
 		position:absolute;
-		z-index:200;
+		z-index:199;
 		-moz-box-shadow:4px 4px 5px #888;
 		-webkit-box-shadow:4px 4px 5px #888;
 		box-shadow:4px 4px 5px #888;
@@ -457,7 +457,7 @@
 		filter:alpha(opacity=95);
 		opacity:0.95;
 		position:absolute;
-		z-index:200;
+		z-index:199;
 		-moz-box-shadow:2px 2px 5px #888;
 		-webkit-box-shadow:2px 2px 5px #888;
 		box-shadow:2px 2px 5px #888;
