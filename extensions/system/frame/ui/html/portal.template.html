@@ -129,30 +129,30 @@
             function menu_clicked(element) {
                 var submenu = element.getElementsByTagName('ul');
                 var active = false;
-                
+
                 if(submenu[0] && submenu[0].style.display == "block"){
                     active = true;
                 }
-                
+
                 hideAllMenus();
-                
+
                 if(submenu[0] && submenu[0].style.display == "block"){
                     submenu[0].style.display = "none";
                 } else if (submenu[0] && !active && (submenu[0].style.display == "none" || submenu[0].style.display == "")){
                     submenu[0].style.display = "block";
                 }
             }
-            
+
             function hideAllMenus(){
-                
+
                 $("#menu>div> ul >li").each(function(element){
-            
+
                     if($("ul:visible", this).css('display') == 'block') {
                         $("ul:visible", this).css("display", "none");
                     }
-         
+
                 })
-            
+
             }
 
             function unsavedContent() {
@@ -240,46 +240,28 @@
                 </form>
             </div>
             <script>
-                if($.browser.msie){
-                    if( 9 > parseInt($.browser.version)){
-                        $("#loginPanelWarning").show();
-                        alert("Ihr Browser wird nicht unterstützt. Wir empfehlen eine aktuelle Version von Firefox oder Chrome.");
-                    }else{
-                        $("#loginDiv").show();
-                    }
-                }else{
-                    $("#loginDiv").show();
-
-                }
+              var ua = window.navigator.userAgent;
+              var msie = ua.indexOf('MSIE');
+              if (msie > 0) {
+               // IE 10 or older => return version number
+               $("#loginPanelWarning").show();
+              }
+              var trident = ua.indexOf('Trident/');
+              if (trident > 0) {
+               // IE 11 => return version number
+               $("#loginPanelWarning").show();
+              }
+              $("#loginDiv").show();
             </script>
-
-            <script>
-                //loginVisible = function(visible){
-                //    if(visible){
-                //        jQuery("#loginPanel").css("display", "block");
-                //        jQuery("#loginPanelWarning").css("display", "none");
-                //    }else{
-                //        jQuery("#loginPanel").css("display", "none");
-                //        jQuery("#loginPanelWarning").css("display", "block");
-                //    }
-                //}
-
-                //if(jQuery.browser.mozilla) loginVisible(false);
-                //if(jQuery.browser.webkit) loginVisible(true);
-                //if(jQuery.browser.safari) loginVisible(true);
-                //if(jQuery.browser.opera) loginVisible(true);
-                //if(jQuery.browser.msie) loginVisible(true);
-
-            </script>
-
-
 
             <!-- END BLOCK_SIGN_IN -->
             <div id="noJs" style="display: block;font-size:1.5em;">
                 Um den Server nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser.
             </div>
-            <div id="loginPanelWarning" style="display:none;font-size:1.5em;">
-                Ihr Browser wird nicht unterstützt.<br> Wir empfehlen eine aktuelle Version <br>von Firefox oder Chrome.
+            <div id="loginPanelWarning" style="display:none;">
+                Die Entwicklung des von Ihnen benutzten Browsers <i>Internet Explorer</i> wurde vom Hersteller eingestellt.<br>
+                Eine korrekte Darstellung und Funktion der Plattform kann unter diesen Umständen nicht gewährleistet werden.<br>
+                Weitere Informationen und eine Liste alternativer Browser findet Sie <a href="https://bid.lspb.de/explorer/ViewDocument/640276/">hier</a>.
                         </div>
                         <script>
                             $('#noJs').hide();

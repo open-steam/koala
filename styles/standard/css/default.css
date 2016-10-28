@@ -617,9 +617,15 @@
 	}
 
 	#loginPanelWarning {
-		position:absolute;
-		right:0px;
-		top:-80px;
+		background: #ffba00;
+		width: 710px;
+		font-weight: bold;
+		padding: 3px;
+		position: relative;
+		margin-left: auto;
+		margin-right: auto;
+		border-radius: 3px;
+		text-align: left;
 	}
 
 	/*
