@@ -239,7 +239,18 @@
                     </table>
                 </form>
             </div>
+
+            <!-- END BLOCK_SIGN_IN -->
+            <div id="noJs" style="display: block;font-size:1.5em;">
+                Um den Server nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser.
+            </div>
+            <div id="loginPanelWarning" style="display:none;">
+                Die Entwicklung des von Ihnen benutzten Browsers <i>Internet Explorer</i> wurde vom Hersteller eingestellt.<br>
+                Eine korrekte Darstellung und Funktion der Plattform kann unter diesen Umständen nicht gewährleistet werden.<br>
+                Weitere Informationen und eine Liste alternativer Browser findet Sie <a href="https://bid.lspb.de/explorer/ViewDocument/640276/">hier</a>.
+            </div>
             <script>
+              $('#noJs').hide();
               var ua = window.navigator.userAgent;
               var msie = ua.indexOf('MSIE');
               if (msie > 0) {
@@ -253,19 +264,6 @@
               }
               $("#loginDiv").show();
             </script>
-
-            <!-- END BLOCK_SIGN_IN -->
-            <div id="noJs" style="display: block;font-size:1.5em;">
-                Um den Server nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser.
-            </div>
-            <div id="loginPanelWarning" style="display:none;">
-                Die Entwicklung des von Ihnen benutzten Browsers <i>Internet Explorer</i> wurde vom Hersteller eingestellt.<br>
-                Eine korrekte Darstellung und Funktion der Plattform kann unter diesen Umständen nicht gewährleistet werden.<br>
-                Weitere Informationen und eine Liste alternativer Browser findet Sie <a href="https://bid.lspb.de/explorer/ViewDocument/640276/">hier</a>.
-                        </div>
-                        <script>
-                            $('#noJs').hide();
-                        </script>
 
                         {REPORT_ERROR_BUTTON}
 
