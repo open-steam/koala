@@ -166,7 +166,7 @@
 	}
 
 	#footer_wrapper {
-		
+
 	}
 
 	/*currently not used*/
@@ -223,9 +223,17 @@
 		border-bottom-left-radius: 3px;
 	}
 
+	#trashbinIconbarWrapper {
+		height: 19px;
+	}
+
 	#trashbinIconbarWrapper img{
 		margin-right: 2px;
 		float: left;
+	}
+
+	#clipboardIconbarWrapper {
+		height: 19px;
 	}
 
 	#clipboardIconbarWrapper img{
@@ -289,7 +297,7 @@
 	}
 
 	#menu li .menu_text{
-		padding: 7px 10px 7px 10px;
+		padding: 8px 10px 7px 10px;
 		color:#003A6F;
 		display:block;
 		text-align:center;
@@ -329,8 +337,6 @@
 		border-bottom-left-radius: 3px;
 		border-bottom-right-radius: 3px;
 	}
-
-	
 
 	#menu li li {
 		display:block;
