@@ -120,22 +120,21 @@ class SingleChoiceQuestion extends AbstractQuestion {
 		if($this->arrangement == "horizontal"){
 			$content->setCurrentBlock("BLOCK_ROW_VIEW");
 		}
-		foreach ($this->options as $option) {
+		foreach ($this->options as $key=>$option) {
 			if ($this->arrangement == "vertikal"){
 				$content->setCurrentBlock("BLOCK_ROW_VIEW");
 			}
 			$content->setCurrentBlock("BLOCK_COLUMN_VIEW");
 			$content->setCurrentBlock("BLOCK_OPTION_VIEW");
 			$content->setVariable("QUESTION_ID", $id);
+			$content->setVariable("QUESTION_COUNTER", $key);
 			$content->setVariable("OPTION_LABEL", $option);
-			/*
-			if ($counter == $input) {
+			if ($key == $input) {
 				$content->setVariable("OPTION_CHECKED", "checked");
 			}
 			if ($disabled == 1) {
 				$content->setVariable("QUESTION_DISABLED", "disabled");
 			}
-			*/
 			$content->parse("BLOCK_OPTION_VIEW");
 			$content->parse("BLOCK_COLUMN_VIEW");
 			if($this->arrangement == "vertikal") {

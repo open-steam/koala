@@ -52,7 +52,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
 
       // check if input is disabled
       $disabled = 0;
-      if (isset($this->params[3])) {
+      if (isset($this->params[3]) || $preview == 1) {
           $disabled = 1;
       }
 
@@ -88,7 +88,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
 
       // check if user is allowed to view survey
       $participants = $survey->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
-      $active = \Questionnaire::getInstance()->isActive($this->id);
+      $active = \Questionnaire::getInstance()->isActive($questionnaire->get_id());
       // if user is admin and is preview or view of someones result
       if ($admin == 1 && ($preview == 1 || $disabled == 1)) {
           $allowed = true;

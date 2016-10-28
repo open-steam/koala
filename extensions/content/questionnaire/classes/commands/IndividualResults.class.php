@@ -111,7 +111,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 					$text = substr($text, 0, 25) . "...";
 				}
 				//$text = $text . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
-				$content->setVariable("QUESTION_TEXT", $questionCount . "." . $text);
+				$content->setVariable("QUESTION_TEXT", $questionCount . "."); //. $text);
 				$tipsy = new \Widgets\Tipsy();
 				$tipsy->setElementId("tipsy" . $questionCount);
 				$tipsy->setHtml($text_long);
