@@ -19,7 +19,7 @@ class EditSubscribedElement extends \AbstractCommand implements \IAjaxCommand {
         $this->newSubscribedElementId = trim($params["newSubscribedElementId"]);
         $this->portletSubscriptionElementId = trim($params["portletSubscriptionElementId"]);
         $this->portletSubscriptionTitle = trim($params["portletSubscriptionTitle"]);
-        $this->portletSubscriptionType = trim($params["portletSubscriptionType"]);
+        $this->portletSubscriptionType = ""; //trim($params["portletSubscriptionType"]);
         $this->portletSubscriptionOrder = trim($params["portletSubscriptionOrder"]);
 
         return true;

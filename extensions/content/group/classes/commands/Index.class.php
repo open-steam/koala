@@ -76,17 +76,19 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //then use tue sorted array to display the users in the correct order
         $counter = 0;
         foreach ($members_user_name as $id => $member) {
-
             $this->template->setCurrentBlock("BLOCK_MEMBERS");
-
             $this->template->setVariable("MEMBER_ID", $members_user[$id]->get_id());
             $this->template->setVariable("MEMBER_LOGIN_NAME", $members_user[$id]->get_name());
             $this->template->setVariable("MEMBER_FIRST_NAME", $members_user[$id]->get_attribute("USER_FIRSTNAME"));
             $this->template->setVariable("MEMBER_LAST_NAME", $members_user[$id]->get_attribute("USER_FULLNAME"));
-            $this->template->setVariable("MEMBER_PIC_LINK", PATH_URL . "download/image/" . $members_user[$id]->get_attribute("OBJ_ICON")->get_id() . "/50/60/");
 
+            $user_icon = $members_user[$id]->get_attribute("OBJ_ICON");
+            if(!$user_icon instanceof \steam_document){
+              $user_icon = \steam_factory::get_object_by_name($GLOBALS[ "STEAM" ]->get_id(), "/images/doctypes/user_unknown.jpg");
+            }
+
+            $this->template->setVariable("MEMBER_PIC_LINK", PATH_URL . "download/image/" . $user_icon->get_id() . "/50/60/");
             $this->template->parse("BLOCK_MEMBERS");
-
             $counter++;
         }
 

@@ -15,28 +15,30 @@ class Order extends \AbstractCommand implements \IAjaxCommand {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
 		$this->direction = $this->params["direction"];
-		$this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		$environment = $this->object->get_environment();
-		$inventory = $environment->get_inventory();
-		foreach ($inventory as $key => $element) {
-			if ($element->get_id() == $this->id) {
-				$index = $key;
+		if($this->id != ""){
+			$this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+			$environment = $this->object->get_environment();
+			$inventory = $environment->get_inventory();
+			foreach ($inventory as $key => $element) {
+				if ($element->get_id() == $this->id) {
+					$index = $key;
+				}
 			}
-		}
-		if ($this->direction == "up") {
-			$environment->swap_inventory($index, $index-1);
-		} else if ($this->direction == "down") {
-			$environment->swap_inventory($index, $index+1);
-		} else if ($this->direction == "top") {
-			for($i=0;$i<$index+1;$i++){
-				$environment->swap_inventory(0,$i);
+			if ($this->direction == "up") {
+				$environment->swap_inventory($index, $index-1);
+			} else if ($this->direction == "down") {
+				$environment->swap_inventory($index, $index+1);
+			} else if ($this->direction == "top") {
+				for($i=0;$i<$index+1;$i++){
+					$environment->swap_inventory(0,$i);
+				}
+			} else if ($this->direction == "bottom") {
+				for($i=count($inventory)-1;$i>=$index;$i--){
+					$environment->swap_inventory($index,$i);
+				}
+			} else {
+				$environment->order_inventory_objects($this->params["indices"]);
 			}
-		} else if ($this->direction == "bottom") {
-			for($i=count($inventory)-1;$i>=$index;$i--){
-				$environment->swap_inventory($index,$i);
-			}
-		} else {
-			$environment->order_inventory_objects($this->params["indices"]);
 		}
 	}
 

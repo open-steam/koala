@@ -23,7 +23,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     public function execute(\FrameResponseObject $frameResponseObject) {
 
-
         //BEGIN Search-Part
         //DEFINITION OF IGNORED USERS AND GROUPS
         $ignoredUserNames = array(0 => "postman", 1 => "root", 2 => "guest");
@@ -36,7 +35,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $steamUser = \lms_steam::get_current_user();
         $searchResult = array();
         $min_search_string_count = 3;
-
 
         $buddies_user = array();
         $buddies_group = array();
@@ -65,7 +63,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         // sort favourites
         natcasesort($buddies_user_name);
         natcasesort($buddies_group_name);
-
 
         //IF THERE IS AN ACTION TO DO
         if ($action != "") {
@@ -120,7 +117,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                         foreach ($resultItems as $resultItem) {
                             $resultItemName[$resultItem->get_id()] = $resultItem->get_name();
                         }
-                        
+
                         $result = array();
                         $counter = 0;
                         foreach ($resultItems as $resultItem) {
@@ -174,13 +171,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $frameResponseObject->addWidget($actionBar);
         }
 
-
         $content = \Favorite::getInstance()->loadTemplate("favorite_template.html");
         $content->setVariable("TITLE", "Suche");
-
         $content->setVariable("SEARCH", "Suchbegriff");
         $content->setVariable("BUTTON_LABEL", "Suchen");
-
         $content->setVariable("GROUPS", "Gruppenname");
         $content->setVariable("USER_LOGIN", "Loginname");
         $content->setVariable("USER_FULLNAME", "Benutzername");
@@ -258,6 +252,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
                             $content->setCurrentBlock("BLOCK_SEARCH_RESULTS_GROUP");
                             $content->setVariable("GROUP_NAME", $resultEntry);
+                            $content->setVariable("GROUP_ID",  $resultGroup->get_id());
 
                             $groupDesc = $resultGroup->get_attribute("OBJ_DESC");
                             $content->setVariable("GROUP_DESC", $groupDesc);
@@ -305,7 +300,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("BUDDY_NAME1", $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME"));
             $content->setVariable("BUDDY_NAME", PATH_URL . "profile/index/" . $buddy . "/");
             $content->setVariable("DELETE_BUDDY", "Favorit Löschen");
-
             $content->setVariable("DELETE_BUDDY_LINK", PATH_URL . "favorite/delete/" . $id . "/");
             $content->parse("BLOCK_BUDDY_LIST");
             $loopCount += 1;
@@ -314,7 +308,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         if ($loopCount == 0) {
             $content->setVariable("NO_BUDDYS", "Es wurde kein Benutzer der Favoritenliste hinzugefügt");
         }
-        
+
         $content->setVariable("FAVORITE_GROUPS", "Meine Favoriten (Gruppen)");
 
         $loopCount = 0;
@@ -336,7 +330,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         //END List-Part
-
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($content->get());
         $frameResponseObject->addWidget($rawHtml);

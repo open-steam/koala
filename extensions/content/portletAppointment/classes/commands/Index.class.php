@@ -198,15 +198,17 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->parse("BLOCK_TERM_STARTTIME");
                 }
 
-                if ($appointment["end_time"]["hour"] !== "") {
-                    $tmpl->setCurrentBlock("BLOCK_TERM_ENDTIME");
-                    $tmpl->setVariable("ENDTIME", $appointment["end_time"]["hour"] . "." . $appointment["end_time"]["minutes"] . " Uhr");
-                    $tmpl->parse("BLOCK_TERM_ENDTIME");
-                    if (!$endterm) {
-                        $tmpl->setCurrentBlock("BLOCK_TERM_ENDTERM");
-                        $tmpl->setVariable("ENDTERM", "Ende:");
-                        $tmpl->parse("BLOCK_TERM_ENDTERM");
-                    }
+                if(isset($appointment["end_time"])){
+                  if (isset($appointment["end_time"]["hour"]) && $appointment["end_time"]["hour"] !== "") {
+                      $tmpl->setCurrentBlock("BLOCK_TERM_ENDTIME");
+                      $tmpl->setVariable("ENDTIME", $appointment["end_time"]["hour"] . "." . $appointment["end_time"]["minutes"] . " Uhr");
+                      $tmpl->parse("BLOCK_TERM_ENDTIME");
+                      if (!$endterm) {
+                          $tmpl->setCurrentBlock("BLOCK_TERM_ENDTERM");
+                          $tmpl->setVariable("ENDTERM", "Ende:");
+                          $tmpl->parse("BLOCK_TERM_ENDTERM");
+                      }
+                  }
                 }
 
                 if (trim($appointment["description"]) !== "" && trim($appointment["description"]) !== "0") {

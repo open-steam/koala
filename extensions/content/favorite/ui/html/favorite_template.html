@@ -24,7 +24,7 @@
 			<table style="padding-top: 10px;">
 				<!-- BEGIN BLOCK_NO_RESULT -->
 				<tr>
-                                    <th style="text-align:left;"><p style="word-wrap:break-word; width:400px;">{NO_RESULT}</p></th>
+        	<th style="text-align:left;"><p style="word-wrap:break-word; width:400px;">{NO_RESULT}</p></th>
 				</tr>
 				<!--  END BLOCK_NO_RESULT -->
 
@@ -37,7 +37,7 @@
 				<!-- BEGIN BLOCK_SEARCH_RESULTS_BUDDY -->
 				<tr>
 					<td style="width: 60px;"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
-					<td class="value" style="width: 200px; word-break: break-all;"><div style=""><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></div></td>
+					<td class="value" style="width: 200px; word-break: break-all;"><div style=""><a target="_blank" href="{BUDDY_NAME}">{BUDDY_NAME1}</a></div></td>
 
 					<!--  <td class="label" style="width:300px;vertical-align:middle">{BUDDY_NAME}</td> -->
 					<!-- BEGIN BLOCK_SEARCH_RESULTS2_BUDDY -->
@@ -53,7 +53,7 @@
 
 				<!-- BEGIN BLOCK_SEARCH_RESULTS_GROUP -->
 				<tr>
-					<td class="label" style="vertical-align:middle; width:150px; word-break: break-all;">{GROUP_NAME}</td>
+					<td class="label" style="vertical-align:middle; width:150px; word-break: break-all;"><a target="_blank" href="/group/index/{GROUP_ID}">{GROUP_NAME}</a></td>
 					<td class="value" style="vertical-align:middle; width:150px; word-break: break-all; color:#AAAAAA;">{GROUP_DESC}</td>
 
 					<!-- BEGIN BLOCK_SEARCH_RESULTS2_GROUP -->
@@ -84,11 +84,9 @@
 	</tr>
 	<!-- BEGIN BLOCK_BUDDY_LIST -->
 	<tr>
-
 		<td style="width: 60px;"><a href="{BUDDY_NAME}"><img src="{BUDDY_PIC_LINK}" /></a></td>
 		<td class="value" style="width: 260px; word-break: break-all;"><a href="{BUDDY_NAME}">{BUDDY_NAME1}</a></td>
 		<td class="value" style="padding-left: 10px;"><div><a class="bidButton negative" href="{DELETE_BUDDY_LINK}">{DELETE_BUDDY}</a></div></td>
-
 	</tr>
 	<!-- END BLOCK_BUDDY_LIST -->
 	<!-- BEGIN BLOCK_BUDDY_LIST2 -->
@@ -104,7 +102,7 @@
 	<!-- BEGIN BLOCK_GROUP_LIST -->
 
 	<tr>
-            <td class="label" style="vertical-align:middle;width:165px;word-break:break-all;"><a href="/group/index/{GROUP_ID}">{GROUP_NAME}</a></td>
+    <td class="label" style="vertical-align:middle;width:165px;word-break:break-all;"><a href="/group/index/{GROUP_ID}">{GROUP_NAME}</a></td>
 		<td class="value" style="vertical-align:middle;width:165px;color:#AAAAAA;word-break:break-all;" >{GROUP_DESC}</td>
 		<!-- BEGIN BLOCK_GROUP_LIST2 -->
 		<td class="value"><div><a class="bidButton negative" href="{DELETE_GROUP_LINK}">{DELETE_GROUP}</a></div></td>

@@ -489,10 +489,13 @@
 	background-color: #d4d4d4 !important;
 }
 
+.orange {
+	background-color: #ff8300 !important;
+}
+
 .versionTableHeadline {
 	background-color: #3a6e9f !important;
 	color: white;
-	text-align: center !important;
 	border: none !important;
 }
 
