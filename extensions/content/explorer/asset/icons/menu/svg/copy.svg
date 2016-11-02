@@ -7,12 +7,10 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   fill="#000000"
    height="100%"
-   viewBox="0 0 24 24"
    width="100%"
-   id="copy"
-   version="1.1">
+   viewBox="0 0 16 16"
+   id="copy">
   <defs
      id="defs10" />
   <sodipodi:namedview
@@ -29,20 +27,21 @@
      id="namedview8"
      showgrid="false"
      inkscape:zoom="13.906433"
-     inkscape:cx="12"
+     inkscape:cx="-1.0515136"
      inkscape:cy="12"
      inkscape:window-x="20"
      inkscape:window-y="43"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="copy" />
   <path
-     d="M0 0h24v24H0z"
-     fill="none"
-     id="path4" />
-  <path
-     d="M 24,6.6509446 24,20.235848 C 24,21.48114 22.98114,22.5 21.735848,22.5 l -15.8490556,0 0,-2.264152 15.8490556,0 0,-13.5849034 z m -3.622632,-2.4905672 0,12.4528386 c 0,1.245264 -1.018888,2.264152 -2.264152,2.264152 l -15.849064,0 C 1.0188684,18.877368 0,17.85848 0,16.613216 L 0,4.1603774 C 0,2.9150938 1.0188684,1.8962254 2.264152,1.8962254 l 15.849064,0 c 1.245264,0 2.264152,1.0188684 2.264152,2.264152 z m -18.113216,0 0,12.4528386 15.849064,0 0,-12.4528386 z"
-     id="path6"
-     fill="currentColor"
+     d="m 0,-8 24,0 0,24 -24,0 z"
+     id="path4"
      inkscape:connector-curvature="0"
-     sodipodi:nodetypes="csscccccsssssssssccccc" />
+     style="fill:none" />
+  <path
+     d="m 16,4.3018878 0,9.0566022 c 0,0.830195 -0.67924,1.509435 -1.509435,1.509435 l -10.5660364,0 0,-1.509435 10.5660364,0 0,-9.0566022 z m -2.415088,-1.6603781 0,8.3018923 c 0,0.830176 -0.679259,1.509435 -1.509435,1.509435 l -10.5660421,0 C 0.67924585,12.452837 2.5e-7,11.773578 2.5e-7,10.943402 l 0,-8.3018924 c 0,-0.830189 0.6792456,-1.5094346 1.50943465,-1.5094346 l 10.5660421,0 c 0.830176,0 1.509435,0.6792456 1.509435,1.5094346 z m -12.0754771,0 0,8.3018923 10.5660421,0 0,-8.3018923 z"
+     id="path6"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="csscccccsssssssssccccc"
+     fill="currentColor" />
 </svg>

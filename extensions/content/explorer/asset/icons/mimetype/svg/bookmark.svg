@@ -1,1 +1,46 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg id="bookmark" viewBox="0 0 33.14800262451172 33.00400161743164" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMinYMin" width="100%" height="100%"><g fill="currentColor"><path d="M 14.076,6.978C 11.958,4.864, 9.298,4.686, 7.448,6.536C 5.598,8.384, 5.774,11.048, 7.888,13.164l 11.448,11.448 c 0.39,0.39, 1.024,0.39, 1.414,0s 0.39-1.024,0-1.414L 9.302,11.75c-1.026-1.026-1.68-2.562-0.442-3.8 c 1.236-1.238, 2.774-0.582, 3.8,0.444l 12.728,12.726c 3.65,3.654, 4.56,5.338, 2.386,7.514c-2.2,2.198-4.532,1.654-8.044-1.856 L 5.59,12.634C 3.306,10.35, 1.706,6.62, 4.708,3.62C 8.272,0.056, 12.342,3.56, 13.502,4.722l 12.992,12.994c 0.39,0.39, 1.024,0.39, 1.414,0 s 0.39-1.024,0-1.414L 14.916,3.308C 10.988-0.62, 6.534-1.040, 3.292,2.206C 0.016,5.48, 0.37,10.24, 4.176,14.048l 14.142,14.142 c 1.202,1.202, 3.776,3.774, 6.736,3.774c 1.33,0, 2.74-0.522, 4.136-1.918c 3.974-3.976, 0.298-7.656-2.386-10.342L 14.076,6.978z"></path></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="bookmark"
+   viewBox="0 0 16 16"
+   preserveAspectRatio="xMinYMin"
+   width="100%"
+   height="100%">
+  <defs
+     id="defs9" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1077"
+     inkscape:window-height="633"
+     id="namedview7"
+     showgrid="false"
+     inkscape:zoom="7.1506481"
+     inkscape:cx="16.574001"
+     inkscape:cy="16.502001"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="bookmark" />
+  <g
+     id="g3"
+     fill="currentColor"
+     transform="matrix(0.53546851,0,0,0.50113541,-0.5665129,-0.01829226)">
+    <path
+       d="M 14.076,6.978 C 11.958,4.864 9.298,4.686 7.448,6.536 c -1.85,1.848 -1.674,4.512 0.44,6.628 l 11.448,11.448 c 0.39,0.39 1.024,0.39 1.414,0 0.39,-0.39 0.39,-1.024 0,-1.414 L 9.302,11.75 C 8.276,10.724 7.622,9.188 8.86,7.95 10.096,6.712 11.634,7.368 12.66,8.394 L 25.388,21.12 c 3.65,3.654 4.56,5.338 2.386,7.514 -2.2,2.198 -4.532,1.654 -8.044,-1.856 L 5.59,12.634 C 3.306,10.35 1.706,6.62 4.708,3.62 8.272,0.056 12.342,3.56 13.502,4.722 l 12.992,12.994 c 0.39,0.39 1.024,0.39 1.414,0 0.39,-0.39 0.39,-1.024 0,-1.414 L 14.916,3.308 C 10.988,-0.62 6.534,-1.04 3.292,2.206 0.016,5.48 0.37,10.24 4.176,14.048 L 18.318,28.19 c 1.202,1.202 3.776,3.774 6.736,3.774 1.33,0 2.74,-0.522 4.136,-1.918 3.974,-3.976 0.298,-7.656 -2.386,-10.342 L 14.076,6.978 Z"
+       id="path5"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>
