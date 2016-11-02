@@ -1,16 +1,16 @@
 function widgets_listViewer_hover_toggle(elementId, isHovered) {
 	if (isHovered) {
-		jQuery('#' + elementId).addClass('listviewer-item-hover').removeClass('listviewer-item-unhover');
+		jQuery('#' + elementId).addClass('listviewer-item-hovered').removeClass('listviewer-item-unhovered');
 	} else {
-		jQuery('#' + elementId).removeClass('listviewer-item-hover').addClass('listviewer-item-unhover');
+		jQuery('#' + elementId).removeClass('listviewer-item-hovered').addClass('listviewer-item-unhovered');
 	}
 }
 
 function widgets_listViewer_selection_toggle(elementId, isSelected) {
 	if (isSelected) {
-		jQuery('#' + elementId).addClass('listviewer-item-selected');
+		jQuery('#' + elementId).addClass('listviewer-item-selected').addClass('listviewer-item-hover');
 	} else {
-		jQuery('#' + elementId).removeClass('listviewer-item-selected');
+		jQuery('#' + elementId).removeClass('listviewer-item-selected').removeClass('listviewer-item-hover');
 	}
 }
 

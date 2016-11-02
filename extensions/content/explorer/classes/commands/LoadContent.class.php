@@ -55,7 +55,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
             return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         } else {
-            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].parentNode.parentNode.click() }}\" type=\"checkbox\" ></input>");
         }
     }
 
@@ -137,7 +137,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 
         if ($cell == $this->rawCheckbox) {
             if (!($contentItem instanceof \steam_trashbin)) {
-                return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if (this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
+                return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if (this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected').addClass('listviewer-item-hover') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected').removeClass('listviewer-item-hover') }\"></input>";
             } else {
                 return "";
             }
