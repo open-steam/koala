@@ -27,6 +27,11 @@
 	background-color: #e5e5e5;
 }
 
+.listviewer-item-hovered {
+	/*border: 1px solid #aaa;*/
+	background-color: #e5e5e5;
+}
+
 .listviewer-item-selected.red, .listviewer-item-selected.orange, .listviewer-item-selected.yellow, .listviewer-item-selected.green, .listviewer-item-selected.blue, .listviewer-item-selected.purple, .listviewer-item-selected.grey {
 	background-color: #396D9C;
 }
