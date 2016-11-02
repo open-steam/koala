@@ -100,9 +100,6 @@
 	border-top: 1px solid #ffffff;
 }
 
-.popupmenuitem:hover .popupsubmenuwapper {
-	display: block;
-}
 
 .popupsubmenuwapper {
 	display: none;
