@@ -20,8 +20,7 @@ class SaveButton extends Button {
 	}
 
 	public function getHtml() {
-		$this->id = rand();
-		$this->getContent()->setVariable("BUTTON_ID", $this->id);
+		$this->getContent()->setVariable("BUTTON_ID", $this->getId());
 		$this->getContent()->setVariable("BUTTON_LABEL", $this->label);
 		$this->getContent()->setVariable("BEFORE_SAVE_JS", $this->beforeSaveJS);
 		$this->getContent()->setVariable("SAVE_RELOAD", $this->saveReload);
