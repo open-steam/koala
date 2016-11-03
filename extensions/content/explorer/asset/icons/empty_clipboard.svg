@@ -7,14 +7,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.1"
    id="empty_clipboard"
-   x="0px"
-   y="0px"
    width="100%"
    height="100%"
-   viewBox="10 10 30 30"
-   xml:space="preserve"><defs
+   viewBox="0 0 16 16"
+   xml:space="preserve">
+   <defs
      id="defs33" /><sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -29,14 +27,14 @@
      id="namedview31"
      showgrid="false"
      inkscape:zoom="16.000001"
-     inkscape:cx="11.382136"
+     inkscape:cx="0.038386709"
      inkscape:cy="13.764072"
      inkscape:window-x="18"
      inkscape:window-y="40"
      inkscape:window-maximized="0"
      inkscape:current-layer="empty_clipboard" /><g
      id="g5"
-     transform="translate(-0.1992189,0.4)"
+     transform="matrix(0.53848681,0,0,0.53848681,-5.5694471,-5.2704396)"
      fill="currentColor"><path
        d="m 14.900391,0.1875 c -1.018804,7.1646e-4 -1.86136,0.79365923 -1.923829,1.8105469 l -1.130859,0 c -0.292681,0 -0.488281,0.1956012 -0.488281,0.4882812 l 0,2.5351563 c 0.09755,0.292685 0.293161,0.4882812 0.488281,0.4882812 l 6.310547,0 c 0.292685,0 0.488281,-0.1955962 0.488281,-0.4882812 l 0,-2.5351563 c 0,-0.29268 -0.195596,-0.4882812 -0.488281,-0.4882812 l -1.332031,0 C 16.76175,0.98115884 15.919196,0.18821593 14.900391,0.1875 Z M 7.2441406,3.65625 C 5.9758456,3.65625 4.9999999,4.7296606 5,5.9003906 L 5,27.65625 c 0,1.268295 1.0734056,2.244141 2.2441406,2.244141 l 15.5136714,0 C 24.026103,29.900391 25,28.826985 25,27.65625 L 25,5.9980469 C 24.90245,4.7297569 23.928446,3.65625 22.660156,3.65625 l -2.927734,0 0,2.2519531 c 0,0.390245 -0.293253,0.5839844 -0.585938,0.5839844 l -8.486328,0 c -0.292684,0 -0.488281,-0.2912994 -0.488281,-0.5839844 l 0,-2.2519531 z m 2.7519532,6.328125 5.0195312,0 4.988281,0.03125 L 22,9.984375 l 0,7.525391 0,7.505859 -2.015625,-0.03125 -4.96875,0.03125 -5,0 -2.0156251,0 0,-7.505859 0,-7.525391 z"
        transform="translate(10.199219,9.6)"
@@ -44,6 +42,6 @@
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccsscsssssccsssssscscsssscsccccccccccccc" /></g><g
      id="g4252"
-     transform="matrix(0.03603452,0,0,0.03600317,15.795863,15.03585)"><g
+     transform="matrix(0.03603452,0,0,0.03600317,15.795863,1.03585)"><g
        id="g3"><g
          id="g5-6" /></g></g></svg>

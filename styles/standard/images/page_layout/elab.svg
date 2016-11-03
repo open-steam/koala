@@ -7,12 +7,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   viewBox="0 0 750 150"
+   viewBox="0 0 250 50"
    height="100%"
    width="100%"
    xml:space="preserve"
-   id="logo"
-   version="1.1"><sodipodi:namedview
+   id="logo">
+   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1"
@@ -25,15 +25,15 @@
      inkscape:window-height="672"
      id="namedview36"
      showgrid="false"
-     inkscape:zoom="0.796"
-     inkscape:cx="333.76085"
+     inkscape:zoom="1.592"
+     inkscape:cx="261.81753"
      inkscape:cy="75"
      inkscape:window-x="40"
      inkscape:window-y="109"
      inkscape:window-maximized="0"
      inkscape:current-layer="logo" /><defs
      id="defs6" /><g
-     transform="matrix(0.96185291,0,0,-0.96185291,-11.031299,150)"
+     transform="matrix(0.32061764,0,0,-0.32061764,-3.6770996,50)"
      id="g10"><g
        transform="scale(0.1,0.1)"
        id="g12"><path
