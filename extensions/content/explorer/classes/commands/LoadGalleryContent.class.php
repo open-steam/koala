@@ -171,6 +171,9 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $galleryNumberClass = "Row5";
           if(is_numeric($galleryNumber) && $galleryNumber > 0 && $galleryNumber < 11){
             $galleryNumberClass = "Row" . $galleryNumber;
+
+            //Fix for Microsoft Edge
+            $transform = getSVGScaleFactor($galleryNumber);
           }
 
           $entry->setHtml("<li class='galleryEntry " . $color . " " . $hidden . " " . $galleryNumberClass . "' id='" . $id . "'>
@@ -181,7 +184,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
                 " . $urlHtml . "
 
-                <svg class='galleryPicture'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>
+                <svg class='galleryPicture'><use " . $transform . " xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>
 
                 </a>
 
