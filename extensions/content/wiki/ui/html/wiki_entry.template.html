@@ -5,21 +5,21 @@
 
 <script type="text/javascript">
 
-function showBox( imageID, width, height ){
-	var img = document.getElementById( imageID );
+function showBox(imageID, width, height){
+	var img = document.getElementById(imageID);
 	var screenWidth = self.innerWidth - 100;
 	var screenHeight = self.innerHeight - 140;
 	var newWidth = width;
 	var newHeight = height;
-	var url = img.src;
+  var url = img.src;
 
-	if ( width > screenWidth ){
-		newHeight = Math.floor( height *  screenWidth / width );
+	if(width > screenWidth){
+		newHeight = Math.floor(height * screenWidth/width);
 		newWidth = screenWidth;
 	}
 
-	if ( height > screenHeight ){
-		newWidth = Math.floor( width *  screenHeight / height );
+	if(height > screenHeight){
+		newWidth = Math.floor(width * screenHeight/height);
 		newHeight = screenHeight;
 	}
 
@@ -99,7 +99,7 @@ function hideBox(){
 }
 
 </style>
-<!--
+
 <div id="container">
 	<div id="greyBox"></div>
 	<div id="imageBox">
@@ -110,7 +110,7 @@ function hideBox(){
 		<span id="imgDesc"></span>
 	</div>
 </div>
-
+<!--
 <hr>
 
 <p>
