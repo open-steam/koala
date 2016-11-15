@@ -868,10 +868,14 @@ function cleanHTML($dirtyHTML) {
 
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
 
+    $config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent','_top'));
+
     $def = $config->getHTMLDefinition(true);
+    /*
     $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
-            array('_blank', '_self', '_target', '_top')
+      array('_blank','_self','_parent','_top')
     ));
+    */
 
     //videotag ok
     $videotag = $def->addElement(
