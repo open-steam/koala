@@ -168,13 +168,13 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $color = $colorProvider->getColor($object);
 
           $galleryNumber = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("GALLERY_NUMBER");
-          $galleryNumberClass = "Row5";
-          if(is_numeric($galleryNumber) && $galleryNumber > 0 && $galleryNumber < 11){
-            $galleryNumberClass = "Row" . $galleryNumber;
-
-            //Fix for Microsoft Edge
-            $transform = getSVGScaleFactor($galleryNumber);
+          if(!is_numeric($galleryNumber) || $galleryNumber < 0 || $galleryNumber > 10){
+            $galleryNumber = 5;
           }
+          $galleryNumberClass = "Row" . $galleryNumber;
+
+          //Fix for Microsoft Edge
+          $transform = getSVGScaleFactor($galleryNumber);
 
           $entry->setHtml("<li class='galleryEntry " . $color . " " . $hidden . " " . $galleryNumberClass . "' id='" . $id . "'>
 
