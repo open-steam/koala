@@ -652,6 +652,60 @@ function deriveIcon($object) {
     return $icons["generic"];
 }
 
+//special function for Microsoft Edge
+function getSVGScaleFactor($galleryNumber){
+
+  switch ($galleryNumber) {
+      case 1:
+          $transform = "transform='scale(56.875)'";
+          break;
+      case 2:
+          $transform = "transform='scale(27.125)'";
+          break;
+      case 3:
+          $transform = "transform='scale(17.25)'";
+          break;
+      case 4:
+          $transform = "transform='scale(12.25)'";
+          break;
+      case 5:
+          $transform = "transform='scale(9.375)'";
+          break;
+      case 6:
+          $transform = "transform='scale(7.375)'";
+          break;
+      case 7:
+          $transform = "transform='scale(5.9375)'";
+          break;
+      case 8:
+          $transform = "transform='scale(4.875)'";
+          break;
+      case 9:
+          $transform = "transform='scale(4.0625)'";
+          break;
+      case 10:
+          $transform = "transform='scale(3.4375)'";
+          break;
+      case 11:
+          $transform = "transform='scale(2.875)'";
+          break;
+      case 12:
+          $transform = "transform='scale(2.4375)'";
+          break;
+      case 13:
+          $transform = "transform='scale(2.0625)'";
+          break;
+      case 14:
+          $transform = "transform='scale(1.6875)'";
+          break;
+      case 15:
+          $transform = "transform='scale(1.4375)'";
+          break;
+        }
+
+        return $transform;
+}
+
 function getObjectReadableSize($object) {
     $type = getObjectType($object);
     try {

@@ -98,6 +98,10 @@ div[id$="_0"].listviewer-item-cell {
   display: none;
 }
 
+.galleryPicture use {
+  transform: scale(1);
+}
+
 .galleryEntry .galleryReferenceWrapper {
   width: 16px;
   height: 16px;
