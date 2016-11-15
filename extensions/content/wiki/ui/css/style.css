@@ -131,6 +131,7 @@
 	color: #FFFFFF;
 	vertical-align: middle;
   display: table-cell;
+	top: 1px;
 }
 
 .wiki_toolbar .toolbar_select_popup_wrapper {
@@ -181,48 +182,12 @@
 	background-color: #6094C5;
 }
 
-.wiki_toolbar .toolbar_icon_bold {
-
-}
-
-.wiki_toolbar .toolbar_icon_italic {
-
-}
-
-.wiki_toolbar .toolbar_icon_ul {
-
-}
-
-.wiki_toolbar .toolbar_icon_ol {
-
-}
-
-.wiki_toolbar .toolbar_icon_line {
-
-}
-
-.wiki_toolbar .toolbar_icon_link {
-
-}
-
-.wiki_toolbar .toolbar_icon_image {
-
-}
-
-.wiki_toolbar .toolbar_icon_note {
-
-}
-
-.wiki_toolbar .toolbar_icon_comment {
-
-}
-
-.wiki_toolbar .toolbar_icon_help{
-
-}
-
-.wiki_toolbar .toolbar_icon_table{
-
+.toolbar_icon svg {
+	width: 16px;
+	height: 16px;
+	padding-top: 7px;
+	padding-left: 15px;
+	color: #FFFFFF;
 }
 
 .wiki_toolbar .toolbar_icon_pressed{
