@@ -9,11 +9,8 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    viewBox="0 0 16 16"
    id="poll"
-   version="1.1"
    height="100%"
-   width="100%"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="poll.svg">
+   width="100%">
   <defs
      id="defs16" />
   <sodipodi:namedview
@@ -29,8 +26,8 @@
      inkscape:window-height="706"
      id="namedview14"
      showgrid="false"
-     inkscape:zoom="29.5"
-     inkscape:cx="8"
+     inkscape:zoom="20.85965"
+     inkscape:cx="1.8474576"
      inkscape:cy="8"
      inkscape:window-x="0"
      inkscape:window-y="46"
@@ -45,16 +42,8 @@
        stroke="none"
        id="g6">
       <path
-         d="m 3.3757237,1021.0278 0.00119,5.2606 -3.06743669,6e-4 -0.001183,-5.2606 z"
+         d="m 3.2861241,1026.9461 -3.391e-4,-5.2604 -3.02231678,7e-4 0.002077,5.2604 3.02057888,-7e-4 z m -4.3629002,3.9459 -0.0032,-9.209 -3.0153643,-4e-4 0.0032,9.209 3.0153643,4e-4 z m -4.3574343,-2.3064 -0.00283,-6.9051 -3.0188408,7e-4 0.00283,6.9051 3.0188408,-7e-4 z"
          id="path8"
-         inkscape:connector-curvature="0" />
-      <path
-         d="m -5.4806476,1021.0225 0.00246,6.9055 -3.0651019,4e-4 -0.0026,-6.9054 z"
-         id="path10"
-         inkscape:connector-curvature="0" />
-      <path
-         d="m -1.0567879,1021.0251 0.00425,9.2092 -3.0620802,-7e-4 -0.00425,-9.2094 z"
-         id="path12"
          inkscape:connector-curvature="0" />
     </g>
   </g>

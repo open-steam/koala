@@ -7,16 +7,11 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.1"
    id="headline"
-   x="0px"
-   y="0px"
-   viewBox="0 0 577 577"
+   viewBox="0 0 16 16"
    preserveAspectRatio="xMinYMin"
    width="100%"
-   height="100%"
-   inkscape:version="0.91 r13725"
-   sodipodi:docname="headline.svg">
+   height="100%">
   <defs
      id="defs17" />
   <sodipodi:namedview
@@ -33,17 +28,17 @@
      id="namedview15"
      showgrid="false"
      showguides="false"
-     inkscape:zoom="0.40850592"
-     inkscape:cx="380.12301"
-     inkscape:cy="342.01641"
+     inkscape:zoom="3.2680474"
+     inkscape:cx="-64.178997"
+     inkscape:cy="71.363069"
      inkscape:window-x="53"
      inkscape:window-y="122"
      inkscape:window-maximized="0"
-     inkscape:current-layer="appointment" />
+     inkscape:current-layer="headline" />
   <g
      id="g3"
-     transform="matrix(1.0411489,0,0,1.0351562,23.099198,2.4243065)"
-     style="fill:currentColor">
+     transform="matrix(0.02922523,0,0,0.02905702,0.48376104,-0.10215314)"
+     fill="currentColor">
     <path
        d="m 17.193359,97.849609 c -6.25664,0 -11.3281246,4.700231 -11.3281246,10.513671 l 0,365.39844 c 0,5.80101 5.0714846,10.51562 11.3281246,10.51562 l 547.328121,0 c 6.29116,0 11.34375,-4.71461 11.34375,-10.51562 l 0,-365.39844 c 0,-5.81344 -5.05259,-10.513671 -11.34375,-10.513671 z M 393.45117,201.75 l 40.4043,0 0,150.51172 37.47656,0 0,31.73828 -88.80664,0 c 0.10336,0.21104 0.19575,0.39985 0.29102,0.59375 l 41.64888,57.52671 4.2839,-12.59294 39.09055,1.83595 8.56781,-9.43856 -93.80403,-37.33116 -0.27149,-0.59375 -32.33789,0 0,-31.73828 38.33008,0 0,-96.07031 -38.33008,0 0,-29.66211 c 5.85938,0 11.47461,-0.32552 16.8457,-0.97657 5.3711,-0.73242 9.84701,-1.95312 13.42774,-3.66211 4.23177,-2.03448 7.4056,-4.67838 9.52148,-7.93359 2.11589,-3.25521 3.33659,-7.32422 3.66211,-12.20703 z m -262.20703,0.48828 46.875,0 0,66.52734 69.21289,0 0,-66.52734 46.875,0 0,181.76172 -46.875,0 0,-80.07812 -69.21289,0 0,80.07812 -46.875,0 z"
        transform="matrix(0.96047741,0,0,0.96603778,-22.186258,-2.3419717)"
@@ -55,13 +50,13 @@
   </g>
   <text
      xml:space="preserve"
-     style="font-style:normal;font-weight:bold;font-size:40px;line-height:125%;font-family:Verdana;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:'Verdana Bold';font-stretch:normal;font-variant:normal;"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:125%;font-family:Verdana;-inkscape-font-specification:'Verdana Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      x="325.57669"
-     y="337.10141"
+     y="-223.89859"
      id="text3351"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan3353"
        x="325.57669"
-       y="337.10141"></tspan></text>
+       y="-223.89859" /></text>
 </svg>

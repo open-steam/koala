@@ -9,7 +9,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="100%"
    height="100%"
-   viewBox="0 0 270 240"
+   viewBox="0 0 16 16"
    id="pyramiddiscussion">
   <defs
      id="defs8" />
@@ -22,20 +22,20 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="640"
-     inkscape:window-height="480"
+     inkscape:window-width="1398"
+     inkscape:window-height="775"
      id="namedview6"
      showgrid="false"
-     inkscape:zoom="0.98333333"
-     inkscape:cx="135"
-     inkscape:cy="120"
+     inkscape:zoom="3.9333333"
+     inkscape:cx="84.29661"
+     inkscape:cy="38.644067"
      inkscape:window-x="0"
      inkscape:window-y="23"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="pyramiddiscussion" />
   <path
-     fill="currentColor"
-     d="M 265,230 5,230 135,5"
+     d="M 16,14.923077 1.5e-7,14.923077 8.0000002,1.076923"
      id="path4"
-     inkscape:connector-curvature="0" />
+     inkscape:connector-curvature="0"
+     fill="currentColor" />
 </svg>

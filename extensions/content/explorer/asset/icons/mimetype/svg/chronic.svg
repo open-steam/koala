@@ -1,14 +1,43 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="chronic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="100%" height="100%" viewBox="0 0 612 612" style="enable-background:new 0 0 612 612;" xml:space="preserve">
-<g fill="currentColor">
-	<g>
-		<path d="M140.734,433.628H81.651C128.112,524.382,222.539,586.5,331.5,586.5C486.412,586.5,612,460.912,612,306
-			c0-154.913-125.588-280.5-280.5-280.5C194.004,25.5,79.611,124.44,55.616,255H0l76.5,102L153,255h-45.313
-			C130.892,152.796,222.284,76.5,331.5,76.5C458.261,76.5,561,179.239,561,306S458.261,535.5,331.5,535.5
-			C251.991,535.5,181.917,495.057,140.734,433.628z"/>
-		<polygon points="318.75,128.316 318.75,314.925 451.631,393.235 464.585,371.28 344.25,299.727 344.25,128.316 		"/>
-	</g>
-</g>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="chronic"
+   width="100%"
+   height="100%"
+   viewBox="0 0 16 16">
+	 <defs
+     id="defs13" /><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1357"
+     inkscape:window-height="693"
+     id="namedview11"
+     showgrid="false"
+     inkscape:zoom="8.7256052"
+     inkscape:cx="29.101519"
+     inkscape:cy="12.61061"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="chronic" /><g
+     id="g3"
+     fill="currentColor"
+     transform="matrix(0.02614379,0,0,0.02614379,2.6e-7,2.6e-7)"><g
+       id="g5"><path
+         d="m 140.734,433.628 -59.083,0 C 128.112,524.382 222.539,586.5 331.5,586.5 486.412,586.5 612,460.912 612,306 612,151.087 486.412,25.5 331.5,25.5 194.004,25.5 79.611,124.44 55.616,255 L 0,255 76.5,357 153,255 107.687,255 C 130.892,152.796 222.284,76.5 331.5,76.5 458.261,76.5 561,179.239 561,306 561,432.761 458.261,535.5 331.5,535.5 251.991,535.5 181.917,495.057 140.734,433.628 Z"
+         id="path7"
+         inkscape:connector-curvature="0" /><polygon
+         points="344.25,299.727 344.25,128.316 318.75,128.316 318.75,314.925 451.631,393.235 464.585,371.28 "
+         id="polygon9" /></g></g></svg>

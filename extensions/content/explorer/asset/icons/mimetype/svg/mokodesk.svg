@@ -1,13 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg id="mokodesk" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="100%" height="100%" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
-<path fill="currentColor" d="M335.474,115l6.41,22.69H170.275l6.379-22.69H335.474z M157.979,181.42h196.258l-7.627-27H165.57
-	L157.979,181.42z M130.17,181.42L156.163,90h199.776l26.115,91.42h41.385L385.553,50H126.571L88.595,181.42H130.17z M50.406,212.232
-	L71.58,321.5h368.84l21.174-109.268H50.406z M287.469,274.625h-62.938c-7.247,0-13.125-5.876-13.125-13.125
-	s5.878-13.125,13.125-13.125h62.938c7.247,0,13.124,5.876,13.124,13.125S294.716,274.625,287.469,274.625z M50.406,351.732
-	L73.58,462h364.84l23.174-110.268H50.406z M287.469,414.125h-62.938c-7.247,0-13.125-5.875-13.125-13.125
-	c0-7.248,5.878-13.125,13.125-13.125h62.938c7.247,0,13.124,5.877,13.124,13.125C300.593,408.25,294.716,414.125,287.469,414.125z"
-	/>
-</svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="mokodesk"
+   width="100%"
+   height="100%"
+   viewBox="0 0 16 16"
+   xml:space="preserve">
+	 <defs
+     id="defs7" /><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1437"
+     inkscape:window-height="796"
+     id="namedview5"
+     showgrid="false"
+     inkscape:zoom="5.2149125"
+     inkscape:cx="76.023825"
+     inkscape:cy="41.231296"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="mokodesk" /><path
+     d="m 11.092464,2.5242718 0.249423,0.8811649 -6.6775872,0 0.248217,-0.8811649 6.1799472,0 z m -6.9066222,2.5794175 7.6367212,0 -0.296779,-1.0485435 -7.0445642,0 -0.295378,1.0485435 z m -1.082094,0 1.01143,-3.5502915 7.7736132,0 1.016177,3.5502915 1.610358,0 L 13.04112,-2.5e-7 l -10.0774152,0 -1.477708,5.10368955 1.617751,0 z M -2e-7,6.3002723 l 0.823915,4.2434167 14.3521702,0 L 16,6.3002723 l -16.0000002,0 z m 9.2245104,2.423029 -2.44902,0 c -0.281993,0 -0.510716,-0.228194 -0.510716,-0.509709 0,-0.281514 0.228723,-0.509709 0.510716,-0.509709 l 2.44902,0 c 0.281993,0 0.510677,0.2281949 0.510677,0.509709 0,0.281515 -0.228684,0.509709 -0.510677,0.509709 z M -2e-7,11.717748 0.9017378,16 15.098262,16 16,11.717748 l -16.0000002,0 z m 9.2245104,2.423029 -2.44902,0 c -0.281993,0 -0.510716,-0.228156 -0.510716,-0.509709 0,-0.281476 0.228723,-0.509709 0.510716,-0.509709 l 2.44902,0 c 0.281993,0 0.510677,0.228233 0.510677,0.509709 0,0.281553 -0.228684,0.509709 -0.510677,0.509709 z"
+     id="path3"
+     inkscape:connector-curvature="0"
+     fill="currentColor" /></svg>
