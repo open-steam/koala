@@ -618,14 +618,14 @@
 
 	#loginPanelWarning {
 		background: #ffba00;
-		width: 763px;
+		width: 690px;
 		font-weight: bold;
 		padding: 3px;
 		position: relative;
-		margin-left: auto;
-		margin-right: auto;
+		left: 260px;
 		border-radius: 3px;
 		text-align: left;
+		float: left;
 	}
 
 	/*
