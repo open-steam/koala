@@ -1,3 +1,12 @@
+{QUESTIONNAIRE_NAME}
+{QUESTIONNAIRE_DESC}
+
+<div class="attribute">Status:</div><div class="value{COLOR}">{QUESTIONNAIRE_STATUS}</div>
+<div class="attribute">Anzahl Fragen:</div><div class="value">{QUESTIONNAIRE_NUMBER_QUESTIONS}</div>
+<div class="attribute">Anzahl Abgaben:</div><div class="value">{QUESTIONNAIRE_NUMBER_SUBMISSIONS}</div>
+<div class="attribute">Mehrfachabgaben:</div><div class="value">{QUESTIONNAIRE_MULTIPLE}</div>
+<div class="attribute">Meine Abgaben:</div>{QUESTIONNAIRE_OWN_SUBMISSIONS}
+
 <!-- BEGIN BLOCK_CREATE_SURVEY -->
 <form id="surveyFormOptions" action="" method="post" onsubmit="return getSortables();" style="font-size:12px" >
   <input type="hidden" id="sortable_array" name="sortable_array" value="">
@@ -6,7 +15,6 @@
   <input type="hidden" id="editRF" name="editRF" value="{EDIT_ID}">
   <input type="hidden" id="asseturl" value="{ASSET_URL}">
   <div id="options">
-    <h1 style="padding-left:5px">Fragebogen <i>{TITLE}</i> bearbeiten</h1>
     <!-- <center> -->
     <table class="grid" border="0" width="100%">
         <tr style="display:{DISPLAY_QUESTIONS}">

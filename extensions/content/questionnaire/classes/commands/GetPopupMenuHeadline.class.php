@@ -2,12 +2,12 @@
 
 namespace Questionnaire\Commands;
 
-class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
+class GetPopupMenuSubmission extends \AbstractCommand implements \IAjaxCommand {
 
     private $params;
     private $id;
-    private $selection;
     private $x, $y, $height, $width;
+    private $result;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -16,6 +16,7 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
+        $this->result = $this->params["result"];
         $this->x = $this->params["x"];
         $this->y = $this->params["y"];
         $this->height = $this->params["height"];
@@ -24,9 +25,20 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $explorerUrl = \Explorer::getInstance()->getAssetUrl();
+        $viewIcon = $explorerUrl . "icons/mimetype/svg/questionnaire.svg";
         $editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
+        $trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
 
-        $items[] = array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten", "command" => "EditResult", "namespace" => "questionnaire", "params" => "{'id':'{$this->id}'}", "type" => "popup");
+        $resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->result);
+        $QuestionnaireExtension = \Questionnaire::getInstance();
+        $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $questionnaire = $survey->get_environment();
+
+        $items[] = array("raw" => "<a href='" . $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/" . $this->result . "/1" . "/'><div><svg><use xlink:href='" . $viewIcon . "#questionnaire'/></svg> Anzeigen</div></a>");
+        if ($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0) {
+          $items[] = array("raw" => "<a href='" . $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/" . $this->result . "/'><div><svg><use xlink:href='" . $editIcon . "#edit'/></svg> Bearbeiten</div></a>");
+          $items[] = array("raw" => "<a href=\"#\" onclick=\"deleteResult(" . $this->result . "," . $survey->get_id() . "," . $questionnaire->get_id() . ")\"><div><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</div></a>");
+        }
 
         $popupMenu = new \Widgets\PopupMenu();
         $popupMenu->setItems($items);

@@ -63,14 +63,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
       $surveys = $questionnaire->get_inventory();
       $survey = $surveys[0];
       $editID = $survey->get_id();
+      $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 
       // create/edit survey got submitted
       //$editID = 0;
-      if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_survey"])) {
+      if (1 == 0){ //$_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_survey"])) {
 
         $survey_object = new \Questionnaire\Model\Survey($questionnaire);
         if (isset($_POST["title"]) && trim($_POST["title"]) !== "") {
-
             $survey_object->setName($_POST["title"]);
         }
         $questioncounter = 0;
@@ -168,6 +168,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
                 }
             }
         }
+
         $survey_object->createSurvey($editID);
         //$frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
       }
@@ -202,8 +203,70 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 
       // display edit form
       $content = $QuestionnaireExtension->loadTemplate("questionnaire_edit.template.html");
+
+      $content->setVariable("QUESTIONNAIRE_NAME", '<svg style="width:16px; height:16px; float:left; color:#3a6e9f; right:5px; position:relative;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . PATH_URL . 'explorer/asset/icons/mimetype/svg/questionnaire.svg#questionnaire"></use></svg><h1>' . $questionnaire->get_name() . '</h1>');
+      $content->setVariable("QUESTIONNAIRE_DESC", '<p style="color:#AAAAAA; clear:both; margin-top:0px">' . $questionnaire->get_attribute("OBJ_DESC") . '</p>');
+
+      if($active){
+        $content->setVariable("QUESTIONNAIRE_STATUS", "aktiv (Ende: " . $questionnaire->get_attribute("QUESTIONNAIRE_END") . " Uhr)");
+        $content->setVariable("COLOR", "-green");
+      }
+      else{
+        $content->setVariable("QUESTIONNAIRE_STATUS", "nicht aktiv");
+        $content->setVariable("COLOR", "-red");
+      }
+
+      $content->setVariable("QUESTIONNAIRE_NUMBER_QUESTIONS", $survey->get_attribute("QUESTIONNAIRE_QUESTIONS"));
+      $content->setVariable("QUESTIONNAIRE_NUMBER_SUBMISSIONS", $resultContainer->get_attribute("QUESTIONNAIRE_RESULTS"));
+      if($times == 0){
+        $content->setVariable("QUESTIONNAIRE_MULTIPLE", "erlaubt");
+      }
+      else{
+        $content->setVariable("QUESTIONNAIRE_MULTIPLE", "nicht erlaubt");
+      }
+
+      $participated = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
+      $ownSubmissions = "";
+      // show users results in the table
+      if (isset($participated[$user->get_id()])) {
+        $results = $participated[$user->get_id()];
+        $count = 1;
+        foreach ($results as $result) {
+          $resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $result);
+          $ownSubmissions .= '<div class="value">';
+          if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") != 0) {
+            $ownSubmissions .= $count . ": Abgegeben (" . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr)";
+          } else {
+            $questionCount = $survey->get_attribute("QUESTIONNAIRE_QUESTIONS");
+            $questionsAnswered = 0;
+            $attributeNames = $resultObject->get_attribute_names();
+            for ($count2 = 0; $count2 < $questionCount; $count2++) {
+              if (in_array("QUESTIONNAIRE_ANSWER_" . $count2, $attributeNames)) {
+                $questionsAnswered++;
+              }
+            }
+            $ownSubmissions .= $count . ": Aktiv (" . $questionsAnswered . " von " . $questionCount . " Fragen beantwortet)";
+          }
+
+          $popupMenu = new \Widgets\PopupMenu();
+          $popupMenu->setCommand("GetPopupMenuSubmission");
+          $popupMenu->setNamespace("Questionnaire");
+          $popupMenu->setData($questionnaire);
+          $popupMenu->setElementId("edit-overlay");
+          $popupMenu->setParams(array(array("key" => "result", "value" => $result), array("key" => "id", "value" => $survey->get_id())));
+          $ownSubmissions .= $popupMenu->getHtml();
+          $ownSubmissions .= '</div>';
+
+          $count++;
+        }
+        $content->setVariable("QUESTIONNAIRE_OWN_SUBMISSIONS", $ownSubmissions);
+      }
+      else{
+        $ownSubmissions .= '<div class="value">keine</div>';
+        $content->setVariable("QUESTIONNAIRE_OWN_SUBMISSIONS", $ownSubmissions);
+      }
+
       $content->setCurrentBlock("BLOCK_CREATE_SURVEY");
-      $content->setVariable("TITLE", $questionnaire->get_attribute("OBJ_NAME"));
       $content->setVariable("QUESTIONNAIRE_ID", $this->id);
       $content->setVariable("ELEMENT_COUNTER", 0);
       $content->setVariable("QUESTION_LABEL", "Frage");

@@ -7,6 +7,7 @@ class Textarea extends Widget {
     private $label;
     private $labelClass = ""; // texthidden or hidden
     private $data;
+    private $readonly;
     private $contentProvider;
     private $leaveMessage = "Beim Verlassen der Seite gehen alle nicht gespeicherten Änderungen verloren.";
     private $width = "200px";
@@ -65,6 +66,10 @@ class Textarea extends Widget {
         $this->linebreaks = $linebreaks;
     }
 
+    public function setReadonly($readonly){
+      $this->readonly = $readonly;
+    }
+
     public function getHtml() {
         if(!isset($this->id)){
             $this->setId(rand());
@@ -75,7 +80,7 @@ class Textarea extends Widget {
         $this->getContent()->setVariable("PATH_URL", PATH_URL);
 
         //write sanction
-        if ($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) {
+        if (($this->contentProvider && !$this->contentProvider->isChangeable($this->data)) || (isset($this->readonly) && $this->readonly)) {
             $this->getContent()->setVariable("READONLY", "disabled");
             //this value is read in the tinyMCE init function
             $this->getContent()->setVariable("READONLY_JS", "var tinymceReadOnly=true");

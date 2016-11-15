@@ -32,6 +32,58 @@ class View extends \AbstractCommand implements \IFrameCommand {
       $times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES");
       $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 
+      if (!($questionnaire->check_access_read())) {
+  				$errorHtml = new \Widgets\RawHtml();
+  				$errorHtml->setHtml("Der Fragebogen kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
+  				$frameResponseObject->addWidget($errorHtml);
+  				return $frameResponseObject;
+  		}
+
+      $creator = $questionnaire->get_creator();
+      // check if current user is admin
+      $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
+      $admin = 0;
+      if ($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) {
+        $admin = 1;
+      }
+      else{
+        if(in_array($user, $staff)){
+          $admin = 1;
+        }
+        else{
+          foreach ($staff as $object) {
+            if ($object instanceof steam_group && $object->is_member($user)) {
+              $admin = 1;
+              break;
+            }
+          }
+        }
+      }
+
+      $allowed = false;
+      // check if user is allowed to view survey
+      $possibleParticipants = $survey->get_attribute("QUESTIONNAIRE_GROUP");
+      if(in_array($user, $possibleParticipants)){
+        $allowed = 1;
+      }
+      else{
+        foreach ($possibleParticipants as $object) {
+          if ($object instanceof steam_group && $object->is_member($user)) {
+            $allowed = 1;
+            break;
+          }
+        }
+      }
+
+      if (!$admin && !$allowed) {
+          $errorHtml = new \Widgets\RawHtml();
+          $errorHtml->setHtml("Der Fragebogen kann nicht angezeigt werden, da Sie nicht über die erforderlichen Rechte verfügen.");
+          $frameResponseObject->addWidget($errorHtml);
+          return $frameResponseObject;
+      }
+
+      //the user is admin or allowed to participate or both!!!
+
       // check if displaying preview
       $preview = 0;
       $resultOrPreview = "";
@@ -62,33 +114,16 @@ class View extends \AbstractCommand implements \IFrameCommand {
           $resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $resultOrPreview);
       }
 
-      $allowed = false;
-
-      $creator = $questionnaire->get_creator();
-
-      // check if current user is admin
-      $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
-      $admin = 0;
-      if ($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) {
-        $admin = 1;
-      }
-      else{
-        if(in_array($user, $staff)){
-          $admin = 1;
-        }
-        else{
-          foreach ($staff as $object) {
-            if ($object instanceof steam_group && $object->is_member($user)) {
-              $admin = 1;
-              break;
-            }
-          }
-        }
-      }
-
-      // check if user is allowed to view survey
-      $participants = $survey->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
       $active = \Questionnaire::getInstance()->isActive($questionnaire->get_id());
+
+      //preview: okay
+      //fill in: user allowed & active & no participation
+      //fill in: user allowed & active & participation & multiple
+      //edit result: admin & attribute gesetzt für admin
+      //edit result: allowed & own & attribute gesetzt für Teilnehmer
+      //show result: admin
+      //show result: allowed & own
+
       // if user is admin and is preview or view of someones result
       if ($admin == 1 && ($preview == 1 || $disabled == 1)) {
           $allowed = true;
@@ -115,14 +150,6 @@ class View extends \AbstractCommand implements \IFrameCommand {
       // if user or admin is starting a new result
       if ($active && $disabled == 0 && $preview == 0 && $resultOrPreview == "" && !(isset($participants[$user->get_id()]) && $times == 1)) {
           $allowed = true;
-      }
-
-      // user is not allowed to view this survey / result
-      if (!$allowed) {
-          $rawWidget = new \Widgets\RawHtml();
-          $rawWidget->setHtml("<center>Zugang verwehrt. Sie dürfen diesen Fragebogen im Moment nicht ansehen/ausfüllen.</center>");
-          $frameResponseObject->addWidget($rawWidget);
-          return $frameResponseObject;
       }
 
       // collect user input if view got submitted (and check for errors)
@@ -289,12 +316,70 @@ class View extends \AbstractCommand implements \IFrameCommand {
               $welcomePictureWidth = "";
           }
 
-
           // display survey
           $content = $QuestionnaireExtension->loadTemplate("questionnaire_view.template.html");
 
           $content->setVariable("QUESTIONNAIRE_NAME", '<svg style="width:16px; height:16px; float:left; color:#3a6e9f; right:5px; position:relative;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . PATH_URL . 'explorer/asset/icons/mimetype/svg/questionnaire.svg#questionnaire"></use></svg><h1>' . $questionnaire->get_name() . '</h1>');
       		$content->setVariable("QUESTIONNAIRE_DESC", '<p style="color:#AAAAAA; clear:both; margin-top:0px">' . $questionnaire->get_attribute("OBJ_DESC") . '</p>');
+
+          if($active){
+            $content->setVariable("QUESTIONNAIRE_STATUS", "aktiv (Ende: " . $questionnaire->get_attribute("QUESTIONNAIRE_END") . " Uhr)");
+            $content->setVariable("COLOR", "-green");
+          }
+          else{
+            $content->setVariable("QUESTIONNAIRE_STATUS", "nicht aktiv");
+            $content->setVariable("COLOR", "-red");
+          }
+
+          $content->setVariable("QUESTIONNAIRE_NUMBER_QUESTIONS", $survey->get_attribute("QUESTIONNAIRE_QUESTIONS"));
+          $content->setVariable("QUESTIONNAIRE_NUMBER_SUBMISSIONS", $resultContainer->get_attribute("QUESTIONNAIRE_RESULTS"));
+          if($times == 0){
+            $content->setVariable("QUESTIONNAIRE_MULTIPLE", "erlaubt");
+          }
+          else{
+            $content->setVariable("QUESTIONNAIRE_MULTIPLE", "nicht erlaubt");
+          }
+
+          $participated = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
+          $ownSubmissions = "";
+          // show users results in the table
+      		if (isset($participated[$user->get_id()])) {
+      			$results = $participated[$user->get_id()];
+      			$count = 1;
+      			foreach ($results as $result) {
+      				$resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $result);
+              $ownSubmissions .= '<div class="value">';
+      				if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") != 0) {
+                $ownSubmissions .= $count . ": Abgegeben (" . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr)";
+      				} else {
+      					$questionCount = $survey->get_attribute("QUESTIONNAIRE_QUESTIONS");
+      					$questionsAnswered = 0;
+      					$attributeNames = $resultObject->get_attribute_names();
+      					for ($count2 = 0; $count2 < $questionCount; $count2++) {
+      						if (in_array("QUESTIONNAIRE_ANSWER_" . $count2, $attributeNames)) {
+      							$questionsAnswered++;
+      						}
+      					}
+                $ownSubmissions .= $count . ": Aktiv (" . $questionsAnswered . " von " . $questionCount . " Fragen beantwortet)";
+              }
+
+              $popupMenu = new \Widgets\PopupMenu();
+          		$popupMenu->setCommand("GetPopupMenuSubmission");
+          		$popupMenu->setNamespace("Questionnaire");
+          		$popupMenu->setData($questionnaire);
+          		$popupMenu->setElementId("submission-overlay");
+          		$popupMenu->setParams(array(array("key" => "result", "value" => $result), array("key" => "id", "value" => $survey->get_id())));
+          		$ownSubmissions .= $popupMenu->getHtml();
+              $ownSubmissions .= '</div>';
+
+      				$count++;
+      			}
+            $content->setVariable("QUESTIONNAIRE_OWN_SUBMISSIONS", $ownSubmissions);
+      		}
+          else{
+            $ownSubmissions .= '<div class="value">keine</div>';
+            $content->setVariable("QUESTIONNAIRE_OWN_SUBMISSIONS", $ownSubmissions);
+          }
 
           $content->setCurrentBlock("BLOCK_VIEW_SURVEY");
           if ($preview == 1) {
@@ -388,9 +473,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
           $content->parse("BLOCK_VIEW_SURVEY");
           $html = $content->get();
       }
-
       $rawWidget = new \Widgets\RawHtml();
-      $rawWidget->setHtml($html);
+      $PopupMenuStyle = \Widgets::getInstance()->readCSS("PopupMenu.css");
+      $rawWidget->setHtml($html . "<style>" . $PopupMenuStyle . "</style>");
       $frameResponseObject->addWidget($rawWidget);
       return $frameResponseObject;
   }

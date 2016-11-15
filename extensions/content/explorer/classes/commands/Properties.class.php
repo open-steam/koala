@@ -255,7 +255,8 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
 
             $parent = $object->get_environment();
-            if ($parent !== 0 && $isWriteable){
+            $parentWritable = $parent->check_access_write();
+            if ($parent !== 0 && $parentWritable){
                 $inventory = $parent->get_inventory();
             } else {
                 $inventory = array();
@@ -552,18 +553,21 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
       		$endDate->setTimePicker(true);
           $endDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_END"));
 
-          if(!$isWriteable){
+          //Extra case because also normal users can write in questionnaires
+          $sanctionAll = $object->check_access(SANCTION_SANCTION);
+          if(!$sanctionAll){
               $multipleFill->setReadOnly(true);
               $startDate->setReadOnly(true);
               $endDate->setReadOnly(true);
+              $textAreaDescription->setReadOnly(true);
+              $checkboxHiddenObject->setReadonly(true);
+              $keywordArea->setReadOnly(true);
+              $dataNameInput->setReadOnly(true);
           }
 
           $dialog->addWidget($multipleFill);
-
           $dialog->addWidget($startDate);
-
           $dialog->addWidget($endDate);
-
           $dialog->addWidget($textAreaDescription);
 
           //$separator = new \Widgets\RawHtml();

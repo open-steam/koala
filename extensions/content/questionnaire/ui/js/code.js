@@ -376,7 +376,9 @@ function removeSortable(){
   $("#sort-icon").parent().css("background-color", "#3a6e9f");
   $("#sort-icon").attr("name", "false");
 
-  $('#save-que-button').click();
+  //$('#save-que-button').click();
+  databinding();
+
 }
 
 // update numbering of questions during sort or after creation/deletion/duplication
@@ -550,7 +552,11 @@ function deleteElement(id) {
         $('input[name=rfelement' + id + '_rows]').remove();
         $('input[name=rfelement' + id + '_columns]').remove();
     }
-    setTimeout(function(){$('#save-que-button').click();},750);
+    setTimeout(function(){
+      //$('#save-que-button').click();
+      databinding();
+      updateNumbering();
+    },750);
 }
 
 function editLayoutElement(id) {
@@ -744,7 +750,11 @@ function copyElement(questionnaireId, id) {
             createPageBreakLayoutElement(questionnaireId, '#rfelement' + id);
             break;
     }
-    setTimeout(function(){$('#save-que-button').click();},750);
+    setTimeout(function(){
+      //$('#save-que-button').click();
+      databinding();
+      updateNumbering();
+    },750);
 }
 
 /*
@@ -787,7 +797,9 @@ function addLayoutElement(questionnaireId) {
     }
 
     setTimeout(function() {
-        $('#save-que-button').click();
+        //$('#save-que-button').click();
+        databinding();
+        updateNumbering();
     }, 750);
 
 }
@@ -955,7 +967,9 @@ function addQuestion(questionnaireId) {
     }
 
     setTimeout(function() {
-        $('#save-que-button').click();
+        //$('#save-que-button').click();
+        updateNumbering();
+        databinding();
     }, 750);
 
 }
@@ -1112,4 +1126,24 @@ function submitNext(url) {
     document.getElementById('action').value = 'next';
     document.getElementById('form').action = url;
     document.getElementById('form').submit();
+}
+
+/*
+* databinding
+*/
+function databinding(){
+  getSortables();
+
+  var params = {
+    id : document.getElementById("editRF").value,
+    sortables : document.getElementById("sortable_array").value
+  };
+
+  $("input[name^='rfelement']").each(function(index) {
+    var name = $(this).attr("name");
+    var value = $(this).val();
+    params[name] = value;
+  });
+
+  sendRequest('DatabindingEdit', params, '', 'data', '', '', 'Questionnaire');
 }

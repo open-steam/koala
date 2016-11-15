@@ -100,3 +100,27 @@ html>body #sortable_rf li {
 .ui-state-default-rf {
   margin-bottom: 10px;
 }
+
+.attribute{
+  width:110px;
+  float:left;
+  padding-top:5px;
+}
+
+.value-red{
+  color:red;
+  padding-top:5px;
+  margin-left:110px;
+}
+
+.value-green{
+  color:green;
+  padding-top:5px;
+  margin-left:110px;
+}
+
+.value{
+  padding-top:5px;
+  margin-left:110px;
+  width: 270px;
+}

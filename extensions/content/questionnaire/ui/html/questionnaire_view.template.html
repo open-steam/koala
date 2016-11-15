@@ -1,5 +1,12 @@
 {QUESTIONNAIRE_NAME}
 {QUESTIONNAIRE_DESC}
+
+<div class="attribute">Status:</div><div class="value{COLOR}">{QUESTIONNAIRE_STATUS}</div>
+<div class="attribute">Anzahl Fragen:</div><div class="value">{QUESTIONNAIRE_NUMBER_QUESTIONS}</div>
+<div class="attribute">Anzahl Abgaben:</div><div class="value">{QUESTIONNAIRE_NUMBER_SUBMISSIONS}</div>
+<div class="attribute">Mehrfachabgaben:</div><div class="value">{QUESTIONNAIRE_MULTIPLE}</div>
+<div class="attribute">Meine Abgaben:</div>{QUESTIONNAIRE_OWN_SUBMISSIONS}
+
 <!-- BEGIN BLOCK_VIEW_SURVEY -->
 <form action="" id="form" method="post" style="font-size:12px">
 	<center>
@@ -28,3 +35,4 @@
 	<input type="hidden" id="action" name="action">
 </form>
 <!-- END BLOCK_VIEW_SURVEY -->
+<div id="submission-overlay"></div>
