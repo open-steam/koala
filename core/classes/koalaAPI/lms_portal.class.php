@@ -163,14 +163,16 @@ class lms_portal
 
         // SET LOGO
         $url = strtolower(PATH_URL);
+        $logoPath = PATH_URL . "styles/standard/images/page_layout/localhost";
         $keywords = array('vm04', 'elab', 'localhost', 'bid-owl', 'schulen-gt', 'lspb');
         foreach ($keywords as $keyword) {
           if (strpos($url, $keyword) !== false) {
-            $this->template->setVariable( "LOGO_PATH", PATH_URL . "styles/standard/images/page_layout/" . $keyword);
+            $logoPath = PATH_URL . "styles/standard/images/page_layout/" . $keyword;
             break;
           }
         }
 
+        $this->template->setVariable( "LOGO_PATH", $logoPath);
 
         // SET LOGO URL
         if (defined("LOGO_PATH_URL")) {

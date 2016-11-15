@@ -133,7 +133,7 @@ class PopupMenu extends Widget {
 		}
 	 	var lastSVG = jQuery(\".popupmenuwrapper\").children().last().find(\"use\");
 	 	if(lastSVG.length != 0){
-			if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1 || navigator.userAgent.toLowerCase().indexOf('edge') > -1){
+			if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1 || navigator.userAgent.toLowerCase().indexOf('edge') > -1 || internetExplorer){
 				//call function directly because svg load event do not fire in firefox
 				showPopupMenu();
 			}
