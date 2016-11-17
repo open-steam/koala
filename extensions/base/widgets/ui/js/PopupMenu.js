@@ -1,5 +1,5 @@
 jQuery(document).click(function() {
-  jQuery('.popupmenuwrapper').parent().html('');
+  jQuery('.popupmenuwrapper').remove();
   jQuery('.open').removeClass('open');
   jQuery('#footer_wrapper').css('padding-top', '0px');
 })

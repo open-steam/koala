@@ -1,16 +1,16 @@
 #explorerContent {
     /*padding-right: 50px;*/
 }
-.listviewer{
+.listviewer {
     /*margin-left: 50px;*/
 }
-.breadcrumb{
+.breadcrumb {
     width: 765px;
 }
-.show{
+.show {
     display: block;
 }
-.hide{
+.hide {
     display: none;
 }
 
@@ -63,6 +63,10 @@ div[id$="_3"].listviewer-item-cell {
     display:block;
     padding-left:3px;
     background-color:#EEEEEE;
+}
+
+.popupmenuloading{
+    display:block !important;
 }
 
 .galleryEntry:hover .popupmenuanker {
@@ -148,9 +152,6 @@ div[id$="_3"].listviewer-item-cell {
 
 .galleryEntry.selected .popupmenuanker {
     background-color: #396D9C;
-}
-
-.galleryEntry.selected .popupmenuanker {
     color: white;
     display:block;
 }
@@ -183,11 +184,11 @@ div[id$="_3"].listviewer-item-cell {
     margin-top: 5px;
 }
 
-.galleryEntry.red{
+.galleryEntry.red {
     background-color: #F3B6AE;
 }
 
-.galleryEntry.orange{
+.galleryEntry.orange {
     background-color: #FAD7A5;
 }
 

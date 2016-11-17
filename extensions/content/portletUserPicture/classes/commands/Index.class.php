@@ -1,4 +1,5 @@
 <?php
+
 namespace PortletUserPicture\Commands;
 
 class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
@@ -17,7 +18,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $column = $portlet->get_environment();
         $width = $column->get_attribute("bid:portal:column:width");
         if (strpos($width, "px") == TRUE) {
-            $width = substr($width, 0, count($width)-3);
+            $width = substr($width, 0, count($width) - 3);
         }
 
         //icon
@@ -62,32 +63,28 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
         }
 
+        $popupmenu = new \Widgets\PopupMenu();
+        $popupmenu->setData($portlet);
+        $popupmenu->setElementId("portal-overlay");
         if (!$portletIsReference) {
-            $popupmenu = new \Widgets\PopupMenu();
-            $popupmenu->setData($portlet);
             $popupmenu->setNamespace("PortletUserPicture");
-            $popupmenu->setElementId("portal-overlay");
             $popupmenu->setParams(array(array("key" => "portletObjectId", "value" => $portlet->get_id())));
             $popupmenu->setCommand("GetPopupMenuHeadline");
-            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
         } else {
-            $popupmenu = new \Widgets\PopupMenu();
-            $popupmenu->setData($portlet);
             $popupmenu->setNamespace("Portal");
-            $popupmenu->setElementId("portal-overlay");
             $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
                 array("key" => "linkObjectId", "value" => $referenceId)
             ));
             $popupmenu->setCommand("PortletGetPopupMenuReference");
-            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
         }
+        $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
 
         $user = $portlet->get_creator();
         $currentUser = \lms_steam::get_current_user();
         $tmpl->setVariable("DESCRIPTION", "Zum Profil");
         $tmpl->setVariable("URL", PATH_URL . "user/index/" . $user->get_name() . "/");
         $pic_id = $user->get_attribute("OBJ_ICON")->get_id();
-        $pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/" . ($width-20) . "/" . round(($width-20)*(185/140));
+        $pic_link = ( $pic_id == 0 ) ? PATH_URL . "styles/standard/images/anonymous.jpg" : PATH_URL . "download/image/" . $pic_id . "/" . ($width - 20) . "/" . round(($width - 20) * (185 / 140));
         $tmpl->setVariable("PICTURE_URL", $pic_link);
         $tmpl->setVariable("DOCUMENTS_LABEL", "Meine Dokumente");
         $tmpl->setVariable("DOCUMENTS_URL", PATH_URL . "explorer/");
@@ -110,5 +107,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $frameResponseObject->addWidget($this->contentHtml);
         return $frameResponseObject;
     }
+
 }
+
 ?>

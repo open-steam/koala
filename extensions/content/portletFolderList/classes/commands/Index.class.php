@@ -1,4 +1,5 @@
 <?php
+
 namespace PortletFolderList\Commands;
 
 class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
@@ -10,10 +11,10 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
     public function validateData(\IRequestObject $requestObject) {
 
         //robustness for missing ids and objects
-        try{
-            $objectId=$requestObject->getId();
-            $object = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $objectId );
-        } catch (\Exception $e){
+        try {
+            $objectId = $requestObject->getId();
+            $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+        } catch (\Exception $e) {
             \ExtensionMaster::getInstance()->send404Error();
         }
 
@@ -35,13 +36,13 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $column = $portlet->get_environment();
         $width = $column->get_attribute("bid:portal:column:width");
         if (strpos($width, "px") == TRUE) {
-            $width = substr($width, 0, count($width)-3);
+            $width = substr($width, 0, count($width) - 3);
         }
 
         //icon
         $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
-         //reference handling
+        //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
             $portletIsReference = true;
             $referenceId = $params["referenceId"];
@@ -72,26 +73,21 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $envUrl = PATH_URL . "portal/index/" . $envId;
             $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
         }
-
+        $popupmenu = new \Widgets\PopupMenu();
+        $popupmenu->setData($portlet);
+        $popupmenu->setElementId("portal-overlay");
         if (!$portletIsReference) {
-            $popupmenu = new \Widgets\PopupMenu();
-            $popupmenu->setData($portlet);
             $popupmenu->setNamespace("PortletFolderList");
-            $popupmenu->setElementId("portal-overlay");
             $popupmenu->setParams(array(array("key" => "portletObjectId", "value" => $portlet->get_id())));
             $popupmenu->setCommand("GetPopupMenuHeadline");
-            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
         } else {
-            $popupmenu = new \Widgets\PopupMenu();
-            $popupmenu->setData($portlet);
             $popupmenu->setNamespace("Portal");
-            $popupmenu->setElementId("portal-overlay");
             $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
                 array("key" => "linkObjectId", "value" => $referenceId)
             ));
             $popupmenu->setCommand("PortletGetPopupMenuReference");
-            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
         }
+        $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
 
         if (trim($portletName) == "") {
             $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
@@ -152,6 +148,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $frameResponseObject->addWidget($this->endHtml);
         return $frameResponseObject;
     }
+
 }
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
@@ -164,17 +161,15 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
     }
 
     public function setWidth($width) {
-      if ($this->description === "true") {
-        if(($width/2-28) < 66){
-          $this->width = 66;
+        if ($this->description === "true") {
+            if (($width / 2 - 28) < 66) {
+                $this->width = 66;
+            } else {
+                $this->width = $width / 2 - 28;
+            }
+        } else {
+            $this->width = $width - 34;
         }
-        else{
-          $this->width = $width/2-28;
-        }
-      }
-      else{
-        $this->width = $width-34;
-      }
     }
 
     public function getHeadlines() {
@@ -215,7 +210,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             throw new \Exception("cell must be an integer!!");
         }
 
-        if ($contentItem instanceof \steam_link){
+        if ($contentItem instanceof \steam_link) {
             $contentItemObject = $contentItem->get_source_object();
         } else {
             $contentItemObject = $contentItem;
@@ -257,4 +252,5 @@ class ContentProvider implements \Widgets\IContentProvider {
     }
 
 }
+
 ?>

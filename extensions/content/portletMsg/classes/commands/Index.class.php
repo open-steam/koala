@@ -88,25 +88,21 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
               $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
           }
 
+          $popupmenu = new \Widgets\PopupMenu();
+          $popupmenu->setData($portlet);
+          $popupmenu->setElementId("portal-overlay");
           if (!$portletIsReference) {
-              $popupmenu = new \Widgets\PopupMenu();
-              $popupmenu->setData($portlet);
               $popupmenu->setNamespace("PortletMsg");
-              $popupmenu->setElementId("portal-overlay");
               $popupmenu->setParams(array(array("key" => "portletObjectId", "value" => $portlet->get_id())));
               $popupmenu->setCommand("GetPopupMenuHeadline");
-              $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
           } else {
-              $popupmenu = new \Widgets\PopupMenu();
-              $popupmenu->setData($portlet);
               $popupmenu->setNamespace("Portal");
-              $popupmenu->setElementId("portal-overlay");
               $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
                   array("key" => "linkObjectId", "value" => $referenceId)
               ));
               $popupmenu->setCommand("PortletGetPopupMenuReference");
-              $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
           }
+          $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
 
           //if the title is empty the headline will not be displayed (only in edit mode)
           if (trim($portletName) == "") {

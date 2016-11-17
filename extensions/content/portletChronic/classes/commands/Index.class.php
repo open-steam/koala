@@ -1,4 +1,5 @@
 <?php
+
 namespace PortletChronic\Commands;
 
 class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
@@ -25,7 +26,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $column = $portlet->get_environment();
         $width = $column->get_attribute("bid:portal:column:width");
         if (strpos($width, "px") === TRUE) {
-            $width = substr($width, 0, count($width)-3);
+            $width = substr($width, 0, count($width) - 3);
         }
 
         //icon
@@ -65,25 +66,21 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
         }
 
+        $popupmenu = new \Widgets\PopupMenu();
+        $popupmenu->setData($portlet);
+        $popupmenu->setElementId("portal-overlay");
         if (!$portletIsReference) {
-            $popupmenu = new \Widgets\PopupMenu();
-            $popupmenu->setData($portlet);
             $popupmenu->setNamespace("PortletChronic");
-            $popupmenu->setElementId("portal-overlay");
             $popupmenu->setParams(array(array("key" => "portletObjectId", "value" => $portlet->get_id())));
             $popupmenu->setCommand("GetPopupMenuHeadline");
-            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
         } else {
-            $popupmenu = new \Widgets\PopupMenu();
-            $popupmenu->setData($portlet);
             $popupmenu->setNamespace("Portal");
-            $popupmenu->setElementId("portal-overlay");
             $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
                 array("key" => "linkObjectId", "value" => $referenceId)
             ));
             $popupmenu->setCommand("PortletGetPopupMenuReference");
-            $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
         }
+        $tmpl->setVariable("POPUPMENU_HEADLINE", $popupmenu->getHtml());
 
         $tmpl->parse("BLOCK_CHRONIC_HEADLINE");
 
@@ -128,6 +125,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $idResponseObject->addWidget($this->endHtml);
         return $frameResponseObject;
     }
+
 }
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
@@ -147,7 +145,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
     }
 
     public function getHeadLineWidths() {
-        return array(22, $this->width-40, 0);
+        return array(22, $this->width - 40, 0);
     }
 
     public function getHeadLineAligns() {
@@ -201,4 +199,5 @@ class ContentProvider implements \Widgets\IContentProvider {
     }
 
 }
+
 ?>
