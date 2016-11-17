@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
         <!-- BEGIN BLOCK_RSS_FEED -->
         <link rel="alternate" type="application/rss+xml" title="{RSS_TITLE}" href="{RSS_LINK}" />
@@ -91,13 +92,14 @@
         <script src='{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/plugins/bid_tooltip/bid_tooltip_view.js'></script>
         <link  href="{PATH_JAVASCRIPT_2}tinymce-jquery/jscripts/tiny_mce/plugins/bid_tooltip/css/content.css" type="text/css" media="screen, print" rel="stylesheet" />
 
+        <script src="{PATH_JAVASCRIPT_2}svg4everybody.min.js"></script>
+        <script>if(location.hash !== '#nofill'){svg4everybody()}</script>
+
        <!-- <script type="text/javascript" src='{PATH_JAVASCRIPT_2}Flowplayer/flowplayer-3.2.9.min.js'></script> -->
 
         <!-- not used anymore -->
         <!-- <script type="text/javascript" src='{PATH_JAVASCRIPT_2}bid2pathfix.js'></script> -->
         <!-- not used anymore -->
-
-
 
         <script type="text/javascript">
             //var AScgiloc = 'http://steam.lspb.de/tools/asciisvg/svgimg.php';
@@ -218,7 +220,9 @@
     <div id="header_wrapper">
         <div id="header">
             <div id="logo_wrapper">
-                <a id="logo" href="{LOGO_PATH_URL}" style="{CUSTOM_LOGO_STYLE}"><svg><use xlink:href='{LOGO_PATH}.svg#logo'/></svg></a>
+                <a id="logo" href="{LOGO_PATH_URL}" style="{CUSTOM_LOGO_STYLE}">
+                  <svg><use xlink:href='{LOGO_PATH}.svg#logo'/></svg>
+                </a>
             </div>
             <!-- BEGIN BLOCK_SIGN_IN -->
             <div id="loginDiv" style="display:none">
@@ -245,22 +249,25 @@
                 Um den Server nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser.
             </div>
             <div id="loginPanelWarning" style="display:none;">
-                Die Entwicklung des von Ihnen benutzten Browsers <i>Internet Explorer</i> wurde vom Hersteller eingestellt.<br>
-                Eine korrekte Darstellung und Funktion der Plattform kann unter diesen Umständen nicht gewährleistet werden.<br>
+                Die Entwicklung des von Ihnen benutzten Browsers <i>Internet Explorer</i> wurde vom Hersteller eingestellt.
+                Eine korrekte Darstellung und Funktion der Plattform kann unter diesen Umständen nicht gewährleistet werden.
                 Weitere Informationen und eine Liste alternativer Browser finden Sie <a href="https://bid.lspb.de/explorer/ViewDocument/640276/">hier</a>.
             </div>
             <script>
               $('#noJs').hide();
+              var internetExplorer = false;
               var ua = window.navigator.userAgent;
               var msie = ua.indexOf('MSIE');
               if (msie > 0) {
-               // IE 10 or older => return version number
-               $("#loginPanelWarning").show();
+                internetExplorer = true;
+                // IE 10 or older => return version number
+                $("#loginPanelWarning").show();
               }
               var trident = ua.indexOf('Trident/');
               if (trident > 0) {
-               // IE 11 => return version number
-               $("#loginPanelWarning").show();
+                internetExplorer = true;
+                // IE 11 => return version number
+                $("#loginPanelWarning").show();
               }
               $("#loginDiv").show();
             </script>

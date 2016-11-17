@@ -34,7 +34,6 @@ class PopupMenu extends Widget {
      * @param type $width
      * this method is deprecated. The calculation for the position is done in JS
      */
-    
     public function setWidth($width) {
         $this->width = $width;
         //if someone calls the old function write a log entry
@@ -163,15 +162,14 @@ class PopupMenu extends Widget {
 		}
 	 	var lastSVG = jQuery(\".popupmenuwrapper\").children().last().find(\"use\");
 	 	if(lastSVG.length != 0){
-                    if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1 || navigator.userAgent.toLowerCase().indexOf('edge') > -1){
+                    if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1 || navigator.userAgent.toLowerCase().indexOf('edge') > -1 || internetExplorer){
 			//call function directly because svg load event do not fire in firefox
-			showPopupMenu();
-                    }
-                    else{
-		 	lastSVG.load(function(){
-                            showPopupMenu();
-                        })
-                    }
+                    	showPopupMenu();
+                    } else {
+                        lastSVG.load(function(){
+                        showPopupMenu();
+                    })
+                }
  		}";
         $html .= "<script>" . $script . "</script>";
         return $html;
