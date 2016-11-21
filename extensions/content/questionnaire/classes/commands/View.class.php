@@ -29,8 +29,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
       $user = $GLOBALS["STEAM"]->get_current_steam_user();
       $QuestionnaireExtension->addCSS();
       $QuestionnaireExtension->addJS();
-      $times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES");
+      $times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES"); //0 multiple, else not
       $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
+      $participants = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
 
       if (!($questionnaire->check_access_read())) {
   				$errorHtml = new \Widgets\RawHtml();
@@ -40,11 +41,13 @@ class View extends \AbstractCommand implements \IFrameCommand {
   		}
 
       $creator = $questionnaire->get_creator();
-      // check if current user is admin
+      //check if current user is admin
       $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
       $admin = 0;
+      $allowed = false;
       if ($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) {
         $admin = 1;
+        $allowed = true;
       }
       else{
         if(in_array($user, $staff)){
@@ -60,16 +63,15 @@ class View extends \AbstractCommand implements \IFrameCommand {
         }
       }
 
-      $allowed = false;
       // check if user is allowed to view survey
-      $possibleParticipants = $survey->get_attribute("QUESTIONNAIRE_GROUP");
+      $possibleParticipants = $questionnaire->get_attribute("QUESTIONNAIRE_GROUP");
       if(in_array($user, $possibleParticipants)){
-        $allowed = 1;
+        $allowed = true;
       }
       else{
         foreach ($possibleParticipants as $object) {
           if ($object instanceof steam_group && $object->is_member($user)) {
-            $allowed = 1;
+            $allowed = true;
             break;
           }
         }
@@ -82,17 +84,23 @@ class View extends \AbstractCommand implements \IFrameCommand {
           return $frameResponseObject;
       }
 
-      //the user is admin or allowed to participate or both!!!
+      // check if input is disabled
+      $disabled = 0;
+      if (isset($this->params[3])) {
+          $disabled = 1;
+      }
 
-      // check if displaying preview
-      $preview = 0;
-      $resultOrPreview = "";
-      if (isset($this->params[2])) {
-          if ($this->params[2] == "preview") {
-              $preview = 1;
-              $resultOrPreview = "preview";
-          }
-          $resultOrPreview = $this->params[2];
+      // check if displaying preview or result
+      $showPreview = 0;
+      $showResult = 0;
+      if (isset($this->params[2])){
+        if($this->params[2] == "preview") {
+          $showPreview = 1;
+          $disabled = 1;
+        }else{
+          $showResult = 1;
+          $resultId = $this->params[2];
+        }
       }
 
       // check which page should be displayed
@@ -102,60 +110,123 @@ class View extends \AbstractCommand implements \IFrameCommand {
           $page = $this->params[1];
       }
 
-      // check if input is disabled
-      $disabled = 0;
-      if (isset($this->params[3]) || $preview == 1) {
-          $disabled = 1;
-      }
-
       // get result object if displayed result
-      $resultObject = "";
-      if ($resultOrPreview != "preview" && $resultOrPreview != "") {
-          $resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $resultOrPreview);
+      if ($showResult) {
+          $resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $resultId);
+          if($resultObject instanceof \steam_object) {
+              if ($resultObject->get_creator()->get_id() == $user->get_id()) {
+                $ownResult = true;
+              } else{
+                $ownResult = false;
+              }
+          }
       }
 
       $active = \Questionnaire::getInstance()->isActive($questionnaire->get_id());
 
-      //preview: okay
-      //fill in: user allowed & active & no participation
-      //fill in: user allowed & active & participation & multiple
-      //edit result: admin & attribute gesetzt für admin
-      //edit result: allowed & own & attribute gesetzt für Teilnehmer
-      //show result: admin
-      //show result: allowed & own
+      //the user is admin or allowed to participate or both!!!
 
-      // if user is admin and is preview or view of someones result
-      if ($admin == 1 && ($preview == 1 || $disabled == 1)) {
-          $allowed = true;
-      }
-      // if user is admin and is editing someones result
-      if ($admin == 1 && $resultObject instanceof \steam_object) {
-          // own result
-          if ($resultObject->get_creator()->get_id() == $user->get_id() && $active && (($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0)) {
-              $allowed = true;
-              // other peoples result
-          } else if ($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1) {
-              $allowed = true;
+      $hint = "";
+
+      if($showResult){ //user want to see or edit a result
+        if($disabled){ //show result
+          if($ownResult){ //show own result
+            //showResult
           }
-      }
-      // if user is editing or viewing his own result and is allowed to
-      if ($admin == 0 && $resultObject instanceof \steam_object) {
-          if ($resultObject->get_creator()->get_id() == $user->get_id() && $active && (($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0)) {
-              $allowed = true;
+          else{ //show result from other user
+            if($admin){
+              //show result
+            }
+            else{
+              $hint = "Es können nur eigene Abgaben betrachtet werden";
+            }
           }
-          if ($resultObject->get_creator()->get_id() == $user->get_id() && $disabled == 1) {
-              $allowed = true;
+        }
+        else{ //edit result
+          if($active){
+            if($ownResult){
+              if($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1){
+                //edit result
+              }
+              else{
+                $hint = "Abgaben können nicht bearbeitet werden";
+              }
+            }
+            else{ //edit of results of other user
+              if($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
+                //edit result
+              }
+              else{
+                $hint = "Abgaben anderer Nutzer können nicht bearbeitet werden";
+              }
+            }
           }
-      }
-      // if user or admin is starting a new result
-      if ($active && $disabled == 0 && $preview == 0 && $resultOrPreview == "" && !(isset($participants[$user->get_id()]) && $times == 1)) {
-          $allowed = true;
+          else{
+            if($admin){ //admin can edit results even if not active
+              if($ownResult){ //admin wants to edit own result
+                if($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1){
+                  //edit result
+                }
+                else{
+                  $hint = "Abgaben können nicht bearbeitet werden";
+                }
+              }
+              else{ //admin wants to edit result from other user
+                if($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
+                  //edit result
+                }
+                else{
+                  $hint = "Abgaben anderer Nutzer können nicht bearbeitet werden";
+                }
+              }
+            }
+            else{
+              $hint = "Abgaben können nicht bearbeitet werden, da der Fragebogen nicht aktiv ist";
+            }
+          }
+        }
+      }else{ //user wants to fill in
+        if($active){
+          if($allowed){
+            $participated = !is_null($participants[$user->get_id()]);
+            if(!$participated || $participated && $times == 0){
+              //show fill in
+            }
+            else{
+              if($admin){
+                $showPreview = 1;
+                $disabled = 1;
+              }
+              else{
+                $hint = "Der Fragebogen kann nicht ausgefüllt werden, da bereits eine Abgabe vorliegt";
+              }
+            }
+          }
+          else{
+            if($admin){
+              $showPreview = 1;
+              $disabled = 1;
+            }
+            else{
+              $hint = "Sie haben nicht das Recht den Fragebogen auszufüllen";
+            }
+          }
+        }
+        else{
+          if($admin){
+            $showPreview = 1;
+            $disabled = 1;
+          }
+          else{
+            $hint = "Der Fragebogen kann nicht ausgefüllt werden, da er nicht aktiv ist";
+          }
+        }
       }
 
       // collect user input if view got submitted (and check for errors)
       $values = array();
       $errors = array();
-      if ($_SERVER["REQUEST_METHOD"] == "POST" && $preview == 0 && $disabled == 0) {
+      if ($_SERVER["REQUEST_METHOD"] == "POST" && $showPreview == 0 && $disabled == 0) {
           $questionCounter = 0;
           $pageCounter = 1;
           if ($_POST["action"] == "next") {
@@ -254,12 +325,11 @@ class View extends \AbstractCommand implements \IFrameCommand {
               $save = false;
               if ($resultObject instanceof \steam_object) {
                   // save changes on result object
-                  if (($admin == 1 && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT")) == 1 || $resultObject->get_creator()->get_id() == $user->get_id()) {
+                  if (($admin == 1 && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT")) == 1 || $ownResult) {
                       $save = true;
                   }
               } else {
                   // create new result object
-                  $participants = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
                   if (!isset($participants[$user->get_id()]) || $times == 0) {
                       $resultIDs = array();
                       if (isset($participants[$user->get_id()])) {
@@ -289,13 +359,13 @@ class View extends \AbstractCommand implements \IFrameCommand {
                           $pageCounter++;
                       }
                   }
-                  $resultOrPreview = $resultObject->get_id();
+                  $resultId = $resultObject->get_id();
               }
           }
       }
 
       // display success msg if there was a submit, else just display survey
-      if ($_SERVER["REQUEST_METHOD"] == "POST" && ($page > $pages) && empty($errors) && $preview == 0) {
+      if ($_SERVER["REQUEST_METHOD"] == "POST" && ($page > $pages) && empty($errors) && $showPreview == 0) {
           if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0) {
               $resultObject->set_attribute("QUESTIONNAIRE_RELEASED", time());
               $resultCount = $resultContainer->get_attribute("QUESTIONNAIRE_RESULTS");
@@ -332,7 +402,14 @@ class View extends \AbstractCommand implements \IFrameCommand {
           }
 
           $content->setVariable("QUESTIONNAIRE_NUMBER_QUESTIONS", $survey->get_attribute("QUESTIONNAIRE_QUESTIONS"));
-          $content->setVariable("QUESTIONNAIRE_NUMBER_SUBMISSIONS", $resultContainer->get_attribute("QUESTIONNAIRE_RESULTS"));
+
+          if($admin){
+            $content->setVariable("QUESTIONNAIRE_NUMBER_SUBMISSIONS", $resultContainer->get_attribute("QUESTIONNAIRE_RESULTS"));
+          }
+          else{
+            $content->setVariable("QUESTIONNAIRE_SHOW_NUMBER_SUBMISSIONS", "display: none;");
+          }
+
           if($times == 0){
             $content->setVariable("QUESTIONNAIRE_MULTIPLE", "erlaubt");
           }
@@ -340,21 +417,20 @@ class View extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("QUESTIONNAIRE_MULTIPLE", "nicht erlaubt");
           }
 
-          $participated = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
           $ownSubmissions = "";
           // show users results in the table
-      		if (isset($participated[$user->get_id()])) {
-      			$results = $participated[$user->get_id()];
+      		if (isset($participants[$user->get_id()])) {
+      			$submissions = $participants[$user->get_id()];
       			$count = 1;
-      			foreach ($results as $result) {
-      				$resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $result);
+      			foreach ($submissions as $submission) {
+      				$submissionObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $submission);
               $ownSubmissions .= '<div class="value">';
-      				if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") != 0) {
-                $ownSubmissions .= $count . ": Abgegeben (" . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr)";
+      				if ($submissionObject->get_attribute("QUESTIONNAIRE_RELEASED") != 0) {
+                $ownSubmissions .= $count . ": Abgegeben (" . date("d.m.Y H:i:s", $submissionObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr)";
       				} else {
       					$questionCount = $survey->get_attribute("QUESTIONNAIRE_QUESTIONS");
       					$questionsAnswered = 0;
-      					$attributeNames = $resultObject->get_attribute_names();
+      					$attributeNames = $submissionObject->get_attribute_names();
       					for ($count2 = 0; $count2 < $questionCount; $count2++) {
       						if (in_array("QUESTIONNAIRE_ANSWER_" . $count2, $attributeNames)) {
       							$questionsAnswered++;
@@ -368,7 +444,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
           		$popupMenu->setNamespace("Questionnaire");
           		$popupMenu->setData($questionnaire);
           		$popupMenu->setElementId("submission-overlay");
-          		$popupMenu->setParams(array(array("key" => "result", "value" => $result), array("key" => "id", "value" => $survey->get_id())));
+          		$popupMenu->setParams(array(array("key" => "result", "value" => $submission), array("key" => "id", "value" => $survey->get_id())));
           		$ownSubmissions .= $popupMenu->getHtml();
               $ownSubmissions .= '</div>';
 
@@ -381,96 +457,109 @@ class View extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("QUESTIONNAIRE_OWN_SUBMISSIONS", $ownSubmissions);
           }
 
-          $content->setCurrentBlock("BLOCK_VIEW_SURVEY");
-          if ($preview == 1) {
-              $content->setVariable("SURVEY_NAME", $survey_object->getName() . " (Vorschau)");
-          } else {
-              $content->setVariable("SURVEY_NAME", $survey_object->getName());
-          }
-          if ($pages > 1) {
-              $content->setVariable("SURVEY_PAGE", "<br>Seite " . $page . " von " . $pages);
-          }
+          if($hint == ""){
+            $content->setCurrentBlock("BLOCK_VIEW_SURVEY");
 
-          $content->setVariable("DISPLAY_BEGIN", "none");
-          $content->setVariable("DISPLAY_END", "none");
+            $content->setVariable("SURVEY_NAME", $survey_object->getName());
 
-          if ($admin == 0 | $active) {
-              $content->setVariable("DISPLAY_EDIT", "none");
-          }
-          $content->setVariable("ASSET_URL", $QuestionnaireExtension->getAssetUrl() . "icons");
+            if ($pages > 1) {
+                $content->setVariable("SURVEY_PAGE", "<br>Seite " . $page . " von " . $pages);
+            }
 
-          $html = "";
-          $counter = 0;
-          $layoutCounter = 0;
-          $pageCounter = 1;
-          foreach ($questions as $question) {
-              if ($question instanceof \Questionnaire\Model\AbstractLayoutElement) {
-                  if ($pageCounter == $page) {
-                      if ($question instanceof \Questionnaire\Model\JumpLabel) {
-                          $html = $html . $question->getViewHTML(-1, $questions, $this->id);
-                      }else{
-                          $html = $html . $question->getViewHTML();
+            $content->setVariable("DISPLAY_BEGIN", "none");
+            $content->setVariable("DISPLAY_END", "none");
 
-                      }
-                      //$counter++;
-                  }
-                  $layoutCounter++;
-                  if ($question instanceof \Questionnaire\Model\PageBreakLayoutElement) {
-                      $pageCounter++;
-                  }
-              } else {
-                  if ($pageCounter == $page) {
-                      if ($resultObject instanceof \steam_object) {
-                          $attributes = $resultObject->get_attribute_names();
-                          if (!isset($values[$counter]) && !in_array($counter, $errors)) {
-                              if (in_array("QUESTIONNAIRE_ANSWER_" . $counter, $attributes)) {
-                                  $values[$counter] = $resultObject->get_attribute("QUESTIONNAIRE_ANSWER_" . $counter);
-                              }
-                          }
-                      }
-                      if (in_array($counter, $errors)) {
-                          if (isset($values[$counter])) {
-                              $html = $html . $question->getViewHTML($counter, $disabled, 1, $values[$counter]);
-                          } else {
-                              $html = $html . $question->getViewHTML($counter, $disabled, 1);
-                          }
-                      } else {
-                          if (isset($values[$counter])) {
-                              $html = $html . $question->getViewHTML($counter, $disabled, 0, $values[$counter]);
-                          } else {
-                              $html = $html . $question->getViewHTML($counter, $disabled, 0);
-                          }
-                      }
-                  }
-                  $counter++;
+            if ($admin == 0 | $active) {
+                $content->setVariable("DISPLAY_EDIT", "none");
+            }
+            $content->setVariable("ASSET_URL", $QuestionnaireExtension->getAssetUrl() . "icons");
+
+            $html = "";
+            $counter = 0;
+            $layoutCounter = 0;
+            $pageCounter = 1;
+            foreach ($questions as $question) {
+                if ($question instanceof \Questionnaire\Model\AbstractLayoutElement) {
+                    if ($pageCounter == $page) {
+                        if ($question instanceof \Questionnaire\Model\JumpLabel) {
+                            $html = $html . $question->getViewHTML(-1, $questions, $this->id);
+                        }else{
+                            $html = $html . $question->getViewHTML();
+
+                        }
+                        //$counter++;
+                    }
+                    $layoutCounter++;
+                    if ($question instanceof \Questionnaire\Model\PageBreakLayoutElement) {
+                        $pageCounter++;
+                    }
+                } else {
+                    if ($pageCounter == $page) {
+                        if ($resultObject instanceof \steam_object && $showResult) {
+                            $attributes = $resultObject->get_attribute_names();
+                            if (!isset($values[$counter]) && !in_array($counter, $errors)) {
+                                if (in_array("QUESTIONNAIRE_ANSWER_" . $counter, $attributes)) {
+                                    $values[$counter] = $resultObject->get_attribute("QUESTIONNAIRE_ANSWER_" . $counter);
+                                }
+                            }
+                        }
+                        if (in_array($counter, $errors)) {
+                            if (isset($values[$counter])) {
+                                $html = $html . $question->getViewHTML($counter, $disabled, 1, $values[$counter]);
+                            } else {
+                                $html = $html . $question->getViewHTML($counter, $disabled, 1);
+                            }
+                        } else {
+                            if (isset($values[$counter])) {
+                                $html = $html . $question->getViewHTML($counter, $disabled, 0, $values[$counter]);
+                            } else {
+                                $html = $html . $question->getViewHTML($counter, $disabled, 0);
+                            }
+                        }
+                    }
+                    $counter++;
+                }
+            }
+            $content->setVariable("QUESTIONS_HTML", $html);
+            // construct next/previous/submit urls
+
+            if($showResult){
+              if($disabled){ //show result
+                $placeholder = $resultId . "/1/";
               }
-          }
-          $content->setVariable("QUESTIONS_HTML", $html);
-          // construct next/previous/submit urls
-          if ($resultOrPreview != "" && $disabled == 1) {
-              $resultOrPreview = $resultOrPreview . "1";
-          }
-          if ($pages > $page) {
-              $content->setVariable("NEXT_LABEL", "Nächste Seite");
-              $content->setVariable("NEXT_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/" . ($page + 1) . "/" . $resultOrPreview);
-          } else if ($pages == $page) {
-              if ($preview == 1 || $disabled == 1) {
-                  $content->setVariable("DISPLAY_NEXT", "none");
-                  $content->setVariable("NEXT_URL", $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/");
-              } else {
-                  $content->setVariable("NEXT_LABEL", "Fragebogen abschließen");
-                  $content->setVariable("NEXT_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/" . ($page + 1) . "/" . $resultOrPreview);
+              else{ //edit result
+                $placeholder = $resultId;
               }
-          } else {
-              $content->setVariable("DISPLAY_NEXT", "none");
+            }
+            if($showPreview){
+              $placeholder = "preview";
+            }
+
+            if ($pages > $page) {
+                $content->setVariable("NEXT_LABEL", "Nächste Seite");
+                $content->setVariable("NEXT_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/" . ($page + 1) . "/" . $placeholder);
+            } else if ($pages == $page) {
+                if ($showPreview == 1 || $disabled == 1) {
+                    $content->setVariable("DISPLAY_NEXT", "none");
+                    $content->setVariable("NEXT_URL", $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/");
+                } else {
+                    $content->setVariable("NEXT_LABEL", "Fragebogen abschließen");
+                    $content->setVariable("NEXT_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/" . ($page + 1) . "/" . $placeholder);
+                }
+            } else {
+                $content->setVariable("DISPLAY_NEXT", "none");
+            }
+            if ($page != 1 && $pages > 1) {
+                $content->setVariable("PREVIOUS_LABEL", "Vorherige Seite");
+                $content->setVariable("PREVIOUS_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/" . ($page - 1) . "/" . $placeholder);
+            } else {
+                $content->setVariable("DISPLAY_PREVIOUS", "none");
+            }
+            $content->parse("BLOCK_VIEW_SURVEY");
           }
-          if ($page != 1 && $pages > 1) {
-              $content->setVariable("PREVIOUS_LABEL", "Vorherige Seite");
-              $content->setVariable("PREVIOUS_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/" . ($page - 1) . "/" . $resultOrPreview);
-          } else {
-              $content->setVariable("DISPLAY_PREVIOUS", "none");
+          else{
+            $content->setVariable("HINT", $hint);
           }
-          $content->parse("BLOCK_VIEW_SURVEY");
           $html = $content->get();
       }
       $rawWidget = new \Widgets\RawHtml();

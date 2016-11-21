@@ -187,7 +187,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
               //array("name" => "Neuen Fragebogen erstellen", "link" => $QuestionnaireExtension->getExtensionUrl() . "edit/" . $this->id . "/"),
               //array("name" => "Import", "link" => $QuestionnaireExtension->getExtensionUrl() . "import/" . $this->id . "/"),
               //array("name" => "Konfiguration", "link" => $QuestionnaireExtension->getExtensionUrl() . "configuration/" . $this->id . "/"),
-              array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $this->id . "/")
+              //array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $this->id . "/")
           );
           $actionbar->setActions($actions);
       } else {
@@ -199,7 +199,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
           );
           $actionbar->setActions($actions);
       }
-      $frameResponseObject->addWidget($actionbar);
+      //$frameResponseObject->addWidget($actionbar);
 
       // display edit form
       $content = $QuestionnaireExtension->loadTemplate("questionnaire_edit.template.html");

@@ -16,10 +16,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		$user = $GLOBALS["STEAM"]->get_current_steam_user();
+		//$user = $GLOBALS["STEAM"]->get_current_steam_user();
 		$QuestionnaireExtension = \Questionnaire::getInstance();
-		$QuestionnaireExtension->addJS();
-		$QuestionnaireExtension->addCSS();
+		//$QuestionnaireExtension->addJS();
+		//$QuestionnaireExtension->addCSS();
 
 		if (!($questionnaire->check_access_read())) {
 				$errorHtml = new \Widgets\RawHtml();
@@ -31,79 +31,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		// chronic
 		\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentObject($questionnaire);
 
-		// check if current user is admin
-		$staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
-		$admin = 0;
-		if ($questionnaire->get_creator()->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) {
-			$admin = 1;
-		}
-		else{
-			if(in_array($user, $staff)){
-				$admin = 1;
-			}
-			else{
-				foreach ($staff as $object) {
-					if ($object instanceof steam_group && $object->is_member($user)) {
-						$admin = 1;
-						break;
-					}
-				}
-			}
-		}
-
-		// check if current user is allowed to participate
-		$possibleParticipants = $questionnaire->get_attribute("QUESTIONNAIRE_GROUP");
-		$allowed = 0;
-		if(in_array($user, $possibleParticipants)){
-			$allowed = 1;
-		}
-		else{
-			foreach ($possibleParticipants as $object) {
-				if ($object instanceof steam_group && $object->is_member($user)) {
-					$allowed = 1;
-					break;
-				}
-			}
-		}
-
-		if (!$admin && !$allowed) {
-				$errorHtml = new \Widgets\RawHtml();
-				$errorHtml->setHtml("Der Fragebogen kann nicht angezeigt werden, da Sie nicht über die erforderlichen Rechte verfügen.");
-				$frameResponseObject->addWidget($errorHtml);
-				return $frameResponseObject;
-		}
-
-		$active = \Questionnaire::getInstance()->isActive($this->id);
-		$times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES"); //0 multiple, else not
 		$surveys = $questionnaire->get_inventory();
 		$survey = $surveys[0];
 		$surveyId = $survey->get_id();
-		$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
-		$participants = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
-		$results = $participants[$user->get_id()]; //null or array with size > 0
 
-		if($allowed){
-			if(!$active){
-				if(is_null($results)){
-					header('Location: ' . $QuestionnaireExtension->getExtensionUrl() . "view/" . $surveyId . "/1/");
-				}
-				else{
-					if($times == 0){ //multiple allowed
-						header('Location: ' . $QuestionnaireExtension->getExtensionUrl() . "view/" . $surveyId . "/1/");
-					}
-					else{
-						header('Location: ' . $QuestionnaireExtension->getExtensionUrl() . "view/" . $surveyId . "/1/preview");
-					}
-				}
-			}
-			else{
-				header('Location: ' . $QuestionnaireExtension->getExtensionUrl() . "view/" . $surveyId . "/1/preview");
-			}
-		}
-
-		if($admin){ //admin and not allowed to participate
-			header('Location: ' . $QuestionnaireExtension->getExtensionUrl() . "view/" . $surveyId . "/1/preview");
-		}
+		header('Location: ' . $QuestionnaireExtension->getExtensionUrl() . "view/" . $surveyId . "/1/");
 
 		die;
 
