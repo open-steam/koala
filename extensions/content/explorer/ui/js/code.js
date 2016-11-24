@@ -37,7 +37,6 @@ function removeAllDirectEditors(save) {
 
     var elements = jQuery(".directEditor");
     if (elements) {
-        console.log("hier1");
         for (i = 0; i < elements.length; i++) {
             var item = elements[i];
             var parent = jQuery(item).parent()[0];
@@ -47,7 +46,7 @@ function removeAllDirectEditors(save) {
 }
 
 function removeDirectEditor(objectId, elementId) {
-    jQuery("#" + elementId).removeClass("directEditor").html("");
+    jQuery("#" + elementId).removeClass("directEditor");
     //get the new name
     var obj = new Object;
     obj.id = objectId;

@@ -50,9 +50,8 @@ div[id$="_3"].listviewer-item-cell {
 
 .galleryEntry input[type="text"] {
     width: calc(100% - 30px) !important;
-    float: none;
-    margin-top: 6px;
     margin-left: 10px;
+    margin-top:2px;
 }
 
 .galleryEntry .widgets_textinput {
@@ -181,7 +180,11 @@ div[id$="_3"].listviewer-item-cell {
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 1px;
+}
+
+.widgets_textinput, .widgets_textinput input, .widgets_textinput div {
+	float: none !important;
 }
 
 .galleryEntry.red {

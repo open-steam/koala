@@ -174,7 +174,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
                 " . $popupMenuHtml . "
 
                 " . $urlNameHtml . "
-
+                
             </li>");
 
             $ajaxResponseObject->addWidget($entry);
