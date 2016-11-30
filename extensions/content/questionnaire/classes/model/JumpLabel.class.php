@@ -55,7 +55,7 @@ class JumpLabel extends AbstractLayoutElement {
         return $content->get();
     }
 
-    public function getViewHTML($number = -1, $questions, $objId) {
+    public function getViewHTML($number = -1, $questions, $objId, $params) {
 
         $QuestionnaireExtension = \Questionnaire::getInstance();
         $content = $QuestionnaireExtension->loadTemplate("layoutelements/jumpLabel.template.html");
@@ -68,12 +68,36 @@ class JumpLabel extends AbstractLayoutElement {
 
         $pageNumber = self::getPage($questions, $this->to);
         if (intval($pageNumber) === -1) {
-
             $url = "#";
         } else {
-            if (strpos($_SERVER["REQUEST_URI"], "preview") !== false) {
+
+            // check if displaying preview or result
+            $showPreview = 0;
+            $showResult = 0;
+            $disabled = 0;
+            if (isset($params[2])){
+              if($params[2] == "preview") {
+                $showPreview = 1;
+              }else{
+                $showResult = 1;
+              }
+            }
+
+            if (isset($params[3])){
+              $disabled = 1;
+            }
+
+            if ($showPreview) {
                 $url = PATH_URL . 'questionnaire/view/' . $objId . "/" . $pageNumber . '/preview/#' . ($this->to);
-            } else {
+            } else if($showResult){
+              if($disabled){
+                $url = PATH_URL . 'questionnaire/view/' . $objId . "/" . $pageNumber . "/" . $params[2] . "/" . $params[3] . "/#" . ($this->to);
+              }
+              else{
+                $url = PATH_URL . 'questionnaire/view/' . $objId . "/" . $pageNumber . "/" . $params[2] . "/#" . ($this->to);
+              }
+            }
+            else{
                 $url = PATH_URL . 'questionnaire/view/' . $objId . "/" . $pageNumber . '/#' . ($this->to);
             }
         }

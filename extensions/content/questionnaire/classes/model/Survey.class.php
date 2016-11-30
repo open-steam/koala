@@ -47,14 +47,13 @@ class Survey extends \AbstractObjectModel {
 			foreach ($groups as $group) {
 				$results_container->set_sanction($group, SANCTION_READ | SANCTION_WRITE | SANCTION_INSERT);
 			}
+			$results_container->set_attribute("QUESTIONNAIRE_RESULTS", 0);
+			$results_container->set_attribute("QUESTIONNAIRE_PARTICIPANTS", array());
 		} else {
 			$survey_container = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $old);
 			$survey_container->set_attribute("OBJ_DESC", $this->name);
 			$results_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey_container->get_path() . "/results");
 		}
-
-		$results_container->set_attribute("QUESTIONNAIRE_RESULTS", 0);
-		$results_container->set_attribute("QUESTIONNAIRE_PARTICIPANTS", array());
 
 		$xml = new \SimpleXMLElement("<survey></survey>");
        	$xml->addChild("name", $this->name);

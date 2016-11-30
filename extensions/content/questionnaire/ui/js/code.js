@@ -356,7 +356,7 @@ $( document ).ready(function() {
     placeholder: "ui-state-placeholder-rf",
     axis: "y",
     forcePlaceholderSize: true,
-    update: function(event, ui){updateNumbering()}
+    update: function(event, ui){updateNumbering();databinding();}
   });
   $("#sortable_rf").sortable("disable");
 });
@@ -367,6 +367,11 @@ function initiateSortable(){
   $("#sortable_rf").css('cursor', 'move');
   $("#sort-icon").parent().css("background-color", "#ff8300");
   $("#sort-icon").attr("name", "true");
+  var asseturl = document.getElementById('asseturl').value + "/sort.svg";
+  $("#content").prepend("<div id='sortIcon' style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(" + asseturl + ");\"></div>");
+  $(".popupmenuanker").each(function(index) {
+    if($(this).parent().hasClass("question_headline")) $(this).hide();
+  });
 }
 
 // remove sortable
@@ -375,10 +380,9 @@ function removeSortable(){
   $("#sortable_rf").css('cursor', 'auto');
   $("#sort-icon").parent().css("background-color", "#3a6e9f");
   $("#sort-icon").attr("name", "false");
-
+  $("#sortIcon").remove();
+  $(".popupmenuanker").show();
   //$('#save-que-button').click();
-  databinding();
-
 }
 
 // update numbering of questions during sort or after creation/deletion/duplication
@@ -1100,6 +1104,29 @@ function deleteResult(id, survey, rf) {
 }
 
 /*
+ * function to delete all results
+ */
+function deleteAllResults(idArray, survey, rf) {
+    paramsArray = new Array();
+    elementIdArray = new Array();
+    var check = confirm('Alle Abgabe wirklich löschen?');
+    if (check == true) {
+      for (var i = 0; i < idArray.length; i++) {
+        params = {};
+        params.survey = survey;
+        params.rf = rf;
+        params.id = idArray[i];
+        if(i == idArray.length-1){
+          params.reload = true;
+        }
+        paramsArray.push(params);
+        elementIdArray.push(rf);
+      }
+      sendMultiRequest('DeleteResult', paramsArray, elementIdArray, 'inform', null, null, 'questionnaire', 'Lösche Abgaben ...', 0, paramsArray.length);
+    }
+}
+
+/*
  * function to check title input
  */
 function checkTitle() {
@@ -1146,4 +1173,41 @@ function databinding(){
   });
 
   sendRequest('DatabindingEdit', params, '', 'data', '', '', 'Questionnaire');
+}
+
+/*
+* moving elements manually via popupmenu
+*/
+function moveElement(id, direction){
+  var element = $("#rfelement" + id);
+  if(direction == "top"){
+    $("#rfelement" + id).remove();
+    $("#sortable_rf").prepend(element);
+  }
+  if(direction == "up"){
+    var prev = $(element).prev();
+    var name = $(prev).attr("name");
+    while(typeof name != 'undefined' &&  name.indexOf("rfelement") >= 0){
+      prev = $(prev).prev();
+      name = $(prev).attr("name");
+    }
+    $("#rfelement" + id).remove();
+    $(element).insertBefore(prev);
+  }
+  if(direction == "down"){
+    var next = $(element).next();
+    var name = $(next).attr("name");
+    while(typeof name != 'undefined' &&  name.indexOf("rfelement") >= 0){
+      next = $(next).next();
+      name = $(next).attr("name");
+    }
+    $("#rfelement" + id).remove();
+    $(element).insertAfter(next);
+  }
+  if(direction == "bottom"){
+    $("#rfelement" + id).remove();
+    $("#sortable_rf").append(element);
+  }
+  updateNumbering();
+  databinding();
 }

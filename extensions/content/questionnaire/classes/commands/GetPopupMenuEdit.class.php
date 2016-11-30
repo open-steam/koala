@@ -35,14 +35,33 @@ class GetPopupMenuEdit extends \AbstractCommand implements \IAjaxCommand {
         $editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
         $trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
         $copyIcon = $explorerUrl . "icons/menu/svg/copy.svg";
+        $sortIcon = $explorerUrl . "icons/menu/svg/sort.svg";
+        $topIcon = $explorerUrl . "icons/menu/svg/top.svg";
+        $upIcon = $explorerUrl . "icons/menu/svg/up.svg";
+        $downIcon = $explorerUrl . "icons/menu/svg/down.svg";
+        $bottomIcon = $explorerUrl . "icons/menu/svg/bottom.svg";
 
         $editMethod = "editQuestion";
         if($this->layoutElement) $editMethod = "editLayoutElement";
 
+        $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+        $surveys = $questionnaire->get_inventory();
+        $survey = $surveys[0];
+        $survey_object = new \Questionnaire\Model\Survey($questionnaire);
+        $xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
+        $survey_object->parseXML($xml);
+        $questions = $survey_object->getQuestions();
+
 				$items = array(
           array("raw" => "<a href=\"#\" onclick=\"{$editMethod}({$this->questionId});return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>"),
 					array("raw" => "<a href=\"#\" onclick=\"copyElement({$this->id}, {$this->questionId});return false;\"><svg><use xlink:href='{$copyIcon}#copy'/></svg> Duplizieren</a>"),
-					array("raw" => "<a href=\"#\" onclick=\"deleteElement({$this->questionId});return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>")
+          (count($questions) >= 2) ? array("name" => "<svg><use xlink:href='{$sortIcon}#sort'/></svg> Umsortieren", "direction" => "right", "menu" => array(
+              array("name" => "<a class='menuItemUp' href=\"#\" onclick=\"moveElement({$this->questionId}, 'top');return false;\"><svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben</a>"),
+              array("name" => "<a class='menuItemUp' href=\"#\" onclick=\"moveElement({$this->questionId}, 'up');return false;\"><svg><use xlink:href='{$upIcon}#up'/></svg> Eins nach oben</a>"),
+              array("name" => "<a class='menuItemDown' href=\"#\" onclick=\"moveElement({$this->questionId}, 'down');return false;\"><svg><use xlink:href='{$downIcon}#down'/></svg> Eins nach unten</a>"),
+              array("name" => "<a class='menuItemDown' href=\"#\" onclick=\"moveElement({$this->questionId}, 'bottom');return false;\"><svg><use xlink:href='{$bottomIcon}#bottom'/></svg> Ganz nach unten</a>")
+          )) : "",
+          array("raw" => "<a href=\"#\" onclick=\"deleteElement({$this->questionId});return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>")
 				);
 
         $popupMenu = new \Widgets\PopupMenu();
@@ -50,6 +69,23 @@ class GetPopupMenuEdit extends \AbstractCommand implements \IAjaxCommand {
         $popupMenu->setPosition(round($this->x + $this->width-85)  . "px", round($this->y + $this->height+5) . "px");
         $ajaxResponseObject->setStatus("ok");
         $ajaxResponseObject->addWidget($popupMenu);
+
+        $raw = new \Widgets\RawHtml();
+        $raw->setJs('
+
+          var first = $("#sortable_rf").children().not("input").not("[id=\"newlayout\"]").not("[id=\"newquestion\"]").first();
+          var last = $("#sortable_rf").children().not("input").not("[id=\"newlayout\"]").not("[id=\"newquestion\"]").last();
+          if(("rfelement"+' . $this->questionId . ') == $(first).attr("id")){
+            //TODO: do this after click event (new popupmenu)
+            $(".menuItemUp").parent().hide();
+          }
+          if(("rfelement"+' . $this->questionId . ') == $(last).attr("id")){
+            //TODO: do this after click event (new popupmenu)
+            $(".menuItemDown").parent().hide();
+          }
+        ');
+        $ajaxResponseObject->addWidget($raw);
+
         return $ajaxResponseObject;
     }
 

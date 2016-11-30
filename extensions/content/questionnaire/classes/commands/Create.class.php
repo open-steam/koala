@@ -29,7 +29,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
 			$questionnaire->set_attribute("QUESTIONNAIRE_SHOW_PARTICIPANTS", 1);
 			$questionnaire->set_attribute("QUESTIONNAIRE_SHOW_CREATIONTIME", 1);
 			$questionnaire->set_attribute("QUESTIONNAIRE_ADMIN_EDIT", 1);
-			$questionnaire->set_attribute("QUESTIONNAIRE_OWN_EDIT", 1);
+			$questionnaire->set_attribute("QUESTIONNAIRE_OWN_EDIT", 0);
 
 			$survey_object = new \Questionnaire\Model\Survey($questionnaire);
 			$survey_object->setName($this->params["title"]);

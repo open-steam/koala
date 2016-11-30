@@ -4,6 +4,7 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 
 	private $params;
 	private $id;
+	private $reload;
 
 	public function validateData(\IRequestObject $requestObject) {
 		return true;
@@ -12,6 +13,7 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		isset($this->params["id"]) ? $this->id = $this->params["id"]: "";
+		isset($this->params["reload"]) ? $this->reload = $this->params["reload"]: "";
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
@@ -26,35 +28,68 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 		// check if user is admin
 		$staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
 		$admin = 0;
-		foreach ($staff as $group) {
-			if ($group->is_member($user)) {
-				$admin = 1;
-				break;
-			}
-		}
-		if ($creator  == $user->get_id()) {
+		$allowed = false;
+		if ($creator == $user->get_id() || \lms_steam::is_steam_admin($user)) {
 			$admin = 1;
+			$allowed = true;
+		}
+		else{
+			if(in_array($user, $staff)){
+				$admin = 1;
+			}
+			else{
+				foreach ($staff as $object) {
+					if ($object instanceof steam_group && $object->is_member($user)) {
+						$admin = 1;
+						break;
+					}
+				}
+			}
 		}
 
-		$allowed = true;
-		// if current user is no admin, questionnaire is active, result is his unreleased result or editing is allowed
-		if ($active && $admin == 0 && $result->get_creator()->get_id()  == $user->get_id()) {
-			if ($released == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) {
-				$allowed = true;
+		// check if user is allowed to participate
+		$possibleParticipants = $questionnaire->get_attribute("QUESTIONNAIRE_GROUP");
+		if(in_array($user, $possibleParticipants)){
+			$allowed = true;
+		}
+		else{
+			foreach ($possibleParticipants as $object) {
+				if ($object instanceof steam_group && $object->is_member($user)) {
+					$allowed = true;
+					break;
+				}
 			}
 		}
-		// if current user is admin, it is his own unreleased result or own editing is allowed or admin editing is allowed
-		if ($admin == 1) {
-			if ($active && $result->get_creator()->get_id()  == $user->get_id() && ($released == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1)) {
-				$allowed = true;
+
+		if($result->get_creator()->get_id() == $user->get_id()){
+			$ownResult = true;
+		}
+		else{
+			$ownResult = false;
+		}
+
+		if(!$admin && !$allowed) die;
+
+		$check = false;
+		if($admin){
+			if($ownResult){
+				if($result->get_attribute("QUESTIONNAIRE_RELEASED") == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1){
+					$check = true;
+				}
 			}
-			if ($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1) {
-				$allowed = true;
+			else{
+				if($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
+					$check = true;
+				}
+			}
+		} elseif($allowed){ //allowed to participate, but no admin
+			if($ownResult && ($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || $result->get_attribute("QUESTIONNAIRE_RELEASED") == 0)){
+				$check = true;
 			}
 		}
 
 		// if user is allowed to delete result, delete it and update participation array
-		if ($result instanceof \steam_object && $allowed) {
+		if ($result instanceof \steam_object && $check) {
 			$resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 			$participants = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
 			$results = $participants[$result->get_creator()->get_id()];
@@ -84,6 +119,16 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 			$resultContainer->set_attribute("QUESTIONNAIRE_PARTICIPANTS", $participants);
 			$resultContainer->set_attribute("QUESTIONNAIRE_RESULTS", $count);
 		}
+
+		$raw = new \Widgets\RawHtml();
+		if($this->reload){
+			$raw->setHtml('<script>location.reload()</script>');
+		}
+		else{
+			$raw->setHtml("");
+		}
+		$ajaxResponseObject->addWidget($raw);
+
 		$ajaxResponseObject->setStatus("ok");
 		return $ajaxResponseObject;
 	}

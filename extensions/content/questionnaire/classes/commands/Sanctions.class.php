@@ -55,9 +55,11 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
   		$staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
   		$admin = 0;
   		$allowed = false;
+      $creatorOrRoot = false;
   		if ($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) {
   			$admin = 1;
   			$allowed = true;
+        $creatorOrRoot = true;
   		}
   		else{
   			if(in_array($user, $staff)){
@@ -80,6 +82,34 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $ajaxResponseObject->addWidget($dialog);
         return $ajaxResponseObject;
       }
+
+      $adminEdit = new \Widgets\RadioButton();
+      $adminEdit->setLabel("Administratoren dürfen Antworten bearbeiten:");
+      $adminEdit->setData($questionnaire);
+      $adminEdit->setType("horizontal");
+      $adminEdit->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_ADMIN_EDIT"));
+      $adminEdit->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
+
+      $ownEdit = new \Widgets\RadioButton();
+      $ownEdit->setLabel("Teilnehmer dürfen eigene Antworten bearbeiten:");
+      $ownEdit->setData($questionnaire);
+      $ownEdit->setType("horizontal");
+      $ownEdit->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_OWN_EDIT"));
+      $ownEdit->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
+
+      if(!$creatorOrRoot){
+        $adminEdit->setReadOnly(true);
+      }
+
+      $dialog->addWidget($adminEdit);
+      $dialog->addWidget($ownEdit);
+
+      $raw = new \Widgets\RawHtml();
+      $raw->setCSS('.dialog .widgets_radiobutton .widgets_label{width:395px;}');
+      $dialog->addWidget($raw);
+
+      $clear = new \Widgets\Clearer();
+      $dialog->addWidget($clear);
 
       $content = $QuestionnaireExtension->loadTemplate("questionnaire_sanction.template.html");
       $content->setCurrentBlock("BLOCK_CONFIGURATION_TABLE");
@@ -202,7 +232,33 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
 
       if($this->groupId) $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->groupId);
 
-      if($this->participate == "true" && in_array($object, $participants) && $this->checked == "false"){
+      $staffMember = 0;
+      if(in_array($object, $staff)){
+        $staffMember = 1;
+      }
+      else{
+        foreach ($staff as $i) {
+          if ($i instanceof steam_group && $i->is_member($object)) {
+            $staffMember = 1;
+            break;
+          }
+        }
+      }
+
+      $participant = 0;
+      if(in_array($object, $participants)){
+        $participant = 1;
+      }
+      else{
+        foreach ($participants as $i) {
+          if ($i instanceof steam_group && $i->is_member($object)) {
+            $participant = 1;
+            break;
+          }
+        }
+      }
+
+      if($this->participate == "true" && $participant && $this->checked == "false"){
         $key = array_search($object, $participants);
         unset($participants[$key]);
 
@@ -216,7 +272,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         }
       }
 
-      if($this->participate == "true" && !in_array($object, $participants) && $this->checked == "true"){
+      if($this->participate == "true" && !$participant && $this->checked == "true"){
         array_push($participants, $object);
 
         $questionnaire->set_sanction($object, SANCTION_READ | SANCTION_WRITE);
@@ -229,7 +285,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         }
       }
 
-      if($this->admin == "true" && in_array($object, $staff) && $this->checked == "false"){
+      if($this->admin == "true" && $staffMember && $this->checked == "false"){
         $key = array_search($object, $staff);
         unset($staff[$key]);
 
@@ -243,9 +299,8 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         }
       }
 
-      if($this->admin == "true" && !in_array($object, $staff) && $this->checked == "true"){
+      if($this->admin == "true" && !$staffMember && $this->checked == "true"){
         array_push($staff, $object);
-
         $questionnaire->set_sanction($object, SANCTION_ALL);
       }
 

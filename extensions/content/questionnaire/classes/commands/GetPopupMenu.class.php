@@ -33,25 +33,43 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
         $editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
         $trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
         $questionnaireIcon = $explorerUrl . "icons/mimetype/svg/questionnaire.svg";
-
+        $resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->resultId);
         $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $survey = $questionnaire->get_inventory()[0];
         $surveyId = $survey->get_id();
 
-        $adminEdit = FALSE;
-				if($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1) $adminEdit = TRUE;
+        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $creator = $questionnaire->get_creator();
 
-				$items = array(
-          array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "questionnaire/view/" . $surveyId . "/1/" . $this->resultId . "/1" . "/', '_self'); return false;\"><svg><use xlink:href='{$questionnaireIcon}#questionnaire'/></svg> Anzeigen</a>"),
-					($adminEdit) ? array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "questionnaire/view/" . $surveyId . "/1/" . $this->resultId . "/', '_self'); return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>") : "",
-					($adminEdit) ? array("raw" => "<a href=\"#\" onclick=\"deleteResult({$this->resultId}, {$surveyId}, {$this->id})\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>") : ""
-				);
+        // check if current user is admin
+        $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
+        $admin = 0;
+        $root = 0;
+        if(\lms_steam::is_steam_admin($user)){
+          $root = 1;
+        }
+        else if($creator->get_id() == $user->get_id()){
+          $admin = 1;
+        }
+        else{
+          if(in_array($user, $staff)){
+            $admin = 1;
+          }
+          else{
+            foreach ($staff as $object) {
+              if ($object instanceof steam_group && $object->is_member($user)) {
+                $admin = 1;
+                break;
+              }
+            }
+          }
+        }
 
-
-
-
-//edit
-        //$QuestionnaireExtension->getExtensionUrl() . "view/" . $this->id . "/1/" . $result->get_id() . "/");
+				$items[] = array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "questionnaire/view/" . $surveyId . "/1/" . $this->resultId . "/1" . "/', '_self'); return false;\"><svg><use xlink:href='{$questionnaireIcon}#questionnaire'/></svg> Anzeigen</a>");
+        if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0 || $root || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)) {
+          $items[] = array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "questionnaire/view/" . $surveyId . "/1/" . $this->resultId . "/', '_self'); return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>");
+					$items[] = array("raw" => "<a href=\"#\" onclick=\"deleteResult({$this->resultId}, {$surveyId}, {$this->id})\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>");
+				};
 
         $popupMenu = new \Widgets\PopupMenu();
         $popupMenu->setItems($items);

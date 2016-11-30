@@ -88,6 +88,7 @@ class MultipleChoiceQuestion extends AbstractQuestion {
           $content->setCurrentBlock("BLOCK_COLUMN_VIEW");
           $content->setCurrentBlock("BLOCK_OPTION_VIEW");
           $content->setVariable("QUESTION_ID", $id);
+          $content->setVariable("QUESTION_DISABLED", "disabled");
           $content->setVariable("OPTION_LABEL", $option);
           $content->parse("BLOCK_OPTION_VIEW");
           $content->parse("BLOCK_COLUMN_VIEW");

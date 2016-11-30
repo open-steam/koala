@@ -118,18 +118,17 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             case "wiki":
                 $labelName = "Name";
                 $typeName = "Wiki";
+                break;
 
+            case "questionnaire":
+                $labelName = "Name";
+                $typeName = "Fragebogen";
+                break;
 
             default:
                 $labelName = "Name";
                 $typeName = "unbekannt";
                 break;
-        }
-
-        if($type == "room" && $object->get_attribute("OBJ_TYPE") == "QUESTIONNAIRE_CONTAINER"){
-          $labelName = "Name";
-          $typeName = "Fragebogen";
-          $type = "questionnaire";
         }
 
         //pic tests
@@ -255,11 +254,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
 
             $parent = $object->get_environment();
-            $parentWritable = $parent->check_access_write();
-            if ($parent !== 0 && $parentWritable){
+            if($parent !== 0){
+              $parentWritable = $parent->check_access_write();
+              if($parentWritable){
                 $inventory = $parent->get_inventory();
-            } else {
+              } else {
                 $inventory = array();
+              }
             }
             $keywordmatrix = array();
             foreach ($inventory as $inv) {

@@ -45,9 +45,15 @@ class View extends \AbstractCommand implements \IFrameCommand {
       $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
       $admin = 0;
       $allowed = false;
-      if ($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) {
+      $root = 0;
+      if(\lms_steam::is_steam_admin($user)){
+        $root = 1;
         $admin = 1;
+        $allowed = 1;
+      }
+      else if ($creator->get_id() == $user->get_id()){
         $allowed = true;
+        $admin = 1;
       }
       else{
         if(in_array($user, $staff)){
@@ -103,6 +109,20 @@ class View extends \AbstractCommand implements \IFrameCommand {
         }
       }
 
+      //check if the user has an active submission
+      $participated = !is_null($participants[$user->get_id()]);
+      if($participated) {
+        $submissions = $participants[$user->get_id()];
+        foreach ($submissions as $submission) {
+          $submissionObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $submission);
+          if($submissionObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0) {
+            $showResult = 1;
+            $resultId = $submission;
+            break;
+          }
+        }
+      }
+
       // check which page should be displayed
       $pages = $survey->get_attribute("QUESTIONNAIRE_PAGES");
       $page = 1;
@@ -120,6 +140,11 @@ class View extends \AbstractCommand implements \IFrameCommand {
                 $ownResult = false;
               }
           }
+          else{
+            //no resultObject which can be displayed
+            header('Location: ' . $QuestionnaireExtension->getExtensionUrl() . "view/" . $this->params[0] . "/");
+            die;
+          }
       }
 
       $active = \Questionnaire::getInstance()->isActive($questionnaire->get_id());
@@ -127,15 +152,23 @@ class View extends \AbstractCommand implements \IFrameCommand {
       //the user is admin or allowed to participate or both!!!
 
       $hint = "";
+      $subheadline = "";
 
       if($showResult){ //user want to see or edit a result
         if($disabled){ //show result
           if($ownResult){ //show own result
             //showResult
+            if($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0){
+              $subheadline = "Meine aktive Abgabe";
+            }
+            else{
+              $subheadline = "Meine Abgabe vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr";
+            }
           }
           else{ //show result from other user
             if($admin){
               //show result
+              $subheadline = "Abgabe von " . $resultObject->get_creator()->get_full_name() . " vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr";
             }
             else{
               $hint = "Es können nur eigene Abgaben betrachtet werden";
@@ -145,8 +178,13 @@ class View extends \AbstractCommand implements \IFrameCommand {
         else{ //edit result
           if($active){
             if($ownResult){
-              if($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1){
+              if($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0){
                 //edit result
+                $subheadline = "Fragebogen ausfüllen";
+              }
+              else if($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)){
+                //edit result
+                $subheadline = "Meine Abgabe vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr bearbeiten";
               }
               else{
                 $hint = "Abgaben können nicht bearbeitet werden";
@@ -155,6 +193,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
             else{ //edit of results of other user
               if($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
                 //edit result
+                $subheadline = "Abgabe von " . $resultObject->get_creator()->get_full_name() . " vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr bearbeiten";
               }
               else{
                 $hint = "Abgaben anderer Nutzer können nicht bearbeitet werden";
@@ -164,8 +203,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
           else{
             if($admin){ //admin can edit results even if not active
               if($ownResult){ //admin wants to edit own result
-                if($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1){
+                if($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
                   //edit result
+                  $subheadline = "Meine Abgabe vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr bearbeiten";
                 }
                 else{
                   $hint = "Abgaben können nicht bearbeitet werden";
@@ -174,6 +214,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
               else{ //admin wants to edit result from other user
                 if($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
                   //edit result
+                  $subheadline = "Abgabe von " . $resultObject->get_creator()->get_name() . " vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr bearbeiten";
                 }
                 else{
                   $hint = "Abgaben anderer Nutzer können nicht bearbeitet werden";
@@ -185,42 +226,59 @@ class View extends \AbstractCommand implements \IFrameCommand {
             }
           }
         }
+      }else if($showPreview){ //user wants to see preview
+        if($admin){
+          //show preview
+          $subheadline = "Vorschau";
+        }
+        else{
+          if($active){
+            //show preview
+            $subheadline = "Vorschau";
+          }
+          else{
+            $hint = "Der Fragebogen kann nicht angezeigt werden, da er nicht aktiv ist";
+          }
+        }
       }else{ //user wants to fill in
         if($active){
           if($allowed){
             $participated = !is_null($participants[$user->get_id()]);
-            if(!$participated || $participated && $times == 0){
+            if(!$participated || ($participated && $times == 0)){
               //show fill in
+              $subheadline = "Fragebogen ausfüllen";
+            }
+            else{
+                $showPreview = 1;
+                $disabled = 1;
+                $subheadline = "Vorschau";
+              }
             }
             else{
               if($admin){
                 $showPreview = 1;
                 $disabled = 1;
+                $subheadline = "Vorschau";
               }
               else{
-                $hint = "Der Fragebogen kann nicht ausgefüllt werden, da bereits eine Abgabe vorliegt";
+                $hint = "Sie haben nicht das Recht den Fragebogen auszufüllen";
               }
-            }
-          }
-          else{
-            if($admin){
-              $showPreview = 1;
-              $disabled = 1;
-            }
-            else{
-              $hint = "Sie haben nicht das Recht den Fragebogen auszufüllen";
-            }
           }
         }
         else{
           if($admin){
             $showPreview = 1;
             $disabled = 1;
+            $subheadline = "Vorschau";
           }
           else{
             $hint = "Der Fragebogen kann nicht ausgefüllt werden, da er nicht aktiv ist";
           }
         }
+      }
+
+      if($root){
+        $hint = "";
       }
 
       // collect user input if view got submitted (and check for errors)
@@ -310,7 +368,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
           }
           // if there are errors show error msg, else save answers
           if (!empty($errors)) {
-              $problemdescription = "Pflichtfragen nicht beantwortet: ";
+              $problemdescription = "Sie müssen noch folgende Pflichtfragen beantworten: ";
               foreach ($errors as $error) {
                   $problemdescription = $problemdescription . ($error + 1) . ", ";
               }
@@ -376,7 +434,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
     <center>
       <h1>Ihre Antworten wurden erfolgreich gespeichert.</h1>
       <div style="text-align:center" class="buttons">
-        <a class="button" href="' . $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . '/">Zurück zur Übersicht</a>
+        <a class="bidButton" href="' . $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . '/">Zurück zur Übersicht</a>
       </div>
     </center>';
       } else {
@@ -457,10 +515,10 @@ class View extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("QUESTIONNAIRE_OWN_SUBMISSIONS", $ownSubmissions);
           }
 
+          $content->setVariable("QUESTIONNAIRE_SUBHEADLINE", $subheadline);
+
           if($hint == ""){
             $content->setCurrentBlock("BLOCK_VIEW_SURVEY");
-
-            $content->setVariable("SURVEY_NAME", $survey_object->getName());
 
             if ($pages > 1) {
                 $content->setVariable("SURVEY_PAGE", "<br>Seite " . $page . " von " . $pages);
@@ -482,7 +540,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
                 if ($question instanceof \Questionnaire\Model\AbstractLayoutElement) {
                     if ($pageCounter == $page) {
                         if ($question instanceof \Questionnaire\Model\JumpLabel) {
-                            $html = $html . $question->getViewHTML(-1, $questions, $this->id);
+                            $html = $html . $question->getViewHTML(-1, $questions, $this->id, $this->params);
                         }else{
                             $html = $html . $question->getViewHTML();
 

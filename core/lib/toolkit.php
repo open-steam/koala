@@ -320,11 +320,13 @@ function getObjectType($object) {
             $type = "groupWorkroom";
         } elseif ($objType === "RAPIDFEEDBACK_CONTAINER") {
             $type = "rapidfeedback";
+        } elseif ($objType === "QUESTIONNAIRE_CONTAINER") {
+            $type = "questionnaire";
         } elseif ($objType === "container_pyramiddiscussion") {
             $type = "pyramiddiscussion";
         } elseif ($objType === "postbox") {
             $type = "postbox";
-		} elseif ($objType === "ellenberg") {
+		    } elseif ($objType === "ellenberg") {
             $type = "ellenberg";
         } elseif ($object->get_attribute("worksheet_valid") === 1) {
             $type = "worksheet";
@@ -698,6 +700,11 @@ function getObjectReadableSize($object) {
         } elseif ($type == "wiki") {
             $counter = count($object->get_inventory());
             $html = $counter." ".(($counter == 1)? "Eintrag" : "Einträge");
+        } elseif ($type == "questionnaire") {
+            $surveys = $object->get_inventory();
+            $survey = $surveys[0];
+            $questions = $survey->get_attribute("QUESTIONNAIRE_QUESTIONS");
+            $html = $questions." ".(($questions == 1)? "Frage" : "Fragen");
         } else {
             $html = "";
         }

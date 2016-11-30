@@ -28,7 +28,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
       $cssWidgetNumbers->setCss('.number{position:absolute;left:30px;}');
       $cssWidgetNumbers->setHtml("");
       $frameResponseObject->addWidget($cssWidgetNumbers);
-
+      $times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES"); //0 multiple, else not
       $user = $GLOBALS["STEAM"]->get_current_steam_user();
       $creator = $questionnaire->get_creator();
 
@@ -218,6 +218,13 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 
       $content->setVariable("QUESTIONNAIRE_NUMBER_QUESTIONS", $survey->get_attribute("QUESTIONNAIRE_QUESTIONS"));
       $content->setVariable("QUESTIONNAIRE_NUMBER_SUBMISSIONS", $resultContainer->get_attribute("QUESTIONNAIRE_RESULTS"));
+
+      $content->setVariable("QUESTIONNAIRE_SUBHEADLINE", "Fragebogen bearbeiten");
+
+      if($resultContainer->get_attribute("QUESTIONNAIRE_RESULTS") > 0){
+        $content->setVariable("QUESTIONNAIRE_WARNING", "Es liegen bereits Abgaben vor. Eine Bearbeitung des Fragebogens zu diesem Zeitpunkt kann dazu führen, dass diese Abgaben und das Endresultat ungültig werden.");
+      }
+
       if($times == 0){
         $content->setVariable("QUESTIONNAIRE_MULTIPLE", "erlaubt");
       }

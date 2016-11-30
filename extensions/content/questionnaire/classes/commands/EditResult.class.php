@@ -38,20 +38,6 @@ class EditResult extends \AbstractCommand implements \IAjaxCommand {
         $showCreationTime->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_SHOW_CREATIONTIME"));
         $showCreationTime->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
 
-        $adminEdit = new \Widgets\RadioButton();
-        $adminEdit->setLabel("Administratoren dürfen Antworten bearbeiten:");
-        $adminEdit->setData($questionnaire);
-        $adminEdit->setType("horizontal");
-        $adminEdit->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_ADMIN_EDIT"));
-        $adminEdit->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
-
-        $ownEdit = new \Widgets\RadioButton();
-        $ownEdit->setLabel("Teilnehmer dürfen eigene Antworten bearbeiten:");
-        $ownEdit->setData($questionnaire);
-        $ownEdit->setType("horizontal");
-        $ownEdit->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_OWN_EDIT"));
-        $ownEdit->setOptions(array(array("name" => "Ja", "value" => 1), array("name" => "Nein", "value" => 0)));
-
         // check if current user is admin
         $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
         $user = $GLOBALS["STEAM"]->get_current_steam_user();
@@ -74,23 +60,19 @@ class EditResult extends \AbstractCommand implements \IAjaxCommand {
           }
         }
 
-        if(!admin){
+        if(!$admin){
           $showParticipants->setReadOnly(true);
           $showCreationTime->setReadOnly(true);
-          $adminEdit->setReadOnly(true);
-          $ownEdit->setReadOnly(true);
         }
 
         $dialog->addWidget($showParticipants);
         $dialog->addWidget($showCreationTime);
-        $dialog->addWidget($adminEdit);
-        $dialog->addWidget($ownEdit);
 
         $raw = new \Widgets\RawHtml();
-        $raw->setCSS('.dialog .widgets_radiobutton .widgets_label{width:285px;}');
+        $raw->setCSS('.dialog .widgets_radiobutton .widgets_label{width:200px;}');
         $dialog->addWidget($raw);
 
-        $dialog->setWidth(400);
+        $dialog->setWidth(300);
 
         $ajaxResponseObject->addWidget($dialog);
         $ajaxResponseObject->setStatus("ok");
