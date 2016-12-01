@@ -66,26 +66,18 @@ class GetPopupMenuEdit extends \AbstractCommand implements \IAjaxCommand {
 
         $popupMenu = new \Widgets\PopupMenu();
         $popupMenu->setItems($items);
-        $popupMenu->setPosition(round($this->x + $this->width-85)  . "px", round($this->y + $this->height+5) . "px");
-        $ajaxResponseObject->setStatus("ok");
-        $ajaxResponseObject->addWidget($popupMenu);
-
-        $raw = new \Widgets\RawHtml();
-        $raw->setJs('
-
+        //$popupMenu->setPosition(round($this->x + $this->width-85)  . "px", round($this->y + $this->height+5) . "px");
+        $popupMenu->setPostJsCode('
           var first = $("#sortable_rf").children().not("input").not("[id=\"newlayout\"]").not("[id=\"newquestion\"]").first();
           var last = $("#sortable_rf").children().not("input").not("[id=\"newlayout\"]").not("[id=\"newquestion\"]").last();
           if(("rfelement"+' . $this->questionId . ') == $(first).attr("id")){
-            //TODO: do this after click event (new popupmenu)
             $(".menuItemUp").parent().hide();
           }
           if(("rfelement"+' . $this->questionId . ') == $(last).attr("id")){
-            //TODO: do this after click event (new popupmenu)
             $(".menuItemDown").parent().hide();
-          }
-        ');
-        $ajaxResponseObject->addWidget($raw);
-
+          }');
+        $ajaxResponseObject->setStatus("ok");
+        $ajaxResponseObject->addWidget($popupMenu);
         return $ajaxResponseObject;
     }
 
