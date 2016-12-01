@@ -101,7 +101,7 @@
 }
 
 
-.popupsubmenuwapper {
+.popupsubmenuwrapper {
     display: none;
     position: absolute;
     width: 190px;
@@ -114,10 +114,10 @@
     background: #3a6e9f;
 }
 
-.popupsubmenuwapper.left {
+.popupsubmenuwrapper.left {
     right: 97%
 }
 
-.popupsubmenuwapper.right {
+.popupsubmenuwrapper.right {
     left: 97%;
 }

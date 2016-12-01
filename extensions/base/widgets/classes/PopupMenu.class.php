@@ -30,7 +30,7 @@ class PopupMenu extends Widget {
     }
 
     /**
-     * 
+     *
      * @param type $width
      * this method is deprecated. The calculation for the position is done in JS
      */
@@ -42,10 +42,10 @@ class PopupMenu extends Widget {
     }
 
     /**
-     * 
+     *
      * @param type $x
      * @param type $y
-     * 
+     *
      * The poisition can be set here but wihtout any consequences.
      * After the PopupMenu is loaded, its position is calculated accodring to the popumenuanker position minus its width
      */
@@ -100,9 +100,9 @@ class PopupMenu extends Widget {
                     if ($item["direction"] == "right") {
                         $triangle = "<div style='color:#FFFFFF; float:right; padding-top:5px; padding-left:5px;'>▶</div>";
                     }
-                    $html .= "<div class=\"popupmenuitem popupsubmenuanker {$item["direction"]}\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\" onclick=\"event.stopPropagation(); $('.popupsubmenuwapper').not($('.popupsubmenuwapper', this)).hide(); $('.popupsubmenuwapper', this).toggle(); return false;\"><a href=\"#\">{$item["name"]}</a>" . $triangle;
+                    $html .= "<div class=\"popupmenuitem popupsubmenuanker {$item["direction"]}\"  onMouseOver=\"event.stopPropagation();\" onMouseOut=\"event.stopPropagation();\" onclick=\"event.stopPropagation(); $('.popupsubmenuwrapper').not($('.popupsubmenuwrapper', this)).hide(); $('.popupsubmenuwrapper', this).toggle(); return false;\"><a href=\"#\">{$item["name"]}</a>" . $triangle;
                     if (is_array($item["menu"])) {
-                        $html .= "<div class=\"popupsubmenuwapper {$item["direction"]}\">";
+                        $html .= "<div class=\"popupsubmenuwrapper {$item["direction"]}\">";
                         foreach ($item["menu"] as $subMenuItem) {
                             if (!is_array($subMenuItem)) {
                                 continue;
@@ -150,15 +150,15 @@ class PopupMenu extends Widget {
         $script = "
                 jQuery('.popupmenuwrapper').appendTo('body');
 		function showPopupMenu(){
-                    
+
                     positionLeftPopupmenuAnker = jQuery(that).offset().left + jQuery(that).outerWidth() - jQuery(\".popupmenuwrapper\").width()+\"px\";
                     positionTopPopupmenuAnker = (jQuery(that).offset().top + jQuery(that).outerHeight()+10)+\"px\";
                     jQuery(\".popupmenuwrapper\").css({left: positionLeftPopupmenuAnker, top: positionTopPopupmenuAnker});
                     jQuery(that).removeClass(\"popupmenuloading\").addClass(\"popupmenuanker\").addClass(\"open\");
                     jQuery(\".popupmenuwrapper\").css(\"display\", \"table\");
                     adjustFooter();
-                    $('.tipsy').hide(); 
-                    
+                    $('.tipsy').hide();
+
 		}
 	 	var lastSVG = jQuery(\".popupmenuwrapper\").children().last().find(\"use\");
 	 	if(lastSVG.length != 0){
