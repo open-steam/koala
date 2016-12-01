@@ -133,9 +133,10 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                     (($object instanceof \steam_document) && ($object->get_attribute(DOC_MIME_TYPE) != "text/html") && ($object->check_access(SANCTION_READ))) ? array("name" => "<svg><use xlink:href='{$downloadIcon}#download'/></svg> Herunterladen", "link" => PATH_URL . "Download/Document/" . $this->id . "/" . $name) : "",
                     ($this->logged_in) ? array("name" => "SEPARATOR") : "",
                     array("name" => "<svg><use xlink:href='{$propertiesIcon}#properties'/></svg> Eigenschaften", "command" => "Properties", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
-                    //display rights dialog for a postbox or for a non postbox object
+                    //display rights dialog for a postbox, questionnaire or for other objects
                     ($object->check_access(SANCTION_SANCTION) && ($object->get_attribute(OBJ_TYPE) === 'postbox')) ? array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte", "command" => "Sanctions", "namespace" => "postbox", "params" => "{'id':'{$this->id}'}", "type" => "popup") : "",
-                    ($object->check_access(SANCTION_SANCTION) && (stristr($object->get_attribute(OBJ_TYPE), 'postbox') === FALSE)) ? array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup") : ""
+                    ($object->check_access(SANCTION_SANCTION) && ($object->get_attribute(OBJ_TYPE) === 'QUESTIONNAIRE_CONTAINER')) ? array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte", "command" => "Sanctions", "namespace" => "questionnaire", "params" => "{'id':'{$this->id}', 'dialog':'true'}", "type" => "popup") : "",
+                    ($object->check_access(SANCTION_SANCTION) && (stristr($object->get_attribute(OBJ_TYPE), 'postbox') === FALSE) && (stristr($object->get_attribute(OBJ_TYPE), 'QUESTIONNAIRE_CONTAINER') === FALSE)) ? array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte", "command" => "Sanctions", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup") : ""
                 );
             }
         } else {

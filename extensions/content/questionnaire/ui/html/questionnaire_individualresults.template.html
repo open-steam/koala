@@ -1,0 +1,56 @@
+<!-- BEGIN BLOCK_RESULTS -->
+{INIT_JS_SORT}
+<p>{RESULTS_AMOUNT}</p>
+<center style="font-size:12px">
+	<table width="100%" class="grid" border="0">
+		<tr>
+			<td>
+				<div style="width:940px; overflow:auto;">
+					<table class="questionnaire_style tablesorter" id="resulttable">
+						<thead>
+							<tr>
+								<!-- BEGIN BLOCK_QUESTION -->
+								<th id="{TIPSY_ID}" style="padding-right:10px; font-weight:bold; text-align: center;">
+									{QUESTION_TEXT}
+									{TIPSY_HTML}
+								</th>
+								<!-- END BLOCK_QUESTION -->
+								<th style="display: {DISPLAY_PARTICIPANTS}; font-weight:bold;">
+									{PARTICIPANT_LABEL}
+								</th>
+								<th style="display: {DISPLAY_TIME}; padding-right:20px; font-weight:bold;">
+									{TIME_LABEL}
+								</th>
+								<th>
+									{POPUPMENUANKER_HEADLINE}
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- BEGIN BLOCK_RESULT -->
+							<tr>
+								<!-- BEGIN BLOCK_RESULT_COL -->
+								<td align="center" style="background-color: {BG_COLOR_COL}; vertical-align:middle;">
+									{RESULT_HTML}
+								</td>
+								<!-- END BLOCK_RESULT_COL -->
+								<td align="center" style="background-color: {BG_COLOR}; vertical-align:middle; display: {DISPLAY_PARTICIPANTS_RESULT};">
+									<a href="{USER_URL}">{USER_NAME}</a>
+								</td>
+								<td align="center" style="background-color: {BG_COLOR}; vertical-align:middle; display: {DISPLAY_TIME_RESULT};">
+									{TIMESTAMP}
+								</td>
+								<td align="center" style="background-color: {BG_COLOR}; vertical-align:middle;">
+									{POPUPMENUANKER}
+								</td>
+							</tr>
+							<!-- END BLOCK_RESULT -->
+						</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</center>
+<!-- END BLOCK_RESULTS -->
+<div id="result-overlay"></div>

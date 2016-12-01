@@ -1,0 +1,294 @@
+{QUESTIONNAIRE_NAME}
+{QUESTIONNAIRE_DESC}
+
+<div class="attribute">Status:</div><div class="value{COLOR}">{QUESTIONNAIRE_STATUS}</div>
+<div class="attribute">Anzahl Fragen:</div><div class="value">{QUESTIONNAIRE_NUMBER_QUESTIONS}</div>
+<div class="attribute">Anzahl Abgaben:</div><div class="value">{QUESTIONNAIRE_NUMBER_SUBMISSIONS}</div>
+<div class="attribute">Mehrfachabgaben:</div><div class="value">{QUESTIONNAIRE_MULTIPLE}</div>
+<div class="attribute">Meine Abgaben:</div>{QUESTIONNAIRE_OWN_SUBMISSIONS}
+<h1 align="center" style="clear:both; padding-top:20px;">{QUESTIONNAIRE_SUBHEADLINE}</h1>
+<p style="color:red; font-weight:bold; font-size:14px; text-align: center;">{QUESTIONNAIRE_WARNING}</p>
+<!-- BEGIN BLOCK_CREATE_SURVEY -->
+<form id="surveyFormOptions" action="" method="post" onsubmit="return getSortables();" style="font-size:12px" >
+  <input type="hidden" id="sortable_array" name="sortable_array" value="">
+  <input type="hidden" id="elementcounter" value="{ELEMENT_COUNTER}">
+  <input type="hidden" id="editID" value="-1">
+  <input type="hidden" id="editRF" name="editRF" value="{EDIT_ID}">
+  <input type="hidden" id="asseturl" value="{ASSET_URL}">
+  <div id="options">
+    <!-- <center> -->
+    <table class="grid" border="0" width="100%">
+        <tr style="display:{DISPLAY_QUESTIONS}">
+            <td colspan="2">
+                <ul id="sortable_rf" style="overflow: auto;">
+                    {QUESTIONS_HTML}
+                    <li id="newquestion" class="ui-state-default-rf question" style="display:none">
+                        <table width="100%" class="question_container" style="padding:0px; border-spacing:0px;">
+                            <thead>
+                              <tr>
+                                <th class="question_headline left" id="question_headline_left"></th>
+                                <th class="question_headline right" id="question_headline_right"></th>
+                              </tr>
+                            </thead>
+                            <tr>
+                                <td width="20%" class="label" style="padding:5px;">{QUESTION_LABEL}:</td>
+                                <td width="80%" style="padding:0px;">
+                                    <input type="text" name="question" id="questionText" style="width: 99%">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label" style="padding:5px;">{HELPTEXT_LABEL}:</td>
+                                <td style="padding:0px;">
+                                    <input type="text" name="helpText" id="helpText" style="width: 99%">
+                                </td>
+                            </tr>
+                            <tr style="display:none;">
+                                <td class="label" style="padding:6px 5px 0px 0px;">{QUESTIONTYPE_LABEL}:</td>
+                                <td style="padding:0px;">
+                                    <select name="questionType" id="questionType" onchange="changeQuestionDialog(options[selectedIndex].value);">
+                                        <option value="0">{TEXTQUESTION_LABEL}</option>
+                                        <option value="1">{TEXTAREAQUESTION_LABEL}</option>
+                                        <option value="2">{SINGLECHOICE_LABEL}</option>
+                                        <option value="3">{MULTIPLECHOICE_LABEL}</option>
+                                        <option value="4">{MATRIX_LABEL}</option>
+                                        <option value="5">{GRADING_LABEL}</option>
+                                        <option value="6">{TENDENCY_LABEL}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tbody id="text_preview">
+                              <tr>
+                                <td class="label" style="padding:5px;">{MAX_INPUT_LABEL}:</td>
+                                <td style="padding:0px">
+                                  <input type="number" min="0" id="textquestionLength"> {MAX_INPUT_HELP}
+                                </td>
+                              </tr>
+                            </tbody>
+                          <tbody id="textarea_preview">
+                            <tr>
+                              <td class="label" style="padding:5px;">{AREA_ROWS_LABEL}:</td>
+                              <td style="padding:0px">
+                                <input type="number" min="1" id="textareaRows" value="4"> {AREA_ROWS}
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tbody id="singlechoice_preview">
+                            <tr>
+                              <td class="label" style="padding:5px;">{ARRANGEMENT_LABEL}:</td>
+                              <td style="padding:0px">
+                                <select id="singleChoiceColumns">
+                                  <option>vertikal</option>
+                                  <option>horizontal</option>
+                                </select>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="label" style="padding:5px;">{POSSIBLEANSWERS_LABEL}:</td>
+                              <td style="padding:0px">
+                                <ol id="singlechoice_options" style="padding-left:0px;">
+                                  <li style="border:none; margin: 0px; padding-bottom: 5px;">
+                                    <input type="text" name="singlechoice_0" value="" style="width:95%;">
+                                    <div class="bidButton positive" id="singlechoice_newoption" style="margin-bottom:-8px; margin-left:1px; padding:4px;" onclick="createSingleChoiceOption();" title="{ADDOPTION_LABEL}">
+                                      <svg style="height:16px; width:16px;">
+                                        <use xlink:href="{ASSET_URL}/newElement.svg#newElement"/>
+                                      </svg>
+                                    </div>
+                                  </li>
+                                </ol>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tbody id="multiplechoice_preview">
+                            <tr>
+                              <td class="label" style="padding:5px;">{ARRANGEMENT_LABEL}:</td>
+                              <td style="padding:0px">
+                                <select id="multipleChoiceColumns">
+                                    <option>vertikal</option>
+                                    <option>horizontal</option>
+                                </select>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="label" style="padding:5px;">{POSSIBLEANSWERS_LABEL}:</td>
+                              <td style="padding:0px">
+                                <ol id="multiplechoice_options" style="padding-left:0px;">
+                                  <li style="border:none; margin: 0px; padding-bottom: 5px;">
+                                    <input type="text" name="multiplechoice_0" value="" style="width: 95%;">
+                                    <div class="bidButton positive" id="multiplechoice_newoption" style="margin-bottom:-8px; margin-left:1px; padding:4px;" onclick="createMultipleChoiceOption();" title="{ADDOPTION_LABEL}">
+                                      <svg style="height:16px; width:16px;">
+                                        <use xlink:href="{ASSET_URL}/newElement.svg#newElement"/>
+                                      </svg>
+                                    </div>
+                                  </li>
+                                </ol>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tbody id="matrix_preview">
+                            <tr>
+                              <td class="label" style="padding:5px;">{COLUMNSLABEL_LABEL}:</td>
+                              <td style="padding:0px">
+                                <ol id="matrix_column_options" style="padding-left:0px;">
+                                  <li style="border:none; margin: 0px; padding-bottom: 5px;">
+                                    <input type="text" name="matrix_column_0" value="" style="width: 95%;">
+                                    <div class="bidButton positive" id="matrix_new_column_option" style="margin-bottom:-8px; margin-left:1px; padding:4px;" onclick="createMatrixColumnOption();" title="{ADDCOLUMNS_LABEL}">
+                                      <svg style="height:16px; width:16px;">
+                                        <use xlink:href="{ASSET_URL}/newElement.svg#newElement"/>
+                                      </svg>
+                                    </div>
+                                  </li>
+                                </ol>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="label" style="padding:5px;">{ROWSLABEL_LABEL}:</td>
+                              <td style="padding:0px">
+                                <ol id="matrix_row_options" style="padding-left:0px;">
+                                  <li style="border:none; margin: 0px; padding-bottom: 5px;">
+                                    <input type="text" name="matrix_row_0" value="" style="width: 95%;">
+                                    <div class="bidButton positive" id="matrix_new_row_option" style="margin-bottom:-8px; margin-left:1px; padding:4px;" onclick="createMatrixRowOption();" title="{ADDROWS_LABEL}">
+                                      <svg style="height:16px; width:16px;">
+                                        <use xlink:href="{ASSET_URL}/newElement.svg#newElement"/>
+                                      </svg>
+                                    </div>
+                                  </li>
+                                </ol>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tbody id="grading_preview">
+                            <tr>
+                              <td class="label" style="padding:5px;">{ELEMENTS_LABEL}:</td>
+                              <td style="padding:0px">
+                                <ol id="grading_options" style="padding-left:0px;">
+                                  <li style="border:none; margin: 0px; padding-bottom: 5px;" id="grading_0">
+                                    <input type="text" name="grading_0" value="" style="width: 95%;">
+                                    <div class="bidButton positive" id="grading_newoption" style="margin-bottom:-8px; margin-left:1px; padding:4px;" onclick="createGradingOption();" title="{ADDROWS_LABEL}">
+                                      <svg style="height:16px; width:16px;">
+                                        <use xlink:href="{ASSET_URL}/newElement.svg#newElement"/>
+                                      </svg>
+                                    </div>
+                                  </li>
+                                </ol>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tbody id="tendency_preview">
+                            <tr>
+                              <td class="label" style="padding:5px;">{SCALE_LABEL}:</td>
+                              <td style="padding:0px">
+                                <select id="tendency_steps">
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                                  <option>6</option>
+                                  <option>7</option>
+                                  <option>8</option>
+                                  <option>9</option>
+                                  <option>10</option>
+                                </select> {STEPS_LABEL}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="label" style="padding:5px;">{ELEMENTS_LABEL}:</td>
+                              <td style="padding:0px">
+                                <ol id="tendency_options" style="padding-left:0px;">
+                                  <li style="border:none; margin: 0px; padding-bottom: 5px;" id="tendency_0"><input type="text" name="tendency_input_0_0" value="" style="width:45%;"><div style="width:4%; display:inline-block;"> - - - </div><input type="text" name="tendency_input_0_1" value="" style="width:45%;">
+                                    <div class="bidButton positive" id="tendency_newoption" style="margin-bottom:-8px; margin-left:1px; padding:4px;" onclick="createTendencyOption();" title="{ADDROWS_LABEL}">
+                                      <svg style="height:16px; width:16px;">
+                                        <use xlink:href="{ASSET_URL}/newElement.svg#newElement"/>
+                                      </svg>
+                                    </div>
+                                  </li>
+                                </ol>
+                              </td>
+                            </tr>
+                          </tbody>
+                            <tr>
+                                <td class="label" style="padding:5px;">{MANDATORY_LABEL}:</td>
+                                <td style="padding:0px;">
+                                    <input type="checkbox" name="required" id="required">
+                                </td>
+                            <tr>
+                                <td style="padding:5px;"></td>
+                                <td style="padding:5px;">
+                                    <input class="bidButton" id="rfb-new-question" type="button" style="float:right; padding-left:5px; margin-left:5px;" onclick="addQuestion({QUESTIONNAIRE_ID});" value="{SAVE_LABEL}">
+                                    <input class="bidButton negative" type="button" style="float:right;" onclick="hideCreateDialog();" value="{CANCEL_LABEL}">
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li id="newlayout" class="ui-state-default-rf question" style="display:none">
+                        <table width="100%" class="question_container" style="padding:0px; border-spacing:0px;">
+                            <thead>
+                              <tr>
+                                <th class="question_headline left" id="layout_headline_left"></th>
+                                <th class="question_headline right" id="layout_headline_right"></th>
+                              </tr>
+                            </thead>
+                            <tr style="display:none;">
+                                <td width="20%" class="label" style="padding:3px 5px 0px 0px;">{LAYOUTELEMENT_LABEL}:</td>
+                                <td width="80%" style="padding:0px;">
+                                    <select name="layoutType" id="layoutType" onchange="changeLayoutDialog(options[selectedIndex].value);">
+                                        <option value="7">{DESCRIPTIONLAYOUT_LABEL}</option>
+                                        <option value="8">{HEADLINELAYOUT_LABEL}</option>
+                                        <option value="9">{PAGEBREAKLAYOUT_LABEL}</option>
+                                        <option value="10">{JUMP_LABEL}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr id="description_preview">
+                                <td width="20%" class="label" style="padding:5px;">{DESCRIPTIONLAYOUT_LABEL}:</td>
+                                <td width="80%" style="padding:5px;">
+                                    <textarea name="layout_description" id="layout_description" style="width: 99%"></textarea>
+                                </td>
+                            </tr>
+                            <tr id="headline_preview" style="display:none;">
+                                <td width="20%" class="label" style="padding:5px;">{HEADLINELAYOUT_LABEL}:</td>
+                                <td width="80%" style="padding:5px;">
+                                    <input type="text" name="layout_headline" id="layout_headline" style="width: 99%">
+                                </td>
+                            </tr>
+                            <tr id="jumplabel_preview" style="display:none;">
+                                <td width="20%" class="label" style="padding:5px;" valign="middle"> Text: </td>
+                                <td width="80%" valign="middle"><textarea id="text-JL" name="text" style="width:99%;"></textarea> </td>
+                            </tr>
+                            <tr id="jumplabel_preview2">
+                                <td width="20%" class="label" style="padding:5px;" valign="middle">Zu der Frage mit Nr. springen:</td>
+                                <td width="80%" valign="middle" ><input id="to-JL" type="number" min="1" name="to"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:5px;"></td>
+                                <td style="padding:5px;">
+                                    <input class="bidButton" id="rfb-new-element" style="float:right; padding-left:5px; margin-left:5px;" type="button" onclick="addLayoutElement({QUESTIONNAIRE_ID});" value="Element hinzufügen">
+                                    <input class="bidButton negative" style="float:right;" type="button" onclick="hideLayoutDialog();" value="{CANCEL_LABEL}">
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+                <div id="newquestion_button" align="center" style="display:none;">
+                    <input type="button" onclick="showCreateDialog();" value="{ADDQUESTION_LABEL}">
+                    <input type="button" onclick="showLayoutDialog();" value="{ADDLAYOUT_LABEL}">
+                </div>
+            </td>
+        </tr>
+        <tr style="display:none">
+            <td colspan="2">
+                <div style="text-align:center;display:none;" class="buttons">
+                    <input id="save-que-button" type="submit" value="{CREATE_SURVEY}" name="create_survey">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-- </center> -->
+
+</div>
+</form>
+<script type="text/javascript">
+    initiateDatepicker();
+    initiateCounter();
+</script>
+<!-- END BLOCK_CREATE_SURVEY -->
+<div id="edit-overlay"></div>

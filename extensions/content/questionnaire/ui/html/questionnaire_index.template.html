@@ -1,0 +1,72 @@
+<!-- BEGIN BLOCK_NO_SURVEYS -->
+{QUESTIONNAIRE_NAME}
+{QUESTIONNAIRE_DESC}
+<br><br>
+{NO_SURVEYS}
+<!-- END BLOCK_NO_SURVEYS -->
+
+<!-- BEGIN BLOCK_SURVEY_TABLE -->
+<div>
+	{QUESTIONNAIRE_NAME}
+	{QUESTIONNAIRE_DESC}
+	<br><br>
+	<table class="grid" cellspacing="0" cellpadding="2" width="100%">
+		<tr>
+			<th>{NAME_LABEL}</th>
+			<th>{STATUS_LABEL}</th>
+			<th>{QUESTIONS_LABEL}</th>
+			<th>{RESULTS_LABEL}</th>
+			<th>{ACTIONS_LABEL}</th>
+		</tr>
+		<!-- BEGIN BLOCK_SURVEY_ELEMENT -->
+		<tr>
+			<td>
+				<a href="{VIEW_URL}" style="display: {DISPLAY_VIEW};">
+					{NAME_VALUE}
+				</a>
+				{NAME_VALUE_NOLINK}
+			</td>
+			<td>{STATE_VALUE}</td>
+			<td>{QUESTIONS_VALUE}</td>
+			<td>{RESULTS_VALUE}</td>
+			<td>
+				<a href="{VIEW_URL}" style="display: {DISPLAY_VIEW};"><img style="cursor: hand;" src="{ASSET_URL}/view.png" title="{VIEW_TITLE}" width="12px" height="12px"></a>
+				<a href="{PREVIEW_URL}" style="display: {DISPLAY_ADMIN_ELEMENT};"><img style="cursor: hand;" src="{ASSET_URL}/preview.png" title="{PREVIEW_TITLE}" width="12px" height="12px"></a>
+				<a href="{EDIT_URL}" style="display:{DISPLAY_EDIT}"><img style="cursor: hand;" src="{ASSET_URL}/edit.png" title="{EDIT_TITLE}" width="12px" height="12px"></a>
+				<a href="{RESULTS_URL}" style="display:{DISPLAY_RESULTS}"><img style="cursor: hand;" src="{ASSET_URL}/results.png" title="{RESULTS_TITLE}" width="12px" height="12px"></a>
+				<a href="#" onclick="admin_action(1, {ELEMENT_ID}, '{NAME_VALUE}', '{RF_VALUE}')" style="display:{DISPLAY_START}"><img style="cursor: hand;" src="{ASSET_URL}/start.png" title="{START_TITLE}" width="12px" height="12px"></a>
+				<a href="#" onclick="admin_action(2, {ELEMENT_ID}, '{NAME_VALUE}', '{RF_VALUE}')" style="display:{DISPLAY_STOP}"><img style="cursor: hand;" src="{ASSET_URL}/stop.png" title="{STOP_TITLE}" width="12px" height="12px"></a>
+				<a href="#" onclick="admin_action(3, {ELEMENT_ID}, '{NAME_VALUE}', '{RF_VALUE}')" style="display:{DISPLAY_REPEAT}"><img style="cursor: hand;" src="{ASSET_URL}/repeat.png" title="{REPEAT_TITLE}" width="12px" height="12px"></a>
+				<a href="#" onclick="admin_action(4, {ELEMENT_ID}, '{NAME_VALUE}', '{RF_VALUE}')" style="display:{DISPLAY_DELETE}"><img style="cursor: hand;" src="{ASSET_URL}/delete.png" title="{DELETE_TITLE}" width="12px" height="12px"></a>
+			</td>
+		</tr>
+		<!-- BEGIN BLOCK_SURVEY_PARTICIPATION -->
+		<tr>
+			<td colspan="5">
+				<center>
+					<table border="1px solid black" width="50%">
+						<tr>
+							<th style="border:1px solid black;" width="5%">{PARTICIPATION_LABEL}</th>
+							<th style="border:1px solid black;" width="40%">{SUBMITDATE_LABEL}</th>
+							<th style="border:1px solid black;" width="5%">{PARTICIPATION_ACTIONS_LABEL}</th>
+						</tr>
+						<!-- BEGIN BLOCK_SURVEY_ONE_PARTICIPATION -->
+						<tr>
+							<td style="border:none;">{PARTICIPATION_TIME}</td>
+							<td style="border:none;">{SUBMITDATE}</td>
+							<td style="border:none;">
+								<a href="{P_VIEW_URL}"><img style="cursor: hand;" src="{P_ASSET_URL}/preview.png" title="{P_VIEW_TITLE}" width="12px" height="12px"></a>
+								<a href="{P_EDIT_URL}" style="display:{P_DISPLAY_EDIT}"><img style="cursor: hand;" src="{P_ASSET_URL}/edit.png" title="{P_EDIT_TITLE}" width="12px" height="12px"></a>
+								<a href="#" onclick="deleteResult({RESULT_ID}, {RESULT_SURVEY}, {RESULT_RF})"><img style="cursor: hand; display:{P_DISPLAY_EDIT};" src="{P_ASSET_URL}/delete.png" title="{P_DELETE_TITLE}" width="12px" height="12px"></a>
+							</td>
+						</tr>
+						<!-- END BLOCK_SURVEY_ONE_PARTICIPATION -->
+					</table>
+				</center>
+			</td>
+		</tr>
+		<!-- END BLOCK_SURVEY_PARTICIPATION -->
+		<!-- END BLOCK_SURVEY_ELEMENT -->
+	</table>
+</div>
+<!-- END BLOCK_SURVEY_TABLE -->

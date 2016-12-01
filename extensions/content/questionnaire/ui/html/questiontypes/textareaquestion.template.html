@@ -1,0 +1,49 @@
+<!-- BEGIN BLOCK_EDIT -->
+<li class="ui-state-default-rf" id="rfelement{ELEMENT_ID}">
+    <table width="100%">
+        <tr>
+            <td style="padding:0px; border:0px;" class="question_container">
+                <div class="question_headline" style="margin:0px;height:15px;"><b>{NUMBER}. {QUESTION_TEXT}</b>{POPUPMENUANKER}</div>
+                <div style="margin:5px;">{HELP_TEXT}</div>
+                <textarea style="width: 919px; margin: 5px;" disabled rows="{ELEMENT_ROWS}"></textarea>
+            </td>
+        </tr>
+    </table>
+</li>
+<input type="hidden" name="rfelement{ELEMENT_ID}" value="{ELEMENT_DATA}">
+<!-- END BLOCK_EDIT -->
+
+<!-- BEGIN BLOCK_VIEW -->
+<tr>
+    <td style="{ERROR_BORDER}" class="question_container">
+        <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
+        <br>
+        <div>{HELP_TEXT}</div>
+        <br>
+        <textarea style="width: 99%" name="question{ELEMENT_ID}" rows="{ELEMENT_ROWS}" {QUESTION_DISABLED}>{ELEMENT_INPUT}</textarea>
+    </td>
+</tr>
+<!-- END BLOCK_VIEW -->
+
+<!-- BEGIN BLOCK_NO_RESULTS -->
+<tr>
+    <td class="question_container">
+        <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
+        <br>
+        {NO_RESULTS}
+    </td>
+</tr>
+<!-- END BLOCK_NO_RESULTS -->
+
+<!-- BEGIN BLOCK_RESULTS -->
+<tr>
+    <td class="question_container">
+        <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
+        <br>
+        <!-- BEGIN BLOCK_RESULT -->
+        <font style="line-height:14pt;">- {RESULT_TEXT}</font>
+        <br>
+        <!-- END BLOCK_RESULT -->
+    </td>
+</tr>
+<!-- END BLOCK_RESULTS -->

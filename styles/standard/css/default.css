@@ -696,38 +696,44 @@ input[type="submit"].button.big span.icon, a.button.big span.icon { top: 0px }
 	** used in: calendar.template.html, courses_overview.template.html, group_profile.template.html, messages_mailbox.template.html, user_profile.template.html,
 	*/
 	ul.tabBar {
-		border-bottom: 3px solid #eee;
 		margin: 0;
 		padding: 0;
 		list-style: none;
+		margin-left: 225px;
 	}
 
 	li.tabOut, li.tabIn {
 		float: left;
-		margin-right: 1px;
 	}
 
 	li.tabOut {
-		background-color: #eee;
-		background: url(../images/page_layout/tab_out.png) repeat-x bottom;
-		padding: 6px 10px 2px 10px;
+		background-color: #ff8300;
+		padding: 5px;
+		width: 225px;
 	}
 
 	li.tabIn {
-		background-color: #eee;
-		background: url(../images/page_layout/tab_in.png) repeat-x bottom;
-		padding: 2px 10px 2px 10px;
-		margin-top:4px;
+		background-color: #3a6e9f;
+		padding: 5px;
+		width: 225px;
+	}
+
+	li.tabIn:hover {
+		background-color: #6094C5;
 	}
 
 	li.tabOut, li.tabOut a, li.tabOut a:hover, li.tabOut a:visited {
 		text-decoration: none;
-		color: #111;
+		color: white;
+		text-align: center;
+		font-weight: bold;
 	}
 
 	li.tabIn, li.tabIn a, li.tabIn a:hover, li.tabIn a:visited {
 		text-decoration: none;
-		color: #111;
+		color: white;
+		text-align: center;
+		font-weight: bold;
 	}
 
 

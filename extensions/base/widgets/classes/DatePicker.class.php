@@ -148,14 +148,15 @@ class DatePicker extends Widget {
             $this->getContent()->setVariable("VALUE", $this->value);
         }
 
-        if ($this->datePicker && $this->timePicker) {
-            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datetimepicker({dateFormat: \"dd.mm.yy\", hourGrid: 4, minuteGrid: 10});");
-        } else if ($this->datePicker) {
-            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datepicker({dateFormat: \"dd.mm.yy\", showButtonPanel: true});");
-        } else if ($this->timePicker) {
-            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").timepicker({hourGrid: 4, minuteGrid: 10});");
+        if(!$this->readOnly) {
+          if ($this->datePicker && $this->timePicker) {
+              $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datetimepicker({dateFormat: \"dd.mm.yy\", hourGrid: 4, minuteGrid: 10});");
+          } else if ($this->datePicker) {
+              $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datepicker({dateFormat: \"dd.mm.yy\", showButtonPanel: true});");
+          } else if ($this->timePicker) {
+              $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").timepicker({hourGrid: 4, minuteGrid: 10});");
+          }
         }
-
         return $this->getContent()->get();
     }
 

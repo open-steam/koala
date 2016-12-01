@@ -118,14 +118,18 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             case "wiki":
                 $labelName = "Name";
                 $typeName = "Wiki";
+                break;
 
+            case "questionnaire":
+                $labelName = "Name";
+                $typeName = "Fragebogen";
+                break;
 
             default:
                 $labelName = "Name";
                 $typeName = "unbekannt";
                 break;
         }
-
 
         //pic tests
         $documentIsPicture = false;
@@ -250,10 +254,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
 
             $parent = $object->get_environment();
-            if ($parent !== 0 && $isWriteable){
+            if($parent !== 0){
+              $parentWritable = $parent->check_access_write();
+              if($parentWritable){
                 $inventory = $parent->get_inventory();
-            } else {
+              } else {
                 $inventory = array();
+              }
             }
             $keywordmatrix = array();
             foreach ($inventory as $inv) {
@@ -522,6 +529,50 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $dialog->addWidget($separator);
             $dialog->addWidget($textAreaDescription);
           }
+        }
+
+        //questionnaire
+        if ($type == "questionnaire"){
+          $multipleFill = new \Widgets\RadioButton();
+          $multipleFill->setLabel("Mehrfach ausfüllbar:");
+          $multipleFill->setData($object);
+          $multipleFill->setType("horizontal");
+          $multipleFill->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_PARTICIPATION_TIMES"));
+          $multipleFill->setOptions(array(array("name" => "Ja", "value" => 0), array("name" => "Nein", "value" => 1)));
+
+          $startDate = new \Widgets\DatePicker();
+          $startDate->setLabel("Start:");
+          $startDate->setData($object);
+          $startDate->setDatePicker(true);
+      		$startDate->setTimePicker(true);
+          $startDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_START"));
+
+          $endDate = new \Widgets\DatePicker();
+          $endDate->setLabel("Ende:");
+          $endDate->setData($object);
+          $endDate->setDatePicker(true);
+      		$endDate->setTimePicker(true);
+          $endDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_END"));
+
+          //Extra case because also normal users can write in questionnaires
+          $sanctionAll = $object->check_access(SANCTION_SANCTION);
+          if(!$sanctionAll){
+              $multipleFill->setReadOnly(true);
+              $startDate->setReadOnly(true);
+              $endDate->setReadOnly(true);
+              $textAreaDescription->setReadOnly(true);
+              $checkboxHiddenObject->setReadonly(true);
+              $keywordArea->setReadOnly(true);
+              $dataNameInput->setReadOnly(true);
+          }
+
+          $dialog->addWidget($multipleFill);
+          $dialog->addWidget($startDate);
+          $dialog->addWidget($endDate);
+          $dialog->addWidget($textAreaDescription);
+
+          //$separator = new \Widgets\RawHtml();
+          //$separator->setHtml("<br style=\"clear:both\"/>");
         }
 
         //gallery
