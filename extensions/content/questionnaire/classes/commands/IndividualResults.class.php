@@ -186,7 +186,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				}
 
 				$popupMenu = new \Widgets\PopupMenu();
-				$popupMenu->setCommand("GetPopupMenu");
+				$popupMenu->setCommand("GetPopupMenuIndividualResult");
 				$popupMenu->setNamespace("Questionnaire");
 				$popupMenu->setData($questionnaire);
 				$popupMenu->setElementId("result-overlay");
@@ -221,7 +221,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		}
 
 		$popupMenuHeadline = new \Widgets\PopupMenu();
-		$popupMenuHeadline->setCommand("GetPopupMenuHeadline");
+		$popupMenuHeadline->setCommand("GetPopupMenuIndividualResultHeadline");
 		$popupMenuHeadline->setNamespace("Questionnaire");
 		$popupMenuHeadline->setData($questionnaire);
 		$popupMenuHeadline->setElementId("result-overlay");

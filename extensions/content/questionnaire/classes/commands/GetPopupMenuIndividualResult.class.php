@@ -2,7 +2,7 @@
 
 namespace Questionnaire\Commands;
 
-class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
+class GetPopupMenuIndividualResult extends \AbstractCommand implements \IAjaxCommand {
 
     private $params;
     private $id;
