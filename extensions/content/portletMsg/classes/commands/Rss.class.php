@@ -20,7 +20,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         \ExtensionMaster::getInstance()->send404Error();
     }
 
-    $user = $GLOBALS["STEAM"]->get_current_steam_user();
+    $user = \lms_steam::get_current_user();
 
     if ($portletObject->check_access_read($user)) {
         return false;
@@ -42,7 +42,7 @@ class Rss extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
 		$steam = $GLOBALS["STEAM"];
 
-		$steamUser = $steam->get_current_steam_user();
+		$steamUser = \lms_steam::get_current_user();
 		$configWebserverIp = "";
 
 		//icon

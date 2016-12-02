@@ -205,7 +205,7 @@ class qqFileUploader {
         $obj = $env->get_environment();
 
 
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
 
         //check if the user folder already exists
         $objPath = $obj->get_attribute("OBJ_PATH");
@@ -332,7 +332,7 @@ class qqFileUploader {
 
         $obj = $env->get_environment();
 
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
 
         //check if the user folder already exists
         $objPath = $obj->get_attribute("OBJ_PATH");

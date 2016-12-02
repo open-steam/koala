@@ -34,7 +34,7 @@ class GetPopupMenuSubmission extends \AbstractCommand implements \IAjaxCommand {
         $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $questionnaire = $survey->get_environment();
 
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $creator = $questionnaire->get_creator();
 
         // check if current user is admin

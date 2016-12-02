@@ -17,7 +17,7 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
 
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
-        $this->clipboard = $GLOBALS["STEAM"]->get_current_steam_user();
+        $this->clipboard = \lms_steam::get_current_user();
         if (!isset($this->params["env"])) {
             $this->path = strtolower($this->params["path"]);
             if ($this->path == "bookmarks/") {
@@ -94,12 +94,12 @@ class Paste extends \AbstractCommand implements \IAjaxCommand {
             return false;
         }
 
-        $userObject = $GLOBALS["STEAM"]->get_current_steam_user();
+        $userObject = \lms_steam::get_current_user();
         $userObjectId = $userObject->get_id();
         $steamEnvironmentId = $steamEnvironment->get_id();
 
         //case bookmarks
-        $bookmarksRoom = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute(USER_BOOKMARKROOM);
+        $bookmarksRoom = \lms_steam::get_current_user()->get_attribute(USER_BOOKMARKROOM);
 	      $bookmarksRoomId = $bookmarksRoom->get_id();
 
         if($bookmarksRoomId === $steamEnvironmentId){

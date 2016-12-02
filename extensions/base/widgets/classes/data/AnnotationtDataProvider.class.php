@@ -31,7 +31,7 @@ class AnnotationDataProvider implements IDataProvider {
 	}
 	
 	public function isChangeable($object) {
-		return $object->check_access_annotate($GLOBALS["STEAM"]->get_current_steam_user());
+		return $object->check_access_annotate(\lms_steam::get_current_user());
 	}
 	
 }

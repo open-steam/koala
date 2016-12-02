@@ -38,7 +38,7 @@ class GetPopupMenuIndividualResult extends \AbstractCommand implements \IAjaxCom
         $survey = $questionnaire->get_inventory()[0];
         $surveyId = $survey->get_id();
 
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $creator = $questionnaire->get_creator();
 
         // check if current user is admin

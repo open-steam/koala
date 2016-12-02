@@ -31,7 +31,7 @@ class BookmarksHome extends AbstractExtension implements IHomeExtension {
 		$loader->setNamespace("Bookmarks");
 
     try{
-        $object = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_BOOKMARKROOM");
+        $object = \lms_steam::get_current_user()->get_attribute("USER_BOOKMARKROOM");
 
         if (!is_object($object)){
             throw new steam_exception;
@@ -39,7 +39,7 @@ class BookmarksHome extends AbstractExtension implements IHomeExtension {
         $id = $object->get_id();
     }  catch (Exception $e){
         //fallback
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $id = $user->get_workroom()->get_id();
     }
 

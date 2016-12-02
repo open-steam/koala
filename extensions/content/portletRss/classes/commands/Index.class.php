@@ -116,7 +116,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         }
 
         //popupmenu
-        if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("PortletRss");
@@ -124,7 +124,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
         }
 
-        if ($portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if ($portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("Portal");

@@ -21,7 +21,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
         $this->y = $this->params["y"];
         $this->height = $this->params["height"];
         $this->width = $this->params["width"];
-        $this->user = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
+        $this->user = \lms_steam::get_current_user()->get_name();
         $this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
     }
 

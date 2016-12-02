@@ -38,7 +38,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
             $xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $this->survey->get_path() . "/survey.xml");
             $this->survey_object->parseXML($xml);
 
-            $this->user = $GLOBALS["STEAM"]->get_current_steam_user();
+            $this->user = \lms_steam::get_current_user();
             $this->staff = $this->rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
 		
             foreach ($this->staff as $group) {

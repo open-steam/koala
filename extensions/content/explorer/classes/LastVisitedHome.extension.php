@@ -29,7 +29,7 @@ class LastVisitedHome extends AbstractExtension implements IHomeExtension {
 		$loader->setMessage("Lade Ordner ...");
 		$loader->setCommand("loadLastVisited");
 		$loader->setNamespace("Explorer");
-		$loader->setParams(array("id"=>$GLOBALS["STEAM"]->get_current_steam_user()->get_id()));
+		$loader->setParams(array("id"=>\lms_steam::get_current_user()->get_id()));
 		$loader->setElementId("lastVisitedWrapper");
 		$loader->setType("updater");
 		$box->addWidget($loader);

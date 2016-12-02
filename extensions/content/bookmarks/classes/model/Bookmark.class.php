@@ -11,7 +11,7 @@ class Bookmark extends \AbstractObjectModel {
 	private static function getBookmarkIds() {
 		if (!self::$bookmarkIds) {
 			self::$bookmarkIds = array();
-			$bookmarks = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute(USER_BOOKMARKROOM);
+			$bookmarks = \lms_steam::get_current_user()->get_attribute(USER_BOOKMARKROOM);
 			$bookmarkItems = $bookmarks->get_inventory();
 			self::$bookmarkIds = self::workBookmarkIds($bookmarkItems);
 

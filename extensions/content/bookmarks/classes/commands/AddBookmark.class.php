@@ -18,7 +18,7 @@ class AddBookmark extends \AbstractCommand implements \IAjaxCommand{
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
         $this->rename = $this->params["rename"];
-        $this->bookmarks = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute(USER_BOOKMARKROOM);
+        $this->bookmarks = \lms_steam::get_current_user()->get_attribute(USER_BOOKMARKROOM);
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
         if ($object instanceof \steam_link) {

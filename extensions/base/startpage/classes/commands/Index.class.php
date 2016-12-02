@@ -25,7 +25,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 		$content = \Startpage::getInstance()->loadTemplate("startpage.template.html");
 
 		if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" && isset($_POST["portal_values"])) {
-			$portal_user = $GLOBALS["STEAM"]->get_current_steam_user();
+			$portal_user = \lms_steam::get_current_user();
 			$portal_user->set_attribute( "USER_LANGUAGE", $_POST["portal_values"]["USER_LANGUAGE"] );
 			$lang_index = language_support::get_language_index();
 			language_support::choose_language( $lang_index[$_POST["portal_values"]["USER_LANGUAGE"]] );

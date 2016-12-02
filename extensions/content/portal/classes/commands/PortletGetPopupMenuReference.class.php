@@ -32,7 +32,7 @@ class PortletGetPopupMenuReference extends \AbstractCommand implements \IAjaxCom
         $portal = $this->column->get_environment();
 
         $this->sourcePortalObjectId = $portal->get_id();
-        $this->user = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
+        $this->user = \lms_steam::get_current_user()->get_name();
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

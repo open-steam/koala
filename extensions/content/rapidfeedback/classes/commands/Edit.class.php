@@ -31,7 +31,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $frameResponseObject->addWidget($cssWidgetNumbers);
 
         // access not allowed for non-admins
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $staff = $rapidfeedback->get_attribute("RAPIDFEEDBACK_STAFF");
         $admin = 0;
         foreach ($staff as $group) {

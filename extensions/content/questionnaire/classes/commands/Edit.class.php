@@ -29,7 +29,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
       $cssWidgetNumbers->setHtml("");
       $frameResponseObject->addWidget($cssWidgetNumbers);
       $times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES"); //0 multiple, else not
-      $user = $GLOBALS["STEAM"]->get_current_steam_user();
+      $user = \lms_steam::get_current_user();
       $creator = $questionnaire->get_creator();
 
       // check if current user is admin

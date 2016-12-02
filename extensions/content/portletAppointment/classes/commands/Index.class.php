@@ -87,7 +87,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         }
 
         //main popupmenu
-        if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
             $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
             $popupmenu = new \Widgets\PopupMenu();
@@ -98,7 +98,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
         }
 
-        if ($portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if ($portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("Portal");
@@ -132,7 +132,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             //write access is required to save the sorting
             //no problem, because only with write access elements can be added, removed or rearranged
-            if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+            if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                 if ($unsortedContent != $content) {
                     $portletObject->set_attribute("bid:portlet:content", $content);
                 }
@@ -150,7 +150,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 }
 
                 //term popupmenu
-                if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+                if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
                     $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
                     $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
                     $popupmenu = new \Widgets\PopupMenu();

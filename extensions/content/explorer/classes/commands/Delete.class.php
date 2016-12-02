@@ -15,7 +15,7 @@ class Delete extends \AbstractCommand implements \IAjaxCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
-        $this->trashbin = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_TRASHBIN");
+        $this->trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $object->move($this->trashbin);
     }

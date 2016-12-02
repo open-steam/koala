@@ -30,7 +30,7 @@ class ForumCopy extends \AbstractCommand implements \IAjaxCommand {
 
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
         $objectId = $this->params["objectId"];
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         \logging::append_log(LOG_ERROR, "Hallo");

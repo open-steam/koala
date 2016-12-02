@@ -20,7 +20,7 @@ class FilePersistence extends \AbstractCommand implements \IFrameCommand {
 			$html = "FILE_PERSISTENCE is enabled.<br>";
 			$html .= "FILE_PERSISTENCE_PATH is " . FILE_PERSISTENCE_PATH . ".<br><br>Create a new document in your home \"filePersistenceTest.txt\".";
 			$doc = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), "filePersistenceTest.txt", "I am a file on file system.", "text/plain");
-			$home = $GLOBALS["STEAM"]->get_current_steam_user()->get_workroom();
+			$home = \lms_steam::get_current_user()->get_workroom();
 			$doc->move($home);
 			
 			

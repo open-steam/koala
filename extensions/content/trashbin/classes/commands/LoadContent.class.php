@@ -201,8 +201,8 @@ class ContentProvider implements \Widgets\IContentProvider {
             }
             $html .= "</div>";
             return $html;
-        } else if ($cell == $this->rawFormerEnvironment) {
-          /*
+        } /*else if ($cell == $this->rawFormerEnvironment) {
+          
             if ($contentItem->get_attribute("OBJ_LAST_LOCATION_ID") !== "") {
                 $formerEnvironment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $contentItem->get_attribute("OBJ_LAST_LOCATION_ID"));
                 if($formerEnvironment instanceof \steam_object && ($formerEnvironment->get_attribute("OBJ_TYPE") === "container_portalColumn_bid" || $formerEnvironment->get_attribute("OBJ_NAME") === "postbox_container")){
@@ -217,8 +217,8 @@ class ContentProvider implements \Widgets\IContentProvider {
                 }
                 return "";
             }
-            */
-        } else if ($cell == $this->rawChangeDate) {
+            
+        }*/ else if ($cell == $this->rawChangeDate) {
             return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
         } else if ($cell == $this->rawSize) {
             return getObjectReadableSize($contentItem);

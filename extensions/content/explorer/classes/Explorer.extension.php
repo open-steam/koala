@@ -25,7 +25,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
     }
 
     public function getIconBarEntries() {
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
 
         $trashbin = $currentUser->get_attribute(USER_TRASHBIN);
         $trashbinModel = new \Explorer\Model\Trashbin($trashbin);
@@ -54,7 +54,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
 
             $object = $currentUser->get_workroom();
-            $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
+            $envWriteable = ($object->check_access_write(\lms_steam::get_current_user()));
             $envSanction = $object->check_access(SANCTION_SANCTION);
 
             /*
@@ -84,7 +84,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
 
             if($currentObjectID != ""){
               $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
-              $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
+              $envWriteable = ($object->check_access_write(\lms_steam::get_current_user()));
               $envSanction = $object->check_access(SANCTION_SANCTION);
 
               /*
@@ -241,7 +241,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
                 return $object;
             }
         } else {
-            $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+            $currentUser = \lms_steam::get_current_user();
             //if(!$currentUser instanceof \steam_user) throw new Exception ("The current user cannot be determined. The variable is of the type ".gettype($currentUser).". The class is ".get_class($currentUser));
             if($currentUser){
               $object = $currentUser->get_workroom();

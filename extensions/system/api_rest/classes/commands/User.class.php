@@ -1,5 +1,7 @@
 <?php
+
 namespace Rest\Commands;
+
 class User extends \AbstractCommand implements \IFrameCommand {
 
     private $params;
@@ -16,33 +18,32 @@ class User extends \AbstractCommand implements \IFrameCommand {
 
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
-        isset($this->params[0]) ? $this->function = $this->params[0]: "";
+        isset($this->params[0]) ? $this->function = $this->params[0] : "";
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        if (!in_array(strtolower($this->function), array_map("strtolower",$this->functionList))) {
-             $this->function = $this->functionList[0];
+        if (!in_array(strtolower($this->function), array_map("strtolower", $this->functionList))) {
+            $this->function = $this->functionList[0];
         }
         array_shift($this->params);
-        $result = call_user_func_array(array(__CLASS__, $this->function), $this->params?:array());
+        $result = call_user_func_array(array(__CLASS__, $this->function), $this->params? : array());
         $resultArray = getSerializedObject($result);
         echo json_encode($resultArray);
         die;
     }
 
     public function getMyUser() {
-        $steamUser = $GLOBALS["STEAM"]->get_current_steam_user();
-        return $steamUser;
+        return \lms_steam::get_current_user();
     }
 
-	public function getMyWorkroom() {
-		$steamUser = $GLOBALS["STEAM"]->get_current_steam_user();
+    public function getMyWorkroom() {
+        $steamUser = \lms_steam::get_current_user();
         if ($steamUser instanceof \steam_user) {
             $workRoom = $steamUser->get_workroom();
             return $workRoom;
         }
         HTTPStatus(400);
-	}
+    }
 
     public function getWorkroom($id) {
         $steamUser = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $id);
@@ -79,4 +80,5 @@ class User extends \AbstractCommand implements \IFrameCommand {
     }
 
 }
+
 ?>

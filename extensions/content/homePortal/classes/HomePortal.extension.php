@@ -28,7 +28,7 @@ class HomePortal extends AbstractExtension {
 	}
 
 	public function updateSubscriptions($id) {
-		$user = $GLOBALS["STEAM"]->get_current_steam_user();
+		$user = \lms_steam::get_current_user();
 		$subscriptions = array();
 
 		$portal = $user->get_attribute("HOME_PORTAL");

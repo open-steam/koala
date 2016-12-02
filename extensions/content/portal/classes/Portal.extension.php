@@ -51,7 +51,7 @@ class Portal extends AbstractExtension implements IObjectExtension, IIconBarExte
 
 	public function getIconBarEntries() {
 		$object = self::getInstance()->getPortalObject();
-		$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+		$currentUser = \lms_steam::get_current_user();
 		if (isset($object) && $object->check_access_write($currentUser)) {
 			$env = $object->get_environment();
 			return array(

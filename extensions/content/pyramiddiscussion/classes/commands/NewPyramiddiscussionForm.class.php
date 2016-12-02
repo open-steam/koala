@@ -22,7 +22,7 @@ class NewPyramiddiscussionForm extends \AbstractCommand implements \IAjaxCommand
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $groups = $user->get_groups();
         $options_basegroup = "";
         $options_admingroup = "<option value=\"0\">Nur ich</option> \n";

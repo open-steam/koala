@@ -376,14 +376,10 @@ class Chronic extends AbstractExtension implements IMenuExtension {
     //loads the chronic and returns it
     private function loadChronic() {
         //fix error connector missing
-        try {
-            $user = lms_steam::get_current_user();
-        } catch (Exception $e) {
-            session_destroy();
-            header("Location : /");
-        }
+        $user = lms_steam::get_current_user();
+        
 
-        if ($user) {
+        if ($user instanceof \steam_user) {
             $chronic = $user->get_attribute("USER_CHRONIC");
             if (!is_array($chronic))
                 $chronic = array();

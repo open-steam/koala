@@ -69,7 +69,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->loadTemplateFile($portletFileName);
 
             //popupmenu
-            if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+            if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
                 $popupmenu = new \Widgets\PopupMenu();
                 $popupmenu->setData($portlet);
                 $popupmenu->setNamespace("PortletHeadline");
@@ -77,7 +77,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
             }
 
-            if ($portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+            if ($portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
                 $popupmenu = new \Widgets\PopupMenu();
                 $popupmenu->setData($portlet);
                 $popupmenu->setNamespace("Portal");
@@ -122,7 +122,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             $tmpl->setVariable("SIZE", $size);
 
-            if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+            if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                 $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");
                 $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
                 $tmpl->parse("BLOCK_EDIT_BUTTON");

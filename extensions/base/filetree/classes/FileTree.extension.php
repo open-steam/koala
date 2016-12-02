@@ -51,11 +51,11 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
         if (strpos(strtolower($_SERVER['REQUEST_URI']), "/explorer/") === 0 || strpos(strtolower($_SERVER['REQUEST_URI']), "/bookmarks/") === 0) {
             $isExplorerOrBookmark = true;
             if ($currentID === "") {
-                $currentID = $GLOBALS["STEAM"]->get_current_steam_user()->get_workroom()->get_id();
+                $currentID = \lms_steam::get_current_user()->get_workroom()->get_id();
             }
         }
 
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $filetree = $user->get_attribute("FILETREE");
         if (!is_array($filetree)) {
             // default options

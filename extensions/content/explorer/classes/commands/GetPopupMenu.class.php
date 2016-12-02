@@ -83,7 +83,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                 $downloadIcon = $explorerUrl . "icons/menu/svg/download.svg";
 
                 $subscription = "";
-                $user = $GLOBALS["STEAM"]->get_current_steam_user();
+                $user = \lms_steam::get_current_user();
                 if ($user->get_name() == "root") {
                     $isRoot = true;
                 } else {
@@ -164,7 +164,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             $brushIcon = $explorerUrl . "icons/menu/svg/brush.svg";
             $downloadIcon = $explorerUrl . "icons/menu/svg/download.svg";
 
-            $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
+            $viewAttribute = \lms_steam::get_current_user()->get_attribute("EXPLORER_VIEW");
             if ($viewAttribute && $viewAttribute == "gallery") {
                 $paramsArrayFunction = "getGalleryParamsArray";
                 $ElementIdFunction = "getGalleryElementIdArray";

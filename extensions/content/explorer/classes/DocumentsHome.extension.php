@@ -29,7 +29,7 @@ class DocumentsHome extends AbstractExtension implements IHomeExtension {
 		$loader->setMessage("Lade Dokumente ...");
 		$loader->setCommand("loadRecentDocuments");
 		$loader->setNamespace("Explorer");
-		$loader->setParams(array("id"=>$GLOBALS["STEAM"]->get_current_steam_user()->get_workroom()->get_id()));
+		$loader->setParams(array("id"=>\lms_steam::get_current_user()->get_workroom()->get_id()));
 		$loader->setElementId("documentsWrapper");
 		$loader->setType("updater");
 		$box->addWidget($loader);

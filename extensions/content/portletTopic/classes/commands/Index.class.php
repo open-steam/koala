@@ -91,7 +91,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         }
 
         //popupmenu main
-        if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
             $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
 
@@ -105,7 +105,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->parse("BLOCK_EDIT_BUTTON_MAIN");
         }
 
-        if ($portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if ($portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("Portal");
@@ -124,7 +124,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 /*
                 $tmpl->setCurrentBlock("category");
                 //popupmenu category
-                if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+                if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                     $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_CATEGORY");
                     $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
 
@@ -148,7 +148,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         $tmpl->setCurrentBlock("topic_entry");
 
                         //popupmenu topic
-                        if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+                        if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_TOPIC");
                             $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
 
