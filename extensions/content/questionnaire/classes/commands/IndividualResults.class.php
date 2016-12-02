@@ -75,13 +75,19 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			array("name"=>"<svg style='height:16px; width:16px; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/group.svg#group'></use></svg> Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
 		));
 		$tabBar->setActiveTab(0);
-		$frameResponseObject->addWidget($tabBar);
+		//$frameResponseObject->addWidget($tabBar);
 
 		$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
 		$survey_object->parseXML($xml);
 		$questions = $survey_object->getQuestions();
 
 		$content = $QuestionnaireExtension->loadTemplate("questionnaire_individualresults.template.html");
+
+		$content->setVariable("TABBAR", $tabBar->getHtml());
+
+		$content->setVariable("QUESTIONNAIRE_NAME", '<svg style="width:16px; height:16px; float:left; color:#3a6e9f; right:5px; position:relative;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="' . PATH_URL . 'explorer/asset/icons/mimetype/svg/questionnaire.svg#questionnaire"></use></svg><h1>' . $questionnaire->get_name() . '</h1>');
+		$content->setVariable("QUESTIONNAIRE_DESC", '<p style="color:#AAAAAA; clear:both; margin-top:0px">' . $questionnaire->get_attribute("OBJ_DESC") . '</p>');
+
 		$content->setCurrentBlock("BLOCK_RESULTS");
 		//$content->setVariable("RESULTS_LABEL", "Individuelle Auswertung");
 		$content->setVariable("RESULTS_AMOUNT", "Anzahl Abgaben: " . $resultNumber);
