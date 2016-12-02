@@ -34,7 +34,7 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         usort($extensions, "sortExplorerNewDialog");
 
         //root test for restricted creation
-        $steamUser = $GLOBALS['STEAM']->get_current_steam_user();
+        $steamUser = \lms_steam::get_current_user();
         if ($steamUser->get_name()=="root") $isRoot=true; else $isRoot=false;
 
         //skip list

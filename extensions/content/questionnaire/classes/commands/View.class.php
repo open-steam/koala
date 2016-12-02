@@ -26,7 +26,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
       $xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
       $survey_object->parseXML($xml);
       $questions = $survey_object->getQuestions();
-      $user = $GLOBALS["STEAM"]->get_current_steam_user();
+      $user = \lms_steam::get_current_user();
       $QuestionnaireExtension->addCSS();
       $QuestionnaireExtension->addJS();
       $times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES"); //0 multiple, else not

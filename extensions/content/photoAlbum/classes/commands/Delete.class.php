@@ -27,7 +27,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand {
 		$steam = $GLOBALS["STEAM"];
 		$steamId=$steam->get_id();
 		$image = ($objectId != 0)?\steam_factory::get_object($steamId, $objectId):0;
-		$steamUser =  $steam->get_current_steam_user();
+		$steamUser =  \lms_steam::get_current_user();
 		//Check rights
 		$readable = $image->check_access_read( $steamUser );
 		$writable = $image->check_access_write( $steamUser );

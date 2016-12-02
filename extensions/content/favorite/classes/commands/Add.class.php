@@ -35,7 +35,7 @@ class Add extends \AbstractCommand implements \IFrameCommand {
 			$group = \steam_factory::get_object($steam->get_id(), $id);
 			$group_data = $group->get_attributes(array(OBJ_NAME, OBJ_DESC));
 		}
-		$user_favourites = $steam->get_current_steam_user()->get_buddies();
+		$user_favourites = \lms_steam::get_current_user()->get_buddies();
 		if (count($user_favourites) == 0)
 		$user_favourites = array();
 		if ($category=="user")
@@ -43,7 +43,7 @@ class Add extends \AbstractCommand implements \IFrameCommand {
 		else if ($category=="group")
 		array_push($user_favourites, $group);
 
-		$steam->get_current_steam_user()->set_attribute("USER_FAVOURITES", $user_favourites);
+		\lms_steam::get_current_user()->set_attribute("USER_FAVOURITES", $user_favourites);
 		//$frameResponseObject->setConfirmText(gettext("Favorite added successfully"));
 		$frameResponseObject->setConfirmText("Favorit erfolgreich hinzugefügt!");
 

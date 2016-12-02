@@ -25,7 +25,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$survey_object = new \Questionnaire\Model\Survey($questionnaire);
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
-		$user = $GLOBALS["STEAM"]->get_current_steam_user();
+		$user = \lms_steam::get_current_user();
 		$QuestionnaireExtension->addCSS();
 		$QuestionnaireExtension->addJS();
 		$QuestionnaireExtension->addJS("jquery.tablesorter.js");

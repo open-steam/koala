@@ -31,7 +31,7 @@ class GetPopupMenuIndividualResultHeadline extends \AbstractCommand implements \
         $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->surveyId);
         $result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
         $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $creator = $questionnaire->get_creator();
         $questionnaireContainer = $questionnaire->get_environment();
     		$results = $result_container->get_inventory();

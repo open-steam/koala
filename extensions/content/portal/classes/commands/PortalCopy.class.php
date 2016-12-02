@@ -17,7 +17,7 @@ class PortalCopy extends \AbstractCommand implements \IAjaxCommand, \IFrameComma
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
         $portalObject = \steam_factory::get_object( $GLOBALS["STEAM"]->get_id(), $this->id);
-        $this->user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $this->user = \lms_steam::get_current_user();
         $this->rename = $this->params["rename"];
         $this->name = $portalObject->get_name();
         $this->duplicateNameObject = $this->user->get_object_by_name($this->name);

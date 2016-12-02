@@ -18,8 +18,7 @@ class VoteTerm extends \AbstractCommand implements \IFrameCommand, \IIdCommand, 
 		$portletObjectId = $params["portletObjectId"];
 		$termId = $params["termId"];
 		
-		$steamConnector = $GLOBALS["STEAM"];
-		$userName = $steamConnector->get_current_steam_user()->get_name();
+		$userName = \lms_steam::get_current_user()->get_name();
 		
 		//check diffrent types of parameter
 		if(is_string($portletObjectId)){

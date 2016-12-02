@@ -15,7 +15,7 @@ class RemoveBookmark extends \AbstractCommand implements \IAjaxCommand {
 		
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		
-		$object->move($GLOBALS["STEAM"]->get_current_steam_user()->get_attribute(USER_TRASHBIN));
+		$object->move(\lms_steam::get_current_user()->get_attribute(USER_TRASHBIN));
 	}
 	
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

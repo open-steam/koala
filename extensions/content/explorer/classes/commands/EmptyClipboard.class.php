@@ -13,7 +13,7 @@ class EmptyClipboard extends \AbstractCommand implements \IAjaxCommand {
 
 	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
-		$this->clipboard = $GLOBALS["STEAM"]->get_current_steam_user();
+		$this->clipboard = \lms_steam::get_current_user();
 		if (isset($this->params["id"])) {
 			$this->id = $this->params["id"];
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);

@@ -115,7 +115,7 @@ class ListViewer extends Widget {
 
       //cache user object
       if ($this->userObject === NULL){
-          $this->userObject = $GLOBALS["STEAM"]->get_current_steam_user();
+          $this->userObject = \lms_steam::get_current_user();
       }
       $userObject = $this->userObject;
 

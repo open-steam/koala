@@ -48,7 +48,7 @@ class AttributeDataProvider implements IDataProvider {
 		if (is_int($object)) {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $object);
 		}
-		return (!$object->is_locked($this->attribute) && $object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
+		return (!$object->is_locked($this->attribute) && $object->check_access_write(\lms_steam::get_current_user()));
 	}
 }
 ?>

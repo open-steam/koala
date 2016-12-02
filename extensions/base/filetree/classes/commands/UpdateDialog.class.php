@@ -15,7 +15,7 @@ class UpdateDialog extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $filetree = $user->get_attribute("FILETREE");
         if (!is_array($filetree)) {
             // default options

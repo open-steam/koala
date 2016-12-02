@@ -22,7 +22,7 @@ class GetPopupMenuHeadline extends \AbstractCommand implements \IAjaxCommand {
         $this->height = $this->params["height"];
         $this->width = $this->params["width"];
         $this->portletObjectId = $this->params["portletObjectId"];
-        $this->user = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
+        $this->user = \lms_steam::get_current_user()->get_name();
         $this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->portletObjectId);
     }
 

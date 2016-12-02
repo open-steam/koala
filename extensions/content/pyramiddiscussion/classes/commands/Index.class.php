@@ -32,7 +32,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $userID = $user->get_id();
         $pyramidRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         if ($pyramidRoom->get_attribute("PYRAMIDDISCUSSION_INITIALIZED") == "0") {

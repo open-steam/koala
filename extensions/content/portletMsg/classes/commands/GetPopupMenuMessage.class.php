@@ -20,7 +20,7 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
         $this->y = $this->params["y"];
         $this->height = $this->params["height"];
         $this->width = $this->params["width"];
-        $this->user = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
+        $this->user = \lms_steam::get_current_user()->get_name();
         $this->messageObjectId = $this->params["messageObjectId"];
         $this->portletObjectId = $this->params["portletObjectId"];
     }

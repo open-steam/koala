@@ -96,10 +96,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->steamObject = $GLOBALS["STEAM"];
         $this->steamUser = \lms_steam::get_current_user();
         
-        if(!is_object($this->steamUser)){
-            \lms_portal::get_instance()->logout();
-            die;
-        }
 
         //check if an ID of an object was assigned else throw an exception
         if ($this->id === "") {

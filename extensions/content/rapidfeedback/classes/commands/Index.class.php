@@ -16,7 +16,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$rapidfeedback = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		$user = $GLOBALS["STEAM"]->get_current_steam_user();
+		$user = \lms_steam::get_current_user();
 		$RapidfeedbackExtension = \Rapidfeedback::getInstance();
 		$RapidfeedbackExtension->addJS();
 

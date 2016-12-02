@@ -75,7 +75,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         if (sizeof($content) > 0) {
             //popupmenu
-            if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+            if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
                 $popupmenu = new \Widgets\PopupMenu();
                 $popupmenu->setData($portlet);
                 $popupmenu->setNamespace("PortletTermplan");
@@ -83,7 +83,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
             }
 
-            if ($portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+            if ($portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
                 $popupmenu = new \Widgets\PopupMenu();
                 $popupmenu->setData($portlet);
                 $popupmenu->setNamespace("Portal");
@@ -156,7 +156,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                   $mapping = json_decode($encodedVoteUserMapping, true);
               }
 
-              $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+              $currentUser = \lms_steam::get_current_user();
               $currentUserName = $currentUser->get_full_name();
               $currentUserLogin = $currentUser->get_name(); //fehler
               //create table
@@ -202,7 +202,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
               $voteCount[4] = 0;
               $voteCount[5] = 0;
 
-              if (!("guest" == $GLOBALS["STEAM"]->get_current_steam_user()->get_name())) { //its not allowed for guest to vote
+              if (!("guest" == \lms_steam::get_current_user()->get_name())) { //its not allowed for guest to vote
                   //create first line for current user
                   $userTimeTable.= "<tr>";
                   $userTimeTable.= "<td style='font-weight: bold;'>$currentUserName</td>";

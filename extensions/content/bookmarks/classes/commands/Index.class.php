@@ -18,12 +18,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
 
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
-        
-        if(!is_object($currentUser)){
-            \lms_portal::get_instance()->logout();
-            die;
-        }
+        $currentUser = \lms_steam::get_current_user();
             
         if (isset($this->id)) {
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);

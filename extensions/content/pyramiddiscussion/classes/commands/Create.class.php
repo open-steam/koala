@@ -77,7 +77,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand {
         if ($admingroup != 0) {
             $admingroup = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $admingroup);
         }
-        /*$user = $GLOBALS["STEAM"]->get_current_steam_user();
+        /*$user = \lms_steam::get_current_user();
         foreach ($basegroup_original->get_members() as $member) {
             if ($member instanceof \steam_user) {
                 $basegroup->add_member($member);

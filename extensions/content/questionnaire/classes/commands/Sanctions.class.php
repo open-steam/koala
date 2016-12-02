@@ -41,7 +41,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       $ajaxResponseObject->setStatus("ok");
 
       $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-      $user = $GLOBALS["STEAM"]->get_current_steam_user();
+      $user = \lms_steam::get_current_user();
       $QuestionnaireExtension = \Questionnaire::getInstance();
       $QuestionnaireExtension->addCSS();
       $QuestionnaireExtension->addJS();
@@ -218,7 +218,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       $ajaxResponseObject->setStatus("ok");
 
       $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-      $user = $GLOBALS["STEAM"]->get_current_steam_user();
+      $user = \lms_steam::get_current_user();
       $QuestionnaireExtension = \Questionnaire::getInstance();
 
       $participants = $questionnaire->get_attribute("QUESTIONNAIRE_GROUP");

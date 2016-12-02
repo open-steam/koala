@@ -40,7 +40,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $forumCreator = $forumObject->get_creator();
         $forumCreatorName = getCleanName($forumCreator);
 
-        $steamUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $steamUser = \lms_steam::get_current_user();
         $lastSessionTime = $steamUser->get_attribute("bid:last_session_time");
         $lastSessionTime = is_array($lastSessionTime) ? intval($lastSessionTime[0]) : intval(time());
 

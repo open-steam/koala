@@ -36,7 +36,7 @@ class Restore extends \AbstractCommand implements \IAjaxCommand {
                 $this->env = $possiblePostboxContainer;
             }
 
-            $this->trashbin = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_TRASHBIN");
+            $this->trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
 
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
             $object->move($this->env);

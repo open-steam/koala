@@ -72,7 +72,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $count++;
         }
 
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
         if (isset($this->portalObject) && $this->portalObject->check_access_write($currentUser)) {
             $htmlBody .= "<script>if (readCookie(\"portalEditMode\") === \"{$objectId}\") {portalLockButton({$objectId})}</script>";
         }
