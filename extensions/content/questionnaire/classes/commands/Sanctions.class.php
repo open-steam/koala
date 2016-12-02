@@ -11,6 +11,9 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
   private $admin;
   private $userId;
   private $groupId;
+  private $object;
+  private $questionnaire;
+  private $surveys;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -217,28 +220,28 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     function saveSanctions(\AjaxResponseObject $ajaxResponseObject){
       $ajaxResponseObject->setStatus("ok");
 
-      $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+      $this->questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
       $user = $GLOBALS["STEAM"]->get_current_steam_user();
       $QuestionnaireExtension = \Questionnaire::getInstance();
-
-      $participants = $questionnaire->get_attribute("QUESTIONNAIRE_GROUP");
-      $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
+      $this->surveys = $this->questionnaire->get_inventory();
+      $participants = $this->questionnaire->get_attribute("QUESTIONNAIRE_GROUP");
+      $staff = $this->questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
 
       if(!is_array($participants)) $participants = array();
 
       if(!is_array($staff)) $staff = array();
 
-      if($this->userId) $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->userId);
+      if($this->userId) $this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->userId);
 
-      if($this->groupId) $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->groupId);
+      if($this->groupId) $this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->groupId);
 
       $staffMember = 0;
-      if(in_array($object, $staff)){
+      if(in_array($this->object, $staff)){
         $staffMember = 1;
       }
       else{
         foreach ($staff as $i) {
-          if ($i instanceof steam_group && $i->is_member($object)) {
+          if ($i instanceof steam_group && $i->is_member($this->object)) {
             $staffMember = 1;
             break;
           }
@@ -246,12 +249,12 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       }
 
       $participant = 0;
-      if(in_array($object, $participants)){
+      if(in_array($this->object, $participants)){
         $participant = 1;
       }
       else{
         foreach ($participants as $i) {
-          if ($i instanceof steam_group && $i->is_member($object)) {
+          if ($i instanceof steam_group && $i->is_member($this->object)) {
             $participant = 1;
             break;
           }
@@ -259,110 +262,55 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       }
 
       if($this->participate == "true" && $participant && $this->checked == "false"){
-        $key = array_search($object, $participants);
+        $key = array_search($this->object, $participants);
         unset($participants[$key]);
 
-        $questionnaire->set_sanction($object, ACCESS_DENIED);
-        $surveys = $questionnaire->get_inventory();
-        if ($surveys[0] instanceof \steam_container) {
-          $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $surveys[0]->get_path() . "/results");
-          if ($resultContainer instanceof \steam_container) {
-              $resultContainer->set_sanction($object, ACCESS_DENIED);
-          }
-        }
+        if(!$staffMember) $this->removeSanctions();
       }
 
       if($this->participate == "true" && !$participant && $this->checked == "true"){
-        array_push($participants, $object);
+        array_push($participants, $this->object);
 
-        $questionnaire->set_sanction($object, SANCTION_READ | SANCTION_WRITE);
-        $surveys = $questionnaire->get_inventory();
-        if ($surveys[0] instanceof \steam_container) {
-          $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $surveys[0]->get_path() . "/results");
-          if ($resultContainer instanceof \steam_container) {
-            $resultContainer->set_sanction($object, SANCTION_READ | SANCTION_WRITE | SANCTION_INSERT);
-          }
-        }
+        if(!$staffMember) $this->setParticipantSanctions();
       }
 
       if($this->admin == "true" && $staffMember && $this->checked == "false"){
-        $key = array_search($object, $staff);
+        $key = array_search($this->object, $staff);
         unset($staff[$key]);
 
-        $questionnaire->set_sanction($object, ACCESS_DENIED);
-        $surveys = $questionnaire->get_inventory();
-        if ($surveys[0] instanceof \steam_container) {
-          $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $surveys[0]->get_path() . "/results");
-          if ($resultContainer instanceof \steam_container) {
-              $resultContainer->set_sanction($object, ACCESS_DENIED);
-          }
-        }
+        $this->removeSanctions();
+        if($participant) $this->setParticipantSanctions();
       }
 
       if($this->admin == "true" && !$staffMember && $this->checked == "true"){
-        array_push($staff, $object);
-        $questionnaire->set_sanction($object, SANCTION_ALL);
+        array_push($staff, $this->object);
+        $this->questionnaire->set_sanction($this->object, SANCTION_ALL);
       }
 
-      $questionnaire->set_attribute("QUESTIONNAIRE_GROUP", $participants);
-      $questionnaire->set_attribute("QUESTIONNAIRE_STAFF", $staff);
-/*
-      if ($user->get_id() == $questionnaire->get_creator()->get_id()) {
-        foreach ($staff as $group) {
-          $questionnaire->set_sanction($group, ACCESS_DENIED);
-        }
-        foreach ($participants as $group) {
-          $questionnaire->set_sanction($group, ACCESS_DENIED);
-        }
-        foreach ($questionnaire->get_inventory() as $survey) {
-          if ($survey instanceof \steam_container) {
-            $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
-            if ($resultContainer instanceof \steam_container) {
-              foreach ($staff as $group) {
-                $resultContainer->set_sanction($group, ACCESS_DENIED);
-              }
-              foreach ($participants as $group) {
-                $resultContainer->set_sanction($group, ACCESS_DENIED);
-              }
-            }
-          }
-        }
-      }
+      $this->questionnaire->set_attribute("QUESTIONNAIRE_GROUP", $participants);
+      $this->questionnaire->set_attribute("QUESTIONNAIRE_STAFF", $staff);
 
-      // collect submitted sanctions
-      $groups = $questionnaire->get_creator()->get_groups();
-      $staff = array();
-      $participants = array();
-      foreach ($groups as $group) {
-        if (isset($_POST["participate" . $group->get_id()])) {
-          array_push($participants, $group);
-        }
-        if (isset($_POST["admin" . $group->get_id()])) {
-          array_push($staff, $group);
-        }
-      }
-
-      // set new sanctions
-      if ($user->get_id() == $questionnaire->get_creator()->get_id()) {
-        foreach ($participants as $group) {
-          $questionnaire->set_sanction($group, SANCTION_READ | SANCTION_WRITE);
-          foreach ($questionnaire->get_inventory() as $survey) {
-            if ($survey instanceof \steam_container) {
-              $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
-              if ($resultContainer instanceof \steam_container) {
-                $resultContainer->set_sanction($group, SANCTION_READ | SANCTION_WRITE | SANCTION_INSERT);
-              }
-            }
-          }
-        }
-        foreach ($staff as $group) {
-          $questionnaire->set_sanction($group, SANCTION_ALL);
-        }
-        $questionnaire->set_attribute("QUESTIONNAIRE_GROUP", $participants);
-        $questionnaire->set_attribute("QUESTIONNAIRE_STAFF", $staff);
-      }
-      */
       return $ajaxResponseObject;
+    }
+
+    function removeSanctions(){
+      $this->questionnaire->set_sanction($this->object, ACCESS_DENIED);
+      if ($this->surveys[0] instanceof \steam_container) {
+        $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $this->surveys[0]->get_path() . "/results");
+        if ($resultContainer instanceof \steam_container) {
+            $resultContainer->set_sanction($this->object, ACCESS_DENIED);
+        }
+      }
+    }
+
+    function setParticipantSanctions(){
+      $this->questionnaire->set_sanction($this->object, SANCTION_READ | SANCTION_WRITE);
+      if ($this->surveys[0] instanceof \steam_container) {
+        $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $this->surveys[0]->get_path() . "/results");
+        if ($resultContainer instanceof \steam_container) {
+          $resultContainer->set_sanction($this->object, SANCTION_READ | SANCTION_WRITE | SANCTION_INSERT);
+        }
+      }
     }
 
 }
