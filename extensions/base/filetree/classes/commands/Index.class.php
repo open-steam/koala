@@ -110,7 +110,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
             $cssHighlight = "";
         }
         $empty = true;
-        if ($room->check_access_read()) {
+        if ($room instanceof \steam_room && $room->check_access_read()) {
             foreach ($room->get_inventory_filtered(array(array('+', 'class', CLASS_ROOM))) as $inventoryItem) {
                 if ($inventoryItem->check_access_read() && (getObjectType($inventoryItem) === "room") && !$this->isHiddenItem($inventoryItem, $currentUser)) {
                     if (!($root === 1 && ($inventoryItem->get_name() === "home" || $inventoryItem->get_name() === "scripts"))) {
