@@ -122,7 +122,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       $content->setVariable("GROUP_LABEL", "Gruppen");
 
       $content->setCurrentBlock("BLOCK_USER");
-      $content->setVariable("USER_NAME", $creator->get_full_name());
+      $content->setVariable("USER", "<a target='_blank' href='" . PATH_URL . "profile/index/" . $creator->get_name() . "/'>" . $creator->get_full_name() . "</a>");
       $content->setVariable("SEND_PARTICIPATE_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'participate':true,'userId':" . $creator->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'Questionnaire');");
       $content->setVariable("SEND_ADMIN_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'admin':true,'userId':" . $creator->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'Questionnaire');");
       $content->setVariable("PARTICIPATE_CHECKED", "checked");
@@ -141,7 +141,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         if ($favorite instanceof \steam_user) {
           $isSteamAdmin = \lms_steam::is_steam_admin($favorite);
           $content->setCurrentBlock("BLOCK_USER");
-          $content->setVariable("USER_NAME", $favorite->get_full_name());
+          $content->setVariable("USER", "<a target='_blank' href='" . PATH_URL . "profile/index/" . $favorite->get_name() . "/'>" . $favorite->get_full_name() . "</a>");
           $content->setVariable("IMAGE", "<div style='float:left; margin-right:5px;'><svg style='color:#ff8300; height:16px; width:16px;'><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/user.svg#user'/></svg></div>");
           $content->setVariable("SEND_PARTICIPATE_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'participate':true,'userId':" . $favorite->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'Questionnaire');");
           $content->setVariable("SEND_ADMIN_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'admin':true,'userId':" . $favorite->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'Questionnaire');");
@@ -151,7 +151,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
           if (in_array($favorite, $admins) || $isSteamAdmin) {
             $content->setVariable("ADMIN_CHECKED", "checked");
           }
-          if($isSteamAdmin){
+          if($isSteamAdmin || !$creatorOrRoot){
             $content->setVariable("PARTICIPATE_DISABLED", "disabled");
             $content->setVariable("ADMIN_DISABLED", "disabled");
           }
@@ -162,7 +162,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       $groups = $creator->get_groups();
       foreach ($groups as $group) {
         $content->setCurrentBlock("BLOCK_GROUP");
-        $content->setVariable("GROUP_NAME", $group->get_name());
+        $content->setVariable("GROUP", "<a target='_blank' href='" . PATH_URL . "group/index/" . $group->get_id() . "/'>" . $group->get_name() . "</a>");
         $content->setVariable("IMAGE", "<div style='float:left; margin-right:5px;'><svg style='color:#3a6e9f; height:16px; width:16px;'><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/group.svg#group'/></svg></div>");
         $content->setVariable("SEND_PARTICIPATE_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'participate':true,'groupId':" . $group->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'Questionnaire');");
         $content->setVariable("SEND_ADMIN_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'admin':true,'groupId':" . $group->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'Questionnaire');");
@@ -172,7 +172,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         if (in_array($group, $admins)) {
           $content->setVariable("ADMIN_CHECKED", "checked");
         }
-        if ($user->get_id() != $creator->get_id()) {
+        if ($user->get_id() != $creator->get_id() || !$creatorOrRoot) {
           $content->setVariable("PARTICIPATE_DISABLED", "disabled");
           $content->setVariable("ADMIN_DISABLED", "disabled");
         }
@@ -182,7 +182,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       foreach ($rawFavorites as $favorite) {
         if ($favorite instanceof \steam_group && !in_array($favorite, $groups)){
           $content->setCurrentBlock("BLOCK_GROUP");
-          $content->setVariable("GROUP_NAME", $favorite->get_name());
+          $content->setVariable("GROUP", "<a target='_blank' href='" . PATH_URL . "group/index/" . $favorite->get_id() . "/'>" . $favorite->get_name() . "</a>");
           $content->setVariable("IMAGE", "<div style='float:left; margin-right:5px;'><svg style='color:#ff8300; height:16px; width:16px;'><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/group.svg#group'/></svg></div>");
           $content->setVariable("SEND_PARTICIPATE_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'participate':true,'groupId':" . $favorite->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'questionnaire');");
           $content->setVariable("SEND_ADMIN_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'admin':true,'groupId':" . $favorite->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'questionnaire');");
@@ -191,6 +191,10 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
           }
           if (in_array($favorite, $admins)) {
             $content->setVariable("ADMIN_CHECKED", "checked");
+          }
+          if (!$creatorOrRoot) {
+            $content->setVariable("PARTICIPATE_DISABLED", "disabled");
+            $content->setVariable("ADMIN_DISABLED", "disabled");
           }
           $content->parse("BLOCK_GROUP");
         }

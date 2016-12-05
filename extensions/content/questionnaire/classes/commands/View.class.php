@@ -292,6 +292,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
           } else {
               $resultPage = $page + 1;
           }
+
           foreach ($questions as $question) {
               if ($question instanceof \Questionnaire\Model\AbstractQuestion) {
                   if ($resultPage == $pageCounter) {
@@ -333,6 +334,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
                           for ($count = 0; $count < $rowCount; $count++) {
                               if (isset($_POST["question" . $questionCounter . "_" . $count])) {
                                   array_push($results, $_POST["question" . $questionCounter . "_" . $count]);
+                              }
+                              else{
+                                  array_push($results, -1);
                               }
                           }
                           if ($question->getRequired() == 1 && (count($results) < $rowCount)) {

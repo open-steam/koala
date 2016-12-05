@@ -161,7 +161,9 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				foreach ($resultArray as $questionResult) {
 					$resultHTML = "";
 					for ($count = 0; $count < count($questionResult); $count++) {
-						$resultHTML = $resultHTML . $questionResult[$count] . "<br>";
+						if($questionResult[$count] != ""){
+							$resultHTML = $resultHTML . $questionResult[$count] . "<br>";
+						}
 					}
 					$resultHTML = substr($resultHTML, 0, strlen($resultHTML)-4);
 
@@ -183,7 +185,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				if ($questionnaire->get_attribute("QUESTIONNAIRE_SHOW_CREATIONTIME") == 0) {
 					$content->setVariable("DISPLAY_TIME_RESULT", "none");
 				} else {
-					$content->setVariable("TIMESTAMP", date("d.m.Y H:i:s", $result->get_attribute("OBJ_CREATION_TIME")));
+					$content->setVariable("TIMESTAMP", date("d.m.Y H:i:s", $result->get_attribute("OBJ_CREATION_TIME")) . " Uhr");
 				}
 				if ($resultCount % 2 == 0) {
 					$content->setVariable("BG_COLOR", "#FFFFFF");

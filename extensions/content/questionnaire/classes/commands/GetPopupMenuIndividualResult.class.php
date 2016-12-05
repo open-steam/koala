@@ -44,12 +44,9 @@ class GetPopupMenuIndividualResult extends \AbstractCommand implements \IAjaxCom
         // check if current user is admin
         $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
         $admin = 0;
-        $root = 0;
-        if(\lms_steam::is_steam_admin($user)){
-          $root = 1;
-        }
-        else if($creator->get_id() == $user->get_id()){
-          $admin = 1;
+        $creatorORoot = 0;
+        if($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)){
+          $creatorOrRoot = 1;
         }
         else{
           if(in_array($user, $staff)){
@@ -66,7 +63,7 @@ class GetPopupMenuIndividualResult extends \AbstractCommand implements \IAjaxCom
         }
 
 				$items[] = array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "questionnaire/view/" . $surveyId . "/1/" . $this->resultId . "/1" . "/', '_self'); return false;\"><svg><use xlink:href='{$questionnaireIcon}#questionnaire'/></svg> Anzeigen</a>");
-        if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0 || $root || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)) {
+        if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0 || $creatorOrRoot || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)) {
           $items[] = array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "questionnaire/view/" . $surveyId . "/1/" . $this->resultId . "/', '_self'); return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>");
 					$items[] = array("raw" => "<a href=\"#\" onclick=\"deleteResult({$this->resultId}, {$surveyId}, {$this->id})\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>");
 				};

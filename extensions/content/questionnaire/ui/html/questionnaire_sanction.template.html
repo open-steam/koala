@@ -8,7 +8,7 @@
 				</tr>
 				<!-- BEGIN BLOCK_USER -->
 				<tr>
-					<td>{IMAGE}{USER_NAME}</td>
+					<td>{IMAGE}{USER}</td>
 					<td style="text-align:center;"><input type="checkbox" onchange="$(this).addClass('changed');" data-saveFunction={SEND_PARTICIPATE_REQUEST} {PARTICIPATE_CHECKED} {PARTICIPATE_DISABLED}></td>
 					<td style="text-align:center;"><input type="checkbox" onchange="$(this).addClass('changed');" data-saveFunction={SEND_ADMIN_REQUEST} {ADMIN_CHECKED} {ADMIN_DISABLED}></td>
 				</tr>
@@ -20,7 +20,7 @@
 				</tr>
 				<!-- BEGIN BLOCK_GROUP -->
 				<tr>
-					<td>{IMAGE}{GROUP_NAME}</td>
+					<td>{IMAGE}{GROUP}</td>
 					<td style="text-align:center;"><input type="checkbox" onchange="$(this).addClass('changed');" data-saveFunction={SEND_PARTICIPATE_REQUEST} {PARTICIPATE_CHECKED} {PARTICIPATE_DISABLED}></td>
 					<td style="text-align:center;"><input type="checkbox" onchange="$(this).addClass('changed');" data-saveFunction={SEND_ADMIN_REQUEST} {ADMIN_CHECKED} {ADMIN_DISABLED}></td>
 				</tr>
