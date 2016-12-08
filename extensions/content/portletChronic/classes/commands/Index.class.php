@@ -23,26 +23,30 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         if (intval($elements) <= 0) {
             $elements = 5;
         }
-        $column = $portlet->get_environment();
+
+        //reference handling
+        if (isset($params["referenced"]) && $params["referenced"] == true) {
+            if (!$portlet->check_access_read()) {
+                $this->listViewer = new \Widgets\RawHtml();
+                $this->listViewer->setHtml("");
+                return null;
+            }
+            $portletIsReference = true;
+            $referenceId = $params["referenceId"];
+            $realPortlet = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $referenceId);
+            $column = $realPortlet->get_environment();
+        } else {
+            $portletIsReference = false;
+            $column = $portlet->get_environment();
+        }
+
         $width = $column->get_attribute("bid:portal:column:width");
         if (strpos($width, "px") === TRUE) {
             $width = substr($width, 0, count($width) - 3);
         }
 
-        //icon
-        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
-
-        //reference handling
-        if (isset($params["referenced"]) && $params["referenced"] == true) {
-            $portletIsReference = true;
-            $referenceId = $params["referenceId"];
-        } else {
-            $portletIsReference = false;
-        }
-
         $portletName = $portlet->get_attribute(OBJ_DESC);
-        $portletInstance = \PortletChronic::getInstance();
-        $portletPath = $portletInstance->getExtensionPath();
+        $portletPath = \PortletChronic::getInstance()->getExtensionPath();
 
         $tmpl = new \HTML_TEMPLATE_IT();
         $tmpl->loadTemplateFile($portletPath . "/ui/html/index.template.html");
@@ -61,6 +65,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
         //reference icon
         if ($portletIsReference) {
+            $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
             $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");

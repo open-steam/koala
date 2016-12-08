@@ -15,31 +15,29 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $portlet = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
         $params = $requestObject->getParams();
 
-        $column = $portlet->get_environment();
-        $width = $column->get_attribute("bid:portal:column:width");
-        if (strpos($width, "px") == TRUE) {
-            $width = substr($width, 0, count($width) - 3);
-        }
-
-        //icon
-        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
         //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
-            $portletIsReference = true;
-            $referenceId = $params["referenceId"];
             if (!$portlet->check_access_read()) {
                 $this->rawHtmlWidget = new \Widgets\RawHtml();
                 $this->rawHtmlWidget->setHtml("");
                 return null;
             }
+
+            $portletIsReference = true;
+            $referenceId = $params["referenceId"];
+            $realPortlet = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $referenceId);
+            $column = $realPortlet->get_environment();
         } else {
             $portletIsReference = false;
+            $column = $portlet->get_environment();
         }
 
-        $portletName = getCleanName($portlet);
-        $portletInstance = \PortletUserPicture::getInstance();
-        $portletPath = $portletInstance->getExtensionPath();
+        $width = $column->get_attribute("bid:portal:column:width");
+        if (strpos($width, "px") === TRUE) {
+            $width = substr($width, 0, count($width) - 3);
+        }
+        $portletPath = \PortletUserPicture::getInstance()->getExtensionPath();
 
         $tmpl = new \HTML_TEMPLATE_IT();
         $tmpl->loadTemplateFile($portletPath . "/ui/html/index.template.html");
@@ -50,7 +48,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
         $tmpl->setVariable("HEADLINE", $headline);
 
         //if the title is empty the headline will not be displayed (only in edit mode)
-        if ($headline == "" || $headline == " ") {
+        if (trim($headline) == "") {
             $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
         } else {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
@@ -58,6 +56,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
 
         //reference icon
         if ($portletIsReference) {
+            $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
             $tmpl->setVariable("REFERENCE_ICON", "<a href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
