@@ -30,19 +30,18 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $objectId = $requestObject->getId();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 
-        //icon
-        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
         //reference handling
         $params = $requestObject->getParams();
         if (isset($params["referenced"]) && $params["referenced"] == true) {
-            $portletIsReference = true;
-            $referenceId = $params["referenceId"];
             if (!$portlet->check_access_read()) {
                 $this->rawHtmlWidget = new \Widgets\RawHtml();
                 $this->rawHtmlWidget->setHtml("");
                 return null;
             }
+
+            $portletIsReference = true;
+            $referenceId = $params["referenceId"];
         } else {
             $portletIsReference = false;
         }
@@ -100,7 +99,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("HEADLINE", $title);
 
             //if the title is empty the headline will not be displayed (only in edit mode)
-            if ($title == "" || $title == " ") {
+            if (trim($title == "")) {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
             } else {
                 $tmpl->setVariable("HEADLINE_CLASS", "headline");
@@ -108,16 +107,17 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             //reference icon
             if ($portletIsReference) {
+                $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
                 $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
                 $envId = $portlet->get_environment()->get_environment()->get_id();
                 $envUrl = PATH_URL . "portal/index/" . $envId;
                 $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
             }
 
-            if($content["size"] == ""){
-              $size = "15";
-            } else{
-              $size = $content["size"];
+            if ($content["size"] == "") {
+                $size = "15";
+            } else {
+                $size = $content["size"];
             }
 
             $tmpl->setVariable("SIZE", $size);
