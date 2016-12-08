@@ -52,7 +52,7 @@ class EditResult extends \AbstractCommand implements \IAjaxCommand {
           }
           else{
             foreach ($staff as $object) {
-              if ($object instanceof steam_group && $object->is_member($user)) {
+              if ($object instanceof \steam_group && $object->is_member($user)) {
                 $admin = 1;
                 break;
               }

@@ -6,6 +6,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 
   private $params;
   private $id;
+  private $surveyId;
 
   public function validateData(\IRequestObject $requestObject) {
       return true;
@@ -15,11 +16,29 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
       if ($requestObject instanceof \UrlRequestObject) {
           $this->params = $requestObject->getParams();
           isset($this->params[0]) ? $this->id = $this->params[0] : "";
+          isset($this->params[1]) ? $this->surveyId = $this->params[1] : "";
       }
   }
 
   public function frameResponse(\FrameResponseObject $frameResponseObject) {
+
+      if ($this->id == "" || $this->surveyId == "") {
+          $rawWidget = new \Widgets\RawHtml();
+          $rawWidget->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+          $frameResponseObject->addWidget($rawWidget);
+          return $frameResponseObject;
+      }
+
       $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+      $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->surveyId);
+
+      if(!($survey instanceof \steam_container) || !($questionnaire instanceof \steam_room)){
+        $rawWidget = new \Widgets\RawHtml();
+        $rawWidget->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+        $frameResponseObject->addWidget($rawWidget);
+        return $frameResponseObject;
+      }
+
       $QuestionnaireExtension = \Questionnaire::getInstance();
       $QuestionnaireExtension->addCSS();
       $QuestionnaireExtension->addJS();
@@ -44,7 +63,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         }
         else{
           foreach ($staff as $object) {
-            if ($object instanceof steam_group && $object->is_member($user)) {
+            if ($object instanceof \steam_group && $object->is_member($user)) {
               $admin = 1;
               break;
             }
@@ -60,146 +79,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
           return $frameResponseObject;
       }
 
-      $surveys = $questionnaire->get_inventory();
-      $survey = $surveys[0];
-      $editID = $survey->get_id();
       $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
-
-      // create/edit survey got submitted
-      //$editID = 0;
-      if (1 == 0){ //$_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["create_survey"])) {
-
-        $survey_object = new \Questionnaire\Model\Survey($questionnaire);
-        if (isset($_POST["title"]) && trim($_POST["title"]) !== "") {
-            $survey_object->setName($_POST["title"]);
-        }
-        $questioncounter = 0;
-        $sortedQuestions = $_POST["sortable_array"];
-        $sortedQuestions != '' ? ($sortedQuestions = explode(',', $sortedQuestions)) : '';
-        foreach ($sortedQuestions as $question) {
-            if ($question != "newquestion" && $question != "newlayout" && $question != "") {
-                if (isset($_POST[$question])) {
-                    $questionValues = $_POST[$question];
-                    $questionValues != '' ? ($questionValues = explode(',', $questionValues)) : '';
-                    if (isset($questionValues[0])) {
-                        switch ($questionValues[0]) {
-                            case 0:
-                                $newquestion = new \Questionnaire\Model\TextQuestion();
-                                $newquestion->setInputLength($questionValues[4]);
-                                break;
-                            case 1:
-                                $newquestion = new \Questionnaire\Model\TextareaQuestion();
-                                $newquestion->setRows($questionValues[4]);
-                                break;
-                            case 2:
-                                $newquestion = new \Questionnaire\Model\SingleChoiceQuestion();
-                                $options = $_POST[$question . "_options"];
-                                $options != '' ? ($options = explode(',', $options)) : '';
-                                foreach ($options as $option) {
-                                    $newquestion->addOption(rawurldecode($option));
-                                }
-                                $newquestion->setArrangement($questionValues[4]);
-                                break;
-                            case 3:
-                                $newquestion = new \Questionnaire\Model\MultipleChoiceQuestion();
-                                $options = $_POST[$question . "_options"];
-                                $options != '' ? ($options = explode(',', $options)) : '';
-                                foreach ($options as $option) {
-                                    $newquestion->addOption(rawurldecode($option));
-                                }
-                                $newquestion->setArrangement($questionValues[4]);
-                                break;
-                            case 4:
-                                $newquestion = new \Questionnaire\Model\MatrixQuestion();
-                                $columns = $_POST[$question . "_columns"];
-                                $columns != '' ? ($columns = explode(',', $columns)) : '';
-                                foreach ($columns as $column) {
-                                    $newquestion->addcolumn(rawurldecode($column));
-                                }
-                                $rows = $_POST[$question . "_rows"];
-                                $rows != '' ? ($rows = explode(',', $rows)) : '';
-                                foreach ($rows as $row) {
-                                    $newquestion->addRow(rawurldecode($row));
-                                }
-                                break;
-                            case 5:
-                                $newquestion = new \Questionnaire\Model\GradingQuestion();
-                                $options = $_POST[$question . "_rows"];
-                                $options != '' ? ($options = explode(',', $options)) : '';
-                                foreach ($options as $option) {
-                                    $newquestion->addRow(rawurldecode($option));
-                                }
-                                break;
-                            case 6:
-                                $newquestion = new \Questionnaire\Model\TendencyQuestion();
-                                $options = $_POST[$question . "_options"];
-                                $options != '' ? ($options = explode(',', $options)) : '';
-                                $newquestion->setSteps($questionValues[4]);
-                                for ($count = 0; $count < count($options); $count = $count + 2) {
-                                    $newquestion->addOption(array(rawurldecode($options[$count]), rawurldecode($options[$count + 1])));
-                                }
-                                break;
-                            case 7:
-                                $newquestion = new \Questionnaire\Model\DescriptionLayoutElement();
-                                $newquestion->setDescription(rawurldecode($questionValues[1]));
-                                break;
-                            case 8:
-                                $newquestion = new \Questionnaire\Model\HeadlineLayoutElement();
-                                $newquestion->setHeadline(rawurldecode($questionValues[1]));
-                                break;
-                            case 9:
-                                $newquestion = new \Questionnaire\Model\PageBreakLayoutElement();
-                                break;
-                            case 10:
-                                $newquestion = new \Questionnaire\Model\JumpLabel();
-                                $newquestion->setText(rawurldecode($questionValues[1]));
-                                $newquestion->setTo(rawurldecode($questionValues[2]));
-                                break;
-                        }
-
-                        if ($questionValues[0] < 7) {
-                            $newquestion->setQuestionText(rawurldecode($questionValues[1]));
-                            $newquestion->setHelpText(rawurldecode($questionValues[2]));
-                            $newquestion->setRequired($questionValues[3]);
-                        }
-
-                        $survey_object->addQuestion($newquestion);
-                    }
-                }
-            }
-        }
-
-        $survey_object->createSurvey($editID);
-        //$frameResponseObject->setConfirmText("Änderungen erfolgreich gespeichert.");
-      }
-
-      // display actionbar
-      $surveys = $questionnaire->get_inventory();
-      $surveyCount = 0;
-      foreach ($surveys as $survey) {
-          if ($survey instanceof \steam_object && (!$survey instanceof \steam_user)) {
-              $surveyCount++;
-          }
-      }
-      if ($surveyCount > 0) {
-          $actionbar = new \Widgets\Actionbar();
-          $actions = array(
-              //array("name" => "Neuen Fragebogen erstellen", "link" => $QuestionnaireExtension->getExtensionUrl() . "edit/" . $this->id . "/"),
-              //array("name" => "Import", "link" => $QuestionnaireExtension->getExtensionUrl() . "import/" . $this->id . "/"),
-              //array("name" => "Konfiguration", "link" => $QuestionnaireExtension->getExtensionUrl() . "configuration/" . $this->id . "/"),
-              //array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $this->id . "/")
-          );
-          $actionbar->setActions($actions);
-      } else {
-          $actionbar = new \Widgets\Actionbar();
-          $actions = array(
-              //array("name" => "Neuen Fragebogen erstellen", "link" => $QuestionnaireExtension->getExtensionUrl() . "edit/" . $this->id . "/"),
-              //array("name" => "Import", "link" => $QuestionnaireExtension->getExtensionUrl() . "import/" . $this->id . "/"),
-              //array("name" => "Konfiguration", "link" => $QuestionnaireExtension->getExtensionUrl() . "configuration/" . $this->id . "/")
-          );
-          $actionbar->setActions($actions);
-      }
-      //$frameResponseObject->addWidget($actionbar);
 
       // display edit form
       $content = $QuestionnaireExtension->loadTemplate("questionnaire_edit.template.html");
@@ -313,26 +193,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
       $content->setVariable("ADDLAYOUT_LABEL", "Neues Layout-Element hinzufügen");
       $content->setVariable("CREATE_SURVEY", "Fragebogen erstellen");
 
-      // if command is called with an object id load the corresponding survey data
-      if ($editID == 0 && isset($this->params[1])) {
-          $editID = $this->params[1];
-      }
-      if ($editID != 0) {
-          $content->setVariable("EDIT_ID", $editID);
+      if ($this->surveyId != 0) {
+          $content->setVariable("EDIT_ID", $this->surveyId);
           if ($surveyCount > 0) {
-              $content->setVariable("EDIT_ID_MSG", $editID);
+              $content->setVariable("EDIT_ID_MSG", $this->surveyId);
           }
-          $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $editID);
           $survey_object = new \Questionnaire\Model\Survey($questionnaire);
           $xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
           $survey_object->parseXML($xml);
-          //$content->setVariable("TITLE_VALUE", $survey_object->getName());
-          /*
-          $welcomeImageId = $survey->get_attribute("bid:rfb:picture_id");
-          if ($welcomeImageId !== 0) {
-              $content->setVariable("WELCOME_IMG_SRC", PATH_URL . "download/document/$welcomeImageId/");
-          }
-          */
           $questions = $survey_object->getQuestions();
           $question_html = "";
           $id_counter = 0;

@@ -29,20 +29,24 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 		$staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
 		$admin = 0;
 		$allowed = false;
-		if ($creator == $user->get_id() || \lms_steam::is_steam_admin($user)) {
+		$root = 0;
+		$isCreator = 0;
+		if($creator == $user->get_id()){
+			$isCreator = 1;
 			$admin = 1;
-			$allowed = true;
+		}
+		else if(\lms_steam::is_steam_admin($user)){
+			$root = 1;
+			$admin = 1;
+		}
+		else if(in_array($user, $staff)){
+				$admin = 1;
 		}
 		else{
-			if(in_array($user, $staff)){
-				$admin = 1;
-			}
-			else{
-				foreach ($staff as $object) {
-					if ($object instanceof steam_group && $object->is_member($user)) {
-						$admin = 1;
-						break;
-					}
+			foreach ($staff as $object) {
+				if ($object instanceof \steam_group && $object->is_member($user)) {
+					$admin = 1;
+					break;
 				}
 			}
 		}
@@ -54,7 +58,7 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 		}
 		else{
 			foreach ($possibleParticipants as $object) {
-				if ($object instanceof steam_group && $object->is_member($user)) {
+				if ($object instanceof \steam_group && $object->is_member($user)) {
 					$allowed = true;
 					break;
 				}
@@ -86,6 +90,10 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 			if($ownResult && ($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || $result->get_attribute("QUESTIONNAIRE_RELEASED") == 0)){
 				$check = true;
 			}
+		}
+
+		if($root || $isCreator){
+			$check = true;
 		}
 
 		// if user is allowed to delete result, delete it and update participation array

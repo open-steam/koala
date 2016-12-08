@@ -46,6 +46,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
       $admin = 0;
       $allowed = false;
       $root = 0;
+      $isCreator = 0;
       if(\lms_steam::is_steam_admin($user)){
         $root = 1;
         $admin = 1;
@@ -54,6 +55,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
       else if ($creator->get_id() == $user->get_id()){
         $allowed = true;
         $admin = 1;
+        $isCreator = 1;
       }
       else{
         if(in_array($user, $staff)){
@@ -61,7 +63,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
         }
         else{
           foreach ($staff as $object) {
-            if ($object instanceof steam_group && $object->is_member($user)) {
+            if ($object instanceof \steam_group && $object->is_member($user)) {
               $admin = 1;
               break;
             }
@@ -76,7 +78,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
       }
       else{
         foreach ($possibleParticipants as $object) {
-          if ($object instanceof steam_group && $object->is_member($user)) {
+          if ($object instanceof \steam_group && $object->is_member($user)) {
             $allowed = true;
             break;
           }
@@ -182,16 +184,16 @@ class View extends \AbstractCommand implements \IFrameCommand {
                 //edit result
                 $subheadline = "Fragebogen ausfüllen";
               }
-              else if($questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)){
-                //edit result
+              else if($root || $isCreator || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)){
+                //edit own result
                 $subheadline = "Meine Abgabe vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr bearbeiten";
               }
               else{
                 $hint = "Abgaben können nicht bearbeitet werden";
               }
             }
-            else{ //edit of results of other user
-              if($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
+            else{ //edit result of other user
+              if($isCreator || $root || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)){
                 //edit result
                 $subheadline = "Abgabe von " . $resultObject->get_creator()->get_full_name() . " vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr bearbeiten";
               }
@@ -201,9 +203,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
             }
           }
           else{
-            if($admin){ //admin can edit results even if not active
+            if($admin){ //admins can edit results even if not active
               if($ownResult){ //admin wants to edit own result
-                if($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
+                if($root || $isCreator || $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0 || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
                   //edit result
                   $subheadline = "Meine Abgabe vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr bearbeiten";
                 }
@@ -212,7 +214,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
                 }
               }
               else{ //admin wants to edit result from other user
-                if($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
+                if($root || $isCreator || $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1){
                   //edit result
                   $subheadline = "Abgabe von " . $resultObject->get_creator()->get_name() . " vom " . date("d.m.Y H:i:s", $resultObject->get_attribute("QUESTIONNAIRE_RELEASED")) . " Uhr bearbeiten";
                 }
@@ -277,7 +279,7 @@ class View extends \AbstractCommand implements \IFrameCommand {
         }
       }
 
-      if($root){
+      if($isCreator || $root){
         $hint = "";
       }
 

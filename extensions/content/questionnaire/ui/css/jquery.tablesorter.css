@@ -31,6 +31,7 @@ table.tablesorter tbody td {
 	padding: 4px;
 	background-color: #FFF;
 	vertical-align: top;
+	word-wrap: break-word;
 }
 
 table.tablesorter tbody tr.odd td {

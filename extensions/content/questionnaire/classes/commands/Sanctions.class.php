@@ -70,7 +70,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
   			}
   			else{
   				foreach ($staff as $object) {
-  					if ($object instanceof steam_group && $object->is_member($user)) {
+  					if ($object instanceof \steam_group && $object->is_member($user)) {
   						$admin = 1;
   						break;
   					}
@@ -172,7 +172,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         if (in_array($group, $admins)) {
           $content->setVariable("ADMIN_CHECKED", "checked");
         }
-        if ($user->get_id() != $creator->get_id() || !$creatorOrRoot) {
+        if (!$creatorOrRoot) {
           $content->setVariable("PARTICIPATE_DISABLED", "disabled");
           $content->setVariable("ADMIN_DISABLED", "disabled");
         }
@@ -244,7 +244,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       }
       else{
         foreach ($staff as $i) {
-          if ($i instanceof steam_group && $i->is_member($this->object)) {
+          if ($i instanceof \steam_group && $i->is_member($this->object)) {
             $staffMember = 1;
             break;
           }
@@ -257,7 +257,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
       }
       else{
         foreach ($participants as $i) {
-          if ($i instanceof steam_group && $i->is_member($this->object)) {
+          if ($i instanceof \steam_group && $i->is_member($this->object)) {
             $participant = 1;
             break;
           }

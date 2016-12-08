@@ -56,10 +56,10 @@ class GetPopupMenuEdit extends \AbstractCommand implements \IAjaxCommand {
           array("raw" => "<a href=\"#\" onclick=\"{$editMethod}({$this->questionId});return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>"),
 					array("raw" => "<a href=\"#\" onclick=\"copyElement({$this->id}, {$this->questionId});return false;\"><svg><use xlink:href='{$copyIcon}#copy'/></svg> Duplizieren</a>"),
           (count($questions) >= 2) ? array("name" => "<svg><use xlink:href='{$sortIcon}#sort'/></svg> Umsortieren", "direction" => "right", "menu" => array(
-              array("name" => "<a class='menuItemUp' href=\"#\" onclick=\"moveElement({$this->questionId}, 'top');return false;\"><svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben</a>"),
-              array("name" => "<a class='menuItemUp' href=\"#\" onclick=\"moveElement({$this->questionId}, 'up');return false;\"><svg><use xlink:href='{$upIcon}#up'/></svg> Eins nach oben</a>"),
-              array("name" => "<a class='menuItemDown' href=\"#\" onclick=\"moveElement({$this->questionId}, 'down');return false;\"><svg><use xlink:href='{$downIcon}#down'/></svg> Eins nach unten</a>"),
-              array("name" => "<a class='menuItemDown' href=\"#\" onclick=\"moveElement({$this->questionId}, 'bottom');return false;\"><svg><use xlink:href='{$bottomIcon}#bottom'/></svg> Ganz nach unten</a>")
+              array("name" => "<a class='menuItemUp' href=\"#\" onclick=\"moveElement({$this->questionId}, 'top');jQuery('.popupmenuwrapper').remove();jQuery('.open').removeClass('open');jQuery('#footer_wrapper').css('padding-top', '0px'); return false;\"><svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben</a>"),
+              array("name" => "<a class='menuItemUp' href=\"#\" onclick=\"moveElement({$this->questionId}, 'up');jQuery('.popupmenuwrapper').remove();jQuery('.open').removeClass('open');jQuery('#footer_wrapper').css('padding-top', '0px'); return false;\"><svg><use xlink:href='{$upIcon}#up'/></svg> Eins nach oben</a>"),
+              array("name" => "<a class='menuItemDown' href=\"#\" onclick=\"moveElement({$this->questionId}, 'down');jQuery('.popupmenuwrapper').remove();jQuery('.open').removeClass('open');jQuery('#footer_wrapper').css('padding-top', '0px'); return false;\"><svg><use xlink:href='{$downIcon}#down'/></svg> Eins nach unten</a>"),
+              array("name" => "<a class='menuItemDown' href=\"#\" onclick=\"moveElement({$this->questionId}, 'bottom');jQuery('.popupmenuwrapper').remove();jQuery('.open').removeClass('open');jQuery('#footer_wrapper').css('padding-top', '0px'); return false;\"><svg><use xlink:href='{$bottomIcon}#bottom'/></svg> Ganz nach unten</a>")
           )) : "",
           array("raw" => "<a href=\"#\" onclick=\"deleteElement({$this->questionId});return false;\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>")
 				);

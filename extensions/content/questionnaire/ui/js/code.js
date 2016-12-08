@@ -1072,24 +1072,6 @@ function createTendencyQuestion(questionnaireId, data, options, insertPoint) {
 }
 
 /*
- * function to request admin actions
- */
-function admin_action(action, id, name, rf) {
-    params = {};
-    params.id = id;
-    params.action = action;
-    params.rf = rf;
-    if (action == 4) {
-        var check = confirm('Umfrage "' + name + '" wirklich löschen?');
-        if (check == true) {
-            sendRequest('AdminAction', params, '', 'reload');
-        }
-    } else {
-        sendRequest('AdminAction', params, '', 'reload');
-    }
-}
-
-/*
  * function to delete a result
  */
 function deleteResult(id, survey, rf) {
@@ -1097,10 +1079,7 @@ function deleteResult(id, survey, rf) {
     params.id = id;
     params.survey = survey;
     params.rf = rf;
-    var check = confirm('Ausgewählte Abgabe wirklich löschen?');
-    if (check == true) {
-        sendRequest('DeleteResult', params, '', 'reload');
-    }
+    sendRequest('DeleteResult', params, '', 'reload');
 }
 
 /*
@@ -1109,21 +1088,18 @@ function deleteResult(id, survey, rf) {
 function deleteAllResults(idArray, survey, rf) {
     paramsArray = new Array();
     elementIdArray = new Array();
-    var check = confirm('Alle Abgabe wirklich löschen?');
-    if (check == true) {
-      for (var i = 0; i < idArray.length; i++) {
-        params = {};
-        params.survey = survey;
-        params.rf = rf;
-        params.id = idArray[i];
-        if(i == idArray.length-1){
-          params.reload = true;
-        }
-        paramsArray.push(params);
-        elementIdArray.push(rf);
+    for (var i = 0; i < idArray.length; i++) {
+      params = {};
+      params.survey = survey;
+      params.rf = rf;
+      params.id = idArray[i];
+      if(i == idArray.length-1){
+        params.reload = true;
       }
-      sendMultiRequest('DeleteResult', paramsArray, elementIdArray, 'inform', null, null, 'questionnaire', 'Lösche Abgaben ...', 0, paramsArray.length);
+      paramsArray.push(params);
+      elementIdArray.push(rf);
     }
+    sendMultiRequest('DeleteResult', paramsArray, elementIdArray, 'inform', null, null, 'questionnaire', 'Lösche Abgaben ...', 0, paramsArray.length);
 }
 
 /*

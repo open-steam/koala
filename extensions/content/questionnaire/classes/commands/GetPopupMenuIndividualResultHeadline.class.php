@@ -2,7 +2,7 @@
 
 namespace Questionnaire\Commands;
 
-class GetPopupMenuIndividualResultHeadline extends \AbstractCommand implements \IAjaxCommand { 
+class GetPopupMenuIndividualResultHeadline extends \AbstractCommand implements \IAjaxCommand {
 
     private $params;
     private $id;
@@ -33,7 +33,6 @@ class GetPopupMenuIndividualResultHeadline extends \AbstractCommand implements \
         $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $user = \lms_steam::get_current_user();
         $creator = $questionnaire->get_creator();
-        $questionnaireContainer = $questionnaire->get_environment();
     		$results = $result_container->get_inventory();
         $resultIds = array();
         $counter = 0;
@@ -44,10 +43,31 @@ class GetPopupMenuIndividualResultHeadline extends \AbstractCommand implements \
           }
         }
 
-        $items[] = array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten", "command" => "EditResult", "namespace" => "questionnaire", "params" => "{'id':'{$this->id}'}", "type" => "popup");
+        // check if current user is admin
+        $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
+        $admin = 0;
+        $creatorOrRoot = 0;
+        if($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)){
+          $creatorOrRoot = 1;
+        }
+        else{
+          if(in_array($user, $staff)){
+            $admin = 1;
+          }
+          else{
+            foreach ($staff as $object) {
+              if ($object instanceof \steam_group && $object->is_member($user)) {
+                $admin = 1;
+                break;
+              }
+            }
+          }
+        }
 
-        if(($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) && $counter > 0){
-          $items[] = array("raw" => "<a href=\"#\" onclick=\"deleteAllResults(" . json_encode($resultIds) . "," . $this->surveyId . "," . $questionnaireContainer->get_id() . ")\"><div><svg><use xlink:href='{$trashIcon}#trash'/></svg> Alle Abgaben löschen</div></a>");
+        $items[] = array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten", "command" => "EditResult", "namespace" => "questionnaire", "params" => "{'id':'{$this->surveyId}'}", "type" => "popup");
+
+        if(($creatorOrRoot || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)) && $counter > 0){
+          $items[] = array("raw" => "<a href=\"#\" onclick=\"if(confirm('Alle Abgaben werden unwiderruflich gelöscht. Wollen Sie wirklich fortfahren?')){deleteAllResults(" . json_encode($resultIds) . "," . $this->surveyId . "," . $this->id . ")}\"><div><svg><use xlink:href='{$trashIcon}#trash'/></svg> Alle Abgaben löschen</div></a>");
           $offset = 150;
         }
         else{

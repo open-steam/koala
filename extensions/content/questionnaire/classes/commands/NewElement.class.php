@@ -54,7 +54,6 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           array("JumpLabel", "Sprungmarke")
         );
 
-        //$html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px; margin-top: 20px;\">";
         $html = "<h3>Fragen</h3>";
         foreach ($questionTypes as $key => $value){
           $html .= "<div style=\"clear:both;\" class=\"questionnaireNewElement\">";

@@ -52,7 +52,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
 			}
 			else{
 				foreach ($staff as $object) {
-					if ($object instanceof steam_group && $object->is_member($this->user)) {
+					if ($object instanceof \steam_group && $object->is_member($this->user)) {
 						$this->admin = 1;
 						break;
 					}

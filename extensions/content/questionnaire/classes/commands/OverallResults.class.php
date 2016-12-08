@@ -16,6 +16,14 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params[0]);
+
+		if(!($survey instanceof \steam_container)){
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			return $frameResponseObject;
+		}
+
 		$questionnaire = $survey->get_environment();
 		$result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
 		$survey_object = new \Questionnaire\Model\Survey($questionnaire);
@@ -38,7 +46,7 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 			}
 			else{
 				foreach ($staff as $object) {
-					if ($object instanceof steam_group && $object->is_member($user)) {
+					if ($object instanceof \steam_group && $object->is_member($user)) {
 						$admin = 1;
 						break;
 					}
@@ -48,18 +56,10 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 
 		if ($admin == 0) {
 			$rawWidget = new \Widgets\RawHtml();
-			$rawWidget->setHtml("<center>Die Bearbeitung dieses Fragebogens ist den Administratoren vorbehalten.</center>");
+			$rawWidget->setHtml("<center>Die Betrachtung dieser Seite ist den Administratoren vorbehalten.</center>");
 			$frameResponseObject->addWidget($rawWidget);
 			return $frameResponseObject;
 		}
-
-		// display actionbar
-		$actionbar = new \Widgets\Actionbar();
-		$actions = array(
-			//array("name" => "Übersicht", "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
-		);
-		$actionbar->setActions($actions);
-		$frameResponseObject->addWidget($actionbar);
 
 		// display tabbar
 		$tabBar = new \Widgets\TabBar();
@@ -68,7 +68,6 @@ class OverallResults extends \AbstractCommand implements \IFrameCommand {
 			array("name"=>"<svg style='height:16px; width:16px; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/group.svg#group'></use></svg> Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
 		));
 		$tabBar->setActiveTab(1);
-		//$frameResponseObject->addWidget($tabBar);
 
 		// display results
 		$content = $QuestionnaireExtension->loadTemplate("questionnaire_overallresults.template.html");

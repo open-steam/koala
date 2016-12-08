@@ -37,14 +37,20 @@ class GetPopupMenuIndividualResult extends \AbstractCommand implements \IAjaxCom
         $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $survey = $questionnaire->get_inventory()[0];
         $surveyId = $survey->get_id();
-
         $user = \lms_steam::get_current_user();
         $creator = $questionnaire->get_creator();
+
+        if($resultObject->get_creator()->get_id() == $user->get_id()){
+    			$ownResult = true;
+    		}
+    		else{
+    			$ownResult = false;
+    		}
 
         // check if current user is admin
         $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
         $admin = 0;
-        $creatorORoot = 0;
+        $creatorOrRoot = 0;
         if($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)){
           $creatorOrRoot = 1;
         }
@@ -54,7 +60,7 @@ class GetPopupMenuIndividualResult extends \AbstractCommand implements \IAjaxCom
           }
           else{
             foreach ($staff as $object) {
-              if ($object instanceof steam_group && $object->is_member($user)) {
+              if ($object instanceof \steam_group && $object->is_member($user)) {
                 $admin = 1;
                 break;
               }
@@ -63,9 +69,9 @@ class GetPopupMenuIndividualResult extends \AbstractCommand implements \IAjaxCom
         }
 
 				$items[] = array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "questionnaire/view/" . $surveyId . "/1/" . $this->resultId . "/1" . "/', '_self'); return false;\"><svg><use xlink:href='{$questionnaireIcon}#questionnaire'/></svg> Anzeigen</a>");
-        if ($resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0 || $creatorOrRoot || $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1 || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)) {
+        if ($creatorOrRoot || ($admin && $ownResult && $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)) {
           $items[] = array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "questionnaire/view/" . $surveyId . "/1/" . $this->resultId . "/', '_self'); return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>");
-					$items[] = array("raw" => "<a href=\"#\" onclick=\"deleteResult({$this->resultId}, {$surveyId}, {$this->id})\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>");
+					$items[] = array("raw" => "<a href=\"#\" onclick=\"if(confirm('Die Abgabe wird unwiderruflich gelöscht. Wollen Sie wirklich fortfahren?')){deleteResult({$this->resultId}, {$surveyId}, {$this->id})}\"><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</a>");
 				};
 
         $popupMenu = new \Widgets\PopupMenu();

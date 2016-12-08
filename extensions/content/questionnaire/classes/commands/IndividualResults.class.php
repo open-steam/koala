@@ -16,11 +16,26 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
 		$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params[0]);
-    if (!($survey instanceof \steam_object)) {
-      \ExtensionMaster::getInstance()->send404Error();
+    if(!($survey instanceof \steam_container)){
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			return $frameResponseObject;
     }
 		$questionnaire = $survey->get_environment();
+		if(!($questionnaire instanceof \steam_room)){
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			return $frameResponseObject;
+		}
 		$result_container = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
+		if(!($result_container instanceof \steam_container)){
+			$rawWidget = new \Widgets\RawHtml();
+			$rawWidget->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+			$frameResponseObject->addWidget($rawWidget);
+			return $frameResponseObject;
+		}
 		$resultNumber = $result_container->get_attribute("QUESTIONNAIRE_RESULTS");
 		$survey_object = new \Questionnaire\Model\Survey($questionnaire);
 		$QuestionnaireExtension = \Questionnaire::getInstance();
@@ -44,7 +59,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			}
 			else{
 				foreach ($staff as $object) {
-					if ($object instanceof steam_group && $object->is_member($user)) {
+					if ($object instanceof \steam_group && $object->is_member($user)) {
 						$admin = 1;
 						break;
 					}
@@ -59,15 +74,6 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			return $frameResponseObject;
 		}
 
-		// display actionbar
-		$actionBar = new \Widgets\ActionBar();
-		$actions = array(
-			//array("name" => "Export als Excel-Datei" , "link" => $QuestionnaireExtension->getExtensionUrl() . "export/" . $this->id . "/"),
-			//array("name" => "Übersicht" , "link" => $QuestionnaireExtension->getExtensionUrl() . "Index/" . $questionnaire->get_id() . "/")
-			);
-		$actionBar->setActions($actions);
-		$frameResponseObject->addWidget($actionBar);
-
 		// display tabbar
 		$tabBar = new \Widgets\TabBar();
 		$tabBar->setTabs(array(
@@ -75,7 +81,6 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 			array("name"=>"<svg style='height:16px; width:16px; position:relative; top:3px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/group.svg#group'></use></svg> Gesamtauswertung", "link"=>$this->getExtension()->getExtensionUrl() . "overallResults/" . $this->id . "/")
 		));
 		$tabBar->setActiveTab(0);
-		//$frameResponseObject->addWidget($tabBar);
 
 		$xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
 		$survey_object->parseXML($xml);
@@ -89,7 +94,6 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("QUESTIONNAIRE_DESC", '<p style="color:#AAAAAA; clear:both; margin-top:0px">' . $questionnaire->get_attribute("OBJ_DESC") . '</p>');
 
 		$content->setCurrentBlock("BLOCK_RESULTS");
-		//$content->setVariable("RESULTS_LABEL", "Individuelle Auswertung");
 		$content->setVariable("RESULTS_AMOUNT", "Anzahl Abgaben: " . $resultNumber);
 
 		// display questions in the first line
@@ -201,25 +205,6 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 				$popupMenu->setParams(array(array("key" => "resultId", "value" => $result->get_id())));
 
 				$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
-/*
-				$content->setVariable("ASSET_URL", $QuestionnaireExtension->getAssetUrl() . "icons");
-				$content->setVariable("VIEW_TITLE", "Details");
-				$content->setVariable("VIEW_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $this->id . "/1/" . $result->get_id() . "/1" . "/");
-				if ($questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1) {
-					$content->setVariable("EDIT_TITLE", "Bearbeiten");
-					$content->setVariable("EDIT_URL", $QuestionnaireExtension->getExtensionUrl() . "view/" . $this->id . "/1/" . $result->get_id() . "/");
-				} else {
-					$content->setVariable("DISPLAY_EDIT", "none");
-				}
-				$content->setVariable("DELETE_TITLE", "Löschen");
-*/
-
-				//bearbeiten und löschen braucht admin edit == 1
-
-				//<a href="{VIEW_URL}"><img style="cursor: hand;" src="{ASSET_URL}/preview.png" title="{VIEW_TITLE}" width="12px" height="12px"></a>
-				//<a href="{EDIT_URL}" style="display:{DISPLAY_EDIT}"><img style="cursor: hand;" src="{ASSET_URL}/edit.png" title="{EDIT_TITLE}" width="12px" height="12px"></a>
-				//<a href="#" onclick="deleteResult({RESULT_ID}, {RESULT_SURVEY}, {RESULT_RF})"><img style="cursor: hand; display:{DISPLAY_EDIT};" src="{ASSET_URL}/delete.png" title="{DELETE_TITLE}" width="12px" height="12px"></a>
-
 				$content->setVariable("RESULT_ID", $result->get_id());
 				$content->setVariable("RESULT_SURVEY", $survey->get_id());
 				$content->setVariable("RESULT_RF", $questionnaire->get_id());
@@ -233,7 +218,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		$popupMenuHeadline->setNamespace("Questionnaire");
 		$popupMenuHeadline->setData($questionnaire);
 		$popupMenuHeadline->setElementId("result-overlay");
-		$popupMenuHeadline->setParams(array(array("key" => "id", "value" => $this->id), array("key" => "survey", "value" => $survey->get_id())));
+		$popupMenuHeadline->setParams(array(array("key" => "id", "value" => $questionnaire->get_id()), array("key" => "survey", "value" => $this->id)));
 		$content->setVariable("POPUPMENUANKER_HEADLINE", $popupMenuHeadline->getHtml());
 
 		$content->parse("BLOCK_RESULTS");

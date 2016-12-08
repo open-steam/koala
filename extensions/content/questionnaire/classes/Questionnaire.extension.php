@@ -82,14 +82,16 @@ class Questionnaire extends AbstractExtension implements IObjectExtension, IIcon
 					$survey_container = $questionnaire->get_inventory()[0];
 					$surveyId = $survey_container->get_id();
 				}
-				else{ //view & result page
+				else if($object instanceof \steam_container){ //view & result page
 					$survey_container = $object;
 					$surveyId = $currentObjectID;
 					$questionnaire = $survey_container->get_environment();
 					$questionnaireId = $questionnaire->get_id();
 				}
+				else{
+					return $array;
+				}
 
-				$array = array();
 				$user = lms_steam::get_current_user();
 				$accessAdmin = $questionnaire->check_access(SANCTION_SANCTION);
 				$accessUser = $questionnaire->check_access(SANCTION_READ | SANCTION_WRITE);
