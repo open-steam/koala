@@ -66,7 +66,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $rowOpen = true;
                 }
                 $id = $pic->get_id();
-                $name = $pic->get_name();
+                $description = $pic->get_attribute("OBJ_DESC");
+                $title = (trim($description) == "")? $pic->get_name() : $pic->get_name() . " (".$description.")";
                 $fullscreen = PATH_URL . "download/document/" . $id;
                 $class = "";
 
@@ -81,7 +82,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 }
 
                 $this->content->setCurrentBlock("BLOCK_PICTURE");
-                $this->content->setVariable("TITLE", $name);
+                $this->content->setVariable("TITLE", $title);
                 $this->content->setVariable("FULLSCREENPATH", $fullscreen);
                 $this->content->setVariable("CLASS", $class);
                 $this->content->setVariable("PATH", $pictureURL);

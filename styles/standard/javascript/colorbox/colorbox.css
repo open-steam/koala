@@ -21,30 +21,32 @@
 */
 #cboxOverlay{background:#fff;}
 #colorbox{outline:0;}
-    #cboxContent{margin-top:32px; overflow:visible;}
-        .cboxIframe{background:#fff;}
-        #cboxError{padding:50px; border:1px solid #ccc;}
-        #cboxLoadedContent{padding:1px;}
-        #cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
-        #cboxLoadingOverlay{background:transparent;}
-        #cboxTitle{position:absolute; top:-25px; left:10px; color:#000;overflow: hidden;max-width:800px;max-height:22px;font-weight:bold;font-size:18px;}
-        #cboxCurrent{position:absolute; top:-22px; right:205px; text-indent:-9999px;}
+#cboxContent{margin-top:32px; overflow:visible;}
+.cboxIframe{background:#fff;}
+#cboxError{padding:50px; border:1px solid #ccc;}
+#cboxLoadedContent{padding:1px;}
+#cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
+#cboxLoadingOverlay{background:transparent;}
+#cboxTitle{position:absolute; top:-25px; left:10px; color:#000;overflow: hidden;max-width:800px;font-weight:bold;font-size:18px;}
+#cboxCurrent{position:absolute; top:-22px; right:205px; text-indent:-9999px;}
 
-        /* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
-        #cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; text-indent:-9999px; width:20px; height:20px; position:absolute; top:-20px; background:url(images/controls.png) no-repeat 0 0;}
-        /* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
-        #cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
+/* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+#cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {border:0; padding:0; margin:0; overflow:visible; text-indent:-9999px; width:20px; height:20px; position:absolute; top:-20px; background:url(images/controls.png) no-repeat 0 0;}
+/* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+#cboxPrevious:active, #cboxNext:active, #cboxSlideshow:active, #cboxClose:active {outline:0;}
 
-        #cboxPrevious{background-position:0px 0px; right:44px;}
-        #cboxPrevious:hover{background-position:0px -25px;}
-        #cboxNext{background-position:-25px 0px; right:22px;}
-        #cboxNext:hover{background-position:-25px -25px;}
-        #cboxClose{background-position:-50px 0px; right:0;}
-        #cboxClose:hover{background-position:-50px -25px;}
-        .cboxSlideshow_on #cboxPrevious, .cboxSlideshow_off #cboxPrevious{right:66px;}
-        .cboxSlideshow_off #cboxSlideshow{background-position:-75px 0px; right:44px;}
-        .cboxSlideshow_off #cboxSlideshow:hover{background-position:-75px -25px;}
-        .cboxSlideshow_on #cboxSlideshow{background-position:-100px 0px; right:44px;}
-        .cboxSlideshow_on #cboxSlideshow:hover{background-position:-100px -25px;}
-        /* Costum settings */
-        #cboxFullscreen{position:absolute;right:88px;top:-17px;width:16px;height:16px;overflow:visible;}
+#cboxPrevious{background-position:0px 0px; right:44px;}
+#cboxPrevious:hover{background-position:0px -25px;}
+#cboxNext{background-position:-25px 0px; right:22px;}
+#cboxNext:hover{background-position:-25px -25px;}
+#cboxClose{background-position:-50px 0px; right:0;}
+#cboxClose:hover{background-position:-50px -25px;}
+.cboxSlideshow_on #cboxPrevious, .cboxSlideshow_off #cboxPrevious{right:66px;}
+.cboxSlideshow_off #cboxSlideshow{background-position:-75px 0px; right:44px;}
+.cboxSlideshow_off #cboxSlideshow:hover{background-position:-75px -25px;}
+.cboxSlideshow_on #cboxSlideshow{background-position:-100px 0px; right:44px;}
+.cboxSlideshow_on #cboxSlideshow:hover{background-position:-100px -25px;}
+/* Costum settings */
+#cboxFullscreen{position:absolute;right:88px;top:-17px;width:16px;height:16px;overflow:visible;}
+
+.colorbox-longtitle {font-weight:bold; position:absolute;top: -30px;}
