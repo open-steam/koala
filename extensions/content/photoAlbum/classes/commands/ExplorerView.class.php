@@ -93,6 +93,7 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("explorerWrapper");
         $loader->setType("updater");
+        $loader->setNamespace("Photoalbum");
 
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml("<div id=\"explorerContent\">" . $breadcrumb->getHtml() . $environment->getHtml() . $loader->getHtml() . "</div>");

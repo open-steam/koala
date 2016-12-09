@@ -1,19 +1,26 @@
 @CHARSET "UTF-8";
-.listviewer-item-unhover .popupmenuanker {
-    display: none;
+.listviewer-item .popupmenuanker {
+  display: none;
 }
 
-.listviewer-item-hover .popupmenuanker {
-    display: block;
-    float: none;
+.listviewer-item-unhovered .popupmenuanker {
+  display: none;
 }
 
-.listviewer-item-unhover .referenceWrapper {
-    display: none;
+.listviewer-item-hovered .popupmenuanker {
+  display: block;
 }
 
-.listviewer-item-hover .referenceWrapper {
-    display: block;
+.listviewer-item-selected .popupmenuanker {
+  display: block;
+}
+
+.listviewer-item .referenceWrapper {
+  color: #3a6e9f;
+}
+
+.listviewer-item-selected .referenceWrapper {
+  color: white;
 }
 
 .popupmenuloading {
