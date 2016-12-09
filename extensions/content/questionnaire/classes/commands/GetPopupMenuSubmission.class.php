@@ -45,7 +45,7 @@ class GetPopupMenuSubmission extends \AbstractCommand implements \IAjaxCommand {
           $root = 1;
         }
         else if($creator->get_id() == $user->get_id()){
-          $admin = 1;
+          $isCreator = 1;
         }
         else{
           if(in_array($user, $staff)){
@@ -62,7 +62,7 @@ class GetPopupMenuSubmission extends \AbstractCommand implements \IAjaxCommand {
         }
 
         $items[] = array("raw" => "<a href='" . $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/" . $this->result . "/1" . "/'><div><svg><use xlink:href='" . $viewIcon . "#questionnaire'/></svg> Anzeigen</div></a>");
-        if($root || ($active && $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0) || ($active && $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)){
+        if($root || $isCreator || ($active && $resultObject->get_attribute("QUESTIONNAIRE_RELEASED") == 0) || ($active && $questionnaire->get_attribute("QUESTIONNAIRE_OWN_EDIT") == 1) || ($admin && $questionnaire->get_attribute("QUESTIONNAIRE_ADMIN_EDIT") == 1)){
           $items[] = array("raw" => "<a href='" . $QuestionnaireExtension->getExtensionUrl() . "view/" . $survey->get_id() . "/1/" . $this->result . "/'><div><svg><use xlink:href='" . $editIcon . "#edit'/></svg> Bearbeiten</div></a>");
           $items[] = array("raw" => "<a href=\"#\" onclick=\"if(confirm('Die Abgabe wird unwiderruflich gelöscht. Wollen Sie wirklich fortfahren?')){deleteResult(" . $this->result . "," . $survey->get_id() . "," . $questionnaire->get_id() . ")}\"><div><svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen</div></a>");
         }

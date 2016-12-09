@@ -19,8 +19,39 @@ class View extends \AbstractCommand implements \IFrameCommand {
   }
 
   public function frameResponse(\FrameResponseObject $frameResponseObject) {
-      $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params[0]);
+
+      if($this->id == ""){
+        $errorHtml = new \Widgets\RawHtml();
+        $errorHtml->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+        $frameResponseObject->addWidget($errorHtml);
+        return $frameResponseObject;
+      }
+
+      $survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+
+      if(!($survey instanceof \steam_container)){
+        $rawWidget = new \Widgets\RawHtml();
+        $rawWidget->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+        $frameResponseObject->addWidget($rawWidget);
+        return $frameResponseObject;
+      }
+
       $questionnaire = $survey->get_environment();
+
+      if(!($questionnaire instanceof \steam_room)){
+        $rawWidget = new \Widgets\RawHtml();
+        $rawWidget->setHtml("<center>Der angeforderte Fragebogen existiert nicht.</center>");
+        $frameResponseObject->addWidget($rawWidget);
+        return $frameResponseObject;
+      }
+
+      if (!($questionnaire->check_access_read())) {
+          $errorHtml = new \Widgets\RawHtml();
+          $errorHtml->setHtml("<center>Der Fragebogen kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.</center>");
+          $frameResponseObject->addWidget($errorHtml);
+          return $frameResponseObject;
+      }
+
       $QuestionnaireExtension = \Questionnaire::getInstance();
       $survey_object = new \Questionnaire\Model\Survey($questionnaire);
       $xml = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/survey.xml");
@@ -32,13 +63,6 @@ class View extends \AbstractCommand implements \IFrameCommand {
       $times = $questionnaire->get_attribute("QUESTIONNAIRE_PARTICIPATION_TIMES"); //0 multiple, else not
       $resultContainer = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $survey->get_path() . "/results");
       $participants = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
-
-      if (!($questionnaire->check_access_read())) {
-  				$errorHtml = new \Widgets\RawHtml();
-  				$errorHtml->setHtml("Der Fragebogen kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
-  				$frameResponseObject->addWidget($errorHtml);
-  				return $frameResponseObject;
-  		}
 
       $creator = $questionnaire->get_creator();
       //check if current user is admin
