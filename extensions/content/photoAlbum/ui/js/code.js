@@ -164,7 +164,7 @@ function fullscreen() {
       document.webkitCancelFullScreen();
     }
   }
-  setTimeout(function(){jQuery.colorbox.reload()},1000);
+  setTimeout(function(){$('a.slideshow').colorbox()},1000);
 }
 
 function initialize() {
@@ -214,3 +214,11 @@ function initialize() {
     }
   );
 }
+
+$(document).bind('cbox_complete', function(){
+  if($('#cboxTitle').height() > 22){ 
+    $("#cboxTitle").hide(); 
+    $("<div class='colorbox-longtitle'>"+$("#cboxTitle").html()+"</div>").css({color: $("#cboxTitle").css('color')}).insertBefore(".cboxPhoto"); 
+    $.fn.colorbox.resize(); 
+  }
+});
