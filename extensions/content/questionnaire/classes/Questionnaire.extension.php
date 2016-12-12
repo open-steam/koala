@@ -20,7 +20,7 @@ class Questionnaire extends AbstractExtension implements IObjectExtension, IIcon
 	}
 
 	public function getObjectReadableName() {
-		return "Fragebogen neu";
+		return "Fragebogen";
 	}
 
 	public function getObjectReadableDescription() {
