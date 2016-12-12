@@ -79,7 +79,8 @@ class Questionnaire extends AbstractExtension implements IObjectExtension, IIcon
 				if($object instanceof \steam_room){ //edit page
 					$questionnaire = $object;
 					$questionnaireId = $currentObjectID;
-					$survey_container = $questionnaire->get_inventory()[0];
+					$surveys = $questionnaire->get_inventory();
+					$survey_container = $surveys[0];
 					$surveyId = $survey_container->get_id();
 				}
 				else if($object instanceof \steam_container){ //view & result page

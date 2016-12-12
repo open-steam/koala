@@ -35,7 +35,8 @@ class GetPopupMenuIndividualResult extends \AbstractCommand implements \IAjaxCom
         $questionnaireIcon = $explorerUrl . "icons/mimetype/svg/questionnaire.svg";
         $resultObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->resultId);
         $questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-        $survey = $questionnaire->get_inventory()[0];
+        $surveys = $questionnaire->get_inventory();
+        $survey = $surveys[0];
         $surveyId = $survey->get_id();
         $user = \lms_steam::get_current_user();
         $creator = $questionnaire->get_creator();
