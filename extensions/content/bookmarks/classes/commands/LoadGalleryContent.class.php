@@ -180,6 +180,8 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
                 " . $linkIcon . "
 
+                " . $popupMenuHtml . "
+
                 " . $urlHtml . "
 
                 <svg class='galleryPicture'><use " . $transform . " xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>
@@ -187,8 +189,6 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
                 </a>
 
                 <p style='display:none'>" . $tagList . "</p>
-
-                " . $popupMenuHtml . "
 
                 " . $urlNameHtml . "
 

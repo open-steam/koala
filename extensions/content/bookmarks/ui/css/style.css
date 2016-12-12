@@ -94,6 +94,7 @@ div[id$="_0"].listviewer-item-cell {
     vertical-align: middle;
     text-align: center;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .galleryPicture.white {
@@ -111,16 +112,15 @@ div[id$="_0"].listviewer-item-cell {
 .galleryEntry .galleryReferenceWrapper {
     width: 16px;
     height: 16px;
-    float: right;
-    margin-top: -10px;
-    margin-right: -7px;
+    position: absolute;
+    right: 25px;
+    top: 5px;
 }
 
 .galleryEntry .galleryReference {
     width:16px;
     height:16px;
     color:#3a6e9f;
-    display: none;
 }
 
 .galleryEntry.selected .galleryReference {
@@ -140,11 +140,10 @@ div[id$="_0"].listviewer-item-cell {
 }
 
 .galleryEntry .popupmenuanker {
+    position: absolute;
+    right: 5px;
+    top: 5px;
     display: none;
-    margin-right: -5px;
-    margin-top: 5px;
-    position:absolute;
-    right:9px;
 }
 
 .galleryEntry.selected .popupmenuanker {
