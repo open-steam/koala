@@ -122,12 +122,14 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("QUESTIONNAIRE_WARNING", "Es liegen bereits Abgaben vor. Eine Bearbeitung des Fragebogens zu diesem Zeitpunkt kann dazu führen, dass diese Abgaben und das Endresultat ungültig werden.");
       }
 
-      if($times == 0){
-        $content->setVariable("QUESTIONNAIRE_MULTIPLE", "erlaubt");
-      }
-      else{
-        $content->setVariable("QUESTIONNAIRE_MULTIPLE", "nicht erlaubt");
-      }
+      $multipleFill = new \Widgets\RadioButton();
+      $multipleFill->setData($questionnaire);
+      $multipleFill->setType("horizontal");
+      $multipleFill->setAutosave(true);
+      $multipleFill->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_PARTICIPATION_TIMES"));
+      $multipleFill->setOptions(array(array("name" => "erlaubt", "value" => 0), array("name" => "nicht erlaubt", "value" => 1)));
+
+      $content->setVariable("QUESTIONNAIRE_MULTIPLE", $multipleFill->getHtml());
 
       $participated = $resultContainer->get_attribute("QUESTIONNAIRE_PARTICIPANTS");
       $ownSubmissions = "";

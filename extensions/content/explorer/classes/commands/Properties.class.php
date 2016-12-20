@@ -533,28 +533,15 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
         //questionnaire
         if ($type == "questionnaire"){
-          $multipleFill = new \Widgets\RadioButton();
-          $multipleFill->setLabel("Mehrfach ausfüllbar:");
-          $multipleFill->setData($object);
-          $multipleFill->setType("horizontal");
-          $multipleFill->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_PARTICIPATION_TIMES"));
-          $multipleFill->setOptions(array(array("name" => "Ja", "value" => 0), array("name" => "Nein", "value" => 1)));
-
           //Extra case because also normal users can write in questionnaires
           $sanctionAll = $object->check_access(SANCTION_SANCTION);
           if(!$sanctionAll){
-              $multipleFill->setReadOnly(true);
               $textAreaDescription->setReadOnly(true);
               $checkboxHiddenObject->setReadonly(true);
               $keywordArea->setReadOnly(true);
               $dataNameInput->setReadOnly(true);
           }
-
-          $dialog->addWidget($multipleFill);
           $dialog->addWidget($textAreaDescription);
-
-          //$separator = new \Widgets\RawHtml();
-          //$separator->setHtml("<br style=\"clear:both\"/>");
         }
 
         //gallery
