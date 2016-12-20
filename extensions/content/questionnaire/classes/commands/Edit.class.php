@@ -88,13 +88,30 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
       $content->setVariable("QUESTIONNAIRE_DESC", '<p style="color:#AAAAAA; clear:both; margin-top:0px">' . $questionnaire->get_attribute("OBJ_DESC") . '</p>');
 
       if($active){
-        $content->setVariable("QUESTIONNAIRE_STATUS", "aktiv (Ende: " . $questionnaire->get_attribute("QUESTIONNAIRE_END") . " Uhr)");
+        $content->setVariable("QUESTIONNAIRE_STATUS", "aktiv");
         $content->setVariable("COLOR", "-green");
       }
       else{
         $content->setVariable("QUESTIONNAIRE_STATUS", "nicht aktiv");
         $content->setVariable("COLOR", "-red");
       }
+
+      $startDate = new \Widgets\DatePicker();
+      $startDate->setData($questionnaire);
+      $startDate->setDatePicker(true);
+      $startDate->setTimePicker(true);
+      $startDate->setAutosave(true);
+      $startDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_START"));
+
+      $endDate = new \Widgets\DatePicker();
+      $endDate->setData($questionnaire);
+      $endDate->setDatePicker(true);
+      $endDate->setTimePicker(true);
+      $endDate->setAutosave(true);
+      $endDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_END"));
+
+      $content->setVariable("QUESTIONNAIRE_START", $startDate->getHtml());
+      $content->setVariable("QUESTIONNAIRE_END", $endDate->getHtml());
 
       $content->setVariable("QUESTIONNAIRE_NUMBER_QUESTIONS", $survey->get_attribute("QUESTIONNAIRE_QUESTIONS"));
       $content->setVariable("QUESTIONNAIRE_NUMBER_SUBMISSIONS", $resultContainer->get_attribute("QUESTIONNAIRE_RESULTS"));

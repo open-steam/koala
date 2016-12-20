@@ -540,26 +540,10 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           $multipleFill->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_PARTICIPATION_TIMES"));
           $multipleFill->setOptions(array(array("name" => "Ja", "value" => 0), array("name" => "Nein", "value" => 1)));
 
-          $startDate = new \Widgets\DatePicker();
-          $startDate->setLabel("Start:");
-          $startDate->setData($object);
-          $startDate->setDatePicker(true);
-      		$startDate->setTimePicker(true);
-          $startDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_START"));
-
-          $endDate = new \Widgets\DatePicker();
-          $endDate->setLabel("Ende:");
-          $endDate->setData($object);
-          $endDate->setDatePicker(true);
-      		$endDate->setTimePicker(true);
-          $endDate->setContentProvider(\Widgets\DataProvider::attributeProvider("QUESTIONNAIRE_END"));
-
           //Extra case because also normal users can write in questionnaires
           $sanctionAll = $object->check_access(SANCTION_SANCTION);
           if(!$sanctionAll){
               $multipleFill->setReadOnly(true);
-              $startDate->setReadOnly(true);
-              $endDate->setReadOnly(true);
               $textAreaDescription->setReadOnly(true);
               $checkboxHiddenObject->setReadonly(true);
               $keywordArea->setReadOnly(true);
@@ -567,8 +551,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           }
 
           $dialog->addWidget($multipleFill);
-          $dialog->addWidget($startDate);
-          $dialog->addWidget($endDate);
           $dialog->addWidget($textAreaDescription);
 
           //$separator = new \Widgets\RawHtml();

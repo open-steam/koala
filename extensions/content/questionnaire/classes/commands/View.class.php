@@ -481,13 +481,33 @@ class View extends \AbstractCommand implements \IFrameCommand {
       		$content->setVariable("QUESTIONNAIRE_DESC", '<p style="color:#AAAAAA; clear:both; margin-top:0px">' . $questionnaire->get_attribute("OBJ_DESC") . '</p>');
 
           if($active){
-            $content->setVariable("QUESTIONNAIRE_STATUS", "aktiv (Ende: " . $questionnaire->get_attribute("QUESTIONNAIRE_END") . " Uhr)");
+            $content->setVariable("QUESTIONNAIRE_STATUS", "aktiv");
             $content->setVariable("COLOR", "-green");
           }
           else{
             $content->setVariable("QUESTIONNAIRE_STATUS", "nicht aktiv");
             $content->setVariable("COLOR", "-red");
           }
+
+          $startTime = $questionnaire->get_attribute("QUESTIONNAIRE_START");
+          $endTime = $questionnaire->get_attribute("QUESTIONNAIRE_END");
+
+          if($startTime != ""){
+            $startTime = $startTime . " Uhr";
+          }
+          else{
+            $startTime = "-";
+          }
+
+          if($endTime != ""){
+            $endTime = $endTime . " Uhr";
+          }
+          else{
+            $endTime = "-";
+          }
+
+          $content->setVariable("QUESTIONNAIRE_START", $startTime);
+          $content->setVariable("QUESTIONNAIRE_END", $endTime);
 
           $content->setVariable("QUESTIONNAIRE_NUMBER_QUESTIONS", $survey->get_attribute("QUESTIONNAIRE_QUESTIONS"));
 
