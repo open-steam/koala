@@ -195,13 +195,19 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
                     array("name" => "<svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/empty_clipboard.svg#empty_clipboard'/></svg> Zwischenablage leeren", "onclick" => "event.stopPropagation();sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');")));
           }
           else{
-            $array[] = array("name" => "<div title='Zwischenablage leeren'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/empty_clipboard.svg#empty_clipboard'/></svg></div>", "onclick"=>"sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');return false;");
+            $array[] = array("name" => "<div id=\"clipboardIconbarWrapper\">" . $clipboardModel->getIconbarHtml() . "</div>",
+                "menu" => array(
+                    array("name" => "<svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/empty_clipboard.svg#empty_clipboard'/></svg> Zwischenablage leeren", "onclick" => "event.stopPropagation();sendRequest('EmptyClipboard', {}, '', 'popup', null, null, 'explorer');")));
           }
         } else {
           if($path != "/clipboard/"){
             $array[] = array("name" => "<div id=\"clipboardIconbarWrapper\">" . $clipboardModel->getIconbarHtml() . "</div>",
                 "menu" => array(
                     array("name" => "<svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/clipboard.svg#clipboard'/></svg> Zwischenablage öffnen", "link" => "/clipboard/")));
+          } else {
+              $array[] = array("name" => "<div id=\"clipboardIconbarWrapper\">" . $clipboardModel->getIconbarHtml() . "</div>",
+                "menu" => array(
+                    array("name" => "Die Zwischenablage ist leer")));
           }
         }
 
@@ -213,13 +219,20 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
                     array("name" => "<svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/empty_trashbin.svg#empty_trashbin'/></svg> Papierkorb leeren", "onclick" => "event.stopPropagation();sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');")));
           }
           else{
-            $array[] = array("name" => "<div title='Papierkorb leeren'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/empty_trashbin.svg#empty_trashbin'/></svg></div>", "onclick"=>"sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div id=\"trashbinIconbarWrapper\">" . $trashbinModel->getIconbarHtml() . "</div>",
+                "menu" => array(
+                    array("name" => "<svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/empty_trashbin.svg#empty_trashbin'/></svg> Papierkorb leeren", "onclick" => "event.stopPropagation();sendRequest('EmptyTrashbin', {}, '', 'popup', null, null, 'explorer');")));
+            
           }
         } else {
           if($path != "/trashbin/"){
             $array[] = array("name" => "<div id=\"trashbinIconbarWrapper\">" . $trashbinModel->getIconbarHtml() . "</div>",
                 "menu" => array(
                     array("name" => "<svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/trash.svg#trash'/></svg> Papierkorb öffnen", "link" => "/trashbin/")));
+          } else {
+              $array[] = array("name" => "<div id=\"trashbinIconbarWrapper\">" . $trashbinModel->getIconbarHtml() . "</div>",
+                "menu" => array(
+                    array("name" => "Der Papierkorb ist leer")));
           }
         }
         return $array;

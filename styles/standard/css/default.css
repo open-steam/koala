@@ -223,20 +223,13 @@
 		border-bottom-left-radius: 3px;
 	}
 
-	#trashbinIconbarWrapper {
+	#trashbinIconbarWrapper, 
+        #clipboardIconbarWrapper {
 		height: 19px;
 	}
 
-	#trashbinIconbarWrapper img{
-		margin-right: 2px;
-		float: left;
-	}
-
-	#clipboardIconbarWrapper {
-		height: 19px;
-	}
-
-	#clipboardIconbarWrapper img{
+	#trashbinIconbarWrapper  img,
+        #clipboardIconbarWrapper img {
 		margin-right: 2px;
 		float: left;
 	}
