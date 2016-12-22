@@ -251,7 +251,6 @@ class qqFileUploader {
                     $container->sanction_meta(SANCTION_ALL, \steam_factory::get_object($this->steam->get_id(), $id));
                 }
             }
-
         }
 
         if (!$replaceOldFile) {
@@ -262,7 +261,7 @@ class qqFileUploader {
         }
 
         //if we cannot have two files with the same name, generally rename each uploaded file with a date string at the end
-        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && API_DOUBLE_FILENAME_NOT_ALLOWED){
+        if (defined("API_DOUBLE_FILENAME_NOT_ALLOWED") && API_DOUBLE_FILENAME_NOT_ALLOWED) {
             $filename.= date(" Y-m-d H-i-s", time());
         }
 
@@ -287,13 +286,12 @@ class qqFileUploader {
 
             $steam_document->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
             unlink($uploadDirectory . $filename . '.' . $ext);
-            return array('success' => true);
+            return array('success' => true, "steamId" => $steam_document->get_id());
         } else {
             return array('error' => 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
         }
     }
-
 
     /**
      * Returns array('success'=>true) or array('error'=>'error message')
@@ -318,7 +316,6 @@ class qqFileUploader {
 
         $pathinfo = pathinfo($this->file->getName());
         $filename = $pathinfo['filename'];
-        //$filename = md5(uniqid());
         $ext = $pathinfo['extension'];
 
 
@@ -330,20 +327,14 @@ class qqFileUploader {
         //create empty steam_document and check write access
         $env = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
 
-        $obj = $env->get_environment();
-
         $currentUser = \lms_steam::get_current_user();
 
         //check if the user folder already exists
-        $objPath = $obj->get_attribute("OBJ_PATH");
         $username = $currentUser->get_full_name();
-        $usernameShort = $currentUser->get_name();
 
-        $filePath = $objPath . "/postbox_container";
-        $file = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $filePath);
 
         $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $username . "_" . $filename . "." . $ext, "", "", $env);
-  
+
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)) {
             if (defined("ENABLE_AUTOMATIC_IMAGE_SCALING") && ENABLE_AUTOMATIC_IMAGE_SCALING) {
                 try {
@@ -363,12 +354,13 @@ class qqFileUploader {
 
             $steam_document->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
             unlink($uploadDirectory . $filename . '.' . $ext);
-            return array('success' => true);
+            return array('success' => true, "steamId" => $steam_document->get_id());
         } else {
             return array('error' => 'Could not save uploaded file.' .
                 'The upload was cancelled, or server error encountered');
         }
-      }
+    }
+
 }
 
 ?>
