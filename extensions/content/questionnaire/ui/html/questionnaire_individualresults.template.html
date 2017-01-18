@@ -20,11 +20,25 @@
 									{TIPSY_HTML}
 								</th>
 								<!-- END BLOCK_QUESTION -->
-								<th style="display: {DISPLAY_PARTICIPANTS}; font-weight:bold;">
-									{PARTICIPANT_LABEL}
+								<th title="{PARTICIPANT_LABEL}" style="display: {DISPLAY_PARTICIPANTS}; font-weight:bold; padding-right: 15px;">
+									<nobr>
+										<svg style="height:16px; width:16px; float:left; padding-right:5px;">
+											<use xlink:href="{ASSET_URL}/user.svg#user"/></use>
+										</svg>
+										<div style="overflow:hidden; padding-top:2px;">
+											{PARTICIPANT_LABEL}
+										</div>
+									</nobr>
 								</th>
-								<th style="display: {DISPLAY_TIME}; padding-right:20px; font-weight:bold;">
-									{TIME_LABEL}
+								<th title="{TIME_LABEL}" style="display: {DISPLAY_TIME}; padding-right:15px; font-weight:bold;">
+									<nobr>
+										<svg style="height:16px; width:16px; float:left; padding-right:5px;">
+											<use xlink:href="{ASSET_URL}/clock.svg#clock"/></use>
+										</svg>
+										<div style="overflow:hidden; padding-top:2px;">
+											{TIME_LABEL}
+										</div>
+									</nobr>
 								</th>
 								<th>
 									{POPUPMENUANKER_HEADLINE}

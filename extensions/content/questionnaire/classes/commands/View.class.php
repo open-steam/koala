@@ -398,7 +398,12 @@ class View extends \AbstractCommand implements \IFrameCommand {
           }
           // if there are errors show error msg, else save answers
           if (!empty($errors)) {
-              $problemdescription = "Sie müssen noch folgende Pflichtfragen beantworten: ";
+              if(sizeof($errors) == 1){
+                $problemdescription = "Sie müssen noch folgende Pflichtfrage beantworten: ";
+              }
+              else{
+                $problemdescription = "Sie müssen noch folgende Pflichtfragen beantworten: ";
+              }
               foreach ($errors as $error) {
                   $problemdescription = $problemdescription . ($error + 1) . ", ";
               }
@@ -544,7 +549,12 @@ class View extends \AbstractCommand implements \IFrameCommand {
       							$questionsAnswered++;
       						}
       					}
-                $ownSubmissions .= $count . ": Aktiv (" . $questionsAnswered . " von " . $questionCount . " Fragen beantwortet)";
+                if($questionCount == 1){
+                  $ownSubmissions .= $count . ": Aktiv (" . $questionsAnswered . " von " . $questionCount . " Frage beantwortet)";
+                }
+                else{
+                  $ownSubmissions .= $count . ": Aktiv (" . $questionsAnswered . " von " . $questionCount . " Fragen beantwortet)";
+                }
               }
 
               $popupMenu = new \Widgets\PopupMenu();

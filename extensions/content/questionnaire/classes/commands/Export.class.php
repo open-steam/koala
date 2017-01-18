@@ -109,7 +109,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
       $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "Ausfüllen");
       //$this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('A9', "Frage");
 
-      $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('B1', $this->survey->get_attribute("OBJ_DESC"));
+      $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('B1', $this->questionnaire->get_attribute("OBJ_NAME"));
       $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('B2', $this->questionnaire->get_attribute("OBJ_DESC"));
       $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('B3', $this->survey->get_id());
       $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('B4', date("d.m.Y H:i:s", time()));
@@ -155,6 +155,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                   //merge the cells of the title and question
                   $this->mergeCellsInRow($column, $row, $optionsCount);
                   $this->mergeCellsInRow($column, $row+1, $optionsCount);
+
                   $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, "Frage ".$questionCount . " (Multiple Choice) ");
                   $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row+1, $question->getQuestionText());
                   foreach ($options as $option){
@@ -162,18 +163,22 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                       $column++;
                   }
               } else if ($question instanceof \Questionnaire\Model\MatrixQuestion) {
-                  $options = $question->getColumns();
+									//the Gradingquestion extends the Matrixquestion with given columnnames
+									if($question instanceof \Questionnaire\Model\GradingQuestion){
+										$label = "Benotung";
+										$options = $question->getRows();
+									}
+									else{
+										$label = "Matrix";
+										$options = $question->getColumns();
+									}
+
                   $optionsCount = count($options)-1;
 
                   //merge the cells of the title and question
                   $this->mergeCellsInRow($column, $row, $optionsCount);
                   $this->mergeCellsInRow($column, $row+1, $optionsCount);
 
-                  //the Gradingquestion extends the Matrixquestion with given columnnames
-                  $label = "Matrix";
-                  if ($question instanceof \Questionnaire\Model\GradingQuestion){
-                      $label = "Benotung";
-                  }
                   $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, "Frage ".$questionCount . " (".$label.")");
                   $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row+1, $question->getQuestionText());
 
@@ -190,7 +195,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                   $this->mergeCellsInRow($column, $row, $optionsCount);
                   $this->mergeCellsInRow($column, $row+1, $optionsCount);
 
-                  $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, "Frage ".$questionCount . " (Tendenz)");
+                  $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, "Frage " . $questionCount . " (Tendenz)");
                   $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row+1, $question->getQuestionText());
 
                   foreach ($question->getOptions() as $questionRow) {
@@ -212,10 +217,10 @@ class Export extends \AbstractCommand implements \IFrameCommand {
   }
 
   private function buildAnswerRows($row){
-      $resultCount = 1;
+      $resultsCount = 1;
       //go into the directory and get all results
-      $results = $this->result_container->get_inventory();
-			foreach ($results as $result) {
+      $results = $this->result_container->get_inventory(); //all results objects of all users
+			foreach ($results as $result) { //result object of one user
       		$column = 1;
           if ($result instanceof \steam_object && $result->get_attribute("QUESTIONNAIRE_RELEASED") != 0) {
 
@@ -225,37 +230,33 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                   $this->objPHPExcel->getActiveSheet()->getStyle($row)->getFill()->applyFromArray($fill);
               }
 
-              $resultArray = $this->survey_object->getIndividualResult($result);
+              $resultArray = $this->survey_object->getIndividualResult($result); //result array of one user
+
               $questions = $this->survey_object->getQuestions();
-              $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column-1, $row, "Teilnehmer Nr. ".$resultCount);
+              $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column-1, $row, "Teilnehmer ".$resultsCount);
 
-              $questionCount = 0;
-              foreach ($resultArray as $singleResult) {
-                  if (is_array($singleResult)) {
-                      if ($questions[$questionCount] instanceof \Questionnaire\Model\MultipleChoiceQuestion) {
-                          $options = $questions[$questionCount]->getOptions();
+							$resultCount = 0;
+							foreach($questions as $question){
+								if ($question instanceof \Questionnaire\Model\AbstractQuestion) {
+									if ($question instanceof \Questionnaire\Model\MultipleChoiceQuestion) {
+										$options = $question->getOptions();
+										foreach ($options as $option) {
+												if(in_array($option, $resultArray[$resultCount])){
+														$this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, "x");
+												}
+												$column++;
+										}
+									} else {
+										$single = $resultArray[$resultCount];
+											foreach ($single as $part) {
+												$this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $part);
+												$column++;
+											}
+										}
+									$resultCount++;
+								}
+							}
 
-                          foreach ($options as $option) {
-                              if(in_array($option, $singleResult)){
-                                  $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, "x");
-                              }
-                              $column++;
-                          }
-                      //covers MatrixQuestions AND GradingQuestions
-                      } elseif ($questions[$questionCount] instanceof \Questionnaire\Model\MatrixQuestion) {
-                          foreach ($singleResult as $partResult) {
-                              $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $partResult);
-                              $column++;
-                          }
-                      } else {
-                          foreach ($singleResult as $partResult) {
-                              $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $partResult);
-                              $column++;
-                          }
-                      }
-                  }
-                  $questionCount++;
-              }
               if ($this->questionnaire->get_attribute("QUESTIONNAIRE_SHOW_PARTICIPANTS") == 1) {
                   $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, $result->get_creator()->get_full_name());
                   $column++;
@@ -264,13 +265,14 @@ class Export extends \AbstractCommand implements \IFrameCommand {
                   $this->objPHPExcel->setActiveSheetIndex(0)->setCellValueByColumnAndRow($column, $row, date("d.m.Y H:i:s", $result->get_attribute("OBJ_CREATION_TIME")));
                   $column++;
               }
-              $resultCount++;
+              $resultsCount++;
               $row++;
           }
 			}
 
       foreach (range(0, $column) as $col) {
-          $this->objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
+          //$this->objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
+					$this->objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setWidth(25);
       }
   }
 

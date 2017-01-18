@@ -118,7 +118,7 @@ class TendencyQuestion extends AbstractQuestion {
 		$content = $QuestionnaireExtension->loadTemplate("questiontypes/tendencyquestion.template.html");
 		$content->setCurrentBlock("BLOCK_VIEW");
 		if ($error == 1) {
-			$content->setVariable("ERROR_BORDER", "border-right-color:red;");
+			$content->setVariable("ERROR_BORDER", "border: 2px solid red;");
 		}
 		if ($this->required == 1) {
 			$content->setVariable("QUESTION_TEXT", '<span id="'. ($id+1) .'">'. ($id+1) . '</span>' . ". " . $this->questionText . " (Pflichtfrage)");

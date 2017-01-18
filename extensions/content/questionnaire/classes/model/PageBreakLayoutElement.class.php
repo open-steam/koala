@@ -30,7 +30,7 @@ class PageBreakLayoutElement extends AbstractLayoutElement {
     		$popupMenu->setNamespace("Questionnaire");
     		$popupMenu->setData(\steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $questionnaireId));
     		$popupMenu->setElementId("edit-overlay");
-    		$popupMenu->setParams(array(array("key" => "questionId", "value" => $id), array("key" => "layoutElement", "value" => true)));
+    		$popupMenu->setParams(array(array("key" => "questionId", "value" => $id), array("key" => "layoutElement", "value" => "pagebreak")));
     		$content->setVariable("POPUPMENUANKER", $popupMenu->getHtml());
 
         $content->parse("BLOCK_EDIT");

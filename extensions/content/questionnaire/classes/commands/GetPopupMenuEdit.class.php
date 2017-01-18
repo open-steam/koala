@@ -53,7 +53,7 @@ class GetPopupMenuEdit extends \AbstractCommand implements \IAjaxCommand {
         $questions = $survey_object->getQuestions();
 
 				$items = array(
-          array("raw" => "<a href=\"#\" onclick=\"{$editMethod}({$this->questionId});return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>"),
+          ($this->layoutElement != "pagebreak") ? array("raw" => "<a href=\"#\" onclick=\"{$editMethod}({$this->questionId});return false;\"><svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten</a>") : "",
 					array("raw" => "<a href=\"#\" onclick=\"copyElement({$this->id}, {$this->questionId});return false;\"><svg><use xlink:href='{$copyIcon}#copy'/></svg> Duplizieren</a>"),
           (count($questions) >= 2) ? array("name" => "<svg><use xlink:href='{$sortIcon}#sort'/></svg> Umsortieren", "direction" => "right", "menu" => array(
               array("name" => "<a class='menuItemUp' href=\"#\" onclick=\"moveElement({$this->questionId}, 'top');jQuery('.popupmenuwrapper').remove();jQuery('.open').removeClass('open');jQuery('#footer_wrapper').css('padding-top', '0px'); return false;\"><svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben</a>"),

@@ -393,9 +393,9 @@ function updateNumbering(){
     var question = sortedIDs[i];
     if(question != "newquestion" && question != "newlayout" && question != "") {
       var title = $("#"+question).find(".question_headline").find("b").html();
-      var titleArray = title.split(".");
-      if(!isNaN(titleArray[0])){
-        var newTitle = counter + "." + titleArray[1];
+      var number = title.substr(0, title.indexOf('.'));
+      if(!isNaN(number)){
+        var newTitle = counter + "." + title.substr(title.indexOf('.')+1);
         counter++;
         $("#"+question).find(".question_headline").find("b").html(newTitle);
       }
@@ -408,7 +408,7 @@ function updateNumbering(){
  */
 function createSingleChoiceOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="margin: 0px; padding-bottom: 5px; border:none;" class="option_element" id="singlechoice_' + singleChoiceCounter + '"><input name="singlechoice_' + singleChoiceCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteSingleChoiceOption(' + singleChoiceCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#singlechoice_options'));
+    $('<li style="margin: 0px; padding-bottom: 5px; border:none;" class="option_element" id="singlechoice_' + singleChoiceCounter + '"><input name="singlechoice_' + singleChoiceCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" title="Entfernen" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteSingleChoiceOption(' + singleChoiceCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#singlechoice_options'));
     singleChoiceCounter++;
 }
 
@@ -424,7 +424,7 @@ function deleteSingleChoiceOption(id) {
  */
 function createMultipleChoiceOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="multiplechoice_' + multipleChoiceCounter + '"><input name="multiplechoice_' + multipleChoiceCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMultipleChoiceOption(' + multipleChoiceCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#multiplechoice_options'));
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="multiplechoice_' + multipleChoiceCounter + '"><input name="multiplechoice_' + multipleChoiceCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" title="Entfernen" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMultipleChoiceOption(' + multipleChoiceCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#multiplechoice_options'));
     multipleChoiceCounter++;
 }
 
@@ -440,7 +440,7 @@ function deleteMultipleChoiceOption(id) {
  */
 function createMatrixColumnOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="matrix_column_' + matrixColumnCounter + '"><input name="matrix_column_' + matrixColumnCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMatrixColumnOption(' + matrixColumnCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#matrix_column_options'));
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="matrix_column_' + matrixColumnCounter + '"><input name="matrix_column_' + matrixColumnCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" title="Entfernen" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMatrixColumnOption(' + matrixColumnCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#matrix_column_options'));
     matrixColumnCounter++;
 }
 
@@ -456,7 +456,7 @@ function deleteMatrixColumnOption(id) {
  */
 function createMatrixRowOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="matrix_row_' + matrixRowCounter + '"><input name="matrix_row_' + matrixRowCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMatrixRowOption(' + matrixRowCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#matrix_row_options'));
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="matrix_row_' + matrixRowCounter + '"><input name="matrix_row_' + matrixRowCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" title="Entfernen" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteMatrixRowOption(' + matrixRowCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#matrix_row_options'));
     matrixRowCounter++;
 }
 
@@ -486,7 +486,7 @@ function showMatrixColumn(count) {
  */
 function createGradingOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="grading_' + gradingCounter + '"><input name="grading_' + gradingCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteGradingOption(' + gradingCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#grading_options'));
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="grading_' + gradingCounter + '"><input name="grading_' + gradingCounter + '" type="text" value="" style="width: 95%;"><div class="bidButton negative" title="Entfernen" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteGradingOption(' + gradingCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#grading_options'));
     gradingCounter++;
 }
 
@@ -502,7 +502,7 @@ function deleteGradingOption(id) {
  */
 function createTendencyOption() {
     var asseturl = document.getElementById('asseturl').value;
-    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="tendency_' + tendencyCounter + '"><input type="text" name="tendency_input_' + tendencyCounter + '_0" value="" style="width:45%;"><div style="width:4%; display:inline-block;"> - - - </div><input type="text" name="tendency_input_' + tendencyCounter + '_1" value="" style="width:45%;"><div class="bidButton negative" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteTendencyOption(' + tendencyCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#tendency_options'));
+    $('<li style="border:none; margin: 0px; padding-bottom: 5px;" id="tendency_' + tendencyCounter + '"><input type="text" name="tendency_input_' + tendencyCounter + '_0" value="" style="width:45%;"><div style="width:4%; display:inline-block;"> - - - </div><input type="text" name="tendency_input_' + tendencyCounter + '_1" value="" style="width:45%;"><div class="bidButton negative" title="Entfernen" style="margin-bottom:-8px; margin-left:5px; padding:4px;" onclick="deleteTendencyOption(' + tendencyCounter + ')" title="Löschen"><svg style="height:16px; width:16px;"><use xlink:href="' + asseturl + '/trash.svg#trash"/></svg></div></li>').appendTo($('#tendency_options'));
     tendencyCounter++;
 }
 

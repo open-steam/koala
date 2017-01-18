@@ -74,7 +74,7 @@ class TextQuestion extends AbstractQuestion {
 		$content->setCurrentBlock("BLOCK_VIEW");
 		$content->setVariable("ELEMENT_ID", $id);
 		if ($error == 1) {
-			$content->setVariable("ERROR_BORDER", "border-right-color:red;");
+			$content->setVariable("ERROR_BORDER", "border: 2px solid red;");
 		}
 		if ($this->required == 1) {
 			$content->setVariable("QUESTION_TEXT", '<span id="'. ($id+1) .'">'. ($id+1) . '</span>' . ". " . $this->questionText . " (Pflichtfrage)");

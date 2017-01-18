@@ -135,7 +135,8 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		if ($questionnaire->get_attribute("QUESTIONNAIRE_SHOW_PARTICIPANTS") == 0) {
 			$content->setVariable("DISPLAY_PARTICIPANTS", "none");
 		} else {
-			$content->setVariable("PARTICIPANT_LABEL", "Teilnehmer&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp");
+			$content->setVariable("PARTICIPANT_LABEL", "Teilnehmer");
+			$content->setVariable("ASSET_URL", PATH_URL . "explorer/asset/icons/");
 		}
 		if ($questionnaire->get_attribute("QUESTIONNAIRE_SHOW_CREATIONTIME") == 0) {
 			$content->setVariable("DISPLAY_TIME", "none");

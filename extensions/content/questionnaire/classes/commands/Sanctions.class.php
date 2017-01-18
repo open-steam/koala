@@ -145,12 +145,30 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
           $content->setVariable("IMAGE", "<div style='float:left; margin-right:5px;'><svg style='color:#ff8300; height:16px; width:16px;'><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/user.svg#user'/></svg></div>");
           $content->setVariable("SEND_PARTICIPATE_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'participate':true,'userId':" . $favorite->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'Questionnaire');");
           $content->setVariable("SEND_ADMIN_REQUEST",  "sendRequest('Sanctions',{'id':" . $this->id . ",'showDialog':false,'checked':this.checked,'admin':true,'userId':" . $favorite->get_id() . "},'','data',function(response){dataSaveFunctionCallback(response);},null,'Questionnaire');");
-          if (in_array($favorite, $participants) || $isSteamAdmin) {
+          if(in_array($favorite, $participants) || $isSteamAdmin){
             $content->setVariable("PARTICIPATE_CHECKED", "checked");
           }
-          if (in_array($favorite, $admins) || $isSteamAdmin) {
+          else{
+            foreach ($participants as $object) {
+              if ($object instanceof \steam_group && $object->is_member($favorite)) {
+                $content->setVariable("PARTICIPATE_CHECKED", "checked");
+                break;
+              }
+            }
+          }
+
+          if(in_array($favorite, $admins) || $isSteamAdmin){
             $content->setVariable("ADMIN_CHECKED", "checked");
           }
+          else{
+            foreach ($admins as $object) {
+              if ($object instanceof \steam_group && $object->is_member($favorite)) {
+                $content->setVariable("ADMIN_CHECKED", "checked");
+                break;
+              }
+            }
+          }
+
           if($isSteamAdmin || !$creatorOrRoot){
             $content->setVariable("PARTICIPATE_DISABLED", "disabled");
             $content->setVariable("ADMIN_DISABLED", "disabled");
