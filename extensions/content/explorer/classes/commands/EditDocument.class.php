@@ -72,8 +72,8 @@ class EditDocument extends \AbstractCommand implements \IFrameCommand {
 
                 $saveButton = new \Widgets\SaveButton();
                 $saveButton->setLabel("Speichern & Anzeigen");
-                $saveButton->setBeforeSaveJS("createOverlay('white', null, 'show'); $('#saveWrapper').show(); $('#".$saveButton->getId()."').addClass('disabled'); $('#cancel_button_texteditor').addClass('disabled'); if(j == 0){window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';}");
-                $saveButton->setSaveReload("window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';");
+                $saveButton->setBeforeSaveJS('createOverlay("white", null, "show"); $("#saveWrapper").show(); $("#'.$saveButton->getId().'").addClass("disabled"); $("#cancel_button_texteditor").addClass("disabled"); if(elementsToSaveSize == 0){window.location.href = "' . PATH_URL . 'explorer/ViewDocument/' . $this->id . '";}');
+                $saveButton->setSaveReload('window.location.href = "' . PATH_URL . 'explorer/ViewDocument/' . $this->id . '";');
 
                 $loader = new \Widgets\Loader();
                 $loader->setWrapperId("saveWrapper");
