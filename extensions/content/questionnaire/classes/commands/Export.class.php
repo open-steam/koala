@@ -101,7 +101,7 @@ class Export extends \AbstractCommand implements \IFrameCommand {
   private function buildheaderInCodument(){
       //build the generell information
       $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', "Fragebogen");
-      $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('A2', "Allgemein Beschreibung");
+      $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('A2', "Beschreibung");
       $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('A3', "Object-ID");
       $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('A4', "Exportdatum");
       $this->objPHPExcel->setActiveSheetIndex(0)->setCellValue('A5', "Alle Antworten von Administratoren editierbar");

@@ -394,6 +394,7 @@ function updateNumbering(){
     if(question != "newquestion" && question != "newlayout" && question != "") {
       var title = $("#"+question).find(".question_headline").find("b").html();
       var number = title.substr(0, title.indexOf('.'));
+      number = parseInt(number);
       if(!isNaN(number)){
         var newTitle = counter + "." + title.substr(title.indexOf('.')+1);
         counter++;
