@@ -41,9 +41,10 @@ class TextareaQuestion extends AbstractQuestion {
 		$QuestionnaireExtension = \Questionnaire::getInstance();
 		$content = $QuestionnaireExtension->loadTemplate("questiontypes/textareaquestion.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
-    if($number != -1){
-      $content->setVariable("NUMBER", $number);
-    }
+		if($number == -1){
+			$number = 0;
+		}
+    $content->setVariable("NUMBER", $number);
 		$content->setVariable("ELEMENT_ID", $id);
 		if ($this->required == 1) {
 			$content->setVariable("QUESTION_TEXT", $this->questionText . " (Pflichtfrage)");

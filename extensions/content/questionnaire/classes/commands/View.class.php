@@ -135,6 +135,11 @@ class View extends \AbstractCommand implements \IFrameCommand {
         }
       }
 
+      // check if there is at least one question. If not, just show preview
+      if($survey->get_attribute("QUESTIONNAIRE_QUESTIONS") == 0){
+        $showPreview = 1;
+      }
+
       //check if the user has an active submission if he wants to fill in
       $participated = !is_null($participants[$user->get_id()]);
       if($participated && $showPreview == 0 && $showResult == 0) {

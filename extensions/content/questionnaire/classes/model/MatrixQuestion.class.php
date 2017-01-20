@@ -78,9 +78,10 @@ class MatrixQuestion extends AbstractQuestion {
 		$content = $QuestionnaireExtension->loadTemplate("questiontypes/matrixquestion.template.html");
 		$content->setCurrentBlock("BLOCK_EDIT");
 		$content->setVariable("ELEMENT_ID", $id);
-    if($number != -1){
-      $content->setVariable("NUMBER", $number);
-    }
+		if($number == -1){
+			$number = 0;
+		}
+    $content->setVariable("NUMBER", $number);
 		if ($this->required == 1) {
 			$content->setVariable("QUESTION_TEXT", $this->questionText . " (Pflichtfrage)");
 		} else {
