@@ -135,9 +135,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
         }
       }
 
-      //check if the user has an active submission
+      //check if the user has an active submission if he wants to fill in
       $participated = !is_null($participants[$user->get_id()]);
-      if($participated) {
+      if($participated && $showPreview == 0 && $showResult == 0) {
         $submissions = $participants[$user->get_id()];
         foreach ($submissions as $submission) {
           $submissionObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $submission);
