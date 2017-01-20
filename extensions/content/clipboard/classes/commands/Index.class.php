@@ -20,7 +20,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //chronic
         \ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("clipboard");
 
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
         $this->id = $currentUser->get_id();
 
         $this->getExtension()->addJS();

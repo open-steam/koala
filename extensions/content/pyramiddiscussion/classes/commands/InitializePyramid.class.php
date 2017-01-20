@@ -47,7 +47,7 @@ class InitializePyramid extends \AbstractCommand implements \IAjaxCommand {
         
         $pyramidRoom->set_attribute("PYRAMIDDISCUSSION_INITIALIZED", "1");
         
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         foreach ($basegroup_original->get_members() as $member) {
             if ($member instanceof \steam_user) {
                 $basegroup->add_member($member);

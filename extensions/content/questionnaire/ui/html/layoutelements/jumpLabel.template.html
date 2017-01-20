@@ -1,0 +1,26 @@
+<!-- BEGIN BLOCK_EDIT -->
+<li class="ui-state-default-rf" id="rfelement{ELEMENT_ID}" >
+    <table width="100%">
+        <tr>
+            <td style="padding:0px; border:0px;" class="question_container">
+                <div class="question_headline" style="margin:0px;">{POPUPMENUANKER}<b>Sprungmarke</b></div>
+                <div style="margin:5px;">{QUESTION_TEXT}</div>
+                <div style="margin:5px;">Direkt zu Frage {QUESTION_TO} <a>springen</a>.</div>
+            </td>
+        </tr>
+    </table>
+</li>
+<input type="hidden" name="rfelement{ELEMENT_ID}" value="{ELEMENT_DATA}">
+<!-- END BLOCK_EDIT -->
+
+<!-- BEGIN BLOCK_VIEW -->
+<tr>
+    <td class="question_container">
+        <div class="question_headline"><b>Sprungmarke</b></div>
+        <br>
+        <div>{QUESTION_TEXT}</div>
+        <br>
+        <div>Direkt zu Frage {QUESTION_TO} <a href="{JUMP_TO}">springen</a>.</div>
+    </td>
+</tr>
+<!-- END BLOCK_VIEW -->

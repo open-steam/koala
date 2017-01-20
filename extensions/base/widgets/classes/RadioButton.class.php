@@ -14,6 +14,7 @@ class RadioButton extends Widget {
     private $type = "vertical";
     private $currentValue;
     private $objectId;
+    private $autosave = false;
 
     public function setId($id){
         $this->id = "id_".$id."_radioButton";
@@ -58,6 +59,10 @@ class RadioButton extends Widget {
 
     public function setObjectId($objectId) {
         $this->objectId = $objectId;
+    }
+
+    public function setAutosave($autosave) {
+        $this->autosave = $autosave;
     }
 
     public function getHtml() {
@@ -114,6 +119,14 @@ class RadioButton extends Widget {
                 if ($currentValue === $option["value"]) {
                     $this->getContent()->setVariable("CHECKED", "checked");
                 }
+
+                if ($this->autosave){
+                  $this->getContent()->setVariable("AUTOSAVE", 1);
+                }
+                else{
+                  $this->getContent()->setVariable("AUTOSAVE", 0);
+                }
+
                 $this->getContent()->parseCurrentBlock();
             }
         } else {
@@ -164,6 +177,14 @@ class RadioButton extends Widget {
                 if ($currentValue == $option["value"]) {
                     $this->getContent()->setVariable("CHECKED_HORIZONTAL", "checked");
                 }
+
+                if ($this->autosave){
+                  $this->getContent()->setVariable("AUTOSAVE", 1);
+                }
+                else{
+                  $this->getContent()->setVariable("AUTOSAVE", 0);
+                }
+
                 $this->getContent()->parse("BLOCK_RADIOFIELD_HORIZONTAL");
             }
             $this->getContent()->parse("BLOCK_RADIOBUTTON_HORIZONTAL");

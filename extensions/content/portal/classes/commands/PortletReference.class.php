@@ -13,7 +13,7 @@ class PortletReference extends \AbstractCommand implements \IAjaxCommand {
 	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
-		$this->user = $GLOBALS["STEAM"]->get_current_steam_user();
+		$this->user = \lms_steam::get_current_user();
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$object = $this->getSource($object);
 		$link = \steam_factory::create_link($GLOBALS["STEAM"]->get_id(), $object);

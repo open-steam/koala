@@ -1,0 +1,30 @@
+<!-- BEGIN BLOCK_CONFIGURATION_TABLE -->
+		<!-- <center> -->
+			<table class="questionnaire_table">
+				<tr>
+					<th width="52%">{OWNER_LABEL}</th>
+					<th width="15%" style="text-align:center;">{PARTICIPATE_LABEL}</th>
+					<th width="50%" style="text-align:center;">{EDIT_LABEL}</th>
+				</tr>
+				<!-- BEGIN BLOCK_USER -->
+				<tr>
+					<td>{IMAGE}{USER}</td>
+					<td style="text-align:center;"><input type="checkbox" onchange="$(this).addClass('changed');" data-saveFunction={SEND_PARTICIPATE_REQUEST} {PARTICIPATE_CHECKED} {PARTICIPATE_DISABLED}></td>
+					<td style="text-align:center;"><input type="checkbox" onchange="$(this).addClass('changed');" data-saveFunction={SEND_ADMIN_REQUEST} {ADMIN_CHECKED} {ADMIN_DISABLED}></td>
+				</tr>
+				<!-- END BLOCK_USER -->
+				<tr>
+					<th width="52%">{GROUP_LABEL}</th>
+					<th width="15%" style="text-align:center;">{PARTICIPATE_LABEL}</th>
+					<th width="50%" style="text-align:center;">{EDIT_LABEL}</th>
+				</tr>
+				<!-- BEGIN BLOCK_GROUP -->
+				<tr>
+					<td>{IMAGE}{GROUP}</td>
+					<td style="text-align:center;"><input type="checkbox" onchange="$(this).addClass('changed');" data-saveFunction={SEND_PARTICIPATE_REQUEST} {PARTICIPATE_CHECKED} {PARTICIPATE_DISABLED}></td>
+					<td style="text-align:center;"><input type="checkbox" onchange="$(this).addClass('changed');" data-saveFunction={SEND_ADMIN_REQUEST} {ADMIN_CHECKED} {ADMIN_DISABLED}></td>
+				</tr>
+				<!-- END BLOCK_GROUP -->
+			</table>
+		<!-- </center> -->
+<!-- END BLOCK_CONFIGURATION_TABLE -->

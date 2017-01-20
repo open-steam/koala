@@ -73,7 +73,7 @@ END
 	}
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		$currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+		$currentUser = \lms_steam::get_current_user();
 		$object = $currentUser->get_workroom();
 
 		$dialog = new \Widgets\Dialog();

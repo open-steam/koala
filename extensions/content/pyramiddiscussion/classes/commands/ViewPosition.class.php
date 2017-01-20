@@ -17,7 +17,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 	}
 
 	public function frameResponse(\FrameResponseObject $frameResponseObject) {
-		$user = $GLOBALS["STEAM"]->get_current_steam_user();
+		$user = \lms_steam::get_current_user();
 		$pyramidPosition = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$positionGroup = $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_RELGROUP");
 		$pyramidRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->pyramiddiscussion);

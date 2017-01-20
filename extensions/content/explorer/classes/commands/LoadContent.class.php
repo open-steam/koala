@@ -46,8 +46,9 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     private $object;
+
     //save the current object to check the attribute SHOW_TAGS lateron
-    function __construct($object){
+    function __construct($object) {
         $this->object = $object;
     }
 
@@ -55,7 +56,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
             return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-items .show > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
         } else {
-            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+            return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].parentNode.parentNode.click() }}\" type=\"checkbox\" ></input>");
         }
     }
 
@@ -68,40 +69,36 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
     }
 
     public function getOnClickHandler($headline) {
-      if(strpos($headline, "Name") !== false) {
-        return "sortByName(this)";
-      }
-      if(strpos($headline, "Änderungsdatum") !== false) {
-        return "sortByDate(this)";
-      }
-      else{
-        return "";
-      }
-
+        if (strpos($headline, "Name") !== false) {
+            return "sortByName(this)";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "sortByDate(this)";
+        } else {
+            return "";
+        }
     }
 
     public function getOnMouseOverHandler($headline) {
-      if(strpos($headline, "Name") !== false) {
-        return "jQuery(this).addClass('hover')";
-      }
-      if(strpos($headline, "Änderungsdatum") !== false) {
-        return "jQuery(this).addClass('hover')";
-      }
-      else{
-        return "";
-      }
+        if (strpos($headline, "Name") !== false) {
+            return "jQuery(this).addClass('hover')";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "jQuery(this).addClass('hover')";
+        } else {
+            return "";
+        }
     }
 
     public function getOnMouseOutHandler($headline) {
-      if(strpos($headline, "Name") !== false) {
-        return "jQuery(this).removeClass('hover')";
-      }
-      if(strpos($headline, "Änderungsdatum") !== false) {
-        return "jQuery(this).removeClass('hover')";
-      }
-      else{
-        return "";
-      }
+        if (strpos($headline, "Name") !== false) {
+            return "jQuery(this).removeClass('hover')";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "jQuery(this).removeClass('hover')";
+        } else {
+            return "";
+        }
     }
 
 }
@@ -121,10 +118,9 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $object;
 
     //save the current object to check the attribute SHOW_TAGS lateron
-    function __construct($object){
+    function __construct($object) {
         $this->object = $object;
     }
-
 
     public function getId($contentItem) {
         return $contentItem->get_id();
@@ -137,7 +133,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 
         if ($cell == $this->rawCheckbox) {
             if (!($contentItem instanceof \steam_trashbin)) {
-                return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if (this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
+                return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if (this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected').addClass('listviewer-item-hover') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected').removeClass('listviewer-item-hover') }\"></input>";
             } else {
                 return "";
             }
@@ -147,17 +143,17 @@ class ContentProvider implements \Widgets\IContentProvider {
                 if ($exitObj === 0) {
                     $icon = "folder.png";
                 } else {
-                  $icon = deriveIcon($exitObj);
+                    $icon = deriveIcon($exitObj);
                 }
             } else if ($contentItem instanceof \steam_link) {
                 $linkObj = $contentItem->get_link_object();
                 if ($linkObj === 0) {
                     $icon = "generic.png";
                 } else {
-                  $icon = deriveIcon($linkObj);
+                    $icon = deriveIcon($linkObj);
                 }
             } else {
-              $icon = deriveIcon($contentItem);
+                $icon = deriveIcon($contentItem);
             }
             $iconSVG = str_replace("png", "svg", $icon);
             $idSVG = str_replace(".svg", "", $iconSVG);
@@ -166,20 +162,27 @@ class ContentProvider implements \Widgets\IContentProvider {
             return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } elseif ($cell == $this->rawName) {
             $creator = $contentItem->get_creator();
-            if(is_object($creator)){
-              $creatorHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div> <img style=\"margin: 3px\" align=\"middle\" src=\"" . PATH_URL . "download/image/"
-                           . $creator->get_attribute(OBJ_ICON)->get_id() . "/30/30\"> "
-                           . $creator->get_attribute(USER_FIRSTNAME) . " "
-                           . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">";
+            if (is_object($creator)) {
+                $creatorImage = "";
+                if (is_object($creator->get_attribute(OBJ_ICON))) {
+                    $CreatorImage = "<img style=\"margin: 3px\" align=\"middle\" src=\"" . PATH_URL . "download/image/". $creator->get_attribute(OBJ_ICON)->get_id() . "/30/30\">";
+                }
+                $creatorHtml = "<div style=\"font-weight:bold; width:100px; float:left;\">Besitzer</div>  "
+                        . $CreatorImage
+                        . $creator->get_attribute(USER_FIRSTNAME) . " "
+                        . $creator->get_attribute(USER_FULLNAME) . "<br clear=\"all\">";
             }
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id());
             $tipsyHtml = $creatorHtml
-                       . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>" //);
-                       . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
+                    . "<div style=\"font-weight:bold; width:100px; float:left;\">zuletzt geändert</div> " . getFormatedDate($contentItem->get_attribute(OBJ_LAST_CHANGED)) . "<br>" //);
+                    . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
             $tags = $contentItem->get_attribute(OBJ_KEYWORDS);
-            if(sizeOf($tags) > 0){
-              $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
+            if (sizeOf($tags) > 0) {
+                $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
+            }
+            if ($contentItem instanceof \steam_link) {
+                $tipsyHtml .= "<br>Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. Änderungen können nur am Originalobjekt vorgenommen werden. Ein Klick auf dieses Element führt Sie zum Originalobjekt.<br>";
             }
             $tipsy->setHtml($tipsyHtml);
 
@@ -200,58 +203,57 @@ class ContentProvider implements \Widgets\IContentProvider {
                 }
 
                 return "<a href=\"" . $url . "\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
-
             } else {
                 return $name . "<script>" . $tipsy->getHtml() . "</script>";
             }
         } elseif ($cell == $this->rawDesc) {
-          return $contentItem->get_attribute("OBJ_DESC");
-        /*} elseif ($cell == $this->rawMarker) {
-            //  return ""; //disabled
-            //if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
-                $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
-                $keywordList = "";
-                foreach ($keywords as $keyword) {
-                    if ($keyword !== "") {
-                        $keywordList.=$keyword . " ";
-                    }
-                }
-                return $keywordList;
-            //} else {
+            return $contentItem->get_attribute("OBJ_DESC");
+            /* } elseif ($cell == $this->rawMarker) {
+              //  return ""; //disabled
+              //if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
+              $keywords = $contentItem->get_attribute("OBJ_KEYWORDS");
+              $keywordList = "";
+              foreach ($keywords as $keyword) {
+              if ($keyword !== "") {
+              $keywordList.=$keyword . " ";
+              }
+              }
+              return $keywordList;
+              //} else {
               //  return "";
-            //}
+              //}
 
-            //speed test //TODO: fix
-            $html = "";
-            $html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
+              //speed test //TODO: fix
+              $html = "";
+              $html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
 
-            $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
-            $linkError = false;
-            if ($contentItem instanceof \steam_exit) {
-                $exitObject = $contentItem->get_exit();
-                if ($exitObject instanceof \steam_object) {
-                    $id = $exitObject->get_id();
-                } else {
-                    $linkError = true;
-                    $html .= "<div style=\"color:red\">Referenz defekt</div>";
-                }
-            } elseif ($contentItem instanceof \steam_link) {
-                $linkObject = $contentItem->get_link_object();
-                if ($linkObject instanceof \steam_object) {
-                    $id = $linkObject->get_id();
-                } else {
-                    $linkError = true;
-                    $html .= "<div style=\"color:red\">Referenz defekt</div>";
-                }
-            } else {
-                $id = $contentItem->get_id();
-            }
-            if (!$linkError && \Bookmarks\Model\Bookmark::isBookmark($id)) {
-                $html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
-            }
-            $html .= "</div>";
+              $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
+              $linkError = false;
+              if ($contentItem instanceof \steam_exit) {
+              $exitObject = $contentItem->get_exit();
+              if ($exitObject instanceof \steam_object) {
+              $id = $exitObject->get_id();
+              } else {
+              $linkError = true;
+              $html .= "<div style=\"color:red\">Referenz defekt</div>";
+              }
+              } elseif ($contentItem instanceof \steam_link) {
+              $linkObject = $contentItem->get_link_object();
+              if ($linkObject instanceof \steam_object) {
+              $id = $linkObject->get_id();
+              } else {
+              $linkError = true;
+              $html .= "<div style=\"color:red\">Referenz defekt</div>";
+              }
+              } else {
+              $id = $contentItem->get_id();
+              }
+              if (!$linkError && \Bookmarks\Model\Bookmark::isBookmark($id)) {
+              $html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
+              }
+              $html .= "</div>";
 
-            return $html;*/
+              return $html; */
         } elseif ($cell == $this->rawChangeDate) {
             return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
         } elseif ($cell == $this->rawSize) {
@@ -262,12 +264,9 @@ class ContentProvider implements \Widgets\IContentProvider {
             $popupMenu->setElementId("listviewer-overlay");
             return $popupMenu;
         } else if ($cell == $this->rawReference) {
-          if ($contentItem instanceof \steam_link) {
-            $text = "Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. ";
-            $text.= "Änderungen können nur am Originalobjekt vorgenommen werden. ";
-            $text.= "Ein Klick auf dieses Element führt Sie zum Originalobjekt.";
-            return "<div class='referenceWrapper' title='" . $text . "'><svg style='width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
-          }
+            if ($contentItem instanceof \steam_link) {
+                return "<div class='referenceWrapper'><svg style='width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
+            }
         }
     }
 

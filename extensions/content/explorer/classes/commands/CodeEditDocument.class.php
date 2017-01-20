@@ -55,8 +55,8 @@ class CodeEditDocument extends \AbstractCommand implements \IFrameCommand {
 
                 $saveButton = new \Widgets\SaveButton();
                 $saveButton->setLabel("Speichern & Anzeigen");
-                $saveButton->setBeforeSaveJS("if(j == 0){window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';}");
-                $saveButton->setSaveReload("window.location.href = '" . PATH_URL . "explorer/ViewDocument/" . $this->id . "/';");
+                $saveButton->setBeforeSaveJS('if(elementsToSaveSize == 0){window.location.href = "' . PATH_URL . 'explorer/ViewDocument/' . $this->id . '";}');
+                $saveButton->setSaveReload('window.location.href = "' . PATH_URL . 'explorer/ViewDocument/' . $this->id . '";');
 
                 $cancelButton = new \Widgets\RawHtml();
                 $cancelButton->setHtml('<div style="float:right; margin-top:5px;"><a class="bidButton negative" href="' . PATH_URL . 'explorer/ViewDocument/' . $this->id . '/">Abbrechen</a>&nbsp;</div>');

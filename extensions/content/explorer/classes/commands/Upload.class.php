@@ -26,7 +26,7 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         $checked = FALSE;
         if (isset($this->params["checked"])) {
             $checked = $this->params["checked"] === "false" ? false : true;
-        }else{
+        } else {
             $checked = false;
         }
         $allowedExtensions = array();
@@ -44,7 +44,7 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        
+
         // list of valid extensions, ex. array("jpeg", "xml", "bmp")
         $allowedExtensions = array();
         // max file size in bytes
@@ -56,8 +56,6 @@ class Upload extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         // to pass data through iframe you will need to encode all html tags
         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
         die;
-          
-         
     }
 
 }
@@ -200,14 +198,11 @@ class qqFileUploader {
 
         $pathinfo = pathinfo($this->file->getName());
         $filename = $pathinfo['filename'];
-        //$filename = md5(uniqid());
         $ext = $pathinfo['extension'];
-
 
 
         if ($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)) {
             $these = implode(', ', $this->allowedExtensions);
-
             return array('error' => 'File has an invalid extension, it should be one of ' . $these . '.');
         }
 
@@ -219,23 +214,9 @@ class qqFileUploader {
                     $filename .= rand(10, 99);
                 }
             }
-
-            /* if (!$replaceOldFile){
-              return array("error" => "There exists another file with the same name!");
-              }else{
-              $oldObj = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), $uploadDirectory . $filename . '.' . $ext);
-              if($oldObj instanceof \steam_document){
-              $oldObj->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
-              $oldObj->set_attribute("OBJ_DESC", "");
-              unlink($uploadDirectory . $filename . '.' . $ext);
-              return array("success" => true);
-              }else{
-              return array("error" => "You try to overwrite an object which isn't a document!");
-              }
-              } */
         }
 
-
+        $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $this->file->getName(), "", "", \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid));
 
 
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)) {
@@ -261,32 +242,12 @@ class qqFileUploader {
             }
             $environment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid);
             if ($environment instanceof \steam_container) {
-                $inventory = $environment->get_inventory();
-                if (is_array($inventory)) {
-                    foreach ($inventory as $ele) {
-                        $eleName = $ele->get_name();
-                        if ($eleName === $filename . "." . $ext) {
-                            if ($checked === false) {
-                                unlink($uploadDirectory . $filename . '.' . $ext);
-                                return array("error" => "Es gibt bereits eine Datei mit demselben Namen. Um diese zu überschreiben, wählen Sie das Feld gleichnamige Dateien ersetzen aus.");
-                            }
-                            if ($ele instanceof \steam_document) {
-                                $ele->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
 
-                                $ele->set_attribute("OBJ_DESC", "");
+                $steam_document->set_content(file_get_contents($uploadDirectory . $filename . '.' . $ext));
 
-                                unlink($uploadDirectory . $filename . '.' . $ext);
-                                return array("success" => true);
-                            } else {
-                                unlink($uploadDirectory . $filename . '.' . $ext);
-                                return array("error" => "You try to overwrite an object which isn't a document!");
-                            }
-                        }
-                    }
-                } else {
-                    unlink($uploadDirectory . $filename . '.' . $ext);
-                    throw new Exception("inventory of upload destiantion is broken");
-                }
+
+                unlink($uploadDirectory . $filename . '.' . $ext);
+                return array('success' => true, "steamId" => $steam_document->get_id());
             } else {
                 unlink($uploadDirectory . $filename . '.' . $ext);
                 throw new Exception("Upload destination isn't a container");
@@ -295,10 +256,10 @@ class qqFileUploader {
 
 
             //create empty steam_document and check write access
-            $steam_document = \steam_factory::create_document($GLOBALS["STEAM"]->get_id(), $this->file->getName(), file_get_contents($uploadDirectory . $filename . '.' . $ext), "", \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->envid));
+
             unlink($uploadDirectory . $filename . '.' . $ext);
 
-            return array('success' => true);
+            return array('success' => true, "steamId" => $steam_document->get_id());
         } else {
             unlink($uploadDirectory . $filename . '.' . $ext);
             return array('error' => 'Could not save uploaded file.' .

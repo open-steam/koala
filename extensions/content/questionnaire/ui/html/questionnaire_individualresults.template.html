@@ -1,0 +1,75 @@
+{QUESTIONNAIRE_NAME}
+{QUESTIONNAIRE_DESC}
+
+{TABBAR}
+
+<!-- BEGIN BLOCK_RESULTS -->
+{INIT_JS_SORT}
+<p>{RESULTS_AMOUNT}</p>
+<center style="font-size:12px">
+	<table width="100%" class="grid" border="0">
+		<tr>
+			<td>
+				<div style="width:940px; overflow:auto;">
+					<table class="questionnaire_style tablesorter" id="resulttable" style="table-layout:fixed;">
+						<thead>
+							<tr>
+								<!-- BEGIN BLOCK_QUESTION -->
+								<th id="{TIPSY_ID}" style="padding-right:10px; font-weight:bold; text-align: center;">
+									{QUESTION_TEXT}
+									{TIPSY_HTML}
+								</th>
+								<!-- END BLOCK_QUESTION -->
+								<th title="{PARTICIPANT_LABEL}" style="display: {DISPLAY_PARTICIPANTS}; font-weight:bold; padding-right: 15px;">
+									<nobr>
+										<svg style="height:16px; width:16px; float:left; padding-right:5px;">
+											<use xlink:href="{ASSET_URL}/user.svg#user"/></use>
+										</svg>
+										<div style="overflow:hidden; padding-top:2px;">
+											{PARTICIPANT_LABEL}
+										</div>
+									</nobr>
+								</th>
+								<th title="{TIME_LABEL}" style="display: {DISPLAY_TIME}; padding-right:15px; font-weight:bold;">
+									<nobr>
+										<svg style="height:16px; width:16px; float:left; padding-right:5px;">
+											<use xlink:href="{ASSET_URL}/clock.svg#clock"/></use>
+										</svg>
+										<div style="overflow:hidden; padding-top:2px;">
+											{TIME_LABEL}
+										</div>
+									</nobr>
+								</th>
+								<th>
+									{POPUPMENUANKER_HEADLINE}
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- BEGIN BLOCK_RESULT -->
+							<tr>
+								<!-- BEGIN BLOCK_RESULT_COL -->
+								<td align="center" style="background-color: {BG_COLOR_COL}; vertical-align:middle;">
+									{RESULT_HTML}
+								</td>
+								<!-- END BLOCK_RESULT_COL -->
+								<td align="center" style="background-color: {BG_COLOR}; vertical-align:middle; display: {DISPLAY_PARTICIPANTS_RESULT};">
+									<a href="{USER_URL}">{USER_NAME}</a>
+								</td>
+								<td align="center" style="background-color: {BG_COLOR}; vertical-align:middle; display: {DISPLAY_TIME_RESULT};">
+									{TIMESTAMP}
+								</td>
+								<td align="center" style="background-color: {BG_COLOR}; vertical-align:middle;">
+									{POPUPMENUANKER}
+								</td>
+							</tr>
+							<!-- END BLOCK_RESULT -->
+						</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</center>
+<!-- END BLOCK_RESULTS -->
+<div id="result-overlay"></div>

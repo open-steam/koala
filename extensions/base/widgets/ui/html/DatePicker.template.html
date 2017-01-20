@@ -33,6 +33,12 @@
             if($('#{ID}').attr('data-oldValue') != $('#{ID}').val()){ $('#{ID}').addClass('changed');}
             //update the value in the variable
             {ID} = $('#{ID}').val();
+						if({AUTOSAVE}){
+							function dataSaveFunctionCallback(response){
+
+							}
+							eval($('#{ID}').attr('data-saveFunction'));
+						}	
         }
     );
 

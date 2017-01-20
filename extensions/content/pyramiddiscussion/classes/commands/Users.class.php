@@ -16,7 +16,7 @@ class Users extends \AbstractCommand implements \IFrameCommand {
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
         $pyramidRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         $pyramiddiscussionExtension = \Pyramiddiscussion::getInstance();
         $pyramiddiscussionExtension->addCSS();

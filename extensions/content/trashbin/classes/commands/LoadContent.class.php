@@ -160,6 +160,9 @@ class ContentProvider implements \Widgets\IContentProvider {
             if (sizeOf($tags) > 0) {
                 $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
             }
+            if($contentItem instanceof \steam_link){
+              $tipsyHtml .= "<br>Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. Änderungen können nur am Originalobjekt vorgenommen werden. Ein Klick auf dieses Element führt Sie zum Originalobjekt.<br>";
+            }
             $tipsy->setHtml($tipsyHtml);
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
             $desc = $contentItem->get_attribute("OBJ_DESC");
@@ -201,8 +204,8 @@ class ContentProvider implements \Widgets\IContentProvider {
             }
             $html .= "</div>";
             return $html;
-        } else if ($cell == $this->rawFormerEnvironment) {
-          /*
+        } /*else if ($cell == $this->rawFormerEnvironment) {
+
             if ($contentItem->get_attribute("OBJ_LAST_LOCATION_ID") !== "") {
                 $formerEnvironment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $contentItem->get_attribute("OBJ_LAST_LOCATION_ID"));
                 if($formerEnvironment instanceof \steam_object && ($formerEnvironment->get_attribute("OBJ_TYPE") === "container_portalColumn_bid" || $formerEnvironment->get_attribute("OBJ_NAME") === "postbox_container")){
@@ -217,8 +220,8 @@ class ContentProvider implements \Widgets\IContentProvider {
                 }
                 return "";
             }
-            */
-        } else if ($cell == $this->rawChangeDate) {
+
+        }*/ else if ($cell == $this->rawChangeDate) {
             return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
         } else if ($cell == $this->rawSize) {
             return getObjectReadableSize($contentItem);
@@ -229,10 +232,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             return $popupMenu;
         } else if ($cell == $this->rawReference) {
             if ($contentItem instanceof \steam_link) {
-                $text = "Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. ";
-                $text.= "Änderungen können nur am Originalobjekt vorgenommen werden. ";
-                $text.= "Ein Klick auf dieses Element führt Sie zum Originalobjekt.";
-                return "<div class='referenceWrapper' title='" . $text . "'><svg style='width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
+                return "<div class='referenceWrapper'><svg style='width:16px; height:16px;'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
             }
         }
     }

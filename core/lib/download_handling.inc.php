@@ -39,7 +39,7 @@ class downloader {
       else {
         $STEAM = new steam_connector(STEAM_SERVER, STEAM_PORT, $user, $password );
         $document = steam_factory::get_object( $STEAM->get_id(), (int)$oid, CLASS_OBJECT );
-        if ($document->check_access_read($STEAM->get_current_steam_user())===1)
+        if ($document->check_access_read(\lms_steam::get_current_user())===1)
     return 1;
       }
     }

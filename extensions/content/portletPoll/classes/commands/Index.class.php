@@ -31,25 +31,24 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $portletInstance = \PortletPoll::getInstance();
         $portletPath = $portletInstance->getExtensionPath();
-
-        //icon
-        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
+        $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 
         //reference handling
         $params = $requestObject->getParams();
         if (isset($params["referenced"]) && $params["referenced"] == true) {
-            $portletIsReference = true;
-            $referenceId = $params["referenceId"];
             if (!$portlet->check_access_read()) {
                 $this->rawHtmlWidget = new \Widgets\RawHtml();
                 $this->rawHtmlWidget->setHtml("");
                 return null;
             }
+
+            $portletIsReference = true;
+            $referenceId = $params["referenceId"];
         } else {
             $portletIsReference = false;
         }
 
-        $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+
         $portletName = $portlet->get_attribute(OBJ_DESC);
 
         $this->getExtension()->addCSS();
@@ -74,126 +73,125 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         if (sizeof($content) > 0) {
 
-          //popupmenu
-          if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
-              $popupmenu = new \Widgets\PopupMenu();
-              $popupmenu->setData($portlet);
-              $popupmenu->setNamespace("PortletPoll");
-              $popupmenu->setElementId("portal-overlay");
-              $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
-          }
+            //popupmenu
+            if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
+                $popupmenu = new \Widgets\PopupMenu();
+                $popupmenu->setData($portlet);
+                $popupmenu->setNamespace("PortletPoll");
+                $popupmenu->setElementId("portal-overlay");
+                $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
+            }
 
-          if ($portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
-              $popupmenu = new \Widgets\PopupMenu();
-              $popupmenu->setData($portlet);
-              $popupmenu->setNamespace("Portal");
-              $popupmenu->setElementId("portal-overlay");
-              $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
-                  array("key" => "linkObjectId", "value" => $referenceId)
-              ));
-              $popupmenu->setCommand("PortletGetPopupMenuReference");
-              $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
-          }
+            if ($portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
+                $popupmenu = new \Widgets\PopupMenu();
+                $popupmenu->setData($portlet);
+                $popupmenu->setNamespace("Portal");
+                $popupmenu->setElementId("portal-overlay");
+                $popupmenu->setParams(array(array("key" => "sourceObjectId", "value" => $portlet->get_id()),
+                    array("key" => "linkObjectId", "value" => $referenceId)
+                ));
+                $popupmenu->setCommand("PortletGetPopupMenuReference");
+                $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
+            }
 
-          // we show the edit button only if the user has write access to the portal
-          // because all portal readers need write access in order to vote
-          $portalCol = $portlet->get_environment();
-          $portal = $portalCol->get_environment();
+            // we show the edit button only if the user has write access to the portal
+            // because all portal readers need write access in order to vote
+            $portalCol = $portlet->get_environment();
+            $portal = $portalCol->get_environment();
 
-          if ($portal->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
-              $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");
-              $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
-              $tmpl->parse("BLOCK_EDIT_BUTTON");
-          }
+            if ($portal->check_access_write(\lms_steam::get_current_user())) {
+                $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");
+                $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
+                $tmpl->parse("BLOCK_EDIT_BUTTON");
+            }
 
-          $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
-          $tmpl->setVariable("POLL_NAME", $portletName);
+            $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
+            $tmpl->setVariable("POLL_NAME", $portletName);
 
-          //if the title is empty the headline will not be displayed (only in edit mode)
-          if ($portletName == "" || $portletName == " ") {
-              $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
-          } else {
-              $tmpl->setVariable("HEADLINE_CLASS", "headline");
-          }
-
-          $options = $content["options"];
-          $options_votecount = $content["options_votecount"];
-          $startDate = $content["start_date"];
-          $end_date = $content["end_date"];
-
-          if($options[0] == "" && $options[1] == "" && $options[2] == "" && $options[3] == "" && $options[4] == "" && $options[5] == ""){
-              //NO poll options
-              $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
-              $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Abstimmung vorhanden.");
-              $tmpl->parse("BLOCK_NO_MESSAGE");
-              $tmpl->setVariable("HIDDEN", "hidden");
-          }
-          else if(time() < mktime(0, 0, 0, $startDate["month"], $startDate["day"], $startDate["year"])){
-              //poll before start
-              $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
-              $tmpl->setVariable("NO_MESSAGE_INFO", "Abstimmung wurde noch nicht gestartet.");
-              $tmpl->parse("BLOCK_NO_MESSAGE");
-              $tmpl->setVariable("HIDDEN", "hidden");
-          }
-          else{
-
-            if (time() > mktime(0, 0, 0, $startDate["month"], $startDate["day"], $startDate["year"]) && time() < mktime(24, 0, 0, $end_date["month"], $end_date["day"], $end_date["year"])) {
-                $pollActive = true;
+            //if the title is empty the headline will not be displayed (only in edit mode)
+            if (trim($portletName == "")) {
+                $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
             } else {
-                $pollActive = false;
+                $tmpl->setVariable("HEADLINE_CLASS", "headline");
             }
 
-            $max_votecount = 1;
-            foreach ($options_votecount as $option_votecount) {
-                if ($option_votecount > $max_votecount)
-                    $max_votecount = $option_votecount;
-            }
+            $options = $content["options"];
+            $options_votecount = $content["options_votecount"];
+            $startDate = $content["start_date"];
+            $end_date = $content["end_date"];
 
-            //reference icon
-            if ($portletIsReference) {
-                $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
-                $envId = $portlet->get_environment()->get_environment()->get_id();
-                $envUrl = PATH_URL . "portal/index/" . $envId;
-                $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
-            }
+            if ($options[0] == "" && $options[1] == "" && $options[2] == "" && $options[3] == "" && $options[4] == "" && $options[5] == "") {
+                //NO poll options
+                $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
+                $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Abstimmung vorhanden.");
+                $tmpl->parse("BLOCK_NO_MESSAGE");
+                $tmpl->setVariable("HIDDEN", "hidden");
+            } else if (time() < mktime(0, 0, 0, $startDate["month"], $startDate["day"], $startDate["year"])) {
+                //poll before start
+                $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");
+                $tmpl->setVariable("NO_MESSAGE_INFO", "Abstimmung wurde noch nicht gestartet.");
+                $tmpl->parse("BLOCK_NO_MESSAGE");
+                $tmpl->setVariable("HIDDEN", "hidden");
+            } else {
 
-            $tmpl->setVariable("POLL_TOPIC", $content["poll_topic"]);
-
-            if ($pollActive) {
-                $i = 0;
-                foreach ($options as $option) {
-                    if ($option != "") {
-                        $tmpl->setCurrentBlock("choice");
-                        $tmpl->setVariable("OPTION", $option);
-                        $tmpl->setVariable("OPTION_NUMBER", $i);
-                        //create command params
-                        $tmpl->setVariable("portletObjectId", $portlet->get_id());
-                        $tmpl->setVariable("voteItemId", $i);
-                        $tmpl->parse("choice");
-                    }
-                    $i++;
+                if (time() > mktime(0, 0, 0, $startDate["month"], $startDate["day"], $startDate["year"]) && time() < mktime(24, 0, 0, $end_date["month"], $end_date["day"], $end_date["year"])) {
+                    $pollActive = true;
+                } else {
+                    $pollActive = false;
                 }
-            } else {
-                $i = 0;
-                foreach ($options as $option) {
-                    $tmpl->setCurrentBlock("BLOCK_VOTE_RESULT");
-                    if ($option != "") {
-                        $tmpl->setVariable("OPTION", $option);
-                        $tmpl->setVariable("OPTION_VOTECOUNT", $options_votecount[$i]);
-                        $tmpl->setVariable("OPTION_NUMBER", $i);
-                        $tmpl->setVariable("PATH_COLOR", PATH_URL);
-                        $percentage = $options_votecount[$i] / $max_votecount * 100;
-                        $percentage = round($percentage);
-                        if ($percentage < 1) {
-                            $percentage = 1;
+
+                $max_votecount = 1;
+                foreach ($options_votecount as $option_votecount) {
+                    if ($option_votecount > $max_votecount)
+                        $max_votecount = $option_votecount;
+                }
+
+                //reference icon
+                if ($portletIsReference) {
+                    $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
+                    $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
+                    $envId = $portlet->get_environment()->get_environment()->get_id();
+                    $envUrl = PATH_URL . "portal/index/" . $envId;
+                    $tmpl->setVariable("REFERENCE_ICON", "<a $titleTag href='{$envUrl}' target='_blank'><svg><use xlink:href='{$referIcon}#refer'></svg></a>");
+                }
+
+                $tmpl->setVariable("POLL_TOPIC", $content["poll_topic"]);
+
+                if ($pollActive) {
+                    $i = 0;
+                    foreach ($options as $option) {
+                        if ($option != "") {
+                            $tmpl->setCurrentBlock("choice");
+                            $tmpl->setVariable("OPTION", $option);
+                            $tmpl->setVariable("OPTION_NUMBER", $i);
+                            //create command params
+                            $tmpl->setVariable("portletObjectId", $portlet->get_id());
+                            $tmpl->setVariable("voteItemId", $i);
+                            $tmpl->parse("choice");
                         }
-                        $tmpl->setVariable("WIDTH", $percentage);
-                        $tmpl->parse("BLOCK_VOTE_RESULT");
+                        $i++;
                     }
-                    $i++;
+                } else {
+                    $i = 0;
+                    foreach ($options as $option) {
+                        $tmpl->setCurrentBlock("BLOCK_VOTE_RESULT");
+                        if ($option != "") {
+                            $tmpl->setVariable("OPTION", $option);
+                            $tmpl->setVariable("OPTION_VOTECOUNT", $options_votecount[$i]);
+                            $tmpl->setVariable("OPTION_NUMBER", $i);
+                            $tmpl->setVariable("PATH_COLOR", PATH_URL);
+                            $percentage = $options_votecount[$i] / $max_votecount * 100;
+                            $percentage = round($percentage);
+                            if ($percentage < 1) {
+                                $percentage = 1;
+                            }
+                            $tmpl->setVariable("WIDTH", $percentage);
+                            $tmpl->parse("BLOCK_VOTE_RESULT");
+                        }
+                        $i++;
+                    }
                 }
             }
-          }
         }
 
         $htmlBody = $tmpl->get();

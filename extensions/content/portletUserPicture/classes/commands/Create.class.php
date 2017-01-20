@@ -19,7 +19,7 @@ class Create extends \AbstractCommand implements \IAjaxCommand, \IIdCommand, \IF
             $chronicPortlet = \steam_factory::create_container($GLOBALS["STEAM"]->get_id(), "Benutzerbild", $column);
 	    
             //username
-            $user = $GLOBALS["STEAM"]->get_current_steam_user();
+            $user = \lms_steam::get_current_user();
             $username = $user->get_full_name();
             
             if (isset($params["title"])) {

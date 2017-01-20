@@ -15,7 +15,7 @@ class DatePicker extends Widget {
     private $labelWidth;
     private $inputWidth;
     private $inputBackgroundColor;
-    private $customSaveCode = "";
+    private $autosave = false;
     private $datePicker = true;
     private $timePicker = false;
 
@@ -75,8 +75,8 @@ class DatePicker extends Widget {
         $this->inputBackgroundColor = $color;
     }
 
-    public function setCustomSaveCode($customSaveCode) {
-        $this->customSaveCode = $customSaveCode;
+    public function setAutosave($autosave) {
+        $this->autosave = $autosave;
     }
 
     public function setDatePicker($datePicker) {
@@ -148,14 +148,22 @@ class DatePicker extends Widget {
             $this->getContent()->setVariable("VALUE", $this->value);
         }
 
-        if ($this->datePicker && $this->timePicker) {
-            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datetimepicker({dateFormat: \"dd.mm.yy\", hourGrid: 4, minuteGrid: 10});");
-        } else if ($this->datePicker) {
-            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datepicker({dateFormat: \"dd.mm.yy\", showButtonPanel: true});");
-        } else if ($this->timePicker) {
-            $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").timepicker({hourGrid: 4, minuteGrid: 10});");
+        if ($this->autosave){
+          $this->getContent()->setVariable("AUTOSAVE", 1);
+        }
+        else{
+          $this->getContent()->setVariable("AUTOSAVE", 0);
         }
 
+        if(!$this->readOnly) {
+          if ($this->datePicker && $this->timePicker) {
+              $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datetimepicker({dateFormat: \"dd.mm.yy\", hourGrid: 4, minuteGrid: 10});");
+          } else if ($this->datePicker) {
+              $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").datepicker({dateFormat: \"dd.mm.yy\", showButtonPanel: true});");
+          } else if ($this->timePicker) {
+              $this->getContent()->setVariable("PICKER", "$(\"#{$this->id}\").timepicker({hourGrid: 4, minuteGrid: 10});");
+          }
+        }
         return $this->getContent()->get();
     }
 

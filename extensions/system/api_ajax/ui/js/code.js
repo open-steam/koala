@@ -63,19 +63,23 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                 if (checkResponseText(response, params)) {
                     responseData = jQuery.parseJSON(response);
                     if (responseData.status == "ok") {
-                        if (requestType == "updater") {
+                        if (requestType == "updater") { //attached to element, without postJS, with overlay
                             jQuery.globalEval(responseData.js);
                             jQuery('#' + elementId).html("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
                             closeDialog();
-                        } else if (requestType == "nonModalUpdater") {
+                        } else if (requestType == "nonModalUpdater") { //attached to element, without postJS, without overlay
                             jQuery.globalEval(responseData.js);
                             jQuery('#' + elementId).html("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
                             closeDialog();
-                        } else if (requestType == "popup") {
+                        } else if (requestType == "popupMenu") { //attached to element, with postJS, without overlay
+                            jQuery.globalEval(responseData.js);
+                            jQuery('#' + elementId).html("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
+                            jQuery.globalEval(responseData.postjs);
+                        } else if (requestType == "popup") { //attached to wrapper, with postJS, with overlay
                             jQuery.globalEval(responseData.js);
                             createDynamicWrapper("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
                             jQuery.globalEval(responseData.postjs);
-                        } else if (requestType == "inform") {
+                        } else if (requestType == "inform") { //attached to wrapper, with postJS, without overlay
                             jQuery.globalEval(responseData.js);
                             createDynamicWrapper("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html);
                             jQuery.globalEval(responseData.postjs);
@@ -99,7 +103,7 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                 }
             };
         }
-        if (requestType != "data" && requestType != "wizard" && requestType != "inform" && requestType != "nonModalUpdater") {
+        if (requestType != "data" && requestType != "wizard" && requestType != "inform" && requestType != "nonModalUpdater" && requestType != "popupMenu") {
             createOverlay("white", null, "show");
         }
         $.ajax({

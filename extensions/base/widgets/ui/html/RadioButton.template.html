@@ -10,7 +10,14 @@
 		$('#{ID}_{RADIOVALUE}').change(function() {//add the changed class to this object
             $('#{ID}').addClass('changed');
             //update the value in the variable
-            {ID} = this.value});
+            {ID} = this.value
+						if({AUTOSAVE}){
+							function dataSaveFunctionCallback(response){
+
+							}
+							eval($('#{ID}').attr('data-saveFunction'));
+						}
+					});
 	</script>
 <!-- END BLOCK_RADIOFIELD -->
 </div>
@@ -30,7 +37,14 @@
 		$('#{ID_HORIZONTAL}_{RADIOVALUE_HORIZONTAL}').change(function() {//add the changed class to this object
             $('#{ID_HORIZONTAL}').addClass('changed');
             //update the value in the variable
-            {ID_HORIZONTAL} = this.value});
+            {ID_HORIZONTAL} = this.value
+						if({AUTOSAVE}){
+							function dataSaveFunctionCallback(response){
+
+							}
+							eval($('#{ID_HORIZONTAL}').attr('data-saveFunction'));
+						}
+					});
 	</script>
     </center>
 </div>

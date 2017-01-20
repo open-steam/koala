@@ -874,7 +874,7 @@ function initializeBidSchools() {
 }
 
 function determineSchoolObject() {
-    $user = $GLOBALS["STEAM"]->get_current_steam_user();
+    $user = \lms_steam::get_current_user();
     $data = $user->get_attribute("ldap:dn");
 
     $lspbSchoolID = "163621";

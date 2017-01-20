@@ -47,13 +47,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $this->id = $object->get_id();
             }
         } else {
-            $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
-
-            if(!is_object($currentUser)){
-              $portal = \lms_portal::get_instance();
-          		$portal->logout();
-          		die;
-            }
+            $currentUser = \lms_steam::get_current_user();
 
             $object = $currentUser->get_workroom();
             $this->id = $object->get_id();
@@ -230,7 +224,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->getExtension()->addCSS();
 
         //check sanctions
-        $envWriteable = ($object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user()));
+        $envWriteable = ($object->check_access_write(\lms_steam::get_current_user()));
         $envSanction = $object->check_access(SANCTION_SANCTION);
 
         //$actionBar = new \Widgets\ActionBar();
@@ -355,7 +349,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $loader->setType("updater");
 
         //check the explorer view attribute which is specified in the profile
-        $viewAttribute = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("EXPLORER_VIEW");
+        $viewAttribute = \lms_steam::get_current_user()->get_attribute("EXPLORER_VIEW");
         if($viewAttribute && $viewAttribute == "gallery"){
           $loader->setCommand("loadGalleryContent");
           $searchField->setGalleryView();

@@ -133,7 +133,7 @@ class lms_portal
 
         // DISCLAIMER HANDLING
         if (DISCLAIMER && isset($GLOBALS['STEAM']) && $this->lms_user->get_login() != "guest") {
-            $steam_user = $GLOBALS['STEAM']->get_current_steam_user();
+            $steam_user = \lms_steam::get_current_user();
             if ($steam_user instanceof steam_user) {
                 $user_disclaimer = $steam_user->get_attribute("USER_ACCEPTED_DISCLAIMER");
                 if ($user_disclaimer === 0 || !$user_disclaimer === "TRUE") {
@@ -146,7 +146,7 @@ class lms_portal
 
         // CHANGE PASSWORD
         if (CHANGE_PASSWORD && isset($GLOBALS['STEAM']) && isset($GLOBALS['STEAM'])) {
-            $steam_user = $GLOBALS['STEAM']->get_current_steam_user();
+            $steam_user = \lms_steam::get_current_user();
             if ($steam_user instanceof steam_user) {
                 $user_generated_password = $steam_user->get_attribute("USER_GENERATED_PASSWORD");
                 if ($user_generated_password != "") {
@@ -221,8 +221,8 @@ class lms_portal
         $this->template->setVariable("USER_LOGIN", $this->lms_user->get_login());
 
       // LANGUAGE
-      if ( isset($_SESSION[ "LMS_USER" ]) && $_SESSION[ "LMS_USER" ]->is_logged_in() && isset($GLOBALS["STEAM"]) && is_object($GLOBALS["STEAM"]->get_current_steam_user())) {
-        $ulang = $GLOBALS["STEAM"]->get_current_steam_user()->get_attribute("USER_LANGUAGE");
+      if ( isset($_SESSION[ "LMS_USER" ]) && $_SESSION[ "LMS_USER" ]->is_logged_in() && isset($GLOBALS["STEAM"]) && is_object(\lms_steam::get_current_user())) {
+        $ulang = \lms_steam::get_current_user()->get_attribute("USER_LANGUAGE");
         if (!is_string($ulang) || $ulang === "0") $ulang = LANGUAGE_DEFAULT_STEAM;
         $languages = array(
           "english" => array("name" => gettext("English"), "icon" => "flag_gb.gif", "lang_key" => "en_US"),
@@ -526,7 +526,7 @@ return $rand_value;
                                 return "";
                             }
                         }
-            $user = lms_steam::get_current_user();
+            $user = \lms_steam::get_current_user();
             $koala_html_menu = new koala_html_menu();
             if (USERMANAGEMENT) {
                 $dataAccess = new sTeamServerDataAccess();
@@ -576,7 +576,7 @@ return $rand_value;
                             }
                         }
                         $koala_html_menu = new koala_html_menu();
-            $user = lms_steam::get_current_user();
+            $user = \lms_steam::get_current_user();
             // HOME
             // removed for version 1_5
             //$koala_html_menu->add_menu_entry( array( "name" => gettext( "Home" ), "link" => PATH_URL ) );

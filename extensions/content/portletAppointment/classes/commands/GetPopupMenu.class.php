@@ -1,76 +1,80 @@
 <?php
+
 namespace PortletAppointment\Commands;
+
 class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 
-	private $params;
-	private $id;
-	private $object;
-	private $x, $y, $height, $width;
-	private $user;
+    private $params;
+    private $id;
+    private $object;
+    private $x, $y, $height, $width;
+    private $user;
 
-	public function validateData(\IRequestObject $requestObject) {
-		return true;
-	}
+    public function validateData(\IRequestObject $requestObject) {
+        return true;
+    }
 
-	public function processData(\IRequestObject $requestObject) {
-		$this->params = $requestObject->getParams();
-		$this->id = $this->params["id"];
-		$this->x = $this->params["x"];
-		$this->y = $this->params["y"];
-		$this->height = $this->params["height"];
-		$this->width = $this->params["width"];
-		$this->user = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
-		$this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-	}
+    public function processData(\IRequestObject $requestObject) {
+        $this->params = $requestObject->getParams();
+        $this->id = $this->params["id"];
+        $this->x = $this->params["x"];
+        $this->y = $this->params["y"];
+        $this->height = $this->params["height"];
+        $this->width = $this->params["width"];
+        $this->user = \lms_steam::get_current_user()->get_name();
+        $this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
+    }
 
-	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-		$explorerUrl = \Explorer::getInstance()->getAssetUrl();
-		//icons
-		$copyIcon = $explorerUrl . "icons/menu/svg/copy.svg";
-		$cutIcon = $explorerUrl . "icons/menu/svg/cut.svg";
-		$referIcon = $explorerUrl . "icons/menu/svg/refer.svg";
-		$trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
-		$sortIcon = $explorerUrl . "icons/menu/svg/sort.svg";
-		$upIcon = $explorerUrl . "icons/menu/svg/up.svg";
-		$downIcon = $explorerUrl . "icons/menu/svg/down.svg";
-		$topIcon = $explorerUrl . "icons/menu/svg/top.svg";
-		$bottomIcon = $explorerUrl . "icons/menu/svg/bottom.svg";
-		$editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
-		$rightsIcon = $explorerUrl . "icons/menu/svg/rights.svg";
-		$newIcon = $explorerUrl . "icons/menu/svg/newElement.svg";
+    public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
+        $explorerUrl = \Explorer::getInstance()->getAssetUrl();
+        //icons
+        $copyIcon = $explorerUrl . "icons/menu/svg/copy.svg";
+        $cutIcon = $explorerUrl . "icons/menu/svg/cut.svg";
+        $referIcon = $explorerUrl . "icons/menu/svg/refer.svg";
+        $trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
+        $sortIcon = $explorerUrl . "icons/menu/svg/sort.svg";
+        $upIcon = $explorerUrl . "icons/menu/svg/up.svg";
+        $downIcon = $explorerUrl . "icons/menu/svg/down.svg";
+        $topIcon = $explorerUrl . "icons/menu/svg/top.svg";
+        $bottomIcon = $explorerUrl . "icons/menu/svg/bottom.svg";
+        $editIcon = $explorerUrl . "icons/menu/svg/edit.svg";
+        $rightsIcon = $explorerUrl . "icons/menu/svg/rights.svg";
+        $newIcon = $explorerUrl . "icons/menu/svg/newElement.svg";
 
-		$env = $this->object->get_environment();
-		$inventory = $env->get_inventory();
-		$id = intval($this->id);
-		foreach ($inventory as $key => $element) {
-			if ($element->get_id() == $id) {
-				$index = $key;
-			}
-		}
+        $env = $this->object->get_environment();
+        $inventory = $env->get_inventory();
+        $id = intval($this->id);
+        foreach ($inventory as $key => $element) {
+            if ($element->get_id() == $id) {
+                $index = $key;
+            }
+        }
 
-		$popupMenu =  new \Widgets\PopupMenu();
-		$items = array(
-						array("name" => "<svg><use xlink:href='{$newIcon}#newElement'/></svg> Termin anlegen",  "command" => "CreateNewFormTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten",  "command" => "Edit", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						array("name" => "<svg><use xlink:href='{$copyIcon}#copy'/></svg> Kopieren",  "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "<svg><use xlink:href='{$cutIcon}#cut'/></svg> Ausschneiden",  "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"popup"),
-						array("name" => "<svg><use xlink:href='{$referIcon}#refer'/></svg> Referenz erstellen",  "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type"=>"inform"),
-						array("name" => "<svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen",  "command" => "Delete", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type"=>"popup"),
-						(count($inventory) > 1) ? array("name" => "<svg><use xlink:href='{$sortIcon}#sort'/></svg> Umsortieren", "direction" => "right", "menu" => array(
-							($index != 0) ? array("name" => "<svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'first'}") : "",
-							($index != 0) ? array("name" => "<svg><use xlink:href='{$upIcon}#up'/></svg> Eins nach oben",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'up'}") : "",
-							($index < count($inventory)-1) ? array("name" => "<svg><use xlink:href='{$downIcon}#down'/></svg> Eins nach unten",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'down'}") : "",
-							($index < count($inventory)-1) ? array("name" => "<svg><use xlink:href='{$bottomIcon}#bottom'/></svg> Ganz nach unten",  "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'last'}") : "",
-						)) : "",
-					   	array("name" => "SEPARATOR"),
-						array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte",  "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->id}'}", "type"=>"popup"),
-						);
-		$popupMenu->setItems($items);
-		$popupMenu->setPosition(round($this->x + $this->width - 155) . "px", round($this->y + $this->height + 4) . "px");
+        
+        $items = array(
+            array("name" => "<svg><use xlink:href='{$newIcon}#newElement'/></svg> Termin anlegen", "command" => "CreateNewFormTerm", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type" => "popup"),
+            array("name" => "<svg><use xlink:href='{$editIcon}#edit'/></svg> Bearbeiten", "command" => "Edit", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type" => "popup"),
+            array("name" => "<svg><use xlink:href='{$copyIcon}#copy'/></svg> Kopieren", "command" => "PortletCopy", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type" => "popup"),
+            array("name" => "<svg><use xlink:href='{$cutIcon}#cut'/></svg> Ausschneiden", "command" => "PortletCut", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type" => "popup"),
+            array("name" => "<svg><use xlink:href='{$referIcon}#refer'/></svg> Referenz erstellen", "command" => "PortletReference", "namespace" => "Portal", "params" => "{'id':'{$this->id}','user':'{$this->user}'}", "type" => "inform"),
+            array("name" => "<svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen", "command" => "Delete", "namespace" => "PortletAppointment", "params" => "{'portletId':'{$this->id}'}", "type" => "popup"),
+            (count($inventory) > 1) ? array("name" => "<svg><use xlink:href='{$sortIcon}#sort'/></svg> Umsortieren", "direction" => "right", "menu" => array(
+                    ($index != 0) ? array("name" => "<svg><use xlink:href='{$topIcon}#top'/></svg> Ganz nach oben", "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'first'}") : "",
+                    ($index != 0) ? array("name" => "<svg><use xlink:href='{$upIcon}#up'/></svg> Eins nach oben", "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'up'}") : "",
+                    ($index < count($inventory) - 1) ? array("name" => "<svg><use xlink:href='{$downIcon}#down'/></svg> Eins nach unten", "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'down'}") : "",
+                    ($index < count($inventory) - 1) ? array("name" => "<svg><use xlink:href='{$bottomIcon}#bottom'/></svg> Ganz nach unten", "command" => "Order", "namespace" => "Portal", "params" => "{'portletId':'{$this->id}','order':'last'}") : "",
+                )) : "",
+            array("name" => "SEPARATOR"),
+            array("name" => "<svg><use xlink:href='{$rightsIcon}#rights'/></svg> Rechte", "command" => "Sanctions", "namespace" => "Explorer", "params" => "{'id':'{$this->id}'}", "type" => "popup"),
+        );
+        $popupMenu = new \Widgets\PopupMenu();
+        $popupMenu->setItems($items);
 
-		$ajaxResponseObject->setStatus("ok");
-		$ajaxResponseObject->addWidget($popupMenu);
-		return $ajaxResponseObject;
-	}
+        $ajaxResponseObject->setStatus("ok");
+        $ajaxResponseObject->addWidget($popupMenu);
+        return $ajaxResponseObject;
+    }
+
 }
+
 ?>

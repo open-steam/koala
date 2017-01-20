@@ -3,7 +3,7 @@ namespace Explorer\Model;
 class Sanction {
 	
 	public static function getMarkerHtml(\steam_object $steam_object, $aquireUsed = true) {
-		$myUser = $GLOBALS["STEAM"]->get_current_steam_user();
+		$myUser = \lms_steam::get_current_user();
 		if (!$steam_object->check_access_read($myUser)) {
 			return "<img title=\"Kein Zugriff.\" src=\"".PATH_URL."explorer/asset/icons/no_access.png\"></img>";
 		}

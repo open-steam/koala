@@ -63,8 +63,8 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             isset($this->params["name"]) ? $this->name = $this->params["name"] : "";
         }
         
-        $this->userName = $GLOBALS["STEAM"]->get_current_steam_user()->get_name();
-        $this->userId = $GLOBALS["STEAM"]->get_current_steam_user()->get_id();
+        $this->userName = \lms_steam::get_current_user()->get_name();
+        $this->userId = \lms_steam::get_current_user()->get_id();
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
@@ -72,7 +72,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         //get the room, the user wants to create the new object in
         //if no id is set, use the Documentroot of the user
         if ($this->id === "") {
-            $this->envRoom = $GLOBALS["STEAM"]->get_current_steam_user()->get_workroom();
+            $this->envRoom = \lms_steam::get_current_user()->get_workroom();
             $this->id = $this->envRoom->get_id();
         } else {
             $this->envRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);

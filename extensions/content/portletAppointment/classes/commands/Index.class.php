@@ -33,19 +33,17 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $params = $requestObject->getParams();
 
         $this->getExtension()->addCSS();
-        //$this->getExtension()->addJS();
-        //icon
-        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
         //reference handling
         if (isset($params["referenced"]) && $params["referenced"] == true) {
-            $portletIsReference = true;
-            $referenceId = $params["referenceId"];
             if (!$portlet->check_access_read()) {
                 $this->rawHtmlWidget = new \Widgets\RawHtml();
                 $this->rawHtmlWidget->setHtml("");
                 return null;
             }
+
+            $portletIsReference = true;
+            $referenceId = $params["referenceId"];
         } else {
             $portletIsReference = false;
         }
@@ -72,7 +70,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl->setVariable("linkurl", "");
 
         //if the title is empty the headline will not be displayed (only in edit mode)
-        if ($portlet_name == "" || $portlet_name == " ") {
+        if (trim($portlet_name == "")) {
             $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
         } else {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
@@ -80,6 +78,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference icon
         if ($portletIsReference) {
+            $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
             $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
@@ -87,7 +86,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         }
 
         //main popupmenu
-        if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
             $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
             $popupmenu = new \Widgets\PopupMenu();
@@ -98,7 +97,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
         }
 
-        if ($portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if ($portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("Portal");
@@ -132,7 +131,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             //write access is required to save the sorting
             //no problem, because only with write access elements can be added, removed or rearranged
-            if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+            if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                 if ($unsortedContent != $content) {
                     $portletObject->set_attribute("bid:portlet:content", $content);
                 }
@@ -150,7 +149,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 }
 
                 //term popupmenu
-                if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+                if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
                     $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
                     $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
                     $popupmenu = new \Widgets\PopupMenu();
@@ -198,17 +197,17 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $tmpl->parse("BLOCK_TERM_STARTTIME");
                 }
 
-                if(isset($appointment["end_time"])){
-                  if (isset($appointment["end_time"]["hour"]) && $appointment["end_time"]["hour"] !== "") {
-                      $tmpl->setCurrentBlock("BLOCK_TERM_ENDTIME");
-                      $tmpl->setVariable("ENDTIME", $appointment["end_time"]["hour"] . "." . $appointment["end_time"]["minutes"] . " Uhr");
-                      $tmpl->parse("BLOCK_TERM_ENDTIME");
-                      if (!$endterm) {
-                          $tmpl->setCurrentBlock("BLOCK_TERM_ENDTERM");
-                          $tmpl->setVariable("ENDTERM", "Ende:");
-                          $tmpl->parse("BLOCK_TERM_ENDTERM");
-                      }
-                  }
+                if (isset($appointment["end_time"])) {
+                    if (isset($appointment["end_time"]["hour"]) && $appointment["end_time"]["hour"] !== "") {
+                        $tmpl->setCurrentBlock("BLOCK_TERM_ENDTIME");
+                        $tmpl->setVariable("ENDTIME", $appointment["end_time"]["hour"] . "." . $appointment["end_time"]["minutes"] . " Uhr");
+                        $tmpl->parse("BLOCK_TERM_ENDTIME");
+                        if (!$endterm) {
+                            $tmpl->setCurrentBlock("BLOCK_TERM_ENDTERM");
+                            $tmpl->setVariable("ENDTERM", "Ende:");
+                            $tmpl->parse("BLOCK_TERM_ENDTERM");
+                        }
+                    }
                 }
 
                 if (trim($appointment["description"]) !== "" && trim($appointment["description"]) !== "0") {

@@ -13,7 +13,7 @@ class CopyMsg extends \AbstractCommand implements \IAjaxCommand
     {
         $params = $requestObject->getParams();
         $objectId = $params["id"];
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
         $portletOrginal = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 
         $portletCopy = $portletOrginal->copy();

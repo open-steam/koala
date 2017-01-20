@@ -39,7 +39,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
         if (strpos($this->params["dir"], "root") === 0) {
             $room = $currentUser->get_workroom();
             $bidServerRoot = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
@@ -110,7 +110,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
             $cssHighlight = "";
         }
         $empty = true;
-        if ($room->check_access_read()) {
+        if ($room instanceof \steam_room && $room->check_access_read()) {
             foreach ($room->get_inventory_filtered(array(array('+', 'class', CLASS_ROOM))) as $inventoryItem) {
                 if ($inventoryItem->check_access_read() && (getObjectType($inventoryItem) === "room") && !$this->isHiddenItem($inventoryItem, $currentUser)) {
                     if (!($root === 1 && ($inventoryItem->get_name() === "home" || $inventoryItem->get_name() === "scripts"))) {

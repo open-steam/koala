@@ -176,7 +176,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             //here we are allowed to insert new documents to the postbox
 
             //check if there is already a submitted object
-            $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+            $currentUser = \lms_steam::get_current_user();
             $inventory = $container->get_inventory();
             $statusText = 'Es liegt keine Abgabe von dir vor.';
             $class = 'value';

@@ -118,14 +118,18 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             case "wiki":
                 $labelName = "Name";
                 $typeName = "Wiki";
+                break;
 
+            case "questionnaire":
+                $labelName = "Name";
+                $typeName = "Fragebogen";
+                break;
 
             default:
                 $labelName = "Name";
                 $typeName = "unbekannt";
                 break;
         }
-
 
         //pic tests
         $documentIsPicture = false;
@@ -250,10 +254,13 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE) {
 
             $parent = $object->get_environment();
-            if ($parent !== 0 && $isWriteable){
+            if($parent !== 0){
+              $parentWritable = $parent->check_access_write();
+              if($parentWritable){
                 $inventory = $parent->get_inventory();
-            } else {
+              } else {
                 $inventory = array();
+              }
             }
             $keywordmatrix = array();
             foreach ($inventory as $inv) {
@@ -454,7 +461,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
         } else if ($type == "forum") {
             $creatorId = $creator->get_id();
-            $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+            $currentUser = \lms_steam::get_current_user();
             $currentUserId = $currentUser->get_id();
             if ($currentUserId == $creatorId) {
                 $dialog->addWidget($checkboxInput);
@@ -524,6 +531,19 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
           }
         }
 
+        //questionnaire
+        if ($type == "questionnaire"){
+          //Extra case because also normal users can write in questionnaires
+          $sanctionAll = $object->check_access(SANCTION_SANCTION);
+          if(!$sanctionAll){
+              $textAreaDescription->setReadOnly(true);
+              $checkboxHiddenObject->setReadonly(true);
+              $keywordArea->setReadOnly(true);
+              $dataNameInput->setReadOnly(true);
+          }
+          $dialog->addWidget($textAreaDescription);
+        }
+
         //gallery
         if ($type == "gallery"){
             $dialog->addWidget($separator);
@@ -543,7 +563,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
 
-        $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+        $currentUser = \lms_steam::get_current_user();
         $object = $currentUser->get_workroom();
 
         $dialog = new \Widgets\Dialog();

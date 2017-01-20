@@ -1,0 +1,122 @@
+<!-- BEGIN BLOCK_EDIT -->
+<li class="ui-state-default-rf" id="rfelement{ELEMENT_ID}">
+	<table width="100%">
+		<tr>
+			<td style="padding:0px;" class="question_container">
+				<div class="question_headline" style="margin:0px;">{POPUPMENUANKER}<b>{NUMBER}. {QUESTION_TEXT}</b></div>
+				<div style="margin:5px;">{HELP_TEXT}</div>
+				<table>
+					<!-- BEGIN BLOCK_OPTION_EDIT -->
+					<tr>
+						<td style="padding-right:10px; border:none;">{LABEL_OPTION1}</td>
+						<td style="padding:0px; border:none;">
+							<!-- BEGIN BLOCK_EDIT_STEP -->
+								<input style="padding-right:10px;" type="radio" name="tendency_{QUESTION_ID}_{STEP_COUNTER}" disabled>
+							<!-- END BLOCK_EDIT_STEP -->
+						</td>
+						<td style="padding-left:10px; border:none;">{LABEL_OPTION2}</td>
+					</tr>
+					<!-- END BLOCK_OPTION_EDIT -->
+				</table>
+			</td>
+		</tr>
+	</table>
+</li>
+<input type="hidden" name="rfelement{ELEMENT_ID}" value="{ELEMENT_DATA}">
+<input type="hidden" name="rfelement{ELEMENT_ID}_options" value="{OPTION_DATA}">
+<!-- END BLOCK_EDIT -->
+
+<!-- BEGIN BLOCK_VIEW -->
+<tr>
+  <td style="{ERROR_BORDER}" class="question_container">
+    <div class="question_headline"><b>{QUESTION_TEXT}</b></div>
+    <br>
+    <div>{HELP_TEXT}</div>
+		<br>
+		<table class="questionnaire_style" style="">
+			<!-- BEGIN BLOCK_OPTION_VIEW -->
+			<tr>
+				<td style="padding: 0px 10px 0px 0px;text-align:right;">{OPTION_VIEW1}</td>
+				<td style="padding: 0px 0px 0px 0px;text-align:left;">
+					<!-- BEGIN BLOCK_STEP_VIEW -->
+					<input type="radio" name="question{QUESTION_ID}_{OPTION_COUNTER}" value="{STEP_VALUE}" style="margin-right: 10px;" {STEP_CHECKED} {QUESTION_DISABLED}>
+					<!-- END BLOCK_STEP_VIEW -->
+				</td>
+				<td>{OPTION_VIEW2}</td>
+			</tr>
+			<!-- END BLOCK_OPTION_VIEW -->
+		</table>
+	</td>
+</tr>
+<!-- END BLOCK_VIEW -->
+
+<!-- BEGIN BLOCK_NO_RESULTS -->
+<tr>
+	<td class="question_container">
+		<div class="question_headline"><b>{QUESTION_TEXT}</b></div>
+		<br>
+		{NO_RESULTS}
+	</td>
+</tr>
+<!-- END BLOCK_NO_RESULTS -->
+
+<!-- BEGIN BLOCK_RESULTS -->
+<tr>
+	<td class="question_container">
+		<div class="question_headline"><b>{QUESTION_ID}. {QUESTION_TEXT}</b></div>
+		<br>
+		<table class="questionnaire_style" style="width: 100%;">
+			<colgroup span="13"></colgroup>
+			<tr>
+				<th></th>
+				<!-- BEGIN BLOCK_FIRST_ROW_STEP -->
+				<th align="center" style="text-align:center;"><input type="radio" name="question{FIRST_ROW_ID}" disabled></th>
+				<!-- END BLOCK_FIRST_ROW_STEP -->
+				<th></th>
+				<th style="text-align:center;">{STATS_LABEL}</th>
+			</tr>
+			<!-- BEGIN BLOCK_RESULTS_ROW -->
+			<tr {ROW_STYLE}>
+				<td align="center">{ROW_LABEL1}</td>
+				<!-- BEGIN BLOCK_RESULTS_ROW_ELEMENT -->
+				<td align="center">{RESULT_ELEMENT}</td>
+				<!-- END BLOCK_RESULTS_ROW_ELEMENT -->
+				<td align="center">{ROW_LABEL2}</td>
+				<td align="center">{STATS}</td>
+			</tr>
+			<!-- END BLOCK_RESULTS_ROW -->
+		</table>
+		<div id="chart_div_{QUESTION_ID}">
+			<table class="questionnaire_style" width="100%">
+				<!-- BEGIN BLOCK_CHART_ROW -->
+				<tr>
+			 		<td width="50%">
+			 			<div id="chart_div_{CHART_ID}_{CHART_COUNTER}"></div>
+			 		</td>
+		     		<td width="50%">
+			     		<div id="chart_div_{CHART_ID}_{CHART_COUNTER2}"></div>
+			     	</td>
+			     </tr>
+				<!-- END BLOCK_CHART_ROW -->
+			</table>
+		</div>
+	 </td>
+</tr>
+<!-- BEGIN BLOCK_CHART_SCRIPT -->
+<script type="text/javascript">
+	google.setOnLoadCallback(drawChart{CHART_ID_SCRIPT}_{COUNTER_ID});
+	function drawChart{CHART_ID_SCRIPT}_{COUNTER_ID}() {
+	var data = new google.visualization.DataTable();
+	data.addColumn("string", "Task");
+	data.addColumn("number", "%");
+	data.addRows({OPTION_COUNT});
+	<!-- BEGIN BLOCK_CHART_SCRIPT_OPTION -->
+	data.setValue({OPTION_COUNTER}, 0, "{OPTION_LABEL}");
+	data.setValue({OPTION_COUNTER}, 1, {OPTION_RESULT});
+	<!-- END BLOCK_CHART_SCRIPT_OPTION -->
+	var chart = new google.visualization.PieChart(document.getElementById("chart_div_{CHART_ID_SCRIPT}_{COUNTER_ID}"));
+	chart.draw(data, {width: 450, height: 200, backgroundColor: "#EEEEEE", sliceVisibilityThreshold: 0, title: "{CHART_TITLE}"});
+}
+</script>
+<!-- END BLOCK_CHART_SCRIPT -->
+<!-- END BLOCK_RESULTS -->

@@ -139,6 +139,11 @@ qq.removeClass = function(element, name){
     var re = new RegExp('(^| )' + name + '( |$)');
     element.className = element.className.replace(re, ' ').replace(/^\s+|\s+$/g, "");
 };
+
+qq.setDataSaveFunction = function(element, steamId){
+    element.setAttribute("data-saveFunction", "sendRequest('databinding', {'id': "+steamId+", 'attribute': 'OBJ_DESC', 'value': $('#descriptionForUploadedFiles').val()}, '', 'data', function(response){dataSaveFunctionCallback(response);});");
+};
+
 qq.setText = function(element, text){
     element.innerText = text;
     element.textContent = text;
@@ -503,7 +508,7 @@ qq.FileUploader = function(o){
                 '<span class="qq-upload-file"></span>' +
                 '<span class="qq-upload-spinner"></span>' +
                 '<span class="qq-upload-size"></span>' +
-                '<span class="qq-upload-ok"><img src="{PATH_URL}widgets/asset/icon_ok.png">  (Datei wurde erfolgreich hochgeladen)</span>' +
+                '<span class="qq-upload-ok"><img src="{PATH_URL}widgets/asset/icon_ok.png" title="Datei wurde erfolgreich hochgeladen"></span>' +
                 '<a class="qq-upload-cancel" href="#">abbrechen</a>' +
                 '<span class="qq-upload-failed-text">Fehler</span>' +
             '</li>',
@@ -630,6 +635,8 @@ qq.extend(qq.FileUploader.prototype, {
 
         if (result.success){
             qq.addClass(item, this._classes.success);
+            qq.addClass(item, "changed");
+            qq.setDataSaveFunction(item, result.steamId);
         } else {
             qq.addClass(item, this._classes.fail);
             $(item).find("img").each(function(){var string = this.src; string = string.substring(0, string.length-6);
@@ -1220,9 +1227,6 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         params['envid'] = this._options.envid;
         params['command'] = this._options.command;
         params['destid'] = this._options.destid;
-        if(document.getElementById('override-cb')){
-            params['checked'] = document.getElementById('override-cb').checked;
-        }
         var queryString = qq.obj2url(params, this._options.action);
 
         xhr.open("POST", queryString, true);

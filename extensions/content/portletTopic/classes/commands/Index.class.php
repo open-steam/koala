@@ -26,23 +26,21 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
     public function processData(\IRequestObject $requestObject) {
-        $htmlBody = "";
         $objectId = $requestObject->getId();
         $portlet = $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 
-        //icon
-        $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
 
         //reference handling
         $params = $requestObject->getParams();
         if (isset($params["referenced"]) && $params["referenced"] == true) {
-            $portletIsReference = true;
-            $referenceId = $params["referenceId"];
             if (!$portlet->check_access_read()) {
                 $this->rawHtmlWidget = new \Widgets\RawHtml();
                 $this->rawHtmlWidget->setHtml("");
                 return null;
             }
+
+            $portletIsReference = true;
+            $referenceId = $params["referenceId"];
         } else {
             $portletIsReference = false;
         }
@@ -76,7 +74,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl->setVariable("PORTLET_NAME", $portletName);
 
         //if the title is empty the headline will not be displayed (only in edit mode)
-        if ($portletName == "" || $portletName == " ") {
+        if (trim($portletName == "")) {
             $tmpl->setVariable("HEADLINE_CLASS", "headline editbutton");
         } else {
             $tmpl->setVariable("HEADLINE_CLASS", "headline");
@@ -84,6 +82,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         //reference icon
         if ($portletIsReference) {
+            $referIcon = \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/refer.svg";
             $titleTag = "title='" . \Portal::getInstance()->getReferenceTooltip() . "'";
             $envId = $portlet->get_environment()->get_environment()->get_id();
             $envUrl = PATH_URL . "portal/index/" . $envId;
@@ -91,7 +90,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         }
 
         //popupmenu main
-        if (!$portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
             $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
 
@@ -105,7 +104,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $tmpl->parse("BLOCK_EDIT_BUTTON_MAIN");
         }
 
-        if ($portletIsReference && $portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+        if ($portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("Portal");
@@ -122,24 +121,24 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $categoryCount = 0;
             foreach ($content as $category) {
                 /*
-                $tmpl->setCurrentBlock("category");
-                //popupmenu category
-                if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
-                    $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_CATEGORY");
-                    $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
+                  $tmpl->setCurrentBlock("category");
+                  //popupmenu category
+                  if ($portlet->check_access_write(\lms_steam::get_current_user())) {
+                  $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_CATEGORY");
+                  $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
 
-                    $popupmenu = new \Widgets\PopupMenu();
-                    $popupmenu->setData($portlet);
-                    $popupmenu->setNamespace("PortletTopic");
-                    $popupmenu->setElementId("portal-overlay");
-                    $popupmenu->setCommand("GetPopupMenuCategory");
-                    $popupmenu->setParams(array(array("key" => "category", "value" => $categoryCount)));
-                    $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
-                    $tmpl->parse("BLOCK_EDIT_BUTTON_CATEGORY");
-                }
+                  $popupmenu = new \Widgets\PopupMenu();
+                  $popupmenu->setData($portlet);
+                  $popupmenu->setNamespace("PortletTopic");
+                  $popupmenu->setElementId("portal-overlay");
+                  $popupmenu->setCommand("GetPopupMenuCategory");
+                  $popupmenu->setParams(array(array("key" => "category", "value" => $categoryCount)));
+                  $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
+                  $tmpl->parse("BLOCK_EDIT_BUTTON_CATEGORY");
+                  }
 
-                $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode(@$category["title"]));
-                */
+                  $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode(@$category["title"]));
+                 */
                 $tmpl->setVariable("TOPIC_ENTRY", "");
 
                 if (isset($category["topics"])) {
@@ -148,7 +147,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         $tmpl->setCurrentBlock("topic_entry");
 
                         //popupmenu topic
-                        if ($portlet->check_access_write($GLOBALS["STEAM"]->get_current_steam_user())) {
+                        if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_TOPIC");
                             $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
 

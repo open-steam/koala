@@ -84,7 +84,13 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return "";
             }
         } else if ($cell == $this->rawImage) {
-            return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img>";
+            $icon = deriveIcon($contentItem);
+            $iconSVG = str_replace("png", "svg", $icon);
+            $idSVG = str_replace(".svg", "", $iconSVG);
+            $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+            return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
+            //return "<img src=\"" . PATH_URL . "explorer/asset/icons/mimetype/" . deriveIcon($contentItem) . "\"></img>";
         } else if ($cell == $this->rawName) {
             //adding Tipsy
             $tipsy = new \Widgets\Tipsy();

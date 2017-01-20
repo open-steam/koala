@@ -26,7 +26,7 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
             }
         } else {
 
-            $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
+            $currentUser = \lms_steam::get_current_user();
             $object = $currentUser->get_workroom();
             $this->id = $object->get_id();
         }
@@ -93,6 +93,7 @@ class ExplorerView extends \AbstractCommand implements \IFrameCommand {
         $loader->setParams(array("id" => $this->id));
         $loader->setElementId("explorerWrapper");
         $loader->setType("updater");
+        $loader->setNamespace("Photoalbum");
 
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml("<div id=\"explorerContent\">" . $breadcrumb->getHtml() . $environment->getHtml() . $loader->getHtml() . "</div>");

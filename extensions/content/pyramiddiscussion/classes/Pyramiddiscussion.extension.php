@@ -54,7 +54,7 @@ class Pyramiddiscussion extends AbstractExtension implements IObjectExtension{
 
     public function copyPyramiddiscussion($object){
         $group = $object->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
 
         if ($group->check_access(SANCTION_WRITE, $user)) {
             $instances = $group->get_attribute("PYRAMIDDISCUSSION_INSTANCES");
@@ -72,7 +72,7 @@ class Pyramiddiscussion extends AbstractExtension implements IObjectExtension{
 
     public function deletePyramiddiscussion($object){
         $group = $object->get_attribute("PYRAMIDDISCUSSION_PRIVGROUP");
-        $user = $GLOBALS["STEAM"]->get_current_steam_user();
+        $user = \lms_steam::get_current_user();
 
         if ($group->check_access(SANCTION_WRITE, $user)) {
             $id = $object->get_id();

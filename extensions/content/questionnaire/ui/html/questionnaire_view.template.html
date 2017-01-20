@@ -1,0 +1,40 @@
+{QUESTIONNAIRE_NAME}
+{QUESTIONNAIRE_DESC}
+<h1 align="center">{QUESTIONNAIRE_SUBHEADLINE}</h1>
+<div class="attribute">Status:</div><div class="value{COLOR}">{QUESTIONNAIRE_STATUS}</div>
+<div class="attribute">Start:</div><div class="value">{QUESTIONNAIRE_START}</div>
+<div class="attribute">Ende:</div><div class="value">{QUESTIONNAIRE_END}</div>
+<div class="attribute">Anzahl Fragen:</div><div class="value">{QUESTIONNAIRE_NUMBER_QUESTIONS}</div>
+<div class="attribute" style="{QUESTIONNAIRE_SHOW_NUMBER_SUBMISSIONS}">Anzahl Abgaben:</div><div class="value" style="{QUESTIONNAIRE_SHOW_NUMBER_SUBMISSIONS}">{QUESTIONNAIRE_NUMBER_SUBMISSIONS}</div>
+<div class="attribute">Mehrfachabgaben:</div><div class="value">{QUESTIONNAIRE_MULTIPLE}</div>
+<div class="attribute">Meine Abgaben:</div>{QUESTIONNAIRE_OWN_SUBMISSIONS}
+<!-- BEGIN BLOCK_VIEW_SURVEY -->
+<form action="" id="form" method="post" style="font-size:12px">
+	<center>
+		<h2>
+			{SURVEY_NAME}
+			{SURVEY_PAGE}
+		</h2>
+		<table class="grid" border="0" width="100%" style="border-collapse:separate; border-spacing:10px;">
+			<tr style="display:{DISPLAY_BEGIN};">
+				<td><h3>{SURVEY_BEGIN}</h3></td>
+			</tr>
+			{QUESTIONS_HTML}
+			<tr style="display:{DISPLAY_END};">
+				<td><h3>{SURVEY_END}</h3></td>
+			</tr>
+			<tr>
+				<td>
+					<div class="buttons">
+						<input type="button" class="bidButton" onclick="submitPrevious('{PREVIOUS_URL}');" name="previous" style="text-align:left; display:{DISPLAY_PREVIOUS}" value="{PREVIOUS_LABEL}">
+						<input type="button" class="bidButton" onclick="submitNext('{NEXT_URL}');" name="next" style="display:{DISPLAY_NEXT}" value="{NEXT_LABEL}">
+					</div>
+				</td>
+			</tr>
+		</table>
+	</center>
+	<input type="hidden" id="action" name="action">
+</form>
+<!-- END BLOCK_VIEW_SURVEY -->
+<p style="text-align:center; margin-top:30px;">{HINT}</p>
+<div id="submission-overlay"></div>

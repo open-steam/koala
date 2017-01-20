@@ -23,7 +23,7 @@ function check_permissions($user, $oid, $password) {
     else {
       $STEAM = new steam_connector(STEAM_SERVER, STEAM_PORT, $user, $password );
       $document = steam_factory::get_object( $STEAM->get_id(), (int)$oid );
-      if ($document->check_access(2, $STEAM->get_current_steam_user())===1)
+      if ($document->check_access(2, \lms_steam::get_current_user())===1)
 	return 1;
     }
   }

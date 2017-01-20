@@ -42,7 +42,7 @@ class TextContentDataProvider implements IDataProvider {
 	}
 	
 	public function isChangeable($object) {
-		return $object->check_access_write($GLOBALS["STEAM"]->get_current_steam_user());
+		return $object->check_access_write(\lms_steam::get_current_user());
 	}
 	
 }
