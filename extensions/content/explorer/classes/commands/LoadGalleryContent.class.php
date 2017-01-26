@@ -98,7 +98,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           }
 
           if($desc != ""){
-            $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; overflow:hidden; white-space:nowrap; float:left;\">Beschreibung</div> " . $desc . "<br>";
+            $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; overflow:hidden; white-space:nowrap; float:left;\">Beschreibung</div> " . preg_replace( "/\r|\n/", " ", $desc ) . "<br>";
           }
 
           $tipsy->setHtml($tipsyHtml);
