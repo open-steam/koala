@@ -116,7 +116,7 @@ class ContentProvider implements \Widgets\IContentProvider {
         if (!is_int($cell)) {
             throw new \Exception("cell must be an integer!!");
         }
-        $objType = getObjectType($contentItem);
+        $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
         if ($cell == $this->rawCheckbox) {
             if (!($contentItem instanceof \steam_trashbin)) {
                 return "<input id=\"{$contentItem->get_id()}_checkbox\" style=\"margin-top:0px\" type=\"checkbox\" onclick=\"event.stopPropagation(); if(this.checked) { jQuery('#{$contentItem->get_id()}').addClass('listviewer-item-selected') } else { jQuery('#{$contentItem->get_id()}').removeClass('listviewer-item-selected') }\"></input>";
@@ -144,8 +144,11 @@ class ContentProvider implements \Widgets\IContentProvider {
             $iconSVG = str_replace("png", "svg", $icon);
             $idSVG = str_replace(".svg", "", $iconSVG);
             $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
-            return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
+            $link = "href=\"" . \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view") . "\"";
+            if ($contentItem->get_attribute("OBJ_TYPE") === "container_portlet_bid") {
+                $link = "";
+            }
+            return "<a style='text-align:center; display:block;' " . $link ."><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } else if ($cell == $this->rawName) {
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
@@ -164,7 +167,6 @@ class ContentProvider implements \Widgets\IContentProvider {
               $tipsyHtml .= "<br>Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. Änderungen können nur am Originalobjekt vorgenommen werden. Ein Klick auf dieses Element führt Sie zum Originalobjekt.<br>";
             }
             $tipsy->setHtml($tipsyHtml);
-            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
             $desc = $contentItem->get_attribute("OBJ_DESC");
             $name = getCleanName($contentItem, 50);
             if (isset($url) && $url != "" && $contentItem->get_attribute("OBJ_TYPE") !== "container_portlet_bid") {
@@ -176,7 +178,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             return $contentItem->get_attribute("OBJ_DESC");
         } else if ($cell == $this->rawMarker) {
             return "";
-            $html = "";
+            /*$html = "";
             $html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
             $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
             $linkError = false;
@@ -203,7 +205,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                 $html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
             }
             $html .= "</div>";
-            return $html;
+            return $html;*/
         } /*else if ($cell == $this->rawFormerEnvironment) {
 
             if ($contentItem->get_attribute("OBJ_LAST_LOCATION_ID") !== "") {
