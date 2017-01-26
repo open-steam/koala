@@ -114,6 +114,7 @@ function send_http_error($pException, $pBacktrace = "", $silent = false)
                           "\nDate: " . date("d.m.Y H:i", time()) .
                           "\nUser: " . $ustring .
                           "\nHTTP-" . $_SERVER[ 'REQUEST_METHOD' ]. ': ' . $_SERVER[ 'REQUEST_URI' ] .
+                          "\nReferer-URL: " . $_SERVER[ 'HTTP_REFERER' ] .
                           "\nBrowser: " . $_SERVER[ 'HTTP_USER_AGENT' ] .
                           "\nMessage: " . $pException->getMessage() .
                           "\nServer: " . PATH_SERVER .
