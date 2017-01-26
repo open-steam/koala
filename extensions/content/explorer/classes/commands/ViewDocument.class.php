@@ -219,7 +219,11 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
                 $frameResponseObject->addWidget($cssStyle);
                 return $frameResponseObject;
             } else {
-                throw new \InvalidArgumentException("Unsupported Objecttype");
+                $errorHtml = new \Widgets\RawHtml();
+                $errorHtml->setHtml("Das Objekt \"" .$object->get_name() ."\" kann nicht mit dieser Komponente betrachtet werden.");
+                $frameResponseObject->addWidget($errorHtml);
+                return $frameResponseObject;
+                
             }
         } else {
             ExtensionMaster::getInstance()->send404Error();
