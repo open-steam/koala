@@ -76,7 +76,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
           $id = $object->get_id();
           $name = $object->get_name();
-          $desc = $object->get_attribute('OBJ_DESC');
+          $desc = preg_replace( "/\r|\n/", " ", $object->get_attribute('OBJ_DESC') );
           $creator = $object->get_creator();
           $tags = $object->get_attribute(OBJ_KEYWORDS);
 
@@ -98,7 +98,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           }
 
           if($desc != ""){
-            $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; overflow:hidden; white-space:nowrap; float:left;\">Beschreibung</div> " . preg_replace( "/\r|\n/", " ", $desc ) . "<br>";
+            $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; overflow:hidden; white-space:nowrap; float:left;\">Beschreibung</div> " . $desc . "<br>";
           }
 
           $tipsy->setHtml($tipsyHtml);
@@ -191,7 +191,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
                 </a>
 
                 <p style='display:none'>" . $tagList . "</p>
-
+                <p style='display:none'>" . $desc . "</p>
                 " . $urlNameHtml . "
 
             </li>");
