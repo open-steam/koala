@@ -61,7 +61,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
     }
 
     public function getHeadLineWidths() {
-        return array(25, 250, 10, 370, 10, 145, 75, 20, 20, 20);
+        return array(25, 250, 10, 380, 0, 145, 75, 20, 20, 20);
     }
 
     public function getHeadLineAligns() {
@@ -108,7 +108,7 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawImage = 0;
     private $rawName = 1;
     private $rawDesc = 3;
-    //private $rawMarker = 5;
+    private $rawTags = 4;
     private $rawChangeDate = 5;
     private $rawSize = 6;
     //private $rawSubscribe = 6;
@@ -256,6 +256,12 @@ class ContentProvider implements \Widgets\IContentProvider {
               return $html; */
         } elseif ($cell == $this->rawChangeDate) {
             return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
+        } elseif ($cell == $this->rawTags) {
+            $tags = $contentItem->get_attribute(OBJ_KEYWORDS);
+            if (sizeOf($tags) > 0) {
+                return "<div style=\"display:none;\">" . implode(" ", $tags) . "</div> <br>";
+            }
+        
         } elseif ($cell == $this->rawSize) {
             return getObjectReadableSize($contentItem);
         } elseif ($cell == $this->rawMenu) {

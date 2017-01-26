@@ -16,11 +16,13 @@
                     }
                     else{
                         $("#search-area").show();
-                        var tagIndex = "#" + this.id + "_5";
                         var nameIndex = "#" + this.id + "_1";
+                        var descriptionIndex = "#" + this.id + "_3";
+                        var tagIndex = "#" + this.id + "_4";
                         var name = $(nameIndex).text().toLowerCase();
                         var tags = $(tagIndex).text().toLowerCase();
-                        if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
+                        var description = $(descriptionIndex).text().toLowerCase();
+                        if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1) && (description.indexOf(value.toLowerCase()) == -1)) {
                             $(('#' + this.id)).removeClass("show");
                             $(('#' + this.id)).addClass("hide");
                             $(('#' + this.id)).hide();
