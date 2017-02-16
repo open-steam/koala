@@ -30,7 +30,6 @@ class ReplyTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
 		$steam=$GLOBALS["STEAM"];
 		$steamId=$steam->get_id();
                 
-                $currentUser = \lms_steam::get_current_user();
 
 
 		$object = \steam_factory::get_object($steamId, $objectId);

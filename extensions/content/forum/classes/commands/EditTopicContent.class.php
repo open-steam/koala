@@ -21,11 +21,7 @@ class EditTopicContent extends \AbstractCommand implements \IFrameCommand, \IAja
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$object= \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		$objectId = $object->get_id();
 		$steamUser= \lms_steam::get_current_user();
-		$steamUserId= $steamUser->get_id();
-		$steam = $GLOBALS["STEAM"];
-		$steamId=$steam->get_id();
 		$allowed_write=$object->check_access_write($steamUser);
 
 		$title=$this->params["title"];

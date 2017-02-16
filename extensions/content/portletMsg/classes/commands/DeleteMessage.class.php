@@ -31,8 +31,6 @@ class DeleteMessage extends \AbstractCommand implements \IFrameCommand, \IIdComm
 			$portletObject = $messageObjectId;
 		}
 		
-		//delete the object
-		$trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
 		//$messageObject->move($trashbin);
 		$this->removeMessageIdFromPortlet($portletObject, $messageObject);
 		$messageObject->delete();

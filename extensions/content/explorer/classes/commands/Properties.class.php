@@ -562,10 +562,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-
-        $currentUser = \lms_steam::get_current_user();
-        $object = $currentUser->get_workroom();
-
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Eigenschaften");
 

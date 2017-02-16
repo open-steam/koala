@@ -8,7 +8,6 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
     private $x, $y, $height, $width;
     private $portletObjectId;
     private $messageObjectId;
-    private $user;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -20,7 +19,6 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
         $this->y = $this->params["y"];
         $this->height = $this->params["height"];
         $this->width = $this->params["width"];
-        $this->user = \lms_steam::get_current_user()->get_name();
         $this->messageObjectId = $this->params["messageObjectId"];
         $this->portletObjectId = $this->params["portletObjectId"];
     }
