@@ -808,12 +808,17 @@ return $rand_value;
             $this->template->parse( "PROBLEM_BLOCK" );
             $_SESSION[ "error" ] = "";
         } elseif ($description && $description != "") {
-        $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
-        //$this->template->setVariable( "PROBLEM_ICON", PATH_URL . "widgets/asset/emotes/wrong.png");
-        $this->template->setVariable( "PROBLEM_DESCRIPTION", $description );
-        $this->template->setVariable( "PROBLEM_SOLUTION", $solution );
-        $this->template->parse( "PROBLEM_BLOCK" );
-    }
+            $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
+            //$this->template->setVariable( "PROBLEM_ICON", PATH_URL . "widgets/asset/emotes/wrong.png");
+            $this->template->setVariable( "PROBLEM_DESCRIPTION", $description );
+            $this->template->setVariable( "PROBLEM_SOLUTION", $solution );
+            $this->template->parse( "PROBLEM_BLOCK" );
+        } elseif(!empty($_SESSION["logout_session_expired"])){
+            $this->template->setCurrentBlock( "NOTIFICATION_BLOCK" );
+            $this->template->setVariable( "NOTIFICATION_DESCRIPTION", $_SESSION[ "logout_session_expired" ] );
+            $this->template->parse( "NOTIFICATION_BLOCK" );
+            $_SESSION["logout_session_expired"] = "";
+        }
     }
 
     public function set_confirmation( $confirmation_text = "" )

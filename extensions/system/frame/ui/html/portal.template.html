@@ -248,11 +248,20 @@
             <div id="noJs" style="display: block;font-size:1.5em;">
                 Um den Server nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser.
             </div>
-            <div id="loginPanelWarning" style="display:none;">
+            <div class="loginPanelNotification" id="loginPanelWarning" style="display:none;">
                 Die Entwicklung des von Ihnen benutzten Browsers <i>Internet Explorer</i> wurde vom Hersteller eingestellt.
                 Eine korrekte Darstellung und Funktion der Plattform kann unter diesen Umständen nicht gewährleistet werden.
                 Weitere Informationen und eine Liste alternativer Browser finden Sie <a href="https://bid.lspb.de/explorer/ViewDocument/640276/">hier</a>.
             </div>
+            
+            <!-- BEGIN NOTIFICATION_BLOCK -->
+            <div id="loginPanelError" class="loginPanelNotification">
+                <p style="display:block">
+                    {NOTIFICATION_DESCRIPTION}
+                </p>
+            </div>
+            <!-- END NOTIFICATION_BLOCK -->
+            
             <script>
               $('#noJs').hide();
               var internetExplorer = false;

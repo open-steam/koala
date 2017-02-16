@@ -96,6 +96,8 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                         } else {
                             handleError("Falscher Anfragetyp", response, params);
                         }
+                    } else if (responseData.status == "guest_logout"){
+                        window.location.href = "/";
                     }
                     else {
                         handleError("Server meldet Fehler(1)", response, params);
