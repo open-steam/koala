@@ -264,7 +264,7 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
         $this->postboxObjectName = getCleanName($this->postboxObject);
         $this->postboxObjectType = $this->postboxObject->get_attribute("OBJ_TYPE");
 
-        $this->currentUser = \lms_steam::get_current_user();
+        $this->currentUser = \lms_steam::get_current_user_no_guest();
 
         $this->creator = $this->postboxObject->get_creator();
         $this->creatorId = $this->creator->get_id();

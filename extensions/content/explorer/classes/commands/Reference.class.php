@@ -16,7 +16,7 @@ class Reference extends \AbstractCommand implements \IAjaxCommand {
 	public function processData(\IRequestObject $requestObject) {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
-		$this->user = \lms_steam::get_current_user();
+		$this->user = \lms_steam::get_current_user_no_guest();
 		$this->rename = $this->params["rename"];
 		$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$this->name = $object->get_name();

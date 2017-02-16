@@ -24,7 +24,7 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
         $ajaxResponseObject->setStatus("ok");
         if ($this->id === "") {
-            $envRoom = \lms_steam::get_current_user()->get_workroom();
+            $envRoom = \lms_steam::get_current_user_no_guest()->get_workroom();
         } else {
             $envRoom = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
         }

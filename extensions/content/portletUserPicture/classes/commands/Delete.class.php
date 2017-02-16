@@ -11,7 +11,7 @@ class Delete extends \AbstractCommand implements \IAjaxCommand {
 		$steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $params["portletId"]);
 		
 		//delete the object
-		$trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
+		$trashbin = \lms_steam::get_current_user_no_guest()->get_attribute("USER_TRASHBIN");
 		$steamObject->move($trashbin);
 	}
 	

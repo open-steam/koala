@@ -63,8 +63,8 @@ class Create extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             isset($this->params["name"]) ? $this->name = $this->params["name"] : "";
         }
         
-        $this->userName = \lms_steam::get_current_user()->get_name();
-        $this->userId = \lms_steam::get_current_user()->get_id();
+        $this->userName = \lms_steam::get_current_user_no_guest()->get_name();
+        $this->userId = \lms_steam::get_current_user_no_guest()->get_id();
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

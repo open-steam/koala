@@ -24,7 +24,7 @@ class DeleteTopic extends \AbstractCommand implements \IFrameCommand, \IAjaxComm
 		$forumId=$this->params["forum"];
 		$object_id=$this->id;
 		/** log-in user */
-		$steamUser =  \lms_steam::get_current_user();
+		$steamUser =  \lms_steam::get_current_user_no_guest();
 		/** id of the log-in user */
 		$steamUserId = $steamUser->get_id();
 		

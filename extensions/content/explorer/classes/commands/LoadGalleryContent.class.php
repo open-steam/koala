@@ -39,7 +39,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $ajaxResponseObject->addWidget($noItem);
         }
 
-        $currentUser = \lms_steam::get_current_user();
+        $currentUser = \lms_steam::get_current_user_no_guest();
         $userHiddenAttribute = $currentUser->get_attribute("EXPLORER_SHOW_HIDDEN_DOCUMENTS");
 
         foreach ($this->objects as $key => $object) {
@@ -167,7 +167,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $colorProvider = new ColorProvider();
           $color = $colorProvider->getColor($object);
 
-          $galleryNumber = \lms_steam::get_current_user()->get_attribute("GALLERY_NUMBER");
+          $galleryNumber = \lms_steam::get_current_user_no_guest()->get_attribute("GALLERY_NUMBER");
           if(!is_numeric($galleryNumber) || $galleryNumber < 1 || $galleryNumber > 10){
             $galleryNumber = 5;
           }

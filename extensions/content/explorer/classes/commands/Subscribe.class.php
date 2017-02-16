@@ -13,7 +13,7 @@ class Subscribe extends \AbstractCommand implements \IAjaxCommand {
 		$this->params = $requestObject->getParams();
 		$this->id = $this->params["id"];
                 
-                $user = \lms_steam::get_current_user();
+                $user = \lms_steam::get_current_user_no_guest();
                 $portal = $user->get_attribute("HOME_PORTAL");
                 
                 if ($portal instanceof \steam_object) {

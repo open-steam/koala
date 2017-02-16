@@ -274,7 +274,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
     }
 
     function setupVariables() {
-        $this->steamUser = \lms_steam::get_current_user();
+        $this->steamUser = \lms_steam::get_current_user_no_guest();
 
         $this->everyone = \steam_factory::groupname_to_object($this->steam->get_id(), "everyone");
         $this->everyoneId = $this->everyone->get_id();

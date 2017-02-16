@@ -15,7 +15,7 @@ class PortletCopy extends \AbstractCommand implements \IAjaxCommand
     {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["id"];
-        $this->user = \lms_steam::get_current_user();
+        $this->user = \lms_steam::get_current_user_no_guest();
         $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
         if ($object instanceof \steam_link) {

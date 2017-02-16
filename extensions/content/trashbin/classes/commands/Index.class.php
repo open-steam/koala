@@ -19,7 +19,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
 		//chronic
 		\ExtensionMaster::getInstance()->getExtensionById("Chronic")->setCurrentOther("trashbin");
 
-		$currentUser = \lms_steam::get_current_user();
+		$currentUser = \lms_steam::get_current_user_no_guest();
 		if (isset($this->id)) {
 			$object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 			if ($object instanceof \steam_exit) {

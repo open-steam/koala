@@ -93,7 +93,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             $trashIcon = $explorerUrl . "icons/menu/svg/trash.svg";
             $brushIcon = $explorerUrl . "icons/menu/svg/brush.svg";
 
-            $viewAttribute = \lms_steam::get_current_user()->get_attribute("EXPLORER_VIEW");
+            $viewAttribute = \lms_steam::get_current_user_no_guest()->get_attribute("EXPLORER_VIEW");
             if ($viewAttribute && $viewAttribute == "gallery") {
                 $paramsArrayFunction = "getGalleryParamsArray";
                 $ElementIdFunction = "getGalleryElementIdArray";

@@ -40,7 +40,7 @@ class EditResult extends \AbstractCommand implements \IAjaxCommand {
 
         // check if current user is admin
         $staff = $questionnaire->get_attribute("QUESTIONNAIRE_STAFF");
-        $user = \lms_steam::get_current_user();
+        $user = \lms_steam::get_current_user_no_guest();
         $creator = $questionnaire->get_creator();
         $admin = 0;
         if ($creator->get_id() == $user->get_id() || \lms_steam::is_steam_admin($user)) {

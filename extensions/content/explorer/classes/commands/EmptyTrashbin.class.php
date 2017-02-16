@@ -15,7 +15,7 @@ class EmptyTrashbin extends \AbstractCommand implements \IAjaxCommand {
 
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
-        $this->trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
+        $this->trashbin = \lms_steam::get_current_user_no_guest()->get_attribute("USER_TRASHBIN");
         if (isset($this->params["id"])) {
             $this->id = $this->params["id"];
             if ($this->id !== 0) {

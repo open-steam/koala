@@ -39,7 +39,7 @@ class Index extends \AbstractCommand implements \IAjaxCommand {
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-        $currentUser = \lms_steam::get_current_user();
+        $currentUser = \lms_steam::get_current_user_no_guest();
         if (strpos($this->params["dir"], "root") === 0) {
             $room = $currentUser->get_workroom();
             $bidServerRoot = \steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/");
