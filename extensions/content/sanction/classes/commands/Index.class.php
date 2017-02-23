@@ -17,10 +17,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     private $environmentName = "";
     private $environmentSanction = false;
     private $environmentId;
-
+    private $warning = false;
     //acquire is an object, if the rights are acquired, otherwise it is an integer value
     private $acquire;
-
     //if $this->acquire is an object of the type steam_container
     private $rightsAreAcquired = false;
 
@@ -95,9 +94,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $this->steamObject = $GLOBALS["STEAM"];
         $this->steamUser = \lms_steam::get_current_user();
-        
 
-        //check if an ID of an object was assigned else throw an exception
+
+        //check if an ID of an object was assigned else show a warning
         if ($this->id === "") {
             $errorHtml = new \Widgets\RawHtml();
             $errorHtml->setHtml("Es wurde keine ID eines Objektes übergeben.");
@@ -203,7 +202,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 } else if ($additionalObject instanceof \steam_user) {
                     $user[$id] = $additionalObject;
                 } else {
-                    throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt.");
+                    $this->warning = "Ungültiger Objekttyp (" . get_class($additionalObject) . ", #" . $id . ") hat Rechte an dem aktuellen Objekt.";
                 }
             }
         }
@@ -215,7 +214,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             } else if ($favi instanceof \steam_group) {
                 $groups[$id] = $favi;
             } else {
-                throw new \Exception("Favoriten beeinhalten das Objekt einer ungültigen Klasse!");
+                $this->warning = "Favoriten beeinhalten das Objekt einer ungültigen Klasse (" . get_class($additionalObject) . ", #" . $id . ").";
             }
         }
 
@@ -292,7 +291,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("IS_ACQUIRED_DISABLE_BUTTONS", ($this->acquire instanceof \steam_container) ? "disabled" : "");
 
 
-        $content->setVariable("INHERIT_FROM", getCleanName($this->environment) . " mit der id <a href=\"/sanction/Index/".$this->environmentId."\">" . $this->environment."</a>");
+        $content->setVariable("INHERIT_FROM", getCleanName($this->environment) . " mit der id <a href=\"/sanction/Index/" . $this->environmentId . "\">" . $this->environment . "</a>");
         $content->setVariable("NO_ENVIRONMENT_ADAPT_TEXT", ($this->environmentName == "") ? "S" : "Oder s");
         if ($this->environmentName == "") {
             $content->setVariable("NO_ENVIRONMENT", "disabled");
@@ -300,6 +299,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
 
+        if ($this->warning) {
+            $content->setCurrentBlock("WARNING");
+            $content->setVariable("WARNING_TEXT", $this->warning);
+            $content->parse("WARNING");
+        }
         //***Check access for every user regardless of whether logged in or not***//
         //id of the usergroup 'everyone'
         $sanctionsEveryone = $this->getRightsForGroup($everyone);
