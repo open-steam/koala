@@ -76,10 +76,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         //
         //if the object is not a steam_container it cannot have any inventory.
         /*
-        if (!$object instanceof \steam_container) {
-            throw new \Exception("This object cannot contain any objects.", E_OBJECT_NO_INVENTORY);
-        }
-        */
+          if (!$object instanceof \steam_container) {
+          throw new \Exception("This object cannot contain any objects.", E_OBJECT_NO_INVENTORY);
+          }
+         */
 
         $objectModel = \AbstractObjectModel::getObjectModel($object);
 
@@ -90,13 +90,18 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
                 throw new \Exception("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
-            try{
+            try {
 
-            $objects = $object->get_inventory();
-
-            }catch(\NotFoundException $e) {\ExtensionMaster::getInstance()->send404Error();}
-            catch (\AccessDeniedException $e) {throw new \Exception("", E_USER_ACCESS_DENIED);}
-
+                $objects = $object->get_inventory();
+            } catch (\NotFoundException $e) {
+                \ExtensionMaster::getInstance()->send404Error();
+            } catch (\AccessDeniedException $e) {
+                $labelDenied = new \Widgets\RawHtml();
+                $labelDenied->setHtml("Der Explorer kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
+                $frameResponseObject->addWidget($labelDenied);
+                return $frameResponseObject;
+                //throw new \Exception("", E_USER_ACCESS_DENIED);
+            }
         } else {
             $objects = array();
         }
@@ -198,24 +203,24 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         //build breadcrumb
-  			$title = getCleanName($object, 65);
-  			$icon = deriveIcon($object);
-  			$iconSVG = str_replace("png", "svg", $icon);
-  			$idSVG = str_replace(".svg", "", $iconSVG);
-  			$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-  			$breadcrumbArray = array(array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>"));
+        $title = getCleanName($object, 65);
+        $icon = deriveIcon($object);
+        $iconSVG = str_replace("png", "svg", $icon);
+        $idSVG = str_replace(".svg", "", $iconSVG);
+        $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+        $breadcrumbArray = array(array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>"));
         /*
-        $parent = $object->get_environment();
-  			while($parent instanceof \steam_container){
-  				$title = getCleanName($parent, 65);
-  				$icon = deriveIcon($object);
-  				$iconSVG = str_replace("png", "svg", $icon);
-  				$idSVG = str_replace(".svg", "", $iconSVG);
-  				$iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-  				array_unshift($breadcrumbArray, array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>", "link" => PATH_URL . "explorer/index/" . $parent->get_id() . "/"));
-  				$parent = $parent->get_environment();
-  			}
-        */
+          $parent = $object->get_environment();
+          while($parent instanceof \steam_container){
+          $title = getCleanName($parent, 65);
+          $icon = deriveIcon($object);
+          $iconSVG = str_replace("png", "svg", $icon);
+          $idSVG = str_replace(".svg", "", $iconSVG);
+          $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+          array_unshift($breadcrumbArray, array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float:left; margin-top:0px; margin-left:5px; margin-right:5px;\">" . $title . "</p>", "link" => PATH_URL . "explorer/index/" . $parent->get_id() . "/"));
+          $parent = $parent->get_environment();
+          }
+         */
         array_unshift($breadcrumbArray, "");
         $breadcrumb = new \Widgets\Breadcrumb();
         $breadcrumb->setData($breadcrumbArray);
@@ -229,30 +234,30 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         //$actionBar = new \Widgets\ActionBar();
         /*
-        $actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
+          $actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
           array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
           array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
           ));
-        if ($envSanction) {
-            $actionBar->setActions(
-                array(
-                    array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                    array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                    array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))));
-        } elseif ($envWriteable) {
-            $actionBar->setActions(
-                array(
-                    array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
-                    array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
-        } else {
-            $actionBar->setActions(
-                    array(
-                        array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
-        }
+          if ($envSanction) {
+          $actionBar->setActions(
+          array(
+          array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
+          array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
+          array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))));
+          } elseif ($envWriteable) {
+          $actionBar->setActions(
+          array(
+          array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
+          array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
+          } else {
+          $actionBar->setActions(
+          array(
+          array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
+          }
 
 
-        $actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
-        */
+          $actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
+         */
         $presentation = $object->get_attribute("bid:presentation");
         $preHtml = "";
         if ($presentation === "head") {
@@ -298,11 +303,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         }
 
         $description = new \Widgets\RawHtml();
-        if(isUserHome($object)){
-          $desc = "";
-        }
-        else{
-          $desc = $object->get_attribute("OBJ_DESC");
+        if (isUserHome($object)) {
+            $desc = "";
+        } else {
+            $desc = $object->get_attribute("OBJ_DESC");
         }
         $description->setHtml("<p style='float:left; color:#AAAAAA; clear:both; margin-top:0px'>" . $desc . "</p>");
 
@@ -350,22 +354,22 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         //check the explorer view attribute which is specified in the profile
         $viewAttribute = \lms_steam::get_current_user()->get_attribute("EXPLORER_VIEW");
-        if($viewAttribute && $viewAttribute == "gallery"){
-          $loader->setCommand("loadGalleryContent");
-          $searchField->setGalleryView();
-          $selectAll = new \Widgets\RawHtml();
-          $selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:20px;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
-          $script = "function initSort(){";
-    			foreach ($objects as $o) {
-    					if (getObjectType($o) !== "trashbin") {
-    							$script .= "$('#" . $o->get_id() . "').attr('onclick', '');
+        if ($viewAttribute && $viewAttribute == "gallery") {
+            $loader->setCommand("loadGalleryContent");
+            $searchField->setGalleryView();
+            $selectAll = new \Widgets\RawHtml();
+            $selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:20px;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
+            $script = "function initSort(){";
+            foreach ($objects as $o) {
+                if (getObjectType($o) !== "trashbin") {
+                    $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
     							$('#" . $o->get_id() . "').attr('onmouseover', '');
     							$('#" . $o->get_id() . "').attr('onmouseout', '');
     							$('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
-    					}
-    			}
-    			$assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_gallery.svg";
-    			$script .= '
+                }
+            }
+            $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_gallery.svg";
+            $script .= '
     					$("#sort-icon").attr("name", "true");
     					$("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
     					var newIds = "";
@@ -382,21 +386,20 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     					});
     					$("#content").prepend("<div style=\"margin-left:335px; background-repeat:no-repeat; position:absolute;height:30px;width:300px;background-image:url(' . $assetUrl . ');\"></div>");
     	}';
-        }
-        else{
-          $loader->setCommand("loadContent");
-          $selectAll->setHtml("");
-          $script = "function initSort(){";
-          foreach ($objects as $o) {
-              if (getObjectType($o) !== "trashbin") {
-                  $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
+        } else {
+            $loader->setCommand("loadContent");
+            $selectAll->setHtml("");
+            $script = "function initSort(){";
+            foreach ($objects as $o) {
+                if (getObjectType($o) !== "trashbin") {
+                    $script .= "$('#" . $o->get_id() . "').attr('onclick', '');
                   $('#" . $o->get_id() . "').attr('onmouseover', '');
                   $('#" . $o->get_id() . "').attr('onmouseout', '');
                   $('#" . $o->get_id() . "_1').unbind('mouseenter mouseleave');    ";
-              }
-          }
-          $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_explorer.svg";
-          $script .= '
+                }
+            }
+            $assetUrl = \Explorer::getInstance()->getAssetUrl() . "images/sort_explorer.svg";
+            $script .= '
               $("#sort-icon").attr("name", "true");
               $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
               var newIds = "";
