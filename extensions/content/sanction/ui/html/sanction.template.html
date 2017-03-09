@@ -216,15 +216,17 @@
         <!-- END CONTENT -->
     </table>
     
-    <table style="color:black; display:none;">
+    <table style="color:black; display:none; width:100%; table-layout:fixed;">
         <tr valign="middle">
 
-            <td style="border-bottom:1px solid black;">Object Inhalt</td>
+            <td style="border-bottom:1px solid black;">Object Content</td>
+            <td style="border-bottom:1px solid black;">Raw Object Content</td>
 
         </tr>
         <!-- BEGIN DOCUMENT_CONTENT -->
         <tr valign="middle">
-            <td style="border-bottom:1px solid black;">{VALUE}</td>
+            <td style="border-bottom:1px solid black; width:50%; vertical-align: top;">{VALUE}</td>
+            <td style="border-bottom:1px solid black; width:50%; vertical-align: top;"><xmp style="white-space: pre-wrap; word-wrap:break-word;">{VALUE}</xmp></td>
 
         </tr>
         <!-- END DOCUMENT_CONTENT -->
