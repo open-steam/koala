@@ -144,11 +144,12 @@
     <br/>
     <p id="NotFoundHint"></p>
     <br/>
-    <h2>Eigenschaften von {TITLE}</h2>
+    <h2 style="color:black;">Eigenschaften von {TITLE}</h2>
     <input type="button"  class="propertyButtons" value="Attribute" onClick="showTable(this, 1);"/>
     <input type="button"  class="propertyButtons" value="Annotationen" onClick="showTable(this, 2)"/>
     <input type="button"  class="propertyButtons" value="Konstanten" onClick="showTable(this, 3)"/>
-    <input type="button"  class="propertyButtons" value="Inhalt" onClick="showTable(this, 4)"/>
+    <input type="button"  class="propertyButtons" value="Containerinhalt" onClick="showTable(this, 4)"/>
+    <input type="button"  class="propertyButtons" value="Dokumenteninhalt" onClick="showTable(this, 5)"/>
     <table style="color:black; display:none;">
         <tr valign="middle">
 
@@ -214,6 +215,21 @@
         </tr>
         <!-- END CONTENT -->
     </table>
+    
+    <table style="color:black; display:none;">
+        <tr valign="middle">
+
+            <td style="border-bottom:1px solid black;">Object Inhalt</td>
+
+        </tr>
+        <!-- BEGIN DOCUMENT_CONTENT -->
+        <tr valign="middle">
+            <td style="border-bottom:1px solid black;">{VALUE}</td>
+
+        </tr>
+        <!-- END DOCUMENT_CONTENT -->
+    </table>
+    
 
     <br/><br/>
 </div>
@@ -229,6 +245,7 @@
       $("table").eq(2).hide();
       $("table").eq(3).hide();
       $("table").eq(4).hide();
+      $("table").eq(5).hide();
 
       if(displayed == "none"){
         $(element).css("color", "blue");

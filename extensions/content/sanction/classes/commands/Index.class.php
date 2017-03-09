@@ -485,6 +485,25 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             }
         }
 
+        if ($this->object instanceof \steam_document) {
+            $content->setCurrentBlock("DOCUMENT_CONTENT");
+            if (stristr($this->object->get_attribute(DOC_MIME_TYPE), "image")) {
+                if ($this->object->get_attribute(DOC_MIME_TYPE) === "image/svg+xml" OR $this->object->get_attribute(DOC_MIME_TYPE) === "image/bmp") {
+                    $pictureURL = PATH_URL . "download/document/" . $this->object->get_id();
+                } else {
+                    $pictureURL = PATH_URL . "download/image/" . $this->object->get_id() . "/200/200";
+                }
+                $content->setVariable("VALUE", "<img src='".$pictureURL."' />");
+            } else if(stristr($this->object->get_attribute(DOC_MIME_TYPE), "text")){
+                $content->setVariable("VALUE", $this->object->get_content());
+            } else {
+                $content->setVariable("VALUE", "Der Objekttyp ".$this->object->get_attribute(DOC_MIME_TYPE)." kann derzeit nicht angezeigt werden. <br /> Sie können die Datei <a href=" . PATH_URL . "Download/Document/" . $this->id . "/" . $this->object->get_name() . ">herunterladen</a> um sie zu betrachten.");
+            }
+            $content->parse("DOCUMENT_CONTENT");
+        }
+
+
+
         $content->setVariable("SERIALIZE", $this->object->get_references());
 
         //start generating the output
