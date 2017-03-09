@@ -1,74 +1,87 @@
 .portlet.messages {
-	background: #fbfbfb;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6),to(#fefefe));
-	background: -moz-linear-gradient(top,#f6f6f6,#fefefe);
-	color: #333333;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
-	word-wrap: break-word;
+    background: #fbfbfb;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6),to(#fefefe));
+    background: -moz-linear-gradient(top,#f6f6f6,#fefefe);
+    color: #333333;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    word-wrap: break-word;
 }
 
 .portlet.messages .message {
-  	clear: both;
-  	font-size: 12px;
-  	line-height: 1.4em;
-  	padding: 4px;
+    clear: both;
+    font-size: 12px;
+    line-height: 1.4em;
+    padding: 4px;
 }
 
 .portlet.messages .message.hidden {
-  	display: none;
+    display: none;
 }
 
 .portlet.messages .message h2 {
-	font-size: 12px;
-  	margin: -4px -4px 4px -4px;
-  	padding: 4px 4px 4px 8px;
+    font-size: 12px;
+    margin: -4px -4px 4px -4px;
+    padding: 4px 4px 4px 8px;
 }
 
 .portlet.messages .message h3 {
-	font-size: 12px;
-  	margin-top: 0px;
-  	margin-bottom: 0px;
-  	border: none;
-  	font-weight:bold;
+    font-size: 12px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border: none;
+    font-weight:bold;
 }
 
 .portlet.messages .message p {
-  	margin-top: 0px;
+    margin-top: 0px;
 }
 
 .portlet.messages .message .footer {
-  	padding: 5px;
+    padding: 5px;
 }
 
 .portlet.messages .message img {
-	max-width: 100%;
+    max-width: 100%;
 }
 
 .portlet.messages .message img.right {
-  	float: right;
-  	margin-left: 4px;
-  	margin-bottom: 4px;
+    float: right;
+    margin-left: 4px;
+    margin-bottom: 4px;
 }
 
 .portlet.messages .message img.left {
-  	float: left;
-  	margin-right: 4px;
-  	margin-bottom: 4px;
+    float: left;
+    margin-right: 4px;
+    margin-bottom: 4px;
 }
 
 .portlet.messages .message img.top {
-	display: block;
-	margin: 0 auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .portlet.messages .message img.bottom {
-	display: block;
-	margin: 0 auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .portlet.messages .podcast {
-  	text-align: center;
-  	clear: both;
+    text-align: center;
+    clear: both;
+}
+
+.portlet.messages .only_headline {
+    display:none !important;
+}
+
+.portlet.messages .only_subheadline {
+    
+    display:none !important;
+;}
+
+.portlet.messages .messageShow{
+    cursor: pointer;
 }

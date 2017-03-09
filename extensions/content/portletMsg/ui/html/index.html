@@ -1,63 +1,64 @@
 <div class="portlet messages" id="{PORTLET_ID}">
-	<!-- BEGIN BLOCK_MESSAGE_HEADLINE -->
-	<h1 class="{HEADLINE_CLASS}">
-		<!-- BEGIN BLOCK_EDIT_BUTTON -->
-		<div class="editbutton">{POPUPMENU_HEADLINE}</div>
-		<div style='float:right' class='editbutton'>{REFERENCE_ICON}</div>
-		<!-- END BLOCK_EDIT_BUTTON -->
-		{HEADLINE}
-	</h1>
-	<!-- END BLOCK_MESSAGE_HEADLINE -->
+    <!-- BEGIN BLOCK_MESSAGE_HEADLINE -->
+    <h1 class="{HEADLINE_CLASS}">
+        <!-- BEGIN BLOCK_EDIT_BUTTON -->
+        <div class="editbutton">{POPUPMENU_HEADLINE}</div>
+        <div style='float:right' class='editbutton'>{REFERENCE_ICON}</div>
+        <!-- END BLOCK_EDIT_BUTTON -->
+        {HEADLINE}
+    </h1>
+    <!-- END BLOCK_MESSAGE_HEADLINE -->
 
-	<!-- BEGIN BLOCK_MESSAGE -->
-	<div class="message {HIDE_MESSAGE}">
-		<div class="editbutton">{POPUPMENU_MESSAGE}</div>
-		<h2 class="subheadline">
-			{MESSAGE_HEADLINE}
-		</h2>
+    <!-- BEGIN BLOCK_MESSAGE -->
+    <div class="message {HIDE_MESSAGE}" id="{MESSAGE_ID}">
+        <div class="editbutton">{POPUPMENU_MESSAGE}</div>
+        
+        <h2 class="subheadline">
+            {MESSAGE_HEADLINE}
+        </h2>
 
-		<!-- BEGIN BLOCK_MESSAGE_PICTURE_TOP -->
-		<img src="{MESSAGE_PICTURE_URL}" class="{MESSAGE_PICTURE_ALIGNMENT}" width="{MESSAGE_PICTURE_WIDTH}">
-		<!-- END BLOCK_MESSAGE_PICTURE_TOP -->
+        <!-- BEGIN BLOCK_MESSAGE_PICTURE_TOP -->
+        <img src="{MESSAGE_PICTURE_URL}" class="{MESSAGE_PICTURE_ALIGNMENT} {ONLY_HEADLINE} {ONLY_SUBHEADLINE}" width="{MESSAGE_PICTURE_WIDTH}">
+        <!-- END BLOCK_MESSAGE_PICTURE_TOP -->
 
-		<!-- BEGIN BLOCK_MESSAGE_SUBHEADLINE -->
-		<h3>
-			{MESSAGE_SUBHEADLINE}
-		</h3>
-		<!-- END BLOCK_MESSAGE_SUBHEADLINE -->
+        <h3 class="{ONLY_HEADLINE}">
+            {MESSAGE_SUBHEADLINE}
+        </h3>
+        {SHOW_FULL_MESSAGE}
+        
+        <div class="entry {ONLY_HEADLINE} {ONLY_SUBHEADLINE}">
+            {MESSAGE_CONTENT}
+        </div>
 
-		<div class="entry">
-			{MESSAGE_CONTENT}
-		</div>
+        <!-- BEGIN BLOCK_MESSAGE_LINK -->
+        <div class="footer {ONLY_HEADLINE} {ONLY_SUBHEADLINE}">
+            <a href="{MESSAGE_ILNK_URL}" target="{MESSAGE_LINK_TARGET}">{MESSAGE_LINK_URL_LABEL}</a>
+        </div>
+        <!-- END BLOCK_MESSAGE_LINK -->
 
-		<!-- BEGIN BLOCK_MESSAGE_LINK -->
-		<div class="footer">
-			<a href="{MESSAGE_LINK_URL}" target="{MESSAGE_LINK_TARGET}">{MESSAGE_LINK_URL_LABEL}</a>
-		</div>
-		<!-- END BLOCK_MESSAGE_LINK -->
+        <!-- BEGIN BLOCK_MESSAGE_PICTURE_BOTTOM -->
+        <img src="{MESSAGE_PICTURE_URL}" class="{MESSAGE_PICTURE_ALIGNMENT} {ONLY_HEADLINE} {ONLY_SUBHEADLINE}" width="{MESSAGE_PICTURE_WIDTH}">
+        <!-- END BLOCK_MESSAGE_PICTURE_BOTTOM -->
 
-		<!-- BEGIN BLOCK_MESSAGE_PICTURE_BOTTOM -->
-		<img src="{MESSAGE_PICTURE_URL}" class="{MESSAGE_PICTURE_ALIGNMENT}" width="{MESSAGE_PICTURE_WIDTH}">
-		<!-- END BLOCK_MESSAGE_PICTURE_BOTTOM -->
+    </div>
+    <!-- END BLOCK_MESSAGE -->
 
-	</div>
-	<!-- END BLOCK_MESSAGE -->
+    <!-- BEGIN BLOCK_MORE_MESSAGES -->
+    <div class="message">
+        {MORE_MESSAGES}
+    </div>
+    <!-- END BLOCK_MORE_MESSAGES -->
 
-	<!-- BEGIN BLOCK_MORE_MESSAGES -->
-	<div class="message">
-	{MORE_MESSAGES}
-	</div>
-	<!-- END BLOCK_MORE_MESSAGES -->
+    <!-- BEGIN BLOCK_NO_MESSAGE -->
+    <div class="message">
+        {NO_MESSAGE_INFO}
+    </div>
+    <!-- END BLOCK_NO_MESSAGE -->
 
-	<!-- BEGIN BLOCK_NO_MESSAGE -->
-	<div class="message">
-		{NO_MESSAGE_INFO}
-	</div>
-	<!-- END BLOCK_NO_MESSAGE -->
-
-	<div class="podcast">
-		<a href="{PATH_URL}portletMsg/rss/{PORTLET_ID}/">
-			<svg style="width:16px; height:16px;"><use xlink:href="{RSS_STYLE_PATH}#rss"/></svg>
-		</a>
-	</div>
+    <div class="podcast">
+        <hr>
+        <a href="{PATH_URL}portletMsg/rss/{PORTLET_ID}/">
+            <svg style="width:16px; height:16px;"><use xlink:href="{RSS_STYLE_PATH}#rss"/></svg>
+        </a>
+    </div>
 </div>
