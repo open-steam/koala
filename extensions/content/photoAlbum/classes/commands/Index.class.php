@@ -67,18 +67,24 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 }
                 $id = $pic->get_id();
                 $description = $pic->get_attribute("OBJ_DESC");
-                $title = (trim($description) == "")? $pic->get_name() : $pic->get_name() . " (".$description.")";
-                $fullscreen = PATH_URL . "download/document/" . $id;
+                $title = (trim($description) == "") ? $pic->get_name() : $pic->get_name() . " (" . $description . ")";
+
+                if (defined('PHOTOALBUM_ROTATE_IMAGES') && PHOTOALBUM_ROTATE_IMAGES) {
+                    //the image size has to be set, otherwise extensions/system/download/classes/commands/AbstractDownloadCommand.class.php (68)
+                    //would refer to the document download where the ThumbnailHelper is circumvented
+                    $fullscreen = PATH_URL . "download/image/" . $id . "/-1/-1";
+                } else {
+                    $fullscreen = PATH_URL . "download/document/" . $id . PHOTOALBUM_ROTATE_IMAGES;
+                }
                 $class = "";
 
-                if($pic->get_attribute(DOC_MIME_TYPE) === "image/svg+xml"){
-                  $pictureURL = PATH_URL . "download/document/" . $id;
-                } elseif($pic->get_attribute(DOC_MIME_TYPE) === "image/bmp"){
-                  $pictureURL = PATH_URL . "download/document/" . $id;
-                  $class = "bmp";
-                }
-                else{
-                  $pictureURL = PATH_URL . "download/image/" . $id . "/200/200";
+                if ($pic->get_attribute(DOC_MIME_TYPE) === "image/svg+xml") {
+                    $pictureURL = PATH_URL . "download/document/" . $id;
+                } elseif ($pic->get_attribute(DOC_MIME_TYPE) === "image/bmp") {
+                    $pictureURL = PATH_URL . "download/document/" . $id;
+                    $class = "bmp";
+                } else {
+                    $pictureURL = PATH_URL . "download/image/" . $id . "/200/200";
                 }
 
                 $this->content->setCurrentBlock("BLOCK_PICTURE");
@@ -92,11 +98,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $this->content->parse("BLOCK_ROW");
                     $rowOpen = false;
                 }
-
             }
         }
 
-        if($rowOpen) $this->content->parse("BLOCK_ROW");
+        if ($rowOpen)
+            $this->content->parse("BLOCK_ROW");
 
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($this->content->get() . "<script>initialize()</script>");
