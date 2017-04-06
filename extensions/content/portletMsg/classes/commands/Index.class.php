@@ -50,8 +50,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $this->getExtension()->addCSS();
             $this->getExtension()->addJS();
 
-            $portletName = $portlet->get_attribute(OBJ_DESC);
-            $portletDisplayOption = $portlet->get_attribute(PORTLET_MSG_DISPLAY);
+            $portletName = $portlet->get_attribute("OBJ_DESC");
+            $portletDisplayOption = (string)$portlet->get_attribute("PORTLET_MSG_DISPLAY");
 
 
             include_once(PATH_BASE . "core/lib/bid/slashes.php");
@@ -149,7 +149,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         $onlyHeadline = "only_headline";
                         $somethingIsHiden = true;
                         break;
-
                     case "whole_message":
                     default: // 0 if attribute does not exist
                         break;
