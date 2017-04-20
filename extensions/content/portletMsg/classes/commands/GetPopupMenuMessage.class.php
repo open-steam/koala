@@ -39,6 +39,16 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
         $messageObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->messageObjectId);
         $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->portletObjectId);
 
+        if (!is_object($portletObject) || !is_object($messageObject)) {
+            $items = array(array("name" => "<svg><use xlink:href='/widgets/asset/emotes/wrong.svg#wrong'/></svg> Das zu bearbeitende Objekt wurde gelöscht"));
+            $popupMenu = new \Widgets\PopupMenu();
+            $popupMenu->setItems($items);
+
+            $ajaxResponseObject->setStatus("ok");
+            $ajaxResponseObject->addWidget($popupMenu);
+            return $ajaxResponseObject;
+        }
+
         $content = $portletObject->get_attribute("bid:portlet:content");
         $messageId = intval($this->messageObjectId);
         foreach ($content as $key => $id) {
