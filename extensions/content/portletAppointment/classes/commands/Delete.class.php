@@ -18,7 +18,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 		$appointmentObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		
 		//delete the object
-		$trashbin = \lms_steam::get_current_user()->get_current_user_no_guest("USER_TRASHBIN");
+		$trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
 		$appointmentObject->move($trashbin);
 	}
 	
