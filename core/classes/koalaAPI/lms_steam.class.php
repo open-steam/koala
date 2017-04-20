@@ -25,13 +25,15 @@ class lms_steam {
     }
 
     public static function is_logged_in() {
-        if (isset($GLOBALS["STEAM"])) {
+        $steam_user = $GLOBALS["STEAM"]->get_current_steam_user();
+        
+        if (isset($GLOBALS["STEAM"]) && !strpos($steam_user->steam_connectorID, "guest@")) {
             return $GLOBALS["STEAM"]->get_login_status();
         } else {
             return false;
         }
     }
-
+    
     public function get_extensionmanager() {
         return extensionmanager::get_extensionmanager();
     }
@@ -433,7 +435,7 @@ class lms_steam {
      */
     public static function get_current_user_no_guest(){
         
-        $steam_user = \lms_steam::get_current_user();        
+        $steam_user = \lms_steam::get_current_user();
         
         if(false !== strpos($steam_user->steam_connectorID, "guest@")) {
             //this AjaxLogOutException will be catched in FrintController.class.php and forwarded to Ajax.extension.php where it is processed and the user is redirected to the start page

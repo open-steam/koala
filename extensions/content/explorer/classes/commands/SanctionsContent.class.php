@@ -113,7 +113,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                 } else if ($additionalObject instanceof \steam_user) {
                     $this->user[$id] = $additionalObject;
                 } else {
-                    throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt.");
+                    throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt."  . $id);
                 }
             }
         }
@@ -134,7 +134,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     } else if ($additionalObject instanceof \steam_user) {
                         $this->userAcq[$id] = $additionalObject;
                     } else {
-                        throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt.");
+                        throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt." . $id);
                     }
                 }
             }
@@ -274,7 +274,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
     }
 
     function setupVariables() {
-        $this->steamUser = \lms_steam::get_current_user_no_guest();
+        $this->steamUser = \lms_steam::get_current_user();
 
         $this->everyone = \steam_factory::groupname_to_object($this->steam->get_id(), "everyone");
         $this->everyoneId = $this->everyone->get_id();
