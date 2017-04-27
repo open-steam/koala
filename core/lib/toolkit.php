@@ -452,6 +452,9 @@ function deriveIcon($object) {
 
           case "folderlist":
               return "folder.png";
+          
+          case "slideshow":
+              return "gallery.png";
 
           default:
               return "portlet.png";

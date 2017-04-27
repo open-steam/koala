@@ -1,0 +1,16 @@
+.slideshow_image{
+    margin:5px;
+    
+}
+
+.slideshow_image_container{
+    text-align: center;
+}
+
+.unslider-nav ol {
+    margin-bottom: -6px;
+}
+
+.slideshow_description{
+    text-align: center;
+}

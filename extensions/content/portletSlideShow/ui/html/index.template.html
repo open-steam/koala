@@ -1,0 +1,25 @@
+<div class="portlet slideshow" id="{PORTLET_ID}">
+    <!-- BEGIN BLOCK_SLIDESHOW_HEADLINE -->
+    <h1 class="{HEADLINE_CLASS}">
+        <!-- BEGIN BLOCK_EDIT_BUTTON -->
+        <div class="editbutton">{POPUPMENU_HEADLINE}</div>
+        <div style='float:right' class='editbutton'>{REFERENCE_ICON}</div>
+        <!-- END BLOCK_EDIT_BUTTON -->
+        {HEADLINE}
+    </h1>
+    <!-- END BLOCK_SLIDESHOW_HEADLINE -->
+    <div class="my-slider_{OBJECT_ID}">
+        <ul>
+            <!-- BEGIN BLOCK_SLIDESHOW_BODY -->
+            <li>
+                <div class="slideshow_image_container"><img class="slideshow_image" src="{PATH}" title="{TITLE}"/>{DESCRIPTION}</div> 
+            </li>
+            <!-- END BLOCK_SLIDESHOW_BODY -->
+
+        </ul>
+    </div>
+    {ERROR}
+</div>
+<script>
+    {JS_FUNCTION}
+</script>
