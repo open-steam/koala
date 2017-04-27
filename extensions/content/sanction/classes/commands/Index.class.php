@@ -480,6 +480,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $content->setVariable("KEY", $object->get_name());
 
                 $content->setVariable("VALUE", "<a href=\"/sanction/Index/" . $object->get_id() . "/\">Objekt</a> mit der Id " . $object->get_id());
+                $content->setVariable("ACTION_CUT", "<a href=\"#\" onClick='sendRequest(\"Cut\", {\"id\":\"".$object->get_id()."\"}, \"\",\"reload\",\"\",\"\",\"explorer\")'>Ausschneiden</a>");
+                $content->setVariable("ACTION_DELETE", "<a href=\"#\" style=\"color:#d00;\" onClick='sendRequest(\"Delete\", {\"id\":\"".$object->get_id()."\"}, \"\",\"reload\",\"\",\"\",\"explorer\")'>Löschen</a>");
 
                 $content->parse("CONTENT");
             }
