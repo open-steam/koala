@@ -1,6 +1,5 @@
 .slideshow_image{
     margin:5px;
-    
 }
 
 .slideshow_image_container{
@@ -11,6 +10,33 @@
     margin-bottom: -6px;
 }
 
+.unslider-nav {
+       margin-top: 11px;
+}
+
 .slideshow_description{
     text-align: center;
 }
+
+.unslider-arrow{
+    position:relative;
+    display: block;
+    z-index:2;
+    cursor:pointer;
+    width: 32px;
+    height: 32px;
+    margin-bottom: 8px;
+}
+
+.unslider-arrow.prev {
+    left: 10px;
+    float:left;
+    margin-right: 9px;
+}
+
+.unslider-arrow.next {
+    right: 10px;
+    float: right;
+    margin-left: 9px;
+}
+

@@ -8,11 +8,11 @@
         {HEADLINE}
     </h1>
     <!-- END BLOCK_SLIDESHOW_HEADLINE -->
-    <div class="my-slider_{OBJECT_ID}">
+    <div class="my-slider_{OBJECT_ID}" style="height:{WIDTH_HEIGHT}">
         <ul>
             <!-- BEGIN BLOCK_SLIDESHOW_BODY -->
             <li>
-                <div class="slideshow_image_container"><img class="slideshow_image" src="{PATH}" title="{TITLE}"/>{DESCRIPTION}</div> 
+                <div class="slideshow_image_container"><img class="lazy slideshow_image" data-original="{PATH}" title="{TITLE}"/>{DESCRIPTION}</div> 
             </li>
             <!-- END BLOCK_SLIDESHOW_BODY -->
 
@@ -21,5 +21,6 @@
     {ERROR}
 </div>
 <script>
+    jQuery('img.lazy').lazyload({failure_limit : 10});
     {JS_FUNCTION}
 </script>

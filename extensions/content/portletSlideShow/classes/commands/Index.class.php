@@ -115,10 +115,35 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
             if (count($inventory) < 1) {
                 $tmpl->setVariable("ERROR", "<div style='margin:5px;margin-bottom:15px;'>Das Fotoalbum mit der ID " . $this->galleryId . " enthält keine Bilder.</div>");
             } else {
-                $tmpl->setVariable("JS_FUNCTION", "jQuery(document).ready(function ($) {\$('.my-slider_" . $this->objectId . "').unslider({arrows:false, keys:false});});");
+                $tmpl->setVariable(
+                    "JS_FUNCTION", 
+                    "jQuery(document).ready(
+                        function ($) {
+                            var slider = \$('.my-slider_" . $this->objectId . "').unslider(
+                            {
+                                arrows: {
+                                    prev: '<svg class=\"unslider-arrow prev\"><use xlink:href=\'" . \Explorer::getInstance()->getAssetUrl() . "icons/button_left.svg#button_left\'/></svg>',
+                                    next: '<svg class=\"unslider-arrow next\"><use xlink:href=\'" . \Explorer::getInstance()->getAssetUrl() . "icons/button_right.svg#button_right\'/></svg>'
+                                }, 
+                                keys:false, 
+                                nav: false
+                                } 
+                            );
+                            $(document).on('click', 
+                                function(event, index, slide) {
+                                    setTimeout(function (){ $(window).trigger(\"scroll\")}, 1000); //wait until the gallery is scrolled and the next (invisible) image is in the viewport
+                                }
+                            );
+
+                            }
+                        );"
+                );
+                $tmpl->setVariable("WIDTH_HEIGHT", $width);
+                
 
                 if (!self::$JSloaded) {
                     \lms_portal::get_instance()->add_javascript_src("unslider", PATH_URL . "styles/standard/javascript/unslider/src/js/unslider.js");
+                    \lms_portal::get_instance()->add_javascript_src("lazyload", PATH_URL . "styles/standard/javascript/lazy/jquery.lazyload.min.js");
                     \lms_portal::get_instance()->add_css_style_link(PATH_URL . "styles/standard/javascript/unslider/dist/css/unslider.css");
                     \lms_portal::get_instance()->add_css_style_link(PATH_URL . "styles/standard/javascript/unslider/dist/css/unslider-dots.css");
                     $this->getExtension()->addCSS();
@@ -146,7 +171,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                 }
             }
         }
-
+        
         $rawHtml = new \Widgets\RawHtml();
         $rawHtml->setHtml($tmpl->get());
         $this->contentHtml = $rawHtml;
