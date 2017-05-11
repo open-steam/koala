@@ -57,10 +57,12 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $invisiblePicCounter = 0;
         $rowOpen = false;
+        $noImage = true;
         foreach ($inventory as $i => $pic) {
             if (!$pic->check_access_read()) {
                 $invisiblePicCounter++;
             } else {
+                $noImage = false;
                 if (($i - $invisiblePicCounter) % 4 == 0) {
                     $this->content->setCurrentBlock("BLOCK_ROW");
                     $rowOpen = true;
@@ -99,6 +101,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $rowOpen = false;
                 }
             }
+        }
+
+        if ($noImage) {
+            $errorHtml = new \Widgets\RawHtml();
+            $errorHtml->setHtml("Dieses Fotoalbum enthält keine Bilder.");
+            $frameResponseObject->addWidget($errorHtml);
+            return $frameResponseObject;
         }
 
         if ($rowOpen)
