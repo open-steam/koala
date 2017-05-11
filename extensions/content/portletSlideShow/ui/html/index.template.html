@@ -8,11 +8,15 @@
         {HEADLINE}
     </h1>
     <!-- END BLOCK_SLIDESHOW_HEADLINE -->
-    <div class="my-slider_{OBJECT_ID}" style="height:{WIDTH_HEIGHT}">
+    <div class="my-slider_{OBJECT_ID}" style="min-height:calc({WIDTH_HEIGHT}px + 20px);">
         <ul>
             <!-- BEGIN BLOCK_SLIDESHOW_BODY -->
             <li>
-                <div class="slideshow_image_container"><img class="lazy slideshow_image" data-original="{PATH}" title="{TITLE}"/>{DESCRIPTION}</div> 
+                <div class="slideshow_image_container">
+                    <a class="slideshow_{OBJECT_ID2}" rel="a.slideshow_{OBJECT_ID2}" title="{TITLE}" href="{FULLSCREENPATH}">
+                        <img class="lazy slideshow_image" data-original="{PATH}" title="{TITLE}"/>{DESCRIPTION}
+                    </a>
+                </div> 
             </li>
             <!-- END BLOCK_SLIDESHOW_BODY -->
 

@@ -116,8 +116,8 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                 $tmpl->setVariable("ERROR", "<div style='margin:5px;margin-bottom:15px;'>Das Fotoalbum mit der ID " . $this->galleryId . " enthält keine Bilder.</div>");
             } else {
                 $tmpl->setVariable(
-                    "JS_FUNCTION", 
-                    "jQuery(document).ready(
+                        "JS_FUNCTION", 
+                        "jQuery(document).ready(
                         function ($) {
                             var slider = \$('.my-slider_" . $this->objectId . "').unslider(
                             {
@@ -134,19 +134,22 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                                     setTimeout(function (){ $(window).trigger(\"scroll\")}, 1000); //wait until the gallery is scrolled and the next (invisible) image is in the viewport
                                 }
                             );
-
+                            initialize('a.slideshow_" . $this->objectId . "');
                             }
                         );"
                 );
                 $tmpl->setVariable("WIDTH_HEIGHT", $width);
-                
+                $tmpl->setVariable("OBJECT_ID", $this->objectId);
+
 
                 if (!self::$JSloaded) {
                     \lms_portal::get_instance()->add_javascript_src("unslider", PATH_URL . "styles/standard/javascript/unslider/src/js/unslider.js");
                     \lms_portal::get_instance()->add_javascript_src("lazyload", PATH_URL . "styles/standard/javascript/lazy/jquery.lazyload.min.js");
+                    \lms_portal::get_instance()->add_javascript_src("colorbox", PATH_URL . "styles/standard/javascript/colorbox/jquery.colorbox.js");
                     \lms_portal::get_instance()->add_css_style_link(PATH_URL . "styles/standard/javascript/unslider/dist/css/unslider.css");
                     \lms_portal::get_instance()->add_css_style_link(PATH_URL . "styles/standard/javascript/unslider/dist/css/unslider-dots.css");
                     $this->getExtension()->addCSS();
+                    $this->getExtension()->addJS();
                     self::$JSloaded = true;
                 }
                 foreach ($inventory as $i => $pic) {
@@ -155,17 +158,26 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                         $description = $pic->get_attribute("OBJ_DESC");
                         $title = (trim($description) == "") ? $pic->get_name() : $pic->get_name() . " (" . $description . ")";
 
+                        if (defined('PHOTOALBUM_ROTATE_IMAGES') && PHOTOALBUM_ROTATE_IMAGES) {
+                            //the image size has to be set, otherwise extensions/system/download/classes/commands/AbstractDownloadCommand.class.php (68)
+                            //would refer to the document download where the ThumbnailHelper is circumvented
+                            $fullscreen = PATH_URL . "download/image/" . $id . "/-1/-1";
+                        } else {
+                            $fullscreen = PATH_URL . "download/document/" . $id . PHOTOALBUM_ROTATE_IMAGES;
+                        }
 
                         $pictureURL = PATH_URL . "download/image/" . $id . "/" . ($width - 10) . "/" . ($width - 10);
 
 
                         $tmpl->setCurrentBlock("BLOCK_SLIDESHOW_BODY");
+                        $tmpl->setVariable("OBJECT_ID2", $this->objectId);
                         $tmpl->setVariable("TITLE", $title);
                         if ($portlet->get_attribute("PORTLET_SLIDESHOW_SHOW_DESCRIPTION") === "true") {
                             $tmpl->setVariable("DESCRIPTION", "<div class='slideshow_description'>" . $description . "</div>");
                         }
                         //$tmpl->setVariable("CLASS", $class);
                         $tmpl->setVariable("PATH", $pictureURL);
+                        $tmpl->setVariable("FULLSCREENPATH", $fullscreen);
                         $tmpl->parse("BLOCK_SLIDESHOW_BODY");
                     }
                 }
