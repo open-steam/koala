@@ -403,7 +403,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($ownerField);
         $dialog->addWidget($separator);
 
-        if ($type == "userHome" || $type == "room") {
+        if ($type == "userHome" || $type == "room" || $type == "gallery") {
           $dialog->addWidget($idField);
           $dialog->addWidget($separator);
         }
