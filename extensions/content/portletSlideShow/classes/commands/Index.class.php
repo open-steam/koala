@@ -138,6 +138,7 @@ class Index extends \AbstractCommand implements \IIdCommand, \IFrameCommand {
                             }
                         );"
                 );
+                $tmpl->setVariable("LAZYLOAD", "jQuery('img.lazy').lazyload({failure_limit : 10});");
                 $tmpl->setVariable("WIDTH_HEIGHT", $width);
                 $tmpl->setVariable("OBJECT_ID", $this->objectId);
 
