@@ -211,16 +211,14 @@ a:hover {
 #icon_bar li ul {
     margin-left: -128px;
     width: 180px;
-}
-
-#icon_bar > ul > li > ul > li:last-child > span > span {
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 }
 
-#icon_bar > ul > li > ul > li:last-child > span > span:hover {
+
+#menu ul > li > ul > li:last-child span:hover  { 
+    border-bottom-left-radius: 3px; 
     border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
 }
 
 #trashbinIconbarWrapper, 
@@ -350,10 +348,7 @@ a:hover {
     background: #264767;
 }
 
-#menu > ul > li > ul > li:last-child span {
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-}
+
 
 #menu p{
     clear:left;
