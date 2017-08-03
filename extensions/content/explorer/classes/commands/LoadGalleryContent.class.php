@@ -126,6 +126,8 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $iconSVG = str_replace("png", "svg", $icon);
           $idSVG = str_replace(".svg", "", $iconSVG);
           $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+          $colorProvider = new ColorProvider();
+          $color = $colorProvider->getColor($object);
 
           $text = "Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. ";
           $text.= "Änderungen können nur am Originalobjekt vorgenommen werden. ";
@@ -143,10 +145,10 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
               }
 
               if ($object instanceof \steam_docextern) {
-                  $urlNameHtml = "<div id='" . $id . "_1'><a href=\"" . $url . "new/" . "\" target=\"_blank\"> " . $name . "</a></div>" . "<script>" . $tipsy->getHtml() . "</script>";
+                  $urlNameHtml = "<div class='".$color."' id='" . $id . "_1'><a href=\"" . $url . "new/" . "\" target=\"_blank\"> " . $name . "</a></div>" . "<script>" . $tipsy->getHtml() . "</script>";
                   $urlHtml = "<a href=\"" . $url . "new/" . "\" target=\"_blank\">";
               } else{
-              $urlNameHtml = "<div id='" . $id . "_1'><a href=\"" . $url . "\"> " . $name . "</a></div>" . "<script>" . $tipsy->getHtml() . "</script>";
+              $urlNameHtml = "<div class='".$color."' id='" . $id . "_1'><a href=\"" . $url . "\"> " . $name . "</a></div>" . "<script>" . $tipsy->getHtml() . "</script>";
               $urlHtml = "<a href=\"" . $url . "\">";
             }
           }
@@ -164,8 +166,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
               }
           }
 
-          $colorProvider = new ColorProvider();
-          $color = $colorProvider->getColor($object);
+          
 
           $galleryNumber = \lms_steam::get_current_user_no_guest()->get_attribute("GALLERY_NUMBER");
           if(!is_numeric($galleryNumber) || $galleryNumber < 1 || $galleryNumber > 10){
@@ -176,7 +177,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           //Fix for Microsoft Edge
           $transform = getSVGScaleFactor($galleryNumber);
 
-          $entry->setHtml("<li class='galleryEntry " . $color . " " . $hidden . " " . $galleryNumberClass . "' id='" . $id . "'>
+          $entry->setHtml("<li class='galleryEntry " . $color . " " . $hidden . " " . $galleryNumberClass . "' id='" . $id . "' onclick=\"location.href= '" . $url . "';\">
 
                 <input id='" . $id . "_checkbox' class='galleryEntryCheckbox' type='checkbox' onclick='event.stopPropagation(); if(this.checked){ jQuery(\"#" . $id . "\").addClass(\"selected\") } else { jQuery(\"#" . $id . "\").removeClass(\"selected\") }'>
 

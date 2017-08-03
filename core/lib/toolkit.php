@@ -183,13 +183,13 @@ function getCleanName($object, $length = 30, $showName = true) {
     if (!($object instanceof steam_object)) {
         return "";
     }
-    $docType = $object->get_attribute("DOC_MIME_TYPE");
+
     if ($object instanceof steam_user) {
         $title = $object->get_attribute(USER_FIRSTNAME) . " " . $object->get_attribute(USER_FULLNAME);
     } else {
         $user = isUserHome($object);
-        if ($user) {
-            $title = getCleanName($user);
+        if ($user instanceof steam_user) {
+            $title = getCleanName($user, $length, $showName);
         } elseif ($object instanceof steam_trashbin) {
             $title = "Papierkorb";
         } else {

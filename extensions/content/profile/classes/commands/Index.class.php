@@ -951,7 +951,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             // number of items per row (gallery view)
             $galleryNumberWidget = new \Widgets\TextInput();
-            $galleryNumberWidget->setLabel("Objekte pro Zeile");
+            $galleryNumberWidget->setLabel("Max. Anzahl <br>Objekte pro Zeile");
             $galleryNumberWidget->setData($user);
             $galleryNumberWidget->setType("number");
             $galleryNumberWidget->setMin(1);
