@@ -353,9 +353,21 @@ $(document).ready(function() {
   $(window).scroll(function () {
     if ($(window).scrollTop() > 55) {
       $('#menu').addClass('fixed');
+      $('.burger_menu_anker').addClass('fixed');
     }
     if ($(window).scrollTop() < 56) {
       $('#menu').removeClass('fixed');
+      $('.burger_menu_anker').removeClass('fixed');
     }
+    
+    /*if($('.burger_menu_anker').css('display') == "block"){
+        if ($(window).scrollTop() < 56) {
+            $('#menu_bar > ul > li:first-of-type + li').css('margin-top', "0px;");
+        } else {
+            $('#menu_bar > ul > li:first-of-type + li').css('margin-top', "30px;");
+        }
+    }*/
+    
+    
   });
 });

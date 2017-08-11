@@ -118,9 +118,13 @@
                 hideAllMenus();
             })
             
-            function show_burger_menu(element, yesOrNo){
+            function show_burger_menu(){
                 event.stopPropagation();
-                $('.burger_menu_anker ~ li').css("display", "block");
+                if($('.burger_menu_anker ~ li').css("display") == 'block'){
+                    $('.burger_menu_anker ~ li').css("display", "none");
+                } else {
+                    $('.burger_menu_anker ~ li').css("display", "block");
+                }
             }
             
             //js for menu
@@ -153,23 +157,22 @@
             }
 
             function hideAllMenus(){
-
+            if(!$(".burger_menu_anker").is(":visible")){
                 $("#menu>div> ul >li").each(function(element){
 
                     if($("ul:visible", this).css('display') == 'block') {
                         $("ul:visible", this).css("display", "none");
                     }
                     
-                    if($(".burger_menu_anker").is(":visible")){
-                        $(".burger_menu_anker ~ li").each(function(){
+                });
+            } else {
+                $(".burger_menu_anker ~ li").each(function(){
                             if($(this).css('display') == 'block') {
                                 $(this).css("display", "none");
                             }
-                        }
+                        });
                     
-                    )};
-
-                });
+            }
             }
 
             function unsavedContent() {

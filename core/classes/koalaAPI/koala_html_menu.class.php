@@ -31,6 +31,7 @@ class koala_html_menu {
             $this->tpl->touchBlock("BLOCK_SEPARATOR");
         } else if ($menu_entry["name"] === "BURGER_MENU") {
             $this->tpl->touchBlock("BLOCK_BURGER_MENU");
+            $this->tpl->touchBlock("BLOCK_BURGER_MENU_HELPER");
         } else {
             $this->tpl->setCurrentBlock("BLOCK_MENUITEM");
             if (isset($menu_entry["link"]) && !empty($menu_entry["link"])) {
