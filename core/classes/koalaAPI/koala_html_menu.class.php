@@ -6,9 +6,6 @@ class koala_html_menu {
         return array("name" => "SEPARATOR", "link" => "");
     }
 
-    public static function get_burger_menu() {
-        return array("name" => "BURGER_MENU", "link" => "");
-    }
 
     private $tpl;
 
@@ -29,9 +26,6 @@ class koala_html_menu {
         // separator:
         if ($menu_entry["name"] === "SEPARATOR") {
             $this->tpl->touchBlock("BLOCK_SEPARATOR");
-        } else if ($menu_entry["name"] === "BURGER_MENU") {
-            $this->tpl->touchBlock("BLOCK_BURGER_MENU");
-            $this->tpl->touchBlock("BLOCK_BURGER_MENU_HELPER");
         } else {
             $this->tpl->setCurrentBlock("BLOCK_MENUITEM");
             if (isset($menu_entry["link"]) && !empty($menu_entry["link"])) {

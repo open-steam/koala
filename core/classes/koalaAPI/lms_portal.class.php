@@ -583,7 +583,6 @@ return $rand_value;
 
             // YOU
                         require_once( PATH_LIB . "determine_school.php" );
-                        $koala_html_menu->add_menu_entry(koala_html_menu::get_burger_menu());
             if (YOU_MENU) {
                     $koala_html_menu->add_menu_entry(
                       array( "name" => ((MENU_YOU) ? gettext( "You" ): $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")), "menu" => array(

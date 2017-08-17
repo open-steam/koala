@@ -120,10 +120,10 @@
             
             function show_burger_menu(){
                 event.stopPropagation();
-                if($('.burger_menu_anker ~ li').css("display") == 'block'){
-                    $('.burger_menu_anker ~ li').css("display", "none");
+                if($('#menu_bar > ul >li').css("display") == 'block'){
+                    $('#menu_bar > ul >li').css("display", "none");
                 } else {
-                    $('.burger_menu_anker ~ li').css("display", "block");
+                    $('#menu_bar > ul >li').css("display", "block");
                 }
             }
             
@@ -146,9 +146,9 @@
                 if(submenu[0] && submenu[0].style.display == "block"){
                     active = true;
                 }
-
-                hideAllMenus();
-
+                if(!$(".burger_menu_helper").is(":visible")){
+                    hideAllMenus();
+                }
                 if(submenu[0] && submenu[0].style.display == "block"){
                     submenu[0].style.display = "none";
                 } else if (submenu[0] && !active && (submenu[0].style.display == "none" || submenu[0].style.display == "")){
@@ -157,8 +157,8 @@
             }
 
             function hideAllMenus(){
-            if(!$(".burger_menu_anker").is(":visible")){
-                $("#menu>div> ul >li").each(function(element){
+            if(!$(".burger_menu_helper").is(":visible")){
+                $("#menu_bar ul >li").each(function(element){
 
                     if($("ul:visible", this).css('display') == 'block') {
                         $("ul:visible", this).css("display", "none");
@@ -166,11 +166,16 @@
                     
                 });
             } else {
-                $(".burger_menu_anker ~ li").each(function(){
-                            if($(this).css('display') == 'block') {
-                                $(this).css("display", "none");
-                            }
-                        });
+                $("#menu_bar > ul > li").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
+                $("#menu_bar > ul > li > ul").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
                     
             }
             }
@@ -343,6 +348,7 @@
                         <div id="menu_wrapper_bg">
                             <div id="menu_wrapper">
                                 <div id="menu">
+                                    <span class="burger_menu_helper" onClick="show_burger_menu();">&#9776; <span>MENU</span></span>
                                     <div id="icon_bar">{ICON_BAR_HTML}</div>
                                     <div id="menu_bar">{MENU_HTML}</div>
                                 </div>

@@ -19,17 +19,19 @@ function sendMultiRequest(command, paramsArray, elementIdArray, requestType, com
         var elementId = elementIdArray[0];
         paramsArray.splice(0, 1);
         elementIdArray.splice(0, 1);
-        sendRequest(command, params, elementId, requestType, function(response) {
-          if(response.responseText.indexOf("dialog") == -1){ //send next request
-            sendMultiRequest(command, paramsArray, elementIdArray, requestType, completeFunction, successFunction, namespace, message, loop + 1, count);
-          }
-          else{ //request need dialog confirmation,
-            nextRequest = function(){sendMultiRequest(command, paramsArray, elementIdArray, requestType, completeFunction, successFunction, namespace, message, loop + 1, count);}
-          }
+        sendRequest(command, params, elementId, requestType, function (response) {
+            if (response.responseText.indexOf("dialog") == -1) { //send next request
+                sendMultiRequest(command, paramsArray, elementIdArray, requestType, completeFunction, successFunction, namespace, message, loop + 1, count);
+            }
+            else { //request need dialog confirmation,
+                nextRequest = function () {
+                    sendMultiRequest(command, paramsArray, elementIdArray, requestType, completeFunction, successFunction, namespace, message, loop + 1, count);
+                }
+            }
         }, successFunction, namespace);
     } else {
-      nextRequest = 0;
-      callNextRequest();
+        nextRequest = 0;
+        callNextRequest();
     }
 }
 
@@ -37,14 +39,14 @@ function sendMultiRequest(command, paramsArray, elementIdArray, requestType, com
 function sendRequest(command, params, elementId, requestType, completeFunction, successFunction, namespace) {
     try {
         path = window.location.href;
-        if (!params || (typeof(params) != 'object') || $.isArray(params)) {
+        if (!params || (typeof (params) != 'object') || $.isArray(params)) {
             params = {};
         }
 
-        var src = $("#"+params.id).find("img").attr("src");
-        if(command == "Copy" && src != undefined && src.indexOf("portal") > -1){
-          command = "PortalCopy";
-          namespace = "portal";
+        var src = $("#" + params.id).find("img").attr("src");
+        if (command == "Copy" && src != undefined && src.indexOf("portal") > -1) {
+            command = "PortalCopy";
+            namespace = "portal";
         }
 
         params.command = command;
@@ -54,12 +56,12 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
         params.mouseX = currentX;
         params.mouseY = currentY;
         if (!completeFunction || completeFunction == "") {
-            completeFunction = function(response) {
+            completeFunction = function (response) {
             };
         }
 
         if (!successFunction || successFunction == "") {
-            successFunction = function(response) {
+            successFunction = function (response) {
                 if (checkResponseText(response, params)) {
                     responseData = jQuery.parseJSON(response);
                     if (responseData.status == "ok") {
@@ -87,7 +89,7 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                             window.location.reload();
                         } else if (requestType == "wizard") {
                             jQuery.globalEval(responseData.js);
-                            jQuery('#' + elementId).fadeOut(1000, function() {
+                            jQuery('#' + elementId).fadeOut(1000, function () {
                                 jQuery('#' + elementId).html("<style type=\"text/css\">" + responseData.css + "</style>" + responseData.html).fadeIn(1000);
                             });
                             jQuery.globalEval(responseData.postjs);
@@ -96,7 +98,7 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
                         } else {
                             handleError("Falscher Anfragetyp", response, params);
                         }
-                    } else if (responseData.status == "guest_logout"){
+                    } else if (responseData.status == "guest_logout") {
                         window.location.href = "/";
                     }
                     else {
@@ -113,7 +115,7 @@ function sendRequest(command, params, elementId, requestType, completeFunction, 
             data: params,
             success: successFunction,
             complete: completeFunction,
-            error: function(response) {
+            error: function (response) {
                 if (DEVELOPER) {
                     handleError(response.status + " - Server meldet Fehler(2) (" + elementId + ")", response.responseText, params)
                 }
@@ -152,14 +154,14 @@ function createOverlay(color, opacity, effect) {
         "background-color": color ? color : white,
         "z-index": 200
     });
-    jQuery(window).bind('resize scroll', function() {
+    jQuery(window).bind('resize scroll', function () {
         jQuery('#overlay').css({
             "width": jQuery(window).width(),
             "top": 0,
             "left": jQuery(window).scrollLeft()});
     });
 
-    height = Math.max(jQuery("body").height(), jQuery(window).height(), jQuery("#site_wrapper").height()+152);
+    height = Math.max(jQuery("body").height(), jQuery(window).height(), jQuery("#site_wrapper").height() + 152);
 
     if (effect == "fadeIn") {
         jQuery('#overlay').hide();
@@ -180,7 +182,7 @@ function createDynamicWrapper(content) {
 }
 
 function isDefined(variable) {
-    return (typeof(window[variable]) == "undefined") ? false : true;
+    return (typeof (window[variable]) == "undefined") ? false : true;
 }
 
 function closeDialog() {
@@ -201,11 +203,11 @@ function closeDialog() {
         //textinput fields
         var textinput_save_buttons = jQuery('#dialog').find('.widgets_textinput_save_button:visible');
         if (!(textinput_save_buttons.length === 0)) {
-           /* if (!confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
-                window.closing = false;
-                window.ajaxSaving = false;
-                return false;
-            }*/
+            /* if (!confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
+             window.closing = false;
+             window.ajaxSaving = false;
+             return false;
+             }*/
 
             for (var i = 0; i < textinput_save_buttons.length; i++) {
                 jQuery(textinput_save_buttons[i]).click();
@@ -215,22 +217,22 @@ function closeDialog() {
         //textareas
         var dirtyTextareas = jQuery('#dialog').find('.widget.textarea.dirty');
         if (dirtyTextareas.length > 0) {
-          //  if (confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
-                window.ajaxSaving = true;
-                $(dirtyTextareas[0]).textarea('save');
-                $(dirtyTextareas[0]).addClass('saved');
-                $(dirtyTextareas[0]).removeClass('dirty');
-                window.closing = false;
-                window.ajaxSaving = false;
-                window.setTimeout("reloadHelper()", 250);
-                return;
-           // } else {
+            //  if (confirm('Sollen alle nicht gespeicherten Daten gesichert werden?')) {
+            window.ajaxSaving = true;
+            $(dirtyTextareas[0]).textarea('save');
+            $(dirtyTextareas[0]).addClass('saved');
+            $(dirtyTextareas[0]).removeClass('dirty');
+            window.closing = false;
+            window.ajaxSaving = false;
+            window.setTimeout("reloadHelper()", 250);
+            return;
+            // } else {
             //    window.closing = false;
             //    window.ajaxSaving = false;
-           //     return false;
-           // }
+            //     return false;
+            // }
         }
-        jQuery('#dialog').slideUp("slow", function() {
+        jQuery('#dialog').slideUp("slow", function () {
             jQuery('#dynamic_wrapper').remove();
             callNextRequest();
         });
@@ -249,7 +251,7 @@ function closeDialog() {
 }
 
 function reloadHelper() {
-    jQuery('#dialog').slideUp("slow", function() {
+    jQuery('#dialog').slideUp("slow", function () {
         jQuery('#dynamic_wrapper').remove();
         jQuery('#overlay').remove();
     });
@@ -339,35 +341,25 @@ function eraseCookie(name) {
     createCookie(name, "", -1);
 }
 
-function callNextRequest(){
-  if(typeof nextRequest == "function"){
-    nextRequest();
-  }
-  else{
-    $('#progressbarwrapper').remove();
-    jQuery('#overlay').remove();
-  }
+function callNextRequest() {
+    if (typeof nextRequest == "function") {
+        nextRequest();
+    }
+    else {
+        $('#progressbarwrapper').remove();
+        jQuery('#overlay').remove();
+    }
 }
 
-$(document).ready(function() {
-  $(window).scroll(function () {
-    if ($(window).scrollTop() > 55) {
-      $('#menu').addClass('fixed');
-      $('.burger_menu_anker').addClass('fixed');
-    }
-    if ($(window).scrollTop() < 56) {
-      $('#menu').removeClass('fixed');
-      $('.burger_menu_anker').removeClass('fixed');
-    }
-    
-    /*if($('.burger_menu_anker').css('display') == "block"){
-        if ($(window).scrollTop() < 56) {
-            $('#menu_bar > ul > li:first-of-type + li').css('margin-top', "0px;");
-        } else {
-            $('#menu_bar > ul > li:first-of-type + li').css('margin-top', "30px;");
+$(document).ready(function () {
+    $(window).scroll(function () {
+        
+        if ($(window).scrollTop() > 55) {
+            $('#menu').addClass('fixed');
         }
-    }*/
-    
-    
-  });
+        if ($(window).scrollTop() < 56) {
+            $('#menu').removeClass('fixed');
+        }
+
+    });
 });
