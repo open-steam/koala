@@ -51,7 +51,7 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             $currentObjectID = "";
         }
         if ($path == "/explorer/") {
-            $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
+            $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg><span class='icon_bar_description'>Sortieren</span></div>");
 
             $object = $currentUser->get_workroom();
             $envWriteable = ($object->check_access_write(\lms_steam::get_current_user()));
@@ -66,21 +66,21 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             */
 
             if ($envSanction) {
-              $array[] = array("name" => "<div title='Neues Objekt'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-              $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Neues Objekt'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg><span class='icon_bar_description'>Neues Objekt</span></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg><span class='icon_bar_description'>Rechte</span></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
            } elseif ($envWriteable) {
-             $array[] = array("name" => "<div title='Neues Objekt'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-             $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+             $array[] = array("name" => "<div title='Neues Objekt'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg><span class='icon_bar_description'>Neues Objekt</span></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+             $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
             } else {
-              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
             }
 
             $array[] = array("name" => "SEPARATOR");
-            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
+            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg><span class='icon_bar_description'>Navigationsbaum</span></div>", "onclick" => "openFileTree()");
 
         } else if (strpos($path, "/explorer/index/") !== false) {
-            $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
+            $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg><span class='icon_bar_description'>Sortieren</span></div>");
 
             if($currentObjectID != ""){
               $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
@@ -96,18 +96,18 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
               */
 
               if ($envSanction) {
-                $array[] = array("name" => "<div title='Neues Objekt'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-                $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-                $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                $array[] = array("name" => "<div title='Neues Objekt'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg><span class='icon_bar_description'>Neues Objekt</span></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg><span class='icon_bar_description'>Rechte</span></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
              } elseif ($envWriteable) {
-               $array[] = array("name" => "<div title='Neues Objekt'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-               $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+               $array[] = array("name" => "<div title='Neues Objekt'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg><span class='icon_bar_description'>Neues Objekt</span></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+               $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
               } else {
-                $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
               }
             }
             $array[] = array("name" => "SEPARATOR");
-            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
+            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg><span class='icon_bar_description'>Navigationsbaum</span></div>", "onclick" => "openFileTree()");
         } else if (strpos($path, "/explorer/viewdocument/") !== false) {
 
             if($currentObjectID != ""){
@@ -118,24 +118,24 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
               $objName = $object->get_name();
               $envSanction = $object->check_access(SANCTION_SANCTION);
               if ($mimetype != "text/html") {
-                $array[] = array("name" => "<div title='Herunterladen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/download.svg#download'/></svg></div>","onclick" => "window.open('" . PATH_URL . "Download/Document/" . $currentObjectID . "/" . $objName . "')");
+                $array[] = array("name" => "<div title='Herunterladen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/download.svg#download'/></svg><span class='icon_bar_description'>Herunterladen</span></div>","onclick" => "window.open('" . PATH_URL . "Download/Document/" . $currentObjectID . "/" . $objName . "')");
               }
               if ($mimetype == "text/html") {
-                $array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/EditDocument/" . $currentObjectID . "/'");
-                $array[] = array("name" => "<div title='Quelltext bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/text_html.svg#text_html'/></svg></div>", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/CodeEditDocument/" . $currentObjectID . "/'");
+                $array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg><span class='icon_bar_description'>Bearbeiten</span></div>", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/EditDocument/" . $currentObjectID . "/'");
+                $array[] = array("name" => "<div title='Quelltext bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/text_html.svg#text_html'/></svg><span class='icon_bar_description'>Quelltext bearbeiten</span></div>", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/CodeEditDocument/" . $currentObjectID . "/'");
               }
               else if (strstr($mimetype, "text")) {
-                $array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/EditDocument/" . $currentObjectID . "/'");
+                $array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg><span class='icon_bar_description'>Bearbeiten</span></div>", "link"=>"", "onclick"=> "window.location.href = '" . PATH_URL . "Explorer/EditDocument/" . $currentObjectID . "/'");
               }
               if ($envSanction) {
-                $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-                $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg><span class='icon_bar_description'>Rechte</span></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
               } else {
-                $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+                $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
               }
             }
             $array[] = array("name" => "SEPARATOR");
-            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
+            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg><span class='icon_bar_description'>Navigationsbaum</span></div>", "onclick" => "openFileTree()");
 
         } else if (strpos($path, "/explorer/editdocument/") !== false) {
           if($currentObjectID != ""){
@@ -145,14 +145,14 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             $envSanction = $object->check_access(SANCTION_SANCTION);
 
             if ($envSanction) {
-              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-              $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg><span class='icon_bar_description'>Rechte</span></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
             } else {
-              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
             }
           }
           $array[] = array("name" => "SEPARATOR");
-          $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
+          $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg><span class='icon_bar_description'>Navigationsbaum</span></div>", "onclick" => "openFileTree()");
         } else if (strpos($path, "/explorer/codeeditdocument/") !== false) {
           if($currentObjectID != ""){
             $object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $currentObjectID);
@@ -161,29 +161,29 @@ class Explorer extends AbstractExtension implements IIconBarExtension {
             $envSanction = $object->check_access(SANCTION_SANCTION);
 
             if ($envSanction) {
-              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
-              $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg><span class='icon_bar_description'>Rechte</span></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
             } else {
-              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
+              $array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$object->get_id()}}, '', 'popup', null, null, 'explorer');return false;");
             }
           }
           $array[] = array("name" => "SEPARATOR");
-          $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
+          $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg><span class='icon_bar_description'>Navigationsbaum</span></div>", "onclick" => "openFileTree()");
         } else if ($path == "/bookmarks/") {
             $object = $currentUser->get_attribute("USER_BOOKMARKROOM");
-            $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
-            $array[] = array("name" => "<div title='Ordner anlegen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/folder.svg#folder'/></svg></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'Bookmarks');return false;");
+            $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg><span class='icon_bar_description'>Sortieren</span></div>");
+            $array[] = array("name" => "<div title='Ordner anlegen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/folder.svg#folder'/></svg><span class='icon_bar_description'>Ordner anlegen</span></div>", "onclick"=>"sendRequest('newElement', {'id':{$object->get_id()}}, '', 'popup', null, null, 'Bookmarks');return false;");
 
             $array[] = array("name" => "SEPARATOR");
-            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
+            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg><span class='icon_bar_description'>Navigationsbaum</span></div>", "onclick" => "openFileTree()");
 
         } else if (strpos($path, "/bookmarks/index/") !== false) {
-            $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg></div>");
+            $array[] = array("name" => "<div id='sort-icon' title='Sortieren' name='false' onclick='if($(this).attr(\"name\") == \"false\"){initSort();}else{window.location.reload();}'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/sort.svg#sort'/></svg><span class='icon_bar_description'>Sortieren</span></div>");
             if($currentObjectID != ""){
-              $array[] = array("name" => "<div title='Ordner anlegen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/folder.svg#folder'/></svg></div>", "onclick"=>"sendRequest('newElement', {'id':{$currentObjectID}}, '', 'popup', null, null, 'Bookmarks');return false;");
+              $array[] = array("name" => "<div title='Ordner anlegen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/folder.svg#folder'/></svg><span class='icon_bar_description'>Ordner anlegen</span></div>", "onclick"=>"sendRequest('newElement', {'id':{$currentObjectID}}, '', 'popup', null, null, 'Bookmarks');return false;");
             }
             $array[] = array("name" => "SEPARATOR");
-            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>", "onclick" => "openFileTree()");
+            $array[] = array("name" => "<div title='Navigationsbaum'><svg><use xlink:href='" . \FileTree::getInstance()->getAssetUrl() . "icons/tree.svg#tree'/></svg><span class='icon_bar_description'>Navigationsbaum</span></div>", "onclick" => "openFileTree()");
         }
         if ($ClipboardNotEmpty) {
           if($path != "/clipboard/"){
