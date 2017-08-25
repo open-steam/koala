@@ -208,7 +208,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $iconSVG = str_replace("png", "svg", $icon);
         $idSVG = str_replace(".svg", "", $iconSVG);
         $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-        $breadcrumbArray = array(array("name" => "<svg style='width:16px; height:16px; float:left; color:#3a6e9f;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p style=\"float: left; margin-top: 0px; margin-left: 3px; margin-right: 0px;\">" . $title . "</p>"));
+        $breadcrumbArray = array(array("name" => "<svg><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg><p>" . $title . "</p>"));
         /*
           $parent = $object->get_environment();
           while($parent instanceof \steam_container){
@@ -358,7 +358,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $loader->setCommand("loadGalleryContent");
             $searchField->setGalleryView();
             $selectAll = new \Widgets\RawHtml();
-            $selectAll->setHtml("<div id='selectAll' style='float:right; margin-right:0.6em;'><p style='float:left; margin-top:1px;'>Alle auswählen: </p><input style='margin-right:0' onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'></div>");
+            $selectAll->setHtml("<div id='selectAll'><input style='margin-right:0' onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'><p>Alle auswählen</p></div>");
             $script = "function initSort(){";
             foreach ($objects as $o) {
                 if (getObjectType($o) !== "trashbin") {

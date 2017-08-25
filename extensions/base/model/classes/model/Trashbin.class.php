@@ -20,7 +20,7 @@ class Trashbin extends \AbstractObjectModel {
 		} else {
 			$color = "#ffffff;";
 		}
-		return "<div style=\"float:left; color:" . $color . "\" title=\"Papierkorb\"><svg><use xlink:href=\" " . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/trash.svg#trash\"/></svg></div>$trashbinCount";
+		return "<div style=\"float:left; color:" . $color . "\" title=\"Papierkorb\"><svg><use xlink:href=\" " . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/trash.svg#trash\"/></svg></div><span class=\"icon_bar_description_display_none\">$trashbinCount</span> <span class=\"icon_bar_description\">Papierkorb ($trashbinCount)</span>";
 	}
 
 }

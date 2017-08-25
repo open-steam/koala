@@ -152,7 +152,7 @@ function createOverlay(color, opacity, effect) {
         "left": jQuery(window).scrollLeft(),
         "opacity": opacity ? opacity : 0.8,
         "background-color": color ? color : white,
-        "z-index": 200
+        "z-index": 210
     });
     jQuery(window).bind('resize scroll', function () {
         jQuery('#overlay').css({

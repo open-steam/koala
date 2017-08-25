@@ -215,7 +215,6 @@ a:hover {
 }
 
 #icon_bar {
-    float: right;
     z-index:199;
     position: absolute;
     right: 0;
@@ -223,7 +222,6 @@ a:hover {
 
 #icon_bar li ul {
     margin-left: -128px;
-    width: 180px;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
 }
@@ -403,7 +401,7 @@ a:hover {
     top: 3px;
 }
 
-.burger_menu_helper {
+.burger_menu_helper, .burger_icon_helper, .icon_bar_description {
     display: none;
 }
 
@@ -415,13 +413,29 @@ a:hover {
         font-size: 1.7em;
         padding-left: 3px;
         z-index: 199;
-        width:100%;
+        //width:100%;
         display:block;
         background:#3a6e9f;
         cursor: pointer;
         position: absolute;
     }
 
+    .burger_icon_helper{
+        color: #fff;
+        font-size: 1.7em;
+        padding-top: 2px;
+        padding-right: 3px;
+        z-index: 199;
+        display: block;
+        background: #3a6e9f;
+        cursor: pointer;
+        position: absolute;
+        right: 0px;
+    }
+
+    #menu_bar, .burger_menu_helper {
+        width: 287px;
+    }
 
     #menu_bar{
         position: absolute;
@@ -430,25 +444,39 @@ a:hover {
         z-index: 196;
     }
 
+    #icon_bar {
+        width: 205px;
+    }
+
     #menu_bar ul {
         list-style: none;
         background: #3a6e9f;
     }
 
-    #menu_bar > ul > li{
+    #menu_bar > ul > li, #icon_bar > ul > li{
         float: none !important;
         display:none;
     }
 
-    #menu_bar > ul > li:first-of-type{
+    #icon_bar svg {
+        float: left;
+        margin-right: 5px;
+    }
+
+    #icon_bar .separator {
+        display:none !important;
+    }
+
+    #menu_bar > ul > li:first-of-type, #icon_bar > ul > li:first-of-type{
         margin-top:30px;
     }
 
-    #menu_bar > ul > li > ul {
+
+    #menu_bar > ul > li > ul, #icon_bar > ul > li > ul {
         box-shadow:0px 0px 0px #888 !important
     }
 
-    #menu_bar li ul{
+    #menu_bar li ul, #icon_bar li ul{
         position:relative !important;
         margin-left: 20px;
 
@@ -456,6 +484,15 @@ a:hover {
 
     #menu li .menu_text {
         text-align: left;
+        padding-bottom: 9px !important;
+    }
+
+    .icon_bar_description{
+        display: inline;
+    }
+
+    .icon_bar_description_display_none{
+        display:none;
     }
 
 
@@ -468,9 +505,24 @@ a:hover {
         display:block !important;
     }
 
-    .burger_menu_helper {
+    .burger_menu_helper, .burger_icon_helper {
         display: none !important;
     }
+}
+
+#selectAll {
+    float:left; 
+    margin-left: calc(0.6em + 1px);
+}
+
+#selectAll > p {
+    float:left; 
+    margin-top:1px;
+        margin-left: 5px;
+}
+
+#selectAll > input {
+    float:left;
 }
 
 

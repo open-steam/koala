@@ -123,7 +123,19 @@
                 if($('#menu_bar > ul >li').css("display") == 'block'){
                     $('#menu_bar > ul >li').css("display", "none");
                 } else {
+                    hideAllMenus();
                     $('#menu_bar > ul >li').css("display", "block");
+                }
+            }
+            
+            function show_burger_icon(){
+                event.stopPropagation();
+                
+                if($('#icon_bar > ul >li').css("display") == 'block'){
+                    $('#icon_bar > ul >li').css("display", "none");
+                } else {
+                    hideAllMenus();
+                    $('#icon_bar > ul >li').css("display", "block");
                 }
             }
             
@@ -165,6 +177,23 @@
                     }
                     
                 });
+                $("#icon_bar > ul > li").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
+                $("#icon_bar > ul > li > ul").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
+                $("#icon_bar ul >li").each(function(element){
+
+                    if($("ul:visible", this).css('display') == 'block') {
+                        $("ul:visible", this).css("display", "none");
+                    }
+                    
+                });
             } else {
                 $("#menu_bar > ul > li").each(function(){
                     if($(this).css('display') == 'block') {
@@ -176,9 +205,19 @@
                         $(this).css("display", "none");
                     }
                 });
-                    
+                
+                $("#icon_bar > ul > li").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
+                $("#icon_bar > ul > li > ul").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });            
             }
-            }
+        }
 
             function unsavedContent() {
                 // 		if ($('body').find('.changed').length > 0) {
@@ -348,9 +387,10 @@
                         <div id="menu_wrapper_bg">
                             <div id="menu_wrapper">
                                 <div id="menu">
-                                    <span class="burger_menu_helper" onClick="show_burger_menu();">&#9776; <span>MENU</span></span>
+                                    <span class="burger_menu_helper" onClick="show_burger_menu();">&#9776; <span>NAVIGATION</span></span>
                                     <div id="icon_bar">{ICON_BAR_HTML}</div>
                                     <div id="menu_bar">{MENU_HTML}</div>
+                                    <span class="burger_icon_helper" onClick="show_burger_icon();"><span>MENU</span>&#x22ee;</span>
                                 </div>
                             </div>
                         </div>
