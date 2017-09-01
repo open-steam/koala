@@ -413,7 +413,6 @@ a:hover {
         font-size: 1.7em;
         padding-left: 3px;
         z-index: 199;
-        //width:100%;
         display:block;
         background:#3a6e9f;
         cursor: pointer;
@@ -423,7 +422,6 @@ a:hover {
     .burger_icon_helper{
         color: #fff;
         font-size: 1.7em;
-        padding-top: 2px;
         padding-right: 3px;
         z-index: 199;
         display: block;
@@ -440,7 +438,7 @@ a:hover {
     #menu_bar{
         position: absolute;
         overflow: scroll !important;
-        height: 100vh;
+        max-height: 100vh;
         z-index: 196;
     }
 

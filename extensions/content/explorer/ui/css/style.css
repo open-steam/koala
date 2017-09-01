@@ -23,7 +23,15 @@
     height:16px;
     float:left;
     color:#3a6e9f;
+    margin-right: 3px;
 }
+
+.breadcrumb > h2 > p {
+    display: flex;
+}
+
+
+
 .show {
     display: block;
 }
