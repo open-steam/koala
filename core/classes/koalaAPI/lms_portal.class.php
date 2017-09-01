@@ -249,7 +249,10 @@ class lms_portal
         $this->template->parse("PORTAL_LANGUAGES");
         */
           }
-
+          if ( !$offline && $this->lms_user->is_logged_in() ) {
+                $this->template->touchBlock("BLOCK_NAVIGATION");
+                $this->template->touchBlock("BLOCK_MENU");
+          }
     $this->template->setVariable( "COPYRIGHT_INFO", "&copy; " . strftime( "%Y" ) . " " . secure_gettext( COPYRIGHT_NAME ) );
     $this->template->setVariable( "IMPRESSUM_INFO", " | " . " <a href='". PATH_URL . "imprint/'>" . gettext( "Imprint" ) . "</a>" );
     (DISCLAIMER) ? $this->template->setVariable( "SECURITY_INFO", " | " . " <a href='". PATH_URL . "disclaimer_static.php'>" . "Nutzerordnung" . "</a>" ) : "";

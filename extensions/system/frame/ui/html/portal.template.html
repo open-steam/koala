@@ -145,9 +145,9 @@
                 if (parent.tagName.toLowerCase()!=='li') return;
                 //parent=parent.parentNode.parentNode;
                 if (yesOrNo){
-                    parent.className='activemenu';
+                    $(parent).addClass("activemenu");
                 } else {
-                    parent.className='';
+                    $(parent).removeClass("activemenu");
                 }
             }
 
@@ -162,8 +162,10 @@
                     hideAllMenus();
                 }
                 if(submenu[0] && submenu[0].style.display == "block"){
+                    $(element).removeClass("menu_open");
                     submenu[0].style.display = "none";
                 } else if (submenu[0] && !active && (submenu[0].style.display == "none" || submenu[0].style.display == "")){
+                    $(element).addClass("menu_open");
                     submenu[0].style.display = "block";
                 }
             }
@@ -198,6 +200,7 @@
                 $("#menu_bar > ul > li").each(function(){
                     if($(this).css('display') == 'block') {
                         $(this).css("display", "none");
+                        $(this).removeClass("menu_open");
                     }
                 });
                 $("#menu_bar > ul > li > ul").each(function(){
@@ -387,10 +390,10 @@
                         <div id="menu_wrapper_bg">
                             <div id="menu_wrapper">
                                 <div id="menu">
-                                    <span class="burger_menu_helper" onClick="show_burger_menu();">&#9776; <span>NAVIGATION</span></span>
+                                    <!-- BEGIN BLOCK_NAVIGATION --><span class="burger_menu_helper" onClick="show_burger_menu();">&#9776; <span>NAVIGATION</span></span><!-- END BLOCK_NAVIGATION -->
                                     <div id="icon_bar">{ICON_BAR_HTML}</div>
                                     <div id="menu_bar">{MENU_HTML}</div>
-                                    <span class="burger_icon_helper" onClick="show_burger_icon();"><span>MENU</span>&#x22ee;</span>
+                                    <!-- BEGIN BLOCK_MENU --><span class="burger_icon_helper" onClick="show_burger_icon();"><span>&#9776; MENU</span></span><!-- END BLOCK_MENU -->
                                 </div>
                             </div>
                         </div>

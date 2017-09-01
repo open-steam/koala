@@ -408,9 +408,12 @@ a:hover {
 
 @media only screen and (max-width: 768px){
 
-    .burger_menu_helper{
+    #menu {
         color: #fff;
         font-size: 1.7em;
+    }
+
+    .burger_menu_helper{
         padding-left: 3px;
         z-index: 199;
         display:block;
@@ -420,8 +423,6 @@ a:hover {
     }
 
     .burger_icon_helper{
-        color: #fff;
-        font-size: 1.7em;
         padding-right: 3px;
         z-index: 199;
         display: block;
@@ -443,7 +444,11 @@ a:hover {
     }
 
     #icon_bar {
-        width: 205px;
+        width: 282px;
+        position: absolute;
+        overflow: scroll !important;
+        max-height: 100vh;
+        z-index: 196;
     }
 
     #menu_bar ul {
@@ -454,14 +459,32 @@ a:hover {
     #menu_bar > ul > li, #icon_bar > ul > li{
         float: none !important;
         display:none;
+
+    }
+
+    #menu_bar > ul > li , .icon_bar > ul > li{
+        background-image: url(/explorer/asset/icons/menu/svg/down_white.svg);
+        background-position: right 10px top 10px;
+        background-repeat: no-repeat;
+        background-size: 15px;
+    }
+
+    #menu_bar li .menu_text:hover {
+        background-image: url(/explorer/asset/icons/menu/svg/down_white.svg);
+        background-position: right 10px top 10px;
+        background-repeat: no-repeat;
+        background-size: 15px;
     }
 
     #icon_bar svg {
-        float: left;
         margin-right: 5px;
     }
 
-    #icon_bar .separator {
+    #menu_bar svg {
+        top:0px;
+    }
+
+    #icon_bar .separator, .menu_hide {
         display:none !important;
     }
 
@@ -471,7 +494,7 @@ a:hover {
 
 
     #menu_bar > ul > li > ul, #icon_bar > ul > li > ul {
-        box-shadow:0px 0px 0px #888 !important
+        box-shadow:0px 0px 0px #888 !important;
     }
 
     #menu_bar li ul, #icon_bar li ul{
@@ -491,6 +514,34 @@ a:hover {
 
     .icon_bar_description_display_none{
         display:none;
+    }
+
+    #menu_bar .menu_open {
+        background-image: url(/explorer/asset/icons/menu/svg/up_white.svg) !important;
+        background-position: right 10px top 10px;
+        background-repeat: no-repeat;
+        background-size: 15px;
+    }
+
+    #menu_bar .menu_open .menu_text:hover {
+        background-image: url(/explorer/asset/icons/menu/svg/up_white.svg) !important;
+        background-position: right 10px top 10px;
+        background-repeat: no-repeat;
+        background-size: 15px;
+    }
+
+    .icon_bar_drop_down {
+        background-image: url(/explorer/asset/icons/menu/svg/down_white.svg) !important;
+        background-position: right 10px top;
+        background-repeat: no-repeat;
+        background-size: 15px;
+    }
+    
+    .menu_open .icon_bar_drop_down, .menu_open .icon_bar_drop_down:hover {
+        background-image: url(/explorer/asset/icons/menu/svg/up_white.svg) !important;
+        background-position: right 10px top;
+        background-repeat: no-repeat;
+        background-size: 15px;
     }
 
 
@@ -516,7 +567,7 @@ a:hover {
 #selectAll > p {
     float:left; 
     margin-top:1px;
-        margin-left: 5px;
+    margin-left: 5px;
 }
 
 #selectAll > input {
