@@ -255,10 +255,7 @@ a:hover {
     border-bottom-right-radius: 3px;
 }
 
-#trashbinIconbarWrapper, 
-#clipboardIconbarWrapper {
-    height: 19px;
-}
+
 
 #trashbinIconbarWrapper  img,
 #clipboardIconbarWrapper img {
@@ -508,6 +505,7 @@ a:hover {
         background-size: 15px;
 
     }
+    
     #menu_bar  > ul > li:hover, #icon_bar  > ul > li:hover {
         background-color: #6094C5;
     }
@@ -550,6 +548,11 @@ a:hover {
     #menu li .menu_text:hover, #menu .activemenu{
         background-color: #6094C5;
         text-decoration:none;
+    }
+    
+    #trashbinIconbarWrapper, 
+    #clipboardIconbarWrapper {
+        height: 19px;
     }
 }
 
