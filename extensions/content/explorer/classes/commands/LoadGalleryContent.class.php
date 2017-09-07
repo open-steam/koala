@@ -135,6 +135,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
           $linkIcon = "<div class='galleryReferenceWrapper'></div>";
           if (isset($url) && $url != "") {
+              
               if ($object instanceof \steam_link) {
                   $linkIcon = "<div class='galleryReferenceWrapper' title='" . $text . "'><svg class='galleryReference'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
                   $linkObject = $object->get_link_object();
@@ -167,7 +168,6 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           }
 
           
-
           $galleryNumber = \lms_steam::get_current_user_no_guest()->get_attribute("GALLERY_NUMBER");
           if(!is_numeric($galleryNumber) || $galleryNumber < 1 || $galleryNumber > 10){
             $galleryNumber = 5;

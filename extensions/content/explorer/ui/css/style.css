@@ -1,21 +1,8 @@
-#explorerContent {
-    /*padding-right: 50px;*/
-}
-.listviewer {
-    /*margin-left: 50px;*/
-}
 .breadcrumb {
-    //height: 1em;
     margin-left: 0.6em;
-    //float:left; 
     margin-top:0px; 
     margin-left:5px; 
     margin-right:5px;
-
-    //width: calc( 100% - 35%);
-    //text-overflow: ellipsis;
-    //overflow: hidden;
-    //white-space: nowrap;
 }
 
 .breadcrumb > h2 > svg {
@@ -29,8 +16,6 @@
 .breadcrumb > h2 > p {
     display: flex;
 }
-
-
 
 .show {
     display: block;
@@ -62,7 +47,6 @@ div[id$="_3"].listviewer-item-cell {
     padding-bottom: 10px;
     padding-top: 10px;
     position:relative;
-
 }
 
 .galleryEntry:hover {
@@ -116,8 +100,6 @@ div[id$="_3"].listviewer-item-cell {
     display: table-cell;
     margin-top: 0.5em;
     margin-bottom: 1.2em;
-
-
 }
 
 .galleryPicture.white {

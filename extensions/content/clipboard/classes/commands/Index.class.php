@@ -6,6 +6,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
     private $params;
     private $id;
+    
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -27,13 +28,8 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->getExtension()->addCSS();
 
         $title = "Zwischenablage";
-
         $breadcrumb = new \Widgets\Breadcrumb();
-        $breadcrumb->setData(array("", array("name" => "<svg><use xlink:href='" .  PATH_URL . "explorer/asset/icons/clipboard.svg#clipboard'/></svg>" . $title)));
-
-        //$actionBar = new \Widgets\ActionBar();
-        //$actionBar->setActions(array(array("name" => "Zwischenablage leeren", "ajax" => array("onclick" => array("command" => "EmptyClipboard", "params" => array(), "requestType" => "popup", "namespace" => "explorer")))));
-        //$actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
+        $breadcrumb->setData(array(array("name" => "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/clipboard.svg#clipboard'/></svg>" . $title)));
 
         $frameResponseObject->setTitle("Zwischenablage");
         $environment = new \Widgets\RawHtml();
@@ -51,14 +47,13 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         //check the explorer view attribute which is specified in the profile
         $viewAttribute = $currentUser->get_attribute("EXPLORER_VIEW");
-        if($viewAttribute && $viewAttribute == "gallery"){
-          $loader->setCommand("LoadGalleryContent");
-          $selectAll = new \Widgets\RawHtml();
-          $selectAll->setHtml("<div id='selectAll'><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'><p>Alle auswählen</p></div>");
-          $frameResponseObject->addWidget($selectAll);
-        }
-        else{
-          $loader->setCommand("LoadClipboard");
+        if ($viewAttribute && $viewAttribute == "gallery") {
+            $loader->setCommand("LoadGalleryContent");
+            $selectAll = new \Widgets\RawHtml();
+            $selectAll->setHtml("<div id='selectAll'><input onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'><p>Alle auswählen</p></div>");
+            $frameResponseObject->addWidget($selectAll);
+        } else {
+            $loader->setCommand("LoadClipboard");
         }
 
         $frameResponseObject->addWidget($loader);

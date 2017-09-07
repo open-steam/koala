@@ -70,19 +70,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             \ExtensionMaster::getInstance()->send404Error();
         }
 
-        //TODO: this is the wrong position for this exception
-        //it should be placed after the big switch, but i'm not sure where
-        //we have to think about it
-        //
-        //if the object is not a steam_container it cannot have any inventory.
-        /*
-          if (!$object instanceof \steam_container) {
-          throw new \Exception("This object cannot contain any objects.", E_OBJECT_NO_INVENTORY);
-          }
-         */
-
-        $objectModel = \AbstractObjectModel::getObjectModel($object);
-
         if ($object && $object instanceof \steam_container) {
 
             $count = $object->count_inventory();
@@ -91,7 +78,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 throw new \Exception("Es befinden sich $count Objekte in diesem Ordner. Das Laden ist nicht möglich.");
             }
             try {
-
                 $objects = $object->get_inventory();
             } catch (\NotFoundException $e) {
                 \ExtensionMaster::getInstance()->send404Error();
@@ -100,7 +86,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 $labelDenied->setHtml("Der Explorer kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
                 $frameResponseObject->addWidget($labelDenied);
                 return $frameResponseObject;
-                //throw new \Exception("", E_USER_ACCESS_DENIED);
             }
         } else {
             $objects = array();
@@ -150,7 +135,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
             case "portal_old":
                 $rawHtml = new \Widgets\RawHtml();
-                //$rawHtml->setHtml("Dies ist ein \"altes\" Portal und kann nicht mehr angezeigt werden. Bitte umwandeln.");
                 $frameResponseObject->addWidget($rawHtml);
                 $frameResponseObject->setProblemDescription("Dies ist ein \"altes\" Portal und kann nicht mehr angezeigt werden.");
                 $frameResponseObject->setProblemSolution("Bitte umwandeln.");
@@ -228,36 +212,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $this->getExtension()->addJS();
         $this->getExtension()->addCSS();
 
-        //check sanctions
-        $envWriteable = ($object->check_access_write(\lms_steam::get_current_user()));
-        $envSanction = $object->check_access(SANCTION_SANCTION);
-
-        //$actionBar = new \Widgets\ActionBar();
-        /*
-          $actionBar->setActions(array(!$envWriteable ?  : array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newElement", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
-          array("name"=>"Eigenschaften", "ajax"=>array("onclick"=>array("command"=>"properties", "params"=>array("id"=>$this->id), "requestType"=>"popup"))),
-          array("name"=>"Rechte", "ajax"=>array("onclick"=>array("command"=>"Sanctions", "params"=>array("id"=>$this->id), "requestType"=>"popup")))
-          ));
-          if ($envSanction) {
-          $actionBar->setActions(
-          array(
-          array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
-          array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup"))),
-          array("name" => "Rechte", "ajax" => array("onclick" => array("command" => "Sanctions", "params" => array("id" => $this->id), "requestType" => "popup")))));
-          } elseif ($envWriteable) {
-          $actionBar->setActions(
-          array(
-          array("name" => "Neu", "ajax" => array("onclick" => array("command" => "newElement", "params" => array("id" => $this->id), "requestType" => "popup"))),
-          array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
-          } else {
-          $actionBar->setActions(
-          array(
-          array("name" => "Eigenschaften", "ajax" => array("onclick" => array("command" => "properties", "params" => array("id" => $this->id), "requestType" => "popup")))));
-          }
-
-
-          $actionBar->setActions(array(array("name"=>"Neu", "ajax"=>array("onclick"=>array("command"=>"newelement"))), array("name"=>"Eigenschaften", "link"=>PATH_URL."explorer/properties/"), array("name"=>"Rechte", "link"=>PATH_URL."explorer/rights/")));
-         */
         $presentation = $object->get_attribute("bid:presentation");
         $preHtml = "";
         if ($presentation === "head") {
@@ -290,13 +244,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                 die;
             }
         }
-
-        /*
-          //make html output modifications
-          $htmlDocument = new \HtmlDocument();
-          $preHtml = $htmlDocument->makeViewModifications($preHtml);
-          $preHtml = cleanHTML($preHtml);
-         */
 
         if ($preHtml !== "") {
             $preHtml = "<div style=\"border-bottom: 1px solid #ccc; padding-bottom:10px; margin-bottom:10px; clear:both;\">{$preHtml}</div>";
@@ -343,7 +290,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $environment = new \Widgets\RawHtml();
         $environment->setHtml("{$preHtml}<input type=\"hidden\" id=\"environment\" name=\"environment\" value=\"{$this->id}\">");
-        $selectAll = new \Widgets\RawHtml();
+        
 
         $loader = new \Widgets\Loader();
         $loader->setWrapperId("explorerWrapper");
@@ -354,10 +301,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         //check the explorer view attribute which is specified in the profile
         $viewAttribute = \lms_steam::get_current_user()->get_attribute("EXPLORER_VIEW");
+        $selectAll = new \Widgets\RawHtml();
         if ($viewAttribute && $viewAttribute == "gallery") {
             $loader->setCommand("loadGalleryContent");
             $searchField->setGalleryView();
-            $selectAll = new \Widgets\RawHtml();
+            
             $selectAll->setHtml("<div id='selectAll'><input style='margin-right:0' onchange='elements = jQuery(\".galleryEntry > input\"); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}' type='checkbox'><p>Alle auswählen</p></div>");
             $script = "function initSort(){";
             foreach ($objects as $o) {
@@ -421,7 +369,6 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $sortHtml->setJs($script);
         $sortHtml->setPostJsCode('$($(".popupmenuanker")[0]).css("margin-top", "3px");');
 
-        //$frameResponseObject->addWidget($actionBar);
         $frameResponseObject->addWidget($sortHtml);
         $frameResponseObject->addWidget($breadcrumb);
         $frameResponseObject->addWidget($description);
