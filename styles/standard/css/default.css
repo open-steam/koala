@@ -320,10 +320,7 @@ a:hover {
     text-decoration:none;
 }
 
-#menu li .menu_text:hover, #menu .activemenu{
-    background-color: #6094C5;
-    text-decoration:none;
-}
+
 
 #menu li .menu_text:active {
     background-color: #264767;
@@ -462,19 +459,7 @@ a:hover {
 
     }
 
-    #menu_bar > ul > li , .icon_bar > ul > li{
-        background-image: url(/explorer/asset/icons/menu/svg/down_white.svg);
-        background-position: right 10px top 10px;
-        background-repeat: no-repeat;
-        background-size: 15px;
-    }
 
-    #menu_bar li .menu_text:hover {
-        background-image: url(/explorer/asset/icons/menu/svg/down_white.svg);
-        background-position: right 10px top 10px;
-        background-repeat: no-repeat;
-        background-size: 15px;
-    }
 
     #icon_bar svg {
         margin-right: 5px;
@@ -516,30 +501,34 @@ a:hover {
         display:none;
     }
 
-    #menu_bar .menu_open {
-        background-image: url(/explorer/asset/icons/menu/svg/up_white.svg) !important;
-        background-position: right 10px top 10px;
+    #menu_bar > ul > li , #menu_bar  > ul > li:hover {
+        background-image: url(/explorer/asset/icons/menu/svg/down_white.svg);
+        background-position: right 10px top 15px;
         background-repeat: no-repeat;
         background-size: 15px;
+
+    }
+    #menu_bar  > ul > li:hover, #icon_bar  > ul > li:hover {
+        background-color: #6094C5;
     }
 
-    #menu_bar .menu_open .menu_text:hover {
+    #menu_bar  > ul > li.menu_open, #menu_bar  > ul > li.menu_open:hover {
         background-image: url(/explorer/asset/icons/menu/svg/up_white.svg) !important;
-        background-position: right 10px top 10px;
+        background-position: right 10px top 15px;
         background-repeat: no-repeat;
         background-size: 15px;
     }
 
     .icon_bar_drop_down {
         background-image: url(/explorer/asset/icons/menu/svg/down_white.svg) !important;
-        background-position: right 10px top;
+        background-position: right 10px top 5px;
         background-repeat: no-repeat;
         background-size: 15px;
     }
-    
+
     .menu_open .icon_bar_drop_down, .menu_open .icon_bar_drop_down:hover {
         background-image: url(/explorer/asset/icons/menu/svg/up_white.svg) !important;
-        background-position: right 10px top;
+        background-position: right 10px top 5px;
         background-repeat: no-repeat;
         background-size: 15px;
     }
@@ -556,6 +545,11 @@ a:hover {
 
     .burger_menu_helper, .burger_icon_helper {
         display: none !important;
+    }
+
+    #menu li .menu_text:hover, #menu .activemenu{
+        background-color: #6094C5;
+        text-decoration:none;
     }
 }
 
