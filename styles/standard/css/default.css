@@ -200,6 +200,12 @@ a:hover {
     left: 10px;
 }
 
+#header #signed_in_block_wrapper {
+    max-width: calc(100% - 183px);
+    position: absolute;
+    right: 0px;
+}
+
 #header #logo svg {
     height: 50px;
     width: 250px;
