@@ -886,7 +886,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                     $groupString = $groupString . $displaydGroupName . '</br>';
                 }
 
-                $raw->setHtml('<div class="widgets_label">Meine Gruppen:</div><div style="width:134px; padding-top:11px; float: left; overflow-y:hidden; white-space: nowrap;">' . $groupString . '</div>');
+                $raw->setHtml('<div class="widgets_label">Meine Gruppen:</div><div style="width:130px; padding-top:11px; float: left; overflow-y:hidden; white-space: nowrap;">' . $groupString . '</div>');
                 $frameResponseObject->addWidget($clearer);
                 $frameResponseObject->addWidget($raw);
 
@@ -983,6 +983,10 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             //save button at the end of the form
             $saveButton = new \Widgets\SaveButton();
             $frameResponseObject->addWidget($saveButton);
+            
+            $cssforSaveButton = new \Widgets\RawHtml();
+            $cssforSaveButton->setHtml('<style type="text/css"> #'.$saveButton->getId().' { float: left !important; margin-left: 209px !important; }</style>');
+            $frameResponseObject->addWidget($cssforSaveButton);
 
             // close table
             $rawClose = new \Widgets\RawHtml();

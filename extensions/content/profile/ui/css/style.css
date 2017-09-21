@@ -63,6 +63,6 @@
 }
 
 #content {
-  overflow: hidden;
+  overflow-x: auto;
   position: relative;
 }
