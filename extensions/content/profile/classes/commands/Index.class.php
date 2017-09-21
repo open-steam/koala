@@ -210,7 +210,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
                         . '$(that).html("◄ Sichtbarkeit");'
                         . '});'
                         . '} else {'
-                        . '$("#privacyShield").animate({"width":"100%", "margin-left":"460px"},1000, function () {'
+                        . '$("#privacyShield").animate({"width":"calc(100%)", "margin-left":"460px"},1000, function () {'
                         . '$(that).html("Sichtbarkeit ►");'
                         . '});'
                         . '}'
