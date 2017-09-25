@@ -12,8 +12,8 @@ function createDialog() {
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function() {jQuery('#dialog_wrapper').css({"right": $(window).width() / 2 - jQuery('#dialog').width() / 2 + "px"});}, 100);
     });
-
-    jQuery('#dialog').slideDown("slow");
+    
+    jQuery('#dialog').slideDown("slow").css('overflow', 'scroll');
 
     //close the dialog on escape
     jQuery(document).keyup(function(e) {
