@@ -310,7 +310,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $html .= "</div>";
             $tagrawHtml->setHtml($html);
-            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:147px;clear:both;width:200px;}');
         }
 
         //TODO: bid-attribute

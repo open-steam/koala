@@ -1262,7 +1262,7 @@ input.InputNormal{
     text-shadow: none;
     border-radius: 3px;
     padding: 8px;
-    font-size: 12px;
+    font-size: 1em;
     border: none;
     display: inline-block;
 }

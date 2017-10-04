@@ -1,58 +1,112 @@
 .dialog_wrapper {
-	top: 6%;
-	right: 50%;
-	position: fixed;
-	z-index: 300;
+    top: 6%;
+    left:50%;
+    transform: translateX(-50%);
+    position: fixed;
+    z-index: 300;
 }
 
 .dialog {
-	display: none;
-	font-family: 'Lucida Grande',Verdana,Arial,Helvetica,sans-serif;
-	font-size: 12px;
-	position: relative;
-	z-index: 301;
-	padding: 5px;
-	background-color: white;
-	color: black;
-	padding: 14px;
-        max-height:90vh;
-	overflow-y:auto;
-	-moz-box-shadow:2px 2px 5px #888;
-	-webkit-box-shadow:2px 2px 5px #888;
-	box-shadow:2px 2px 5px #888;
-	border-radius: 3px;
+    display: none;
+    font-family: 'Lucida Grande',Verdana,Arial,Helvetica,sans-serif;
+    font-size: 1em;
+    position: relative;
+    z-index: 301;
+    padding: 5px;
+    background-color: white;
+    color: black;
+    padding: 14px;
+    max-height:90vh;
+    overflow-y:auto;
+    -moz-box-shadow:2px 2px 5px #888;
+    -webkit-box-shadow:2px 2px 5px #888;
+    box-shadow:2px 2px 5px #888;
+    border-radius: 3px;
 }
 
 .dialog h2 {
-	margin-top: 3px;
-	padding-top: 5px;
-	padding-left: 14px;
+    margin-top: 3px;
+    padding-top: 5px;
+    padding-left: 14px;
 }
 
 .dialog h3 {
-	margin-top: 10px;
-	color: #ccc;
-	border-bottom: 1px solid #ccc;
+    margin-top: 10px;
+    color: #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .dialog .widgets_label {
-	width: 140px;
-	margin: 3px;
+    width: 140px;
+    margin: 3px;
 }
 
 .dialog .widgets_textinput input, .dialog .widgets_datepicker input, .dialog .widgets_combobox select, .dialog .widgets_textfield, .dialog .widgets_checkbox {
-	width: 200px;
-	margin-top: 3px;
+    width: 200px;
+    margin-top: 3px;
 }
 
 .close-button {
-	position: absolute;
-	top: 4px;
-	right: 4px;
-	color: white;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: white;
 }
 
 .close-button:hover {
-	cursor: pointer;
-	color: red;
+    cursor: pointer;
+    color: red;
+}
+
+.tag{
+    overflow:hidden;
+    float:left;
+    cursor:pointer;
+    width:55px;
+    margin-right:8px;
+}
+
+.tag-overview-row{
+    display:block;
+    margin-left:147px;
+    clear:both;
+    width:200px;
+}
+
+@media only screen and (max-width: 500px){
+
+    .dialog {
+        width: 90vw !important;
+    }
+
+    .dialog .widgets_label, 
+    .dialog .widgets_textinput, 
+    .dialog .widgets_datepicker, 
+    .dialog .widgets_combobox, 
+    .dialog .widgets_textfield, 
+    .dialog .widgets_checkbox, 
+    .dialog .widgets_datepicker input{
+        float: none !important;
+
+    }
+
+    .dialog .widgets_label {
+        margin-left:-7px;
+    }
+
+    .dialog .widgets_textfield, 
+    .widgets_textinput input, 
+    .dialog .widgets_datepicker input, 
+    .dialog .widget.textarea textarea,
+    .dialog .widgets_combobox select, 
+    .widget.textarea > span > table:first-of-type{
+        width:100% !important;
+    }
+    
+    .tag-overview-row, .widgets_radiobutton{
+        margin-left:0px !important;
+        width:100%;
+    }
+
+
 }
