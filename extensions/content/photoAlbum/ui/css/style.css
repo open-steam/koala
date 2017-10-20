@@ -12,6 +12,14 @@ img.bmp {
 
 }
 
+.breadcrumb > h2 > svg {
+    width:16px;
+    height:16px;
+    float:left;
+    color:#3a6e9f;
+    margin-right: 3px;
+}
+
 .gal-element {
   background: #EEEEEE;
   height: 204px;
