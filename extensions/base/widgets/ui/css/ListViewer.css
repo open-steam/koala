@@ -1,193 +1,292 @@
 @CHARSET "UTF-8";
 .listviewer{
-	width: 100%;
+    width: 100%;
+    display:table;
 }
 
 .listviewer .listviewer-items {
-	clear: both;
+    clear: both;
 }
 
 .listviewer .listviewer-head {
-
+    display:table-row;
 }
 
 .listviewer .listviewer-item {
-	height: 24px;
-	clear: both;
-	cursor: pointer;
+    padding-bottom: 4px;
+    cursor: pointer;
+    overflow: auto;
+    clear:both;
+    display: table-row;
 }
 
 .listviewer-item-unhover {
-	background-color: transparent;
-	/*border: 1px solid transparent;*/
+    background-color: transparent;
+    width: auto;
+    /*border: 1px solid transparent;*/
 }
 
 .listviewer-item-hover {
-	/*border: 1px solid #aaa;*/
-	background-color: #e5e5e5;
+    /*border: 1px solid #aaa;*/
+    background-color: #e5e5e5;
 }
 
 .listviewer-item-hovered {
-	/*border: 1px solid #aaa;*/
-	background-color: #e5e5e5;
+    /*border: 1px solid #aaa;*/
+    background-color: #e5e5e5;
 }
 
 .listviewer-item-selected.red, .listviewer-item-selected.orange, .listviewer-item-selected.yellow, .listviewer-item-selected.green, .listviewer-item-selected.blue, .listviewer-item-selected.purple, .listviewer-item-selected.grey {
-	background-color: #396D9C;
+    background-color: #396D9C;
 }
 
 .listviewer-item-selected {
-	background-color: #396D9C;
-	color: white;
+    background-color: #396D9C;
+    color: white;
 }
 
 .listviewer-item-selected a, .listviewer-item-selected a:link, .listviewer-item-selected a:visited{
-	color: white;
+    color: white;
 }
 
 .listviewer .listviewer-head-item {
-	float: left;
-	font-weight: bold;
-	min-height: 1px;
+
+    font-weight: bold;
+    min-height: 1px;
+    width: auto;
+    display: table-cell;
+    white-space:nowrap;
 }
 
 .listviewer .listviewer-head-item.hover {
-	cursor: pointer;
-	text-decoration: underline;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .listviewer .listviewer-item-cell {
-	float: left;
-	padding-top: 4px;
-	height: 20px;
-	overflow: hidden;
-	white-space: nowrap;
+
+    padding-top: 3px;
+    padding-bottom: 3px;
+    overflow: hidden;
+    width: auto;
+    display: table-cell;
+    vertical-align: middle;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+  
 }
+
+.listviewer .listviewer-item-cell.directEditor{
+    display: inline-block;
+}
+
 
 .listviewer .listviewer-item-cell img {
     margin: -3px 3px;
 }
 
-.listviewer .listviewer-item-cell .marker {
-	float: right;
+.listviewer .listviewer-item-cell a svg {
+    margin-top: 2px;
 }
 
-.listviewer .listviewer-noitem{
-	text-align:center;
+.listviewer .listviewer-item-cell .marker {
+    float: right;
+}
+
+.listviewer-noitem{
+    text-align:center;
 }
 
 .listviewer .listviewer-head{
-	clear: both;
+    clear: both;
 }
 
 .listviewer-item {
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .red {
-	background-color: #F3B6AE;
+    background-color: #F3B6AE;
 }
 
 .orange {
-	background-color: #FAD7A5;
+    background-color: #FAD7A5;
 }
 
 .yellow {
-	background-color: #FAF3AA;
+    background-color: #FAF3AA;
 }
 
 .green {
-	background-color: #DDEDAA;
+    background-color: #DDEDAA;
 }
 
 .blue {
-	background-color: #B7D9FE;
+    background-color: #B7D9FE;
 }
 
 .purple {
-	background-color: #DEBCEA;
+    background-color: #DEBCEA;
 }
 
 .grey {
-	background-color: #D6D6D6;
+    background-color: #D6D6D6;
 }
 
 .redColor {
-	color: #e97a6b;
+    color: #e97a6b;
 }
 
 .orangeColor {
-	color: #f6b75d;
+    color: #f6b75d;
 }
 
 .yellowColor {
-	color: #f6e962;
+    color: #f6e962;
 }
 
 .greenColor {
-	color: #c4e06b;
+    color: #c4e06b;
 }
 
 .blueColor {
-	color: #6cb1fd;
+    color: #6cb1fd;
 }
 
 .purpleColor {
-	color: #c182d8;
+    color: #c182d8;
 }
 
 .greyColor {
-	color: #b0b0b0;
+    color: #b0b0b0;
 }
 
 .listviewer-item-hover.red {
-	background-color: #e97a6b;
+    background-color: #e97a6b;
 }
 
 .listviewer-item-hover.orange {
-	background-color: #f6b75d;
+    background-color: #f6b75d;
 }
 
 .listviewer-item-hover.yellow {
-	background-color: #f6e962;
+    background-color: #f6e962;
 }
 
 .listviewer-item-hover.green {
-	background-color: #c4e06b;
+    background-color: #c4e06b;
 }
 
 .listviewer-item-hover.blue {
-	background-color: #6cb1fd;
+    background-color: #6cb1fd;
 }
 
 .listviewer-item-hover.purple {
-	background-color: #c182d8;
+    background-color: #c182d8;
 }
 
 .listviewer-item-hover.grey {
-	background-color: #b0b0b0;
+    background-color: #b0b0b0;
 }
 
 .hiddenObject {
-        opacity: 0.5;
+    opacity: 0.5;
 }
 
 .justTrashed{
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .justTrashed div, .justTrashed a{
-	color: red;
-	text-decoration:line-through;
+    color: red;
+    text-decoration:line-through;
 }
 
 .justRestoredFromTrashed{
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .justRestoredFromTrashed div, .justRestoredFromTrashed a{
-	color: LimeGreen;
-	text-decoration:line-through;
+    color: LimeGreen;
+    text-decoration:line-through;
+}
+
+@media only screen and (min-width: 651px) and (max-width: 800px){
+    .changedate {
+        min-width:19vw;
+    }
+}
+
+@media only screen and (min-width: 801px){
+    .changedate {
+        min-width:147px;
+    }
+}
+
+@media only screen and (max-width: 650px){
+
+    .listviewer{
+        width: 100%;
+    }
+
+    .listviewer .listviewer-item  {
+        display:block;
+        position:relative;
+        margin-bottom: 4px;
+    }
+
+    .listviewer .listviewer-head {
+        display:none; /*do not display the column heads in narrow view*/
+    }
+
+    .listviewer .listviewer-item div:first-child { /*to make the name float around the icon */
+        float:left; 
+        height: 16px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    .listviewer .listviewer-item div:nth-child(8) { /*position the reference icon, if present */
+        position:absolute; 
+        right: 10px;
+        top: 29px;
+    }
+
+    .listviewer .listviewer-item div:nth-child(9) { /*position the cog wheel */
+        position:absolute; 
+        right: 34px;
+        top: 1px;
+    }
+
+    .listviewer .listviewer-item div:nth-child(10) { /*position the check box */
+        position:absolute; 
+        right: 8px;
+        top: 3px;
+    }
+
+    .listviewer .listviewer-item-cell:empty, .listviewer-item-cell div:empty{ /*to avoid blank space due to blank lines*/
+        padding-top: 0px; 
+        padding-bottom: 0px;
+    }
+    
+    
+
+    .listviewer .listviewer-item-cell, .listviewer .listviewer-item-cell a {
+        display: block;
+        text-align: left !important; /*to align all cells to the left (could be set to middle or right in wider view)*/
+        overflow: visible;
+    }
+
+    .listviewer .listviewer-item-cell span:first-of-type {
+        margin-left: 24px;
+        display: inline-block; /*to avoid that a second line (e.g. description) has also a margin on the left side */
+    }
+
+    .listviewer .listviewer-item-cell a {
+        display: inline-block;
+    }
+
 }

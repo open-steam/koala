@@ -48,7 +48,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 		return array("", "", "");
 	}
 	
-	public function getHeadLineWidths() {
+	public function getHeadLineAbsoluteWidths() {
 		return array(22, 580, 150);
 		//return array(22, 200, 130);
 	}
@@ -56,6 +56,10 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 	public function getHeadLineAligns() {
 		return array("left", "left", "right");
 	}
+        
+        public function getHeadLineClasses() {
+        return array("", "", "");
+    }
 }
 
 class ContentProvider implements \Widgets\IContentProvider {
@@ -92,7 +96,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name;
 			}
 		} else if ($cell == $this->rawChangeDate) {
-			return getReadableDate($contentItem->get_source_object()->get_attribute("OBJ_LAST_CHANGED"));
+			return getReadableDate($contentItem->get_source_object()->get_attribute("OBJ_LAST_CHANGED"), true);
 		}
 	}
 	

@@ -51,12 +51,16 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
     }
 
-    public function getHeadLineWidths() {
-        return array(25, 250, 10, 370, 10, 145, 75, 20, 20, 20);
+    public function getHeadLineAbsoluteWidths() {
+        return array(20, 0, 0, 0, 0, 0, 0, 0, 20, 0);
     }
 
     public function getHeadLineAligns() {
         return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
+    }
+    
+    public function getHeadLineClasses() {
+        return array("", "", "", "", "", "changedate", "", "", "", "");
     }
 
     public function getOnClickHandler($headline) {
@@ -144,9 +148,10 @@ class ContentProvider implements \Widgets\IContentProvider {
             $icon = deriveIcon($contentItem);
           }
           $iconSVG = str_replace("png", "svg", $icon);
-          $idSVG = str_replace(".svg", "", $iconSVG);
-          $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-          return "<svg style='width:16px; height:16px; left:5px; position:relative;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+            $idSVG = str_replace(".svg", "", $iconSVG);
+            $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+            $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+            return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } else if ($cell == $this->rawName) {
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
@@ -200,10 +205,10 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return $name . "<script>" . $tipsy->getHtml() . "</script>";
             }
         } else if ($cell == $this->rawDesc) {
-               return $contentItem->get_attribute("OBJ_DESC");
+            return ($contentItem->get_attribute("OBJ_DESC") != "")? "<span>".$contentItem->get_attribute("OBJ_DESC")."</span>" : "";
         } else if ($cell == $this->rawMarker) {
-            return "<div></div>"; //speed test //TODO: fix
-            $html = "";
+            return ""; //speed test //TODO: fix
+            /*$html = "";
             $html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
             $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
             $linkError = false;
@@ -230,11 +235,11 @@ class ContentProvider implements \Widgets\IContentProvider {
                 $html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
             }
             $html .= "</div>";
-            return $html;
+            return $html;*/
         } else if ($cell == $this->rawChangeDate) {
-            return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
+            return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"),true);
         } else if ($cell == $this->rawSize) {
-            return getObjectReadableSize($contentItem);
+            return "<span style='white-space:nowrap;'>".getObjectReadableSize($contentItem)."</span>";
         } else if ($cell == $this->rawMenu) {
             $popupMenu = new \Widgets\PopupMenu();
             $popupMenu->setData($contentItem);

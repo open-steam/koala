@@ -43,17 +43,54 @@ class LoadContent extends \AbstractCommand implements \IAjaxCommand {
 
 class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
-  public function getHeadlines() {
-      return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
-  }
+    public function getHeadlines() {
+        return array("", "Name", "", "Beschreibung", "", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
+    }
 
-  public function getHeadLineWidths() {
-      return array(25, 250, 10, 380, 10, 145, 75, 30, 20);
-  }
+    public function getHeadLineAbsoluteWidths() {
+        return array(20, 0, 0, 0, 0, 0, 0, 0, 20, 0);
+    }
 
-  public function getHeadLineAligns() {
-      return array("left", "left", "left", "left", "left", "right", "right", "right", "right");
-  }
+    public function getHeadLineAligns() {
+        return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
+    }
+
+    public function getHeadLineClasses() {
+        return array("", "", "", "", "", "changedate", "", "", "", "");
+    }
+
+    public function getOnClickHandler($headline) {
+        if (strpos($headline, "Name") !== false) {
+            return "sortByName(this)";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "sortByDate(this)";
+        } else {
+            return "";
+        }
+    }
+
+    public function getOnMouseOverHandler($headline) {
+        if (strpos($headline, "Name") !== false) {
+            return "jQuery(this).addClass('hover')";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "jQuery(this).addClass('hover')";
+        } else {
+            return "";
+        }
+    }
+
+    public function getOnMouseOutHandler($headline) {
+        if (strpos($headline, "Name") !== false) {
+            return "jQuery(this).removeClass('hover')";
+        }
+        if (strpos($headline, "Änderungsdatum") !== false) {
+            return "jQuery(this).removeClass('hover')";
+        } else {
+            return "";
+        }
+    }
 
 }
 
@@ -65,8 +102,9 @@ class ContentProvider implements \Widgets\IContentProvider {
     private $rawMarker = 4;
     private $rawChangeDate = 5;
     private $rawSize = 6;
-    private $rawMenu = 7;
-    private $rawCheckbox = 8;
+    //private $rawReference = 7;
+    private $rawMenu = 8;
+    private $rawCheckbox = 9;
 
     public function getId($contentItem) {
         return $contentItem->get_id();
@@ -103,8 +141,8 @@ class ContentProvider implements \Widgets\IContentProvider {
                     . "<div style=\"font-weight:bold; width:100px; float:left;\">erstellt</div> " . getFormatedDate($contentItem->get_attribute(OBJ_CREATION_TIME)) . "<br>";
 
             $tags = $contentItem->get_attribute(OBJ_KEYWORDS);
-            if(sizeOf($tags) > 0){
-              $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
+            if (sizeOf($tags) > 0) {
+                $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
             }
             $tipsy->setHtml($tipsyHtml);
 
@@ -117,10 +155,10 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return $name . "<script>" . $tipsy->getHtml() . "</script>";
             }
         } else if ($cell == $this->rawDesc) {
-          return $contentItem->get_attribute("OBJ_DESC");
+            return ($contentItem->get_attribute("OBJ_DESC") != "") ? "<span>" . $contentItem->get_attribute("OBJ_DESC") . "</span>" : "";
         } else if ($cell == $this->rawMarker) {
             return "";
-            $html = "";
+            /*$html = "";
             $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
             $linkError = false;
             if ($contentItem instanceof \steam_exit) {
@@ -146,11 +184,11 @@ class ContentProvider implements \Widgets\IContentProvider {
                 //$html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
             }
             $html .= "</div>";
-            return $html;
+            return $html;*/
         } else if ($cell == $this->rawChangeDate) {
-            return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
+            return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"), true);
         } else if ($cell == $this->rawSize) {
-            return getObjectReadableSize($contentItem);
+            return "<span style='white-space:nowrap;'>" . getObjectReadableSize($contentItem) . "</span>";
         } else if ($cell == $this->rawMenu) {
             $popupMenu = new \Widgets\PopupMenu();
             $popupMenu->setCommand("GetPopupMenu");
@@ -166,7 +204,7 @@ class ContentProvider implements \Widgets\IContentProvider {
 
     public function getOnClickHandler($contentItem) {
         if (!($contentItem instanceof \steam_trashbin)) {
-            return "jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[8].children[0].checked);";
+            return "jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked = !jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked; widgets_listViewer_selection_toggle({$contentItem->get_id()}, jQuery('#{$contentItem->get_id()}').children()[9].children[0].checked);";
         } else {
             return "";
         }

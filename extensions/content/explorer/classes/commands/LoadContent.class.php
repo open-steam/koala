@@ -60,14 +60,18 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         }
     }
 
-    public function getHeadLineWidths() {
-        return array(25, 250, 10, 380, 0, 145, 75, 20, 20, 20);
+    public function getHeadLineAbsoluteWidths() {
+        return array(20, 0, 0, 0, 0, 0, 0, 0, 20, 0);
     }
 
     public function getHeadLineAligns() {
         return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
     }
 
+    public function getHeadLineClasses() {
+        return array("", "", "", "", "", "changedate", "", "", "", "");
+    }
+    
     public function getOnClickHandler($headline) {
         if (strpos($headline, "Name") !== false) {
             return "sortByName(this)";
@@ -207,7 +211,7 @@ class ContentProvider implements \Widgets\IContentProvider {
                 return $name . "<script>" . $tipsy->getHtml() . "</script>";
             }
         } elseif ($cell == $this->rawDesc) {
-            return $contentItem->get_attribute("OBJ_DESC");
+            return ($contentItem->get_attribute("OBJ_DESC") != "")? "<span>".$contentItem->get_attribute("OBJ_DESC")."</span>" : "";
             /* } elseif ($cell == $this->rawMarker) {
               //  return ""; //disabled
               //if (defined("EXPLORER_TAGS_VISIBLE") && EXPLORER_TAGS_VISIBLE && $this->object->get_attribute("SHOW_TAGS") == "1") {
@@ -255,15 +259,15 @@ class ContentProvider implements \Widgets\IContentProvider {
 
               return $html; */
         } elseif ($cell == $this->rawChangeDate) {
-            return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
+            return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"),true);
         } elseif ($cell == $this->rawTags) {
             $tags = $contentItem->get_attribute(OBJ_KEYWORDS);
             if (sizeOf($tags) > 0) {
-                return "<div style=\"display:none;\">" . implode(" ", $tags) . "</div> <br>";
+                return "<div style=\"display:none; padding-top: 4px;\">" . implode(" ", $tags) . "<br></div> ";
             }
         
         } elseif ($cell == $this->rawSize) {
-            return getObjectReadableSize($contentItem);
+            return "<span style='white-space:nowrap;'>".getObjectReadableSize($contentItem)."</span>";
         } elseif ($cell == $this->rawMenu) {
             $popupMenu = new \Widgets\PopupMenu();
             $popupMenu->setData($contentItem);

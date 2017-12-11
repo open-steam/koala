@@ -45,13 +45,17 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 		return array("", "Name", "Marker","Änderungsdatum", "Größe");
 	}
 	
-	public function getHeadLineWidths() {
+	public function getHeadLineAbsoluteWidths() {
 		return array(20, 315, 100, 150, 80);
 	}
 	
 	public function getHeadLineAligns() {
 		return array("left", "left", "right", "right", "right");
 	}
+        
+        public function getHeadLineClasses() {
+        return array("", "", "", "", "");
+    }
 }
 
 class ContentProvider implements \Widgets\IContentProvider {
@@ -83,8 +87,8 @@ class ContentProvider implements \Widgets\IContentProvider {
 				return $name;
 			}
 		} else if ($cell == $this->rawMarker) {
-			return "<div></div>";//speed test //TODO: fix
-			$html = "";
+			return "";//speed test //TODO: fix
+			/*$html = "";
 			$html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
 			$html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
 			$linkError = false;
@@ -111,12 +115,12 @@ class ContentProvider implements \Widgets\IContentProvider {
 				$html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
 			}
 			$html .= "</div>";
-			return $html;
+			return $html;*/
 		} else if ($cell == $this->rawChangeDate) {
-			return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
+			return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"), true);
 		}  else if ($cell == $this->rawSize) {
 			if ($contentItem instanceof \steam_document) {
-				return getReadableSize($contentItem->get_content_size());
+				return "<span style='white-space:nowrap;'>".getReadableSize($contentItem->get_content_size())."</span>";
 			} else if ($contentItem instanceof \steam_container) {
 				try {
 					$html = "<div style=\"color: #ccc\">" . count($contentItem->get_inventory()) . " Objekte</div>";

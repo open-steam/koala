@@ -51,13 +51,16 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         //return array("", "Name", "", "Beschreibung", "", "ehem. Umgebung", "Änderungsdatum", "Größe", "", "", "<input onChange=\"elements = jQuery('.listviewer-item > div > input'); for (i=0; i<elements.length; i++) { if (this.checked != elements[i].checked) { elements[i].click() }}\" type=\"checkbox\" ></input>");
     }
 
-    public function getHeadLineWidths() {
-        return array(25, 250, 10, 370, 10, 145, 75, 20, 20, 20);
-        //return array(25, 240, 10, 250, 10, 140, 145, 65, 20, 20, 20);
+    public function getHeadLineAbsoluteWidths() {
+        return array(20, 0, 0, 0, 0, 0, 0, 0, 20, 0);
     }
 
     public function getHeadLineAligns() {
-        //return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
+        return array("left", "left", "left", "left", "left", "right", "right", "center", "right", "right");
+    }
+
+    public function getHeadLineClasses() {
+        return array("", "", "", "", "", "changedate", "", "", "", "");
     }
 
     public function getOnClickHandler($headline) {
@@ -148,7 +151,7 @@ class ContentProvider implements \Widgets\IContentProvider {
             if ($contentItem->get_attribute("OBJ_TYPE") === "container_portlet_bid") {
                 $link = "";
             }
-            return "<a style='text-align:center; display:block;' " . $link ."><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
+            return "<a style='text-align:center; display:block;' " . $link . "><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } else if ($cell == $this->rawName) {
             $tipsy = new \Widgets\Tipsy();
             $tipsy->setElementId($contentItem->get_id() . "_" . $this->rawName);
@@ -163,8 +166,8 @@ class ContentProvider implements \Widgets\IContentProvider {
             if (sizeOf($tags) > 0) {
                 $tipsyHtml .= "<div style=\"font-weight:bold; width:100px; float:left;\">Tags</div> " . implode(" ", $tags) . "<br>";
             }
-            if($contentItem instanceof \steam_link){
-              $tipsyHtml .= "<br>Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. Änderungen können nur am Originalobjekt vorgenommen werden. Ein Klick auf dieses Element führt Sie zum Originalobjekt.<br>";
+            if ($contentItem instanceof \steam_link) {
+                $tipsyHtml .= "<br>Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. Änderungen können nur am Originalobjekt vorgenommen werden. Ein Klick auf dieses Element führt Sie zum Originalobjekt.<br>";
             }
             $tipsy->setHtml($tipsyHtml);
             $desc = $contentItem->get_attribute("OBJ_DESC");
@@ -172,61 +175,61 @@ class ContentProvider implements \Widgets\IContentProvider {
             if (isset($url) && $url != "" && $contentItem->get_attribute("OBJ_TYPE") !== "container_portlet_bid") {
                 return "<a href=\"" . $url . "\" title=\"$desc\"> " . $name . "</a>" . "<script>" . $tipsy->getHtml() . "</script>";
             } else {
-                return $name . "<script>" . $tipsy->getHtml() . "</script>";
+                return "<span>".$name . "</span><script>" . $tipsy->getHtml() . "</script>";
             }
         } else if ($cell == $this->rawDesc) {
-            return $contentItem->get_attribute("OBJ_DESC");
+            return ($contentItem->get_attribute("OBJ_DESC") != "") ? "<span>" . $contentItem->get_attribute("OBJ_DESC") . "</span>" : "";
         } else if ($cell == $this->rawMarker) {
             return "";
-            /*$html = "";
-            $html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
-            $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
-            $linkError = false;
-            if ($contentItem instanceof \steam_exit) {
-                $exitObject = $contentItem->get_exit();
-                if ($exitObject instanceof \steam_object) {
-                    $id = $exitObject->get_id();
-                } else {
-                    $linkError = true;
-                    $html .= "<div style=\"color:red\">Referenz defekt</div>";
-                }
-            } else if ($contentItem instanceof \steam_link) {
-                $linkObject = $contentItem->get_link_object();
-                if ($linkObject instanceof \steam_object) {
-                    $id = $linkObject->get_id();
-                } else {
-                    $linkError = true;
-                    $html .= "<div style=\"color:red\">Referenz defekt</div>";
-                }
-            } else {
-                $id = $contentItem->get_id();
-            }
-            if (!$linkError && \Bookmarks\Model\Bookmark::isBookmark($id)) {
-                $html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
-            }
-            $html .= "</div>";
-            return $html;*/
-        } /*else if ($cell == $this->rawFormerEnvironment) {
+            /* $html = "";
+              $html .= "<div class=\"marker\">" . \Explorer\Model\Sanction::getMarkerHtml($contentItem) . "</div>";
+              $html .= "<div class=\"marker\" id=\"{$contentItem->get_id()}_BookmarkMarkerWrapper\">";
+              $linkError = false;
+              if ($contentItem instanceof \steam_exit) {
+              $exitObject = $contentItem->get_exit();
+              if ($exitObject instanceof \steam_object) {
+              $id = $exitObject->get_id();
+              } else {
+              $linkError = true;
+              $html .= "<div style=\"color:red\">Referenz defekt</div>";
+              }
+              } else if ($contentItem instanceof \steam_link) {
+              $linkObject = $contentItem->get_link_object();
+              if ($linkObject instanceof \steam_object) {
+              $id = $linkObject->get_id();
+              } else {
+              $linkError = true;
+              $html .= "<div style=\"color:red\">Referenz defekt</div>";
+              }
+              } else {
+              $id = $contentItem->get_id();
+              }
+              if (!$linkError && \Bookmarks\Model\Bookmark::isBookmark($id)) {
+              $html .= \Bookmarks\Model\Bookmark::getMarkerHtml($id);
+              }
+              $html .= "</div>";
+              return $html; */
+        } /* else if ($cell == $this->rawFormerEnvironment) {
 
-            if ($contentItem->get_attribute("OBJ_LAST_LOCATION_ID") !== "") {
-                $formerEnvironment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $contentItem->get_attribute("OBJ_LAST_LOCATION_ID"));
-                if($formerEnvironment instanceof \steam_object && ($formerEnvironment->get_attribute("OBJ_TYPE") === "container_portalColumn_bid" || $formerEnvironment->get_attribute("OBJ_NAME") === "postbox_container")){
-                    $formerEnvironment = $formerEnvironment->get_environment();
-                }
-                if ($formerEnvironment instanceof \steam_object) {
-                    $url = \ExtensionMaster::getInstance()->getUrlForObjectId($formerEnvironment->get_id(), "view");
-                    $name = getCleanName($formerEnvironment, 20);
-                    if (isset($url) && $url != "") {
-                        return "<a href=\"" . $url . "\"> " . $name . "</a>";
-                    }
-                }
-                return "";
-            }
+          if ($contentItem->get_attribute("OBJ_LAST_LOCATION_ID") !== "") {
+          $formerEnvironment = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $contentItem->get_attribute("OBJ_LAST_LOCATION_ID"));
+          if($formerEnvironment instanceof \steam_object && ($formerEnvironment->get_attribute("OBJ_TYPE") === "container_portalColumn_bid" || $formerEnvironment->get_attribute("OBJ_NAME") === "postbox_container")){
+          $formerEnvironment = $formerEnvironment->get_environment();
+          }
+          if ($formerEnvironment instanceof \steam_object) {
+          $url = \ExtensionMaster::getInstance()->getUrlForObjectId($formerEnvironment->get_id(), "view");
+          $name = getCleanName($formerEnvironment, 20);
+          if (isset($url) && $url != "") {
+          return "<a href=\"" . $url . "\"> " . $name . "</a>";
+          }
+          }
+          return "";
+          }
 
-        }*/ else if ($cell == $this->rawChangeDate) {
-            return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"));
+          } */ else if ($cell == $this->rawChangeDate) {
+            return getReadableDate($contentItem->get_attribute("OBJ_LAST_CHANGED"), true);
         } else if ($cell == $this->rawSize) {
-            return getObjectReadableSize($contentItem);
+            return "<span style='white-space:nowrap;'>" . getObjectReadableSize($contentItem) . "</span>";
         } else if ($cell == $this->rawMenu) {
             $popupMenu = new \Widgets\PopupMenu();
             $popupMenu->setData($contentItem);

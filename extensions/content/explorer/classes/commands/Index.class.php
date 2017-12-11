@@ -351,13 +351,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
               $("#sort-icon").attr("name", "true");
               $("#sort-icon").parent().bind("click", function(){$(this).css("background-color", "#ff8300")});
               var newIds = "";
-              $( ".listviewer-items" ).sortable({zIndex: 1});
-              $( ".listviewer-items" ).bind("sortupdate", function(event, ui){
+              $( ".listviewer" ).sortable({zIndex: 1, items: "> .listviewer-item"});
+              $( ".listviewer" ).bind("sortupdate", function(event, ui){
                   var changedElement = $(ui.item).attr("id");
-                  $(".listviewer-items").children();
-                  $(".listviewer-items").children().each(function(index, value){
-                      if(index == $(".listviewer-items").children().length-1)newIds +=value.id;
-                      else newIds+=value.id + ", ";});
+                  $(".listviewer-item").each(function(index, value){
+                      if(index == $(".listviewer-item").length-1)newIds +=value.id;     else newIds+=value.id + ", ";});
                       sendRequest("Sort", {"changedElement": changedElement, "id": $("#environment").attr("value"), "newIds":newIds }, "", "data", function(response){ }, function(response){ }, "explorer");
                       newIds = "";
               });

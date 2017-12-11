@@ -1,11 +1,16 @@
 <?php
+
 namespace Widgets;
 
 interface IHeadlineProvider {
 
-	public function getHeadlines();
-	public function getHeadLineWidths();
-	public function getHeadLineAligns();
-	
+    public function getHeadlines();
+
+    public function getHeadLineAbsoluteWidths();
+
+    public function getHeadLineAligns();
+
+    public function getHeadLineClasses();
 }
+
 ?>

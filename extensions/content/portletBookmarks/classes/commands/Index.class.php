@@ -96,7 +96,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         return array("", "", "");
     }
 
-    public function getHeadLineWidths() {
+    public function getHeadLineAbsoluteWidths() {
         //return array(22, 580, 150);
 
         return array(22, $this->width-40, 0);
@@ -104,6 +104,10 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadLineAligns() {
         return array("left", "left", "right");
+    }
+    
+    public function getHeadLineClasses() {
+        return array("", "", "");
     }
 
 }
@@ -150,7 +154,8 @@ class ContentProvider implements \Widgets\IContentProvider {
           $iconSVG = str_replace("png", "svg", $icon);
           $idSVG = str_replace(".svg", "", $iconSVG);
           $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
-          return "<svg style='width:16px; height:16px; color:#3a6e9f;' ><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg>";
+          $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItem->get_id(), "view");
+          return "<a style='text-align:center; display:block;' href=\"" . $url . "\"><svg style='width:16px; height:16px;'><use xlink:href='" . $iconSVG . "#" . $idSVG . "'/></svg></a>";
         } else if ($cell == $this->rawName) {
             $url = \ExtensionMaster::getInstance()->getUrlForObjectId($contentItemObject->get_id(), "view");
             $desc = $contentItemObject->get_attribute("OBJ_DESC");
