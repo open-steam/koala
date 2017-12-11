@@ -42,8 +42,10 @@ register_shutdown_function(function () {
 /*
  * setup autoloader
  */
+$loader = require_once PATH_DEPENDING . 'vendor/autoload.php';
+
 require_once PATH_DEPENDING . "classes/autoloader/Autoloader.php";
-Autoloader::getRegisteredAutoloader()->remove();
+//Autoloader::getRegisteredAutoloader()->remove();
 $autoloaderIndexFile = PATH_TEMP . "koala_autoloader.gz";
 
 /* cleaning the cache, causes problems with internet explorer
