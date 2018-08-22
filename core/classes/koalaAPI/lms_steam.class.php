@@ -25,13 +25,15 @@ class lms_steam {
     }
 
     public static function is_logged_in() {
-        if (isset($GLOBALS["STEAM"])) {
+        $steam_user = $GLOBALS["STEAM"]->get_current_steam_user();
+        
+        if (isset($GLOBALS["STEAM"]) && !strpos($steam_user->steam_connectorID, "guest@")) {
             return $GLOBALS["STEAM"]->get_login_status();
         } else {
             return false;
         }
     }
-
+    
     public function get_extensionmanager() {
         return extensionmanager::get_extensionmanager();
     }
@@ -416,13 +418,31 @@ class lms_steam {
 
     public static function get_current_user() {
         $currentUser = $GLOBALS["STEAM"]->get_current_steam_user();
-
+        
         if (!\lms_steam::is_logged_in() || !is_object($currentUser)) {
+            $_SESSION[ "logout_session_expired"] = "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.";
             \lms_portal::get_instance()->logout();
             die;
         }
 
         return $currentUser;
+    }
+    
+    /*
+     * Use this class only in AjaxRequests
+     * Returns the current user by using get_current_user()
+     * If the user is the guest user, an Exception is thrown that will be catched in the Ajax.extension.php. Then The Ajax response causes a redirect with prompting a 'session expired warning'
+     */
+    public static function get_current_user_no_guest(){
+        
+        $steam_user = \lms_steam::get_current_user();
+        
+        if(false !== strpos($steam_user->steam_connectorID, "guest@")) {
+            //this AjaxLogOutException will be catched in FrintController.class.php and forwarded to Ajax.extension.php where it is processed and the user is redirected to the start page
+            $_SESSION[ "logout_session_expired"] = "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.";
+            throw new AjaxLogOutException("The user will be logged of");
+        }
+        return $steam_user;
     }
 
     public function get_current_environment() {

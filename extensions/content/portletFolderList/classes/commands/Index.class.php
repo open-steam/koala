@@ -178,7 +178,7 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         return array("", "", "", "");
     }
 
-    public function getHeadLineWidths() {
+    public function getHeadLineAbsoluteWidths() {
         if ($this->description === "true") {
             return array(22, $this->width, 22, $this->width);
         } else {
@@ -188,6 +188,10 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
 
     public function getHeadLineAligns() {
         return array("left", "left", "left", "left");
+    }
+    
+    public function getHeadLineClasses() {
+        return array("", "", "", "");
     }
 
 }

@@ -8,7 +8,7 @@
         else{
             $("#"+filterButtonID).show();
         }
-        var items = $('.listviewer-items').children();
+        var items = $('.listviewer').children();
         items.each(
                 function() {
                     if(this.className.indexOf("noitem") > -1){
@@ -16,11 +16,13 @@
                     }
                     else{
                         $("#search-area").show();
-                        var tagIndex = "#" + this.id + "_5";
                         var nameIndex = "#" + this.id + "_1";
+                        var descriptionIndex = "#" + this.id + "_3";
+                        var tagIndex = "#" + this.id + "_4";
                         var name = $(nameIndex).text().toLowerCase();
                         var tags = $(tagIndex).text().toLowerCase();
-                        if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1)) {
+                        var description = $(descriptionIndex).text().toLowerCase();
+                        if ((tags.indexOf(value.toLowerCase()) == -1) && (name.indexOf(value.toLowerCase()) == -1) && (description.indexOf(value.toLowerCase()) == -1)) {
                             $(('#' + this.id)).removeClass("show");
                             $(('#' + this.id)).addClass("hide");
                             $(('#' + this.id)).hide();
@@ -51,7 +53,7 @@
                     }
                     else{
                         $("#search-area").show();
-                        var tagIndex = $(this).find("p");
+                        var tagIndex = $(this).find("p"); //for description and tags
                         var nameIndex = $(this).find("a");
                         var name = $(nameIndex).text().toLowerCase();
                         var tags = $(tagIndex).text().toLowerCase();
@@ -85,13 +87,10 @@
 <style>
     .search-widget{
         float: right;
-        height: 23px;
-        padding-bottom: 6px;
-        width: 180px;
+        
     }
     .search-input{
-        height: 15px;
-        width: 150px;
+        
     }
 </style>
 

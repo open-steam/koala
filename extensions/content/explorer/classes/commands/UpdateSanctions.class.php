@@ -50,7 +50,7 @@ class UpdateSanctions extends \AbstractCommand implements \IAjaxCommand {
         }
         //SET ACQUIRE RIGHTS
         if ($type == "acquire") {
-            $currentUser = \lms_steam::get_current_user();
+            $currentUser = \lms_steam::get_current_user_no_guest();
             if ($value == "acq") {
                 $this->object->set_acquire_from_environment();
                 foreach ($sanction as $id => $sanct) {

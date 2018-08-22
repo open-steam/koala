@@ -13,6 +13,9 @@
     }
 </style>
 <h2>Erweiterte Rechteverwaltung von {TITLE}</h2>
+<!-- BEGIN WARNING -->
+{WARNING_TEXT}
+<!-- END WARNING -->
 
 <div id="owner_div"><p>Der Besitzer des aktuellen Objektes ist<b>{OWNER_FULL_NAME}</b>
         und hat volle Zugriffsrechte.</p></div>
@@ -141,11 +144,12 @@
     <br/>
     <p id="NotFoundHint"></p>
     <br/>
-    <h2>Eigenschaften von {TITLE}</h2>
+    <h2 style="color:black;">Eigenschaften von {TITLE}</h2>
     <input type="button"  class="propertyButtons" value="Attribute" onClick="showTable(this, 1);"/>
     <input type="button"  class="propertyButtons" value="Annotationen" onClick="showTable(this, 2)"/>
     <input type="button"  class="propertyButtons" value="Konstanten" onClick="showTable(this, 3)"/>
-    <input type="button"  class="propertyButtons" value="Inhalt" onClick="showTable(this, 4)"/>
+    <input type="button"  class="propertyButtons" value="Containerinhalt" onClick="showTable(this, 4)"/>
+    <input type="button"  class="propertyButtons" value="Dokumenteninhalt" onClick="showTable(this, 5)"/>
     <table style="color:black; display:none;">
         <tr valign="middle">
 
@@ -200,17 +204,34 @@
 
             <td style="border-bottom:1px solid black;">Name</td>
             <td style="border-bottom:1px solid black;">Object Id</td>
-
+            <td style="border-bottom:1px solid black;">Action</td>
         </tr>
         <!-- BEGIN CONTENT -->
         <tr valign="middle">
 
             <td style="border-bottom:1px solid black;">{KEY}</td>
             <td style="border-bottom:1px solid black;">{VALUE}</td>
-
+            <td style="border-bottom:1px solid black;">{ACTION_DELETE} {ACTION_CUT}</td>
         </tr>
         <!-- END CONTENT -->
     </table>
+    
+    <table style="color:black; display:none; width:100%; table-layout:fixed;">
+        <tr valign="middle">
+
+            <td style="border-bottom:1px solid black;">Object Content</td>
+            <td style="border-bottom:1px solid black;">Raw Object Content</td>
+
+        </tr>
+        <!-- BEGIN DOCUMENT_CONTENT -->
+        <tr valign="middle">
+            <td style="border-bottom:1px solid black; width:50%; vertical-align: top;">{VALUE}</td>
+            <td style="border-bottom:1px solid black; width:50%; vertical-align: top;"><xmp style="white-space: pre-wrap; word-wrap:break-word;">{VALUE}</xmp></td>
+
+        </tr>
+        <!-- END DOCUMENT_CONTENT -->
+    </table>
+    
 
     <br/><br/>
 </div>
@@ -226,6 +247,7 @@
       $("table").eq(2).hide();
       $("table").eq(3).hide();
       $("table").eq(4).hide();
+      $("table").eq(5).hide();
 
       if(displayed == "none"){
         $(element).css("color", "blue");

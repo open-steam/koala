@@ -13,7 +13,7 @@ class Delete extends \AbstractCommand implements \IAjaxCommand {
 		$oldPortalID = $steamObject->get_environment()->get_environment()->get_id();
 
 		//delete the object
-		$trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
+		$trashbin = \lms_steam::get_current_user_no_guest()->get_attribute("USER_TRASHBIN");
 		$steamObject->move($trashbin);
 
 		\ExtensionMaster::getInstance()->getExtensionById("HomePortal")->updateSubscriptions($oldPortalID);

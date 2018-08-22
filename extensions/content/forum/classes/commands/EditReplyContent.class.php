@@ -20,22 +20,11 @@ class EditReplyContent extends \AbstractCommand implements \IFrameCommand, \IAja
 	}
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
-            	$forumId=$this->params["forum"];
 		$object= \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		$objectId = $object->get_id();
-		$steamUser= \lms_steam::get_current_user();
-		$steamUserId= $steamUser->get_id();
-		$steam = $GLOBALS["STEAM"];
-		$steamId=((String)($steam->get_id()));
-		$allowed_write=$object->check_access_write($steamUser);
-		$title=$this->params["title"];
-		$content=$this->params["content"];
-		$forum=\steam_factory::get_object($steamId, $forumId);
-
-		$attributes = array("OBJ_DESC" => trim($title));
-		$object->set_attributes($attributes, 0);
 		
-		$object->set_content($content);
+		$attributes = array("OBJ_DESC" => trim($this->params["title"]));
+		$object->set_attributes($attributes, 0);
+		$object->set_content($this->params["content"]);
 		
 		$ajaxResponseObject->setStatus("ok");
 		$widget = new \Widgets\JSWrapper();

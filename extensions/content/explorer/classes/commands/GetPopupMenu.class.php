@@ -91,7 +91,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
                 }
 
                 //prepare subscription element it it is an enabled extension
-                if (strpos(EXTENSIONS_WHITELIST, "PortletSubscription")) {
+                if (strpos(EXTENSIONS_WHITELIST, "PortletSubscription") && $this->logged_in) {
                     if ($isRoot || !strpos(CREATE_RESTRICTED_TO_ROOT, "PortletSubscription")) {
                         $type = getObjectType($object);
                         if ($type === "forum" || $type === "wiki" || $type === "room" || $type === "gallery" || $type === "portal" || ($type === "rapidfeedback" && $object->get_creator()->get_id() == $user->get_id()) || ($type === "document" && strstr($object->get_attribute(DOC_MIME_TYPE), "text")) || $type === "postbox") {
@@ -107,7 +107,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
 
                 $items = array(
                     ($this->logged_in && $object->check_access(SANCTION_READ)) ? array("name" => "<svg><use xlink:href='{$copyIcon}#copy'/></svg> Kopieren", "command" => "Copy", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
-                    ($object->check_access(SANCTION_WRITE)) ? array("name" => "<svg><use xlink:href='{$cutIcon}#cut'/></svg> Ausschneiden", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
+                    ($this->logged_in && $object->check_access(SANCTION_WRITE)) ? array("name" => "<svg><use xlink:href='{$cutIcon}#cut'/></svg> Ausschneiden", "command" => "Cut", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
                     ($this->logged_in) ? array("name" => "<svg><use xlink:href='{$referIcon}#refer'/></svg> Referenz erstellen", "command" => "Reference", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "inform") : "",
                     ($object->check_access(SANCTION_WRITE)) ? array("name" => "<svg><use xlink:href='{$trashIcon}#trash'/></svg> Löschen", "command" => "Delete", "namespace" => "explorer", "params" => "{'id':'{$this->id}'}", "type" => "nonModalUpdater") : "",
                     ($object->check_access(SANCTION_WRITE)) ? array("name" => "<svg><use xlink:href='{$brushIcon}#brush'/></svg> Einfärben", "direction" => "right", "menu" => array(
@@ -164,7 +164,7 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
             $brushIcon = $explorerUrl . "icons/menu/svg/brush.svg";
             $downloadIcon = $explorerUrl . "icons/menu/svg/download.svg";
 
-            $viewAttribute = \lms_steam::get_current_user()->get_attribute("EXPLORER_VIEW");
+            $viewAttribute = \lms_steam::get_current_user_no_guest()->get_attribute("EXPLORER_VIEW");
             if ($viewAttribute && $viewAttribute == "gallery") {
                 $paramsArrayFunction = "getGalleryParamsArray";
                 $ElementIdFunction = "getGalleryElementIdArray";

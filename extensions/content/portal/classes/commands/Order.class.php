@@ -14,10 +14,10 @@ class Order extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IA
 	
 	public function processData(\IRequestObject $requestObject){
 		$params = $requestObject->getParams();
-		$objectId = $this->objectId = $params["portletId"];
-		$order = $this->order = $params["order"]; //up, down, first, last
+		$this->objectId = $params["portletId"];
+		$this->order = $params["order"]; //up, down, first, last
 		
-		$steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
+		$steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->objectId);
 		$columnObject = $steamObject->get_environment();
 		$columnInventory = $columnObject->get_inventory();
 		
@@ -27,7 +27,7 @@ class Order extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IA
 			$columnInventoryIds[]=$steamObject->get_id();
 		}
 		
-		$actPos = array_search($objectId, $columnInventoryIds);
+		$actPos = array_search($this->objectId, $columnInventoryIds);
 		$lastPos = count($columnInventoryIds)-1;
 		$firstPos = 0;
 		
@@ -53,7 +53,7 @@ class Order extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IA
 				$columnInventoryIdsNew = array();
 				$columnInventoryIdsNew[]=$columnInventoryIds[$actPos];
 				foreach ($columnInventoryIds as $id) {
-					if(intval($id)==intval($objectId)) continue;
+					if(intval($id)==intval($this->objectId)) continue;
 					$columnInventoryIdsNew[]=$id;
 				}
 				$columnInventoryIds = $columnInventoryIdsNew;
@@ -63,7 +63,7 @@ class Order extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \IA
 				if($actPos==$lastPos) break;
 				$columnInventoryIdsNew = array();
 				foreach ($columnInventoryIds as $id) {
-					if(intval($id)==intval($objectId)) continue;
+					if(intval($id)==intval($this->objectId)) continue;
 					$columnInventoryIdsNew[]=$id;
 				}
 				$columnInventoryIdsNew[]=$columnInventoryIds[$actPos];

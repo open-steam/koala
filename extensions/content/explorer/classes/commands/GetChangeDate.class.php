@@ -18,7 +18,7 @@ class GetChangeDate extends \AbstractCommand implements \IAjaxCommand {
 
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		$rawHtml = new \Widgets\RawHtml();
-		$html = getReadableDate($this->object->get_attribute("OBJ_LAST_CHANGED"));
+		$html = getReadableDate($this->object->get_attribute("OBJ_LAST_CHANGED"), true);
 		$rawHtml->setHtml($html);
 		$ajaxResponseObject->setStatus("ok");
 		$ajaxResponseObject->addWidget($rawHtml);

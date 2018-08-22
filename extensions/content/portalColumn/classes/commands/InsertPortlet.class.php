@@ -17,7 +17,7 @@ class InsertPortlet extends \AbstractCommand implements \IAjaxCommand {
     public function processData(\IRequestObject $requestObject) {
         $this->params = $requestObject->getParams();
         $this->id = $this->params["portletId"];
-        $this->user = \lms_steam::get_current_user()->get_name();
+        $this->user = \lms_steam::get_current_user_no_guest()->get_name();
 
 
         //insert order
@@ -37,11 +37,11 @@ class InsertPortlet extends \AbstractCommand implements \IAjaxCommand {
         $idRequestObject->setId($this->id);
         $columnObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 
-        foreach (\lms_steam::get_current_user()->get_inventory() as $steamObject) {
+        foreach (\lms_steam::get_current_user_no_guest()->get_inventory() as $steamObject) {
             $portletType = $steamObject->get_attribute("bid:portlet");
 
 
-            if ($portletType !== 0 && in_array($portletType, array("msg", "appointment", "termplan", "topic", "headline", "poll", "media", "rss", "chronic", "userpicture", "folderlist", "subscription"))) {
+            if ($portletType !== 0 && in_array($portletType, array("msg", "appointment", "termplan", "topic", "headline", "poll", "media", "rss", "chronic", "userpicture", "folderlist", "subscription", "slideshow"))) {
 
                 $steamObject->move($columnObject);
             }

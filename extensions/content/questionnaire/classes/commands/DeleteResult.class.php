@@ -20,7 +20,7 @@ class DeleteResult extends \AbstractCommand implements \IAjaxCommand {
 		$result = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
 		$survey = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["survey"]);
 		$questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->params["rf"]);
-		$user = \lms_steam::get_current_user();
+		$user = \lms_steam::get_current_user_no_guest();
 		$released = $result->get_attribute("QUESTIONNAIRE_RELEASED");
 		$creator = $questionnaire->get_creator()->get_id();
 		$active = \Questionnaire::getInstance()->isActive($this->id);

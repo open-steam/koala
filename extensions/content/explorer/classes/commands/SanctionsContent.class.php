@@ -113,7 +113,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                 } else if ($additionalObject instanceof \steam_user) {
                     $this->user[$id] = $additionalObject;
                 } else {
-                    throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt.");
+                    throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt."  . $id);
                 }
             }
         }
@@ -134,7 +134,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     } else if ($additionalObject instanceof \steam_user) {
                         $this->userAcq[$id] = $additionalObject;
                     } else {
-                        throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt.");
+                        throw new \Exception("Ungültiger Objekttyp hat Rechte an dem aktuellen Objekt." . $id);
                     }
                 }
             }

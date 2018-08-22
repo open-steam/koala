@@ -50,7 +50,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $this->getExtension()->addCSS();
             $this->getExtension()->addJS();
 
-            $portletName = $portlet->get_attribute(OBJ_DESC);
+            $portletName = $portlet->get_attribute("OBJ_DESC");
+            $portletDisplayOption = (string)$portlet->get_attribute("PORTLET_MSG_DISPLAY");
+
 
             include_once(PATH_BASE . "core/lib/bid/slashes.php");
 
@@ -130,16 +132,41 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                  * using a html representation
                  */
                 $convertUBB = false;
-                $version = $portlet->get_attribute("bid:portlet:version");
 
-                $separator = false;
+
                 $counter = 0;
+
+                $onlySubheadline = "";
+                $onlyHeadline = "";
+                $somethingIsHiden = false;
+
+                switch ($portletDisplayOption) {
+                    case "only_subheadline":
+                        $onlySubheadline = "only_subheadline";
+                        $somethingIsHiden = true;
+                        break;
+                    case "only_headline":
+                        $onlyHeadline = "only_headline";
+                        $somethingIsHiden = true;
+                        break;
+                    case "whole_message":
+                    default: // 0 if attribute does not exist
+                        break;
+                }
+
+
+
                 foreach ($content as $messageId) {
+
                     $message = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $messageId);
                     if (!($message instanceof \steam_document)) {
                         continue;
                     }
+
+
+
                     $tmpl->setCurrentBlock("BLOCK_MESSAGE");
+
 
                     $counter++;
                     if ($counter > $number) {
@@ -160,6 +187,11 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     if (!$portletIsReference)
                         $tmpl->setVariable("POPUPMENU_MESSAGE", $popupmenu->getHtml());
 
+                    if ($somethingIsHiden) {
+                        $tmpl->setVariable("SHOW_FULL_MESSAGE", '<center class="messageShow" style="margin: 0 auto;"><a onClick="showMessage(' . $messageId . ');">Meldung einblenden&nbsp;</a></center>');
+                    }
+
+
                     /*
                      * Convert old messages which save its content as UBB code to new messages
                      * using a html representation
@@ -176,8 +208,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     }
 
                     //edit message content
-                    $messageContent = $message->get_content();
-                    $messageContent = cleanHTML($messageContent);
+                    $messageContent = cleanHTML($message->get_content());
 
                     $tmpl->setVariable("MESSAGE_CONTENT", $messageContent);
 
@@ -194,6 +225,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         } else {
                             $tmpl->setCurrentBlock("BLOCK_MESSAGE_PICTURE_TOP");
                         }
+
 
                         $picture_width = (($message->get_attribute("bid:portlet:msg:picture_width") != "") ? trim($message->get_attribute("bid:portlet:msg:picture_width")) : "");
                         if (extract_percentual_length($picture_width) == "") { //empty string --> width has no percent sign
@@ -213,7 +245,8 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         $tmpl->setVariable("MESSAGE_PICTURE_URL", getDownloadUrlForObjectId($message->get_attribute("bid:portlet:msg:picture_id")));
                         $tmpl->setVariable("MESSAGE_PICTURE_ALIGNMENT", $alignment);
                         $tmpl->setVariable("MESSAGE_PICTURE_WIDTH", $picture_width);
-
+                        $tmpl->setVariable("ONLY_SUBHEADLINE", $onlySubheadline);
+                        $tmpl->setVariable("ONLY_HEADLINE", $onlyHeadline);
                         if ($message->get_attribute("bid:portlet:msg:picture_alignment") == "bottom") {
                             $tmpl->parse("BLOCK_MESSAGE_PICTURE_BOTTOM");
                         } else {
@@ -234,22 +267,23 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             $tmpl->setVariable("MESSAGE_LINK_URL", revealPath($message->get_attribute("bid:portlet:msg:link_url"), $message->get_path()));
                             $tmpl->setVariable("MESSAGE_LINK_TARGET", "_blank");
                         }
+                        $tmpl->setVariable("ONLY_SUBHEADLINE", $onlySubheadline);
+                        $tmpl->setVariable("ONLY_HEADLINE", $onlyHeadline);
                         $tmpl->parse("BLOCK_MESSAGE_LINK");
                     }
-
-                    //SEPARATOR
-                    if ($separator) {
-                        $tmpl->setCurrentBlock("BLOCK_SEPARATOR");
-                        $tmpl->parse("BLOCK_SEPARATOR");
-                    }
-
-                    $separator = true;
+                    $tmpl->setVariable("ONLY_SUBHEADLINE", $onlySubheadline);
+                    $tmpl->setVariable("ONLY_HEADLINE", $onlyHeadline);
+                    $tmpl->setVariable("MESSAGE_ID", $messageId);
                     $tmpl->parse("BLOCK_MESSAGE");
                 }
-                //show more messages
-                $tmpl->setCurrentBlock("BLOCK_MORE_MESSAGES");
-                $tmpl->setVariable("MORE_MESSAGES", $showAllMessagesLink);
-                $tmpl->parse("BLOCK_MORE_MESSAGES");
+                if ($showAllMessagesLink !== "") {
+                    //show more messages
+                    $tmpl->setCurrentBlock("BLOCK_MORE_MESSAGES");
+                    $tmpl->setVariable("ONLY_SUBHEADLINE", $onlySubheadline);
+                    $tmpl->setVariable("ONLY_HEADLINE", $onlyHeadline);
+                    $tmpl->setVariable("MORE_MESSAGES", $showAllMessagesLink);
+                    $tmpl->parse("BLOCK_MORE_MESSAGES");
+                }
             } else {
                 //NO MESSAGE
                 $tmpl->setCurrentBlock("BLOCK_NO_MESSAGE");

@@ -110,9 +110,9 @@ class DropDownList extends Widget {
         }
         
         if (isset($this->label) && trim($this->label) !== "") {
-            $this->getContent()->setVariable("LABEL", $this->label);
+            $this->getContent()->setVariable("WIDGET_LABEL", $this->label);
         } else {
-            $this->getContent()->setVariable("LABEL", "");
+            $this->getContent()->setVariable("WIDGET_LABEL", "");
         }
         
         $this->getContent()->setVariable("DROPDOWN_LIST_NAME", $this->name);

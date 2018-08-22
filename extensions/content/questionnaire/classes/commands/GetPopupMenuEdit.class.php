@@ -6,9 +6,7 @@ class GetPopupMenuEdit extends \AbstractCommand implements \IAjaxCommand {
 
     private $params;
     private $id;
-    private $selection;
     private $x, $y, $height, $width;
-    private $logged_in;
     private $questionId;
     private $layoutElement;
 
@@ -25,9 +23,6 @@ class GetPopupMenuEdit extends \AbstractCommand implements \IAjaxCommand {
         $this->width = $this->params["width"];
         $this->questionId = $this->params["questionId"];
         $this->layoutElement = $this->params["layoutElement"];
-        $portal = \lms_portal::get_instance();
-        $lms_user = $portal->get_user();
-        $this->logged_in = $lms_user->is_logged_in();
     }
 
     public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {

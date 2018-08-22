@@ -310,7 +310,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             }
             $html .= "</div>";
             $tagrawHtml->setHtml($html);
-            $tagrawHtml->setCss('.tag{overflow:hidden;float:left;cursor:pointer;width:55px;margin-right:8px;} .tag-overview-row{display:block;margin-left:147px;clear:both;width:200px;}');
         }
 
         //TODO: bid-attribute
@@ -403,7 +402,7 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $dialog->addWidget($ownerField);
         $dialog->addWidget($separator);
 
-        if ($type == "userHome" || $type == "room") {
+        if ($type == "userHome" || $type == "room" || $type == "gallery") {
           $dialog->addWidget($idField);
           $dialog->addWidget($separator);
         }
@@ -562,10 +561,6 @@ class Properties extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     }
 
     public function frameResponse(\FrameResponseObject $frameResponseObject) {
-
-        $currentUser = \lms_steam::get_current_user();
-        $object = $currentUser->get_workroom();
-
         $dialog = new \Widgets\Dialog();
         $dialog->setTitle("Eigenschaften");
 

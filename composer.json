@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "monolog/monolog" : "dev-master",
+        "monolog/monolog" : "1.x-dev",
         "open-steam/phpsteam" : "4.1.*"
     }
 }

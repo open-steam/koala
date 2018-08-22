@@ -41,10 +41,9 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 
 		$html = "<div id=\"wizard\" style=\"margin-left: 20px; margin-right: 20px; margin-top: 20px;\">";
 
-		$user = \lms_steam::get_current_user();
+		$user = \lms_steam::get_current_user_no_guest();
 		$homeId = $user->get_attribute("HOME_PORTAL")->get_id();
 
-		$array = array();
 		$pathArray = explode("/", $this->params["path"]);
 		$portalID = "";
 		for ($count = 0; $count < count($pathArray); $count++) {

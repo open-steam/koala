@@ -44,7 +44,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         }
 
         \Portal::getInstance()->setPortalObject($this->portalObject);
-
+        $this->rawHtmlWidget = new \Widgets\RawHtml();
         //get the content of the portal object
         try{
             $portalColumns = $this->portalObject->get_inventory();
@@ -52,7 +52,10 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             \ExtensionMaster::getInstance()->send404Error($e);
         }
         catch(\AccessDeniedException $e){
-            throw new \Exception("Access denied.", E_USER_RIGHTS);
+            
+            $this->rawHtmlWidget->setHtml("Das Portal kann nicht angezeigt werden, da Sie nicht über die erforderlichen Leserechte verfügen.");
+            return ;
+            //throw new \Exception("Access denied.", E_USER_ACCESS_DENIED);
         }
 
         $htmlBody = "";
@@ -60,7 +63,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $count = 0;
 
-        $this->rawHtmlWidget = new \Widgets\RawHtml();
+        
         $portalWidth = 0;
         foreach ($portalColumns as $columnObject) {
             $columnObjectId = $columnObject->get_id();

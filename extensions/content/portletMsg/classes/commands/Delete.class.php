@@ -30,7 +30,7 @@ class Delete extends \AbstractCommand implements \IFrameCommand, \IIdCommand, \I
 		}
 		
 		//delete the object
-		$trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
+		$trashbin = \lms_steam::get_current_user_no_guest()->get_attribute("USER_TRASHBIN");
 		$portletObject->move($trashbin);
 		//$portletObject->delete();
 	}

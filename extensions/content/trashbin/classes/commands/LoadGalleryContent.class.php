@@ -38,7 +38,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $ajaxResponseObject->addWidget($noItem);
         }
 
-        $currentUser = \lms_steam::get_current_user();
+        $currentUser = \lms_steam::get_current_user_no_guest();
         $userHiddenAttribute = $currentUser->get_attribute("EXPLORER_SHOW_HIDDEN_DOCUMENTS");
 
         foreach ($this->objects as $key => $object) {
@@ -57,7 +57,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
           $id = $object->get_id();
           $name = $object->get_name();
-          $desc = $object->get_attribute('OBJ_DESC');
+          $desc = preg_replace( "/\r|\n/", " ", $object->get_attribute('OBJ_DESC') );
           $creator = $object->get_creator();
           $tags = $object->get_attribute(OBJ_KEYWORDS);
 
@@ -107,6 +107,8 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           $iconSVG = str_replace("png", "svg", $icon);
           $idSVG = str_replace(".svg", "", $iconSVG);
           $iconSVG = PATH_URL . "explorer/asset/icons/mimetype/svg/" . $iconSVG;
+          $colorProvider = new ColorProvider();
+          $color = $colorProvider->getColor($object);
 
           $text = "Dieses Element ist lediglich eine Referenz auf ein bestehendes Objekt. ";
           $text.= "Änderungen können nur am Originalobjekt vorgenommen werden. ";
@@ -114,6 +116,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
 
           $linkIcon = "<div class='galleryReferenceWrapper'></div>";
           if (isset($url) && $url != "") {
+              
               if ($object instanceof \steam_link) {
                   $linkIcon = "<div class='galleryReferenceWrapper' title='" . $text . "'><svg class='galleryReference'><use xlink:href='" . PATH_URL . "explorer/asset/icons/menu/svg/refer.svg#refer'/></svg></div>";
                   $linkObject = $object->get_link_object();
@@ -124,10 +127,10 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
               }
 
               if ($object instanceof \steam_docextern) {
-                  $urlNameHtml = "<div id='" . $id . "_1'><a href=\"" . $url . "new/" . "\" target=\"_blank\"> " . $name . "</a></div>" . "<script>" . $tipsy->getHtml() . "</script>";
+                  $urlNameHtml = "<div class='".$color."' id='" . $id . "_1'><a href=\"" . $url . "new/" . "\" target=\"_blank\"> " . $name . "</a></div>" . "<script>" . $tipsy->getHtml() . "</script>";
                   $urlHtml = "<a href=\"" . $url . "new/" . "\" target=\"_blank\">";
               } else{
-              $urlNameHtml = "<div id='" . $id . "_1'><a href=\"" . $url . "\"> " . $name . "</a></div>" . "<script>" . $tipsy->getHtml() . "</script>";
+              $urlNameHtml = "<div class='".$color."' id='" . $id . "_1'><a href=\"" . $url . "\"> " . $name . "</a></div>" . "<script>" . $tipsy->getHtml() . "</script>";
               $urlHtml = "<a href=\"" . $url . "\">";
             }
           }
@@ -145,11 +148,13 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
               }
           }
 
-          $colorProvider = new ColorProvider();
-          $color = $colorProvider->getColor($object);
 
+<<<<<<< HEAD
           $galleryNumber = \lms_steam::get_current_user()->get_attribute("GALLERY_NUMBER");
 
+=======
+          $galleryNumber = \lms_steam::get_current_user_no_guest()->get_attribute("GALLERY_NUMBER");
+>>>>>>> release/4.1.1
           if(!is_numeric($galleryNumber) || $galleryNumber < 1 || $galleryNumber > 10){
             $galleryNumber = 5;
           }
@@ -158,7 +163,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
           //Fix for Microsoft Edge
           $transform = getSVGScaleFactor($galleryNumber);
 
-          $entry->setHtml("<li class='galleryEntry " . $color . " " . $hidden . " " . $galleryNumberClass . "' id='" . $id . "'>
+          $entry->setHtml("<li class='galleryEntry " . $color . " " . $hidden . " " . $galleryNumberClass . "' id='" . $id . "' onclick=\"location.href= '" . $url . "';\">
 
                 <input id='" . $id . "_checkbox' class='galleryEntryCheckbox' type='checkbox' onclick='event.stopPropagation(); if(this.checked){ jQuery(\"#" . $id . "\").addClass(\"selected\") } else { jQuery(\"#" . $id . "\").removeClass(\"selected\") }'>
 
@@ -173,7 +178,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
                 </a>
 
                 <p style='display:none'>" . $tagList . "</p>
-
+                <p style='display:none'>" . $desc . "</p>
                 " . $urlNameHtml . "
 
             </li>");

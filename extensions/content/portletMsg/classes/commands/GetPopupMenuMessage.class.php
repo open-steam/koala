@@ -8,7 +8,6 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
     private $x, $y, $height, $width;
     private $portletObjectId;
     private $messageObjectId;
-    private $user;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -20,7 +19,6 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
         $this->y = $this->params["y"];
         $this->height = $this->params["height"];
         $this->width = $this->params["width"];
-        $this->user = \lms_steam::get_current_user()->get_name();
         $this->messageObjectId = $this->params["messageObjectId"];
         $this->portletObjectId = $this->params["portletObjectId"];
     }
@@ -40,6 +38,16 @@ class GetPopupMenuMessage extends \AbstractCommand implements \IAjaxCommand {
 
         $messageObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->messageObjectId);
         $portletObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->portletObjectId);
+
+        if (!is_object($portletObject) || !is_object($messageObject)) {
+            $items = array(array("name" => "<svg><use xlink:href='/widgets/asset/emotes/wrong.svg#wrong'/></svg> Das zu bearbeitende Objekt wurde gelöscht"));
+            $popupMenu = new \Widgets\PopupMenu();
+            $popupMenu->setItems($items);
+
+            $ajaxResponseObject->setStatus("ok");
+            $ajaxResponseObject->addWidget($popupMenu);
+            return $ajaxResponseObject;
+        }
 
         $content = $portletObject->get_attribute("bid:portlet:content");
         $messageId = intval($this->messageObjectId);

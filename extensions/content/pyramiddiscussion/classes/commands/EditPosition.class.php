@@ -17,7 +17,7 @@ class EditPosition extends \AbstractCommand implements \IAjaxCommand {
 	public function ajaxResponse(\AjaxResponseObject $ajaxResponseObject) {
 		
 		$pyramidPosition = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-		$user = \lms_steam::get_current_user();
+		$user = \lms_steam::get_current_user_no_guest();
 		
 		if ($this->params["action"] == "join") {
 			// changing group (only) in the group choosing phase

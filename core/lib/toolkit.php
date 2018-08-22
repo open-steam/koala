@@ -107,30 +107,36 @@ function emptyCacheFolder() {
     $oDir->close();
 }
 
-function getReadableDate($timestamp) {
+/**
+ * Returns a readable format of a timestamp
+ * @param type $timestamp
+ * @param type $niceWrap adds no-wrap sections to avoid wrapping within the date or the time
+ * @return type
+ */
+function getReadableDate($timestamp, $niceWrap = false) {
     $is_today = false;
     $is_yesterday = false;
 
     $now = time();
 
     /*
-    $diff = $now - $timestamp;
-    if ($diff < 60) {
-        return "gerade";
-    }
+      $diff = $now - $timestamp;
+      if ($diff < 60) {
+      return "gerade";
+      }
 
-    if ($diff < 300) {
-        return "weniger als 5 Minuten";
-    }
+      if ($diff < 300) {
+      return "weniger als 5 Minuten";
+      }
 
-    if ($diff < 1800) {
-        return "weniger als 30 Minuten";
-    }
+      if ($diff < 1800) {
+      return "weniger als 30 Minuten";
+      }
 
-    if ($diff < 3600) {
-        return "in der letzten Stunde";
-    }
-    */
+      if ($diff < 3600) {
+      return "in der letzten Stunde";
+      }
+     */
 
     $today_day = date("d", $now);
     $date_day = date("d", $timestamp);
@@ -145,11 +151,19 @@ function getReadableDate($timestamp) {
     }
 
     if ($is_today) {
-        return "heute um " . date("H:i", $timestamp) . " Uhr";
-    //} elseif ($is_yesterday) {
-      //  return "gestern um " . date("H:i", $timestamp);
+        if ($niceWrap) {
+            return "<span style='white-space:nowrap;'>heute um</span> <span style='white-space:nowrap; '>" . date("H:i ", $timestamp) . "Uhr</span>";
+        } else {
+            return "heute um " . date("H:i", $timestamp) . " Uhr";
+        }
+        //} elseif ($is_yesterday) {
+        //  return "gestern um " . date("H:i", $timestamp);
     } else {
-        return date("d.m.Y, H:i ", $timestamp) . "Uhr";
+        if ($niceWrap) {
+            return "<span style='white-space:nowrap;'>" . date("d.m.Y", $timestamp) . ",</span> <span style='white-space:nowrap; '>" . date("H:i ", $timestamp) . "Uhr</span>";
+        } else {
+            return date("d.m.Y, H:i ", $timestamp) . "Uhr";
+        }
     }
 }
 
@@ -183,27 +197,27 @@ function getCleanName($object, $length = 30, $showName = true) {
     if (!($object instanceof steam_object)) {
         return "";
     }
-    $docType = $object->get_attribute("DOC_MIME_TYPE");
+
     if ($object instanceof steam_user) {
         $title = $object->get_attribute(USER_FIRSTNAME) . " " . $object->get_attribute(USER_FULLNAME);
     } else {
         $user = isUserHome($object);
-        if ($user) {
-            $title = getCleanName($user);
+        if ($user instanceof steam_user) {
+            $title = getCleanName($user, $length, $showName);
         } elseif ($object instanceof steam_trashbin) {
             $title = "Papierkorb";
         } else {
 
             $objectName = $object->get_name();
-            /*$objectDescription = $object->get_attribute(OBJ_DESC);
+            /* $objectDescription = $object->get_attribute(OBJ_DESC);
 
-            if (($objectDescription !== 0 && trim($objectDescription) !== "")){
-                //description exists
-                $title = $objectDescription . " (" . $objectName.")";
-            } else if (!$showName){
-                $title = $objectDescription;
-            }else{
-                //no description available*/
+              if (($objectDescription !== 0 && trim($objectDescription) !== "")){
+              //description exists
+              $title = $objectDescription . " (" . $objectName.")";
+              } else if (!$showName){
+              $title = $objectDescription;
+              }else{
+              //no description available */
             $title = $objectName;
             //}
 
@@ -221,9 +235,10 @@ function getCleanName($object, $length = 30, $showName = true) {
     //remove extra spaces
     $count = 1;
     $limit = 100;
-    while ($count < $limit){ //prevent too long loops
+    while ($count < $limit) { //prevent too long loops
         $titleNew = str_replace("  ", " ", $title);
-        if (strlen($titleNew) == strlen($title)) break;
+        if (strlen($titleNew) == strlen($title))
+            break;
         $count++;
     }
     $title = $titleNew;
@@ -326,7 +341,7 @@ function getObjectType($object) {
             $type = "pyramiddiscussion";
         } elseif ($objType === "postbox") {
             $type = "postbox";
-		    } elseif ($objType === "ellenberg") {
+        } elseif ($objType === "ellenberg") {
             $type = "ellenberg";
         } elseif ($object->get_attribute("worksheet_valid") === 1) {
             $type = "worksheet";
@@ -369,7 +384,6 @@ function deriveIcon($object) {
     $mimetype = $preLoadResults[$mimetypeIndex];
     $name = $preLoadResults[$nameIndex];
     //finished preload attibutes
-
     //worksheet
     if ($worksheet_role === "build")
         return "worksheet.png";
@@ -410,52 +424,55 @@ function deriveIcon($object) {
 
     if ($objtype === "container_portal_bid")
         return "portal.png";
-    else if ($objtype === "container_portlet_bid"){
-      $portletType = $object->get_attribute("bid:portlet");
+    else if ($objtype === "container_portlet_bid") {
+        $portletType = $object->get_attribute("bid:portlet");
 
-      switch ($portletType) {
-          case "msg":
-              return "messages.png";
+        switch ($portletType) {
+            case "msg":
+                return "messages.png";
 
-          case "headline":
-              return "headline.png";
+            case "headline":
+                return "headline.png";
 
-          case "topic":
-              return "explorer.png";
+            case "topic":
+                return "explorer.png";
 
-          case "appointment":
-              return "appointment.png";
+            case "appointment":
+                return "appointment.png";
 
-          case "media":
-              return "play.png";
+            case "media":
+                return "play.png";
 
-          case "rss":
-              return "rss.png";
+            case "rss":
+                return "rss.png";
 
-          case "poll":
-              return "poll.png";
+            case "poll":
+                return "poll.png";
 
-          case "termplan":
-              return "termplan.png";
+            case "termplan":
+                return "termplan.png";
 
-          case "subscription":
-              return "unsubscribe.png";
+            case "subscription":
+                return "unsubscribe.png";
 
-          case "userpicture":
-              return "userPicture.png";
+            case "userpicture":
+                return "userPicture.png";
 
-          case "chronic":
-              return "chronic.png";
+            case "chronic":
+                return "chronic.png";
 
-          case "bookmarks":
-              return "bookmark.png";
+            case "bookmarks":
+                return "bookmark.png";
 
-          case "folderlist":
-              return "folder.png";
+            case "folderlist":
+                return "folder.png";
 
-          default:
-              return "portlet.png";
-      }
+            case "slideshow":
+                return "gallery.png";
+
+            default:
+                return "portlet.png";
+        }
     }
     /* else if($objtype === "LARS_DESKTOP")
 
@@ -661,57 +678,57 @@ function deriveIcon($object) {
 }
 
 //special function for Microsoft Edge
-function getSVGScaleFactor($galleryNumber){
+function getSVGScaleFactor($galleryNumber) {
 
-  switch ($galleryNumber) {
-      case 1:
-          $transform = "transform='scale(56.875)'";
-          break;
-      case 2:
-          $transform = "transform='scale(27.125)'";
-          break;
-      case 3:
-          $transform = "transform='scale(17.25)'";
-          break;
-      case 4:
-          $transform = "transform='scale(12.25)'";
-          break;
-      case 5:
-          $transform = "transform='scale(9.375)'";
-          break;
-      case 6:
-          $transform = "transform='scale(7.375)'";
-          break;
-      case 7:
-          $transform = "transform='scale(5.9375)'";
-          break;
-      case 8:
-          $transform = "transform='scale(4.875)'";
-          break;
-      case 9:
-          $transform = "transform='scale(4.0625)'";
-          break;
-      case 10:
-          $transform = "transform='scale(3.4375)'";
-          break;
-      case 11:
-          $transform = "transform='scale(2.875)'";
-          break;
-      case 12:
-          $transform = "transform='scale(2.4375)'";
-          break;
-      case 13:
-          $transform = "transform='scale(2.0625)'";
-          break;
-      case 14:
-          $transform = "transform='scale(1.6875)'";
-          break;
-      case 15:
-          $transform = "transform='scale(1.4375)'";
-          break;
-        }
+    switch ($galleryNumber) {
+        case 1:
+            $transform = "transform='scale(56.875)'";
+            break;
+        case 2:
+            $transform = "transform='scale(27.125)'";
+            break;
+        case 3:
+            $transform = "transform='scale(17.25)'";
+            break;
+        case 4:
+            $transform = "transform='scale(12.25)'";
+            break;
+        case 5:
+            $transform = "transform='scale(9.375)'";
+            break;
+        case 6:
+            $transform = "transform='scale(7.375)'";
+            break;
+        case 7:
+            $transform = "transform='scale(5.9375)'";
+            break;
+        case 8:
+            $transform = "transform='scale(4.875)'";
+            break;
+        case 9:
+            $transform = "transform='scale(4.0625)'";
+            break;
+        case 10:
+            $transform = "transform='scale(3.4375)'";
+            break;
+        case 11:
+            $transform = "transform='scale(2.875)'";
+            break;
+        case 12:
+            $transform = "transform='scale(2.4375)'";
+            break;
+        case 13:
+            $transform = "transform='scale(2.0625)'";
+            break;
+        case 14:
+            $transform = "transform='scale(1.6875)'";
+            break;
+        case 15:
+            $transform = "transform='scale(1.4375)'";
+            break;
+    }
 
-        return $transform;
+    return $transform;
 }
 
 function getObjectReadableSize($object) {
@@ -732,7 +749,7 @@ function getObjectReadableSize($object) {
             $innerInventory = $outerInventoryFirstElement->get_inventory();
             $counter = count($innerInventory);
             $html = $counter;
-            $html .= ($counter == 1)? " Abgabe" : " Abgaben";
+            $html .= ($counter == 1) ? " Abgabe" : " Abgaben";
         } elseif ($type == "portal") {
             $counter = count($object->get_inventory());
             $html = $counter;
@@ -753,12 +770,12 @@ function getObjectReadableSize($object) {
             $html = getObjectReadableSize($exitObject);
         } elseif ($type == "wiki") {
             $counter = count($object->get_inventory());
-            $html = $counter." ".(($counter == 1)? "Eintrag" : "Einträge");
+            $html = $counter . " " . (($counter == 1) ? "Eintrag" : "Einträge");
         } elseif ($type == "questionnaire") {
             $surveys = $object->get_inventory();
             $survey = $surveys[0];
             $questions = $survey->get_attribute("QUESTIONNAIRE_QUESTIONS");
-            $html = $questions." ".(($questions == 1)? "Frage" : "Fragen");
+            $html = $questions . " " . (($questions == 1) ? "Frage" : "Fragen");
         } else {
             $html = "";
         }
@@ -935,14 +952,14 @@ function cleanHTML($dirtyHTML) {
 
     $config->set('URI.SafeIframeRegexp', '%^http://(www.youtube.com/embed/|player.vimeo.com/video/|maps.google.de/)%');
 
-    $config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent','_top'));
+    $config->set('Attr.AllowedFrameTargets', array('_blank', '_self', '_parent', '_top'));
 
     $def = $config->getHTMLDefinition(true);
     /*
-    $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
+      $def->addAttribute('a', 'target', new HTMLPurifier_AttrDef_Enum(
       array('_blank','_self','_parent','_top')
-    ));
-    */
+      ));
+     */
 
     //videotag ok
     $videotag = $def->addElement(

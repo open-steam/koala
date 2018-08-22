@@ -242,8 +242,6 @@ class Sanctions extends \AbstractCommand implements \IAjaxCommand {
     function saveSanctions(\AjaxResponseObject $ajaxResponseObject){
       $ajaxResponseObject->setStatus("ok");
       $this->questionnaire = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
-      $user = \lms_steam::get_current_user();
-      $QuestionnaireExtension = \Questionnaire::getInstance();
       $this->surveys = $this->questionnaire->get_inventory();
       $participants = $this->questionnaire->get_attribute("QUESTIONNAIRE_GROUP");
       $staff = $this->questionnaire->get_attribute("QUESTIONNAIRE_STAFF");

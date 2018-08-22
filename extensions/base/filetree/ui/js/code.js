@@ -108,7 +108,7 @@ $(document).ready(function() {
     width: filetreeWidth,
     height: filetreeHeight,
     open: function() {
-        $(this).parent().css('z-index', '100');
+        $(this).parent().css('z-index', '200');
         if(filetreePosition[0] > $(window).width()){ //dialog not visible (too far right), move it to the left
           filetreePosition[0] = 30;
         }

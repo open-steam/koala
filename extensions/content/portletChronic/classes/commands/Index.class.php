@@ -149,12 +149,16 @@ class HeadlineProvider implements \Widgets\IHeadlineProvider {
         return array("", "", "");
     }
 
-    public function getHeadLineWidths() {
+    public function getHeadLineAbsoluteWidths() {
         return array(22, $this->width - 40, 0);
     }
 
     public function getHeadLineAligns() {
         return array("left", "left", "right");
+    }
+    
+    public function getHeadLineClasses() {
+        return array("", "", "");
     }
 
 }

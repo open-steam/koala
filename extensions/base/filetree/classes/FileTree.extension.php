@@ -91,7 +91,7 @@ class FileTree extends AbstractExtension implements IIconBarExtension {
         $result = array();
 
         if (!$isExplorerOrBookmark) {
-            $iconHtml = "<div title='Navigationsbaum'><svg><use xlink:href='" . $this->getAssetUrl() . "icons/tree.svg#tree'/></svg></div>";
+            $iconHtml = "<div title='Navigationsbaum'><svg><use xlink:href='" . $this->getAssetUrl() . "icons/tree.svg#tree'/><span class='icon_bar_description'>Navigationsbaum</span></svg></div>";
             $result[] = array("name" => $iconHtml, "onclick" => "openFileTree()");
         }
         return $result;

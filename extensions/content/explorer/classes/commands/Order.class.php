@@ -53,7 +53,7 @@ class Order extends \AbstractCommand implements \IAjaxCommand {
 					 element.insertAfter(element.next());
 					 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					} else if ('{$this->direction}' == 'top') {
-						 element.insertBefore(element.parent().children().first());
+						 element.insertBefore(element.parent().children().first().next()); /* because the first element is the headline */
 						 if($('.listviewer').length != 0) resetListViewerHeadItem();
 					} else if ('{$this->direction}' == 'bottom') {
 						 element.insertAfter(element.parent().children().last());

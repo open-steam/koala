@@ -249,7 +249,10 @@ class lms_portal
         $this->template->parse("PORTAL_LANGUAGES");
         */
           }
-
+          if ( !$offline && $this->lms_user->is_logged_in() ) {
+                $this->template->touchBlock("BLOCK_NAVIGATION");
+                $this->template->touchBlock("BLOCK_MENU");
+          }
     $this->template->setVariable( "COPYRIGHT_INFO", "&copy; " . strftime( "%Y" ) . " " . secure_gettext( COPYRIGHT_NAME ) );
     $this->template->setVariable( "IMPRESSUM_INFO", " | " . " <a href='". PATH_URL . "imprint/'>" . gettext( "Imprint" ) . "</a>" );
     (DISCLAIMER) ? $this->template->setVariable( "SECURITY_INFO", " | " . " <a href='". PATH_URL . "disclaimer_static.php'>" . "Nutzerordnung" . "</a>" ) : "";
@@ -585,7 +588,7 @@ return $rand_value;
                         require_once( PATH_LIB . "determine_school.php" );
             if (YOU_MENU) {
                     $koala_html_menu->add_menu_entry(
-                      array( "name" => ((MENU_YOU) ? gettext( "You" ): $user->get_attribute("USER_FIRSTNAME") . " " . $user->get_attribute("USER_FULLNAME")), "menu" => array(
+                      array( "name" => ((MENU_YOU) ? gettext( "You" ): "Allgemeines"), "menu" => array(
                     //YOU SUBMENU
                     (YOUR_DESKTOP) ? array( "name" => "<svg><use xlink:href='" . PATH_URL . "explorer/asset/icons/mimetype/svg/portal.svg#portal'/></svg> " . ((MENU_YOU) ? gettext( "Your desktop" ) : "Schreibtisch"), "link" => PATH_URL . "desktop/" ) : "",
                     (YOUR_PORTFOLIO) ? array( "name" => ((MENU_YOU) ? "Mein Portfolio" : "Portfolio"), "link" => PATH_URL . "portfolio/") : "",
@@ -808,12 +811,17 @@ return $rand_value;
             $this->template->parse( "PROBLEM_BLOCK" );
             $_SESSION[ "error" ] = "";
         } elseif ($description && $description != "") {
-        $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
-        //$this->template->setVariable( "PROBLEM_ICON", PATH_URL . "widgets/asset/emotes/wrong.png");
-        $this->template->setVariable( "PROBLEM_DESCRIPTION", $description );
-        $this->template->setVariable( "PROBLEM_SOLUTION", $solution );
-        $this->template->parse( "PROBLEM_BLOCK" );
-    }
+            $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
+            //$this->template->setVariable( "PROBLEM_ICON", PATH_URL . "widgets/asset/emotes/wrong.png");
+            $this->template->setVariable( "PROBLEM_DESCRIPTION", $description );
+            $this->template->setVariable( "PROBLEM_SOLUTION", $solution );
+            $this->template->parse( "PROBLEM_BLOCK" );
+        } elseif(!empty($_SESSION["logout_session_expired"])){
+            $this->template->setCurrentBlock( "NOTIFICATION_BLOCK" );
+            $this->template->setVariable( "NOTIFICATION_DESCRIPTION", $_SESSION[ "logout_session_expired" ] );
+            $this->template->parse( "NOTIFICATION_BLOCK" );
+            $_SESSION["logout_session_expired"] = "";
+        }
     }
 
     public function set_confirmation( $confirmation_text = "" )

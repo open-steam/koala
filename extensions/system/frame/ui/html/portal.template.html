@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
         <!-- BEGIN BLOCK_RSS_FEED -->
         <link rel="alternate" type="application/rss+xml" title="{RSS_TITLE}" href="{RSS_LINK}" />
@@ -62,7 +63,7 @@
 
         </script>
 
-        <script src="{PATH_JAVASCRIPT_2}jquery-1.6.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
+        <script src="{PATH_JAVASCRIPT_2}jquery-1.7.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
         <script src="{PATH_JAVASCRIPT_2}jquery-ui-1.8.13.custom.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
         <script src="{PATH_JAVASCRIPT_2}jquery.json-2.2.min.js?version={KOALA_VERSION_2}" type="text/javascript"></script>
 
@@ -116,15 +117,37 @@
             jQuery(document).click(function() {
                 hideAllMenus();
             })
+            
+            function show_burger_menu(){
+                event.stopPropagation();
+                if($('#menu_bar > ul >li').css("display") == 'block'){
+                    $('#menu_bar > ul >li').css("display", "none");
+                } else {
+                    hideAllMenus();
+                    $('#menu_bar > ul >li').css("display", "block");
+                }
+            }
+            
+            function show_burger_icon(){
+                event.stopPropagation();
+                
+                if($('#icon_bar > ul >li').css("display") == 'block'){
+                    $('#icon_bar > ul >li').css("display", "none");
+                } else {
+                    hideAllMenus();
+                    $('#icon_bar > ul >li').css("display", "block");
+                }
+            }
+            
             //js for menu
             function mark_parent(element,yesOrNo) {
                 var parent = element.parentNode.parentNode;
                 if (parent.tagName.toLowerCase()!=='li') return;
                 //parent=parent.parentNode.parentNode;
                 if (yesOrNo){
-                    parent.className='activemenu';
+                    $(parent).addClass("activemenu");
                 } else {
-                    parent.className='';
+                    $(parent).removeClass("activemenu");
                 }
             }
 
@@ -135,27 +158,69 @@
                 if(submenu[0] && submenu[0].style.display == "block"){
                     active = true;
                 }
-
-                hideAllMenus();
-
+                if(!$(".burger_menu_helper").is(":visible")){
+                    hideAllMenus();
+                }
                 if(submenu[0] && submenu[0].style.display == "block"){
+                    $(element).removeClass("menu_open");
                     submenu[0].style.display = "none";
                 } else if (submenu[0] && !active && (submenu[0].style.display == "none" || submenu[0].style.display == "")){
+                    $(element).addClass("menu_open");
                     submenu[0].style.display = "block";
                 }
             }
 
             function hideAllMenus(){
-
-                $("#menu>div> ul >li").each(function(element){
+            if(!$(".burger_menu_helper").is(":visible")){
+                $("#menu_bar ul >li").each(function(element){
 
                     if($("ul:visible", this).css('display') == 'block') {
                         $("ul:visible", this).css("display", "none");
                     }
+                    
+                });
+                $("#icon_bar > ul > li").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
+                $("#icon_bar > ul > li > ul").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
+                $("#icon_bar ul >li").each(function(element){
 
-                })
-
+                    if($("ul:visible", this).css('display') == 'block') {
+                        $("ul:visible", this).css("display", "none");
+                    }
+                    
+                });
+            } else {
+                $("#menu_bar > ul > li").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                        $(this).removeClass("menu_open");
+                    }
+                });
+                $("#menu_bar > ul > li > ul").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
+                
+                $("#icon_bar > ul > li").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });
+                $("#icon_bar > ul > li > ul").each(function(){
+                    if($(this).css('display') == 'block') {
+                        $(this).css("display", "none");
+                    }
+                });            
             }
+        }
 
             function unsavedContent() {
                 // 		if ($('body').find('.changed').length > 0) {
@@ -248,11 +313,20 @@
             <div id="noJs" style="display: block;font-size:1.5em;">
                 Um den Server nutzen zu können, aktivieren Sie bitte Javascript in ihrem Browser.
             </div>
-            <div id="loginPanelWarning" style="display:none;">
+            <div class="loginPanelNotification" id="loginPanelWarning" style="display:none;">
                 Die Entwicklung des von Ihnen benutzten Browsers <i>Internet Explorer</i> wurde vom Hersteller eingestellt.
                 Eine korrekte Darstellung und Funktion der Plattform kann unter diesen Umständen nicht gewährleistet werden.
                 Weitere Informationen und eine Liste alternativer Browser finden Sie <a href="https://bid.lspb.de/explorer/ViewDocument/640276/">hier</a>.
             </div>
+            
+            <!-- BEGIN NOTIFICATION_BLOCK -->
+            <div id="loginPanelError" class="loginPanelNotification">
+                <p style="display:block">
+                    {NOTIFICATION_DESCRIPTION}
+                </p>
+            </div>
+            <!-- END NOTIFICATION_BLOCK -->
+            
             <script>
               $('#noJs').hide();
               var internetExplorer = false;
@@ -271,7 +345,7 @@
               }
               $("#loginDiv").show();
             </script>
-
+                <div id="signed_in_block_wrapper">
                         {REPORT_ERROR_BUTTON}
 
                         <!-- BEGIN STATUS_SIGNED_IN_BLOCK -->
@@ -310,14 +384,17 @@
                                 <!-- END LANGUAGE -->
                         </form>
                         <!-- END PORTAL_LANGUAGES -->
+                </div>
                         </div>
                         </div>
 
                         <div id="menu_wrapper_bg">
                             <div id="menu_wrapper">
                                 <div id="menu">
+                                    <!-- BEGIN BLOCK_NAVIGATION --><span class="burger_menu_helper" onClick="show_burger_menu();">&#9776; <span>NAVIGATION</span></span><!-- END BLOCK_NAVIGATION -->
                                     <div id="icon_bar">{ICON_BAR_HTML}</div>
                                     <div id="menu_bar">{MENU_HTML}</div>
+                                    <!-- BEGIN BLOCK_MENU --><span class="burger_icon_helper" onClick="show_burger_icon();"><span>&#9776; MENU</span></span><!-- END BLOCK_MENU -->
                                 </div>
                             </div>
                         </div>

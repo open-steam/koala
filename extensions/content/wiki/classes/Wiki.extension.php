@@ -85,40 +85,40 @@ class Wiki extends AbstractExtension implements IObjectExtension, IIconBarExtens
 			//$array[] = array("name" => "<img title=\"Aufwärts\" src=\"" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/arrow_up_white.png\">", "onclick"=>"location.href='" . PATH_URL . "explorer/index/{$env->get_id()}/'");
 
 			if(strpos($path, "mediathek") == false){
-				$array[] = array("name" => "<div title='Mediathek'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/gallery.svg#gallery'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/mediathek/{$wikiID}/'");
+				$array[] = array("name" => "<div title='Mediathek'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/gallery.svg#gallery'/></svg><span class='icon_bar_description'>Mediathek</span></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/mediathek/{$wikiID}/'");
 			}
 
 			if(strpos($path, "glossary") == false){
-				$array[] = array("name" => "<div title='Glossar'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/explorer.svg#explorer'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/glossary/{$wikiID}/'");
+				$array[] = array("name" => "<div title='Glossar'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/explorer.svg#explorer'/></svg><span class='icon_bar_description'>Glossar</span></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/glossary/{$wikiID}/'");
 			}
 
 			$user = lms_steam::get_current_user();
 			if($object->check_access_write($user)){
 				if(strpos($path, "mediathek") !== false){
-					$array[] = array("name" => "<div title='Bild hinzufügen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"sendRequest('Upload', {'id':{$wikiID}}, '', 'popup');return false;");
+					$array[] = array("name" => "<div title='Bild hinzufügen'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg><span class='icon_bar_description'>Bild hinzufügen</span></div>", "onclick"=>"sendRequest('Upload', {'id':{$wikiID}}, '', 'popup');return false;");
 				}
 				if(strpos($path, "glossary") !== false){
-					$array[] = array("name" => "<div title='Neuer Eintrag'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wikiID}'");
+					$array[] = array("name" => "<div title='Neuer Eintrag'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/newElement.svg#newElement'/></svg><span class='icon_bar_description'>Neuer Eintrag</span></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wikiID}'");
 				}
 				if(strpos($path, "entry") !== false){
 					if(strpos($path, ".wiki") !== false){
 						$path = $_SERVER["REQUEST_URI"];
 						$pathArray = explode("/", $path);
 						$wiki_doc = $object->get_object_by_name($pathArray[count($pathArray)-1]);
-						$array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wiki_doc->get_id()}'");
+						$array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg><span class='icon_bar_description'>Bearbeiten</span></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$wiki_doc->get_id()}'");
 					}
 					else{
-						$array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}'");
+						$array[] = array("name" => "<div title='Bearbeiten'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/edit.svg#edit'/></svg><span class='icon_bar_description'>Bearbeiten</span></div>", "onclick"=>"location.href='" . PATH_URL . "wiki/edit/{$id}'");
 					}
 				}
 
-				$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg></div>", "onclick"=>"sendRequest('Properties', {'id':{$wikiID}}, '', 'popup', null, null, 'explorer');return false;");
+				$array[] = array("name" => "<div title='Eigenschaften'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/properties.svg#properties'/></svg><span class='icon_bar_description'>Eigenschaften</span></div>", "onclick"=>"sendRequest('Properties', {'id':{$wikiID}}, '', 'popup', null, null, 'explorer');return false;");
 
 			}
 
 			$envSanction = $object->check_access(SANCTION_SANCTION);
 			if ($envSanction) {
-				$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$wikiID}}, '', 'popup', null, null, 'explorer');return false;");
+				$array[] = array("name" => "<div title='Rechte'><svg><use xlink:href='" . \Explorer::getInstance()->getAssetUrl() . "icons/menu/svg/rights.svg#rights'/></svg><span class='icon_bar_description'>Rechte</span></div>", "onclick"=>"sendRequest('Sanctions', {'id':{$wikiID}}, '', 'popup', null, null, 'explorer');return false;");
 			}
 
 			$array[] = array("name" => "SEPARATOR");

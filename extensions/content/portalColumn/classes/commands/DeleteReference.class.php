@@ -18,7 +18,7 @@ class DeleteReference extends \AbstractCommand implements \IFrameCommand, \IIdCo
 		$steamObject = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $objectId);
 		
 		//delete the object
-		$trashbin = \lms_steam::get_current_user()->get_attribute("USER_TRASHBIN");
+		$trashbin = \lms_steam::get_current_user_no_guest()->get_attribute("USER_TRASHBIN");
 		$steamObject->move($trashbin);
 	}
 	

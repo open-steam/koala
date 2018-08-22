@@ -18,7 +18,7 @@ var nameAscending = true;
 //sort listitems by name
 function sortByName(headitem) {
 
-	var items = $('.listviewer-items').children();
+	var items = $('.listviewer-item');
 	items.sort(function(a, b){
 		var name1 = jQuery(a).children().eq(1).text();
 		var name2 = jQuery(b).children().eq(1).text();
@@ -29,18 +29,18 @@ function sortByName(headitem) {
 			return name2.localeCompare(name1);
 		}
 	})
-
+        
 	var indices = new Array();
 	for(var i = 0; i<items.length; i++){
 		indices.push(items[i].id);
 	}
-
+        
 	var obj = {
 		id: indices[0],
 		direction: "",
 		indices: indices
 	}
-
+        
 	resetListViewerHeadItem();
 
 	if(nameAscending){
@@ -52,8 +52,8 @@ function sortByName(headitem) {
 		jQuery(headitem).text("Name ▼");
 	}
 
-	jQuery(".listviewer-items").empty();
-	jQuery(".listviewer-items").html(items);
+	jQuery(".listviewer-item").remove();
+	jQuery(items).insertAfter(".listviewer-head");
 
 	sendRequest("Order", obj, "", "nonModalUpdater", null, null, "explorer");
 }
@@ -62,7 +62,7 @@ var dateAscending = true;
 //sort listitems by change date
 function sortByDate(headitem) {
 
-	var items = $('.listviewer-items').children();
+	var items = $('.listviewer-item');
 	items.sort(function(a, b){
 		var dateString1 = jQuery(a).children().eq(5).text();
 		var dateString2 = jQuery(b).children().eq(5).text();
@@ -99,8 +99,8 @@ function sortByDate(headitem) {
 		jQuery(headitem).text("Änderungsdatum ▲");
 	}
 
-	jQuery(".listviewer-items").empty();
-	jQuery(".listviewer-items").html(items);
+	jQuery(".listviewer-item").remove();
+	jQuery(items).insertAfter(".listviewer-head");
 
 	sendRequest("Order", obj, "", "nonModalUpdater", null, null, "explorer");
 }

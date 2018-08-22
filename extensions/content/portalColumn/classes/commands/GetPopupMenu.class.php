@@ -8,7 +8,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
     private $id;
     private $object;
     private $x, $y, $height, $width;
-    private $user;
 
     public function validateData(\IRequestObject $requestObject) {
         return true;
@@ -21,7 +20,6 @@ class GetPopupMenu extends \AbstractCommand implements \IAjaxCommand {
         $this->y = $this->params["y"];
         $this->height = $this->params["height"];
         $this->width = $this->params["width"];
-        $this->user = \lms_steam::get_current_user()->get_name();
         $this->object = \steam_factory::get_object($GLOBALS["STEAM"]->get_id(), $this->id);
     }
 
