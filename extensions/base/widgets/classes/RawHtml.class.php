@@ -48,4 +48,3 @@ class RawHtml extends Widget {
 		return $this->getContent()->get();
 	}
 }
-?>
