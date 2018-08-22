@@ -9,6 +9,7 @@ define( "PROTOTYPE_DISABLED", FALSE);
 
 class lms_portal
 {
+      private static $instance;
     private $template;
     private $lms_user;
     private $environment;
@@ -16,8 +17,6 @@ class lms_portal
       private $prototype_enabled = true;
       private $init_done = false;
       private $offline_status;
-
-      private static $instance;
 
     private function __construct()
     {
@@ -59,14 +58,98 @@ class lms_portal
         }
     }
 
-    public function set_prototype_enabled($prototype_enabled)
+    /**
+     * Sets a pagination header for browsing through a list of items if necessary.
+     *
+     * @param object $template
+     * @param int    $max_items
+     * @param int    $no_items
+     * @param string $result_text the words %START, %END and %TOTAL will be replaced
+     *   by the corresponding pagination numbers. Note that the pagination header
+     *   (and thus the $result_text) will only be shown if pagination is necessary.
+     * @param  string $uri_params
+     * @return int    start index
+     */
+    public static function get_paginator($max_items, $no_items, $result_text = "", $uri_params = "")
     {
-        $this->prototype_enabled = $prototype_enabled;
+        $template = new HTML_Template_IT();
+        $template->loadTemplatefile(PATH_EXTENSIONS . "system/frame/ui/html/pageiterator.template.html");
+        if ($no_items <= $max_items) {
+            $result = array();
+            $result["startIndex"] = 0;
+            $result["html"] = "";
+
+            return $result;
+        }
+        $pages = ceil( $no_items / $max_items );
+        $current_page = ( ! empty( $_GET[ "page" ] ) ) ? $_GET[ "page" ] : 1;
+        if ($current_page < 1 || $current_page > $pages) {
+            $current_page = 1;
+        }
+
+        $link = '';
+        $link .= ( empty( $uri_params ) ) ? "?page=" : $uri_params . "&page=" ;
+        $template->setCurrentBlock( "BLOCK_PAGES" );
+        if ($current_page > 1) {
+            self::set_page( $template, "<a href='$link" . ( $current_page - 1 ) . "'>&laquo; " . gettext( "Prev" ) . "</a>" );
+        } else {
+            self::set_page( $template, "<span class='first'>&laquo; " . gettext( "Prev" ) . "</span>" );
+        }
+
+        $min = ( $current_page - 5 < 1 ) ? 1 : $current_page - 5;
+        if ($min > 1) {
+            self::set_page( $template, "| ..." );
+        }
+        for ($i = $min; $i < $current_page; $i++) {
+            self::set_page( $template, "| <a href=\"$link$i\">$i</a>" );
+        }
+        self::set_page( $template, "| <span class=\"current\">$i</span>" );
+
+        $max = ( $current_page + 5 > $pages ) ? $pages : $current_page + 5;
+        for ($i = $current_page + 1; $i <= $max; $i++) {
+            self::set_page( $template, "| <a href=\"$link$i\">$i</a>" );
+        }
+        if ($pages > $max) {
+            self::set_page( $template, "| ..." );
+        }
+
+        if ($current_page != $pages) {
+            self::set_page( $template, "| <a href=\"$link" . ($current_page + 1 ) . "\" class=\"next\">" . gettext( "Next" ) . " &raquo;</a>" );
+
+        } else {
+            self::set_page( $template, "| <span class=\"last\">" . gettext( "Next" ) . " &raquo;</span>" );
+        }
+
+        $start_index = ( $current_page - 1 ) * $max_items;
+        $end_index = $start_index + $max_items - 1;
+        if ( $end_index > $no_items ) $end_index = $no_items - 1;
+
+        if ( empty( $result_text ) ) $result_text = gettext( '(%TOTAL items total)' );
+        $template->setVariable( 'RESULTS', str_replace( array( '%START', '%END', '%TOTAL' ), array( $start_index+1, $end_index+1, $no_items ), $result_text ) );
+
+        $template->parse( "BLOCK_PAGES" );
+        $result = array();
+        $result["startIndex"] = $start_index;
+        $result["html"] = $template->get();
+
+        return $result;
+    }
+
+    private static function set_page( $template, $string )
+    {
+        $template->setCurrentBlock( "BLOCK_PAGE" );
+        $template->setVariable( "PAGE", $string );
+        $template->parse( "BLOCK_PAGE" );
     }
 
     public function get_prototype_enabled()
     {
         return $this->prototype_enabled;
+    }
+
+    public function set_prototype_enabled($prototype_enabled)
+    {
+        $this->prototype_enabled = $prototype_enabled;
     }
 
   public function is_guest_allowed()
@@ -110,6 +193,229 @@ class lms_portal
         }
     $this->guest_allowed = $guest_allowed;
   }
+
+    public function add_css_style($css = "")
+    {
+        if ($css != "") {
+            $this->template->setCurrentBlock("HEAD_CUSTOM_CSS");
+            $this->template->setVariable("HEAD_CUSTOM_CSS_STYLE", $css);
+            $this->template->parse("HEAD_CUSTOM_CSS");
+        }
+    }
+
+    public function add_css_style_link($href = "")
+    {
+        if ($href != "") {
+            $this->template->setCurrentBlock("HEAD_CUSTOM_CSS_LINK");
+            $this->template->setVariable("HEAD_CUSTOM_CSS_STYLE_LINK", $href);
+            $this->template->parse( "HEAD_CUSTOM_CSS_LINK" );
+        }
+    }
+
+    public function add_javascript_src($caller_name, $src = "")
+    {
+        $this->add_javascript($caller_name, $src);
+    }
+
+    private function add_javascript($caller_name, $src ="", $sourcecode ="" )
+    {
+        $this->template->setCurrentBlock( "HEAD_JAVASCRIPT_BLOCK" );
+        $this->template->setVariable( "HEAD_JAVASCRIPT_CALLER", $caller_name );
+        if ( !empty($src) )
+            $this->template->setVariable( "HEAD_JAVASCRIPT_SRC", "src=\"$src\"" );
+        $this->template->setVariable( "HEAD_JAVASCRIPT_SOURCECODE", $sourcecode );
+        $this->template->parse( "HEAD_JAVASCRIPT_BLOCK" );
+    }
+
+    public function add_javascript_code($caller_name, $code = "")
+    {
+        $this->add_javascript($caller_name, "", $code);
+    }
+
+    public function add_javascript_onload($caller_name, $code)
+    {
+        $js_function_name = $this->get_rand_letters(15);
+
+        $js = <<< END
+function $js_function_name() {
+        $code
+    }
+END;
+        $this->template->setCurrentBlock( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL" );
+        $this->template->setVariable( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER", $caller_name);
+        $this->template->setVariable( "HEAD_JAVASCRIPT_ONLOAD_FUNCION_NAME", $js_function_name . "();" );
+        $this->template->parse( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL" );
+
+        $this->template->setCurrentBlock( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION" );
+        $this->template->setVariable( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER", $caller_name);
+        $this->template->setVariable( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CODE", $js );
+        $this->template->parse( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION" );
+
+        $this->add_body_params("onLoad=\"onload_body();\"");
+    }
+
+    public function get_rand_letters($length)
+    {
+      if ($length>0) {
+      $rand_id="";
+       for ($i=1; $i<=$length; $i++) {
+       mt_srand((double) microtime() * 1000000);
+       $num = mt_rand(1,26);
+       $rand_id .= $this->assign_rand_value($num);
+       }
+      }
+
+    return $rand_id;
+    }
+
+function assign_rand_value($num)
+{
+// accepts 1 - 36
+  switch ($num) {
+    case "1":
+     $rand_value = "a";
+    break;
+    case "2":
+     $rand_value = "b";
+    break;
+    case "3":
+     $rand_value = "c";
+    break;
+    case "4":
+     $rand_value = "d";
+    break;
+    case "5":
+     $rand_value = "e";
+    break;
+    case "6":
+     $rand_value = "f";
+    break;
+    case "7":
+     $rand_value = "g";
+    break;
+    case "8":
+     $rand_value = "h";
+    break;
+    case "9":
+     $rand_value = "i";
+    break;
+    case "10":
+     $rand_value = "j";
+    break;
+    case "11":
+     $rand_value = "k";
+    break;
+    case "12":
+     $rand_value = "l";
+    break;
+    case "13":
+     $rand_value = "m";
+    break;
+    case "14":
+     $rand_value = "n";
+    break;
+    case "15":
+     $rand_value = "o";
+    break;
+    case "16":
+     $rand_value = "p";
+    break;
+    case "17":
+     $rand_value = "q";
+    break;
+    case "18":
+     $rand_value = "r";
+    break;
+    case "19":
+     $rand_value = "s";
+    break;
+    case "20":
+     $rand_value = "t";
+    break;
+    case "21":
+     $rand_value = "u";
+    break;
+    case "22":
+     $rand_value = "v";
+    break;
+    case "23":
+     $rand_value = "w";
+    break;
+    case "24":
+     $rand_value = "x";
+    break;
+    case "25":
+     $rand_value = "y";
+    break;
+    case "26":
+     $rand_value = "z";
+    break;
+    case "27":
+     $rand_value = "0";
+    break;
+    case "28":
+     $rand_value = "1";
+    break;
+    case "29":
+     $rand_value = "2";
+    break;
+    case "30":
+     $rand_value = "3";
+    break;
+    case "31":
+     $rand_value = "4";
+    break;
+    case "32":
+     $rand_value = "5";
+    break;
+    case "33":
+     $rand_value = "6";
+    break;
+    case "34":
+     $rand_value = "7";
+    break;
+    case "35":
+     $rand_value = "8";
+    break;
+    case "36":
+     $rand_value = "9";
+    break;
+  }
+return $rand_value;
+}
+
+    private function add_body_params( $params = "" )
+    {
+        $this->template->setVariable( "BODY_PARAMS", $params );
+    }
+
+    public function add_javascript_actionhandler_for_class()
+    {
+    }
+
+    public function add_javascript_actionhandler_for_id()
+    {
+    }
+
+    public function login( $login, $password, $request = "" )
+    {
+        if ( ! isset( $this->lms_user ) ) {
+            // PORTAL NOT INITIALIZED YET
+            $this->initialize();
+        }
+        if ( ! $this->lms_user->login( $login, $password ) ) {
+            return FALSE;
+        }
+        $_SESSION[ "LMS_USER" ] = $this->lms_user;
+        language_support::choose_language( lms_steam::get_user_language());
+        if ($login == $password) {
+                header( "Location: " . PATH_URL . "terms/"  );
+        } elseif ( empty ( $request ) ) {
+            header( "Location: " . PATH_URL . "desktop/"  );
+        } else {
+            header( "Location: " . PATH_SERVER . $request );
+        }
+    }
 
     public function initialize( $guest_allowed = FALSE, $offline = FALSE)
     {
@@ -266,233 +572,17 @@ class lms_portal
         $this->init_done = true;
     }
 
-    private function add_body_params( $params = "" )
+    public function set_confirmation( $confirmation_text = "" )
     {
-        $this->template->setVariable( "BODY_PARAMS", $params );
-    }
-
-    public function add_css_style($css = "")
-    {
-        if ($css != "") {
-            $this->template->setCurrentBlock("HEAD_CUSTOM_CSS");
-            $this->template->setVariable("HEAD_CUSTOM_CSS_STYLE", $css);
-            $this->template->parse("HEAD_CUSTOM_CSS");
-        }
-    }
-
-    public function add_css_style_link($href = "")
-    {
-        if ($href != "") {
-            $this->template->setCurrentBlock("HEAD_CUSTOM_CSS_LINK");
-            $this->template->setVariable("HEAD_CUSTOM_CSS_STYLE_LINK", $href);
-            $this->template->parse( "HEAD_CUSTOM_CSS_LINK" );
-        }
-    }
-
-    private function add_javascript($caller_name, $src ="", $sourcecode ="" )
-    {
-        $this->template->setCurrentBlock( "HEAD_JAVASCRIPT_BLOCK" );
-        $this->template->setVariable( "HEAD_JAVASCRIPT_CALLER", $caller_name );
-        if ( !empty($src) )
-            $this->template->setVariable( "HEAD_JAVASCRIPT_SRC", "src=\"$src\"" );
-        $this->template->setVariable( "HEAD_JAVASCRIPT_SOURCECODE", $sourcecode );
-        $this->template->parse( "HEAD_JAVASCRIPT_BLOCK" );
-    }
-
-    public function add_javascript_src($caller_name, $src = "")
-    {
-        $this->add_javascript($caller_name, $src);
-    }
-
-    public function add_javascript_code($caller_name, $code = "")
-    {
-        $this->add_javascript($caller_name, "", $code);
-    }
-
-    public function add_javascript_onload($caller_name, $code)
-    {
-        $js_function_name = $this->get_rand_letters(15);
-
-        $js = <<< END
-function $js_function_name() {
-        $code
-    }
-END;
-        $this->template->setCurrentBlock( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL" );
-        $this->template->setVariable( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER", $caller_name);
-        $this->template->setVariable( "HEAD_JAVASCRIPT_ONLOAD_FUNCION_NAME", $js_function_name . "();" );
-        $this->template->parse( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALL" );
-
-        $this->template->setCurrentBlock( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION" );
-        $this->template->setVariable( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CALLER", $caller_name);
-        $this->template->setVariable( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION_CODE", $js );
-        $this->template->parse( "HEAD_JAVASCRIPT_ONLOAD_FUNCTION" );
-
-        $this->add_body_params("onLoad=\"onload_body();\"");
-    }
-
-    public function add_javascript_actionhandler_for_class()
-    {
-    }
-
-    public function add_javascript_actionhandler_for_id()
-    {
-    }
-
-    private function getUniqueCode($length = "")
-    {
-        $code = md5(uniqid(rand(), true));
-        if ($length != "") return substr($code, 0, $length);
-        else return $code;
-    }
-
-    public function get_rand_letters($length)
-    {
-      if ($length>0) {
-      $rand_id="";
-       for ($i=1; $i<=$length; $i++) {
-       mt_srand((double) microtime() * 1000000);
-       $num = mt_rand(1,26);
-       $rand_id .= $this->assign_rand_value($num);
-       }
-      }
-
-    return $rand_id;
-    }
-
-function assign_rand_value($num)
-{
-// accepts 1 - 36
-  switch ($num) {
-    case "1":
-     $rand_value = "a";
-    break;
-    case "2":
-     $rand_value = "b";
-    break;
-    case "3":
-     $rand_value = "c";
-    break;
-    case "4":
-     $rand_value = "d";
-    break;
-    case "5":
-     $rand_value = "e";
-    break;
-    case "6":
-     $rand_value = "f";
-    break;
-    case "7":
-     $rand_value = "g";
-    break;
-    case "8":
-     $rand_value = "h";
-    break;
-    case "9":
-     $rand_value = "i";
-    break;
-    case "10":
-     $rand_value = "j";
-    break;
-    case "11":
-     $rand_value = "k";
-    break;
-    case "12":
-     $rand_value = "l";
-    break;
-    case "13":
-     $rand_value = "m";
-    break;
-    case "14":
-     $rand_value = "n";
-    break;
-    case "15":
-     $rand_value = "o";
-    break;
-    case "16":
-     $rand_value = "p";
-    break;
-    case "17":
-     $rand_value = "q";
-    break;
-    case "18":
-     $rand_value = "r";
-    break;
-    case "19":
-     $rand_value = "s";
-    break;
-    case "20":
-     $rand_value = "t";
-    break;
-    case "21":
-     $rand_value = "u";
-    break;
-    case "22":
-     $rand_value = "v";
-    break;
-    case "23":
-     $rand_value = "w";
-    break;
-    case "24":
-     $rand_value = "x";
-    break;
-    case "25":
-     $rand_value = "y";
-    break;
-    case "26":
-     $rand_value = "z";
-    break;
-    case "27":
-     $rand_value = "0";
-    break;
-    case "28":
-     $rand_value = "1";
-    break;
-    case "29":
-     $rand_value = "2";
-    break;
-    case "30":
-     $rand_value = "3";
-    break;
-    case "31":
-     $rand_value = "4";
-    break;
-    case "32":
-     $rand_value = "5";
-    break;
-    case "33":
-     $rand_value = "6";
-    break;
-    case "34":
-     $rand_value = "7";
-    break;
-    case "35":
-     $rand_value = "8";
-    break;
-    case "36":
-     $rand_value = "9";
-    break;
-  }
-return $rand_value;
-}
-
-    public function login( $login, $password, $request = "" )
-    {
-        if ( ! isset( $this->lms_user ) ) {
-            // PORTAL NOT INITIALIZED YET
-            $this->initialize();
-        }
-        if ( ! $this->lms_user->login( $login, $password ) ) {
-            return FALSE;
-        }
-        $_SESSION[ "LMS_USER" ] = $this->lms_user;
-        language_support::choose_language( lms_steam::get_user_language());
-        if ($login == $password) {
-                header( "Location: " . PATH_URL . "terms/"  );
-        } elseif ( empty ( $request ) ) {
-            header( "Location: " . PATH_URL . "desktop/"  );
-        } else {
-            header( "Location: " . PATH_SERVER . $request );
+        if ( ! empty( $_SESSION[ "confirmation" ] ) ) {
+            $this->template->setCurrentBlock( "BLOCK_CONFIRMATION" );
+            $this->template->setVariable( "CONFIRMATION_TEXT", $_SESSION[ "confirmation" ] );
+            $this->template->parse( "BLOCK_CONFIRMATION" );
+            $_SESSION[ "confirmation" ] = "";
+        } elseif ($confirmation_text) {
+            $this->template->setCurrentBlock( "BLOCK_CONFIRMATION" );
+            $this->template->setVariable( "CONFIRMATION_TEXT", $confirmation_text );
+            $this->template->parse( "BLOCK_CONFIRMATION" );
         }
     }
 
@@ -510,6 +600,112 @@ return $rand_value;
         session_destroy();
         ob_end_clean();
         header( "Location: " . PATH_URL  );
+    }
+
+    private function set_status($offline = FALSE)
+    {
+        $this->offline_status = $offline;
+        if ( !$offline && ! isset( $this->lms_user ) ) {
+            // PORTAL NOT INITIALIZED YET
+            $this->initialized();
+        }
+
+        if ( !$offline && $this->lms_user->is_logged_in() ) {
+            $this->template->setVariable( "CURRENT_DATE", strftime( "%d.%m.%Y" ) ); // set current date
+            $cache = get_cache_function( $this->lms_user->get_login(), 600 );
+            $this->template->setCurrentBlock( "STATUS_SIGNED_IN_BLOCK" );
+            $this->template->setVariable( "SIGNED_IN_TEXT", gettext( "Signed in as" ) );
+            $this->template->setVariable( "SIGNED_IN_LOGIN_HOME", PATH_URL . "user/index/" . $this->lms_user->get_login() . "/" );
+            $this->template->setVariable( "SIGNED_IN_LOGIN_NAME", $this->lms_user->get_login() );
+
+            //switch for de-activating unread mails on the start page is MAILBOX_SHOW_UNREAD_ON_STARTPAGE
+            $messages_unread_string = "";
+
+            //$isForwarded = $this->lms_user->get_attribute( "USER_FORWARD_MSG");
+
+            if (YOUR_MAILBOX && ( MAILBOX_SHOW_UNREAD_ON_STARTPAGE)) {
+            $this->template->setVariable( "MESSAGES_URL", PATH_URL . "messages.php" );
+            $this->template->setVariable( "INBOX", gettext( "mailbox" )  );
+            //$no_messages_unread = $cache->call( "lms_steam::user_count_unread_mails", $this->lms_user->get_login() );
+            $no_messages_unread = databaseAccess::getUnreadMails($this->lms_user->get_login());
+            if ($no_messages_unread > 0) {
+                $this->template->setVariable( "MESSAGES_UNREAD", $no_messages_unread . "" );
+                $messages_unread_string.= "(".$no_messages_unread." ".gettext("unread").")";
+            } else {
+                $messages_unread_string.= "(0 ".gettext("unread").")";
+            }
+
+            $this->template->setVariable( "MESSAGES_UNREAD_LABEL", gettext( "unread" ) );
+            $this->template->setVariable( "CHECK_MAIL_TEXT", gettext( "Check your mail." ) );
+            $this->template->setVariable( "MESSAGES_UNREAD", $messages_unread_string);
+            }
+
+            if (YOUR_MAILBOX && !MAILBOX_SHOW_UNREAD_ON_STARTPAGE) {
+            $this->template->setVariable( "MESSAGES_URL", PATH_URL . "messages.php"  );
+            $this->template->setVariable( "INBOX", gettext( "mailbox" )  );
+            $messages_unread_string = "";
+            $this->template->setVariable( "CHECK_MAIL_TEXT", gettext( "Check your mail." ) );
+            $this->template->setVariable( "MESSAGES_UNREAD", $messages_unread_string);
+            }
+
+            if (defined("HELP_URL") && HELP_URL != "") {
+                $this->template->setCurrentBlock("BLOCK_HELP");
+                  $this->template->setVariable( "HELP_TEXT", gettext( "Help" ) );
+                $this->template->setVariable( "HELP_URL", HELP_URL);
+                $this->template->parse("BLOCK_HELP");
+              }
+
+            $this->template->setVariable( "SIGN_OUT_URL", URL_SIGNOUT );
+            $this->template->setVariable( "SIGN_OUT_TEXT", gettext( "Sign out" ) );
+            $this->template->setVariable( "SEARCH_DSC", gettext( "Enter keywords" ) );
+            $this->template->setVariable( "SEARCH_LABEL", gettext( "Search" ) );
+            $this->template->parse( "STATUS_SIGNED_IN_BLOCK" );
+        } else {
+                        if (defined("HELP_URL") && HELP_URL != "") {
+                            $this->template->setCurrentBlock("BLOCK_HELP_GUEST");
+                            $this->template->setVariable( "HELP_TEXT_GUEST", gettext( "Help" ) );
+                            $this->template->setVariable( "HELP_URL_GUEST", HELP_URL);
+                            $this->template->parse("BLOCK_HELP_GUEST");
+                        }
+
+            /*$this->template->setCurrentBlock( "STATUS_GUEST_BLOCK" );
+            $this->template->setVariable( "NOT_SIGNED_IN_TEXT", gettext( "You aren't signed in." ) );
+            $this->template->setVariable( "STATUS_PATH_URL", PATH_URL );
+            if (defined("HELP_URL") && HELP_URL != "") {
+                $this->template->setCurrentBlock("BLOCK_HELP");
+                  $this->template->setVariable( "HELP_TEXT", gettext( "Help" ) );
+                $this->template->setVariable( "HELP_URL", HELP_URL);
+                $this->template->parse("BLOCK_HELP");
+              }
+            $this->template->setVariable( "SIGN_IN_TEXT", gettext( "Sign In" ) );
+            $this->template->parse( "STATUS_GUEST_BLOCK" );*/
+        }
+    }
+
+    public function set_problem_description( $description = "", $solution = "" )
+    {
+        if ( ! empty( $_SESSION[ "error" ] ) ) {
+            $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
+            $this->template->setVariable( "PROBLEM_DESCRIPTION", $_SESSION[ "error" ] );
+            $this->template->parse( "PROBLEM_BLOCK" );
+            $_SESSION[ "error" ] = "";
+        } elseif ($description && $description != "") {
+            $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
+            //$this->template->setVariable( "PROBLEM_ICON", PATH_URL . "widgets/asset/emotes/wrong.png");
+            $this->template->setVariable( "PROBLEM_DESCRIPTION", $description );
+            $this->template->setVariable( "PROBLEM_SOLUTION", $solution );
+            $this->template->parse( "PROBLEM_BLOCK" );
+        } elseif(!empty($_SESSION["logout_session_expired"])){
+            $this->template->setCurrentBlock( "NOTIFICATION_BLOCK" );
+            $this->template->setVariable( "NOTIFICATION_DESCRIPTION", $_SESSION[ "logout_session_expired" ] );
+            $this->template->parse( "NOTIFICATION_BLOCK" );
+            $_SESSION["logout_session_expired"] = "";
+        }
+    }
+
+    public function set_page_title( $title = "" )
+    {
+        ($title == "") ? $this->template->setVariable( "PORTAL_TITLE", PLATFORM_TITLE ) : $this->template->setVariable( "PORTAL_TITLE", PLATFORM_TITLE . " - " . $title );
     }
 
     public function get_user()
@@ -564,6 +760,154 @@ return $rand_value;
         }
 
         return "";
+    }
+
+    public function set_environment ( $environment )
+    {
+        $this->environment = $environment;
+    }
+
+    public function get_paginator_start ( $max_items )
+    {
+        $current_page = ( ! empty( $_GET[ "page" ] ) ) ? $_GET[ "page" ] : 1;
+        if ( $current_page < 1 ) return 0;
+        else return ($current_page - 1) * $max_items;
+    }
+
+    public function set_rss_feed( $rss_link, $rss_name, $rss_dsc )
+    {
+        $this->template->setCurrentBlock( "BLOCK_RSS_FEED" );
+        $this->template->setVariable( "RSS_TITLE", $rss_name );
+        $this->template->setVariable( "RSS_LINK", $rss_link );
+        $this->template->parse( "BLOCK_RSS_FEED" );
+        $this->template->setCurrentBlock( "FEEDS_BLOCK" );
+            $this->template->setVariable( "RSS_STYLE_PATH", \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/rss.svg");
+            $this->template->setVariable( "RSS_FEED_LINK", $rss_link );
+            $this->template->setVariable( "RSS_FEED_NAME", $rss_name );
+            $this->template->setVariable( "RSS_FEED_DSC", $rss_dsc );
+        $this->template->parse( "FEEDS_BLOCK" );
+    }
+
+    public function get_html()
+    {
+        return $this->template->get();
+    }
+
+    public function show_html()
+    {
+
+        if (defined("CONF_CUSTOM_HEAD")) {
+            $this->template->setVariable("CONF_CUSTOM_HEAD", CONF_CUSTOM_HEAD);
+        }
+
+        // GENERATE HTML FOR MENU
+        if ($this->offline_status) {
+            $html_menu = $this->get_menu_html( "guest", FALSE );
+              $this->template->setVariable( "MENU_HTML", $html_menu );
+        } else {
+          $cache = get_cache_function( $this->lms_user->get_login(), 600 );
+          $html_menu = $cache->call("lms_portal::get_menu_html", $this->lms_user->get_login(), $this->lms_user->is_logged_in());
+          $this->template->setVariable( "MENU_HTML", $html_menu );
+
+          $html_icon_bar = lms_portal::$instance->get_icon_bar_html($this->lms_user->is_logged_in());
+          $this->template->setVariable( "ICON_BAR_HTML", $html_icon_bar );
+        }
+
+                // override standard logo with custom logo if available
+                $customLogoURL = "";
+                if (isset($GLOBALS["STEAM"]) && $GLOBALS["STEAM"]->get_login_status() === 1) {
+                    $customLogo = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/platform_logo");
+                    if ($customLogo instanceof \steam_object) {
+                        $everyone = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "everyone");
+                        if ($customLogo->check_access_read($everyone)) {
+                            $customLogoURL = PATH_URL . "download/image/" . $customLogo->get_id();
+                        }
+                    }
+                }
+                if (defined("CUSTOM_LOGO_URL") && CUSTOM_LOGO_URL != "") {
+                    $customLogoURL = CUSTOM_LOGO_URL;
+                }
+                if ($customLogoURL != "") {
+                    $this->template->setVariable("CUSTOM_LOGO_STYLE", "background: url(" . $customLogoURL . ") no-repeat;");
+                }
+        if ($this->prototype_enabled) {
+            $this->template->setCurrentBlock('HEAD_JAVASCRIPT_PROTOTYPE');
+            $this->template->setVariable( "PATH_JAVASCRIPT_2", PATH_JAVASCRIPT);
+            $this->template->setVariable( "KOALA_VERSION_2", KOALA_VERSION);
+            $this->template->parse('HEAD_JAVASCRIPT_PROTOTYPE');
+        }
+
+                //fix ie9 header problem
+                header("X-UA-Compatible: IE=Edge");
+
+        try {
+            while (ob_get_level() > 0) {
+                ob_end_flush();
+            }
+        } catch (Exception $e) {
+
+        }
+        if ($_SESSION["STATISTICS_LEVEL"] > 0) {
+            // output number of open-sTeam requests:
+            $this->template->setVariable( "STATISTICS_REQUESTS", " | " . (isset($GLOBALS["STEAM"]) ? $GLOBALS["STEAM"]->get_request_count() : "nc") . " " . gettext( "server requests" ) );
+            // output time taken to produce page:
+            if ($_SESSION["STATISTICS_LEVEL"] > 1 && isset( $GLOBALS["page_time_start"] ) ) {
+                $this->template->setVariable( "STATISTICS_PAGETIME", " | " . gettext( "page took" ) . " " . round((microtime(TRUE) - $GLOBALS["page_time_start"]) * 1000 ) . " ms" );
+            }
+        }
+
+        if (JAVASCRIPT_SECURITY) {
+            define("SHOW_SECURITY_PROBLEMS", FALSE);
+            //find body
+            preg_match_all("/(<body.*?<\\/body>)/is",$this->template->get(),$b_result);
+
+            //logging script
+            preg_match_all("/(<script.{0,100})/is",$b_result[1][0],$r_script);
+            $scripts = $r_script[1];
+            foreach ($scripts as $script) {
+                logging::write_log(LOG_SECURITY, "found script in " . $_SERVER["SCRIPT_NAME"] . " user:" . $this->lms_user->get_login() . "\n\t\t" . $script . "...");
+                if (SHOW_SECURITY_PROBLEMS) {
+                    echo "<pre style=\"color:red;\">" . "found script " . htmlspecialchars($script) . "</pre>";
+                }
+            }
+            //loggin link
+            preg_match_all("/(<link.{0,100})/is",$b_result[1][0],$r_link);
+            $links = $r_link[1];
+            foreach ($links as $link) {
+                logging::write_log(LOG_SECURITY, "found link in " . $_SERVER["SCRIPT_NAME"] . " user:" . $this->lms_user->get_login() . "\n\t\t" . $link . "...");
+                if (SHOW_SECURITY_PROBLEMS) {
+                    echo "<pre style=\"color:red;\">" . "found link " . htmlspecialchars($link) . "</pre>";
+                }
+            }
+            //remove <script
+            $clean_body = str_replace("<script", "", $b_result[1][0]);
+            //remove <link
+            $clean_body = str_replace("<link", "", $clean_body);
+            $clean_html = preg_replace("/(<body.*?<\\/body>)/is",$clean_body,$this->template->get());
+
+            //remove <... on...="..." onload, onclick, etc.
+            preg_match_all("/<body[^>]*>(.*)<\\/body>/is", $clean_html, $b_result);
+            $body_content = $b_result[1][0];
+            preg_match_all("/<[^>]*(\\s(on\\w*=((\"[^\"]*\")|('[^']*'))))+/is", $body_content, $on_result);
+            $ons = $on_result[1];
+            foreach ($ons as $on) {
+                logging::write_log(LOG_SECURITY, "found on*** in " . $_SERVER["SCRIPT_NAME"] . " user:" . $this->lms_user->get_login() . "\n\t\t" . $on);
+                if (SHOW_SECURITY_PROBLEMS) {
+                    echo "<pre style=\"color:red;\">" . "found on*** " . htmlspecialchars($on) . "</pre>";
+                }
+            }
+            $body_content = preg_replace("/<[^>]*\\s(on\\w*=((\"[^\"]*\")|('[^']*')))/is", "", $body_content);
+            preg_match_all("/(<body[^>]*>)/is", $clean_html, $r);
+            $body_start = $r[1][0];
+            $clean_html = preg_replace("/<body[^>]*>.*<\\/body>/is", $body_start . $body_content . "</body>", $clean_html);
+
+            return print $this->bid2PathFix($clean_html);
+        } else {
+                        $pageHtml = $this->template->get();
+
+            return print $this->bid2PathFix($pageHtml);
+        }
+
     }
 
     public static function get_menu_html( $cacheid, $is_logged_in )
@@ -718,395 +1062,6 @@ return $rand_value;
         return $koala_html_menu->get_html();
     }
 
-    public function set_environment ( $environment )
-    {
-        $this->environment = $environment;
-    }
-
-    private function set_status($offline = FALSE)
-    {
-        $this->offline_status = $offline;
-        if ( !$offline && ! isset( $this->lms_user ) ) {
-            // PORTAL NOT INITIALIZED YET
-            $this->initialized();
-        }
-
-        if ( !$offline && $this->lms_user->is_logged_in() ) {
-            $this->template->setVariable( "CURRENT_DATE", strftime( "%d.%m.%Y" ) ); // set current date
-            $cache = get_cache_function( $this->lms_user->get_login(), 600 );
-            $this->template->setCurrentBlock( "STATUS_SIGNED_IN_BLOCK" );
-            $this->template->setVariable( "SIGNED_IN_TEXT", gettext( "Signed in as" ) );
-            $this->template->setVariable( "SIGNED_IN_LOGIN_HOME", PATH_URL . "user/index/" . $this->lms_user->get_login() . "/" );
-            $this->template->setVariable( "SIGNED_IN_LOGIN_NAME", $this->lms_user->get_login() );
-
-            //switch for de-activating unread mails on the start page is MAILBOX_SHOW_UNREAD_ON_STARTPAGE
-            $messages_unread_string = "";
-
-            //$isForwarded = $this->lms_user->get_attribute( "USER_FORWARD_MSG");
-
-            if (YOUR_MAILBOX && ( MAILBOX_SHOW_UNREAD_ON_STARTPAGE)) {
-            $this->template->setVariable( "MESSAGES_URL", PATH_URL . "messages.php" );
-            $this->template->setVariable( "INBOX", gettext( "mailbox" )  );
-            //$no_messages_unread = $cache->call( "lms_steam::user_count_unread_mails", $this->lms_user->get_login() );
-            $no_messages_unread = databaseAccess::getUnreadMails($this->lms_user->get_login());
-            if ($no_messages_unread > 0) {
-                $this->template->setVariable( "MESSAGES_UNREAD", $no_messages_unread . "" );
-                $messages_unread_string.= "(".$no_messages_unread." ".gettext("unread").")";
-            } else {
-                $messages_unread_string.= "(0 ".gettext("unread").")";
-            }
-
-            $this->template->setVariable( "MESSAGES_UNREAD_LABEL", gettext( "unread" ) );
-            $this->template->setVariable( "CHECK_MAIL_TEXT", gettext( "Check your mail." ) );
-            $this->template->setVariable( "MESSAGES_UNREAD", $messages_unread_string);
-            }
-
-            if (YOUR_MAILBOX && !MAILBOX_SHOW_UNREAD_ON_STARTPAGE) {
-            $this->template->setVariable( "MESSAGES_URL", PATH_URL . "messages.php"  );
-            $this->template->setVariable( "INBOX", gettext( "mailbox" )  );
-            $messages_unread_string = "";
-            $this->template->setVariable( "CHECK_MAIL_TEXT", gettext( "Check your mail." ) );
-            $this->template->setVariable( "MESSAGES_UNREAD", $messages_unread_string);
-            }
-
-            if (defined("HELP_URL") && HELP_URL != "") {
-                $this->template->setCurrentBlock("BLOCK_HELP");
-                  $this->template->setVariable( "HELP_TEXT", gettext( "Help" ) );
-                $this->template->setVariable( "HELP_URL", HELP_URL);
-                $this->template->parse("BLOCK_HELP");
-              }
-
-            $this->template->setVariable( "SIGN_OUT_URL", URL_SIGNOUT );
-            $this->template->setVariable( "SIGN_OUT_TEXT", gettext( "Sign out" ) );
-            $this->template->setVariable( "SEARCH_DSC", gettext( "Enter keywords" ) );
-            $this->template->setVariable( "SEARCH_LABEL", gettext( "Search" ) );
-            $this->template->parse( "STATUS_SIGNED_IN_BLOCK" );
-        } else {
-                        if (defined("HELP_URL") && HELP_URL != "") {
-                            $this->template->setCurrentBlock("BLOCK_HELP_GUEST");
-                            $this->template->setVariable( "HELP_TEXT_GUEST", gettext( "Help" ) );
-                            $this->template->setVariable( "HELP_URL_GUEST", HELP_URL);
-                            $this->template->parse("BLOCK_HELP_GUEST");
-                        }
-
-            /*$this->template->setCurrentBlock( "STATUS_GUEST_BLOCK" );
-            $this->template->setVariable( "NOT_SIGNED_IN_TEXT", gettext( "You aren't signed in." ) );
-            $this->template->setVariable( "STATUS_PATH_URL", PATH_URL );
-            if (defined("HELP_URL") && HELP_URL != "") {
-                $this->template->setCurrentBlock("BLOCK_HELP");
-                  $this->template->setVariable( "HELP_TEXT", gettext( "Help" ) );
-                $this->template->setVariable( "HELP_URL", HELP_URL);
-                $this->template->parse("BLOCK_HELP");
-              }
-            $this->template->setVariable( "SIGN_IN_TEXT", gettext( "Sign In" ) );
-            $this->template->parse( "STATUS_GUEST_BLOCK" );*/
-        }
-    }
-
-    public function set_problem_description( $description = "", $solution = "" )
-    {
-        if ( ! empty( $_SESSION[ "error" ] ) ) {
-            $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
-            $this->template->setVariable( "PROBLEM_DESCRIPTION", $_SESSION[ "error" ] );
-            $this->template->parse( "PROBLEM_BLOCK" );
-            $_SESSION[ "error" ] = "";
-        } elseif ($description && $description != "") {
-            $this->template->setCurrentBlock( "PROBLEM_BLOCK" );
-            //$this->template->setVariable( "PROBLEM_ICON", PATH_URL . "widgets/asset/emotes/wrong.png");
-            $this->template->setVariable( "PROBLEM_DESCRIPTION", $description );
-            $this->template->setVariable( "PROBLEM_SOLUTION", $solution );
-            $this->template->parse( "PROBLEM_BLOCK" );
-        } elseif(!empty($_SESSION["logout_session_expired"])){
-            $this->template->setCurrentBlock( "NOTIFICATION_BLOCK" );
-            $this->template->setVariable( "NOTIFICATION_DESCRIPTION", $_SESSION[ "logout_session_expired" ] );
-            $this->template->parse( "NOTIFICATION_BLOCK" );
-            $_SESSION["logout_session_expired"] = "";
-        }
-    }
-
-    public function set_confirmation( $confirmation_text = "" )
-    {
-        if ( ! empty( $_SESSION[ "confirmation" ] ) ) {
-            $this->template->setCurrentBlock( "BLOCK_CONFIRMATION" );
-            $this->template->setVariable( "CONFIRMATION_TEXT", $_SESSION[ "confirmation" ] );
-            $this->template->parse( "BLOCK_CONFIRMATION" );
-            $_SESSION[ "confirmation" ] = "";
-        } elseif ($confirmation_text) {
-            $this->template->setCurrentBlock( "BLOCK_CONFIRMATION" );
-            $this->template->setVariable( "CONFIRMATION_TEXT", $confirmation_text );
-            $this->template->parse( "BLOCK_CONFIRMATION" );
-        }
-    }
-
-    /**
-     * Sets a pagination header for browsing through a list of items if necessary.
-     *
-     * @param object $template
-     * @param int    $max_items
-     * @param int    $no_items
-     * @param string $result_text the words %START, %END and %TOTAL will be replaced
-     *   by the corresponding pagination numbers. Note that the pagination header
-     *   (and thus the $result_text) will only be shown if pagination is necessary.
-     * @param  string $uri_params
-     * @return int    start index
-     */
-    public static function get_paginator($max_items, $no_items, $result_text = "", $uri_params = "")
-    {
-        $template = new HTML_Template_IT();
-        $template->loadTemplatefile(PATH_EXTENSIONS . "system/frame/ui/html/pageiterator.template.html");
-        if ($no_items <= $max_items) {
-            $result = array();
-            $result["startIndex"] = 0;
-            $result["html"] = "";
-
-            return $result;
-        }
-        $pages = ceil( $no_items / $max_items );
-        $current_page = ( ! empty( $_GET[ "page" ] ) ) ? $_GET[ "page" ] : 1;
-        if ($current_page < 1 || $current_page > $pages) {
-            $current_page = 1;
-        }
-
-        $link = '';
-        $link .= ( empty( $uri_params ) ) ? "?page=" : $uri_params . "&page=" ;
-        $template->setCurrentBlock( "BLOCK_PAGES" );
-        if ($current_page > 1) {
-            self::set_page( $template, "<a href='$link" . ( $current_page - 1 ) . "'>&laquo; " . gettext( "Prev" ) . "</a>" );
-        } else {
-            self::set_page( $template, "<span class='first'>&laquo; " . gettext( "Prev" ) . "</span>" );
-        }
-
-        $min = ( $current_page - 5 < 1 ) ? 1 : $current_page - 5;
-        if ($min > 1) {
-            self::set_page( $template, "| ..." );
-        }
-        for ($i = $min; $i < $current_page; $i++) {
-            self::set_page( $template, "| <a href=\"$link$i\">$i</a>" );
-        }
-        self::set_page( $template, "| <span class=\"current\">$i</span>" );
-
-        $max = ( $current_page + 5 > $pages ) ? $pages : $current_page + 5;
-        for ($i = $current_page + 1; $i <= $max; $i++) {
-            self::set_page( $template, "| <a href=\"$link$i\">$i</a>" );
-        }
-        if ($pages > $max) {
-            self::set_page( $template, "| ..." );
-        }
-
-        if ($current_page != $pages) {
-            self::set_page( $template, "| <a href=\"$link" . ($current_page + 1 ) . "\" class=\"next\">" . gettext( "Next" ) . " &raquo;</a>" );
-
-        } else {
-            self::set_page( $template, "| <span class=\"last\">" . gettext( "Next" ) . " &raquo;</span>" );
-        }
-
-        $start_index = ( $current_page - 1 ) * $max_items;
-        $end_index = $start_index + $max_items - 1;
-        if ( $end_index > $no_items ) $end_index = $no_items - 1;
-
-        if ( empty( $result_text ) ) $result_text = gettext( '(%TOTAL items total)' );
-        $template->setVariable( 'RESULTS', str_replace( array( '%START', '%END', '%TOTAL' ), array( $start_index+1, $end_index+1, $no_items ), $result_text ) );
-
-        $template->parse( "BLOCK_PAGES" );
-        $result = array();
-        $result["startIndex"] = $start_index;
-        $result["html"] = $template->get();
-
-        return $result;
-    }
-
-    public function get_paginator_start ( $max_items )
-    {
-        $current_page = ( ! empty( $_GET[ "page" ] ) ) ? $_GET[ "page" ] : 1;
-        if ( $current_page < 1 ) return 0;
-        else return ($current_page - 1) * $max_items;
-    }
-
-    private static function set_page( $template, $string )
-    {
-        $template->setCurrentBlock( "BLOCK_PAGE" );
-        $template->setVariable( "PAGE", $string );
-        $template->parse( "BLOCK_PAGE" );
-    }
-
-    public function set_rss_feed( $rss_link, $rss_name, $rss_dsc )
-    {
-        $this->template->setCurrentBlock( "BLOCK_RSS_FEED" );
-        $this->template->setVariable( "RSS_TITLE", $rss_name );
-        $this->template->setVariable( "RSS_LINK", $rss_link );
-        $this->template->parse( "BLOCK_RSS_FEED" );
-        $this->template->setCurrentBlock( "FEEDS_BLOCK" );
-            $this->template->setVariable( "RSS_STYLE_PATH", \Explorer::getInstance()->getAssetUrl() . "icons/mimetype/svg/rss.svg");
-            $this->template->setVariable( "RSS_FEED_LINK", $rss_link );
-            $this->template->setVariable( "RSS_FEED_NAME", $rss_name );
-            $this->template->setVariable( "RSS_FEED_DSC", $rss_dsc );
-        $this->template->parse( "FEEDS_BLOCK" );
-    }
-
-    public function get_html()
-    {
-        return $this->template->get();
-    }
-
-    public function show_html()
-    {
-
-        if (defined("CONF_CUSTOM_HEAD")) {
-            $this->template->setVariable("CONF_CUSTOM_HEAD", CONF_CUSTOM_HEAD);
-        }
-
-        // GENERATE HTML FOR MENU
-        if ($this->offline_status) {
-            $html_menu = $this->get_menu_html( "guest", FALSE );
-              $this->template->setVariable( "MENU_HTML", $html_menu );
-        } else {
-          $cache = get_cache_function( $this->lms_user->get_login(), 600 );
-          $html_menu = $cache->call("lms_portal::get_menu_html", $this->lms_user->get_login(), $this->lms_user->is_logged_in());
-          $this->template->setVariable( "MENU_HTML", $html_menu );
-
-          $html_icon_bar = lms_portal::$instance->get_icon_bar_html($this->lms_user->is_logged_in());
-          $this->template->setVariable( "ICON_BAR_HTML", $html_icon_bar );
-        }
-
-                // override standard logo with custom logo if available
-                $customLogoURL = "";
-                if (isset($GLOBALS["STEAM"]) && $GLOBALS["STEAM"]->get_login_status() === 1) {
-                    $customLogo = steam_factory::get_object_by_name($GLOBALS["STEAM"]->get_id(), "/platform_logo");
-                    if ($customLogo instanceof \steam_object) {
-                        $everyone = steam_factory::groupname_to_object($GLOBALS["STEAM"]->get_id(), "everyone");
-                        if ($customLogo->check_access_read($everyone)) {
-                            $customLogoURL = PATH_URL . "download/image/" . $customLogo->get_id();
-                        }
-                    }
-                }
-                if (defined("CUSTOM_LOGO_URL") && CUSTOM_LOGO_URL != "") {
-                    $customLogoURL = CUSTOM_LOGO_URL;
-                }
-                if ($customLogoURL != "") {
-                    $this->template->setVariable("CUSTOM_LOGO_STYLE", "background: url(" . $customLogoURL . ") no-repeat;");
-                }
-        if ($this->prototype_enabled) {
-            $this->template->setCurrentBlock('HEAD_JAVASCRIPT_PROTOTYPE');
-            $this->template->setVariable( "PATH_JAVASCRIPT_2", PATH_JAVASCRIPT);
-            $this->template->setVariable( "KOALA_VERSION_2", KOALA_VERSION);
-            $this->template->parse('HEAD_JAVASCRIPT_PROTOTYPE');
-        }
-
-                //fix ie9 header problem
-                header("X-UA-Compatible: IE=Edge");
-
-        try {
-            while (ob_get_level() > 0) {
-                ob_end_flush();
-            }
-        } catch (Exception $e) {
-
-        }
-        if ($_SESSION["STATISTICS_LEVEL"] > 0) {
-            // output number of open-sTeam requests:
-            $this->template->setVariable( "STATISTICS_REQUESTS", " | " . (isset($GLOBALS["STEAM"]) ? $GLOBALS["STEAM"]->get_request_count() : "nc") . " " . gettext( "server requests" ) );
-            // output time taken to produce page:
-            if ($_SESSION["STATISTICS_LEVEL"] > 1 && isset( $GLOBALS["page_time_start"] ) ) {
-                $this->template->setVariable( "STATISTICS_PAGETIME", " | " . gettext( "page took" ) . " " . round((microtime(TRUE) - $GLOBALS["page_time_start"]) * 1000 ) . " ms" );
-            }
-        }
-
-        if (JAVASCRIPT_SECURITY) {
-            define("SHOW_SECURITY_PROBLEMS", FALSE);
-            //find body
-            preg_match_all("/(<body.*?<\\/body>)/is",$this->template->get(),$b_result);
-
-            //logging script
-            preg_match_all("/(<script.{0,100})/is",$b_result[1][0],$r_script);
-            $scripts = $r_script[1];
-            foreach ($scripts as $script) {
-                logging::write_log(LOG_SECURITY, "found script in " . $_SERVER["SCRIPT_NAME"] . " user:" . $this->lms_user->get_login() . "\n\t\t" . $script . "...");
-                if (SHOW_SECURITY_PROBLEMS) {
-                    echo "<pre style=\"color:red;\">" . "found script " . htmlspecialchars($script) . "</pre>";
-                }
-            }
-            //loggin link
-            preg_match_all("/(<link.{0,100})/is",$b_result[1][0],$r_link);
-            $links = $r_link[1];
-            foreach ($links as $link) {
-                logging::write_log(LOG_SECURITY, "found link in " . $_SERVER["SCRIPT_NAME"] . " user:" . $this->lms_user->get_login() . "\n\t\t" . $link . "...");
-                if (SHOW_SECURITY_PROBLEMS) {
-                    echo "<pre style=\"color:red;\">" . "found link " . htmlspecialchars($link) . "</pre>";
-                }
-            }
-            //remove <script
-            $clean_body = str_replace("<script", "", $b_result[1][0]);
-            //remove <link
-            $clean_body = str_replace("<link", "", $clean_body);
-            $clean_html = preg_replace("/(<body.*?<\\/body>)/is",$clean_body,$this->template->get());
-
-            //remove <... on...="..." onload, onclick, etc.
-            preg_match_all("/<body[^>]*>(.*)<\\/body>/is", $clean_html, $b_result);
-            $body_content = $b_result[1][0];
-            preg_match_all("/<[^>]*(\\s(on\\w*=((\"[^\"]*\")|('[^']*'))))+/is", $body_content, $on_result);
-            $ons = $on_result[1];
-            foreach ($ons as $on) {
-                logging::write_log(LOG_SECURITY, "found on*** in " . $_SERVER["SCRIPT_NAME"] . " user:" . $this->lms_user->get_login() . "\n\t\t" . $on);
-                if (SHOW_SECURITY_PROBLEMS) {
-                    echo "<pre style=\"color:red;\">" . "found on*** " . htmlspecialchars($on) . "</pre>";
-                }
-            }
-            $body_content = preg_replace("/<[^>]*\\s(on\\w*=((\"[^\"]*\")|('[^']*')))/is", "", $body_content);
-            preg_match_all("/(<body[^>]*>)/is", $clean_html, $r);
-            $body_start = $r[1][0];
-            $clean_html = preg_replace("/<body[^>]*>.*<\\/body>/is", $body_start . $body_content . "</body>", $clean_html);
-
-            return print $this->bid2PathFix($clean_html);
-        } else {
-                        $pageHtml = $this->template->get();
-
-            return print $this->bid2PathFix($pageHtml);
-        }
-
-    }
-
-    public function set_page_title( $title = "" )
-    {
-        ($title == "") ? $this->template->setVariable( "PORTAL_TITLE", PLATFORM_TITLE ) : $this->template->setVariable( "PORTAL_TITLE", PLATFORM_TITLE . " - " . $title );
-    }
-
-    public function set_headline2( $headline )
-    {
-        if ( is_array( $headline ) ) {
-            $new_headline = "<h4><a href=\"" . $headline[ "link" ] . "\">" . $headline[ "name" ] . "</a></h4>";
-            $this->template->setVariable( "HEADLINE2", $new_headline );
-        } else {
-            $new_headline .= "<h4>$headline</h4>";
-        }
-    }
-
-    public function set_page_main( $headline, $main_html = "")
-    {
-        if ( is_array( $headline ) ) {
-            $new_headline  = "<h1>";
-            $slash = "";
-            foreach ($headline as $sub_path) {
-                $new_headline .= $slash . " ";
-                if ( empty( $sub_path[ "link" ] ) ) {
-                    $new_headline .= $sub_path[ "name" ];
-                } else {
-                    $new_headline .= "<a href=\"" . $sub_path[ "link" ] . "\" style=\"text-decoration: none;\">" . $sub_path[ "name" ]. "</a>";
-                }
-                $slash = " / ";
-            }
-            $new_headline .= "</h1>";
-        } elseif ( ! empty( $headline ) ) {
-            $new_headline = "<h1>$headline</h1>";
-        }
-        if ( !empty( $new_headline ) ) $this->template->setVariable( "HEADLINE1", $new_headline );
-        $this->template->setVariable( "MAIN_HTML", $main_html );
-    }
-
-    public function __destruct()
-    {
-        lms_steam::disconnect();
-    }
-
         public function bid2PathFix($html)
         {
             // lernstatt
@@ -1152,4 +1107,50 @@ return $rand_value;
 
             return $html;
         }
+
+    public function set_headline2( $headline )
+    {
+        if ( is_array( $headline ) ) {
+            $new_headline = "<h4><a href=\"" . $headline[ "link" ] . "\">" . $headline[ "name" ] . "</a></h4>";
+        } else {
+            $new_headline = "<h4>$headline</h4>";
+        }
+        $this->template->setVariable( "HEADLINE2", $new_headline );
+    }
+
+    public function set_page_main( $headline, $main_html = "")
+    {
+        if ( is_array( $headline ) ) {
+            $new_headline  = "<h1>";
+            $slash = "";
+            foreach ($headline as $sub_path) {
+                $new_headline .= $slash . " ";
+                if ( empty( $sub_path[ "link" ] ) ) {
+                    $new_headline .= $sub_path[ "name" ];
+                } else {
+                    $new_headline .= "<a href=\"" . $sub_path[ "link" ] . "\" style=\"text-decoration: none;\">" . $sub_path[ "name" ]. "</a>";
+                }
+                $slash = " / ";
+            }
+            $new_headline .= "</h1>";
+        } elseif ( ! empty( $headline ) ) {
+            $new_headline = "<h1>$headline</h1>";
+        }
+        if ( !empty( $new_headline ) ){
+            $this->template->setVariable( "HEADLINE1", $new_headline );
+        }
+        $this->template->setVariable( "MAIN_HTML", $main_html );
+    }
+
+    public function __destruct()
+    {
+        lms_steam::disconnect();
+    }
+
+    private function getUniqueCode($length = "")
+    {
+        $code = md5(uniqid(rand(), true));
+        if ($length != "") return substr($code, 0, $length);
+        else return $code;
+    }
 }

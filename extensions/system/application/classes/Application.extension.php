@@ -118,7 +118,7 @@ class Application extends AbstractExtension implements IApplicationExtension, II
                         $data = \Widgets\Widget::getData($frameResponeObject->getWidgets());
                         $frame->add_css_style($data["css"]);
                         $frame->add_javascript_code("Widgets", $data["js"]);
-                        $frame->set_page_main($frameResponeObject->getHeadline(), $data["html"] . "<script type=\"text/javascript\">{$data["postjs"]}</script>", "");
+                        $frame->set_page_main($frameResponeObject->getHeadline(), $data["html"] . "<script type=\"text/javascript\">{$data["postjs"]}</script>");
                         $frame->set_page_title($frameResponeObject->getTitle());
                         $frame->set_confirmation($frameResponeObject->getConfirmText());
                         $frame->set_problem_description($frameResponeObject->getProblemDescription(), $frameResponeObject->getProblemSolution());
