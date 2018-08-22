@@ -1,5 +1,5 @@
 <?php
-class Error extends AbstractExtension {
+class SystemError extends AbstractExtension {
 	
 	public function getName() {
 		return "Error";

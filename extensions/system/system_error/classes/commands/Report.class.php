@@ -1,5 +1,5 @@
 <?php
-namespace Error\Commands;
+namespace SystemError\Commands;
 class Report extends \AbstractCommand implements \IFrameCommand
 {
     private $params;
