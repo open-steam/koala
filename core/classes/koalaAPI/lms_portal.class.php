@@ -1118,8 +1118,9 @@ return $rand_value;
         $this->template->setVariable( "HEADLINE2", $new_headline );
     }
 
-    public function set_page_main( $headline, $main_html = "")
+    public function set_page_main($headline, $main_html = "")
     {
+        $this->template->setCurrentBlock();
         if ( is_array( $headline ) ) {
             $new_headline  = "<h1>";
             $slash = "";
