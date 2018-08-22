@@ -7,4 +7,3 @@ interface IIdCommand extends ICommand {
 	public function idResponse(IdResponseObject $idResponseObject);
 	
 }
-?>

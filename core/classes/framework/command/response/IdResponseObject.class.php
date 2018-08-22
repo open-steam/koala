@@ -11,4 +11,3 @@ class IdResponseObject extends GenericObject implements IResponseObject{
 	}
 
 }
-?>
