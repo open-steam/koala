@@ -887,7 +887,7 @@ function isPhpCli() {
 }
 
 function isErrorPage() {
-    return stristr($_SERVER['REQUEST_URI'], "/error/report/");
+    return stristr($_SERVER['REQUEST_URI'], "/systemerror/report/");
 }
 
 function buffer_flush() {
