@@ -232,5 +232,3 @@ class ViewDocument extends \AbstractCommand implements \IFrameCommand {
     }
 
 }
-
-?>
