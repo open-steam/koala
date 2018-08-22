@@ -11,7 +11,7 @@
  * with this package in the file LICENSE, and is available through
  * the world-wide-web at
  * http://www.opensource.org/licenses/bsd-license.php
- * If you did not receive a copy of the new BSDlicense and are unable
+ * If you did not receive a copy of the new BSD license and are unable
  * to obtain it through the world-wide-web, please send a note to
  * pajoye@php.net so we can mail you a copy immediately.
  *
@@ -53,8 +53,8 @@ class IT_Error extends PEAR_Error
      * Creates an cache error object.
      *
      * @param string $msg  error message
-     * @param string $file file where the error occured
-     * @param string $line linenumber where the error occured
+     * @param string $file file where the error occurred
+     * @param string $line linenumber where the error occurred
      */
     function __construct($msg, $file = __FILE__, $line = __LINE__)
     {
