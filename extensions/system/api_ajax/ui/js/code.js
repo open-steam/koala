@@ -289,7 +289,7 @@ function handleError(errorTitle, errorDescription, requestParams) {
         createCookie("description", escape(errorDescription), 1);
         createCookie("location", location.href, 1);
         createCookie("params", JSON.stringify(requestParams), 1);
-        window.location = PATH_URL + "error/report/4400/";
+        window.location = PATH_URL + "systemerror/report/4400/";
     }
 }
 
