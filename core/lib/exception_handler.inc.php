@@ -136,7 +136,7 @@ function send_http_error($pException, $pBacktrace = "", $silent = false)
                 $error_id = "missing";
             }
             if (!defined("URL_ERROR_REPORT")) {
-                echo "Extension for error handling not loaded.<br><pre>" . $pException->getMessage() . "</pre>";
+                echo "Extension for error handling not loaded.<br><pre>" . $pException->getMessage() . '<br>' . $pException->getTraceAsString() . "</pre>";
                 die;
             } else {
                 ($silent) or header( 'Location: ' . URL_ERROR_REPORT . $pException->getCode() . "/" . $error_id);
