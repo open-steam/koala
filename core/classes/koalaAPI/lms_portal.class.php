@@ -507,7 +507,8 @@ return $rand_value;
         // $this->add_javascript( PATH_JAVASCRIPT . "bbcode.js?version=".KOALA_VERSION );
         // $this->add_javascript( PATH_JAVASCRIPT . "javascript_minimized.js?version=".KOALA_VERSION );
 
-        $this->template->setVariable( "PATH_JAVASCRIPT", PATH_JAVASCRIPT );
+
+        //$this->template->setVariable( "PATH_JAVASCRIPT", PATH_JAVASCRIPT );
         $this->template->setVariable( "KOALA_VERSION", KOALA_VERSION);
 
         // GENERATE HTML FOR STATUS-DIV
