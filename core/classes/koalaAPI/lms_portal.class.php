@@ -386,6 +386,7 @@ return $rand_value;
 
     private function add_body_params( $params = "" )
     {
+        $this->template->setCurrentBlock();
         $this->template->setVariable( "BODY_PARAMS", $params );
     }
 
