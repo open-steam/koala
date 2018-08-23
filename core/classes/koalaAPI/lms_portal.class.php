@@ -479,6 +479,7 @@ return $rand_value;
           }
         }
 
+        $this->template->setCurrentBlock();
         $this->template->setVariable( "LOGO_PATH", $logoPath);
 
         // SET LOGO URL
