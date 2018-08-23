@@ -769,6 +769,8 @@ class HTML_Template_IT
         } else {
             if ($this->checkPlaceholderExists($this->currentBlock, $variable)) {
                 $this->variableCache[$variable] = $value;
+            } else {
+                throw new Exception("IT Template Error: {$variable} doesn't exist in block {$this->currentBlock} in template {$this->lastTemplatefile}");
             }
         }
     } // end func setVariable
