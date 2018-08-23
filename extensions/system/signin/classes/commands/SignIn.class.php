@@ -108,7 +108,6 @@ class SignIn extends \AbstractCommand implements \IFrameCommand {
         $content->setVariable("LOGIN_NAME_TEXT", gettext("Login"));
         $content->setVariable("PASSWORD_NAME_TEXT", gettext("Password"));
         $content->setVariable("SIGNIN_BUTTON_TEXT", gettext("Sign in"));
-        $content->setVariable("RETURN_TEXT", gettext("return to the home page"));
         $content->setVariable("REQUEST_URI", (isset($this->request) ? $this->request : ""));
         if (isset($values) && is_array($values)) {
             $content->setVariable("VALUE_LOGIN", trim($values["login"]));
