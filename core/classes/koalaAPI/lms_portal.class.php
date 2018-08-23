@@ -708,6 +708,7 @@ return $rand_value;
 
     public function set_page_title( $title = "" )
     {
+        $this->template->setCurrentBlock();
         ($title == "") ? $this->template->setVariable( "PORTAL_TITLE", PLATFORM_TITLE ) : $this->template->setVariable( "PORTAL_TITLE", PLATFORM_TITLE . " - " . $title );
     }
 
