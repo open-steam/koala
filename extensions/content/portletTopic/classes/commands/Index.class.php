@@ -177,7 +177,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         //if there is a description parse out
                         $tmpl->setCurrentBlock("topic_display_description");
                         if (trim(@$topic["description"]) == "") { //TODO: fix notice
-                            $tmpl->setVariable("TOPIC_DISPLAY_DESCRIPTION", "");
+                            // $tmpl->setVariable("TOPIC_DISPLAY_DESCRIPTION", "");
                         } else {
                             //$tmpl->parse("TOPIC_DISPLAY_DESCRIPTION", "topic_display_description");
                         }
