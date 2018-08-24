@@ -84,8 +84,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $popupmenu->setCommand("PortletGetPopupMenuReference");
                 $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
             }
-
-            $tmpl->setVariable("EDIT_BUTTON", "");
+            
             $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
             $tmpl->setVariable("HEADLINE", $content["headline"]);
 
