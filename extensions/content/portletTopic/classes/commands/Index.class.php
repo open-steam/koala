@@ -120,26 +120,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         if (sizeof($content) > 0) {
             $categoryCount = 0;
             foreach ($content as $category) {
-                /*
-                  $tmpl->setCurrentBlock("category");
-                  //popupmenu category
-                  if ($portlet->check_access_write(\lms_steam::get_current_user())) {
-                  $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_CATEGORY");
-                  $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
-
-                  $popupmenu = new \Widgets\PopupMenu();
-                  $popupmenu->setData($portlet);
-                  $popupmenu->setNamespace("PortletTopic");
-                  $popupmenu->setElementId("portal-overlay");
-                  $popupmenu->setCommand("GetPopupMenuCategory");
-                  $popupmenu->setParams(array(array("key" => "category", "value" => $categoryCount)));
-                  $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
-                  $tmpl->parse("BLOCK_EDIT_BUTTON_CATEGORY");
-                  }
-
-                  $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode(@$category["title"]));
-                 */
-                $tmpl->setVariable("TOPIC_ENTRY", "");
 
                 if (isset($category["topics"])) {
                     $entryCount = 0;
