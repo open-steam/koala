@@ -853,6 +853,7 @@ return $rand_value;
         }
         if ($_SESSION["STATISTICS_LEVEL"] > 0) {
             // output number of open-sTeam requests:
+            $this->template->setCurrentBlock();
             $this->template->setVariable( "STATISTICS_REQUESTS", " | " . (isset($GLOBALS["STEAM"]) ? $GLOBALS["STEAM"]->get_request_count() : "nc") . " " . gettext( "server requests" ) );
             // output time taken to produce page:
             if ($_SESSION["STATISTICS_LEVEL"] > 1 && isset( $GLOBALS["page_time_start"] ) ) {
