@@ -200,7 +200,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         $message->set_content($UBB->encode($message->get_content()));
                     }
                     
-                    $tmpl->setVariable("MESSAGE_LINK", "");
                     $tmpl->setVariable("MESSAGE_HEADLINE", $UBB->encode(rawurldecode($message->get_attribute("OBJ_NAME"))));
                     if ($UBB->encode($message->get_attribute("OBJ_DESC")) != "") {
                         $tmpl->setVariable("MESSAGE_SUBHEADLINE", $UBB->encode($message->get_attribute("OBJ_DESC")));
