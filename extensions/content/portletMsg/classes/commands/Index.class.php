@@ -239,7 +239,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             }
                         }
 
-                        
+
                         $tmpl->setVariable("MESSAGE_PICTURE_URL", getDownloadUrlForObjectId($message->get_attribute("bid:portlet:msg:picture_id")));
                         $tmpl->setVariable("MESSAGE_PICTURE_ALIGNMENT", $alignment);
                         $tmpl->setVariable("MESSAGE_PICTURE_WIDTH", $picture_width);
@@ -289,8 +289,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Meldungen vorhanden.");
                 $tmpl->parse("BLOCK_NO_MESSAGE");
             }
-            $tmpl->setVariable("PATH_URL", PATH_URL);
-            $tmpl->parse("BLOCK_PORTLET_MESSAGE");
             $htmlBody = $tmpl->get();
             $this->content = $htmlBody;
         } catch (\steam_exception $e) {
