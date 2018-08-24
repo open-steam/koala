@@ -239,7 +239,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             }
                         }
 
-                        $tmpl->setVariable("MESSAGE_PICTURE_ID", $message->get_attribute("bid:portlet:msg:picture_id")); //not used anymore
+                        
                         $tmpl->setVariable("MESSAGE_PICTURE_URL", getDownloadUrlForObjectId($message->get_attribute("bid:portlet:msg:picture_id")));
                         $tmpl->setVariable("MESSAGE_PICTURE_ALIGNMENT", $alignment);
                         $tmpl->setVariable("MESSAGE_PICTURE_WIDTH", $picture_width);
