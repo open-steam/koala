@@ -271,6 +271,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     }
                     $tmpl->setVariable("ONLY_SUBHEADLINE", $onlySubheadline);
                     $tmpl->setVariable("ONLY_HEADLINE", $onlyHeadline);
+                    $tmpl->setCurrentBlock("BLOCK_MESSAGE");
                     $tmpl->setVariable("MESSAGE_ID", $messageId);
                     $tmpl->parse("BLOCK_MESSAGE");
                 }
