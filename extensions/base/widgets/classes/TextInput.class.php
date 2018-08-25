@@ -195,6 +195,7 @@ class TextInput extends Widget {
             $this->getContent()->parse("BLOCK_FOCUS");
         }
 
+        $this->getContent()->setCurrentBlock();
         if ($this->readOnly) {
             $this->getContent()->setVariable("READONLY", "readonly");
         }
