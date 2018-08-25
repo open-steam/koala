@@ -812,6 +812,7 @@ return $rand_value;
           $this->template->setVariable( "MENU_HTML", $html_menu );
 
           $html_icon_bar = lms_portal::$instance->get_icon_bar_html($this->lms_user->is_logged_in());
+          $this->template->setCurrentBlock();
           $this->template->setVariable( "ICON_BAR_HTML", $html_icon_bar );
         }
 
