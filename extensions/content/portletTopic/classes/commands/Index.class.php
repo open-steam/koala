@@ -92,8 +92,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //popupmenu main
         if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
-            $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
-
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("PortletTopic");
@@ -129,8 +127,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         //popupmenu topic
                         if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_TOPIC");
-                            $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
-
                             $popupmenu = new \Widgets\PopupMenu();
                             $popupmenu->setData($portlet);
                             $popupmenu->setNamespace("PortletTopic");
