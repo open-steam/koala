@@ -75,8 +75,6 @@ class Textarea extends Widget {
             $this->setId(rand());
         }
         $this->getContent()->setVariable("ID", $this->id);
-        $id2 = $this->id;
-        $this->getContent()->setVariable("ID2", $id2);
         $this->getContent()->setVariable("PATH_URL", PATH_URL);
 
         //write sanction
@@ -122,4 +120,3 @@ class Textarea extends Widget {
         return $this->getContent()->get().$pollingDummy->getHtml();
     }
 }
-?>
