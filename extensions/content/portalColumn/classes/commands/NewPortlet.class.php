@@ -70,7 +70,8 @@ class NewPortlet extends \AbstractCommand implements \IAjaxCommand {
 			if (defined("CREATE_RESTRICTED_TO_ROOT") && !$isRoot && strstr(strtolower(CREATE_RESTRICTED_TO_ROOT), strtolower($namespaces[0]))) continue;
 
 			$url = $command->getExtension()->getObjectIconUrl();
-			$name = str_replace(".svg", "", array_pop(explode("/", $url)));
+			$urlParts = explode("/", $url);
+			$name = str_replace(".svg", "", array_pop($urlParts));
 
 			$html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\" style=\"display:block; clear:both;\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . $url . "#" . $name . "' /></svg><p style='float:left; top: -10px; position: relative; left: 5px;'>{$command->getExtension()->getObjectReadableName()}</p></a>";
 
