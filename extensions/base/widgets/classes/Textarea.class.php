@@ -100,8 +100,7 @@ class Textarea extends Widget {
                 $this->labelClass = "texthidden";
             }
         }
-
-        $this->getContent()->setVariable("LINEBREAKS", $this->linebreaks);
+        
         $this->getContent()->setVariable("VALUE", $currentValue);
         $this->getContent()->setVariable("LEAVE_MESSAGE", $this->leaveMessage);
         $this->getContent()->setVariable("ADDITIONAL_LABEL_CLASSES", $this->labelClass);
