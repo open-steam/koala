@@ -122,7 +122,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                 $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");
-                $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
+                //$tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
                 $tmpl->parse("BLOCK_EDIT_BUTTON");
             }
 
