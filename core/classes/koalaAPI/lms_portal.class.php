@@ -657,12 +657,10 @@ return $rand_value;
                 $this->template->setVariable( "HELP_URL", HELP_URL);
                 $this->template->parse("BLOCK_HELP");
               }
-
+            $this->template->setCurrentBlock("STATUS_SIGNED_IN_BLOCK");
             $this->template->setVariable( "SIGN_OUT_URL", URL_SIGNOUT );
             $this->template->setVariable( "SIGN_OUT_TEXT", gettext( "Sign out" ) );
-            $this->template->setVariable( "SEARCH_DSC", gettext( "Enter keywords" ) );
-            $this->template->setVariable( "SEARCH_LABEL", gettext( "Search" ) );
-            $this->template->parse( "STATUS_SIGNED_IN_BLOCK" );
+            $this->template->parse("STATUS_SIGNED_IN_BLOCK");
         } else {
                         if (defined("HELP_URL") && HELP_URL != "") {
                             $this->template->setCurrentBlock("BLOCK_HELP_GUEST");
