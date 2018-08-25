@@ -167,7 +167,9 @@ class Dialog extends Widget{
             } else {
                 $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_LABEL", $this->saveAndCloseButtonLabel);
             }
+            $this->getContent()->parse("SAVE_AND_CLOSE_BUTTON");
 
+            $this->getContent()->setCurrentBlock();
             $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_JS", $this->saveAndCloseButtonJs);
 
             if ($this->saveAndCloseButtonForceReload || $this->autoSaveDialog) {
@@ -175,7 +177,7 @@ class Dialog extends Widget{
             } else {
                 $this->getContent()->setVariable("SAVE_AND_CLOSE_BUTTON_RELOAD", "");
             }
-            $this->getContent()->parse("SAVE_AND_CLOSE_BUTTON");
+
         }
         return $this->getContent()->get();
     }
