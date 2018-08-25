@@ -67,7 +67,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
         $tmpl->setVariable("APPOINTMENT_NAME", $portlet_name);
-        $tmpl->setVariable("linkurl", "");
 
         //if the title is empty the headline will not be displayed (only in edit mode)
         if (trim($portlet_name == "")) {
