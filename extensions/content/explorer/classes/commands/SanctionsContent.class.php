@@ -346,8 +346,8 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("RIGHTS_HELP_PAGE", "https://bid.lspb.de/explorer/ViewDocument/1204915/");
         }
 
-        $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
-        $this->content->setVariable("STEAMID", $this->steamgroupId);
+        // $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
+        // $this->content->setVariable("STEAMID", $this->steamgroupId);
         $this->content->setVariable("SEND_REQUEST_ACQ", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": acquire_checkbox }, "", "data", function(response){dataSaveFunctionCallback(response);}, null, "explorer");');
     }
 
