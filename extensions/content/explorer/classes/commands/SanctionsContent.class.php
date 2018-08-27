@@ -668,8 +668,9 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         if (count($this->userMapping) == 0) {
             $this->content->setVariable("NO_FAV_MEMBER", "Es können keinem Benutzer Rechte zugewiesen werden. ");
         } else {
+            $this->content->setCurrentBlock();
             // $this->content->setVariable("DUMMY_FAV", "");
-            // $this->content->setVariable("DUMMY_FAV_ACQ", "");
+            $this->content->setVariable("DUMMY_FAV_ACQ", "");
 
             if (count($this->userMapping) > 4) {
                 $this->content->setVariable("CSS_USER", "display:block; height:104px;");
