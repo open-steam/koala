@@ -506,6 +506,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         if (count($this->groupMapping) == 0) {
             $this->content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
+            $this->content->setCurrentBlock();
             if (count($this->groupMapping) > 4) {
                 $this->content->setVariable("CSS_GROUPS", "height:104px;");
             } else {
