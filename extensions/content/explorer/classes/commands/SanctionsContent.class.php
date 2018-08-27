@@ -779,7 +779,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $maxSanct = 0;
                     $maxSanctFromGroupMembership = 0;
                     foreach ($user->get_groups() as $group) {
-                        if (isset($this->groupMapping[$group->get_id()]) && $group != $this->steamgroup && $group->get_attribute("GROUP_INVISIBLE") !== true) {
+                        if (isset($this->groupsRightsAcq[$group->get_id()]) && $group != $this->steamgroup && $group->get_attribute("GROUP_INVISIBLE") !== true) {
                             $currentValue = $this->groupsRightsAcq[$group->get_id()];
                             if ($currentValue > $maxSanct) {
                                 $maxSanctFromGroupMembership = $currentValue;
