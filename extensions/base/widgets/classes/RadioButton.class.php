@@ -179,7 +179,9 @@ class RadioButton extends Widget {
                     $this->getContent()->setCurrentBlock("BLOCK_RADIOFIELD");
                 }
                 if ($currentValue == $option["value"]) {
+                    $this->getContent()->setCurrentBlock();
                     $this->getContent()->setVariable("CHECKED_HORIZONTAL", "checked");
+                    $this->getContent()->setCurrentBlock("BLOCK_RADIOFIELD");
                 }
 
                 if ($this->autosave){
