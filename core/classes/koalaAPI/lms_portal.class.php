@@ -805,7 +805,8 @@ return $rand_value;
         // GENERATE HTML FOR MENU
         if ($this->offline_status) {
             $html_menu = $this->get_menu_html( "guest", FALSE );
-              $this->template->setVariable( "MENU_HTML", $html_menu );
+            $this->template->setCurrentBlock();
+            $this->template->setVariable( "MENU_HTML", $html_menu );
         } else {
           $cache = get_cache_function( $this->lms_user->get_login(), 600 );
           $html_menu = $cache->call("lms_portal::get_menu_html", $this->lms_user->get_login(), $this->lms_user->is_logged_in());
