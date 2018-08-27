@@ -248,9 +248,10 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
             }
 
             if (is_array($messages) && isset($messages)) {
+                /*
                 if (count($messages) > 0) {
                     $content->setVariable("EXISTS_REPLY", "Antworten");
-                }
+                }*/
 
                 foreach ($messages as $message) {
                     $id = $message->get_id();
