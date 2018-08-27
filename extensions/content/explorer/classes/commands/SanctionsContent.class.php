@@ -649,7 +649,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
                     $this->content->setVariable("GROUPID_ACQ", $id); 
                     $this->content->setVariable("GROUPNAME_ACQ", $name . " (" . $realname . ")");
-                    $this->content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $this->dropdownValueAcqSteamGroup));
+                    // $this->content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $this->dropdownValueAcqSteamGroup));
                     $this->content->setVariable("INDENTINDEX_ACQ", $indent);
                     $this->content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
                     if (isset($this->favorites[$id])) {
