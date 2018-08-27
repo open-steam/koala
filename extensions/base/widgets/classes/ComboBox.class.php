@@ -77,7 +77,6 @@ class ComboBox extends Widget {
 
 			$this->getContent()->setVariable("ID", $this->id);
 			$this->getContent()->setVariable("ID2", $this->id);
-			$this->getContent()->setVariable("ID3", $this->id);
 			$this->getContent()->setVariable("SIZE", $this->size);
 			$this->getContent()->setVariable("COMBONAME", $this->id);
 
