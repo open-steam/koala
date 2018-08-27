@@ -196,7 +196,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("CATEGORIE_NAME", $categoryAttributes[OBJ_DESC]);
             $content->setVariable("FORUM_OWNER", $forumCreator->get_full_name());
             $content->setVariable("FORUM_OWNER_URL", PATH_URL . "profile/index/" . $forumCreator->get_name());
-            $content->setVariable("CATEGORIE_DESCRIPTION", $categoryAttributes["bid:description"]);
+            // $content->setVariable("CATEGORIE_DESCRIPTION", $categoryAttributes["bid:description"]);
             $content->setVariable("CATEGORIE_CREATOR", $categoryCreator->get_full_name());
             $content->setVariable("CATEGORIE_CREATION_TIME", date("d.m.Y G:i", $categoryAttributes['OBJ_CREATION_TIME']));
             $content->setVariable("CATEGORIE_CREATOR_URL", PATH_URL . "profile/index/" . $categoryCreator->get_name());
