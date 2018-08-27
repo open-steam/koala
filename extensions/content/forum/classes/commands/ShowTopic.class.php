@@ -261,7 +261,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                     $content->setVariable("MESSAGE_CREATOR_PROFILE", PATH_URL . "profile/index/" . $messageCreator[$id]->get_name());
                     $content->setVariable("MESSAGE_CREATION_TIME", date("d.m.Y G:i", $messageAttributes[$id][OBJ_CREATION_TIME]));
                     $content->setVariable("MESSAGE_NAME", $messageAttributes[$id][OBJ_DESC]);
-                    $content->setVariable("MES_ID", "message_" . $id);
+                    // $content->setVariable("MES_ID", "message_" . $id);
                     if ($messageAttributes[$id][OBJ_CREATION_TIME] != $messageAttributes[$id]["DOC_LAST_MODIFIED"]) {
                         if (strlen(trim($messageContent[$id])) > 0) {
                             $content->setVariable("AUTHOR_MES_EDIT", $messageAttributes[$id]["DOC_USER_MODIFIED"]->get_full_name());
