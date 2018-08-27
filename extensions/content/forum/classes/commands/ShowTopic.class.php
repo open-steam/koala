@@ -192,7 +192,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         $backToTopic = '<h2>Zurück zur <a href="'.PATH_URL.'forum/index/'.$forumId.'">Übersicht</a></h2>';
         $content->setVariable("BACK_TO_TOPICLIST",$backToTopic);
         if ($category_allowed_read) {
-            $content->setVariable("FORUM_NAME", $forumAttributes["OBJ_DESC"]);
+            // $content->setVariable("FORUM_NAME", $forumAttributes["OBJ_DESC"]);
             $content->setVariable("CATEGORIE_NAME", $categoryAttributes[OBJ_DESC]);
             $content->setVariable("FORUM_OWNER", $forumCreator->get_full_name());
             $content->setVariable("FORUM_OWNER_URL", PATH_URL . "profile/index/" . $forumCreator->get_name());
