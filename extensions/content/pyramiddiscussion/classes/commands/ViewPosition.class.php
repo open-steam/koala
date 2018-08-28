@@ -96,9 +96,9 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 		// display current position
 		$content->setCurrentBlock("BLOCK_PYRAMID_POSITION");
 		if ($pyramidPosition->get_attribute("PYRAMIDDISCUSSION_POS_TITLE") != "0" && $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_POS_TITLE") != "") {
-			$content->setVariable("PYRAMID_POSITION", $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_POS_TITLE"));	
+			//$content->setVariable("PYRAMID_POSITION", $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_POS_TITLE"));
 		} else {
-			$content->setVariable("PYRAMID_POSITION", "Position_" . $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_COLUMN") . "_" . $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_ROW"));	
+			//$content->setVariable("PYRAMID_POSITION", "Position_" . $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_COLUMN") . "_" . $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_ROW"));
 		}
 		$positionPhase = $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_COLUMN");
 		$positionRow = $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_ROW");
