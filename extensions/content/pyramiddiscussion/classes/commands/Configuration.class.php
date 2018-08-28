@@ -108,6 +108,8 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 			}
 			$content->parse("BLOCK_PHASE_OPTION");
 		}
+        $content->setCurrentBlock('BLOCK_PYRAMID_OPTIONS');
+
 		$content->setVariable("DEADLINES_LABEL", "Benutze Deadlines:");
 		if (count($deadlines) > 0 && $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_USEDEADLINES") == "yes") {
 			$content->setVariable("DEADLINES_SELECTED", "checked");
