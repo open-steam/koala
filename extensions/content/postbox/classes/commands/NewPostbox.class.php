@@ -46,7 +46,7 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
                         }
                     });
 
-                    $("input[name=\"noDeadline\"]").css("margin-left", "3px");
+                    
 
                 </script>';
 
