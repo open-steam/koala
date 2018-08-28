@@ -166,7 +166,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("LABEL_TITLE", gettext("Title"));
 		$content->setVariable("LABEL_BODY", gettext("Body"));
 		$content->setVariable("ANNOTATION_IMAGE_URL", PATH_URL . "/wiki/asset/icons/comment_small.gif");
-		$content->setVariable("LABEL_PREVIEW", gettext("Preview"));
 		$content->setVariable("LABEL_SAVE_CHANGES", gettext("Save changes"));
 		$content->setVariable("JS_NOTICE", '"' . gettext("Warning!\\nYou have edited your entry!\\nIf you proceed, all changes will be lost!\\nDo you really want to proceed?") . '"');
 		$content->setVariable("WIKI_CON_ID", $wiki_container->get_id());
