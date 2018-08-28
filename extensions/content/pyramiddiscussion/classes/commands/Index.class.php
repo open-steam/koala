@@ -173,7 +173,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             }
             // display the general information block
             $content->setCurrentBlock("BEGIN BLOCK_PYRAMID_INFORMATION");
-            $content->setVariable("JS_URL", $pyramiddiscussionExtension->getAssetUrl());
+            //JS_URL$content->setVariable("JS_URL", $pyramiddiscussionExtension->getAssetUrl());
             $content->setVariable("GENERAL_INFORMATION", "Allgemeine Informationen");
             $content->setVariable("PHASE_LABEL", "Aktueller Status:");
             // if user is an admin and adminoptions are shown, display a select box to change the current phase
