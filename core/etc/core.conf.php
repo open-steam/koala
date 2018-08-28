@@ -96,7 +96,8 @@ if (!file_exists($autoloaderIndexFile)) {
 }
 
 if (defined(DISPLAY_PEAR_ERRORS) && DISPLAY_PEAR_ERRORS) {
-    PEAR::setErrorHandling(PEAR_ERROR_TRIGGER, E_USER_WARNING);
+    // PEAR::setErrorHandling(PEAR_ERROR_TRIGGER, E_USER_WARNING);
+    PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, "pearErrorhandler");
 }
 
 // adding phpsteam logger

@@ -1,4 +1,8 @@
 <?php
+    function pearErrorhandler($error) {
+        myErrorHandler(/*$error->getCode()*/ 1, $error->getMessage(), "", "");
+    }
+
 	// error handler function
 	function myErrorHandler($errno, $errstr, $errfile, $errline, $silent = false)
 	{
@@ -65,4 +69,3 @@
 	function shutdown_silent() {
 		shutdown(true);
 	}
-?>
