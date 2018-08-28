@@ -153,6 +153,7 @@ class koala_wiki extends koala_object {
 	}
 
 	public function set_main_html($html_code) {
+        $this->template->setCurrentBlock();
 		$this->template->setVariable("WIKI_MAIN_HTML", $html_code);
 	}
 
