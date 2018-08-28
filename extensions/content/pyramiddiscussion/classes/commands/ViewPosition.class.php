@@ -213,6 +213,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 				$content->parse("BLOCK_COMMENT");
 			}
 		}
+        $content->setCurrentBlock("BLOCK_PYRAMID_POSITION");
 		$content->setVariable("CREATE_COMMENT", "Kommentar hinzufügen");
 		if ($phase == $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_MAXCOL")+2) {
 			$content->setVariable("DISPLAY_CREATE_COMMENT", "none");
