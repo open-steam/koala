@@ -169,6 +169,7 @@ class Users extends \AbstractCommand implements \IFrameCommand {
                 $content->parse("BLOCK_PYRAMID_USERS_ELEMENT");
             }
         }
+        $content->setCurrentBlock("BLOCK_PYRAMID_USERS");
         $content->setVariable("SAVE_CHANGES", "Änderungen speichern");
         $content->setVariable("BACK_LINK", $pyramiddiscussionExtension->getExtensionUrl() . "Index/" . $this->id);
         $content->setVariable("BACK_LABEL", "Zurück");
