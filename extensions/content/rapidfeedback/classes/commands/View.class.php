@@ -327,8 +327,9 @@ class View extends \AbstractCommand implements \IFrameCommand {
             /*
             if ($admin == 0 | $state != 0) {
                 $content->setVariable("DISPLAY_EDIT", "none");
-            }*/
+            }
             $content->setVariable("ASSET_URL", $RapidfeedbackExtension->getAssetUrl() . "icons");
+            */
 
             $html = "";
             $counter = 0;
