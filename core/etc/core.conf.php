@@ -95,6 +95,10 @@ if (!file_exists($autoloaderIndexFile)) {
     }
 }
 
+if (defined(DISPLAY_PEAR_ERRORS) && DISPLAY_PEAR_ERRORS) {
+    PEAR::setErrorHandling(PEAR_ERROR_TRIGGER, E_USER_WARNING);
+}
+
 // adding phpsteam logger
 try {
     $logger = Monolog\Registry::getInstance(API_LOGGER_CHANNEL);
