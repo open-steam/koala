@@ -154,6 +154,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("AUTHOR_NAME", $currentAuthor->get_full_name());
 			$content->parse("BLOCK_POSITION_AUTHOR");
 		}
+        $content->setCurrentBlock("BLOCK_PYRAMID_POSITION");
 		$content->setVariable("POSITION_LAST_CHANGED", "Zuletzt geändert:");
 		if ($pyramidPosition->get_attribute("DOC_LAST_MODIFIED") != 0) {
 			$content->setVariable("POSITION_LAST_CHANGED_DATE", "am " . date("d.m.Y H:i", (int) $pyramidPosition->get_attribute("DOC_LAST_MODIFIED")));
