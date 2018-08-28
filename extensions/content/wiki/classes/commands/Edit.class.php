@@ -133,6 +133,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				    $content->setVariable("PREVIEW_EDIT", get_formatted_output($values["desc"]));
 				    $content->parse("BLOCK_PREVIEW");
 				    $headline = gettext("Change it?");
+				    $content->setCurrentBlock();
 				    $content->setVariable("TEXT_DSC", h($values["desc"]));
 				    $content->setVariable("TITLE_COMMENT", h($values["title"]));
 				}
@@ -149,6 +150,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 					$wikicontent = str_replace("&#64;", "@", $wikicontent);
 					$wikiname = $wiki_doc->get_name();
 		    }
+            $content->setCurrentBlock();
 		    if (WIKI_WYSIWYG) {
 					//TODO
 					$content->setVariable("TEXT_DSC", h($wikicontent));
