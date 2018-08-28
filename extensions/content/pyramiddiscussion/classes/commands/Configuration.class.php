@@ -127,6 +127,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 			}
 			$content->parse("BLOCK_DEADLINE_ENTRY");
 		}
+        $content->setCurrentBlock('BLOCK_PYRAMID_OPTIONS');
 		$content->setVariable("SAVE_CHANGES", "Änderungen speichern");
 		$content->setVariable("BACK_LABEL", "Zurück");
 		$content->setVariable("BACK_LINK", $pyramiddiscussionExtension->getExtensionUrl() . "Index/" . $this->id);
