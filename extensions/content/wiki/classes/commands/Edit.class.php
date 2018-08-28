@@ -16,7 +16,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 					$temp = explode('?', $this->params[0]);
 					if(sizeof($temp) > 0){
 						$this->id = intval($temp[0]);
-						break;
 					}
 			}
 			else{
