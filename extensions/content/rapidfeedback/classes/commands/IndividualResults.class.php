@@ -116,13 +116,17 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 		}
 
 		if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_SHOW_PARTICIPANTS") == 0) {
+            $content->setCurrentBlock('BLOCK_RESULT');
 			$content->setVariable("DISPLAY_PARTICIPANTS", "none");
 		} else {
+            $content->setCurrentBlock('BLOCK_RESULTS');
 			$content->setVariable("PARTICIPANT_LABEL", "Teilnehmer&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp");
 		}
 		if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_SHOW_CREATIONTIME") == 0) {
+            $content->setCurrentBlock('BLOCK_RESULT');
 			$content->setVariable("DISPLAY_TIME", "none");
 		} else {
+            $content->setCurrentBlock('BLOCK_RESULTS');
 			$content->setVariable("TIME_LABEL", "Erstellungszeit");
 		}
 
@@ -134,6 +138,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 								}, sortList: [[' . $questionCount . ',1]]
 							});
 				   });';
+        $content->setCurrentBlock('BLOCK_RESULTS');
 		$content->setVariable("INIT_JS_SORT", "<script>" . $initJS . "</script>");
 
 		// display results
