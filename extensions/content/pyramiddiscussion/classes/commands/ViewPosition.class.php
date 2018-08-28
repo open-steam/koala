@@ -125,7 +125,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 			}
 			$pyramidPosition->set_attribute("PYRAMIDDISCUSSION_POS_READ_STATES", $read_position_states);
 		} 
-		$content->setVariable("ASSETURL", $pyramiddiscussionExtension->getAssetUrl());
+		// $content->setVariable("ASSETURL", $pyramiddiscussionExtension->getAssetUrl());
 		$content->setVariable("EDIT_POSITION", "Position bearbeiten");
 		$content->setVariable("PARAMS_AJAX", "{ id : ". $pyramidPosition->get_id() . ", action : 'edit' }");
 		// do not display edit function if user is not member of this position and adminoptions are not shown
