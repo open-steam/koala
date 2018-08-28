@@ -118,7 +118,7 @@
                 hideAllMenus();
             })
             
-            function show_burger_menu(){
+            function show_burger_menu(event){
                 event.stopPropagation();
                 if($('#menu_bar > ul >li').css("display") == 'block'){
                     $('#menu_bar > ul >li').css("display", "none");
@@ -128,7 +128,7 @@
                 }
             }
             
-            function show_burger_icon(){
+            function show_burger_icon(event){
                 event.stopPropagation();
                 
                 if($('#icon_bar > ul >li').css("display") == 'block'){
@@ -384,12 +384,12 @@
                             <div id="menu_wrapper">
                                 <div id="menu">
                                     <!-- BEGIN BLOCK_NAVIGATION -->
-                                    <span class="burger_menu_helper" onClick="show_burger_menu();">&#9776; <span>NAVIGATION</span></span>
+                                    <span class="burger_menu_helper" onClick="show_burger_menu(event);">&#9776; <span>NAVIGATION</span></span>
                                     <!-- END BLOCK_NAVIGATION -->
                                     <div id="icon_bar">{ICON_BAR_HTML}</div>
                                     <div id="menu_bar">{MENU_HTML}</div>
                                     <!-- BEGIN BLOCK_MENU -->
-                                    <span class="burger_icon_helper" onClick="show_burger_icon();"><span>&#9776; MENU</span></span>
+                                    <span class="burger_icon_helper" onClick="show_burger_icon(event);"><span>&#9776; MENU</span></span>
                                     <!-- END BLOCK_MENU -->
                                 </div>
                             </div>
