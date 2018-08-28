@@ -155,6 +155,7 @@ class Users extends \AbstractCommand implements \IFrameCommand {
                     }
                     $content->parse("BLOCK_PHASE_OPTION");
                 }
+                $content->setCurrentBlock('BLOCK_PYRAMID_USERS_ELEMENT');
                 if ($group->is_admin($members[$count])) {
                     $content->setVariable("ADMIN_SELECTED", "checked");
                     $content->setVariable("FORMER_ADMIN", "on");
