@@ -164,6 +164,7 @@ class IndividualResults extends \AbstractCommand implements \IFrameCommand {
 					$content->setVariable("RESULT_HTML", $resultHTML);
 					$content->parse("BLOCK_RESULT_COL");
 				}
+                $content->setCurrentBlock("BLOCK_RESULT");
 				if ($rapidfeedback->get_attribute("RAPIDFEEDBACK_SHOW_PARTICIPANTS") == 0) {
 					$content->setVariable("DISPLAY_PARTICIPANTS_RESULT", "none");
 				} else {
