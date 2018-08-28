@@ -470,7 +470,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
                                     height:0px;
                             }";
             }
-
+            $content->setCurrentBlock('BLOCK_PYRAMID');
             $content->setVariable("CSS_HEIGHTS", $css);
             $content->setVariable("JS_STARTPOSITIONS", $startElements);
             $content->setVariable("JS_GAP", $heights[0]);
@@ -487,4 +487,3 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         }
     }
 }
-?>
