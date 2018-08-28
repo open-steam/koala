@@ -160,8 +160,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $contextMenuIndex = $indexCount;
 
                     $popupmenu->setParams(array(array("key" => "termIndex", "value" => $contextMenuIndex)));
+                    $tmpl->setCurrentBlock("EDIT_BUTTON_TOPIC");
                     $tmpl->setVariable("POPUPMENU_ENTRY", $popupmenu->getHtml());
-                    $tmpl->parse("BLOCK_EDIT_BUTTON_TERM");
+                    $tmpl->parse("EDIT_BUTTON_TOPIC");
                 }
 
                 $indexCount++;
