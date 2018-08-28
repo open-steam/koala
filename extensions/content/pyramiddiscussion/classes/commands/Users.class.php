@@ -137,6 +137,7 @@ class Users extends \AbstractCommand implements \IFrameCommand {
                         $content->setVariable("POSITION_VALUE", $count2);
                         if (in_array($members[$count]->get_id(), $startpositions[$count2])) {
                             $content->setVariable("POSITION_SELECTED", "selected");
+                            $content->setCurrentBlock("BLOCK_PYRAMID_USERS_ELEMENT");
                             $content->setVariable("PREVIOUSSTART_VALUE", $count2);
                         }
                     }
