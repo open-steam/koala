@@ -212,6 +212,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
                 }
                 $content->parse("BLOCK_PYRAMID_PHASE_NOADMIN");
             }
+            $content->setCurrentBlock("BLOCK_PYRAMID_INFORMATION");
             $content->setVariable("DEADLINE_LABEL", "Deadline:");
             // display current deadline if deadlines are used and override is off
             if ($pyramidRoom->get_attribute("PYRAMIDDISCUSSION_USEDEADLINES") == "yes" && $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_OVERRIDE_DEADLINES") == 0 && $phase != 0 && $phase <= $maxcol) {
