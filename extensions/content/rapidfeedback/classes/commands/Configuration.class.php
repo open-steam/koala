@@ -182,6 +182,7 @@ class Configuration extends \AbstractCommand implements \IFrameCommand {
 			}
 			$content->parse("BLOCK_GROUP");
 		}
+        $content->setCurrentBlock();
 		$content->setVariable("RESULT_OPTIONS", "Ergebnis-Einstellungen");
 		$content->setVariable("PARTICIPANTS_LABEL", "Teilnehmer anzeigen:");
 		$content->setVariable("CREATIONTIME_LABEL", "Erstellungszeit anzeigen:");
