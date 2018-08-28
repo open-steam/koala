@@ -163,7 +163,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		    if (isset($values["body"])) $content->setVariable("TEXT_DSC", h($values["body"]));
 		}
 
-		$content->setVariable("LABEL_HERE_IT_IS", "");
 		$content->setVariable("LABEL_TITLE", gettext("Title"));
 		$content->setVariable("LABEL_BODY", gettext("Body"));
 		$content->setVariable("ANNOTATION_IMAGE_URL", PATH_URL . "/wiki/asset/icons/comment_small.gif");
