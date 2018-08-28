@@ -193,6 +193,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
                     if ($count == $phase) {
                         $content->setVariable("PHASE_SELECTED", "selected");
                     }
+                    $content->setCurrentBlock("BLOCK_PYRAMID_ADMIN");
                     $content->setVariable("CHANGE_PHASE", "Ändern");
                     $params = "{ id : " . $pyramidRoom->get_id() . ", action : 'phase', newphase : document.getElementById('phase').value }";
                     $content->setVariable("CHANGE_PHASE_ACTION", "sendRequest('Index', " . $params . ", '" . $pyramidRoom->get_id() . "', 'reload');");
