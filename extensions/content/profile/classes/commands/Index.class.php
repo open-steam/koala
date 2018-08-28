@@ -1263,9 +1263,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $GLOBALS["content"]->setVariable("DISPLAY_RIGHT_SIDE", "");
 
             // this needed?
-            $GLOBALS["content"]->setVariable("PATH_JAVASCRIPT", PATH_JAVASCRIPT);
-            $GLOBALS["content"]->setVariable("KOALA_VERSION", KOALA_VERSION);
-            $GLOBALS["content"]->setVariable("USER_LOGIN", $login);
+            //$GLOBALS["content"]->setVariable("PATH_JAVASCRIPT", PATH_JAVASCRIPT);
+            //$GLOBALS["content"]->setVariable("KOALA_VERSION", KOALA_VERSION);
+            //$GLOBALS["content"]->setVariable("USER_LOGIN", $login);
 
             $GLOBALS["content"]->parse("BLOCK_RIGHT_SIDE");
 
@@ -1279,5 +1279,3 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
 }
-
-?>
