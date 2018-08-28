@@ -167,7 +167,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		$content->setVariable("LABEL_BODY", gettext("Body"));
 		$content->setVariable("ANNOTATION_IMAGE_URL", PATH_URL . "/wiki/asset/icons/comment_small.gif");
 		$content->setVariable("LABEL_SAVE_CHANGES", gettext("Save changes"));
-		
+
 		$content->setVariable("WIKI_CON_ID", $wiki_container->get_id());
 
 		// widget: Images
