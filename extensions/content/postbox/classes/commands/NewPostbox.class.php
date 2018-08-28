@@ -64,7 +64,7 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
         $checkbox->setName("noDeadline");
         $checkbox->setLabel("Keine Abgabefrist:");
 
-        $ajaxForm->setHtml($textInput->getHtml() .'<div style="clear:both;">'.$checkbox->getHtml() ."</div>".'<div id="datepicker_overlay" style="clear:both;">'."</div>".$html."");
+        $ajaxForm->setHtml($textInput->getHtml() .'<div style="clear:both;">'.$checkbox->getHtml() ."</div>".'<div id="datepicker_overlay" style="clear:both;">'. $datePicker->getHtml()."</div>".$html."");
 
         $ajaxForm->setPostJsCode('setTimeout(function(){$("input:text:visible:first").focus();}, 1300);');
 
