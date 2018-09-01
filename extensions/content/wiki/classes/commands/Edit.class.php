@@ -16,7 +16,6 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 					$temp = explode('?', $this->params[0]);
 					if(sizeof($temp) > 0){
 						$this->id = intval($temp[0]);
-						break;
 					}
 			}
 			else{
@@ -134,6 +133,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 				    $content->setVariable("PREVIEW_EDIT", get_formatted_output($values["desc"]));
 				    $content->parse("BLOCK_PREVIEW");
 				    $headline = gettext("Change it?");
+				    $content->setCurrentBlock();
 				    $content->setVariable("TEXT_DSC", h($values["desc"]));
 				    $content->setVariable("TITLE_COMMENT", h($values["title"]));
 				}
@@ -150,6 +150,7 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 					$wikicontent = str_replace("&#64;", "@", $wikicontent);
 					$wikiname = $wiki_doc->get_name();
 		    }
+            $content->setCurrentBlock();
 		    if (WIKI_WYSIWYG) {
 					//TODO
 					$content->setVariable("TEXT_DSC", h($wikicontent));
@@ -162,13 +163,11 @@ class Edit extends \AbstractCommand implements \IFrameCommand {
 		    if (isset($values["body"])) $content->setVariable("TEXT_DSC", h($values["body"]));
 		}
 
-		$content->setVariable("LABEL_HERE_IT_IS", "");
 		$content->setVariable("LABEL_TITLE", gettext("Title"));
 		$content->setVariable("LABEL_BODY", gettext("Body"));
 		$content->setVariable("ANNOTATION_IMAGE_URL", PATH_URL . "/wiki/asset/icons/comment_small.gif");
-		$content->setVariable("LABEL_PREVIEW", gettext("Preview"));
 		$content->setVariable("LABEL_SAVE_CHANGES", gettext("Save changes"));
-		$content->setVariable("JS_NOTICE", '"' . gettext("Warning!\\nYou have edited your entry!\\nIf you proceed, all changes will be lost!\\nDo you really want to proceed?") . '"');
+
 		$content->setVariable("WIKI_CON_ID", $wiki_container->get_id());
 
 		// widget: Images

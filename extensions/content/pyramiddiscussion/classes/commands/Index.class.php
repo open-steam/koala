@@ -173,7 +173,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
             }
             // display the general information block
             $content->setCurrentBlock("BEGIN BLOCK_PYRAMID_INFORMATION");
-            $content->setVariable("JS_URL", $pyramiddiscussionExtension->getAssetUrl());
+            //JS_URL$content->setVariable("JS_URL", $pyramiddiscussionExtension->getAssetUrl());
             $content->setVariable("GENERAL_INFORMATION", "Allgemeine Informationen");
             $content->setVariable("PHASE_LABEL", "Aktueller Status:");
             // if user is an admin and adminoptions are shown, display a select box to change the current phase
@@ -193,6 +193,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
                     if ($count == $phase) {
                         $content->setVariable("PHASE_SELECTED", "selected");
                     }
+                    $content->setCurrentBlock("BLOCK_PYRAMID_ADMIN");
                     $content->setVariable("CHANGE_PHASE", "Ändern");
                     $params = "{ id : " . $pyramidRoom->get_id() . ", action : 'phase', newphase : document.getElementById('phase').value }";
                     $content->setVariable("CHANGE_PHASE_ACTION", "sendRequest('Index', " . $params . ", '" . $pyramidRoom->get_id() . "', 'reload');");
@@ -211,6 +212,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
                 }
                 $content->parse("BLOCK_PYRAMID_PHASE_NOADMIN");
             }
+            $content->setCurrentBlock("BLOCK_PYRAMID_INFORMATION");
             $content->setVariable("DEADLINE_LABEL", "Deadline:");
             // display current deadline if deadlines are used and override is off
             if ($pyramidRoom->get_attribute("PYRAMIDDISCUSSION_USEDEADLINES") == "yes" && $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_OVERRIDE_DEADLINES") == 0 && $phase != 0 && $phase <= $maxcol) {
@@ -468,7 +470,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
                                     height:0px;
                             }";
             }
-
+            $content->setCurrentBlock('BLOCK_PYRAMID');
             $content->setVariable("CSS_HEIGHTS", $css);
             $content->setVariable("JS_STARTPOSITIONS", $startElements);
             $content->setVariable("JS_GAP", $heights[0]);
@@ -485,4 +487,3 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IAjaxCommand {
         }
     }
 }
-?>

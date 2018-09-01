@@ -114,7 +114,9 @@ class RadioButton extends Widget {
                 $this->getContent()->setVariable("RADIOLABEL", (isset($option["name"])? $option["name"] : ""));
                 $this->getContent()->setVariable("RADIOCLASS", (isset($option["class"])? $option["class"] : ""));
                 if (isset($this->contentProvider)) {
+                    $this->getContent()->setCurrentBlock();
                     $this->getContent()->setVariable("ONCHANGE", "$(this).addClass('changed');".$this->contentProvider->getUpdateCode($this->data, $this->id));
+                    $this->getContent()->setCurrentBlock("BLOCK_RADIOFIELD");
                 }
                 if ($currentValue === $option["value"]) {
                     $this->getContent()->setVariable("CHECKED", "checked");
@@ -172,10 +174,14 @@ class RadioButton extends Widget {
                 $this->getContent()->setVariable("RADIOLABEL_HORIZONTAL", $option["name"]);
                 $this->getContent()->setVariable("RADIOCLASS_HORIZONTAL", $option["class"]);
                 if (isset($this->contentProvider)) {
+                    $this->getContent()->setCurrentBlock();
                     $this->getContent()->setVariable("ONCHANGE", $this->contentProvider->getUpdateCode($this->data, $this->id));
+                    $this->getContent()->setCurrentBlock("BLOCK_RADIOFIELD");
                 }
                 if ($currentValue == $option["value"]) {
+                    $this->getContent()->setCurrentBlock();
                     $this->getContent()->setVariable("CHECKED_HORIZONTAL", "checked");
+                    $this->getContent()->setCurrentBlock("BLOCK_RADIOFIELD");
                 }
 
                 if ($this->autosave){

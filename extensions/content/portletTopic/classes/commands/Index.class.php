@@ -92,8 +92,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //popupmenu main
         if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
-            $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
-
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("PortletTopic");
@@ -120,26 +118,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         if (sizeof($content) > 0) {
             $categoryCount = 0;
             foreach ($content as $category) {
-                /*
-                  $tmpl->setCurrentBlock("category");
-                  //popupmenu category
-                  if ($portlet->check_access_write(\lms_steam::get_current_user())) {
-                  $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_CATEGORY");
-                  $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
-
-                  $popupmenu = new \Widgets\PopupMenu();
-                  $popupmenu->setData($portlet);
-                  $popupmenu->setNamespace("PortletTopic");
-                  $popupmenu->setElementId("portal-overlay");
-                  $popupmenu->setCommand("GetPopupMenuCategory");
-                  $popupmenu->setParams(array(array("key" => "category", "value" => $categoryCount)));
-                  $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
-                  $tmpl->parse("BLOCK_EDIT_BUTTON_CATEGORY");
-                  }
-
-                  $tmpl->setVariable("CATEGORY_TITLE", $UBB->encode(@$category["title"]));
-                 */
-                $tmpl->setVariable("TOPIC_ENTRY", "");
 
                 if (isset($category["topics"])) {
                     $entryCount = 0;
@@ -149,8 +127,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         //popupmenu topic
                         if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_TOPIC");
-                            $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
-
                             $popupmenu = new \Widgets\PopupMenu();
                             $popupmenu->setData($portlet);
                             $popupmenu->setNamespace("PortletTopic");
@@ -197,7 +173,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         //if there is a description parse out
                         $tmpl->setCurrentBlock("topic_display_description");
                         if (trim(@$topic["description"]) == "") { //TODO: fix notice
-                            $tmpl->setVariable("TOPIC_DISPLAY_DESCRIPTION", "");
+                            // $tmpl->setVariable("TOPIC_DISPLAY_DESCRIPTION", "");
                         } else {
                             //$tmpl->parse("TOPIC_DISPLAY_DESCRIPTION", "topic_display_description");
                         }

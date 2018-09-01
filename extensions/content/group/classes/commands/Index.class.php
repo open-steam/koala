@@ -77,7 +77,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
         $counter = 0;
         foreach ($members_user_name as $id => $member) {
             $this->template->setCurrentBlock("BLOCK_MEMBERS");
-            $this->template->setVariable("MEMBER_ID", $members_user[$id]->get_id());
+            // $this->template->setVariable("MEMBER_ID", $members_user[$id]->get_id());
             $this->template->setVariable("MEMBER_LOGIN_NAME", $members_user[$id]->get_name());
             $this->template->setVariable("MEMBER_FIRST_NAME", $members_user[$id]->get_attribute("USER_FIRSTNAME"));
             $this->template->setVariable("MEMBER_LAST_NAME", $members_user[$id]->get_attribute("USER_FULLNAME"));

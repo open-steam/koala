@@ -386,6 +386,7 @@ return $rand_value;
 
     private function add_body_params( $params = "" )
     {
+        $this->template->setCurrentBlock();
         $this->template->setVariable( "BODY_PARAMS", $params );
     }
 
@@ -478,6 +479,7 @@ return $rand_value;
           }
         }
 
+        $this->template->setCurrentBlock();
         $this->template->setVariable( "LOGO_PATH", $logoPath);
 
         // SET LOGO URL
@@ -505,7 +507,8 @@ return $rand_value;
         // $this->add_javascript( PATH_JAVASCRIPT . "bbcode.js?version=".KOALA_VERSION );
         // $this->add_javascript( PATH_JAVASCRIPT . "javascript_minimized.js?version=".KOALA_VERSION );
 
-        $this->template->setVariable( "PATH_JAVASCRIPT", PATH_JAVASCRIPT );
+
+        //$this->template->setVariable( "PATH_JAVASCRIPT", PATH_JAVASCRIPT );
         $this->template->setVariable( "KOALA_VERSION", KOALA_VERSION);
 
         // GENERATE HTML FOR STATUS-DIV
@@ -654,12 +657,10 @@ return $rand_value;
                 $this->template->setVariable( "HELP_URL", HELP_URL);
                 $this->template->parse("BLOCK_HELP");
               }
-
+            $this->template->setCurrentBlock("STATUS_SIGNED_IN_BLOCK");
             $this->template->setVariable( "SIGN_OUT_URL", URL_SIGNOUT );
             $this->template->setVariable( "SIGN_OUT_TEXT", gettext( "Sign out" ) );
-            $this->template->setVariable( "SEARCH_DSC", gettext( "Enter keywords" ) );
-            $this->template->setVariable( "SEARCH_LABEL", gettext( "Search" ) );
-            $this->template->parse( "STATUS_SIGNED_IN_BLOCK" );
+            $this->template->parse("STATUS_SIGNED_IN_BLOCK");
         } else {
                         if (defined("HELP_URL") && HELP_URL != "") {
                             $this->template->setCurrentBlock("BLOCK_HELP_GUEST");
@@ -705,6 +706,7 @@ return $rand_value;
 
     public function set_page_title( $title = "" )
     {
+        $this->template->setCurrentBlock();
         ($title == "") ? $this->template->setVariable( "PORTAL_TITLE", PLATFORM_TITLE ) : $this->template->setVariable( "PORTAL_TITLE", PLATFORM_TITLE . " - " . $title );
     }
 
@@ -803,13 +805,15 @@ return $rand_value;
         // GENERATE HTML FOR MENU
         if ($this->offline_status) {
             $html_menu = $this->get_menu_html( "guest", FALSE );
-              $this->template->setVariable( "MENU_HTML", $html_menu );
+            $this->template->setCurrentBlock();
+            $this->template->setVariable( "MENU_HTML", $html_menu );
         } else {
           $cache = get_cache_function( $this->lms_user->get_login(), 600 );
           $html_menu = $cache->call("lms_portal::get_menu_html", $this->lms_user->get_login(), $this->lms_user->is_logged_in());
           $this->template->setVariable( "MENU_HTML", $html_menu );
 
           $html_icon_bar = lms_portal::$instance->get_icon_bar_html($this->lms_user->is_logged_in());
+          $this->template->setCurrentBlock();
           $this->template->setVariable( "ICON_BAR_HTML", $html_icon_bar );
         }
 
@@ -849,6 +853,7 @@ return $rand_value;
         }
         if ($_SESSION["STATISTICS_LEVEL"] > 0) {
             // output number of open-sTeam requests:
+            $this->template->setCurrentBlock();
             $this->template->setVariable( "STATISTICS_REQUESTS", " | " . (isset($GLOBALS["STEAM"]) ? $GLOBALS["STEAM"]->get_request_count() : "nc") . " " . gettext( "server requests" ) );
             // output time taken to produce page:
             if ($_SESSION["STATISTICS_LEVEL"] > 1 && isset( $GLOBALS["page_time_start"] ) ) {

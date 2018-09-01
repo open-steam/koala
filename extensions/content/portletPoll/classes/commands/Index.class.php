@@ -99,11 +99,13 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $portalCol = $portlet->get_environment();
             $portal = $portalCol->get_environment();
 
+            /*
             if ($portal->check_access_write(\lms_steam::get_current_user())) {
                 $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");
                 $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
                 $tmpl->parse("BLOCK_EDIT_BUTTON");
             }
+            */
 
             $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
             $tmpl->setVariable("POLL_NAME", $portletName);

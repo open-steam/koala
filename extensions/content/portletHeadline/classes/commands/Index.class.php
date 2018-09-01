@@ -91,8 +91,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
             $UBB = new \UBBCode();
             include_once(PATH_BASE . "core/lib/bid/derive_url.php");
 
-            $tmpl->setVariable("DUMMY", "");
-            $tmpl->setVariable("EDIT_BUTTON", "");
             $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
             $tmpl->setVariable("ALIGNMENT", trim($content["alignment"]));
             $title = $UBB->encode($content["headline"]);
@@ -124,7 +122,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
             if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                 $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");
-                $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
+                //$tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
                 $tmpl->parse("BLOCK_EDIT_BUTTON");
             }
 

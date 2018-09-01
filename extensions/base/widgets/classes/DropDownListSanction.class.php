@@ -79,9 +79,10 @@ class DropDownListSanction extends DropDownList {
             if($element[0] == $this->startValue) {$this->getContent()->setVariable("SELECTED", "selected=\"selected\"");} else {$this->getContent()->setVariable("SELECTED", "");}
             $this->getContent()->parse("OPTION_VALUES");
         }
+        /*
         if($this->startValue !== ""){
             $this->getContent()->setVariable("STARTVALUE", "$('#{$this->id}').val('{$this->startValue}');");
-        }
+        }*/
         return $this->getContent()->get();
     }
 

@@ -309,6 +309,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $content->setVariable("NO_BUDDYS", "Es wurde kein Benutzer der Favoritenliste hinzugefügt");
         }
 
+        $content->setCurrentBlock();
         $content->setVariable("FAVORITE_GROUPS", "Meine Favoriten (Gruppen)");
 
         $loopCount = 0;

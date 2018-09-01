@@ -329,10 +329,10 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("CHECKBOX_CHECKED", "");
         }
 
-        $this->content->setVariable("PRIVATE_PIC", PATH_URL . "explorer/asset/icons/private.png");
-        $this->content->setVariable("USER_DEF_PIC", PATH_URL . "explorer/asset/icons/user_defined.png");
-        $this->content->setVariable("USER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/server_public.png");
-        $this->content->setVariable("SERVER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/world_public.png");
+        // $this->content->setVariable("PRIVATE_PIC", PATH_URL . "explorer/asset/icons/private.png");
+        // $this->content->setVariable("USER_DEF_PIC", PATH_URL . "explorer/asset/icons/user_defined.png");
+        // $this->content->setVariable("USER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/server_public.png");
+        // $this->content->setVariable("SERVER_GLOBAL_PIC", PATH_URL . "explorer/asset/icons/world_public.png");
 
         if ($this->creator instanceof \steam_user) {
             $this->content->setVariable("CREATOR_FULL_NAME", $this->creator->get_full_name());
@@ -346,8 +346,8 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
             $this->content->setVariable("RIGHTS_HELP_PAGE", "https://bid.lspb.de/explorer/ViewDocument/1204915/");
         }
 
-        $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
-        $this->content->setVariable("STEAMID", $this->steamgroupId);
+        // $this->content->setVariable("EVERYONE_ID", $this->everyoneId);
+        // $this->content->setVariable("STEAMID", $this->steamgroupId);
         $this->content->setVariable("SEND_REQUEST_ACQ", 'sendRequest("UpdateSanctions", { "id": ' . $this->id . ', "type": "acquire", "value": acquire_checkbox }, "", "data", function(response){dataSaveFunctionCallback(response);}, null, "explorer");');
     }
 
@@ -506,6 +506,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         if (count($this->groupMapping) == 0) {
             $this->content->setVariable("NO_GROUP_MEMBER", "Sie sind kein Mitglied einer Gruppe");
         } else {
+            $this->content->setCurrentBlock();
             if (count($this->groupMapping) > 4) {
                 $this->content->setVariable("CSS_GROUPS", "height:104px;");
             } else {
@@ -648,7 +649,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $this->content->setCurrentBlock("GROUP_DDSETTINGS_ACQ");
                     $this->content->setVariable("GROUPID_ACQ", $id); 
                     $this->content->setVariable("GROUPNAME_ACQ", $name . " (" . $realname . ")");
-                    $this->content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $this->dropdownValueAcqSteamGroup));
+                    // $this->content->setVariable("OPTIONVALUE_ACQ", max($dropDownValueAcq, $this->dropdownValueAcqSteamGroup));
                     $this->content->setVariable("INDENTINDEX_ACQ", $indent);
                     $this->content->setVariable("DROPDOWNLIST_ACQ", $ddlAcq->getHtml());
                     if (isset($this->favorites[$id])) {
@@ -667,7 +668,8 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
         if (count($this->userMapping) == 0) {
             $this->content->setVariable("NO_FAV_MEMBER", "Es können keinem Benutzer Rechte zugewiesen werden. ");
         } else {
-            $this->content->setVariable("DUMMY_FAV", "");
+            $this->content->setCurrentBlock();
+            // $this->content->setVariable("DUMMY_FAV", "");
             $this->content->setVariable("DUMMY_FAV_ACQ", "");
 
             if (count($this->userMapping) > 4) {
@@ -694,7 +696,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $maxSanct = 0;
                     $maxSanctFromGroupMembership = 0;
                     foreach ($user->get_groups() as $group) {
-                        if (isset($this->groupMapping[$group->get_id()]) && $group != $this->steamgroup) {
+                        if (isset($this->groupsRights[$group->get_id()]) && $group != $this->steamgroup) {
                             $currentValue = $this->groupsRights[$group->get_id()];
                             if ($currentValue > $maxSanct) {
                                 $maxSanctFromGroupMembership = $currentValue;
@@ -777,7 +779,7 @@ class SanctionsContent extends \AbstractCommand implements \IAjaxCommand {
                     $maxSanct = 0;
                     $maxSanctFromGroupMembership = 0;
                     foreach ($user->get_groups() as $group) {
-                        if (isset($this->groupMapping[$group->get_id()]) && $group != $this->steamgroup && $group->get_attribute("GROUP_INVISIBLE") !== true) {
+                        if (isset($this->groupsRightsAcq[$group->get_id()]) && $group != $this->steamgroup && $group->get_attribute("GROUP_INVISIBLE") !== true) {
                             $currentValue = $this->groupsRightsAcq[$group->get_id()];
                             if ($currentValue > $maxSanct) {
                                 $maxSanctFromGroupMembership = $currentValue;

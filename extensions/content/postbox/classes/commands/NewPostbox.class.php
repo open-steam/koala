@@ -80,5 +80,3 @@ class NewPostbox extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
     }
 
 }
-
-?>

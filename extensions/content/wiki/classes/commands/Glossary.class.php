@@ -120,18 +120,6 @@ class Glossary extends \AbstractCommand implements \IFrameCommand {
 				$content->parse( "BLOCK_COLUMN" );
 				$content->parse( "BLOCK_CHARACTER" );
 			}
-
-			foreach( $wiki_entries as $entry ){
-				$content->setCurrentBlock( "BLOCK_ARTICLE" );
-				$content->setVariable( "VALUE_WIKI_ENTRY", h($entry[ "OBJ_NAME" ]) );
-				$content->setVariable( "LINK_WIKI_ENTRY", PATH_URL . "wiki/entry/" . $wiki_container->get_id() . "/" . h($entry[ "OBJ_NAME" ]) );
-				$content->setVariable( "LABEL_LAST_MODIFICATION", gettext( "last edited" ) );
-				$content->setVariable( "VALUE_POSTED_BY", $entry[ "DOC_USER_MODIFIED" ] );
-				$content->setVariable( "POST_PERMALINK", PATH_URL . "wiki/entry/" . $entry[ "OBJ_ID" ] . "/" );
-				$content->setVariable( "VALUE_DATE_TIME", strftime( "%x %X", $entry[ "OBJ_CREATION_TIME" ] ) );
-				$content->setVariable( "POST_PERMALINK_LABEL", gettext( "permalink" ) );
-				$content->parse( "BLOCK_ARTICLE" );
-			}
 		}
 		else{
 			$content->setVariable('NO_ENTRIES', "Es existieren keine Wiki Einträge.");

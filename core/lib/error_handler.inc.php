@@ -1,7 +1,12 @@
 <?php
+    function pearErrorhandler($error) {
+        myErrorHandler(/*$error->getCode()*/ 1, $error->getMessage(), "", "");
+    }
+
 	// error handler function
 	function myErrorHandler($errno, $errstr, $errfile, $errline, $silent = false)
-	{		
+	{
+	    /*
 		//if (stripos($errfile, "/lib/php")!==false || stripos($errfile, "/classes/PEAR")!==false) {
 		if (stripos($errfile, "/classes/PEAR")!==false) {
 			if (defined("DISPLAY_PEAR_ERRORS") && DISPLAY_PEAR_ERRORS) {
@@ -9,7 +14,7 @@
 			} else {
 				return true;
 			}
-		}
+		}*/
 		if ($errno & RED_BANNER_ERROR_LEVEL) {
 			error_log("custom error handler:\n" . $errno . " " . $errstr . " " .$errfile . " " .$errline);
 			send_http_error(new Exception($errno . " " . $errstr . " " .$errfile . " " .$errline, E_RUNTIME_ERROR), "", $silent);
@@ -64,4 +69,3 @@
 	function shutdown_silent() {
 		shutdown(true);
 	}
-?>

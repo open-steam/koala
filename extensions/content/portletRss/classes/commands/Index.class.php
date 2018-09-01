@@ -95,7 +95,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         $tmpl = new \HTML_TEMPLATE_IT();
         $tmpl->loadTemplateFile($portletFileName);
 
-        $tmpl->setVariable("EDIT_BUTTON", "");
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
         $tmpl->setVariable("RSS_NAME", $portletName);
 
@@ -164,7 +163,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         $tmpl->setVariable("ITEMDESC", $itemdesc);
 
                         $tmpl->setVariable("ITEMURL", derive_url($item->get_permalink()));
-                        $tmpl->setVariable("LINK", "");
 
                         $tmpl->parse("BLOCK_RSS_ITEM");
                     }

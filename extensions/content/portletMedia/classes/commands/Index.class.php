@@ -85,7 +85,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("POPUPMENU", $popupmenu->getHtml());
             }
 
-            $tmpl->setVariable("EDIT_BUTTON", "");
             $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
             $tmpl->setVariable("HEADLINE", $content["headline"]);
 
@@ -159,7 +158,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
 
 
-                if ($mime && strpos($mime, "mp4") !== false) { //mp4 format, use html 5 video tag
+                if (isset($mime) && strpos($mime, "mp4") !== false) { //mp4 format, use html 5 video tag
                     $tmpl->setVariable("MEDIA_PLAYER", '<div class="CSSLoader"></div><video controls width="' . intval($columnWidth - 10) . '" oncanplay="$(this).prev().remove();$(this).show();" style="display:none;"><source src="' . $url . '" type="video/mp4">Ihr Browser unterstützt das Video-Element nicht.</video>');
                 } else {
                     $mediaplayerHtml = new \Widgets\Videoplayer();
@@ -212,11 +211,12 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 }
                 $tmpl->parse("audio");
             }
+            /*
             if ($portlet->check_access_write(\lms_steam::get_current_user())) {
                 $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON");
                 $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
                 $tmpl->parse("BLOCK_EDIT_BUTTON");
-            }
+            }*/
 
             //output
             $htmlBody = $tmpl->get();
@@ -252,5 +252,3 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
     }
 
 }
-
-?>

@@ -121,7 +121,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $selectAll->setHtml("");
             $script = "function initSort(){";
             foreach ($objects as $o) {
-                if ($o instanceof \steam_link && $o->get_link_object() == 0)
+                if ($o instanceof \steam_link && !($o->get_link_object() instanceof \steam_object))
                     $o->delete(); //remove bookmarks whose target objects has been deleted
                 if (getObjectType($o) !== "trashbin") {
                     $script .= "$('#" . $o->get_id() . "').attr('onclick', '');

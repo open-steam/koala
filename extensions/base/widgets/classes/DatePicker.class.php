@@ -168,5 +168,3 @@ class DatePicker extends Widget {
     }
 
 }
-
-?>

@@ -102,10 +102,11 @@ class Index extends \AbstractCommand implements \IFrameCommand {
 
         $content->setCurrentBlock('BLOCK_FORUM_HEAD');
         $content->setVariable("FORUM_HEADING", urldecode($forumAttributes["OBJ_NAME"]));
-        $content->setVariable("FORUM_UNDERTITLE", ($forumAttributes["OBJ_DESC"] !== 0 ) ? $forumAttributes["OBJ_DESC"] : "");
-        $content->setVariable("FORUM_DESCRIPTION", ($forumAttributes["bid:description"] !== 0 ) ? $forumAttributes["bid:description"] : "");
+        // $content->setVariable("FORUM_UNDERTITLE", ($forumAttributes["OBJ_DESC"] !== 0 ) ? $forumAttributes["OBJ_DESC"] : "");
+        // $content->setVariable("FORUM_DESCRIPTION", ($forumAttributes["bid:description"] !== 0 ) ? $forumAttributes["bid:description"] : "");
         $content->parse('BLOCK_FORUM_HEAD');
 
+        $content->setCurrentBlock();
         $content->setVariable("FORUM_OWNER_URL", PATH_URL . "user/index/" . $forumCreator->get_name());
         $content->setVariable("FORUM_OWNER", $forumCreatorName);
         // sort all forum topics

@@ -67,7 +67,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
 
         $tmpl->setVariable("PORTLET_ID", $portlet->get_id());
         $tmpl->setVariable("APPOINTMENT_NAME", $portlet_name);
-        $tmpl->setVariable("linkurl", "");
 
         //if the title is empty the headline will not be displayed (only in edit mode)
         if (trim($portlet_name == "")) {
@@ -88,7 +87,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
         //main popupmenu
         if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
             $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
-            $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
             $popupmenu = new \Widgets\PopupMenu();
             $popupmenu->setData($portlet);
             $popupmenu->setNamespace("PortletAppointment");
@@ -151,7 +149,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 //term popupmenu
                 if (!$portletIsReference && $portlet->check_access_write(\lms_steam::get_current_user())) {
                     $tmpl->setCurrentBlock("BLOCK_EDIT_BUTTON_MAIN");
-                    $tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
+                    //$tmpl->setVariable("PORTLET_ID_EDIT", $portlet->get_id());
                     $popupmenu = new \Widgets\PopupMenu();
                     $popupmenu->setCommand("GetPopupMenuTerm");
                     $popupmenu->setData($portlet);
@@ -162,8 +160,9 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     $contextMenuIndex = $indexCount;
 
                     $popupmenu->setParams(array(array("key" => "termIndex", "value" => $contextMenuIndex)));
+                    $tmpl->setCurrentBlock("EDIT_BUTTON_TOPIC");
                     $tmpl->setVariable("POPUPMENU_ENTRY", $popupmenu->getHtml());
-                    $tmpl->parse("BLOCK_EDIT_BUTTON_TERM");
+                    $tmpl->parse("EDIT_BUTTON_TOPIC");
                 }
 
                 $indexCount++;

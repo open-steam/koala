@@ -4,6 +4,7 @@ include_once(PATH_LIB . "error_handler.inc.php");
 include_once(PATH_LIB . "exception_handler.inc.php");
 
 function ajaxErrorHandler($errno, $errstr, $errfile, $errline) {
+    /*
     //if (stripos($errfile, "/lib/php")!==false || stripos($errfile, "/classes/PEAR")!==false) {
     if (stripos($errfile, "/classes/PEAR") !== false) {
         if (defined("DISPLAY_PEAR_ERRORS") && DISPLAY_PEAR_ERRORS) {
@@ -11,7 +12,7 @@ function ajaxErrorHandler($errno, $errstr, $errfile, $errline) {
         } else {
             return true;
         }
-    }
+    }*/
     if ($errno & RED_BANNER_ERROR_LEVEL) {
         error_log("custom error handler:\n" . $errno . " " . $errstr . " " . $errfile . " " . $errline);
         send_http_error(new Exception($errno . " " . $errstr . " " . $errfile . " " . $errline, E_RUNTIME_ERROR), "", true);
@@ -163,5 +164,3 @@ END
     }
 
 }
-
-?>

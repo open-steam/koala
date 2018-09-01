@@ -192,11 +192,11 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
         $backToTopic = '<h2>Zurück zur <a href="'.PATH_URL.'forum/index/'.$forumId.'">Übersicht</a></h2>';
         $content->setVariable("BACK_TO_TOPICLIST",$backToTopic);
         if ($category_allowed_read) {
-            $content->setVariable("FORUM_NAME", $forumAttributes["OBJ_DESC"]);
+            // $content->setVariable("FORUM_NAME", $forumAttributes["OBJ_DESC"]);
             $content->setVariable("CATEGORIE_NAME", $categoryAttributes[OBJ_DESC]);
             $content->setVariable("FORUM_OWNER", $forumCreator->get_full_name());
             $content->setVariable("FORUM_OWNER_URL", PATH_URL . "profile/index/" . $forumCreator->get_name());
-            $content->setVariable("CATEGORIE_DESCRIPTION", $categoryAttributes["bid:description"]);
+            // $content->setVariable("CATEGORIE_DESCRIPTION", $categoryAttributes["bid:description"]);
             $content->setVariable("CATEGORIE_CREATOR", $categoryCreator->get_full_name());
             $content->setVariable("CATEGORIE_CREATION_TIME", date("d.m.Y G:i", $categoryAttributes['OBJ_CREATION_TIME']));
             $content->setVariable("CATEGORIE_CREATOR_URL", PATH_URL . "profile/index/" . $categoryCreator->get_name());
@@ -248,9 +248,10 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
             }
 
             if (is_array($messages) && isset($messages)) {
+                /*
                 if (count($messages) > 0) {
                     $content->setVariable("EXISTS_REPLY", "Antworten");
-                }
+                }*/
 
                 foreach ($messages as $message) {
                     $id = $message->get_id();
@@ -260,7 +261,7 @@ class ShowTopic extends \AbstractCommand implements \IFrameCommand {
                     $content->setVariable("MESSAGE_CREATOR_PROFILE", PATH_URL . "profile/index/" . $messageCreator[$id]->get_name());
                     $content->setVariable("MESSAGE_CREATION_TIME", date("d.m.Y G:i", $messageAttributes[$id][OBJ_CREATION_TIME]));
                     $content->setVariable("MESSAGE_NAME", $messageAttributes[$id][OBJ_DESC]);
-                    $content->setVariable("MES_ID", "message_" . $id);
+                    // $content->setVariable("MES_ID", "message_" . $id);
                     if ($messageAttributes[$id][OBJ_CREATION_TIME] != $messageAttributes[$id]["DOC_LAST_MODIFIED"]) {
                         if (strlen(trim($messageContent[$id])) > 0) {
                             $content->setVariable("AUTHOR_MES_EDIT", $messageAttributes[$id]["DOC_USER_MODIFIED"]->get_full_name());

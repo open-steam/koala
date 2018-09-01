@@ -36,7 +36,7 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $user = $current_user;
         }
 
-        if($user == 0){
+        if (!($user instanceof \steam_user)) {
           $rawHtml = new \Widgets\RawHtml();
           $rawHtml->setHtml("Der Nutzer kann leider nicht angezeigt werden. Bitte achten Sie auf die korrekte Schreibweise des Nutzernamens. Sollten weiterhin Probleme auftreten ist der angeforderte Nutzer eventuell nicht mehr vorhanden.");
         }
@@ -1263,9 +1263,9 @@ class Index extends \AbstractCommand implements \IFrameCommand {
             $GLOBALS["content"]->setVariable("DISPLAY_RIGHT_SIDE", "");
 
             // this needed?
-            $GLOBALS["content"]->setVariable("PATH_JAVASCRIPT", PATH_JAVASCRIPT);
-            $GLOBALS["content"]->setVariable("KOALA_VERSION", KOALA_VERSION);
-            $GLOBALS["content"]->setVariable("USER_LOGIN", $login);
+            //$GLOBALS["content"]->setVariable("PATH_JAVASCRIPT", PATH_JAVASCRIPT);
+            //$GLOBALS["content"]->setVariable("KOALA_VERSION", KOALA_VERSION);
+            //$GLOBALS["content"]->setVariable("USER_LOGIN", $login);
 
             $GLOBALS["content"]->parse("BLOCK_RIGHT_SIDE");
 
@@ -1279,5 +1279,3 @@ class Index extends \AbstractCommand implements \IFrameCommand {
     }
 
 }
-
-?>

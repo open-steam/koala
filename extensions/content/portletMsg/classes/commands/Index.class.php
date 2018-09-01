@@ -200,8 +200,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                         $message->set_content($UBB->encode($message->get_content()));
                     }
 
-                    $tmpl->setVariable("MESSAGE_PICTURE", "");
-                    $tmpl->setVariable("MESSAGE_LINK", "");
                     $tmpl->setVariable("MESSAGE_HEADLINE", $UBB->encode(rawurldecode($message->get_attribute("OBJ_NAME"))));
                     if ($UBB->encode($message->get_attribute("OBJ_DESC")) != "") {
                         $tmpl->setVariable("MESSAGE_SUBHEADLINE", $UBB->encode($message->get_attribute("OBJ_DESC")));
@@ -241,7 +239,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                             }
                         }
 
-                        $tmpl->setVariable("MESSAGE_PICTURE_ID", $message->get_attribute("bid:portlet:msg:picture_id")); //not used anymore
+
                         $tmpl->setVariable("MESSAGE_PICTURE_URL", getDownloadUrlForObjectId($message->get_attribute("bid:portlet:msg:picture_id")));
                         $tmpl->setVariable("MESSAGE_PICTURE_ALIGNMENT", $alignment);
                         $tmpl->setVariable("MESSAGE_PICTURE_WIDTH", $picture_width);
@@ -273,6 +271,7 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                     }
                     $tmpl->setVariable("ONLY_SUBHEADLINE", $onlySubheadline);
                     $tmpl->setVariable("ONLY_HEADLINE", $onlyHeadline);
+                    $tmpl->setCurrentBlock("BLOCK_MESSAGE");
                     $tmpl->setVariable("MESSAGE_ID", $messageId);
                     $tmpl->parse("BLOCK_MESSAGE");
                 }
@@ -290,8 +289,6 @@ class Index extends \AbstractCommand implements \IFrameCommand, \IIdCommand {
                 $tmpl->setVariable("NO_MESSAGE_INFO", "Keine Meldungen vorhanden.");
                 $tmpl->parse("BLOCK_NO_MESSAGE");
             }
-            $tmpl->setVariable("PATH_URL", PATH_URL);
-            $tmpl->parse("BLOCK_PORTLET_MESSAGE");
             $htmlBody = $tmpl->get();
             $this->content = $htmlBody;
         } catch (\steam_exception $e) {

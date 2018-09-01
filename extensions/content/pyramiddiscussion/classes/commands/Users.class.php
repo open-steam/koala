@@ -137,6 +137,7 @@ class Users extends \AbstractCommand implements \IFrameCommand {
                         $content->setVariable("POSITION_VALUE", $count2);
                         if (in_array($members[$count]->get_id(), $startpositions[$count2])) {
                             $content->setVariable("POSITION_SELECTED", "selected");
+                            $content->setCurrentBlock("BLOCK_PYRAMID_USERS_ELEMENT");
                             $content->setVariable("PREVIOUSSTART_VALUE", $count2);
                         }
                     }
@@ -155,6 +156,7 @@ class Users extends \AbstractCommand implements \IFrameCommand {
                     }
                     $content->parse("BLOCK_PHASE_OPTION");
                 }
+                $content->setCurrentBlock('BLOCK_PYRAMID_USERS_ELEMENT');
                 if ($group->is_admin($members[$count])) {
                     $content->setVariable("ADMIN_SELECTED", "checked");
                     $content->setVariable("FORMER_ADMIN", "on");
@@ -167,6 +169,7 @@ class Users extends \AbstractCommand implements \IFrameCommand {
                 $content->parse("BLOCK_PYRAMID_USERS_ELEMENT");
             }
         }
+        $content->setCurrentBlock("BLOCK_PYRAMID_USERS");
         $content->setVariable("SAVE_CHANGES", "Änderungen speichern");
         $content->setVariable("BACK_LINK", $pyramiddiscussionExtension->getExtensionUrl() . "Index/" . $this->id);
         $content->setVariable("BACK_LABEL", "Zurück");

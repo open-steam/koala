@@ -96,9 +96,9 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 		// display current position
 		$content->setCurrentBlock("BLOCK_PYRAMID_POSITION");
 		if ($pyramidPosition->get_attribute("PYRAMIDDISCUSSION_POS_TITLE") != "0" && $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_POS_TITLE") != "") {
-			$content->setVariable("PYRAMID_POSITION", $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_POS_TITLE"));	
+			//$content->setVariable("PYRAMID_POSITION", $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_POS_TITLE"));
 		} else {
-			$content->setVariable("PYRAMID_POSITION", "Position_" . $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_COLUMN") . "_" . $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_ROW"));	
+			//$content->setVariable("PYRAMID_POSITION", "Position_" . $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_COLUMN") . "_" . $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_ROW"));
 		}
 		$positionPhase = $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_COLUMN");
 		$positionRow = $pyramidPosition->get_attribute("PYRAMIDDISCUSSION_ROW");
@@ -125,7 +125,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 			}
 			$pyramidPosition->set_attribute("PYRAMIDDISCUSSION_POS_READ_STATES", $read_position_states);
 		} 
-		$content->setVariable("ASSETURL", $pyramiddiscussionExtension->getAssetUrl());
+		// $content->setVariable("ASSETURL", $pyramiddiscussionExtension->getAssetUrl());
 		$content->setVariable("EDIT_POSITION", "Position bearbeiten");
 		$content->setVariable("PARAMS_AJAX", "{ id : ". $pyramidPosition->get_id() . ", action : 'edit' }");
 		// do not display edit function if user is not member of this position and adminoptions are not shown
@@ -154,6 +154,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 			$content->setVariable("AUTHOR_NAME", $currentAuthor->get_full_name());
 			$content->parse("BLOCK_POSITION_AUTHOR");
 		}
+        $content->setCurrentBlock("BLOCK_PYRAMID_POSITION");
 		$content->setVariable("POSITION_LAST_CHANGED", "Zuletzt geändert:");
 		if ($pyramidPosition->get_attribute("DOC_LAST_MODIFIED") != 0) {
 			$content->setVariable("POSITION_LAST_CHANGED_DATE", "am " . date("d.m.Y H:i", (int) $pyramidPosition->get_attribute("DOC_LAST_MODIFIED")));
@@ -212,6 +213,7 @@ class ViewPosition extends \AbstractCommand implements \IFrameCommand {
 				$content->parse("BLOCK_COMMENT");
 			}
 		}
+        $content->setCurrentBlock("BLOCK_PYRAMID_POSITION");
 		$content->setVariable("CREATE_COMMENT", "Kommentar hinzufügen");
 		if ($phase == $pyramidRoom->get_attribute("PYRAMIDDISCUSSION_MAXCOL")+2) {
 			$content->setVariable("DISPLAY_CREATE_COMMENT", "none");

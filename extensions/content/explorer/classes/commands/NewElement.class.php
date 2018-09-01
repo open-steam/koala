@@ -86,7 +86,9 @@ class NewElement extends \AbstractCommand implements \IFrameCommand, \IAjaxComma
             $namespaces = $command->getExtension()->getUrlNamespaces();
 
             $url = $command->getExtension()->getObjectIconUrl();
-            $name = str_replace(".svg", "", array_pop(explode("/", $url)));
+            $urlParts = explode("/", $url);
+            $firstPart = array_pop($urlParts);
+            $name = str_replace(".svg", "", $firstPart);
             $html .= "<div style=\"clear:both;\" class=\"explorernewentry\">";
             $html .= "<a href=\"\" onclick=\"sendRequest('{$command->getCommandName()}', {'id':{$this->id}}, 'wizard', 'wizard', null, null, '{$namespaces[0]}');return false;\" title=\"{$command->getExtension()->getObjectReadableDescription()}\"><svg style='float:left; width:18px; height:18px;'><use xlink:href='" . $url . "#" . $name . "' /></svg><p style=\"float:left; margin-top: 2px; margin-left: 5px; font-size:12px;\">{$command->getExtension()->getObjectReadableName()}</p></a>";
             $helpurl = $command->getExtension()->getHelpUrl();
