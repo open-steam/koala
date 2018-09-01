@@ -123,11 +123,11 @@ class Application extends AbstractExtension implements IApplicationExtension, II
                         $frame->set_confirmation($frameResponeObject->getConfirmText());
                         $frame->set_problem_description($frameResponeObject->getProblemDescription(), $frameResponeObject->getProblemSolution());
 
-                        try {
+                        //try {
                             $frame->show_html();
-                        } catch (Exception $e) {
-                            throw new Exception("", E_USER_ACCESS_DENIED);
-                        } //not logged in case
+                        //} catch (Exception $e) {
+                        //    throw new Exception("", E_USER_ACCESS_DENIED);
+                        //} //not logged in case
 
                         die;
                     } else {
