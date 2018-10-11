@@ -147,17 +147,7 @@ class LoadGalleryContent extends \AbstractCommand implements \IAjaxCommand {
                   $tagList.=$tag . " ";
               }
           }
-
-<<<<<<< HEAD
-          $colorProvider = new ColorProvider();
-          $color = $colorProvider->getColor($object);
-
-          $galleryNumber = \lms_steam::get_current_user()->get_attribute("GALLERY_NUMBER");
-
-=======
-          
           $galleryNumber = \lms_steam::get_current_user_no_guest()->get_attribute("GALLERY_NUMBER");
->>>>>>> release/4.1.1
           if(!is_numeric($galleryNumber) || $galleryNumber < 1 || $galleryNumber > 10){
             $galleryNumber = 5;
           }
