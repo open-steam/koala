@@ -39,6 +39,7 @@ class GetPopupMenuEntry extends \AbstractCommand implements \IAjaxCommand {
         $user = \lms_steam::get_current_user();
         $items = array();
 
+        /*
         if ($this->isPrevVersion) {
             array_push($items, array("raw" => "<a href=\"#\" onclick=\"if(confirm('Wollen Sie diese Version wirklich wiederherstellen?')){window.open('" . PATH_URL . "wiki/recover/" . $this->wikiDocId . "/" . $this->versionDocId . "/', '_self');}\";><div><svg><use xlink:href=\"{$restoreIcon}#restore\"/></svg> Wiederherstellen</div></a>"));
             if ($wiki_container->check_access_move($user)) {
@@ -49,6 +50,7 @@ class GetPopupMenuEntry extends \AbstractCommand implements \IAjaxCommand {
                 array_push($items, array("raw" => "<a href=\"#\" onclick=\"if(confirm('Wollen Sie diesen Eintrag wirklich löschen?')){window.open('" . PATH_URL . "wiki/delete/" . $this->id . "/" . $this->wikiDocId . "', '_self');}\";><div><svg><use xlink:href=\"{$trashIcon}#trash\"/></svg> Eintrag löschen</div></a>"));
             }
         }
+        */
 
         if ($this->numberOfVersions > 0) {
             array_push($items, array("raw" => "<a href=\"#\" onclick=\"window.open('" . PATH_URL . "wiki/versions/" . $this->wikiDocId . "', '_self');\";><div><svg><use xlink:href=\"{$versionControlIcon}#chronic\"/></svg> " . gettext("enter version management") . "</div></a>"));
